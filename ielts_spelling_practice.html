@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Spelling Challenge - Interactive Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .score-display {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-item h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .score-item p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .game-area {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .word-display {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .audio-button:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .spell-input {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.5em;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spell-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .spell-input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .spell-input.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .check-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .check-button:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+            display: block;
+        }
+
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .word-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .word-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .word-card.mastered {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .word-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .word-card p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .scrambled-letters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .letter-tile {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            min-width: 50px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .letter-tile:hover {
+            transform: scale(1.1);
+        }
+
+        .letter-tile.used {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .info-box {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .hint-button {
+            background: #ffc107;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .hint-button:hover {
+            background: #ffb300;
+        }
+
+        .hint-display {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+            display: none;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .difficulty-button {
+            padding: 10px 25px;
+            border: 2px solid #667eea;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .difficulty-button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .word-display {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IELTS Spelling Challenge</h1>
+            <p>Master Common IELTS Vocabulary Spelling</p>
+            <div class="score-display">
+                <div class="score-item">
+                    <h3 id="total-correct">0</h3>
+                    <p>Correct</p>
+                </div>
+                <div class="score-item">
+                    <h3 id="total-attempts">0</h3>
+                    <p>Attempts</p>
+                </div>
+                <div class="score-item">
+                    <h3 id="accuracy">0%</h3>
+                    <p>Accuracy</p>
+                </div>
+                <div class="score-item">
+                    <h3 id="words-mastered">0</h3>
+                    <p>Words Mastered</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('listen-spell')">Listen & Spell</button>
+                <button class="tab" onclick="showTab('scramble')">Unscramble</button>
+                <button class="tab" onclick="showTab('missing-letters')">Missing Letters</button>
+                <button class="tab" onclick="showTab('word-list')">Word List</button>
+                <button class="tab" onclick="showTab('practice-test')">Practice Test</button>
+            </div>
+
+            <!-- Tab 1: Listen and Spell -->
+            <div id="listen-spell" class="tab-content active">
+                <div class="game-area">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">Listen and Spell</h2>
+                    <p style="margin-bottom: 20px;">Click the button to hear a word, then type the correct spelling!</p>
+                    
+                    <div class="difficulty-selector">
+                        <button class="difficulty-button active" onclick="setDifficulty('easy')">Easy</button>
+                        <button class="difficulty-button" onclick="setDifficulty('medium')">Medium</button>
+                        <button class="difficulty-button" onclick="setDifficulty('hard')">Hard</button>
+                    </div>
+
+                    <button class="audio-button" onclick="playWord()">Play Word</button>
+                    <button class="hint-button" onclick="showHint()">Show Hint</button>
+                    
+                    <div class="hint-display" id="hint-display"></div>
+                    
+                    <div class="word-display" id="current-word-display">
+                        Click "Play Word" to begin!
+                    </div>
+                    
+                    <input type="text" class="spell-input" id="spell-input" placeholder="Type the word here..." autocomplete="off">
+                    
+                    <button class="check-button" onclick="checkSpelling()">Check Spelling</button>
+                    
+                    <div id="feedback" class="feedback"></div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill">0/30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Unscramble -->
+            <div id="scramble" class="tab-content">
+                <div class="game-area">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">Unscramble the Word</h2>
+                    <p style="margin-bottom: 20px;">Click the letters in order to spell the word correctly!</p>
+                    
+                    <div class="info-box">
+                        <strong>Definition:</strong> <span id="scramble-definition">Click "New Word" to start</span>
+                    </div>
+                    
+                    <div class="scrambled-letters" id="scrambled-letters"></div>
+                    
+                    <div class="word-display" id="scramble-answer"></div>
+                    
+                    <button class="check-button" onclick="newScrambleWord()">New Word</button>
+                    <button class="check-button" style="background: #6c757d;" onclick="resetScramble()">Reset</button>
+                    
+                    <div id="scramble-feedback" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Missing Letters -->
+            <div id="missing-letters" class="tab-content">
+                <div class="game-area">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">Fill in the Missing Letters</h2>
+                    <p style="margin-bottom: 20px;">Complete the word by filling in the missing letters!</p>
+                    
+                    <div class="info-box">
+                        <strong>Definition:</strong> <span id="missing-definition">Click "New Word" to start</span>
+                    </div>
+                    
+                    <div class="word-display" id="missing-word-display"></div>
+                    
+                    <input type="text" class="spell-input" id="missing-input" placeholder="Type the complete word..." autocomplete="off">
+                    
+                    <button class="check-button" onclick="checkMissing()">Check Answer</button>
+                    <button class="check-button" style="background: #6c757d;" onclick="newMissingWord()">New Word</button>
+                    
+                    <div id="missing-feedback" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Word List -->
+            <div id="word-list" class="tab-content">
+                <div class="game-area">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">IELTS Commonly Misspelled Words</h2>
+                    <p style="margin-bottom: 20px;">Click on any word to see its definition and hear pronunciation!</p>
+                    
+                    <div class="word-list" id="word-list-container"></div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Practice Test -->
+            <div id="practice-test" class="tab-content">
+                <div class="game-area">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">Spelling Test</h2>
+                    <p style="margin-bottom: 20px;">Test yourself on 10 random words!</p>
+                    
+                    <button class="check-button" onclick="startTest()">Start Test</button>
+                    
+                    <div id="test-area" style="display: none;">
+                        <div class="info-box">
+                            <strong>Question <span id="test-question-num">1</span>/10</strong>
+                        </div>
+                        
+                        <button class="audio-button" onclick="playTestWord()">Play Word</button>
+                        
+                        <input type="text" class="spell-input" id="test-input" placeholder="Type the word..." autocomplete="off">
+                        
+                        <button class="check-button" onclick="submitTestAnswer()">Submit Answer</button>
+                        
+                        <div id="test-feedback" class="feedback"></div>
+                    </div>
+                    
+                    <div id="test-results" style="display: none;">
+                        <h3 style="color: #667eea; margin: 20px 0;">Test Results</h3>
+                        <div class="score-display" style="background: #e8eaf6;">
+                            <div class="score-item">
+                                <h3 id="test-score">0</h3>
+                                <p>Correct</p>
+                            </div>
+                            <div class="score-item">
+                                <h3 id="test-percentage">0%</h3>
+                                <p>Accuracy</p>
+                            </div>
+                        </div>
+                        <div id="test-review"></div>
+                        <button class="check-button" onclick="resetTest()">Take Another Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Common IELTS words that students misspell
+        const wordDatabase = {
+            easy: [
+                { word: 'government', definition: 'The group of people who control a country', hint: 'Starts with "govern"' },
+                { word: 'environment', definition: 'The natural world around us', hint: 'Contains "iron" in the middle' },
+                { word: 'necessary', definition: 'Required or essential', hint: 'One C, two S' },
+                { word: 'different', definition: 'Not the same', hint: 'Ends with -ent' },
+                { word: 'business', definition: 'Commercial activity', hint: 'Has "busy" in it' },
+                { word: 'because', definition: 'For the reason that', hint: 'Be + cause' },
+                { word: 'receive', definition: 'To get something', hint: 'I before E except after C' },
+                { word: 'believe', definition: 'To think something is true', hint: 'I before E' },
+                { word: 'benefit', definition: 'An advantage', hint: 'One F, one T' },
+                { word: 'knowledge', definition: 'Information and understanding', hint: 'Silent "k" at start' }
+            ],
+            medium: [
+                { word: 'accommodate', definition: 'To provide space or adjust', hint: 'Two C, two M' },
+                { word: 'definitely', definition: 'Certainly, without doubt', hint: 'Contains "finite"' },
+                { word: 'separate', definition: 'Not together', hint: 'Has "a rat" in it' },
+                { word: 'occurrence', definition: 'Something that happens', hint: 'Two C, two R' },
+                { word: 'privilege', definition: 'A special right', hint: 'Ends with -lege' },
+                { word: 'conscience', definition: 'Moral sense', hint: 'Science with CON' },
+                { word: 'embarrass', definition: 'To make uncomfortable', hint: 'Two R, two S' },
+                { word: 'rhythm', definition: 'A pattern of beats', hint: 'No vowels except Y' },
+                { word: 'maintenance', definition: 'Keeping in good condition', hint: 'Maintain + ance' },
+                { word: 'advertisement', definition: 'Public notice promoting something', hint: 'Advertise + ment' }
+            ],
+            hard: [
+                { word: 'acknowledgement', definition: 'Recognition or acceptance', hint: 'Acknowledge + ment' },
+                { word: 'entrepreneurship', definition: 'Starting a business', hint: 'Entrepreneur + ship' },
+                { word: 'correspondence', definition: 'Letters or emails exchanged', hint: 'Two R, ends with -ence' },
+                { word: 'pharmaceutical', definition: 'Related to medicine', hint: 'Starts with pharma-' },
+                { word: 'bureaucracy', definition: 'Administrative system', hint: 'Bureau + cracy' },
+                { word: 'psychological', definition: 'Related to the mind', hint: 'Psycho + logical' },
+                { word: 'archaeological', definition: 'Related to ancient civilizations', hint: 'Archae + ological' },
+                { word: 'simultaneously', definition: 'At the same time', hint: 'Simultaneous + ly' },
+                { word: 'characteristics', definition: 'Distinctive features', hint: 'Character + istics' },
+                { word: 'conscientious', definition: 'Very careful and thorough', hint: 'Conscience + tious' }
+            ]
+        };
+
+        // Game state
+        let currentWord = null;
+        let currentDifficulty = 'easy';
+        let correctCount = 0;
+        let attemptCount = 0;
+        let masteredWords = new Set();
+        let scrambledAnswer = [];
+        let testWords = [];
+        let testIndex = 0;
+        let testAnswers = [];
+
+        // Initialize
+        function init() {
+            updateScore();
+            generateWordList();
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Difficulty selector
+        function setDifficulty(level) {
+            currentDifficulty = level;
+            document.querySelectorAll('.difficulty-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            // Reset for new difficulty
+            document.getElementById('spell-input').value = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('hint-display').style.display = 'none';
+            document.getElementById('current-word-display').textContent = 'Click "Play Word" to begin!';
+        }
+
+        // Listen and Spell game
+        function playWord() {
+            const words = wordDatabase[currentDifficulty];
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            
+            document.getElementById('spell-input').value = '';
+            document.getElementById('spell-input').className = 'spell-input';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('hint-display').style.display = 'none';
+            document.getElementById('current-word-display').textContent = 'Listen carefully...';
+            
+            // Simulate audio (in real implementation, you'd use Web Speech API)
+            setTimeout(() => {
+                document.getElementById('current-word-display').textContent = 'Type what you heard!';
+            }, 1000);
+            
+            // Focus input
+            document.getElementById('spell-input').focus();
+        }
+
+        function showHint() {
+            if (!currentWord) {
+                alert('Click "Play Word" first!');
+                return;
+            }
+            const hintDisplay = document.getElementById('hint-display');
+            hintDisplay.textContent = currentWord.hint;
+            hintDisplay.style.display = 'block';
+        }
+
+        function checkSpelling() {
+            if (!currentWord) {
+                alert('Click "Play Word" first!');
+                return;
+            }
+            
+            const input = document.getElementById('spell-input');
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = currentWord.word.toLowerCase();
+            const feedback = document.getElementById('feedback');
+            
+            attemptCount++;
+            
+            if (userAnswer === correctAnswer) {
+                input.className = 'spell-input correct';
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Correct! The word is "${currentWord.word}". ${currentWord.definition}`;
+                correctCount++;
+                masteredWords.add(currentWord.word);
+            } else {
+                input.className = 'spell-input incorrect';
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Incorrect! You wrote "${userAnswer}". The correct spelling is "${currentWord.word}". ${currentWord.definition}`;
+            }
+            
+            updateScore();
+        }
+
+        // Scramble game
+        function newScrambleWord() {
+            const allWords = [...wordDatabase.easy, ...wordDatabase.medium, ...wordDatabase.hard];
+            currentWord = allWords[Math.floor(Math.random() * allWords.length)];
+            
+            document.getElementById('scramble-definition').textContent = currentWord.definition;
+            document.getElementById('scramble-answer').textContent = '';
+            document.getElementById('scramble-feedback').style.display = 'none';
+            
+            scrambledAnswer = [];
+            const letters = currentWord.word.split('');
+            const scrambled = letters.sort(() => Math.random() - 0.5);
+            
+            const container = document.getElementById('scrambled-letters');
+            container.innerHTML = '';
+            
+            scrambled.forEach((letter, index) => {
+                const tile = document.createElement('div');
+                tile.className = 'letter-tile';
+                tile.textContent = letter.toUpperCase();
+                tile.dataset.letter = letter;
+                tile.dataset.index = index;
+                tile.onclick = () => selectLetter(tile);
+                container.appendChild(tile);
+            });
+        }
+
+        function selectLetter(tile) {
+            if (tile.classList.contains('used')) return;
+            
+            tile.classList.add('used');
+            scrambledAnswer.push(tile.dataset.letter);
+            
+            const display = document.getElementById('scramble-answer');
+            display.textContent = scrambledAnswer.join('');
+            
+            if (scrambledAnswer.length === currentWord.word.length) {
+                checkScramble();
+            }
+        }
+
+        function checkScramble() {
+            const userAnswer = scrambledAnswer.join('').toLowerCase();
+            const correctAnswer = currentWord.word.toLowerCase();
+            const feedback = document.getElementById('scramble-feedback');
+            
+            attemptCount++;
+            
+            if (userAnswer === correctAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Excellent! You spelled "${currentWord.word}" correctly!`;
+                correctCount++;
+                masteredWords.add(currentWord.word);
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Not quite! You made "${userAnswer}". The correct spelling is "${currentWord.word}".`;
+            }
+            
+            updateScore();
+        }
+
+        function resetScramble() {
+            scrambledAnswer = [];
+            document.getElementById('scramble-answer').textContent = '';
+            document.getElementById('scramble-feedback').style.display = 'none';
+            document.querySelectorAll('.letter-tile').forEach(tile => {
+                tile.classList.remove('used');
+            });
+        }
+
+        // Missing letters game
+        function newMissingWord() {
+            const allWords = [...wordDatabase.easy, ...wordDatabase.medium, ...wordDatabase.hard];
+            currentWord = allWords[Math.floor(Math.random() * allWords.length)];
+            
+            document.getElementById('missing-definition').textContent = currentWord.definition;
+            document.getElementById('missing-input').value = '';
+            document.getElementById('missing-input').className = 'spell-input';
+            document.getElementById('missing-feedback').style.display = 'none';
+            
+            // Create word with missing letters
+            const word = currentWord.word;
+            let display = '';
+            const numMissing = Math.min(3, Math.floor(word.length / 3));
+            const positions = [];
+            
+            while (positions.length < numMissing) {
+                const pos = Math.floor(Math.random() * word.length);
+                if (!positions.includes(pos)) {
+                    positions.push(pos);
+                }
+            }
+            
+            for (let i = 0; i < word.length; i++) {
+                if (positions.includes(i)) {
+                    display += '_';
+                } else {
+                    display += word[i];
+                }
+            }
+            
+            document.getElementById('missing-word-display').textContent = display.split('').join(' ');
+        }
+
+        function checkMissing() {
+            if (!currentWord) {
+                alert('Click "New Word" first!');
+                return;
+            }
+            
+            const input = document.getElementById('missing-input');
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = currentWord.word.toLowerCase();
+            const feedback = document.getElementById('missing-feedback');
+            
+            attemptCount++;
+            
+            if (userAnswer === correctAnswer) {
+                input.className = 'spell-input correct';
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Perfect! The complete word is "${currentWord.word}"!`;
+                correctCount++;
+                masteredWords.add(currentWord.word);
+            } else {
+                input.className = 'spell-input incorrect';
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `Not quite! The correct spelling is "${currentWord.word}".`;
+            }
+            
+            updateScore();
+        }
+
+        // Word list
+        function generateWordList() {
+            const container = document.getElementById('word-list-container');
+            container.innerHTML = '';
+            
+            const allWords = [...wordDatabase.easy, ...wordDatabase.medium, ...wordDatabase.hard];
+            
+            allWords.forEach(wordObj => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                if (masteredWords.has(wordObj.word)) {
+                    card.classList.add('mastered');
+                }
+                
+                card.innerHTML = `
+                    <h3>${wordObj.word}</h3>
+                    <p><strong>Definition:</strong> ${wordObj.definition}</p>
+                    <p><em>Hint: ${wordObj.hint}</em></p>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Practice test
+        function startTest() {
+            const allWords = [...wordDatabase.easy, ...wordDatabase.medium, ...wordDatabase.hard];
+            testWords = [];
+            
+            while (testWords.length < 10) {
+                const word = allWords[Math.floor(Math.random() * allWords.length)];
+                if (!testWords.includes(word)) {
+                    testWords.push(word);
+                }
+            }
+            
+            testIndex = 0;
+            testAnswers = [];
+            
+            document.getElementById('test-area').style.display = 'block';
+            document.getElementById('test-results').style.display = 'none';
+            document.querySelector('#practice-test .check-button').style.display = 'none';
+            
+            loadTestQuestion();
+        }
+
+        function loadTestQuestion() {
+            if (testIndex >= testWords.length) {
+                showTestResults();
+                return;
+            }
+            
+            currentWord = testWords[testIndex];
+            document.getElementById('test-question-num').textContent = testIndex + 1;
+            document.getElementById('test-input').value = '';
+            document.getElementById('test-input').className = 'spell-input';
+            document.getElementById('test-feedback').style.display = 'none';
+        }
+
+        function playTestWord() {
+            if (!currentWord) return;
+            // Simulate playing the word
+            alert(`Word ${testIndex + 1}: ${currentWord.definition}`);
+        }
+
+        function submitTestAnswer() {
+            const input = document.getElementById('test-input');
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = currentWord.word.toLowerCase();
+            
+            testAnswers.push({
+                word: currentWord.word,
+                userAnswer: userAnswer,
+                correct: userAnswer === correctAnswer,
+                definition: currentWord.definition
+            });
+            
+            testIndex++;
+            
+            if (testIndex < testWords.length) {
+                loadTestQuestion();
+            } else {
+                showTestResults();
+            }
+        }
+
+        function showTestResults() {
+            document.getElementById('test-area').style.display = 'none';
+            document.getElementById('test-results').style.display = 'block';
+            
+            const correctCount = testAnswers.filter(a => a.correct).length;
+            const percentage = Math.round((correctCount / testAnswers.length) * 100);
+            
+            document.getElementById('test-score').textContent = `${correctCount}/10`;
+            document.getElementById('test-percentage').textContent = `${percentage}%`;
+            
+            const reviewDiv = document.getElementById('test-review');
+            reviewDiv.innerHTML = '<h4 style="margin: 20px 0;">Review Your Answers:</h4>';
+            
+            testAnswers.forEach((answer, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'info-box';
+                resultDiv.style.background = answer.correct ? '#d4edda' : '#f8d7da';
+                resultDiv.style.borderColor = answer.correct ? '#28a745' : '#dc3545';
+                
+                resultDiv.innerHTML = `
+                    <p><strong>Question ${index + 1}:</strong> ${answer.definition}</p>
+                    <p><strong>Your answer:</strong> ${answer.userAnswer}</p>
+                    ${!answer.correct ? `<p><strong>Correct spelling:</strong> ${answer.word}</p>` : ''}
+                    <p>${answer.correct ? 'Correct!' : 'Keep practicing!'}</p>
+                `;
+                
+                reviewDiv.appendChild(resultDiv);
+            });
+        }
+
+        function resetTest() {
+            document.getElementById('test-area').style.display = 'none';
+            document.getElementById('test-results').style.display = 'none';
+            document.querySelector('#practice-test .check-button').style.display = 'block';
+        }
+
+        // Update score
+        function updateScore() {
+            document.getElementById('total-correct').textContent = correctCount;
+            document.getElementById('total-attempts').textContent = attemptCount;
+            
+            const accuracy = attemptCount > 0 ? Math.round((correctCount / attemptCount) * 100) : 0;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+            
+            document.getElementById('words-mastered').textContent = masteredWords.size;
+            
+            // Update progress bar
+            const progress = (correctCount / 30) * 100;
+            document.getElementById('progress-fill').style.width = `${Math.min(progress, 100)}%`;
+            document.getElementById('progress-fill').textContent = `${correctCount}/30`;
+            
+            // Update word list
+            generateWordList();
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            
+            document.getElementById('spell-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkSpelling();
+            });
+            
+            document.getElementById('missing-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkMissing();
+            });
+            
+            document.getElementById('test-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') submitTestAnswer();
+            });
+        });
+    </script>
+</body>
+</html>
