@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://leafy-tapioca-d6d6c1.netlify.app/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#333333">
+    <link rel="manifest" href="https://leafy-tapioca-d6d6c1.netlify.app/manifest.json">
+    <link rel="apple-touch-icon" href="https://leafy-tapioca-d6d6c1.netlify.app/icon-192.png">
+    <title>MandalArt</title>
+    <link href="./MandalArt_files/css2" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F0F0F0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #333;
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .header h1 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            text-align: center;
+        }
+        .header-subtitle {
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-top: 4px;
+            font-size: 0.85rem;
+        }
+        .container {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 24px 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .parking-area {
+            background: #E8E8E8;
+            border-top: 2px solid #CCC;
+            padding: 12px;
+        }
+        .parking-header {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .parking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .parking-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+        .parking-empty {
+            text-align: center;
+            color: #999;
+            font-size: 0.8rem;
+            padding: 16px;
+            font-style: italic;
+        }
+        .parked-cell {
+            background: white;
+            border: 2px solid #999;
+            border-radius: 6px;
+            padding: 8px;
+            position: relative;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .parked-cell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .parked-cell-text {
+            font-size: 0.75rem;
+            line-height: 1.2;
+            word-break: break-word;
+            color: #333;
+            flex: 1;
+        }
+        .parked-cell-indicator {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        .parked-cell-delete {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 18px;
+            height: 18px;
+            background: #CC3333;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+        .parked-cell-delete:hover { 
+            opacity: 1; 
+            background: #DD4444; 
+        }
+        .project-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .project-select {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            border: 2px solid #CCC;
+            border-radius: 6px;
+            background: white;
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .nav-buttons { display: flex; gap: 8px; }
+        .btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: transform 0.1s;
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(1px); }
+        .btn-dark { background: #444; color: white; box-shadow: 0 2px 0 #222; }
+        .btn-dark:hover { background: #555; }
+        .btn-light { background: #DDD; color: #333; box-shadow: 0 2px 0 #BBB; }
+        .btn-light:hover { background: #E5E5E5; }
+        .btn-small { padding: 6px 10px; font-size: 0.8rem; }
+        .breadcrumbs {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+        .breadcrumb-arrow { color: #666; }
+        .breadcrumb-btn {
+            padding: 4px 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        .breadcrumb-btn.active { background: #333; }
+        .breadcrumb-btn.inactive { background: #888; }
+        .context-indicator {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: #E8E8E8;
+            border-radius: 6px;
+            border-left: 4px solid #666;
+        }
+        .context-label { color: #666; font-size: 0.85rem; }
+        .context-text { color: #333; font-weight: 600; }
+        .grid-container {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #CCC;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            aspect-ratio: 1;
+        }
+        .cell {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            min-height: 0;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .cell:hover { transform: translateY(-2px); }
+        .cell-center {
+            background: #333;
+            border: 2px solid #222;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .cell-has-children {
+            background: #E0E0E0;
+            border: 2px solid #999;
+        }
+        .cell-filled {
+            background: white;
+            border: 2px solid #BBB;
+        }
+        .cell-empty {
+            background: white;
+            border: 2px dashed #CCC;
+        }
+        .cell-text {
+            text-align: center;
+            width: 100%;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            word-break: break-word;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        .cell-center .cell-text { color: white; font-weight: 600; }
+        .cell-placeholder { color: #999; font-style: italic; }
+        .cell-indicator {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #666;
+        }
+        .cell-notes-indicator {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+        @media (min-width: 768px) {
+            .cell-notes-indicator { font-size: 12px; }
+        }
+        .cell-checkbox {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #999;
+            border-radius: 3px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #333;
+            z-index: 10;
+        }
+        .cell-checkbox:hover { border-color: #666; background: #F0F0F0; }
+        .cell-checkbox.checked { background: #666; border-color: #666; color: white; }
+        .cell-center .cell-checkbox { border-color: #888; }
+        .cell-center .cell-checkbox.checked { background: #888; border-color: #888; }
+        .cell-completed .cell-text { 
+            text-decoration: line-through !important; 
+            opacity: 0.5; 
+        }
+        .cell.dragging { opacity: 0.5; transform: scale(0.95); }
+        .cell.touch-holding { animation: pulse 0.5s infinite; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+        }
+        .delete-zone {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff0f0;
+            border: 2px dashed #e74c3c;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 1rem;
+            color: #e74c3c;
+            font-weight: 600;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .delete-zone.drag-over {
+            background: #ffe0e0;
+            border-color: #c0392b;
+            transform: translateX(-50%) scale(1.05);
+        }
+        .touch-drag-ghost {
+            font-family: 'Comic Neue', cursive;
+            word-break: break-word;
+        }
+        .cell.drag-over {
+            background: #D0D0D0 !important;
+            border-style: solid !important;
+            border-color: #666 !important;
+        }
+        .cell.drag-over-edge {
+            background: #D0E8FF !important;
+            border-color: #2196F3 !important;
+            box-shadow: 0 0 8px rgba(33, 150, 243, 0.5);
+        }
+        .cell.drag-over-center {
+            background: #D0F0D0 !important;
+            border-color: #4CAF50 !important;
+            box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+        }
+        .cell.selected {
+            background: #FFE0B2 !important;
+            border: 3px solid #FF9800 !important;
+            box-shadow: 0 0 12px rgba(255, 152, 0, 0.6);
+        }
+        .action-toolbar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            padding: 12px 8px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+        .action-toolbar.show {
+            display: block;
+        }
+        .action-toolbar-hint {
+            color: #AAA;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .action-toolbar-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .action-btn-swap { background: #2196F3; color: white; }
+        .action-btn-nest { background: #4CAF50; color: white; }
+        .action-btn-up { background: #00BCD4; color: white; }
+        .action-btn-delete { background: #f44336; color: white; }
+        .action-btn-cancel { background: #9E9E9E; color: white; }
+        .action-btn-done { background: #8BC34A; color: white; }
+        .action-btn-move { background: #9C27B0; color: white; }
+        .action-btn-export { background: #FF9800; color: white; }
+        .action-btn-copy { background: #607D8B; color: white; }
+        .parent-zone {
+            display: none;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #E0F7FA;
+            border: 2px dashed #00ACC1;
+            border-radius: 8px;
+            text-align: center;
+            color: #00838F;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .parent-zone.drag-over {
+            background: #B2EBF2;
+            border-color: #0097A7;
+            transform: scale(1.02);
+        }
+        .cell-input {
+            width: 100%;
+            background: transparent;
+            text-align: center;
+            resize: none;
+            border: none;
+            outline: none;
+            font-size: 0.8rem;
+            font-family: inherit;
+            line-height: 1.3;
+            flex: 1;
+        }
+        .cell-center .cell-input { color: white; }
+        .cell-edit-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            gap: 4px;
+        }
+        .format-toolbar {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .format-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            background: #EEE;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .format-btn:hover { background: #DDD; }
+        .format-btn.active { background: #999; color: white; }
+        .format-btn-bold { font-weight: bold; }
+        .format-btn-underline { text-decoration: underline; }
+        .format-btn-size { font-size: 0.65rem; }
+        .cell-center .format-btn { background: #555; border-color: #666; color: white; }
+        .cell-center .format-btn:hover { background: #666; }
+        .cell-center .format-btn.active { background: #888; }
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-box { width: 16px; height: 16px; border-radius: 4px; }
+        .legend-box.center { background: #333; }
+        .legend-box.has-children { background: #E0E0E0; border: 2px solid #999; }
+        .legend-box.filled { background: white; border: 2px solid #BBB; }
+        .legend-box.empty { background: white; border: 2px dashed #CCC; }
+        .instructions {
+            margin-top: 20px;
+            padding: 16px;
+            background: #E8E8E8;
+            border-radius: 6px;
+            border: 1px solid #DDD;
+        }
+        .instructions h3 { color: #333; font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; }
+        .instructions ol { color: #555; font-size: 0.85rem; padding-left: 20px; line-height: 1.6; }
+        .footer { background: #333; padding: 12px; text-align: center; }
+        .footer-text { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 1000;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal h3 { margin-bottom: 16px; color: #333; }
+        .modal-select, .modal-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #CCC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            background: white;
+        }
+        .modal-buttons { display: flex; gap: 8px; justify-content: flex-end; }
+        .notes-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid #CCC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+        .notes-textarea:focus {
+            outline: none;
+            border-color: #4A90E2;
+        }
+        .notes-char-count {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 12px;
+            text-align: right;
+        }
+        #import-input { display: none; }
+        .context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid #CCC;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2000;
+            min-width: 160px;
+            overflow: hidden;
+        }
+        .context-menu-item {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: white;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .context-menu-item:hover {
+            background: #F0F0F0;
+        }
+        .context-menu-item:not(:last-child) {
+            border-bottom: 1px solid #EEE;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MandalArt</h1>
+        <p class="header-subtitle">Click to edit | Double-click to drill down | Drag to swap</p>
+    </div>
+
+    <div class="container">
+        <div class="project-bar">
+            <select id="project-select" class="project-select" onchange="switchProject(this.value)"><option value="Default" selected="">Default</option></select>
+            <button class="btn btn-dark btn-small" onclick="newProject()">New</button>
+            <button class="btn btn-light btn-small" onclick="renameProject()">Rename</button>
+            <button class="btn btn-light btn-small" onclick="deleteProject()">Delete</button>
+        </div>
+
+        <div class="nav-bar">
+            <div class="nav-buttons">
+                <button class="btn btn-dark" id="btn-back" style="display:none;" onclick="goBack()">Back</button>
+                <button class="btn btn-dark" onclick="goHome()">Home</button>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-light" onclick="exportOPML()">Export</button>
+                <button class="btn btn-light" onclick="triggerImport()">Import</button>
+                <button class="btn btn-light" onclick="clearProject()">Clear</button>
+            </div>
+        </div>
+        <input type="file" id="import-input" accept=".opml,.xml">
+
+        <div id="breadcrumbs" class="breadcrumbs"></div>
+        <div id="context" class="context-indicator" style="display:none;">
+            <span class="context-label">Expanding: </span>
+            <span id="context-text" class="context-text"></span>
+        </div>
+
+        <div id="parent-zone" class="parent-zone">Drop here to move UP</div>
+
+        <div class="grid-container">
+            <div id="grid" class="grid"><div class="cell cell-empty" data-index="0" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="1" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="2" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="3" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-center" data-index="4"><span class="cell-text cell-placeholder">Center</span></div><div class="cell cell-empty" data-index="5" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="6" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="7" draggable="true"><span class="cell-text cell-placeholder">+</span></div><div class="cell cell-empty" data-index="8" draggable="true"><span class="cell-text cell-placeholder">+</span></div></div>
+        </div>
+        
+        <div id="delete-zone" class="delete-zone">Drop here to DELETE</div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-box center"></div><span>Center</span></div>
+            <div class="legend-item"><div class="legend-box has-children"></div><span>Has children</span></div>
+            <div class="legend-item"><div class="legend-box filled"></div><span>Filled</span></div>
+            <div class="legend-item"><div class="legend-box empty"></div><span>Empty</span></div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to use MandalArt</h3>
+            <ol>
+                <li>Write your main topic in the center cell</li>
+                <li>Fill the 8 surrounding cells with related ideas</li>
+                <li>Double-click any outer cell to expand it into its own grid</li>
+                <li>Drag cells to reorder within the current level</li>
+                <li>Right-click a cell to move it to another project</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="parking-area">
+        <div class="parking-header">Parked Cells</div>
+        <div id="parking-grid" class="parking-grid">
+            <div class="parking-empty" id="parking-empty" style="display: block;">No parked cells</div>
+        </div>
+    </div>
+
+    <div id="action-toolbar" class="action-toolbar">
+        <div class="action-toolbar-hint" id="action-hint">Select an action</div>
+        <div class="action-toolbar-buttons">
+            <button class="action-btn action-btn-done" onclick="doToggleDone()">Done</button>
+            <button class="action-btn action-btn-copy" onclick="doCopyList()">Copy</button>
+            <button class="action-btn" onclick="doPaste()" style="background:#009688;color:white;">Paste</button>
+            <button class="action-btn" onclick="doPark()" style="background:#FF9800;color:white;">Park</button>
+            <button class="action-btn action-btn-swap" onclick="startAction(&#39;swap&#39;)">Swap</button>
+            <button class="action-btn action-btn-nest" onclick="startAction(&#39;nest&#39;)">Nest</button>
+            <button class="action-btn action-btn-up" onclick="doMoveUp()" id="btn-move-up">Up</button>
+            <button class="action-btn action-btn-move" onclick="doMoveToProject()" id="btn-move-project">Move</button>
+            <button class="action-btn action-btn-export" onclick="doExportCell()">Export</button>
+            <button class="action-btn" onclick="doEditNotes()" style="background:#795548;color:white;">Notes</button>
+            <button class="action-btn action-btn-delete" onclick="doDelete()">Del</button>
+            <button class="action-btn action-btn-cancel" onclick="cancelSelection()">X</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span class="footer-text">MandalArt</span>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <div id="move-modal" class="modal-overlay" style="display:none;">
+        <div class="modal">
+            <h3>Move to Project</h3>
+            <select id="move-select" class="modal-select"></select>
+            <p style="font-size:0.85rem;color:#666;margin-bottom:16px;">Cell and sub-goals will move to root level of selected project.</p>
+            <div class="modal-buttons">
+                <button class="btn btn-light" id="move-cancel">Cancel</button>
+                <button class="btn btn-dark" id="move-confirm">Move</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notes-modal" class="modal-overlay" style="display:none;">
+        <div class="modal">
+            <h3 id="notes-modal-title">Cell Notes</h3>
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Write your notes here..."></textarea>
+            <div class="notes-char-count"><span id="notes-count">0</span> characters</div>
+            <div class="modal-buttons">
+                <button class="btn btn-light" id="notes-cancel">Cancel</button>
+                <button class="btn btn-dark" id="notes-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="context-menu" class="context-menu" style="display:none;">
+        <button class="context-menu-item" id="ctx-copy-list">Copy as List</button>
+        <button class="context-menu-item" id="ctx-export">Export as OPML</button>
+        <button class="context-menu-item" id="ctx-move">Move to Project</button>
+    </div>
+
+    <script>
+    // Global functions for onclick handlers
+    let projects = [];
+    let currentProject = '';
+    let projectData = {};
+    let navPath = [];
+    let parkedCells = []; // Parking area for cells
+    let draggedIdx = null;
+    let cellToMove = null;
+    let contextMenuCellIdx = null;
+    let touchDragEl = null;  // Ghost element for touch dragging
+    let touchStartPos = null;
+    let currentDropZone = null;  // 'edge' or 'center' for drop zone detection
+    let lastTapTime = 0;
+    let lastTapCell = null;
+    let doubleTapPending = false;
+    let dragTimeout = null;
+    let longPressTimer = null;
+    let selectedCellIdx = null;  // For tap-to-select mode
+    let pendingAction = null;    // 'swap' or 'nest'
+    const isTouchDevice = ('ontouchstart' in window);
+
+    function cleanupDrag() {
+        if (dragTimeout) {
+            clearTimeout(dragTimeout);
+            dragTimeout = null;
+        }
+        if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+        if (touchDragEl) {
+            touchDragEl.remove();
+            touchDragEl = null;
+        }
+        document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+        document.querySelectorAll('.drag-over, .drag-over-edge, .drag-over-center').forEach(el => {
+            el.classList.remove('drag-over', 'drag-over-edge', 'drag-over-center');
+        });
+        const deleteZone = document.getElementById('delete-zone');
+        const parentZone = document.getElementById('parent-zone');
+        if (deleteZone) deleteZone.style.display = 'none';
+        if (parentZone) parentZone.style.display = 'none';
+        draggedIdx = null;
+        currentDropZone = null;
+        touchStartPos = null;
+    }
+
+    // === TAP-TO-SELECT MOBILE SYSTEM ===
+    function selectCell(idx) {
+        if (idx === 4) return; // Can't select center
+        selectedCellIdx = idx;
+        pendingAction = null;
+        updateSelectionUI();
+    }
+
+    function cancelSelection() {
+        selectedCellIdx = null;
+        pendingAction = null;
+        updateSelectionUI();
+    }
+
+    function updateSelectionUI() {
+        // Update cell highlighting
+        document.querySelectorAll('.cell.selected').forEach(el => el.classList.remove('selected'));
+        if (selectedCellIdx !== null) {
+            const cell = document.querySelector(`.cell[data-index="${selectedCellIdx}"]`);
+            if (cell) cell.classList.add('selected');
+        }
+        
+        // Show/hide toolbar
+        const toolbar = document.getElementById('action-toolbar');
+        const hint = document.getElementById('action-hint');
+        const upBtn = document.getElementById('btn-move-up');
+        const moveBtn = document.getElementById('btn-move-project');
+        const doneBtn = document.querySelector('.action-btn-done');
+        
+        if (selectedCellIdx !== null) {
+            toolbar.classList.add('show');
+            
+            // Show/hide "Up" button based on whether we're nested
+            upBtn.style.display = navPath.length > 0 ? 'inline-block' : 'none';
+            if (moveBtn) moveBtn.style.display = projects.length > 1 ? 'inline-block' : 'none';
+            
+            // Update Done button based on cell state
+            const grid = getCurrentGrid();
+            const cellData = grid.cells[selectedCellIdx];
+            if (doneBtn) {
+                doneBtn.textContent = cellData.completed ? 'Undo' : 'Done';
+            }
+            
+            if (pendingAction) {
+                hint.textContent = pendingAction === 'swap' ? 'Tap cell to swap with' : 'Tap cell to nest into';
+            } else {
+                const cellText = cellData.text || 'Cell ' + (selectedCellIdx + 1);
+                hint.textContent = `Selected: ${cellText}`;
+            }
+        } else {
+            toolbar.classList.remove('show');
+        }
+    }
+
+    function startAction(action) {
+        pendingAction = action;
+        updateSelectionUI();
+    }
+
+    function handleTargetTap(targetIdx) {
+        if (targetIdx === 4 || targetIdx === selectedCellIdx) {
+            cancelSelection();
+            return;
+        }
+        
+        if (pendingAction === 'swap') {
+            swapCells(selectedCellIdx, targetIdx);
+        } else if (pendingAction === 'nest') {
+            nestCell(selectedCellIdx, targetIdx);
+        }
+        
+        cancelSelection();
+    }
+
+    function doMoveUp() {
+        if (selectedCellIdx !== null && navPath.length > 0) {
+            moveToParent(selectedCellIdx);
+            cancelSelection();
+        }
+    }
+
+    function doDelete() {
+        if (selectedCellIdx !== null) {
+            deleteCell(selectedCellIdx);
+            cancelSelection();
+        }
+    }
+
+    function doToggleDone() {
+        if (selectedCellIdx !== null) {
+            const grid = getCurrentGrid();
+            const cell = grid.cells[selectedCellIdx];
+            cell.completed = !cell.completed;
+            saveProjectData();
+            render();
+            // Re-select to update toolbar (keeps selection active)
+            selectCell(selectedCellIdx);
+            showToast(cell.completed ? 'Marked done' : 'Unmarked');
+        }
+    }
+
+    function doMoveToProject() {
+        if (selectedCellIdx !== null && projects.length > 1) {
+            const grid = getCurrentGrid();
+            const cell = grid.cells[selectedCellIdx];
+            if (cell.text || hasContent(cell)) {
+                showMoveModal(selectedCellIdx);
+                cancelSelection();
+            } else {
+                showToast('Cell is empty');
+            }
+        } else if (projects.length <= 1) {
+            showToast('Create another project first');
+        }
+    }
+
+    function doExportCell() {
+        if (selectedCellIdx !== null) {
+            const grid = getCurrentGrid();
+            const cell = grid.cells[selectedCellIdx];
+            if (!cell.text && !hasContent(cell)) {
+                showToast('Cell is empty');
+                return;
+            }
+            exportCellOPML(selectedCellIdx);
+            cancelSelection();
+        }
+    }
+
+    function doCopyList() {
+        if (selectedCellIdx !== null) {
+            const grid = getCurrentGrid();
+            const cell = grid.cells[selectedCellIdx];
+            if (!cell.text && !hasContent(cell)) {
+                showToast('Cell is empty');
+                return;
+            }
+            copyAsNestedList(selectedCellIdx);
+            cancelSelection();
+        }
+    }
+
+    function doEditNotes() {
+        if (selectedCellIdx !== null) {
+            showNotesModal(selectedCellIdx);
+        }
+    }
+
+    async function doPaste() {
+        if (selectedCellIdx === null) return;
+        if (selectedCellIdx === 4 && navPath.length > 0) {
+            showToast("Can't paste into back button");
+            return;
+        }
+        
+        try {
+            // Try to read from clipboard
+            const text = await navigator.clipboard.readText();
+            
+            if (!text || !text.trim()) {
+                showToast('Clipboard is empty');
+                return;
+            }
+            
+            const grid = getCurrentGrid();
+            const cell = grid.cells[selectedCellIdx];
+            
+            // Parse the pasted text
+            const lines = text.trim().split('\n');
+            
+            if (lines.length === 1) {
+                // Single line - just paste as cell text
+                cell.text = lines[0].trim();
+                saveProjectData();
+                render();
+                selectCell(selectedCellIdx);
+                showToast('Pasted');
+            } else {
+                // Multiple lines - paste as nested structure
+                pasteNestedList(selectedCellIdx, text);
+                selectCell(selectedCellIdx);
+                showToast('Pasted with children');
+            }
+        } catch (err) {
+            // Clipboard API failed - might be permissions or old browser
+            showToast('Paste failed - clipboard access denied');
+            console.error('Paste error:', err);
+        }
+    }
+
+    function doPark() {
+        if (selectedCellIdx !== null) {
+            if (selectedCellIdx === 4 && navPath.length === 0) {
+                showToast("Can't park center cell");
+                return;
+            }
+            parkCell(selectedCellIdx);
+            cancelSelection();
+        }
+    }
+
+    function pasteNestedList(idx, text) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        
+        // Parse indented text into hierarchical structure
+        const lines = text.trim().split('\n');
+        
+        function getIndentLevel(line) {
+            const match = line.match(/^(\t*)/);
+            return match ? match[1].length : 0;
+        }
+        
+        function buildGridFromLines(linesList, startIdx) {
+            if (startIdx >= linesList.length) return null;
+            
+            const newGrid = createEmptyGrid();
+            const rootLine = linesList[startIdx];
+            const rootIndent = getIndentLevel(rootLine);
+            
+            // Root becomes center
+            newGrid.cells[4].text = rootLine.trim();
+            
+            // Collect children (lines with indent = rootIndent + 1)
+            const childIndent = rootIndent + 1;
+            let cellIdx = 0;
+            const order = [0,1,2,3,5,6,7,8]; // Skip center (4)
+            
+            let i = startIdx + 1;
+            while (i < linesList.length && cellIdx < 8) {
+                const lineIndent = getIndentLevel(linesList[i]);
+                
+                if (lineIndent < childIndent) {
+                    // We've gone back up the hierarchy
+                    break;
+                } else if (lineIndent === childIndent) {
+                    // This is a direct child
+                    const targetIdx = order[cellIdx++];
+                    newGrid.cells[targetIdx].text = linesList[i].trim();
+                    
+                    // Check if this child has its own children
+                    if (i + 1 < linesList.length && getIndentLevel(linesList[i + 1]) > lineIndent) {
+                        // Build nested grid for this child
+                        newGrid.cells[targetIdx].children = buildGridFromLines(linesList, i);
+                        
+                        // Skip past all the descendants
+                        i++;
+                        while (i < linesList.length && getIndentLevel(linesList[i]) > lineIndent) {
+                            i++;
+                        }
+                        continue;
+                    }
+                    i++;
+                } else {
+                    // Skip lines that are too deeply nested (shouldn't happen with proper structure)
+                    i++;
+                }
+            }
+            
+            return newGrid;
+        }
+        
+        // If first line has no indent, use it as the cell text
+        if (getIndentLevel(lines[0]) === 0) {
+            cell.text = lines[0].trim();
+            
+            // If there are child lines, build the nested structure
+            if (lines.length > 1) {
+                cell.children = buildGridFromLines(lines, 0);
+            }
+        } else {
+            // All lines indented - paste as-is into children
+            if (!cell.children) {
+                cell.children = createEmptyGrid();
+                cell.children.cells[4].text = cell.text || '';
+            }
+            
+            // Try to paste into children
+            const childGrid = buildGridFromLines(lines, 0);
+            if (childGrid) {
+                cell.children = childGrid;
+            }
+        }
+        
+        saveProjectData();
+        render();
+    }
+
+    function showNotesModal(idx) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        const cellText = cell.text || `Cell ${idx + 1}`;
+        
+        document.getElementById('notes-modal-title').textContent = `Notes: ${cellText}`;
+        document.getElementById('notes-textarea').value = cell.notes || '';
+        updateNotesCount();
+        document.getElementById('notes-modal').style.display = 'flex';
+        
+        // Store which cell we're editing
+        document.getElementById('notes-modal').dataset.cellIdx = idx;
+    }
+
+    function hideNotesModal() {
+        document.getElementById('notes-modal').style.display = 'none';
+    }
+
+    function saveNotes() {
+        const modal = document.getElementById('notes-modal');
+        const idx = parseInt(modal.dataset.cellIdx);
+        const notes = document.getElementById('notes-textarea').value;
+        
+        const grid = getCurrentGrid();
+        grid.cells[idx].notes = notes;
+        
+        saveProjectData();
+        render();
+        hideNotesModal();
+        
+        // Re-select the cell to keep toolbar visible
+        if (selectedCellIdx === idx) {
+            selectCell(idx);
+        }
+        
+        showToast(notes ? 'Notes saved' : 'Notes cleared');
+    }
+
+    function updateNotesCount() {
+        const textarea = document.getElementById('notes-textarea');
+        const count = document.getElementById('notes-count');
+        count.textContent = textarea.value.length;
+    }
+
+    function exportCellOPML(idx) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        
+        function cellAttrs(c, pos) {
+            let attrs = ' pos="' + pos + '"';
+            if (c.completed) attrs += ' completed="true"';
+            if (c.bold) attrs += ' bold="true"';
+            if (c.underline) attrs += ' underline="true"';
+            if (c.fontSize && c.fontSize !== 'medium') attrs += ' fontSize="' + c.fontSize + '"';
+            if (c.notes && c.notes.trim()) attrs += ' notes="' + escapeXml(c.notes) + '"';
+            return attrs;
+        }
+        
+        function buildCellOutline(c, pos, indent, fallbackText) {
+            const sp = '  '.repeat(indent);
+            let xml = '';
+            const text = c.text || fallbackText || '';
+            
+            if (c.children && hasContent(c)) {
+                // Cell has children - build nested structure
+                xml += sp + '<outline text="' + escapeXml(text) + '"' + cellAttrs(c, pos) + '>\n';
+                // Add the children grid
+                const childGrid = c.children;
+                const childCenter = childGrid.cells[4];
+                const childCenterText = childCenter.text || text;
+                
+                xml += sp + '  <outline text="' + escapeXml(childCenterText) + '"' + cellAttrs(childCenter, 4) + '>\n';
+                const order = [0,1,2,3,5,6,7,8];
+                for (const i of order) {
+                    const cc = childGrid.cells[i];
+                    if (cc.text || hasContent(cc)) {
+                        xml += buildCellOutline(cc, i, indent + 2, cc.text);
+                    }
+                }
+                xml += sp + '  </outline>\n';
+                xml += sp + '</outline>\n';
+            } else if (text) {
+                // Leaf cell
+                xml += sp + '<outline text="' + escapeXml(text) + '"' + cellAttrs(c, pos) + '/>\n';
+            }
+            return xml;
+        }
+        
+        const cellText = cell.text || 'Untitled';
+        let opml = '<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0">\n  <head>\n    <title>' + escapeXml(cellText) + '</title>\n  </head>\n  <body>\n';
+        opml += buildCellOutline(cell, idx, 2, cellText);
+        opml += '  </body>\n</opml>';
+        
+        const blob = new Blob([opml], {type: 'application/xml'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = cellText.replace(/[^a-zA-Z0-9]/g, '_') + '.opml';
+        a.click();
+        showToast('Exported: ' + cellText);
+    }
+
+    // Copy cell and children as indented text list (for pasting into outliners)
+    function copyAsNestedList(idx) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        const clockwiseOrder = [0, 1, 2, 5, 8, 7, 6, 3];
+        
+        function buildList(c, indent) {
+            let text = '';
+            const prefix = '\t'.repeat(indent);
+            
+            if (c.text) {
+                text += prefix + c.text + '\n';
+            }
+            
+            // If cell has children, add them
+            if (c.children && hasContent(c)) {
+                for (const pos of clockwiseOrder) {
+                    const child = c.children.cells[pos];
+                    if (child.text || hasContent(child)) {
+                        text += buildList(child, indent + 1);
+                    }
+                }
+            }
+            
+            return text;
+        }
+        
+        const listText = buildList(cell, 0).trim();
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(listText).then(() => {
+            showToast('Copied to clipboard');
+        }).catch(() => {
+            // Fallback for older browsers
+            const ta = document.createElement('textarea');
+            ta.value = listText;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Copied to clipboard');
+        });
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function createEmptyGrid() {
+        return { cells: Array(9).fill(null).map(() => ({ 
+            text: '', 
+            children: null, 
+            completed: false, 
+            bold: false, 
+            underline: false, 
+            fontSize: 'medium',
+            notes: ''
+        })) };
+    }
+
+    function hasContent(cell) {
+        if (!cell || !cell.children) return false;
+        return cell.children.cells.some(c => c.text || hasContent(c));
+    }
+
+    function getDropZone(clientX, clientY, cellElement) {
+        const rect = cellElement.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const edgeThreshold = 0.3; // 30% from edges
+        
+        const inEdge = (
+            x < rect.width * edgeThreshold ||
+            x > rect.width * (1 - edgeThreshold) ||
+            y < rect.height * edgeThreshold ||
+            y > rect.height * (1 - edgeThreshold)
+        );
+        
+        return inEdge ? 'edge' : 'center';
+    }
+
+    function nestCell(sourceIdx, targetIdx) {
+        if (sourceIdx === targetIdx || sourceIdx === 4 || targetIdx === 4) return;
+        
+        const grid = getCurrentGrid();
+        const sourceCell = JSON.parse(JSON.stringify(grid.cells[sourceIdx])); // DEEP COPY!
+        
+        // Ensure target has children grid
+        if (!grid.cells[targetIdx].children) {
+            grid.cells[targetIdx].children = createEmptyGrid();
+            // Set children's center to target cell's text
+            grid.cells[targetIdx].children.cells[4].text = grid.cells[targetIdx].text || '';
+        }
+        
+        // Find first empty non-center slot in target's children
+        const targetChildren = grid.cells[targetIdx].children.cells;
+        const emptyIdx = targetChildren.findIndex((c, i) => i !== 4 && !c.text && !hasContent(c));
+        
+        if (emptyIdx === -1) {
+            showToast('Target cell is full');
+            return;
+        }
+        
+        // Place copy in target, clear source
+        targetChildren[emptyIdx] = sourceCell;
+        grid.cells[sourceIdx] = { text: '', children: null, completed: false, bold: false, underline: false, fontSize: 'medium', notes: '' };
+        
+        saveProjectData();
+        render();
+        showToast('Moved into cell');
+    }
+
+    function moveToParent(sourceIdx) {
+        if (navPath.length === 0) return; // Already at root
+        
+        const currentGrid = getCurrentGrid();
+        const sourceCell = JSON.parse(JSON.stringify(currentGrid.cells[sourceIdx])); // DEEP COPY!
+        
+        // Get parent grid
+        let parentGrid = projectData;
+        for (let i = 0; i < navPath.length - 1; i++) {
+            parentGrid = parentGrid.cells[navPath[i]].children;
+        }
+        
+        // Find empty slot in parent (not center, not the cell we're inside)
+        const parentCellIdx = navPath[navPath.length - 1];
+        const emptyIdx = parentGrid.cells.findIndex((c, i) => 
+            i !== 4 && i !== parentCellIdx && !c.text && !hasContent(c)
+        );
+        
+        if (emptyIdx === -1) {
+            showToast('Parent level is full');
+            return;
+        }
+        
+        // Place in parent, clear from current
+        parentGrid.cells[emptyIdx] = sourceCell;
+        currentGrid.cells[sourceIdx] = { text: '', children: null, completed: false, bold: false, underline: false, fontSize: 'medium', notes: '' };
+        
+        saveProjectData();
+        render();
+        showToast('Moved to parent');
+    }
+
+    function loadProjects() {
+        try {
+            const saved = localStorage.getItem('mandalart-projects');
+            projects = saved ? JSON.parse(saved) : ['Default'];
+        } catch(e) { projects = ['Default']; }
+        
+        const last = localStorage.getItem('mandalart-last-project');
+        currentProject = (last && projects.includes(last)) ? last : projects[0];
+        loadProjectData();
+    }
+
+    function saveProjects() {
+        localStorage.setItem('mandalart-projects', JSON.stringify(projects));
+        localStorage.setItem('mandalart-last-project', currentProject);
+    }
+
+    function loadProjectData() {
+        try {
+            const saved = localStorage.getItem('mandalart-data-' + currentProject);
+            const savedObj = saved ? JSON.parse(saved) : null;
+            
+            if (savedObj && savedObj.grid) {
+                // New format with parking
+                projectData = savedObj.grid;
+                parkedCells = savedObj.parked || [];
+            } else if (savedObj) {
+                // Old format without parking
+                projectData = savedObj;
+                parkedCells = [];
+            } else {
+                projectData = createEmptyGrid();
+                parkedCells = [];
+            }
+        } catch(e) { 
+            projectData = createEmptyGrid();
+            parkedCells = [];
+        }
+        navPath = [];
+    }
+
+    function saveProjectData() {
+        const dataToSave = {
+            grid: projectData,
+            parked: parkedCells
+        };
+        localStorage.setItem('mandalart-data-' + currentProject, JSON.stringify(dataToSave));
+    }
+
+    function parkCell(idx) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        
+        if (!cell.text && !hasContent(cell)) {
+            showToast('Cell is empty');
+            return;
+        }
+        
+        if (parkedCells.length >= 20) {
+            showToast('Parking full (max 20)');
+            return;
+        }
+        
+        // Deep copy cell and park it
+        const parkedCell = JSON.parse(JSON.stringify(cell));
+        parkedCells.push(parkedCell);
+        
+        // Clear the cell from grid
+        grid.cells[idx] = { text: '', children: null, completed: false, bold: false, underline: false, fontSize: 'medium', notes: '' };
+        
+        saveProjectData();
+        render();
+        showToast('Parked');
+    }
+
+    function unparkCell(parkedIdx, targetGridIdx) {
+        if (parkedIdx < 0 || parkedIdx >= parkedCells.length) return;
+        if (targetGridIdx === 4) return; // Can't place in center
+        
+        const grid = getCurrentGrid();
+        const targetCell = grid.cells[targetGridIdx];
+        
+        // Check if target is empty
+        if (targetCell.text || hasContent(targetCell)) {
+            showToast('Target cell not empty');
+            return;
+        }
+        
+        // Place parked cell in grid
+        grid.cells[targetGridIdx] = JSON.parse(JSON.stringify(parkedCells[parkedIdx]));
+        
+        // Remove from parking
+        parkedCells.splice(parkedIdx, 1);
+        
+        saveProjectData();
+        render();
+        showToast('Unparked');
+    }
+
+    function deleteParkedCell(parkedIdx) {
+        if (parkedIdx < 0 || parkedIdx >= parkedCells.length) return;
+        parkedCells.splice(parkedIdx, 1);
+        saveProjectData();
+        render();
+        showToast('Deleted from parking');
+    }
+
+    function renderParking() {
+        const container = document.getElementById('parking-grid');
+        const emptyMsg = document.getElementById('parking-empty');
+        
+        if (parkedCells.length === 0) {
+            emptyMsg.style.display = 'block';
+            // Remove any parked cell elements
+            container.querySelectorAll('.parked-cell').forEach(el => el.remove());
+        } else {
+            emptyMsg.style.display = 'none';
+            
+            // Clear existing parked cells
+            container.querySelectorAll('.parked-cell').forEach(el => el.remove());
+            
+            // Render each parked cell
+            parkedCells.forEach((cell, idx) => {
+                const div = document.createElement('div');
+                div.className = 'parked-cell';
+                div.dataset.parkedIdx = idx;
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'parked-cell-text';
+                textDiv.textContent = cell.text || 'Empty';
+                div.appendChild(textDiv);
+                
+                // Indicator if has children
+                if (hasContent(cell)) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'parked-cell-indicator';
+                    indicator.innerHTML = '📁 nested';
+                    div.appendChild(indicator);
+                }
+                
+                // Delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'parked-cell-delete';
+                deleteBtn.textContent = '×';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (confirm('Delete this parked cell?')) {
+                        deleteParkedCell(idx);
+                    }
+                };
+                div.appendChild(deleteBtn);
+                
+                // Tap to select for unparking
+                div.onclick = (e) => {
+                    if (e.target === deleteBtn) return;
+                    selectParkedCell(idx);
+                };
+                
+                container.appendChild(div);
+            });
+        }
+    }
+
+    let selectedParkedIdx = null;
+
+    function selectParkedCell(idx) {
+        selectedParkedIdx = idx;
+        
+        // Visual feedback
+        document.querySelectorAll('.parked-cell').forEach(el => {
+            el.style.borderColor = '#999';
+            el.style.background = 'white';
+        });
+        const selected = document.querySelector(`.parked-cell[data-parked-idx="${idx}"]`);
+        if (selected) {
+            selected.style.borderColor = '#FF9800';
+            selected.style.background = '#FFF3E0';
+        }
+        
+        showToast('Parked cell selected - tap empty grid cell to unpark');
+    }
+
+    function deselectParkedCell() {
+        selectedParkedIdx = null;
+        document.querySelectorAll('.parked-cell').forEach(el => {
+            el.style.borderColor = '#999';
+            el.style.background = 'white';
+        });
+    }
+
+    function getCurrentGrid() {
+        let grid = projectData;
+        for (const idx of navPath) {
+            if (!grid.cells[idx].children) {
+                grid.cells[idx].children = createEmptyGrid();
+            }
+            grid = grid.cells[idx].children;
+        }
+        return grid;
+    }
+
+    function getParentText() {
+        if (navPath.length === 0) return null;
+        let grid = projectData;
+        for (let i = 0; i < navPath.length - 1; i++) {
+            grid = grid.cells[navPath[i]].children;
+        }
+        return grid.cells[navPath[navPath.length - 1]].text || '';
+    }
+
+    function drillDown(idx) {
+        if (idx === 4) return;
+        const grid = getCurrentGrid();
+        if (!grid.cells[idx].children) {
+            grid.cells[idx].children = createEmptyGrid();
+            // Set children's center to parent cell's text
+            grid.cells[idx].children.cells[4].text = grid.cells[idx].text || '';
+            saveProjectData();
+        }
+        navPath = [...navPath, idx];
+        render();
+    }
+
+    function goBack() {
+        if (navPath.length > 0) {
+            navPath = navPath.slice(0, -1);
+            render();
+        }
+    }
+
+    function goHome() {
+        navPath = [];
+        render();
+    }
+
+    function navigateTo(newPath) {
+        navPath = newPath;
+        render();
+    }
+
+    function newProject() {
+        const name = prompt('New project name:');
+        if (name && name.trim()) {
+            const n = name.trim();
+            if (projects.includes(n)) {
+                showToast('Already exists');
+                return;
+            }
+            projects.push(n);
+            currentProject = n;
+            projectData = createEmptyGrid();
+            parkedCells = [];
+            navPath = [];
+            saveProjects();
+            saveProjectData();
+            render();
+            showToast('Created: ' + n);
+        }
+    }
+
+    function renameProject() {
+        const name = prompt('Rename to:', currentProject);
+        if (name && name.trim() && name.trim() !== currentProject) {
+            const n = name.trim();
+            if (projects.includes(n)) {
+                showToast('Name exists');
+                return;
+            }
+            const oldKey = 'mandalart-data-' + currentProject;
+            const data = localStorage.getItem(oldKey);
+            localStorage.removeItem(oldKey);
+            const idx = projects.indexOf(currentProject);
+            projects[idx] = n;
+            currentProject = n;
+            if (data) localStorage.setItem('mandalart-data-' + n, data);
+            saveProjects();
+            render();
+            showToast('Renamed');
+        }
+    }
+
+    function deleteProject() {
+        if (projects.length === 1) {
+            showToast('Cannot delete only project');
+            return;
+        }
+        if (confirm('Delete "' + currentProject + '"?')) {
+            localStorage.removeItem('mandalart-data-' + currentProject);
+            projects = projects.filter(p => p !== currentProject);
+            currentProject = projects[0];
+            loadProjectData();
+            saveProjects();
+            render();
+            showToast('Deleted');
+        }
+    }
+
+    function switchProject(val) {
+        currentProject = val;
+        loadProjectData();
+        saveProjects();
+        render();
+    }
+
+    function render() {
+        renderProjectSelect();
+        renderBreadcrumbs();
+        renderContext();
+        renderGrid();
+        renderParking();
+        document.getElementById('btn-back').style.display = navPath.length > 0 ? 'inline-block' : 'none';
+    }
+
+    function renderProjectSelect() {
+        const sel = document.getElementById('project-select');
+        sel.innerHTML = projects.map(p => 
+            `<option value="${escapeHtml(p)}" ${p === currentProject ? 'selected' : ''}>${escapeHtml(p)}</option>`
+        ).join('');
+    }
+
+    function renderBreadcrumbs() {
+        const container = document.getElementById('breadcrumbs');
+        if (navPath.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+        
+        let html = '<button class="breadcrumb-btn inactive" onclick="navigateTo([])">Home</button>';
+        let grid = projectData;
+        
+        for (let i = 0; i < navPath.length; i++) {
+            const idx = navPath[i];
+            const text = grid.cells[idx].text || 'Cell ' + (idx + 1);
+            const pathStr = JSON.stringify(navPath.slice(0, i + 1));
+            const isLast = i === navPath.length - 1;
+            html += '<span class="breadcrumb-arrow">-></span>';
+            html += `<button class="breadcrumb-btn ${isLast ? 'active' : 'inactive'}" onclick='navigateTo(${pathStr})'>${escapeHtml(text)}</button>`;
+            if (grid.cells[idx].children) {
+                grid = grid.cells[idx].children;
+            }
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function renderContext() {
+        const container = document.getElementById('context');
+        const text = getParentText();
+        if (text) {
+            document.getElementById('context-text').textContent = text;
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+
+    function renderGrid() {
+        const grid = getCurrentGrid();
+        const container = document.getElementById('grid');
+        const parentText = getParentText();
+        
+        container.innerHTML = '';
+        
+        // Only render exactly 9 cells (indices 0-8)
+        for (let index = 0; index < 9; index++) {
+            const cell = grid.cells[index] || { text: '', children: null };
+            const isCenter = index === 4;
+            const cellHasChildren = !isCenter && hasContent(cell);
+            
+            const div = document.createElement('div');
+            div.className = 'cell';
+            div.dataset.index = index;
+            
+            if (isCenter) {
+                div.classList.add('cell-center');
+            } else if (cellHasChildren) {
+                div.classList.add('cell-has-children');
+            } else if (cell.text) {
+                div.classList.add('cell-filled');
+            } else {
+                div.classList.add('cell-empty');
+            }
+            
+            if (cell.completed && cell.text) {
+                div.classList.add('cell-completed');
+            }
+            
+            let content;
+            const getStyle = (c) => {
+                let style = '';
+                if (c.bold) style += 'font-weight:bold;';
+                if (c.underline) style += 'text-decoration:underline;';
+                if (c.fontSize === 'small') style += 'font-size:0.65rem;';
+                else if (c.fontSize === 'large') style += 'font-size:0.95rem;';
+                return style ? ` style="${style}"` : '';
+            };
+            
+            if (isCenter) {
+                if (navPath.length > 0) {
+                    content = `<span class="cell-text">${escapeHtml(parentText) || 'Back'}</span>`;
+                } else {
+                    content = cell.text 
+                        ? `<div class="cell-checkbox${cell.completed ? ' checked' : ''}" onclick="event.stopPropagation(); toggleCompleted(${index})">${cell.completed ? 'v' : ''}</div><span class="cell-text"${getStyle(cell)}>${escapeHtml(cell.text)}</span>`
+                        : `<span class="cell-text cell-placeholder">Center</span>`;
+                }
+            } else {
+                content = cell.text 
+                    ? `<div class="cell-checkbox${cell.completed ? ' checked' : ''}" onclick="event.stopPropagation(); toggleCompleted(${index})">${cell.completed ? 'v' : ''}</div><span class="cell-text"${getStyle(cell)}>${escapeHtml(cell.text)}</span>`
+                    : `<span class="cell-text cell-placeholder">+</span>`;
+                if (cellHasChildren) {
+                    content += '<div class="cell-indicator"></div>';
+                }
+                if (cell.notes && cell.notes.trim()) {
+                    content += '<div class="cell-notes-indicator">📝</div>';
+                }
+            }
+            div.innerHTML = content;
+            
+            if (!isCenter) {
+                div.draggable = true;
+            }
+            
+            let clickTimer = null;
+            
+            div.addEventListener('click', (e) => {
+                if (e.target.classList.contains('cell-indicator')) return;
+                if (e.target.classList.contains('cell-checkbox')) return; // Has its own onclick
+                
+                if (isCenter && navPath.length > 0) {
+                    goBack();
+                    return;
+                }
+                
+                // Check if parked cell is selected - unpark it
+                if (!isCenter && selectedParkedIdx !== null) {
+                    const grid = getCurrentGrid();
+                    if (!grid.cells[index].text && !hasContent(grid.cells[index])) {
+                        unparkCell(selectedParkedIdx, index);
+                        deselectParkedCell();
+                    } else {
+                        showToast('Cell not empty');
+                    }
+                    return;
+                }
+                
+                if (!isCenter) {
+                    if (clickTimer) {
+                        clearTimeout(clickTimer);
+                        clickTimer = null;
+                    }
+                    // Use longer delay on touch devices to allow double-tap detection
+                    const delay = ('ontouchstart' in window) ? 350 : 250;
+                    clickTimer = setTimeout(() => {
+                        startEditing(index);
+                        clickTimer = null;
+                    }, delay);
+                } else {
+                    startEditing(index);
+                }
+            });
+            
+            div.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                if (!isCenter) {
+                    if (clickTimer) {
+                        clearTimeout(clickTimer);
+                        clickTimer = null;
+                    }
+                    drillDown(index);
+                }
+            });
+            
+            div.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                if (!isCenter) {
+                    const c = getCurrentGrid().cells[index];
+                    if (c.text || hasContent(c)) {
+                        showContextMenu(e.clientX, e.clientY, index);
+                    }
+                }
+            });
+            
+            if (!isCenter) {
+                div.addEventListener('dragstart', (e) => {
+                    draggedIdx = index;
+                    div.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    document.getElementById('delete-zone').style.display = 'flex';
+                    if (navPath.length > 0) {
+                        document.getElementById('parent-zone').style.display = 'block';
+                    }
+                });
+                
+                div.addEventListener('dragend', () => {
+                    div.classList.remove('dragging');
+                    draggedIdx = null;
+                    currentDropZone = null;
+                    document.getElementById('delete-zone').style.display = 'none';
+                    document.getElementById('parent-zone').style.display = 'none';
+                    document.querySelectorAll('.drag-over, .drag-over-edge, .drag-over-center').forEach(el => {
+                        el.classList.remove('drag-over', 'drag-over-edge', 'drag-over-center');
+                    });
+                });
+                
+                div.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (draggedIdx !== null && draggedIdx !== index) {
+                        currentDropZone = getDropZone(e.clientX, e.clientY, div);
+                        div.classList.add('drag-over');
+                        div.classList.remove('drag-over-edge', 'drag-over-center');
+                        div.classList.add(currentDropZone === 'edge' ? 'drag-over-edge' : 'drag-over-center');
+                    }
+                });
+                
+                div.addEventListener('dragleave', () => {
+                    div.classList.remove('drag-over', 'drag-over-edge', 'drag-over-center');
+                });
+                
+                div.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    div.classList.remove('drag-over', 'drag-over-edge', 'drag-over-center');
+                    
+                    // Normal cell-to-cell drag
+                    if (draggedIdx !== null && draggedIdx !== index) {
+                        if (currentDropZone === 'center') {
+                            nestCell(draggedIdx, index);
+                        } else {
+                            swapCells(draggedIdx, index);
+                        }
+                    }
+                });
+                
+                // Touch events for mobile - TAP TO SELECT system
+                div.addEventListener('touchstart', (e) => {
+                    if (e.touches.length !== 1) return;
+                    const touch = e.touches[0];
+                    touchStartPos = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+                }, { passive: true });
+                
+                div.addEventListener('touchend', (e) => {
+                    if (!touchStartPos) return;
+                    
+                    const touch = e.changedTouches[0];
+                    if (!touch) {
+                        touchStartPos = null;
+                        return;
+                    }
+                    
+                    const deltaX = Math.abs(touch.clientX - touchStartPos.x);
+                    const deltaY = Math.abs(touch.clientY - touchStartPos.y);
+                    const deltaTime = Date.now() - touchStartPos.time;
+                    
+                    // Ignore if finger moved too much (was scrolling)
+                    if (deltaX > 20 || deltaY > 20) {
+                        touchStartPos = null;
+                        return;
+                    }
+                    
+                    // Ignore if held too long (not a tap)
+                    if (deltaTime > 500) {
+                        touchStartPos = null;
+                        return;
+                    }
+                    
+                    // It's a valid tap!
+                    e.preventDefault();
+                    
+                    // Double-tap detection for drill down
+                    const now = Date.now();
+                    if (lastTapCell === index && now - lastTapTime < 300) {
+                        // Double tap - drill down
+                        if (clickTimer) {
+                            clearTimeout(clickTimer);
+                            clickTimer = null;
+                        }
+                        lastTapTime = 0;
+                        lastTapCell = null;
+                        cancelSelection();
+                        if (!isCenter) {
+                            drillDown(index);
+                        } else if (navPath.length > 0) {
+                            goBack();
+                        }
+                        touchStartPos = null;
+                        return;
+                    }
+                    lastTapTime = now;
+                    lastTapCell = index;
+                    
+                    // Cancel any pending click timer
+                    if (clickTimer) {
+                        clearTimeout(clickTimer);
+                        clickTimer = null;
+                    }
+                    
+                    // Handle tap based on current state
+                    if (isCenter) {
+                        // Center cell - go back if nested, else edit
+                        if (navPath.length > 0) {
+                            goBack();
+                        } else {
+                            startEditing(index);
+                        }
+                    } else if (selectedParkedIdx !== null) {
+                        // Parked cell is selected - unpark it here
+                        const grid = getCurrentGrid();
+                        if (!grid.cells[index].text && !hasContent(grid.cells[index])) {
+                            unparkCell(selectedParkedIdx, index);
+                            deselectParkedCell();
+                        } else {
+                            showToast('Cell not empty');
+                        }
+                    } else if (pendingAction && selectedCellIdx !== null) {
+                        // Action pending - this is the target
+                        handleTargetTap(index);
+                    } else if (selectedCellIdx === index) {
+                        // Tapped same cell - edit it
+                        cancelSelection();
+                        startEditing(index);
+                    } else {
+                        // Select this cell
+                        selectCell(index);
+                    }
+                    
+                    touchStartPos = null;
+                }, { passive: false });
+                
+                div.addEventListener('touchcancel', () => {
+                    touchStartPos = null;
+                }, { passive: true });
+            }
+            
+            container.appendChild(div);
+        }
+    }
+    
+    function toggleCompleted(index) {
+        const grid = getCurrentGrid();
+        const cell = grid.cells[index];
+        cell.completed = !cell.completed;
+        saveProjectData();
+        render();
+    }
+
+    function startEditing(index) {
+        const grid = getCurrentGrid();
+        const cellEl = document.querySelector(`.cell[data-index="${index}"]`);
+        const cell = grid.cells[index];
+        const currentText = cell.text || '';
+        const currentBold = cell.bold || false;
+        const currentUnderline = cell.underline || false;
+        const currentFontSize = cell.fontSize || 'medium';
+        
+        // Track current formatting state
+        let isBold = currentBold;
+        let isUnderline = currentUnderline;
+        let fontSize = currentFontSize;
+        
+        cellEl.innerHTML = `
+            <div class="cell-edit-container">
+                <div class="format-toolbar">
+                    <button type="button" class="format-btn format-btn-size ${fontSize === 'small' ? 'active' : ''}" data-size="small">S</button>
+                    <button type="button" class="format-btn format-btn-size ${fontSize === 'medium' ? 'active' : ''}" data-size="medium">M</button>
+                    <button type="button" class="format-btn format-btn-size ${fontSize === 'large' ? 'active' : ''}" data-size="large">L</button>
+                    <button type="button" class="format-btn format-btn-bold ${isBold ? 'active' : ''}" id="bold-btn">B</button>
+                    <button type="button" class="format-btn format-btn-underline ${isUnderline ? 'active' : ''}" id="underline-btn">U</button>
+                </div>
+                <textarea class="cell-input" placeholder="Add idea...">${escapeHtml(currentText)}</textarea>
+            </div>
+        `;
+        
+        const input = cellEl.querySelector('textarea');
+        const boldBtn = cellEl.querySelector('#bold-btn');
+        const underlineBtn = cellEl.querySelector('#underline-btn');
+        const sizeBtns = cellEl.querySelectorAll('.format-btn-size');
+        
+        // Apply current formatting to input
+        const updateInputStyle = () => {
+            input.style.fontWeight = isBold ? 'bold' : 'normal';
+            input.style.textDecoration = isUnderline ? 'underline' : 'none';
+            input.style.fontSize = fontSize === 'small' ? '0.65rem' : fontSize === 'large' ? '0.95rem' : '0.8rem';
+        };
+        updateInputStyle();
+        
+        input.focus();
+        input.select();
+        
+        // Paste handler for nested lists
+        input.addEventListener('paste', (e) => {
+            const pastedText = e.clipboardData.getData('text');
+            const lines = pastedText.split('\n').filter(l => l.trim());
+            
+            // Only handle multi-line pastes
+            if (lines.length > 1) {
+                e.preventDefault();
+                const result = parseAndPopulateFromList(index, pastedText);
+                if (result) {
+                    showToast('Pasted ' + result + ' items');
+                    render();
+                    return;
+                }
+            }
+            // Single line or parse failed - let default paste happen
+        });
+        
+        // Size button handlers
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                fontSize = btn.dataset.size;
+                sizeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateInputStyle();
+                input.focus();
+            });
+            btn.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+            });
+        });
+        
+        // Format button handlers
+        boldBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isBold = !isBold;
+            boldBtn.classList.toggle('active', isBold);
+            updateInputStyle();
+            input.focus();
+        });
+        
+        underlineBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isUnderline = !isUnderline;
+            underlineBtn.classList.toggle('active', isUnderline);
+            updateInputStyle();
+            input.focus();
+        });
+        
+        // Prevent button clicks from triggering blur
+        boldBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
+        underlineBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
+        
+        const finish = () => {
+            cell.text = input.value.trim();
+            cell.bold = isBold;
+            cell.underline = isUnderline;
+            cell.fontSize = fontSize;
+            saveProjectData();
+            render();
+        };
+        
+        input.addEventListener('blur', () => {
+            // Short delay to allow button clicks to process first
+            setTimeout(finish, 100);
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                finish();
+            }
+            if (e.key === 'Escape') {
+                render();
+            }
+        });
+    }
+
+    // Parse nested list text and populate into grid structure
+    // Clockwise order from top-left: 0, 1, 2, 5, 8, 7, 6, 3
+    function parseAndPopulateFromList(cellIndex, text) {
+        const clockwiseOrder = [0, 1, 2, 5, 8, 7, 6, 3];
+        
+        // Parse text into tree structure
+        function parseLines(text) {
+            const lines = text.split('\n');
+            const root = { text: '', children: [] };
+            const stack = [{ node: root, indent: -1 }];
+            
+            for (const line of lines) {
+                if (!line.trim()) continue;
+                
+                // Calculate indent level (tabs or spaces)
+                const match = line.match(/^(\s*)/);
+                const indentStr = match ? match[1] : '';
+                // Treat tab as 2 spaces, or count leading spaces
+                const indent = indentStr.replace(/\t/g, '  ').length;
+                
+                // Remove common list prefixes: -, *, â€¢, numbers
+                let cleanText = line.trim().replace(/^[-*â€¢]\s*/, '').replace(/^\d+[.)]\s*/, '');
+                
+                const newNode = { text: cleanText, children: [] };
+                
+                // Pop stack until we find parent with smaller indent
+                while (stack.length > 1 && stack[stack.length - 1].indent >= indent) {
+                    stack.pop();
+                }
+                
+                // Add as child of current top
+                stack[stack.length - 1].node.children.push(newNode);
+                stack.push({ node: newNode, indent: indent });
+            }
+            
+            return root.children;
+        }
+        
+        // Convert tree to MandalArt grid structure
+        function treeToGrid(nodes) {
+            const grid = createEmptyGrid();
+            
+            // First node text goes to center
+            if (nodes.length > 0) {
+                grid.cells[4].text = nodes[0].text;
+                
+                // If first node has children, they go around it
+                const children = nodes[0].children;
+                for (let i = 0; i < Math.min(children.length, 8); i++) {
+                    const pos = clockwiseOrder[i];
+                    grid.cells[pos].text = children[i].text;
+                    
+                    // Recurse if this child has children
+                    if (children[i].children.length > 0) {
+                        grid.cells[pos].children = treeToGrid([children[i]]);
+                    }
+                }
+            }
+            
+            return grid;
+        }
+        
+        const parsed = parseLines(text);
+        if (parsed.length === 0) return 0;
+        
+        const grid = getCurrentGrid();
+        const cell = grid.cells[cellIndex];
+        
+        // Count total items
+        function countNodes(nodes) {
+            return nodes.reduce((sum, n) => sum + 1 + countNodes(n.children), 0);
+        }
+        const totalItems = countNodes(parsed);
+        
+        // Set this cell's text to first item
+        cell.text = parsed[0].text;
+        
+        // If there are children, create nested grid
+        if (parsed[0].children.length > 0) {
+            cell.children = createEmptyGrid();
+            cell.children.cells[4].text = parsed[0].text; // Center = parent text
+            
+            const children = parsed[0].children;
+            for (let i = 0; i < Math.min(children.length, 8); i++) {
+                const pos = clockwiseOrder[i];
+                cell.children.cells[pos].text = children[i].text;
+                
+                // Recurse for deeper nesting
+                if (children[i].children.length > 0) {
+                    cell.children.cells[pos].children = treeToGrid([children[i]]);
+                }
+            }
+        }
+        
+        saveProjectData();
+        return totalItems;
+    }
+
+    function swapCells(from, to) {
+        if (from === to || from === 4 || to === 4) return;
+        const grid = getCurrentGrid();
+        const temp = grid.cells[from];
+        grid.cells[from] = grid.cells[to];
+        grid.cells[to] = temp;
+        saveProjectData();
+        render();
+        showToast('Cells swapped');
+    }
+
+    function deleteCell(idx) {
+        if (idx === null || idx === 4) return;
+        const grid = getCurrentGrid();
+        const cell = grid.cells[idx];
+        if (!cell.text && !hasContent(cell)) {
+            showToast('Cell is already empty');
+            return;
+        }
+        grid.cells[idx] = { text: '', children: null };
+        saveProjectData();
+        render();
+        showToast('Cell deleted');
+    }
+
+    function showMoveModal(idx) {
+        cellToMove = idx;
+        const sel = document.getElementById('move-select');
+        sel.innerHTML = projects.filter(p => p !== currentProject)
+            .map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+        if (sel.options.length === 0) {
+            showToast('No other projects');
+            return;
+        }
+        document.getElementById('move-modal').style.display = 'flex';
+    }
+
+    function hideMoveModal() {
+        document.getElementById('move-modal').style.display = 'none';
+        cellToMove = null;
+    }
+
+    function showContextMenu(x, y, idx) {
+        contextMenuCellIdx = idx;
+        const menu = document.getElementById('context-menu');
+        const moveBtn = document.getElementById('ctx-move');
+        
+        // Show/hide move option based on whether there are other projects
+        moveBtn.style.display = projects.length > 1 ? 'block' : 'none';
+        
+        // Position menu
+        menu.style.left = x + 'px';
+        menu.style.top = y + 'px';
+        menu.style.display = 'block';
+        
+        // Adjust if menu goes off screen
+        const rect = menu.getBoundingClientRect();
+        if (rect.right > window.innerWidth) {
+            menu.style.left = (x - rect.width) + 'px';
+        }
+        if (rect.bottom > window.innerHeight) {
+            menu.style.top = (y - rect.height) + 'px';
+        }
+    }
+
+    function hideContextMenu() {
+        document.getElementById('context-menu').style.display = 'none';
+        contextMenuCellIdx = null;
+    }
+
+    function confirmMove() {
+        const target = document.getElementById('move-select').value;
+        if (!target || cellToMove === null) return;
+        
+        const grid = getCurrentGrid();
+        const cellData = JSON.parse(JSON.stringify(grid.cells[cellToMove]));
+        
+        let targetData;
+        try {
+            const saved = localStorage.getItem('mandalart-data-' + target);
+            targetData = saved ? JSON.parse(saved) : createEmptyGrid();
+        } catch(e) { targetData = createEmptyGrid(); }
+        
+        const order = [0,1,2,3,5,6,7,8];
+        let placed = false;
+        for (const i of order) {
+            if (!targetData.cells[i].text && !hasContent(targetData.cells[i])) {
+                targetData.cells[i] = cellData;
+                placed = true;
+                break;
+            }
+        }
+        
+        if (!placed) {
+            showToast('Target project is full');
+            hideMoveModal();
+            return;
+        }
+        
+        grid.cells[cellToMove] = { text: '', children: null };
+        
+        localStorage.setItem('mandalart-data-' + target, JSON.stringify(targetData));
+        saveProjectData();
+        
+        hideMoveModal();
+        render();
+        showToast('Moved to ' + target);
+    }
+
+    function escapeXml(str) {
+        if (!str) return '';
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+    }
+
+    function exportOPML() {
+        function cellAttrs(cell, pos) {
+            let attrs = ' pos="' + pos + '"';
+            if (cell.completed) attrs += ' completed="true"';
+            if (cell.bold) attrs += ' bold="true"';
+            if (cell.underline) attrs += ' underline="true"';
+            if (cell.fontSize && cell.fontSize !== 'medium') attrs += ' fontSize="' + cell.fontSize + '"';
+            if (cell.notes && cell.notes.trim()) attrs += ' notes="' + escapeXml(cell.notes) + '"';
+            return attrs;
+        }
+        
+        function buildOutline(grid, indent, fallbackCenterText) {
+            const sp = '  '.repeat(indent);
+            let xml = '';
+            const center = grid.cells[4];
+            const centerText = center.text || fallbackCenterText || '';
+            if (centerText) {
+                xml += sp + '<outline text="' + escapeXml(centerText) + '"' + cellAttrs(center, 4) + '>\n';
+                const order = [0,1,2,3,5,6,7,8];
+                for (const i of order) {
+                    const c = grid.cells[i];
+                    if (c.text || hasContent(c)) {
+                        const attrs = cellAttrs(c, i);
+                        if (c.children && hasContent(c)) {
+                            xml += sp + '  <outline text="' + escapeXml(c.text) + '"' + attrs + '>\n';
+                            // Pass cell text as fallback for children's center
+                            xml += buildOutline(c.children, indent + 2, c.text);
+                            xml += sp + '  </outline>\n';
+                        } else {
+                            xml += sp + '  <outline text="' + escapeXml(c.text) + '"' + attrs + '/>\n';
+                        }
+                    }
+                }
+                xml += sp + '</outline>\n';
+            }
+            return xml;
+        }
+        
+        let opml = '<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0">\n  <head>\n    <title>' + escapeXml(currentProject) + '</title>\n  </head>\n  <body>\n';
+        opml += buildOutline(projectData, 2, null);
+        opml += '  </body>\n</opml>';
+        
+        const blob = new Blob([opml], {type: 'application/xml'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = currentProject + '.opml';
+        a.click();
+        showToast('Exported');
+    }
+
+    function importOPML(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(e.target.result, 'application/xml');
+                if (doc.querySelector('parsererror')) throw new Error('Invalid OPML');
+                
+                function parseOutlineElement(outlineEl) {
+                    // Helper to read cell attributes
+                    function readCellAttrs(el, cell) {
+                        cell.completed = el.getAttribute('completed') === 'true';
+                        cell.bold = el.getAttribute('bold') === 'true';
+                        cell.underline = el.getAttribute('underline') === 'true';
+                        const fontSize = el.getAttribute('fontSize');
+                        if (fontSize) cell.fontSize = fontSize;
+                        const notes = el.getAttribute('notes');
+                        if (notes) cell.notes = notes;
+                    }
+                    
+                    // Parse a single outline element and its children into a grid
+                    const grid = createEmptyGrid();
+                    
+                    // This outline's text becomes the center
+                    grid.cells[4].text = outlineEl.getAttribute('text') || '';
+                    readCellAttrs(outlineEl, grid.cells[4]);
+                    
+                    // Its direct children become the surrounding cells
+                    const children = outlineEl.querySelectorAll(':scope > outline');
+                    const fallbackOrder = [0,1,2,3,5,6,7,8];
+                    let fallbackIdx = 0;
+                    
+                    children.forEach((child) => {
+                        // Try to get position from pos attribute, fallback to sequential
+                        let idx = parseInt(child.getAttribute('pos'));
+                        if (isNaN(idx) || idx < 0 || idx > 8 || idx === 4) {
+                            // No valid pos, use fallback order
+                            idx = fallbackOrder[fallbackIdx++];
+                        }
+                        
+                        if (idx >= 0 && idx <= 8 && idx !== 4) {
+                            grid.cells[idx].text = child.getAttribute('text') || '';
+                            readCellAttrs(child, grid.cells[idx]);
+                            
+                            // If this child has its own children, recurse
+                            const grandchildren = child.querySelectorAll(':scope > outline');
+                            if (grandchildren.length > 0) {
+                                grid.cells[idx].children = parseOutlineElement(grandchildren[0]);
+                            }
+                        }
+                    });
+                    
+                    return grid;
+                }
+                
+                const body = doc.querySelector('body');
+                if (body) {
+                    // Find the root outline(s)
+                    const rootOutlines = body.querySelectorAll(':scope > outline');
+                    if (rootOutlines.length > 0) {
+                        projectData = parseOutlineElement(rootOutlines[0]);
+                    } else {
+                        projectData = createEmptyGrid();
+                    }
+                    navPath = [];
+                    saveProjectData();
+                    render();
+                    showToast('Imported');
+                }
+            } catch(err) {
+                showToast('Import failed: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function triggerImport() {
+        document.getElementById('import-input').click();
+    }
+
+    function handleImport(e) {
+        if (e.target.files[0]) importOPML(e.target.files[0]);
+        e.target.value = '';
+    }
+
+    function clearProject() {
+        if (confirm('Clear all in this project?')) {
+            projectData = createEmptyGrid();
+            parkedCells = [];
+            navPath = [];
+            saveProjectData();
+            render();
+            showToast('Cleared');
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProjects();
+        render();
+        
+        document.getElementById('import-input').addEventListener('change', handleImport);
+        document.getElementById('move-cancel').addEventListener('click', hideMoveModal);
+        document.getElementById('move-confirm').addEventListener('click', confirmMove);
+        document.getElementById('move-modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) hideMoveModal();
+        });
+        
+        // Notes modal handlers
+        document.getElementById('notes-cancel').addEventListener('click', hideNotesModal);
+        document.getElementById('notes-save').addEventListener('click', saveNotes);
+        document.getElementById('notes-modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) hideNotesModal();
+        });
+        document.getElementById('notes-textarea').addEventListener('input', updateNotesCount);
+        
+        // Context menu handlers
+        document.getElementById('ctx-copy-list').addEventListener('click', () => {
+            if (contextMenuCellIdx !== null) {
+                copyAsNestedList(contextMenuCellIdx);
+            }
+            hideContextMenu();
+        });
+        document.getElementById('ctx-export').addEventListener('click', () => {
+            if (contextMenuCellIdx !== null) {
+                exportCellOPML(contextMenuCellIdx);
+            }
+            hideContextMenu();
+        });
+        document.getElementById('ctx-move').addEventListener('click', () => {
+            if (contextMenuCellIdx !== null) {
+                showMoveModal(contextMenuCellIdx);
+            }
+            hideContextMenu();
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.context-menu')) {
+                hideContextMenu();
+            }
+        });
+        
+        // Parent zone drag handlers (desktop)
+        const parentZone = document.getElementById('parent-zone');
+        parentZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (draggedIdx !== null) {
+                parentZone.classList.add('drag-over');
+            }
+        });
+        parentZone.addEventListener('dragleave', () => {
+            parentZone.classList.remove('drag-over');
+        });
+        parentZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            parentZone.classList.remove('drag-over');
+            if (draggedIdx !== null) {
+                moveToParent(draggedIdx);
+            }
+        });
+        
+        // Parent zone touch handlers (mobile)
+        parentZone.addEventListener('touchend', (e) => {
+            if (draggedIdx !== null) {
+                e.preventDefault();
+                moveToParent(draggedIdx);
+                cleanupDrag();
+            }
+        }, { passive: false });
+        
+        // Delete zone touch handler (mobile)
+        const deleteZone = document.getElementById('delete-zone');
+        deleteZone.addEventListener('touchend', (e) => {
+            if (draggedIdx !== null) {
+                e.preventDefault();
+                deleteCell(draggedIdx);
+                cleanupDrag();
+            }
+        }, { passive: false });
+        
+        // Delete zone drag handlers (desktop)
+        deleteZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (draggedIdx !== null) {
+                deleteZone.classList.add('drag-over');
+            }
+        });
+        deleteZone.addEventListener('dragleave', () => {
+            deleteZone.classList.remove('drag-over');
+        });
+        deleteZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            deleteZone.classList.remove('drag-over');
+            if (draggedIdx !== null) {
+                deleteCell(draggedIdx);
+            }
+        });
+        
+        // Global fallback: if touch ends anywhere and drag is active, clean up
+        document.addEventListener('touchend', (e) => {
+            // Small delay to let specific handlers run first
+            setTimeout(() => {
+                if (draggedIdx !== null && touchDragEl) {
+                    console.log('Global touchend cleanup triggered');
+                    cleanupDrag();
+                }
+            }, 50);
+        }, { passive: true });
+        
+    });
+    </script>
+    <script>
+    // Service Worker Registration for PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW registration failed:', err));
+        });
+    }
+    </script>
+
+
+</body></html>
