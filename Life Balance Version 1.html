@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Life</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lucida Grande',Arial,sans-serif;font-size:11px;background:#f0f0f0;color:#333}
+.window{background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 100%);border:1px solid #999;border-radius:8px 8px 0 0;box-shadow:0 4px 20px rgba(0,0,0,.3);margin:20px;overflow:hidden}
+.title-bar{background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 100%);border-bottom:1px solid #999;height:22px;display:flex;align-items:center;padding:0 8px}
+.traffic-lights{display:flex;gap:6px;margin-right:10px}
+.traffic-light{width:12px;height:12px;border-radius:50%;border:1px solid #666}
+.close{background:#ff5f57}.minimize{background:#ffbd2e}.maximize{background:#28ca42}
+.window-title{flex:1;text-align:center;font-weight:bold;font-size:13px}
+.toolbar{background:linear-gradient(to bottom,#f5f5f5 0%,#e8e8e8 100%);border-bottom:1px solid #ccc;padding:6px 8px;display:flex;gap:6px;align-items:center}
+.tab{background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 100%);border:1px solid #999;border-radius:4px;padding:4px 12px;cursor:pointer;user-select:none}
+.tab.active{background:linear-gradient(to bottom,#4a90e2 0%,#357abd 100%);color:#fff}
+.button{background:linear-gradient(to bottom,#f5f5f5 0%,#e8e8e8 100%);border:1px solid #999;border-radius:4px;padding:4px 12px;cursor:pointer}
+.button:hover{background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 100%)}
+.content{display:flex;height:640px;background:#f8f8f8}
+.left-panel{width:420px;padding:12px;border-right:1px solid #ccc;background:#fff;display:flex;flex-direction:column}
+.right-panel{flex:1;padding:12px;background:#f0f0f0;display:flex;flex-direction:column;gap:8px}
+.panel-card{background:#fff;border:1px solid #ccc;border-radius:4px}
+.inline-controls{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.small{font-size:10px;color:#666}
+.task-list{background:#fff;border:1px solid #ccc;border-radius:4px;overflow:auto;flex:1}
+.task-row{display:flex;align-items:center;gap:6px;padding:3px 6px;border-bottom:1px solid #eee}
+.task-row:hover{background:#e6f3ff}
+.task-row .twisty{width:12px;text-align:center;user-select:none}
+.task-row .title{flex:1;cursor:pointer}
+.task-row .date{font-size:10px;color:#666;cursor:pointer}
+.task-row.overdue{background:#ffe6e6;color:#c00}
+.checkbox{margin-right:4px}
+.calendar{background:#fff;border:1px solid #ccc;border-radius:4px;padding:8px}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:bold}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:#ccc;border:1px solid #ccc}
+.calendar-day{background:#fff;min-height:28px;padding:4px;position:relative;font-size:10px}
+.calendar-day.today{background:#e6f3ff}
+.task-dot{position:absolute;bottom:2px;right:2px;width:4px;height:4px;background:#4a90e2;border-radius:50%}
+.row{display:flex;gap:8px}
+.editor{background:#fff;border:1px solid #ccc;border-radius:4px;flex:1;display:flex;flex-direction:column}
+.editor .header{padding:8px;border-bottom:1px solid #eee}
+.tabs{display:flex;gap:6px;padding:6px;border-bottom:1px solid #eee}
+.tabs .t{padding:4px 8px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}
+.tabs .t.active{background:#4a90e2;color:#fff;border-color:#357abd}
+.tabpage{display:none;padding:8px;gap:8px}
+.tabpage.active{display:grid;grid-template-columns:140px 1fr;align-items:center}
+input[type="text"],input[type="date"],input[type="time"],select,textarea, input[type="number"]{border:1px solid #bbb;border-radius:4px;padding:4px;font-size:11px}
+textarea{min-height:70px}
+.badge{font-size:10px;background:#eee;border:1px solid #ccc;border-radius:3px;padding:2px 6px}
+.view{display:none;width:100%}
+.view.active{display:flex}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:6px;align-items:center}
+.hr{border-top:1px solid #eee;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="title-bar">
+    <div class="traffic-lights"><div class="traffic-light close"></div><div class="traffic-light minimize"></div><div class="traffic-light maximize"></div></div>
+    <div class="window-title">My Life</div>
+  </div>
+
+  <div class="toolbar" id="topbar">
+    <div class="tab active" data-view="outline">📋 Outline</div>
+    <div class="tab" data-view="todo">✓ To Do List</div>
+    <div class="tab" data-view="places">📍 Places</div>
+    <div class="tab" data-view="balance">⚖️ Balance</div>
+    <div style="margin-left:auto;display:flex;gap:6px">
+      <button class="button" id="exportBtn">Export</button>
+      <button class="button" id="importBtn">Import</button>
+      <button class="button" id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OUTLINE -->
+    <div id="view-outline" class="view active">
+      <div class="left-panel">
+        <div class="inline-controls">
+          <button class="button" id="newRootBtn">New Project</button>
+          <button class="button" id="newSubBtn">New Subtask</button>
+        </div>
+        <div class="inline-controls">
+          <select id="outlinePlace"><option value="">All places</option></select>
+          <label class="small"><input id="outlineIncludeClosed" type="checkbox" checked/> include closed places</label>
+          <label class="small"><input id="outlineAvailable" type="checkbox"/> show available now</label>
+        </div>
+        <div class="task-list" id="outlineList"></div>
+      </div>
+
+      <div class="right-panel">
+        <div class="editor" id="taskEditor">
+          <div class="header"><span class="badge">Task Inspector</span></div>
+          <div class="tabs" id="taskTabs">
+            <div class="t active" data-tab="gen">General</div>
+            <div class="t" data-tab="time">Time</div>
+            <div class="t" data-tab="eff">Effort</div>
+            <div class="t" data-tab="note">Note</div>
+          </div>
+
+          <!-- General -->
+          <div class="tabpage active" id="tab-gen">
+            <label>Title</label><input id="t_title" type="text"/>
+            <label>Place</label><select id="t_place"></select>
+            <label>Due date</label><input id="t_due" type="date"/>
+            <label>Starred</label><input id="t_star" type="checkbox"/>
+            <label>Done</label><input id="t_done" type="checkbox"/>
+          </div>
+
+          <!-- Time (NEW: recurrence) -->
+          <div class="tabpage" id="tab-time">
+            <label>Start date</label><input id="r_startDate" type="date"/>
+            <label>Start time</label><input id="r_startTime" type="time"/>
+            <label>Duration (min)</label><input id="r_duration" type="number" min="0" step="5" placeholder="e.g. 60"/>
+
+            <div class="hr" style="grid-column:1/-1"></div>
+
+            <label>Repeat</label>
+            <select id="r_freq">
+              <option value="none">None</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+
+            <label>Every</label>
+            <input id="r_interval" type="number" min="1" value="1"/>
+
+            <!-- Weekly options -->
+            <label class="r-opt r-weekly">Days of week</label>
+            <div class="r-opt r-weekly" id="r_weekdays" style="display:flex;gap:6px">
+              <label><input type="checkbox" value="0"> Sun</label>
+              <label><input type="checkbox" value="1"> Mon</label>
+              <label><input type="checkbox" value="2"> Tue</label>
+              <label><input type="checkbox" value="3"> Wed</label>
+              <label><input type="checkbox" value="4"> Thu</label>
+              <label><input type="checkbox" value="5"> Fri</label>
+              <label><input type="checkbox" value="6"> Sat</label>
+            </div>
+
+            <!-- Monthly options -->
+            <label class="r-opt r-monthly">Monthly mode</label>
+            <div class="r-opt r-monthly">
+              <select id="r_monthlyMode">
+                <option value="day">On day (1–31)</option>
+                <option value="nth">On Nth weekday</option>
+              </select>
+            </div>
+            <label class="r-opt r-monthly r-monthly-day">Day of month</label>
+            <input class="r-opt r-monthly r-monthly-day" id="r_dayOfMonth" type="number" min="1" max="31" value="1"/>
+            <label class="r-opt r-monthly r-monthly-nth">Nth</label>
+            <select class="r-opt r-monthly r-monthly-nth" id="r_nth">
+              <option value="1">1st</option><option value="2">2nd</option>
+              <option value="3">3rd</option><option value="4">4th</option>
+              <option value="5">5th</option>
+            </select>
+            <label class="r-opt r-monthly r-monthly-nth">Weekday</label>
+            <select class="r-opt r-monthly r-monthly-nth" id="r_nthWeekday">
+              <option value="1">Mon</option><option value="2">Tue</option><option value="3">Wed</option>
+              <option value="4">Thu</option><option value="5">Fri</option><option value="6">Sat</option><option value="0">Sun</option>
+            </select>
+
+            <!-- Yearly options -->
+            <label class="r-opt r-yearly">Month</label>
+            <select class="r-opt r-yearly" id="r_yearMonth">
+              <script>/* populated later */</script>
+            </select>
+            <label class="r-opt r-yearly">Day</label>
+            <input class="r-opt r-yearly" id="r_yearDay" type="number" min="1" max="31" value="1"/>
+
+            <div class="hr" style="grid-column:1/-1"></div>
+
+            <label>Ends</label>
+            <select id="r_ends">
+              <option value="never">Never</option>
+              <option value="until">On date</option>
+              <option value="count">After N times</option>
+            </select>
+            <label class="r-opt r-until">Until date</label>
+            <input class="r-opt r-until" id="r_until" type="date"/>
+            <label class="r-opt r-count">Count</label>
+            <input class="r-opt r-count" id="r_count" type="number" min="1" value="10"/>
+
+            <div class="hr" style="grid-column:1/-1"></div>
+
+            <label>Preview</label>
+            <div id="r_preview" class="small" style="white-space:pre-line"></div>
+          </div>
+
+          <!-- Effort -->
+          <div class="tabpage" id="tab-eff">
+            <label>Importance</label><input id="t_imp" type="range" min="0" max="10"/>
+            <label>Effort</label><input id="t_eff" type="range" min="0" max="10"/>
+          </div>
+
+          <!-- Note -->
+          <div class="tabpage" id="tab-note">
+            <label>Notes</label><textarea id="t_notes"></textarea>
+          </div>
+
+          <div style="display:flex;gap:6px;justify-content:flex-end;padding:8px;border-top:1px solid #eee">
+            <button class="button" id="deleteTaskBtn">Delete</button>
+            <button class="button" id="saveTaskBtn">Save</button>
+          </div>
+        </div>
+
+        <div class="calendar">
+          <div class="calendar-header">
+            <button class="button cal-prev" data-target="cal-outline">◀</button>
+            <span id="lab-cal-outline">March 2011</span>
+            <button class="button cal-next" data-target="cal-outline">▶</button>
+          </div>
+          <div id="cal-outline" class="calendar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODO (unchanged, minimal for this step) -->
+    <div id="view-todo" class="view">
+      <div class="left-panel">
+        <div class="inline-controls">
+          <label class="small"><input id="includeClosed" type="checkbox" checked/> include closed places</label>
+        </div>
+        <div class="task-list" id="todoList"></div>
+      </div>
+      <div class="right-panel">
+        <div class="calendar">
+          <div class="calendar-header">
+            <button class="button cal-prev" data-target="cal-todo">◀</button>
+            <span id="lab-cal-todo">2/28/11 - 3/6/11</span>
+            <button class="button cal-next" data-target="cal-todo">▶</button>
+          </div>
+          <div id="cal-todo" class="calendar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACES (hours editor kept simple for this step) -->
+    <div id="view-places" class="view">
+      <div class="left-panel">
+        <div class="inline-controls"><button class="button" id="newPlaceBtn">New Place</button></div>
+        <div class="task-list" id="placeList"></div>
+      </div>
+      <div class="right-panel">
+        <div class="editor" id="placeEditor">
+          <div class="header"><span class="badge">Place Inspector</span></div>
+          <div class="tabpage active" style="display:grid;grid-template-columns:140px 1fr;gap:8px;padding:8px">
+            <label>Name</label><input id="p_name" type="text"/>
+            <label>Note</label><textarea id="p_note"></textarea>
+            <!-- Open/Closed flag: LifeBalance lets you mark a place as open or
+                 closed.  Closed places are hidden from the to‑do list by
+                 default. -->
+            <label>Open</label><input id="p_open" type="checkbox" style="width:auto; height:auto; align-self:start;" />
+          </div>
+          <div style="display:flex;gap:6px;justify-content:flex-end;padding:8px;border-top:1px solid #eee">
+            <button class="button" id="deletePlaceBtn">Delete</button>
+            <button class="button" id="savePlaceBtn">Save</button>
+          </div>
+        </div>
+
+        <div class="calendar">
+          <div class="calendar-header">
+            <button class="button cal-prev" data-target="cal-places">◀</button>
+            <span id="lab-cal-places">2/28/11 - 3/6/11</span>
+            <button class="button cal-next" data-target="cal-places">▶</button>
+          </div>
+          <div id="cal-places" class="calendar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BALANCE -->
+    <div id="view-balance" class="view">
+      <div class="left-panel">
+        <!-- A simple canvas will show the balance bar chart.  Each top‑level
+             project is rendered with two bars: the target importance (0–10)
+             and the actual completion percentage of its subtasks. -->
+        <div class="panel-card" style="padding:8px">
+          <canvas id="balanceChart" width="360" height="240" style="max-width:100%;"></canvas>
+        </div>
+      </div>
+      <div class="right-panel">
+        <div class="calendar">
+          <div class="calendar-header">
+            <button class="button cal-prev" data-target="cal-balance">◀</button>
+            <span id="lab-cal-balance">March 2011</span>
+            <button class="button cal-next" data-target="cal-balance">▶</button>
+          </div>
+          <div id="cal-balance" class="calendar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ---------- utils ----------
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const uuid=()=> (crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(16).slice(2));
+  const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const todayISO=()=> new Date().toISOString().slice(0,10);
+
+  // ---------- state ----------
+  const KEY='lb_time_recur_v1';
+  const defaults = {
+    // Default places now include an explicit open flag.  A place that is
+    // "open" is considered available for scheduling tasks; closed places
+    // can be filtered out of the outline and To‑Do list.  In the original
+    // LifeBalance software, you would mark your current location as open
+    // and other contexts as closed to focus your task list.
+    places:[{id:uuid(),name:'Home',note:'',open:true},{id:uuid(),name:'Office',note:'',open:true}],
+    tasks:[
+      {id:uuid(),title:'Have a dinner party once a month',parent:null,placeId:null,due:'',star:false,done:false,importance:6,effort:5,notes:'',
+       time:{startDate:todayISO(),startTime:'19:00',duration:180,repeat:'monthly',interval:1,monthlyMode:'day',dayOfMonth:1,ends:'never'}},
+      {id:uuid(),title:'Finish big project',parent:null,placeId:null,due:'',star:false,done:false,importance:8,effort:6,notes:'',
+       time:{repeat:'none'}}
+    ]
+  };
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||defaults; }catch{ return defaults; } }
+  let state = load();
+  // Track which outline items are collapsed.  Collapsed IDs are not
+  // persisted across reloads but allow hiding subtrees in the outline.
+  const collapsed = new Set();
+  const save = ()=> localStorage.setItem(KEY, JSON.stringify(state));
+
+  // ---------- tabs ----------
+  $$('#topbar .tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      $$('#topbar .tab').forEach(t=>t.classList.remove('active'));
+      $$('.view').forEach(v=>v.classList.remove('active'));
+      tab.classList.add('active'); $('#view-'+tab.dataset.view).classList.add('active');
+    });
+  });
+
+  // ---------- outline rendering ----------
+  let selectedTaskId = state.tasks[0]?.id || null;
+
+  function renderOutline(){
+    // Update the place dropdown options
+    $('#outlinePlace').innerHTML =
+      `<option value="">All places</option>` +
+      state.places.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+    const box = $('#outlineList');
+    box.innerHTML = '';
+
+    // Build a map of children for each task
+    const kids = new Map(state.tasks.map(t => [t.id, []]));
+    state.tasks.forEach(t => {
+      if (t.parent && kids.has(t.parent)) kids.get(t.parent).push(t);
+    });
+    const roots = state.tasks.filter(t => !t.parent);
+
+    // Capture filter options
+    const selectedPlace = $('#outlinePlace').value;
+    const includeClosed = $('#outlineIncludeClosed').checked;
+    const availableOnly = $('#outlineAvailable').checked;
+
+    // Determine if a place is considered open
+    function isPlaceOpen(pid) {
+      if (!pid) return true;
+      const pl = state.places.find(x => x.id === pid);
+      return !pl || pl.open !== false;
+    }
+    // Determine if a task is available (start date not in future)
+    function isAvailable(t) {
+      const R = t.time || {};
+      if (R.startDate) {
+        if (R.startDate > todayISO()) return false;
+      }
+      return true;
+    }
+    // Determine if any descendant should be visible according to filter
+    function hasVisibleDesc(t) {
+      const children = kids.get(t.id) || [];
+      return children.some(ch => shouldShow(ch) || hasVisibleDesc(ch));
+    }
+    // Determine if this task should be shown directly
+    function shouldShow(t) {
+      if (!t) return false;
+      const openOk = includeClosed || isPlaceOpen(t.placeId);
+      const availOk = !availableOnly || isAvailable(t);
+      if (selectedPlace === '') {
+        return openOk && availOk;
+      } else {
+        return t.placeId === selectedPlace && openOk && availOk;
+      }
+    }
+
+    // Recursively add rows for tasks and their children
+    function addRow(t, depth) {
+      const showSelf = shouldShow(t);
+      const showDesc = hasVisibleDesc(t);
+      if (!showSelf && !showDesc) return;
+      const childList = kids.get(t.id) || [];
+      const hasKids = childList.length > 0;
+      const isCol = collapsed.has(t.id);
+      const row = document.createElement('div');
+      let cls = 'task-row';
+      if (isOverdue(t)) cls += ' overdue';
+      row.className = cls;
+      row.dataset.id = t.id;
+      row.style.paddingLeft = (depth ? depth * 14 : 0) + 'px';
+      const twistyChar = hasKids ? (isCol ? '▸' : '▾') : '';
+      const dueStr = getEffectiveDue(t);
+      // star indicator
+      const starStr = t.star ? '★ ' : '';
+      row.innerHTML =
+        `<div class="twisty">${twistyChar}</div>` +
+        `<input class="checkbox" type="checkbox" ${t.done ? 'checked' : ''}/>` +
+        `<div class="title">${starStr}${t.title}</div>` +
+        (dueStr ? `<div class="date">${dueStr}</div>` : '');
+      // Dim rows that do not directly satisfy the filter but have visible children
+      if (!showSelf) row.style.opacity = '0.5';
+      box.appendChild(row);
+      // Bind twisty to expand/collapse
+      if (hasKids) {
+        const twisty = row.querySelector('.twisty');
+        twisty.style.cursor = 'pointer';
+        twisty.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (collapsed.has(t.id)) collapsed.delete(t.id);
+          else collapsed.add(t.id);
+          renderOutline();
+        });
+      }
+      // Bind checkbox change event
+      const cb = row.querySelector('.checkbox');
+      cb.addEventListener('change', () => {
+        const task = state.tasks.find(x => x.id === t.id);
+        if (task) task.done = cb.checked;
+        save();
+        renderAll();
+      });
+      // Bind click on title or date to open inspector
+      const clickable = row.querySelector('.title');
+      const dateEl = row.querySelector('.date');
+      [clickable, dateEl].forEach(el => {
+        if (el) el.addEventListener('click', () => {
+          selectedTaskId = t.id;
+          openTaskInspector();
+        });
+      });
+      // Recurse into children if not collapsed
+      if (!isCol) {
+        childList.forEach(ch => addRow(ch, depth + 1));
+      }
+    }
+    roots.forEach(r => addRow(r, 0));
+  }
+
+  // Determine the next actionable due date for a task.  If the task has an
+  // explicit due date, return that.  Otherwise, if the task has a recurring
+  // schedule, return the first upcoming occurrence.  Returns an ISO date
+  // string (YYYY-MM-DD) or an empty string if nothing is due.
+  function getEffectiveDue(t){
+    // explicit due date always wins
+    if (t.due) return t.due;
+    if (t.time && t.time.repeat && t.time.repeat !== 'none') {
+      const occ = nextOccurrences(t.time, 1, todayISO());
+      return occ.length ? occ[0] : '';
+    }
+    return '';
+  }
+
+  // A task is overdue when its next actionable due date (explicit or first
+  // recurrence) is earlier than today and it is not yet completed.
+  function isOverdue(t){
+    const due = getEffectiveDue(t);
+    return due && !t.done && due < todayISO();
+  }
+
+  // ---------- inspector (General/Effort/Note) ----------
+  function fillPlaceOptions(selId, val){
+    const sel=$(selId); sel.innerHTML=`<option value="">(No place)</option>`+state.places.map(p=>`<option value="${p.id}">${p.name}</option>`).join(''); sel.value=val||'';
+  }
+  function openTaskInspector(){
+    const t = state.tasks.find(x=>x.id===selectedTaskId); if(!t) return;
+    // general
+    $('#t_title').value=t.title; fillPlaceOptions('#t_place', t.placeId); $('#t_due').value=t.due; $('#t_star').checked=t.star; $('#t_done').checked=t.done;
+    $('#t_imp').value=t.importance||5; $('#t_eff').value=t.effort||5; $('#t_notes').value=t.notes||'';
+    // time (recurrence)
+    const R = t.time || {repeat:'none'};
+    $('#r_startDate').value = R.startDate || '';
+    $('#r_startTime').value = R.startTime || '';
+    $('#r_duration').value  = R.duration ?? '';
+    $('#r_freq').value      = R.repeat || 'none';
+    $('#r_interval').value  = R.interval || 1;
+    // weekly
+    $$('#r_weekdays input[type=checkbox]').forEach(c=>c.checked = (R.byWeekdays||[]).includes(+c.value));
+    // monthly
+    $('#r_monthlyMode').value = R.monthlyMode || 'day';
+    $('#r_dayOfMonth').value  = R.dayOfMonth || 1;
+    $('#r_nth').value = R.nth || 1;
+    $('#r_nthWeekday').value = (R.nthWeekday ?? 1);
+    // yearly
+    buildYearMonthOptions(); $('#r_yearMonth').value = (R.yearMonth ?? 1); $('#r_yearDay').value = (R.yearDay ?? 1);
+    // ends
+    $('#r_ends').value = R.ends || 'never';
+    $('#r_until').value = R.until || '';
+    $('#r_count').value = R.count || 10;
+
+    showRecurrenceOptions();
+    updatePreview();
+  }
+  $$('#taskTabs .t').forEach(t=>t.addEventListener('click',()=>{
+    $$('#taskTabs .t').forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    $$('.tabpage', $('#taskEditor')).forEach(p=>p.classList.remove('active')); $('#tab-'+t.dataset.tab).classList.add('active');
+  }));
+  $('#saveTaskBtn').addEventListener('click',()=>{
+    const t = state.tasks.find(x=>x.id===selectedTaskId); if(!t) return;
+    t.title=$('#t_title').value.trim()||'Untitled';
+    t.placeId=$('#t_place').value||null;
+    t.due=$('#t_due').value||'';
+    t.star=$('#t_star').checked; t.done=$('#t_done').checked;
+    t.importance=+$('#t_imp').value||0; t.effort=+$('#t_eff').value||0;
+    t.notes=$('#t_notes').value||'';
+    // save recurrence
+    t.time = readRecurrenceForm();
+    save(); renderAll();
+  });
+  $('#deleteTaskBtn').addEventListener('click',()=>{
+    if(!selectedTaskId) return;
+    state.tasks = state.tasks.filter(t=>t.id!==selectedTaskId);
+    save(); selectedTaskId=null; renderAll();
+  });
+
+  // ---------- Time tab helpers ----------
+  function buildYearMonthOptions(){
+    const m=$('#r_yearMonth'); if(!m.options.length){
+      const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      m.innerHTML = months.map((nm,i)=>`<option value="${i+1}">${nm}</option>`).join('');
+    }
+  }
+  function showRecurrenceOptions(){
+    const freq=$('#r_freq').value, mode=$('#r_monthlyMode').value, ends=$('#r_ends').value;
+    $$('.r-opt').forEach(e=>e.style.display='none');
+    if(freq==='weekly') $$('.r-weekly').forEach(e=>e.style.display='block');
+    if(freq==='monthly'){ $$('.r-monthly').forEach(e=>e.style.display='block'); 
+      $$('.r-monthly-day').forEach(e=>e.style.display = (mode==='day')?'block':'none');
+      $$('.r-monthly-nth').forEach(e=>e.style.display = (mode==='nth')?'block':'none');
+    }
+    if(freq==='yearly') $$('.r-yearly').forEach(e=>e.style.display='block');
+    if(ends==='until') $$('.r-until').forEach(e=>e.style.display='block');
+    if(ends==='count') $$('.r-count').forEach(e=>e.style.display='block');
+  }
+  ['r_freq','r_monthlyMode','r_ends'].forEach(id=>$('#'+id).addEventListener('change',()=>{showRecurrenceOptions();updatePreview();}));
+  ['r_startDate','r_startTime','r_duration','r_interval','r_dayOfMonth','r_nth','r_nthWeekday','r_yearMonth','r_yearDay','r_until','r_count']
+    .forEach(id=>$('#'+id).addEventListener('input',updatePreview));
+  $$('#r_weekdays input').forEach(c=>c.addEventListener('change',updatePreview));
+
+  function readRecurrenceForm(){
+    const byWeekdays = $$('#r_weekdays input:checked').map(c=>+c.value);
+    return {
+      startDate: $('#r_startDate').value||'',
+      startTime: $('#r_startTime').value||'',
+      duration:  +($('#r_duration').value||0) || null,
+      repeat:    $('#r_freq').value,
+      interval:  +($('#r_interval').value||1),
+      byWeekdays,
+      monthlyMode: $('#r_monthlyMode').value,
+      dayOfMonth: +($('#r_dayOfMonth').value||1),
+      nth:       +($('#r_nth').value||1),
+      nthWeekday:+($('#r_nthWeekday').value||1),
+      yearMonth: +($('#r_yearMonth').value||1),
+      yearDay:   +($('#r_yearDay').value||1),
+      ends:      $('#r_ends').value,
+      until:     $('#r_until').value||'',
+      count:     +($('#r_count').value||10)
+    };
+  }
+
+  // Generate next N occurrence dates (YYYY-MM-DD) from recurrence settings
+  function nextOccurrences(R, N=10, fromDateStr=todayISO()){
+    const out=[]; if(!R || R.repeat==='none'){ if(R.startDate) out.push(R.startDate); return out.slice(0,N); }
+    const from = new Date(fromDateStr+'T00:00:00');
+    const start = R.startDate ? new Date(R.startDate+'T00:00:00') : from;
+    let cur = new Date(Math.max(start, from));
+
+    const pushIfOk = (d)=>{
+      const ds = d.toISOString().slice(0,10);
+      if(R.ends==='until' && R.until && ds > R.until) return;
+      out.push(ds);
+    };
+
+    while(out.length < N){
+      if(R.repeat==='daily'){
+        pushIfOk(cur);
+        cur.setDate(cur.getDate() + (R.interval||1));
+      } else if(R.repeat==='weekly'){
+        const interval = R.interval||1;
+        // move to start of week
+        const base = new Date(cur);
+        base.setDate(base.getDate() - base.getDay()); // Sunday
+        for(const wd of (R.byWeekdays?.length?R.byWeekdays:[cur.getDay()])){
+          const d=new Date(base); d.setDate(base.getDate()+wd);
+          if(d >= cur) pushIfOk(d);
+          if(out.length>=N) break;
+        }
+        base.setDate(base.getDate()+7*interval);
+        cur = base;
+      } else if(R.repeat==='monthly'){
+        const interval=R.interval||1;
+        const d=new Date(cur);
+        if(R.monthlyMode==='day'){
+          d.setDate(R.dayOfMonth||1);
+          if(d<cur) d.setMonth(d.getMonth()+interval);
+          pushIfOk(d);
+          d.setMonth(d.getMonth()+interval);
+          cur=d;
+        } else {
+          // nth weekday
+          const nth=R.nth||1, wk=R.nthWeekday??1;
+          const temp = nthWeekdayOfMonth(d.getFullYear(), d.getMonth(), wk, nth);
+          let dd=temp;
+          if(dd<cur) { const m=d.getMonth()+interval, y=d.getFullYear()+Math.floor(m/12); dd=nthWeekdayOfMonth(y, (m%12+12)%12, wk, nth); }
+          pushIfOk(dd);
+          const m2=dd.getMonth()+interval, y2=dd.getFullYear()+Math.floor(m2/12);
+          cur = nthWeekdayOfMonth(y2, (m2%12+12)%12, wk, nth);
+        }
+      } else if(R.repeat==='yearly'){
+        const interval=R.interval||1;
+        const d=new Date(cur);
+        d.setMonth((R.yearMonth||1)-1, R.yearDay||1);
+        if(d<cur) d.setFullYear(d.getFullYear()+interval);
+        pushIfOk(d);
+        d.setFullYear(d.getFullYear()+interval);
+        cur=d;
+      }
+      if(R.ends==='count' && out.length >= (R.count||N)) break;
+      if(R.ends==='until' && R.until && out.length && out[out.length-1] > R.until) break;
+      // guardrail: don't loop forever
+      if(out.length > 200) break;
+    }
+    return out.slice(0,N);
+  }
+  function nthWeekdayOfMonth(year, month, weekday, nth){
+    const first = new Date(year, month, 1);
+    const firstW = first.getDay();
+    const offset = ( (weekday - firstW + 7) % 7 ) + (nth-1)*7;
+    return new Date(year, month, 1+offset);
+  }
+
+  function updatePreview(){
+    const R = readRecurrenceForm();
+    const list = nextOccurrences(R, 8);
+    $('#r_preview').textContent = list.length ? list.join('\n') : '—';
+  }
+
+  // ---------- ToDo (kept minimal; shows open tasks) ----------
+  function renderTodo(){
+    const box=$('#todoList'); box.innerHTML='';
+    const includeClosed = $('#includeClosed').checked;
+    // helper to determine if a place is open
+    function isPlaceOpenTodo(pid){
+      if(!pid) return true;
+      const pl=state.places.find(x=>x.id===pid);
+      return !pl || pl.open !== false;
+    }
+    // helper to determine if a task is available now.  For simple
+    // implementation we require that the start date (if defined) is not
+    // in the future; more complex logic like time of day or byWeekdays
+    // could be implemented later.
+    function isAvailable(t){
+      const R = t.time || {};
+      if(R.startDate){
+        const today = todayISO();
+        if(R.startDate > today) return false;
+      }
+      return true;
+    }
+    // gather candidate tasks
+    let items = state.tasks.filter(t => !t.done);
+    // apply place filter and availability
+    items = items.filter(t => {
+      if(!includeClosed && !isPlaceOpenTodo(t.placeId)) return false;
+      if(!isAvailable(t)) return false;
+      return true;
+    });
+    // compute effective due and sort
+    items.forEach(t => { t._due = getEffectiveDue(t); });
+    items.sort((a,b) => {
+      // starred tasks first
+      if(a.star !== b.star) return b.star - a.star;
+      const aDue = a._due || '';
+      const bDue = b._due || '';
+      // tasks with an imminent due date come first; earlier date is smaller
+      if(aDue && bDue){
+        if(aDue < bDue) return -1;
+        if(aDue > bDue) return 1;
+      } else if(aDue){
+        return -1;
+      } else if(bDue){
+        return 1;
+      }
+      // otherwise sort by importance descending
+      return (b.importance||0) - (a.importance||0);
+    });
+    // render each
+    items.forEach(t => {
+      const row = document.createElement('div');
+      row.className='task-row';
+      row.dataset.id=t.id;
+      // row should indicate overdue tasks
+      if(isOverdue(t)) row.classList.add('overdue');
+      // star symbol if starred
+      const starStr = t.star ? '★ ' : '';
+      // due date display
+      const dueStr = t._due ? `<span class="date">${t._due}</span>` : '';
+      // done checkbox
+      row.innerHTML =
+        `<input class="checkbox" type="checkbox" ${t.done ? 'checked' : ''}/>` +
+        `<div class="title">${starStr}${t.title}</div>` +
+        (t._due ? `<div class="date">${t._due}</div>` : '');
+      // clicking row selects in outline and opens inspector
+      row.addEventListener('click', (e) => {
+        // ignore clicks on checkbox
+        if(e.target.closest('input')) return;
+        selectedTaskId = t.id;
+        openTaskInspector();
+        // also switch to outline view
+        $$('#topbar .tab').forEach(tb => {
+          if(tb.dataset.view === 'outline'){ tb.click(); }
+        });
+      });
+      // checkbox toggles done state
+      const cb = row.querySelector('.checkbox');
+      cb.addEventListener('change', () => {
+        t.done = cb.checked;
+        save();
+        renderAll();
+      });
+      box.appendChild(row);
+    });
+  }
+
+  // ---------- Places (simple name editor) ----------
+  let selectedPlaceId = state.places[0]?.id || null;
+  function renderPlaces(){
+    const list = $('#placeList'); list.innerHTML='';
+    state.places.forEach(p=>{
+      const row=document.createElement('div');
+      row.className='task-row';
+      row.dataset.id=p.id;
+      // show an indicator for open/closed status
+      const openIcon = p.open !== false ? '✅' : '❌';
+      row.innerHTML = `<div class="title">${openIcon} ${p.name}</div>`;
+      // highlight selected place
+      if(p.id===selectedPlaceId) row.style.background='#e6f3ff';
+      // dim closed places
+      if(p.open === false) row.style.opacity='0.5';
+      row.addEventListener('click',()=>{
+        selectedPlaceId=p.id;
+        openPlace();
+        renderPlaces();
+      });
+      list.appendChild(row);
+    });
+    openPlace();
+  }
+  function openPlace(){
+    const p=state.places.find(x=>x.id===selectedPlaceId); if(!p) return;
+    $('#p_name').value=p.name;
+    $('#p_note').value=p.note||'';
+    // reflect open/closed state (undefined treated as open)
+    $('#p_open').checked = p.open !== false;
+  }
+  $('#savePlaceBtn').addEventListener('click',()=>{
+    const p=state.places.find(x=>x.id===selectedPlaceId); if(!p) return;
+    p.name=$('#p_name').value.trim()||'Untitled';
+    p.note=$('#p_note').value||'';
+    // save open/closed state; unchecked means place is closed
+    p.open = $('#p_open').checked;
+    save();
+    // Update all views so that tasks and calendars reflect changes to place
+    renderAll();
+  });
+  $('#deletePlaceBtn').addEventListener('click',()=>{
+    state.places=state.places.filter(p=>p.id!==selectedPlaceId);
+    if(!state.places.length) state.places=[{id:uuid(),name:'Home',note:'',open:true}];
+    selectedPlaceId=state.places[0].id;
+    save();
+    renderAll();
+  });
+  $('#newPlaceBtn').addEventListener('click',()=>{
+    // new places default to open (available) just like LifeBalance
+    const p={id:uuid(),name:'New Place',note:'',open:true};
+    state.places.push(p);
+    selectedPlaceId=p.id;
+    save();
+    renderPlaces();
+  });
+
+  // ---------- Calendars (now show due dates + recurrence) ----------
+  const calIds = {'cal-outline':'lab-cal-outline','cal-todo':'lab-cal-todo','cal-places':'lab-cal-places','cal-balance':'lab-cal-balance'};
+  const calOffset={'cal-outline':0,'cal-todo':0,'cal-places':0,'cal-balance':0};
+  function renderCalendar(id){
+    const c=$('#'+id), lab=$('#'+calIds[id]); c.innerHTML='';
+    const ref=new Date(); ref.setMonth(ref.getMonth()+calOffset[id]);
+    lab.textContent = ref.toLocaleString('default',{month:'long'})+' '+ref.getFullYear();
+    const first=new Date(ref.getFullYear(),ref.getMonth(),1);
+    const startOffset=first.getDay();
+    const daysInMonth=new Date(ref.getFullYear(),ref.getMonth()+1,0).getDate();
+    // header
+    DAYS.forEach(d=>{ const h=document.createElement('div'); h.className='calendar-day'; h.style.background='#f0f0f0'; h.textContent=d; c.appendChild(h); });
+    for(let i=0;i<42;i++){
+      const cell=document.createElement('div'); cell.className='calendar-day';
+      const day=i-startOffset+1;
+      if(day>0&&day<=daysInMonth){
+        const ds=`${ref.getFullYear()}-${String(ref.getMonth()+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        cell.textContent=day;
+        // mark due dates
+        if(state.tasks.some(t=>t.due===ds && !t.done)){ const dot=document.createElement('div'); dot.className='task-dot'; cell.appendChild(dot); }
+        // mark recurrence occurrences
+        if(state.tasks.some(t=> (t.time && nextOccurrences(t.time, 200, ds).includes(ds)) )){ const dot=document.createElement('div'); dot.className='task-dot'; dot.style.left='2px'; cell.appendChild(dot); }
+        if(ds===todayISO()) cell.classList.add('today');
+      }
+      c.appendChild(cell);
+    }
+  }
+  $$('.cal-prev').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.target; calOffset[id]--; renderCalendar(id); }));
+  $$('.cal-next').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.target; calOffset[id]++; renderCalendar(id); }));
+
+  // ---------- Balance view ----------
+  // Draw a simple bar chart summarizing how balanced the top‑level
+  // projects are.  Each root task (a task with no parent) defines a
+  // "category" in LifeBalance.  The chart shows two bars per category:
+  //  • Target importance: derived from the task's importance (0–10).
+  //  • Actual completion: the percentage of its subtasks that are
+  //    complete, scaled to 0–10.  If a category has no subtasks, the
+  //    actual value is 0.
+  function renderBalance(){
+    const canvas = document.getElementById('balanceChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const roots = state.tasks.filter(t=>!t.parent);
+    // adjust canvas height dynamically based on number of roots
+    const barHeight = 18;
+    const barGap = 10;
+    const totalHeight = roots.length * (barHeight + barGap) + 20;
+    if(canvas.height !== totalHeight) canvas.height = totalHeight;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.font = '11px sans-serif';
+    ctx.textBaseline = 'middle';
+    // Dimensions
+    const labelWidth = 120;
+    const maxBarWidth = canvas.width - labelWidth - 20;
+    // Colors
+    const targetColor = '#4a90e2';
+    const actualColor = '#8e44ad';
+    // Helper to collect all descendant tasks of a given task id
+    function collectDesc(id, out){
+      const children = state.tasks.filter(t => t.parent === id);
+      children.forEach(ch => {
+        out.push(ch);
+        collectDesc(ch.id, out);
+      });
+    }
+    roots.forEach((r, idx) => {
+      const y = 10 + idx * (barHeight + barGap);
+      // Gather all subtasks under this root (excluding the root itself)
+      const descendants = [];
+      collectDesc(r.id, descendants);
+      const doneCount = descendants.filter(t => t.done).length;
+      const totalCount = descendants.length;
+      // compute actual ratio (0–10).  If no subtasks, actual is 0.
+      const actual = totalCount ? (doneCount / totalCount) * 10 : 0;
+      const target = (r.importance ?? 5);
+      // clamp values between 0 and 10
+      const tVal = Math.min(Math.max(target,0),10);
+      const aVal = Math.min(Math.max(actual,0),10);
+      // compute bar lengths
+      const tWidth = (tVal / 10) * maxBarWidth;
+      const aWidth = (aVal / 10) * maxBarWidth;
+      // draw background lines
+      ctx.fillStyle = '#f5f5f5';
+      ctx.fillRect(labelWidth, y, maxBarWidth, barHeight);
+      // draw target bar
+      ctx.fillStyle = targetColor;
+      ctx.fillRect(labelWidth, y, tWidth, barHeight/2);
+      // draw actual bar below target
+      ctx.fillStyle = actualColor;
+      ctx.fillRect(labelWidth, y + barHeight/2, aWidth, barHeight/2);
+      // draw labels
+      ctx.fillStyle = '#333';
+      const label = r.title.length > 18 ? r.title.slice(0,15)+'…' : r.title;
+      ctx.fillText(label, 4, y + barHeight/2);
+      // draw values at end of bars
+      ctx.fillStyle = '#000';
+      ctx.fillText(tVal.toFixed(1), labelWidth + tWidth + 4, y + barHeight/4);
+      ctx.fillText(aVal.toFixed(1), labelWidth + aWidth + 4, y + 3*barHeight/4);
+    });
+    // Legend
+    const legY = canvas.height - 12;
+    const x0 = labelWidth;
+    ctx.fillStyle = targetColor;
+    ctx.fillRect(x0, legY, 12, 6);
+    ctx.fillStyle = actualColor;
+    ctx.fillRect(x0, legY + 8, 12, 6);
+    ctx.fillStyle = '#333';
+    ctx.fillText('Target', x0 + 16, legY + 3);
+    ctx.fillText('Actual', x0 + 16, legY + 11);
+  }
+
+  // ---------- export/import ----------
+  $('#exportBtn').addEventListener('click',()=>{
+    const url=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));
+    const a=document.createElement('a'); a.href=url; a.download='life-balance-data.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),500);
+  });
+  $('#importBtn').addEventListener('click',()=>{
+    const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
+    inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ state=JSON.parse(r.result); save(); renderAll(); }catch{ alert('Import failed'); } }; r.readAsText(f); };
+    inp.click();
+  });
+
+  // ---------- next ----------
+  $('#nextBtn').addEventListener('click',()=>{ alert('“Next” logic unchanged in this step.'); });
+
+  // ---------- wire ui ----------
+  $('#newRootBtn').addEventListener('click',()=>{
+    const t={id:uuid(),title:'New Project',parent:null,placeId:null,due:'',star:false,done:false,importance:5,effort:3,notes:'',time:{repeat:'none'}};
+    state.tasks.push(t); save(); renderAll(); selectedTaskId=t.id; openTaskInspector();
+  });
+  $('#newSubBtn').addEventListener('click',()=>{
+    if(!selectedTaskId){ alert('Select a parent task in Outline first.'); return; }
+    const t={id:uuid(),title:'New Subtask',parent:selectedTaskId,placeId:null,due:'',star:false,done:false,importance:5,effort:3,notes:'',time:{repeat:'none'}};
+    state.tasks.push(t); save(); renderAll(); selectedTaskId=t.id; openTaskInspector();
+  });
+
+  // availability filter UI (wired visually; full filtering can follow later)
+  ['outlinePlace','outlineIncludeClosed','outlineAvailable'].forEach(id=> $('#'+id).addEventListener('change', ()=>renderOutline() ));
+
+  // When the To Do list filter toggles include closed places, refresh the list
+  const includeClosedCb = $('#includeClosed');
+  if(includeClosedCb){
+    includeClosedCb.addEventListener('change', () => renderTodo());
+  }
+
+  // ---------- render all ----------
+  function renderAll(){
+    renderOutline(); renderTodo(); renderPlaces();
+    // update calendar views
+    Object.keys(calIds).forEach(renderCalendar);
+    // update balance chart
+    renderBalance();
+    if(selectedTaskId) openTaskInspector();
+  }
+  renderAll();
+});
+</script>
+</body>
+</html>
