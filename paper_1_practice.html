@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper 1: Unseen Text Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #a78bfa;
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: #d0d0d0;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(239, 68, 68, 0.15);
+            border-left-color: #ef4444;
+        }
+
+        .highlight-box.success {
+            background: rgba(34, 197, 94, 0.15);
+            border-left-color: #22c55e;
+        }
+
+        /* Step boxes */
+        .step-grid {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .step-box {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #a78bfa;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #d0d0d0;
+            font-size: 0.95rem;
+        }
+
+        /* Timer */
+        .timer-container {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .timer-display.warning {
+            color: #eab308;
+        }
+
+        .timer-display.danger {
+            color: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timer-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Passage Box */
+        .passage-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .passage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .passage-header h4 {
+            color: #667eea;
+        }
+
+        .passage-header .tag {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #a78bfa;
+        }
+
+        .passage-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #e0e0e0;
+        }
+
+        .passage-text p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .passage-source {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-style: italic;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Annotation area */
+        .annotation-prompt {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .annotation-prompt span {
+            font-size: 1.3rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Textarea */
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Checklist */
+        .checklist {
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .checklist-item.checked {
+            background: rgba(34, 197, 94, 0.15);
+            border-left: 3px solid #22c55e;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        /* Reveal Box */
+        .reveal-box {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .reveal-box.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .reveal-content {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .reveal-content h5 {
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+
+        /* Quick reference table */
+        .quick-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .quick-table th,
+        .quick-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quick-table th {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+        }
+
+        /* Footer nav */
+        .tab-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Guiding question box */
+        .guiding-question {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .guiding-question p {
+            font-size: 1.1rem;
+            color: #fff;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Paper 1: Unseen Analysis</h1>
+            <p>Practice for the real exam</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(0)">The Task</button>
+            <button class="tab-btn" onclick="showTab(1)">The Strategy</button>
+            <button class="tab-btn" onclick="showTab(2)">Practice Text</button>
+            <button class="tab-btn" onclick="showTab(3)">Timed Analysis</button>
+            <button class="tab-btn" onclick="showTab(4)">Model Response</button>
+            <button class="tab-btn" onclick="showTab(5)">Checklist</button>
+        </nav>
+
+        <!-- TAB 0: The Task -->
+        <div class="tab-content active" id="tab-0">
+            <div class="card">
+                <h2>What is Paper 1?</h2>
+                
+                <table class="quick-table">
+                    <tr>
+                        <th>Time</th>
+                        <td>2 hours 15 minutes</td>
+                    </tr>
+                    <tr>
+                        <th>Texts</th>
+                        <td>Two unseen passages (HL must analyze both)</td>
+                    </tr>
+                    <tr>
+                        <th>Task</th>
+                        <td>Write a guided textual analysis</td>
+                    </tr>
+                    <tr>
+                        <th>Marks</th>
+                        <td>20 marks (4 criteria x 5)</td>
+                    </tr>
+                </table>
+
+                <h3>What "Guided" Means</h3>
+                <p>Each passage comes with a <strong>guiding question</strong> to focus your analysis. You don't have to answer it directly, but it should shape your response.</p>
+
+                <div class="guiding-question">
+                    <p>"How does the writer use language and structure to convey their perspective on [topic]?"</p>
+                </div>
+
+                <h3>The Real Challenge</h3>
+                <div class="highlight-box warning">
+                    <strong>You've never seen these texts before.</strong> You can't rely on memorized quotes or prepared ideas. You need a system that works for ANY text.
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>How Time Should Feel</h2>
+                <p>For TWO passages in 2h 15m:</p>
+                
+                <table class="quick-table">
+                    <tr>
+                        <th>Phase</th>
+                        <th>Time</th>
+                        <th>What You're Doing</th>
+                    </tr>
+                    <tr>
+                        <td>Read & Annotate</td>
+                        <td>15 min per text</td>
+                        <td>First impressions, key techniques</td>
+                    </tr>
+                    <tr>
+                        <td>Plan</td>
+                        <td>5 min per text</td>
+                        <td>Thesis + 3 main points</td>
+                    </tr>
+                    <tr>
+                        <td>Write</td>
+                        <td>45 min per text</td>
+                        <td>Introduction, 3 body paragraphs, conclusion</td>
+                    </tr>
+                    <tr>
+                        <td>Review</td>
+                        <td>5 min</td>
+                        <td>Check for errors</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="tab-footer">
+                <div></div>
+                <button class="btn btn-primary" onclick="showTab(1)">Next: The Strategy →</button>
+            </div>
+        </div>
+
+        <!-- TAB 1: The Strategy -->
+        <div class="tab-content" id="tab-1">
+            <div class="card">
+                <h2>The 15-Minute Annotation System</h2>
+                <p>A reliable process for any unseen text:</p>
+
+                <div class="step-grid">
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>First Read (3 min)</h4>
+                            <p>Read the whole text. Don't annotate yet. Just absorb. Ask: What is this about? What's the tone? What's the purpose?</p>
+                        </div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Identify the Basics (2 min)</h4>
+                            <p><strong>Text type:</strong> Speech? Article? Extract from novel? Poem?<br>
+                            <strong>Purpose:</strong> Persuade? Inform? Entertain? Reflect?<br>
+                            <strong>Audience:</strong> Who is this written for?</p>
+                        </div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Hunt for Patterns (7 min)</h4>
+                            <p>Second read with pen. Mark:<br>
+                            - Repeated words/images (motifs)<br>
+                            - Interesting word choices<br>
+                            - Structural features (paragraphing, shifts)<br>
+                            - Tone changes</p>
+                        </div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Find Your 3 Points (3 min)</h4>
+                            <p>Group your annotations into 3 main observations. These become your body paragraphs. Each should connect to the guiding question.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>The Analysis Paragraph Structure</h2>
+                <p>Use this for each body paragraph:</p>
+
+                <div class="highlight-box success">
+                    <p><strong>P</strong> - Point (your argument)<br>
+                    <strong>E</strong> - Evidence (short quote)<br>
+                    <strong>A</strong> - Analysis (technique + effect)<br>
+                    <strong>L</strong> - Link (connect to guiding question/thesis)</p>
+                </div>
+
+                <h3>Example</h3>
+                <div class="passage-box">
+                    <p><strong>Point:</strong> The writer creates a sense of claustrophobia to reflect the character's mental state.</p>
+                    <p><strong>Evidence:</strong> The repeated references to "walls closing in" and "shrinking room"</p>
+                    <p><strong>Analysis:</strong> This spatial imagery creates a visceral sense of entrapment, suggesting that the character's anxiety is not just emotional but physically experienced.</p>
+                    <p><strong>Link:</strong> This technique reinforces the text's exploration of how trauma manifests in bodily sensation.</p>
+                </div>
+            </div>
+
+            <div class="tab-footer">
+                <button class="btn btn-secondary" onclick="showTab(0)">← Back</button>
+                <button class="btn btn-primary" onclick="showTab(2)">Next: Practice Text →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: Practice Text -->
+        <div class="tab-content" id="tab-2">
+            <div class="card">
+                <h2>Your Practice Text</h2>
+                
+                <div class="guiding-question">
+                    <p><strong>Guiding Question:</strong> How does the writer use language to present the experience of returning to a childhood place?</p>
+                </div>
+
+                <div class="passage-box">
+                    <div class="passage-header">
+                        <h4>Text A</h4>
+                        <span class="tag">Literary Extract</span>
+                    </div>
+                    <div class="passage-text">
+                        <p>The house had shrunk. That was my first thought as I stood at the gate, key in hand, staring at what had once been a castle. The garden that had taken an eternity to cross now measured perhaps fifteen steps. The oak tree that had touched the sky barely cleared the roof.</p>
+
+                        <p>I had prepared myself for decay. Peeling paint, cracked windows, the slow surrender of abandoned places. But this was worse. The house looked exactly as I remembered it — the same blue door, the same brass knocker shaped like a lion's head — only smaller. Diminished. As if my memories had been lying to me all along.</p>
+
+                        <p>The door opened with the same reluctant creak it had always made, a sound that bypassed my brain entirely and landed somewhere in my chest. For a moment I was seven years old again, sneaking in past bedtime, holding my breath on the third stair that always groaned.</p>
+
+                        <p>But the spell broke quickly. The hallway smelled of dust and absence. The wallpaper — had it always been that shade of yellow? — seemed to watch me with faded indifference. I was a stranger here now, a tourist in my own history.</p>
+
+                        <p>In the kitchen, I found a single cup in the sink. My mother's cup, the one with the chipped handle she refused to throw away. Someone had washed it and left it there, waiting. For what? For whom? The question sat in my throat like something I couldn't swallow.</p>
+
+                        <p>I had come back to say goodbye. To close a door, literally and figuratively. But standing in that kitchen, with the afternoon light falling through the window exactly as it always had, I understood that some doors don't close. They just get smaller. And we get too big to fit through them anymore.</p>
+                    </div>
+                    <div class="passage-source">
+                        From "The Returning" by Eleanor Vance, 2019
+                    </div>
+                </div>
+
+                <div class="annotation-prompt">
+                    <span>📝</span>
+                    <p>Read once without annotating. Then read again and note: What patterns do you see? What techniques stand out?</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Your First Impressions</h3>
+                <textarea placeholder="What do you notice on first reading? Tone? Key images? Overall effect?"></textarea>
+
+                <h3>Your Annotations</h3>
+                <textarea placeholder="List the techniques and patterns you've spotted:&#10;&#10;1. &#10;2. &#10;3. &#10;4. &#10;5."></textarea>
+            </div>
+
+            <div class="tab-footer">
+                <button class="btn btn-secondary" onclick="showTab(1)">← Back</button>
+                <button class="btn btn-primary" onclick="showTab(3)">Next: Timed Analysis →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: Timed Analysis -->
+        <div class="tab-content" id="tab-3">
+            <div class="card">
+                <h2>Timed Writing Practice</h2>
+                <p>You have <strong>45 minutes</strong> to write your analysis. This simulates real exam conditions for one text.</p>
+
+                <div class="timer-container">
+                    <p>Time Remaining</p>
+                    <div class="timer-display" id="timer">45:00</div>
+                    <div class="timer-buttons">
+                        <button class="btn btn-primary" onclick="startTimer(45)">Start 45 min</button>
+                        <button class="btn btn-secondary" onclick="startTimer(30)">30 min</button>
+                        <button class="btn btn-secondary" onclick="startTimer(20)">20 min</button>
+                        <button class="btn btn-secondary" onclick="pauseTimer()">Pause</button>
+                        <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Remember your structure:</strong><br>
+                    - Introduction (thesis + brief overview)<br>
+                    - Body 1 (PEAL)<br>
+                    - Body 2 (PEAL)<br>
+                    - Body 3 (PEAL)<br>
+                    - Conclusion (synthesis, not summary)
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Your Response</h3>
+                <p style="color: #a0a0a0; margin-bottom: 15px;">Write your analysis here (or on paper if you prefer):</p>
+                <textarea style="min-height: 400px;" placeholder="Begin your analysis...&#10;&#10;The extract from 'The Returning' explores..."></textarea>
+            </div>
+
+            <div class="tab-footer">
+                <button class="btn btn-secondary" onclick="showTab(2)">← Back</button>
+                <button class="btn btn-primary" onclick="showTab(4)">Next: Model Response →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: Model Response -->
+        <div class="tab-content" id="tab-4">
+            <div class="card">
+                <h2>Model Response Elements</h2>
+                <p>Compare your analysis with these key points. Did you notice these?</p>
+
+                <button class="btn btn-primary" onclick="toggleReveal('model1')">Reveal: Key Technique 1</button>
+                <div class="reveal-box" id="model1">
+                    <div class="reveal-content">
+                        <h5>The Shrinking Motif</h5>
+                        <p>The repeated imagery of things becoming smaller ("shrunk," "diminished," "get smaller") creates a central metaphor for how childhood memories distort scale. This isn't just physical — it represents the emotional "shrinking" of significance as we grow up. The final line "we get too big to fit through them anymore" makes this explicit.</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="toggleReveal('model2')">Reveal: Key Technique 2</button>
+                <div class="reveal-box" id="model2">
+                    <div class="reveal-content">
+                        <h5>Sensory Memory</h5>
+                        <p>The writer uses sound ("reluctant creak," "third stair that always groaned") and smell ("dust and absence") to show how sensory experience triggers memory more powerfully than sight. The creak "bypassed my brain entirely and landed somewhere in my chest" — this somatic language suggests memory is bodily, not just mental.</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="toggleReveal('model3')">Reveal: Key Technique 3</button>
+                <div class="reveal-box" id="model3">
+                    <div class="reveal-content">
+                        <h5>The Cup as Symbol</h5>
+                        <p>The mother's cup — "chipped" but kept — symbolizes both presence and absence. It's been "washed and left there, waiting" — personification that suggests the past still expects something from us. The unanswered questions ("For what? For whom?") that sit "like something I couldn't swallow" use physical imagery for emotional difficulty.</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="toggleReveal('model4')">Reveal: Key Technique 4</button>
+                <div class="reveal-box" id="model4">
+                    <div class="reveal-content">
+                        <h5>Structural Shift</h5>
+                        <p>The piece moves from external observation (the house, the garden) to internal reflection (memory, emotion). The short final paragraph delivers the thematic conclusion. The metaphor of doors "that don't close" subverts the narrator's stated intention — they came to "close a door" but realize this is impossible. Structural irony.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Self-Assessment</h3>
+                <p>How many of these did you include?</p>
+                
+                <div class="checklist">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I identified the "shrinking" motif and its metaphorical meaning</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I discussed sensory details and their effect on memory</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I analyzed the symbolism of the cup</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I commented on structure (movement from external to internal)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I connected my analysis to the guiding question</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>I explained EFFECTS, not just identified techniques</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-footer">
+                <button class="btn btn-secondary" onclick="showTab(3)">← Back</button>
+                <button class="btn btn-primary" onclick="showTab(5)">Next: Exam Checklist →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: Checklist -->
+        <div class="tab-content" id="tab-5">
+            <div class="card">
+                <h2>Paper 1 Exam Checklist</h2>
+                <p>Use this on exam day:</p>
+
+                <h3>Before You Write</h3>
+                <div class="checklist">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Read the guiding question carefully</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Read the text once without annotating</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Identify: text type, purpose, audience</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Annotate for patterns and techniques</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Plan 3 main points before writing</label>
+                    </div>
+                </div>
+
+                <h3>While You Write</h3>
+                <div class="checklist">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Clear thesis in introduction</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Each paragraph = one main point</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Short, embedded quotes (not long block quotes)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Technique + Effect + Meaning (not just naming)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Discuss structure, not just language</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Keep linking back to guiding question</label>
+                    </div>
+                </div>
+
+                <h3>Danger Zone</h3>
+                <div class="highlight-box warning">
+                    <p><strong>Avoid these common mistakes:</strong></p>
+                    <p>- Retelling what happens instead of analyzing</p>
+                    <p>- Feature-spotting without explaining effect</p>
+                    <p>- Ignoring the guiding question</p>
+                    <p>- Only discussing one text (HL must do both)</p>
+                    <p>- Running out of time on the second text</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>What To Practice Next</h2>
+                <p>Based on today, what's your priority?</p>
+                <textarea placeholder="My biggest area to improve is..."></textarea>
+
+                <div class="highlight-box success" style="margin-top: 20px;">
+                    <strong>You've got this.</strong> Paper 1 rewards a consistent system. Practice the 15-minute annotation process until it's automatic, and the writing will follow.
+                </div>
+            </div>
+
+            <div class="tab-footer">
+                <button class="btn btn-secondary" onclick="showTab(4)">← Back</button>
+                <button class="btn btn-primary" onclick="showTab(0)">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval;
+        let timeRemaining;
+
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById('tab-' + index).classList.add('active');
+            document.querySelectorAll('.tab-btn')[index].classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('checked', checkbox.checked);
+        }
+
+        function toggleReveal(id) {
+            const reveal = document.getElementById(id);
+            reveal.classList.toggle('show');
+        }
+
+        function startTimer(minutes) {
+            clearInterval(timerInterval);
+            timeRemaining = minutes * 60;
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').textContent = "TIME'S UP!";
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeRemaining = 45 * 60;
+            updateTimerDisplay();
+            document.getElementById('timer').className = 'timer-display';
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = document.getElementById('timer');
+            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            display.className = 'timer-display';
+            if (timeRemaining <= 60) {
+                display.classList.add('danger');
+            } else if (timeRemaining <= 300) {
+                display.classList.add('warning');
+            }
+        }
+    </script>
+</body>
+</html>
