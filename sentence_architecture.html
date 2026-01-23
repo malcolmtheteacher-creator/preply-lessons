@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Architecture | Building Better Sentences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #a0a0a0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .section-card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .section-card h3 {
+            color: #a78bfa;
+            margin: 25px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .formula-box {
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .formula-box .formula {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .formula-box .example {
+            margin-top: 15px;
+            color: #a0a0a0;
+            font-style: italic;
+        }
+
+        .clause-diagram {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .clause-box {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .clause-box.subject {
+            background: rgba(236, 72, 153, 0.2);
+            border: 2px solid #ec4899;
+            color: #f9a8d4;
+        }
+
+        .clause-box.verb {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #86efac;
+        }
+
+        .clause-box.object {
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid #3b82f6;
+            color: #93c5fd;
+        }
+
+        .clause-box.conjunction {
+            background: rgba(234, 179, 8, 0.2);
+            border: 2px solid #eab308;
+            color: #fde047;
+        }
+
+        .clause-box.dependent {
+            background: rgba(168, 85, 247, 0.2);
+            border: 2px solid #a855f7;
+            color: #d8b4fe;
+        }
+
+        .practice-grid {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .practice-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .practice-item:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .practice-item .question {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .practice-item .options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .practice-item .option {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .practice-item .option:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        .practice-item .option.correct {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: #22c55e;
+            color: #86efac;
+        }
+
+        .practice-item .option.incorrect {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+
+        .practice-item .feedback {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .practice-item .feedback.correct {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+            display: block;
+        }
+
+        .practice-item .feedback.incorrect {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            display: block;
+        }
+
+        .combine-exercise {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .combine-exercise .given {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .combine-exercise .given p {
+            margin: 5px 0;
+            color: #c4b5fd;
+        }
+
+        .combine-exercise textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .combine-exercise textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .combine-exercise .reveal-btn {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .combine-exercise .model-answer {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .combine-exercise .model-answer.show {
+            display: block;
+        }
+
+        .combine-exercise .model-answer h4 {
+            color: #86efac;
+            margin-bottom: 10px;
+        }
+
+        .score-tracker {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .score-tracker .score {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .score-tracker .reset-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .score-tracker .reset-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        .conjunction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .conjunction-card {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .conjunction-card .word {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fde047;
+        }
+
+        .conjunction-card .meaning {
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            margin-top: 5px;
+        }
+
+        .subordinator-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .subordinator-tag {
+            padding: 8px 14px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 20px;
+            color: #d8b4fe;
+            font-size: 0.9rem;
+        }
+
+        .example-sentence {
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid #667eea;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .example-sentence .label {
+            font-size: 0.8rem;
+            color: #667eea;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight-subject { color: #f9a8d4; font-weight: 500; }
+        .highlight-verb { color: #86efac; font-weight: 500; }
+        .highlight-object { color: #93c5fd; font-weight: 500; }
+        .highlight-conjunction { color: #fde047; font-weight: bold; }
+        .highlight-dependent { color: #d8b4fe; font-style: italic; }
+
+        .timer-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .timer-display.warning {
+            color: #eab308;
+        }
+
+        .timer-display.danger {
+            color: #ef4444;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .timer-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .timer-btn.start {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+        }
+
+        .timer-btn.reset {
+            background: rgba(255,255,255,0.1);
+            color: #a0a0a0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .challenge-card {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .challenge-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .ref-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .ref-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ref-card .formula {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: monospace;
+            color: #c4b5fd;
+        }
+
+        .ref-card .example {
+            color: #a0a0a0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .fill-blank-exercise {
+            margin: 15px 0;
+        }
+
+        .fill-blank-exercise .sentence {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 10px;
+        }
+
+        .fill-blank-exercise input {
+            width: 180px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .fill-blank-exercise input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .fill-blank-exercise input.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .fill-blank-exercise input.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .check-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .instruction-box {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .instruction-box p {
+            color: #fde047;
+            font-size: 0.95rem;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .tab-nav {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .clause-diagram {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .conjunction-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sentence Architecture</h1>
+            <p>Master the Building Blocks of Academic Writing</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="simple">1. Simple</button>
+            <button class="tab-btn" data-tab="compound">2. Compound</button>
+            <button class="tab-btn" data-tab="complex">3. Complex</button>
+            <button class="tab-btn" data-tab="compound-complex">4. Compound-Complex</button>
+            <button class="tab-btn" data-tab="surgery">5. Sentence Surgery</button>
+            <button class="tab-btn" data-tab="challenge">6. Timed Challenge</button>
+            <button class="tab-btn" data-tab="reference">7. Quick Reference</button>
+        </nav>
+
+        <!-- TAB 1: SIMPLE SENTENCES -->
+        <div class="tab-content active" id="simple">
+            <div class="section-card">
+                <h2>The Foundation: Simple Sentences</h2>
+                
+                <p>Every sentence you'll ever write starts here. Master the simple sentence, and everything else becomes easy.</p>
+
+                <div class="formula-box">
+                    <div class="formula">SUBJECT + VERB (+ OBJECT/COMPLEMENT)</div>
+                    <div class="example">One independent clause. One complete thought.</div>
+                </div>
+
+                <div class="clause-diagram">
+                    <div class="clause-box subject">SUBJECT</div>
+                    <div class="clause-box verb">VERB</div>
+                    <div class="clause-box object">OBJECT</div>
+                </div>
+
+                <h3>Key Rule</h3>
+                <p>A simple sentence has <strong>ONE independent clause</strong>. It can be short or long, but it expresses only ONE complete idea.</p>
+
+                <div class="example-sentence">
+                    <div class="label">Short simple sentence</div>
+                    <span class="highlight-subject">The cat</span> <span class="highlight-verb">sleeps</span>.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Longer simple sentence (still ONE clause)</div>
+                    <span class="highlight-subject">The old grey cat on the red sofa</span> <span class="highlight-verb">sleeps</span> <span class="highlight-object">peacefully in the afternoon sun</span>.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 1: Identify Simple Sentences</h2>
+                <p>Click the correct answer. Is this a simple sentence?</p>
+
+                <div class="score-tracker">
+                    <span>Score: <span class="score" id="simple-score">0</span>/15</span>
+                    <button class="reset-btn" onclick="resetScore('simple')">Reset</button>
+                </div>
+
+                <div class="practice-grid" id="simple-practice">
+                    <!-- Practice items will be populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 2: Build Simple Sentences</h2>
+                <p>Combine these words into a grammatically correct simple sentence.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Words:</strong> quickly / the / ran / dog / away</p>
+                    </div>
+                    <textarea placeholder="Write your simple sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Possible answers:</h4>
+                        <p>The dog ran away quickly.</p>
+                        <p>The dog quickly ran away.</p>
+                        <p>Quickly, the dog ran away.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Words:</strong> coffee / morning / drinks / every / she / hot</p>
+                    </div>
+                    <textarea placeholder="Write your simple sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Possible answers:</h4>
+                        <p>She drinks hot coffee every morning.</p>
+                        <p>Every morning, she drinks hot coffee.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Words:</strong> expensive / the / restaurant / very / was / new</p>
+                    </div>
+                    <textarea placeholder="Write your simple sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Possible answers:</h4>
+                        <p>The new restaurant was very expensive.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Words:</strong> park / children / happily / the / played / in / the</p>
+                    </div>
+                    <textarea placeholder="Write your simple sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Possible answers:</h4>
+                        <p>The children played happily in the park.</p>
+                        <p>The children happily played in the park.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Words:</strong> loudly / neighbor / complains / our / always</p>
+                    </div>
+                    <textarea placeholder="Write your simple sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Possible answers:</h4>
+                        <p>Our neighbor always complains loudly.</p>
+                        <p>Our neighbor complains loudly always.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: COMPOUND SENTENCES -->
+        <div class="tab-content" id="compound">
+            <div class="section-card">
+                <h2>Compound Sentences: Joining Equals</h2>
+                
+                <p>A compound sentence joins <strong>two or more independent clauses</strong> (complete thoughts) using coordinating conjunctions.</p>
+
+                <div class="formula-box">
+                    <div class="formula">INDEPENDENT CLAUSE + FANBOYS + INDEPENDENT CLAUSE</div>
+                    <div class="example">Two complete thoughts joined as equals</div>
+                </div>
+
+                <h3>The FANBOYS</h3>
+                <div class="conjunction-grid">
+                    <div class="conjunction-card">
+                        <div class="word">For</div>
+                        <div class="meaning">= because</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">And</div>
+                        <div class="meaning">+ addition</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Nor</div>
+                        <div class="meaning">= negative and</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">But</div>
+                        <div class="meaning">= contrast</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Or</div>
+                        <div class="meaning">= alternative</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Yet</div>
+                        <div class="meaning">= surprising contrast</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">So</div>
+                        <div class="meaning">= result</div>
+                    </div>
+                </div>
+
+                <div class="instruction-box">
+                    <p><strong>Punctuation Rule:</strong> Use a COMMA before the FANBOYS conjunction when joining two independent clauses.</p>
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Example</div>
+                    <span class="highlight-subject">The rain</span> <span class="highlight-verb">stopped</span><span class="highlight-conjunction">, so</span> <span class="highlight-subject">we</span> <span class="highlight-verb">went</span> <span class="highlight-object">outside</span>.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Example</div>
+                    <span class="highlight-subject">I</span> <span class="highlight-verb">wanted</span> <span class="highlight-object">coffee</span><span class="highlight-conjunction">, but</span> <span class="highlight-subject">the cafe</span> <span class="highlight-verb">was</span> <span class="highlight-object">closed</span>.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 1: Identify Compound Sentences</h2>
+                
+                <div class="score-tracker">
+                    <span>Score: <span class="score" id="compound-score">0</span>/15</span>
+                    <button class="reset-btn" onclick="resetScore('compound')">Reset</button>
+                </div>
+
+                <div class="practice-grid" id="compound-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 2: Choose the Right FANBOYS</h2>
+                
+                <div class="practice-grid" id="fanboys-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 3: Build Compound Sentences</h2>
+                <p>Join these simple sentences using an appropriate FANBOYS conjunction.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. I was tired.</p>
+                        <p>2. I kept working.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>I was tired, <strong>but</strong> I kept working.</p>
+                        <p>I was tired, <strong>yet</strong> I kept working.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The movie was boring.</p>
+                        <p>2. We left early.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answer:</h4>
+                        <p>The movie was boring, <strong>so</strong> we left early.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. She studied hard.</p>
+                        <p>2. She passed the exam.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>She studied hard, <strong>and</strong> she passed the exam.</p>
+                        <p>She studied hard, <strong>so</strong> she passed the exam.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. You can take the bus.</p>
+                        <p>2. You can walk to the station.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answer:</h4>
+                        <p>You can take the bus, <strong>or</strong> you can walk to the station.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. He doesn't like coffee.</p>
+                        <p>2. He doesn't like tea.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answer:</h4>
+                        <p>He doesn't like coffee, <strong>nor</strong> does he like tea.</p>
+                        <p><em>(Note: After "nor", we invert the subject and auxiliary verb)</em></p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The hotel was expensive.</p>
+                        <p>2. The location was perfect.</p>
+                    </div>
+                    <textarea placeholder="Write your compound sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>The hotel was expensive, <strong>but</strong> the location was perfect.</p>
+                        <p>The hotel was expensive, <strong>yet</strong> the location was perfect.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: COMPLEX SENTENCES -->
+        <div class="tab-content" id="complex">
+            <div class="section-card">
+                <h2>Complex Sentences: Main + Dependent</h2>
+                
+                <p>A complex sentence has <strong>one independent clause</strong> and <strong>at least one dependent clause</strong>. The dependent clause cannot stand alone - it needs the main clause.</p>
+
+                <div class="formula-box">
+                    <div class="formula">INDEPENDENT CLAUSE + DEPENDENT CLAUSE</div>
+                    <div class="example">or</div>
+                    <div class="formula">DEPENDENT CLAUSE + , + INDEPENDENT CLAUSE</div>
+                </div>
+
+                <h3>Subordinating Conjunctions</h3>
+                <p>These words START dependent clauses:</p>
+                
+                <div class="subordinator-list">
+                    <span class="subordinator-tag">because</span>
+                    <span class="subordinator-tag">although</span>
+                    <span class="subordinator-tag">even though</span>
+                    <span class="subordinator-tag">while</span>
+                    <span class="subordinator-tag">when</span>
+                    <span class="subordinator-tag">whenever</span>
+                    <span class="subordinator-tag">if</span>
+                    <span class="subordinator-tag">unless</span>
+                    <span class="subordinator-tag">since</span>
+                    <span class="subordinator-tag">after</span>
+                    <span class="subordinator-tag">before</span>
+                    <span class="subordinator-tag">until</span>
+                    <span class="subordinator-tag">as</span>
+                    <span class="subordinator-tag">as soon as</span>
+                    <span class="subordinator-tag">once</span>
+                    <span class="subordinator-tag">whereas</span>
+                    <span class="subordinator-tag">wherever</span>
+                    <span class="subordinator-tag">though</span>
+                </div>
+
+                <div class="instruction-box">
+                    <p><strong>Punctuation Rule:</strong> Use a COMMA after the dependent clause ONLY when it comes FIRST.</p>
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Dependent clause FIRST = comma needed</div>
+                    <span class="highlight-dependent">Because it was raining</span>, <span class="highlight-subject">we</span> <span class="highlight-verb">stayed</span> <span class="highlight-object">inside</span>.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Dependent clause SECOND = no comma</div>
+                    <span class="highlight-subject">We</span> <span class="highlight-verb">stayed</span> <span class="highlight-object">inside</span> <span class="highlight-dependent">because it was raining</span>.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 1: Identify the Dependent Clause</h2>
+                
+                <div class="score-tracker">
+                    <span>Score: <span class="score" id="complex-score">0</span>/15</span>
+                    <button class="reset-btn" onclick="resetScore('complex')">Reset</button>
+                </div>
+
+                <div class="practice-grid" id="complex-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 2: Add the Correct Subordinator</h2>
+                
+                <div class="practice-grid" id="subordinator-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 3: Build Complex Sentences</h2>
+                <p>Join these using an appropriate subordinating conjunction.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. She passed the exam.</p>
+                        <p>2. She studied every day.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>She passed the exam <strong>because</strong> she studied every day.</p>
+                        <p><strong>Because</strong> she studied every day, she passed the exam.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. I will wait here.</p>
+                        <p>2. You come back.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>I will wait here <strong>until</strong> you come back.</p>
+                        <p><strong>Until</strong> you come back, I will wait here.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The restaurant was crowded.</p>
+                        <p>2. We found a table quickly.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>Although</strong> the restaurant was crowded, we found a table quickly.</p>
+                        <p>We found a table quickly <strong>even though</strong> the restaurant was crowded.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The alarm went off.</p>
+                        <p>2. Everyone evacuated the building.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>When</strong> the alarm went off, everyone evacuated the building.</p>
+                        <p><strong>As soon as</strong> the alarm went off, everyone evacuated the building.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. You don't study.</p>
+                        <p>2. You won't pass the test.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>If</strong> you don't study, you won't pass the test.</p>
+                        <p>You won't pass the test <strong>unless</strong> you study.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. I finished work.</p>
+                        <p>2. I called my mother.</p>
+                    </div>
+                    <textarea placeholder="Write your complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>After</strong> I finished work, I called my mother.</p>
+                        <p>I called my mother <strong>after</strong> I finished work.</p>
+                        <p><strong>Once</strong> I finished work, I called my mother.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 4: Fix the Punctuation</h2>
+                <p>Add commas where needed (or remove incorrect ones).</p>
+
+                <div class="practice-grid" id="punctuation-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: COMPOUND-COMPLEX -->
+        <div class="tab-content" id="compound-complex">
+            <div class="section-card">
+                <h2>Compound-Complex: The Full Package</h2>
+                
+                <p>This is the most sophisticated sentence type. It combines features of both compound and complex sentences.</p>
+
+                <div class="formula-box">
+                    <div class="formula">2+ INDEPENDENT CLAUSES + 1+ DEPENDENT CLAUSE</div>
+                    <div class="example">Multiple complete thoughts + subordination = Band 8 variety</div>
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Example 1</div>
+                    <span class="highlight-dependent">Although I was tired</span>, <span class="highlight-subject">I</span> <span class="highlight-verb">finished</span> <span class="highlight-object">my homework</span><span class="highlight-conjunction">, and</span> <span class="highlight-subject">I</span> <span class="highlight-verb">went</span> <span class="highlight-object">to bed early</span>.
+                </div>
+
+                <div class="clause-diagram">
+                    <div class="clause-box dependent">Dependent: Although I was tired</div>
+                    <div class="clause-box subject">Independent 1: I finished my homework</div>
+                    <div class="clause-box conjunction">and</div>
+                    <div class="clause-box subject">Independent 2: I went to bed early</div>
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Example 2</div>
+                    <span class="highlight-subject">The team</span> <span class="highlight-verb">worked</span> <span class="highlight-object">overtime</span><span class="highlight-conjunction">, but</span> <span class="highlight-subject">they</span> <span class="highlight-verb">missed</span> <span class="highlight-object">the deadline</span> <span class="highlight-dependent">because the project was too complex</span>.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Example 3</div>
+                    <span class="highlight-dependent">When the storm hit</span>, <span class="highlight-subject">the power</span> <span class="highlight-verb">went out</span><span class="highlight-conjunction">, so</span> <span class="highlight-subject">we</span> <span class="highlight-verb">lit</span> <span class="highlight-object">candles</span>.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 1: Identify Compound-Complex</h2>
+                
+                <div class="score-tracker">
+                    <span>Score: <span class="score" id="cc-score">0</span>/12</span>
+                    <button class="reset-btn" onclick="resetScore('cc')">Reset</button>
+                </div>
+
+                <div class="practice-grid" id="cc-practice">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Practice Set 2: Build Compound-Complex Sentences</h2>
+                <p>Combine these THREE ideas into ONE compound-complex sentence.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The weather was bad.</p>
+                        <p>2. We went to the beach.</p>
+                        <p>3. We had a great time.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>Although</strong> the weather was bad, we went to the beach, <strong>and</strong> we had a great time.</p>
+                        <p><strong>Even though</strong> the weather was bad, we went to the beach, <strong>and</strong> we had a great time.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. She got the job.</p>
+                        <p>2. She was nervous during the interview.</p>
+                        <p>3. She starts next Monday.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>She got the job <strong>even though</strong> she was nervous during the interview, <strong>and</strong> she starts next Monday.</p>
+                        <p><strong>Although</strong> she was nervous during the interview, she got the job, <strong>so</strong> she starts next Monday.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The restaurant was expensive.</p>
+                        <p>2. The food was delicious.</p>
+                        <p>3. We couldn't afford dessert.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>The food was delicious, <strong>but</strong> we couldn't afford dessert <strong>because</strong> the restaurant was expensive.</p>
+                        <p><strong>Although</strong> the food was delicious, we couldn't afford dessert <strong>because</strong> the restaurant was expensive.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. I arrived at the station.</p>
+                        <p>2. The train had already left.</p>
+                        <p>3. I had to wait an hour for the next one.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>When</strong> I arrived at the station, the train had already left, <strong>so</strong> I had to wait an hour for the next one.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The internet connection failed.</p>
+                        <p>2. I was in the middle of an important meeting.</p>
+                        <p>3. I had to use my phone instead.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p>The internet connection failed <strong>while</strong> I was in the middle of an important meeting, <strong>so</strong> I had to use my phone instead.</p>
+                        <p><strong>When</strong> the internet connection failed, I was in the middle of an important meeting, <strong>and</strong> I had to use my phone instead.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The exam was difficult.</p>
+                        <p>2. Most students passed.</p>
+                        <p>3. They studied together.</p>
+                    </div>
+                    <textarea placeholder="Write your compound-complex sentence here..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>Although</strong> the exam was difficult, most students passed <strong>because</strong> they studied together.</p>
+                        <p>The exam was difficult, <strong>but</strong> most students passed <strong>because</strong> they studied together.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: SENTENCE SURGERY -->
+        <div class="tab-content" id="surgery">
+            <div class="section-card">
+                <h2>Sentence Surgery: Transform and Improve</h2>
+                
+                <p>Real IELTS skill isn't just knowing sentence types - it's knowing when and how to use variety. Let's practice transforming sentences.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Exercise 1: Simple to Complex</h2>
+                <p>Transform these simple sentences into complex sentences by adding a dependent clause.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Simple:</strong> I missed the bus.</p>
+                    </div>
+                    <textarea placeholder="Make it complex by adding a dependent clause..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Examples</button>
+                    <div class="model-answer">
+                        <h4>Possible complex sentences:</h4>
+                        <p>I missed the bus <strong>because</strong> I woke up late.</p>
+                        <p><strong>Although</strong> I ran to the stop, I missed the bus.</p>
+                        <p>I missed the bus <strong>even though</strong> I left on time.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Simple:</strong> She got promoted.</p>
+                    </div>
+                    <textarea placeholder="Make it complex..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Examples</button>
+                    <div class="model-answer">
+                        <h4>Possible complex sentences:</h4>
+                        <p>She got promoted <strong>because</strong> she worked harder than everyone else.</p>
+                        <p><strong>After</strong> she completed the project, she got promoted.</p>
+                        <p><strong>Since</strong> she joined the company, she has been promoted twice.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Simple:</strong> The city invested in public transport.</p>
+                    </div>
+                    <textarea placeholder="Make it complex..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Examples</button>
+                    <div class="model-answer">
+                        <h4>Possible complex sentences:</h4>
+                        <p>The city invested in public transport <strong>because</strong> traffic had become unbearable.</p>
+                        <p><strong>When</strong> the new government took power, the city invested in public transport.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Exercise 2: Two Simples to One Compound</h2>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Simple 1:</strong> The concert was sold out.</p>
+                        <p><strong>Simple 2:</strong> We watched it online.</p>
+                    </div>
+                    <textarea placeholder="Join with FANBOYS..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Answer</button>
+                    <div class="model-answer">
+                        <p>The concert was sold out, <strong>so</strong> we watched it online.</p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Simple 1:</strong> The project was behind schedule.</p>
+                        <p><strong>Simple 2:</strong> The team worked weekends.</p>
+                    </div>
+                    <textarea placeholder="Join with FANBOYS..."></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Answer</button>
+                    <div class="model-answer">
+                        <p>The project was behind schedule, <strong>so</strong> the team worked weekends.</p>
+                        <p>The project was behind schedule, <strong>and</strong> the team worked weekends.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Exercise 3: Improve This Paragraph</h2>
+                <p>This paragraph uses only simple sentences. Rewrite it with better variety.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Original (all simple):</strong></p>
+                        <p>Many people use social media daily. They check their phones constantly. This affects their productivity. Some companies ban phones at work. Employees become more focused. The policy is controversial.</p>
+                    </div>
+                    <textarea placeholder="Rewrite with a mix of simple, compound, and complex sentences..." style="min-height: 150px;"></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answer:</h4>
+                        <p><strong>Because</strong> many people use social media daily and check their phones constantly, their productivity is often affected. <strong>Although</strong> the policy is controversial, some companies have banned phones at work, <strong>and</strong> they report that employees become more focused as a result.</p>
+                        <p><em>(2 sentences instead of 6, using complex and compound-complex structures)</em></p>
+                    </div>
+                </div>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Original (all simple):</strong></p>
+                        <p>Cities are growing rapidly. Housing prices are increasing. Young people cannot afford homes. Governments are building more apartments. The problem continues. New solutions are needed.</p>
+                    </div>
+                    <textarea placeholder="Rewrite with variety..." style="min-height: 150px;"></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answer</button>
+                    <div class="model-answer">
+                        <h4>Model answer:</h4>
+                        <p><strong>As</strong> cities grow rapidly, housing prices are increasing, <strong>and</strong> young people can no longer afford homes. <strong>Although</strong> governments are building more apartments, the problem continues, <strong>so</strong> new solutions are urgently needed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Exercise 4: Multiple Transformations</h2>
+                <p>Take these two simple sentences and write them THREE different ways.</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p><strong>Sentence A:</strong> The exam was difficult.</p>
+                        <p><strong>Sentence B:</strong> I passed.</p>
+                    </div>
+                    <textarea placeholder="Version 1 (compound):"></textarea>
+                    <textarea placeholder="Version 2 (complex):"></textarea>
+                    <textarea placeholder="Version 3 (compound-complex - add more info):"></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Model Answers</button>
+                    <div class="model-answer">
+                        <h4>Model answers:</h4>
+                        <p><strong>Compound:</strong> The exam was difficult, but I passed.</p>
+                        <p><strong>Complex:</strong> Although the exam was difficult, I passed.</p>
+                        <p><strong>Compound-complex:</strong> Although the exam was difficult, I passed, and I'm proud of my result.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: TIMED CHALLENGE -->
+        <div class="tab-content" id="challenge">
+            <div class="section-card">
+                <h2>Timed Challenge</h2>
+                <p>Test your speed and accuracy. Can you construct sentences under pressure?</p>
+
+                <div class="timer-section">
+                    <div class="timer-display" id="timer">3:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn start" onclick="startTimer()">Start</button>
+                        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Challenge 1: Quick Fire Identification</h2>
+                <p>Identify the sentence type as fast as you can. Write S (simple), CP (compound), CX (complex), or CC (compound-complex).</p>
+
+                <div class="combine-exercise">
+                    <div class="given">
+                        <p>1. The cat sleeps on the sofa.</p>
+                        <p>2. I wanted coffee, but the cafe was closed.</p>
+                        <p>3. Because it was raining, we stayed inside.</p>
+                        <p>4. When the alarm rang, everyone ran outside, and the building was evacuated.</p>
+                        <p>5. She studies medicine.</p>
+                        <p>6. Although he trained hard, he lost the race.</p>
+                        <p>7. The movie was boring, so we left.</p>
+                        <p>8. I'll wait until you arrive.</p>
+                        <p>9. The project failed because the budget was cut, and the team was disappointed.</p>
+                        <p>10. Coffee keeps me awake.</p>
+                    </div>
+                    <textarea placeholder="1. ___ 2. ___ 3. ___ etc..." style="min-height: 100px;"></textarea>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">See Answers</button>
+                    <div class="model-answer">
+                        <h4>Answers:</h4>
+                        <p>1. S (simple) | 2. CP (compound) | 3. CX (complex) | 4. CC (compound-complex) | 5. S (simple) | 6. CX (complex) | 7. CP (compound) | 8. CX (complex) | 9. CC (compound-complex) | 10. S (simple)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Challenge 2: Sentence Building Race</h2>
+                <p>Build ONE sentence of each type on the topic: <strong>LEARNING A LANGUAGE</strong></p>
+
+                <div class="challenge-card">
+                    <h4>Write a SIMPLE sentence:</h4>
+                    <textarea placeholder="One independent clause only..."></textarea>
+                </div>
+
+                <div class="challenge-card">
+                    <h4>Write a COMPOUND sentence:</h4>
+                    <textarea placeholder="Two independent clauses + FANBOYS..."></textarea>
+                </div>
+
+                <div class="challenge-card">
+                    <h4>Write a COMPLEX sentence:</h4>
+                    <textarea placeholder="One independent + one dependent clause..."></textarea>
+                </div>
+
+                <div class="challenge-card">
+                    <h4>Write a COMPOUND-COMPLEX sentence:</h4>
+                    <textarea placeholder="Two independent clauses + at least one dependent clause..."></textarea>
+                </div>
+
+                <button class="reveal-btn" onclick="document.getElementById('language-models').classList.toggle('show')" style="margin-top: 15px;">See Model Answers</button>
+                <div class="model-answer" id="language-models">
+                    <h4>Example answers:</h4>
+                    <p><strong>Simple:</strong> Learning a new language takes time.</p>
+                    <p><strong>Compound:</strong> Learning a new language takes time, but the rewards are worth it.</p>
+                    <p><strong>Complex:</strong> Although learning a new language takes time, the rewards are worth it.</p>
+                    <p><strong>Compound-complex:</strong> Although learning a new language takes time, many people study daily, and they eventually achieve fluency.</p>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Challenge 3: IELTS-Style Paragraph</h2>
+                <p>Write a 4-5 sentence paragraph using AT LEAST one of each sentence type. Topic:</p>
+                
+                <div class="challenge-card">
+                    <h4>"Should governments invest more in public transport?"</h4>
+                    <textarea style="min-height: 200px;" placeholder="Write your paragraph here. Include: at least 1 simple, 1 compound, 1 complex, and 1 compound-complex sentence..."></textarea>
+                </div>
+
+                <button class="reveal-btn" onclick="document.getElementById('ielts-model').classList.toggle('show')">See Model Paragraph</button>
+                <div class="model-answer" id="ielts-model">
+                    <h4>Model paragraph (sentence types labeled):</h4>
+                    <p><strong>[Complex]</strong> Because urban populations are growing rapidly, governments must prioritize public transport investment. <strong>[Simple]</strong> Efficient bus and train systems reduce traffic congestion. <strong>[Compound]</strong> Private car use decreases air pollution, and cities become more liveable. <strong>[Compound-complex]</strong> Although initial costs are high, long-term benefits include economic growth, so the investment is worthwhile. <strong>[Complex]</strong> When public transport is reliable, more people choose it over driving.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: QUICK REFERENCE -->
+        <div class="tab-content" id="reference">
+            <div class="section-card">
+                <h2>Quick Reference Card</h2>
+                <p>Save this page for quick revision!</p>
+            </div>
+
+            <div class="quick-ref-grid">
+                <div class="ref-card">
+                    <h4>SIMPLE</h4>
+                    <div class="formula">Subject + Verb (+ Object)</div>
+                    <p><strong>Contains:</strong> 1 independent clause</p>
+                    <p class="example">"The cat sleeps."</p>
+                    <p class="example">"Coffee keeps me awake."</p>
+                </div>
+
+                <div class="ref-card">
+                    <h4>COMPOUND</h4>
+                    <div class="formula">IC + , FANBOYS + IC</div>
+                    <p><strong>Contains:</strong> 2+ independent clauses</p>
+                    <p><strong>Conjunctions:</strong> for, and, nor, but, or, yet, so</p>
+                    <p class="example">"I was tired, but I kept working."</p>
+                </div>
+
+                <div class="ref-card">
+                    <h4>COMPLEX</h4>
+                    <div class="formula">IC + DC (no comma)</div>
+                    <div class="formula">DC + , + IC (comma!)</div>
+                    <p><strong>Contains:</strong> 1 independent + 1+ dependent clause</p>
+                    <p><strong>Starts with:</strong> because, although, when, if, while, after, before, until, since...</p>
+                    <p class="example">"Although it rained, we went out."</p>
+                </div>
+
+                <div class="ref-card">
+                    <h4>COMPOUND-COMPLEX</h4>
+                    <div class="formula">2+ IC + 1+ DC</div>
+                    <p><strong>Contains:</strong> 2+ independent clauses + 1+ dependent clause</p>
+                    <p class="example">"When it rained, we stayed inside, and we watched a movie."</p>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>FANBOYS Quick Reference</h2>
+                <div class="conjunction-grid">
+                    <div class="conjunction-card">
+                        <div class="word">For</div>
+                        <div class="meaning">reason (formal)</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">And</div>
+                        <div class="meaning">addition</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Nor</div>
+                        <div class="meaning">negative addition</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">But</div>
+                        <div class="meaning">contrast</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Or</div>
+                        <div class="meaning">alternative</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">Yet</div>
+                        <div class="meaning">surprising contrast</div>
+                    </div>
+                    <div class="conjunction-card">
+                        <div class="word">So</div>
+                        <div class="meaning">result</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Common Subordinating Conjunctions</h2>
+                
+                <h3>Time</h3>
+                <div class="subordinator-list">
+                    <span class="subordinator-tag">when</span>
+                    <span class="subordinator-tag">whenever</span>
+                    <span class="subordinator-tag">while</span>
+                    <span class="subordinator-tag">as</span>
+                    <span class="subordinator-tag">after</span>
+                    <span class="subordinator-tag">before</span>
+                    <span class="subordinator-tag">until</span>
+                    <span class="subordinator-tag">since</span>
+                    <span class="subordinator-tag">once</span>
+                    <span class="subordinator-tag">as soon as</span>
+                </div>
+
+                <h3>Cause/Reason</h3>
+                <div class="subordinator-list">
+                    <span class="subordinator-tag">because</span>
+                    <span class="subordinator-tag">since</span>
+                    <span class="subordinator-tag">as</span>
+                </div>
+
+                <h3>Contrast/Concession</h3>
+                <div class="subordinator-list">
+                    <span class="subordinator-tag">although</span>
+                    <span class="subordinator-tag">though</span>
+                    <span class="subordinator-tag">even though</span>
+                    <span class="subordinator-tag">whereas</span>
+                    <span class="subordinator-tag">while</span>
+                </div>
+
+                <h3>Condition</h3>
+                <div class="subordinator-list">
+                    <span class="subordinator-tag">if</span>
+                    <span class="subordinator-tag">unless</span>
+                    <span class="subordinator-tag">provided that</span>
+                    <span class="subordinator-tag">as long as</span>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Punctuation Rules Summary</h2>
+                
+                <div class="example-sentence">
+                    <div class="label">Compound (always comma before FANBOYS)</div>
+                    I was tired<strong>, but</strong> I kept working.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Complex - dependent FIRST (comma after)</div>
+                    <strong>Although I was tired,</strong> I kept working.
+                </div>
+
+                <div class="example-sentence">
+                    <div class="label">Complex - dependent SECOND (no comma)</div>
+                    I kept working <strong>although I was tired</strong>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Score tracking
+        const scores = {
+            simple: 0,
+            compound: 0,
+            complex: 0,
+            cc: 0
+        };
+
+        function updateScore(type, correct) {
+            if (correct) {
+                scores[type]++;
+                document.getElementById(type + '-score').textContent = scores[type];
+            }
+        }
+
+        function resetScore(type) {
+            scores[type] = 0;
+            document.getElementById(type + '-score').textContent = '0';
+            // Reset all practice items in that section
+            const container = document.getElementById(type + '-practice');
+            if (container) {
+                container.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                    opt.style.pointerEvents = 'auto';
+                });
+                container.querySelectorAll('.feedback').forEach(fb => {
+                    fb.classList.remove('correct', 'incorrect');
+                });
+            }
+        }
+
+        // Simple sentence practice data
+        const simplePractice = [
+            { sentence: "The dog barks loudly.", answer: true, explanation: "One subject (dog), one verb (barks) = simple sentence" },
+            { sentence: "She reads books, and he watches TV.", answer: false, explanation: "Two independent clauses joined by 'and' = compound sentence" },
+            { sentence: "The tall man with the red hat walked slowly down the street.", answer: true, explanation: "Still just one subject (man) and one verb (walked) = simple sentence, even though it's long!" },
+            { sentence: "Because it rained, we stayed inside.", answer: false, explanation: "Contains a dependent clause (Because it rained) = complex sentence" },
+            { sentence: "My sister and brother play tennis.", answer: true, explanation: "Compound subject (sister and brother) but still one clause = simple sentence" },
+            { sentence: "The movie was boring, so we left early.", answer: false, explanation: "Two independent clauses joined by 'so' = compound sentence" },
+            { sentence: "The old wooden bridge collapsed.", answer: true, explanation: "One subject (bridge), one verb (collapsed) = simple sentence" },
+            { sentence: "I woke up early and went for a run.", answer: true, explanation: "One subject (I) with compound verb (woke up, went) = still simple!" },
+            { sentence: "Although tired, she finished the race.", answer: false, explanation: "'Although tired' is a dependent element = complex sentence" },
+            { sentence: "The children laughed and played in the garden.", answer: true, explanation: "One subject (children) with compound verb = simple sentence" },
+            { sentence: "Coffee or tea is fine with me.", answer: true, explanation: "Compound subject but one clause = simple sentence" },
+            { sentence: "When you arrive, call me.", answer: false, explanation: "'When you arrive' is a dependent clause = complex sentence" },
+            { sentence: "The sun set behind the mountains.", answer: true, explanation: "One subject, one verb = simple sentence" },
+            { sentence: "I like pizza, but my wife prefers pasta.", answer: false, explanation: "Two independent clauses joined by 'but' = compound sentence" },
+            { sentence: "The experienced doctor carefully examined the patient.", answer: true, explanation: "One subject (doctor), one verb (examined) = simple sentence" }
+        ];
+
+        // Compound sentence practice
+        const compoundPractice = [
+            { sentence: "I wanted to go out, but it was raining.", answer: true, explanation: "Two independent clauses joined by 'but'" },
+            { sentence: "Because she was late, she missed the train.", answer: false, explanation: "This is complex (dependent + independent clause)" },
+            { sentence: "The sun was shining, and the birds were singing.", answer: true, explanation: "Two independent clauses joined by 'and'" },
+            { sentence: "He studied all night.", answer: false, explanation: "This is a simple sentence (one clause)" },
+            { sentence: "You can have coffee, or you can have tea.", answer: true, explanation: "Two independent clauses joined by 'or'" },
+            { sentence: "The movie was long, yet I enjoyed every minute.", answer: true, explanation: "Two independent clauses joined by 'yet'" },
+            { sentence: "She speaks French fluently.", answer: false, explanation: "Simple sentence (one clause)" },
+            { sentence: "I was hungry, so I made a sandwich.", answer: true, explanation: "Two independent clauses joined by 'so'" },
+            { sentence: "Although it was cold, we went swimming.", answer: false, explanation: "Complex sentence (dependent + independent)" },
+            { sentence: "The team practiced hard, for they wanted to win.", answer: true, explanation: "Two independent clauses joined by 'for'" },
+            { sentence: "She doesn't like coffee, nor does she drink tea.", answer: true, explanation: "Two independent clauses joined by 'nor'" },
+            { sentence: "I finished my work and went home.", answer: false, explanation: "Simple sentence with compound verb (same subject)" },
+            { sentence: "The concert was cancelled, so we stayed home.", answer: true, explanation: "Two independent clauses joined by 'so'" },
+            { sentence: "When the phone rang, I answered it.", answer: false, explanation: "Complex sentence (dependent + independent)" },
+            { sentence: "She was tired, but she kept working.", answer: true, explanation: "Two independent clauses joined by 'but'" }
+        ];
+
+        // Complex sentence practice - identify the dependent clause
+        const complexPractice = [
+            { sentence: "Because it was raining, we stayed inside.", dependent: "Because it was raining", answer: "A" },
+            { sentence: "I'll wait until you arrive.", dependent: "until you arrive", answer: "B" },
+            { sentence: "Although she was tired, she finished the race.", dependent: "Although she was tired", answer: "A" },
+            { sentence: "He left before the movie ended.", dependent: "before the movie ended", answer: "B" },
+            { sentence: "When the alarm rang, everyone evacuated.", dependent: "When the alarm rang", answer: "A" },
+            { sentence: "She passed the exam because she studied hard.", dependent: "because she studied hard", answer: "B" },
+            { sentence: "If you need help, please ask.", dependent: "If you need help", answer: "A" },
+            { sentence: "The dog barks whenever someone knocks.", dependent: "whenever someone knocks", answer: "B" },
+            { sentence: "Since you asked nicely, I'll help you.", dependent: "Since you asked nicely", answer: "A" },
+            { sentence: "I can't go out unless I finish my work.", dependent: "unless I finish my work", answer: "B" },
+            { sentence: "After the storm passed, we went outside.", dependent: "After the storm passed", answer: "A" },
+            { sentence: "She smiled as if she knew a secret.", dependent: "as if she knew a secret", answer: "B" },
+            { sentence: "While I was cooking, the phone rang.", dependent: "While I was cooking", answer: "A" },
+            { sentence: "He won't succeed unless he tries harder.", dependent: "unless he tries harder", answer: "B" },
+            { sentence: "Once you understand the rule, it's easy.", dependent: "Once you understand the rule", answer: "A" }
+        ];
+
+        // Compound-complex practice
+        const ccPractice = [
+            { sentence: "Although I was tired, I finished my homework, and I went to bed early.", answer: true, explanation: "Dependent clause (Although...) + two independent clauses joined by 'and'" },
+            { sentence: "The movie was boring, so we left early.", answer: false, explanation: "This is compound (two independent clauses only)" },
+            { sentence: "When the storm hit, the power went out, and we lit candles.", answer: true, explanation: "Dependent clause (When...) + two independent clauses" },
+            { sentence: "Because she was late, she missed the train.", answer: false, explanation: "This is complex (one dependent + one independent clause)" },
+            { sentence: "I wanted to go out, but it was raining, so I stayed home.", answer: false, explanation: "This is compound (three independent clauses, no dependent clause)" },
+            { sentence: "Although it was expensive, we bought the house, and we've never regretted it.", answer: true, explanation: "Dependent + two independent clauses" },
+            { sentence: "She studies every day because she wants to pass.", answer: false, explanation: "This is complex (one independent + one dependent)" },
+            { sentence: "If you finish early, you can leave, or you can help the others.", answer: true, explanation: "Dependent clause (If...) + two independent clauses" },
+            { sentence: "The restaurant was crowded, yet we found a table quickly.", answer: false, explanation: "This is compound (two independent clauses only)" },
+            { sentence: "Because the weather was bad, the flight was delayed, and passengers were frustrated.", answer: true, explanation: "Dependent + two independent clauses" },
+            { sentence: "When I arrived, the party had started, but most guests hadn't come yet.", answer: true, explanation: "Dependent + two independent clauses" },
+            { sentence: "She worked hard, and she succeeded.", answer: false, explanation: "This is compound (two independent clauses only)" }
+        ];
+
+        // FANBOYS practice
+        const fanboysPractice = [
+            { sentence: "I was hungry, ___ I made a sandwich.", answer: "so", options: ["and", "but", "so", "yet"] },
+            { sentence: "She studied hard, ___ she still failed the exam.", answer: "but", options: ["and", "but", "so", "for"] },
+            { sentence: "You can take the bus, ___ you can walk.", answer: "or", options: ["and", "or", "but", "so"] },
+            { sentence: "He was tired, ___ he went to bed early.", answer: "so", options: ["but", "yet", "so", "and"] },
+            { sentence: "The movie was sad, ___ beautiful.", answer: "yet", options: ["and", "but", "yet", "so"] },
+            { sentence: "I don't like coffee, ___ do I drink tea.", answer: "nor", options: ["and", "nor", "or", "but"] },
+            { sentence: "She left early, ___ she had a meeting.", answer: "for", options: ["for", "so", "and", "but"] },
+            { sentence: "He exercised regularly, ___ he lost weight.", answer: "and", options: ["but", "and", "yet", "so"] }
+        ];
+
+        // Subordinator practice
+        const subordinatorPractice = [
+            { sentence: "___ it was raining, we cancelled the picnic.", answer: "Because", options: ["Because", "And", "But", "So"] },
+            { sentence: "I'll wait ___ you arrive.", answer: "until", options: ["and", "until", "so", "but"] },
+            { sentence: "___ she was tired, she finished the race.", answer: "Although", options: ["Although", "Because", "And", "So"] },
+            { sentence: "Call me ___ you get home.", answer: "when", options: ["and", "but", "when", "so"] },
+            { sentence: "I won't go ___ you come with me.", answer: "unless", options: ["unless", "because", "and", "so"] },
+            { sentence: "___ the movie started, we found our seats.", answer: "Before", options: ["Before", "And", "But", "So"] },
+            { sentence: "She smiled ___ she heard the news.", answer: "when", options: ["and", "when", "but", "so"] },
+            { sentence: "___ he apologizes, I won't forgive him.", answer: "Unless", options: ["Because", "Unless", "When", "And"] }
+        ];
+
+        // Punctuation practice
+        const punctuationPractice = [
+            { sentence: "Because it was cold we wore jackets.", correct: "Because it was cold, we wore jackets.", explanation: "Comma needed after dependent clause when it comes first" },
+            { sentence: "We wore jackets, because it was cold.", correct: "We wore jackets because it was cold.", explanation: "No comma when dependent clause comes second" },
+            { sentence: "Although she was nervous, she gave a great speech.", correct: "Already correct!", explanation: "Comma correctly placed after initial dependent clause" },
+            { sentence: "I'll call you, when I arrive.", correct: "I'll call you when I arrive.", explanation: "No comma when dependent clause comes second" },
+            { sentence: "When the alarm rang everyone ran outside.", correct: "When the alarm rang, everyone ran outside.", explanation: "Comma needed after initial dependent clause" },
+            { sentence: "She passed because she studied.", correct: "Already correct!", explanation: "No comma needed when dependent clause is second" }
+        ];
+
+        // Populate practice sections
+        function populateSimplePractice() {
+            const container = document.getElementById('simple-practice');
+            simplePractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. "${item.sentence}"</div>
+                    <div class="options">
+                        <span class="option" data-answer="true" onclick="checkSimple(this, ${item.answer}, 'simple')">Yes - Simple</span>
+                        <span class="option" data-answer="false" onclick="checkSimple(this, ${item.answer}, 'simple')">No - Not Simple</span>
+                    </div>
+                    <div class="feedback">${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateCompoundPractice() {
+            const container = document.getElementById('compound-practice');
+            compoundPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. "${item.sentence}"</div>
+                    <div class="options">
+                        <span class="option" data-answer="true" onclick="checkSimple(this, ${item.answer}, 'compound')">Yes - Compound</span>
+                        <span class="option" data-answer="false" onclick="checkSimple(this, ${item.answer}, 'compound')">No - Not Compound</span>
+                    </div>
+                    <div class="feedback">${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateComplexPractice() {
+            const container = document.getElementById('complex-practice');
+            complexPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. "${item.sentence}"<br><br>Where is the dependent clause?</div>
+                    <div class="options">
+                        <span class="option" data-answer="A" onclick="checkComplex(this, '${item.answer}', '${item.dependent}')">At the BEGINNING</span>
+                        <span class="option" data-answer="B" onclick="checkComplex(this, '${item.answer}', '${item.dependent}')">At the END</span>
+                    </div>
+                    <div class="feedback">The dependent clause is: "${item.dependent}"</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateCCPractice() {
+            const container = document.getElementById('cc-practice');
+            ccPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. "${item.sentence}"</div>
+                    <div class="options">
+                        <span class="option" data-answer="true" onclick="checkSimple(this, ${item.answer}, 'cc')">Yes - Compound-Complex</span>
+                        <span class="option" data-answer="false" onclick="checkSimple(this, ${item.answer}, 'cc')">No - Not Compound-Complex</span>
+                    </div>
+                    <div class="feedback">${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateFanboysPractice() {
+            const container = document.getElementById('fanboys-practice');
+            fanboysPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. ${item.sentence}</div>
+                    <div class="options">
+                        ${item.options.map(opt => `<span class="option" onclick="checkFanboys(this, '${item.answer}', '${opt}')">${opt}</span>`).join('')}
+                    </div>
+                    <div class="feedback">The correct answer is: ${item.answer}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateSubordinatorPractice() {
+            const container = document.getElementById('subordinator-practice');
+            subordinatorPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. ${item.sentence}</div>
+                    <div class="options">
+                        ${item.options.map(opt => `<span class="option" onclick="checkFanboys(this, '${item.answer}', '${opt}')">${opt}</span>`).join('')}
+                    </div>
+                    <div class="feedback">The correct answer is: ${item.answer}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populatePunctuationPractice() {
+            const container = document.getElementById('punctuation-practice');
+            punctuationPractice.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'practice-item';
+                div.innerHTML = `
+                    <div class="question">${index + 1}. "${item.sentence}"</div>
+                    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')" style="margin-top: 10px;">See Correction</button>
+                    <div class="model-answer">
+                        <h4>Corrected:</h4>
+                        <p>${item.correct}</p>
+                        <p><em>${item.explanation}</em></p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkSimple(element, correctAnswer, type) {
+            const userAnswer = element.dataset.answer === 'true';
+            const feedback = element.closest('.practice-item').querySelector('.feedback');
+            const options = element.closest('.options').querySelectorAll('.option');
+            
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (userAnswer === correctAnswer) {
+                element.classList.add('correct');
+                feedback.classList.add('correct');
+                updateScore(type, true);
+            } else {
+                element.classList.add('incorrect');
+                feedback.classList.add('incorrect');
+                options.forEach(opt => {
+                    if ((opt.dataset.answer === 'true') === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function checkComplex(element, correctAnswer, dependent) {
+            const userAnswer = element.dataset.answer;
+            const feedback = element.closest('.practice-item').querySelector('.feedback');
+            const options = element.closest('.options').querySelectorAll('.option');
+            
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (userAnswer === correctAnswer) {
+                element.classList.add('correct');
+                feedback.classList.add('correct');
+                updateScore('complex', true);
+            } else {
+                element.classList.add('incorrect');
+                feedback.classList.add('incorrect');
+                options.forEach(opt => {
+                    if (opt.dataset.answer === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function checkFanboys(element, correctAnswer, userAnswer) {
+            const feedback = element.closest('.practice-item').querySelector('.feedback');
+            const options = element.closest('.options').querySelectorAll('.option');
+            
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (userAnswer === correctAnswer) {
+                element.classList.add('correct');
+                feedback.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                feedback.classList.add('incorrect');
+                options.forEach(opt => {
+                    if (opt.textContent === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // Timer functionality
+        let timerInterval;
+        let timeRemaining = 180;
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeRemaining = 180;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = document.getElementById('timer');
+            display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            display.classList.remove('warning', 'danger');
+            if (timeRemaining <= 10) {
+                display.classList.add('danger');
+            } else if (timeRemaining <= 30) {
+                display.classList.add('warning');
+            }
+        }
+
+        // Initialize
+        populateSimplePractice();
+        populateCompoundPractice();
+        populateComplexPractice();
+        populateCCPractice();
+        populateFanboysPractice();
+        populateSubordinatorPractice();
+        populatePunctuationPractice();
+    </script>
+</body>
+</html>
