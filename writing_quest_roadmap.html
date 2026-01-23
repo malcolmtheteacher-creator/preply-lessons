@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Quest - Your Adventure Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: #2d2d44;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 25px;
+            background: #1a1a2e;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4ecdc4, #44a08d, #667eea, #764ba2);
+            background-size: 200% 100%;
+            width: 8%;
+            border-radius: 15px;
+            animation: gradientMove 2s ease infinite;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .progress-text {
+            font-size: 1.1rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #2d2d44 0%, #1f1f2e 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Lesson Path */
+        .lesson-path {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .lesson-path::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #667eea, #764ba2, #ff6b6b);
+            border-radius: 2px;
+        }
+
+        /* Lesson Cards */
+        .lesson-card {
+            position: relative;
+            background: linear-gradient(135deg, #2d2d44 0%, #1f1f2e 100%);
+            border: 2px solid #444;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson-card:hover {
+            transform: translateX(10px);
+            border-color: #667eea;
+            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .lesson-card.completed {
+            border-color: #4ecdc4;
+            opacity: 0.8;
+        }
+
+        .lesson-card.current {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .lesson-card.locked {
+            opacity: 0.5;
+        }
+
+        /* Lesson Number Dot */
+        .lesson-dot {
+            position: absolute;
+            left: -32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border: 3px solid #1a1a2e;
+        }
+
+        .lesson-card.completed .lesson-dot {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+        }
+
+        .lesson-card.completed .lesson-dot::after {
+            content: '✓';
+        }
+
+        .lesson-card.current .lesson-dot {
+            background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+        }
+
+        .lesson-card.locked .lesson-dot {
+            background: #444;
+        }
+
+        /* Lesson Content */
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .lesson-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .lesson-icon {
+            font-size: 1.8rem;
+        }
+
+        .lesson-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .lesson-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: #667eea;
+        }
+
+        .lesson-card.completed .skill-tag {
+            background: rgba(78, 205, 196, 0.2);
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            position: absolute;
+            top: -8px;
+            right: 15px;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-badge.completed {
+            background: #4ecdc4;
+            color: #1a1a2e;
+        }
+
+        .status-badge.current {
+            background: #ffd700;
+            color: #1a1a2e;
+        }
+
+        .status-badge.locked {
+            background: #444;
+            color: #888;
+        }
+
+        /* Boss Battle Card */
+        .boss-card {
+            background: linear-gradient(135deg, #2d1f1f 0%, #1f1a1a 100%);
+            border: 2px solid #ff6b6b;
+        }
+
+        .boss-card .lesson-dot {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+        }
+
+        .boss-card .skill-tag {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        /* Final Boss */
+        .final-boss {
+            background: linear-gradient(135deg, #3d2d1f 0%, #2a1f1a 100%);
+            border: 3px solid #ffd700;
+        }
+
+        .final-boss .lesson-dot {
+            background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%);
+            width: 35px;
+            height: 35px;
+            left: -36px;
+        }
+
+        /* What You'll Master Section */
+        .master-section {
+            background: linear-gradient(135deg, #2d2d44 0%, #1f1f2e 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .master-title {
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .master-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .master-item {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .master-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .master-text {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .lesson-path {
+                padding-left: 35px;
+            }
+            
+            .lesson-path::before {
+                left: 13px;
+            }
+            
+            .lesson-dot {
+                left: -27px;
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+            
+            .lesson-card {
+                padding: 15px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="header-icon">🚀</div>
+        <div class="header-title">WRITING QUEST</div>
+        <div class="header-subtitle">Your 12-Lesson Adventure to Become a Writing Master</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-section">
+        <div class="progress-label">OVERALL PROGRESS</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text"><span id="completedCount">1</span> / 12 Lessons Complete</div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">🎮</div>
+            <div>
+                <div class="section-title">SECTION 1: Building Your Toolkit</div>
+                <div class="section-subtitle">Master the core skills every great writer needs</div>
+            </div>
+        </div>
+
+        <div class="lesson-path">
+            <!-- Lesson 1 -->
+            <div class="lesson-card current" onclick="toggleLesson(this)">
+                <div class="lesson-dot">1</div>
+                <span class="status-badge current">NOW</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Beat the Clock Writing</div>
+                    <div class="lesson-icon">⏱️</div>
+                </div>
+                <div class="lesson-description">
+                    Fast-paced writing challenges with timers. Build speed and confidence. Learn to write without overthinking!
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Speed Writing</span>
+                    <span class="skill-tag">Sentence Starters</span>
+                    <span class="skill-tag">Building Confidence</span>
+                </div>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">2</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Description Quest</div>
+                    <div class="lesson-icon">🎨</div>
+                </div>
+                <div class="lesson-description">
+                    Paint pictures with words. Use your 5 senses. Make readers SEE what you're describing.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Sensory Details</span>
+                    <span class="skill-tag">Adjective Stacking</span>
+                    <span class="skill-tag">Show Don't Tell</span>
+                </div>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">3</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Dialogue Master</div>
+                    <div class="lesson-icon">💬</div>
+                </div>
+                <div class="lesson-description">
+                    Write conversations that feel REAL. Kill the word "said". Make characters come alive through what they say.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Said is Dead</span>
+                    <span class="skill-tag">Punctuation</span>
+                    <span class="skill-tag">Character Voice</span>
+                </div>
+            </div>
+
+            <!-- Lesson 4 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">4</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Opinion Blaster</div>
+                    <div class="lesson-icon">💥</div>
+                </div>
+                <div class="lesson-description">
+                    State your opinion. Back it up. Destroy the opposition. Become impossible to argue with.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Strong Arguments</span>
+                    <span class="skill-tag">Evidence</span>
+                    <span class="skill-tag">Counter-Arguments</span>
+                </div>
+            </div>
+
+            <!-- Lesson 5 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">5</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Story Starters</div>
+                    <div class="lesson-icon">🎣</div>
+                </div>
+                <div class="lesson-description">
+                    The first line is everything. Hook your reader in 10 seconds. Make them NEED to keep reading.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Opening Hooks</span>
+                    <span class="skill-tag">Creating Mystery</span>
+                    <span class="skill-tag">First Impressions</span>
+                </div>
+            </div>
+
+            <!-- Lesson 6 - Section Boss -->
+            <div class="lesson-card boss-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">6</div>
+                <span class="status-badge locked">BOSS</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Mini Story Challenge</div>
+                    <div class="lesson-icon">🐲</div>
+                </div>
+                <div class="lesson-description">
+                    BOSS BATTLE! Combine everything you've learned. Write a complete mini-story in one session. Prove you're ready for Section 2.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">All Skills Combined</span>
+                    <span class="skill-tag">Complete Story</span>
+                    <span class="skill-tag">Boss Battle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">⚔️</div>
+            <div>
+                <div class="section-title">SECTION 2: Level Up Your Stories</div>
+                <div class="section-subtitle">Advanced techniques to make your writing unforgettable</div>
+            </div>
+        </div>
+
+        <div class="lesson-path">
+            <!-- Lesson 7 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">7</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Character Creator</div>
+                    <div class="lesson-icon">🧙</div>
+                </div>
+                <div class="lesson-description">
+                    Build characters readers actually care about. Give them flaws. Give them secrets. Make them REAL.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Character Flaws</span>
+                    <span class="skill-tag">Backstory</span>
+                    <span class="skill-tag">Motivation</span>
+                </div>
+            </div>
+
+            <!-- Lesson 8 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">8</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Setting the Scene</div>
+                    <div class="lesson-icon">🏰</div>
+                </div>
+                <div class="lesson-description">
+                    Create worlds that feel alive. Build atmosphere. Make readers feel like they're INSIDE your story.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">World Building</span>
+                    <span class="skill-tag">Atmosphere</span>
+                    <span class="skill-tag">Mood</span>
+                </div>
+            </div>
+
+            <!-- Lesson 9 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">9</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Conflict & Tension</div>
+                    <div class="lesson-icon">⚡</div>
+                </div>
+                <div class="lesson-description">
+                    No conflict = boring story. Learn to create problems, raise stakes, and keep readers on the edge of their seats.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Creating Problems</span>
+                    <span class="skill-tag">Raising Stakes</span>
+                    <span class="skill-tag">Suspense</span>
+                </div>
+            </div>
+
+            <!-- Lesson 10 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">10</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Endings That Land</div>
+                    <div class="lesson-icon">🎯</div>
+                </div>
+                <div class="lesson-description">
+                    Don't ruin a great story with a weak ending. Learn to finish strong. Leave readers satisfied (or wanting more).
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Satisfying Endings</span>
+                    <span class="skill-tag">Plot Twists</span>
+                    <span class="skill-tag">Last Lines</span>
+                </div>
+            </div>
+
+            <!-- Lesson 11 -->
+            <div class="lesson-card locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">11</div>
+                <span class="status-badge locked">Locked</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">Genre Mashup</div>
+                    <div class="lesson-icon">🎭</div>
+                </div>
+                <div class="lesson-description">
+                    Mix genres like a mad scientist. Horror + Comedy? Sci-Fi + Romance? The weirdest combos often work best.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">Genre Knowledge</span>
+                    <span class="skill-tag">Creative Mixing</span>
+                    <span class="skill-tag">Breaking Rules</span>
+                </div>
+            </div>
+
+            <!-- Lesson 12 - Final Boss -->
+            <div class="lesson-card final-boss locked" onclick="toggleLesson(this)">
+                <div class="lesson-dot">12</div>
+                <span class="status-badge locked">FINAL</span>
+                <div class="lesson-header">
+                    <div class="lesson-title">THE FINAL BOSS</div>
+                    <div class="lesson-icon">👑</div>
+                </div>
+                <div class="lesson-description">
+                    The ultimate challenge. Write a complete story using EVERY skill you've learned. This is your moment. Show what you can do.
+                </div>
+                <div class="lesson-skills">
+                    <span class="skill-tag">EVERYTHING</span>
+                    <span class="skill-tag">Full Story</span>
+                    <span class="skill-tag">Final Challenge</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What You'll Master -->
+    <div class="master-section">
+        <div class="master-title">BY THE END, YOU'LL BE ABLE TO...</div>
+        <div class="master-grid">
+            <div class="master-item">
+                <div class="master-icon">✍️</div>
+                <div class="master-text">Write quickly without freezing up</div>
+            </div>
+            <div class="master-item">
+                <div class="master-icon">🎬</div>
+                <div class="master-text">Create vivid descriptions that pop</div>
+            </div>
+            <div class="master-item">
+                <div class="master-icon">🗣️</div>
+                <div class="master-text">Write dialogue that sounds real</div>
+            </div>
+            <div class="master-item">
+                <div class="master-icon">🧠</div>
+                <div class="master-text">Build arguments that convince</div>
+            </div>
+            <div class="master-item">
+                <div class="master-icon">📖</div>
+                <div class="master-text">Tell complete stories with structure</div>
+            </div>
+            <div class="master-item">
+                <div class="master-icon">🌟</div>
+                <div class="master-text">Make readers FEEL something</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Writing Quest with Malcolm | 12 Lessons to Level Up Your Writing
+    </div>
+
+</div>
+
+<script>
+    // Track completed lessons (save to localStorage)
+    let completedLessons = JSON.parse(localStorage.getItem('writingQuestProgress')) || [1];
+    
+    function updateProgress() {
+        const total = 12;
+        const completed = completedLessons.length;
+        const percentage = (completed / total) * 100;
+        
+        document.getElementById('progressBar').style.width = percentage + '%';
+        document.getElementById('completedCount').textContent = completed;
+        
+        // Update lesson cards
+        document.querySelectorAll('.lesson-card').forEach((card, index) => {
+            const lessonNum = index + 1;
+            card.classList.remove('completed', 'current', 'locked');
+            
+            const badge = card.querySelector('.status-badge');
+            const dot = card.querySelector('.lesson-dot');
+            
+            if (completedLessons.includes(lessonNum)) {
+                card.classList.add('completed');
+                badge.className = 'status-badge completed';
+                badge.textContent = 'Done';
+                dot.textContent = '';
+            } else if (lessonNum === Math.max(...completedLessons) + 1 || 
+                       (completedLessons.length === 0 && lessonNum === 1)) {
+                card.classList.add('current');
+                badge.className = 'status-badge current';
+                badge.textContent = 'NOW';
+                dot.textContent = lessonNum;
+            } else {
+                card.classList.add('locked');
+                badge.className = 'status-badge locked';
+                badge.textContent = lessonNum === 6 || lessonNum === 12 ? 'BOSS' : 'Locked';
+                dot.textContent = lessonNum;
+            }
+        });
+        
+        localStorage.setItem('writingQuestProgress', JSON.stringify(completedLessons));
+    }
+    
+    function toggleLesson(card) {
+        const cards = document.querySelectorAll('.lesson-card');
+        const index = Array.from(cards).indexOf(card);
+        const lessonNum = index + 1;
+        
+        // For demo: clicking a current lesson marks it complete
+        if (card.classList.contains('current')) {
+            if (!completedLessons.includes(lessonNum)) {
+                completedLessons.push(lessonNum);
+                updateProgress();
+            }
+        }
+    }
+    
+    // Initialize
+    updateProgress();
+</script>
+
+</body>
+</html>
