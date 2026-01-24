@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuickNotes — Tintin Mobile + Sync</title>
+<meta name="theme-color" content="#e9e4d4">
+<style>
+  :root{
+    --paper:#F2EEDC; --ink:#151515; --sky:#7EC4FF; --brick:#E44C3C;
+    --sand:#E9E4D4; --card:#FFFDF4; --shadow:#0a0a0a10; --muted:#5B5B5B;
+    --accent:#0E74C9; --ok:#2F9E44; --danger:#C92A2A; --border:#0F0F0F;
+  }
+  [data-theme="night"]{
+    --paper:#1E2229; --ink:#F4F4F4; --sky:#5FA8FF; --brick:#FF6B5A;
+    --sand:#1B1F26; --card:#242A33; --shadow:#00000030; --muted:#B8C0CC;
+    --accent:#7EC4FF; --ok:#6EE7A0; --danger:#FF7A7A; --border:#000;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--sand); color:var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, Helvetica, Arial;
+    display:flex; flex-direction:column; -webkit-tap-highlight-color:transparent;
+  }
+  header{
+    position:sticky; top:0; z-index:5; background:var(--paper);
+    border-bottom:3px solid var(--border);
+    display:flex; gap:.6rem; align-items:center; padding:.6rem .8rem; flex-wrap:wrap;
+  }
+  .badge{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:var(--sky); color:#fff; font-weight:900; border:3px solid var(--border); box-shadow:0 2px 0 var(--border) }
+  header h1{ margin:0; font-size:1.06rem; letter-spacing:.2px; flex:1 1 auto; min-width:160px }
+  header input[type="search"]{ flex:1 1 220px; min-width:140px; border-radius:14px; padding:.55rem .8rem; border:3px solid var(--border); background:var(--card); font-weight:600 }
+  .btn{ border:3px solid var(--border); background:var(--sky); color:#fff; font-weight:800; padding:.5rem .7rem; border-radius:12px; box-shadow:0 3px 0 var(--border); line-height:1; min-height:40px; min-width:44px }
+  .btn.alt{ background:var(--brick) } .btn.icon{ width:44px; padding:.5rem 0; text-align:center }
+  .btn:active{ transform:translateY(1px) }
+  #wrap{display:flex; min-height:0; height:100%}
+  #list{ width:44%; min-width:280px; max-width:520px; background:var(--paper); border-right:3px solid var(--border); overflow:auto }
+  #editor{ flex:1; display:flex; flex-direction:column; min-width:240px; background:var(--paper) }
+  .panel{ background:var(--card); border-radius:16px; margin:.6rem; padding:.6rem; border:3px solid var(--border); box-shadow:0 4px 0 var(--border), 0 8px 0 var(--shadow) }
+  .toolbar{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap }
+  .toolbar input,.toolbar button,.toolbar label{ border:3px solid var(--border); border-radius:12px; padding:.5rem .6rem; background:var(--card); font-weight:700 }
+  .toolbar input[type="text"]{ flex:1 1 180px; min-width:120px }
+  .toolbar .right{ margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap }
+  .note{ background:var(--card); border:3px solid var(--border); border-radius:14px; margin:.6rem; padding:.6rem; cursor:pointer; box-shadow:0 3px 0 var(--border) }
+  .note .title{ font-weight:900; margin-bottom:.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  .note .meta{ font-size:.78rem; color:var(--muted); display:flex; gap:.5rem; align-items:center }
+  .note .tags{ display:flex; gap:.25rem; flex-wrap:wrap; margin-top:.35rem }
+  .tag{ font-size:.72rem; padding:.12rem .45rem; border:3px solid var(--border); border-radius:999px; background:#fff6 }
+  #content{ flex:1; width:100%; border:3px solid var(--border); border-radius:16px; margin:.5rem .6rem 1rem .6rem; padding:1rem; background:#fffdf8; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:1rem; line-height:1.55; outline:none; resize:none; color:var(--ink); box-shadow:0 4px 0 var(--border); min-height:40vh }
+  footer{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; background:var(--paper); border-top:3px solid var(--border); padding:.5rem .6rem }
+  .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
+  .status{ color:var(--muted) } .hidden{ display:none !important }
+  .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; align-items:center; justify-content:center; padding:1rem }
+  .overlay[aria-hidden="false"]{ display:flex }
+  .sheet{ max-width:700px; width:100%; background:var(--card); border:3px solid var(--border); border-radius:18px; padding:1rem; box-shadow:0 8px 0 var(--border) }
+  .sheet h2{ margin:.2rem 0 .8rem 0; font-size:1.1rem } .row{ display:flex; gap:.6rem; align-items:center; margin:.25rem 0; flex-wrap:wrap }
+  .k{ width:42px; height:42px; border-radius:12px; border:3px solid var(--border); display:flex; align-items:center; justify-content:center; background:var(--sky); color:#fff; font-weight:900 }
+  .k.alt{ background:var(--brick) } .k.gray{ background:var(--paper); color:var(--ink) }
+  .close{ float:right }
+  @media (max-width: 740px){
+    header{ flex-wrap:wrap }
+    header h1{ order:0; flex-basis:100%; font-size:1rem }
+    header input[type="search"]{ order:1; flex:1 1 100%; min-width:0 }
+    header .btn{ order:2 }
+    #wrap{ flex-direction:column }
+    #list{ width:100%; min-width:0; max-width:none; max-height:38vh; border-right:none; border-bottom:3px solid var(--border) }
+    #editor{ min-width:0 }
+    .toolbar input[type="text"]{ flex:1 1 100% }
+    .toolbar .right{ width:100%; justify-content:flex-start }
+    .toolbar .right .btn{ flex:1 1 calc(50% - .5rem) }
+    #content{ margin:.5rem; min-height:44vh }
+    .btn.icon{ width:44px }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="badge" title="App icon">Q</div>
+  <h1>QuickNotes — Tintin</h1>
+  <input id="search" type="search" placeholder="Search title, tags, text…" aria-label="Search notes" />
+  <button id="newBtn" class="btn" title="New note (adds a blank note)">＋ New</button>
+  <button id="themeBtn" class="btn alt" title="Toggle day/night theme">☀︎/☾</button>
+  <button id="helpBtn" class="btn icon" title="Help">?</button>
+  <button id="syncBtn" class="btn" title="Sync now">Sync</button>
+  <button id="settingsBtn" class="btn icon" title="Sync settings">⚙︎</button>
+</header>
+
+<div id="wrap">
+  <aside id="list" aria-label="Notes list"></aside>
+  <main id="editor" aria-label="Editor">
+    <div class="panel toolbar" role="toolbar" aria-label="Note tools">
+      <input id="title" type="text" placeholder="Note title" aria-label="Note title" />
+      <input id="tags" type="text" placeholder="Tags (comma-separated)" aria-label="Tags" />
+      <label class="mono"><input type="checkbox" id="pin" aria-label="Pin note"> 📌 Pin</label>
+      <div class="right">
+        <button id="exportBtn" class="btn" title="Export notes as backup file">Export</button>
+        <button id="importBtn" class="btn" title="Import notes from backup">Import</button>
+        <input id="importFile" type="file" accept="application/json" class="hidden" />
+        <button id="deleteBtn" class="btn alt" title="Delete the current note">Delete</button>
+      </div>
+    </div>
+    <textarea id="content" placeholder="Type your adventure here… (autosaves)" spellcheck="true" aria-label="Note content"></textarea>
+    <footer>
+      <span class="status mono" id="status">Ready.</span>
+      <span class="mono" style="margin-left:auto;color:var(--muted)">All data stays on this device (localStorage) unless you enable Sync.</span>
+    </footer>
+  </main>
+</div>
+
+<!-- Help overlay -->
+<div class="overlay" id="help" aria-hidden="true" role="dialog" aria-modal="true" aria-label="QuickNotes Help">
+  <div class="sheet">
+    <button class="btn alt close" id="closeHelp" title="Close help">Close</button>
+    <h2>What the buttons mean</h2>
+    <div class="row"><div class="k">＋</div><span><strong>New</strong> — add a blank note</span></div>
+    <div class="row"><div class="k gray">☀︎/☾</div><span><strong>Day/Night</strong> — switch theme</span></div>
+    <div class="row"><div class="k">?</div><span><strong>Help</strong> — open this guide</span></div>
+    <div class="row"><div class="k gray">📌</div><span><strong>Pin</strong> — keep the note at the top</span></div>
+    <div class="row"><div class="k">Export</div><span><strong>Export</strong> — download a backup JSON</span></div>
+    <div class="row"><div class="k">Import</div><span><strong>Import</strong> — load a backup and merge notes</span></div>
+    <div class="row"><div class="k alt">Delete</div><span><strong>Delete</strong> — remove the current note</span></div>
+    <div class="row"><div class="k">Sync</div><span><strong>Sync now</strong> — saves/loads with your chosen sync file</span></div>
+    <div class="row"><div class="k">⚙︎</div><span><strong>Settings</strong> — choose sync file & options</span></div>
+    <hr>
+    <p class="mono" style="color:var(--muted)"><strong>Sync tip:</strong> On Chrome (Android/Desktop), choose a JSON in a cloud-synced folder (Drive/Dropbox/OneDrive). On iPhone (Safari), use Export/Import or open the same file from Files when prompted.</p>
+  </div>
+</div>
+
+<!-- Settings overlay -->
+<div class="overlay" id="settings" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Settings">
+  <div class="sheet">
+    <button class="btn alt close" id="closeSettings" title="Close settings">Close</button>
+    <h2>Sync settings</h2>
+    <p class="mono" style="color:var(--muted)">Method A — <strong>Sync to a JSON file (recommended)</strong></p>
+    <div class="row"><button id="chooseSyncFile" class="btn">Choose/Create sync file</button><span id="syncFileName" class="mono" style="color:var(--muted)"></span></div>
+    <div class="row"><label class="mono"><input type="checkbox" id="autoSync"> Autosync every 60s</label></div>
+    <p class="mono" style="color:var(--muted)">Method B — <strong>Manual</strong>: use Export on one device, Import on the other.</p>
+    <hr>
+    <p class="mono" style="color:var(--muted)"><strong>Note:</strong> File-based sync needs permission each time in some browsers. Chrome can remember it; Safari iOS is more limited.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (s, r=document)=>r.querySelector(s);
+  const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+  const storeKey = "quicknotes_v1";
+  const themeKey = "quicknotes_tintin_theme";
+  const syncKey  = "quicknotes_sync_prefs"; // {autosync:boolean, fileName:string}
+
+  const el = {
+    list: $("#list"),
+    search: $("#search"),
+    newBtn: $("#newBtn"),
+    themeBtn: $("#themeBtn"),
+    helpBtn: $("#helpBtn"),
+    help: $("#help"),
+    closeHelp: $("#closeHelp"),
+    title: $("#title"),
+    tags: $("#tags"),
+    pin: $("#pin"),
+    content: $("#content"),
+    status: $("#status"),
+    del: $("#deleteBtn"),
+    exportBtn: $("#exportBtn"),
+    importBtn: $("#importBtn"),
+    importFile: $("#importFile"),
+    syncBtn: $("#syncBtn"),
+    settingsBtn: $("#settingsBtn"),
+    settings: $("#settings"),
+    closeSettings: $("#closeSettings"),
+    chooseSyncFile: $("#chooseSyncFile"),
+    syncFileName: $("#syncFileName"),
+    autoSync: $("#autoSync"),
+  };
+
+  let state = { notes: [], selectedId: null, query: "" };
+  let sync = { fileHandle: null, autosync: false };
+
+  const uid = ()=> Math.random().toString(36).slice(2)+Date.now().toString(36);
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(storeKey);
+      if(raw){ const parsed = JSON.parse(raw); if(Array.isArray(parsed)) state.notes = parsed; }
+    }catch(e){ console.error(e); }
+    const t = localStorage.getItem(themeKey);
+    if(t) document.documentElement.setAttribute("data-theme", t);
+
+    try{
+      const p = JSON.parse(localStorage.getItem(syncKey)||"{}");
+      sync.autosync = !!p.autosync;
+      el.autoSync.checked = sync.autosync;
+      el.syncFileName.textContent = p.fileName||"";
+    }catch{}
+  }
+
+  function save(){ localStorage.setItem(storeKey, JSON.stringify(state.notes)); }
+  function setTheme(next){
+    const cur = document.documentElement.getAttribute("data-theme") || "day";
+    const t = next || (cur==="day" ? "night" : "day");
+    document.documentElement.setAttribute("data-theme", t);
+    localStorage.setItem(themeKey, t);
+  }
+  function sortNotes(a,b){
+    if(a.pin && !b.pin) return -1;
+    if(!a.pin && b.pin) return 1;
+    return (b.updated||0) - (a.updated||0);
+  }
+
+  function renderList(){
+    const q = state.query.trim().toLowerCase();
+    el.list.innerHTML = "";
+    const notes = [...state.notes].sort(sortNotes).filter(n=>{
+      if(!q) return true;
+      const hay = [(n.title||""),(n.text||""),(n.tags||[]).join(",")].join(" ").toLowerCase();
+      return hay.includes(q);
+    });
+    if(notes.length===0){
+      const d = document.createElement("div");
+      d.className="panel";
+      d.innerHTML = 'No notes yet — tap <strong>＋ New</strong> to begin.';
+      el.list.appendChild(d);
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    notes.forEach(n=>{
+      const card = document.createElement("div");
+      card.className="note";
+      card.dataset.id = n.id;
+      const title = document.createElement("div");
+      title.className="title";
+      title.textContent = n.title || "Untitled";
+      const meta = document.createElement("div");
+      meta.className="meta";
+      const date = new Date(n.updated||n.created||Date.now());
+      meta.innerHTML = `${n.pin?'<span>📌</span>':''}<span>${date.toLocaleString()}</span>`;
+      const tags = document.createElement("div");
+      tags.className="tags";
+      (n.tags||[]).forEach(t=>{
+        const span = document.createElement("span");
+        span.className="tag";
+        span.textContent = "#"+t;
+        tags.appendChild(span);
+      });
+      card.appendChild(title);
+      card.appendChild(meta);
+      if((n.tags||[]).length) card.appendChild(tags);
+      card.addEventListener("click", ()=>select(n.id));
+      frag.appendChild(card);
+    });
+    el.list.appendChild(frag);
+    $$(".note", el.list).forEach(div=>{
+      div.style.outline = div.dataset.id===state.selectedId ? "3px solid var(--accent)" : "none";
+    });
+  }
+
+  function select(id){
+    const note = state.notes.find(n=>n.id===id);
+    state.selectedId = id;
+    if(!note) return;
+    el.title.value = note.title || "";
+    el.tags.value = (note.tags||[]).join(", ");
+    el.pin.checked = !!note.pin;
+    el.content.value = note.text || "";
+    renderList();
+    flash("Loaded.");
+  }
+
+  function newNote(){
+    const id = uid();
+    const now = Date.now();
+    const note = { id, title:"", text:"", tags:[], pin:false, created:now, updated:now };
+    state.notes.unshift(note);
+    save(); renderList(); select(id);
+    el.title.focus();
+  }
+
+  function remove(){
+    const id = state.selectedId; if(!id) return;
+    const note = state.notes.find(n=>n.id===id); if(!note) return;
+    if(confirm("Delete this note?")){
+      state.notes = state.notes.filter(n=>n.id!==id);
+      state.selectedId = null; save(); renderList();
+      el.title.value=""; el.tags.value=""; el.pin.checked=false; el.content.value="";
+      flash("Deleted.");
+    }
+  }
+
+  function updateCurrent(partial){
+    const id = state.selectedId; if(!id) return;
+    const note = state.notes.find(n=>n.id===id); if(!note) return;
+    Object.assign(note, partial);
+    note.updated = Date.now();
+    save(); renderList();
+  }
+
+  let tTimer;
+  function flash(msg){
+    el.status.textContent = msg;
+    clearTimeout(tTimer);
+    tTimer = setTimeout(()=> el.status.textContent = "Ready.", 1200);
+  }
+
+  // Import / Export
+  function exportData(){
+    const blob = new Blob([JSON.stringify(state.notes,null,2)],{type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "quicknotes-backup.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+  function importData(file){
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const incoming = JSON.parse(reader.result);
+        if(Array.isArray(incoming)){
+          const map = new Map(state.notes.map(n=>[n.id,n]));
+          incoming.forEach(n=> map.set(n.id, n));
+          state.notes = Array.from(map.values());
+          save(); renderList(); flash("Imported.");
+        } else alert("Invalid backup file.");
+      }catch(e){ alert("Could not read backup: "+e.message); }
+    };
+    reader.readAsText(file);
+  }
+
+  // Help + Settings overlays
+  function openHelp(){ el.help.setAttribute('aria-hidden','false'); }
+  function closeHelp(){ el.help.setAttribute('aria-hidden','true'); }
+  function openSettings(){ el.settings.setAttribute('aria-hidden','false'); }
+  function closeSettings(){ el.settings.setAttribute('aria-hidden','true'); }
+
+  el.helpBtn.addEventListener('click', openHelp);
+  el.closeHelp.addEventListener('click', closeHelp);
+  el.help.addEventListener('click', (e)=>{ if(e.target===el.help) closeHelp(); });
+  el.settingsBtn.addEventListener('click', openSettings);
+  el.closeSettings.addEventListener('click', closeSettings);
+  el.settings.addEventListener('click', (e)=>{ if(e.target===el.settings) closeSettings(); });
+
+  // Sync via File System Access API (if available)
+  async function chooseSyncFile(){
+    if(!window.showSaveFilePicker && !window.showOpenFilePicker){
+      alert("Your browser doesn't support choosing a sync file. On iPhone/Safari, use Export/Import. On Chrome, update to latest.");
+      return;
+    }
+    try{
+      // ask user to open an existing JSON or create new
+      let handle;
+      if(window.showOpenFilePicker){
+        const [h] = await window.showOpenFilePicker({types:[{description:'JSON', accept:{'application/json':['.json']}}]}).catch(()=>[]);
+        handle = h;
+      }
+      if(!handle && window.showSaveFilePicker){
+        handle = await window.showSaveFilePicker({suggestedName:'quicknotes-sync.json', types:[{description:'JSON', accept:{'application/json':['.json']}}]});
+        // immediately write current notes
+      }
+      if(!handle) return;
+      sync.fileHandle = handle;
+      const name = handle.name || 'quicknotes-sync.json';
+      el.syncFileName.textContent = '↔ ' + name;
+      localStorage.setItem(syncKey, JSON.stringify({autosync: el.autoSync.checked, fileName: name}));
+      await writeSyncFile(); // push current notes
+      flash('Sync file set.');
+    }catch(e){ console.error(e); alert('Could not access file: '+e.message); }
+  }
+
+  async function writeSyncFile(){
+    if(!sync.fileHandle) return;
+    try{
+      const writable = await sync.fileHandle.createWritable();
+      await writable.write(new Blob([JSON.stringify(state.notes,null,2)],{type:'application/json'}));
+      await writable.close();
+      flash('Synced (uploaded).');
+    }catch(e){ console.error(e); alert('Write failed: '+e.message); }
+  }
+  async function readSyncFile(){
+    if(!sync.fileHandle) return;
+    try{
+      const file = await sync.fileHandle.getFile();
+      const text = await file.text();
+      const incoming = JSON.parse(text||'[]');
+      if(Array.isArray(incoming)){
+        const map = new Map(state.notes.map(n=>[n.id,n]));
+        incoming.forEach(n=> map.set(n.id, n));
+        state.notes = Array.from(map.values());
+        save(); renderList(); flash('Synced (downloaded).');
+      }
+    }catch(e){ console.error(e); alert('Read failed: '+e.message); }
+  }
+  async function syncNow(){
+    // naive two-way: pull then push, merging by id with latest updated
+    await readSyncFile();
+    await writeSyncFile();
+  }
+
+  let autosyncTimer;
+  function setAutosync(on){
+    sync.autosync = on;
+    localStorage.setItem(syncKey, JSON.stringify({autosync:on, fileName: el.syncFileName.textContent.replace('↔ ','')}));
+    clearInterval(autosyncTimer);
+    if(on) autosyncTimer = setInterval(syncNow, 60000);
+  }
+
+  // Events
+  el.chooseSyncFile.addEventListener('click', chooseSyncFile);
+  el.syncBtn.addEventListener('click', syncNow);
+  el.autoSync.addEventListener('change', (e)=> setAutosync(e.target.checked));
+
+  el.newBtn.addEventListener("click", newNote);
+  el.themeBtn.addEventListener("click", ()=>setTheme());
+  el.del.addEventListener("click", remove);
+  el.search.addEventListener("input", (e)=>{ state.query = e.target.value; renderList(); });
+  el.title.addEventListener("input", (e)=> updateCurrent({title:e.target.value}));
+  el.tags.addEventListener("input", (e)=>{
+    const tags = e.target.value.split(",").map(s=>s.trim()).filter(Boolean);
+    updateCurrent({tags});
+  });
+  el.pin.addEventListener("change", (e)=> updateCurrent({pin:e.target.checked}));
+  let typing;
+  el.content.addEventListener("input", (e)=>{
+    clearTimeout(typing);
+    typing = setTimeout(async ()=>{
+      updateCurrent({text:e.target.value});
+      flash("Saved.");
+      if(sync.autosync) await writeSyncFile();
+    }, 250);
+  });
+  el.exportBtn.addEventListener("click", exportData);
+  el.importBtn.addEventListener("click", ()=> el.importFile.click());
+  el.importFile.addEventListener("change", (e)=>{
+    const f = e.target.files[0]; if(f) importData(f);
+    e.target.value = "";
+  });
+
+  // Init
+  load(); renderList();
+  if(state.notes.length===0) newNote();
+  else select((state.notes.sort(sortNotes)[0]||{}).id);
+
+  if('wakeLock' in navigator){
+    document.addEventListener('visibilitychange', async ()=>{
+      if(document.visibilityState==='visible'){ try{ await navigator.wakeLock.request('screen'); }catch{} }
+    });
+  }
+
+  // restore autosync
+  setAutosync(el.autoSync.checked);
+})();</script>
+</body>
+</html>

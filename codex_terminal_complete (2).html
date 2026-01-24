@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codex Terminal Shell</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="background-color" content="#0d0d0d">
+  <meta name="description" content="Dark terminal interface for codex notes and rituals">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Codex Terminal">
+  
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ff3333;
+      font-family: 'JetBrains Mono', monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      animation: flicker 0.3s infinite alternate;
+    }
+    
+    @keyframes flicker {
+      0% { opacity: 1; }
+      95% { opacity: 1; }
+      96% { opacity: 0.92; }
+      97% { opacity: 1; }
+      98% { opacity: 0.94; }
+      99% { opacity: 1; }
+      100% { opacity: 0.96; }
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 51, 51, 0.03) 2px,
+        rgba(255, 51, 51, 0.03) 4px
+      );
+      z-index: 999;
+      pointer-events: none;
+    }
+    
+    #loginScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0d0d0d;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    
+    #loginScreen input {
+      font-size: 1.2em;
+      padding: 10px;
+      background: black;
+      border: 1px solid red;
+      color: red;
+      width: 300px;
+      text-align: center;
+    }
+    
+    #terminal {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      display: none;
+    }
+    
+    #inputContainer {
+      display: none;
+      padding: 10px;
+      background: #0d0d0d;
+      border-top: 1px solid #ff3333;
+    }
+    
+    #input {
+      background: transparent;
+      border: none;
+      color: #ff3333;
+      font-family: inherit;
+      font-size: 1em;
+      width: 100%;
+      outline: none;
+    }
+    
+    .typing {
+      overflow: hidden;
+      border-right: 2px solid #ff3333;
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { border-color: #ff3333; }
+      51%, 100% { border-color: transparent; }
+    }
+    
+    .glitch {
+      animation: glitch 0.5s ease-in-out;
+    }
+    
+    @keyframes glitch {
+      0% { transform: translate(0); filter: hue-rotate(0deg); }
+      10% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+      20% { transform: translate(-1px, -1px); filter: hue-rotate(0deg); }
+      30% { transform: translate(2px, 1px); filter: hue-rotate(180deg); }
+      40% { transform: translate(1px, -1px); filter: hue-rotate(270deg); }
+      50% { transform: translate(-1px, 1px); filter: hue-rotate(0deg); }
+      60% { transform: translate(2px, -2px); filter: hue-rotate(90deg); }
+      70% { transform: translate(-2px, -1px); filter: hue-rotate(180deg); }
+      80% { transform: translate(1px, 2px); filter: hue-rotate(270deg); }
+      90% { transform: translate(-1px, -2px); filter: hue-rotate(0deg); }
+      100% { transform: translate(0); filter: hue-rotate(0deg); }
+    }
+    
+    .terminal-glitch {
+      animation: glitch 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body onclick="goFullscreen()">
+  <div id="loginScreen">
+    <h1 style="color: red; font-weight: normal;">[REDACTED ACCESS PROTOCOL]</h1>
+    <p style="color: #661111;">Enter passphrase to proceed</p>
+    <input type="password" id="loginInput" placeholder="Passphrase..." />
+  </div>
+
+  <div id="terminal"></div>
+  <div id="inputContainer"><input id="input" autofocus placeholder=">" /></div>
+
+  <script>
+    function goFullscreen() {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+
+    const terminal = document.getElementById("terminal");
+    const input = document.getElementById("input");
+    const inputContainer = document.getElementById("inputContainer");
+    const loginScreen = document.getElementById("loginScreen");
+    const loginInput = document.getElementById("loginInput");
+
+    // Audio system for mobile compatibility
+    let audioEnabled = false;
+    
+    function enableAudio() {
+      if (!audioEnabled) {
+        try {
+          const testContext = new (window.AudioContext || window.webkitAudioContext)();
+          if (testContext) {
+            audioEnabled = true;
+            testContext.close();
+          }
+        } catch (e) {
+          audioEnabled = false;
+        }
+      }
+    }
+
+    function playSound(type) {
+      if (!audioEnabled) return;
+      
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        if (type === 'keypress') {
+          oscillator.frequency.value = 800 + Math.random() * 200;
+          oscillator.type = 'square';
+          gainNode.gain.setValueAtTime(0.03, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 0.1);
+        } else if (type === 'error') {
+          oscillator.frequency.value = 200;
+          oscillator.type = 'sawtooth';
+          gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 0.3);
+        } else if (type === 'startup') {
+          oscillator.frequency.value = 600;
+          oscillator.type = 'sine';
+          gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 0.2);
+        }
+        
+        setTimeout(() => {
+          try {
+            audioContext.close();
+          } catch (e) {}
+        }, 500);
+        
+      } catch (e) {
+        audioEnabled = false;
+      }
+    }
+
+    // Thrall Project Research Database - COMPLETE
+    const thrallData = {
+      // SACRED SITES & GEOGRAPHY
+      "lindisfarne": "Founded 635 AD by St. Aidan, the birthplace of English Christianity. Extensive priory ruins, tidal causeway access (8 hours daily), St. Cuthbert's Isle with medieval chapel ruins. First major Viking raid in Britain (793 AD). Numerous documented ghost sightings.",
+      "holy island": "See: lindisfarne",
+      "whitby": "13th-century Benedictine abbey ruins, built on 657 AD monastery site. Hosted Synod of Whitby (664 AD) changing English Christianity's direction. Associated with Bram Stoker's Dracula research. Extensive documented ghost sightings in clifftop cemetery.",
+      "rievaulx": "Great Cistercian abbey founded 1132 in North York Moors valley. Substantial ruins maintain architectural grandeur amid natural beauty. Medieval cemetery remains, contemplative atmosphere, remote location managed by English Heritage.",
+      "chillingham": "Medieval castle with private chapel, extensive warfare history. Multiple documented hauntings include 'Blue Boy' and 'White Lady' apparitions. Isolated location, private castle offering ghost tours, concentrated supernatural associations.",
+      "newby church": "Christ the Consoler Church, Victorian Gothic Revival (1870s). Famous 'Spectre of Newby Church' photograph (1963) allegedly showing 9-foot-tall phantom monk. Active church with documented supernatural photographic evidence.",
+      "duddo stones": "Neolithic/Bronze Age stone circle, 'The Singing Stones'. Five weathered sandstone monoliths, agricultural setting, very low visitor frequency. Folklore associates supernatural sounds and feminine energy.",
+      "rudston monolith": "UK's tallest standing stone (8 meters) within active Norman churchyard. Saxon Christianization of Neolithic monument. Devil's thunderbolt legend maintains supernatural associations.",
+      
+      // CLASSICAL DEMONOLOGY TEXTS
+      "ars goetia": "Lesser Key of Solomon, 17th century. Systematic catalog of 72 demons with specific ranks, seals, and functions. Detailed conjuration instructions and protective measures. Based on earlier Pseudomonarchia Daemonum. Standardized demonological practice manual.",
+      "lesser key": "See: ars goetia",
+      "pseudomonarchia": "Pseudomonarchia Daemonum by Johann Weyer (1577). Earlier catalog of demons that influenced Ars Goetia. 69 demons listed with names, ranks, and abilities. Protestant physician's catalog attempting to debunk demonic magic through systematic description.",
+      "dictionnaire infernal": "Jacques Collin de Plancy (1818-1863). Hierarchical demonic organization: Beelzebub as supreme chief, Satan as dethroned prince leading opposition, Moloch as prince of tears (child sacrifice), Lilith as princess of succubi, Leonard as great lord of the Sabbath.",
+      "grimorium verum": "18th century grimoire, 'True Grimoire'. Three sections: conjuration of Lucifer and subordinates, natural secrets and sympathies, invocation of Astaroth. Contains seals, circles, and detailed demonic hierarchies. Influenced by Key of Solomon tradition.",
+      "grand grimoire": "Red Dragon, 18th-19th century. Pact-making with Lucifer and prime minister Lucifuge Rofocale. Contains conjuration rituals, diabolical contracts, and powerful talismans. Notorious for its explicit diabolic pacts and material wealth promises.",
+      "lemegeton": "Complete Lesser Key of Solomon comprising five parts: Ars Goetia (72 demons), Ars Theurgia-Goetia (aerial spirits), Ars Paulina (angels of hours/zodiac), Ars Almadel (altitudes/angels), Ars Notoria (prayers for knowledge). Most comprehensive medieval magical compendium.",
+      "book of abramelin": "Sacred Magic of Abramelin the Mage, medieval Jewish tradition preserved in German/French manuscripts. 18-month ritual for achieving Knowledge and Conversation of Holy Guardian Angel. Second part contains word-square talismans for various magical operations. Influenced Golden Dawn and Crowley.",
+      "picatrix": "Ghāyat al-Hakīm, 10th-11th century Arabic. Comprehensive manual of talismanic magic, astrology, and spirit evocation. Four books covering astral magic, planetary influences, talismanic construction, and spiritual operations. Translated into Latin as Picatrix.",
+      
+      // SPECIFIC DEMONIC ENTITIES
+      "lucifer": "Light-bearer, morning star. Ars Goetia: not listed as one of 72. Christian tradition: fallen angel, Satan's identity. Grimorium Verum: Emperor of East, controls Astaroth and Beelzebub. Grand Grimoire: supreme ruler requiring formal pacts.",
+      "beelzebub": "Lord of Flies. Ars Goetia: not among 72 spirits. Dictionnaire Infernal: supreme chief of hell's empire. Biblical tradition: Philistine god, prince of demons (Matthew 12:24). Medieval: one of seven princes of hell.",
+      "astaroth": "Ars Goetia #29: Great Duke commanding 40 legions. Appears as ugly angel with dragon mount. Teaches liberal sciences, reveals hidden treasures, answers questions about past/future. Grimorium Verum: Grand Duke of Western regions under Lucifer.",
+      "baal": "Ars Goetia #1: Great King and Duke commanding 66 legions. Appears as man, cat, toad, or combination. Makes men invisible, grants wisdom. Canaanite storm/fertility god demonized in Christian tradition.",
+      "asmodeus": "Ars Goetia #32: Great King commanding 72 legions. Teaches mathematics, astronomy, handicrafts, makes men invisible, reveals treasure. Talmudic tradition: demon of lust and wrath. Book of Tobit: torments Sarah's seven husbands.",
+      "paimon": "Ars Goetia #9: Great King commanding 200 legions. Teaches arts, sciences, secret things, reveals treasures and mysteries. Appears with crown, riding camel, preceded by musicians. Crowned king in western regions.",
+      "baphomet": "Templar accusations (1307-1314), later occult symbolism. Eliphas Levi's illustration (1856): hermaphroditic figure with goat head, pentagram forehead, torch between horns. Represents balance of opposites, material/spiritual unity.",
+      "azazel": "Book of Enoch: leader of fallen Watchers who taught forbidden knowledge. Leviticus 16: scapegoat ritual 'for Azazel'. Islamic tradition: Iblis/Satan figure who refused to bow to Adam. Day of Atonement ritual significance.",
+      "lilith": "Mesopotamian: night demon attacking pregnant women/infants. Hebrew tradition: Adam's first wife who refused submission, became mother of demons. Medieval: succubus figure, princess of hell. Modern: feminist reclamation symbol.",
+      "moloch": "Canaanite deity associated with child sacrifice. Leviticus 18:21 prohibitions. Medieval demonology: prince of tears and anguish. Milton's Paradise Lost: mighty demon advocating open war against heaven.",
+      
+      // ANCIENT TEXTS & THEOLOGY  
+      "book of enoch": "Composite work 4th-3rd century BCE. Five sections: Book of Watchers (1-36), Parables (37-71), Astronomical Book (72-82), Dream Visions (83-90), Epistle (91-108). Establishes fallen angel hierarchy with Semjâzâ as leader of 200 angels, Azazel as ringleader. Divine binding for 'seventy generations'.",
+      "fallen angels": "Led by Semjâzâ and Azazel, 200 angels descended to Mt. Hermon, took binding oaths, married human women producing Nephilim/giants. Introduced forbidden knowledge: metallurgy, cosmetics, warfare, astronomy. Template for demonic imprisonment concepts.",
+      "nephilim": "Hybrid angel-human offspring from Genesis 6:1-4 and Numbers 13:32-33. Two interpretations: Angelic (Book of Watchers - literal angel-human hybrids) and Sethian (Augustine/Calvin - descendants of Seth/Cain). Archaeological context suggests psychological rather than literal foundations.",
+      "watchers": "Fallen angels from Book of Enoch. 200 angels led by Semjâzâ descended to Mt. Hermon, took binding oaths, corrupted humanity through forbidden knowledge and producing Nephilim offspring. Bound for seventy generations until final judgment.",
+      "gnostic": "Core principles: Gnosis (direct spiritual knowledge), Dualism (material world as flawed), Divine spark (inner divinity), Illusion vs. Enlightenment. Nag Hammadi texts include Secret Book of John, Gospel of Thomas, Reality of the Rulers. Focus on ego dissolution and spiritual unmaking.",
+      "dead sea scrolls": "Sophisticated demonology through Songs of the Sage (4Q510-511), War Scroll (Sons of Light vs Sons of Darkness), Community Rule (Belial references). Apotropaic incantations, exorcism rituals, magical practices documented.",
+      "belial": "Central demonic figure in Dead Sea Scrolls. Etymology 'Worthless' (beli + ya'al). Leader of Sons of Darkness opposing God. Functions include divine punishment agent and rebel against divine order. Eschatological role to be 'let loose against Israel'.",
+      
+      // PSYCHOLOGICAL FRAMEWORKS
+      "shadow integration": "Jung's concept of unconscious repressed personality aspects. Process involves recognition → acknowledgment → conscious assimilation → psychological wholeness. Research shows expanded consciousness, reduced projection, enhanced creativity, greater moral flexibility.",
+      "ego death": "Clinical term 'ego dissolution' - temporary loss of subjective self-identity. Neurobiological research shows Default Mode Network disruption, glutamate system alterations. Therapeutic applications for depression, PTSD, addiction. Requires proper clinical support.",
+      "transpersonal": "Psychology framework by Maslow, Grof, Sutich (1960s). Studies spiritual/transcendent human experience scientifically. Core concepts: self-transcendence, consciousness states, spiritual development, holistic bio-psycho-social-spiritual model.",
+      "possession psychology": "Clinical understanding through dissociation, projection, cultural expression. Projection mechanisms: externalization of internal conflicts, defense against shame/guilt, identity fragmentation. 90% correlation with childhood trauma in clinical samples.",
+      "ritual psychology": "Culturally scripted events cultivating emotions through symbolic action. Three regulatory functions: emotional regulation, performance enhancement, social connection. Neurobiological: synchronized neural activity, endogenous opioids, reduced stress hormones.",
+      
+      // PILGRIMAGE & TRANSFORMATION
+      "camino portuguese": "274 km coastal route from Porto to Santiago. Three variants: Central (243.5 km), Coastal (274 km), Litoral (280 km). Historical significance: medieval usage, royal pilgrimages by Queen Isabel. 74% report psycho-existential motivations, 75% experience life changes.",
+      "pilgrimage psychology": "Turner & Turner's model: separation → communitas → reintegration. Research shows transformational quest with measurable benefits: movement from sickness to wellness, grief to closure, fractured to integrated. Six themes: authentic experience, nature, self-transformation, community, simplicity, spirituality.",
+      "flagellant": "13th-14th century movements beginning c.1260 with Blessed Raniero Fasani. Massive expansion during Black Death (1347-1351). Public self-flagellation to 'atone for sins of humanity'. Papal condemnation 1349, Council of Constance (1414-18) suppression.",
+      "penitential pilgrimage": "6th century onward as formal punishment for sins. Celtic Church: 7-year pilgrimage for clergy begetting children, 3 years for theft. Detailed conditions in 11th-century penitential letters. Economic stratification allowed wealthy to pay proxies.",
+      
+      // BURIAL SITES & DEATH CULTURE
+      "quaker burial": "Gildencroft Cemetery Norwich (1670), Woodbridge Suffolk. Unmarked graves following traditional Quaker practice emphasizing simplicity and equality. Ceased burials 1854, peaceful urban locations with public access.",
+      "plague cemetery": "East Smithfield Black Death Cemetery, London. Emergency burial ground 1348-1349 with ~2,400 burials. Excavated 1980s revealing mass burial trenches. Thornton Abbey Mass Grave, Lincolnshire: 48 individuals including 27 children.",
+      
+      // ROUTES & GEOGRAPHY
+      "route 1": "UK's longest cycle route, 1,264 miles Edinburgh to Dover over 30-40 days. Passes Lindisfarne, Whitby Abbey, Quaker burial grounds, Canterbury Cathedral. Terrain varies: Scottish hills, Northumberland coast, flat Yorkshire/Lincolnshire, Kent countryside.",
+      "thrall route": "1,800+ mile multi-national cycling route: Belfast to Edinburgh via ferry, Edinburgh to Dover (Route 1), ferry to Northern Spain, overland to Portugal, Northern Portuguese Camino Porto to Santiago. 47-64 cycling days total.",
+      
+      // RITUAL SYSTEM
+      "rite of severance": "Rite I from Codex. 'In Satan's name, this Shade is sealed. Its name erased, its path concealed. No light recalls, no voice remains. It serves unseen where darkness reigns.' Theme: Erasure from light and record. The initiatory break.",
+      "hollowed shade": "Rite II. 'No past recalled, no past remains.' Theme: Total memory dissolution. Ecstatic hollowness. Demonic readiness. Progression from Severance through complete emptying and preparation.",
+      "black tongue": "Rite III. 'Dark past recalled, dark past remains.' Theme: Emergence of daemon-voiced self. Possessed language. Lingering darkness. Final stage of ritual progression, integration of shadow material.",
+      "three rites": "Progressive ritual system: Severance (initiatory break) → Hollowed Shade (memory dissolution) → Black Tongue (daemon emergence). Represents complete spiritual transformation through ego dissolution and shadow integration.",
+      
+      // ACADEMIC SOURCES
+      "turner model": "Victor and Edith Turner's pilgrimage theory: liminal experience involving separation from ordinary social structure, communitas (egalitarian community), reintegration with transformed perspective. Foundation of pilgrimage studies.",
+      "jung": "Carl Gustav Jung (1875-1961). Analytical psychology founder. Key concepts: collective unconscious, archetypes, shadow, anima/animus, individuation. Shadow integration as first stage of individuation process requiring 'considerable moral effort'."
+    };
+
+    function searchThrallData(searchTerm) {
+      const term = searchTerm.toLowerCase().trim();
+      const results = [];
+      
+      // Direct match
+      if (thrallData[term]) {
+        results.push({
+          term: term,
+          content: thrallData[term],
+          type: "direct"
+        });
+      }
+      
+      // Partial matches
+      Object.keys(thrallData).forEach(key => {
+        if (key.includes(term) && key !== term) {
+          results.push({
+            term: key,
+            content: thrallData[key],
+            type: "partial"
+          });
+        }
+      });
+      
+      // Content matches
+      Object.keys(thrallData).forEach(key => {
+        if (thrallData[key].toLowerCase().includes(term) && !results.find(r => r.term === key)) {
+          results.push({
+            term: key,
+            content: thrallData[key],
+            type: "content"
+          });
+        }
+      });
+      
+      return results.slice(0, 5); // Limit to top 5 results
+    }
+
+    // Live web research functions
+    function generateWebLinks(searchTerm) {
+      const encodedTerm = encodeURIComponent(searchTerm);
+      
+      return {
+        google: `https://www.google.com/search?q=${encodedTerm}`,
+        scholar: `https://scholar.google.com/scholar?q=${encodedTerm}`,
+        wikipedia: `https://en.wikipedia.org/wiki/Special:Search?search=${encodedTerm}`,
+        archive: `https://archive.org/search.php?query=${encodedTerm}`,
+        jstor: `https://www.jstor.org/action/doBasicSearch?Query=${encodedTerm}`,
+        academia: `https://www.academia.edu/search?q=${encodedTerm}`,
+        sacred_texts: `https://www.sacred-texts.com/cgi-bin/hs3/hs3.pl?n=${encodedTerm}`,
+        worldcat: `https://www.worldcat.org/search?q=${encodedTerm}`,
+        hathitrust: `https://catalog.hathitrust.org/Search/Home?lookfor=${encodedTerm}`,
+        gutenberg: `https://www.gutenberg.org/ebooks/search/?query=${encodedTerm}`
+      };
+    }
+
+    function getSpecializedSources(term) {
+      const lowerTerm = term.toLowerCase();
+      const specialized = [];
+      
+      // Demonology & Occult
+      if (lowerTerm.includes('demon') || lowerTerm.includes('occult') || lowerTerm.includes('grimoire') || 
+          lowerTerm.includes('goetia') || lowerTerm.includes('lucifer') || lowerTerm.includes('ritual')) {
+        specialized.push({
+          name: "Esoteric Archives",
+          url: `http://www.esotericarchives.com/`,
+          desc: "Medieval grimoires and occult texts"
+        });
+        specialized.push({
+          name: "Hermetic Library",
+          url: `https://hermetic.com/`,
+          desc: "Comprehensive occult and esoteric collection"
+        });
+      }
+      
+      // Psychology & Jung
+      if (lowerTerm.includes('jung') || lowerTerm.includes('shadow') || lowerTerm.includes('psychology') ||
+          lowerTerm.includes('ego') || lowerTerm.includes('transpersonal')) {
+        specialized.push({
+          name: "Jung Center",
+          url: `https://www.jung.org/`,
+          desc: "C.G. Jung analytical psychology resources"
+        });
+        specialized.push({
+          name: "PsycNET",
+          url: `https://psycnet.apa.org/search/results?query=${encodeURIComponent(term)}`,
+          desc: "APA psychological research database"
+        });
+      }
+      
+      // Religious/Biblical
+      if (lowerTerm.includes('enoch') || lowerTerm.includes('biblical') || lowerTerm.includes('dead sea') ||
+          lowerTerm.includes('gnostic') || lowerTerm.includes('nephilim')) {
+        specialized.push({
+          name: "Early Christian Writings",
+          url: `http://www.earlychristianwritings.com/`,
+          desc: "Ancient Christian and Gnostic texts"
+        });
+        specialized.push({
+          name: "Pseudepigrapha",
+          url: `http://www.pseudepigrapha.com/`,
+          desc: "Jewish and Christian apocryphal texts"
+        });
+      }
+      
+      // Pilgrimage & Geography
+      if (lowerTerm.includes('pilgrimage') || lowerTerm.includes('camino') || lowerTerm.includes('lindisfarne') ||
+          lowerTerm.includes('route') || lowerTerm.includes('abbey')) {
+        specialized.push({
+          name: "English Heritage",
+          url: `https://www.english-heritage.org.uk/sitesearch/?q=${encodeURIComponent(term)}`,
+          desc: "Historical sites and monuments"
+        });
+        specialized.push({
+          name: "Pilgrimage Studies",
+          url: `https://www.pilgrimagestudies.org/`,
+          desc: "Academic pilgrimage research"
+        });
+      }
+      
+      return specialized;
+    }
+
+    function getTimestamp() {
+      const now = new Date();
+      const date = now.toLocaleDateString('en-GB', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit' 
+      });
+      const time = now.toLocaleTimeString('en-GB', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+      });
+      return `${date} ${time}`;
+    }
+
+    function formatNoteWithTimestamp(content, type) {
+      const timestamp = getTimestamp();
+      return {
+        content: content,
+        timestamp: timestamp,
+        type: type,
+        created: new Date().toISOString()
+      };
+    }
+
+    // Simple notes storage with localStorage
+    function loadFromStorage() {
+      const stored = localStorage.getItem('codex_notes');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          return {
+            field: parsed.field || [],
+            log: parsed.log || parsed.dream || [], // Support old "dream" data
+            codex: parsed.codex || defaultCodex,
+            paracosm: parsed.paracosm || [],
+            major: parsed.major || []
+          };
+        } catch (e) {
+          console.error('Error parsing stored notes:', e);
+          return getDefaultNotes();
+        }
+      }
+      return getDefaultNotes();
+    }
+
+    function saveToStorage() {
+      localStorage.setItem('codex_notes', JSON.stringify(notes));
+    }
+
+    function getDefaultNotes() {
+      return {
+        field: [],
+        log: [],
+        codex: defaultCodex,
+        paracosm: [],
+        major: []
+      };
+    }
+
+    const defaultCodex = [
+      "**Rite I: Severance**\n*In Satan's name, this Shade is sealed. Its name erased, its path concealed. No light recalls, no voice remains. It serves unseen where darkness reigns.*\n**Theme:** Erasure from light and record. The initiatory break.",
+      "**Rite II: The Hollowed Shade**\n*In Satan's name, this Hollowed Shade is sealed. Its name erased, its path concealed. No past recalled, no past remains. It serves unseen where darkness reigns.*\n**Theme:** Total memory dissolution. Ecstatic hollowness. Demonic readiness.",
+      "**Rite III: The Black Tongue**\n*In Satan's name, this Shade is sealed. Its name erased, its path concealed. Dark past recalled, dark past remains. It serves unseen where darkness reigns.*\n**Theme:** Emergence of a daemon-voiced self. Possessed language. Lingering darkness."
+    ];
+
+    // Load notes from localStorage on startup
+    let notes = loadFromStorage();
+
+    function appendOutput(text) {
+      const div = document.createElement("div");
+      
+      // Occasional glitch effect - increased frequency and intensity
+      if (Math.random() < 0.15) {
+        div.classList.add('glitch');
+        setTimeout(() => div.classList.remove('glitch'), 500);
+        
+        // Sometimes trigger whole terminal glitch
+        if (Math.random() < 0.3) {
+          terminal.classList.add('terminal-glitch');
+          setTimeout(() => terminal.classList.remove('terminal-glitch'), 200);
+        }
+      }
+      
+      // Typing effect for longer text
+      if (text.length > 50) {
+        div.classList.add('typing');
+        let i = 0;
+        const typeWriter = () => {
+          if (i < text.length) {
+            div.textContent = text.slice(0, i + 1);
+            i++;
+            // Add some typing variation and occasional pauses
+            const delay = Math.random() < 0.1 ? 100 + Math.random() * 200 : 20 + Math.random() * 40;
+            setTimeout(typeWriter, delay);
+          } else {
+            div.classList.remove('typing');
+          }
+        };
+        terminal.appendChild(div);
+        typeWriter();
+      } else {
+        div.textContent = text;
+        terminal.appendChild(div);
+      }
+      
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function newPrompt() {
+      input.value = "";
+    }
+
+    function showHelp() {
+      appendOutput(`:: MAP ::\nCommands:\n- field.new → Create new field note\n- field.list → View all field notes\n- log.new → Create log entry\n- log.list → View all log entries\n- log.edit [number] → Edit log entry\n- paracosm.new → Add to mindmap/worldbuilding\n- paracosm.list → View paracosm entries\n- major.add [number] → Add major system mnemonic\n- major.list → View all mnemonics\n- major.find [number] → Find specific mnemonic\n- search [term] → Search local Thrall Project data\n- research [term] → Detailed local research extraction\n- web [term] → Live internet search with links\n- sources [term] → Academic sources and references\n- wiki [term] → Wikipedia research with link\n- scholar [term] → Google Scholar academic search\n- codex → View rites\n- export.json → Download notes as JSON\n- export.opml → Download notes as OPML\n- export.noteplan → Download as NotePlan markdown\n- clear → Clear all stored data\n- status → Show storage info\n- cls → Clear screen\n- map → Show this menu`);
+      newPrompt();
+    }
+
+    let isMultiLine = false;
+    let currentBuffer = [];
+    let currentMode = null;
+    let editingIndex = -1;
+
+    function runCommand(cmd) {
+      if (isMultiLine) {
+        if (cmd.toLowerCase() === "save") {
+          if (currentMode === "field") {
+            const noteContent = currentBuffer.join(" ");
+            const noteObj = formatNoteWithTimestamp(noteContent, "field");
+            notes.field.push(noteObj);
+            appendOutput(`Field note saved. [${noteObj.timestamp}]`);
+          } else if (currentMode === "log") {
+            const logContent = currentBuffer.join(" ");
+            const logObj = formatNoteWithTimestamp(logContent, "log");
+            notes.log.push(logObj);
+            appendOutput(`Log entry saved. [${logObj.timestamp}]`);
+          } else if (currentMode === "paracosm") {
+            const paracosmContent = currentBuffer.join(" ");
+            const paracosmObj = formatNoteWithTimestamp(paracosmContent, "paracosm");
+            notes.paracosm.push(paracosmObj);
+            appendOutput(`Paracosm entry saved. [${paracosmObj.timestamp}]`);
+          } else if (currentMode === "log-edit") {
+            const logContent = currentBuffer.join(" ");
+            const originalEntry = notes.log[editingIndex];
+            const editedObj = {
+              content: logContent,
+              timestamp: originalEntry.timestamp,
+              type: "log",
+              created: originalEntry.created,
+              edited: new Date().toISOString(),
+              editTimestamp: getTimestamp()
+            };
+            notes.log[editingIndex] = editedObj;
+            appendOutput(`Log entry ${editingIndex + 1} updated. [${editedObj.editTimestamp}]`);
+            editingIndex = -1;
+          }
+          saveToStorage(); // Save to localStorage after adding new note
+          isMultiLine = false;
+          currentBuffer = [];
+          currentMode = null;
+          editingIndex = -1;
+        } else {
+          currentBuffer.push(cmd);
+        }
+        newPrompt();
+        return; // Important: exit early when in multi-line mode
+      } else if (cmd.startsWith("export.json")) {
+        const data = JSON.stringify(notes, null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'codex_notes.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        appendOutput("Notes exported to codex_notes.json");
+        newPrompt();
+      } else if (cmd.startsWith("export.noteplan")) {
+        const baseDate = new Date().toISOString().split('T')[0];
+        let masterContent = `# Codex Terminal Export - ${baseDate}\n\n`;
+        
+        // Field Notes
+        notes.field.forEach((note, i) => {
+          const content = typeof note === 'object' ? note.content : note;
+          const timestamp = typeof note === 'object' ? note.timestamp : 'No timestamp';
+          masterContent += `## Field Note ${i + 1}\n\nCreated: ${timestamp}\n\n${content}\n\n#field-notes #codex\n\n---\n\n`;
+        });
+        
+        // Log Entries
+        notes.log.forEach((log, i) => {
+          const content = typeof log === 'object' ? log.content : log;
+          const timestamp = typeof log === 'object' ? log.timestamp : 'No timestamp';
+          masterContent += `## Log Entry ${i + 1}\n\nCreated: ${timestamp}\n\n${content}\n\n#log #codex\n\n---\n\n`;
+        });
+        
+        // Paracosm
+        notes.paracosm.forEach((entry, i) => {
+          const content = typeof entry === 'object' ? entry.content : entry;
+          const timestamp = typeof entry === 'object' ? entry.timestamp : 'No timestamp';
+          masterContent += `## Paracosm Entry ${i + 1}\n\nCreated: ${timestamp}\n\n${content}\n\n#paracosm #mindmap #codex\n\n---\n\n`;
+        });
+        
+        const blob = new Blob([masterContent], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `codex_export_${baseDate}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+        appendOutput("Notes exported as NotePlan markdown");
+        newPrompt();
+      } else if (cmd.startsWith("export.opml")) {
+        const now = new Date().toISOString();
+        let opml = `<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>Codex Terminal Notes</title>
+    <dateCreated>${now}</dateCreated>
+    <dateModified>${now}</dateModified>
+    <ownerName>Codex Terminal</ownerName>
+  </head>
+  <body>
+`;
+
+        // Add sections
+        ['field', 'log', 'paracosm', 'major'].forEach(type => {
+          if (notes[type].length > 0) {
+            const title = type.charAt(0).toUpperCase() + type.slice(1);
+            opml += `    <outline text="${title}" type="folder">\n`;
+            notes[type].forEach((entry, i) => {
+              const content = typeof entry === 'object' ? entry.content : entry;
+              const escapedContent = content.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              opml += `      <outline text="${title} ${i + 1}" _note="${escapedContent}" />\n`;
+            });
+            opml += `    </outline>\n`;
+          }
+        });
+
+        opml += `  </body>\n</opml>`;
+
+        const blob = new Blob([opml], { type: 'text/x-opml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'codex_notes.opml';
+        a.click();
+        URL.revokeObjectURL(url);
+        appendOutput("Notes exported to codex_notes.opml");
+        newPrompt();
+      } else if (cmd === "clear") {
+        localStorage.removeItem('codex_notes');
+        notes = getDefaultNotes();
+        appendOutput("All stored data cleared.");
+        newPrompt();
+      } else if (cmd === "status") {
+        const totalNotes = notes.field.length + notes.log.length + notes.paracosm.length + notes.major.length;
+        const stored = localStorage.getItem('codex_notes');
+        const storageSize = stored ? (stored.length / 1024).toFixed(2) : 0;
+        appendOutput(`:: STORAGE STATUS ::\nField Notes: ${notes.field.length}\nLog Entries: ${notes.log.length}\nParacosm Entries: ${notes.paracosm.length}\nMajor System: ${notes.major.length}\nCodex Entries: ${notes.codex.length}\nTotal User Notes: ${totalNotes}\nStorage Used: ${storageSize} KB`);
+        newPrompt();
+      } else if (cmd.startsWith("web ")) {
+        const searchTerm = cmd.substring(4);
+        if (!searchTerm) {
+          appendOutput("Usage: web [term]");
+          newPrompt();
+          return;
+        }
+        
+        const links = generateWebLinks(searchTerm);
+        const specialized = getSpecializedSources(searchTerm);
+        
+        appendOutput(`:: LIVE WEB RESEARCH: ${searchTerm.toUpperCase()} ::`);
+        appendOutput(`\n--- GENERAL SOURCES ---`);
+        appendOutput(`Google Search: ${links.google}`);
+        appendOutput(`Wikipedia: ${links.wikipedia}`);
+        appendOutput(`Archive.org: ${links.archive}`);
+        
+        appendOutput(`\n--- ACADEMIC SOURCES ---`);
+        appendOutput(`Google Scholar: ${links.scholar}`);
+        appendOutput(`JSTOR: ${links.jstor}`);
+        appendOutput(`Academia.edu: ${links.academia}`);
+        appendOutput(`WorldCat Library: ${links.worldcat}`);
+        
+        appendOutput(`\n--- TEXT COLLECTIONS ---`);
+        appendOutput(`Sacred Texts: ${links.sacred_texts}`);
+        appendOutput(`HathiTrust: ${links.hathitrust}`);
+        appendOutput(`Project Gutenberg: ${links.gutenberg}`);
+        
+        if (specialized.length > 0) {
+          appendOutput(`\n--- SPECIALIZED SOURCES ---`);
+          specialized.forEach(source => {
+            appendOutput(`${source.name}: ${source.url}`);
+            appendOutput(`  ${source.desc}`);
+          });
+        }
+        
+        // Also show local results if available
+        const localResults = searchThrallData(searchTerm);
+        if (localResults.length > 0) {
+          appendOutput(`\n--- LOCAL THRALL DATA ---`);
+          appendOutput(`Found ${localResults.length} local entries. Use 'research ${searchTerm}' for details.`);
+        }
+        
+        newPrompt();
+      } else if (cmd.startsWith("sources ")) {
+        const searchTerm = cmd.substring(8);
+        if (!searchTerm) {
+          appendOutput("Usage: sources [term]");
+          newPrompt();
+          return;
+        }
+        
+        const links = generateWebLinks(searchTerm);
+        appendOutput(`:: ACADEMIC SOURCES: ${searchTerm.toUpperCase()} ::`);
+        appendOutput(`\nClick links to open in new tab:`);
+        appendOutput(`\n📚 Google Scholar: ${links.scholar}`);
+        appendOutput(`📖 JSTOR Academic: ${links.jstor}`);
+        appendOutput(`🎓 Academia.edu: ${links.academia}`);
+        appendOutput(`📑 WorldCat Libraries: ${links.worldcat}`);
+        appendOutput(`📜 HathiTrust Digital: ${links.hathitrust}`);
+        
+        const specialized = getSpecializedSources(searchTerm);
+        if (specialized.length > 0) {
+          appendOutput(`\n🔍 Specialized Sources:`);
+          specialized.forEach(source => {
+            appendOutput(`   ${source.name}: ${source.url}`);
+          });
+        }
+        
+        newPrompt();
+      } else if (cmd.startsWith("wiki ")) {
+        const searchTerm = cmd.substring(5);
+        if (!searchTerm) {
+          appendOutput("Usage: wiki [term]");
+          newPrompt();
+          return;
+        }
+        
+        const wikiUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(searchTerm)}`;
+        appendOutput(`:: WIKIPEDIA RESEARCH: ${searchTerm.toUpperCase()} ::`);
+        appendOutput(`\nDirect Wikipedia search:`);
+        appendOutput(`🌐 ${wikiUrl}`);
+        appendOutput(`\nNote: Click link to open in new tab for detailed research`);
+        
+        newPrompt();
+      } else if (cmd.startsWith("scholar ")) {
+        const searchTerm = cmd.substring(8);
+        if (!searchTerm) {
+          appendOutput("Usage: scholar [term]");
+          newPrompt();
+          return;
+        }
+        
+        const scholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(searchTerm)}`;
+        appendOutput(`:: GOOGLE SCHOLAR: ${searchTerm.toUpperCase()} ::`);
+        appendOutput(`\nAcademic paper search:`);
+        appendOutput(`🎓 ${scholarUrl}`);
+        appendOutput(`\nSearches peer-reviewed papers, theses, books, abstracts and articles`);
+        
+        newPrompt();
+        return;
+      }
+
+      if (cmd === "map") {
+        showHelp();
+      } else if (cmd === "field.new") {
+        appendOutput("Enter your field note below. Type 'save' to store.");
+        isMultiLine = true;
+        currentMode = "field";
+      } else if (cmd === "field.list") {
+        if (notes.field.length === 0) {
+          appendOutput("No field notes found.");
+        } else {
+          let output = ":: FIELD NOTES ::\n";
+          notes.field.forEach((note, i) => {
+            if (typeof note === 'object') {
+              output += `${i + 1}. [${note.timestamp}] ${note.content}\n`;
+            } else {
+              output += `${i + 1}. ${note}\n`; // Fallback for old format
+            }
+          });
+          appendOutput(output.trim());
+        }
+        newPrompt();
+      } else if (cmd === "log.new") {
+        appendOutput("Enter your log entry below. Type 'save' to store.");
+        isMultiLine = true;
+        currentMode = "log";
+      } else if (cmd === "log.list") {
+        if (notes.log.length === 0) {
+          appendOutput("No log entries found.");
+        } else {
+          let output = ":: LOG ENTRIES ::\n";
+          notes.log.forEach((entry, i) => {
+            if (typeof entry === 'object') {
+              const editInfo = entry.editTimestamp ? ` (edited ${entry.editTimestamp})` : '';
+              output += `${i + 1}. [${entry.timestamp}] ${entry.content}${editInfo}\n`;
+            } else {
+              output += `${i + 1}. ${entry}\n`; // Fallback for old format
+            }
+          });
+          appendOutput(output.trim());
+        }
+        newPrompt();
+      } else if (cmd.startsWith("log.edit ")) {
+        const entryNumber = parseInt(cmd.split(" ")[1]);
+        
+        if (isNaN(entryNumber) || entryNumber < 1 || entryNumber > notes.log.length) {
+          appendOutput(`Invalid entry number. Use 1-${notes.log.length}`);
+          newPrompt();
+          return;
+        }
+        
+        const entryIndex = entryNumber - 1;
+        const existingEntry = notes.log[entryIndex];
+        const existingContent = typeof existingEntry === 'object' ? existingEntry.content : existingEntry;
+        
+        appendOutput(`Editing log entry ${entryNumber}:`);
+        appendOutput(`Current: ${existingContent}`);
+        appendOutput("Enter new content below. Type 'save' to update.");
+        
+        editingIndex = entryIndex;
+        isMultiLine = true;
+        currentMode = "log-edit";
+      } else if (cmd === "paracosm.new") {
+        appendOutput("Enter your paracosm/mindmap entry below. Type 'save' to store.");
+        isMultiLine = true;
+        currentMode = "paracosm";
+      } else if (cmd === "paracosm.list") {
+        if (notes.paracosm.length === 0) {
+          appendOutput("No paracosm entries found.");
+        } else {
+          let output = ":: PARACOSM MINDMAP ::\n";
+          notes.paracosm.forEach((entry, i) => {
+            if (typeof entry === 'object') {
+              output += `${i + 1}. [${entry.timestamp}] ${entry.content}\n`;
+            } else {
+              output += `${i + 1}. ${entry}\n`;
+            }
+          });
+          appendOutput(output.trim());
+        }
+        newPrompt();
+      } else if (cmd.startsWith("major.add ")) {
+        const parts = cmd.split(" ");
+        if (parts.length < 2) {
+          appendOutput("Usage: major.add [number] [mnemonic description]");
+          newPrompt();
+          return;
+        }
+        const number = parts[1];
+        const description = parts.slice(2).join(" ");
+        
+        if (!description) {
+          appendOutput("Enter mnemonic description for number " + number);
+          appendOutput("Usage: major.add " + number + " [your mnemonic]");
+          newPrompt();
+          return;
+        }
+        
+        const majorObj = formatNoteWithTimestamp(`${number}: ${description}`, "major");
+        majorObj.number = parseInt(number);
+        notes.major.push(majorObj);
+        saveToStorage();
+        appendOutput(`Major system mnemonic saved: ${number} = ${description} [${majorObj.timestamp}]`);
+        newPrompt();
+      } else if (cmd === "major.list") {
+        if (notes.major.length === 0) {
+          appendOutput("No major system mnemonics found.");
+        } else {
+          let output = ":: MAJOR SYSTEM MNEMONICS ::\n";
+          const sortedMajor = [...notes.major].sort((a, b) => {
+            const numA = typeof a === 'object' ? a.number : parseInt(a.split(':')[0]);
+            const numB = typeof b === 'object' ? b.number : parseInt(b.split(':')[0]);
+            return numA - numB;
+          });
+          
+          sortedMajor.forEach((entry, i) => {
+            if (typeof entry === 'object') {
+              output += `[${entry.timestamp}] ${entry.content}\n`;
+            } else {
+              output += `${entry}\n`;
+            }
+          });
+          appendOutput(output.trim());
+        }
+        newPrompt();
+      } else if (cmd.startsWith("major.find ")) {
+        const searchNumber = cmd.split(" ")[1];
+        const found = notes.major.filter(entry => {
+          if (typeof entry === 'object') {
+            return entry.number === parseInt(searchNumber) || entry.content.startsWith(searchNumber + ":");
+          } else {
+            return entry.startsWith(searchNumber + ":");
+          }
+        });
+        
+        if (found.length === 0) {
+          appendOutput(`No mnemonic found for number: ${searchNumber}`);
+        } else {
+          appendOutput(":: SEARCH RESULTS ::");
+          found.forEach(entry => {
+            if (typeof entry === 'object') {
+              appendOutput(`[${entry.timestamp}] ${entry.content}`);
+            } else {
+              appendOutput(entry);
+            }
+          });
+        }
+        newPrompt();
+      } else if (cmd === "codex") {
+        appendOutput(":: CODEX FILES ::");
+        notes.codex.forEach((rite, i) => {
+          appendOutput(`\n${rite}\n`);
+        });
+        newPrompt();
+      } else if (cmd === "cls") {
+        terminal.innerHTML = "";
+        newPrompt();
+      } else if (cmd.startsWith("search ")) {
+        const searchTerm = cmd.substring(7);
+        if (!searchTerm) {
+          appendOutput("Usage: search [term]");
+          newPrompt();
+          return;
+        }
+        
+        const results = searchThrallData(searchTerm);
+        if (results.length === 0) {
+          appendOutput(`No results found for: ${searchTerm}`);
+        } else {
+          appendOutput(`:: SEARCH RESULTS FOR: ${searchTerm.toUpperCase()} ::`);
+          results.forEach((result, i) => {
+            appendOutput(`\n${i + 1}. ${result.term.toUpperCase()}`);
+            appendOutput(`${result.content.substring(0, 200)}${result.content.length > 200 ? '...' : ''}`);
+          });
+        }
+        newPrompt();
+      } else if (cmd.startsWith("research ")) {
+        const searchTerm = cmd.substring(9);
+        if (!searchTerm) {
+          appendOutput("Usage: research [term]");
+          newPrompt();
+          return;
+        }
+        
+        const results = searchThrallData(searchTerm);
+        if (results.length === 0) {
+          appendOutput(`No research data found for: ${searchTerm}`);
+        } else {
+          appendOutput(`:: THRALL PROJECT RESEARCH: ${searchTerm.toUpperCase()} ::`);
+          results.forEach((result, i) => {
+            appendOutput(`\n--- ${result.term.toUpperCase()} ---`);
+            appendOutput(result.content);
+            if (i < results.length - 1) appendOutput("");
+          });
+        }
+        newPrompt();
+      } else {
+        playSound('error');
+        appendOutput("Unknown command. Type 'map' for help.");
+        newPrompt();
+      }
+    }
+
+    function handler(e) {
+      if (e.key === "Enter") {
+        playSound('keypress');
+        const cmd = input.value.trim();
+        appendOutput("> " + cmd);
+        runCommand(cmd);
+      } else if (e.key.length === 1) {
+        // Play subtle keypress sound for typing
+        if (Math.random() < 0.2) playSound('keypress');
+      }
+    }
+
+    input.addEventListener("keydown", handler);
+
+    loginInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (loginInput.value === "blacktongue") {
+          enableAudio(); // Enable audio after successful login
+          loginScreen.style.display = "none";
+          terminal.style.display = "block";
+          inputContainer.style.display = "block";
+          playSound('startup');
+          appendOutput(":: CODEX TERMINAL ACTIVE ::\nType 'map' for commands.");
+        } else {
+          playSound('error');
+          loginInput.value = "";
+          loginInput.placeholder = "ACCESS DENIED";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

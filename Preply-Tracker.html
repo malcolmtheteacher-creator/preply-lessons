@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preply Lesson Tracker — Tintin style (Single‑File)</title>
+  <style>
+    :root{
+      --ink:#101010;--blue:#2f6da3;--navy:#1f355e;--parch:#f4efd3;--khaki:#e7d9a7;--red:#d34f2a;--cream:#fff9e9;
+    }
+    *{box-sizing:border-box} body{margin:0;background:var(--cream);font:14px/1.4 system-ui,Segoe UI,Arial}
+    .row{display:flex;gap:.75rem;align-items:center}
+    .wrap{max-width:1100px;margin:16px auto;padding:0 12px}
+    .card{background:var(--parch);border:2px solid #000;border-radius:16px;box-shadow:0 2px 0 #101010}
+    .btn{border:2px solid #000;border-radius:12px;background:#fff;box-shadow:0 2px 0 #101010;padding:.4rem .7rem;font-weight:700;cursor:pointer}
+    .btn:active{transform:translateY(1px)} .btn-red{background:var(--red);color:#fff}
+    .btn-blue{background:var(--blue);color:#fff} .pill{border-radius:999px;padding:.25rem .6rem}
+    .tabs{display:flex;gap:.5rem;margin-bottom:.5rem}
+    .tab{border:2px solid #000;border-radius:16px;padding:.5rem 1rem;font-weight:800;background:#f0d28a;color:var(--navy);box-shadow:0 3px 0 #101010;cursor:pointer}
+    .tab.alt{background:#c7e3ff}
+    .tab.active{transform:translateY(1px)}
+    .header{padding:10px 14px;margin:8px 0;background:var(--khaki)}
+    .header .dot{width:40px;height:40px;border:2px solid #000;border-radius:999px;background:var(--blue)}
+    .cols{display:grid;grid-template-columns:280px 1fr;gap:12px}
+    @media(max-width:900px){.cols{grid-template-columns:1fr}}
+    .list{max-height:50vh;overflow:auto;padding-right:6px}
+    .item{border:2px solid #000;border-radius:12px;box-shadow:0 2px 0 #101010;padding:.5rem .6rem;background:#fff;display:flex;justify-content:space-between;align-items:center}
+    input,select,textarea{border:2px solid #000;border-radius:12px;padding:.5rem .6rem;outline:none}
+    textarea{resize:vertical}
+    .h{font-weight:900;color:var(--navy)}
+    .col{display:flex;flex-direction:column;gap:.5rem}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
+    .col-7{grid-column:span 7} .col-5{grid-column:span 5}
+    @media(max-width:900px){.col-7,.col-5{grid-column:span 12}}
+    .plan-col{min-height:160px;padding:8px}
+    .plan-item{display:flex;justify-content:space-between;gap:8px;background:#fff;border:2px solid #000;border-radius:10px;box-shadow:0 2px 0 #101010;padding:6px}
+    .plan-col.dragover{outline:3px dashed var(--blue)}
+    .badge{font-size:12px;opacity:.8}
+    .link{color:#0645ad;text-decoration:underline}
+    .calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+    .side-row{display:flex;align-items:center;gap:6px}
+    .trash{background:var(--red);color:#fff;border:2px solid #000;border-radius:10px;box-shadow:0 2px 0 #101010;padding:6px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card header row" style="align-items:center;gap:12px">
+      <div class="dot"></div>
+      <div>
+        <div class="h" style="font-size:18px">Preply Lesson Tracker</div>
+        <div style="font-size:12px;color:#333">Tintin 1950s album vibe — Single‑file (no build)</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab" id="tab-students">📓 Students</button>
+      <button class="tab alt" id="tab-calendar">🗓️ Calendar</button>
+      <div style="margin-left:auto" class="row">
+        <button class="btn" id="btn-student-csv">Current CSV</button>
+        <button class="btn" id="btn-student-pdf">Current PDF</button>
+        <button class="btn" id="btn-all-csv">ALL CSV</button>
+        <button class="btn" id="btn-all-pdf">ALL PDF</button>
+      </div>
+    </div>
+
+    <div id="page-students">
+      <div class="cols">
+        <aside class="card" style="padding:10px">
+          <div class="row" style="margin-bottom:6px">
+            <span>🔎</span>
+            <input id="q" placeholder="Find student…" style="width:100%"/>
+          </div>
+          <div class="list" id="student-list"></div>
+          <div class="card" style="padding:8px;margin-top:8px;background:#fff">
+            <div class="h" style="font-size:12px;margin-bottom:4px">Add student</div>
+            <div class="row"><input id="new-name" placeholder="Name" style="flex:2"/><input id="new-level" placeholder="Level" style="flex:1"/><button class="btn btn-red" id="add-student">＋</button></div>
+          </div>
+        </aside>
+        <main class="col">
+          <div class="card row" style="justify-content:space-between;padding:10px">
+            <div class="row" style="gap:10px">
+              <div class="dot" style="width:48px;height:48px"></div>
+              <div>
+                <div class="h" id="student-name" style="font-size:18px">—</div>
+                <div id="student-level" class="badge">—</div>
+              </div>
+            </div>
+            <div class="row"><button class="btn">💾 Save</button><button class="trash" id="delete-current">🗑 Delete</button></div>
+          </div>
+
+          <div class="grid">
+            <section class="card col-7" style="padding:10px">
+              <div class="h row" style="gap:8px"><span>📓</span> Lesson log</div>
+              <div class="card" style="background:#fff;padding:10px;margin:8px 0">
+                <div class="grid" style="gap:8px">
+                  <div class="row" style="grid-column:span 12;gap:8px">
+                    <span>📅</span><span id="today"></span>
+                    <input type="time" id="time" style="margin-left:auto" />
+                    <button class="btn pill" id="suggest">✨ Suggest summary</button>
+                  </div>
+                  <input id="summary" placeholder="Lesson summary" class="col-6" style="grid-column:span 6"/>
+                  <input id="mistakes" placeholder="Common mistakes (comma‑separated)" class="col-6" style="grid-column:span 6"/>
+                  <textarea id="notes" rows="3" placeholder="Notes / homework" style="grid-column:span 12"></textarea>
+                </div>
+                <div class="card" style="padding:8px;margin-top:8px">
+                  <div class="h" style="font-size:12px;margin-bottom:6px">🔗 Attachments</div>
+                  <div class="row">
+                    <input id="att-label" placeholder="Label (Slides)" style="flex:1"/>
+                    <input id="att-url" placeholder="URL (https://…)" style="flex:2"/>
+                    <button class="btn btn-blue" id="add-attachment">Add</button>
+                  </div>
+                  <ul id="att-list" style="margin:6px 0 0 16px"></ul>
+                </div>
+                <div class="row" style="justify-content:flex-end;margin-top:8px">
+                  <button class="btn btn-blue" id="add-lesson">Add lesson</button>
+                </div>
+              </div>
+              <ul id="lesson-list" style="display:flex;flex-direction:column;gap:8px"></ul>
+            </section>
+
+            <section class="card col-5" style="padding:10px">
+              <div class="h row" style="gap:8px"><span>✅</span> What to do next</div>
+              <div class="row" id="idea-row" style="flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+              <div class="grid" style="gap:10px">
+                <div class="card plan-col" data-col="backlog"><div class="h" style="text-align:center">Backlog</div><div class="plan-items" id="backlog"></div></div>
+                <div class="card plan-col" data-col="upcoming"><div class="h" style="text-align:center">Up Next</div><div class="plan-items" id="upcoming"></div></div>
+                <div class="card plan-col" data-col="done"><div class="h" style="text-align:center">Done</div><div class="plan-items" id="done"></div></div>
+                <div class="row" style="grid-column:span 3">
+                  <input id="plan-text" placeholder="Add item…" style="flex:1"/>
+                  <button class="btn btn-red" id="plan-add">＋</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div id="page-calendar" style="display:none">
+      <div class="card row" style="padding:10px;gap:10px">
+        <span>🗓️</span>
+        <input type="date" id="cal-date" />
+        <div style="margin-left:auto" id="cal-count" class="badge"></div>
+      </div>
+      <div class="calendar" id="cal-grid" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- jsPDF CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+
+  <script>
+  // ===== Utilities =====
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+  const todayISO = () => { const d=new Date(); const m=String(d.getMonth()+1).padStart(2,'0'); const day=String(d.getDate()).padStart(2,'0'); return `${d.getFullYear()}-${m}-${day}` };
+  const uid = p=>`${p}_${Math.random().toString(36).slice(2,9)}`;
+  const csvCell = (s)=> '"' + String(s??'').replace(/"/g,'""') + '"';
+  const rowsToCsv = rows => rows.map(r=>r.map(csvCell).join(',')).join('\\n');
+  const STORAGE_KEY='preply-tracker-single';
+  const save = (state)=>localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const load = ()=>{ try{ const raw=localStorage.getItem(STORAGE_KEY); return raw? JSON.parse(raw): null }catch{ return null } };
+
+  // ===== State =====
+  const seedStudents=[{id:'s1',name:'Anna Kowalska',level:'B2'},{id:'s2',name:'Lucas Martín',level:'C1'},{id:'s3',name:'Mei Chen',level:'B1'}];
+  const seedData={
+    s1:{ lessons:[
+      {id:'l1',date:'2025-08-05',time:'10:00',summary:'IELTS Task 2: Opinion essay structure',mistakes:['comma splices','article "the" before superlatives'],notes:'HW: write 250 words on remote work',attachments:[{label:'Slides: Task 2',url:'https://example.com/task2.pptx'}]},
+      {id:'l2',date:'2025-08-09',time:'12:30',summary:'Linkers of contrast & cohesion',mistakes:["overusing 'but'","missing subject pronouns"],notes:'Review however / nevertheless'}
+    ], plan:{ backlog:[{id:'p1',text:'Listening: map labels (IELTS 2)'}], upcoming:[{id:'p3',text:'Task 1 overview language'}], done:[{id:'p4',text:'Writing intros: hooks'}] }},
+    s2:{ lessons:[], plan:{ backlog:[], upcoming:[], done:[] }},
+    s3:{ lessons:[], plan:{ backlog:[], upcoming:[], done:[] }}
+  };
+
+  const persisted=load();
+  let students=persisted?.students||seedStudents;
+  let data=persisted?.data||seedData;
+  let selectedId=persisted?.selectedId||students[0]?.id||'';
+
+  // ===== Rendering =====
+  function renderStudents(){
+    const q=$('#q').value.toLowerCase();
+    const list=$('#student-list'); list.innerHTML='';
+    students.filter(s=>s.name.toLowerCase().includes(q)).forEach(s=>{
+      const row=document.createElement('div'); row.className='side-row';
+      const li=document.createElement('div'); li.className='item'; li.style.flex='1';
+      li.innerHTML=`<div><div class="h">${s.name}</div>${s.level?`<div class="badge">Level: ${s.level}</div>`:''}</div><div>›</div>`;
+      li.onclick=()=>{ selectedId=s.id; saveAll(); renderMain(); setTab('students'); };
+      const del=document.createElement('button'); del.className='trash'; del.textContent='🗑'; del.title='Delete student';
+      del.onclick=(e)=>{ e.stopPropagation(); deleteStudent(s.id); };
+      row.append(li, del);
+      list.append(row);
+    });
+  }
+
+  function renderMain(){
+    const s=students.find(x=>x.id===selectedId) || {name:'—'}; const S=data[selectedId];
+    $('#student-name').textContent=s.name||'—';
+    $('#student-level').textContent=s.level?`Level ${s.level}`:'No level set';
+    $('#today').textContent=todayISO();
+    $('#att-list').innerHTML='';
+    const ul=$('#lesson-list'); ul.innerHTML='';
+    (S?.lessons||[]).forEach(L=>{
+      const li=document.createElement('li'); li.className='item'; li.style.alignItems='start'; li.style.flexDirection='column';
+      li.innerHTML=`<div class="row" style="width:100%;justify-content:space-between"><div class="h">${L.summary||'(no summary)'}</div><div class="badge">${L.date}${L.time?` • ${L.time}`:''}</div></div>`;
+      if((L.mistakes||[]).length){ const d=document.createElement('div'); d.innerHTML=`<b>Mistakes:</b> ${(L.mistakes||[]).join(', ')}`; d.style.fontSize='13px'; li.append(d); }
+      if(L.notes){ const d=document.createElement('div'); d.innerHTML=`<b>Notes:</b> ${L.notes}`; d.style.fontSize='13px'; li.append(d); }
+      if((L.attachments||[]).length){ const d=document.createElement('div'); d.style.fontSize='13px'; d.innerHTML='<b>Attachments:</b> '; (L.attachments||[]).forEach(a=>{ const A=document.createElement('a'); A.href=a.url; A.target='_blank'; A.textContent=a.label; A.className='link'; A.style.marginRight='6px'; d.append(A); }); li.append(d); }
+      ul.append(li);
+    });
+
+    ['backlog','upcoming','done'].forEach(col=>{
+      const wrap=$('#'+col); wrap.innerHTML='';
+      (S?.plan?.[col]||[]).forEach(p=>{
+        const row=document.createElement('div'); row.className='plan-item'; row.draggable=true; row.dataset.id=p.id; row.dataset.col=col; row.textContent=p.text;
+        const del=document.createElement('button'); del.className='btn'; del.textContent='✖'; del.onclick=()=>{ removePlan(col,p.id); };
+        row.append(del); wrap.append(row);
+      });
+    });
+
+    attachDnD();
+    renderIdeas();
+    saveAll();
+  }
+
+  function renderIdeas(){
+    const S=data[selectedId];
+    const history=(S?.lessons||[]).slice(0,5);
+    const freq=new Map();
+    history.forEach(L=> (L.mistakes||[]).forEach(m=>{ m=m.toLowerCase(); freq.set(m,(freq.get(m)||0)+1);}));
+    const sorted=[...freq.entries()].sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+    const recipe=m=>{
+      if(m.includes('article')) return 'Articles: THE/A/AN minimal pair drill + error hunt';
+      if(m.includes('comma splice')) return 'Punctuation: fix comma splices with FANBOYS + periods';
+      if(m.includes('pronoun')) return 'Grammar: subject pronoun substitution drill';
+      if(m.includes('preposition')) return 'Prepositions: gap-fill with collocations';
+      if(m.includes('tense')) return 'Tenses: timeline prompts + 2‑min story retell';
+      if(m.includes('word order')) return 'Word order: jumbled sentences → speak';
+      if(m.includes('vocab')||m.includes('lexis')) return 'Lexis: 10 collocations + retrieval practice';
+      return 'Targeted drill on: '+m;
+    };
+    const ideas=sorted.slice(0,3).map(recipe);
+    if(!ideas.length) ideas.push('Speaking: 5‑min fluency sprint','Review: last homework corrections');
+    ideas.push('Spaced review: 8 Qs on previous errors');
+
+    const row=$('#idea-row'); row.innerHTML='';
+    ideas.forEach(text=>{ const b=document.createElement('button'); b.className='btn'; b.textContent='+ '+text; b.onclick=()=> addPlan('backlog', text); row.append(b); });
+  }
+
+  // ===== Simple DnD =====
+  function attachDnD(){
+    $$('.plan-col').forEach(col=>{
+      col.ondragover=(e)=>{ e.preventDefault(); col.classList.add('dragover'); };
+      col.ondragleave=()=> col.classList.remove('dragover');
+      col.ondrop=(e)=>{
+        e.preventDefault(); col.classList.remove('dragover');
+        const id=e.dataTransfer.getData('text/plain');
+        const from=e.dataTransfer.getData('from');
+        const to=col.dataset.col;
+        movePlan(from,to,id);
+      };
+      col.querySelectorAll('.plan-item').forEach(it=>{
+        it.ondragstart=(e)=>{ e.dataTransfer.setData('text/plain', it.dataset.id); e.dataTransfer.setData('from', it.dataset.col); };
+      });
+    });
+  }
+
+  // ===== Mutations =====
+  function saveAll(){ save({students,data,selectedId}); }
+  function addStudent(name, level){ const id=uid('s'); students=[...students,{id,name,level}]; data[id]={lessons:[],plan:{backlog:[],upcoming:[],done:[]}}; selectedId=id; renderStudents(); renderMain(); }
+  function addLesson(entry){ data[selectedId].lessons=[{id:uid('l'),...entry},...data[selectedId].lessons]; renderMain(); }
+  function addPlan(col,text){ data[selectedId].plan[col].push({id:uid('p'),text}); renderMain(); }
+  function removePlan(col,id){ data[selectedId].plan[col]=data[selectedId].plan[col].filter(x=>x.id!==id); renderMain(); }
+  function movePlan(from,to,id){ if(from===to) return; const arr=data[selectedId].plan[from]; const idx=arr.findIndex(x=>x.id===id); if(idx===-1) return; const [item]=arr.splice(idx,1); data[selectedId].plan[to].push(item); renderMain(); }
+  function deleteStudent(id){ const s=students.find(x=>x.id===id); if(!confirm(`Delete ${s?.name||'this student'} and all their lessons?`)) return; students=students.filter(x=>x.id!==id); delete data[id]; if(selectedId===id) selectedId=students[0]?.id||''; renderStudents(); renderMain(); }
+
+  // ===== Exports =====
+  function buildStudentCsvRows(student, S){
+    const rows=[]; rows.push(['Student',student?.name||'']); rows.push(['Level',student?.level||'']); rows.push([]); rows.push(['Lessons']);
+    rows.push(['Date','Time','Summary','Mistakes','Notes','Attachments']);
+    (S?.lessons||[]).forEach(L=>{
+      rows.push([L?.date||'',L?.time||'',L?.summary||'',(L?.mistakes||[]).join('; '),String(L?.notes||'').split('\\n').join(' '),(L?.attachments||[]).map(a=>`${a.label||'Attachment'} (${a.url||''})`).join(' | ')]);
+    });
+    rows.push([]); rows.push(['Plan']); rows.push(['Backlog']); (S?.plan?.backlog||[]).forEach(p=>rows.push([p.text||''])); rows.push(['Up Next']); (S?.plan?.upcoming||[]).forEach(p=>rows.push([p.text||''])); rows.push(['Done']); (S?.plan?.done||[]).forEach(p=>rows.push([p.text||'']));
+    return rows;
+  }
+  function exportStudentCSV(){ const s=students.find(x=>x.id===selectedId); const S=data[selectedId]; const csv=rowsToCsv(buildStudentCsvRows(s,S)); download(csv, `preply_${s?.name||'student'}.csv`, 'text/csv'); }
+  function exportAllCSV(){
+    const rows=[["Student","Level","Date","Time","Summary","Mistakes","Notes","Attachments","Plan(Backlog)","Plan(UpNext)","Plan(Done)"]];
+    students.forEach(s=>{ const S=data[s.id]; if(!S) return; if((S.lessons||[]).length===0){ rows.push([s.name,s.level||'', '', '', '', '', '', '', (S.plan?.backlog||[]).map(p=>p.text).join(' | '), (S.plan?.upcoming||[]).map(p=>p.text).join(' | '), (S.plan?.done||[]).map(p=>p.text).join(' | ')]);} (S.lessons||[]).forEach(L=>{ rows.push([s.name,s.level||'',L?.date||'',L?.time||'',L?.summary||'',(L?.mistakes||[]).join('; '),String(L?.notes||'').split('\\n').join(' '),(L?.attachments||[]).map(a=>`${a.label||'Attachment'} (${a.url||''})`).join(' | '),'','','']); }); });
+    download(rowsToCsv(rows),'preply_ALL.csv','text/csv');
+  }
+  function exportStudentPDF(){ const s=students.find(x=>x.id===selectedId); const S=data[selectedId]; const doc=new jspdf.jsPDF(); doc.setFontSize(16); doc.text('Preply Lesson Tracker',14,16); doc.setFontSize(12); doc.text(`Student: ${s?.name||''}  Level: ${s?.level||''}`,14,24); const rows=(S?.lessons||[]).map(L=>[L?.date||'',L?.time||'',L?.summary||'',(L?.mistakes||[]).join('; '),(L?.attachments||[]).map(a=>a.label).join(' | ')]); doc.autoTable({startY:30, head:[["Date","Time","Summary","Mistakes","Attachments"]], body:rows, styles:{fontSize:9}}); let y=doc.lastAutoTable?doc.lastAutoTable.finalY:30; y+=8; doc.text('Plan — Backlog',14,y); doc.autoTable({startY:y+2, head:[["Item"]], body:(S?.plan?.backlog||[]).map(p=>[p.text||'']), styles:{fontSize:9}}); y=doc.lastAutoTable?doc.lastAutoTable.finalY:y+20; y+=8; doc.text('Plan — Up Next',14,y); doc.autoTable({startY:y+2, head:[["Item"]], body:(S?.plan?.upcoming||[]).map(p=>[p.text||'']), styles:{fontSize:9}}); y=doc.lastAutoTable?doc.lastAutoTable.finalY:y+20; y+=8; doc.text('Plan — Done',14,y); doc.autoTable({startY:y+2, head:[["Item"]], body:(S?.plan?.done||[]).map(p=>[p.text||'']), styles:{fontSize:9}}); doc.save(`preply_${s?.name||'student'}.pdf`); }
+  function exportAllPDF(){ const doc=new jspdf.jsPDF(); doc.setFontSize(16); doc.text('Preply — All Students',14,16); let y=24; students.forEach(s=>{ const S=data[s.id]; if(!S) return; doc.setFontSize(13); doc.text(`${s.name} (${s.level||''})`,14,y); y+=4; const rows=(S.lessons||[]).map(L=>[L?.date||'',L?.time||'',L?.summary||'',(L?.mistakes||[]).join('; ')]); doc.autoTable({startY:y, head:[["Date","Time","Summary","Mistakes"]], body:rows, styles:{fontSize:9}}); y=doc.lastAutoTable?doc.lastAutoTable.finalY:y+20; y+=6; if(y>260){ doc.addPage(); y=20; } }); doc.save('preply_ALL.pdf'); }
+  function download(content, filename, mime){ const blob=new Blob([content],{type:mime+';charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
+
+  // ===== Calendar =====
+  function renderCalendar(){ const d=$('#cal-date').value; const grid=$('#cal-grid'); const cards=[]; students.forEach(s=>{ const S=data[s.id]; if(!S) return; (S.lessons||[]).forEach(L=>{ if(L.date===d){ cards.push({studentId:s.id, student:s.name, level:s.level, time:L.time||'', summary:L.summary||''}); } }); }); cards.sort((a,b)=>a.time.localeCompare(b.time)); grid.innerHTML=''; $('#cal-count').textContent=`${cards.length} lesson${cards.length!==1?'s':''}`; cards.forEach(E=>{ const c=document.createElement('div'); c.className='card'; c.style.padding='10px'; c.innerHTML=`<div class="row" style="justify-content:space-between"><button class="link" data-id="${E.studentId}">${E.student}</button><div class="badge">${E.time}</div></div><div class="badge">${E.level?`Level ${E.level}`:''}</div><div>${E.summary}</div>`; c.querySelector('button').onclick=()=>{ selectedId=E.studentId; setTab('students'); renderMain(); }; grid.append(c); }); }
+
+  // ===== Events =====
+  function setTab(which){ const a=$('#tab-students'), b=$('#tab-calendar'); const ps=$('#page-students'), pc=$('#page-calendar'); if(which==='students'){ a.classList.add('active'); b.classList.remove('active'); ps.style.display='block'; pc.style.display='none'; } else { b.classList.add('active'); a.classList.remove('active'); ps.style.display='none'; pc.style.display='block'; renderCalendar(); } }
+
+  $('#tab-students').onclick=()=>setTab('students');
+  $('#tab-calendar').onclick=()=>setTab('calendar');
+  $('#btn-student-csv').onclick=exportStudentCSV;
+  $('#btn-all-csv').onclick=exportAllCSV;
+  $('#btn-student-pdf').onclick=exportStudentPDF;
+  $('#btn-all-pdf').onclick=exportAllPDF;
+  $('#delete-current').onclick=()=>{ if(!selectedId) return; deleteStudent(selectedId); };
+
+  $('#q').oninput=renderStudents;
+  $('#add-student').onclick=()=>{ const n=$('#new-name').value.trim(); const l=$('#new-level').value.trim(); if(!n) return; addStudent(n,l); $('#new-name').value=''; $('#new-level').value=''; };
+  $('#plan-add').onclick=()=>{ const t=$('#plan-text').value.trim(); if(!t) return; addPlan('backlog', t); $('#plan-text').value=''; };
+  $('#add-attachment').onclick=()=>{ const label=$('#att-label').value.trim(); const url=$('#att-url').value.trim(); if(!label||!url) return; const S=data[selectedId]; (S._att||(S._att=[])).push({label,url}); const li=document.createElement('li'); const a=document.createElement('a'); a.href=url; a.target='_blank'; a.textContent=label; a.className='link'; li.append(a); $('#att-list').append(li); $('#att-label').value=''; $('#att-url').value=''; };
+  $('#add-lesson').onclick=()=>{
+    const entry={
+      date: todayISO(),
+      time: $('#time').value || '',
+      summary: $('#summary').value.trim() || '',
+      mistakes: $('#mistakes').value.split(',').map(s=>s.trim()).filter(Boolean),
+      notes: $('#notes').value,
+      attachments: (data[selectedId]._att||[])
+    };
+    data[selectedId]._att=[]; $('#att-list').innerHTML='';
+    addLesson(entry);
+    $('#time').value=''; $('#summary').value=''; $('#mistakes').value=''; $('#notes').value='';
+  };
+
+  $('#cal-date').value=todayISO();
+  $('#today').textContent=todayISO();
+
+  // init
+  renderStudents();
+  renderMain();
+  setTab('students');
+  </script>
+</body>
+</html>

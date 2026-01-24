@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kanban Notecards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: auto;
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .board {
+            display: flex;
+            gap: 20px;
+            min-height: calc(100vh - 40px);
+            padding-bottom: 20px;
+        }
+
+        .column {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 320px;
+            flex-shrink: 0;
+        }
+
+        .column-header {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-height: 200px;
+        }
+
+        .notecard {
+            background: #fffef0;
+            width: 300px;
+            height: 200px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            cursor: move;
+            touch-action: none;
+            border: 1px solid #e8e6d0;
+            transition: transform 0.1s;
+        }
+
+        .notecard:active {
+            transform: scale(1.02);
+        }
+
+        .notecard.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .notecard-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            cursor: crosshair;
+        }
+
+        .notecard-tools {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .tool-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            touch-action: manipulation;
+        }
+
+        .tool-btn:active {
+            transform: scale(0.95);
+        }
+
+        .add-card-btn {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .add-card-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .add-card-btn:active {
+            transform: scale(0.98);
+        }
+
+        .color-picker {
+            position: absolute;
+            top: 40px;
+            right: 5px;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .color-picker.active {
+            display: flex;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .color-option:active {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+            border-width: 3px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .column {
+                min-width: 280px;
+            }
+            
+            .notecard {
+                width: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="column" data-column="todo">
+            <div class="column-header">📋 To Do</div>
+            <div class="cards-container"></div>
+            <button class="add-card-btn" onclick="addCard('todo')">+ Add Card</button>
+        </div>
+        
+        <div class="column" data-column="inprogress">
+            <div class="column-header">🚀 In Progress</div>
+            <div class="cards-container"></div>
+            <button class="add-card-btn" onclick="addCard('inprogress')">+ Add Card</button>
+        </div>
+        
+        <div class="column" data-column="done">
+            <div class="column-header">✅ Done</div>
+            <div class="cards-container"></div>
+            <button class="add-card-btn" onclick="addCard('done')">+ Add Card</button>
+        </div>
+    </div>
+
+    <script>
+        let currentColor = '#000000';
+        let currentSize = 2;
+        let cards = JSON.parse(localStorage.getItem('kanbanCards')) || [];
+        let draggedCard = null;
+
+        // Initialize board
+        function init() {
+            cards.forEach(card => {
+                createCardElement(card);
+            });
+        }
+
+        function addCard(column) {
+            const card = {
+                id: Date.now(),
+                column: column,
+                drawing: null
+            };
+            cards.push(card);
+            saveCards();
+            createCardElement(card);
+        }
+
+        function createCardElement(card) {
+            const container = document.querySelector(`[data-column="${card.column}"] .cards-container`);
+            
+            const notecard = document.createElement('div');
+            notecard.className = 'notecard';
+            notecard.dataset.id = card.id;
+            notecard.draggable = false;
+            
+            // Tools
+            const tools = document.createElement('div');
+            tools.className = 'notecard-tools';
+            tools.innerHTML = `
+                <button class="tool-btn" onclick="toggleColorPicker(${card.id})" title="Color">🎨</button>
+                <button class="tool-btn" onclick="clearCard(${card.id})" title="Clear">🗑️</button>
+                <button class="tool-btn" onclick="deleteCard(${card.id})" title="Delete">❌</button>
+            `;
+            
+            const colorPicker = document.createElement('div');
+            colorPicker.className = 'color-picker';
+            colorPicker.id = `picker-${card.id}`;
+            colorPicker.innerHTML = `
+                <div class="color-option selected" style="background: #000000" onclick="selectColor(${card.id}, '#000000')"></div>
+                <div class="color-option" style="background: #FF0000" onclick="selectColor(${card.id}, '#FF0000')"></div>
+                <div class="color-option" style="background: #0000FF" onclick="selectColor(${card.id}, '#0000FF')"></div>
+                <div class="color-option" style="background: #00AA00" onclick="selectColor(${card.id}, '#00AA00')"></div>
+            `;
+            
+            // Canvas
+            const canvas = document.createElement('canvas');
+            canvas.className = 'notecard-canvas';
+            canvas.width = 300;
+            canvas.height = 200;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Restore drawing
+            if (card.drawing) {
+                const img = new Image();
+                img.onload = () => ctx.drawImage(img, 0, 0);
+                img.src = card.drawing;
+            }
+            
+            // Drawing functionality
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            
+            function startDrawing(e) {
+                if (e.target !== canvas) return;
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                lastX = touch.clientX - rect.left;
+                lastY = touch.clientY - rect.top;
+                e.preventDefault();
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = currentSize;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                
+                lastX = x;
+                lastY = y;
+            }
+            
+            function stopDrawing() {
+                if (isDrawing) {
+                    isDrawing = false;
+                    saveCardDrawing(card.id, canvas.toDataURL());
+                }
+            }
+            
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+            
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            // Drag and drop for card movement
+            let startX, startY, isDragging = false;
+            
+            notecard.addEventListener('touchstart', (e) => {
+                if (e.target === canvas) return;
+                const touch = e.touches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                isDragging = false;
+            });
+            
+            notecard.addEventListener('touchmove', (e) => {
+                if (e.target === canvas) return;
+                const touch = e.touches[0];
+                const deltaX = Math.abs(touch.clientX - startX);
+                const deltaY = Math.abs(touch.clientY - startY);
+                
+                if (deltaX > 10 || deltaY > 10) {
+                    isDragging = true;
+                    draggedCard = notecard;
+                    notecard.classList.add('dragging');
+                }
+            });
+            
+            notecard.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                notecard.classList.remove('dragging');
+                
+                const touch = e.changedTouches[0];
+                const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+                const column = dropTarget?.closest('.column');
+                
+                if (column) {
+                    const newColumn = column.dataset.column;
+                    moveCard(card.id, newColumn);
+                }
+                
+                draggedCard = null;
+                isDragging = false;
+            });
+            
+            notecard.appendChild(tools);
+            notecard.appendChild(colorPicker);
+            notecard.appendChild(canvas);
+            container.appendChild(notecard);
+        }
+
+        function toggleColorPicker(cardId) {
+            const picker = document.getElementById(`picker-${cardId}`);
+            const allPickers = document.querySelectorAll('.color-picker');
+            allPickers.forEach(p => {
+                if (p.id !== `picker-${cardId}`) p.classList.remove('active');
+            });
+            picker.classList.toggle('active');
+        }
+
+        function selectColor(cardId, color) {
+            currentColor = color;
+            const picker = document.getElementById(`picker-${cardId}`);
+            const options = picker.querySelectorAll('.color-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        function clearCard(cardId) {
+            const card = cards.find(c => c.id === cardId);
+            const notecard = document.querySelector(`[data-id="${cardId}"]`);
+            const canvas = notecard.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            saveCardDrawing(cardId, null);
+        }
+
+        function deleteCard(cardId) {
+            if (!confirm('Delete this card?')) return;
+            cards = cards.filter(c => c.id !== cardId);
+            saveCards();
+            document.querySelector(`[data-id="${cardId}"]`).remove();
+        }
+
+        function moveCard(cardId, newColumn) {
+            const card = cards.find(c => c.id === cardId);
+            if (card) {
+                card.column = newColumn;
+                saveCards();
+                
+                const notecard = document.querySelector(`[data-id="${cardId}"]`);
+                const newContainer = document.querySelector(`[data-column="${newColumn}"] .cards-container`);
+                newContainer.appendChild(notecard);
+            }
+        }
+
+        function saveCardDrawing(cardId, dataUrl) {
+            const card = cards.find(c => c.id === cardId);
+            if (card) {
+                card.drawing = dataUrl;
+                saveCards();
+            }
+        }
+
+        function saveCards() {
+            localStorage.setItem('kanbanCards', JSON.stringify(cards));
+        }
+
+        // Close color pickers when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.tool-btn') && !e.target.closest('.color-picker')) {
+                document.querySelectorAll('.color-picker').forEach(p => p.classList.remove('active'));
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

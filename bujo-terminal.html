@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>BUJO Terminal</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="background-color" content="#0a0a0a">
+  <meta name="description" content="Dark terminal bullet journal with command interface">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BUJO Terminal">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --bg-hover: #222222;
+      
+      --text-primary: #00ff88;
+      --text-secondary: #00cc6a;
+      --text-muted: #338855;
+      --text-dim: #225533;
+      
+      --accent-cyan: #00ffff;
+      --accent-amber: #ffaa00;
+      --accent-red: #ff3333;
+      --accent-magenta: #ff00ff;
+      --accent-blue: #4488ff;
+      
+      --border-color: #00ff88;
+      --border-dim: #225533;
+      
+      --glow-primary: 0 0 10px rgba(0, 255, 136, 0.5);
+      --glow-cyan: 0 0 10px rgba(0, 255, 255, 0.5);
+      --glow-amber: 0 0 10px rgba(255, 170, 0, 0.5);
+      --glow-red: 0 0 10px rgba(255, 51, 51, 0.5);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* CRT Effect Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 136, 0.02) 2px,
+        rgba(0, 255, 136, 0.02) 4px
+      );
+      z-index: 9999;
+      pointer-events: none;
+    }
+    
+    /* Vignette Effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+      z-index: 9998;
+      pointer-events: none;
+    }
+    
+    /* Main App Container */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+    }
+    
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-dim);
+      flex-shrink: 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo-icon {
+      font-size: 18px;
+      color: var(--accent-cyan);
+      text-shadow: var(--glow-cyan);
+    }
+    
+    .logo-text {
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      text-shadow: var(--glow-primary);
+    }
+    
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    /* Main Content Area */
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 200px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-dim);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    
+    .nav-section {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    
+    .nav-header {
+      padding: 0 12px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text-muted);
+    }
+    
+    .nav-item:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+    
+    .nav-item.active {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-left: 2px solid var(--accent-cyan);
+    }
+    
+    .nav-icon {
+      font-size: 14px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .nav-label {
+      font-size: 12px;
+    }
+    
+    .nav-count {
+      margin-left: auto;
+      background: var(--bg-tertiary);
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+    
+    /* Content Panel */
+    .content-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    /* Content Header */
+    .content-header {
+      padding: 16px 20px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .content-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .content-subtitle {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    
+    /* Calendar Mini */
+    .calendar-mini {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .calendar-nav-btn {
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    
+    .calendar-nav-btn:hover {
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    .calendar-month {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      font-size: 10px;
+    }
+    
+    .calendar-day-header {
+      text-align: center;
+      padding: 4px;
+      color: var(--text-dim);
+    }
+    
+    .calendar-day {
+      text-align: center;
+      padding: 6px 2px;
+      cursor: pointer;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    
+    .calendar-day:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-dim);
+    }
+    
+    .calendar-day.other-month {
+      color: var(--text-dim);
+      opacity: 0.4;
+    }
+    
+    .calendar-day.today {
+      background: var(--bg-tertiary);
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      text-shadow: var(--glow-cyan);
+    }
+    
+    .calendar-day.selected {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      font-weight: 600;
+    }
+    
+    .calendar-day.has-entries::after {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-amber);
+      border-radius: 50%;
+      margin: 2px auto 0;
+    }
+    
+    /* Content Body */
+    .content-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    
+    /* Entry Cards */
+    .entry-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-dim);
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      transition: all 0.15s;
+    }
+    
+    .entry-card:hover {
+      border-color: var(--border-color);
+    }
+    
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .entry-date {
+      font-size: 12px;
+      color: var(--accent-amber);
+    }
+    
+    .entry-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    
+    .entry-card:hover .entry-actions {
+      opacity: 1;
+    }
+    
+    .entry-action-btn {
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      font-size: 10px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    .entry-action-btn:hover {
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    /* Bullet Items */
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .bullet-signifier {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    /* Signifier Colors */
+    .sig-task { color: var(--text-primary); }
+    .sig-task-done { color: var(--text-dim); text-decoration: line-through; }
+    .sig-task-migrated { color: var(--accent-blue); }
+    .sig-task-scheduled { color: var(--accent-cyan); }
+    .sig-note { color: var(--text-muted); }
+    .sig-event { color: var(--accent-amber); }
+    .sig-priority { color: var(--accent-red); text-shadow: var(--glow-red); }
+    .sig-inspiration { color: var(--accent-magenta); }
+    .sig-expense { color: var(--accent-amber); }
+    .sig-meeting { color: var(--accent-cyan); }
+    
+    .bullet-text {
+      flex: 1;
+    }
+    
+    .bullet-text.completed {
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+    
+    .bullet-text.migrated {
+      color: var(--accent-blue);
+    }
+    
+    /* Bullet Item Actions */
+    .bullet-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      margin-left: 8px;
+    }
+    
+    .bullet-item:hover .bullet-actions {
+      opacity: 1;
+    }
+    
+    .bullet-action-btn {
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      width: 22px;
+      height: 22px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    
+    .bullet-action-btn:hover {
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    .bullet-action-btn.delete:hover {
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+    
+    /* Tags */
+    .tag {
+      display: inline-block;
+      background: var(--bg-tertiary);
+      color: var(--accent-cyan);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      margin-left: 4px;
+    }
+    
+    /* Command Input Area */
+    .command-area {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-dim);
+      padding: 12px 20px;
+      flex-shrink: 0;
+    }
+    
+    .command-help {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .command-hint {
+      background: var(--bg-tertiary);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    
+    .command-hint kbd {
+      color: var(--accent-cyan);
+      font-family: inherit;
+    }
+    
+    .command-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-dim);
+      padding: 8px 12px;
+    }
+    
+    .command-input-wrapper:focus-within {
+      border-color: var(--border-color);
+      box-shadow: var(--glow-primary);
+    }
+    
+    .command-prompt {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+    
+    .command-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+    
+    .command-input::placeholder {
+      color: var(--text-dim);
+    }
+    
+    /* Right Panel - Future Log / Calendar View */
+    .right-panel {
+      width: 300px;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border-dim);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    
+    .panel-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .panel-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+    
+    /* Full Calendar View */
+    .full-calendar {
+      padding: 20px;
+    }
+    
+    .full-calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .full-calendar-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .full-calendar-nav {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .full-calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: var(--border-dim);
+      border: 1px solid var(--border-dim);
+    }
+    
+    .full-calendar-day-header {
+      background: var(--bg-tertiary);
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .full-calendar-day {
+      background: var(--bg-primary);
+      min-height: 80px;
+      padding: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .full-calendar-day:hover {
+      background: var(--bg-hover);
+    }
+    
+    .full-calendar-day.other-month {
+      background: var(--bg-secondary);
+      opacity: 0.5;
+    }
+    
+    .full-calendar-day.today {
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid var(--accent-cyan);
+    }
+    
+    .full-calendar-day.selected {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--text-primary);
+    }
+    
+    .full-calendar-day-num {
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .full-calendar-day-entries {
+      font-size: 10px;
+    }
+    
+    .full-calendar-entry-preview {
+      padding: 2px 4px;
+      background: var(--bg-tertiary);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-muted);
+      border-left: 2px solid var(--accent-amber);
+    }
+    
+    /* Collections List */
+    .collection-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-tertiary);
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .collection-item:hover {
+      background: var(--bg-hover);
+      border-left: 2px solid var(--accent-cyan);
+    }
+    
+    .collection-icon {
+      font-size: 14px;
+    }
+    
+    .collection-name {
+      flex: 1;
+      font-size: 12px;
+    }
+    
+    .collection-count {
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+    
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 10000;
+    }
+    
+    .toast {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      margin-top: 8px;
+      font-size: 12px;
+      box-shadow: var(--glow-primary);
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: var(--glow-primary);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    .modal-body {
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-dim);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+    
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--border-color);
+      box-shadow: var(--glow-primary);
+    }
+    
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    
+    .btn {
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .btn:hover {
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    .btn-primary {
+      background: var(--text-primary);
+      border-color: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    
+    .btn-primary:hover {
+      background: var(--text-secondary);
+      border-color: var(--text-secondary);
+    }
+    
+    .btn-today {
+      background: var(--bg-tertiary);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    
+    .btn-today:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-primary);
+      box-shadow: var(--glow-cyan);
+    }
+    
+    .btn-today.hidden {
+      display: none;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+    }
+    
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .empty-state-text {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+    .empty-state-hint {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    
+    /* Help Command List */
+    .command-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .command-item {
+      background: var(--bg-tertiary);
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+    
+    .command-item code {
+      color: var(--accent-cyan);
+    }
+    
+    .command-item span {
+      color: var(--text-muted);
+      margin-left: 8px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 60px;
+      }
+      
+      .nav-label, .nav-count, .nav-header {
+        display: none;
+      }
+      
+      .nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+      
+      .nav-icon {
+        font-size: 18px;
+      }
+      
+      .right-panel {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .sidebar {
+        display: none;
+      }
+      
+      .status-bar {
+        display: none;
+      }
+      
+      .content-header {
+        padding: 12px;
+      }
+      
+      .content-body {
+        padding: 12px;
+      }
+      
+      .command-area {
+        padding: 8px 12px;
+      }
+      
+      .command-help {
+        display: none;
+      }
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-dim);
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="logo">
+        <span class="logo-icon">◉</span>
+        <span class="logo-text">BUJO TERMINAL</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-dot"></span>
+          <span id="current-time"></span>
+        </div>
+        <div class="status-item">
+          <span id="task-count">0 tasks</span>
+        </div>
+        <div class="status-item">
+          <span id="storage-status">local</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="nav-section">
+          <div class="nav-header">Navigation</div>
+          <div class="nav-item active" data-view="daily" onclick="app.switchView('daily')">
+            <span class="nav-icon">◈</span>
+            <span class="nav-label">Daily Log</span>
+          </div>
+          <div class="nav-item" data-view="calendar" onclick="app.switchView('calendar')">
+            <span class="nav-icon">▦</span>
+            <span class="nav-label">Calendar</span>
+          </div>
+          <div class="nav-item" data-view="future" onclick="app.switchView('future')">
+            <span class="nav-icon">▶</span>
+            <span class="nav-label">Future Log</span>
+          </div>
+          <div class="nav-item" data-view="collections" onclick="app.switchView('collections')">
+            <span class="nav-icon">◫</span>
+            <span class="nav-label">Collections</span>
+            <span class="nav-count" id="collection-count">0</span>
+          </div>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-header">Quick Access</div>
+          <div class="nav-item" data-view="tasks" onclick="app.switchView('tasks')">
+            <span class="nav-icon">□</span>
+            <span class="nav-label">Open Tasks</span>
+            <span class="nav-count" id="open-task-count">0</span>
+          </div>
+          <div class="nav-item" data-view="scheduled" onclick="app.switchView('scheduled')">
+            <span class="nav-icon">◇</span>
+            <span class="nav-label">Scheduled</span>
+          </div>
+        </div>
+        
+        <!-- Mini Calendar -->
+        <div class="calendar-mini">
+          <div class="calendar-nav">
+            <button class="calendar-nav-btn" onclick="app.prevMonth()">◄</button>
+            <span class="calendar-month" id="mini-calendar-month"></span>
+            <button class="calendar-nav-btn" onclick="app.nextMonth()">►</button>
+          </div>
+          <div class="calendar-grid" id="mini-calendar-grid"></div>
+        </div>
+        
+        <div class="nav-section" style="margin-top: auto; border-top: 1px solid var(--border-dim); border-bottom: none;">
+          <div class="nav-item" onclick="app.showHelp()">
+            <span class="nav-icon">?</span>
+            <span class="nav-label">Help</span>
+          </div>
+          <div class="nav-item" onclick="app.exportData()">
+            <span class="nav-icon">↓</span>
+            <span class="nav-label">Export</span>
+          </div>
+          <div class="nav-item" onclick="app.importData()">
+            <span class="nav-icon">↑</span>
+            <span class="nav-label">Import</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Panel -->
+      <div class="content-panel">
+        <div class="content-header">
+          <div>
+            <div class="content-title" id="content-title">
+              <span>◈</span> Daily Log
+            </div>
+            <div class="content-subtitle" id="content-subtitle"></div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-today" id="btn-today" onclick="app.goToToday()" title="Return to today (T)">◉ TODAY</button>
+            <button class="btn" onclick="app.showEntryModal()">+ New Entry</button>
+          </div>
+        </div>
+        
+        <div class="content-body" id="content-body">
+          <!-- Dynamic content rendered here -->
+        </div>
+        
+        <!-- Command Input -->
+        <div class="command-area">
+          <div class="command-help">
+            <span class="command-hint"><kbd>-</kbd> task</span>
+            <span class="command-hint"><kbd>•</kbd> note</span>
+            <span class="command-hint"><kbd>○</kbd> event</span>
+            <span class="command-hint"><kbd>*</kbd> priority</span>
+            <span class="command-hint"><kbd>!</kbd> inspiration</span>
+            <span class="command-hint"><kbd>/help</kbd> commands</span>
+          </div>
+          <div class="command-input-wrapper">
+            <span class="command-prompt">❯</span>
+            <input type="text" class="command-input" id="command-input" 
+                   placeholder="Type a bullet item or command..." 
+                   autocomplete="off"
+                   onkeydown="app.handleCommand(event)">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <div class="panel-header">
+          <span class="panel-title">📋 UPCOMING</span>
+        </div>
+        <div class="panel-body" id="upcoming-panel">
+          <!-- Upcoming items rendered here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+  
+  <!-- Modal Container -->
+  <div id="modal-container"></div>
+  
+  <!-- Hidden file input for import -->
+  <input type="file" id="import-file" accept=".json" style="display: none" onchange="app.handleImport(event)">
+  
+  <script>
+    // ========================================
+    // BUJO TERMINAL APPLICATION
+    // ========================================
+    
+    const app = {
+      data: {
+        entries: [],          // All bullet journal entries
+        collections: [],      // Named collections (projects, lists, etc.)
+        settings: {
+          currentView: 'daily',
+          selectedDate: new Date().toISOString().split('T')[0],
+          calendarMonth: new Date()
+        }
+      },
+      
+      // Signifier definitions
+      signifiers: {
+        '-': { type: 'task', icon: '□', name: 'Task', class: 'sig-task' },
+        '×': { type: 'task-done', icon: '×', name: 'Done', class: 'sig-task-done' },
+        '>': { type: 'migrated', icon: '▷', name: 'Migrated', class: 'sig-task-migrated' },
+        '<': { type: 'scheduled', icon: '◁', name: 'Scheduled', class: 'sig-task-scheduled' },
+        '•': { type: 'note', icon: '•', name: 'Note', class: 'sig-note' },
+        '○': { type: 'event', icon: '○', name: 'Event', class: 'sig-event' },
+        '*': { type: 'priority', icon: '★', name: 'Priority', class: 'sig-priority' },
+        '!': { type: 'inspiration', icon: '!', name: 'Inspiration', class: 'sig-inspiration' },
+        '$': { type: 'expense', icon: '$', name: 'Expense', class: 'sig-expense' },
+        '@': { type: 'meeting', icon: '@', name: 'Meeting', class: 'sig-meeting' },
+        '?': { type: 'question', icon: '?', name: 'Question', class: 'sig-note' }
+      },
+      
+      // Initialize application
+      init() {
+        this.loadData();
+        this.updateClock();
+        setInterval(() => this.updateClock(), 1000);
+        this.renderMiniCalendar();
+        this.render();
+        this.updateCounts();
+        this.initKeyboardShortcuts();
+        
+        // Focus command input
+        document.getElementById('command-input').focus();
+        
+        console.log('%c◉ BUJO TERMINAL INITIALIZED', 'color: #00ff88; font-weight: bold;');
+      },
+      
+      // Keyboard shortcuts
+      initKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+          // Ignore if typing in input
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+          }
+          
+          switch(e.key.toLowerCase()) {
+            case 't':
+              e.preventDefault();
+              this.goToToday();
+              break;
+            case '1':
+              e.preventDefault();
+              this.switchView('daily');
+              break;
+            case '2':
+              e.preventDefault();
+              this.switchView('calendar');
+              break;
+            case '3':
+              e.preventDefault();
+              this.switchView('future');
+              break;
+            case '4':
+              e.preventDefault();
+              this.switchView('collections');
+              break;
+            case '?':
+              e.preventDefault();
+              this.showHelp();
+              break;
+            case 'n':
+              if (!e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                this.showEntryModal();
+              }
+              break;
+            case '/':
+              e.preventDefault();
+              document.getElementById('command-input').focus();
+              break;
+          }
+        });
+      },
+      
+      // Load data from localStorage
+      loadData() {
+        const saved = localStorage.getItem('bujo-terminal-data');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            this.data.entries = parsed.entries || [];
+            this.data.collections = parsed.collections || [];
+            if (parsed.settings) {
+              this.data.settings = { ...this.data.settings, ...parsed.settings };
+            }
+          } catch (e) {
+            console.error('Failed to load data:', e);
+          }
+        }
+        
+        // Ensure today's entry exists
+        this.ensureTodayEntry();
+      },
+      
+      // Save data to localStorage
+      saveData() {
+        localStorage.setItem('bujo-terminal-data', JSON.stringify(this.data));
+      },
+      
+      // Ensure today has an entry
+      ensureTodayEntry() {
+        const today = new Date().toISOString().split('T')[0];
+        if (!this.data.entries.find(e => e.date === today)) {
+          this.data.entries.push({
+            id: Date.now(),
+            date: today,
+            items: []
+          });
+          this.saveData();
+        }
+      },
+      
+      // Update clock display
+      updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false 
+        });
+        document.getElementById('current-time').textContent = timeStr;
+      },
+      
+      // Update counts
+      updateCounts() {
+        const openTasks = this.data.entries.flatMap(e => e.items)
+          .filter(i => i.signifier === '-').length;
+        document.getElementById('open-task-count').textContent = openTasks;
+        document.getElementById('task-count').textContent = `${openTasks} tasks`;
+        document.getElementById('collection-count').textContent = this.data.collections.length;
+      },
+      
+      // Switch view
+      switchView(view) {
+        this.data.settings.currentView = view;
+        
+        // Update nav
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.toggle('active', item.dataset.view === view);
+        });
+        
+        this.render();
+        this.saveData();
+      },
+      
+      // Main render function
+      render() {
+        const view = this.data.settings.currentView;
+        const body = document.getElementById('content-body');
+        const title = document.getElementById('content-title');
+        const subtitle = document.getElementById('content-subtitle');
+        
+        this.updateTodayButton();
+        
+        switch (view) {
+          case 'daily':
+            title.innerHTML = '<span>◈</span> Daily Log';
+            subtitle.textContent = this.formatDate(this.data.settings.selectedDate);
+            this.renderDailyLog(body);
+            break;
+          case 'calendar':
+            title.innerHTML = '<span>▦</span> Calendar';
+            subtitle.textContent = '';
+            this.renderFullCalendar(body);
+            break;
+          case 'future':
+            title.innerHTML = '<span>▶</span> Future Log';
+            subtitle.textContent = 'Upcoming months and scheduled items';
+            this.renderFutureLog(body);
+            break;
+          case 'collections':
+            title.innerHTML = '<span>◫</span> Collections';
+            subtitle.textContent = 'Your project lists and collections';
+            this.renderCollections(body);
+            break;
+          case 'tasks':
+            title.innerHTML = '<span>□</span> Open Tasks';
+            subtitle.textContent = 'All incomplete tasks';
+            this.renderOpenTasks(body);
+            break;
+          case 'scheduled':
+            title.innerHTML = '<span>◇</span> Scheduled';
+            subtitle.textContent = 'Items scheduled for future dates';
+            this.renderScheduled(body);
+            break;
+        }
+        
+        this.renderUpcoming();
+      },
+      
+      // Render daily log
+      renderDailyLog(container) {
+        const date = this.data.settings.selectedDate;
+        const entry = this.data.entries.find(e => e.date === date);
+        
+        if (!entry || entry.items.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">◈</div>
+              <div class="empty-state-text">No entries for ${this.formatDate(date)}</div>
+              <div class="empty-state-hint">Type below to add your first bullet</div>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = `
+          <div class="entry-card">
+            <div class="entry-header">
+              <div class="entry-date">${this.formatDate(date)}</div>
+              <div class="entry-actions">
+                <button class="entry-action-btn" onclick="app.exportEntry('${date}')">export</button>
+              </div>
+            </div>
+            <div class="bullet-items">
+              ${entry.items.map((item, idx) => this.renderBulletItem(item, date, idx)).join('')}
+            </div>
+          </div>
+        `;
+      },
+      
+      // Render a single bullet item
+      renderBulletItem(item, date, index) {
+        const sig = this.signifiers[item.signifier] || this.signifiers['-'];
+        const textClass = item.signifier === '×' ? 'completed' : 
+                          item.signifier === '>' ? 'migrated' : '';
+        
+        // Process tags
+        let text = item.text;
+        text = text.replace(/#(\w+)/g, '<span class="tag">#$1</span>');
+        
+        return `
+          <div class="bullet-item" data-date="${date}" data-index="${index}">
+            <div class="bullet-signifier ${sig.class}" 
+                 onclick="app.cycleSignifier('${date}', ${index})"
+                 title="${sig.name} - Click to cycle">
+              ${sig.icon}
+            </div>
+            <div class="bullet-text ${textClass}" 
+                 ondblclick="app.editItem('${date}', ${index})"
+                 title="Double-click to edit">${text}</div>
+            <div class="bullet-actions">
+              <button class="bullet-action-btn" onclick="app.showMigrateModal('${date}', ${index})" title="Migrate">▷</button>
+              <button class="bullet-action-btn" onclick="app.editItem('${date}', ${index})" title="Edit">✎</button>
+              <button class="bullet-action-btn delete" onclick="app.deleteItem('${date}', ${index})" title="Delete">×</button>
+            </div>
+          </div>
+        `;
+      },
+      
+      // Cycle through signifiers
+      cycleSignifier(date, index) {
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry) return;
+        
+        const item = entry.items[index];
+        const taskCycle = ['-', '×', '>', '<'];
+        const currentIdx = taskCycle.indexOf(item.signifier);
+        
+        if (currentIdx !== -1) {
+          item.signifier = taskCycle[(currentIdx + 1) % taskCycle.length];
+        }
+        
+        this.saveData();
+        this.render();
+        this.updateCounts();
+        this.toast(`Item marked as ${this.signifiers[item.signifier].name}`);
+      },
+      
+      // Render full calendar
+      renderFullCalendar(container) {
+        const month = new Date(this.data.settings.calendarMonth);
+        const year = month.getFullYear();
+        const monthNum = month.getMonth();
+        
+        const firstDay = new Date(year, monthNum, 1);
+        const lastDay = new Date(year, monthNum + 1, 0);
+        const startDay = firstDay.getDay();
+        const daysInMonth = lastDay.getDate();
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        let html = `
+          <div class="full-calendar">
+            <div class="full-calendar-header">
+              <div class="full-calendar-title">${monthNames[monthNum]} ${year}</div>
+              <div class="full-calendar-nav">
+                <button class="btn" onclick="app.prevMonth()">◄ Prev</button>
+                <button class="btn" onclick="app.goToToday()">Today</button>
+                <button class="btn" onclick="app.nextMonth()">Next ►</button>
+              </div>
+            </div>
+            <div class="full-calendar-grid">
+        `;
+        
+        // Day headers
+        dayNames.forEach(day => {
+          html += `<div class="full-calendar-day-header">${day}</div>`;
+        });
+        
+        // Previous month days
+        const prevMonth = new Date(year, monthNum, 0);
+        for (let i = startDay - 1; i >= 0; i--) {
+          const day = prevMonth.getDate() - i;
+          html += `<div class="full-calendar-day other-month">${day}</div>`;
+        }
+        
+        // Current month days
+        const today = new Date().toISOString().split('T')[0];
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateStr = `${year}-${String(monthNum + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isToday = dateStr === today;
+          const isSelected = dateStr === this.data.settings.selectedDate;
+          const entry = this.data.entries.find(e => e.date === dateStr);
+          
+          let entriesHtml = '';
+          if (entry && entry.items.length > 0) {
+            entriesHtml = entry.items.slice(0, 3).map(item => 
+              `<div class="full-calendar-entry-preview">${this.signifiers[item.signifier]?.icon || '•'} ${item.text.substring(0, 20)}${item.text.length > 20 ? '...' : ''}</div>`
+            ).join('');
+            if (entry.items.length > 3) {
+              entriesHtml += `<div class="full-calendar-entry-preview">+${entry.items.length - 3} more</div>`;
+            }
+          }
+          
+          html += `
+            <div class="full-calendar-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}"
+                 onclick="app.selectDate('${dateStr}')">
+              <div class="full-calendar-day-num">${day}</div>
+              <div class="full-calendar-day-entries">${entriesHtml}</div>
+            </div>
+          `;
+        }
+        
+        // Next month days
+        const totalCells = startDay + daysInMonth;
+        const remaining = 7 - (totalCells % 7);
+        if (remaining < 7) {
+          for (let i = 1; i <= remaining; i++) {
+            html += `<div class="full-calendar-day other-month">${i}</div>`;
+          }
+        }
+        
+        html += '</div></div>';
+        container.innerHTML = html;
+      },
+      
+      // Render future log
+      renderFutureLog(container) {
+        const months = [];
+        const now = new Date();
+        for (let i = 1; i <= 6; i++) {
+          const month = new Date(now.getFullYear(), now.getMonth() + i, 1);
+          months.push(month);
+        }
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        let html = months.map(month => {
+          const monthStr = `${month.getFullYear()}-${String(month.getMonth() + 1).padStart(2, '0')}`;
+          const scheduledItems = this.data.entries
+            .filter(e => e.date.startsWith(monthStr))
+            .flatMap(e => e.items.map(i => ({ ...i, date: e.date })))
+            .filter(i => i.signifier === '<' || i.signifier === '○');
+          
+          return `
+            <div class="entry-card">
+              <div class="entry-header">
+                <div class="entry-date">${monthNames[month.getMonth()]} ${month.getFullYear()}</div>
+              </div>
+              <div class="bullet-items">
+                ${scheduledItems.length > 0 
+                  ? scheduledItems.map(item => `
+                      <div class="bullet-item">
+                        <div class="bullet-signifier ${this.signifiers[item.signifier]?.class || 'sig-note'}">
+                          ${this.signifiers[item.signifier]?.icon || '•'}
+                        </div>
+                        <div class="bullet-text">${item.date.split('-')[2]} - ${item.text}</div>
+                      </div>
+                    `).join('')
+                  : '<div style="color: var(--text-dim); font-size: 12px; padding: 8px 0;">No scheduled items</div>'
+                }
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        container.innerHTML = html || '<div class="empty-state"><div class="empty-state-icon">▶</div><div class="empty-state-text">Future log is empty</div></div>';
+      },
+      
+      // Render collections
+      renderCollections(container) {
+        if (this.data.collections.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">◫</div>
+              <div class="empty-state-text">No collections yet</div>
+              <div class="empty-state-hint">Use /collection new [name] to create one</div>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = this.data.collections.map(col => `
+          <div class="entry-card" onclick="app.viewCollection('${col.id}')">
+            <div class="entry-header">
+              <div class="entry-date">${col.icon || '📋'} ${col.name}</div>
+              <div class="entry-actions">
+                <button class="entry-action-btn" onclick="event.stopPropagation(); app.deleteCollection('${col.id}')">×</button>
+              </div>
+            </div>
+            <div class="bullet-items">
+              ${col.items.slice(0, 3).map(item => this.renderBulletItem(item, col.id, 0)).join('')}
+              ${col.items.length > 3 ? `<div style="color: var(--text-dim); font-size: 11px; padding: 4px 0;">+${col.items.length - 3} more items</div>` : ''}
+            </div>
+          </div>
+        `).join('');
+      },
+      
+      // Render open tasks
+      renderOpenTasks(container) {
+        const openTasks = this.data.entries
+          .flatMap(e => e.items.map(i => ({ ...i, date: e.date })))
+          .filter(i => i.signifier === '-');
+        
+        if (openTasks.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">✓</div>
+              <div class="empty-state-text">All tasks complete!</div>
+            </div>
+          `;
+          return;
+        }
+        
+        // Group by date
+        const grouped = {};
+        openTasks.forEach(task => {
+          if (!grouped[task.date]) grouped[task.date] = [];
+          grouped[task.date].push(task);
+        });
+        
+        container.innerHTML = Object.entries(grouped)
+          .sort(([a], [b]) => b.localeCompare(a))
+          .map(([date, items]) => `
+            <div class="entry-card">
+              <div class="entry-header">
+                <div class="entry-date">${this.formatDate(date)}</div>
+              </div>
+              <div class="bullet-items">
+                ${items.map((item, idx) => {
+                  const entry = this.data.entries.find(e => e.date === date);
+                  const realIdx = entry.items.indexOf(item);
+                  return this.renderBulletItem(item, date, realIdx);
+                }).join('')}
+              </div>
+            </div>
+          `).join('');
+      },
+      
+      // Render scheduled items
+      renderScheduled(container) {
+        const today = new Date().toISOString().split('T')[0];
+        const scheduled = this.data.entries
+          .filter(e => e.date >= today)
+          .flatMap(e => e.items.map(i => ({ ...i, date: e.date })))
+          .filter(i => i.signifier === '<' || i.signifier === '○')
+          .sort((a, b) => a.date.localeCompare(b.date));
+        
+        if (scheduled.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">◇</div>
+              <div class="empty-state-text">Nothing scheduled</div>
+              <div class="empty-state-hint">Use /schedule [date] [text] to schedule items</div>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = scheduled.map(item => `
+          <div class="bullet-item" style="background: var(--bg-secondary); padding: 12px; margin-bottom: 8px;">
+            <div class="bullet-signifier ${this.signifiers[item.signifier]?.class || ''}">
+              ${this.signifiers[item.signifier]?.icon || '◁'}
+            </div>
+            <div>
+              <div class="bullet-text">${item.text}</div>
+              <div style="font-size: 10px; color: var(--accent-amber); margin-top: 4px;">${this.formatDate(item.date)}</div>
+            </div>
+          </div>
+        `).join('');
+      },
+      
+      // Render upcoming panel
+      renderUpcoming() {
+        const panel = document.getElementById('upcoming-panel');
+        const today = new Date().toISOString().split('T')[0];
+        const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        
+        const upcoming = this.data.entries
+          .filter(e => e.date >= today && e.date <= nextWeek)
+          .flatMap(e => e.items.map(i => ({ ...i, date: e.date })))
+          .filter(i => i.signifier === '-' || i.signifier === '<' || i.signifier === '○' || i.signifier === '@')
+          .slice(0, 10);
+        
+        if (upcoming.length === 0) {
+          panel.innerHTML = '<div style="color: var(--text-dim); font-size: 12px; text-align: center; padding: 20px;">No upcoming items</div>';
+          return;
+        }
+        
+        panel.innerHTML = upcoming.map(item => `
+          <div style="padding: 8px; border-bottom: 1px solid var(--border-dim); font-size: 11px;">
+            <div style="display: flex; gap: 6px;">
+              <span style="color: ${this.signifiers[item.signifier]?.class === 'sig-priority' ? 'var(--accent-red)' : 'var(--text-muted)'}">
+                ${this.signifiers[item.signifier]?.icon || '•'}
+              </span>
+              <span>${item.text.substring(0, 30)}${item.text.length > 30 ? '...' : ''}</span>
+            </div>
+            <div style="color: var(--text-dim); font-size: 10px; margin-top: 2px; margin-left: 18px;">
+              ${item.date === today ? 'Today' : this.formatDate(item.date)}
+            </div>
+          </div>
+        `).join('');
+      },
+      
+      // Handle command input
+      handleCommand(event) {
+        if (event.key !== 'Enter') return;
+        
+        const input = event.target;
+        const value = input.value.trim();
+        if (!value) return;
+        
+        input.value = '';
+        
+        // Check for commands
+        if (value.startsWith('/')) {
+          this.processCommand(value);
+          return;
+        }
+        
+        // Otherwise, add as bullet item
+        this.addBulletItem(value);
+      },
+      
+      // Process slash commands
+      processCommand(cmd) {
+        const parts = cmd.slice(1).split(' ');
+        const command = parts[0].toLowerCase();
+        const args = parts.slice(1).join(' ');
+        
+        switch (command) {
+          case 'help':
+            this.showHelp();
+            break;
+            
+          case 'today':
+            this.data.settings.selectedDate = new Date().toISOString().split('T')[0];
+            this.switchView('daily');
+            break;
+            
+          case 'goto':
+          case 'date':
+            if (args) {
+              const date = this.parseDate(args);
+              if (date) {
+                this.selectDate(date);
+              } else {
+                this.toast('Invalid date format', 'error');
+              }
+            }
+            break;
+            
+          case 'schedule':
+            const schedMatch = args.match(/^(\S+)\s+(.+)$/);
+            if (schedMatch) {
+              const date = this.parseDate(schedMatch[1]);
+              const text = schedMatch[2];
+              if (date) {
+                this.addItemToDate(date, '<', text);
+                this.toast(`Scheduled for ${this.formatDate(date)}`);
+              }
+            } else {
+              this.toast('Usage: /schedule [date] [text]', 'error');
+            }
+            break;
+            
+          case 'event':
+            const eventMatch = args.match(/^(\S+)\s+(.+)$/);
+            if (eventMatch) {
+              const date = this.parseDate(eventMatch[1]);
+              const text = eventMatch[2];
+              if (date) {
+                this.addItemToDate(date, '○', text);
+                this.toast(`Event added for ${this.formatDate(date)}`);
+              }
+            } else {
+              this.toast('Usage: /event [date] [text]', 'error');
+            }
+            break;
+            
+          case 'migrate':
+            const migrateMatch = args.match(/^(\d+)\s+(\S+)$/);
+            if (migrateMatch) {
+              const idx = parseInt(migrateMatch[1]) - 1;
+              const toDate = this.parseDate(migrateMatch[2]);
+              if (toDate) {
+                this.migrateItem(idx, toDate);
+              }
+            } else {
+              this.toast('Usage: /migrate [item#] [toDate]', 'error');
+            }
+            break;
+            
+          case 'collection':
+            const colParts = args.split(' ');
+            const subCmd = colParts[0];
+            const colName = colParts.slice(1).join(' ');
+            if (subCmd === 'new' && colName) {
+              this.createCollection(colName);
+            } else if (subCmd === 'add' && colName) {
+              // /collection add [name] [item text]
+              const addMatch = args.match(/^add\s+(\S+)\s+(.+)$/);
+              if (addMatch) {
+                this.addToCollection(addMatch[1], addMatch[2]);
+              }
+            }
+            break;
+            
+          case 'export':
+            this.exportData();
+            break;
+            
+          case 'clear':
+            if (args === 'all' && confirm('Clear ALL data? This cannot be undone.')) {
+              this.data.entries = [];
+              this.data.collections = [];
+              this.saveData();
+              this.ensureTodayEntry();
+              this.render();
+              this.toast('All data cleared');
+            }
+            break;
+            
+          default:
+            this.toast(`Unknown command: ${command}`, 'error');
+        }
+      },
+      
+      // Add bullet item to current date
+      addBulletItem(text) {
+        const date = this.data.settings.selectedDate;
+        let signifier = '-'; // default to task
+        let itemText = text;
+        
+        // Check for signifier at start
+        const firstChar = text[0];
+        if (this.signifiers[firstChar] && text[1] === ' ') {
+          signifier = firstChar;
+          itemText = text.substring(2);
+        } else if (firstChar === '[' && text[2] === ']') {
+          // Support [x] or [ ] format
+          signifier = text[1] === 'x' || text[1] === 'X' ? '×' : '-';
+          itemText = text.substring(4);
+        }
+        
+        this.addItemToDate(date, signifier, itemText);
+        this.toast('Item added');
+      },
+      
+      // Add item to specific date
+      addItemToDate(date, signifier, text) {
+        let entry = this.data.entries.find(e => e.date === date);
+        if (!entry) {
+          entry = { id: Date.now(), date: date, items: [] };
+          this.data.entries.push(entry);
+        }
+        
+        entry.items.push({
+          id: Date.now(),
+          signifier: signifier,
+          text: text,
+          created: new Date().toISOString()
+        });
+        
+        this.saveData();
+        this.render();
+        this.updateCounts();
+      },
+      
+      // Migrate item to new date
+      migrateItem(index, toDate) {
+        const fromDate = this.data.settings.selectedDate;
+        const fromEntry = this.data.entries.find(e => e.date === fromDate);
+        
+        if (!fromEntry || !fromEntry.items[index]) {
+          this.toast('Item not found', 'error');
+          return;
+        }
+        
+        const item = fromEntry.items[index];
+        
+        // Mark original as migrated
+        item.signifier = '>';
+        
+        // Add to new date
+        this.addItemToDate(toDate, '<', item.text);
+        
+        this.saveData();
+        this.render();
+        this.toast(`Migrated to ${this.formatDate(toDate)}`);
+      },
+      
+      // Create new collection
+      createCollection(name) {
+        this.data.collections.push({
+          id: Date.now().toString(),
+          name: name,
+          icon: '📋',
+          items: [],
+          created: new Date().toISOString()
+        });
+        this.saveData();
+        this.render();
+        this.updateCounts();
+        this.toast(`Collection "${name}" created`);
+      },
+      
+      // Add item to collection
+      addToCollection(name, text) {
+        const col = this.data.collections.find(c => 
+          c.name.toLowerCase() === name.toLowerCase()
+        );
+        if (!col) {
+          this.toast(`Collection "${name}" not found`, 'error');
+          return;
+        }
+        
+        col.items.push({
+          id: Date.now(),
+          signifier: '-',
+          text: text,
+          created: new Date().toISOString()
+        });
+        
+        this.saveData();
+        this.render();
+        this.toast(`Added to ${col.name}`);
+      },
+      
+      // Delete collection
+      deleteCollection(id) {
+        if (!confirm('Delete this collection?')) return;
+        this.data.collections = this.data.collections.filter(c => c.id !== id);
+        this.saveData();
+        this.render();
+        this.updateCounts();
+        this.toast('Collection deleted');
+      },
+      
+      // Edit item
+      editItem(date, index) {
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry || !entry.items[index]) return;
+        
+        const item = entry.items[index];
+        const modal = document.getElementById('modal-container');
+        
+        modal.innerHTML = `
+          <div class="modal-overlay" onclick="app.closeModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+              <div class="modal-header">
+                <div class="modal-title">✎ Edit Item</div>
+                <button class="modal-close" onclick="app.closeModal()">×</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-label">Signifier</label>
+                  <select class="form-select" id="edit-signifier">
+                    <option value="-" ${item.signifier === '-' ? 'selected' : ''}>□ Task</option>
+                    <option value="×" ${item.signifier === '×' ? 'selected' : ''}>× Done</option>
+                    <option value=">" ${item.signifier === '>' ? 'selected' : ''}>▷ Migrated</option>
+                    <option value="<" ${item.signifier === '<' ? 'selected' : ''}>◁ Scheduled</option>
+                    <option value="•" ${item.signifier === '•' ? 'selected' : ''}>• Note</option>
+                    <option value="○" ${item.signifier === '○' ? 'selected' : ''}>○ Event</option>
+                    <option value="*" ${item.signifier === '*' ? 'selected' : ''}>★ Priority</option>
+                    <option value="!" ${item.signifier === '!' ? 'selected' : ''}>! Inspiration</option>
+                    <option value="$" ${item.signifier === '$' ? 'selected' : ''}>$ Expense</option>
+                    <option value="@" ${item.signifier === '@' ? 'selected' : ''}>@ Meeting</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Text</label>
+                  <input type="text" class="form-input" id="edit-text" value="${item.text.replace(/"/g, '&quot;')}">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" onclick="app.closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="app.saveItemEdit('${date}', ${index})">Save</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.getElementById('edit-text').focus();
+        document.getElementById('edit-text').select();
+      },
+      
+      // Save item edit
+      saveItemEdit(date, index) {
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry || !entry.items[index]) return;
+        
+        const signifier = document.getElementById('edit-signifier').value;
+        const text = document.getElementById('edit-text').value.trim();
+        
+        if (!text) {
+          this.toast('Text cannot be empty', 'error');
+          return;
+        }
+        
+        entry.items[index].signifier = signifier;
+        entry.items[index].text = text;
+        
+        this.saveData();
+        this.closeModal();
+        this.render();
+        this.updateCounts();
+        this.toast('Item updated');
+      },
+      
+      // Delete item
+      deleteItem(date, index) {
+        if (!confirm('Delete this item?')) return;
+        
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry) return;
+        
+        entry.items.splice(index, 1);
+        this.saveData();
+        this.render();
+        this.updateCounts();
+        this.toast('Item deleted');
+      },
+      
+      // Show migrate modal
+      showMigrateModal(date, index) {
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry || !entry.items[index]) return;
+        
+        const item = entry.items[index];
+        const modal = document.getElementById('modal-container');
+        
+        modal.innerHTML = `
+          <div class="modal-overlay" onclick="app.closeModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+              <div class="modal-header">
+                <div class="modal-title">▷ Migrate Item</div>
+                <button class="modal-close" onclick="app.closeModal()">×</button>
+              </div>
+              <div class="modal-body">
+                <div style="margin-bottom: 16px; padding: 12px; background: var(--bg-tertiary); font-size: 12px;">
+                  <strong>${this.signifiers[item.signifier]?.icon || '•'}</strong> ${item.text}
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Migrate to date</label>
+                  <input type="text" class="form-input" id="migrate-date" placeholder="tomorrow, +3, monday, 12/25...">
+                </div>
+                <div style="font-size: 11px; color: var(--text-dim);">
+                  Quick: 
+                  <a href="#" onclick="document.getElementById('migrate-date').value='tomorrow'; return false;" style="color: var(--accent-cyan);">tomorrow</a> • 
+                  <a href="#" onclick="document.getElementById('migrate-date').value='+1'; return false;" style="color: var(--accent-cyan);">+1</a> • 
+                  <a href="#" onclick="document.getElementById('migrate-date').value='+7'; return false;" style="color: var(--accent-cyan);">+7</a> • 
+                  <a href="#" onclick="document.getElementById('migrate-date').value='monday'; return false;" style="color: var(--accent-cyan);">monday</a>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" onclick="app.closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="app.confirmMigrate('${date}', ${index})">Migrate</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.getElementById('migrate-date').focus();
+      },
+      
+      // Confirm migration
+      confirmMigrate(fromDate, index) {
+        const dateInput = document.getElementById('migrate-date').value.trim();
+        const toDate = this.parseDate(dateInput);
+        
+        if (!toDate) {
+          this.toast('Invalid date format', 'error');
+          return;
+        }
+        
+        this.migrateItem(index, toDate);
+        this.closeModal();
+      },
+      
+      // Parse date string
+      parseDate(str) {
+        if (!str) return null;
+        
+        const today = new Date();
+        const lower = str.toLowerCase();
+        
+        // Special keywords
+        if (lower === 'today' || lower === 't') {
+          return today.toISOString().split('T')[0];
+        }
+        if (lower === 'tomorrow' || lower === 'tm') {
+          const tm = new Date(today);
+          tm.setDate(tm.getDate() + 1);
+          return tm.toISOString().split('T')[0];
+        }
+        if (lower === 'yesterday' || lower === 'y') {
+          const yd = new Date(today);
+          yd.setDate(yd.getDate() - 1);
+          return yd.toISOString().split('T')[0];
+        }
+        
+        // +N days format
+        const plusMatch = lower.match(/^\+(\d+)$/);
+        if (plusMatch) {
+          const future = new Date(today);
+          future.setDate(future.getDate() + parseInt(plusMatch[1]));
+          return future.toISOString().split('T')[0];
+        }
+        
+        // Day names
+        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const dayIdx = days.findIndex(d => d.startsWith(lower));
+        if (dayIdx !== -1) {
+          const result = new Date(today);
+          const currentDay = today.getDay();
+          let daysToAdd = dayIdx - currentDay;
+          if (daysToAdd <= 0) daysToAdd += 7;
+          result.setDate(result.getDate() + daysToAdd);
+          return result.toISOString().split('T')[0];
+        }
+        
+        // Try parsing as date
+        const date = new Date(str);
+        if (!isNaN(date.getTime())) {
+          return date.toISOString().split('T')[0];
+        }
+        
+        // Month/day format (e.g., "12/25" or "12-25")
+        const mdMatch = str.match(/^(\d{1,2})[\/\-](\d{1,2})$/);
+        if (mdMatch) {
+          const month = parseInt(mdMatch[1]) - 1;
+          const day = parseInt(mdMatch[2]);
+          const result = new Date(today.getFullYear(), month, day);
+          if (result < today) result.setFullYear(result.getFullYear() + 1);
+          return result.toISOString().split('T')[0];
+        }
+        
+        return null;
+      },
+      
+      // Format date for display
+      formatDate(dateStr) {
+        const date = new Date(dateStr + 'T12:00:00');
+        const today = new Date();
+        const todayStr = today.toISOString().split('T')[0];
+        
+        if (dateStr === todayStr) return 'Today';
+        
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (dateStr === yesterday.toISOString().split('T')[0]) return 'Yesterday';
+        
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        if (dateStr === tomorrow.toISOString().split('T')[0]) return 'Tomorrow';
+        
+        return date.toLocaleDateString('en-US', { 
+          weekday: 'short',
+          month: 'short', 
+          day: 'numeric'
+        });
+      },
+      
+      // Select a date
+      selectDate(date) {
+        this.data.settings.selectedDate = date;
+        this.ensureEntryExists(date);
+        this.data.settings.currentView = 'daily';
+        this.switchView('daily');
+        this.renderMiniCalendar();
+        this.saveData();
+      },
+      
+      // Ensure entry exists for date
+      ensureEntryExists(date) {
+        if (!this.data.entries.find(e => e.date === date)) {
+          this.data.entries.push({
+            id: Date.now(),
+            date: date,
+            items: []
+          });
+          this.saveData();
+        }
+      },
+      
+      // Calendar navigation
+      prevMonth() {
+        const month = new Date(this.data.settings.calendarMonth);
+        month.setMonth(month.getMonth() - 1);
+        this.data.settings.calendarMonth = month;
+        this.renderMiniCalendar();
+        if (this.data.settings.currentView === 'calendar') {
+          this.render();
+        }
+      },
+      
+      nextMonth() {
+        const month = new Date(this.data.settings.calendarMonth);
+        month.setMonth(month.getMonth() + 1);
+        this.data.settings.calendarMonth = month;
+        this.renderMiniCalendar();
+        if (this.data.settings.currentView === 'calendar') {
+          this.render();
+        }
+      },
+      
+      goToToday() {
+        this.data.settings.calendarMonth = new Date();
+        this.data.settings.selectedDate = new Date().toISOString().split('T')[0];
+        this.data.settings.currentView = 'daily';
+        this.renderMiniCalendar();
+        this.switchView('daily');
+        this.updateTodayButton();
+        this.toast('◉ Jumped to today');
+      },
+      
+      // Update today button visibility (hide if already on today)
+      updateTodayButton() {
+        const btn = document.getElementById('btn-today');
+        if (!btn) return;
+        const today = new Date().toISOString().split('T')[0];
+        const isToday = this.data.settings.selectedDate === today;
+        btn.classList.toggle('hidden', isToday && this.data.settings.currentView === 'daily');
+      },
+      
+      // Render mini calendar
+      renderMiniCalendar() {
+        const month = new Date(this.data.settings.calendarMonth);
+        const year = month.getFullYear();
+        const monthNum = month.getMonth();
+        
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        
+        document.getElementById('mini-calendar-month').textContent = 
+          `${monthNames[monthNum]} ${year}`;
+        
+        const firstDay = new Date(year, monthNum, 1);
+        const lastDay = new Date(year, monthNum + 1, 0);
+        const startDay = firstDay.getDay();
+        const daysInMonth = lastDay.getDate();
+        
+        const grid = document.getElementById('mini-calendar-grid');
+        let html = '';
+        
+        // Day headers
+        ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(d => {
+          html += `<div class="calendar-day-header">${d}</div>`;
+        });
+        
+        // Empty cells before first day
+        for (let i = 0; i < startDay; i++) {
+          html += '<div class="calendar-day other-month"></div>';
+        }
+        
+        // Days
+        const today = new Date().toISOString().split('T')[0];
+        const selected = this.data.settings.selectedDate;
+        
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateStr = `${year}-${String(monthNum + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isToday = dateStr === today;
+          const isSelected = dateStr === selected;
+          const hasEntries = this.data.entries.some(e => e.date === dateStr && e.items.length > 0);
+          
+          let classes = 'calendar-day';
+          if (isToday) classes += ' today';
+          if (isSelected) classes += ' selected';
+          if (hasEntries) classes += ' has-entries';
+          
+          html += `<div class="${classes}" onclick="app.selectDate('${dateStr}')">${day}</div>`;
+        }
+        
+        grid.innerHTML = html;
+      },
+      
+      // Show help
+      showHelp() {
+        const modal = document.getElementById('modal-container');
+        modal.innerHTML = `
+          <div class="modal-overlay" onclick="app.closeModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+              <div class="modal-header">
+                <div class="modal-title">◉ BUJO TERMINAL HELP</div>
+                <button class="modal-close" onclick="app.closeModal()">×</button>
+              </div>
+              <div class="modal-body">
+                <h4 style="color: var(--accent-cyan); margin-bottom: 8px;">SIGNIFIERS</h4>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-bottom: 16px; font-size: 11px;">
+                  <div><code>-</code> Task</div>
+                  <div><code>×</code> Completed</div>
+                  <div><code>></code> Migrated</div>
+                  <div><code><</code> Scheduled</div>
+                  <div><code>•</code> Note</div>
+                  <div><code>○</code> Event</div>
+                  <div><code>*</code> Priority</div>
+                  <div><code>!</code> Inspiration</div>
+                  <div><code>$</code> Expense</div>
+                  <div><code>@</code> Meeting</div>
+                </div>
+                
+                <h4 style="color: var(--accent-cyan); margin-bottom: 8px;">COMMANDS</h4>
+                <div style="font-size: 11px;">
+                  <div style="margin-bottom: 4px;"><code>/today</code> - Go to today</div>
+                  <div style="margin-bottom: 4px;"><code>/goto [date]</code> - Jump to date</div>
+                  <div style="margin-bottom: 4px;"><code>/schedule [date] [text]</code> - Schedule item</div>
+                  <div style="margin-bottom: 4px;"><code>/event [date] [text]</code> - Add event</div>
+                  <div style="margin-bottom: 4px;"><code>/migrate [#] [date]</code> - Move item</div>
+                  <div style="margin-bottom: 4px;"><code>/collection new [name]</code> - New collection</div>
+                  <div style="margin-bottom: 4px;"><code>/collection add [name] [text]</code> - Add to collection</div>
+                  <div style="margin-bottom: 4px;"><code>/export</code> - Export data</div>
+                </div>
+                
+                <h4 style="color: var(--accent-cyan); margin: 16px 0 8px;">DATE FORMATS</h4>
+                <div style="font-size: 11px;">
+                  <code>today, t, tomorrow, tm, +3, monday, 12/25, 2024-12-25</code>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" onclick="app.closeModal()">Got it</button>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+      
+      // Show entry modal
+      showEntryModal() {
+        const modal = document.getElementById('modal-container');
+        modal.innerHTML = `
+          <div class="modal-overlay" onclick="app.closeModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+              <div class="modal-header">
+                <div class="modal-title">✎ New Entry</div>
+                <button class="modal-close" onclick="app.closeModal()">×</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-label">Date</label>
+                  <input type="date" class="form-input" id="entry-date" value="${this.data.settings.selectedDate}">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Content (Use rapid logging!)</label>
+                  <textarea class="form-textarea" id="entry-content" placeholder="- Task to do
+• Note to remember
+○ Event happening
+* Priority item
+! Great idea"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" onclick="app.closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="app.saveEntry()">Save</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.getElementById('entry-content').focus();
+      },
+      
+      // Save entry from modal
+      saveEntry() {
+        const date = document.getElementById('entry-date').value;
+        const content = document.getElementById('entry-content').value.trim();
+        
+        if (!content) {
+          this.toast('Enter some content', 'error');
+          return;
+        }
+        
+        const lines = content.split('\n').filter(l => l.trim());
+        
+        lines.forEach(line => {
+          let signifier = '-';
+          let text = line.trim();
+          
+          const firstChar = text[0];
+          if (this.signifiers[firstChar] && text[1] === ' ') {
+            signifier = firstChar;
+            text = text.substring(2);
+          }
+          
+          this.addItemToDate(date, signifier, text);
+        });
+        
+        this.closeModal();
+        this.toast(`Added ${lines.length} items`);
+      },
+      
+      // Close modal
+      closeModal() {
+        document.getElementById('modal-container').innerHTML = '';
+      },
+      
+      // Export data
+      exportData() {
+        const data = JSON.stringify(this.data, null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bujo-terminal-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.toast('Data exported');
+      },
+      
+      // Import data
+      importData() {
+        document.getElementById('import-file').click();
+      },
+      
+      handleImport(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (data.entries) {
+              this.data.entries = data.entries;
+            }
+            if (data.collections) {
+              this.data.collections = data.collections;
+            }
+            this.saveData();
+            this.render();
+            this.updateCounts();
+            this.renderMiniCalendar();
+            this.toast('Data imported successfully');
+          } catch (err) {
+            this.toast('Invalid file format', 'error');
+          }
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+      },
+      
+      // Export single entry
+      exportEntry(date) {
+        const entry = this.data.entries.find(e => e.date === date);
+        if (!entry) return;
+        
+        let text = `# ${this.formatDate(date)}\n\n`;
+        entry.items.forEach(item => {
+          const sig = this.signifiers[item.signifier];
+          text += `${sig?.icon || item.signifier} ${item.text}\n`;
+        });
+        
+        const blob = new Blob([text], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bujo-${date}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.toast('Entry exported');
+      },
+      
+      // Toast notification
+      toast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderColor = type === 'error' ? 'var(--accent-red)' : 'var(--border-color)';
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+    };
+    
+    // Initialize on load
+    window.onload = () => app.init();
+  </script>
+</body>
+</html>
