@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malcolm's Interactive Lessons</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+
+        /* View Toggle */
+        .view-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .view-btn { padding: 12px 24px; border: 2px solid #667eea; background: white; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: 1rem; font-weight: 500; }
+        .view-btn:hover { background: #f0f0ff; }
+        .view-btn.active { background: #667eea; color: white; }
+        .view-btn span { margin-right: 8px; }
+
+        /* Search Box */
+        .search-box { background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .search-box input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid #e0e0e0; border-radius: 8px; outline: none; transition: border-color 0.3s; }
+        .search-box input:focus { border-color: #667eea; }
+        .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .filter-btn { padding: 8px 16px; border: 2px solid #e0e0e0; background: white; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .filter-btn:hover, .filter-btn.active { border-color: #667eea; background: #667eea; color: white; }
+        .stats { color: #666; margin-top: 15px; font-size: 0.95rem; }
+
+        /* Grid View */
+        .lessons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .lesson-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.3s; border-left: 4px solid #667eea; }
+        .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .lesson-card.hidden { display: none; }
+        .lesson-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 10px; color: #333; line-height: 1.4; }
+        .lesson-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .badge { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+        .badge-level { background: #e8f5e9; color: #2e7d32; }
+        .badge-series { background: #e3f2fd; color: #1565c0; }
+        .lesson-keywords { font-size: 0.8rem; color: #888; }
+        .lesson-filename { font-size: 0.75rem; color: #aaa; margin-top: 8px; word-break: break-all; }
+
+        /* Paths View */
+        .paths-container { display: none; }
+        .paths-container.active { display: block; }
+        .grid-container.hidden { display: none; }
+
+        .path-category { background: white; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); overflow: hidden; }
+        .path-header { padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background 0.2s; user-select: none; }
+        .path-header:hover { background: #f8f8ff; }
+        .path-icon { font-size: 1.5rem; }
+        .path-title { font-weight: 600; font-size: 1.1rem; color: #333; flex-grow: 1; }
+        .path-count { background: #667eea; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; }
+        .path-chevron { font-size: 1.2rem; color: #999; transition: transform 0.3s; }
+        .path-category.open .path-chevron { transform: rotate(90deg); }
+
+        .path-lessons { display: none; padding: 0 20px 15px; }
+        .path-category.open .path-lessons { display: block; }
+
+        .path-subcategory { margin-top: 10px; }
+        .path-subcategory-header { padding: 10px 15px; background: #f5f5f7; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .path-subcategory-header:hover { background: #eeeef5; }
+        .path-subcategory-title { font-weight: 500; color: #555; flex-grow: 1; }
+        .path-subcategory-count { color: #888; font-size: 0.85rem; }
+        .path-subcategory-chevron { color: #999; transition: transform 0.3s; }
+        .path-subcategory.open .path-subcategory-chevron { transform: rotate(90deg); }
+
+        .path-lesson-list { display: none; margin-left: 15px; }
+        .path-subcategory.open .path-lesson-list { display: block; }
+
+        .path-lesson-item { padding: 12px 15px; border-left: 3px solid #667eea; margin: 8px 0; background: #fafafa; border-radius: 0 8px 8px 0; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
+        .path-lesson-item:hover { background: #f0f0ff; transform: translateX(5px); }
+        .path-lesson-item .lesson-num { background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
+        .path-lesson-item .lesson-name { color: #333; font-weight: 500; }
+        .path-lesson-item .lesson-level-badge { margin-left: auto; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+        .path-lesson-item .level-a1 { background: #e3f2fd; color: #1565c0; }
+        .path-lesson-item .level-a2 { background: #e8f5e9; color: #2e7d32; }
+        .path-lesson-item .level-b1 { background: #fff3e0; color: #e65100; }
+        .path-lesson-item .level-b2 { background: #fce4ec; color: #c2185b; }
+        .path-lesson-item .level-c1 { background: #f3e5f5; color: #7b1fa2; }
+
+        /* Direct lesson list (no subcategories) */
+        .path-lessons > .path-lesson-item { margin-left: 0; }
+
+        /* Progress indicator for courses */
+        .course-progress { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 15px; background: #f0f0ff; border-radius: 8px; }
+        .progress-bar { flex-grow: 1; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 4px; }
+        .progress-text { font-size: 0.8rem; color: #666; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Malcolm's Interactive Lessons</h1>
+        <p id="lessonCount">Loading lessons...</p>
+    </div>
+    <div class="container">
+        <!-- View Toggle -->
+        <div class="view-toggle">
+            <button class="view-btn active" onclick="setView('grid')"><span>🔲</span>Grid View</button>
+            <button class="view-btn" onclick="setView('paths')"><span>🗺️</span>Paths View</button>
+        </div>
+
+        <!-- Search (Grid View only) -->
+        <div class="search-box" id="searchBox">
+            <input type="text" id="searchInput" placeholder="Search by topic, grammar, level... (e.g., 'conditional', 'teens', 'B2')" onkeyup="filterLessons()">
+            <div class="filters">
+                <button class="filter-btn" onclick="setFilter('')">All</button>
+                <button class="filter-btn" onclick="setFilter('A1')">A1</button>
+                <button class="filter-btn" onclick="setFilter('A2')">A2</button>
+                <button class="filter-btn" onclick="setFilter('B1')">B1</button>
+                <button class="filter-btn" onclick="setFilter('B2')">B2</button>
+                <button class="filter-btn" onclick="setFilter('C1')">C1</button>
+                <button class="filter-btn" onclick="setFilter('C2')">C2</button>
+                <button class="filter-btn" onclick="setFilter('Grammar')">Grammar</button>
+                <button class="filter-btn" onclick="setFilter('Curious Conv')">Curious Conv</button>
+                <button class="filter-btn" onclick="setFilter('Teens')">Teens</button>
+                <button class="filter-btn" onclick="setFilter('IELTS')">IELTS</button>
+                <button class="filter-btn" onclick="setFilter('Cambridge')">Cambridge</button>
+                <button class="filter-btn" onclick="setFilter('Standalone')">Standalone</button>
+            </div>
+            <div class="stats"><span id="resultCount">Loading...</span> | <span id="filterInfo">No filters</span></div>
+        </div>
+
+        <!-- Grid View Container -->
+        <div class="grid-container" id="gridContainer">
+            <div class="lessons-grid" id="lessonsGrid">
+                <!-- Lessons will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Paths View Container -->
+        <div class="paths-container" id="pathsContainer">
+            <!-- Paths will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'https://malcolmtheteacher-creator.github.io/preply-lessons/';
+        let lessons = [];
+        let activeFilter = '';
+        let currentView = 'grid';
+
+        // Categorisation rules
+        function categoriseLesson(filename, title) {
+            const fl = filename.toLowerCase();
+            const tl = title.toLowerCase();
+
+            // Skip utility files
+            if (['template', 'index', 'tracker', 'quicknotes', 'bujo', 'kanban', 'lifebalance', 'teleprompter'].some(x => fl.includes(x))) {
+                return null;
+            }
+
+            // Categorise
+            if (fl.includes('dashboard')) return { cat: 'dashboards', sub: null };
+            if (fl.includes('first_lesson') || fl.includes('first_lesson')) return { cat: 'first_lessons', sub: null };
+
+            // A1 Beginner
+            if (fl.startsWith('a1_') || fl.includes('_a1_') || fl.includes('beginner')) return { cat: 'by_level', sub: 'A1 - Beginner' };
+
+            // IELTS
+            if (fl.includes('ielts_lesson_') && !fl.includes('task_1') && !fl.includes('reading')) return { cat: 'ielts', sub: 'Writing Task 2' };
+            if (fl.includes('ielts_task_1') || fl.includes('ielts_task1')) return { cat: 'ielts', sub: 'Writing Task 1' };
+            if (fl.includes('ielts_reading')) return { cat: 'ielts', sub: 'Reading' };
+            if (fl.includes('ielts_speaking')) return { cat: 'ielts', sub: 'Speaking' };
+            if (fl.includes('ielts')) return { cat: 'ielts', sub: 'Other Resources' };
+
+            // Cambridge
+            if (fl.includes('cambridge') || fl.includes('cae') || fl.includes('cpe')) return { cat: 'cambridge', sub: null };
+
+            // Speaking Naturally
+            if (fl.includes('speaking_naturally_teens')) return { cat: 'speaking', sub: 'Teens' };
+            if (fl.includes('speaking_naturally_advanced')) return { cat: 'speaking', sub: 'Advanced' };
+            if (fl.includes('speaking_naturally')) return { cat: 'speaking', sub: 'Adults' };
+
+            // Curious Conversations
+            if (fl.includes('curious_conversations')) return { cat: 'curious_conv', sub: null };
+
+            // Grammar Course (numbered lessons)
+            if (fl.startsWith('lesson_') && /lesson_\d{2}/.test(fl)) {
+                const num = parseInt(fl.match(/lesson_(\d{2})/)[1]);
+                if (num <= 10) return { cat: 'grammar', sub: 'A2 - Elementary (1-10)' };
+                if (num <= 25) return { cat: 'grammar', sub: 'B1 - Intermediate (11-25)' };
+                if (num <= 40) return { cat: 'grammar', sub: 'B2 - Upper Int (26-40)' };
+                return { cat: 'grammar', sub: 'C1 - Advanced (41-50)' };
+            }
+
+            // Professional
+            if (['professional', 'business', 'interview', 'kuba', 'presenting', 'workplace', 'leading', 'teams', 'meeting'].some(x => fl.includes(x))) {
+                return { cat: 'professional', sub: null };
+            }
+
+            // Breaking News
+            if (fl.includes('breaking_news') || fl.includes('spain_rail')) return { cat: 'news', sub: null };
+
+            // Writing
+            if (fl.includes('writing') && !fl.includes('ielts')) return { cat: 'writing', sub: null };
+
+            // Topic-based
+            if (['dinosaur', 'space', 'ocean', 'egypt', 'greece', 'weather', 'explorer', 'gaming', 'erebus', 'ww2', 'world_war', 'human_body', 'ancient'].some(x => fl.includes(x))) {
+                return { cat: 'topics', sub: null };
+            }
+
+            // By level (from filename or title)
+            if (fl.includes('_a2') || fl.endsWith('a2.html') || tl.includes(' a2')) return { cat: 'by_level', sub: 'A2 - Elementary' };
+            if (fl.includes('b1b2') || fl.includes('_b1') || tl.includes(' b1')) return { cat: 'by_level', sub: 'B1 - Intermediate' };
+            if (fl.includes('b2c1') || fl.includes('_b2')) return { cat: 'by_level', sub: 'B2 - Upper Intermediate' };
+            if (fl.includes('_c1') || fl.endsWith('c1.html')) return { cat: 'by_level', sub: 'C1 - Advanced' };
+
+            return { cat: 'other', sub: null };
+        }
+
+        // Path categories configuration
+        const pathConfig = {
+            grammar: { icon: '📚', title: 'Grammar Course (A2→C1)', order: 1 },
+            ielts: { icon: '📝', title: 'IELTS Exam Prep', order: 2 },
+            cambridge: { icon: '🎓', title: 'Cambridge (CAE/CPE)', order: 3 },
+            speaking: { icon: '🗣️', title: 'Speaking Naturally', order: 4 },
+            curious_conv: { icon: '💭', title: 'Curious Conversations', order: 5 },
+            by_level: { icon: '📈', title: 'By Level', order: 6 },
+            professional: { icon: '💼', title: 'Professional English', order: 7 },
+            writing: { icon: '✍️', title: 'Writing Skills', order: 8 },
+            topics: { icon: '🌍', title: 'Topic-Based Speaking', order: 9 },
+            news: { icon: '📰', title: 'Breaking News', order: 10 },
+            first_lessons: { icon: '👋', title: 'First Lesson Assessments', order: 11 },
+            dashboards: { icon: '🎛️', title: 'Course Dashboards', order: 12 },
+            other: { icon: '🎯', title: 'Other Lessons', order: 99 }
+        };
+
+        // Extract lesson number for sorting
+        function getLessonNum(filename) {
+            const match = filename.match(/lesson_(\d+)/i) || filename.match(/(\d+)/);
+            return match ? parseInt(match[1]) : 999;
+        }
+
+        // Parse existing lesson cards from the page
+        function parseExistingCards() {
+            // We'll inject lesson data directly since we're creating a new file
+            return window.lessonData || [];
+        }
+
+        // Render Grid View
+        function renderGridView() {
+            const grid = document.getElementById('lessonsGrid');
+            grid.innerHTML = lessons.map(l => `
+                <div class="lesson-card" data-filename="${l.filename}" data-title="${l.title}" data-level="${l.level}" data-series="${l.series}" data-keywords="${l.keywords}" onclick="window.open('${BASE_URL}${encodeURIComponent(l.filename)}', '_blank')">
+                    <div class="lesson-title">${l.title}</div>
+                    <div class="lesson-meta">
+                        ${l.level ? `<span class="badge badge-level">${l.level}</span>` : ''}
+                        ${l.series ? `<span class="badge badge-series">${l.series}</span>` : ''}
+                    </div>
+                    <div class="lesson-filename">${l.filename}</div>
+                </div>
+            `).join('');
+        }
+
+        // Render Paths View
+        function renderPathsView() {
+            const container = document.getElementById('pathsContainer');
+
+            // Categorise all lessons
+            const categories = {};
+            lessons.forEach(l => {
+                const cat = categoriseLesson(l.filename, l.title);
+                if (!cat) return;
+
+                if (!categories[cat.cat]) {
+                    categories[cat.cat] = { lessons: [], subs: {} };
+                }
+
+                if (cat.sub) {
+                    if (!categories[cat.cat].subs[cat.sub]) {
+                        categories[cat.cat].subs[cat.sub] = [];
+                    }
+                    categories[cat.cat].subs[cat.sub].push(l);
+                } else {
+                    categories[cat.cat].lessons.push(l);
+                }
+            });
+
+            // Sort categories by order
+            const sortedCats = Object.keys(categories).sort((a, b) =>
+                (pathConfig[a]?.order || 99) - (pathConfig[b]?.order || 99)
+            );
+
+            // Render
+            container.innerHTML = sortedCats.map(catKey => {
+                const cat = categories[catKey];
+                const config = pathConfig[catKey] || { icon: '📄', title: catKey };
+                const totalCount = cat.lessons.length + Object.values(cat.subs).reduce((sum, arr) => sum + arr.length, 0);
+
+                // Sort lessons
+                cat.lessons.sort((a, b) => getLessonNum(a.filename) - getLessonNum(b.filename));
+                Object.values(cat.subs).forEach(arr => arr.sort((a, b) => getLessonNum(a.filename) - getLessonNum(b.filename)));
+
+                const hasSubs = Object.keys(cat.subs).length > 0;
+
+                return `
+                    <div class="path-category" onclick="toggleCategory(event, this)">
+                        <div class="path-header">
+                            <span class="path-icon">${config.icon}</span>
+                            <span class="path-title">${config.title}</span>
+                            <span class="path-count">${totalCount}</span>
+                            <span class="path-chevron">▶</span>
+                        </div>
+                        <div class="path-lessons">
+                            ${hasSubs ? Object.entries(cat.subs).map(([subName, subLessons]) => `
+                                <div class="path-subcategory" onclick="toggleSubcategory(event, this)">
+                                    <div class="path-subcategory-header">
+                                        <span class="path-subcategory-chevron">▶</span>
+                                        <span class="path-subcategory-title">${subName}</span>
+                                        <span class="path-subcategory-count">${subLessons.length} lessons</span>
+                                    </div>
+                                    <div class="path-lesson-list">
+                                        ${subLessons.map((l, i) => renderPathLesson(l, i + 1)).join('')}
+                                    </div>
+                                </div>
+                            `).join('') : ''}
+                            ${cat.lessons.map((l, i) => renderPathLesson(l, i + 1)).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderPathLesson(l, num) {
+            const levelClass = l.level ? `level-${l.level.toLowerCase()}` : '';
+            return `
+                <div class="path-lesson-item" onclick="event.stopPropagation(); window.open('${BASE_URL}${encodeURIComponent(l.filename)}', '_blank')">
+                    <span class="lesson-num">${num}</span>
+                    <span class="lesson-name">${l.title}</span>
+                    ${l.level ? `<span class="lesson-level-badge ${levelClass}">${l.level}</span>` : ''}
+                </div>
+            `;
+        }
+
+        function toggleCategory(event, el) {
+            if (event.target.closest('.path-lesson-item') || event.target.closest('.path-subcategory')) return;
+            el.classList.toggle('open');
+        }
+
+        function toggleSubcategory(event, el) {
+            event.stopPropagation();
+            if (event.target.closest('.path-lesson-item')) return;
+            el.classList.toggle('open');
+        }
+
+        // View switching
+        function setView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+
+            const grid = document.getElementById('gridContainer');
+            const paths = document.getElementById('pathsContainer');
+            const search = document.getElementById('searchBox');
+
+            if (view === 'grid') {
+                grid.classList.remove('hidden');
+                paths.classList.remove('active');
+                search.style.display = 'block';
+            } else {
+                grid.classList.add('hidden');
+                paths.classList.add('active');
+                search.style.display = 'none';
+            }
+        }
+
+        // Filter (Grid view)
+        function setFilter(filter) {
+            activeFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (event.target) event.target.classList.add('active');
+            filterLessons();
+        }
+
+        function filterLessons() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.lesson-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const text = (card.dataset.title + ' ' + card.dataset.level + ' ' + card.dataset.series + ' ' + card.dataset.keywords + ' ' + card.dataset.filename).toLowerCase();
+                const matchesSearch = !search || text.includes(search);
+                const matchesFilter = !activeFilter || text.includes(activeFilter.toLowerCase());
+                if (matchesSearch && matchesFilter) {
+                    card.classList.remove('hidden');
+                    visible++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            document.getElementById('resultCount').textContent = visible + ' lessons';
+            document.getElementById('filterInfo').textContent = activeFilter ? 'Filter: ' + activeFilter : 'No filters';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lesson data will be injected here
+            lessons = window.lessonData || [];
+            document.getElementById('lessonCount').textContent = lessons.length + ' lessons available';
+            document.getElementById('resultCount').textContent = lessons.length + ' lessons';
+            renderGridView();
+            renderPathsView();
+        });
+    </script>
+
+    <!-- LESSON DATA - This is auto-generated and should be updated when lessons change -->
+    <script>
+    window.lessonData = [
+    { filename: 'a_passion_for_danger_b2c1.html', title: 'A Passion for Danger', level: '', series: '', keywords: '' },
+    { filename: 'academic_writing_error_correction_interactive.html', title: 'Academic Writing Skills: Common Error Patterns', level: '', series: '', keywords: '' },
+    { filename: 'ai_and_the_law_c1.html', title: 'AI and the Law: Your Robot Colleague', level: 'C1', series: '', keywords: '' },
+    { filename: 'Anarchic Lesson Planning vs. The Frameworks (Part 2).html', title: 'Anarchic Lesson Planning Vs. The Frameworks (Part 2)', level: '', series: '', keywords: '' },
+    { filename: 'lesson_ancient_egypt_interactive (1).html', title: 'Ancient Egypt - Mysteries & Discoveries', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_ancient_greece_interactive.html', title: 'Ancient Greece: Democracy, Philosophy & Legends', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'are_we_forgetting_how_to_be_friends.html', title: 'Are We Forgetting How to Be Friends?', level: 'B1', series: '', keywords: '' },
+    { filename: 'asteroids_b2c1.html', title: 'Asteroids and Meteorites', level: '', series: '', keywords: '' },
+    { filename: 'general_listening_b2_pitch_drop_interactive.html', title: 'B2 Listening: The Pitch Drop Experiment', level: 'B2', series: '', keywords: '' },
+    { filename: 'beat_the_clock_writing_full.html', title: 'Beat the Clock Writing', level: '', series: '', keywords: '' },
+    { filename: 'beginner_english_dashboard.html', title: 'Beginner English (A1)', level: 'A1', series: '', keywords: '' },
+    { filename: 'books_changed_world_lesson.html', title: 'Books That Changed the World', level: 'C1', series: '', keywords: '' },
+    { filename: 'breaking_news_milan_cortina_jan_2026.html', title: 'Breaking News: Milan-Cortina 2026 - Will They Be Ready?', level: '', series: '', keywords: '' },
+    { filename: 'breaking_news_netflix_warner_bros_jan_2026.html', title: 'Breaking News: Netflix Buys Warner Bros', level: '', series: '', keywords: '' },
+    { filename: 'spain_rail_disaster.html', title: 'Breaking News: Spain Rail Disaster', level: '', series: '', keywords: '' },
+    { filename: 'bujo-terminal.html', title: 'BUJO Terminal', level: '', series: '', keywords: '' },
+    { filename: 'business_meetings_course_guide.html', title: 'Business Meetings Course', level: '', series: '', keywords: '' },
+    { filename: 'cambridge_cae_lesson2_kwt.html', title: 'CAE Lesson 2: Key Word Transformations', level: '', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'cambridge_cae_lesson3_open_cloze.html', title: 'CAE Lesson 3: Open Cloze', level: '', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'cambridge_cae_lesson5_reading_strategies.html', title: 'CAE Lesson 5: Reading Strategies', level: '', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'cambridge_exam_prep_dashboard.html', title: 'Cambridge Exam Prep', level: '', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'cancel_culture_proper.html', title: 'Cancel Culture Speaking Lesson', level: 'B2', series: '', keywords: '' },
+    { filename: 'cancel_culture_interactive.html', title: 'Cancel Culture: Accountability or Mob Justice?', level: '', series: '', keywords: '' },
+    { filename: 'a1_christmas_new_year_special_interactive.html', title: 'Christmas & New Year - Holiday Special!', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'christmas_conversations_compass_teens.html', title: 'Christmas Special (TEENS): The Conversational Compass', level: '', series: 'Teens Course', keywords: '' },
+    { filename: 'christmas_conversations_compass.html', title: 'Christmas Special: The Conversational Compass', level: '', series: '', keywords: '' },
+    { filename: 'preply_screen_share_guide.html', title: 'Comment partager ton écran - How to Share Your Screen', level: '', series: '', keywords: '' },
+    { filename: 'concorso_english_oral.html', title: 'Concorso Docenti - English Oral Preparation', level: '', series: '', keywords: '' },
+    { filename: 'crowds_and_madness.html', title: 'Crowds and Madness: When Groups Think Wrong', level: 'C1', series: '', keywords: '' },
+    { filename: 'new_year_plans_lesson.html', title: 'Curious Conversations', level: '', series: '', keywords: '' },
+    { filename: 'curious_conversations_08_procrastination.html', title: 'Curious Conversations #8: Why We Procrastinate (And How to Stop)', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_dashboard.html', title: 'Curious Conversations - Dashboard', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_dashboard (1).html', title: 'Curious Conversations - Dashboard', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_01_true_crime.html', title: 'Curious Conversations 01: Why Do We Love True Crime?', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_02_languages.html', title: 'Curious Conversations 02: The Languages We Almost Learned', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_03_cultural_quirks.html', title: 'Curious Conversations 03: Weird Things Humans Do', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_04_best_advice.html', title: 'Curious Conversations 04: The Best Advice That Actually Worked', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_05_food_crimes.html', title: 'Curious Conversations 05: Food Crimes & Culinary Controversies', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_06_passionate_obsessions.html', title: 'Curious Conversations 06: The Things We\'re Irrationally Passionate About', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_07_phone_addiction.html', title: 'Curious Conversations 07: Why We Can\'t Stop Checking Our Phones', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_09_dreams.html', title: 'Curious Conversations 09: Dreams That Make No Sense', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_10_polite_lies.html', title: 'Curious Conversations 10: The Lies We Tell to Be Polite', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_11_time_perception.html', title: 'Curious Conversations 11: Why Time Feels Faster as We Age', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_12_social_rules.html', title: 'Curious Conversations 12: Unwritten Social Rules We All Follow', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'lesson_template.html', title: 'Curious Conversations [##]: [Topic Title]', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'curious_conversations_christmas_special.html', title: 'Curious Conversations Special: Christmas Around the World', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'boredom_is_a_superpower_lesson.html', title: 'Curious Conversations: Boredom is a Superpower', level: '', series: '', keywords: '' },
+    { filename: 'curious_conversations_series2_dashboard.html', title: 'Curious Conversations: Series 2', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'curious_conversations_simone_weil.html', title: 'Curious Conversations: The Philosopher Who Worked in a Factory', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'daily_life_conversations_a2.html', title: 'Daily Life & Routines - A2 Conversation Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'daily_routines_a2.html', title: 'Daily Routines: How Successful People Start Their Day', level: '', series: '', keywords: '' },
+    { filename: 'lesson_dinosaurs_speaking_EXPANDED.html', title: 'Dinosaur Adventures - Speaking & Storytelling', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_dinosaurs_speaking.html', title: 'Dinosaur Adventures - Speaking & Storytelling', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'first_lesson_assessment.html', title: 'Discovery Session: Assessment & Course Planning', level: '', series: '', keywords: '' },
+    { filename: 'fusion-interactive.html', title: 'East Meets West - Interactive Fusion', level: '', series: '', keywords: '' },
+    { filename: 'tenses_guide_french.html', title: 'English Tenses - Simple Guide', level: '', series: '', keywords: '' },
+    { filename: 'essay_evaluation_workshop.html', title: 'Essay Evaluation Workshop', level: '', series: '', keywords: '' },
+    { filename: 'everyone_has_an_accent_b1b2.html', title: 'Everyone Has an Accent', level: 'B1', series: '', keywords: '' },
+    { filename: 'lesson_extreme_weather_interactive.html', title: 'Extreme Weather & Natural Disasters', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'family_celebrations_interactive.html', title: 'Family Celebrations and Traditions - A2 Interactive Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'lesson_famous_explorers_speaking.html', title: 'Famous Explorers: Heroes, Villains, or Both?', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'c1_people_and_past_times_first_impressions.html', title: 'First Impressions', level: 'C1', series: '', keywords: '' },
+    { filename: 'first_impressions_small_talk.html', title: 'First Impressions: Small Talk That Works', level: '', series: '', keywords: '' },
+    { filename: 'first_lesson_b2c1.html', title: 'First Lesson: Getting to Know Each Other', level: '', series: '', keywords: '' },
+    { filename: 'first_lesson_a2.html', title: 'First Lesson: Getting to Know Each Other (A2)', level: 'A2', series: '', keywords: '' },
+    { filename: 'first_lesson_b1.html', title: 'First Lesson: Getting to Know Each Other (B1)', level: 'B1', series: '', keywords: '' },
+    { filename: 'first_lesson_v4.html', title: 'First Lesson: Let\'s Talk', level: '', series: '', keywords: '' },
+    { filename: 'first_lesson_v3.html', title: 'First Lesson: Let\'s Talk', level: '', series: '', keywords: '' },
+    { filename: 'food_cooking_a2b1.html', title: 'Food & Cooking Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'a1_going_to_future_plans_interactive.html', title: 'Future Plans - Going To', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'general_english_dashboard.html', title: 'General English Course Dashboard', level: '', series: '', keywords: '' },
+    { filename: 'General English Course Dashboard _ Malcolm\'s Lessons.html', title: 'General English Course Dashboard', level: '', series: '', keywords: '' },
+    { filename: 'giving_opinions_suggestions.html', title: 'Giving Opinions and Making Suggestions', level: '', series: '', keywords: '' },
+    { filename: 'lesson_hms_erebus_mystery.html', title: 'HMS Erebus: The Lost Arctic Expedition', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'hobbies_free_time_a2.html', title: 'Hobbies & Free Time - A2 Conversation Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'a1_how_often_interactive.html', title: 'How Often Do You Do It?', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'lesson_human_body_systems_interactive.html', title: 'Human Body Systems: How Your Body Works', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'IB_English_Techniques_Lesson.html', title: 'IB English: Techniques & Effects', level: '', series: '', keywords: '' },
+    { filename: 'ielts_grammar_lesson.html', title: 'IELTS Grammar - Essential Skills for Band 6+', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_language_accuracy_clinic_v2.html', title: 'IELTS Language Accuracy Clinic', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_10_two_part_questions.html', title: 'IELTS Lesson 10: Two-Part Questions & Mixed Types', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_11_vocabulary_collocations.html', title: 'IELTS Lesson 11 - Advanced Vocabulary & Collocations', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_12_complex_sentences.html', title: 'IELTS Lesson 12 - Complex Sentences for Writing', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_13_cohesion_coherence.html', title: 'IELTS Lesson 13 - Cohesion & Coherence Mastery', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_14_paraphrasing_variety.html', title: 'IELTS Lesson 14 - Paraphrasing & Avoiding Repetition', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_15_common_mistakes.html', title: 'IELTS Lesson 15: Common Mistakes & How to Fix Them', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_16_timed_practice_1.html', title: 'IELTS Lesson 16 - Timed Essay Practice 1', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_17_timed_practice_2.html', title: 'IELTS Lesson 17 - Timed Essay Practice 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_18_exam_simulation.html', title: 'IELTS Lesson 18 - Full Writing Test Simulation', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_19_feedback_analysis.html', title: 'IELTS Lesson 19: Feedback Analysis & Improvement Plan', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_2_marking_criteria.html', title: 'IELTS Lesson 2: Understanding the Marking Criteria', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_2_marking_criteria (1).html', title: 'IELTS Lesson 2: Understanding the Marking Criteria', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_7_discussion_essays.html', title: 'IELTS Lesson 7 - Discussion Essays', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_reading_lesson_1_test_overview.html', title: 'IELTS Reading Lesson 1 - Understanding the Test', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_reading_lesson_2_reading_skills.html', title: 'IELTS Reading Lesson 2: Essential Reading Skills', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_speaking_grammar_toolkit.html', title: 'IELTS Speaking Grammar Toolkit - Band 7+ Structures', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_speaking_part1.html', title: 'IELTS Speaking Part 1 - Your First Step', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_spelling_vocabulary_lesson.Gabriel.html', title: 'IELTS Spelling & Academic Vocabulary Mastery', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_spelling_practice.html', title: 'IELTS Spelling Challenge - Interactive Practice', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_spelling_master.html', title: 'IELTS Spelling Master', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_master_lesson.html', title: 'IELTS Task 1 - Complete Master Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_master_lesson (1).html', title: 'IELTS Task 1 - Complete Master Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_lesson_2_line_graphs.html', title: 'IELTS Task 1 - Lesson 2: Line Graph Mastery', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_lesson_3_bar_pie.html', title: 'IELTS Task 1 - Lesson 3: Bar Charts & Pie Charts', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_lesson_4_process_maps.html', title: 'IELTS Task 1 - Lesson 4: Process Diagrams & Maps', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_lesson_4_process_maps (1).html', title: 'IELTS Task 1 - Lesson 4: Process Diagrams & Maps', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task1_phrase_cheatsheet.html', title: 'IELTS Task 1 - Ultimate Phrase Cheat Sheet', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_complete_interactive.html', title: 'Ielts Task 1 Complete Interactive', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'IELTS Writing Quick Reference Guides.html', title: 'IELTS Writing Quick Reference Guides', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_writing_guides.html', title: 'IELTS Writing Quick Reference Guides', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_dashboard (1).html', title: 'IELTS Writing Task 1 - Complete Course', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_task_1_dashboard.html', title: 'IELTS Writing Task 1 - Complete Course', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'IELTS Writing Task 2 - Complete Course.html', title: 'IELTS Writing Task 2 - Complete Course', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_course_dashboard.html', title: 'IELTS Writing Task 2 - Complete Course', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_1_FIXED.html', title: 'IELTS Writing Task 2 - Interactive Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'Ielts1.html', title: 'IELTS Writing Task 2 - Interactive Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_1_academic_paragraphs.html', title: 'IELTS Writing Task 2 - Interactive Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_interactive_lesson.html', title: 'IELTS Writing Task 2 - Interactive Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_interactive_lesson (1).html', title: 'IELTS Writing Task 2 - Interactive Lesson', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'interview_essentials.html', title: 'Interview Essentials', level: '', series: '', keywords: '' },
+    { filename: 'cambridge_cae_introduction.html', title: 'Introduction to Cambridge C1 Advanced (CAE)', level: 'C1', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'cambridge_cpe_introduction.html', title: 'Introduction to Cambridge C2 Proficiency (CPE)', level: 'C2', series: 'Cambridge Exam Prep', keywords: '' },
+    { filename: 'kanban-notecard.html', title: 'Kanban Notecards', level: '', series: '', keywords: '' },
+    { filename: 'keeping_teams_motivated.html', title: 'Keeping Teams Motivated: Leading Through Exhaustion', level: '', series: '', keywords: '' },
+    { filename: 'leading_international_teams.html', title: 'Leading International Teams: Managing People Across Borders', level: '', series: '', keywords: '' },
+    { filename: 'Learning Experiences.html', title: 'Learning Experiences Lesson', level: 'B1', series: '', keywords: '' },
+    { filename: 'food_cooking_a2b1 (1).html', title: 'Learning Experiences Lesson', level: 'B1', series: '', keywords: '' },
+    { filename: 'lesson_10_a2_review_fluency_challenge.html', title: 'Lesson 10: A2 Review & Fluency Challenge', level: 'A2', series: 'Grammar Course', keywords: '' },
+    { filename: 'a1_there_is_there_are_interactive.html', title: 'Lesson 10: There is / There are - Describing Places 🏠', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'lesson_11_can_could_be_able_to.html', title: 'Lesson 11: Can, Could, Be Able To - Abilities', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_11_can_could_be_able_to_1.html', title: 'Lesson 11: Can, Could, Be Able To - Abilities', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'a1_present_continuous_interactive.html', title: 'Lesson 11: Present Continuous - What Are You Doing? 🎬', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'lesson_12_must_have_to_should.html', title: 'Lesson 12: Must, Have To, Should - Rules & Advice', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'a1_prepositions_of_place_interactive.html', title: 'Lesson 12: Where Is It? - Prepositions of Place 📍', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'a1_adjectives_describing_things_interactive.html', title: 'Lesson 13: Adjectives - Describing Things 🎨', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'lesson_13_may_might_could.html', title: 'Lesson 13: May, Might, Could - Possibilities', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_14_zero_first_conditional.html', title: 'Lesson 14: Zero & First Conditional - Real Situations', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_15_second_conditional.html', title: 'Lesson 15: Second Conditional - Hypothetical Present', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_16_third_conditional.html', title: 'Lesson 16: Third Conditional - Past Regrets', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_17_mixed_conditionals_wishes.html', title: 'Lesson 17: Mixed Conditionals & Wishes', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_18_passive_voice_present_past.html', title: 'Lesson 18: Passive Voice - Present & Past', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_19_passive_advanced.html', title: 'Lesson 19: Passive Voice - Advanced Uses', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'kuba_lesson_1_professional_presence.html', title: 'Lesson 1: Professional Presence in International Meetings', level: '', series: '', keywords: '' },
+    { filename: 'lesson_20_reported_speech.html', title: 'Lesson 20: Reported Speech - Statements', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_21_reported_questions_commands.html', title: 'Lesson 21: Reported Questions & Commands', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_22_defining_relative_clauses.html', title: 'Lesson 22: Defining Relative Clauses', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_23_non_defining_relative_clauses.html', title: 'Lesson 23: Non-Defining Relative Clauses', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_24_environment_sustainability.html', title: 'Lesson 24: Environment & Sustainability', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_25_b1_review_fluency.html', title: 'Lesson 25: B1 Review & Fluency Challenge', level: 'B1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_26_past_perfect.html', title: 'Lesson 26: Past Perfect - Before the Past', level: 'B2', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_27_past_perfect_continuous.html', title: 'Lesson 27: Past Perfect Continuous - Detective Stories', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_28_future_perfect.html', title: 'Lesson 28: Future Perfect & Future Perfect Continuous', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_29_modal_perfects.html', title: 'Lesson 29: Modal Perfects - Past Speculation', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'general_lesson_02_interrupted_stories_interactive.html', title: 'Lesson 2: Interrupted Stories & Background Scenes', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_02_past_continuous (1).html', title: 'Lesson 2: Interrupted Stories & Background Scenes', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_02_past_continuous.html', title: 'Lesson 2: Interrupted Stories & Background Scenes', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_02_speaking_naturally_interactive (1).html', title: 'Lesson 2: Speaking Like a Native', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'lesson_02_speaking_naturally_interactive.html', title: 'Lesson 2: Speaking Like a Native', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'lesson_30_modals_criticism_advice.html', title: 'Lesson 30: Modals for Criticism & Advice (Past)', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_31_semi_modals.html', title: 'Lesson 31: Semi-Modals - Dare, Need, Ought to', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_32_inversion.html', title: 'Lesson 32: Inversion for Emphasis', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_33_cleft_sentences.html', title: 'Lesson 33: Cleft Sentences - What I..., It was... who', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_34_participle_clauses.html', title: 'Lesson 34: Participle Clauses', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_35_subjunctive_formal_structures.html', title: 'Lesson 35: Subjunctive & Formal Structures', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_35_subjunctive.html', title: 'Lesson 35: Subjunctive & Formal Structures', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_35_subjunctive_formal.html', title: 'Lesson 35: Subjunctive & Formal Structures', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_36_technology_society.html', title: 'Lesson 36: Technology & Society', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_36_technology_society_interactive.html', title: 'Lesson 36: Technology & Society', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'general_lesson_36_technology_society_interactive.html', title: 'Lesson 36: Technology & Society', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'general_lesson_37_education_learning_interactive.html', title: 'Lesson 37: Education & Learning', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_37_education_learning.html', title: 'Lesson 37: Education & Learning', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_37_education_learning_interactive.html', title: 'Lesson 37: Education & Learning', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_38_work_career.html', title: 'Lesson 38: Work & Career', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'general_lesson_38_work_career_interactive.html', title: 'Lesson 38: Work & Career', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_39_culture_identity.html', title: 'Lesson 39: Culture & Identity', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'ielts_lesson_3_body_paragraphs.html', title: 'Lesson 3: Building Strong Body Paragraphs - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'lesson_03_present_perfect (1).html', title: 'Lesson 3: Life Experiences & Adventures', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_03_present_perfect.html', title: 'Lesson 3: Life Experiences & Adventures', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_40_b2_review_fluency_challenge.html', title: 'Lesson 40: B2 Review & Fluency Challenge', level: 'B2', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_41_nuances_tense_aspect.html', title: 'Lesson 41: Nuances of Tense & Aspect', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_42_advanced_passive_causative.html', title: 'Lesson 42: Advanced Passive & Causative', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_43_ellipsis_substitution.html', title: 'Lesson 43: Ellipsis & Substitution', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_44_ethics_moral_dilemmas.html', title: 'Lesson 44: Ethics & Moral Dilemmas', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_45_media_manipulation.html', title: 'Lesson 45: Media & Manipulation', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_46_globalization_economics.html', title: 'Lesson 46: Globalization & Economics', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_47_psychology_behavior.html', title: 'Lesson 47: Psychology & Human Behavior', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_47_psychology_human_behavior.html', title: 'Lesson 47: Psychology & Human Behavior', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_48_art_literature_creativity.html', title: 'Lesson 48: Art, Literature & Creativity', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_49_advanced_fluency_challenge.html', title: 'Lesson 49: Advanced Fluency Challenge', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_49_idiomatic_english.html', title: 'Lesson 49: Idiomatic English & Colloquialisms', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'ielts_lesson_4_time_management.html', title: 'Lesson 4: Time Management & Planning - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'lesson_50_c1_final_mastery.html', title: 'Lesson 50: C1 Final Challenge - Mastery Showcase', level: 'C1', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_50_mastery_celebration_finale.html', title: 'Lesson 50: Mastery Celebration - FINALE!', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_05_present_perfect_continuous.html', title: 'Lesson 5: Present Perfect Continuous - Recent Activities', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'ielts_lesson_5_conclusions_linking.html', title: 'Lesson 5: Writing Conclusions & Linking Ideas - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_6_opinion_essays.html', title: 'Lesson 6: Opinion Essays - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'lesson_06_present_perfect_vs_past_simple.html', title: 'Lesson 6: Present Perfect vs Past Simple', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_07_future_plans.html', title: 'Lesson 7: Future Plans - Going to & Will', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'ielts_lesson_8_advantages_disadvantages.html', title: 'Lesson 8: Advantages & Disadvantages Essays - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'ielts_lesson_8_advantages_disadvantages (1).html', title: 'Lesson 8: Advantages & Disadvantages Essays - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'lesson_08_future_arrangements.html', title: 'Lesson 8: Present Continuous for Future Arrangements', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_09_my_future_life (1).html', title: 'Lesson 9: My Future Life', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_09_my_future_life (2).html', title: 'Lesson 9: My Future Life', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_09_my_future_life.html', title: 'Lesson 9: My Future Life', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'ielts_lesson_9_problem_solution.html', title: 'Lesson 9: Problem-Solution Essays - IELTS Writing Task 2', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'lesson_review_sheet (1).html', title: 'Lesson Review: Cancel Culture', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_review_sheet.html', title: 'Lesson Review: Cancel Culture', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'learning_review_sheet.html', title: 'Lesson Review: Learning Experiences', level: '', series: '', keywords: '' },
+    { filename: 'lifebalance_prototype.html', title: 'Life Balance — Working Prototype', level: '', series: '', keywords: '' },
+    { filename: 'speaking_naturally_teens_bonus_camus_absurd_hero.html', title: 'Life Has No Meaning. Now What?', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'lifebalance-with-sync.html', title: 'LifeBalance - Complete Recreation', level: '', series: '', keywords: '' },
+    { filename: 'lifebalance-with-gcal.html', title: 'LifeBalance - with Google Calendar Integration', level: '', series: '', keywords: '' },
+    { filename: 'lifebalance.html', title: 'LifeBalance - with Preply Import', level: '', series: '', keywords: '' },
+    { filename: 'making_the_leap.html', title: 'Making the Leap: Career Reinvention', level: '', series: '', keywords: '' },
+    { filename: 'making_the_leap_full.html', title: 'Making the Leap: Career Reinvention', level: '', series: '', keywords: '' },
+    { filename: 'website_with_tabs.html', title: 'Malcolm Hyndman', level: '', series: '', keywords: '' },
+    { filename: 'website_with_tabs (1).html', title: 'Malcolm Hyndman', level: '', series: '', keywords: '' },
+    { filename: 'real_conversations_medical_mysteries (1).html', title: 'Medical Mysteries: The Sherlock Holmes Cases', level: '', series: '', keywords: '' },
+    { filename: 'morning_people_vs_night_owls.html', title: 'Morning People vs Night Owls', level: '', series: '', keywords: '' },
+    { filename: 'a1_my_daily_routine_interactive.html', title: 'My Daily Routine', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'a1_free_time_hobbies_interactive.html', title: 'My Free Time & Hobbies', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'Life Balance Version 1.html', title: 'My Life', level: '', series: '', keywords: '' },
+    { filename: 'lifebalance-pc.html', title: 'My Life', level: '', series: '', keywords: '' },
+    { filename: 'lesson_ocean_speaking_EXPANDED (1).html', title: 'Ocean Adventures - Speaking & Storytelling', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_ocean_speaking_EXPANDED.html', title: 'Ocean Adventures - Speaking & Storytelling', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'operation_absolute_resolve_lesson.html', title: 'Operation Absolute Resolve', level: '', series: '', keywords: '' },
+    { filename: 'ote_speaking_advanced.html', title: 'OTE Advanced Speaking', level: 'B2', series: '', keywords: '' },
+    { filename: 'ote_speaking_standard.html', title: 'OTE Speaking Test Prep', level: 'A2', series: '', keywords: '' },
+    { filename: 'paper_1_practice.html', title: 'Paper 1: Unseen Text Analysis', level: '', series: '', keywords: '' },
+    { filename: 'parts_of_speech_complete_interactive.html', title: 'Parts of Speech: Complete Grammar Foundation', level: '', series: '', keywords: '' },
+    { filename: 'past_participle_guide.html', title: 'Past Participle Guide', level: '', series: '', keywords: '' },
+    { filename: 'path_of_titans_lesson.html', title: 'Path of Titans', level: '', series: '', keywords: '' },
+    { filename: 'patterns_that_arent_there.html', title: 'Patterns That Aren\'t There', level: 'C1', series: '', keywords: '' },
+    { filename: 'playing_the_room.html', title: 'Playing the Room - The Language of Strategic Trust', level: '', series: '', keywords: '' },
+    { filename: 'Preply-Tracker.html', title: 'Preply Lesson Tracker — Tintin style (Single‑File)', level: '', series: '', keywords: '' },
+    { filename: 'presenting_online_project_manager.html', title: 'Presenting Online as a Project Manager - C1 Level', level: 'C1', series: '', keywords: '' },
+    { filename: 'presenting_your_business.html', title: 'Presenting Your Business', level: '', series: '', keywords: '' },
+    { filename: 'production_sme_interview_guide.html', title: 'Production & Publishing Interview Preparation', level: '', series: '', keywords: '' },
+    { filename: 'atc_professional_english_interactive.html', title: 'Professional English for Air Traffic Controllers', level: '', series: '', keywords: '' },
+    { filename: 'professional_interview_prep_interactive.html', title: 'Professional Interview Mastery', level: '', series: '', keywords: '' },
+    { filename: 'professional-skills.html', title: 'Professional Skills', level: '', series: '', keywords: '' },
+    { filename: 'professional_skills_dashboard.html', title: 'Professional Skills English', level: '', series: '', keywords: '' },
+    { filename: 'pss_lesson_01_explaining_clearly.html', title: 'Professional Speaking Skills — Lesson 01: Explaining Clearly', level: '', series: '', keywords: '' },
+    { filename: 'pss_lesson_02_asking_precise_questions.html', title: 'Professional Speaking Skills — Lesson 02: Asking Precise Questions', level: '', series: '', keywords: '' },
+    { filename: 'QuickNotes_Tintin_Mobile.html', title: 'QuickNotes — Tintin Mobile', level: '', series: '', keywords: '' },
+    { filename: 'QuickNotes_Tintin_Mobile_Sync.html', title: 'QuickNotes — Tintin Mobile + Sync', level: '', series: '', keywords: '' },
+    { filename: 'real_conversations_medical_mysteries.html', title: 'Real Conversations: Medical Mysteries', level: '', series: '', keywords: '' },
+    { filename: 'artemis_return_to_the_moon.html', title: 'Return to the Moon: The Artemis Missions', level: '', series: '', keywords: '' },
+    { filename: 'rhetorical_devices_british_texts_interactive.html', title: 'Rhetorical Devices in British Literary History', level: '', series: '', keywords: '' },
+    { filename: 'Rhetorical Devices in British Literary History.html', title: 'Rhetorical Devices in British Literary History', level: '', series: '', keywords: '' },
+    { filename: 'sat_lesson_1_interactive.html', title: 'SAT Lesson 1 - Overview & Reading Strategies', level: '', series: '', keywords: '' },
+    { filename: 'sentence_architecture.html', title: 'Sentence Architecture', level: '', series: '', keywords: '' },
+    { filename: 'social_media_digital_ethics_interactive.html', title: 'Social Media & Digital Ethics - Interactive Lesson', level: '', series: '', keywords: '' },
+    { filename: 'soft_power_hard_world.html', title: 'Soft Power in a Hard World', level: '', series: '', keywords: '' },
+    { filename: 'someone_i_admire_b2c1.html', title: 'Someone I Admire', level: '', series: '', keywords: '' },
+    { filename: 'passion_for_danger_b2c1.html', title: 'Something of a Passion', level: '', series: '', keywords: '' },
+    { filename: 'lesson_space_advanced_EXPANDED.html', title: 'Space Exploration - Advanced Speaking & Debate', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'Afraid of Computers.html', title: 'Speaking Lesson', level: 'B2', series: '', keywords: '' },
+    { filename: 'speaking_naturally_dashboard.html', title: 'Speaking Naturally - Complete Course Dashboard', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_01_agreement_disagreement.html', title: 'Speaking Naturally 01: Agreement & Disagreement', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_02_storytelling_anecdotes (1).html', title: 'Speaking Naturally 02: Storytelling & Anecdotes', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_02_storytelling_anecdotes.html', title: 'Speaking Naturally 02: Storytelling & Anecdotes', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_03_giving_advice.html', title: 'Speaking Naturally 03: Giving Advice & Suggestions', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_03_why_we_stay.html', title: 'Speaking Naturally 03: Why We Stay', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_04_small_talk_fillers.html', title: 'Speaking Naturally 04: Small Talk & Conversation Fillers', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_04_friendship_breakup.html', title: 'Speaking Naturally 04: The Friendship Breakup', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_05_complaining_problems.html', title: 'Speaking Naturally 05: Complaining & Dealing with Problems', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_05_money_happiness.html', title: 'Speaking Naturally 05: Money & Happiness', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_06_emotions_reactions.html', title: 'Speaking Naturally 06: Expressing Emotions & Reactions', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_06_parents_were_right.html', title: 'Speaking Naturally 06: Your Parents Were Actually Right', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_advanced_dashboard.html', title: 'Speaking Naturally ADVANCED - Conversation Mastery', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_advanced_01_ai_jobs.html', title: 'Speaking Naturally Advanced 01: AI is Taking Your Job', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_01_social_media.html', title: 'Speaking Naturally TEENS 01: Social Media & Mental Health', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_02_education_system.html', title: 'Speaking Naturally TEENS 02: Education System', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_03_climate_change (1).html', title: 'Speaking Naturally TEENS 03: Climate Change', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_03_climate_change.html', title: 'Speaking Naturally TEENS 03: Climate Change', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_04_ai_jobs.html', title: 'Speaking Naturally TEENS 04: AI & Jobs', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_05_cancel_culture.html', title: 'Speaking Naturally TEENS 05: Cancel Culture', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_06_who_are_you_really.html', title: 'Speaking Naturally TEENS 06: Who Are You Really?', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_06_generation_vs_parents.html', title: 'Speaking Naturally TEENS 06: Your Generation vs. Your Parents\'', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_teens_dashboard.html', title: 'Speaking Naturally TEENS: Critical Conversations', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking_naturally_real_conversations_dashboard.html', title: 'Speaking Naturally: Real Conversations - Complete Course', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'speaking-practice.html', title: 'Speaking Practice', level: '', series: '', keywords: '' },
+    { filename: 'speed_reading_masterclass.html', title: 'Speed Reading Masterclass - Science-Based Techniques', level: '', series: '', keywords: '' },
+    { filename: 'split-second-decisions.html', title: 'Split-Second Decisions', level: 'C1', series: '', keywords: '' },
+    { filename: 'stoicism_lesson_1_dichotomy_of_control.html', title: 'Stoicism Lesson 1: The Dichotomy of Control', level: '', series: '', keywords: '' },
+    { filename: 'study_work_extended_responses_b2c1.html', title: 'Study and Work: Producing Extended Responses', level: '', series: '', keywords: '' },
+    { filename: 'ielts_task_1_teacher_answers.html', title: 'Teacher Answers - Task 1', level: '', series: 'IELTS Course', keywords: '' },
+    { filename: 'teacher_conversations_01_why_i_quit_ana.html', title: 'Teacher Conversations 01: Why I Quit', level: '', series: '', keywords: '' },
+    { filename: 'teleprompter.html', title: 'Teleprompter - Preply Video', level: '', series: '', keywords: '' },
+    { filename: 'test_lesson_delete_me.html', title: 'Test Lesson - DELETE ME', level: 'B1', series: '', keywords: '' },
+    { filename: 'the-art-of-growing-older.html', title: 'The Art of Growing Older', level: 'C1', series: '', keywords: '' },
+    { filename: 'the-art-of-reading-people.html', title: 'The Art of Reading People', level: 'B2', series: '', keywords: '' },
+    { filename: 'the-art-of-simple-pleasures.html', title: 'The Art of Simple Pleasures', level: 'B2', series: '', keywords: '' },
+    { filename: 'the_art_of_the_impression.html', title: 'The Art of the Impression', level: 'C1', series: '', keywords: '' },
+    { filename: 'ib_adichie_analysis_lesson.html', title: 'The Danger of a Single Story - IB Analysis', level: '', series: '', keywords: '' },
+    { filename: 'breaking_news_enhanced_games_jan_2026.html', title: 'The Enhanced Games', level: '', series: '', keywords: '' },
+    { filename: 'academic_publishing_open_access_interactive (1).html', title: 'The Future of Academic Publishing & Open Access', level: '', series: '', keywords: '' },
+    { filename: 'academic_publishing_open_access_interactive.html', title: 'The Future of Academic Publishing & Open Access', level: '', series: '', keywords: '' },
+    { filename: 'greenland_tariffs_c1.html', title: 'The Greenland Gambit', level: 'C1', series: '', keywords: '' },
+    { filename: 'imposter_syndrome_c1.html', title: 'The Imposter in the Room', level: 'C1', series: '', keywords: '' },
+    { filename: 'the_invisible_hand.html', title: 'The Invisible Hand: How We\'re Nudged', level: 'C1', series: '', keywords: '' },
+    { filename: 'the-joy-of-small-things-m.html', title: 'The Joy of Small Things', level: 'B1', series: '', keywords: '' },
+    { filename: 'the-joy-of-small-things.html', title: 'The Joy of Small Things', level: 'B1', series: '', keywords: '' },
+    { filename: 'curious_conversations_language_shapes_thought.html', title: 'The Language You Think In: How Words Shape Reality', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'the-lost-art-of-doing-nothing.html', title: 'The Lost Art of Doing Nothing', level: 'C1', series: '', keywords: '' },
+    { filename: 'the_media_pattern_recognition_c1.html', title: 'The Media: Pattern Recognition & Detailed Responses', level: '', series: '', keywords: '' },
+    { filename: 'tennis_mental_game.html', title: 'The Mental Game of Tennis', level: '', series: '', keywords: '' },
+    { filename: 'native_speakerism_c1.html', title: 'The Native Speaker Myth', level: 'C1', series: '', keywords: '' },
+    { filename: 'the_numbers_game.html', title: 'The Numbers Game: When Statistics Lie', level: 'C1', series: '', keywords: '' },
+    { filename: 'the_paradox_of_choice.html', title: 'The Paradox of Choice', level: '', series: '', keywords: '' },
+    { filename: 'the-people-we-used-to-be.html', title: 'The People We Used to Be', level: 'B1', series: '', keywords: '' },
+    { filename: 'the-power-of-accents.html', title: 'The Power of Accents', level: 'C1', series: '', keywords: '' },
+    { filename: 'the-risks-we-choose-to-fear.html', title: 'The Risks We Choose to Fear', level: 'C1', series: '', keywords: '' },
+    { filename: 'the_third_place.html', title: 'The Third Place - Where Belonging Happens', level: '', series: '', keywords: '' },
+    { filename: 'curious_conversations_nietzsche_metamorphoses.html', title: 'The Three Metamorphoses: Nietzsche on Personal Transformation', level: '', series: 'Curious Conversations', keywords: '' },
+    { filename: 'lesson_gaming_world_interactive.html', title: 'The World of Gaming: Consoles, Culture & Industry', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'equestrian_life_horse_riding_interactive.html', title: 'The World of Horse Riding & Equestrian Life', level: '', series: '', keywords: '' },
+    { filename: 'trade_wars_class_wars.html', title: 'Trade Wars Are Class Wars', level: '', series: '', keywords: '' },
+    { filename: 'travel_holidays_a2.html', title: 'Travel & Holidays - A2 Conversation Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'a1_can_cant_abilities_interactive.html', title: 'What Can You Do?', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'a1_simple_past_yesterday_interactive.html', title: 'What Did You Do Yesterday?', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'what_really_drives_us_v3.html', title: 'What Really Drives Us', level: '', series: '', keywords: '' },
+    { filename: 'a1_when_do_you_do_it_part2_interactive.html', title: 'When Do You Do It? - Part 2', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'leading_under_pressure.html', title: 'When Everything Depends On You: Leading Under Pressure', level: '', series: '', keywords: '' },
+    { filename: 'problem_solving_under_pressure (1).html', title: 'When Plans Fall Apart: Problem-Solving Under Pressure', level: '', series: '', keywords: '' },
+    { filename: 'problem_solving_under_pressure.html', title: 'When Plans Fall Apart: Problem-Solving Under Pressure', level: '', series: '', keywords: '' },
+    { filename: 'food_tech_quality_innovation.html', title: 'When Quality Fails: Innovation in Food Safety', level: '', series: '', keywords: '' },
+    { filename: 'speaking_naturally_advanced_success_failure.html', title: 'When Success Feels Empty & Failure Teaches Everything', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'a1_who_do_you_do_it_with_interactive.html', title: 'Who Do You Do It With?', level: '', series: 'Beginner Course', keywords: '' },
+    { filename: 'standalone_why_do_people_believe_strange_things.html', title: 'Why Do People Believe Strange Things?', level: '', series: '', keywords: '' },
+    { filename: 'why_smart_people_get_it_wrong.html', title: 'Why Smart People Get It Spectacularly Wrong', level: 'B2', series: '', keywords: '' },
+    { filename: 'why_we_ignore_warnings_b1b2.html', title: 'Why We Ignore Warnings', level: 'B1', series: '', keywords: '' },
+    { filename: 'work_jobs_a2.html', title: 'Work & Jobs - A2 Conversation Lesson', level: 'A2', series: '', keywords: '' },
+    { filename: 'workplace_conflict_resolution_interactive.html', title: 'Workplace Conflict Resolution - Interactive Lesson', level: '', series: '', keywords: '' },
+    { filename: 'workplace_conflict_resolution.html', title: 'Workplace Conflict Resolution - Professional Skills Lesson', level: '', series: '', keywords: '' },
+    { filename: 'lesson_world_war_2_speaking.html', title: 'World War II: Difficult Decisions & Lasting Questions', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'lesson_world_war_2_interactive.html', title: 'World War II: The War That Changed the World', level: '', series: 'Grammar Course', keywords: '' },
+    { filename: 'would_you_rather_teens_adhd.html', title: 'Would You Rather?', level: '', series: 'Teens Course', keywords: '' },
+    { filename: 'writing_course_dashboard.html', title: 'Writing Academic English - Course Dashboard', level: '', series: '', keywords: '' },
+    { filename: 'writing_lesson_01.html', title: 'Writing Lesson 1', level: '', series: '', keywords: '' },
+    { filename: 'writing_quest_roadmap.html', title: 'Writing Quest - Your Adventure Map', level: '', series: '', keywords: '' },
+    { filename: 'speaking_naturally_mental_toolkit.html', title: 'Your Mental Toolkit: 5 Ideas That Change Everything', level: '', series: 'Speaking Naturally', keywords: '' },
+    { filename: 'christmas_would_you_rather.html', title: '🎄 Christmas Would You Rather? 🎅', level: '', series: '', keywords: '' },
+
+// Total: 344 lessons
+    ];
+    </script>
+</body>
+</html>
