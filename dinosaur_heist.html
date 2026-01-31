@@ -2585,7 +2585,45 @@
 
             if (state.timeLeft <= 0) {
                 clearInterval(timerInterval);
-                submitMission(num);
+                // CHECK WORD COUNT - don't auto-submit if they haven't written enough!
+                const text = document.getElementById(`writing${num}`).value;
+                const wordCount = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+                const targetWords = missions[num].target;
+
+                if (wordCount >= targetWords) {
+                    // They wrote enough - submit normally
+                    if (num === 2) {
+                        checkStealthAndSubmit();
+                    } else if (num === 3) {
+                        checkPrecisionAndSubmit();
+                    } else if (num === 4) {
+                        checkActionAndSubmit();
+                    } else {
+                        submitMission(num);
+                    }
+                } else {
+                    // NOT ENOUGH WORDS - show failure and restart!
+                    state.caught = true;
+                    showStreak('⏰ TIME UP! Not enough words written!');
+                    // Show a time-out message
+                    const resultsBox = document.getElementById(`results${num}`);
+                    resultsBox.innerHTML = `
+                        <div class="results-title" style="color: #ff6b6b;">⏰ TIME'S UP!</div>
+                        <div class="results-points" style="color: #ff6b6b; font-size: 1.5rem;">Not enough words!</div>
+                        <div class="results-detail" style="margin-bottom: 15px;">You wrote ${wordCount} words but needed ${targetWords}.</div>
+                        <div style="color: #ffd700; margin-bottom: 20px; font-size: 1.1rem;">
+                            🔒 <strong>MISSION FAILED</strong> 🔒<br><br>
+                            You ran out of time without completing your writing.<br>
+                            All progress lost. You must start the heist from the beginning.
+                        </div>
+                        <div class="btn-row">
+                            <button class="btn btn-next" onclick="restartHeistFromCaught()" style="background: linear-gradient(135deg, #ff6b6b 0%, #e94560 100%);">RESTART HEIST</button>
+                        </div>
+                    `;
+                    resultsBox.classList.add('active');
+                    document.getElementById(`writing${num}`).disabled = true;
+                    document.getElementById(`submitBtn${num}`).disabled = true;
+                }
             }
         }, 1000);
     }
