@@ -1938,7 +1938,9 @@
         // Security puzzle state
         puzzlesSolved: 0,
         securityBypassed: false,
-        puzzleAttempts: { 1: 0, 2: 0, 3: 0 }
+        puzzleAttempts: { 1: 0, 2: 0, 3: 0 },
+        // CAUGHT STATE - locks everything when you fail!
+        caught: false
     };
 
     // Security Puzzle Answers
@@ -2130,7 +2132,8 @@
 
         // Check if caught
         if (alarmCount >= 3 || (alarmCount > stealthCount && alarmCount >= 2)) {
-            // CAUGHT! Too loud
+            // CAUGHT! Too loud - LOCK EVERYTHING
+            state.caught = true;
             document.getElementById('caughtAlert').style.display = 'block';
             document.getElementById('results2').classList.remove('active');
 
@@ -2186,6 +2189,8 @@
 
         // Check if too clumsy
         if (clumsyCount >= 3 || (clumsyCount > precisionCount && clumsyCount >= 2)) {
+            // CAUGHT! Too clumsy - LOCK EVERYTHING
+            state.caught = true;
             document.getElementById('clumsyAlert').style.display = 'block';
             document.getElementById('results3').classList.remove('active');
 
@@ -2268,6 +2273,8 @@
 
         // Check if too slow - but be more lenient since it's timed
         if (actionCount < 2 && slowCount >= 2) {
+            // CAUGHT! Too slow - LOCK EVERYTHING
+            state.caught = true;
             stopAlarm(); // Stop the alarm when caught
 
             document.getElementById('tooSlowAlert').style.display = 'block';
@@ -2337,6 +2344,7 @@
         state.puzzlesSolved = 0;
         state.securityBypassed = false;
         state.puzzleAttempts = { 1: 0, 2: 0, 3: 0 };
+        state.caught = false; // UNLOCK navigation!
 
         // Reset all phase buttons
         const phases = document.querySelectorAll('.phase');
@@ -2456,6 +2464,12 @@
     function showPhase(index) {
         const phases = document.querySelectorAll('.phase');
 
+        // BLOCK ALL NAVIGATION IF CAUGHT!
+        if (state.caught) {
+            showStreak('👮 You were caught! Click RESTART HEIST to try again.');
+            return;
+        }
+
         // Check if phase is locked
         if (phases[index].classList.contains('locked')) {
             showStreak('🔒 Complete previous phases first!');
@@ -2540,7 +2554,7 @@
             const words = countWords(this.value);
             document.getElementById(`wordCount${num}`).textContent = words;
 
-            if (words >= Math.floor(targetWords * 0.5)) { // 50% of target to submit
+            if (words >= targetWords) { // MUST hit full target to submit!
                 submitBtn.disabled = false;
             } else {
                 submitBtn.disabled = true;
