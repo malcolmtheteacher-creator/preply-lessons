@@ -1618,13 +1618,31 @@
         input.disabled = false;
         input.focus();
         btn.textContent = 'DONE';
+        btn.disabled = true; // Start disabled - must write first!
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
         btn.onclick = () => completeWarmup(num);
+
+        // Enable DONE button only when student has written enough
+        const minWords = num === 5 ? 8 : 5; // More words needed for the 2-sentence challenge
+        input.oninput = function() {
+            const wordCount = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+            if (wordCount >= minWords) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            }
+        };
 
         let timeLeft = warmupTimes[num];
         warmupTimers[num] = setInterval(() => {
             timeLeft--;
             timer.textContent = `0:${timeLeft.toString().padStart(2, '0')}`;
-            
+
             if (timeLeft <= 10) {
                 timer.style.color = '#ff6b6b';
             } else if (timeLeft <= 20) {
@@ -1641,19 +1659,24 @@
         clearInterval(warmupTimers[num]);
         const input = document.getElementById(`warmup${num}Input`);
         const challenge = document.getElementById(`warmup${num}`);
-        
+        const btn = challenge.querySelector('.btn-start');
+
         input.disabled = true;
-        challenge.classList.add('completed');
+        input.oninput = null; // Remove the listener
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
 
         const text = input.value.trim();
-        const words = text ? text.split(/\s+/).length : 0;
-        
-        if (words > 0) {
+        const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+        const minWords = num === 5 ? 8 : 5; // Minimum required
+
+        if (words >= minWords) {
+            challenge.classList.add('completed');
             const earned = words * 5 + 20; // Bonus for completing
             state.points += earned;
             state.xp += earned;
             state.warmupsCompleted++;
-            
+
             // Save the writing
             const prompts = [
                 "Write ONE sentence describing what you see right now",
@@ -1671,10 +1694,19 @@
                 timestamp: new Date().toLocaleString()
             });
             updateDownloadCount();
-            
+
             checkLevelUp();
             updateStats();
             showStreak(`+${earned} points!`);
+        } else {
+            // Not enough words - show feedback but don't award points
+            btn.textContent = 'TRY AGAIN';
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+            btn.disabled = false;
+            input.disabled = false;
+            btn.onclick = () => startWarmup(num);
+            showStreak(`Need ${minWords}+ words!`);
         }
     }
 
