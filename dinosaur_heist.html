@@ -2023,6 +2023,64 @@
         4: { time: 90, target: 80, powerWords: ['sprinted', 'adrenaline', 'shattered', 'freedom'], powerBonus: 20 }
     };
 
+    // ALARM SYSTEM for Phase 4
+    let alarmAudioContext = null;
+    let alarmOscillator = null;
+    let alarmGain = null;
+    let alarmTimeout = null;
+    let alarmInterval = null;
+
+    function startAlarm() {
+        // Create audio context
+        alarmAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        alarmGain = alarmAudioContext.createGain();
+        alarmGain.connect(alarmAudioContext.destination);
+        alarmGain.gain.value = 0.3; // Not too loud!
+
+        let isHighTone = true;
+
+        // Alternating alarm siren effect
+        function playAlarmTone() {
+            if (alarmOscillator) {
+                alarmOscillator.stop();
+            }
+            alarmOscillator = alarmAudioContext.createOscillator();
+            alarmOscillator.type = 'square';
+            alarmOscillator.frequency.value = isHighTone ? 800 : 600; // Alternating frequencies
+            alarmOscillator.connect(alarmGain);
+            alarmOscillator.start();
+            isHighTone = !isHighTone;
+        }
+
+        // Start the alternating alarm
+        playAlarmTone();
+        alarmInterval = setInterval(playAlarmTone, 500); // Switch every 0.5 seconds
+
+        // Stop after 10 seconds
+        alarmTimeout = setTimeout(() => {
+            stopAlarm();
+        }, 10000);
+    }
+
+    function stopAlarm() {
+        if (alarmInterval) {
+            clearInterval(alarmInterval);
+            alarmInterval = null;
+        }
+        if (alarmTimeout) {
+            clearTimeout(alarmTimeout);
+            alarmTimeout = null;
+        }
+        if (alarmOscillator) {
+            alarmOscillator.stop();
+            alarmOscillator = null;
+        }
+        if (alarmAudioContext) {
+            alarmAudioContext.close();
+            alarmAudioContext = null;
+        }
+    }
+
     const missionTitles = {
         1: 'GEAR UP - Pack Your Bag',
         2: 'BREAK IN - The Entry',
@@ -2210,6 +2268,8 @@
 
         // Check if too slow - but be more lenient since it's timed
         if (actionCount < 2 && slowCount >= 2) {
+            stopAlarm(); // Stop the alarm when caught
+
             document.getElementById('tooSlowAlert').style.display = 'block';
             document.getElementById('results4').classList.remove('active');
 
@@ -2262,6 +2322,9 @@
     }
 
     function restartHeistFromCaught() {
+        // Stop alarm if still running
+        stopAlarm();
+
         // Full reset - back to the very beginning
         state.points = 0;
         state.phasesComplete = 0;
@@ -2461,6 +2524,11 @@
         const submitBtn = document.getElementById(`submitBtn${num}`);
         const timer = document.getElementById(`timer${num}`);
 
+        // 🚨 ALARM for Phase 4 - rings for 10 seconds!
+        if (num === 4) {
+            startAlarm();
+        }
+
         writing.disabled = false;
         writing.focus();
         startBtn.disabled = true;
@@ -2525,6 +2593,11 @@
     function submitMission(num) {
         state.timerRunning = false;
         clearInterval(timerInterval);
+
+        // Stop alarm if running (Phase 4)
+        if (num === 4) {
+            stopAlarm();
+        }
 
         const config = missions[num];
         const writing = document.getElementById(`writing${num}`);
