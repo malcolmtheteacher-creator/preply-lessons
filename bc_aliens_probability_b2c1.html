@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliens - Probability & Conditionals | B2-C1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0d1a2d 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; }
+        .level-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            color: white;
+        }
+        .tab-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .tab-btn.active { background: linear-gradient(135deg, #10b981, #06b6d4); color: white; font-weight: 600; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .card h2 { color: #10b981; margin-bottom: 15px; font-size: 1.4rem; }
+        .card h3 { color: #06b6d4; margin: 20px 0 10px; font-size: 1.1rem; }
+        .card p { line-height: 1.7; margin-bottom: 12px; }
+
+        .statement-card {
+            background: rgba(16,185,129,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .statement-card:hover { background: rgba(16,185,129,0.15); }
+        .statement-card.agree { border-color: #10b981; background: rgba(16,185,129,0.2); }
+        .statement-card.disagree { border-color: #ef4444; background: rgba(239,68,68,0.1); }
+        .statement-letter {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: rgba(16,185,129,0.3);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            margin-right: 12px;
+            font-weight: 700;
+        }
+        .opinion-btns { display: flex; gap: 10px; margin-top: 12px; }
+        .opinion-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .opinion-btn.agree-btn { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .opinion-btn.disagree-btn { background: rgba(239,68,68,0.2); color: #fca5a5; }
+        .opinion-btn:hover { transform: scale(1.05); }
+
+        .conditional-card {
+            background: rgba(6,182,212,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #06b6d4;
+        }
+        .conditional-card:hover { background: rgba(6,182,212,0.15); }
+        .conditional-type { color: #06b6d4; font-weight: 600; font-size: 1.05rem; margin-bottom: 8px; }
+        .conditional-structure { color: #94a3b8; font-size: 0.9rem; margin-bottom: 10px; }
+        .conditional-example { display: none; font-style: italic; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-top: 10px; }
+        .conditional-card.revealed .conditional-example { display: block; animation: fadeIn 0.3s ease; }
+
+        .completion-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+        .sentence-start { color: #10b981; font-weight: 600; margin-bottom: 10px; }
+        .completion-input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 12px;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+        .completion-input:focus { outline: none; border-color: #10b981; }
+
+        .probability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+        .probability-chip {
+            background: rgba(16,185,129,0.15);
+            border-radius: 25px;
+            padding: 12px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .probability-chip:hover { border-color: #10b981; transform: translateY(-2px); }
+        .probability-chip.selected { background: #10b981; color: #0a0a1a; }
+
+        .argument-card {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(6,182,212,0.1));
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        .argument-side {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .argument-side.for { background: rgba(16,185,129,0.3); color: #6ee7b7; }
+        .argument-side.against { background: rgba(239,68,68,0.3); color: #fca5a5; }
+
+        .timer-container { text-align: center; padding: 30px; background: rgba(0,0,0,0.3); border-radius: 16px; margin: 20px 0; }
+        .timer-display { font-size: 4rem; font-weight: 700; font-family: 'Courier New', monospace; color: #10b981; margin-bottom: 20px; }
+        .timer-display.warning { color: #eab308; }
+        .timer-display.danger { color: #ef4444; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; }
+        .timer-btn { padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; font-weight: 600; }
+        .timer-btn.start { background: #22c55e; color: white; }
+        .timer-btn.pause { background: #eab308; color: #1e293b; }
+        .timer-btn.reset { background: #64748b; color: white; }
+
+        .now-you-try {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(6,182,212,0.1));
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #10b981;
+        }
+        .now-you-try h4 { color: #10b981; margin-bottom: 10px; }
+
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .summary-item { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: center; }
+        .summary-icon { font-size: 2rem; margin-bottom: 10px; }
+        .summary-title { font-weight: 600; color: #10b981; margin-bottom: 5px; }
+
+        .click-hint { font-size: 0.85rem; color: #64748b; text-align: center; margin-top: 10px; }
+
+        @media (max-width: 768px) { h1 { font-size: 1.6rem; } .tab-btn { padding: 10px 15px; font-size: 0.85rem; } .timer-display { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👽 Aliens</h1>
+            <p class="subtitle">Probability Language & Conditionals</p>
+            <span class="level-badge">B2-C1 Advanced</span>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab('hook')">1. The Hook</button>
+            <button class="tab-btn" onclick="showTab('conditionals')">2. Conditionals</button>
+            <button class="tab-btn" onclick="showTab('probability')">3. Probability</button>
+            <button class="tab-btn" onclick="showTab('arguments')">4. The Arguments</button>
+            <button class="tab-btn" onclick="showTab('debate')">5. Mini-Debate</button>
+            <button class="tab-btn" onclick="showTab('wrapup')">6. Wrap-Up</button>
+        </nav>
+
+        <!-- Tab 1: The Hook -->
+        <div id="hook" class="tab-content active">
+            <div class="card">
+                <h2>Are We Alone in the Universe?</h2>
+                <p>Do you agree or disagree with these statements? Click to indicate your opinion:</p>
+
+                <div class="statement-card" id="stmt-a">
+                    <span class="statement-letter">a</span>UFO stands for "unidentified flying object."
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-a', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-a', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <div class="statement-card" id="stmt-b">
+                    <span class="statement-letter">b</span>Believing in aliens is similar to believing in ghosts, miracles and fairies.
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-b', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-b', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <div class="statement-card" id="stmt-c">
+                    <span class="statement-letter">c</span>The sheer number of alien sightings suggests that we are not alone.
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-c', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-c', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <div class="statement-card" id="stmt-d">
+                    <span class="statement-letter">d</span>Science fiction films from 20 years ago now reflect reality.
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-d', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-d', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <div class="statement-card" id="stmt-e">
+                    <span class="statement-letter">e</span>It is absurd to even consider the possibility of alien life.
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-e', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-e', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <div class="statement-card" id="stmt-f">
+                    <span class="statement-letter">f</span>In the last 100 years, people have increasingly begun to believe in intelligent alien life.
+                    <div class="opinion-btns">
+                        <button class="opinion-btn agree-btn" onclick="markOpinion('stmt-f', 'agree')">Agree</button>
+                        <button class="opinion-btn disagree-btn" onclick="markOpinion('stmt-f', 'disagree')">Disagree</button>
+                    </div>
+                </div>
+
+                <p class="click-hint">Mark your opinions, then compare with your partner</p>
+            </div>
+        </div>
+
+        <!-- Tab 2: Conditionals -->
+        <div id="conditionals" class="tab-content">
+            <div class="card">
+                <h2>Conditionals Review</h2>
+                <p>Click each type to see the structure and examples:</p>
+
+                <div class="conditional-card" onclick="this.classList.toggle('revealed')">
+                    <div class="conditional-type">Second Conditional (Unreal Present/Future)</div>
+                    <div class="conditional-structure">If + past simple, would + infinitive</div>
+                    <div class="conditional-example">"If I <strong>were</strong> a cosmologist, I <strong>would spend</strong> my life searching for alien signals."</div>
+                </div>
+
+                <div class="conditional-card" onclick="this.classList.toggle('revealed')">
+                    <div class="conditional-type">Third Conditional (Unreal Past)</div>
+                    <div class="conditional-structure">If + past perfect, would have + past participle</div>
+                    <div class="conditional-example">"If we <strong>had discovered</strong> alien life in the 1960s, our world <strong>would have changed</strong> dramatically."</div>
+                </div>
+
+                <div class="conditional-card" onclick="this.classList.toggle('revealed')">
+                    <div class="conditional-type">Mixed Conditional (Past → Present)</div>
+                    <div class="conditional-structure">If + past perfect, would + infinitive</div>
+                    <div class="conditional-example">"If aliens <strong>had visited</strong> Earth thousands of years ago, we <strong>would have</strong> evidence today."</div>
+                </div>
+
+                <div class="conditional-card" onclick="this.classList.toggle('revealed')">
+                    <div class="conditional-type">"Supposing" (Alternative to "If")</div>
+                    <div class="conditional-structure">Supposing + past simple, would + infinitive</div>
+                    <div class="conditional-example">"<strong>Supposing</strong> we are indeed alone in the universe, what would that mean for humanity?"</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Complete the Sentences</h2>
+                <p>Finish these sentences so they are true for you:</p>
+
+                <div class="completion-card">
+                    <div class="sentence-start">a) If I saw flashing lights and a spherical object landing in a field tonight...</div>
+                    <input type="text" class="completion-input" placeholder="I would...">
+                </div>
+
+                <div class="completion-card">
+                    <div class="sentence-start">b) If it becomes possible to travel cheaply into space in my lifetime...</div>
+                    <input type="text" class="completion-input" placeholder="I will...">
+                </div>
+
+                <div class="completion-card">
+                    <div class="sentence-start">c) If I were a cosmologist...</div>
+                    <input type="text" class="completion-input" placeholder="I would...">
+                </div>
+
+                <div class="completion-card">
+                    <div class="sentence-start">d) If the alien life we discover turns out to be hostile...</div>
+                    <input type="text" class="completion-input" placeholder="We would have to...">
+                </div>
+
+                <div class="completion-card">
+                    <div class="sentence-start">e) Supposing we are indeed alone in the universe...</div>
+                    <input type="text" class="completion-input" placeholder="That would mean...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Probability -->
+        <div id="probability" class="tab-content">
+            <div class="card">
+                <h2>Language of Probability</h2>
+                <p>Use these phrases to discuss how likely something is. Select the ones you'd use to argue FOR alien life:</p>
+
+                <div class="probability-grid">
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">miniscule odds</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">the likelihood is high</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">it seems inevitable</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">the chances are low</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">could well exist</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">ridiculous</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">in all likelihood</div>
+                    <div class="probability-chip" onclick="this.classList.toggle('selected')">highly improbable</div>
+                </div>
+
+                <h3>More Probability Expressions</h3>
+                <div class="now-you-try">
+                    <p><strong>High probability:</strong> "It's almost certain that...", "There's every chance that...", "It's bound to..."</p>
+                    <p><strong>Medium probability:</strong> "There's a fair chance...", "It's quite possible...", "It could well..."</p>
+                    <p><strong>Low probability:</strong> "It's highly unlikely...", "The odds are against...", "There's little chance..."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Practice: Express Probability</h2>
+                <p>Use probability phrases to discuss these questions:</p>
+                <div class="now-you-try">
+                    <p>1. How likely is it that intelligent alien life exists somewhere in the universe?</p>
+                    <p>2. What are the chances that aliens have already visited Earth?</p>
+                    <p>3. How probable is it that we will make contact with alien life in the next 100 years?</p>
+                    <p>4. What's the likelihood that any alien life would be hostile?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: The Arguments -->
+        <div id="arguments" class="tab-content">
+            <div class="card">
+                <h2>Arguments For & Against Alien Life</h2>
+                <p>Study these arguments to prepare for the debate:</p>
+
+                <div class="argument-card">
+                    <span class="argument-side for">FOR</span>
+                    <p><strong>The Drake Equation:</strong> Given the billions of stars and planets in the universe, the mathematical probability of intelligent life elsewhere is extremely high.</p>
+                </div>
+
+                <div class="argument-card">
+                    <span class="argument-side for">FOR</span>
+                    <p><strong>Extremophiles:</strong> We've discovered life on Earth in extreme conditions (deep sea vents, acidic pools). Life is more adaptable than we thought.</p>
+                </div>
+
+                <div class="argument-card">
+                    <span class="argument-side for">FOR</span>
+                    <p><strong>Ancient Evidence:</strong> Cave paintings and ancient texts describe beings from the sky. Could these be early encounters?</p>
+                </div>
+
+                <div class="argument-card">
+                    <span class="argument-side against">AGAINST</span>
+                    <p><strong>The Fermi Paradox:</strong> If aliens exist, why haven't we found any evidence? "Where is everybody?"</p>
+                </div>
+
+                <div class="argument-card">
+                    <span class="argument-side against">AGAINST</span>
+                    <p><strong>The Great Filter:</strong> Perhaps civilizations destroy themselves before achieving interstellar travel. Intelligence may be self-limiting.</p>
+                </div>
+
+                <div class="argument-card">
+                    <span class="argument-side against">AGAINST</span>
+                    <p><strong>Lack of Evidence:</strong> Despite decades of SETI research, we have found no confirmed signals. Absence of evidence suggests absence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Mini-Debate -->
+        <div id="debate" class="tab-content">
+            <div class="card">
+                <h2>Mini-Debate: Alien Life</h2>
+                <p><strong>Motion:</strong> "Intelligent alien life almost certainly exists in the universe."</p>
+
+                <div class="timer-container">
+                    <p style="margin-bottom: 15px;">Debate time: 5 minutes</p>
+                    <div id="timer-display" class="timer-display">5:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn start" onclick="startTimer()">Start</button>
+                        <button class="timer-btn pause" onclick="pauseTimer()">Pause</button>
+                        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="now-you-try">
+                    <h4>Remember to use:</h4>
+                    <p>✓ Probability phrases: "the likelihood is...", "it seems inevitable...", "the chances are..."</p>
+                    <p>✓ Conditionals: "If aliens existed...", "Had we discovered evidence..."</p>
+                    <p>✓ Debate phrases: "I would argue that...", "On the contrary...", "While that may be true..."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Wrap-Up -->
+        <div id="wrapup" class="tab-content">
+            <div class="card">
+                <h2>What You've Learned</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-icon">🌌</div>
+                        <div class="summary-title">Conditionals</div>
+                        <p>Second, third, mixed & "supposing"</p>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">📊</div>
+                        <div class="summary-title">Probability Language</div>
+                        <p>Phrases for expressing likelihood</p>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">👽</div>
+                        <div class="summary-title">Arguments</div>
+                        <p>For and against alien life</p>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">💬</div>
+                        <div class="summary-title">Debate Skills</div>
+                        <p>Presenting and countering views</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(6,182,212,0.1));">
+                <h2 style="color: #10b981;">Great Work! 👽</h2>
+                <p style="font-size: 1.1rem;">You've completed the Aliens lesson!</p>
+                <p style="margin-top: 15px;">Whether we're alone or not, the universe is full of possibilities.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function markOpinion(stmtId, opinion) {
+            const card = document.getElementById(stmtId);
+            card.classList.remove('agree', 'disagree');
+            card.classList.add(opinion);
+        }
+
+        let timerInterval;
+        let timeRemaining = 300;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = document.getElementById('timer-display');
+            display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            display.classList.remove('warning', 'danger');
+            if (timeRemaining <= 10) display.classList.add('danger');
+            else if (timeRemaining <= 30) display.classList.add('warning');
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timeRemaining > 0) { timeRemaining--; updateTimerDisplay(); }
+                else { clearInterval(timerInterval); timerInterval = null; }
+            }, 1000);
+        }
+        function pauseTimer() { clearInterval(timerInterval); timerInterval = null; }
+        function resetTimer() { pauseTimer(); timeRemaining = 300; updateTimerDisplay(); }
+    </script>
+</body>
+</html>
