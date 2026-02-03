@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Assessment - Fluency & Communication</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        header .student-name {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #a78bfa;
+            margin: 20px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        /* Timer Styles */
+        .timer-container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .timer-display.warning {
+            color: #fbbf24;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+        }
+
+        .timer-display.danger {
+            color: #ef4444;
+            text-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .timer-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .timer-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .timer-btn.start {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .timer-btn.pause {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .timer-btn.reset {
+            background: rgba(255,255,255,0.1);
+            color: #a0a0a0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .timer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .timer-presets {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .preset-btn:hover, .preset-btn.active {
+            background: rgba(102, 126, 234, 0.3);
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Speaking Prompts */
+        .prompt-cards {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .prompt-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-card:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .prompt-card.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        .prompt-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .prompt-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Rating Scales */
+        .assessment-section {
+            margin: 30px 0;
+        }
+
+        .assessment-category {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .category-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .category-title {
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        .rating-item {
+            margin-bottom: 25px;
+        }
+
+        .rating-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .rating-label span {
+            color: #d0d0d0;
+            font-size: 0.95rem;
+        }
+
+        .rating-value {
+            color: #667eea;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .rating-scale {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #808080;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .rating-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.4);
+            color: #a0a0a0;
+        }
+
+        .rating-btn.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .rating-descriptor {
+            font-size: 0.7rem;
+            display: block;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        /* Radar Chart */
+        .chart-container {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .chart-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Generate Button */
+        .generate-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .generate-btn:disabled {
+            background: rgba(255,255,255,0.1);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Profile Summary */
+        .profile-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .profile-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-card.strength {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .profile-card.development {
+            border-color: rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.08);
+        }
+
+        .profile-card h4 {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .profile-card.strength h4 { color: #10b981; }
+        .profile-card.development h4 { color: #fbbf24; }
+
+        .profile-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .profile-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #d0d0d0;
+        }
+
+        .profile-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #10b981 100%);
+            border-radius: 3px;
+        }
+
+        .roadmap-phase {
+            position: relative;
+            margin-bottom: 35px;
+            padding-left: 25px;
+        }
+
+        .roadmap-phase::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .phase-number {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .phase-title {
+            color: #fff;
+            font-size: 1.15rem;
+        }
+
+        .phase-content {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .phase-content p {
+            margin-bottom: 12px;
+            color: #b0b0b0;
+        }
+
+        .phase-activities {
+            list-style: none;
+        }
+
+        .phase-activities li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #d0d0d0;
+        }
+
+        .phase-activities li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* Next Steps */
+        .next-step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .next-step-card:hover {
+            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #a0a0a0;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .timer-display { font-size: 3.5rem; }
+            .tabs { gap: 6px; }
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+            .rating-scale { flex-wrap: wrap; }
+            .rating-btn { flex: 0 0 calc(20% - 6px); }
+            .rating-descriptor { display: none; }
+        }
+
+        /* Hidden content initially */
+        #profile-results, #roadmap-content {
+            display: none;
+        }
+
+        #profile-results.visible, #roadmap-content.visible {
+            display: block;
+        }
+
+        .notes-area {
+            width: 100%;
+            min-height: 120px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 15px;
+            color: #e8e8e8;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-top: 15px;
+        }
+
+        .notes-area:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #a0a0a0;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Diagnostic Assessment</h1>
+            <p class="subtitle">Fluency & Communication Profile</p>
+            <div style="margin-top: 15px;">
+                <input type="text" id="studentNameInput" placeholder="Enter student name..."
+                    style="padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+                    border-radius: 25px; color: white; font-size: 1rem; text-align: center; width: 200px;"
+                    onchange="updateStudentName(this.value)">
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="welcome">Welcome</button>
+            <button class="tab-btn" data-tab="challenge">The Challenge</button>
+            <button class="tab-btn" data-tab="feedback">Live Feedback</button>
+            <button class="tab-btn" data-tab="profile">Your Profile</button>
+            <button class="tab-btn" data-tab="roadmap">The Roadmap</button>
+            <button class="tab-btn" data-tab="next">Next Steps</button>
+        </div>
+
+        <!-- Tab 1: Welcome -->
+        <div class="tab-content active" id="welcome">
+            <div class="card">
+                <h2>Welcome 👋</h2>
+                <p>Today's session is designed to understand exactly how you communicate — not to test you, but to identify the subtle patterns that make the difference between "good English" and <strong>effortlessly fluid</strong> English.</p>
+
+                <div class="highlight-box">
+                    <h4>What We'll Do Today</h4>
+                    <p>You'll speak for 3-5 minutes on a work-related topic while I listen for specific patterns. Then we'll build your personalised development profile together.</p>
+                </div>
+
+                <h3>Why This Matters</h3>
+                <p>If you're here, your English is likely already functionally strong. What we're looking for today are the <strong>micro-patterns</strong> that separate "competent" from "commanding" — the subtle differences that make speech feel effortless rather than effortful.</p>
+
+                <h3>The Three Dimensions We'll Explore</h3>
+                <div style="display: grid; gap: 15px; margin-top: 20px;">
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; display: flex; align-items: center; justify-content: center;">🎯</div>
+                        <div>
+                            <strong style="color: #10b981;">Fluency Markers</strong>
+                            <p style="margin: 5px 0 0 0; color: #a0a0a0; font-size: 0.9rem;">Hesitation patterns, self-correction, pace consistency</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">🔗</div>
+                        <div>
+                            <strong style="color: #667eea;">Discourse & Cohesion</strong>
+                            <p style="margin: 5px 0 0 0; color: #a0a0a0; font-size: 0.9rem;">How you connect ideas, signpost, and manage topics</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 10px; display: flex; align-items: center; justify-content: center;">💎</div>
+                        <div>
+                            <strong style="color: #f59e0b;">Lexical Sophistication</strong>
+                            <p style="margin: 5px 0 0 0; color: #a0a0a0; font-size: 0.9rem;">Range, precision, hedging language, collocations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <div></div>
+                <button class="nav-btn next" onclick="switchTab('challenge')">Begin Assessment →</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: The Challenge -->
+        <div class="tab-content" id="challenge">
+            <div class="card">
+                <h2>The Speaking Challenge</h2>
+                <p>Choose one of the prompts below, then speak for <strong>3-5 minutes</strong> without stopping. This isn't about being perfect — it's about showing me how you naturally communicate under mild pressure.</p>
+
+                <h3>Select Your Topic</h3>
+                <div class="prompt-cards">
+                    <div class="prompt-card" onclick="selectPrompt(this)">
+                        <h4>💼 Your Work</h4>
+                        <p>"Explain what you do in your job to someone who knows nothing about your field. What makes it challenging or interesting?"</p>
+                    </div>
+                    <div class="prompt-card" onclick="selectPrompt(this)">
+                        <h4>📊 A Recent Project</h4>
+                        <p>"Describe a project or task you worked on recently. What was the goal, what challenges did you face, and what was the outcome?"</p>
+                    </div>
+                    <div class="prompt-card" onclick="selectPrompt(this)">
+                        <h4>🔮 Looking Ahead</h4>
+                        <p>"What changes do you see coming in your industry or field over the next few years? How should people prepare?"</p>
+                    </div>
+                </div>
+
+                <div class="timer-container">
+                    <div class="timer-presets">
+                        <button class="preset-btn active" onclick="setTimer(180)">3 min</button>
+                        <button class="preset-btn" onclick="setTimer(300)">5 min</button>
+                    </div>
+                    <div class="timer-display" id="timer">3:00</div>
+                    <div class="timer-buttons">
+                        <button class="timer-btn start" id="startBtn" onclick="toggleTimer()">Start</button>
+                        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>💡 Tips</h4>
+                    <p>Speak as you would in a real meeting. Don't rehearse or script — I want to see your natural communication style. It's okay to pause and think. If you run out of things to say, try to extend by giving examples or considering different perspectives.</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('welcome')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('feedback')">Proceed to Feedback →</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Live Feedback -->
+        <div class="tab-content" id="feedback">
+            <div class="card">
+                <h2>Assessment Rubric</h2>
+                <p>Rate each dimension based on the speaking task. Click the scale that best represents the student's performance.</p>
+
+                <div class="assessment-section">
+                    <!-- Fluency Markers -->
+                    <div class="assessment-category">
+                        <div class="category-header">
+                            <div class="category-icon">🎯</div>
+                            <h3 class="category-title">Fluency Markers</h3>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Hesitation Frequency</span>
+                                <span class="rating-value" id="val-hesitation">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="hesitation">
+                                <button class="rating-btn" data-value="1" onclick="setRating('hesitation', 1, this)">1<span class="rating-descriptor">Frequent</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('hesitation', 2, this)">2<span class="rating-descriptor">Regular</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('hesitation', 3, this)">3<span class="rating-descriptor">Moderate</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('hesitation', 4, this)">4<span class="rating-descriptor">Occasional</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('hesitation', 5, this)">5<span class="rating-descriptor">Rare</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Filler Word Usage</span>
+                                <span class="rating-value" id="val-fillers">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="fillers">
+                                <button class="rating-btn" data-value="1" onclick="setRating('fillers', 1, this)">1<span class="rating-descriptor">Excessive</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('fillers', 2, this)">2<span class="rating-descriptor">High</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('fillers', 3, this)">3<span class="rating-descriptor">Average</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('fillers', 4, this)">4<span class="rating-descriptor">Low</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('fillers', 5, this)">5<span class="rating-descriptor">Minimal</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Self-Correction Patterns</span>
+                                <span class="rating-value" id="val-selfcorrect">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="selfcorrect">
+                                <button class="rating-btn" data-value="1" onclick="setRating('selfcorrect', 1, this)">1<span class="rating-descriptor">Disruptive</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('selfcorrect', 2, this)">2<span class="rating-descriptor">Noticeable</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('selfcorrect', 3, this)">3<span class="rating-descriptor">Natural</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('selfcorrect', 4, this)">4<span class="rating-descriptor">Smooth</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('selfcorrect', 5, this)">5<span class="rating-descriptor">Seamless</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Pace & Rhythm</span>
+                                <span class="rating-value" id="val-pace">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="pace">
+                                <button class="rating-btn" data-value="1" onclick="setRating('pace', 1, this)">1<span class="rating-descriptor">Erratic</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('pace', 2, this)">2<span class="rating-descriptor">Uneven</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('pace', 3, this)">3<span class="rating-descriptor">Variable</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('pace', 4, this)">4<span class="rating-descriptor">Steady</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('pace', 5, this)">5<span class="rating-descriptor">Controlled</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Discourse & Cohesion -->
+                    <div class="assessment-category">
+                        <div class="category-header">
+                            <div class="category-icon">🔗</div>
+                            <h3 class="category-title">Discourse & Cohesion</h3>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Signposting & Structure</span>
+                                <span class="rating-value" id="val-signpost">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="signpost">
+                                <button class="rating-btn" data-value="1" onclick="setRating('signpost', 1, this)">1<span class="rating-descriptor">Absent</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('signpost', 2, this)">2<span class="rating-descriptor">Limited</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('signpost', 3, this)">3<span class="rating-descriptor">Present</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('signpost', 4, this)">4<span class="rating-descriptor">Effective</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('signpost', 5, this)">5<span class="rating-descriptor">Masterful</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Idea Connection</span>
+                                <span class="rating-value" id="val-connection">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="connection">
+                                <button class="rating-btn" data-value="1" onclick="setRating('connection', 1, this)">1<span class="rating-descriptor">Fragmented</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('connection', 2, this)">2<span class="rating-descriptor">Basic</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('connection', 3, this)">3<span class="rating-descriptor">Adequate</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('connection', 4, this)">4<span class="rating-descriptor">Coherent</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('connection', 5, this)">5<span class="rating-descriptor">Seamless</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Topic Management</span>
+                                <span class="rating-value" id="val-topic">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="topic">
+                                <button class="rating-btn" data-value="1" onclick="setRating('topic', 1, this)">1<span class="rating-descriptor">Lost</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('topic', 2, this)">2<span class="rating-descriptor">Wandering</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('topic', 3, this)">3<span class="rating-descriptor">On track</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('topic', 4, this)">4<span class="rating-descriptor">Focused</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('topic', 5, this)">5<span class="rating-descriptor">Strategic</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Logical Flow</span>
+                                <span class="rating-value" id="val-logic">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="logic">
+                                <button class="rating-btn" data-value="1" onclick="setRating('logic', 1, this)">1<span class="rating-descriptor">Unclear</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('logic', 2, this)">2<span class="rating-descriptor">Jumpy</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('logic', 3, this)">3<span class="rating-descriptor">Followable</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('logic', 4, this)">4<span class="rating-descriptor">Clear</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('logic', 5, this)">5<span class="rating-descriptor">Compelling</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lexical Sophistication -->
+                    <div class="assessment-category">
+                        <div class="category-header">
+                            <div class="category-icon">💎</div>
+                            <h3 class="category-title">Lexical Sophistication</h3>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Vocabulary Range</span>
+                                <span class="rating-value" id="val-range">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="range">
+                                <button class="rating-btn" data-value="1" onclick="setRating('range', 1, this)">1<span class="rating-descriptor">Limited</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('range', 2, this)">2<span class="rating-descriptor">Basic</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('range', 3, this)">3<span class="rating-descriptor">Adequate</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('range', 4, this)">4<span class="rating-descriptor">Wide</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('range', 5, this)">5<span class="rating-descriptor">Extensive</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Lexical Precision</span>
+                                <span class="rating-value" id="val-precision">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="precision">
+                                <button class="rating-btn" data-value="1" onclick="setRating('precision', 1, this)">1<span class="rating-descriptor">Vague</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('precision', 2, this)">2<span class="rating-descriptor">Imprecise</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('precision', 3, this)">3<span class="rating-descriptor">Acceptable</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('precision', 4, this)">4<span class="rating-descriptor">Accurate</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('precision', 5, this)">5<span class="rating-descriptor">Precise</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Collocations & Chunks</span>
+                                <span class="rating-value" id="val-collocations">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="collocations">
+                                <button class="rating-btn" data-value="1" onclick="setRating('collocations', 1, this)">1<span class="rating-descriptor">Unnatural</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('collocations', 2, this)">2<span class="rating-descriptor">Awkward</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('collocations', 3, this)">3<span class="rating-descriptor">Acceptable</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('collocations', 4, this)">4<span class="rating-descriptor">Natural</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('collocations', 5, this)">5<span class="rating-descriptor">Native-like</span></button>
+                            </div>
+                        </div>
+
+                        <div class="rating-item">
+                            <div class="rating-label">
+                                <span>Hedging & Speculation</span>
+                                <span class="rating-value" id="val-hedging">-</span>
+                            </div>
+                            <div class="rating-scale" data-metric="hedging">
+                                <button class="rating-btn" data-value="1" onclick="setRating('hedging', 1, this)">1<span class="rating-descriptor">Absent</span></button>
+                                <button class="rating-btn" data-value="2" onclick="setRating('hedging', 2, this)">2<span class="rating-descriptor">Limited</span></button>
+                                <button class="rating-btn" data-value="3" onclick="setRating('hedging', 3, this)">3<span class="rating-descriptor">Basic</span></button>
+                                <button class="rating-btn" data-value="4" onclick="setRating('hedging', 4, this)">4<span class="rating-descriptor">Varied</span></button>
+                                <button class="rating-btn" data-value="5" onclick="setRating('hedging', 5, this)">5<span class="rating-descriptor">Sophisticated</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Observer Notes</h3>
+                <textarea class="notes-area" id="observerNotes" placeholder="Note specific examples, patterns, or observations during the speaking task..."></textarea>
+
+                <button class="generate-btn" onclick="generateProfile()">Generate Profile →</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('challenge')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('profile')">View Profile →</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Profile -->
+        <div class="tab-content" id="profile">
+            <div class="card">
+                <h2>Communication Profile</h2>
+                <p>Based on the diagnostic assessment, here's a visual representation of current communication strengths and development areas.</p>
+
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="profile-results">
+                    <div class="profile-summary">
+                        <div class="profile-card strength">
+                            <h4>✓ Strengths</h4>
+                            <ul id="strengthsList"></ul>
+                        </div>
+                        <div class="profile-card development">
+                            <h4>↗ Development Areas</h4>
+                            <ul id="developmentList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>Key Insight</h4>
+                        <p id="keyInsight">Complete the assessment to see your personalised insight.</p>
+                    </div>
+                </div>
+
+                <div id="no-data-message" class="highlight-box">
+                    <h4>⚠️ Assessment Incomplete</h4>
+                    <p>Complete all ratings in the "Live Feedback" tab to generate the profile. Click "Generate Profile" when all scales have been rated.</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('feedback')">← Back to Feedback</button>
+                <button class="nav-btn next" onclick="switchTab('roadmap')">View Roadmap →</button>
+            </div>
+        </div>
+
+        <!-- Tab 5: The Roadmap -->
+        <div class="tab-content" id="roadmap">
+            <div class="card">
+                <h2>Development Roadmap</h2>
+                <p>A personalised 8-12 week journey from "functionally excellent" to "effortlessly commanding."</p>
+
+                <div id="roadmap-content">
+                    <div class="roadmap">
+                        <div class="roadmap-phase">
+                            <div class="phase-header">
+                                <span class="phase-number">Weeks 1-3</span>
+                                <h3 class="phase-title">Foundation: Awareness Building</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Focus on recognising patterns in your own speech and building a toolkit of alternatives.</p>
+                                <ul class="phase-activities" id="phase1-activities">
+                                    <li>Record and analyse 2-minute work explanations</li>
+                                    <li>Build awareness of hesitation triggers</li>
+                                    <li>Introduce signposting language frames</li>
+                                    <li>Practice hedging expressions in context</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-header">
+                                <span class="phase-number">Weeks 4-6</span>
+                                <h3 class="phase-title">Integration: Controlled Practice</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Apply new patterns in structured speaking tasks with increasing complexity.</p>
+                                <ul class="phase-activities" id="phase2-activities">
+                                    <li>Stakeholder explanation simulations</li>
+                                    <li>Data presentation with structured frameworks</li>
+                                    <li>Opinion + evidence + speculation drills</li>
+                                    <li>Pace and rhythm exercises</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-header">
+                                <span class="phase-number">Weeks 7-9</span>
+                                <h3 class="phase-title">Fluency: Real-World Application</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Transfer skills to authentic workplace scenarios with minimal scaffolding.</p>
+                                <ul class="phase-activities" id="phase3-activities">
+                                    <li>Mock client consultations</li>
+                                    <li>Impromptu Q&A handling</li>
+                                    <li>Meeting contribution strategies</li>
+                                    <li>Real-time self-monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-header">
+                                <span class="phase-number">Weeks 10-12</span>
+                                <h3 class="phase-title">Mastery: Automatic Processing</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Internalise patterns so they become your default communication style.</p>
+                                <ul class="phase-activities" id="phase4-activities">
+                                    <li>High-pressure presentation practice</li>
+                                    <li>Complex topic navigation</li>
+                                    <li>Style refinement and personal voice</li>
+                                    <li>Final diagnostic comparison</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="roadmap-no-data" class="highlight-box">
+                    <h4>⚠️ Roadmap Pending</h4>
+                    <p>Complete the diagnostic assessment to generate a personalised roadmap based on the student's specific development areas.</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('profile')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('next')">Next Steps →</button>
+            </div>
+        </div>
+
+        <!-- Tab 6: Next Steps -->
+        <div class="tab-content" id="next">
+            <div class="card">
+                <h2>Next Steps</h2>
+                <p>Here's what happens after today's session:</p>
+
+                <div class="next-step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Reflection Task (Before Next Session)</h4>
+                        <p>Pay attention to one meeting or conversation this week. Notice: When do you hesitate? When does it feel smooth? No need to change anything yet — just observe.</p>
+                    </div>
+                </div>
+
+                <div class="next-step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Session Scheduling</h4>
+                        <p>Regular sessions (weekly or bi-weekly) will accelerate progress. Consistency matters more than intensity. Your next session is already booked — we'll start with Phase 1 activities.</p>
+                    </div>
+                </div>
+
+                <div class="next-step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Resources Coming Your Way</h4>
+                        <p>After this session, I'll send you: a summary of today's diagnostic, 3-5 targeted expressions to start practicing, and a short article on processing fluency.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h4>📌 Remember</h4>
+                    <p>Your English is already excellent. We're not fixing problems — we're optimising for impact. The goal isn't "correct" English. It's English that lets your expertise shine through effortlessly.</p>
+                </div>
+
+                <div style="margin-top: 30px; padding: 25px; background: rgba(102, 126, 234, 0.1); border-radius: 16px; text-align: center;">
+                    <p style="color: #a0a0a0; margin-bottom: 10px;">Questions or thoughts before we start Phase 1?</p>
+                    <p style="font-size: 1.3rem; color: #667eea; margin: 0;">Let's make it happen! 🚀</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('roadmap')">← Back</button>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab(btn.dataset.tab);
+            });
+        });
+
+        function switchTab(tabId) {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Timer
+        let timerSeconds = 180;
+        let timerInterval = null;
+        let isRunning = false;
+
+        function setTimer(seconds) {
+            timerSeconds = seconds;
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            resetTimer();
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            const display = document.getElementById('timer');
+            display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+            display.classList.remove('warning', 'danger');
+            if (timerSeconds <= 10) {
+                display.classList.add('danger');
+            } else if (timerSeconds <= 30) {
+                display.classList.add('warning');
+            }
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('startBtn');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = 'Resume';
+                btn.classList.remove('pause');
+                btn.classList.add('start');
+            } else {
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        btn.textContent = 'Done!';
+                    }
+                }, 1000);
+                btn.textContent = 'Pause';
+                btn.classList.remove('start');
+                btn.classList.add('pause');
+            }
+            isRunning = !isRunning;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            const activePreset = document.querySelector('.preset-btn.active');
+            timerSeconds = activePreset ? parseInt(activePreset.textContent) * 60 : 180;
+            updateTimerDisplay();
+            const btn = document.getElementById('startBtn');
+            btn.textContent = 'Start';
+            btn.classList.remove('pause');
+            btn.classList.add('start');
+        }
+
+        // Prompt Selection
+        function selectPrompt(card) {
+            document.querySelectorAll('.prompt-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        }
+
+        // Rating System
+        const ratings = {};
+        const metricLabels = {
+            hesitation: 'Hesitation Frequency',
+            fillers: 'Filler Word Usage',
+            selfcorrect: 'Self-Correction',
+            pace: 'Pace & Rhythm',
+            signpost: 'Signposting',
+            connection: 'Idea Connection',
+            topic: 'Topic Management',
+            logic: 'Logical Flow',
+            range: 'Vocabulary Range',
+            precision: 'Lexical Precision',
+            collocations: 'Collocations',
+            hedging: 'Hedging Language'
+        };
+
+        function setRating(metric, value, btn) {
+            ratings[metric] = value;
+            document.getElementById(`val-${metric}`).textContent = value;
+
+            const scale = btn.parentElement;
+            scale.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        // Generate Profile
+        let radarChart = null;
+
+        function generateProfile() {
+            const allMetrics = Object.keys(metricLabels);
+            const ratedMetrics = Object.keys(ratings);
+
+            if (ratedMetrics.length < allMetrics.length) {
+                alert(`Please rate all ${allMetrics.length} items before generating the profile. You've rated ${ratedMetrics.length} so far.`);
+                return;
+            }
+
+            // Calculate category averages
+            const fluencyAvg = (ratings.hesitation + ratings.fillers + ratings.selfcorrect + ratings.pace) / 4;
+            const discourseAvg = (ratings.signpost + ratings.connection + ratings.topic + ratings.logic) / 4;
+            const lexicalAvg = (ratings.range + ratings.precision + ratings.collocations + ratings.hedging) / 4;
+
+            // Create radar chart
+            const ctx = document.getElementById('radarChart').getContext('2d');
+
+            if (radarChart) {
+                radarChart.destroy();
+            }
+
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Hesitation',
+                        'Fillers',
+                        'Self-Correction',
+                        'Pace',
+                        'Signposting',
+                        'Idea Connection',
+                        'Topic Mgmt',
+                        'Logic',
+                        'Vocab Range',
+                        'Precision',
+                        'Collocations',
+                        'Hedging'
+                    ],
+                    datasets: [{
+                        label: 'Current Level',
+                        data: [
+                            ratings.hesitation,
+                            ratings.fillers,
+                            ratings.selfcorrect,
+                            ratings.pace,
+                            ratings.signpost,
+                            ratings.connection,
+                            ratings.topic,
+                            ratings.logic,
+                            ratings.range,
+                            ratings.precision,
+                            ratings.collocations,
+                            ratings.hedging
+                        ],
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                        pointBorderColor: '#fff',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 5,
+                            min: 0,
+                            ticks: {
+                                stepSize: 1,
+                                color: '#808080',
+                                backdropColor: 'transparent'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            pointLabels: {
+                                color: '#a0a0a0',
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Identify strengths and development areas
+            const sortedRatings = Object.entries(ratings).sort((a, b) => b[1] - a[1]);
+            const strengths = sortedRatings.slice(0, 4);
+            const developments = sortedRatings.slice(-4).reverse();
+
+            const strengthsList = document.getElementById('strengthsList');
+            const developmentList = document.getElementById('developmentList');
+
+            strengthsList.innerHTML = strengths.map(([key, val]) =>
+                `<li>${metricLabels[key]} (${val}/5)</li>`
+            ).join('');
+
+            developmentList.innerHTML = developments.map(([key, val]) =>
+                `<li>${metricLabels[key]} (${val}/5)</li>`
+            ).join('');
+
+            // Generate key insight
+            const lowestArea = developments[0];
+            const insights = {
+                hesitation: "Your hesitation patterns suggest ideas are competing for expression. We'll work on 'buying time' phrases that sound intentional rather than uncertain.",
+                fillers: "Filler words often indicate processing load. We'll build automatic phrase chunks that give your brain breathing room.",
+                selfcorrect: "Self-correction shows high self-awareness — good! We'll work on making corrections seamless so they add precision rather than interrupt flow.",
+                pace: "Pace variation affects perceived confidence. We'll develop rhythm strategies for different contexts.",
+                signpost: "Signposting is the skeleton of professional speech. We'll build a toolkit of structure markers that become second nature.",
+                connection: "Idea connection is where 'good' becomes 'commanding.' We'll work on cohesive devices that create flow.",
+                topic: "Topic management affects how your expertise lands. We'll practice strategic focus and controlled expansion.",
+                logic: "Logical flow shapes how persuasive you sound. We'll work on argument structuring techniques.",
+                range: "Vocabulary range expansion is straightforward — we'll build topic-specific repertoires.",
+                precision: "Precision is the hallmark of expertise. We'll work on exact word choices for your domain.",
+                collocations: "Natural collocations are the 'feel' of native speech. We'll build chunks specific to your field.",
+                hedging: "Hedging and speculation are crucial for professional communication. We'll develop your 'possibility language' toolkit."
+            };
+
+            document.getElementById('keyInsight').textContent = insights[lowestArea[0]] ||
+                "Based on your profile, we'll focus on building automatic processing in your development areas while leveraging your existing strengths.";
+
+            // Show results
+            document.getElementById('profile-results').classList.add('visible');
+            document.getElementById('no-data-message').style.display = 'none';
+            document.getElementById('roadmap-content').classList.add('visible');
+            document.getElementById('roadmap-no-data').style.display = 'none';
+
+            // Update roadmap based on lowest scores
+            updateRoadmap(developments);
+
+            // Switch to profile tab
+            switchTab('profile');
+        }
+
+        function updateRoadmap(developments) {
+            const devAreas = developments.map(d => d[0]);
+
+            // Customise Phase 1 based on development areas
+            const phase1 = document.getElementById('phase1-activities');
+            const phase1Items = [];
+
+            if (devAreas.includes('hesitation') || devAreas.includes('fillers')) {
+                phase1Items.push('Map your personal hesitation triggers and contexts');
+                phase1Items.push('Learn "buying time" phrases: "That\'s an interesting point...", "Let me think about that..."');
+            }
+            if (devAreas.includes('signpost') || devAreas.includes('connection')) {
+                phase1Items.push('Build signposting repertoire: "There are three aspects...", "The key point here is..."');
+            }
+            if (devAreas.includes('hedging')) {
+                phase1Items.push('Practice speculation language: "It\'s conceivable that...", "One possibility might be..."');
+            }
+            phase1Items.push('Record and self-analyse 2-minute work explanations');
+
+            if (phase1Items.length > 0) {
+                phase1.innerHTML = phase1Items.map(item => `<li>${item}</li>`).join('');
+            }
+        }
+
+        // Student name (optional)
+        function updateStudentName(name) {
+            // Store for potential future use
+            window.studentName = name;
+        }
+
+        // Initial state
+        updateTimerDisplay();
+    </script>
+</body>
+</html>
