@@ -36,18 +36,19 @@ def extract_lesson_data(html_content):
 
     data_str = match.group(1)
 
-    # Parse each lesson object
+    # Parse each lesson object - FIXED: handle escaped quotes in all fields
     lessons = []
-    # Match individual lesson objects
-    lesson_pattern = r"\{\s*filename:\s*'([^']+)',\s*title:\s*'([^']*)',\s*level:\s*'([^']*)',\s*series:\s*'([^']*)',\s*keywords:\s*'([^']*)'\s*\}"
+    # Match individual lesson objects with escaped quote support
+    # Using (?:[^'\\]|\\.)* to match any char except ' and \, OR any escaped char
+    lesson_pattern = r"\{\s*filename:\s*'((?:[^'\\]|\\.)*)'\s*,\s*title:\s*'((?:[^'\\]|\\.)*)'\s*,\s*level:\s*'((?:[^'\\]|\\.)*)'\s*,\s*series:\s*'((?:[^'\\]|\\.)*)'\s*,\s*keywords:\s*'((?:[^'\\]|\\.)*)'\s*\}"
 
     for m in re.finditer(lesson_pattern, data_str):
         lessons.append({
-            'filename': m.group(1),
-            'title': m.group(2).replace("\\'", "'"),  # Unescape quotes
-            'level': m.group(3),
-            'series': m.group(4),
-            'keywords': m.group(5)
+            'filename': m.group(1).replace("\\'", "'"),
+            'title': m.group(2).replace("\\'", "'"),
+            'level': m.group(3).replace("\\'", "'"),
+            'series': m.group(4).replace("\\'", "'"),
+            'keywords': m.group(5).replace("\\'", "'")
         })
 
     return lessons
@@ -144,21 +145,32 @@ def categorize_lesson(filename, title):
 
     return {'cat': 'other', 'sub': None}
 
-# Category configuration
+# Category configuration with colors for iThoughts
+# Colors are in hex format without #
 PATH_CONFIG = {
-    'grammar': {'icon': '📚', 'title': 'Grammar Course (A2→C1)', 'order': 1},
-    'ielts': {'icon': '📝', 'title': 'IELTS Exam Prep', 'order': 2},
-    'cambridge': {'icon': '🎓', 'title': 'Cambridge (CAE/CPE)', 'order': 3},
-    'speaking': {'icon': '🗣️', 'title': 'Speaking Naturally', 'order': 4},
-    'curious_conv': {'icon': '💭', 'title': 'Curious Conversations', 'order': 5},
-    'by_level': {'icon': '📈', 'title': 'By Level', 'order': 6},
-    'professional': {'icon': '💼', 'title': 'Professional English', 'order': 7},
-    'writing': {'icon': '✍️', 'title': 'Writing Skills', 'order': 8},
-    'topics': {'icon': '🌍', 'title': 'Topic-Based Speaking', 'order': 9},
-    'news': {'icon': '📰', 'title': 'Breaking News', 'order': 10},
-    'first_lessons': {'icon': '👋', 'title': 'First Lesson Assessments', 'order': 11},
-    'dashboards': {'icon': '🎛️', 'title': 'Course Dashboards', 'order': 12},
-    'other': {'icon': '🎯', 'title': 'Other Lessons', 'order': 99}
+    'grammar':       {'icon': '📚', 'title': 'Grammar Course (A2→C1)',    'order': 1,  'color': '4A90D9', 'fill': 'E8F4FD'},
+    'ielts':         {'icon': '📝', 'title': 'IELTS Exam Prep',           'order': 2,  'color': 'D94A4A', 'fill': 'FDE8E8'},
+    'cambridge':     {'icon': '🎓', 'title': 'Cambridge (CAE/CPE)',       'order': 3,  'color': '9B59B6', 'fill': 'F5EEF8'},
+    'speaking':      {'icon': '🗣️', 'title': 'Speaking Naturally',        'order': 4,  'color': '27AE60', 'fill': 'E8FDF0'},
+    'curious_conv':  {'icon': '💭', 'title': 'Curious Conversations',     'order': 5,  'color': 'E67E22', 'fill': 'FEF5E7'},
+    'by_level':      {'icon': '📈', 'title': 'By Level',                  'order': 6,  'color': '3498DB', 'fill': 'EBF5FB'},
+    'professional':  {'icon': '💼', 'title': 'Professional English',      'order': 7,  'color': '34495E', 'fill': 'EBEDEF'},
+    'writing':       {'icon': '✍️', 'title': 'Writing Skills',            'order': 8,  'color': '16A085', 'fill': 'E8F8F5'},
+    'topics':        {'icon': '🌍', 'title': 'Topic-Based Speaking',      'order': 9,  'color': 'F39C12', 'fill': 'FEF9E7'},
+    'news':          {'icon': '📰', 'title': 'Breaking News',             'order': 10, 'color': 'C0392B', 'fill': 'FDEDEC'},
+    'first_lessons': {'icon': '👋', 'title': 'First Lesson Assessments',  'order': 11, 'color': '1ABC9C', 'fill': 'E8F6F3'},
+    'dashboards':    {'icon': '🎛️', 'title': 'Course Dashboards',         'order': 12, 'color': '8E44AD', 'fill': 'F4ECF7'},
+    'other':         {'icon': '🎯', 'title': 'Other Lessons',             'order': 99, 'color': '7F8C8D', 'fill': 'F2F3F4'}
+}
+
+# Level colors for lesson badges
+LEVEL_COLORS = {
+    'A1': {'color': '27AE60', 'fill': 'E8FDF0'},  # Green
+    'A2': {'color': '2ECC71', 'fill': 'EAFAF1'},  # Light green
+    'B1': {'color': 'F39C12', 'fill': 'FEF9E7'},  # Orange
+    'B2': {'color': 'E67E22', 'fill': 'FDF2E9'},  # Dark orange
+    'C1': {'color': 'E74C3C', 'fill': 'FDEDEC'},  # Red
+    'C2': {'color': '9B59B6', 'fill': 'F5EEF8'},  # Purple
 }
 
 def get_lesson_num(filename):
@@ -172,7 +184,7 @@ def get_lesson_num(filename):
     return 999
 
 def build_itmz_xml(lessons):
-    """Build the XML content for the .itmz file."""
+    """Build the XML content for the .itmz file with iThoughts styling."""
     # Categorize all lessons
     categories = {}
     for lesson in lessons:
@@ -203,18 +215,42 @@ def build_itmz_xml(lessons):
         """Escape special XML characters."""
         return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&apos;')
 
-    def make_topic(title, level=0, children="", link="", folded="true"):
-        """Create a topic XML element."""
-        link_attr = f' link="{escape_xml(link)}"' if link else ''
-        fold_attr = f' folded="{folded}"' if level > 0 else ''
-        return f'<topic text="{escape_xml(title)}"{link_attr}{fold_attr}>{children}</topic>'
+    def make_topic(text, level=0, children="", link="", color=None, fill=None, shape=None, folded=True):
+        """Create a topic XML element with iThoughts styling."""
+        attrs = [f'text="{escape_xml(text)}"']
+
+        if link:
+            attrs.append(f'link="{escape_xml(link)}"')
+
+        if color:
+            attrs.append(f'color="#{color}"')
+
+        if fill:
+            attrs.append(f'fill-color="#{fill}"')
+
+        if shape:
+            attrs.append(f'shape="{shape}"')
+
+        if level > 0 and folded:
+            attrs.append('folded="1"')
+
+        # Add timestamps for iThoughts
+        attrs.append(f'created="{now}"')
+        attrs.append(f'modified="{now}"')
+
+        attr_str = ' '.join(attrs)
+
+        if children:
+            return f'<topic {attr_str}>{children}</topic>'
+        else:
+            return f'<topic {attr_str}/>'
 
     # Build category topics
     category_xml = []
 
     for cat_key in sorted_cats:
         cat = categories[cat_key]
-        config = PATH_CONFIG.get(cat_key, {'icon': '📄', 'title': cat_key})
+        config = PATH_CONFIG.get(cat_key, {'icon': '📄', 'title': cat_key, 'color': '7F8C8D', 'fill': 'F2F3F4'})
         cat_title = f"{config['icon']} {config['title']}"
 
         # Sort lessons
@@ -231,35 +267,80 @@ def build_itmz_xml(lessons):
             for lesson in sub_lessons:
                 url = BASE_URL + lesson['filename']
                 lesson_title = lesson['title']
-                if lesson['level']:
-                    lesson_title += f" [{lesson['level']}]"
-                lesson_topics.append(make_topic(lesson_title, level=3, link=url))
 
-            sub_topic = make_topic(f"📂 {sub_name} ({len(sub_lessons)})", level=2,
-                                  children=''.join(lesson_topics), folded="true")
+                # Get level-specific color or use category color
+                level = lesson.get('level', '').upper()
+                level_style = LEVEL_COLORS.get(level, {'color': config['color'], 'fill': config['fill']})
+
+                if level:
+                    lesson_title += f" [{level}]"
+
+                lesson_topics.append(make_topic(
+                    lesson_title,
+                    level=3,
+                    link=url,
+                    color=level_style['color'],
+                    fill=level_style['fill'],
+                    shape='rounded-rect'
+                ))
+
+            sub_topic = make_topic(
+                f"📂 {sub_name} ({len(sub_lessons)})",
+                level=2,
+                children=''.join(lesson_topics),
+                color=config['color'],
+                fill=config['fill'],
+                shape='rounded-rect'
+            )
             sub_content.append(sub_topic)
 
-        # Direct lessons
+        # Direct lessons (no subcategory)
         for lesson in cat['lessons']:
             url = BASE_URL + lesson['filename']
             lesson_title = lesson['title']
-            if lesson['level']:
-                lesson_title += f" [{lesson['level']}]"
-            sub_content.append(make_topic(lesson_title, level=2, link=url))
+
+            level = lesson.get('level', '').upper()
+            level_style = LEVEL_COLORS.get(level, {'color': config['color'], 'fill': config['fill']})
+
+            if level:
+                lesson_title += f" [{level}]"
+
+            sub_content.append(make_topic(
+                lesson_title,
+                level=2,
+                link=url,
+                color=level_style['color'],
+                fill=level_style['fill'],
+                shape='rounded-rect'
+            ))
 
         total_count = len(cat['lessons']) + sum(len(s) for s in cat['subs'].values())
-        category_xml.append(make_topic(f"{cat_title} ({total_count})", level=1,
-                                       children=''.join(sub_content), folded="true"))
+        category_xml.append(make_topic(
+            f"{cat_title} ({total_count})",
+            level=1,
+            children=''.join(sub_content),
+            color=config['color'],
+            fill=config['fill'],
+            shape='rounded-rect'
+        ))
 
-    # Root topic
+    # Root topic with special styling
     total_lessons = sum(len(c['lessons']) + sum(len(s) for s in c['subs'].values()) for c in categories.values())
     root_content = ''.join(category_xml)
-    root = make_topic(f"📖 Malcolm's Lessons ({total_lessons})", level=0, children=root_content)
+    root = make_topic(
+        f"📖 Malcolm's Lessons ({total_lessons})",
+        level=0,
+        children=root_content,
+        color='667EEA',
+        fill='E8EAFD',
+        shape='rounded-rect',
+        folded=False
+    )
 
-    # Full XML document
+    # Full XML document in iThoughts format
     xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0">
-<xmap-content content-version="12" generator-name="Python build_mindmap.py" generator-version="1.0" timestamp="{now}">
+<xmap-content content-version="12" generator-name="Python build_mindmap.py" generator-version="2.0" timestamp="{now}">
 {root}
 </xmap-content>
 </map>'''
