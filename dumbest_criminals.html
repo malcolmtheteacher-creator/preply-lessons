@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World's Dumbest Criminals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+        /* TABS */
+        .tab-bar {
+            display: flex; background: white; border-bottom: 3px solid #e94560;
+            position: sticky; top: 0; z-index: 100; overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .tab {
+            padding: 14px 20px; cursor: pointer; font-size: 0.85em; font-weight: 600;
+            border: none; background: none; color: #888; white-space: nowrap;
+            border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s;
+        }
+        .tab:hover { color: #e94560; }
+        .tab.active { color: #e94560; border-bottom-color: #e94560; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* CARDS */
+        .card {
+            background: white; border-radius: 10px; padding: 22px; margin-bottom: 16px;
+            border: 1px solid #e8e8e8; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card h2 { color: #e94560; font-size: 1.1em; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card h3 { color: #4ecdc4; margin-bottom: 6px; font-size: 1em; }
+        .card p { margin-bottom: 8px; font-size: 0.95em; }
+
+        /* STORY CARDS */
+        .story { background: #fff8f9; border-left: 4px solid #e94560; padding: 16px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+        .story .headline { font-weight: bold; color: #e94560; font-size: 1em; margin-bottom: 6px; }
+        .story .detail { color: #444; font-size: 0.9em; }
+        .story .source { color: #aaa; font-size: 0.75em; margin-top: 6px; }
+
+        /* EXPRESSION CARDS */
+        .expr-card { background: #f0fffe; border: 2px solid #4ecdc4; border-radius: 10px; padding: 18px; margin: 14px 0; }
+        .expr-card .expr { font-weight: bold; color: #e94560; font-size: 1.1em; margin-bottom: 4px; }
+        .expr-card .meaning { color: #555; font-size: 0.9em; margin-bottom: 8px; }
+        .expr-card .example { background: white; padding: 10px 14px; border-radius: 6px; font-size: 0.9em; color: #333; border-left: 3px solid #e94560; margin-bottom: 10px; }
+
+        /* REVEAL */
+        .reveal-btn {
+            background: #4ecdc4; color: white; border: none; padding: 8px 18px;
+            border-radius: 6px; cursor: pointer; font-size: 0.85em; font-weight: 600;
+            transition: background 0.2s;
+        }
+        .reveal-btn:hover { background: #3ba89f; }
+        .hidden-content { display: none; margin-top: 10px; }
+        .hidden-content.show { display: block; animation: fadeIn 0.3s; }
+
+        /* TEXT INPUT */
+        textarea {
+            width: 100%; min-height: 100px; padding: 12px; font-size: 0.95em;
+            border: 2px solid #ddd; border-radius: 8px; font-family: inherit; resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: #4ecdc4; box-shadow: 0 0 6px rgba(78,205,196,0.2); }
+        .wc { font-size: 0.8em; color: #999; text-align: right; margin-top: 3px; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 22px; border: none; border-radius: 8px; font-size: 0.9em;
+            font-weight: 600; cursor: pointer; transition: all 0.2s; margin: 4px;
+        }
+        .btn-go { background: #e94560; color: white; }
+        .btn-go:hover { background: #c91e3f; }
+        .btn-sub { background: #4ecdc4; color: white; }
+        .btn-sub:hover { background: #3ba89f; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* DISCUSSION CARDS */
+        .disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+        .disc-card {
+            background: white; border: 2px solid #ddd; border-radius: 10px; padding: 16px;
+            cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .disc-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
+        .disc-card.picked { border-color: #4ecdc4; background: #f0fffe; }
+        .disc-card .emoji { font-size: 1.8em; display: block; margin-bottom: 6px; }
+        .disc-card .topic { font-weight: 600; font-size: 0.9em; color: #1a1a2e; }
+
+        /* FEEDBACK */
+        .fb { padding: 12px; border-radius: 8px; margin-top: 10px; display: none; font-size: 0.9em; }
+        .fb.show { display: block; }
+        .fb.ok { background: #e8faf8; border: 1px solid #4ecdc4; color: #2a7a72; }
+        .fb.meh { background: #fff8e8; border: 1px solid #f0ad4e; color: #8a6d2b; }
+
+        /* TIMER */
+        .timer { font-family: 'Courier New', monospace; font-size: 1.6em; font-weight: bold; color: #4ecdc4; text-align: center; margin: 10px 0; }
+        .timer.warn { color: #f0ad4e; }
+        .timer.danger { color: #e94560; animation: pulse 0.5s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        /* TRACKER */
+        .tracker { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+        .tracker-chip {
+            padding: 5px 12px; border-radius: 15px; font-size: 0.8em; font-weight: 600;
+            background: #eee; color: #999;
+        }
+        .tracker-chip.used { background: #4ecdc4; color: white; }
+
+        .learning-intention { background: #fff3f5; padding: 10px 16px; border-radius: 8px; font-size: 0.9em; color: #e94560; font-weight: 600; margin-bottom: 16px; }
+
+        @media (max-width: 768px) { .disc-grid { grid-template-columns: 1fr; } .tab { padding: 10px 12px; font-size: 0.8em; } }
+    </style>
+</head>
+<body>
+
+<div class="tab-bar">
+    <button class="tab active" onclick="showTab(0)">1. The Hook</button>
+    <button class="tab" onclick="showTab(1)">2. Expressions 1-3</button>
+    <button class="tab" onclick="showTab(2)">3. Expressions 4-5</button>
+    <button class="tab" onclick="showTab(3)">4. Your Turn</button>
+    <button class="tab" onclick="showTab(4)">5. Deep Dive</button>
+    <button class="tab" onclick="showTab(5)">6. Wrap-Up</button>
+</div>
+
+<div class="container">
+
+<!-- TAB 1: THE HOOK -->
+<div class="tab-content active" id="tab0">
+    <div class="card">
+        <h2>Before we start...</h2>
+        <p>What expressions do you already use when you're telling a funny or dramatic story to a friend? Write 2-3 phrases — from memory, no Googling.</p>
+        <textarea id="retrieval" placeholder="e.g. 'You're not gonna believe this...'"></textarea>
+        <div class="wc" id="wcRetrieval">0 words</div>
+        <div class="fb" id="fbRetrieval"></div>
+    </div>
+
+    <div class="learning-intention">Today: 5 expressions that make any story impossible to stop listening to — so you can retell a story and make people lean in.</div>
+
+    <div class="card">
+        <h2>🚨 World's Dumbest Criminals</h2>
+        <p>These are all real. Every single one.</p>
+
+        <div class="story">
+            <div class="headline">🤦 The Selfie Burglar</div>
+            <div class="detail">In 2015, a man broke into a house in Dunnellon, Florida. He stole electronics, jewellery, and cash. Then he found the owner's phone, took a selfie, and accidentally uploaded it to the victim's social media. Police arrested him within hours.</div>
+            <div class="source">Source: Florida Police Department, 2015</div>
+        </div>
+
+        <div class="story">
+            <div class="headline">🍕 The Pizza Delivery Robber</div>
+            <div class="detail">A man in Louisiana ordered a pizza, then robbed the delivery driver when he arrived. The driver told police exactly where he'd delivered the pizza. The man was arrested at his own front door, still eating the pizza, 20 minutes later.</div>
+            <div class="source">Source: Shreveport Police, 2017</div>
+        </div>
+
+        <div class="story">
+            <div class="headline">📞 The Wrong Number</div>
+            <div class="detail">In 2018, a drug dealer in the UK accidentally texted his entire price list to a police officer's personal phone. He'd saved the number as a customer. The officer organised a "purchase" and arrested him at the meetup point.</div>
+            <div class="source">Source: Kent Police, 2018</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p style="text-align:center; color:#e94560; font-weight:bold; font-size: 1em;">These stories are GOLD for practising storytelling expressions.<br>Next: the 5 expressions that make retelling these stories 10x better.</p>
+    </div>
+</div>
+
+<!-- TAB 2: LANGUAGE FOCUS A (Expressions 1-3) -->
+<div class="tab-content" id="tab1">
+    <div class="card">
+        <h2>Expressions 1-3</h2>
+        <p>Click each expression to see it in action — then try it yourself.</p>
+    </div>
+
+    <div class="expr-card">
+        <div class="expr">1. "So basically what happened was..."</div>
+        <div class="meaning">Sets up a story. Signals: "I'm about to tell you something good." Use it to start.</div>
+        <button class="reveal-btn" onclick="reveal('ex1')">See Example</button>
+        <div class="hidden-content" id="ex1">
+            <div class="example">"So basically what happened was, this guy broke into a house, stole a bunch of stuff, and then took a selfie on the victim's phone."</div>
+        </div>
+        <div style="margin-top:12px;">
+            <p><strong>Now you try:</strong> Retell the pizza story using this expression.</p>
+            <textarea id="try1" placeholder="So basically what happened was..."></textarea>
+            <div class="wc" id="wcTry1">0 words</div>
+        </div>
+    </div>
+
+    <div class="expr-card">
+        <div class="expr">2. "The thing is, nobody saw it coming"</div>
+        <div class="meaning">Creates suspense. Signals something unexpected is about to drop.</div>
+        <button class="reveal-btn" onclick="reveal('ex2')">See Example</button>
+        <div class="hidden-content" id="ex2">
+            <div class="example">"The thing is, nobody saw it coming — the cops already had his face because he'd literally posted it himself."</div>
+        </div>
+        <div style="margin-top:12px;">
+            <p><strong>Now you try:</strong> Add this expression to your pizza story from above. What was the unexpected twist?</p>
+            <textarea id="try2" placeholder="The thing is..."></textarea>
+            <div class="wc" id="wcTry2">0 words</div>
+        </div>
+    </div>
+
+    <div class="expr-card">
+        <div class="expr">3. "What gets me is..."</div>
+        <div class="meaning">Your personal emotional reaction. Shows you FEEL something — not just reporting facts.</div>
+        <button class="reveal-btn" onclick="reveal('ex3')">See Example</button>
+        <div class="hidden-content" id="ex3">
+            <div class="example">"What gets me is that he was still eating the pizza when they arrested him. Like, he didn't even try to hide."</div>
+        </div>
+        <div style="margin-top:12px;">
+            <p><strong>Now you try:</strong> What gets you about the drug dealer story? Give your reaction.</p>
+            <textarea id="try3" placeholder="What gets me is..."></textarea>
+            <div class="wc" id="wcTry3">0 words</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Quick Check</h3>
+        <p>Cover the expressions above. Can you remember all 3? Say them out loud, then check.</p>
+        <button class="reveal-btn" onclick="reveal('check1')">Check</button>
+        <div class="hidden-content" id="check1">
+            <p>1. "So basically what happened was..." (start the story)<br>
+            2. "The thing is, nobody saw it coming" (the twist)<br>
+            3. "What gets me is..." (your reaction)</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3: LANGUAGE FOCUS B (Expressions 4-5) -->
+<div class="tab-content" id="tab2">
+    <div class="card">
+        <h2>Expressions 4-5</h2>
+        <p>Two more. Then you've got the full toolkit.</p>
+    </div>
+
+    <div class="expr-card">
+        <div class="expr">4. "You'd think [X], but actually..."</div>
+        <div class="meaning">Flips expectations. The listener assumes one thing — you surprise them.</div>
+        <button class="reveal-btn" onclick="reveal('ex4')">See Example</button>
+        <div class="hidden-content" id="ex4">
+            <div class="example">"You'd think breaking into a house would be the hard part, but actually it was taking a selfie that got him caught."</div>
+        </div>
+        <div style="margin-top:12px;">
+            <p><strong>Now you try:</strong> Use this expression about the drug dealer. What would you expect vs what actually happened?</p>
+            <textarea id="try4" placeholder="You'd think... but actually..."></textarea>
+            <div class="wc" id="wcTry4">0 words</div>
+        </div>
+    </div>
+
+    <div class="expr-card">
+        <div class="expr">5. "It all came down to..."</div>
+        <div class="meaning">Builds to the climax. Everything in the story leads to THIS one moment.</div>
+        <button class="reveal-btn" onclick="reveal('ex5')">See Example</button>
+        <div class="hidden-content" id="ex5">
+            <div class="example">"It all came down to one stupid text message. Years of dealing, and he sends his price list to a cop."</div>
+        </div>
+        <div style="margin-top:12px;">
+            <p><strong>Now you try:</strong> Use this expression about the selfie burglar. What did it all come down to?</p>
+            <textarea id="try5" placeholder="It all came down to..."></textarea>
+            <div class="wc" id="wcTry5">0 words</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Interleaved Recall</h3>
+        <p>Match the expression to the purpose. Say your answers out loud, then check.</p>
+        <p style="margin-top:8px;">A. Start a story → ?<br>B. Add a twist → ?<br>C. Give your reaction → ?<br>D. Flip expectations → ?<br>E. Build to the climax → ?</p>
+        <button class="reveal-btn" onclick="reveal('check2')" style="margin-top:10px;">Check Answers</button>
+        <div class="hidden-content" id="check2">
+            <p>A. "So basically what happened was..."<br>
+            B. "The thing is, nobody saw it coming"<br>
+            C. "What gets me is..."<br>
+            D. "You'd think [X], but actually..."<br>
+            E. "It all came down to..."</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4: YOUR TURN -->
+<div class="tab-content" id="tab3">
+    <div class="card">
+        <h2>Your Turn</h2>
+        <p>Pick 2-3 topics. For each one, tell the story using as many of the 5 expressions as you can. Speak — don't write.</p>
+        <div class="tracker" id="tracker">
+            <span class="tracker-chip" id="chip1">1. Basically...</span>
+            <span class="tracker-chip" id="chip2">2. Thing is...</span>
+            <span class="tracker-chip" id="chip3">3. Gets me...</span>
+            <span class="tracker-chip" id="chip4">4. You'd think...</span>
+            <span class="tracker-chip" id="chip5">5. Came down to...</span>
+        </div>
+    </div>
+
+    <div class="disc-grid">
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">🤳</span>
+            <span class="topic">Retell the selfie burglar story to me like you're telling a friend</span>
+        </div>
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">😂</span>
+            <span class="topic">What's the dumbest thing YOU or someone you know has ever done?</span>
+        </div>
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">🕵️</span>
+            <span class="topic">If you were a criminal, what crime would you actually be good at? Tell the story.</span>
+        </div>
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">📱</span>
+            <span class="topic">Tell a story about a time technology got someone in trouble</span>
+        </div>
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">🏫</span>
+            <span class="topic">The dumbest thing that ever happened at your school — retell it dramatically</span>
+        </div>
+        <div class="disc-card" onclick="pickCard(this)">
+            <span class="emoji">🧠</span>
+            <span class="topic">Invent a NEW dumb criminal story. Make it funny. Use the expressions.</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <p style="font-size:0.85em; color:#888;">Teacher: tap the expression chips above when the student uses them. This tracks which ones they're naturally producing.</p>
+    </div>
+</div>
+
+<!-- TAB 5: DEEP DIVE -->
+<div class="tab-content" id="tab4">
+    <div class="card">
+        <h2>Deep Dive Challenge</h2>
+        <p>Pick ONE of the three criminal stories from Tab 1. Retell it in your own words using <strong>all 5 expressions</strong>. You have 3 minutes.</p>
+
+        <div class="timer" id="deepTimer">3:00</div>
+
+        <div style="margin: 10px 0;">
+            <button class="btn btn-go" id="deepStart" onclick="startDeep()">START TIMER</button>
+            <button class="btn btn-sub" id="deepSubmit" onclick="submitDeep()" disabled>SUBMIT</button>
+        </div>
+
+        <textarea id="deepText" disabled placeholder="Pick a story. Retell it using all 5 expressions. Make it dramatic, funny, and impossible to stop reading."></textarea>
+        <div class="wc" id="wcDeepText">0 words</div>
+        <div class="fb" id="fbDeep"></div>
+    </div>
+</div>
+
+<!-- TAB 6: WRAP-UP -->
+<div class="tab-content" id="tab5">
+    <div class="card">
+        <h2>Final Recall</h2>
+        <p>Without looking back — write all 5 expressions from memory. Then check.</p>
+        <textarea id="recallText" placeholder="1.&#10;2.&#10;3.&#10;4.&#10;5."></textarea>
+        <div class="wc" id="wcRecallText">0 words</div>
+        <button class="reveal-btn" onclick="reveal('recallCheck')" style="margin-top:10px;">Check</button>
+        <div class="hidden-content" id="recallCheck">
+            <p>1. "So basically what happened was..."<br>
+            2. "The thing is, nobody saw it coming"<br>
+            3. "What gets me is..."<br>
+            4. "You'd think [X], but actually..."<br>
+            5. "It all came down to..."</p>
+            <p style="margin-top:8px; color:#4ecdc4; font-weight:600;">How many did you get? Check the exact wording too.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Quick Reflection</h3>
+        <p>Which expression was easiest for you to use? Which was hardest? What helped you remember them?</p>
+    </div>
+
+    <div class="card">
+        <p style="color:#e94560; font-weight:600;">We said you'd be able to retell a story and make people lean in. Can you? Try retelling the selfie burglar story to someone this week.</p>
+    </div>
+</div>
+
+</div>
+
+<script>
+    // TAB SWITCHING
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab' + n).classList.add('active');
+        document.querySelectorAll('.tab')[n].classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // REVEAL
+    function reveal(id) {
+        document.getElementById(id).classList.toggle('show');
+    }
+
+    // WORD COUNTS
+    document.querySelectorAll('textarea').forEach(ta => {
+        ta.addEventListener('input', function() {
+            const wcId = 'wc' + this.id.charAt(0).toUpperCase() + this.id.slice(1);
+            const wcEl = document.getElementById(wcId);
+            if (wcEl) {
+                const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+                wcEl.textContent = words + ' words';
+            }
+        });
+    });
+
+    // DISCUSSION CARD PICK
+    function pickCard(el) {
+        el.classList.toggle('picked');
+    }
+
+    // EXPRESSION TRACKER (teacher taps)
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById('chip' + i).addEventListener('click', function() {
+            this.classList.toggle('used');
+        });
+    }
+
+    // DEEP DIVE TIMER
+    let deepInterval = null;
+
+    function startDeep() {
+        document.getElementById('deepText').disabled = false;
+        document.getElementById('deepText').focus();
+        document.getElementById('deepStart').disabled = true;
+        document.getElementById('deepSubmit').disabled = false;
+
+        let remaining = 180;
+        const timerEl = document.getElementById('deepTimer');
+
+        deepInterval = setInterval(() => {
+            remaining--;
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            timerEl.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+            timerEl.classList.remove('warn', 'danger');
+            if (remaining <= 10) timerEl.classList.add('danger');
+            else if (remaining <= 30) timerEl.classList.add('warn');
+
+            if (remaining <= 0) {
+                clearInterval(deepInterval);
+                submitDeep();
+            }
+        }, 1000);
+    }
+
+    function submitDeep() {
+        if (deepInterval) clearInterval(deepInterval);
+        document.getElementById('deepText').disabled = true;
+        document.getElementById('deepSubmit').disabled = true;
+        document.getElementById('deepTimer').textContent = 'Done!';
+        document.getElementById('deepTimer').classList.remove('warn', 'danger');
+
+        const text = document.getElementById('deepText').value.trim();
+        const words = text.split(/\s+/).filter(w => w.length > 0).length;
+        const lower = text.toLowerCase();
+
+        const checks = [
+            { keys: ['basically', 'what happened'], name: 'Expression 1' },
+            { keys: ['thing is', 'saw it coming'], name: 'Expression 2' },
+            { keys: ['gets me', 'what gets me'], name: 'Expression 3' },
+            { keys: ["you'd think", 'you would think', 'but actually'], name: 'Expression 4' },
+            { keys: ['came down to'], name: 'Expression 5' }
+        ];
+
+        let found = [];
+        let missed = [];
+        checks.forEach(c => {
+            if (c.keys.some(k => lower.includes(k))) found.push(c.name);
+            else missed.push(c.name);
+        });
+
+        const fb = document.getElementById('fbDeep');
+        let msg = words + ' words. Expressions used: ' + found.length + '/5.';
+        if (found.length > 0) msg += ' Found: ' + found.join(', ') + '.';
+        if (missed.length > 0) msg += ' Missing: ' + missed.join(', ') + '.';
+
+        fb.className = 'fb show ' + (found.length >= 4 ? 'ok' : 'meh');
+        fb.textContent = msg;
+    }
+</script>
+
+</body>
+</html>
