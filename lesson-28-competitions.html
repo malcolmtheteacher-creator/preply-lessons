@@ -671,8 +671,8 @@
 
         function startSpeedCardsChallenge() {
             generateCardDeck();
-            document.getElementById('cardRecall').style.display = 'block';
-            document.getElementById('scoreCardBtn').style.display = 'inline-block';
+            // Show challenge mode with new cards
+            alert('Cards generated! You have 60 seconds to memorize: ' + cardData.join(' ') + '\n\nWhen ready, recall them using PAO system.');
             startCardTimer();
         }
 
@@ -777,8 +777,31 @@
 
         function submitCompetitionAnswer() {
             if (timerInterval) clearInterval(timerInterval);
-            const answer = document.getElementById('competitionAnswer').value;
-            competitionScores.push({event: 'Speed Cards', score: Math.round(Math.random() * 100)});
+            const answer = document.getElementById('competitionAnswer').value.toUpperCase().trim();
+
+            // Calculate actual score based on correct answers
+            let score = 0;
+            const eventName = currentEvent === 0 ? 'Speed Cards' : currentEvent === 1 ? 'Speed Numbers' : 'Random Words';
+
+            if (currentEvent === 0 && cardData) {
+                const expected = cardData.join(' ');
+                const userCards = answer.split(/\s+/);
+                userCards.forEach((card, i) => {
+                    if (cardData[i] && card === cardData[i]) score += 20; // 20 points per correct card
+                });
+            } else if (currentEvent === 1 && numberData) {
+                const userDigits = answer.replace(/\s/g, '');
+                for (let i = 0; i < Math.min(userDigits.length, numberData.length); i++) {
+                    if (userDigits[i] === numberData[i]) score += 5; // 5 points per digit
+                }
+            } else if (currentEvent === 2 && wordData) {
+                const userWords = answer.split(/[,\n]+/).map(w => w.trim().toLowerCase());
+                wordData.forEach((word, i) => {
+                    if (userWords[i] && userWords[i] === word.toLowerCase()) score += 7; // ~7 points per word
+                });
+            }
+
+            competitionScores.push({event: eventName, score: Math.min(score, 100)});
             currentEvent++;
             if (currentEvent < 3) {
                 nextCompetitionEvent();
@@ -832,7 +855,24 @@
 
         function submitChampionAnswer() {
             if (timerInterval) clearInterval(timerInterval);
-            competitionScores.push({event: 'Speed Cards', score: Math.round(Math.random() * 100)});
+
+            // Calculate score based on actual user input
+            let score = 0;
+            const events = ['Speed Cards', 'Speed Numbers', 'Names & Faces', 'Random Words', 'Spoken Numbers', 'Historic Dates', 'Binary', 'Abstract Images', 'Hour Cards', 'Random Images'];
+            const eventName = events[currentEvent] || 'Event';
+
+            // Score based on content length as proxy for effort (simplified scoring)
+            const answer = document.getElementById('championTextAnswer')?.value ||
+                          document.getElementById('championAnswer')?.value || '';
+            const answerLength = answer.trim().length;
+
+            // Give points based on answer completeness
+            if (answerLength > 50) score = 90 + Math.floor(Math.random() * 10); // Detailed response
+            else if (answerLength > 20) score = 70 + Math.floor(Math.random() * 20);
+            else if (answerLength > 5) score = 50 + Math.floor(Math.random() * 20);
+            else score = Math.floor(Math.random() * 30); // Minimal answer
+
+            competitionScores.push({event: eventName, score: score});
             currentEvent++;
             if (currentEvent < 10) {
                 nextChampionEvent();
