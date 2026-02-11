@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Stress - Quick Fix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            background: white;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-button:hover {
+            background: #f8f9fa;
+        }
+
+        .tab-content {
+            padding: 40px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin: 20px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-text {
+            color: #d32f2f;
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .correct-text {
+            color: #2e7d32;
+            font-weight: 700;
+        }
+
+        .visual-box {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .mouth-diagram {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .sound-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .sound-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sound-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .sound-card.voiceless h3 {
+            color: #2196F3;
+            border-bottom-color: #2196F3;
+        }
+
+        .sound-card.voiced h3 {
+            color: #f44336;
+            border-bottom-color: #f44336;
+        }
+
+        .symbol {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: serif;
+            margin: 10px 0;
+            color: #667eea;
+        }
+
+        .articulation-text {
+            font-size: 13px;
+            color: #666;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .rule-box {
+            background: #fffde7;
+            border-left: 4px solid #fbc02d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .exercise {
+            background: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .exercise-prompt {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .minimal-pairs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .pair-card {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+
+        .pair-card strong {
+            color: #333;
+        }
+
+        .pair-card .voiceless {
+            color: #2196F3;
+            font-weight: 600;
+        }
+
+        .pair-card .voiced {
+            color: #f44336;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .feedback {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #d32f2f;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .reveal-box {
+            background: #e8eaf6;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .reveal-box.show {
+            display: block;
+        }
+
+        .reveal-button {
+            padding: 8px 16px;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .trick-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .trick-box strong {
+            color: #1976D2;
+        }
+
+        .sorting-exercise {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .sort-category {
+            margin: 15px 0;
+        }
+
+        .sort-category h4 {
+            font-weight: 700;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .sort-category.voiceless h4 {
+            background: #2196F3;
+        }
+
+        .sort-category.voiced h4 {
+            background: #f44336;
+        }
+
+        .sort-category.ɪd h4 {
+            background: #ff9800;
+        }
+
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .word-item {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 30px;
+        }
+
+        .stress-example {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .stress-example .noun, .stress-example .verb {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .stressed {
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-bottom: 2px solid #e0e0e0;
+                margin-bottom: 0;
+            }
+
+            .tab-button.active {
+                border-bottom: 2px solid #667eea;
+                border-left: 4px solid #667eea;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="text"] {
+                width: 100%;
+            }
+
+            .sound-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .minimal-pairs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 Word Stress Patterns</h1>
+            <p>B1 • French/Italian/Polish • Master English stress for clarity</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Diagnose</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Fix It</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Produce</button>
+        </div>
+
+        <!-- TAB 1: DIAGNOSE -->
+        <div class="tab-content active">
+            <h2 class="section-title">🔍 Let's notice the stress problem</h2>
+            <p>Listen to these common mistakes:</p>
+
+            <div class="visual-box">
+                <p style="margin: 10px 0;"><span class="error-text">❌ "phoTOgraphy" (wrong stress on TO)"</span></p>
+                <p style="margin: 10px 0; color: #666; font-size: 13px;">Should be: "PHOtography" (stress on FIRST syllable)</p>
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="margin: 10px 0;"><span class="error-text">❌ "I reCORD the meeting"</span></p>
+                <p style="margin: 10px 0; color: #666; font-size: 13px;">Should be: "I <span class="correct-text">REcord</span> the meeting" (stress on first syllable for the verb)</p>
+            </div>
+
+            <p style="margin: 20px 0;">Why do these sound wrong? Does the stress placement change meaning?</p>
+
+            <button class="reveal-button" onclick="toggleReveal('diagnose-reveal')">Show the rule</button>
+
+            <div id="diagnose-reveal" class="reveal-box">
+                <div class="rule-box">
+                    <strong>🎯 The Problem:</strong>
+                    <p style="margin-top: 8px;">French, Italian, and Polish speakers often stress the FINAL syllable because that's how their languages work. But English stress is unpredictable and changes meaning!</p>
+                    <p style="margin-top: 8px;">English stress changes:</p>
+                    <p style="margin-top: 8px;">🔹 <strong>Meaning:</strong> REcord (noun: a document) vs reCORD (verb: to capture sound)</p>
+                    <p style="margin-top: 8px;">🔹 <strong>Word class:</strong> PREsent (noun: a gift) vs preSENT (verb: to show)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: FIX IT -->
+        <div class="tab-content">
+            <h2 class="section-title">🛠️ English stress rules</h2>
+
+            <div class="rule-box">
+                <strong>📌 Rule 1: Nouns and Verbs (same word)</strong>
+                <p style="margin-top: 8px;">Many English words are both noun and verb. The stress shifts:</p>
+                <p style="margin-top: 8px; color: #2e7d32;"><strong>✓ Nouns:</strong> stress on 1st syllable (REcord, PREsent, OBject)</p>
+                <p style="margin-top: 8px; color: #2e7d32;"><strong>✓ Verbs:</strong> stress on 2nd syllable (reCORD, preSENT, obJECT)</p>
+            </div>
+
+            <div class="stress-example">
+                <div class="noun"><strong>NOUN:</strong><br><span class="stressed">REC</span>ord<br>(a document)</div>
+                <div class="verb"><strong>VERB:</strong><br>reCORD<br>(to tape)</div>
+            </div>
+
+            <div class="stress-example">
+                <div class="noun"><strong>NOUN:</strong><br><span class="stressed">PRES</span>ent<br>(a gift)</div>
+                <div class="verb"><strong>VERB:</strong><br>preSENT<br>(to show)</div>
+            </div>
+
+            <div class="rule-box">
+                <strong>📌 Rule 2: Suffixes affect stress</strong>
+                <p style="margin-top: 8px;"><strong>-tion, -sion:</strong> Stress the syllable BEFORE the suffix</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ informATION (not INformation)</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ decISION (not DEcision)</p>
+                <p style="margin-top: 8px;"><strong>-ic:</strong> Stress the syllable BEFORE</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ fanTAStic (not FANtastic)</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ draMATic (not DRAmatic)</p>
+                <p style="margin-top: 8px;"><strong>-ity:</strong> Stress the syllable BEFORE</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ univerSITy (not UNIversity)</p>
+                <p style="margin-top: 8px; color: #2e7d32;">✓ possiBILity (not POSSibility)</p>
+            </div>
+
+            <h3 class="section-title">✏️ Guided practice — Read and mark the stress</h3>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Notice the stress in these noun/verb pairs:</div>
+                <p style="font-size: 13px; color: #666; margin-top: 8px;">🔵 <strong>PREsent</strong> (noun) vs pre<strong>SENT</strong> (verb) — Say both 3 times!</p>
+                <p style="font-size: 13px; color: #666; margin: 8px 0;">🔵 <strong>OBject</strong> (noun) vs ob<strong>JECT</strong> (verb)</p>
+                <p style="font-size: 13px; color: #666; margin: 8px 0;">🔵 <strong>REfuse</strong> (noun) vs re<strong>FUSE</strong> (verb)</p>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Notice the stress with suffixes:</div>
+                <p style="font-size: 13px; color: #666; margin-top: 8px;">🔵 <strong>inform</strong> → infor<strong>MATION</strong></p>
+                <p style="font-size: 13px; color: #666; margin: 8px 0;">🔵 <strong>decide</strong> → deci<strong>SION</strong></p>
+                <p style="font-size: 13px; color: #666; margin: 8px 0;">🔵 <strong>fantasy</strong> → fan<strong>TAS</strong>tic</p>
+            </div>
+
+            <h3 class="section-title">🚫 Common mistakes to AVOID</h3>
+            <div class="rule-box">
+                <p>❌ <span class="error-text">phoTOgraphy</span> instead of <span class="correct-text">PHOtography</span></p>
+                <p style="margin-top: 8px;">❌ <span class="error-text">preSENT a gift</span> instead of <span class="correct-text">PREsent a gift</span></p>
+                <p style="margin-top: 8px;">❌ <span class="error-text">INformation</span> instead of <span class="correct-text">inforMATION</span></p>
+                <p style="margin-top: 8px;">❌ <span class="error-text">DRAmatic</span> instead of <span class="correct-text">draMATic</span></p>
+            </div>
+        </div>
+
+        <!-- TAB 3: PRODUCE -->
+        <div class="tab-content">
+            <h2 class="section-title">🚀 Now you try — Mark the stressed syllable</h2>
+            <p style="margin-bottom: 20px;">Choose where the MAIN stress falls (CAPS show the stressed syllable):</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Question 1: Where is the stress in "PREsent" (a gift)?</div>
+                <div class="input-group">
+                    <label><input type="radio" name="q1" value="correct"> <strong>PRES</strong>ent</label>
+                    <label><input type="radio" name="q1" value="incorrect"> pre<strong>SENT</strong></label>
+                </div>
+                <button onclick="checkStress('q1', 'correct', 'feedback1')">Check</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Question 2: Where is the stress in "to record"?</div>
+                <div class="input-group">
+                    <label><input type="radio" name="q2" value="incorrect"> <strong>REC</strong>ord</label>
+                    <label><input type="radio" name="q2" value="correct"> re<strong>CORD</strong></label>
+                </div>
+                <button onclick="checkStress('q2', 'correct', 'feedback2')">Check</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Question 3: Where is the stress in "information"?</div>
+                <div class="input-group">
+                    <label><input type="radio" name="q3" value="incorrect"> in<strong>FOR</strong>mation</label>
+                    <label><input type="radio" name="q3" value="correct"> infor<strong>MA</strong>tion</label>
+                </div>
+                <button onclick="checkStress('q3', 'correct', 'feedback3')">Check</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Question 4: Where is the stress in "dramatic"?</div>
+                <div class="input-group">
+                    <label><input type="radio" name="q4" value="incorrect"> <strong>DRAM</strong>atic</label>
+                    <label><input type="radio" name="q4" value="correct"> dra<strong>MAT</strong>ic</label>
+                </div>
+                <button onclick="checkStress('q4', 'correct', 'feedback4')">Check</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Practice: Read this sentence with correct stress (3 times):</div>
+                <p style="font-size: 14px; font-weight: 600; margin: 10px 0; color: #333;">
+                    "I will <span class="correct-text">PREsent</span> the <span class="correct-text">inforMATION</span> about this <span class="correct-text">draMATic</span> discovery."
+                </p>
+                <button class="reveal-button" onclick="toggleReveal('practice1-reveal')">Check your pronunciation</button>
+                <div id="practice1-reveal" class="reveal-box">
+                    <strong>Key points:</strong>
+                    <p style="margin-top: 8px;">✓ <strong>PREsent</strong> = stress on 1st syllable (noun/verb as gift)</p>
+                    <p style="margin-top: 8px;">✓ <strong>inforMATION</strong> = stress before -tion suffix</p>
+                    <p style="margin-top: 8px;">✓ <strong>draMATic</strong> = stress before -ic suffix</p>
+                </div>
+            </div>
+
+            <div class="can-statement">
+                ✅ I can identify and produce correct word stress patterns
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach((tab, i) => {
+                tab.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+
+            tabs[tabIndex].classList.add('active');
+            buttons[tabIndex].classList.add('active');
+        }
+
+        function toggleReveal(elementId) {
+            const element = document.getElementById(elementId);
+            element.classList.toggle('show');
+        }
+
+        function checkStress(groupName, correctValue, feedbackId) {
+            const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+            const feedback = document.getElementById(feedbackId);
+
+            if (!selected) {
+                feedback.textContent = 'Please select an answer!';
+                feedback.className = 'feedback incorrect';
+                feedback.style.display = 'block';
+                return;
+            }
+
+            if (selected.value === correctValue) {
+                feedback.textContent = '✓ Correct! You have the right stress placement.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = '✗ Try again. Remember the stress rules for nouns/verbs and suffixes.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
