@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Have a Superpower</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+
+/* Nav */
+.nav { display: flex; gap: 6px; padding: 12px; background: #111128; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+.nav-btn { padding: 10px 16px; border: 2px solid #333; border-radius: 8px; background: transparent; color: #888; font-weight: 700; font-size: 0.8em; cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+.nav-btn.active { background: #6c5ce7; border-color: #6c5ce7; color: #fff; }
+.nav-btn.completed { border-color: #00b894; color: #00b894; }
+.nav-btn:hover { border-color: #6c5ce7; }
+.nav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+/* Stage container */
+.stage { display: none; padding: 20px; max-width: 700px; margin: 0 auto; }
+.stage.active { display: block; }
+.stage-title { font-size: 1.8em; font-weight: 900; margin-bottom: 6px; }
+.stage-sub { color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+/* Cards */
+.card { background: #16162a; border: 2px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.card:hover { border-color: #6c5ce7; }
+.card-label { font-size: 0.75em; font-weight: 700; color: #6c5ce7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+
+/* Buttons */
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-primary { background: #6c5ce7; color: #fff; }
+.btn-primary:hover { background: #5a4bd1; transform: translateY(-1px); }
+.btn-success { background: #00b894; color: #fff; }
+.btn-danger { background: #e17055; color: #fff; }
+.btn-ghost { background: transparent; border: 2px solid #444; color: #ccc; }
+.btn-ghost:hover { border-color: #6c5ce7; color: #fff; }
+.btn-small { padding: 8px 16px; font-size: 0.85em; }
+
+/* Timer */
+.timer-bar { width: 100%; height: 8px; background: #222; border-radius: 4px; margin: 12px 0; overflow: hidden; }
+.timer-fill { height: 100%; background: #6c5ce7; border-radius: 4px; transition: width 0.1s linear; }
+.timer-fill.warning { background: #fdcb6e; }
+.timer-fill.danger { background: #e17055; animation: pulse 0.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+.timer-text { font-size: 2em; font-weight: 900; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* Name grid for memory challenge */
+.name-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.name-card { background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 14px; text-align: center; font-weight: 700; font-size: 1.1em; transition: all 0.3s; }
+.name-card.revealed { background: #2d1b69; border-color: #6c5ce7; }
+.name-card.hidden-name { background: #1e1e3a; border-color: #444; color: #444; font-size: 0.9em; }
+.name-card.correct { background: #00b89422; border-color: #00b894; color: #00b894; }
+.name-card.wrong { background: #e1705522; border-color: #e17055; color: #e17055; }
+
+/* Creature reveal */
+.creature-box { display: flex; align-items: center; gap: 16px; background: #1e1e3a; border: 2px solid #6c5ce7; border-radius: 12px; padding: 18px; margin: 12px 0; }
+.creature-emoji { font-size: 2.5em; }
+.creature-info { flex: 1; }
+.creature-code { font-weight: 800; color: #6c5ce7; font-size: 1.2em; }
+.creature-name { color: #ccc; font-size: 0.9em; }
+
+/* Scene builder */
+.scene-area { width: 100%; min-height: 100px; background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 16px; color: #e0e0e0; font-family: inherit; font-size: 1em; line-height: 1.7; resize: vertical; outline: none; transition: border-color 0.3s; }
+.scene-area:focus { border-color: #6c5ce7; }
+.scene-area::placeholder { color: #555; }
+
+/* Word count */
+.word-count { text-align: right; font-size: 0.8em; color: #666; margin-top: 4px; }
+.word-count.good { color: #00b894; }
+
+/* Checklist */
+.check-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #1a1a2e; }
+.check-dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #444; display: flex; align-items: center; justify-content: center; font-size: 0.8em; transition: all 0.3s; flex-shrink: 0; }
+.check-dot.checked { background: #00b894; border-color: #00b894; color: #fff; }
+.check-label { font-size: 0.9em; }
+
+/* Prompt cards */
+.prompt-card { background: linear-gradient(135deg, #2d1b69, #1e1e3a); border: 2px solid #6c5ce7; border-radius: 12px; padding: 20px; margin: 12px 0; text-align: center; font-size: 1.1em; font-weight: 600; line-height: 1.6; }
+
+/* Chain visual */
+.chain { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+.chain-link { background: #16162a; border: 2px solid #333; border-radius: 10px; padding: 14px 16px; position: relative; transition: all 0.3s; }
+.chain-link.active { border-color: #6c5ce7; background: #1e1e3a; }
+.chain-link.done { border-color: #00b894; }
+.chain-connector { width: 3px; height: 20px; background: #333; margin: 0 auto; }
+.chain-connector.done { background: #00b894; }
+.chain-num { font-weight: 800; color: #6c5ce7; font-size: 0.85em; }
+.chain-content { margin-top: 4px; }
+.chain-fact { font-weight: 700; color: #fff; }
+.chain-creature { font-size: 0.85em; color: #888; margin-top: 2px; }
+.chain-scene { font-size: 0.85em; color: #aaa; margin-top: 6px; font-style: italic; }
+
+/* Score display */
+.score-big { font-size: 4em; font-weight: 900; text-align: center; background: linear-gradient(135deg, #6c5ce7, #00b894); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.score-label { text-align: center; color: #888; margin-top: 4px; }
+
+/* Fact box */
+.fact-box { background: #1a1a3e; border-left: 4px solid #fdcb6e; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; line-height: 1.6; }
+.fact-box strong { color: #fdcb6e; }
+
+/* Progress bar */
+.progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin: 20px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #6c5ce7, #00b894); border-radius: 3px; transition: width 0.5s ease; }
+
+/* Helpers */
+.flex { display: flex; gap: 10px; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mt { margin-top: 16px; }
+.mb { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85em; color: #888; }
+.highlight { color: #6c5ce7; font-weight: 700; }
+.highlight-green { color: #00b894; font-weight: 700; }
+.highlight-yellow { color: #fdcb6e; font-weight: 700; }
+
+/* Animations */
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: slideIn 0.4s ease; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.shake { animation: shake 0.3s; }
+@keyframes celebrate { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.celebrate { animation: celebrate 0.5s ease; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .name-grid { grid-template-columns: 1fr; }
+  .stage-title { font-size: 1.4em; }
+  .nav-btn { padding: 8px 12px; font-size: 0.75em; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="goStage(0)">1. Challenge</button>
+  <button class="nav-btn locked" onclick="goStage(1)">2. The Secret</button>
+  <button class="nav-btn locked" onclick="goStage(2)">3. Build Scenes</button>
+  <button class="nav-btn locked" onclick="goStage(3)">4. Memory Chain</button>
+  <button class="nav-btn locked" onclick="goStage(4)">5. The Test</button>
+  <button class="nav-btn locked" onclick="goStage(5)">6. Your Story</button>
+</nav>
+
+<!-- ============================================ -->
+<!-- STAGE 1: THE IMPOSSIBLE CHALLENGE -->
+<!-- ============================================ -->
+<div class="stage active" id="stage0">
+  <div class="stage-title">The Impossible Challenge</div>
+  <div class="stage-sub">Let's see what your brain can do right now...</div>
+
+  <div class="card">
+    <div class="card-label">Your Mission</div>
+    <p>You will see <span class="highlight">8 famous people and what they did</span>. You have <span class="highlight-yellow">45 seconds</span> to memorize them. Then they disappear. Ready?</p>
+  </div>
+
+  <div id="challenge1_area">
+    <div class="text-center mt">
+      <button class="btn btn-primary" onclick="startChallenge1()" id="startBtn1">Show me the names!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 2: THE SECRET -->
+<!-- ============================================ -->
+<div class="stage" id="stage1">
+  <div class="stage-title">The Secret</div>
+  <div class="stage-sub">Your brain isn't bad at memory. It just needs the right system.</div>
+
+  <div class="card">
+    <div class="card-label">The Problem</div>
+    <p>Your brain is <span class="highlight-yellow">terrible</span> at remembering lists of words. Names, dates, facts -- they just fall out.</p>
+    <p class="mt">But your brain is <span class="highlight-green">incredible</span> at remembering <strong>pictures</strong>, <strong>stories</strong>, and <strong>weird things</strong>.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Trick</div>
+    <p>Every name starts with <span class="highlight">two letters</span>. Those two letters match a <span class="highlight">creature</span> from the Bestiary -- an ancient book of beasts.</p>
+    <p class="mt">You turn the name into a creature. Then you make the creature DO something connected to the person. The weirder the picture, the stronger the memory.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Try It -- Type a Name</div>
+    <div style="margin: 12px 0;">
+      <input type="text" id="decoderInput" class="scene-area" style="min-height: auto; padding: 12px 16px; font-size: 1.2em; text-align: center;" placeholder="Type any name..." oninput="decodeName(this.value)">
+    </div>
+    <div id="decoderResult" class="text-center text-small">Type a name to see its creature</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Example</div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">DA = Dalmatian</div>
+        <div class="creature-name">Da Vinci -- picture a Dalmatian painting the Mona Lisa with its paw, tongue out, getting paint everywhere</div>
+      </div>
+    </div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">EI = Eider (a sea duck)</div>
+        <div class="creature-name">Einstein -- picture an Eider duck with crazy white hair, scribbling E=mc2 on a blackboard with its beak</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt">
+    <button class="btn btn-primary" onclick="unlockStage(2)">Got it -- let's build some scenes!</button>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 3: BUILD SCENES -->
+<!-- ============================================ -->
+<div class="stage" id="stage2">
+  <div class="stage-title">Build Your Scenes</div>
+  <div class="stage-sub">Today: 5 people you'll actually want to remember. Write a scene for each one.</div>
+
+  <p style="margin-bottom: 8px;">Today we're learning about <span class="highlight">5 people who changed the world</span> -- and you're going to remember all of them using the bestiary.</p>
+
+  <div class="fact-box">
+    <strong>Writing tip:</strong> The best memory scenes are <em>specific</em>, <em>weird</em>, and use <em>action</em>. Don't write "A fish swims." Write "A fish slaps a calculator off the desk with its tail, and numbers fly everywhere."
+  </div>
+
+  <div id="sceneBuilder"></div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 4: MEMORY CHAIN -->
+<!-- ============================================ -->
+<div class="stage" id="stage3">
+  <div class="stage-title">Your Memory Chain</div>
+  <div class="stage-sub">Look at what you built. Five people, five creatures, five scenes -- all connected.</div>
+
+  <div class="card">
+    <div class="card-label">Your Chain</div>
+    <div id="chainDisplay"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Lock It In</div>
+    <p>Read through your chain once. Picture each scene in your mind. Make it vivid -- see the colours, hear the sounds, feel the weirdness.</p>
+    <div class="mt">
+      <button class="btn btn-primary" onclick="startLockIn()">Start 60-Second Review</button>
+    </div>
+    <div id="lockInTimer" style="display:none;">
+      <div class="timer-text mt" id="lockInTime">60</div>
+      <div class="timer-bar"><div class="timer-fill" id="lockInFill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <div class="text-center mt" id="chainNextBtn" style="display:none;">
+    <button class="btn btn-success" onclick="unlockStage(4)">I've got it -- test me!</button>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 5: THE TEST -->
+<!-- ============================================ -->
+<div class="stage" id="stage4">
+  <div class="stage-title">The Test</div>
+  <div class="stage-sub">No peeking. What do you remember?</div>
+
+  <div class="card">
+    <div class="card-label">Round 1: Creatures to People</div>
+    <p class="mb">I'll give you the creature. You tell me the person.</p>
+    <div id="testRound1"></div>
+  </div>
+
+  <div id="testRound2Container" style="display:none;">
+    <div class="card animate-in">
+      <div class="card-label">Round 2: What Did They Do?</div>
+      <p class="mb">Now the harder one -- what's the fact about each person?</p>
+      <div id="testRound2"></div>
+    </div>
+  </div>
+
+  <div id="testScore" style="display:none;" class="card animate-in text-center">
+    <div class="card-label">Your Score</div>
+    <div class="score-big" id="scoreDisplay">0/10</div>
+    <div class="score-label" id="scoreMessage"></div>
+    <div class="mt">
+      <button class="btn btn-primary" onclick="unlockStage(5)">Now let's turn it into a story</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 6: YOUR STORY -->
+<!-- ============================================ -->
+<div class="stage" id="stage5">
+  <div class="stage-title">Your Story</div>
+  <div class="stage-sub">You've written 5 scenes. Now connect them into one wild story.</div>
+
+  <div class="card">
+    <div class="card-label">The Challenge</div>
+    <p>Your 5 creatures meet each other. Write a short story where <span class="highlight">one scene leads to the next</span>. Use connecting words to link them.</p>
+
+    <div class="fact-box mt">
+      <strong>Connectors to use:</strong> "Suddenly..." / "Meanwhile..." / "Just then..." / "Without warning..." / "At that exact moment..." / "But little did they know..."
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Your Scenes (for reference)</div>
+    <div id="storySceneRef"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Write Your Connected Story</div>
+    <p class="text-small mb">Use your 5 scenes but connect them together. The weirder the better. Aim for 80+ words.</p>
+    <textarea class="scene-area" id="finalStory" rows="10" placeholder="Start with your first creature and let the chaos begin..." oninput="countFinalWords()"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="finalWordCount">0 words</div>
+      <div id="storyChecklist"></div>
+    </div>
+  </div>
+
+  <div class="card" id="metacogCard" style="display:none;">
+    <div class="card-label">Think About Your Thinking</div>
+    <p>You just memorized 5 people, 5 facts, wrote 5 scenes, AND a connected story.</p>
+    <p class="mt highlight-green">Your memory isn't bad. You just needed the right system.</p>
+    <p class="mt">Quick question for your teacher: <strong>What made the scenes that were easiest to remember different from the ones that were harder?</strong></p>
+    <div class="mt text-center">
+      <p class="text-small">Try the full Bestiary tool anytime:</p>
+      <a href="https://malcolmhyndman.com/preply-lessons/bestiary.html" target="_blank" class="btn btn-ghost btn-small mt">Open the Bestiary</a>
+    </div>
+  </div>
+
+  <div class="text-center mt" id="finishBtn" style="display:none;">
+    <button class="btn btn-success" onclick="showMetacog()">I'm done!</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───
+const bestiaryMap = {
+  'aa':'Aardvark','ab':'Abyssinian Cat','ac':'Acorn','ad':'Adder','ae':'Aerialist',
+  'af':'Afghan Hound','ag':'Agaric Fungi','al':'Alligator','am':'Amulet','an':'Angel',
+  'ap':'Ape','ar':'Armadillo','as':'Asp','at':'Atlas','au':'Auroch',
+  'ba':'Bat','be':'Bee','bi':'Bison','bl':'Bloodhound','bo':'Bower-bird',
+  'br':'Brontosaurus','bu':'Butterfly','ca':'Camel','ce':'Centaur','ch':'Chipmunk',
+  'ci':'Cicada','cl':'Clown','co':'Cow','cr':'Hermit Crab','cu':'Cupid',
+  'da':'Dalmatian','de':'Devil','di':'Diamond Python','do':'Dolphin','dr':'Dragonfly',
+  'du':'Duck','ea':'Earwig','ec':'Echidna','ed':'Edelweiss','ee':'Eel',
+  'ei':'Eider','el':'Elephant','em':'Emu','er':'Ermine','fa':'Falcon',
+  'fe':'Ferret','fi':'Fish','fl':'Flamingo','fo':'Fox','fr':'Frogmouth',
+  'ga':'Gaggle','ge':'Genie','gi':'Giraffe','go':'Gorilla','gr':'Griffin',
+  'gu':'Gull','ha':'Hare','he':'Heron','hi':'Hippopotamus','ho':'Horse',
+  'hu':'Hummingbird','hy':'Hyena','ig':'Iguana','im':'Impala','in':'Insect',
+  'ja':'Jackass','je':'Jellyfish','jo':'Jonquil','ju':'Juggler',
+  'ka':'Kangaroo','ke':'Kestrel','ki':'Kiwi','kn':'Knight','ko':'Kookaburra',
+  'kr':'Kraken','la':'Lapwing','le':'Leprechaun','li':'Limpets','lo':'Lobster',
+  'lu':'Lute','ly':'Lynx','ma':'Macaw','me':'Medusa','mi':'Millipede',
+  'mo':'Monkey','mu':'Muskrat','na':'Nautilus','ne':'Neptune','ni':'Nit',
+  'no':'Noddy','nu':'Numbat','oc':'Octopus','ol':'Olive','or':'Orangutan',
+  'os':'Ostrich','ot':'Otter','pa':'Panda','pe':'Penguin','ph':'Phoenix',
+  'pi':'Pig','pl':'Platypus','po':'Polar Bear','pr':'Praying Mantis','pu':'Puffin',
+  'py':'Python','qu':'Quail','ra':'Raven','re':'Reindeer','rh':'Rhinoceros',
+  'ri':'Ringtail','ro':'Rooster','sa':'Satyr','sc':'Scorpion','se':'Seahorse',
+  'sh':'Shrew','si':'Siamese Cat','sk':'Skunk','sl':'Sloth','sn':'Snail',
+  'so':'Sourpuss','sp':'Spaniel','sq':'Squirrel','st':'Stingray','su':'Sugar Glider',
+  'sw':'Swallow','ta':'Tapir','te':'Termite','th':'Thornbill','ti':'Tiger',
+  'to':'Toad','tr':'Troll','tu':'Turkey','ty':'Tyrannosaurus',
+  'va':'Vampire Bat','vi':'Viper','vo':'Volcano','wa':'Walrus','wi':'Witch',
+  'wo':'Wolf','wr':'Wren','ye':'Yeti','ze':'Zebra','zo':'Zombie'
+};
+
+// 5 useful people + facts to remember
+const people = [
+  {
+    name: "Gutenberg",
+    code: "Gu",
+    creature: "Gull",
+    emoji: "*",
+    fact: "Invented the printing press in 1440 -- made books available to everyone, not just the rich",
+    hint: "Before him, every book was copied by hand. It took months to make ONE book."
+  },
+  {
+    name: "Fibonacci",
+    code: "Fi",
+    creature: "Fish",
+    emoji: "*",
+    fact: "Discovered a number sequence (1, 1, 2, 3, 5, 8, 13...) that appears everywhere in nature -- sunflowers, shells, galaxies",
+    hint: "Each number is the sum of the two before it. This pattern is in your fingerprints."
+  },
+  {
+    name: "Marie Curie",
+    code: "Cu",
+    creature: "Cupid",
+    emoji: "*",
+    fact: "Discovered radioactivity and won TWO Nobel Prizes -- the first person ever to win in two different sciences",
+    hint: "Her notebooks are still so radioactive they're kept in lead-lined boxes. You need protective clothing to read them."
+  },
+  {
+    name: "Archimedes",
+    code: "Ar",
+    creature: "Armadillo",
+    emoji: "*",
+    fact: "Figured out why things float while sitting in his bathtub -- then ran through the streets naked shouting 'Eureka!'",
+    hint: "He also invented war machines that held off the entire Roman army for two years."
+  },
+  {
+    name: "Tesla",
+    code: "Te",
+    creature: "Termite",
+    emoji: "*",
+    fact: "Invented the system that delivers electricity to every building in the world -- AC power -- but died poor because Edison stole his fame",
+    hint: "He could visualise entire machines in his head, build them mentally, and test them before drawing a single line."
+  }
+];
+
+// 8 names for the initial challenge
+const challengeNames = [
+  { name: "Gutenberg", fact: "Invented the printing press" },
+  { name: "Fibonacci", fact: "Discovered the number sequence in nature" },
+  { name: "Marie Curie", fact: "Won 2 Nobel Prizes for radioactivity" },
+  { name: "Archimedes", fact: "Discovered buoyancy in his bathtub" },
+  { name: "Tesla", fact: "Invented AC electricity" },
+  { name: "Galileo", fact: "Proved the Earth goes around the Sun" },
+  { name: "Hypatia", fact: "First famous female mathematician" },
+  { name: "Pasteur", fact: "Proved germs cause disease" }
+];
+
+let currentStage = 0;
+let scenes = {};
+let testScore = 0;
+let challengeTimer = null;
+let lockInTimer = null;
+
+// ─── NAVIGATION ───
+function goStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (btns[n].classList.contains('locked')) return;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage' + n).classList.add('active');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[n].classList.add('active');
+  currentStage = n;
+  window.scrollTo(0, 0);
+}
+
+function unlockStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (n > 0) btns[n-1].classList.add('completed');
+  btns[n].classList.remove('locked');
+  goStage(n);
+  // Init stages
+  if (n === 2) initSceneBuilder();
+  if (n === 3) buildChain();
+  if (n === 4) initTest();
+  if (n === 5) initStory();
+}
+
+// ─── STAGE 1: CHALLENGE ───
+function startChallenge1() {
+  const area = document.getElementById('challenge1_area');
+  document.getElementById('startBtn1').style.display = 'none';
+
+  // Show names
+  let html = '<div class="name-grid">';
+  challengeNames.forEach(n => {
+    html += `<div class="name-card revealed"><strong>${n.name}</strong><br><span class="text-small">${n.fact}</span></div>`;
+  });
+  html += '</div>';
+  html += '<div class="timer-text" id="ch1Timer">45</div>';
+  html += '<div class="timer-bar"><div class="timer-fill" id="ch1Fill" style="width:100%"></div></div>';
+
+  area.innerHTML = html;
+
+  let timeLeft = 45;
+  challengeTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('ch1Timer').textContent = timeLeft;
+    const pct = (timeLeft / 45) * 100;
+    const fill = document.getElementById('ch1Fill');
+    fill.style.width = pct + '%';
+    if (timeLeft <= 10) fill.className = 'timer-fill danger';
+    else if (timeLeft <= 20) fill.className = 'timer-fill warning';
+
+    if (timeLeft <= 0) {
+      clearInterval(challengeTimer);
+      hideNames();
+    }
+  }, 1000);
+}
+
+function hideNames() {
+  const area = document.getElementById('challenge1_area');
+  let html = '<div class="card animate-in"><div class="card-label">Time\'s Up!</div>';
+  html += '<p>OK -- how many can you remember? Tell your teacher:</p>';
+  html += '<div class="name-grid mt">';
+  challengeNames.forEach((n, i) => {
+    html += `<div class="name-card hidden-name" id="reveal_${i}" onclick="revealChallenge(${i})">??? Click to reveal</div>`;
+  });
+  html += '</div>';
+  html += '<p class="text-small mt">Click each card AFTER you guess. Be honest!</p>';
+  html += '<div class="mt text-center"><button class="btn btn-primary" onclick="unlockStage(1)">Show me the secret</button></div>';
+  html += '</div>';
+  area.innerHTML = html;
+}
+
+function revealChallenge(i) {
+  const card = document.getElementById('reveal_' + i);
+  card.innerHTML = `<strong>${challengeNames[i].name}</strong><br><span class="text-small">${challengeNames[i].fact}</span>`;
+  card.classList.remove('hidden-name');
+  card.classList.add('revealed');
+}
+
+// ─── STAGE 2: DECODER ───
+function decodeName(val) {
+  const result = document.getElementById('decoderResult');
+  if (!val.trim()) {
+    result.innerHTML = '<span class="text-small">Type a name to see its creature</span>';
+    return;
+  }
+  const code = val.substring(0, 2).toLowerCase();
+  const creature = bestiaryMap[code];
+  if (creature) {
+    result.innerHTML = `<div class="creature-box animate-in" style="margin:0;">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">${code.toUpperCase()} = ${creature}</div>
+        <div class="creature-name">Now picture this ${creature} doing something connected to ${val}...</div>
+      </div>
+    </div>`;
+  } else {
+    result.innerHTML = `<span class="text-small">No match for "${code.toUpperCase()}" -- try another name</span>`;
+  }
+}
+
+// ─── STAGE 3: SCENE BUILDER ───
+function initSceneBuilder() {
+  const container = document.getElementById('sceneBuilder');
+  let html = '';
+
+  people.forEach((p, i) => {
+    html += `<div class="card" id="sceneCard_${i}">
+      <div class="flex-between">
+        <div class="card-label">Person ${i + 1} of 5</div>
+        <div class="text-small" id="sceneStatus_${i}">Waiting...</div>
+      </div>
+
+      <div class="creature-box">
+        <div class="creature-emoji">${p.emoji}</div>
+        <div class="creature-info">
+          <div class="creature-code">${p.name} -- ${p.code} = ${p.creature}</div>
+          <div class="creature-name">${p.fact}</div>
+        </div>
+      </div>
+
+      <div class="fact-box">
+        <strong>Did you know?</strong> ${p.hint}
+      </div>
+
+      <div class="prompt-card">
+        Write a vivid scene: a <span class="highlight">${p.creature}</span> doing something that reminds you of <span class="highlight">${p.name}</span> and their achievement
+      </div>
+
+      <textarea class="scene-area" id="scene_${i}" rows="3"
+        placeholder="Example: A ${p.creature.toLowerCase()} ${getPlaceholder(i)}..."
+        oninput="checkScene(${i})"></textarea>
+      <div class="flex-between mt">
+        <div class="word-count" id="sceneWords_${i}">0 words</div>
+        <div id="sceneDone_${i}"></div>
+      </div>
+    </div>`;
+
+    if (i < people.length - 1) {
+      html += '<div style="text-align:center; padding: 4px 0; color: #333; font-size: 1.5em;">|</div>';
+    }
+  });
+
+  html += '<div class="text-center mt" id="scenesNextBtn" style="display:none;"><button class="btn btn-success animate-in" onclick="unlockStage(3)">All 5 done -- build my memory chain!</button></div>';
+  container.innerHTML = html;
+}
+
+function getPlaceholder(i) {
+  const starters = [
+    "swoops down and drops books from the sky onto a crowd of people",
+    "swims in a spiral pattern, each loop getting bigger",
+    "shoots a glowing arrow at a test tube and it explodes with light",
+    "curls into a ball and rolls into a bathtub, splashing water everywhere",
+    "chews through electrical wires while lightning crackles around it"
+  ];
+  return starters[i] || "does something unforgettable";
+}
+
+function checkScene(i) {
+  const text = document.getElementById('scene_' + i).value;
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  const wc = document.getElementById('sceneWords_' + i);
+  wc.textContent = words + ' words';
+  wc.className = words >= 10 ? 'word-count good' : 'word-count';
+
+  const status = document.getElementById('sceneStatus_' + i);
+  const done = document.getElementById('sceneDone_' + i);
+
+  if (words >= 10) {
+    scenes[i] = text;
+    status.innerHTML = '<span class="highlight-green">Done!</span>';
+    done.innerHTML = '<span class="highlight-green">OK</span>';
+  } else {
+    delete scenes[i];
+    status.textContent = words > 0 ? 'Keep going...' : 'Waiting...';
+    done.innerHTML = '';
+  }
+
+  // Check if all 5 done
+  if (Object.keys(scenes).length >= 5) {
+    document.getElementById('scenesNextBtn').style.display = 'block';
+  }
+}
+
+// ─── STAGE 4: MEMORY CHAIN ───
+function buildChain() {
+  const container = document.getElementById('chainDisplay');
+  let html = '<div class="chain">';
+  people.forEach((p, i) => {
+    if (i > 0) html += '<div class="chain-connector done"></div>';
+    html += `<div class="chain-link done">
+      <div class="chain-num">${i + 1}. ${p.creature} (${p.code})</div>
+      <div class="chain-content">
+        <div class="chain-fact">${p.name} -- ${p.fact.split('--')[0]}</div>
+        <div class="chain-scene">"${scenes[i] || '...'}"</div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function startLockIn() {
+  const timerDiv = document.getElementById('lockInTimer');
+  timerDiv.style.display = 'block';
+  let timeLeft = 60;
+
+  lockInTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('lockInTime').textContent = timeLeft;
+    const pct = (timeLeft / 60) * 100;
+    const fill = document.getElementById('lockInFill');
+    fill.style.width = pct + '%';
+    if (timeLeft <= 10) fill.className = 'timer-fill danger';
+    else if (timeLeft <= 20) fill.className = 'timer-fill warning';
+
+    if (timeLeft <= 0) {
+      clearInterval(lockInTimer);
+      document.getElementById('lockInTime').textContent = "Time!";
+      document.getElementById('chainNextBtn').style.display = 'block';
+    }
+  }, 1000);
+
+  document.getElementById('chainNextBtn').style.display = 'block';
+}
+
+// ─── STAGE 5: THE TEST ───
+let r1Score = 0;
+let r2Score = 0;
+let r1Done = 0;
+let r2Done = 0;
+
+function initTest() {
+  const r1 = document.getElementById('testRound1');
+  // Shuffle order for test
+  const shuffled = [...people].sort(() => Math.random() - 0.5);
+  let html = '';
+  shuffled.forEach((p, i) => {
+    html += `<div class="card" id="test1_${i}" style="margin-bottom: 10px;">
+      <div class="flex-between">
+        <span>The creature is: <span class="highlight">${p.creature}</span> (${p.code})</span>
+        <span id="test1status_${i}"></span>
+      </div>
+      <div class="mt flex" style="gap: 6px; flex-wrap: wrap;">`;
+    // Generate options (correct + 2 wrong)
+    const wrong = people.filter(x => x.name !== p.name).sort(() => Math.random() - 0.5).slice(0, 2);
+    const opts = [p, ...wrong].sort(() => Math.random() - 0.5);
+    opts.forEach(o => {
+      html += `<button class="btn btn-ghost btn-small" onclick="checkTest1(${i}, '${p.name}', '${o.name}', this)">${o.name}</button>`;
+    });
+    html += '</div></div>';
+  });
+  r1.innerHTML = html;
+
+  // Prep round 2
+  const r2 = document.getElementById('testRound2');
+  html = '';
+  const shuffled2 = [...people].sort(() => Math.random() - 0.5);
+  shuffled2.forEach((p, i) => {
+    html += `<div class="card" id="test2_${i}" style="margin-bottom: 10px;">
+      <div class="flex-between">
+        <span><span class="highlight">${p.name}</span> -- what did they do?</span>
+        <span id="test2status_${i}"></span>
+      </div>
+      <div class="mt flex" style="gap: 6px; flex-wrap: wrap;">`;
+    const shortFact = p.fact.split('--')[0].trim();
+    const wrong = people.filter(x => x.name !== p.name).sort(() => Math.random() - 0.5).slice(0, 2);
+    const opts = [
+      { name: p.name, fact: shortFact },
+      ...wrong.map(w => ({ name: w.name, fact: w.fact.split('--')[0].trim() }))
+    ].sort(() => Math.random() - 0.5);
+    opts.forEach(o => {
+      html += `<button class="btn btn-ghost btn-small" onclick="checkTest2(${i}, '${p.name}', '${o.name}', this)" style="text-align:left;">${o.fact}</button>`;
+    });
+    html += '</div></div>';
+  });
+  r2.innerHTML = html;
+}
+
+function checkTest1(i, correct, chosen, btn) {
+  const status = document.getElementById('test1status_' + i);
+  const card = document.getElementById('test1_' + i);
+  card.querySelectorAll('button').forEach(b => b.disabled = true);
+
+  if (correct === chosen) {
+    btn.classList.remove('btn-ghost');
+    btn.classList.add('btn-success');
+    status.innerHTML = '<span class="highlight-green">Yes!</span>';
+    r1Score++;
+  } else {
+    btn.classList.remove('btn-ghost');
+    btn.classList.add('btn-danger');
+    status.innerHTML = `<span class="highlight-yellow">${correct}</span>`;
+  }
+
+  r1Done++;
+  if (r1Done >= 5) {
+    setTimeout(() => {
+      document.getElementById('testRound2Container').style.display = 'block';
+      document.getElementById('testRound2Container').scrollIntoView({ behavior: 'smooth' });
+    }, 600);
+  }
+}
+
+function checkTest2(i, correct, chosen, btn) {
+  const status = document.getElementById('test2status_' + i);
+  const card = document.getElementById('test2_' + i);
+  card.querySelectorAll('button').forEach(b => b.disabled = true);
+
+  if (correct === chosen) {
+    btn.classList.remove('btn-ghost');
+    btn.classList.add('btn-success');
+    status.innerHTML = '<span class="highlight-green">Yes!</span>';
+    r2Score++;
+  } else {
+    btn.classList.remove('btn-ghost');
+    btn.classList.add('btn-danger');
+    status.innerHTML = '<span class="highlight-yellow">Not quite</span>';
+  }
+
+  r2Done++;
+  if (r2Done >= 5) {
+    const total = r1Score + r2Score;
+    setTimeout(() => {
+      const scoreDiv = document.getElementById('testScore');
+      scoreDiv.style.display = 'block';
+      document.getElementById('scoreDisplay').textContent = total + '/10';
+      const msg = total >= 9 ? "Your memory is INCREDIBLE. The bestiary works!" :
+                  total >= 7 ? "Really impressive! The creatures helped, right?" :
+                  total >= 5 ? "That's way better than round 1 with no system!" :
+                  "The system takes practice -- but you already improved!";
+      document.getElementById('scoreMessage').textContent = msg;
+      scoreDiv.scrollIntoView({ behavior: 'smooth' });
+    }, 600);
+  }
+}
+
+// ─── STAGE 6: STORY ───
+function initStory() {
+  // Show scene references
+  const ref = document.getElementById('storySceneRef');
+  let html = '';
+  people.forEach((p, i) => {
+    html += `<div style="padding: 8px 0; border-bottom: 1px solid #222;">
+      <span class="highlight">${i+1}. ${p.creature}</span> = ${p.name}: <span class="text-small">${scenes[i] ? '"' + scenes[i].substring(0, 80) + '..."' : '(no scene written)'}</span>
+    </div>`;
+  });
+  ref.innerHTML = html;
+  document.getElementById('finishBtn').style.display = 'block';
+}
+
+function countFinalWords() {
+  const text = document.getElementById('finalStory').value;
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  const wc = document.getElementById('finalWordCount');
+  wc.textContent = words + ' words';
+  wc.className = words >= 80 ? 'word-count good' : 'word-count';
+}
+
+function showMetacog() {
+  document.getElementById('metacogCard').style.display = 'block';
+  document.getElementById('metacogCard').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('finishBtn').style.display = 'none';
+}
+</script>
+</body>
+</html>
