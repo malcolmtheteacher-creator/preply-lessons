@@ -56,6 +56,29 @@ body { font-family: 'Inter', sans-serif; background: #f8f5f0; color: #1a1a2e; li
 .decode-creature { font-size: 0.9em; opacity: 0.85; margin-top: 2px; }
 .decode-empty { opacity: 0.4; font-style: italic; margin-top: 15px; }
 
+/* Chain display */
+.decode-chain {
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+  justify-content: center; margin-top: 8px;
+}
+.decode-chain-arrow {
+  color: rgba(212,168,67,0.4); font-size: 1.2em; padding: 0 6px;
+  font-weight: 700;
+}
+.decode-pair.anchor {
+  background: rgba(212,168,67,0.25); border-color: #d4a843;
+  box-shadow: 0 0 12px rgba(212,168,67,0.15);
+}
+.decode-pair .decode-type {
+  font-size: 0.65em; text-transform: uppercase; letter-spacing: 0.1em;
+  opacity: 0.5; margin-top: 2px;
+}
+.decode-scene-prompt {
+  margin-top: 18px; font-size: 0.9em; color: rgba(255,255,255,0.5);
+  font-style: italic; line-height: 1.5;
+}
+.decode-scene-prompt strong { color: #d4a843; font-style: normal; }
+
 /* Section headers */
 .section-title {
   font-family: 'Crimson Text', serif; font-size: 1.6em; font-weight: 600;
@@ -279,7 +302,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f5f0; color: #1a1a2e; li
   <!-- Name Decoder -->
   <div class="decoder">
     <h2>Name Decoder</h2>
-    <p>Type any name and see which creature encodes it</p>
+    <p>Type any name and see the full creature chain — every letter pair becomes a creature</p>
     <input type="text" id="nameInput" placeholder="Try a name... e.g. Fibonacci" autocomplete="off" spellcheck="false">
     <div class="decode-result" id="decodeResult">
       <div class="decode-empty">Type a name above to decode it</div>
@@ -527,7 +550,49 @@ document.getElementById('filterInput').addEventListener('input', function() {
   renderBestiary(this.value, activeTab);
 });
 
-// Name Decoder
+// Name Decoder — greedy multi-pair chain
+function decodeName(name) {
+  // Strip spaces, work with pure letters
+  const letters = name.replace(/[^a-zA-Z]/g, '').toLowerCase();
+  const chain = [];
+  let i = 0;
+
+  while (i < letters.length) {
+    // Try two-letter pair first
+    if (i + 1 < letters.length) {
+      const pair = letters.substring(i, i + 2);
+      if (bestiaryMap[pair]) {
+        chain.push({
+          code: name.replace(/[^a-zA-Z]/g, '').substring(i, i + 2),
+          creature: bestiaryMap[pair],
+          type: 'bestiary'
+        });
+        i += 2;
+        continue;
+      }
+    }
+    // Fall back to single letter (Visual Alphabet)
+    const single = letters[i];
+    const singleCreature = alphabet.find(a => a.l.toLowerCase() === single);
+    if (singleCreature) {
+      chain.push({
+        code: name.replace(/[^a-zA-Z]/g, '').substring(i, i + 1),
+        creature: singleCreature.c,
+        type: 'alphabet'
+      });
+    } else {
+      chain.push({
+        code: name.replace(/[^a-zA-Z]/g, '').substring(i, i + 1),
+        creature: '?',
+        type: 'none'
+      });
+    }
+    i += 1;
+  }
+
+  return chain;
+}
+
 document.getElementById('nameInput').addEventListener('input', function() {
   const name = this.value.trim();
   const result = document.getElementById('decodeResult');
@@ -537,59 +602,41 @@ document.getElementById('nameInput').addEventListener('input', function() {
     return;
   }
 
-  // Get the two-letter code
-  const twoLetter = name.substring(0, 2).toLowerCase();
-  const oneLetter = name.substring(0, 1).toLowerCase();
+  const chain = decodeName(name);
 
-  // Try two-letter match first
-  let creature = bestiaryMap[twoLetter];
-  let code = name.substring(0, 2);
+  if (chain.length === 0) {
+    result.innerHTML = '<div class="decode-empty">No match found</div>';
+    return;
+  }
 
-  let html = '';
-
-  if (creature) {
-    html += `<div class="decode-pair">
-      <div class="decode-letters">${code}</div>
-      <div class="decode-creature">${creature}</div>
+  let html = '<div class="decode-chain">';
+  chain.forEach((link, idx) => {
+    if (idx > 0) html += '<span class="decode-chain-arrow">→</span>';
+    const anchorClass = idx === 0 ? ' anchor' : '';
+    const typeLabel = link.type === 'bestiary' ? 'bestiary' : link.type === 'alphabet' ? 'alphabet' : '';
+    html += `<div class="decode-pair${anchorClass}">
+      <div class="decode-letters">${link.code}</div>
+      <div class="decode-creature">${link.creature}</div>
+      ${typeLabel ? `<div class="decode-type">${typeLabel}</div>` : ''}
     </div>`;
-  } else {
-    // Fall back to single letter
-    creature = bestiaryMap[oneLetter];
-    if (creature) {
-      code = name.substring(0, 1);
-      html += `<div class="decode-pair">
-        <div class="decode-letters">${code}</div>
-        <div class="decode-creature">${creature}</div>
-      </div>`;
+  });
+  html += '</div>';
+
+  // Scene prompt
+  if (chain.length > 1) {
+    const creatures = chain.filter(c => c.creature !== '?').map(c => c.creature);
+    if (creatures.length >= 2) {
+      html += `<div class="decode-scene-prompt">Now picture: <strong>${creatures.join('</strong> → <strong>')}</strong> — write a scene where each creature leads to the next</div>`;
     }
-  }
-
-  // Also show single-letter as secondary
-  if (bestiaryMap[twoLetter] && bestiaryMap[oneLetter]) {
-    html += `<div class="decode-pair" style="opacity: 0.5;">
-      <div class="decode-letters" style="font-size: 1.2em;">${name.substring(0, 1)}</div>
-      <div class="decode-creature">${bestiaryMap[oneLetter]}</div>
-    </div>`;
-  }
-
-  // Show the remaining letters
-  if (name.length > 2) {
-    html += `<div class="decode-pair" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
-      <div class="decode-letters" style="color: rgba(255,255,255,0.6); font-size: 1.2em;">...${name.substring(2)}</div>
-      <div class="decode-creature">The creature leads you to the rest</div>
-    </div>`;
-  }
-
-  if (!html) {
-    html = '<div class="decode-empty">No match found for those letters</div>';
   }
 
   result.innerHTML = html;
 
-  // Highlight matching card in bestiary
+  // Highlight all matching cards in the bestiary grid
+  const chainCodes = new Set(chain.filter(c => c.type === 'bestiary').map(c => c.code.toLowerCase()));
   document.querySelectorAll('.beast-card').forEach(card => {
     const cardCode = card.querySelector('.beast-code').textContent.toLowerCase();
-    card.classList.toggle('highlight', cardCode === twoLetter);
+    card.classList.toggle('highlight', chainCodes.has(cardCode));
   });
 });
 
