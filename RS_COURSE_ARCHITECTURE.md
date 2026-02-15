@@ -386,8 +386,8 @@ Each religion gets a subtle accent colour for source boxes and icons:
 
 | Year Group | Units | Lessons | Status |
 |-----------|-------|---------|--------|
-| Year 7 | 6 | 36 | 🟡 Units 1–3 complete (18/36 lessons) |
-| Year 8 | 6 | 36 | 🔴 Not started |
+| Year 7 | 6 | 36 | ✅ Complete (36/36 lessons) |
+| Year 8 | 6 | 36 | 🟡 Unit 1 complete (6/36 lessons) |
 | Year 9 | 6 | 36 | 🔴 Not started |
 | Year 10 (GCSE) | 6 | 36 | 🔴 Not started |
 | Year 11 (GCSE) | 6 | 36 | 🔴 Not started |
