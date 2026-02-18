@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Memory is a Liar | Beautiful Liars</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+        .lesson-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Header — deep purple for Beautiful Liars */
+        .lesson-header { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); border-radius: 20px; padding: 30px; margin-bottom: 20px; text-align: center; color: white; }
+        .series-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 15px; font-size: 0.8em; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+        .lesson-header h1 { font-size: 2.2em; margin-bottom: 5px; }
+        .lesson-header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .skill-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 20px; margin-top: 15px; font-size: 0.95em; }
+
+        /* Tabs */
+        .tab-nav { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 80px; padding: 15px 10px; background: rgba(255,255,255,0.1); border: none; border-radius: 10px; color: white; cursor: pointer; transition: all 0.3s; font-size: 0.85em; }
+        .tab-btn:hover { background: rgba(255,255,255,0.2); }
+        .tab-btn.active { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); color: white; }
+        .tab-btn .tab-number { display: block; font-size: 0.8em; opacity: 0.7; }
+
+        /* Content */
+        .tab-content { display: none; background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content h2 { color: #a78bfa; font-size: 1.8em; margin-bottom: 20px; }
+        .tab-content h3 { color: #fff; font-size: 1.3em; margin: 25px 0 15px; }
+        .tab-content p { line-height: 1.8; margin-bottom: 15px; color: rgba(255,255,255,0.9); }
+
+        /* Stat Box */
+        .stat-box { background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(76,29,149,0.3) 100%); border: 2px solid rgba(124,58,237,0.4); padding: 25px; border-radius: 15px; margin: 20px 0; line-height: 1.9; font-style: italic; text-align: center; font-size: 1.1em; }
+        .stat-box strong { color: #a78bfa; font-style: normal; }
+
+        /* Memory Challenge */
+        .memory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 20px 0; }
+        .memory-item { background: rgba(124,58,237,0.2); border: 2px solid rgba(124,58,237,0.4); border-radius: 12px; padding: 15px; text-align: center; font-size: 0.95em; font-weight: 500; }
+        .memory-item.hidden-item { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: transparent; }
+
+        /* Skill Cards */
+        .skill-card { background: rgba(255,255,255,0.08); border-radius: 15px; margin: 15px 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .skill-card-header { background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(76,29,149,0.3) 100%); padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .skill-card-header:hover { background: linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(76,29,149,0.4) 100%); }
+        .phrase { font-size: 1.3em; font-weight: bold; }
+        .click-hint { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+        .skill-card-content { padding: 0; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .skill-card-content.open { padding: 20px; max-height: 600px; }
+        .mfp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .mfp-item { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; text-align: center; }
+        .mfp-item .label { font-size: 0.8em; color: #a78bfa; margin-bottom: 5px; }
+        .now-you-try { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); color: white; padding: 20px; border-radius: 12px; margin-top: 15px; }
+        .now-you-try h4 { margin-bottom: 10px; font-size: 1.1em; }
+
+        /* Case/Example Box */
+        .case-box { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 25px; margin: 20px 0; border-left: 4px solid #a78bfa; }
+        .case-box .case-title { font-size: 1.1em; font-weight: bold; margin-bottom: 10px; color: #a78bfa; }
+
+        /* Prompt Box */
+        .prompt-box { background: linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(76,29,149,0.2) 100%); border-radius: 15px; padding: 25px; margin: 15px 0; border-left: 4px solid #a78bfa; }
+        .prompt-box .question { font-size: 1.15em; margin-bottom: 10px; }
+        .prompt-box .hint { font-size: 0.9em; color: rgba(255,255,255,0.7); font-style: italic; }
+
+        /* Comparison grid */
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .comparison-item { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; }
+        .comparison-weak { border-left: 4px solid #e74c3c; }
+        .comparison-strong { border-left: 4px solid #2ecc71; }
+
+        /* Discussion Card */
+        .question-card { background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(76,29,149,0.15) 100%); border-radius: 15px; padding: 25px; margin: 15px 0; border: 2px solid rgba(124,58,237,0.3); cursor: pointer; transition: all 0.3s; }
+        .question-card:hover { border-color: rgba(124,58,237,0.6); transform: translateY(-2px); box-shadow: 0 5px 20px rgba(124,58,237,0.2); }
+        .question-card .topic { font-size: 0.85em; color: #a78bfa; text-transform: uppercase; margin-bottom: 10px; }
+        .question-card .prompt { font-size: 1.1em; font-weight: bold; margin-bottom: 10px; }
+        .question-card .language-nudge { font-size: 0.9em; color: rgba(255,255,255,0.6); font-style: italic; }
+
+        /* Recall Zone */
+        .recall-zone { background: linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%); border-radius: 15px; padding: 25px; margin: 25px 0; border: 2px solid rgba(102,126,234,0.3); }
+        .recall-zone h3 { color: #667eea; display: flex; align-items: center; gap: 10px; }
+        .recall-zone h3::before { content: '🔄'; }
+        .recall-item { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin: 15px 0; cursor: pointer; transition: all 0.3s; }
+        .recall-item:hover { background: rgba(0,0,0,0.3); }
+        .recall-question { font-weight: bold; margin-bottom: 10px; color: #667eea; }
+        .recall-answer { display: none; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 10px; }
+        .recall-item.revealed .recall-answer { display: block; }
+
+        /* Timer */
+        .timer-section { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 4em; font-weight: bold; font-family: 'Courier New', monospace; margin: 20px 0; color: #a78bfa; }
+        .timer-display.warning { color: #e67e22; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .timer-btn { padding: 12px 30px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; transition: all 0.3s; }
+        .timer-btn.start { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); color: white; }
+        .timer-btn.reset { background: rgba(255,255,255,0.1); color: white; }
+        .timer-btn:hover { transform: scale(1.05); }
+
+        /* Can-Do Statement */
+        .can-do-statement { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0; color: white; }
+        .can-do-statement h3 { margin-bottom: 15px; font-size: 1.5em; }
+        .confidence-scale { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .confidence-btn { width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; font-size: 1.2em; cursor: pointer; transition: all 0.3s; }
+        .confidence-btn:hover, .confidence-btn.selected { background: rgba(255,255,255,0.3); border-color: white; transform: scale(1.1); }
+
+        /* Teaser */
+        .teaser-box { background: linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(76,29,149,0.3) 100%); border: 2px solid rgba(124,58,237,0.3); border-radius: 15px; padding: 25px; text-align: center; margin-top: 25px; }
+        .teaser-box p { font-size: 0.95em; opacity: 0.8; }
+        .teaser-box h4 { color: #a78bfa; font-size: 1.2em; margin: 10px 0; }
+
+        .reveal-btn { background: #7c3aed; color: white; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-size: 0.95em; margin-top: 10px; transition: all 0.3s; }
+        .reveal-btn:hover { background: #6d28d9; transform: scale(1.02); }
+
+        @media (max-width: 768px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .mfp-grid { grid-template-columns: 1fr; }
+            .timer-display { font-size: 3em; }
+            .memory-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <span class="series-badge">Beautiful Liars — 1 of 3</span>
+            <h1>Your Memory is a Liar</h1>
+            <p class="subtitle">Questioning certainty and expressing doubt with precision</p>
+            <span class="skill-tag">💬 Hedging & Evaluating Evidence</span>
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="1"><span class="tab-number">1</span>Trust Test</button>
+            <button class="tab-btn" data-tab="2"><span class="tab-number">2</span>The Language</button>
+            <button class="tab-btn" data-tab="3"><span class="tab-number">3</span>The Evidence</button>
+            <button class="tab-btn" data-tab="4"><span class="tab-number">4</span>Big Questions</button>
+            <button class="tab-btn" data-tab="5"><span class="tab-number">5</span>Your Verdict</button>
+            <button class="tab-btn" data-tab="6"><span class="tab-number">6</span>Recall</button>
+        </div>
+
+        <!-- Tab 1: Trust Test (CONNECT) -->
+        <div class="tab-content active" id="tab-1">
+            <h2>Trust Test</h2>
+
+            <p>You have 30 seconds. Memorise these 8 items — then I'll hide them.</p>
+
+            <div class="memory-grid" id="memoryGrid">
+                <div class="memory-item">🚴 Red bicycle</div>
+                <div class="memory-item">47</div>
+                <div class="memory-item">👩 Woman in green coat</div>
+                <div class="memory-item">☕ Coffee cup</div>
+                <div class="memory-item">🌳 Oak tree</div>
+                <div class="memory-item">📖 Blue book</div>
+                <div class="memory-item">⌚ Silver watch</div>
+                <div class="memory-item">🐕 Golden retriever</div>
+            </div>
+
+            <button class="reveal-btn" onclick="hideMemoryItems()">I'm ready — hide them</button>
+
+            <div id="recallPrompt" style="display: none; margin-top: 20px;">
+                <p><strong>Now say them aloud. How many can you get?</strong></p>
+                <button class="reveal-btn" onclick="showMemoryItems()" style="margin-top: 10px;">Show originals</button>
+            </div>
+
+            <div id="memoryResult" style="display: none; margin-top: 15px;">
+                <p style="color: rgba(255,255,255,0.7);">How many did you get? Did you add any that weren't there? Most people get 5–7 right. Some "remember" items that weren't on the list at all.</p>
+            </div>
+
+            <div class="stat-box">
+                <strong>75%</strong> of wrongful convictions overturned by DNA evidence involved faulty eyewitness memory. These witnesses weren't lying. They were <strong>certain</strong>.
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">How much do you trust your own memory? Give yourself a score from 1 to 10 — and explain why.</p>
+                <p class="hint">Speak for about a minute. We'll come back to this score at the end.</p>
+            </div>
+
+            <p>Today's lesson: your brain doesn't record memories like a camera. It <em>reconstructs</em> them — and changes them every time. We'll explore the science, and practise the language for <strong>questioning how certain we really are</strong>.</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-item comparison-weak">
+                    <p style="font-size: 1.1em; font-weight: bold; color: #e74c3c; margin-bottom: 10px;">❌ Vague</p>
+                    <p>"I think memory isn't very good. You can't always trust it."</p>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.7;">Too simple — no precision</p>
+                </div>
+                <div class="comparison-item comparison-strong">
+                    <p style="font-size: 1.1em; font-weight: bold; color: #2ecc71; margin-bottom: 10px;">✓ Precise & sophisticated</p>
+                    <p>"It's widely assumed that confident memories are accurate ones. But the evidence suggests that confidence and accuracy are completely independent — you can be utterly wrong and utterly sure at the same time."</p>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.7;">Challenges a belief, cites evidence, draws a conclusion</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: The Language (ACTIVATE — Micro-Skill) -->
+        <div class="tab-content" id="tab-2">
+            <h2>Questioning Certainty</h2>
+
+            <p>These four phrases help you question beliefs, evaluate evidence, and express doubt with precision. Click each one to explore it:</p>
+
+            <div class="skill-card">
+                <div class="skill-card-header" onclick="toggleSkillCard(this)">
+                    <span class="phrase">"It's widely assumed that... but in reality..."</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="skill-card-content">
+                    <div class="mfp-grid">
+                        <div class="mfp-item">
+                            <div class="label">MEANING</div>
+                            <p>Name a common belief, then show it's wrong. A controlled way to challenge popular thinking.</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">FORM</div>
+                            <p>It's widely assumed that [belief]. But in reality, [the truth / what the evidence shows].</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">PRONUNCIATION</div>
+                            <p>Stress: "It's WIDELY asSUMED that... but in reALity..." Pause before "but" for contrast.</p>
+                        </div>
+                    </div>
+                    <div class="case-box">
+                        <div class="case-title">Example in context</div>
+                        <p>"It's widely assumed that our most vivid memories are our most accurate ones. But in reality, researchers have shown that confidence and accuracy are completely independent."</p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>Now you try:</h4>
+                        <p>Use this phrase about something people commonly believe that isn't quite right — about health, work, education, or anything else.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-card-header" onclick="toggleSkillCard(this)">
+                    <span class="phrase">"The evidence suggests that... rather than..."</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="skill-card-content">
+                    <div class="mfp-grid">
+                        <div class="mfp-item">
+                            <div class="label">MEANING</div>
+                            <p>Present what research or facts actually show, while correcting a misconception. Sounds authoritative but careful.</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">FORM</div>
+                            <p>The evidence suggests that [what's actually true], rather than [what people think].</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">PRONUNCIATION</div>
+                            <p>/ˈev.ɪ.dəns/ — stress on first syllable. "The Evidence sugGESTS that... RAther than..." Slight emphasis on "rather" to mark the contrast.</p>
+                        </div>
+                    </div>
+                    <div class="case-box">
+                        <div class="case-title">Example in context</div>
+                        <p>"The evidence suggests that memories are reconstructed from fragments each time we recall them, rather than being played back like a recording."</p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>Now you try:</h4>
+                        <p>Use this phrase to correct a common misconception about something you know well — your field of work, your country, or a topic you've studied.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-card-header" onclick="toggleSkillCard(this)">
+                    <span class="phrase">"How reliable is [X] when...?"</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="skill-card-content">
+                    <div class="mfp-grid">
+                        <div class="mfp-item">
+                            <div class="label">MEANING</div>
+                            <p>A rhetorical question that casts doubt. You're not really asking — you're suggesting the answer is "not very reliable."</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">FORM</div>
+                            <p>How reliable is [thing] when [condition that undermines it]?</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">PRONUNCIATION</div>
+                            <p>Rising intonation on "reliable", falling at the end. "How reLIable is memory when..." Sounds thoughtful and questioning.</p>
+                        </div>
+                    </div>
+                    <div class="case-box">
+                        <div class="case-title">Example in context</div>
+                        <p>"How reliable is eyewitness testimony when a single word in the question can change what the witness 'remembers' seeing?"</p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>Now you try:</h4>
+                        <p>Use this phrase to question something people usually trust: the news, online reviews, first impressions, gut feelings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-card-header" onclick="toggleSkillCard(this)">
+                    <span class="phrase">"That calls into question whether..."</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="skill-card-content">
+                    <div class="mfp-grid">
+                        <div class="mfp-item">
+                            <div class="label">MEANING</div>
+                            <p>Something you've just heard or seen makes you doubt a related idea. Formal, analytical — sounds like you're building an argument.</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">FORM</div>
+                            <p>[Fact/finding], which calls into question whether [previously accepted idea].</p>
+                        </div>
+                        <div class="mfp-item">
+                            <div class="label">PRONUNCIATION</div>
+                            <p>"...which CALLS into QUEStion whether..." Stress on "calls" and "question". Often follows a dramatic pause.</p>
+                        </div>
+                    </div>
+                    <div class="case-box">
+                        <div class="case-title">Example in context</div>
+                        <p>"25% of Loftus's subjects developed detailed memories of events that never happened. That calls into question whether any childhood memory can be fully trusted."</p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>Now you try:</h4>
+                        <p>Think of a fact or statistic that surprised you recently. Use "That calls into question whether..." to say what it makes you doubt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: The Evidence (ACTIVATE — Guided Practice) -->
+        <div class="tab-content" id="tab-3">
+            <h2>The Evidence</h2>
+
+            <p>Read each finding. Then use the target phrase to discuss what it means — don't just summarise, <strong>question what it tells us</strong>.</p>
+
+            <div class="case-box">
+                <div class="case-title">🧪 The Lost in the Mall (Elizabeth Loftus, 1995)</div>
+                <p>Loftus gave participants written accounts of 4 childhood events. Three were real (confirmed by family). The fourth — being lost in a shopping mall — was completely fabricated. 25% of participants developed detailed, emotional memories of the fake event. Some added vivid details: colours, smells, feelings of panic. Their brains had constructed a complete false memory from nothing.</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Use <strong>"It's widely assumed that... but in reality..."</strong> — What do most people assume about their childhood memories? What does Loftus's experiment suggest?</p>
+            </div>
+
+            <div class="case-box">
+                <div class="case-title">🔄 Reconsolidation: Remembering Changes Memory</div>
+                <p>Every time you recall a memory, your brain doesn't play it back — it rebuilds it from fragments. And in rebuilding it, the memory changes. You're not remembering the original event — you're remembering your last recall of it. Each time you tell a story, the story shifts. Each retelling rewrites the memory.</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Use <strong>"The evidence suggests that... rather than..."</strong> — How does memory actually work, versus how people think it works?</p>
+            </div>
+
+            <div class="case-box">
+                <div class="case-title">🚗 The Misinformation Effect (Loftus & Palmer, 1974)</div>
+                <p>Participants watched a video of a car accident. Half were asked: "How fast were the cars going when they <em>smashed</em> into each other?" The other half: "...when they <em>contacted</em> each other?" Same video. The "smashed" group estimated 41 mph. The "contacted" group: 31 mph. A single word changed what they "saw."</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Use <strong>"How reliable is [X] when...?"</strong> — What does this experiment tell us about eyewitness testimony? About how questions shape answers?</p>
+            </div>
+
+            <div class="case-box">
+                <div class="case-title">💡 Flashbulb Memories (Talarico & Rubin, 2003)</div>
+                <p>People reported vivid, confident memories of exactly where they were on 9/11. When checked 3 years later, many accounts were significantly wrong. But here's the key: their confidence remained high. They still felt certain, even as their accuracy dropped. Confidence and accuracy turned out to be completely independent.</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Use <strong>"That calls into question whether..."</strong> — If confident memories can be wrong, what does that call into question about how we judge truth?</p>
+            </div>
+        </div>
+
+        <!-- Tab 4: Big Questions (DEMONSTRATE — Discussion) -->
+        <div class="tab-content" id="tab-4">
+            <h2>Big Questions</h2>
+
+            <p>Choose 2 or 3. Use today's phrases — question assumptions, cite evidence, express doubt precisely.</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer1">3:00</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="startTimer('timer1', 180)">3 min</button>
+                    <button class="timer-btn start" onclick="startTimer('timer1', 300)">5 min</button>
+                    <button class="timer-btn reset" onclick="resetTimer('timer1')">Reset</button>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="topic">Identity & Memory</div>
+                <p class="prompt">If your memories define who you are — but many of them are wrong — how well do you actually know yourself?</p>
+                <p class="language-nudge">Try: "It's widely assumed that our memories make us who we are. But in reality..." / "That calls into question whether..."</p>
+            </div>
+
+            <div class="question-card">
+                <div class="topic">Justice</div>
+                <p class="prompt">A witness is 100% certain they saw the defendant at the scene. Should the jury believe them?</p>
+                <p class="language-nudge">Try: "How reliable is eyewitness testimony when...?" / "The evidence suggests that confidence... rather than..."</p>
+            </div>
+
+            <div class="question-card">
+                <div class="topic">Relationships</div>
+                <p class="prompt">You and a close friend remember a shared experience completely differently. Who's right? Does it matter?</p>
+                <p class="language-nudge">Try: "The evidence suggests that we each reconstruct memories differently, rather than..." / "That calls into question whether there's ever a single 'true' version..."</p>
+            </div>
+
+            <div class="question-card">
+                <div class="topic">Technology</div>
+                <p class="prompt">Some companies are developing technology to "enhance" or "edit" human memories. Should this be allowed?</p>
+                <p class="language-nudge">Try: "It's widely assumed that this would be dangerous. But in reality..." / "How reliable is memory already when...?"</p>
+            </div>
+
+            <div class="question-card">
+                <div class="topic">Truth & Lies</div>
+                <p class="prompt">Is there a meaningful difference between a false memory and a deliberate lie?</p>
+                <p class="language-nudge">Try: "It's widely assumed there's a clear line between lying and misremembering. But..." / "That calls into question whether..."</p>
+            </div>
+        </div>
+
+        <!-- Tab 5: Your Verdict (DEMONSTRATE — Extended Speaking) -->
+        <div class="tab-content" id="tab-5">
+            <h2>Your Verdict</h2>
+
+            <div class="prompt-box">
+                <p class="question">Speak for 2 minutes: <strong>"What I now understand about memory — and why it matters."</strong></p>
+                <p class="hint">Take a position. Use specific examples from the lesson. Use at least 2 of today's phrases.</p>
+            </div>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer2">2:00</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="startTimer('timer2', 120)">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer('timer2')">Reset</button>
+                </div>
+            </div>
+
+            <h3>Quick self-check</h3>
+            <p>Which of today's phrases did you use? Which ones still feel awkward? Say the awkward ones out loud one more time now — in a sentence about anything.</p>
+
+            <div class="prompt-box">
+                <p class="question">Your memory confidence at the start was ___/10. Has it changed? What changed it?</p>
+            </div>
+
+            <div class="teaser-box">
+                <p>Next time in Beautiful Liars:</p>
+                <h4>If your brain lies to you without knowing it... what about the lies you tell on purpose?</h4>
+                <p>The Honest Truth About Lying →</p>
+            </div>
+        </div>
+
+        <!-- Tab 6: Recall & Check (CONSOLIDATE) -->
+        <div class="tab-content" id="tab-6">
+            <h2>Recall & Check</h2>
+
+            <div class="recall-zone">
+                <h3>Retrieval Practice</h3>
+                <p style="color: rgba(255,255,255,0.7); margin: 10px 0 20px;">Without looking back — try to recall from memory. Click to check.</p>
+
+                <div class="recall-item" onclick="this.classList.toggle('revealed')">
+                    <div class="recall-question">What are the 4 phrases we practised today? Say them from memory.</div>
+                    <div class="recall-answer">
+                        <p>1. "It's widely assumed that... but in reality..."<br>
+                        2. "The evidence suggests that... rather than..."<br>
+                        3. "How reliable is [X] when...?"<br>
+                        4. "That calls into question whether..."</p>
+                    </div>
+                </div>
+
+                <div class="recall-item" onclick="this.classList.toggle('revealed')">
+                    <div class="recall-question">Describe two experiments from the lesson and what they showed.</div>
+                    <div class="recall-answer">
+                        <p>E.g. Loftus "Lost in the Mall" — 25% of people developed detailed false memories of events that never happened. / Loftus & Palmer — changing one word ("smashed" vs "contacted") changed witnesses' speed estimates by 30%. / Talarico & Rubin — flashbulb memories of 9/11 were inaccurate but people stayed confident.</p>
+                    </div>
+                </div>
+
+                <div class="recall-item" onclick="this.classList.toggle('revealed')">
+                    <div class="recall-question">Use "The evidence suggests that... rather than..." in a new sentence — about anything.</div>
+                    <div class="recall-answer">
+                        <p>No single correct answer — the point is that you can produce the phrase. E.g. "The evidence suggests that multitasking reduces productivity, rather than increasing it as most people believe."</p>
+                    </div>
+                </div>
+
+                <div class="recall-item" onclick="this.classList.toggle('revealed')">
+                    <div class="recall-question">Use "That calls into question whether..." in a new sentence.</div>
+                    <div class="recall-answer">
+                        <p>E.g. "AI can now write convincing essays. That calls into question whether traditional exams are still a valid way to assess students."</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>What helped you learn today?</h3>
+            <p>Which activity was most useful — the memory challenge, the research cases, or the discussion questions? Why do you think that one worked best for you?</p>
+
+            <div class="can-do-statement">
+                <h3>I can...</h3>
+                <p>...question common beliefs, evaluate evidence, and express doubt with precision using hedging and analytical language.</p>
+                <div class="confidence-scale">
+                    <button class="confidence-btn" onclick="selectConfidence(this)">1</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">2</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">3</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">4</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">5</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabNum = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + tabNum).classList.add('active');
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Memory challenge
+        function hideMemoryItems() {
+            document.querySelectorAll('.memory-item').forEach(item => item.classList.add('hidden-item'));
+            document.getElementById('recallPrompt').style.display = 'block';
+        }
+        function showMemoryItems() {
+            document.querySelectorAll('.memory-item').forEach(item => item.classList.remove('hidden-item'));
+            document.getElementById('memoryResult').style.display = 'block';
+        }
+
+        // Skill card toggle
+        function toggleSkillCard(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('open');
+            header.querySelector('.click-hint').textContent = content.classList.contains('open') ? 'Click to close' : 'Click to expand';
+        }
+
+        // Timer system
+        let timers = {};
+        function startTimer(id, seconds) {
+            if (timers[id]) clearInterval(timers[id]);
+            let remaining = seconds;
+            const display = document.getElementById(id);
+            display.className = 'timer-display';
+
+            timers[id] = setInterval(() => {
+                remaining--;
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+                if (remaining <= 10) {
+                    display.className = 'timer-display danger';
+                } else if (remaining <= 30) {
+                    display.className = 'timer-display warning';
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(timers[id]);
+                    display.textContent = "0:00";
+                }
+            }, 1000);
+        }
+
+        function resetTimer(id) {
+            if (timers[id]) clearInterval(timers[id]);
+            const display = document.getElementById(id);
+            display.textContent = "3:00";
+            display.className = 'timer-display';
+        }
+
+        // Confidence selection
+        function selectConfidence(btn) {
+            btn.parentElement.querySelectorAll('.confidence-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
