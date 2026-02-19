@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essay Skeleton Drill</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+
+.container { max-width: 560px; width: 100%; }
+
+/* Header */
+.header { text-align: center; margin-bottom: 30px; }
+.header h1 { font-size: 1.6em; font-weight: 800; margin-bottom: 4px; }
+.header p { color: #888; font-size: 0.9em; }
+
+/* Mode selector */
+.modes { display: flex; gap: 8px; margin-bottom: 24px; }
+.mode-btn { flex: 1; padding: 12px; border: 2px solid #333; border-radius: 10px; background: transparent; color: #888; font-weight: 700; font-size: 0.85em; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.mode-btn.active { background: #6c5ce7; border-color: #6c5ce7; color: #fff; }
+.mode-btn:hover { border-color: #6c5ce7; }
+
+/* Stats bar */
+.stats { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 12px 16px; background: #16162a; border-radius: 10px; }
+.stat { text-align: center; }
+.stat-val { font-weight: 800; font-size: 1.3em; }
+.stat-label { font-size: 0.7em; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-val.green { color: #00b894; }
+.stat-val.red { color: #e17055; }
+.stat-val.purple { color: #6c5ce7; }
+
+/* Timer bar */
+.timer-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+.timer-fill { height: 100%; background: #6c5ce7; border-radius: 3px; transition: width 0.1s linear; }
+.timer-fill.warning { background: #fdcb6e; }
+.timer-fill.danger { background: #e17055; }
+
+/* Card */
+.card { background: #16162a; border: 2px solid #222; border-radius: 14px; padding: 28px; margin-bottom: 16px; text-align: center; min-height: 200px; display: flex; flex-direction: column; justify-content: center; transition: border-color 0.3s; }
+.card.correct { border-color: #00b894; }
+.card.wrong { border-color: #e17055; }
+
+.prompt-label { font-size: 0.75em; color: #6c5ce7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+.prompt-main { font-size: 1.5em; font-weight: 800; margin-bottom: 6px; color: #fff; }
+.prompt-sub { color: #888; font-size: 0.85em; margin-bottom: 20px; }
+
+/* Options */
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn { padding: 14px 18px; border: 2px solid #333; border-radius: 10px; background: #1e1e3a; color: #e0e0e0; font-family: inherit; font-size: 0.9em; font-weight: 600; cursor: pointer; text-align: left; line-height: 1.5; transition: all 0.2s; }
+.opt-btn:hover { border-color: #6c5ce7; background: #2d1b69; }
+.opt-btn.chosen-correct { border-color: #00b894; background: rgba(0,184,148,0.15); color: #00b894; }
+.opt-btn.chosen-wrong { border-color: #e17055; background: rgba(225,112,85,0.15); color: #e17055; }
+.opt-btn.show-correct { border-color: #00b894; color: #00b894; }
+.opt-btn:disabled { cursor: default; }
+.opt-btn:disabled:hover { border-color: #333; background: #1e1e3a; }
+
+/* Feedback */
+.feedback { margin-top: 16px; padding: 14px; border-radius: 10px; font-size: 0.85em; line-height: 1.6; display: none; }
+.feedback.correct { display: block; background: rgba(0,184,148,0.1); border: 1px solid #00b894; color: #00b894; }
+.feedback.wrong { display: block; background: rgba(225,112,85,0.1); border: 1px solid #e17055; color: #e17055; }
+
+/* Results */
+.results { text-align: center; }
+.results h2 { font-size: 2em; font-weight: 900; margin-bottom: 4px; }
+.results .score { font-size: 3.5em; font-weight: 900; background: linear-gradient(135deg, #6c5ce7, #00b894); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.results p { color: #888; margin-top: 8px; font-size: 0.95em; line-height: 1.6; }
+
+/* Buttons */
+.btn { padding: 14px 28px; border: none; border-radius: 10px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-primary { background: #6c5ce7; color: #fff; }
+.btn-primary:hover { background: #5a4bd1; }
+.btn-ghost { background: transparent; border: 2px solid #444; color: #ccc; }
+.btn-ghost:hover { border-color: #6c5ce7; color: #fff; }
+
+.mt { margin-top: 16px; }
+
+/* Responsive */
+@media (max-width: 500px) {
+  .prompt-main { font-size: 1.2em; }
+  .card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Essay Skeleton Drill</h1>
+    <p>Recall speed practice — 8 questions, timed</p>
+  </div>
+
+  <div class="modes" id="modeSelect">
+    <button class="mode-btn active" onclick="setMode('creature')">Creature → Phrase</button>
+    <button class="mode-btn" onclick="setMode('position')">Position → Phrase</button>
+    <button class="mode-btn" onclick="setMode('mixed')">Mixed</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val purple" id="qNum">0/8</div><div class="stat-label">Question</div></div>
+    <div class="stat"><div class="stat-val green" id="correctCount">0</div><div class="stat-label">Correct</div></div>
+    <div class="stat"><div class="stat-val red" id="wrongCount">0</div><div class="stat-label">Missed</div></div>
+    <div class="stat"><div class="stat-val" id="timerDisplay">8s</div><div class="stat-label">Time</div></div>
+  </div>
+
+  <div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+
+  <div class="card" id="card">
+    <div class="prompt-label" id="promptLabel">Ready?</div>
+    <div class="prompt-main" id="promptMain">Choose a mode and begin</div>
+    <div class="prompt-sub" id="promptSub">8 questions. Each has an 8-second timer.</div>
+    <div class="mt"><button class="btn btn-primary" onclick="startDrill()" id="startBtn">Start Drill</button></div>
+  </div>
+
+  <div class="options" id="options"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<script>
+const phrases = [
+  { num: 1, keyWord: "Question", code: "QU", creature: "Quail", position: "Intro · Sentence 1",
+    fullPhrase: "The question of whether [topic] has sparked considerable debate." },
+  { num: 2, keyWord: "Firmly", code: "FI", creature: "Fish", position: "Intro · Sentence 2",
+    fullPhrase: "I firmly believe that [your position]." },
+  { num: 3, keyWord: "Primary", code: "PR", creature: "Praying Mantis", position: "Body 1 · Topic Sentence",
+    fullPhrase: "The primary argument in favour of [X] is that..." },
+  { num: 4, keyWord: "Were", code: "WR", creature: "Wren", position: "Body 1 · Support",
+    fullPhrase: "Were [X] to [happen], [Y] would [result]." },
+  { num: 5, keyWord: "For", code: "FO", creature: "Fox", position: "Body 1 · Evidence",
+    fullPhrase: "For example, in countries such as [X], where [Y], [Z]." },
+  { num: 6, keyWord: "Other", code: "OT", creature: "Otter", position: "Body 2 · Transition",
+    fullPhrase: "On the other hand, proponents of [X] argue that..." },
+  { num: 7, keyWord: "Implementation", code: "IM", creature: "Impala", position: "Body 2 · Support",
+    fullPhrase: "The [implementation/elimination/provision] of [X]..." },
+  { num: 8, keyWord: "Conclusion", code: "CO", creature: "Cow", position: "Conclusion",
+    fullPhrase: "In conclusion, the advantages of [X] far outweigh [Y]." }
+];
+
+let mode = 'creature';
+let questions = [];
+let current = 0;
+let correct = 0;
+let wrong = 0;
+let timer = null;
+let timeLeft = 8;
+let running = false;
+
+function setMode(m) {
+  if (running) return;
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && m === 'creature') || (i === 1 && m === 'position') || (i === 2 && m === 'mixed'));
+  });
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+function startDrill() {
+  running = true;
+  current = 0; correct = 0; wrong = 0;
+  document.getElementById('startBtn').style.display = 'none';
+  document.getElementById('modeSelect').style.pointerEvents = 'none';
+  document.getElementById('modeSelect').style.opacity = '0.5';
+
+  // Build 8 questions — shuffled phrase order
+  const shuffled = shuffle(phrases);
+  questions = shuffled.map(p => {
+    let type;
+    if (mode === 'creature') type = 'creature';
+    else if (mode === 'position') type = 'position';
+    else type = Math.random() < 0.5 ? 'creature' : 'position';
+    return { phrase: p, type };
+  });
+
+  showQuestion();
+}
+
+function showQuestion() {
+  if (current >= 8) return showResults();
+
+  const q = questions[current];
+  const card = document.getElementById('card');
+  card.className = 'card';
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.style.display = 'none';
+
+  document.getElementById('qNum').textContent = (current + 1) + '/8';
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+
+  if (q.type === 'creature') {
+    document.getElementById('promptLabel').textContent = `Question ${current + 1} · Creature → Phrase`;
+    document.getElementById('promptMain').textContent = q.phrase.creature + ' (' + q.phrase.code + ')';
+    document.getElementById('promptSub').textContent = 'Which phrase does this creature represent?';
+  } else {
+    document.getElementById('promptLabel').textContent = `Question ${current + 1} · Position → Phrase`;
+    document.getElementById('promptMain').textContent = q.phrase.position;
+    document.getElementById('promptSub').textContent = 'Which phrase belongs in this position?';
+  }
+
+  // Build 3 options (1 correct + 2 wrong)
+  const wrongs = shuffle(phrases.filter(p => p.num !== q.phrase.num)).slice(0, 2);
+  const opts = shuffle([q.phrase, ...wrongs]);
+
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o.fullPhrase;
+    btn.dataset.num = o.num;
+    btn.onclick = () => handleAnswer(o.num, q.phrase.num, btn);
+    optDiv.appendChild(btn);
+  });
+
+  startTimer();
+}
+
+function startTimer() {
+  timeLeft = 8;
+  updateTimerDisplay();
+  const fill = document.getElementById('timerFill');
+  fill.style.width = '100%';
+  fill.className = 'timer-fill';
+
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft -= 0.1;
+    const pct = Math.max(0, (timeLeft / 8) * 100);
+    fill.style.width = pct + '%';
+    if (timeLeft <= 2) fill.className = 'timer-fill danger';
+    else if (timeLeft <= 4) fill.className = 'timer-fill warning';
+    updateTimerDisplay();
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      timeUp();
+    }
+  }, 100);
+}
+
+function updateTimerDisplay() {
+  document.getElementById('timerDisplay').textContent = Math.max(0, Math.ceil(timeLeft)) + 's';
+}
+
+function handleAnswer(chosen, correctNum, btn) {
+  clearInterval(timer);
+  const optBtns = document.querySelectorAll('.opt-btn');
+  optBtns.forEach(b => b.disabled = true);
+
+  const card = document.getElementById('card');
+  const fb = document.getElementById('feedback');
+  const q = questions[current];
+
+  if (chosen === correctNum) {
+    correct++;
+    btn.classList.add('chosen-correct');
+    card.classList.add('correct');
+    fb.className = 'feedback correct';
+    fb.textContent = 'Correct — ' + q.phrase.creature + ' → ' + q.phrase.position;
+    fb.style.display = 'block';
+  } else {
+    wrong++;
+    btn.classList.add('chosen-wrong');
+    card.classList.add('wrong');
+    optBtns.forEach(b => { if (b.dataset.num == correctNum) b.classList.add('show-correct'); });
+    fb.className = 'feedback wrong';
+    fb.innerHTML = 'The answer was: <strong>' + q.phrase.creature + '</strong> → ' + q.phrase.fullPhrase;
+    fb.style.display = 'block';
+  }
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+
+  setTimeout(() => { current++; showQuestion(); }, 1400);
+}
+
+function timeUp() {
+  wrong++;
+  const q = questions[current];
+  const card = document.getElementById('card');
+  card.classList.add('wrong');
+
+  const optBtns = document.querySelectorAll('.opt-btn');
+  optBtns.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.num == q.phrase.num) b.classList.add('show-correct');
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback wrong';
+  fb.innerHTML = 'Time\'s up! The answer was: <strong>' + q.phrase.creature + '</strong> → ' + q.phrase.fullPhrase;
+  fb.style.display = 'block';
+
+  document.getElementById('wrongCount').textContent = wrong;
+
+  setTimeout(() => { current++; showQuestion(); }, 1800);
+}
+
+function showResults() {
+  running = false;
+  document.getElementById('options').innerHTML = '';
+  document.getElementById('feedback').style.display = 'none';
+  document.getElementById('timerFill').style.width = '0%';
+  document.getElementById('timerDisplay').textContent = '—';
+
+  const pct = Math.round((correct / 8) * 100);
+  const msg = pct === 100 ? "Perfect. Your essay skeleton is locked in." :
+              pct >= 75 ? "Strong recall. A few more rounds and it's automatic." :
+              pct >= 50 ? "Getting there. The creatures that tripped you up — make their scenes more vivid." :
+              "Review your creature scenes, then try again.";
+
+  const card = document.getElementById('card');
+  card.className = 'card';
+  card.innerHTML = `<div class="results">
+    <h2>Drill Complete</h2>
+    <div class="score">${correct}/8</div>
+    <p>${msg}</p>
+    <div class="mt" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn btn-primary" onclick="location.reload()">Drill Again</button>
+      <button class="btn btn-ghost" onclick="window.location.href='bestiary_ielts_phrases.html'">Back to Full Lesson</button>
+    </div>
+  </div>`;
+
+  document.getElementById('modeSelect').style.pointerEvents = '';
+  document.getElementById('modeSelect').style.opacity = '';
+}
+</script>
+</body>
+</html>
