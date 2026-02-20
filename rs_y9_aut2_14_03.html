@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution and Faith</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #faf8f4;
+            font-family: 'EB Garamond', serif;
+            color: #333;
+            line-height: 1.8;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a3a5c 0%, #7c2d3e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .badge {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            font-family: 'Crimson Text', serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .nav a {
+            color: #7c2d3e;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .nav a:hover {
+            background-color: #f0ebe3;
+        }
+        .nav .disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        .timer-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .timer-bar .time {
+            font-weight: bold;
+            color: #7c2d3e;
+            min-width: 3rem;
+        }
+        .timer-bar .progress {
+            width: 120px;
+            height: 6px;
+            background: #e0d5c8;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .timer-bar .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a3a5c 0%, #7c2d3e 100%);
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e0d5c8;
+        }
+        .tab-btn {
+            padding: 0.8rem 1.2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn[data-tab="active"] {
+            color: #7c2d3e;
+            border-bottom-color: #7c2d3e;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content[data-tab="active"] {
+            display: block;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #1a3a5c;
+        }
+        .section h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #7c2d3e;
+        }
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .recall-item {
+            background: #f5f0e8;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #1a3a5c;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .recall-item:hover {
+            background-color: #ede6dd;
+        }
+        .recall-item .q {
+            font-weight: bold;
+            color: #1a3a5c;
+            margin-bottom: 0.5rem;
+        }
+        .recall-item .a {
+            display: none;
+            color: #555;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #ddd;
+        }
+        .recall-item[data-reveal="show"] .a {
+            display: block;
+        }
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 768px) {
+            .grid-cards { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: white;
+            border: 2px solid #e0d5c8;
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            border-color: #7c2d3e;
+            box-shadow: 0 4px 12px rgba(124, 45, 62, 0.1);
+        }
+        .card h3 {
+            color: #1a3a5c;
+            margin-top: 0;
+        }
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .quote {
+            font-style: italic;
+            border-left: 4px solid #1a3a5c;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #555;
+        }
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .chip {
+            background: #f0ebe3;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: move;
+            user-select: none;
+            border: 2px solid #e0d5c8;
+            font-family: 'EB Garamond', serif;
+            transition: all 0.2s;
+        }
+        .chip:hover {
+            background: #e8dfd4;
+            border-color: #7c2d3e;
+        }
+        .chip.dragging {
+            opacity: 0.6;
+            transform: scale(0.95);
+        }
+        .sorting-bins {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 768px) {
+            .sorting-bins { grid-template-columns: 1fr; }
+        }
+        .bin {
+            background: #f9f7f3;
+            border: 3px dashed #e0d5c8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 200px;
+        }
+        .bin.active {
+            border-color: #7c2d3e;
+            background: #fdfcf9;
+        }
+        .bin h4 {
+            color: #1a3a5c;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .bin-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .textarea-wrapper {
+            margin: 1.5rem 0;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            border: 2px solid #e0d5c8;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 200px;
+            line-height: 1.8;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #7c2d3e;
+        }
+        .word-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+        .scaffold {
+            background: #f5f0e8;
+            padding: 1.5rem;
+            border-left: 4px solid #1a3a5c;
+            margin: 1rem 0;
+        }
+        .scaffold strong {
+            color: #1a3a5c;
+        }
+        .instruction {
+            background: #f9f7f3;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .counter-evidence {
+            background: #fdf7f5;
+            padding: 1rem;
+            border-left: 4px solid #c97777;
+            margin: 1rem 0;
+        }
+        .counter-evidence strong {
+            color: #7c2d3e;
+        }
+        .review-list {
+            list-style: none;
+            counter-reset: item;
+        }
+        .review-list li {
+            counter-increment: item;
+            margin-bottom: 1rem;
+        }
+        .review-list li:before {
+            content: counter(item) ".";
+            font-weight: bold;
+            color: #7c2d3e;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Evolution and Faith</h1>
+        <p class="badge">YEAR 9 · UNIT 14: RELIGION & SCIENCE · LESSON 3</p>
+    </div>
+
+    <div class="container">
+        <div class="nav">
+            <a href="rs_y9_aut2_14_02.html">← Prev</a>
+            <a href="rs_y9_dashboard.html">Dashboard</a>
+            <a href="rs_y9_aut2_14_04.html">Next →</a>
+            <div class="timer-bar">
+                <span class="time">5:00</span>
+                <div class="progress">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn" data-tab="active">Think</button>
+            <button class="tab-btn">Encounter</button>
+            <button class="tab-btn">Explore</button>
+            <button class="tab-btn">Apply</button>
+            <button class="tab-btn">Evaluate</button>
+            <button class="tab-btn">Review</button>
+        </div>
+
+        <!-- THINK -->
+        <div class="tab-content" data-tab="active">
+            <div class="section">
+                <h2>What Do You Remember?</h2>
+                <p>Recall what you learned in Lesson 2. Click each question to reveal the answer.</p>
+
+                <div class="recall-item" data-reveal="hide">
+                    <div class="q">1. What are the two accounts of creation in Genesis?</div>
+                    <div class="a">Genesis 1 describes a seven-day creation where God creates all things, including humans made in God's image. Genesis 2 gives a more detailed narrative with Adam created first and Eve from his rib.</div>
+                </div>
+
+                <div class="recall-item" data-reveal="hide">
+                    <div class="q">2. What is Al-Khaliq in Islam?</div>
+                    <div class="a">Al-Khaliq is one of the 99 names of Allah, meaning "The Creator."</div>
+                </div>
+
+                <div class="recall-item" data-reveal="hide">
+                    <div class="q">3. What did the Buddha teach about the origin of the universe?</div>
+                    <div class="a">The Buddha called questions about the universe's ultimate origin "unanswerable" (avyakata) and said they don't lead to enlightenment. He focused instead on ending suffering.</div>
+                </div>
+
+                <div class="recall-item" data-reveal="hide">
+                    <div class="q">4. How do Humanists explain the existence of the universe and life?</div>
+                    <div class="a">Humanists explain the universe through the Big Bang and life through evolution — both natural processes that don't require a divine creator.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENCOUNTER -->
+        <div class="tab-content" data-tab="hide">
+            <div class="section">
+                <h2>Darwin, Evolution, and Religious Responses</h2>
+                <p>When Charles Darwin published "On the Origin of Species" in 1859, it was revolutionary. But the relationship between evolution and faith is not simple. Many believers have found ways to accept evolution.</p>
+
+                <h3>Charles Darwin and Natural Selection</h3>
+                <p>Darwin showed that life forms change over time through natural selection: organisms with traits suited to their environment survive and reproduce, passing those traits to offspring. Over millions of years, small changes accumulate into new species. This process explains the diversity of life without requiring a divine designer for each species.</p>
+
+                <h3>Why Some Saw Evolution as a Challenge to Religion</h3>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li><strong>No Designer Needed:</strong> The design argument (God made the watch) loses force if natural processes can create complexity.</li>
+                    <li><strong>Humans as Animals:</strong> Evolution suggests humans are part of nature, not a special creation in God's image.</li>
+                    <li><strong>Suffering and Waste:</strong> Natural selection involves death and suffering (not all offspring survive). This seems incompatible with a loving God.</li>
+                </ul>
+
+                <h3>Christian Responses to Evolution</h3>
+                <div class="grid-cards">
+                    <div class="card">
+                        <h3>Young Earth Creationism</h3>
+                        <p><strong>View:</strong> Genesis is literally true. The world is about 6,000 years old.</p>
+                        <p><strong>Position on evolution:</strong> Reject evolution entirely. Life forms do not change into new species.</p>
+                        <p><strong>Support:</strong> Some Christians believe this is the only way to respect Scripture.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Old Earth Creationism</h3>
+                        <p><strong>View:</strong> Accepts the geological age of the Earth (billions of years), but God created each "kind" of creature.</p>
+                        <p><strong>Position on evolution:</strong> Accepts some change within species, but rejects the evolution of entirely new kinds from common ancestors.</p>
+                        <p><strong>Support:</strong> Tries to accommodate both science and Scripture.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Theistic Evolution</h3>
+                        <p><strong>View:</strong> God used evolution as the method of creation. Evolution is how God created life.</p>
+                        <p><strong>Position on evolution:</strong> Fully accepts evolution, including common descent. Genesis is theology, not biology.</p>
+                        <p><strong>Support:</strong> Endorsed by the Catholic Church (Pope John Paul II, 1996) and the Church of England.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Why Some Accept Both</h3>
+                        <p><strong>Quote from Pope Francis:</strong> Evolution "does not contradict the notion of divine creation" because God could work through natural processes.</p>
+                        <p><strong>Logic:</strong> The "how" (natural selection) doesn't rule out the "why" (God's purpose). Science explains mechanism; faith addresses meaning.</p>
+                    </div>
+                </div>
+
+                <h3>Islamic Responses to Evolution</h3>
+                <p>Muslims are divided on human evolution. Some accept animal evolution but debate whether humans evolved or were specially created. Others argue the Qur'an is compatible with evolution:</p>
+                <p class="quote">"Do they not see that We have created for them out of that which Our hands have created, cattle, and [then] they are owners thereof?" (Qur'an 36:71) — interpreted by some as showing God's creative work through natural processes.</p>
+                <p class="quote">"There is no creature on earth but its sustenance depends on Allah: He knows the time and place of its definite term: all is in a Clear Record." (Qur'an 11:6) — seen by some as allowing natural causation within divine providence.</p>
+
+                <h3>Buddhist Perspective on Evolution</h3>
+                <p>Evolution fits well with Buddhist philosophy. Buddhism teaches impermanence (anicca) — all conditioned things are in constant flux. Evolution is the natural expression of this principle. Additionally, Buddhism has no creator God to defend, so there is no inherent conflict with science.</p>
+            </div>
+        </div>
+
+        <!-- EXPLORE -->
+        <div class="tab-content" data-tab="hide">
+            <div class="section">
+                <h2>Sort the Statements</h2>
+                <p class="instruction">Drag each statement into the category that best matches it. Think about which views each statement reflects.</p>
+
+                <div class="chips-container">
+                    <div class="chip" data-chip="1">Evolution is God's method of creation</div>
+                    <div class="chip" data-chip="2">Humans did not evolve from primates</div>
+                    <div class="chip" data-chip="3">Evolution is a fact, and religion is false</div>
+                    <div class="chip" data-chip="4">The Earth is about 6,000 years old</div>
+                    <div class="chip" data-chip="5">Evolution explains life without needing God</div>
+                    <div class="chip" data-chip="6">The Catholic Church accepts evolution</div>
+                    <div class="chip" data-chip="7">Natural selection is the work of divine providence</div>
+                    <div class="chip" data-chip="8">Species are fixed and unchanging</div>
+                    <div class="chip" data-chip="9">Impermanence means Buddhism welcomes evolutionary thinking</div>
+                    <div class="chip" data-chip="10">Evolution disproves the design argument</div>
+                    <div class="chip" data-chip="11">God guided the evolutionary process</div>
+                    <div class="chip" data-chip="12">Some Muslims see evolution as compatible with the Qur'an</div>
+                </div>
+
+                <div class="sorting-bins">
+                    <div class="bin">
+                        <h4>Accepts Evolution</h4>
+                        <div class="bin-content"></div>
+                    </div>
+                    <div class="bin">
+                        <h4>Rejects Evolution</h4>
+                        <div class="bin-content"></div>
+                    </div>
+                    <div class="bin">
+                        <h4>Evolution Compatible with Faith</h4>
+                        <div class="bin-content"></div>
+                    </div>
+                    <div class="bin">
+                        <h4>Uncertain / Debated</h4>
+                        <div class="bin-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLY -->
+        <div class="tab-content" data-tab="hide">
+            <div class="section">
+                <h2>Write: God and Evolution</h2>
+                <p class="instruction">Write 200–300 words. Use evidence from what you've learned to explain your thinking.</p>
+
+                <div class="scaffold">
+                    <strong>Think about:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Can someone believe in both God and evolution? How?</li>
+                        <li>Why do religious believers disagree about evolution?</li>
+                        <li>What do examples like theistic evolution or Islamic responses show?</li>
+                        <li>Is science really in conflict with all religion on this question?</li>
+                    </ul>
+                </div>
+
+                <p><strong>Question:</strong> Can someone believe in both God and evolution? Explain why different religious believers disagree about this.</p>
+
+                <div class="textarea-wrapper">
+                    <textarea data-wc="word-count"></textarea>
+                    <div class="word-count">0 words</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVALUATE -->
+        <div class="tab-content" data-tab="hide">
+            <div class="section">
+                <h2>Essay Question: Critical Thinking</h2>
+
+                <p><strong>Statement:</strong> "Evolution disproves the existence of God."</p>
+                <p class="instruction">Do you agree? Write 200–300 words. Include arguments for and against this claim, then give your reasoned position.</p>
+
+                <div class="scaffold">
+                    <strong>Structure your answer:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Explain what the statement claims</li>
+                        <li>Give reasons someone might agree (the atheist argument)</li>
+                        <li>Give reasons why theists might disagree (examples from Christianity, Islam, Buddhism)</li>
+                        <li>What does your evidence suggest? Is the statement true, false, or more complex?</li>
+                    </ul>
+                </div>
+
+                <div class="counter-evidence">
+                    <strong>Remember:</strong> The weakest argument for this claim is assuming evolution and theism are automatically opposed. The strongest position acknowledges that many believers and believers' communities see no conflict.
+                </div>
+
+                <div class="textarea-wrapper">
+                    <textarea data-wc="word-count"></textarea>
+                    <div class="word-count">0 words</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REVIEW -->
+        <div class="tab-content" data-tab="hide">
+            <div class="section">
+                <h2>Check Your Knowledge</h2>
+                <p>Click each question to test what you've learned.</p>
+
+                <ol class="review-list">
+                    <li>
+                        <div class="recall-item" data-reveal="hide">
+                            <div class="q">What are Darwin's key ideas in "On the Origin of Species"?</div>
+                            <div class="a">Darwin showed that organisms change over time through natural selection — organisms suited to their environment survive and reproduce, passing traits to offspring. Over time, small changes accumulate into new species. This explains life's diversity without requiring a designer for each species.</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="recall-item" data-reveal="hide">
+                            <div class="q">What is the difference between Young Earth Creationism and Theistic Evolution?</div>
+                            <div class="a">Young Earth Creationism rejects evolution entirely and believes the Earth is about 6,000 years old based on a literal reading of Genesis. Theistic Evolution accepts evolution as God's method of creation and sees Genesis as theology, not science.</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="recall-item" data-reveal="hide">
+                            <div class="q">What is the official position of the Catholic Church on evolution?</div>
+                            <div class="a">The Catholic Church accepts evolution. Pope John Paul II affirmed it in 1996, and Pope Francis has stated that evolution "does not contradict the notion of divine creation."</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="recall-item" data-reveal="hide">
+                            <div class="q">How do Muslims disagree about human evolution?</div>
+                            <div class="a">Some Muslims accept animal evolution but debate whether humans evolved or were specially created. Others argue that the Qur'an is compatible with evolutionary processes as God's method of creation. There is no single Islamic position.</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="recall-item" data-reveal="hide">
+                            <div class="q">Why does Buddhist philosophy align well with evolutionary thinking?</div>
+                            <div class="a">Buddhism teaches impermanence (anicca) — all conditioned things are in constant change and flux. Evolution reflects this principle. Additionally, Buddhism has no creator God to defend, so there is no inherent conflict between evolution and Buddhist faith.</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const timerDuration = 300;
+        let timeRemaining = timerDuration;
+        const progressFill = document.querySelector('.progress-fill');
+        const timeDisplay = document.querySelector('.time');
+
+        function startTimer() {
+            const startTime = Date.now();
+            const interval = setInterval(() => {
+                timeRemaining = Math.max(0, timerDuration - Math.floor((Date.now() - startTime) / 1000));
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                const percent = (timeRemaining / timerDuration) * 100;
+                progressFill.style.width = percent + '%';
+                if (timeRemaining === 0) clearInterval(interval);
+            }, 100);
+        }
+
+        document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.removeAttribute('data-tab'));
+                document.querySelectorAll('.tab-content').forEach(c => c.removeAttribute('data-tab'));
+                btn.setAttribute('data-tab', 'active');
+                document.querySelectorAll('.tab-content')[idx].setAttribute('data-tab', 'active');
+            });
+        });
+
+        document.querySelectorAll('[data-reveal]').forEach(item => {
+            item.addEventListener('click', () => {
+                const current = item.getAttribute('data-reveal');
+                item.setAttribute('data-reveal', current === 'hide' ? 'show' : 'hide');
+            });
+        });
+
+        document.querySelectorAll('[data-wc]').forEach(textarea => {
+            const counter = textarea.nextElementSibling;
+            textarea.addEventListener('input', () => {
+                const words = textarea.value.trim().split(/\s+/).filter(w => w).length;
+                counter.textContent = words + ' words';
+                if (words >= 200 && words <= 300) {
+                    counter.style.color = '#1a3a5c';
+                } else if (words > 300) {
+                    counter.style.color = '#7c2d3e';
+                } else {
+                    counter.style.color = '#999';
+                }
+            });
+        });
+
+        let draggedChip = null;
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('mousedown', (e) => {
+                draggedChip = chip.cloneNode(true);
+                draggedChip.classList.add('dragging');
+                document.body.appendChild(draggedChip);
+                draggedChip.style.position = 'fixed';
+                draggedChip.style.pointerEvents = 'none';
+                const move = (e) => {
+                    draggedChip.style.left = (e.clientX - 50) + 'px';
+                    draggedChip.style.top = (e.clientY - 15) + 'px';
+                };
+                const drop = (e) => {
+                    document.removeEventListener('mousemove', move);
+                    document.removeEventListener('mouseup', drop);
+                    const bin = document.elementFromPoint(e.clientX, e.clientY).closest('.bin-content');
+                    if (bin) {
+                        bin.appendChild(chip);
+                    }
+                    draggedChip.remove();
+                };
+                document.addEventListener('mousemove', move);
+                document.addEventListener('mouseup', drop);
+            });
+        });
+
+        startTimer();
+    </script>
+</body>
+</html>

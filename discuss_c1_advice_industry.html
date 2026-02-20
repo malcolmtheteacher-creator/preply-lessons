@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Advice Industry - Who Really Benefits?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+        /* Navigation */
+        .tab-nav { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 3px solid #667eea; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .tab-btn { flex: 1; min-width: 120px; padding: 14px 8px; border: none; background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #666; transition: all 0.3s; border-bottom: 3px solid transparent; }
+        .tab-btn:hover { background: #f0f0ff; color: #667eea; }
+        .tab-btn.active { color: #667eea; border-bottom-color: #667eea; background: #f5f3ff; }
+        .tab-content { display: none; max-width: 820px; margin: 0 auto; padding: 32px 24px 60px; }
+        .tab-content.active { display: block; }
+
+        /* Typography */
+        h1 { font-size: 1.8rem; color: #1a1a2e; margin-bottom: 8px; }
+        h2 { font-size: 1.4rem; color: #667eea; margin-bottom: 16px; border-bottom: 2px solid #e8e6ff; padding-bottom: 8px; }
+        h3 { font-size: 1.15rem; color: #1a1a2e; margin: 20px 0 10px; }
+        p { margin-bottom: 14px; }
+        .subtitle { color: #666; font-size: 1rem; margin-bottom: 24px; }
+        .learning-intention { background: #f5f3ff; border-left: 4px solid #667eea; padding: 12px 16px; margin: 16px 0 24px; font-style: italic; border-radius: 0 8px 8px 0; }
+
+        /* Cards */
+        .card { background: #fff; border-radius: 12px; padding: 24px; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .card-accent { border-left: 4px solid #667eea; }
+        .card-warm { border-left: 4px solid #e94560; }
+        .card-teal { border-left: 4px solid #4ecdc4; }
+
+        /* Stats */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .stat-number { font-size: 2rem; font-weight: 800; color: #667eea; display: block; }
+        .stat-label { font-size: 0.85rem; color: #666; margin-top: 4px; }
+        .stat-source { font-size: 0.7rem; color: #999; margin-top: 6px; }
+
+        /* Reveal cards */
+        .reveal-card { background: #fff; border-radius: 12px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); cursor: pointer; transition: all 0.3s; border: 2px solid #e8e6ff; }
+        .reveal-card:hover { border-color: #667eea; transform: translateY(-2px); }
+        .reveal-prompt { font-weight: 600; color: #1a1a2e; }
+        .reveal-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; color: #444; }
+        .reveal-card.revealed .reveal-answer { display: block; }
+        .reveal-card .click-hint { font-size: 0.8rem; color: #999; margin-top: 6px; }
+        .reveal-card.revealed .click-hint { display: none; }
+
+        /* Discussion cards */
+        .discussion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+        .discussion-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 2px solid #e8e6ff; cursor: pointer; transition: all 0.3s; position: relative; }
+        .discussion-card:hover { border-color: #667eea; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(102,126,234,0.15); }
+        .discussion-card.selected { border-color: #667eea; background: #f5f3ff; }
+        .discussion-card.selected::after { content: 'SELECTED'; position: absolute; top: 8px; right: 8px; background: #667eea; color: #fff; font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+        .card-number { display: inline-block; background: #667eea; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; }
+        .card-question { font-size: 1.05rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+        .card-context { font-size: 0.9rem; color: #666; }
+
+        /* Text areas */
+        textarea { width: 100%; min-height: 120px; padding: 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; font-size: 0.95rem; line-height: 1.6; resize: vertical; transition: border-color 0.3s; background: #fff; }
+        textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+        textarea::placeholder { color: #aaa; }
+
+        /* Buttons */
+        .btn { display: inline-block; padding: 12px 28px; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #667eea; color: #fff; }
+        .btn-primary:hover { background: #5a6fd6; transform: translateY(-2px); }
+        .btn-secondary { background: #f0f0ff; color: #667eea; border: 2px solid #667eea; }
+        .btn-secondary:hover { background: #667eea; color: #fff; }
+        .btn-small { padding: 8px 18px; font-size: 0.85rem; }
+
+        /* Feedback */
+        .feedback { padding: 14px 18px; border-radius: 8px; margin: 12px 0; display: none; }
+        .feedback-positive { background: #e8f5e9; border: 1px solid #4ecdc4; color: #2e7d32; }
+        .feedback-neutral { background: #fff3e0; border: 1px solid #ff9800; color: #e65100; }
+        .feedback-info { background: #f5f3ff; border: 1px solid #667eea; color: #3f3d56; }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+        .timer-display { font-size: 1.8rem; font-weight: 800; font-family: 'Courier New', monospace; color: #4ecdc4; min-width: 80px; }
+        .timer-display.warning { color: #f9a825; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Ranking */
+        .rank-item { display: flex; align-items: center; gap: 12px; background: #fff; padding: 14px 18px; border-radius: 10px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 2px solid #e8e6ff; cursor: grab; transition: all 0.2s; }
+        .rank-item:hover { border-color: #667eea; }
+        .rank-item .rank-number { background: #667eea; color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .rank-item .rank-arrows { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+        .rank-item .rank-arrows button { background: #f0f0ff; border: 1px solid #d0d0e0; padding: 2px 8px; cursor: pointer; border-radius: 4px; font-size: 0.8rem; color: #667eea; }
+        .rank-item .rank-arrows button:hover { background: #667eea; color: #fff; }
+
+        /* Comparison boxes */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .compare-box { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .compare-box.weak { border-top: 4px solid #e94560; }
+        .compare-box.strong { border-top: 4px solid #4ecdc4; }
+        .compare-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .compare-box.weak .compare-label { color: #e94560; }
+        .compare-box.strong .compare-label { color: #4ecdc4; }
+
+        /* Language box */
+        .language-box { background: linear-gradient(135deg, #f5f3ff, #e8e6ff); border-radius: 12px; padding: 20px; margin: 16px 0; border: 1px solid #d0c8ff; }
+        .language-box h3 { color: #667eea; margin-bottom: 8px; font-size: 1rem; }
+        .language-item { display: flex; gap: 8px; margin: 8px 0; align-items: flex-start; }
+        .language-item .dot { width: 8px; height: 8px; background: #667eea; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+        .language-item .lang-text { font-size: 0.95rem; }
+        .lang-example { color: #667eea; font-weight: 600; }
+        .lang-use { color: #666; font-size: 0.85rem; }
+
+        /* Person story */
+        .person-card { display: flex; gap: 16px; background: #fff; border-radius: 12px; padding: 20px; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #667eea; }
+        .person-icon { width: 48px; height: 48px; background: #f5f3ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; color: #667eea; font-weight: 700; }
+        .person-content { flex: 1; }
+        .person-name { font-weight: 700; color: #1a1a2e; }
+        .person-role { font-size: 0.85rem; color: #666; margin-bottom: 6px; }
+
+        /* Recall zone */
+        .recall-zone { background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-radius: 12px; padding: 24px; margin: 20px 0; border: 2px solid #ff9800; }
+        .recall-zone h3 { color: #e65100; }
+
+        /* Checklist */
+        .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; }
+        .checklist-item input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; accent-color: #667eea; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tab-btn { font-size: 0.75rem; padding: 10px 4px; min-width: 60px; }
+            .tab-content { padding: 20px 16px 40px; }
+            h1 { font-size: 1.4rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .discussion-grid { grid-template-columns: 1fr; }
+            .person-card { flex-direction: column; }
+        }
+
+        /* Perspectives grid */
+        .perspectives-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .perspective-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .perspective-card.pro { border-top: 4px solid #4ecdc4; }
+        .perspective-card.con { border-top: 4px solid #e94560; }
+        .perspective-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .perspective-card.pro .perspective-label { color: #4ecdc4; }
+        .perspective-card.con .perspective-label { color: #e94560; }
+        @media (max-width: 768px) { .perspectives-grid { grid-template-columns: 1fr; } }
+
+        .section-tag { display: inline-block; background: #667eea; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .section-tag.activate { background: #4ecdc4; }
+        .section-tag.demonstrate { background: #e94560; }
+        .section-tag.consolidate { background: #ff9800; }
+
+        .word-count { font-size: 0.8rem; color: #999; margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+<!-- TAB NAVIGATION -->
+<nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab(0)">1. Connect</button>
+    <button class="tab-btn" onclick="showTab(1)">2. Perspectives</button>
+    <button class="tab-btn" onclick="showTab(2)">3. Analyse</button>
+    <button class="tab-btn" onclick="showTab(3)">4. Your Turn</button>
+    <button class="tab-btn" onclick="showTab(4)">5. Position</button>
+    <button class="tab-btn" onclick="showTab(5)">6. Wrap-Up</button>
+</nav>
+
+<!-- ===================== TAB 1: CONNECT ===================== -->
+<div class="tab-content active" id="tab-0">
+    <span class="section-tag">Connect</span>
+    <h1>The Advice Industry</h1>
+    <p class="subtitle">Who Really Benefits?</p>
+
+    <div class="learning-intention">
+        Today we're exploring the global consulting industry so you can build and defend a nuanced argument about whether consulting firms do more good or harm.
+    </div>
+
+    <h2>What Do You Already Know?</h2>
+    <p>Let's see what comes to mind. Don't worry about being "right" -- just get your thoughts down.</p>
+
+    <div class="card">
+        <p><strong>Think about these companies: McKinsey, Deloitte, BCG, Capgemini, Accenture, PwC, KPMG, EY, Bain.</strong></p>
+        <p>Without looking anything up, say or write:</p>
+        <textarea id="retrieval1" placeholder="What do these companies actually sell? Who are their clients? What's the difference between them? What's your impression of the industry?"></textarea>
+        <div class="word-count" id="wc-retrieval1">0 words</div>
+    </div>
+
+    <h2>The Numbers</h2>
+    <p>Now take a look at the reality of this industry.</p>
+
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span class="stat-number">$319B</span>
+            <span class="stat-label">Global consulting market revenue, 2024</span>
+            <span class="stat-source">Global Growth Insights / Zion Research</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">$650M</span>
+            <span class="stat-label">McKinsey's fine for its role in the US opioid crisis</span>
+            <span class="stat-source">US Department of Justice, 2024</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">R1.1B</span>
+            <span class="stat-label">McKinsey's settlement in South Africa's "state capture" scandal</span>
+            <span class="stat-source">Daily Maverick, 2024</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">27%</span>
+            <span class="stat-label">Traditional consulting tasks directly automatable by AI</span>
+            <span class="stat-source">IBM Consulting / Consultancy-me</span>
+        </div>
+    </div>
+
+    <h2>Two Stories</h2>
+
+    <div class="person-card">
+        <div class="person-icon">BG</div>
+        <div class="person-content">
+            <div class="person-name">Bianca Goodson</div>
+            <div class="person-role">Former CEO, Trillian Management (McKinsey's local partner in South Africa)</div>
+            <p>Goodson was hired as CEO of a company that was supposed to partner with McKinsey on state energy contracts. Within three months, she realised the company was a shell designed to funnel money to politically connected families. She resigned and became a whistleblower, testifying before parliament. McKinsey later admitted to "errors of judgment" and returned over R1.6 billion in consulting fees to South African state companies.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="person-icon">EB</div>
+        <div class="person-content">
+            <div class="person-name">Ed Bisch</div>
+            <div class="person-role">Father of Eddie Bisch (died of OxyContin overdose, 2001)</div>
+            <p>McKinsey advised Purdue Pharma on strategies to "turbocharge" sales of OxyContin -- targeting high-dose prescribers and suggesting "cash prizes" for sales reps. When investigations began, McKinsey partners discussed deleting documents. The opioid crisis has contributed to the deaths of over 500,000 Americans. McKinsey eventually paid $650 million but no executives served prison time. "No one goes to jail," Bisch said. "These companies look on fines as a cost of doing business."</p>
+        </div>
+    </div>
+
+    <div class="card card-accent">
+        <h3>Initial Reaction</h3>
+        <p>Having read these numbers and stories, what's your gut reaction? Does anything surprise you?</p>
+        <textarea id="reaction1" placeholder="Share your immediate thoughts..."></textarea>
+        <div class="word-count" id="wc-reaction1">0 words</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="showTab(1)">Next: Explore the perspectives</button>
+    </div>
+</div>
+
+<!-- ===================== TAB 2: ACTIVATE - PERSPECTIVES ===================== -->
+<div class="tab-content" id="tab-1">
+    <span class="section-tag activate">Activate</span>
+    <h2>The Defence and The Prosecution</h2>
+    <p>The consulting industry has passionate defenders and fierce critics. Both have evidence. Your job is to understand both sides deeply before forming your own position.</p>
+
+    <h3>Chunk 1: What Consulting Firms Say They Do</h3>
+
+    <div class="perspectives-grid">
+        <div class="perspective-card pro">
+            <div class="perspective-label">The Defence</div>
+            <p><strong>"We solve problems companies can't solve alone."</strong></p>
+            <p>Consulting firms argue they bring cross-industry expertise, global benchmarking data, and specialised talent that no single company could maintain in-house. McKinsey, for example, works with over 70 of the world's 100 largest companies annually.</p>
+            <p>They point to digital transformation, post-merger integration, and crisis management as areas where outside expertise genuinely creates value.</p>
+        </div>
+        <div class="perspective-card con">
+            <div class="perspective-label">The Prosecution</div>
+            <p><strong>"They repackage obvious advice at astronomical prices."</strong></p>
+            <p>In 2024, New York City hired McKinsey to solve its rubbish collection problem. The result: an 80-page report recommending "containerisation" -- essentially, putting rubbish in bins. Cost to taxpayers: $4 million. That's roughly $42,000 per slide.</p>
+            <p>Critics argue consultants often tell companies what they already know, but executives use the consultant's brand name to justify decisions to boards.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <p><strong>Quick check:</strong> Before we go further -- which argument do you find more convincing so far, and why?</p>
+        <textarea id="chunk1check" placeholder="The defence / prosecution is more convincing because..."></textarea>
+        <div class="word-count" id="wc-chunk1check">0 words</div>
+    </div>
+
+    <h3>Chunk 2: The Ethics Question</h3>
+
+    <div class="perspectives-grid">
+        <div class="perspective-card pro">
+            <div class="perspective-label">The Defence</div>
+            <p><strong>"Bad actors exist in every industry. The system self-corrects."</strong></p>
+            <p>McKinsey paid $650 million for its opioid work and $1.1 billion in South Africa. KPMG fired its entire South African leadership. Bain apologised publicly. Defenders say these fines and reputational consequences show the system works -- firms get caught, they pay, they reform.</p>
+            <p>McKinsey has since banned all work involving controlled substances and hired a chief ethics officer.</p>
+        </div>
+        <div class="perspective-card con">
+            <div class="perspective-label">The Prosecution</div>
+            <p><strong>"The fines are pocket change. Nobody goes to prison."</strong></p>
+            <p>McKinsey's $650 million fine came from a firm estimated to earn over $10 billion annually. The US Justice Department called it the first time a consulting firm was held criminally responsible for client advice -- but the charge was a misdemeanour, not a felony. Meanwhile, street-level drug dealers receive years in prison for far smaller roles in the same crisis.</p>
+            <p>In South Africa, McKinsey's former partner Vikas Sagar allegedly laundered millions through shell companies linked to a corrupt political family.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <p><strong>Quick check:</strong> Is a financial penalty enough to change corporate behaviour? Or does it just become "a cost of doing business"?</p>
+        <textarea id="chunk2check" placeholder="I think financial penalties are / aren't enough because..."></textarea>
+        <div class="word-count" id="wc-chunk2check">0 words</div>
+    </div>
+
+    <h3>Chunk 3: The AI Disruption</h3>
+
+    <div class="perspectives-grid">
+        <div class="perspective-card pro">
+            <div class="perspective-label">The Defence</div>
+            <p><strong>"AI makes us better, not obsolete."</strong></p>
+            <p>Accenture booked $3 billion in generative AI contracts in 2024. Deloitte invested $1.4 billion in AI capabilities. McKinsey's AI platform "Lilli" now supports 70% of its proposal and presentation work. These firms aren't being disrupted -- they're selling the disruption.</p>
+        </div>
+        <div class="perspective-card con">
+            <div class="perspective-label">The Prosecution</div>
+            <p><strong>"AI exposes what consultants actually do."</strong></p>
+            <p>In October 2025, Deloitte Australia was exposed for charging the federal government AUD $440,000 for a report largely written by AI tools. Both McKinsey and Deloitte cut more than 10% of their consulting workforce between 2024 and 2025. If AI can draft strategy decks and analyse data in minutes, what exactly are clients paying for?</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="showTab(2)">Next: Analyse these arguments</button>
+    </div>
+</div>
+
+<!-- ===================== TAB 3: ACTIVATE - I DO / WE DO / YOU DO ===================== -->
+<div class="tab-content" id="tab-2">
+    <span class="section-tag activate">Activate</span>
+    <h2>Building a Complex Argument</h2>
+    <p>Simple opinions are easy. Nuanced arguments are powerful. Let's work on building the kind of argument that acknowledges complexity.</p>
+
+    <h3>I Do: Watch How It Works</h3>
+    <p>Here are two ways someone might respond to the question: "Are consulting firms good for the world?" One is weak. One is strong. Read both, then we'll discuss why.</p>
+
+    <div class="compare-grid">
+        <div class="compare-box weak">
+            <div class="compare-label">Response A</div>
+            <p>"I think consulting firms are bad because they charge too much money and they caused the opioid crisis. Companies should solve their own problems instead of paying millions to consultants."</p>
+        </div>
+        <div class="compare-box strong">
+            <div class="compare-label">Response B</div>
+            <p>"There's a reasonable case that consulting firms provide genuine value -- particularly in areas like digital transformation where companies may genuinely lack internal expertise. That said, the industry's track record raises serious questions about accountability. When McKinsey can advise Purdue Pharma on strategies that contributed to hundreds of thousands of deaths and face only a misdemeanour charge, it suggests the regulatory framework hasn't kept pace with the influence these firms wield. What's more troubling is that this isn't an isolated incident -- the South African state capture scandal and Deloitte's AI billing controversy point to systemic issues rather than individual failures."</p>
+        </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">What makes Response B stronger? Click to check your thinking.</div>
+        <div class="click-hint">Click to reveal</div>
+        <div class="reveal-answer">
+            <p><strong>Response B does four things Response A doesn't:</strong></p>
+            <p>1. <strong>Concedes the opposing view first</strong> ("There's a reasonable case that...") -- this shows intellectual honesty.</p>
+            <p>2. <strong>Uses specific evidence</strong> (McKinsey/Purdue, misdemeanour charge, South Africa, Deloitte) rather than vague claims.</p>
+            <p>3. <strong>Escalates from specific to systemic</strong> ("this isn't isolated... systemic issues rather than individual failures").</p>
+            <p>4. <strong>Hedges appropriately</strong> ("suggests," "raises questions") rather than making absolute claims.</p>
+        </div>
+    </div>
+
+    <div class="language-box">
+        <h3>Language for Complex Arguments</h3>
+        <p>Notice how Response B uses specific structures to build sophistication. These aren't fixed phrases to memorise -- they're strategic moves:</p>
+        <div class="language-item">
+            <div class="dot"></div>
+            <div>
+                <span class="lang-example">Conceding before countering:</span>
+                <span class="lang-use">"There's a reasonable case that... That said, ..." / "While it's true that... what's more troubling is ..."</span>
+            </div>
+        </div>
+        <div class="language-item">
+            <div class="dot"></div>
+            <div>
+                <span class="lang-example">Hedging certainty:</span>
+                <span class="lang-use">"This suggests..." / "It raises questions about..." / "The evidence points to..."</span>
+            </div>
+        </div>
+        <div class="language-item">
+            <div class="dot"></div>
+            <div>
+                <span class="lang-example">Moving from specific to systemic:</span>
+                <span class="lang-use">"This isn't an isolated case..." / "What we're seeing is a pattern of..." / "The common thread here is..."</span>
+            </div>
+        </div>
+        <div class="language-item">
+            <div class="dot"></div>
+            <div>
+                <span class="lang-example">Acknowledging nuance:</span>
+                <span class="lang-use">"The picture is more complicated than..." / "It depends on whether you believe..." / "There's a tension between..."</span>
+            </div>
+        </div>
+    </div>
+
+    <h3>We Do: Hypothesis Testing</h3>
+    <p>Let's test some common claims about consulting. For each one, decide: is this a strong argument, a weak argument, or does it depend on context?</p>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">"Consulting firms are just paid to tell executives what they already know."</div>
+        <div class="click-hint">Discuss first, then click</div>
+        <div class="reveal-answer">
+            <p><strong>It depends.</strong> Sometimes this is literally true -- a CEO uses McKinsey's name to justify a decision to the board. But in highly technical areas (AI implementation, post-merger integration, regulatory compliance across 50 countries), outside expertise often fills a genuine gap. The question is: how often is each scenario?</p>
+        </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">"If consulting firms were truly useful, companies wouldn't need to keep hiring them year after year."</div>
+        <div class="click-hint">Discuss first, then click</div>
+        <div class="reveal-answer">
+            <p><strong>Interesting but flawed.</strong> You could make the same argument about doctors or lawyers. Complex organisations face changing problems. However, there IS a valid concern about "dependency" -- consulting firms have a financial incentive to create repeat business rather than genuinely solving problems. The South African case showed consultants "hollowing out" internal expertise, making the client MORE dependent.</p>
+        </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">"The $650 million McKinsey fine proves the system works."</div>
+        <div class="click-hint">Discuss first, then click</div>
+        <div class="reveal-answer">
+            <p><strong>Weak, unless you define "works" very loosely.</strong> $650M from a firm earning $10B+ annually is 6-7%. The charge was a misdemeanour. No executive served prison time. Compare this to a street-level drug dealer facing years in prison for a far smaller role in the same crisis. The question isn't whether there was punishment -- it's whether the punishment matches the harm.</p>
+        </div>
+    </div>
+
+    <h3>You Do: Ranking Challenge</h3>
+    <p>Here are five criticisms of the consulting industry. <strong>Rank them from most to least compelling.</strong> Then explain your top choice in 2-3 sentences.</p>
+
+    <div id="rankContainer">
+        <div class="rank-item" data-id="1">
+            <div class="rank-arrows">
+                <button onclick="moveRank(this.closest('.rank-item'), -1)">Up</button>
+                <button onclick="moveRank(this.closest('.rank-item'), 1)">Dn</button>
+            </div>
+            <div class="rank-number">1</div>
+            <div>They charge enormous fees for advice that's often obvious or generic.</div>
+        </div>
+        <div class="rank-item" data-id="2">
+            <div class="rank-arrows">
+                <button onclick="moveRank(this.closest('.rank-item'), -1)">Up</button>
+                <button onclick="moveRank(this.closest('.rank-item'), 1)">Dn</button>
+            </div>
+            <div class="rank-number">2</div>
+            <div>They have actively caused harm (opioids, state capture) with minimal accountability.</div>
+        </div>
+        <div class="rank-item" data-id="3">
+            <div class="rank-arrows">
+                <button onclick="moveRank(this.closest('.rank-item'), -1)">Up</button>
+                <button onclick="moveRank(this.closest('.rank-item'), 1)">Dn</button>
+            </div>
+            <div class="rank-number">3</div>
+            <div>They hollow out internal expertise, creating dependency rather than building capability.</div>
+        </div>
+        <div class="rank-item" data-id="4">
+            <div class="rank-arrows">
+                <button onclick="moveRank(this.closest('.rank-item'), -1)">Up</button>
+                <button onclick="moveRank(this.closest('.rank-item'), 1)">Dn</button>
+            </div>
+            <div class="rank-number">4</div>
+            <div>They recruit the brightest graduates and burn them out in 80-hour weeks.</div>
+        </div>
+        <div class="rank-item" data-id="5">
+            <div class="rank-arrows">
+                <button onclick="moveRank(this.closest('.rank-item'), -1)">Up</button>
+                <button onclick="moveRank(this.closest('.rank-item'), 1)">Dn</button>
+            </div>
+            <div class="rank-number">5</div>
+            <div>AI is exposing that much of their work can be automated -- the value was always inflated.</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+        <p><strong>Explain your #1 choice:</strong> Why is this the most compelling criticism? Use at least one piece of evidence from the lesson.</p>
+        <textarea id="rankExplain" placeholder="The most compelling criticism is... because..."></textarea>
+        <div class="word-count" id="wc-rankExplain">0 words</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="showTab(3)">Next: Your Turn to argue</button>
+    </div>
+</div>
+
+<!-- ===================== TAB 4: DEMONSTRATE - DISCUSSION CARDS ===================== -->
+<div class="tab-content" id="tab-3">
+    <span class="section-tag demonstrate">Demonstrate</span>
+    <h2>Your Turn: Discussion Cards</h2>
+    <p>Choose <strong>at least 2 cards</strong> that interest you most. For each one, speak for <strong>at least 90 seconds</strong>. Use evidence from the lesson. Try to concede before you counter.</p>
+
+    <div class="discussion-grid">
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">1</div>
+            <div class="card-question">Your company just hired McKinsey for a major project. You've seen the invoice. How do you feel about it?</div>
+            <div class="card-context">Think about: what would make the fee justified? What would make it a waste?</div>
+        </div>
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">2</div>
+            <div class="card-question">"Consultants should face the same criminal liability as the companies they advise." Agree or disagree?</div>
+            <div class="card-context">Think about: the McKinsey/Purdue precedent. Where does advice end and complicity begin?</div>
+        </div>
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">3</div>
+            <div class="card-question">If AI can write strategy decks and analyse data, what are consulting firms actually selling in 2026?</div>
+            <div class="card-context">Think about: Deloitte's AI report scandal. McKinsey's 10% workforce cuts. What's left when the robot can do the research?</div>
+        </div>
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">4</div>
+            <div class="card-question">A government wants to ban consulting firms from advising both regulators and the companies they regulate. Good idea?</div>
+            <div class="card-context">Think about: McKinsey advised both the FDA AND Purdue Pharma simultaneously. 22 consultants worked for both.</div>
+        </div>
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">5</div>
+            <div class="card-question">Would you recommend that a talented 22-year-old graduate join a Big 4 or MBB firm today? Why or why not?</div>
+            <div class="card-context">Think about: the career pipeline, the work culture, the AI threat, and what "consulting" might look like in 10 years.</div>
+        </div>
+        <div class="discussion-card" onclick="this.classList.toggle('selected')">
+            <div class="card-number">6</div>
+            <div class="card-question">"Consulting firms are like doctors. Sometimes the patient doesn't follow the advice. That's not the doctor's fault."</div>
+            <div class="card-context">Think about: Is this a fair analogy? Where does it break down? When IS the advice itself the problem?</div>
+        </div>
+    </div>
+
+    <h3>Timed Speaking Challenge</h3>
+    <p>Pick your strongest card. Speak about it for <strong>3 minutes</strong> without stopping. Try to concede at least one point to the opposing view.</p>
+
+    <div class="timer-container">
+        <div class="timer-display" id="timer1">3:00</div>
+        <button class="btn btn-primary btn-small" onclick="startTimer('timer1', 180)">Start</button>
+        <button class="btn btn-secondary btn-small" onclick="resetTimer('timer1', 180)">Reset</button>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+        <p><strong>After speaking:</strong> What was the hardest part? Which argument did you struggle to articulate?</p>
+        <textarea id="speakingReflect" placeholder="The hardest part was..."></textarea>
+        <div class="word-count" id="wc-speakingReflect">0 words</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="showTab(4)">Next: Write your position</button>
+    </div>
+</div>
+
+<!-- ===================== TAB 5: DEMONSTRATE - WRITTEN POSITION + TEACH-BACK ===================== -->
+<div class="tab-content" id="tab-4">
+    <span class="section-tag demonstrate">Demonstrate</span>
+    <h2>Written Position Statement</h2>
+    <p>Now write your position. This is your genuine, considered view after examining the evidence. <strong>Aim for 8-12 sentences.</strong></p>
+
+    <div class="card card-accent">
+        <h3>Your brief:</h3>
+        <p>Write a response to this question: <strong>"Do the benefits of the global consulting industry outweigh the harms?"</strong></p>
+        <p>Your response should:</p>
+        <div class="checklist-item"><span>-- </span><span>Concede at least one point to the opposing side</span></div>
+        <div class="checklist-item"><span>-- </span><span>Use at least two specific pieces of evidence</span></div>
+        <div class="checklist-item"><span>-- </span><span>Move from specific examples to a systemic argument</span></div>
+        <div class="checklist-item"><span>-- </span><span>Hedge where appropriate (avoid absolute claims)</span></div>
+    </div>
+
+    <div class="timer-container">
+        <div class="timer-display" id="timer2">5:00</div>
+        <button class="btn btn-primary btn-small" onclick="startTimer('timer2', 300)">Start 5 min</button>
+        <button class="btn btn-secondary btn-small" onclick="resetTimer('timer2', 300)">Reset</button>
+    </div>
+
+    <textarea id="positionStatement" style="min-height: 200px;" placeholder="Do the benefits of the global consulting industry outweigh the harms? In my view..."></textarea>
+    <div class="word-count" id="wc-positionStatement">0 words</div>
+
+    <div id="positionFeedback" class="feedback feedback-info"></div>
+    <button class="btn btn-primary" onclick="checkPosition()" style="margin-top: 12px;">Check my writing</button>
+
+    <h2 style="margin-top: 32px;">Teach-Back: The Other Side</h2>
+    <p>Now for the hard part. Whatever position you just argued, <strong>explain the strongest version of the OPPOSING view</strong>. Not a strawman -- the genuinely best argument the other side would make.</p>
+    <p>Do this <strong>out loud, for 90 seconds</strong>. You're explaining to someone who disagrees with you why their view has merit.</p>
+
+    <div class="timer-container">
+        <div class="timer-display" id="timer3">1:30</div>
+        <button class="btn btn-primary btn-small" onclick="startTimer('timer3', 90)">Start 90s</button>
+        <button class="btn btn-secondary btn-small" onclick="resetTimer('timer3', 90)">Reset</button>
+    </div>
+
+    <div class="card">
+        <p><strong>How did that feel?</strong> Was it harder to argue the opposing view than your own?</p>
+        <textarea id="teachbackReflect" placeholder="Arguing the other side was... because..."></textarea>
+        <div class="word-count" id="wc-teachbackReflect">0 words</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="showTab(5)">Next: Wrap-Up</button>
+    </div>
+</div>
+
+<!-- ===================== TAB 6: CONSOLIDATE ===================== -->
+<div class="tab-content" id="tab-5">
+    <span class="section-tag consolidate">Consolidate</span>
+    <h2>Recall Zone</h2>
+
+    <div class="recall-zone">
+        <h3>From Previous Lessons</h3>
+        <p>Your teacher will tell you which items to retrieve here. Without looking at any notes, try to recall:</p>
+        <textarea id="recallZone" placeholder="[Your teacher will specify 2-3 items from previous lessons to retrieve from memory here]"></textarea>
+        <div class="word-count" id="wc-recallZone">0 words</div>
+    </div>
+
+    <h2>Final Retrieval</h2>
+    <p>Close your eyes or look away from the screen. From memory, answer these:</p>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">1. Name three specific scandals involving consulting firms that we discussed today.</div>
+        <div class="click-hint">Say your answer, then click to check</div>
+        <div class="reveal-answer">
+            <p>McKinsey and Purdue Pharma / the opioid crisis ($650M fine). McKinsey and South Africa's state capture scandal (R1.1B settlement). Deloitte Australia's AI-written report charged at $440,000.</p>
+        </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">2. What four moves make a complex argument stronger than a simple opinion?</div>
+        <div class="click-hint">Say your answer, then click to check</div>
+        <div class="reveal-answer">
+            <p>1. Concede the opposing view first. 2. Use specific evidence, not vague claims. 3. Move from specific cases to systemic arguments. 4. Hedge appropriately -- avoid absolute claims.</p>
+        </div>
+    </div>
+
+    <div class="reveal-card" onclick="this.classList.toggle('revealed')">
+        <div class="reveal-prompt">3. What was the approximate global consulting market value in 2024?</div>
+        <div class="click-hint">Say your answer, then click to check</div>
+        <div class="reveal-answer">
+            <p>Approximately $319 billion (various estimates range from $303B to $467B depending on what's included).</p>
+        </div>
+    </div>
+
+    <h2>Metacognition</h2>
+    <div class="card">
+        <p><strong>What changed your thinking today?</strong> Did your view shift from the beginning of the lesson? What was the strongest argument you encountered -- whether you agreed with it or not?</p>
+        <textarea id="metacognition" placeholder="My thinking changed because... / The strongest argument was..."></textarea>
+        <div class="word-count" id="wc-metacognition">0 words</div>
+    </div>
+
+    <h2>I Can...</h2>
+    <div class="card card-accent">
+        <p>We said you'd be able to <strong>build and defend a nuanced argument about whether consulting firms do more good or harm</strong>. How confident do you feel?</p>
+        <div style="margin: 16px 0;">
+            <label class="checklist-item"><input type="checkbox"> I can explain what major consulting firms do and why companies hire them</label>
+            <label class="checklist-item"><input type="checkbox"> I can describe real cases where consulting firms caused harm (with evidence)</label>
+            <label class="checklist-item"><input type="checkbox"> I can concede opposing arguments before countering them</label>
+            <label class="checklist-item"><input type="checkbox"> I can build an argument that moves from specific evidence to systemic claims</label>
+            <label class="checklist-item"><input type="checkbox"> I can hedge my claims appropriately (avoiding absolutes)</label>
+            <label class="checklist-item"><input type="checkbox"> I can argue the opposing view convincingly, even if I disagree with it</label>
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center; background: #f5f3ff;">
+        <p style="font-size: 1.1rem; font-weight: 600; color: #667eea;">Lesson complete. Well argued.</p>
+    </div>
+</div>
+
+<script>
+    // Tab navigation
+    function showTab(index) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + index).classList.add('active');
+        document.querySelectorAll('.tab-btn')[index].classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // Word count
+    document.querySelectorAll('textarea').forEach(ta => {
+        ta.addEventListener('input', function() {
+            const wcId = 'wc-' + this.id;
+            const wcEl = document.getElementById(wcId);
+            if (wcEl) {
+                const words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+                wcEl.textContent = words + ' word' + (words !== 1 ? 's' : '');
+            }
+        });
+    });
+
+    // Timer
+    let timers = {};
+    function startTimer(id, totalSeconds) {
+        if (timers[id]) clearInterval(timers[id]);
+        let remaining = totalSeconds;
+        const display = document.getElementById(id);
+        // Check if already counting
+        const currentText = display.textContent;
+        const parts = currentText.split(':');
+        if (parts.length === 2) {
+            const mins = parseInt(parts[0]);
+            const secs = parseInt(parts[1]);
+            remaining = mins * 60 + secs;
+        }
+        timers[id] = setInterval(() => {
+            remaining--;
+            if (remaining <= 0) {
+                clearInterval(timers[id]);
+                display.textContent = '0:00';
+                display.className = 'timer-display danger';
+                return;
+            }
+            const m = Math.floor(remaining / 60);
+            const s = remaining % 60;
+            display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+            if (remaining <= 10) {
+                display.className = 'timer-display danger';
+            } else if (remaining <= 30) {
+                display.className = 'timer-display warning';
+            } else {
+                display.className = 'timer-display';
+            }
+        }, 1000);
+    }
+
+    function resetTimer(id, totalSeconds) {
+        if (timers[id]) clearInterval(timers[id]);
+        const display = document.getElementById(id);
+        const m = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+        display.className = 'timer-display';
+    }
+
+    // Ranking
+    function moveRank(item, direction) {
+        const container = document.getElementById('rankContainer');
+        const items = Array.from(container.children);
+        const index = items.indexOf(item);
+        if (direction === -1 && index > 0) {
+            container.insertBefore(item, items[index - 1]);
+        } else if (direction === 1 && index < items.length - 1) {
+            container.insertBefore(items[index + 1], item);
+        }
+        // Update numbers
+        Array.from(container.children).forEach((el, i) => {
+            el.querySelector('.rank-number').textContent = i + 1;
+        });
+    }
+
+    // Position check
+    function checkPosition() {
+        const text = document.getElementById('positionStatement').value;
+        const feedback = document.getElementById('positionFeedback');
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+
+        if (words < 30) {
+            feedback.className = 'feedback feedback-neutral';
+            feedback.style.display = 'block';
+            feedback.innerHTML = '<strong>Keep going.</strong> You need more development. Aim for 8-12 sentences with specific evidence.';
+            return;
+        }
+
+        let checks = [];
+        let passes = 0;
+
+        // Check for concession markers
+        const concessionWords = ['although', 'while', 'however', 'that said', 'admittedly', 'granted', 'on the other hand', 'it\'s true', 'nevertheless', 'despite', 'concede', 'fair to say', 'reasonable'];
+        const hasConcession = concessionWords.some(w => text.toLowerCase().includes(w));
+        checks.push(hasConcession ? 'Concession language detected -- strong move.' : 'Try conceding a point to the other side before countering. Use structures like "While it\'s true that..." or "That said,..."');
+        if (hasConcession) passes++;
+
+        // Check for evidence
+        const evidenceWords = ['mckinsey', 'deloitte', 'purdue', 'opioid', 'south africa', 'billion', 'million', '$', 'percent', '%', 'bain', 'kpmg', 'accenture', 'capgemini'];
+        const evidenceCount = evidenceWords.filter(w => text.toLowerCase().includes(w)).length;
+        const hasEvidence = evidenceCount >= 2;
+        checks.push(hasEvidence ? 'Good use of specific evidence (' + evidenceCount + ' references found).' : 'Include more specific evidence -- names, numbers, cases. Avoid vague claims.');
+        if (hasEvidence) passes++;
+
+        // Check for hedging
+        const hedgeWords = ['suggests', 'raises questions', 'points to', 'arguably', 'tends to', 'it seems', 'evidence indicates', 'appears', 'may', 'might', 'could', 'likely'];
+        const hasHedge = hedgeWords.some(w => text.toLowerCase().includes(w));
+        checks.push(hasHedge ? 'Appropriate hedging detected.' : 'Try hedging your claims. Use "suggests" or "raises questions" rather than absolute statements.');
+        if (hasHedge) passes++;
+
+        // Check for systemic language
+        const systemicWords = ['systemic', 'pattern', 'not isolated', 'industry-wide', 'structural', 'broader', 'common thread', 'recurring', 'fundamental'];
+        const hasSystemic = systemicWords.some(w => text.toLowerCase().includes(w));
+        checks.push(hasSystemic ? 'Good -- you moved from specific to systemic.' : 'Try moving from specific cases to a bigger argument. "This isn\'t isolated -- it points to a systemic/structural issue."');
+        if (hasSystemic) passes++;
+
+        feedback.className = 'feedback feedback-info';
+        feedback.style.display = 'block';
+        feedback.innerHTML = '<strong>' + passes + '/4 criteria met:</strong><br>' + checks.map(c => '-- ' + c).join('<br>');
+    }
+</script>
+
+</body>
+</html>
