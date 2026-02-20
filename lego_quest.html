@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGO Quest: Build Your Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #faf9f6; color: #1a1a2e; min-height: 100vh; }
+
+/* Nav */
+.nav { display: flex; gap: 4px; padding: 10px; background: #1a1a2e; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+.nav-btn { padding: 8px 12px; border: 2px solid #333; border-radius: 8px; background: transparent; color: #888; font-weight: 700; font-size: 0.72em; cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+.nav-btn.active { background: #f6cd46; border-color: #f6cd46; color: #1a1a2e; }
+.nav-btn.completed { border-color: #00b894; color: #00b894; }
+.nav-btn:hover { border-color: #f6cd46; }
+.nav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+/* Stage */
+.stage { display: none; padding: 20px; max-width: 720px; margin: 0 auto; }
+.stage.active { display: block; }
+.stage-title { font-size: 1.8em; font-weight: 900; margin-bottom: 6px; color: #1a1a2e; }
+.stage-sub { color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+/* Cards */
+.card { background: #fff; border: 2px solid #e8e5df; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card:hover { border-color: #ddd; }
+.card-label { font-size: 0.75em; font-weight: 700; color: #e17055; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.card-label.yellow { color: #d4a017; }
+.card-label.blue { color: #0984e3; }
+.card-label.green { color: #00b894; }
+.card-label.red { color: #d63031; }
+
+/* Buttons */
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-block; }
+.btn-lego { background: #f6cd46; color: #1a1a2e; }
+.btn-lego:hover { background: #e8bf30; transform: translateY(-1px); }
+.btn-red { background: #d63031; color: #fff; }
+.btn-red:hover { background: #c0282a; }
+.btn-blue { background: #0984e3; color: #fff; }
+.btn-blue:hover { background: #0770c2; }
+.btn-green { background: #00b894; color: #fff; }
+.btn-green:hover { background: #00a381; }
+.btn-ghost { background: transparent; border: 2px solid #ddd; color: #666; }
+.btn-ghost:hover { border-color: #f6cd46; color: #1a1a2e; }
+.btn-small { padding: 8px 16px; font-size: 0.85em; }
+
+/* LEGO brick visual */
+.brick { display: inline-block; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.9em; margin: 3px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+.brick:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.brick.selected { border-color: #1a1a2e; box-shadow: 0 0 0 2px #f6cd46; }
+.brick-red { background: #d63031; color: #fff; }
+.brick-blue { background: #0984e3; color: #fff; }
+.brick-yellow { background: #f6cd46; color: #1a1a2e; }
+.brick-green { background: #00b894; color: #fff; }
+.brick-orange { background: #e17055; color: #fff; }
+.brick-purple { background: #6c5ce7; color: #fff; }
+.brick-white { background: #fff; color: #1a1a2e; border: 2px solid #ddd; }
+.brick-black { background: #1a1a2e; color: #fff; }
+
+/* Character builder */
+.char-display { background: #f0eeea; border-radius: 12px; padding: 24px; text-align: center; margin: 16px 0; min-height: 180px; }
+.char-emoji { font-size: 5em; margin-bottom: 8px; display: block; }
+.char-name { font-size: 1.4em; font-weight: 900; color: #1a1a2e; }
+.char-trait { font-size: 0.9em; color: #888; margin-top: 4px; }
+
+/* Scene area */
+.scene-area { width: 100%; min-height: 80px; background: #f8f6f2; border: 2px solid #e0dcd5; border-radius: 10px; padding: 16px; color: #1a1a2e; font-family: inherit; font-size: 1em; line-height: 1.7; resize: none; outline: none; transition: border-color 0.3s; }
+.scene-area:focus { border-color: #f6cd46; }
+.scene-area::placeholder { color: #bbb; }
+.scene-area.small { min-height: 50px; }
+
+/* Word count */
+.word-count { text-align: right; font-size: 0.8em; color: #aaa; margin-top: 4px; }
+.word-count.good { color: #00b894; }
+
+/* Story element badge */
+.story-badge { display: inline-flex; align-items: center; gap: 6px; background: #f0eeea; border: 2px solid #e0dcd5; border-radius: 20px; padding: 6px 14px; font-size: 0.85em; font-weight: 600; margin: 4px; }
+.story-badge.earned { background: #f6cd46; border-color: #e8bf30; color: #1a1a2e; }
+
+/* Tip box */
+.tip-box { background: #fef9e7; border-left: 4px solid #f6cd46; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; line-height: 1.6; }
+.tip-box strong { color: #d4a017; }
+
+/* Danger box */
+.danger-box { background: #fef0ef; border-left: 4px solid #d63031; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; }
+.danger-box strong { color: #d63031; }
+
+/* Option grid */
+.option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0; }
+.option-card { background: #f8f6f2; border: 2px solid #e0dcd5; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.option-card:hover { border-color: #f6cd46; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.option-card.selected { border-color: #f6cd46; background: #fef9e7; box-shadow: 0 0 0 2px #f6cd46; }
+.option-emoji { font-size: 2em; display: block; margin-bottom: 6px; }
+.option-title { font-weight: 700; font-size: 0.95em; }
+.option-desc { font-size: 0.8em; color: #888; margin-top: 4px; }
+
+/* Timer */
+.timer-bar { width: 100%; height: 8px; background: #e8e5df; border-radius: 4px; margin: 12px 0; overflow: hidden; }
+.timer-fill { height: 100%; background: #f6cd46; border-radius: 4px; transition: width 0.1s linear; }
+.timer-fill.warning { background: #e17055; }
+.timer-fill.danger { background: #d63031; animation: pulse 0.5s infinite; }
+.timer-text { font-size: 1.6em; font-weight: 900; text-align: center; font-variant-numeric: tabular-nums; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.6} }
+
+/* Story scroll */
+.story-scroll { background: #fef9e7; border: 2px solid #e8bf30; border-radius: 12px; padding: 20px; margin: 16px 0; font-size: 1.05em; line-height: 1.8; white-space: pre-wrap; }
+
+/* Progress studs */
+.stud-bar { display: flex; gap: 6px; margin: 16px 0; justify-content: center; }
+.stud { width: 28px; height: 28px; border-radius: 50%; background: #e8e5df; display: flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: 800; color: #aaa; transition: all 0.3s; }
+.stud.done { background: #f6cd46; color: #1a1a2e; }
+.stud.current { background: #0984e3; color: #fff; box-shadow: 0 0 0 3px rgba(9,132,227,0.3); }
+
+/* Checklist */
+.check-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0eeea; }
+.check-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 0.85em; transition: all 0.3s; flex-shrink: 0; cursor: pointer; }
+.check-dot.checked { background: #00b894; border-color: #00b894; color: #fff; }
+
+/* Helpers */
+.flex { display: flex; gap: 10px; align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mt { margin-top: 16px; }
+.mb { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85em; color: #888; }
+.highlight { color: #d63031; font-weight: 700; }
+.highlight-yellow { color: #d4a017; font-weight: 700; }
+.highlight-blue { color: #0984e3; font-weight: 700; }
+.highlight-green { color: #00b894; font-weight: 700; }
+.hidden { display: none; }
+
+@keyframes slideIn { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+.animate-in { animation: slideIn 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)} }
+.shake { animation: shake 0.3s; }
+@keyframes bounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.15)} }
+.bounce { animation: bounce 0.4s ease; }
+
+@media (max-width: 600px) {
+  .stage-title { font-size: 1.4em; }
+  .nav-btn { padding: 6px 10px; font-size: 0.7em; }
+  .option-grid { grid-template-columns: 1fr; }
+  .char-emoji { font-size: 3.5em; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="go(0)">🧱 1. Recall</button>
+  <button class="nav-btn locked" onclick="go(1)">🧑 2. Character</button>
+  <button class="nav-btn locked" onclick="go(2)">🌍 3. World</button>
+  <button class="nav-btn locked" onclick="go(3)">💥 4. Problem</button>
+  <button class="nav-btn locked" onclick="go(4)">🗣️ 5. Dialogue</button>
+  <button class="nav-btn locked" onclick="go(5)">🔀 6. Twist</button>
+  <button class="nav-btn locked" onclick="go(6)">📜 7. Full Story</button>
+</nav>
+
+<!-- ============================================ -->
+<!-- STAGE 0: RECALL -->
+<!-- ============================================ -->
+<div class="stage active" id="stage0">
+  <div class="stage-title">🧱 Recall Zone</div>
+  <div class="stage-sub">Before we build — what's already in your brain?</div>
+
+  <div class="card">
+    <div class="card-label yellow">Quick recall</div>
+    <p>Think about the <span class="highlight-yellow">best story</span> you've ever seen in a movie, show, or game. Tell your teacher:</p>
+    <div class="check-item"><div class="check-dot" onclick="tc(this)"></div><div>What happened? (in 1-2 sentences)</div></div>
+    <div class="check-item"><div class="check-dot" onclick="tc(this)"></div><div>Who was the main character?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="tc(this)"></div><div>What was the <strong>problem</strong> they had to solve?</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Today's mission</div>
+    <p>Today you're going to <span class="highlight">build a story like building with LEGO</span>. One brick at a time. By the end, you'll have a complete adventure — and you'll know the <span class="highlight-blue">5 elements every great story needs</span>.</p>
+    <div class="stud-bar mt">
+      <div class="stud current">1</div>
+      <div class="stud">2</div>
+      <div class="stud">3</div>
+      <div class="stud">4</div>
+      <div class="stud">5</div>
+    </div>
+    <div class="text-center text-small">Character → World → Problem → Dialogue → Twist</div>
+  </div>
+
+  <div class="text-center mt">
+    <button class="btn btn-lego" onclick="unlock(1)">Start Building! 🧱</button>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 1: CHARACTER -->
+<!-- ============================================ -->
+<div class="stage" id="stage1">
+  <div class="stage-title">🧑 Brick 1: Character</div>
+  <div class="stage-sub">Every LEGO set starts with a minifigure. Every story starts with a character.</div>
+
+  <div class="card">
+    <div class="card-label yellow">Build your minifigure</div>
+    <p class="mb">Click one option from each row to create your character:</p>
+
+    <p class="text-small mt"><strong>WHO are they?</strong></p>
+    <div class="flex flex-wrap" id="roleRow"></div>
+
+    <p class="text-small mt"><strong>What's their PERSONALITY?</strong></p>
+    <div class="flex flex-wrap" id="traitRow"></div>
+
+    <p class="text-small mt"><strong>What's their SECRET?</strong></p>
+    <div class="flex flex-wrap" id="secretRow"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label blue">Your Minifigure</div>
+    <div class="char-display" id="charDisplay">
+      <span class="char-emoji" id="charEmoji">❓</span>
+      <div class="char-name" id="charName">Choose options above...</div>
+      <div class="char-trait" id="charTrait"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label red">Give them a name & description</div>
+    <p class="mb text-small">Write 2-3 sentences describing your minifigure. Include their name, what they look like, and a hint about their secret.</p>
+    <textarea class="scene-area" id="charDesc" rows="3" placeholder="Example: Captain Mira was a tall woman with a scar across her left eye and a coat that was always covered in dust. She smiled a lot, but never with her eyes. Nobody knew what she kept in the locked box under her bed..." oninput="wc('charDesc','charWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="charWC">0 words</div>
+      <button class="btn btn-lego btn-small" onclick="saveChar()">Brick placed! Next 🧱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 2: WORLD -->
+<!-- ============================================ -->
+<div class="stage" id="stage2">
+  <div class="stage-title">🌍 Brick 2: World</div>
+  <div class="stage-sub">Where does your minifigure live? Build their world.</div>
+
+  <div class="card">
+    <div class="card-label yellow">Choose a world</div>
+    <div class="option-grid" id="worldGrid"></div>
+  </div>
+
+  <div class="card" id="worldDetailCard" style="display:none;">
+    <div class="card-label blue">Describe your world — use your senses</div>
+    <div class="tip-box">
+      <strong>Pro tip — The 5 Senses Test:</strong> Great writers don't just describe what you SEE. They describe what you <strong>hear</strong>, <strong>smell</strong>, <strong>feel</strong>, and even <strong>taste</strong>. Try to include at least 3 senses.
+    </div>
+    <div class="flex flex-wrap mt mb">
+      <span class="story-badge" id="sense0" onclick="toggleSense(0)">👁️ See</span>
+      <span class="story-badge" id="sense1" onclick="toggleSense(1)">👂 Hear</span>
+      <span class="story-badge" id="sense2" onclick="toggleSense(2)">👃 Smell</span>
+      <span class="story-badge" id="sense3" onclick="toggleSense(3)">✋ Touch/Feel</span>
+      <span class="story-badge" id="sense4" onclick="toggleSense(4)">👅 Taste</span>
+    </div>
+    <textarea class="scene-area" id="worldDesc" rows="4" placeholder="" oninput="wc('worldDesc','worldWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="worldWC">0 words</div>
+      <button class="btn btn-lego btn-small" onclick="saveWorld()">Brick placed! Next 🧱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 3: PROBLEM -->
+<!-- ============================================ -->
+<div class="stage" id="stage3">
+  <div class="stage-title">💥 Brick 3: The Problem</div>
+  <div class="stage-sub">No problem = no story. Something has to go WRONG.</div>
+
+  <div class="card">
+    <div class="card-label red">The rule</div>
+    <p>Every single story you've ever loved follows the same pattern:</p>
+    <p class="mt text-center" style="font-size:1.2em;font-weight:800;">Character + World + <span class="highlight">PROBLEM</span> = Story</p>
+    <p class="mt">Without a problem, nothing happens. The problem is the engine. It's the reason the reader keeps going.</p>
+    <div class="tip-box mt">
+      <strong>Think about it:</strong> Harry Potter without Voldemort? Just a kid at school. Mario without Bowser? Just a plumber. The Avengers without Thanos? Just some people in costumes having lunch.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label yellow">Pick your problem type</div>
+    <div class="option-grid" id="problemGrid"></div>
+  </div>
+
+  <div class="card" id="problemWriteCard" style="display:none;">
+    <div class="card-label blue">Write the moment the problem hits</div>
+    <p class="mb text-small">Write 3-4 sentences. Show the moment your character discovers the problem. Make the reader feel the danger/urgency.</p>
+
+    <div id="charWorldReminder" class="tip-box mb"></div>
+
+    <textarea class="scene-area" id="problemDesc" rows="4" placeholder="" oninput="wc('problemDesc','problemWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="problemWC">0 words</div>
+      <button class="btn btn-red btn-small" onclick="saveProblem()">Brick placed! Next 🧱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 4: DIALOGUE -->
+<!-- ============================================ -->
+<div class="stage" id="stage4">
+  <div class="stage-title">🗣️ Brick 4: Dialogue</div>
+  <div class="stage-sub">Make your characters TALK. This is where stories come alive.</div>
+
+  <div class="card">
+    <div class="card-label yellow">Dialogue Rules — 3 things to remember</div>
+
+    <div class="tip-box">
+      <strong>Rule 1: New speaker = new line</strong><br>
+      Every time a different person talks, start a new line.
+    </div>
+    <div class="tip-box">
+      <strong>Rule 2: "Said is dead" — use better verbs</strong><br>
+      Instead of "said", try: whispered, shouted, muttered, snapped, begged, stammered, laughed, hissed, groaned
+    </div>
+    <div class="tip-box">
+      <strong>Rule 3: Show character through speech</strong><br>
+      A scared person speaks differently from a brave one. Short sentences = panic. Long sentences = confidence or rambling.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label red">Quick Practice — Fix the dialogue (30 seconds each)</div>
+    <p class="mb text-small">Rewrite each line using a better verb than "said":</p>
+    <div class="mb">
+      <p class="text-small">"We need to get out of here," said Alex.</p>
+      <textarea class="scene-area small" id="dial1" rows="1" placeholder='"We need to get out of here," whispered Alex, looking over her shoulder.'></textarea>
+    </div>
+    <div class="mb">
+      <p class="text-small">"I'm not scared," said Marco.</p>
+      <textarea class="scene-area small" id="dial2" rows="1" placeholder='"I\'m not scared," stammered Marco, his hands shaking.'></textarea>
+    </div>
+    <div class="mb">
+      <p class="text-small">"Give me the key," said the villain.</p>
+      <textarea class="scene-area small" id="dial3" rows="1" placeholder='"Give me the key," hissed the villain, stepping closer.'></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label blue">Write a dialogue scene</div>
+    <p class="mb text-small">Your character meets someone. They talk about the problem. Write 4-6 lines of dialogue. Remember: new speaker = new line, no "said".</p>
+
+    <div id="storySoFarDialogue" class="tip-box mb"></div>
+
+    <textarea class="scene-area" id="dialogueDesc" rows="6" placeholder='"What happened here?" whispered Mira, stepping through the broken door.
+
+"You don'"'"'t want to know," muttered the old man, without looking up.
+
+"I need to know," Mira snapped. "People are depending on me."
+
+The old man finally raised his eyes. "Then you'"'"'re already too late."' oninput="wc('dialogueDesc','dialogueWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="dialogueWC">0 words</div>
+      <button class="btn btn-blue btn-small" onclick="saveDialogue()">Brick placed! Next 🧱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 5: TWIST -->
+<!-- ============================================ -->
+<div class="stage" id="stage5">
+  <div class="stage-title">🔀 Brick 5: The Twist</div>
+  <div class="stage-sub">The moment everything changes. The reader didn't see this coming.</div>
+
+  <div class="card">
+    <div class="card-label red">What is a twist?</div>
+    <p>A twist is when the story suddenly goes in a direction <span class="highlight">nobody expected</span>. It makes the reader gasp, laugh, or say "WHAT?!"</p>
+
+    <div class="tip-box mt">
+      <strong>Classic twists:</strong><br>
+      🔄 The helper is actually the villain<br>
+      🔄 The "weakness" turns out to be the solution<br>
+      🔄 The character's secret saves/ruins everything<br>
+      🔄 The problem was caused by someone they trust<br>
+      🔄 What they were searching for was inside them all along
+    </div>
+
+    <div class="danger-box mt">
+      <strong>Remember your character's SECRET?</strong> This is where it comes back. The best twists connect to something set up earlier.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label yellow">Choose your twist type</div>
+    <div class="option-grid" id="twistGrid"></div>
+  </div>
+
+  <div class="card" id="twistWriteCard" style="display:none;">
+    <div class="card-label blue">Write the twist moment</div>
+    <p class="mb text-small">Write 3-5 sentences. This is the BIGGEST moment in your story. Build up to it, then drop the bomb. (Remember: short sentence for impact!)</p>
+    <textarea class="scene-area" id="twistDesc" rows="4" placeholder="" oninput="wc('twistDesc','twistWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="twistWC">0 words</div>
+      <button class="btn btn-red btn-small" onclick="saveTwist()">Brick placed! FINAL STAGE 🧱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- STAGE 6: FULL STORY -->
+<!-- ============================================ -->
+<div class="stage" id="stage6">
+  <div class="stage-title">📜 Your LEGO Story</div>
+  <div class="stage-sub">All 5 bricks assembled. Read your complete adventure.</div>
+
+  <div class="card">
+    <div class="card-label green">Story Elements — You Built All 5!</div>
+    <div class="stud-bar">
+      <div class="stud done">1</div>
+      <div class="stud done">2</div>
+      <div class="stud done">3</div>
+      <div class="stud done">4</div>
+      <div class="stud done">5</div>
+    </div>
+    <div class="flex flex-wrap mt" style="justify-content:center;">
+      <span class="story-badge earned">🧑 Character</span>
+      <span class="story-badge earned">🌍 World</span>
+      <span class="story-badge earned">💥 Problem</span>
+      <span class="story-badge earned">🗣️ Dialogue</span>
+      <span class="story-badge earned">🔀 Twist</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label yellow">Your Story Pieces</div>
+    <div id="storyPieces"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label red">The Final Build — Connect Everything</div>
+    <p class="mb text-small">Your 5 pieces are above. Now write the <strong>complete story</strong> — connect them together, smooth out the edges, add transitions. Use everything you've learned. Aim for 120+ words.</p>
+
+    <div class="flex-between mb">
+      <span class="text-small">This is it. Make it great.</span>
+      <button class="btn btn-ghost btn-small" onclick="startFinalTimer()">⏱ Start 8-min timer</button>
+    </div>
+    <div class="hidden" id="finalTimerArea">
+      <div class="timer-text" id="finalTimerText">8:00</div>
+      <div class="timer-bar"><div class="timer-fill" id="finalTimerFill" style="width:100%"></div></div>
+    </div>
+
+    <textarea class="scene-area" id="finalStory" rows="14" placeholder="Start with your character and world. Introduce the problem. Add dialogue. Drop the twist. How does it end? That's up to you..." oninput="wc('finalStory','finalWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="finalWC">0 words</div>
+    </div>
+  </div>
+
+  <div class="text-center mt">
+    <button class="btn btn-lego" onclick="showEnd()">I'm done! 🏆</button>
+  </div>
+
+  <div class="card hidden" id="endCard">
+    <div class="card-label green animate-in">Think About Your Thinking</div>
+    <p>You just built a complete story from scratch using 5 elements that <strong>every professional writer uses</strong>:</p>
+    <div class="flex flex-wrap mt mb" style="justify-content:center;">
+      <span class="story-badge earned">🧑 Character</span>
+      <span class="story-badge earned">🌍 Setting</span>
+      <span class="story-badge earned">💥 Conflict</span>
+      <span class="story-badge earned">🗣️ Dialogue</span>
+      <span class="story-badge earned">🔀 Plot Twist</span>
+    </div>
+    <p>These aren't school words — they're the building blocks of every movie, every game, every Netflix show you've ever watched.</p>
+    <div class="tip-box mt">
+      <strong>Questions for your teacher:</strong><br>
+      1. Which brick was the easiest to write?<br>
+      2. Which brick made the story come alive the most?<br>
+      3. What would happen in Chapter 2?
+    </div>
+    <p class="mt"><strong>"I can..."</strong> build a story using character, setting, conflict, dialogue, and plot twist. I know how to use sensory description and dialogue verbs to make writing more vivid.</p>
+    <div class="mt text-center">
+      <p class="text-small">Future Recall: Story elements should reappear in lessons +3, +7, +14.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───
+const roles = [
+  { label: "Space Captain", emoji: "🚀", color: "brick-blue" },
+  { label: "Thief", emoji: "🦹", color: "brick-black" },
+  { label: "Inventor", emoji: "🔧", color: "brick-orange" },
+  { label: "Knight", emoji: "⚔️", color: "brick-red" },
+  { label: "Spy", emoji: "🕵️", color: "brick-purple" },
+  { label: "Explorer", emoji: "🧭", color: "brick-green" }
+];
+
+const traits = [
+  { label: "Brave but reckless", color: "brick-red" },
+  { label: "Smart but arrogant", color: "brick-blue" },
+  { label: "Kind but naive", color: "brick-green" },
+  { label: "Funny but hides pain", color: "brick-yellow" },
+  { label: "Quiet but deadly", color: "brick-purple" },
+  { label: "Loyal but stubborn", color: "brick-orange" }
+];
+
+const secrets = [
+  { label: "Has a hidden power they can't control", color: "brick-purple" },
+  { label: "Is running from their past", color: "brick-black" },
+  { label: "Made a promise they can't keep", color: "brick-red" },
+  { label: "Knows something nobody else knows", color: "brick-blue" },
+  { label: "Is not who they say they are", color: "brick-orange" },
+  { label: "Lost someone they loved", color: "brick-green" }
+];
+
+const worlds = [
+  { title: "Underwater City", emoji: "🌊", desc: "A city built on the ocean floor, running out of oxygen" },
+  { title: "Abandoned Space Station", emoji: "🛸", desc: "Orbiting a dying star, something is still alive on board" },
+  { title: "Underground Kingdom", emoji: "⛏️", desc: "A civilisation that has never seen the sun" },
+  { title: "Floating Islands", emoji: "🏔️", desc: "Islands in the sky connected by rope bridges" },
+  { title: "Post-Apocalyptic School", emoji: "🏚️", desc: "A ruined school that's become the last safe place on Earth" },
+  { title: "Time-Frozen City", emoji: "⏰", desc: "Everyone is frozen in time except your character" }
+];
+
+const problems = [
+  { title: "Something is hunting them", emoji: "👹", desc: "An unknown creature or enemy is getting closer" },
+  { title: "Time is running out", emoji: "⏳", desc: "They have until midnight/sunrise/the next hour to fix it" },
+  { title: "Someone has been taken", emoji: "🔒", desc: "A person they care about has disappeared" },
+  { title: "They're trapped", emoji: "🪤", desc: "No way out — they have to find one" },
+  { title: "A betrayal", emoji: "🗡️", desc: "Someone they trusted has turned against them" },
+  { title: "A terrible choice", emoji: "⚖️", desc: "They must choose between two impossible options" }
+];
+
+const twists = [
+  { title: "The ally is the enemy", emoji: "😈", desc: "Someone helping them was the villain all along" },
+  { title: "The weakness is the key", emoji: "🔑", desc: "The thing holding them back is actually the solution" },
+  { title: "It was a test", emoji: "📋", desc: "The whole situation was designed to test them" },
+  { title: "The secret changes everything", emoji: "💣", desc: "Their secret is revealed and nothing is the same" }
+];
+
+// ─── STATE ───
+let sel = { role: null, trait: null, secret: null, world: null, problem: null, twist: null };
+let texts = { char: '', world: '', problem: '', dialogue: '', twist: '' };
+let finalTimer = null;
+
+// ─── INIT ───
+function initBricks(containerId, items, key, hasEmoji) {
+  const c = document.getElementById(containerId);
+  items.forEach((item, i) => {
+    const b = document.createElement('span');
+    b.className = 'brick ' + item.color;
+    b.textContent = (hasEmoji && item.emoji ? item.emoji + ' ' : '') + item.label;
+    b.onclick = () => {
+      c.querySelectorAll('.brick').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      sel[key] = item;
+      if (key === 'role' || key === 'trait' || key === 'secret') updateChar();
+    };
+    c.appendChild(b);
+  });
+}
+
+initBricks('roleRow', roles, 'role', true);
+initBricks('traitRow', traits, 'trait', false);
+initBricks('secretRow', secrets, 'secret', false);
+
+// World grid
+const wg = document.getElementById('worldGrid');
+worlds.forEach((w, i) => {
+  const d = document.createElement('div');
+  d.className = 'option-card';
+  d.innerHTML = `<span class="option-emoji">${w.emoji}</span><div class="option-title">${w.title}</div><div class="option-desc">${w.desc}</div>`;
+  d.onclick = () => {
+    wg.querySelectorAll('.option-card').forEach(x => x.classList.remove('selected'));
+    d.classList.add('selected');
+    sel.world = w;
+    document.getElementById('worldDetailCard').style.display = 'block';
+    document.getElementById('worldDesc').placeholder = `The ${w.title.toLowerCase()} was... (describe what your character sees, hears, smells, feels)`;
+    document.getElementById('worldDetailCard').scrollIntoView({ behavior: 'smooth' });
+  };
+  wg.appendChild(d);
+});
+
+// Problem grid
+const pg = document.getElementById('problemGrid');
+problems.forEach((p, i) => {
+  const d = document.createElement('div');
+  d.className = 'option-card';
+  d.innerHTML = `<span class="option-emoji">${p.emoji}</span><div class="option-title">${p.title}</div><div class="option-desc">${p.desc}</div>`;
+  d.onclick = () => {
+    pg.querySelectorAll('.option-card').forEach(x => x.classList.remove('selected'));
+    d.classList.add('selected');
+    sel.problem = p;
+    document.getElementById('problemWriteCard').style.display = 'block';
+    document.getElementById('charWorldReminder').innerHTML = `<strong>Your character:</strong> ${sel.role ? sel.role.emoji + ' ' + sel.role.label : '?'} — ${sel.trait ? sel.trait.label : '?'}<br><strong>Your world:</strong> ${sel.world ? sel.world.emoji + ' ' + sel.world.title : '?'}<br><strong>The problem:</strong> ${p.emoji} ${p.title}`;
+    document.getElementById('problemDesc').placeholder = `Suddenly, ${sel.role ? sel.role.label.toLowerCase() : 'the character'} realised something was wrong...`;
+    document.getElementById('problemWriteCard').scrollIntoView({ behavior: 'smooth' });
+  };
+  pg.appendChild(d);
+});
+
+// Twist grid
+const tg = document.getElementById('twistGrid');
+twists.forEach((t, i) => {
+  const d = document.createElement('div');
+  d.className = 'option-card';
+  d.innerHTML = `<span class="option-emoji">${t.emoji}</span><div class="option-title">${t.title}</div><div class="option-desc">${t.desc}</div>`;
+  d.onclick = () => {
+    tg.querySelectorAll('.option-card').forEach(x => x.classList.remove('selected'));
+    d.classList.add('selected');
+    sel.twist = t;
+    document.getElementById('twistWriteCard').style.display = 'block';
+    document.getElementById('twistDesc').placeholder = `Build the tension... then drop the twist: ${t.title.toLowerCase()}`;
+    document.getElementById('twistWriteCard').scrollIntoView({ behavior: 'smooth' });
+  };
+  tg.appendChild(d);
+});
+
+// ─── CHARACTER DISPLAY ───
+function updateChar() {
+  const emoji = sel.role ? sel.role.emoji : '❓';
+  const name = sel.role ? sel.role.label : 'Choose a role...';
+  const trait = [sel.trait?.label, sel.secret?.label].filter(Boolean).join(' · ');
+  document.getElementById('charEmoji').textContent = emoji;
+  document.getElementById('charName').textContent = name;
+  document.getElementById('charTrait').textContent = trait;
+  if (sel.role) document.getElementById('charDisplay').classList.add('bounce');
+  setTimeout(() => document.getElementById('charDisplay').classList.remove('bounce'), 400);
+}
+
+// ─── NAVIGATION ───
+function go(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (btns[n].classList.contains('locked')) return;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage' + n).classList.add('active');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[n].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function unlock(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (n > 0) btns[n - 1].classList.add('completed');
+  btns[n].classList.remove('locked');
+  go(n);
+  if (n === 4) initDialogueReminder();
+  if (n === 6) buildStoryPieces();
+}
+
+// ─── SAVES ───
+function minWords(id, min) {
+  const text = document.getElementById(id).value;
+  const w = text.trim().split(/\s+/).filter(x => x.length > 0).length;
+  if (w < min) {
+    document.getElementById(id).classList.add('shake');
+    setTimeout(() => document.getElementById(id).classList.remove('shake'), 300);
+    return false;
+  }
+  return true;
+}
+
+function saveChar() {
+  if (!sel.role || !sel.trait || !sel.secret) {
+    alert('Pick one option from each row first!');
+    return;
+  }
+  if (!minWords('charDesc', 15)) return;
+  texts.char = document.getElementById('charDesc').value;
+  unlock(2);
+}
+
+function saveWorld() {
+  if (!sel.world) return;
+  if (!minWords('worldDesc', 15)) return;
+  texts.world = document.getElementById('worldDesc').value;
+  unlock(3);
+}
+
+function saveProblem() {
+  if (!sel.problem) return;
+  if (!minWords('problemDesc', 15)) return;
+  texts.problem = document.getElementById('problemDesc').value;
+  unlock(4);
+}
+
+function saveDialogue() {
+  if (!minWords('dialogueDesc', 20)) return;
+  texts.dialogue = document.getElementById('dialogueDesc').value;
+  unlock(5);
+}
+
+function saveTwist() {
+  if (!sel.twist) return;
+  if (!minWords('twistDesc', 15)) return;
+  texts.twist = document.getElementById('twistDesc').value;
+  unlock(6);
+}
+
+// ─── HELPERS ───
+function wc(id, wcId) {
+  const text = document.getElementById(id).value;
+  const w = text.trim().split(/\s+/).filter(x => x.length > 0).length;
+  const el = document.getElementById(wcId);
+  el.textContent = w + ' words';
+  el.className = w >= 15 ? 'word-count good' : 'word-count';
+}
+
+function tc(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+}
+
+function toggleSense(n) {
+  document.getElementById('sense' + n).classList.toggle('earned');
+}
+
+function initDialogueReminder() {
+  const el = document.getElementById('storySoFarDialogue');
+  el.innerHTML = `<strong>Your story so far:</strong><br>
+    ${sel.role?.emoji || ''} <strong>${sel.role?.label || '?'}</strong> — ${sel.trait?.label || '?'}<br>
+    ${sel.world?.emoji || ''} <strong>${sel.world?.title || '?'}</strong><br>
+    ${sel.problem?.emoji || ''} <strong>${sel.problem?.title || '?'}</strong>`;
+}
+
+function buildStoryPieces() {
+  const el = document.getElementById('storyPieces');
+  const pieces = [
+    { icon: '🧑', label: 'Character', text: texts.char },
+    { icon: '🌍', label: 'World', text: texts.world },
+    { icon: '💥', label: 'Problem', text: texts.problem },
+    { icon: '🗣️', label: 'Dialogue', text: texts.dialogue },
+    { icon: '🔀', label: 'Twist', text: texts.twist }
+  ];
+  el.innerHTML = pieces.map(p =>
+    `<div style="padding:10px 0;border-bottom:1px solid #eee;">
+      <strong>${p.icon} ${p.label}:</strong>
+      <div class="text-small mt" style="color:#666;">${p.text}</div>
+    </div>`
+  ).join('');
+}
+
+function startFinalTimer() {
+  if (finalTimer) return;
+  document.getElementById('finalTimerArea').classList.remove('hidden');
+  let t = 480;
+  finalTimer = setInterval(() => {
+    t--;
+    const m = Math.floor(t / 60), s = t % 60;
+    document.getElementById('finalTimerText').textContent = m + ':' + String(s).padStart(2, '0');
+    const pct = (t / 480) * 100;
+    const f = document.getElementById('finalTimerFill');
+    f.style.width = pct + '%';
+    if (t <= 30) f.className = 'timer-fill danger';
+    else if (t <= 90) f.className = 'timer-fill warning';
+    if (t <= 0) { clearInterval(finalTimer); document.getElementById('finalTimerText').textContent = "Time!"; }
+  }, 1000);
+}
+
+function showEnd() {
+  document.getElementById('endCard').classList.remove('hidden');
+  document.getElementById('endCard').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
