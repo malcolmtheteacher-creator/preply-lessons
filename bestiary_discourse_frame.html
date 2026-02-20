@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Discourse Bestiary — FRAME</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+
+.nav { display: flex; gap: 6px; padding: 12px; background: #111128; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+.nav-btn { padding: 10px 16px; border: 2px solid #333; border-radius: 8px; background: transparent; color: #888; font-weight: 700; font-size: 0.8em; cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+.nav-btn.active { background: #6c5ce7; border-color: #6c5ce7; color: #fff; }
+.nav-btn.completed { border-color: #00b894; color: #00b894; }
+.nav-btn:hover { border-color: #6c5ce7; }
+.nav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+.stage { display: none; padding: 20px; max-width: 720px; margin: 0 auto; }
+.stage.active { display: block; }
+.stage-title { font-size: 1.8em; font-weight: 900; margin-bottom: 6px; }
+.stage-sub { color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+.card { background: #16162a; border: 2px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.card:hover { border-color: #6c5ce7; }
+.card-label { font-size: 0.75em; font-weight: 700; color: #6c5ce7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-primary { background: #6c5ce7; color: #fff; }
+.btn-primary:hover { background: #5a4bd1; transform: translateY(-1px); }
+.btn-success { background: #00b894; color: #fff; }
+.btn-danger { background: #e17055; color: #fff; }
+.btn-ghost { background: transparent; border: 2px solid #444; color: #ccc; }
+.btn-ghost:hover { border-color: #6c5ce7; color: #fff; }
+.btn-small { padding: 8px 16px; font-size: 0.85em; }
+
+.timer-bar { width: 100%; height: 8px; background: #222; border-radius: 4px; margin: 12px 0; overflow: hidden; }
+.timer-fill { height: 100%; background: #6c5ce7; border-radius: 4px; transition: width 0.1s linear; }
+.timer-fill.warning { background: #fdcb6e; }
+.timer-fill.danger { background: #e17055; animation: pulse 0.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+.timer-text { font-size: 2em; font-weight: 900; text-align: center; font-variant-numeric: tabular-nums; }
+
+.name-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; }
+.name-card { background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 14px; font-weight: 600; font-size: 0.95em; line-height: 1.5; transition: all 0.3s; }
+.name-card.revealed { background: #2d1b69; border-color: #6c5ce7; }
+.name-card.hidden-name { background: #1e1e3a; border-color: #444; color: #444; cursor: pointer; }
+.name-card.correct { background: #00b89422; border-color: #00b894; color: #00b894; }
+.phrase-num { display: inline-block; background: #6c5ce7; color: #fff; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.75em; font-weight: 800; margin-right: 8px; flex-shrink: 0; }
+.phrase-position { font-size: 0.7em; color: #fdcb6e; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+.creature-box { display: flex; align-items: center; gap: 16px; background: #1e1e3a; border: 2px solid #6c5ce7; border-radius: 12px; padding: 18px; margin: 12px 0; }
+.creature-emoji { font-size: 2.5em; }
+.creature-info { flex: 1; }
+.creature-code { font-weight: 800; color: #6c5ce7; font-size: 1.2em; }
+.creature-name { color: #ccc; font-size: 0.9em; line-height: 1.5; }
+
+.scene-area { width: 100%; min-height: 100px; background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 16px; color: #e0e0e0; font-family: inherit; font-size: 1em; line-height: 1.7; resize: vertical; outline: none; transition: border-color 0.3s; }
+.scene-area:focus { border-color: #6c5ce7; }
+.scene-area::placeholder { color: #555; }
+
+.word-count { text-align: right; font-size: 0.8em; color: #666; margin-top: 4px; }
+.word-count.good { color: #00b894; }
+
+.prompt-card { background: linear-gradient(135deg, #2d1b69, #1e1e3a); border: 2px solid #6c5ce7; border-radius: 12px; padding: 20px; margin: 12px 0; text-align: center; font-size: 1.1em; font-weight: 600; line-height: 1.6; }
+
+.chain { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+.chain-link { background: #16162a; border: 2px solid #333; border-radius: 10px; padding: 14px 16px; position: relative; transition: all 0.3s; }
+.chain-link.done { border-color: #00b894; }
+.chain-connector { width: 3px; height: 16px; background: #00b894; margin: 0 auto; }
+.chain-num { font-weight: 800; color: #6c5ce7; font-size: 0.85em; }
+.chain-fact { font-weight: 700; color: #fff; font-size: 0.95em; margin-top: 4px; }
+.chain-creature { font-size: 0.8em; color: #888; margin-top: 2px; }
+.chain-scene { font-size: 0.82em; color: #aaa; margin-top: 6px; font-style: italic; }
+
+.fact-box { background: #1a1a3e; border-left: 4px solid #fdcb6e; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; line-height: 1.6; }
+.fact-box strong { color: #fdcb6e; }
+
+.score-big { font-size: 4em; font-weight: 900; text-align: center; background: linear-gradient(135deg, #6c5ce7, #00b894); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.score-label { text-align: center; color: #888; margin-top: 4px; }
+
+.flex { display: flex; gap: 10px; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mt { margin-top: 16px; }
+.mb { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85em; color: #888; }
+.highlight { color: #6c5ce7; font-weight: 700; }
+.highlight-green { color: #00b894; font-weight: 700; }
+.highlight-yellow { color: #fdcb6e; font-weight: 700; }
+
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: slideIn 0.4s ease; }
+
+@media (max-width: 600px) {
+  .name-grid { grid-template-columns: 1fr; }
+  .stage-title { font-size: 1.4em; }
+  .nav-btn { padding: 8px 12px; font-size: 0.75em; }
+  .score-big { font-size: 2.5em; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="goStage(0)">1. Challenge</button>
+  <button class="nav-btn locked" onclick="goStage(1)">2. The Secret</button>
+  <button class="nav-btn locked" onclick="goStage(2)">3. Build Scenes</button>
+  <button class="nav-btn locked" onclick="goStage(3)">4. Your Chain</button>
+  <button class="nav-btn locked" onclick="goStage(4)">5. The Test</button>
+  <button class="nav-btn locked" onclick="goStage(5)">6. Use Them</button>
+</nav>
+
+<!-- STAGE 1: CHALLENGE -->
+<div class="stage active" id="stage0">
+  <div class="stage-title">The Impossible Challenge</div>
+  <div class="stage-sub">Can you memorize 5 sophisticated discourse openers in 30 seconds?</div>
+
+  <div class="card">
+    <div class="card-label">Your Mission</div>
+    <p>These are the <span class="highlight">5 FRAME expressions</span> — the phrases that let you open any response with composure, buy thinking time, and sound like you belong in the room.</p>
+    <p class="mt">You have <span class="highlight-yellow">30 seconds</span> to memorize all 5. Then they vanish.</p>
+  </div>
+
+  <div id="challengeArea">
+    <div class="text-center mt">
+      <button class="btn btn-primary" onclick="startChallenge()" id="startBtn">Show me the 5 expressions</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE 2: THE SECRET -->
+<div class="stage" id="stage1">
+  <div class="stage-title">The Secret</div>
+  <div class="stage-sub">Your brain isn't the problem. Your system is.</div>
+
+  <div class="card">
+    <div class="card-label">The Problem</div>
+    <p>Abstract phrases like "I'd want to caveat that by saying..." are <span class="highlight-yellow">almost impossible</span> to recall under pressure. In a meeting, a presentation, or an exam — your mind goes blank.</p>
+    <p class="mt">But your brain is <span class="highlight-green">exceptional</span> at remembering <strong>vivid images</strong> and <strong>stories</strong>. That's the Bestiary system.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Trick</div>
+    <p>Each expression has a <span class="highlight">key word</span>. The first 2 letters of that word map to a <span class="highlight">creature</span>. You build a vivid scene for each creature. Under pressure, you recall the creature — and the phrase comes with it.</p>
+    <p class="mt text-center" style="font-size: 1.1em; font-weight: 800; letter-spacing: 0.02em;">
+      <span class="highlight">Numbat → Bat → Cow → Frogmouth → Camel</span>
+    </p>
+    <p class="mt text-center text-small">Five creatures. Five ways to open with authority.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Try It — Type Any Word</div>
+    <div style="margin: 12px 0;">
+      <input type="text" id="decoderInput" class="scene-area" style="min-height: auto; padding: 12px 16px; font-size: 1.2em; text-align: center;" placeholder="Type any word..." oninput="decodeName(this.value)">
+    </div>
+    <div id="decoderResult" class="text-center text-small">Type a word to see its creature</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The 5 FRAME Creatures</div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">NU = Numbat</div>
+        <div class="creature-name">Key word: "<strong>Nu</strong>anced" → "That's a <strong>nuanced</strong> question..." — A Numbat carefully examining something from every angle before responding</div>
+      </div>
+    </div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">BA = Bat</div>
+        <div class="creature-name">Key word: "<strong>Ba</strong>lance" → "On <strong>balance</strong>, I'd say..." — A Bat hanging upside down, perfectly balanced between two options</div>
+      </div>
+    </div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">CO = Cow</div>
+        <div class="creature-name">Key word: "<strong>Co</strong>nceivable" → "It's <strong>conceivable</strong> that..." — A Cow chewing the cud, slowly considering what's possible</div>
+      </div>
+    </div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">FR = Frogmouth</div>
+        <div class="creature-name">Key word: "<strong>Fr</strong>ame" → "Let me <strong>frame</strong> this another way..." — A Frogmouth turning its head to see the same thing from a completely different angle</div>
+      </div>
+    </div>
+    <div class="creature-box">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">CA = Camel</div>
+        <div class="creature-name">Key word: "<strong>Ca</strong>veat" → "I'd want to <strong>caveat</strong> that by saying..." — A cautious Camel that always checks the ground before each step</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt">
+    <button class="btn btn-primary" onclick="unlockStage(2)">Got it — let me build my scenes</button>
+  </div>
+</div>
+
+<!-- STAGE 3: BUILD SCENES -->
+<div class="stage" id="stage2">
+  <div class="stage-title">Build Your Scenes</div>
+  <div class="stage-sub">Five creatures, five expressions. Make each scene unforgettable.</div>
+
+  <div class="fact-box">
+    <strong>Scene-building tip:</strong> The more specific and absurd, the better it sticks. Don't write "A bat hangs." Write "A Bat in a three-piece suit hangs upside down from a boardroom chandelier, weighing two contracts — one in each claw — muttering 'On BALANCE, I'd say...'"
+  </div>
+
+  <div id="sceneBuilder"></div>
+</div>
+
+<!-- STAGE 4: YOUR CHAIN -->
+<div class="stage" id="stage3">
+  <div class="stage-title">Your FRAME Chain</div>
+  <div class="stage-sub">Five expressions that let you open any response with composure.</div>
+
+  <div class="card">
+    <div class="card-label">The Sequence</div>
+    <p>These aren't in a strict order like the essay skeleton — they're five tools you can reach for independently. But learning them as a chain helps lock them in.</p>
+    <div id="chainDisplay"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">When to Use Each One</div>
+    <div class="fact-box"><strong>Numbat — "That's a nuanced question..."</strong> When someone asks something complex and you need a moment to think. Shows you're taking the question seriously.</div>
+    <div class="fact-box"><strong>Bat — "On balance, I'd say..."</strong> When you've weighed both sides and want to signal a considered position. Professional hedge that sounds decisive.</div>
+    <div class="fact-box"><strong>Cow — "It's conceivable that..."</strong> When you want to introduce a possibility without committing to it. Opens a door without walking through it.</div>
+    <div class="fact-box"><strong>Frogmouth — "Let me frame this another way..."</strong> When your first explanation didn't land, or you want to shift perspective. Recovery phrase.</div>
+    <div class="fact-box"><strong>Camel — "I'd want to caveat that by saying..."</strong> When you need to add a condition or exception. Protects your position while showing sophistication.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Lock It In</div>
+    <p>Close your eyes. Walk through each creature in your mind. What's the Numbat doing? The Bat? The Cow? The Frogmouth? The Camel?</p>
+    <div class="mt">
+      <button class="btn btn-primary" onclick="startLockIn()">Start 45-Second Review</button>
+    </div>
+    <div id="lockInTimer" style="display:none;">
+      <div class="timer-text mt" id="lockInTime">45</div>
+      <div class="timer-bar"><div class="timer-fill" id="lockInFill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <div class="text-center mt" id="chainNextBtn" style="display:none;">
+    <button class="btn btn-success" onclick="unlockStage(4)">I've got it — test me</button>
+  </div>
+</div>
+
+<!-- STAGE 5: THE TEST -->
+<div class="stage" id="stage4">
+  <div class="stage-title">The Test</div>
+  <div class="stage-sub">No peeking. What do you remember?</div>
+
+  <div class="card">
+    <div class="card-label">Round 1: Creature → Expression</div>
+    <p class="mb">I give you the creature. You pick the expression.</p>
+    <div id="testRound1"></div>
+  </div>
+
+  <div id="testRound2Container" style="display:none;">
+    <div class="card animate-in">
+      <div class="card-label">Round 2: Situation → Expression</div>
+      <p class="mb">I describe when you'd use it. You pick the right phrase.</p>
+      <div id="testRound2"></div>
+    </div>
+  </div>
+
+  <div id="testScore" style="display:none;" class="card animate-in text-center">
+    <div class="card-label">Your Score</div>
+    <div class="score-big" id="scoreDisplay">0/10</div>
+    <div class="score-label" id="scoreMessage"></div>
+    <div class="mt">
+      <button class="btn btn-primary" onclick="unlockStage(5)">Now let's use them in conversation</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE 6: USE THEM -->
+<div class="stage" id="stage5">
+  <div class="stage-title">Use Them</div>
+  <div class="stage-sub">Respond to these scenarios using your FRAME expressions.</div>
+
+  <div class="card">
+    <div class="card-label">Your 5 FRAME Tools</div>
+    <div id="expressionRef" style="display: grid; grid-template-columns: 1fr; gap: 6px;"></div>
+  </div>
+
+  <div id="scenarioCards"></div>
+
+  <div class="text-center mt" id="analyzeBtn">
+    <button class="btn btn-success" onclick="analyzeResponses()">Check my responses</button>
+  </div>
+
+  <div class="card" id="resultsCard" style="display:none;">
+    <div id="resultsContent"></div>
+  </div>
+</div>
+
+<script>
+const bestiaryMap = {
+  'aa':'Aardvark','ab':'Abyssinian Cat','ac':'Acorn','ad':'Adder','ae':'Aerialist',
+  'af':'Afghan Hound','ag':'Agaric Fungi','al':'Alligator','am':'Amulet','an':'Angel',
+  'ap':'Ape','ar':'Armadillo','as':'Asp','at':'Atlas','au':'Auroch',
+  'ba':'Bat','be':'Bee','bi':'Bison','bl':'Bloodhound','bo':'Bower-bird',
+  'br':'Brontosaurus','bu':'Butterfly','ca':'Camel','ce':'Centaur','ch':'Chipmunk',
+  'ci':'Cicada','cl':'Clown','co':'Cow','cr':'Hermit Crab','cu':'Cupid',
+  'da':'Dalmatian','de':'Devil','di':'Diamond Python','do':'Dolphin','dr':'Dragonfly',
+  'du':'Duck','ea':'Earwig','ec':'Echidna','ed':'Edelweiss','ee':'Eel',
+  'ei':'Eider','el':'Elephant','em':'Emu','er':'Ermine','fa':'Falcon',
+  'fe':'Ferret','fi':'Fish','fl':'Flamingo','fo':'Fox','fr':'Frogmouth',
+  'ga':'Gaggle','ge':'Genie','gi':'Giraffe','go':'Gorilla','gr':'Griffin',
+  'gu':'Gull','ha':'Hare','he':'Heron','hi':'Hippopotamus','ho':'Horse',
+  'hu':'Hummingbird','hy':'Hyena','ig':'Iguana','im':'Impala','in':'Insect',
+  'ja':'Jackass','je':'Jellyfish','jo':'Jonquil','ju':'Juggler',
+  'ka':'Kangaroo','ke':'Kestrel','ki':'Kiwi','kn':'Knight','ko':'Kookaburra',
+  'kr':'Kraken','la':'Lapwing','le':'Leprechaun','li':'Limpets','lo':'Lobster',
+  'lu':'Lute','ly':'Lynx','ma':'Macaw','me':'Medusa','mi':'Millipede',
+  'mo':'Monkey','mu':'Muskrat','na':'Nautilus','ne':'Neptune','ni':'Nit',
+  'no':'Noddy','nu':'Numbat','oc':'Octopus','ol':'Olive','or':'Orangutan',
+  'os':'Ostrich','ot':'Otter','pa':'Panda','pe':'Penguin','ph':'Phoenix',
+  'pi':'Pig','pl':'Platypus','po':'Polar Bear','pr':'Praying Mantis','pu':'Puffin',
+  'py':'Python','qu':'Quail','ra':'Raven','re':'Reindeer','rh':'Rhinoceros',
+  'ri':'Ringtail','ro':'Rooster','sa':'Satyr','sc':'Scorpion','se':'Seahorse',
+  'sh':'Shrew','si':'Siamese Cat','sk':'Skunk','sl':'Sloth','sn':'Snail',
+  'so':'Sourpuss','sp':'Spaniel','sq':'Squirrel','st':'Stingray','su':'Sugar Glider',
+  'sw':'Swallow','ta':'Tapir','te':'Termite','th':'Thornbill','ti':'Tiger',
+  'to':'Toad','tr':'Troll','tu':'Turkey','ty':'Tyrannosaurus',
+  'va':'Vampire Bat','vi':'Viper','vo':'Volcano','wa':'Walrus','wi':'Witch',
+  'wo':'Wolf','wr':'Wren','ye':'Yeti','ze':'Zebra','zo':'Zombie'
+};
+
+const phrases = [
+  { num: 1, keyWord: "Nuanced", code: "NU", creature: "Numbat", function: "Buy Thinking Time",
+    fullPhrase: "That's a nuanced question...",
+    hint: "This is your composure opener. When someone asks you something complex, this buys you 3-4 seconds of thinking time while signalling that you're taking the question seriously. Far more sophisticated than 'That's a good question.'" },
+  { num: 2, keyWord: "Balance", code: "BA", creature: "Bat", function: "Weigh Up",
+    fullPhrase: "On balance, I'd say...",
+    hint: "The professional hedge. You've considered both sides and arrived at a position. This signals measured judgement — not impulsiveness. Essential in meetings, interviews, and any high-stakes discussion." },
+  { num: 3, keyWord: "Conceivable", code: "CO", creature: "Cow", function: "Introduce Possibility",
+    fullPhrase: "It's conceivable that...",
+    hint: "Opens a door without walking through it. You're putting an idea on the table without committing. Powerful in negotiations and strategic discussions where you need to float ideas safely." },
+  { num: 4, keyWord: "Frame", code: "FR", creature: "Frogmouth", function: "Reframe",
+    fullPhrase: "Let me frame this another way...",
+    hint: "Your recovery phrase. When your first explanation didn't land, or when you want to shift the perspective entirely. Also works pre-emptively: reframe the question before answering it." },
+  { num: 5, keyWord: "Caveat", code: "CA", creature: "Camel", function: "Add a Condition",
+    fullPhrase: "I'd want to caveat that by saying...",
+    hint: "Adds a condition or exception to protect your position. Shows intellectual rigour — you're not making sweeping claims. Examiners, interviewers, and colleagues all respect the caveat." }
+];
+
+const detectionKeys = ['nuanced','on balance','conceivable','frame this','caveat'];
+const altDetectionKeys = [null,['balance, i'],null,['reframe','frame it'],null];
+
+const scenarios = [
+  { prompt: "A colleague asks: 'Should we invest in AI training for the whole team?'", hint: "This is complex — you need time to consider it properly before answering." },
+  { prompt: "Your manager asks your view on restructuring the department.", hint: "You've thought about both sides and have a measured position." },
+  { prompt: "In a strategy meeting, someone asks if a competitor could enter your market.", hint: "You want to raise the possibility without sounding alarmist." },
+  { prompt: "You explained a proposal but the client looks confused.", hint: "Your first angle didn't work. Try approaching it differently." },
+  { prompt: "A colleague makes a bold claim: 'Remote work is always more productive.'", hint: "You partly agree but want to add an important condition." }
+];
+
+const testR2Questions = [
+  { q: "Someone asks a complex question and you need time to think", answer: 0 },
+  { q: "You've considered both sides and want to give a measured verdict", answer: 1 },
+  { q: "You want to suggest a possibility without committing to it", answer: 2 },
+  { q: "Your first explanation didn't land — you need to try a different angle", answer: 3 },
+  { q: "You agree with someone but need to add an important exception", answer: 4 }
+];
+
+let currentStage = 0;
+let scenes = {};
+let challengeTimer = null;
+let lockInTimer = null;
+
+// NAV
+function goStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (btns[n].classList.contains('locked')) return;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage' + n).classList.add('active');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[n].classList.add('active');
+  currentStage = n;
+  window.scrollTo(0, 0);
+}
+
+function unlockStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (n > 0) btns[n-1].classList.add('completed');
+  btns[n].classList.remove('locked');
+  goStage(n);
+  if (n === 2) initSceneBuilder();
+  if (n === 3) buildChain();
+  if (n === 4) initTest();
+  if (n === 5) initUse();
+}
+
+// STAGE 1: CHALLENGE
+function startChallenge() {
+  const area = document.getElementById('challengeArea');
+  document.getElementById('startBtn').style.display = 'none';
+  let html = '<div class="name-grid">';
+  phrases.forEach((p, i) => {
+    html += `<div class="name-card revealed">
+      <span class="phrase-position">${p.function}</span>
+      <span class="phrase-num">${i + 1}</span> ${p.fullPhrase}
+    </div>`;
+  });
+  html += '</div>';
+  html += '<div class="timer-text" id="chTimer">30</div>';
+  html += '<div class="timer-bar"><div class="timer-fill" id="chFill" style="width:100%"></div></div>';
+  area.innerHTML = html;
+
+  let timeLeft = 30;
+  challengeTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('chTimer').textContent = timeLeft;
+    const pct = (timeLeft / 30) * 100;
+    const fill = document.getElementById('chFill');
+    fill.style.width = pct + '%';
+    if (timeLeft <= 8) fill.className = 'timer-fill danger';
+    else if (timeLeft <= 15) fill.className = 'timer-fill warning';
+    if (timeLeft <= 0) { clearInterval(challengeTimer); hideChallenge(); }
+  }, 1000);
+}
+
+function hideChallenge() {
+  const area = document.getElementById('challengeArea');
+  let html = '<div class="card animate-in"><div class="card-label">Time\'s Up</div>';
+  html += '<p>How many can you recall? Click each to reveal:</p>';
+  html += '<div class="name-grid mt">';
+  phrases.forEach((p, i) => {
+    html += `<div class="name-card hidden-name" id="reveal_${i}" onclick="revealPhrase(${i})">
+      <span class="phrase-num" style="background:#444;">${i + 1}</span> ??? Click to reveal
+    </div>`;
+  });
+  html += '</div>';
+  html += '<p class="text-small mt">Most people recall 1-2 at best. These are abstract phrases — your brain needs a better system.</p>';
+  html += '<div class="mt text-center"><button class="btn btn-primary" onclick="unlockStage(1)">Show me the system</button></div>';
+  html += '</div>';
+  area.innerHTML = html;
+}
+
+function revealPhrase(i) {
+  const card = document.getElementById('reveal_' + i);
+  const p = phrases[i];
+  card.innerHTML = `<span class="phrase-position">${p.function}</span><span class="phrase-num">${i + 1}</span> ${p.fullPhrase}`;
+  card.classList.remove('hidden-name');
+  card.classList.add('revealed');
+}
+
+// DECODER
+function decodeName(val) {
+  const result = document.getElementById('decoderResult');
+  if (!val.trim()) { result.innerHTML = '<span class="text-small">Type a word to see its creature</span>'; return; }
+  const code = val.substring(0, 2).toLowerCase();
+  const creature = bestiaryMap[code];
+  if (creature) {
+    result.innerHTML = `<div class="creature-box animate-in" style="margin:0;">
+      <div class="creature-emoji">*</div>
+      <div class="creature-info">
+        <div class="creature-code">${code.toUpperCase()} = ${creature}</div>
+        <div class="creature-name">"${val}" → ${creature}</div>
+      </div>
+    </div>`;
+  } else {
+    result.innerHTML = `<span class="text-small">No match for "${code.toUpperCase()}" — try another word</span>`;
+  }
+}
+
+// STAGE 3: SCENE BUILDER
+function initSceneBuilder() {
+  const container = document.getElementById('sceneBuilder');
+  let html = '';
+  phrases.forEach((p, i) => {
+    html += `<div class="card" id="sceneCard_${i}">
+      <div class="flex-between">
+        <div class="card-label">Expression ${i + 1} of 5 · ${p.function}</div>
+        <div class="text-small" id="sceneStatus_${i}">Waiting...</div>
+      </div>
+      <div class="creature-box">
+        <div class="creature-emoji">*</div>
+        <div class="creature-info">
+          <div class="creature-code">${p.code} = ${p.creature}</div>
+          <div class="creature-name" style="margin-top:4px; font-size: 1em; color: #fff; font-weight: 600;">"${p.fullPhrase}"</div>
+        </div>
+      </div>
+      <div class="fact-box">
+        <strong>When to use it:</strong> ${p.hint}
+      </div>
+      <div class="prompt-card">
+        Write a vivid scene: a <span class="highlight">${p.creature}</span> doing something that connects to this expression
+      </div>
+      <textarea class="scene-area" id="scene_${i}" rows="3"
+        placeholder="Picture the ${p.creature.toLowerCase()} in action..."
+        oninput="checkScene(${i})"></textarea>
+      <div class="flex-between mt">
+        <div class="word-count" id="sceneWords_${i}">0 words</div>
+        <div id="sceneDone_${i}"></div>
+      </div>
+    </div>`;
+  });
+  html += '<div class="text-center mt" id="scenesNextBtn" style="display:none;"><button class="btn btn-success animate-in" onclick="unlockStage(3)">All 5 done — show me my chain</button></div>';
+  container.innerHTML = html;
+}
+
+function checkScene(i) {
+  const text = document.getElementById('scene_' + i).value;
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  document.getElementById('sceneWords_' + i).textContent = words + ' words';
+  document.getElementById('sceneWords_' + i).className = words >= 10 ? 'word-count good' : 'word-count';
+  const status = document.getElementById('sceneStatus_' + i);
+  const done = document.getElementById('sceneDone_' + i);
+  if (words >= 10) {
+    scenes[i] = text; status.innerHTML = '<span class="highlight-green">Done!</span>'; done.innerHTML = '<span class="highlight-green">✓</span>';
+  } else {
+    delete scenes[i]; status.textContent = words > 0 ? 'Keep going...' : 'Waiting...'; done.innerHTML = '';
+  }
+  if (Object.keys(scenes).length >= 5) document.getElementById('scenesNextBtn').style.display = 'block';
+}
+
+// STAGE 4: CHAIN
+function buildChain() {
+  const container = document.getElementById('chainDisplay');
+  let html = '<div class="chain">';
+  phrases.forEach((p, i) => {
+    if (i > 0) html += '<div class="chain-connector done"></div>';
+    html += `<div class="chain-link done">
+      <div class="chain-num"><span class="phrase-num" style="font-size:0.7em;">${i + 1}</span> ${p.creature} (${p.code}) · <span class="highlight-yellow">${p.function}</span></div>
+      <div class="chain-fact">"${p.fullPhrase}"</div>
+      ${scenes[i] ? `<div class="chain-scene">"${scenes[i].substring(0, 100)}${scenes[i].length > 100 ? '...' : ''}"</div>` : ''}
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function startLockIn() {
+  document.getElementById('lockInTimer').style.display = 'block';
+  let timeLeft = 45;
+  lockInTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('lockInTime').textContent = timeLeft;
+    const pct = (timeLeft / 45) * 100;
+    const fill = document.getElementById('lockInFill');
+    fill.style.width = pct + '%';
+    if (timeLeft <= 8) fill.className = 'timer-fill danger';
+    else if (timeLeft <= 15) fill.className = 'timer-fill warning';
+    if (timeLeft <= 0) { clearInterval(lockInTimer); document.getElementById('lockInTime').textContent = "Time!"; }
+  }, 1000);
+  document.getElementById('chainNextBtn').style.display = 'block';
+}
+
+// STAGE 5: TEST
+let r1Score = 0, r2Score = 0, r1Done = 0, r2Done = 0;
+
+function initTest() {
+  const r1 = document.getElementById('testRound1');
+  const shuffled = [...phrases].sort(() => Math.random() - 0.5);
+  let html = '';
+  shuffled.forEach((p, i) => {
+    html += `<div class="card" id="t1_${i}" style="margin-bottom: 10px;">
+      <div class="flex-between"><span>The creature is: <span class="highlight">${p.creature}</span> (${p.code})</span><span id="t1s_${i}"></span></div>
+      <div class="mt" style="display: flex; flex-direction: column; gap: 6px;">`;
+    const wrong = phrases.filter(x => x.num !== p.num).sort(() => Math.random() - 0.5).slice(0, 2);
+    const opts = [p, ...wrong].sort(() => Math.random() - 0.5);
+    opts.forEach(o => {
+      html += `<button class="btn btn-ghost btn-small" onclick="checkT1(${i}, ${p.num}, ${o.num}, this)" style="text-align: left; white-space: normal; line-height: 1.4;">${o.fullPhrase}</button>`;
+    });
+    html += '</div></div>';
+  });
+  r1.innerHTML = html;
+
+  const r2 = document.getElementById('testRound2');
+  const shuffled2 = [...testR2Questions].sort(() => Math.random() - 0.5);
+  html = '';
+  shuffled2.forEach((q, i) => {
+    const correctP = phrases[q.answer];
+    const wrong = phrases.filter(x => x.num !== correctP.num).sort(() => Math.random() - 0.5).slice(0, 2);
+    const opts = [correctP, ...wrong].sort(() => Math.random() - 0.5);
+    html += `<div class="card" id="t2_${i}" style="margin-bottom: 10px;">
+      <div class="flex-between"><span><strong>${q.q}</strong></span><span id="t2s_${i}"></span></div>
+      <div class="mt" style="display: flex; flex-direction: column; gap: 6px;">`;
+    opts.forEach(o => {
+      html += `<button class="btn btn-ghost btn-small" onclick="checkT2(${i}, ${q.answer}, ${o.num - 1}, this)" style="text-align: left; white-space: normal; line-height: 1.4;">${o.fullPhrase}</button>`;
+    });
+    html += '</div></div>';
+  });
+  r2.innerHTML = html;
+}
+
+function checkT1(i, correct, chosen, btn) {
+  document.getElementById('t1_' + i).querySelectorAll('button').forEach(b => b.disabled = true);
+  if (correct === chosen) { btn.classList.remove('btn-ghost'); btn.classList.add('btn-success'); document.getElementById('t1s_' + i).innerHTML = '<span class="highlight-green">✓</span>'; r1Score++; }
+  else { btn.classList.remove('btn-ghost'); btn.classList.add('btn-danger'); document.getElementById('t1s_' + i).innerHTML = '<span class="highlight-yellow">✗</span>'; }
+  r1Done++;
+  if (r1Done >= 5) setTimeout(() => { document.getElementById('testRound2Container').style.display = 'block'; document.getElementById('testRound2Container').scrollIntoView({ behavior: 'smooth' }); }, 600);
+}
+
+function checkT2(i, correct, chosen, btn) {
+  document.getElementById('t2_' + i).querySelectorAll('button').forEach(b => b.disabled = true);
+  if (correct === chosen) { btn.classList.remove('btn-ghost'); btn.classList.add('btn-success'); document.getElementById('t2s_' + i).innerHTML = '<span class="highlight-green">✓</span>'; r2Score++; }
+  else { btn.classList.remove('btn-ghost'); btn.classList.add('btn-danger'); document.getElementById('t2s_' + i).innerHTML = '<span class="highlight-yellow">✗</span>'; }
+  r2Done++;
+  if (r2Done >= 5) {
+    const total = r1Score + r2Score;
+    setTimeout(() => {
+      const scoreDiv = document.getElementById('testScore');
+      scoreDiv.style.display = 'block';
+      document.getElementById('scoreDisplay').textContent = total + '/10';
+      const msg = total >= 9 ? "Your FRAME toolkit is locked in." : total >= 7 ? "Strong recall. A couple more rounds and it's automatic." : total >= 5 ? "Good progress. Review the creatures you missed." : "Revisit your scenes — make them more vivid.";
+      document.getElementById('scoreMessage').textContent = msg;
+      scoreDiv.scrollIntoView({ behavior: 'smooth' });
+    }, 600);
+  }
+}
+
+// STAGE 6: USE THEM
+function initUse() {
+  const ref = document.getElementById('expressionRef');
+  let html = '';
+  phrases.forEach((p, i) => {
+    html += `<div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #1e1e3a; border-radius: 8px; border: 1px solid #333;">
+      <span class="phrase-num">${i + 1}</span>
+      <div>
+        <span style="color: #6c5ce7; font-weight: 700; font-size: 0.85em;">${p.creature}</span>
+        <span style="color: #888; font-size: 0.8em;"> · ${p.function}</span><br>
+        <span style="font-size: 0.85em;">"${p.fullPhrase}"</span>
+      </div>
+    </div>`;
+  });
+  ref.innerHTML = html;
+
+  const container = document.getElementById('scenarioCards');
+  html = '';
+  scenarios.forEach((s, i) => {
+    html += `<div class="card">
+      <div class="card-label">Scenario ${i + 1}</div>
+      <p style="font-size: 1.05em; line-height: 1.6; margin-bottom: 8px;">${s.prompt}</p>
+      <p class="text-small mb" style="color: #fdcb6e;">${s.hint}</p>
+      <textarea class="scene-area" id="resp_${i}" rows="3" placeholder="Start your response using the appropriate FRAME expression..." oninput="detectPhrases()"></textarea>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function detectPhrases() {
+  let allText = '';
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('resp_' + i);
+    if (el) allText += ' ' + el.value;
+  }
+  allText = allText.toLowerCase();
+  let count = 0;
+  phrases.forEach((p, i) => {
+    let found = allText.includes(detectionKeys[i]);
+    if (!found && altDetectionKeys[i]) found = altDetectionKeys[i].some(alt => allText.includes(alt));
+    if (found) count++;
+  });
+}
+
+function analyzeResponses() {
+  let allText = '';
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('resp_' + i);
+    if (el) allText += ' ' + el.value;
+  }
+  allText = allText.toLowerCase();
+
+  let used = 0;
+  let html = '<div class="card-label">Expressions Detected</div><div class="mt" style="display: flex; flex-wrap: wrap; gap: 6px;">';
+  phrases.forEach((p, i) => {
+    let found = allText.includes(detectionKeys[i]);
+    if (!found && altDetectionKeys[i]) found = altDetectionKeys[i].some(alt => allText.includes(alt));
+    if (found) { used++; html += `<div style="display:inline-flex;align-items:center;gap:6px;background:#00b89422;border:1px solid #00b894;color:#00b894;padding:6px 12px;border-radius:8px;margin:4px;font-size:0.85em;font-weight:600;">${p.creature} ✓</div>`; }
+    else { html += `<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#1a1a3a;border:1px solid #e17055;border-radius:8px;margin:4px;font-size:0.85em;color:#e17055;">${p.creature} — missed</div>`; }
+  });
+  html += '</div>';
+
+  if (used >= 4) html += '<p class="mt highlight-green" style="font-size:1.1em;">Excellent. You deployed the FRAME toolkit naturally. These expressions are becoming part of your active vocabulary.</p>';
+  else if (used >= 3) html += '<p class="mt highlight-green">Good range. Review the expressions you missed — which creature scenes need more work?</p>';
+  else html += '<p class="mt highlight-yellow">Keep practising. Go back to your creature scenes and make them more vivid, then try again.</p>';
+
+  html += '<div class="mt"><p class="text-small">Next: POSITION expressions — the tools for building arguments. Coming in Lesson 2 of the Discourse Bestiary.</p></div>';
+
+  document.getElementById('resultsContent').innerHTML = html;
+  document.getElementById('resultsCard').style.display = 'block';
+  document.getElementById('analyzeBtn').style.display = 'none';
+  document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
