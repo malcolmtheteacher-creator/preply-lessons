@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writer's Weapons</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+
+.nav { display: flex; gap: 4px; padding: 10px; background: #111128; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+.nav-btn { padding: 8px 12px; border: 2px solid #333; border-radius: 8px; background: transparent; color: #888; font-weight: 700; font-size: 0.72em; cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+.nav-btn.active { background: #e17055; border-color: #e17055; color: #fff; }
+.nav-btn.completed { border-color: #00b894; color: #00b894; }
+.nav-btn:hover { border-color: #e17055; }
+.nav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+.stage { display: none; padding: 20px; max-width: 700px; margin: 0 auto; }
+.stage.active { display: block; }
+.stage-title { font-size: 1.8em; font-weight: 900; margin-bottom: 6px; }
+.stage-sub { color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+.card { background: #16162a; border: 2px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.card:hover { border-color: #333; }
+.card-label { font-size: 0.75em; font-weight: 700; color: #e17055; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-block; }
+.btn-primary { background: #e17055; color: #fff; }
+.btn-primary:hover { background: #c0553e; transform: translateY(-1px); }
+.btn-success { background: #00b894; color: #fff; }
+.btn-success:hover { background: #00a381; }
+.btn-ghost { background: transparent; border: 2px solid #444; color: #ccc; }
+.btn-ghost:hover { border-color: #e17055; color: #fff; }
+.btn-small { padding: 8px 16px; font-size: 0.85em; }
+
+.weapon-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.weapon-icon { font-size: 2.5em; }
+.weapon-name { font-size: 1.4em; font-weight: 900; color: #e17055; }
+.weapon-desc { color: #aaa; font-size: 0.9em; }
+
+.example-bad { background: #1e1e3a; border-left: 4px solid #e17055; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+.example-good { background: #1e1e3a; border-left: 4px solid #00b894; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+.example-label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.example-label.bad { color: #e17055; }
+.example-label.good { color: #00b894; }
+.example-text { font-size: 1.05em; line-height: 1.7; }
+
+.scene-area { width: 100%; min-height: 80px; background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 16px; color: #e0e0e0; font-family: inherit; font-size: 1em; line-height: 1.7; resize: none; outline: none; transition: border-color 0.3s; }
+.scene-area:focus { border-color: #e17055; }
+.scene-area::placeholder { color: #555; }
+.scene-area.small { min-height: 50px; font-size: 0.95em; }
+
+.word-count { text-align: right; font-size: 0.8em; color: #666; margin-top: 4px; }
+.word-count.good { color: #00b894; }
+
+.creature-box { display: flex; align-items: center; gap: 16px; background: #1e1e3a; border: 2px solid #6c5ce7; border-radius: 12px; padding: 14px; margin: 8px 0; }
+.creature-info { flex: 1; }
+.creature-code { font-weight: 800; color: #6c5ce7; font-size: 1em; }
+.creature-name { color: #aaa; font-size: 0.85em; margin-top: 2px; }
+
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.compare-col { background: #1e1e3a; border-radius: 10px; padding: 16px; }
+.compare-col.before { border: 2px solid #e17055; }
+.compare-col.after { border: 2px solid #00b894; }
+.compare-label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+
+.timer-bar { width: 100%; height: 8px; background: #222; border-radius: 4px; margin: 12px 0; overflow: hidden; }
+.timer-fill { height: 100%; background: #e17055; border-radius: 4px; transition: width 0.1s linear; }
+.timer-fill.warning { background: #fdcb6e; }
+.timer-fill.danger { background: #ff4444; animation: pulse 0.5s infinite; }
+.timer-text { font-size: 1.6em; font-weight: 900; text-align: center; font-variant-numeric: tabular-nums; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+.fact-box { background: #1a1a3e; border-left: 4px solid #fdcb6e; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; line-height: 1.6; }
+.fact-box strong { color: #fdcb6e; }
+
+.check-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #1a1a2e; }
+.check-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #444; display: flex; align-items: center; justify-content: center; font-size: 0.85em; transition: all 0.3s; flex-shrink: 0; cursor: pointer; }
+.check-dot.checked { background: #00b894; border-color: #00b894; color: #fff; }
+.check-label { font-size: 0.9em; }
+
+.flex { display: flex; gap: 10px; align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mt { margin-top: 16px; }
+.mb { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85em; color: #888; }
+.highlight { color: #e17055; font-weight: 700; }
+.highlight-purple { color: #6c5ce7; font-weight: 700; }
+.highlight-green { color: #00b894; font-weight: 700; }
+.highlight-yellow { color: #fdcb6e; font-weight: 700; }
+.hidden { display: none; }
+
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: slideIn 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)} }
+.shake { animation: shake 0.3s; }
+@keyframes glow { 0%,100%{box-shadow:0 0 5px rgba(225,112,85,0.3)}50%{box-shadow:0 0 20px rgba(225,112,85,0.6)} }
+.glow { animation: glow 1.5s infinite; }
+
+@media (max-width: 600px) {
+  .stage-title { font-size: 1.4em; }
+  .nav-btn { padding: 6px 10px; font-size: 0.7em; }
+  .compare { grid-template-columns: 1fr; }
+  .weapon-header { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="goStage(0)">1. Recall</button>
+  <button class="nav-btn locked" onclick="goStage(1)">2. Raw Scene</button>
+  <button class="nav-btn locked" onclick="goStage(2)">⚔️ Simile</button>
+  <button class="nav-btn locked" onclick="goStage(3)">💥 Sounds</button>
+  <button class="nav-btn locked" onclick="goStage(4)">🎯 Rule of 3</button>
+  <button class="nav-btn locked" onclick="goStage(5)">🥊 Short Hit</button>
+  <button class="nav-btn locked" onclick="goStage(6)">🌋 Hyperbole</button>
+  <button class="nav-btn locked" onclick="goStage(7)">🪝 Cliffhanger</button>
+  <button class="nav-btn locked" onclick="goStage(8)">🏆 Final</button>
+</nav>
+
+<!-- STAGE 0: RECALL -->
+<div class="stage active" id="stage0">
+  <div class="stage-title">Recall Zone</div>
+  <div class="stage-sub">What does your brain still remember?</div>
+
+  <div class="card">
+    <div class="card-label">From Last Lesson</div>
+    <p>You learned a memory superpower — turning <span class="highlight-purple">names into creatures</span> to remember people and facts.</p>
+    <p class="mt"><span class="highlight-yellow">Without looking</span> — tell your teacher what you remember:</p>
+  </div>
+
+  <div class="card" id="recallCard">
+    <div class="card-label">The 5 Creatures — what were they? Who were they?</div>
+    <div id="recallQuestions">
+      <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Gu</strong> = what creature? → what person? → what did they invent?</div></div>
+      <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Fi</strong> = what creature? → what person? → what did they discover?</div></div>
+      <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Cu</strong> = what creature? → what person? → what did they win?</div></div>
+      <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Ar</strong> = what creature? → what person? → what did they discover?</div></div>
+      <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Te</strong> = what creature? → what person? → what did they invent?</div></div>
+    </div>
+    <p class="mt text-small">Follow the chain: code → creature → person → fact. Tick each one you get right.</p>
+    <div class="mt hidden" id="recallReveal">
+      <div class="fact-box animate-in">
+        <strong>Answers:</strong><br>
+        Gu = Gull → <strong>Gutenberg</strong> → invented the printing press<br>
+        Fi = Fish → <strong>Fibonacci</strong> → discovered the number sequence in nature<br>
+        Cu = Cupid → <strong>Marie Curie</strong> → won 2 Nobel Prizes for radioactivity<br>
+        Ar = Armadillo → <strong>Archimedes</strong> → discovered why things float<br>
+        Te = Termite → <strong>Tesla</strong> → invented AC power (electricity in every building)
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Choose Your Path</div>
+    <p class="mb">Did you do Lesson 1 ("You Have a Superpower")?</p>
+    <div class="flex flex-wrap">
+      <button class="btn btn-primary" onclick="startReturning()">Yes — I know these creatures!</button>
+      <button class="btn btn-ghost" onclick="startFresh()">No — I'm new</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE 1: RAW SCENE -->
+<div class="stage" id="stage1">
+  <div class="stage-title">Your Raw Scene</div>
+  <div class="stage-sub">Write a quick, messy, fun scene. Don't think — just go.</div>
+
+  <div class="card" id="creatureReminder"></div>
+
+  <div class="card">
+    <div class="card-label">Today's mission</div>
+    <p>Today we're learning <span class="highlight">6 secret weapons that professional writers use</span> to make their writing powerful, funny, and impossible to stop reading.</p>
+    <p class="mt">First — write a quick scene where <span class="highlight-purple">all your creatures appear together</span>. Something crazy happens. It should remind you of who each person was. This is your <strong>raw material</strong> — we'll upgrade it 6 times.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Write (3 minutes — GO!)</div>
+    <div class="flex-between mb">
+      <span class="text-small">Messy is fine. Speed matters.</span>
+      <button class="btn btn-ghost btn-small" onclick="startRawTimer()">⏱ Start Timer</button>
+    </div>
+    <div class="hidden" id="rawTimerArea">
+      <div class="timer-text" id="rawTimerText">3:00</div>
+      <div class="timer-bar"><div class="timer-fill" id="rawTimerFill" style="width:100%"></div></div>
+    </div>
+    <textarea class="scene-area" id="rawScene" rows="5" placeholder="One day, the gull was sitting on a pile of books when suddenly the fish appeared..." oninput="countWords('rawScene','rawWC')"></textarea>
+    <div class="flex-between mt">
+      <div class="word-count" id="rawWC">0 words</div>
+      <button class="btn btn-primary btn-small" onclick="saveRaw()">Done — show me the weapons!</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAGE 2: SIMILE -->
+<div class="stage" id="stage2">
+  <div class="stage-title">⚔️ Weapon 1: Simile</div>
+  <div class="stage-sub">Make the reader SEE it.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">⚔️</div>
+      <div><div class="weapon-name">SIMILE</div><div class="weapon-desc">Comparing two things using "like" or "as...as"</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ Boring</div><div class="example-text">The armadillo sank quickly.</div></div>
+    <div class="example-good"><div class="example-label good">✅ With simile</div><div class="example-text">The armadillo sank <span class="highlight-green">like a bowling ball dropped in a swimming pool</span>.</div></div>
+    <div class="fact-box mt"><strong>Roald Dahl did this constantly.</strong> He'd compare things that have NO business being together. A person's face "like a shrunken walnut." That's what makes it funny — the surprise of the comparison.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Finish the simile (be weird!)</div>
+    <div class="mb"><p>The termite chewed through the wire as fast as...</p><textarea class="scene-area small" id="sim1" rows="1" placeholder="...a kid eating pizza on a Friday night"></textarea></div>
+    <div class="mb"><p>Cupid's radioactive glow was like...</p><textarea class="scene-area small" id="sim2" rows="1" placeholder="...a phone screen at 3am in a dark room"></textarea></div>
+    <div class="mb"><p>The fish watched the angry numbers approach like...</p><textarea class="scene-area small" id="sim3" rows="1" placeholder="...a kid watching their mum walk towards a bad report card"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Add <span class="highlight">at least one simile</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref1">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add a simile:</p>
+    <textarea class="scene-area" id="up1" rows="3" oninput="countWords('up1','upWC1')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC1">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(1))unlockStage(3)">⚔️ Unlocked! Next →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 3: ONOMATOPOEIA -->
+<div class="stage" id="stage3">
+  <div class="stage-title">💥 Weapon 2: Sound Effects</div>
+  <div class="stage-sub">Make the reader HEAR it.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">💥</div>
+      <div><div class="weapon-name">ONOMATOPOEIA</div><div class="weapon-desc">Words that sound like the noise they describe</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ Silent</div><div class="example-text">The termite bit the wire and the bomb exploded.</div></div>
+    <div class="example-good"><div class="example-label good">✅ With sound</div><div class="example-text"><span class="highlight-green">SNAP!</span> The termite's jaws closed on the wire. <span class="highlight-green">BZZZZT!</span> Sparks flew everywhere. Then — <span class="highlight-green">BOOOOOM!</span></div></div>
+    <div class="fact-box mt"><strong>Comic books are ALL onomatopoeia.</strong> POW! BAM! THWACK! But real writers use them too. They put SOUND into your brain while you read. Your story becomes a movie.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Your Sound Armoury — tap to collect</div>
+    <div class="flex flex-wrap" id="soundBank"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Add sounds</div>
+    <div class="mb"><p class="text-small">The gull flew down and landed on the books.</p><textarea class="scene-area small" id="snd1" rows="1" placeholder="WHOOSH! The gull swooped down. THUD! It landed..."></textarea></div>
+    <div class="mb"><p class="text-small">The armadillo fell into the water and looked up.</p><textarea class="scene-area small" id="snd2" rows="1" placeholder="SPLASH! GURGLE GURGLE..."></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Add <span class="highlight">at least 2 sound effects</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref2">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add sound effects:</p>
+    <textarea class="scene-area" id="up2" rows="3" oninput="countWords('up2','upWC2')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC2">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(2))unlockStage(4)">💥 Unlocked! Next →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 4: RULE OF THREE -->
+<div class="stage" id="stage4">
+  <div class="stage-title">🎯 Weapon 3: Rule of Three</div>
+  <div class="stage-sub">Three things together = funny, powerful, memorable.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">🎯</div>
+      <div><div class="weapon-name">RULE OF THREE</div><div class="weapon-desc">List three things — the third one hits hardest</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ Flat</div><div class="example-text">The armadillo was scared in the water.</div></div>
+    <div class="example-good"><div class="example-label good">✅ Rule of Three</div><div class="example-text">The armadillo was <span class="highlight-green">wet, confused, and deeply offended</span>.</div></div>
+    <div class="fact-box mt"><strong>Why three?</strong> Two feels incomplete. Four feels like a list. Three feels <em>perfect</em>. Comedians know this: "An Englishman, a Scotsman, and an Irishman walk into a bar..." The third one is ALWAYS the punchline.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Add the third thing (make it funny)</div>
+    <div class="mb"><p>The gull was angry, hungry, and...</p><textarea class="scene-area small" id="thr1" rows="1" placeholder="...ready to ruin someone's day"></textarea></div>
+    <div class="mb"><p>The fish tried to swim, tried to hide, and...</p><textarea class="scene-area small" id="thr2" rows="1" placeholder="...tried to pretend it was already dead"></textarea></div>
+    <div class="mb"><p>The bomb was big, shiny, and...</p><textarea class="scene-area small" id="thr3" rows="1" placeholder="...apparently delicious (according to the termite)"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Add <span class="highlight">at least one Rule of Three</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref3">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add a Rule of Three:</p>
+    <textarea class="scene-area" id="up3" rows="3" oninput="countWords('up3','upWC3')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC3">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(3))unlockStage(5)">🎯 Unlocked! Next →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 5: SHORT SENTENCE -->
+<div class="stage" id="stage5">
+  <div class="stage-title">🥊 Weapon 4: The Short Hit</div>
+  <div class="stage-sub">Long sentence... then a short one. PUNCH.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">🥊</div>
+      <div><div class="weapon-name">SHORT SENTENCE FOR IMPACT</div><div class="weapon-desc">Build up with a long sentence, then hit with a short one</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ All same length</div><div class="example-text">The termite crawled inside the bomb. It started eating the wires. The bomb went off and it was bad.</div></div>
+    <div class="example-good"><div class="example-label good">✅ Long then short</div><div class="example-text">The termite crawled through the dark metal shell of the bomb, its tiny jaws working through wire after wire, sparks flying like tiny stars. <span class="highlight-green">Then it bit the red one.</span></div></div>
+    <div class="fact-box mt"><strong>This is how horror movies work too.</strong> Long slow build-up... then JUMP SCARE. In writing, the short sentence IS the jump scare. Four words can be more powerful than forty.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Write the short punch</div>
+    <p class="mb text-small">I give you the long build-up. You write the 2-6 word hit.</p>
+    <div class="mb"><p class="text-small">The gull circled above the library, scanning the thousands of books below, choosing its target with the precision of a military bomber.</p><textarea class="scene-area small" id="sht1" rows="1" placeholder="Direct hit. / It missed. / The librarian screamed."></textarea></div>
+    <div class="mb"><p class="text-small">The armadillo paddled desperately, its little legs spinning, water flooding its armour, the shore getting further and further away.</p><textarea class="scene-area small" id="sht2" rows="1" placeholder="(2-6 word punch)"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Find a moment to <span class="highlight">build up long, then hit short</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref4">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add a long/short punch:</p>
+    <textarea class="scene-area" id="up4" rows="3" oninput="countWords('up4','upWC4')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC4">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(4))unlockStage(6)">🥊 Unlocked! Next →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 6: HYPERBOLE -->
+<div class="stage" id="stage6">
+  <div class="stage-title">🌋 Weapon 5: Hyperbole</div>
+  <div class="stage-sub">Exaggeration so extreme it becomes comedy.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">🌋</div>
+      <div><div class="weapon-name">HYPERBOLE</div><div class="weapon-desc">Extreme exaggeration nobody takes literally</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ Normal</div><div class="example-text">The gull was very angry.</div></div>
+    <div class="example-good"><div class="example-label good">✅ Hyperbole</div><div class="example-text">The gull was <span class="highlight-green">so angry it could have burned down every library on Earth with the heat of its rage alone</span>.</div></div>
+    <div class="fact-box mt"><strong>You already do this in real life!</strong> "I'm SO hungry I could eat a horse." "I've told you a MILLION times." "This bag weighs a TON." Hyperbole is how humans make things funny. The trick is putting it on paper.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Go extreme</div>
+    <p class="mb text-small">Make these SO exaggerated it's ridiculous.</p>
+    <div class="mb"><p>The explosion was big.</p><textarea class="scene-area small" id="hyp1" rows="1" placeholder="The explosion was so big that astronauts on Mars called to complain..."></textarea></div>
+    <div class="mb"><p>The fish was scared.</p><textarea class="scene-area small" id="hyp2" rows="1" placeholder="The fish was so scared its scales turned white and its eyes popped out of its head..."></textarea></div>
+    <div class="mb"><p>The termite was hungry.</p><textarea class="scene-area small" id="hyp3" rows="1" placeholder="The termite was so hungry it could have eaten the Eiffel Tower for breakfast..."></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Add <span class="highlight">one moment of insane exaggeration</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref5">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add extreme exaggeration:</p>
+    <textarea class="scene-area" id="up5" rows="3" oninput="countWords('up5','upWC5')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC5">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(5))unlockStage(7)">🌋 Unlocked! Next →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 7: CLIFFHANGER -->
+<div class="stage" id="stage7">
+  <div class="stage-title">🪝 Weapon 6: The Cliffhanger</div>
+  <div class="stage-sub">Stop at the WORST possible moment.</div>
+
+  <div class="card">
+    <div class="weapon-header">
+      <div class="weapon-icon">🪝</div>
+      <div><div class="weapon-name">CLIFFHANGER</div><div class="weapon-desc">End at the most exciting moment — make the reader NEED more</div></div>
+    </div>
+    <div class="example-bad"><div class="example-label bad">❌ Everything resolved</div><div class="example-text">The termite bit the wire and the bomb exploded and everything was destroyed. The end.</div></div>
+    <div class="example-good"><div class="example-label good">✅ Cliffhanger</div><div class="example-text">The termite's tiny jaws closed around the last red wire. Deep inside the bomb, something clicked. <span class="highlight-green">And then—</span></div></div>
+    <div class="fact-box mt"><strong>Every Netflix episode does this.</strong> Screen goes black RIGHT when you need to know what happens. That feeling of "NO! TELL ME!" — that's POWER. Your writing can do the same thing.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Practice — Cut it off at the best moment</div>
+    <div class="mb"><p class="text-small">The armadillo is sinking. Something huge appears below.</p><textarea class="scene-area small" id="clf1" rows="2" placeholder="The armadillo looked down into the dark water. Two enormous yellow eyes were looking back. They blinked. And then—"></textarea></div>
+    <div class="mb"><p class="text-small">The gull has found the most important book in the world.</p><textarea class="scene-area small" id="clf2" rows="2" placeholder="Build tension... then CUT!"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">⬆️ Upgrade your scene</div>
+    <p class="mb">Rewrite your ending as a <span class="highlight">cliffhanger</span>.</p>
+    <div class="example-bad mb"><div class="example-label bad">Your original version</div><div class="example-text" id="ref6">...</div></div>
+    <p class="mb text-small">Your scene is below — edit it directly to add a cliffhanger ending:</p>
+    <textarea class="scene-area" id="up6" rows="3" oninput="countWords('up6','upWC6')"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="upWC6">0 words</div><button class="btn btn-success btn-small" onclick="if(saveUp(6))unlockStage(8)">🪝 ALL WEAPONS UNLOCKED! →</button></div>
+  </div>
+</div>
+
+<!-- STAGE 8: FINAL DRAFT -->
+<div class="stage" id="stage8">
+  <div class="stage-title">🏆 The Final Draft</div>
+  <div class="stage-sub">All 6 weapons. One story. Make it legendary.</div>
+
+  <div class="card">
+    <div class="card-label">Your Weapon Checklist</div>
+    <p class="mb text-small">Tick each weapon as you use it in your final draft:</p>
+    <div class="check-item"><div class="check-dot" id="fc0" onclick="toggleFC(0)"></div><div class="check-label">⚔️ <strong>Simile</strong> — "like..." or "as...as..."</div></div>
+    <div class="check-item"><div class="check-dot" id="fc1" onclick="toggleFC(1)"></div><div class="check-label">💥 <strong>Onomatopoeia</strong> — CRASH, BOOM, SNAP</div></div>
+    <div class="check-item"><div class="check-dot" id="fc2" onclick="toggleFC(2)"></div><div class="check-label">🎯 <strong>Rule of Three</strong> — three things, third one hits hardest</div></div>
+    <div class="check-item"><div class="check-dot" id="fc3" onclick="toggleFC(3)"></div><div class="check-label">🥊 <strong>Short Hit</strong> — long build-up, short punch</div></div>
+    <div class="check-item"><div class="check-dot" id="fc4" onclick="toggleFC(4)"></div><div class="check-label">🌋 <strong>Hyperbole</strong> — extreme exaggeration</div></div>
+    <div class="check-item"><div class="check-dot" id="fc5" onclick="toggleFC(5)"></div><div class="check-label">🪝 <strong>Cliffhanger</strong> — stop at the worst moment</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Before & After</div>
+    <div class="compare">
+      <div class="compare-col before"><div class="compare-label" style="color:#e17055;">🗑 Raw Scene (Before)</div><div id="beforeText" class="text-small">...</div></div>
+      <div class="compare-col after"><div class="compare-label" style="color:#00b894;">✨ Final Draft (After)</div><div id="afterText" class="text-small">Start writing below...</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Write Your Masterpiece</div>
+    <p class="mb text-small">Same story, same creatures, same facts — but NOW with 6 weapons. Aim for 80+ words.</p>
+    <textarea class="scene-area" id="finalDraft" rows="12" placeholder="Rewrite your story. Use every weapon. Make it vivid, loud, funny, and leave the reader wanting more..." oninput="updateFinal()"></textarea>
+    <div class="flex-between mt"><div class="word-count" id="finalWC">0 words</div></div>
+  </div>
+
+  <div class="text-center mt"><button class="btn btn-primary" onclick="showEnd()">I'm done — show me what I've learned!</button></div>
+
+  <div class="card hidden" id="endCard">
+    <div class="card-label animate-in">Think About Your Thinking</div>
+    <p>Look at your Before and After. <strong>Same story. Completely different writing.</strong></p>
+    <p class="mt">You used <span class="highlight-green">6 literary devices</span> that professional writers use every single day. These aren't school tricks — they're real tools.</p>
+    <div class="fact-box mt">
+      <strong>Questions for your teacher:</strong><br>
+      1. Which weapon was the most fun to use?<br>
+      2. Which one made the biggest difference?<br>
+      3. Can you still name all 5 people from their creatures?
+    </div>
+    <p class="mt"><strong>"I can..."</strong> use similes, onomatopoeia, rule of three, short sentences for impact, hyperbole, and cliffhangers to make my writing more powerful and entertaining.</p>
+    <div class="mt text-center">
+      <p class="text-small">← <a href="bestiary_memory_lesson.html" style="color:#6c5ce7;">Lesson 1: You Have a Superpower</a> | <strong>Lesson 2: Writer's Weapons</strong> (you are here)</p>
+      <p class="text-small mt">Future Recall: These 6 devices should reappear in Lessons 5, 9, and 16.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const people = [
+  { name:"Gutenberg", code:"Gu", creature:"Gull", fact:"Invented the printing press" },
+  { name:"Fibonacci", code:"Fi", creature:"Fish", fact:"Discovered the number sequence found in nature" },
+  { name:"Marie Curie", code:"Cu", creature:"Cupid", fact:"Won 2 Nobel Prizes for discovering radioactivity" },
+  { name:"Archimedes", code:"Ar", creature:"Armadillo", fact:"Discovered why things float (ran naked shouting Eureka!)" },
+  { name:"Tesla", code:"Te", creature:"Termite", fact:"Invented AC power — the system that delivers electricity to every building in the world" }
+];
+
+const sounds = [
+  "CRASH","BANG","BOOM","SNAP","CRACK","POP","SPLASH","DRIP","GURGLE",
+  "BUZZ","SIZZLE","ZAP","WHOOSH","THUD","SCREECH","SQUELCH","HISS",
+  "CRUNCH","SPLAT","RUMBLE","THWACK","CLANG","FIZZ","ROAR","CLICK"
+];
+
+let rawText = '';
+let ups = {};
+let rawTimer = null;
+
+function goStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (btns[n].classList.contains('locked')) return;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage'+n).classList.add('active');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[n].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function unlockStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (n > 0) btns[n-1].classList.add('completed');
+  btns[n].classList.remove('locked');
+  goStage(n);
+  const latest = getLatest();
+  if (n === 2) { document.getElementById('ref1').textContent = rawText; document.getElementById('up1').value = rawText; initSounds(); }
+  if (n === 3) { document.getElementById('ref2').textContent = latest; document.getElementById('up2').value = latest; }
+  if (n === 4) { document.getElementById('ref3').textContent = latest; document.getElementById('up3').value = latest; }
+  if (n === 5) { document.getElementById('ref4').textContent = latest; document.getElementById('up4').value = latest; }
+  if (n === 6) { document.getElementById('ref5').textContent = latest; document.getElementById('up5').value = latest; }
+  if (n === 7) { document.getElementById('ref6').textContent = latest; document.getElementById('up6').value = latest; }
+  if (n === 8) initFinal();
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+  if (document.querySelectorAll('#recallQuestions .check-dot.checked').length >= 3) {
+    document.getElementById('recallReveal').classList.remove('hidden');
+  }
+}
+
+function startReturning() { showCreatures(); unlockStage(1); }
+function startFresh() { showCreatures(); unlockStage(1); }
+
+function showCreatures() {
+  const c = document.getElementById('creatureReminder');
+  let h = '<div class="card-label">Your 5 Creatures</div>';
+  people.forEach(p => {
+    h += `<div class="creature-box"><div class="creature-info"><div class="creature-code">${p.code} = ${p.creature} → ${p.name}</div><div class="creature-name">${p.fact}</div></div></div>`;
+  });
+  c.innerHTML = h;
+}
+
+function startRawTimer() {
+  if (rawTimer) return; // prevent spam
+  document.getElementById('rawTimerArea').classList.remove('hidden');
+  let t = 180;
+  rawTimer = setInterval(() => {
+    t--;
+    const m = Math.floor(t/60), s = t%60;
+    document.getElementById('rawTimerText').textContent = m+':'+String(s).padStart(2,'0');
+    const pct = (t/180)*100;
+    const f = document.getElementById('rawTimerFill');
+    f.style.width = pct+'%';
+    if (t <= 20) f.className = 'timer-fill danger';
+    else if (t <= 60) f.className = 'timer-fill warning';
+    if (t <= 0) { clearInterval(rawTimer); document.getElementById('rawTimerText').textContent = "Time!"; }
+  }, 1000);
+}
+
+function saveRaw() {
+  rawText = document.getElementById('rawScene').value;
+  const words = rawText.trim().split(/\s+/).filter(x=>x.length>0).length;
+  if (words < 15) { 
+    document.getElementById('rawScene').classList.add('shake'); 
+    setTimeout(()=>document.getElementById('rawScene').classList.remove('shake'),300);
+    document.getElementById('rawWC').textContent = words + ' words — need at least 15!';
+    document.getElementById('rawWC').style.color = '#e17055';
+    return; 
+  }
+  if (rawTimer) clearInterval(rawTimer);
+  unlockStage(2);
+}
+
+function initSounds() {
+  const bank = document.getElementById('soundBank');
+  if (bank.children.length > 0) return;
+  const colors = ['#e17055','#fdcb6e','#74b9ff','#a29bfe','#81ecec','#55efc4','#fab1a0','#ff7675','#fd79a8','#00b894'];
+  sounds.forEach((s,i) => {
+    const b = document.createElement('button');
+    b.className = 'btn btn-ghost btn-small';
+    b.style.borderColor = colors[i % colors.length];
+    b.style.color = colors[i % colors.length];
+    b.style.margin = '3px';
+    b.textContent = s;
+    b.onclick = () => { b.style.background = b.style.borderColor; b.style.color = '#fff'; };
+    bank.appendChild(b);
+  });
+}
+
+function saveUp(n) {
+  const text = document.getElementById('up'+n).value;
+  const prev = n === 1 ? rawText : getLatest();
+  if (text.trim() === prev.trim() || text.trim().length < 10) {
+    document.getElementById('up'+n).classList.add('shake');
+    setTimeout(()=>document.getElementById('up'+n).classList.remove('shake'),300);
+    return false;
+  }
+  ups[n] = text;
+  return true;
+}
+
+function getLatest() {
+  const keys = Object.keys(ups).map(Number).sort((a,b)=>b-a);
+  return keys.length > 0 ? ups[keys[0]] : rawText;
+}
+
+function countWords(id, wcId) {
+  const text = document.getElementById(id).value;
+  const w = text.trim().split(/\s+/).filter(x=>x.length>0).length;
+  const el = document.getElementById(wcId);
+  el.textContent = w + ' words';
+  el.className = w >= 10 ? 'word-count good' : 'word-count';
+}
+
+function initFinal() {
+  document.getElementById('beforeText').textContent = rawText;
+  const latest = getLatest();
+  document.getElementById('finalDraft').value = latest;
+  updateFinal();
+}
+
+function updateFinal() {
+  const text = document.getElementById('finalDraft').value;
+  const w = text.trim().split(/\s+/).filter(x=>x.length>0).length;
+  document.getElementById('finalWC').textContent = w + ' words';
+  document.getElementById('finalWC').className = w >= 80 ? 'word-count good' : 'word-count';
+  document.getElementById('afterText').textContent = text || 'Start writing below...';
+}
+
+function toggleFC(n) {
+  const d = document.getElementById('fc'+n);
+  const checked = d.classList.toggle('checked');
+  d.textContent = checked ? '✓' : '';
+}
+
+function showEnd() {
+  document.getElementById('endCard').classList.remove('hidden');
+  document.getElementById('endCard').scrollIntoView({ behavior:'smooth' });
+}
+</script>
+</body>
+</html>
