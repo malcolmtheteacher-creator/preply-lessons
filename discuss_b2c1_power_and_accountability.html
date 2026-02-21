@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power, Privilege & Accountability</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 16px 20px;
+            background: #fff;
+            border-bottom: 2px solid #e8e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            border: none;
+            background: #f0f0f5;
+            color: #555;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { background: #e0e0ea; }
+        .tab-btn.active {
+            background: #667eea;
+            color: #fff;
+        }
+
+        /* Content Area */
+        .tab-content {
+            display: none;
+            max-width: 820px;
+            margin: 30px auto;
+            padding: 0 20px 60px;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin: 28px 0 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e8e8f0;
+        }
+        h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin: 20px 0 10px;
+        }
+
+        .learning-intention {
+            background: #f0f0ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 16px;
+            margin: 16px 0 24px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e8e8f0;
+        }
+        .card-accent {
+            border-left: 4px solid #667eea;
+        }
+        .card-warm {
+            border-left: 4px solid #e94560;
+        }
+        .card-teal {
+            border-left: 4px solid #4ecdc4;
+        }
+
+        /* Stat boxes */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .stat-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e8e8f0;
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        .stat-source {
+            font-size: 0.72rem;
+            color: #999;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* Speaking prompts */
+        .speak-prompt {
+            background: linear-gradient(135deg, #667eea15, #4ecdc415);
+            border: 2px solid #667eea40;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            position: relative;
+        }
+        .speak-prompt::before {
+            content: '🎤';
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            background: #f8f9fa;
+            padding: 0 6px;
+            font-size: 1.2rem;
+        }
+        .speak-prompt p {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1a1a2e;
+        }
+
+        /* Discussion cards */
+        .discussion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .disc-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            cursor: pointer;
+            border: 2px solid #e8e8f0;
+            transition: all 0.25s;
+            position: relative;
+        }
+        .disc-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        .disc-card.selected {
+            border-color: #667eea;
+            background: #f8f8ff;
+        }
+        .disc-card .card-tag {
+            display: inline-block;
+            background: #667eea20;
+            color: #667eea;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .disc-card h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+        .disc-card p {
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Click to reveal */
+        .reveal-box {
+            background: #fff;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .reveal-box:hover { border-color: #667eea; }
+        .reveal-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        .reveal-box.open .reveal-content { display: block; }
+        .reveal-box.open { border-style: solid; border-color: #667eea40; }
+        .reveal-hint {
+            color: #999;
+            font-size: 0.82rem;
+            font-style: italic;
+        }
+
+        /* Text areas */
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 14px;
+            border: 2px solid #e0e0ea;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+            background: #fff;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 16px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #667eea30;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid #f8f9fa;
+        }
+        .timeline-year {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+        .timeline-text {
+            font-size: 0.9rem;
+            color: #444;
+            margin-top: 4px;
+        }
+
+        /* Person cards */
+        .person-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .person-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid #e8e8f0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .person-card h4 {
+            font-size: 0.95rem;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+        .person-card p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Timer */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+            padding: 14px 18px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e8e8f0;
+        }
+        .timer-display {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            font-variant-numeric: tabular-nums;
+            min-width: 70px;
+        }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 0.5s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .timer-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-start { background: #4ecdc4; color: #fff; }
+        .btn-start:hover { background: #3dbdb5; }
+        .btn-reset { background: #f0f0f5; color: #555; }
+        .btn-reset:hover { background: #e0e0ea; }
+
+        /* Useful language */
+        .lang-box {
+            background: #fafafe;
+            border: 1px solid #e0e0ea;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+        .lang-box h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .lang-item {
+            padding: 6px 0;
+            font-size: 0.92rem;
+            color: #333;
+            border-bottom: 1px solid #f0f0f5;
+        }
+        .lang-item:last-child { border-bottom: none; }
+        .lang-example {
+            color: #888;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        /* Feedback areas */
+        .feedback-area {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .feedback-correct {
+            background: #e8f5e9;
+            border: 1px solid #4ecdc4;
+            color: #1a1a2e;
+        }
+        .feedback-info {
+            background: #e8eaf6;
+            border: 1px solid #667eea;
+            color: #1a1a2e;
+        }
+
+        /* Ranking */
+        .ranking-list {
+            list-style: none;
+            margin: 14px 0;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            margin: 8px 0;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e8e8f0;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+        .ranking-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .rank-num {
+            width: 32px;
+            height: 32px;
+            background: #667eea;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tab-nav { padding: 10px 12px; gap: 3px; }
+            .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+            .tab-content { padding: 0 14px 40px; margin: 20px auto; }
+            h1 { font-size: 1.4rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .discussion-grid { grid-template-columns: 1fr; }
+            .person-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab(0)">The Case</button>
+    <button class="tab-btn" onclick="showTab(1)">Key Figures</button>
+    <button class="tab-btn" onclick="showTab(2)">Perspectives</button>
+    <button class="tab-btn" onclick="showTab(3)">Discussion</button>
+    <button class="tab-btn" onclick="showTab(4)">The Big Questions</button>
+    <button class="tab-btn" onclick="showTab(5)">Your Position</button>
+    <button class="tab-btn" onclick="showTab(6)">Reflect</button>
+</nav>
+
+<!-- ========== TAB 1: THE CASE ========== -->
+<div class="tab-content active">
+    <h1>Power, Privilege & Accountability</h1>
+    <div class="learning-intention">
+        Today we're exploring power, accountability and media through one of the biggest cases of the century — so you can form, articulate and defend a clear position.
+    </div>
+
+    <h2>What Do You Already Know?</h2>
+    <div class="speak-prompt">
+        <p>Without looking anything up — tell me everything you know or think you know about the Jeffrey Epstein case. Names, places, what happened, what you've heard. Anything at all.</p>
+    </div>
+
+    <h2>The Numbers</h2>
+    <div class="stat-grid">
+        <div class="stat-box">
+            <span class="stat-number">36+</span>
+            <span class="stat-label">victims identified by the FBI</span>
+            <span class="stat-source">US Department of Justice, 2019</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">13 months</span>
+            <span class="stat-label">his first sentence — with work release 6 days a week</span>
+            <span class="stat-source">Palm Beach County, 2008</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">$577M</span>
+            <span class="stat-label">estimated net worth at time of death</span>
+            <span class="stat-source">Bloomberg, 2019</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">2005 → 2019</span>
+            <span class="stat-label">years between first police investigation and federal charges</span>
+            <span class="stat-source">Miami Herald investigation</span>
+        </div>
+    </div>
+
+    <div class="speak-prompt">
+        <p>Look at these numbers. Which one surprises you the most? Why?</p>
+    </div>
+
+    <h2>A Brief Timeline</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <span class="timeline-year">2005</span>
+            <span class="timeline-text">Palm Beach police begin investigating Epstein after a parent reports abuse of their teenage daughter</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">2007</span>
+            <span class="timeline-text">Federal prosecutors offer a controversial plea deal — Epstein pleads guilty to a state charge, avoids federal prosecution</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">2008</span>
+            <span class="timeline-text">Serves 13 months in a private wing of a county jail with daily work release</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">2018</span>
+            <span class="timeline-text">Julie K. Brown's investigative series in the Miami Herald re-opens public attention</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">July 2019</span>
+            <span class="timeline-text">Arrested on federal sex trafficking charges in New York</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">August 2019</span>
+            <span class="timeline-text">Found dead in his cell. Medical examiner rules suicide. Conspiracy theories erupt globally</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">2021</span>
+            <span class="timeline-text">Ghislaine Maxwell arrested, later convicted of sex trafficking and conspiracy</span>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-year">2024</span>
+            <span class="timeline-text">Epstein-related documents partially unsealed — names of associated individuals made public</span>
+        </div>
+    </div>
+
+    <div class="speak-prompt">
+        <p>What stands out to you about this timeline? What pattern do you notice between 2005 and 2019?</p>
+    </div>
+</div>
+
+<!-- ========== TAB 2: KEY FIGURES ========== -->
+<div class="tab-content">
+    <h1>The People Involved</h1>
+
+    <h2>Who Do You Know?</h2>
+    <div class="speak-prompt">
+        <p>Before we look at anyone — which names do you associate with this case? What do you know about their involvement?</p>
+    </div>
+
+    <div class="person-grid">
+        <div class="person-card">
+            <h4>Ghislaine Maxwell</h4>
+            <p>British socialite, daughter of media mogul Robert Maxwell. Convicted in 2021 of recruiting and grooming victims. Sentenced to 20 years. The only person convicted in connection with Epstein's crimes.</p>
+        </div>
+        <div class="person-card">
+            <h4>Prince Andrew</h4>
+            <p>Duke of York, son of the late Queen Elizabeth II. Accused by Virginia Giuffre of sexual abuse when she was 17. Settled a civil lawsuit in 2022 for an undisclosed sum. Stripped of military titles and royal patronages. Has denied all allegations.</p>
+        </div>
+        <div class="person-card">
+            <h4>Alexander Acosta</h4>
+            <p>US Attorney who approved the 2007 plea deal. Later appointed US Secretary of Labor. Resigned in 2019 when the plea deal came under intense scrutiny. Said he was told Epstein "belonged to intelligence."</p>
+        </div>
+        <div class="person-card">
+            <h4>Julie K. Brown</h4>
+            <p>Investigative journalist at the Miami Herald. Her 2018 series "Perversion of Justice" re-opened the case after years of silence. Credited with forcing federal prosecutors to act. Wrote a book about it.</p>
+        </div>
+        <div class="person-card">
+            <h4>Virginia Giuffre</h4>
+            <p>The most prominent of the accusers. Recruited at age 16 while working at Mar-a-Lago. Filed lawsuits against Epstein, Maxwell, and Prince Andrew. Became a central figure in the public case.</p>
+        </div>
+        <div class="person-card">
+            <h4>The "Little Black Book"</h4>
+            <p>Epstein's contact book contained names of politicians, celebrities, billionaires, and royals. Being in the book doesn't imply involvement in crimes — but it raised questions about who knew what.</p>
+        </div>
+    </div>
+
+    <h2>Let's Talk About These People</h2>
+    <div class="speak-prompt">
+        <p>Choose one of these figures. What's your reaction to their role in this story? Do you think justice has been served in their case?</p>
+    </div>
+
+    <div class="card card-accent" style="margin-top: 20px;">
+        <h3>The Prince Andrew Question</h3>
+        <p style="font-size: 0.95rem; color: #444; margin: 10px 0;">In the UK, Prince Andrew's BBC Newsnight interview in 2019 became one of the most-watched interviews of the decade. He said he had "no recollection" of meeting Virginia Giuffre, despite a widely circulated photograph showing them together. He later settled her civil lawsuit without admitting liability.</p>
+
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>Some people say settling a lawsuit is not an admission of guilt. Others say an innocent person would fight the case. What's your view?</p>
+        </div>
+    </div>
+</div>
+
+<!-- ========== TAB 3: PERSPECTIVES ========== -->
+<div class="tab-content">
+    <h1>Three Lenses</h1>
+    <p style="color: #555; margin: 10px 0 20px;">There are many ways to look at this case. Let's explore three angles — and figure out where you stand.</p>
+
+    <h2>Lens 1: Power & Accountability</h2>
+    <div class="card card-accent">
+        <p>Epstein moved in circles of extraordinary wealth and influence. His connections included heads of state, business leaders, and members of royal families. The 2007 plea deal — negotiated behind closed doors, with victims not consulted — is widely seen as one of the most lenient deals in American legal history for crimes of this nature.</p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>Do you think someone with less money and fewer connections would have received the same plea deal? Talk me through your reasoning.</p>
+        </div>
+    </div>
+
+    <h2>Lens 2: Media & the Role of Journalism</h2>
+    <div class="card card-warm">
+        <p>For over a decade, this story was largely ignored by mainstream media. It was a single journalist, Julie K. Brown, whose persistent investigation forced federal action. At the same time, the case has generated enormous amounts of conspiracy theory and speculation online — some based in fact, some entirely fabricated.</p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>What's the difference between investigative journalism and conspiracy theory? Where do you draw the line?</p>
+        </div>
+    </div>
+
+    <h2>Lens 3: Justice & the System</h2>
+    <div class="card card-teal">
+        <p>Only two people have faced criminal consequences: Epstein (who died before trial) and Maxwell (convicted 2021). Despite a contact book of hundreds and accusations against multiple individuals, no other high-profile figure has been criminally charged. Some victims received financial settlements from a compensation fund established after Epstein's death.</p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>Can a financial settlement ever represent justice for victims of this kind of crime? Is it enough?</p>
+        </div>
+    </div>
+
+    <h2>Useful Language</h2>
+    <div class="lang-box">
+        <h4>Speculating & Hedging</h4>
+        <div class="lang-item"><strong>It's hard to imagine that...</strong> <span class="lang-example">— introducing a strong opinion diplomatically</span></div>
+        <div class="lang-item"><strong>There's reason to believe that...</strong> <span class="lang-example">— stating something without claiming certainty</span></div>
+        <div class="lang-item"><strong>Whether or not that's true, the fact remains that...</strong> <span class="lang-example">— acknowledging uncertainty while making a point</span></div>
+        <div class="lang-item"><strong>I'm not saying... but I am saying...</strong> <span class="lang-example">— clarifying the limits of your argument</span></div>
+        <div class="lang-item"><strong>That raises the question of...</strong> <span class="lang-example">— moving the discussion forward</span></div>
+    </div>
+
+    <div class="speak-prompt">
+        <p>Using some of this language, give me your overall reaction to the three lenses. Which angle interests you most? Why?</p>
+    </div>
+</div>
+
+<!-- ========== TAB 4: DISCUSSION ========== -->
+<div class="tab-content">
+    <h1>Discussion Cards</h1>
+    <p style="color: #555; margin: 10px 0 20px;">Choose <strong>2 or 3</strong> cards that interest you. Speak about each one for at least 2 minutes — try to build a clear argument, not just give a quick opinion.</p>
+
+    <div class="discussion-grid">
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Power</span>
+            <h4>"Money doesn't just buy things — it buys silence, time, and legal outcomes."</h4>
+            <p>Do you agree? Can you think of other examples where wealth appeared to influence justice — in any country?</p>
+        </div>
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Media</span>
+            <h4>One journalist changed everything.</h4>
+            <p>Julie K. Brown's investigation forced the case open. What does this tell us about the role of a free press? Could social media have achieved the same thing?</p>
+        </div>
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Conspiracy</span>
+            <h4>"Epstein didn't kill himself" became a global meme.</h4>
+            <p>When does scepticism become conspiracy theory? Is public distrust of official explanations healthy or dangerous?</p>
+        </div>
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Royalty</span>
+            <h4>Prince Andrew settled out of court.</h4>
+            <p>Should members of royal families face the same legal scrutiny as ordinary citizens? Does their status protect them?</p>
+        </div>
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Victims</span>
+            <h4>Most victims received financial compensation, not criminal convictions.</h4>
+            <p>What does justice actually look like for victims? Is there a meaningful difference between legal justice and personal closure?</p>
+        </div>
+        <div class="disc-card" onclick="this.classList.toggle('selected')">
+            <span class="card-tag">Culture</span>
+            <h4>"Everybody knew" — but nobody acted.</h4>
+            <p>How do we explain collective silence? What would it take for you personally to speak up about something powerful people wanted kept quiet?</p>
+        </div>
+    </div>
+
+    <div class="timer-container">
+        <div class="timer-display" id="timer1">3:00</div>
+        <button class="timer-btn btn-start" onclick="startTimer('timer1', 180)">Start 3 min</button>
+        <button class="timer-btn btn-start" onclick="startTimer('timer1', 300)">Start 5 min</button>
+        <button class="timer-btn btn-reset" onclick="resetTimer('timer1')">Reset</button>
+    </div>
+</div>
+
+<!-- ========== TAB 5: THE BIG QUESTIONS ========== -->
+<div class="tab-content">
+    <h1>The Big Questions</h1>
+    <p style="color: #555; margin: 10px 0 24px;">These go beyond this one case. Let's use it as a springboard to discuss something bigger.</p>
+
+    <h2>Ranking Challenge</h2>
+    <div class="card">
+        <p style="margin-bottom: 14px;">Which of these statements do you agree with <strong>most strongly</strong>? Rank them 1–5 and explain your ranking. There's no right answer.</p>
+        <ul class="ranking-list">
+            <li class="ranking-item"><span class="rank-num">?</span> The justice system works the same for everyone, regardless of wealth</li>
+            <li class="ranking-item"><span class="rank-num">?</span> If you are rich enough, you can avoid consequences for almost anything</li>
+            <li class="ranking-item"><span class="rank-num">?</span> Conspiracy theories are usually more harmful than the cover-ups they claim to expose</li>
+            <li class="ranking-item"><span class="rank-num">?</span> One determined journalist is more powerful than a million social media posts</li>
+            <li class="ranking-item"><span class="rank-num">?</span> Financial compensation can never replace criminal justice for victims of serious crime</li>
+        </ul>
+    </div>
+
+    <div class="speak-prompt">
+        <p>Give me your ranking and walk me through it. Start with your number 1 — the one you feel most strongly about — and tell me why.</p>
+    </div>
+
+    <h2>The Bigger Picture</h2>
+    <div class="card card-accent">
+        <h3>Hypothetical: You're a journalist</h3>
+        <p style="margin: 10px 0;">Imagine you discover evidence that a very powerful person in your country is involved in serious wrongdoing. You know publishing the story could be dangerous. Media outlets are reluctant to run it. What do you do?</p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>Talk me through your decision. What factors would you consider? Would you publish?</p>
+        </div>
+    </div>
+
+    <div class="card card-teal" style="margin-top: 16px;">
+        <h3>Comparing Countries</h3>
+        <p style="margin: 10px 0;">Think about your own country. Is there a case where wealth or political connections appeared to affect the outcome of a legal case?</p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>Tell me about it. What happened? What was the public reaction?</p>
+        </div>
+    </div>
+
+    <div class="timer-container">
+        <div class="timer-display" id="timer2">5:00</div>
+        <button class="timer-btn btn-start" onclick="startTimer('timer2', 300)">Start 5 min</button>
+        <button class="timer-btn btn-start" onclick="startTimer('timer2', 180)">Start 3 min</button>
+        <button class="timer-btn btn-reset" onclick="resetTimer('timer2')">Reset</button>
+    </div>
+</div>
+
+<!-- ========== TAB 6: YOUR POSITION ========== -->
+<div class="tab-content">
+    <h1>Your Position</h1>
+    <p style="color: #555; margin: 10px 0 20px;">You've explored the facts, the people, the perspectives. Now — what do <strong>you</strong> think?</p>
+
+    <h2>One-Minute Position Statement</h2>
+    <div class="card card-accent">
+        <p style="margin-bottom: 14px;">Speak for one minute, without stopping, giving your overall position on this case. Try to cover:</p>
+        <ul style="margin: 10px 0 14px 20px; color: #444;">
+            <li style="margin: 6px 0;">What you think the biggest failure was</li>
+            <li style="margin: 6px 0;">Whether you think justice has been served</li>
+            <li style="margin: 6px 0;">What this case tells us about power and accountability</li>
+        </ul>
+        <div class="timer-container" style="margin-top: 10px;">
+            <div class="timer-display" id="timer3">1:00</div>
+            <button class="timer-btn btn-start" onclick="startTimer('timer3', 60)">Start 1 min</button>
+            <button class="timer-btn btn-reset" onclick="resetTimer('timer3')">Reset</button>
+        </div>
+    </div>
+
+    <h2>Quick-Fire Round</h2>
+    <p style="color: #555; margin: 10px 0 16px;">For each pair, give your answer AND a reason. Don't overthink — speak naturally.</p>
+
+    <div class="card">
+        <div class="reveal-box" onclick="this.classList.toggle('open')">
+            <p><strong>Question 1:</strong> Was Epstein's death suicide or something else?</p>
+            <span class="reveal-hint">Click after you've answered to see the follow-up</span>
+            <div class="reveal-content">
+                <p>Follow-up: Does it actually matter HOW he died, or does it distract from the bigger issue — which is who else was involved?</p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="reveal-box" onclick="this.classList.toggle('open')">
+            <p><strong>Question 2:</strong> Should all the names in the unsealed documents be made fully public?</p>
+            <span class="reveal-hint">Click after you've answered to see the follow-up</span>
+            <div class="reveal-content">
+                <p>Follow-up: Where's the line between public interest and the right to privacy? Does being named in a document mean you're guilty of something?</p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="reveal-box" onclick="this.classList.toggle('open')">
+            <p><strong>Question 3:</strong> Is Ghislaine Maxwell's 20-year sentence fair?</p>
+            <span class="reveal-hint">Click after you've answered to see the follow-up</span>
+            <div class="reveal-content">
+                <p>Follow-up: Some people say she's the scapegoat — she was punished while more powerful people walked free. What do you think?</p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="reveal-box" onclick="this.classList.toggle('open')">
+            <p><strong>Question 4:</strong> Should Prince Andrew face a criminal investigation?</p>
+            <span class="reveal-hint">Click after you've answered to see the follow-up</span>
+            <div class="reveal-content">
+                <p>Follow-up: In your country, could a member of the most powerful family avoid a criminal investigation? What does that say about your system?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== TAB 7: REFLECT ========== -->
+<div class="tab-content">
+    <h1>Looking Back</h1>
+
+    <h2>Recall Zone</h2>
+    <div class="card card-teal">
+        <p style="font-style: italic; color: #555;">Space for items from previous lessons — your teacher will tell you what to recall here.</p>
+        <div class="speak-prompt" style="margin-top: 12px;">
+            <p>Without looking at any notes — tell me three things from your last lesson that you can remember right now.</p>
+        </div>
+    </div>
+
+    <h2>From Memory</h2>
+    <div class="speak-prompt">
+        <p>Without looking back at any of the earlier tabs — tell me:</p>
+        <ul style="margin: 10px 0 0 20px;">
+            <li style="margin: 6px 0;">Three facts from today's lesson</li>
+            <li style="margin: 6px 0;">The name of the journalist who broke the story</li>
+            <li style="margin: 6px 0;">One argument you made today that you're proud of</li>
+        </ul>
+    </div>
+
+    <h2>Your Strongest Argument</h2>
+    <div class="card card-accent">
+        <p>Think about everything you said today. What was the best argument or point you made? Say it again — but this time, make it even sharper. Imagine you're being quoted in a newspaper.</p>
+        <div class="timer-container" style="margin-top: 12px;">
+            <div class="timer-display" id="timer4">1:00</div>
+            <button class="timer-btn btn-start" onclick="startTimer('timer4', 60)">Start 1 min</button>
+            <button class="timer-btn btn-reset" onclick="resetTimer('timer4')">Reset</button>
+        </div>
+    </div>
+
+    <h2>Thinking About Thinking</h2>
+    <div class="speak-prompt">
+        <p>Which part of today helped you think most clearly? Was it the facts, the discussion cards, the ranking, or the quick-fire questions? Why do you think that worked for you?</p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+        <p style="text-align: center; font-weight: 600; color: #667eea; font-size: 1.1rem;">
+            "I can form and defend a clear position on a complex issue involving power, justice and media."
+        </p>
+        <div class="speak-prompt" style="margin-top: 14px;">
+            <p>On a scale of 1 to 10 — how confident do you feel about that statement now?</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab System
+    const tabs = document.querySelectorAll('.tab-content');
+    const btns = document.querySelectorAll('.tab-btn');
+
+    function showTab(index) {
+        tabs.forEach(t => t.classList.remove('active'));
+        btns.forEach(b => b.classList.remove('active'));
+        tabs[index].classList.add('active');
+        btns[index].classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Timer System
+    const timers = {};
+
+    function startTimer(id, seconds) {
+        if (timers[id]) clearInterval(timers[id].interval);
+        const display = document.getElementById(id);
+        let remaining = seconds;
+        updateTimerDisplay(display, remaining);
+        display.className = 'timer-display';
+
+        timers[id] = {
+            interval: setInterval(() => {
+                remaining--;
+                updateTimerDisplay(display, remaining);
+
+                if (remaining <= 10) {
+                    display.className = 'timer-display danger';
+                } else if (remaining <= 30) {
+                    display.className = 'timer-display warning';
+                } else {
+                    display.className = 'timer-display';
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(timers[id].interval);
+                    display.textContent = "0:00";
+                    display.className = 'timer-display danger';
+                }
+            }, 1000)
+        };
+    }
+
+    function resetTimer(id) {
+        if (timers[id]) clearInterval(timers[id].interval);
+        const display = document.getElementById(id);
+        display.className = 'timer-display';
+        // Reset to the default shown in HTML
+        if (id === 'timer1') display.textContent = '3:00';
+        else if (id === 'timer2') display.textContent = '5:00';
+        else display.textContent = '1:00';
+    }
+
+    function updateTimerDisplay(display, seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }
+</script>
+
+</body>
+</html>
