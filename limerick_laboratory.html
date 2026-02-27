@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Limerick Laboratory</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+
+.nav { display: flex; gap: 4px; padding: 10px; background: #111128; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+.nav-btn { padding: 8px 12px; border: 2px solid #333; border-radius: 8px; background: transparent; color: #888; font-weight: 700; font-size: 0.72em; cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+.nav-btn.active { background: #6c5ce7; border-color: #6c5ce7; color: #fff; }
+.nav-btn.completed { border-color: #00b894; color: #00b894; }
+.nav-btn:hover:not(.locked) { border-color: #6c5ce7; }
+.nav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+
+.stage { display: none; padding: 20px; max-width: 700px; margin: 0 auto; }
+.stage.active { display: block; }
+.stage-title { font-size: 1.8em; font-weight: 900; margin-bottom: 6px; }
+.stage-sub { color: #888; margin-bottom: 25px; font-size: 0.95em; }
+
+.card { background: #16162a; border: 2px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.card:hover { border-color: #2a2a4a; }
+.card-label { font-size: 0.75em; font-weight: 700; color: #6c5ce7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 1em; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-block; }
+.btn-primary { background: #6c5ce7; color: #fff; }
+.btn-primary:hover { background: #5a4bd1; transform: translateY(-1px); }
+.btn-success { background: #00b894; color: #fff; }
+.btn-success:hover { background: #00a381; }
+.btn-ghost { background: transparent; border: 2px solid #444; color: #ccc; }
+.btn-ghost:hover { border-color: #6c5ce7; color: #fff; }
+.btn-small { padding: 8px 16px; font-size: 0.85em; }
+.btn-tiny { padding: 5px 10px; font-size: 0.75em; }
+
+.scene-area { width: 100%; min-height: 80px; background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 16px; color: #e0e0e0; font-family: inherit; font-size: 1em; line-height: 1.7; resize: none; outline: none; transition: border-color 0.3s; }
+.scene-area:focus { border-color: #6c5ce7; }
+.scene-area::placeholder { color: #555; }
+.scene-area.small { min-height: 44px; font-size: 0.95em; }
+.scene-area.limerick { min-height: 130px; font-family: 'Georgia', serif; font-size: 1.05em; line-height: 2; }
+
+.example-bad { background: #1e1e3a; border-left: 4px solid #e17055; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+.example-good { background: #1e1e3a; border-left: 4px solid #00b894; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+.example-label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.example-label.bad { color: #e17055; }
+.example-label.good { color: #00b894; }
+.example-text { font-size: 1.05em; line-height: 1.8; }
+
+.limerick-display { background: #1e1e3a; border: 2px solid #6c5ce7; border-radius: 10px; padding: 20px; margin: 12px 0; font-family: 'Georgia', serif; font-size: 1.1em; line-height: 2.2; }
+.limerick-display .line { display: block; }
+.limerick-display .line.a { color: #a29bfe; }
+.limerick-display .line.b { color: #74b9ff; padding-left: 32px; }
+
+.rhyme-badge { display: inline-block; width: 24px; height: 24px; border-radius: 50%; font-size: 0.75em; font-weight: 900; text-align: center; line-height: 24px; margin-right: 8px; flex-shrink: 0; }
+.rhyme-a { background: #6c5ce7; color: #fff; }
+.rhyme-b { background: #74b9ff; color: #0a0a1a; }
+
+.line-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.line-input { flex: 1; background: #1e1e3a; border: 2px solid #333; border-radius: 8px; padding: 10px 14px; color: #e0e0e0; font-family: 'Georgia', serif; font-size: 1em; outline: none; transition: border-color 0.3s; }
+.line-input:focus { border-color: #6c5ce7; }
+.line-input::placeholder { color: #555; font-family: inherit; }
+.line-input.filled { border-color: #2a2a4a; }
+
+.syllable-counter { font-size: 0.78em; font-weight: 700; min-width: 50px; text-align: center; padding: 4px 8px; border-radius: 6px; background: #222; color: #888; transition: all 0.3s; }
+.syllable-counter.good { background: #00b8941a; color: #00b894; }
+.syllable-counter.warn { background: #fdcb6e1a; color: #fdcb6e; }
+.syllable-counter.bad { background: #e170551a; color: #e17055; }
+
+.fact-box { background: #1a1a3e; border-left: 4px solid #fdcb6e; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9em; line-height: 1.6; }
+.fact-box strong { color: #fdcb6e; }
+
+.creature-box { display: flex; align-items: center; gap: 16px; background: #1e1e3a; border: 2px solid #6c5ce7; border-radius: 12px; padding: 14px; margin: 8px 0; }
+.creature-info { flex: 1; }
+.creature-code { font-weight: 800; color: #6c5ce7; font-size: 1em; }
+.creature-name { color: #aaa; font-size: 0.85em; margin-top: 2px; }
+
+.check-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #1a1a2e; }
+.check-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #444; display: flex; align-items: center; justify-content: center; font-size: 0.85em; transition: all 0.3s; flex-shrink: 0; cursor: pointer; }
+.check-dot.checked { background: #00b894; border-color: #00b894; color: #fff; }
+.check-label { font-size: 0.9em; }
+
+.weapon-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 12px 0; }
+.weapon-chip { background: #1e1e3a; border: 2px solid #333; border-radius: 8px; padding: 10px; text-align: center; font-size: 0.8em; }
+.weapon-chip .icon { font-size: 1.4em; display: block; margin-bottom: 4px; }
+.weapon-chip .name { font-weight: 700; color: #6c5ce7; }
+
+.tab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.tab-card { background: #1e1e3a; border: 2px solid #333; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.tab-card:hover { border-color: #6c5ce7; }
+.tab-card.selected { border-color: #6c5ce7; background: #1e1e3a; }
+.tab-card .emoji { font-size: 2em; display: block; margin-bottom: 6px; }
+.tab-card .name { font-weight: 700; font-size: 0.9em; }
+
+.stress-pattern { font-family: monospace; font-size: 1.1em; letter-spacing: 0.15em; margin: 8px 0; }
+.stress-u { color: #888; }
+.stress-beat { color: #fdcb6e; font-weight: 900; }
+
+.reveal-btn { background: #1e1e3a; border: 2px dashed #444; border-radius: 8px; padding: 12px; width: 100%; text-align: center; cursor: pointer; color: #888; font-size: 0.9em; transition: all 0.2s; font-family: inherit; }
+.reveal-btn:hover { border-color: #6c5ce7; color: #a29bfe; }
+
+.collection-display { background: #0f0f28; border: 2px solid #6c5ce7; border-radius: 12px; padding: 24px; margin: 16px 0; }
+.collection-title { text-align: center; font-size: 1.4em; font-weight: 900; color: #a29bfe; margin-bottom: 6px; }
+.collection-subtitle { text-align: center; color: #666; font-size: 0.85em; margin-bottom: 20px; }
+.collection-poem { margin: 16px 0; padding: 16px; border-left: 3px solid #6c5ce7; }
+.collection-poem .poem-title { font-size: 0.75em; font-weight: 700; color: #6c5ce7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.collection-poem .poem-lines { font-family: 'Georgia', serif; font-size: 1em; line-height: 2.2; color: #ddd; white-space: pre-wrap; }
+
+.progress-bar-outer { width: 100%; height: 6px; background: #222; border-radius: 3px; margin: 8px 0; overflow: hidden; }
+.progress-bar-inner { height: 100%; background: linear-gradient(90deg, #6c5ce7, #a29bfe); border-radius: 3px; transition: width 0.5s ease; }
+
+.flex { display: flex; gap: 10px; align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.mt { margin-top: 16px; }
+.mb { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-small { font-size: 0.85em; color: #888; }
+.highlight { color: #6c5ce7; font-weight: 700; }
+.highlight-green { color: #00b894; font-weight: 700; }
+.highlight-yellow { color: #fdcb6e; font-weight: 700; }
+.highlight-orange { color: #e17055; font-weight: 700; }
+.hidden { display: none; }
+
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: slideIn 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)} }
+.shake { animation: shake 0.3s; }
+@keyframes glow { 0%,100%{box-shadow:0 0 5px rgba(108,92,231,0.3)}50%{box-shadow:0 0 25px rgba(108,92,231,0.7)} }
+.glow { animation: glow 2s infinite; }
+@keyframes popIn { 0%{transform:scale(0.8);opacity:0}70%{transform:scale(1.05)}100%{transform:scale(1);opacity:1} }
+.pop-in { animation: popIn 0.4s ease forwards; }
+
+@media (max-width: 600px) {
+  .stage-title { font-size: 1.4em; }
+  .nav-btn { padding: 6px 10px; font-size: 0.65em; }
+  .weapon-grid { grid-template-columns: 1fr 1fr; }
+  .tab-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <button class="nav-btn active" onclick="goStage(0)">1. Recall</button>
+  <button class="nav-btn locked" onclick="goStage(1)">2. What is a Limerick?</button>
+  <button class="nav-btn locked" onclick="goStage(2)">3. The Pattern</button>
+  <button class="nav-btn locked" onclick="goStage(3)">4. I Do</button>
+  <button class="nav-btn locked" onclick="goStage(4)">5. We Do</button>
+  <button class="nav-btn locked" onclick="goStage(5)">6. Lab: Write 5</button>
+  <button class="nav-btn locked" onclick="goStage(6)">7. The Collection</button>
+  <button class="nav-btn locked" onclick="goStage(7)">8. Finish</button>
+</nav>
+
+<!-- ==================== STAGE 0: RECALL ==================== -->
+<div class="stage active" id="stage0">
+  <div class="stage-title">Recall Zone</div>
+  <div class="stage-sub">Let's see what's still in there.</div>
+
+  <div class="card">
+    <div class="card-label">From Lesson 1 — The Bestiary</div>
+    <p>Without looking at anything — say the chain out loud to your teacher:</p>
+    <p class="mt text-small"><strong>code → creature → person → what they did</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Tick what you remember</div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Gu</strong> → creature → person → achievement</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Fi</strong> → creature → person → achievement</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Cu</strong> → creature → person → achievement</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Ar</strong> → creature → person → achievement</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Te</strong> → creature → person → achievement</div></div>
+    <div class="mt hidden" id="beastReveal">
+      <div class="fact-box animate-in">
+        <strong>The Bestiary:</strong><br>
+        Gu = Gull → Gutenberg → invented the printing press<br>
+        Fi = Fish → Fibonacci → discovered the number sequence in nature<br>
+        Cu = Cupid → Marie Curie → won 2 Nobel Prizes for radioactivity<br>
+        Ar = Armadillo → Archimedes → discovered why things float<br>
+        Te = Termite → Tesla → invented AC power (electricity in every building)
+      </div>
+    </div>
+    <div class="mt text-small">Tick 3 or more to reveal the answers.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">From Lesson 2 — Writer's Weapons</div>
+    <p class="mb">Can you name all 6? Write them below — no looking.</p>
+    <textarea class="scene-area small" id="weaponRecall" rows="3" placeholder="1. Simile..."></textarea>
+    <div class="mt hidden" id="weaponReveal">
+      <div class="fact-box animate-in">
+        <strong>The 6 Weapons:</strong><br>
+        Simile | Onomatopoeia | Rule of Three | Short Hit | Hyperbole | Cliffhanger
+      </div>
+    </div>
+    <div class="mt">
+      <button class="btn btn-ghost btn-small" onclick="document.getElementById('weaponReveal').classList.remove('hidden')">Reveal answers</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Today</div>
+    <p>Today you're entering <span class="highlight">The Limerick Laboratory</span>.</p>
+    <p class="mt">You'll learn how limericks work — then write <strong>one limerick for each of your 5 creatures</strong>. By the end, you'll have a real poetry collection. Your own book.</p>
+    <p class="mt text-small">Learning intention: <em>"Today I'm learning the limerick structure so I can write 5 original poems using my creature characters."</em></p>
+    <div class="mt">
+      <button class="btn btn-primary" onclick="unlockStage(1)">Let's go →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STAGE 1: WHAT IS A LIMERICK? ==================== -->
+<div class="stage" id="stage1">
+  <div class="stage-title">What is a Limerick?</div>
+  <div class="stage-sub">The world's most dangerous poem.</div>
+
+  <div class="card">
+    <div class="card-label">The Hook</div>
+    <p>Limericks are <strong>500 years old</strong>. They started in Ireland, probably in pubs.</p>
+    <p class="mt">They were designed to be <em>rude, funny, and impossible to forget.</em></p>
+    <p class="mt">Edward Lear made them famous in 1846. He wrote 212 of them. He never explained the AABBA rule — he just wrote so many that people figured it out.</p>
+    <div class="fact-box mt">
+      <strong>The most famous limerick ever written has no author.</strong> It appeared on a wall in Pompeii — 2,000 years ago. Short, funny poems about real people have existed as long as writing has.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Read this — then answer</div>
+    <div class="limerick-display">
+      <span class="line a">There once was a man from Nantucket</span>
+      <span class="line a">Who kept all his cash in a bucket.</span>
+      <span class="line b">    But his daughter, named Nan,</span>
+      <span class="line b">    Ran away with a man</span>
+      <span class="line a">And as for the bucket, Nantucket.</span>
+    </div>
+    <p class="mt mb">Just from reading that — what do you notice? Tell your teacher:</p>
+    <textarea class="scene-area small" id="noticeBox" rows="2" placeholder="I notice that lines 1, 2 and 5 rhyme... the middle lines are shorter..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Did you spot these?</div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Lines 1, 2 and 5 rhyme with each other</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Lines 3 and 4 are shorter — and rhyme with each other</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Line 5 has a surprise — the punchline</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">It sounds bouncy when you read it out loud</div></div>
+  </div>
+
+  <div class="mt text-center">
+    <button class="btn btn-primary" onclick="unlockStage(2)">I see the pattern — show me how it works →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 2: THE PATTERN ==================== -->
+<div class="stage" id="stage2">
+  <div class="stage-title">The Pattern</div>
+  <div class="stage-sub">AABBA. Five lines. One punchline.</div>
+
+  <div class="card">
+    <div class="card-label">The Structure</div>
+    <div style="margin: 16px 0;">
+      <div class="line-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
+        <div class="flex"><span class="rhyme-badge rhyme-a">A</span><span>Line 1 — introduces someone or somewhere <span class="text-small">(8-9 syllables)</span></span></div>
+        <div class="flex"><span class="rhyme-badge rhyme-a">A</span><span>Line 2 — continues, rhymes with line 1 <span class="text-small">(8-9 syllables)</span></span></div>
+        <div class="flex" style="padding-left:20px"><span class="rhyme-badge rhyme-b">B</span><span>Line 3 — shorter twist <span class="text-small">(5-6 syllables)</span></span></div>
+        <div class="flex" style="padding-left:20px"><span class="rhyme-badge rhyme-b">B</span><span>Line 4 — continues, rhymes with line 3 <span class="text-small">(5-6 syllables)</span></span></div>
+        <div class="flex"><span class="rhyme-badge rhyme-a">A</span><span>Line 5 — THE PUNCHLINE. Rhymes with 1 and 2. <span class="text-small">(8-9 syllables)</span></span></div>
+      </div>
+    </div>
+    <div class="fact-box">
+      <strong>The secret weapon:</strong> The punchline in line 5 should surprise the reader. You set up a situation in lines 1-4, then the last line hits them with something unexpected, ridiculous, or brilliant.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Rhythm — Da-DUM</div>
+    <p class="mb">Limericks have a <strong>bouncy beat</strong>. Listen to the stress pattern:</p>
+    <div class="limerick-display" style="font-size:0.95em;">
+      <span class="line a">there ONCE was a MAN from Nan-TU-cket</span>
+      <span class="line a">who KEPT all his CASH in a BU-cket</span>
+      <span class="line b">    but HIS daugh-ter NAN</span>
+      <span class="line b">    ran A-way with A man</span>
+      <span class="line a">and AS for the BU-cket, Nan-TU-cket</span>
+    </div>
+    <p class="mt">Read it out loud. Tap the table on the CAPITALS. Feel the beat?</p>
+    <p class="mt text-small">You don't need to count syllables perfectly. If it sounds bouncy when you read it out loud — it's working.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Golden Rule</div>
+    <p>A limerick is bad if:</p>
+    <ul style="margin: 10px 0 0 20px; line-height: 2;">
+      <li>The rhymes are forced or wrong</li>
+      <li>It doesn't have a punchline in line 5</li>
+      <li>It sounds flat — no bounce — when you read it out</li>
+    </ul>
+    <p class="mt">A limerick is great if:</p>
+    <ul style="margin: 10px 0 0 20px; line-height: 2;">
+      <li>It makes someone laugh or groan</li>
+      <li>The punchline surprises you</li>
+      <li>It's impossible to read it without bouncing</li>
+    </ul>
+  </div>
+
+  <div class="mt text-center">
+    <button class="btn btn-primary" onclick="unlockStage(3)">I understand — show me a real one →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 3: I DO ==================== -->
+<div class="stage" id="stage3">
+  <div class="stage-title">I Do — Watch the Teacher</div>
+  <div class="stage-sub">Let's build one line by line.</div>
+
+  <div class="card">
+    <div class="card-label">The Challenge</div>
+    <p>Your teacher is going to write a limerick about <span class="highlight">the Gull</span> (Gutenberg).</p>
+    <p class="mt">The limerick needs to:</p>
+    <ul style="margin: 10px 0 0 20px; line-height: 2;">
+      <li>Mention the Gull and/or Gutenberg</li>
+      <li>Hint at what he did (the printing press)</li>
+      <li>Have an AABBA rhyme scheme</li>
+      <li>Have a punchline in line 5</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Watch the Thinking Process</div>
+    <p class="mb text-small">Click each step to reveal — discuss before revealing the next one.</p>
+
+    <div class="mb">
+      <button class="reveal-btn" onclick="revealStep(1)">Step 1: Find the A rhyme — click to reveal</button>
+      <div class="hidden animate-in" id="step1">
+        <div class="fact-box mt">
+          <strong>Thinking out loud:</strong> The Gull is our character. What rhymes easily with something connected to Gutenberg or printing?<br><br>
+          "press" → yes, bless, mess, address — lots of options<br>
+          "ink" → think, drink, brink, sink — also good<br>
+          "book" → took, look, cook, hook — very easy rhymes<br><br>
+          Let's go with <strong>"press"</strong>. Now I need a strong line 1.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb">
+      <button class="reveal-btn" onclick="revealStep(2)">Step 2: Write lines 1 and 2 — click to reveal</button>
+      <div class="hidden animate-in" id="step2">
+        <div class="fact-box mt">
+          <strong>Lines 1 and 2 (A rhymes with "press"):</strong><br><br>
+          <em>A gull named old Johannes had a press,</em><br>
+          <em>He printed all the books — what a success!</em><br><br>
+          Notice: Line 1 sets up the character and situation. Line 2 gives a small fact and rhymes.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb">
+      <button class="reveal-btn" onclick="revealStep(3)">Step 3: Write lines 3 and 4 — click to reveal</button>
+      <div class="hidden animate-in" id="step3">
+        <div class="fact-box mt">
+          <strong>Lines 3 and 4 (B — shorter, new rhyme):</strong><br><br>
+          What rhymes well for the short lines? I want to set up the punchline...<br>
+          "ink" → think, drink, brink<br><br>
+          <em>    He was covered in ink,</em><br>
+          <em>    (more than you'd think),</em><br><br>
+          Good. Short. Bouncy. Sets up a reveal about the ink...
+        </div>
+      </div>
+    </div>
+
+    <div class="mb">
+      <button class="reveal-btn" onclick="revealStep(4)">Step 4: The punchline — click to reveal</button>
+      <div class="hidden animate-in" id="step4">
+        <div class="fact-box mt">
+          <strong>Line 5 — the punchline (must rhyme with "press" and "success"):</strong><br><br>
+          The best punchlines connect back to something funny or surprising. Gutenberg's printing press changed the whole world — so I want to end with that sense of scale, but make it ridiculous...<br><br>
+          <em>But the whole world still reads — more or less.</em><br><br>
+          "More or less" is the joke — after all this effort, all these books... "more or less." Modest. Funny.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb">
+      <button class="reveal-btn" onclick="revealStep(5)">Step 5: The finished limerick — click to reveal</button>
+      <div class="hidden animate-in" id="step5">
+        <div class="limerick-display pop-in mt">
+          <span class="line a">A gull named old Johannes had a press,</span>
+          <span class="line a">He printed all the books — what a success!</span>
+          <span class="line b">    He was covered in ink,</span>
+          <span class="line b">    (More than you'd think),</span>
+          <span class="line a">But the whole world still reads — more or less.</span>
+        </div>
+        <div class="fact-box mt">
+          <strong>Read it out loud.</strong> Does it bounce? Does line 5 surprise you a little? That's what makes it a limerick.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Quick analysis — your turn</div>
+    <p class="mb text-small">Before we move on, answer out loud:</p>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">What are the 3 A rhymes?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">What are the 2 B rhymes?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Why is "more or less" funny?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Which writer's weapon does line 3 use? (Hint: the ink)</div></div>
+  </div>
+
+  <div class="mt text-center">
+    <button class="btn btn-primary" onclick="unlockStage(4)">I see how it works — now let's do one together →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 4: WE DO ==================== -->
+<div class="stage" id="stage4">
+  <div class="stage-title">We Do — Together</div>
+  <div class="stage-sub">Let's build a limerick about the Fish (Fibonacci).</div>
+
+  <div class="card">
+    <div class="card-label">The Setup</div>
+    <p>The <span class="highlight">Fish</span> = Fibonacci. He discovered the number sequence found everywhere in nature: 1, 1, 2, 3, 5, 8, 13, 21...</p>
+    <p class="mt text-small">It appears in sunflowers, shells, hurricanes, galaxies. Fibonacci found it in rabbit populations. True story.</p>
+    <div class="fact-box mt">
+      <strong>For the limerick:</strong> think about what's funny or strange about a fish who obsesses over numbers. A fish who counts things underwater. A fish who sees spirals everywhere. A fish who can't stop...
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Step 1 — Find your A rhyme</div>
+    <p class="mb">What's a good strong rhyme word connected to Fibonacci or numbers?</p>
+    <p class="mb text-small">Brainstorm with your teacher. What words are connected to maths, counting, sequences, fish?</p>
+    <textarea class="scene-area small" id="weRhyme" rows="2" placeholder="number, one, five, eight, count, swim, sea, spiral, shell..."></textarea>
+    <p class="mt text-small">Pick one. Now find 2-3 words that rhyme with it. You'll need 3 rhymes total for your A lines.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Step 2 — Build it together</div>
+    <p class="mb text-small">Write the limerick here, working line by line with your teacher. Use the syllable counter.</p>
+
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="we1" placeholder="Line 1 — introduce the Fish..." oninput="countSyl('we1','sc1')">
+      <span class="syllable-counter" id="sc1">—</span>
+    </div>
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="we2" placeholder="Line 2 — rhymes with line 1..." oninput="countSyl('we2','sc2')">
+      <span class="syllable-counter" id="sc2">—</span>
+    </div>
+    <div class="line-row" style="padding-left:28px;">
+      <span class="rhyme-badge rhyme-b">B</span>
+      <input class="line-input" id="we3" placeholder="Line 3 — shorter twist..." oninput="countSyl('we3','sc3')">
+      <span class="syllable-counter" id="sc3">—</span>
+    </div>
+    <div class="line-row" style="padding-left:28px;">
+      <span class="rhyme-badge rhyme-b">B</span>
+      <input class="line-input" id="we4" placeholder="Line 4 — rhymes with line 3..." oninput="countSyl('we4','sc4')">
+      <span class="syllable-counter" id="sc4">—</span>
+    </div>
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="we5" placeholder="Line 5 — THE PUNCHLINE (rhymes with 1 and 2)..." oninput="countSyl('we5','sc5')">
+      <span class="syllable-counter" id="sc5">—</span>
+    </div>
+
+    <div class="mt text-small">Syllable guide: A lines = 8-9, B lines = 5-6. Green = good. Yellow = close. Red = too far off.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Test it</div>
+    <p>Read your limerick out loud. Check:</p>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Does it bounce?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Do lines 1, 2 and 5 rhyme?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Do lines 3 and 4 rhyme?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Does line 5 have a punchline?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Does it somehow connect to Fibonacci and numbers?</div></div>
+  </div>
+
+  <div class="mt text-center">
+    <button class="btn btn-primary" onclick="saveWeDo()">That's our limerick — now I write 5 solo →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 5: YOU DO — THE LAB ==================== -->
+<div class="stage" id="stage5">
+  <div class="stage-title">The Limerick Laboratory</div>
+  <div class="stage-sub">5 creatures. 5 limericks. Make them brilliant.</div>
+
+  <div class="card">
+    <div class="card-label">Your Creatures</div>
+    <div id="creatureReminder5"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Rules</div>
+    <p>Each limerick must:</p>
+    <ul style="margin: 10px 0 0 20px; line-height: 2.2;">
+      <li>Feature that creature as a character</li>
+      <li>Hint at or mention what that person discovered / invented</li>
+      <li>Follow AABBA structure</li>
+      <li>Have a punchline in line 5</li>
+      <li>Sound bouncy when read out loud</li>
+    </ul>
+    <div class="fact-box mt">
+      <strong>Tip from your teacher:</strong> Start with the rhyme word, not the first line. Find a word connected to the creature or inventor. Find 3 words that rhyme with it. Build around that.
+    </div>
+  </div>
+
+  <!-- Creature tabs -->
+  <div class="card">
+    <div class="card-label">Choose a creature to write</div>
+    <div class="tab-grid" id="creatureTabs"></div>
+  </div>
+
+  <!-- Writing area -->
+  <div class="card" id="writingPanel">
+    <div class="card-label" id="writingTitle">Select a creature above</div>
+    <div id="writingHint" class="fact-box mb hidden"></div>
+
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="l1" placeholder="Line 1..." oninput="countSyl('l1','s1'); saveLine()">
+      <span class="syllable-counter" id="s1">—</span>
+    </div>
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="l2" placeholder="Line 2 — rhymes with line 1..." oninput="countSyl('l2','s2'); saveLine()">
+      <span class="syllable-counter" id="s2">—</span>
+    </div>
+    <div class="line-row" style="padding-left:28px;">
+      <span class="rhyme-badge rhyme-b">B</span>
+      <input class="line-input" id="l3" placeholder="Line 3 — shorter twist..." oninput="countSyl('l3','s3'); saveLine()">
+      <span class="syllable-counter" id="s3">—</span>
+    </div>
+    <div class="line-row" style="padding-left:28px;">
+      <span class="rhyme-badge rhyme-b">B</span>
+      <input class="line-input" id="l4" placeholder="Line 4 — rhymes with line 3..." oninput="countSyl('l4','s4'); saveLine()">
+      <span class="syllable-counter" id="s4">—</span>
+    </div>
+    <div class="line-row">
+      <span class="rhyme-badge rhyme-a">A</span>
+      <input class="line-input" id="l5" placeholder="Line 5 — THE PUNCHLINE..." oninput="countSyl('l5','s5'); saveLine()">
+      <span class="syllable-counter" id="s5">—</span>
+    </div>
+
+    <div class="mt text-small">Syllable guide: A lines = 8-9 syllables. B lines = 5-6 syllables.</div>
+
+    <div id="livePreview" class="limerick-display hidden mt">
+      <span class="line a" id="prev1"></span>
+      <span class="line a" id="prev2"></span>
+      <span class="line b" id="prev3"></span>
+      <span class="line b" id="prev4"></span>
+      <span class="line a" id="prev5"></span>
+    </div>
+
+    <div class="flex-between mt">
+      <button class="btn btn-ghost btn-small" onclick="togglePreview()">Preview limerick</button>
+      <button class="btn btn-success btn-small" onclick="saveLimerick()">Save this limerick</button>
+    </div>
+    <div id="saveMsg" class="hidden mt text-center" style="color:#00b894; font-weight:700;"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Progress</div>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+    <div id="progressText" class="text-small mt text-center">0 of 5 limericks saved</div>
+  </div>
+
+  <div class="mt text-center hidden" id="allDoneBtn">
+    <button class="btn btn-primary glow" onclick="unlockStage(6)">All 5 saved — build the collection →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 6: THE COLLECTION ==================== -->
+<div class="stage" id="stage6">
+  <div class="stage-title">The Bestiary in Verse</div>
+  <div class="stage-sub">Your complete poetry collection.</div>
+
+  <div class="card">
+    <div class="card-label">You did it</div>
+    <p>5 limericks. 5 creatures. One complete collection.</p>
+    <p class="mt">Read the whole thing out loud — start to finish. Listen to how it sounds. This is yours.</p>
+  </div>
+
+  <div class="collection-display" id="fullCollection">
+    <div class="collection-title">The Bestiary in Verse</div>
+    <div class="collection-subtitle">A Poetry Collection — by Raffaele</div>
+    <div id="collectionPoems"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Read it out loud — answer these</div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Which limerick sounds the most bouncy?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Which punchline is the funniest?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Which one would you want to improve?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Can you spot any Writer's Weapons you used (simile, hyperbole, etc.)?</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Optional — improve one</div>
+    <p class="mb text-small">Pick your weakest limerick. Rewrite it here, then read both versions out loud to your teacher. Which is better?</p>
+    <textarea class="scene-area limerick" id="improveArea" rows="5" placeholder="Rewrite your weakest limerick here..."></textarea>
+  </div>
+
+  <div class="mt text-center">
+    <button class="btn btn-primary" onclick="unlockStage(7)">I'm happy with my collection →</button>
+  </div>
+</div>
+
+<!-- ==================== STAGE 7: FINISH ==================== -->
+<div class="stage" id="stage7">
+  <div class="stage-title">Think About Your Thinking</div>
+  <div class="stage-sub">The best writers know HOW they write.</div>
+
+  <div class="card">
+    <div class="card-label">From Memory — no looking</div>
+    <p class="mb">Write the AABBA structure below — just the letters — and next to each one, write what that line does in a limerick.</p>
+    <textarea class="scene-area small" id="finalRecall" rows="5" placeholder="A = &#10;A = &#10;B = &#10;B = &#10;A = "></textarea>
+    <div class="mt hidden" id="finalReveal">
+      <div class="fact-box animate-in">
+        A = introduces a character or place (8-9 syllables)<br>
+        A = continues, rhymes with line 1 (8-9 syllables)<br>
+        B = shorter twist (5-6 syllables)<br>
+        B = rhymes with line 3 (5-6 syllables)<br>
+        A = THE PUNCHLINE — rhymes with 1 and 2 (8-9 syllables)
+      </div>
+    </div>
+    <div class="mt">
+      <button class="btn btn-ghost btn-small" onclick="document.getElementById('finalReveal').classList.remove('hidden')">Reveal</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Metacognition</div>
+    <p class="mb text-small">Answer out loud — your teacher will listen.</p>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">Which part of writing a limerick was hardest?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">What trick helped you most — starting with the rhyme? Reading out loud? Something else?</div></div>
+    <div class="check-item"><div class="check-dot" onclick="toggleCheck(this)"></div><div class="check-label">If you had to write a limerick about YOUR teacher right now — what rhyme word would you start with?</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">I can...</div>
+    <p style="font-size: 1.05em; line-height: 1.8;">
+      <span class="highlight-green">I can</span> write a limerick using the AABBA rhyme scheme, with a punchline in line 5, that sounds bouncy when read out loud — and I can make my 5 creature characters the heroes of their own poems.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">The Series So Far</div>
+    <div class="check-item"><div class="check-dot checked">✓</div><div class="check-label"><strong>Lesson 1:</strong> You Have a Superpower — the Bestiary memory system</div></div>
+    <div class="check-item"><div class="check-dot checked">✓</div><div class="check-label"><strong>Lesson 2:</strong> Writer's Weapons — 6 literary devices</div></div>
+    <div class="check-item"><div class="check-dot checked">✓</div><div class="check-label"><strong>Lesson 3:</strong> The Limerick Laboratory — AABBA, punchline, rhythm</div></div>
+    <div class="fact-box mt">
+      <strong>Future recall:</strong> These 5 limericks and the AABBA structure return in Lessons 6 and 12. The creatures will also appear in a new challenge next time.
+    </div>
+  </div>
+
+  <div class="text-center mt">
+    <p class="text-small">← <a href="writers_weapons.html" style="color:#6c5ce7;">Lesson 2: Writer's Weapons</a> | <strong>Lesson 3: The Limerick Laboratory</strong> (you are here)</p>
+  </div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const people = [
+  { name:"Gutenberg", code:"Gu", creature:"Gull", emoji:"🦅", fact:"Invented the printing press — made books available to everyone", hint:"Think about: ink, pages, letters, books, press, printing. What's funny about a bird obsessed with books? Does the Gull get covered in ink?" },
+  { name:"Fibonacci", code:"Fi", creature:"Fish", emoji:"🐟", hint:"Think about: numbers, spirals, counting, swimming in circles, sequences everywhere in the sea. What's funny about a fish who can't stop counting things?", fact:"Discovered the number sequence found in nature: 1, 1, 2, 3, 5, 8..." },
+  { name:"Marie Curie", code:"Cu", creature:"Cupid", emoji:"💘", hint:"Think about: glow, radiation, Nobel Prize, wings, science, arrows. What's funny about a Cupid who's radioactive? What happens when they shoot their arrow?", fact:"Won 2 Nobel Prizes for discovering radioactivity — she actually glowed in the dark from radiation" },
+  { name:"Archimedes", code:"Ar", creature:"Armadillo", emoji:"🦔", hint:"Think about: baths, water, floating, Eureka!, armour, rolling. What's funny about an armadillo who runs naked through the streets shouting Eureka? (That's what Archimedes actually did.)", fact:"Discovered why things float — ran naked through Syracuse shouting Eureka!" },
+  { name:"Tesla", code:"Te", creature:"Termite", emoji:"🐛", hint:"Think about: electricity, sparks, wires, chewing, zap, power. What's funny about a termite who keeps accidentally setting things on fire? Or who chews through the wrong wire?", fact:"Invented AC power — the electricity system used in every building in the world" }
+];
+
+let currentCreature = null;
+let limericks = {};
+let previewVisible = false;
+
+// ==================== NAVIGATION ====================
+function goStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (btns[n].classList.contains('locked')) return;
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage'+n).classList.add('active');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[n].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function unlockStage(n) {
+  const btns = document.querySelectorAll('.nav-btn');
+  if (n > 0) btns[n-1].classList.add('completed');
+  btns[n].classList.remove('locked');
+  goStage(n);
+  if (n === 5) initLab();
+  if (n === 6) buildCollection();
+}
+
+// ==================== RECALL ====================
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+  const checked = document.querySelectorAll('#stage0 .check-dot.checked').length;
+  if (checked >= 3) document.getElementById('beastReveal').classList.remove('hidden');
+}
+
+// ==================== REVEAL STEPS ====================
+function revealStep(n) {
+  document.getElementById('step'+n).classList.remove('hidden');
+}
+
+// ==================== SYLLABLE COUNTER ====================
+function countSyllables(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (!word) return 0;
+  if (word.length <= 3) return 1;
+  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+  word = word.replace(/^y/, '');
+  const m = word.match(/[aeiouy]{1,2}/g);
+  return m ? m.length : 1;
+}
+
+function countSyl(inputId, counterId) {
+  const text = document.getElementById(inputId).value;
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+  const total = words.reduce((sum, w) => sum + countSyllables(w), 0);
+  const el = document.getElementById(counterId);
+  if (!text.trim()) { el.textContent = '—'; el.className = 'syllable-counter'; return; }
+  el.textContent = total + ' syl';
+  const isA = ['s1','s2','s5','sc1','sc2','sc5'].includes(counterId);
+  const isB = ['s3','s4','sc3','sc4'].includes(counterId);
+  if (isA) { el.className = total >= 7 && total <= 10 ? 'syllable-counter good' : total >= 6 && total <= 11 ? 'syllable-counter warn' : 'syllable-counter bad'; }
+  else if (isB) { el.className = total >= 4 && total <= 7 ? 'syllable-counter good' : total >= 3 && total <= 8 ? 'syllable-counter warn' : 'syllable-counter bad'; }
+  else { el.className = 'syllable-counter'; }
+}
+
+// ==================== WE DO ====================
+function saveWeDo() {
+  unlockStage(5);
+}
+
+// ==================== LAB ====================
+function initLab() {
+  // Build creature reminder
+  const rem = document.getElementById('creatureReminder5');
+  let h = '';
+  people.forEach(p => {
+    h += `<div class="creature-box"><div style="font-size:1.8em">${p.emoji}</div><div class="creature-info"><div class="creature-code">${p.code} = ${p.creature} → ${p.name}</div><div class="creature-name">${p.fact}</div></div></div>`;
+  });
+  rem.innerHTML = h;
+
+  // Build creature tabs
+  const tabs = document.getElementById('creatureTabs');
+  let th = '';
+  people.forEach((p, i) => {
+    th += `<div class="tab-card" id="tab${i}" onclick="selectCreature(${i})">
+      <span class="emoji">${p.emoji}</span>
+      <div class="name">${p.creature}</div>
+      <div class="text-small" style="margin-top:4px;">${p.code} = ${p.name}</div>
+      <div id="tabStatus${i}" class="text-small" style="margin-top:4px; color:#444;">not written</div>
+    </div>`;
+  });
+  tabs.innerHTML = th;
+}
+
+function selectCreature(i) {
+  currentCreature = i;
+  const p = people[i];
+  document.getElementById('writingTitle').textContent = 'Writing: ' + p.creature + ' (' + p.name + ')';
+  document.getElementById('writingHint').innerHTML = '<strong>Inspiration:</strong> ' + p.hint;
+  document.getElementById('writingHint').classList.remove('hidden');
+
+  // Restore saved lines if any
+  const saved = limericks[i] || ['','','','',''];
+  ['l1','l2','l3','l4','l5'].forEach((id, idx) => {
+    document.getElementById(id).value = saved[idx] || '';
+    const counterId = 's' + (idx+1);
+    countSyl(id, counterId);
+  });
+
+  previewVisible = false;
+  document.getElementById('livePreview').classList.add('hidden');
+  document.getElementById('saveMsg').classList.add('hidden');
+
+  // Highlight selected tab
+  document.querySelectorAll('.tab-card').forEach((t, idx) => {
+    t.style.borderColor = limericks[idx] ? '#00b894' : (idx === i ? '#6c5ce7' : '#333');
+  });
+}
+
+function saveLine() {
+  if (currentCreature === null) return;
+  updatePreview();
+}
+
+function updatePreview() {
+  ['1','2','3','4','5'].forEach(n => {
+    const val = document.getElementById('l'+n).value;
+    const prev = document.getElementById('prev'+n);
+    if (prev) prev.textContent = val || ' ';
+  });
+}
+
+function togglePreview() {
+  previewVisible = !previewVisible;
+  updatePreview();
+  document.getElementById('livePreview').classList.toggle('hidden', !previewVisible);
+}
+
+function saveLimerick() {
+  if (currentCreature === null) {
+    alert('Select a creature first!');
+    return;
+  }
+  const lines = ['l1','l2','l3','l4','l5'].map(id => document.getElementById(id).value);
+  const filled = lines.filter(l => l.trim().length > 2).length;
+  if (filled < 5) {
+    ['l1','l2','l3','l4','l5'].forEach(id => {
+      if (document.getElementById(id).value.trim().length < 3) {
+        document.getElementById(id).classList.add('shake');
+        setTimeout(() => document.getElementById(id).classList.remove('shake'), 300);
+      }
+    });
+    return;
+  }
+  limericks[currentCreature] = lines;
+  const saved = Object.keys(limericks).length;
+
+  // Update tab status
+  document.getElementById('tabStatus'+currentCreature).textContent = 'saved!';
+  document.getElementById('tabStatus'+currentCreature).style.color = '#00b894';
+  document.querySelector('#tab'+currentCreature).style.borderColor = '#00b894';
+
+  // Progress
+  const pct = (saved / 5) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = saved + ' of 5 limericks saved';
+
+  const msg = document.getElementById('saveMsg');
+  msg.textContent = 'Saved! ' + (saved < 5 ? (5-saved) + ' more to go.' : 'All 5 done! Hit the button below.');
+  msg.classList.remove('hidden');
+
+  if (saved >= 5) {
+    document.getElementById('allDoneBtn').classList.remove('hidden');
+    document.getElementById('allDoneBtn').scrollIntoView({ behavior:'smooth' });
+  }
+}
+
+// ==================== COLLECTION ====================
+function buildCollection() {
+  const container = document.getElementById('collectionPoems');
+  let html = '';
+  people.forEach((p, i) => {
+    const lines = limericks[i] || ['(not written)','','','',''];
+    const text = lines.join('\n').replace(/^(\s*)(.)(.+)/gm, (match, indent, first, rest) => indent + first.toUpperCase() + rest);
+    const indented = lines.map((l, idx) => (idx === 2 || idx === 3) ? '    ' + l : l).join('\n');
+    html += `<div class="collection-poem">
+      <div class="poem-title">${p.emoji} ${p.creature} (${p.name})</div>
+      <div class="poem-lines">${indented || '(not written)'}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // nothing needed on load
+});
+</script>
+</body>
+</html>
