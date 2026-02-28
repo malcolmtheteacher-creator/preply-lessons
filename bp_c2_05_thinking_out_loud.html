@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Thinking Out Loud — Beyond Perfect C2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+    :root {
+      --bg: #f8f9fa; --card: #ffffff; --text: #1a1a2e; --text-light: #4a4a6a;
+      --accent: #667eea; --accent-light: #e8ecff; --warm: #e07a3a; --warm-bg: #fef3ec;
+      --cool: #2d6a4f; --cool-bg: #d8f3dc; --caution: #c0392b; --caution-bg: #fadbd8;
+      --neutral: #5a6078; --neutral-bg: #eef0f4; --success: #2d6a4f; --success-bg: #d8f3dc;
+      --border: #e0e0e0; --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+    .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 12px 20px; background: #fff; border-bottom: 1px solid var(--border); overflow-x: auto; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .tab-btn { padding: 10px 18px; border: none; background: transparent; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--text-light); border-radius: 8px; white-space: nowrap; transition: all 0.2s; }
+    .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); color: #fff; }
+    .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 8px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 28px 0 14px; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin: 20px 0 10px; }
+    .learning-intention { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; border-radius: 0 8px 8px 0; margin: 16px 0 24px; font-size: 0.95rem; }
+    .card { background: var(--card); border-radius: 12px; padding: 24px; margin: 16px 0; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .speak-prompt { font-weight: 600; color: var(--accent); margin: 14px 0 6px; font-size: 0.95rem; }
+    .reveal-container { margin: 12px 0; }
+    .reveal-prompt { background: var(--card); border: 2px dashed var(--accent); border-radius: 10px; padding: 16px 20px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+    .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+    .reveal-content { display: none; background: var(--success-bg); border: 1px solid var(--success); border-radius: 10px; padding: 16px 20px; margin-top: 8px; }
+    .expression-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin: 16px 0; }
+    .expression-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .expression { font-weight: 700; color: var(--accent); font-size: 1rem; margin-bottom: 6px; }
+    .expression-example { font-size: 0.9rem; color: var(--text-light); font-style: italic; }
+    .discussion-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 16px 0; }
+    .d-card { background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 20px; }
+    .d-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .d-title { font-weight: 600; margin-bottom: 6px; }
+    .d-desc { font-size: 0.85rem; color: var(--text-light); }
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .comparison-box { border-radius: 12px; padding: 20px; }
+    .flat-version { background: var(--neutral-bg); border: 1px solid #bbb; }
+    .thinking-version { background: var(--success-bg); border: 1px solid var(--success); }
+    .flat-label, .thinking-label { font-weight: 600; font-size: 0.85rem; margin-bottom: 10px; text-transform: uppercase; }
+    .flat-label { color: var(--neutral); }
+    .thinking-label { color: var(--cool); }
+    .chain-step { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 18px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+    .chain-step-num { font-weight: 700; color: var(--accent); margin-right: 8px; }
+    .highlight { background: #fffacd; padding: 2px 6px; border-radius: 3px; }
+    p { margin: 12px 0; }
+    li { margin: 8px 0; }
+    .note { background: var(--warm-bg); border-left: 4px solid var(--warm); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="tab-skill">The Skill</button>
+  <button class="tab-btn" data-tab="tab-language">The Language</button>
+  <button class="tab-btn" data-tab="tab-watch">Watch It Happen</button>
+  <button class="tab-btn" data-tab="tab-practise">Practise</button>
+  <button class="tab-btn" data-tab="tab-pressure">Under Pressure</button>
+  <button class="tab-btn" data-tab="tab-tangent">The Art of the Tangent</button>
+  <button class="tab-btn" data-tab="tab-reflect">Recall & Reflect</button>
+</div>
+
+<!-- TAB 1: THE SKILL -->
+<div id="tab-skill" class="tab-content active">
+  <h1>Thinking Out Loud</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">A key consulting skill: processing complex ideas verbally in real time.</p>
+
+  <div class="learning-intention">
+    <strong>Learning intention:</strong> You can verbally process complex ideas in real time, inviting your listener into your thinking, making you more authentic and collaborative.
+  </div>
+
+  <div class="card">
+    <h2>The Situation</h2>
+    <p>In consulting—and in many high-stakes professional contexts—you're often asked what you think before you've finished thinking.</p>
+    <ul>
+      <li>A client asks for your immediate reaction to a proposal.</li>
+      <li>A senior colleague wants your take on a problem you've just seen for the first time.</li>
+      <li>You're in a meeting and expected to contribute, but you're still forming your opinion.</li>
+    </ul>
+    <p style="margin-top: 16px;">The skill isn't pretending you've already worked it out. The skill is <span class="highlight">showing your thinking in real time</span>—in English, without hesitation or translation.</p>
+  </div>
+
+  <div class="card">
+    <h2>Prepared Speech vs. Live Thinking</h2>
+    <p>These are two different skills:</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;">
+      <div>
+        <h3>Prepared Speech</h3>
+        <p style="font-size: 0.9rem;">You've had time. You've structured your thoughts. You deliver a polished answer.</p>
+        <p style="font-size: 0.85rem; color: var(--text-light);"><strong>Feels:</strong> Formal, confident, finished.</p>
+      </div>
+      <div>
+        <h3>Live Thinking</h3>
+        <p style="font-size: 0.9rem;">You're processing in the moment. You show your working. You build ideas together with your listener.</p>
+        <p style="font-size: 0.85rem; color: var(--text-light);"><strong>Feels:</strong> Authentic, collaborative, real.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Why This Matters at C2</h2>
+    <p>At C2 level, you've mastered the grammar. What separates exceptional speakers from fluent ones is the ability to <strong>think in English, not translate into English</strong>.</p>
+    <ul>
+      <li><strong>Thinking in English</strong> means processing, hesitating, correcting, building—all in real time, in the target language. It's how native speakers actually work.</li>
+      <li><strong>Translating</strong> means formulating in your L1, then converting to English—which takes time and sounds rehearsed.</li>
+    </ul>
+    <p style="margin-top: 16px;">Thinking-aloud markers are your English scaffolding. They signal "I'm processing," which gives you time and permission to think live.</p>
+  </div>
+
+  <div class="speak-prompt">🎙 Your Turn to Think About It</div>
+  <p><strong>Reflect:</strong> When have you been asked for your opinion before you'd fully formed it? How did you respond? Did you:</p>
+  <ul>
+    <li>a) Try to pretend you'd already thought it through?</li>
+    <li>b) Say "I need time to think"?</li>
+    <li>c) Actually think out loud?</li>
+  </ul>
+  <p>Which approach felt most authentic? Which felt most useful to your listener?</p>
+</div>
+
+<!-- TAB 2: THE LANGUAGE -->
+<div id="tab-language" class="tab-content">
+  <h1>The Language</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">16 expressions organised by function. Learn them, then use them.</p>
+
+  <h2>1. Real-Time Processing Markers</h2>
+  <p><em>Use these to signal: "I'm thinking right now."</em></p>
+  <div class="expression-grid">
+    <div class="expression-card">
+      <div class="expression">"Let me think about this for a moment..."</div>
+      <div class="expression-example">"That's an interesting point. Let me think about this for a moment... I'd say it depends on the data we're working with."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"I'm thinking out loud here, but..."</div>
+      <div class="expression-example">"I'm thinking out loud here, but I suspect the real issue isn't the process—it's the incentives."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"Bear with me — I'm working through this..."</div>
+      <div class="expression-example">"Bear with me—I'm working through this... If we accept that premise, then we'd need to reframe the entire strategy."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"This is a first reaction, but..."</div>
+      <div class="expression-example">"This is a first reaction, but my gut tells me we should test this hypothesis before committing budget."</div>
+    </div>
+  </div>
+
+  <div class="speak-prompt">🎙 Practise: Real-Time Processing</div>
+  <p>You're asked: "Do you think we should automate this process?"</p>
+  <p>Respond using one of the four expressions above. Give yourself 3 seconds to think, then speak.</p>
+
+  <h2>2. Self-Correction</h2>
+  <p><em>Use these when you realise mid-stream that your first version wasn't quite right.</em></p>
+  <div class="expression-grid">
+    <div class="expression-card">
+      <div class="expression">"Actually, let me rephrase that..."</div>
+      <div class="expression-example">"The client resistance is about cost. Actually, let me rephrase that—it's not the cost itself, it's the uncertainty about ROI."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"That's not quite what I mean — what I'm trying to say is..."</div>
+      <div class="expression-example">"We need faster implementation. That's not quite what I mean—what I'm trying to say is we need faster *feedback loops* so we can adjust as we go."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"Scratch that — a better way to put it would be..."</div>
+      <div class="expression-example">"The data contradicts their assumption. Scratch that—a better way to put it would be: we have data that *reframes* their assumption."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"I've just realised that doesn't capture it — let me try again..."</div>
+      <div class="expression-example">"We need buy-in from the CFO. I've just realised that doesn't capture it—let me try again: we need the CFO to feel ownership of the outcome."</div>
+    </div>
+  </div>
+
+  <div class="speak-prompt">🎙 Practise: Self-Correction</div>
+  <p>Say this first: "The main barrier is that the team doesn't understand the new system."</p>
+  <p>Now stop. Correct yourself. What did you really mean? Use one of the four expressions above to rephrase it more precisely.</p>
+
+  <h2>3. Building Ideas Collaboratively</h2>
+  <p><em>Use these to extend, develop, or connect ideas—showing thinking that goes beyond your initial reaction.</em></p>
+  <div class="expression-grid">
+    <div class="expression-card">
+      <div class="expression">"Building on that..."</div>
+      <div class="expression-example">"You mentioned the timeline is tight. Building on that, if we compressed phase one, we could test assumptions earlier."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"And if we take that a step further..."</div>
+      <div class="expression-example">"Cost is rising. And if we take that a step further, that means our unit economics become unviable unless we find scale."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"Which raises the question..."</div>
+      <div class="expression-example">"Market demand is lower than forecast. Which raises the question: are we targeting the wrong segment?"</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"That connects to something else..."</div>
+      <div class="expression-example">"You mentioned resistance from operations. That connects to something else I've noticed: they weren't part of the design process."</div>
+    </div>
+  </div>
+
+  <div class="speak-prompt">🎙 Practise: Building Collaboratively</div>
+  <p>Your colleague says: "We need to reduce costs by 15%."</p>
+  <p>Build on this with one of the four expressions. What question or insight would you add?</p>
+
+  <h2>4. Discourse Management</h2>
+  <p><em>Use these to guide the conversation, mark transitions, or signal you're refocusing.</em></p>
+  <div class="expression-grid">
+    <div class="expression-card">
+      <div class="expression">"Let me step back for a second..."</div>
+      <div class="expression-example">"We've been discussing timelines, but let me step back for a second—the real constraint might be resource availability, not scheduling."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"I've gone off on a tangent — to come back to the main point..."</div>
+      <div class="expression-example">"I've gone off on a tangent—to come back to the main point, we need agreement on the criteria for success before we design the solution."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"The thread I'm pulling on here is..."</div>
+      <div class="expression-example">"The thread I'm pulling on here is: if we accept that customer satisfaction is the metric, then everything else follows from that."</div>
+    </div>
+    <div class="expression-card">
+      <div class="expression">"So where does that leave us?"</div>
+      <div class="expression-example">"We've identified the risks, we've outlined the constraints... so where does that leave us? I think we have two realistic options."</div>
+    </div>
+  </div>
+
+  <div class="speak-prompt">🎙 Practise: Discourse Management</div>
+  <p>You've been discussing implementation details for 5 minutes. Use one expression to step back and refocus the conversation on something more fundamental.</p>
+</div>
+
+<!-- TAB 3: WATCH IT HAPPEN -->
+<div id="tab-watch" class="tab-content">
+  <h1>Watch It Happen</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">Same response. Two versions. See how thinking-aloud markers bring the listener into the process.</p>
+
+  <h2>Example 1: Analysing a Client Problem</h2>
+  <p><strong>Scenario:</strong> A client is losing market share. They ask: "What's really going on here?"</p>
+
+  <div class="comparison">
+    <div class="comparison-box flat-version">
+      <div class="flat-label">Version 1: Flat (No Thinking Aloud)</div>
+      <p style="margin: 12px 0;">"You're losing market share because your product is more expensive than alternatives and you've underinvested in marketing. You need to either find a differentiation angle or accept a position as a premium niche player."</p>
+    </div>
+    <div class="comparison-box thinking-version">
+      <div class="thinking-label">Version 2: Thinking Aloud</div>
+      <p style="margin: 12px 0;">"Let me think about this for a moment... The price point is higher than alternatives, which is one factor. <span class="highlight">But that's not new</span>—you've always been premium. So I'm thinking, the real shift is probably in how customers *perceive* value. And if I take that a step further, that might connect to your underinvestment in marketing. You're not telling the story that justifies the premium. <span class="highlight">So where does that leave us?</span> I'd say you have two paths: either you lean into being premium and invest in positioning, or you accept that your niche is narrowing."</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt">
+      <span>Why Version 2 is more effective</span>
+      <span style="font-size: 1.2rem;">▼</span>
+    </div>
+    <div class="reveal-content">
+      <ul>
+        <li><strong>"Let me think about this for a moment..."</strong> signals you're not reciting a rehearsed answer.</li>
+        <li>Noticing that <span class="highlight">price isn't new</span> shows real analysis—you're not just listing symptoms.</li>
+        <li><strong>"And if I take that a step further..."</strong> shows you're connecting ideas live, inviting the client to follow your logic.</li>
+        <li>The self-questioning is visible: "So I'm thinking, the real shift is..." This is genuine intellectual work.</li>
+        <li><strong>"So where does that leave us?"</strong> transitions from analysis to options, bringing the client with you.</li>
+        <li><strong>Overall effect:</strong> You're thinking WITH the client, not AT them. They're more likely to trust and engage with your conclusion.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Example 2: Defending a Recommendation</h2>
+  <p><strong>Scenario:</strong> You've recommended a strategy. The CFO challenges it: "This is risky. How confident are you?"</p>
+
+  <div class="comparison">
+    <div class="comparison-box flat-version">
+      <div class="flat-label">Version 1: Flat (No Thinking Aloud)</div>
+      <p style="margin: 12px 0;">"I'm confident. The data supports it. Yes, there's execution risk, but the upside outweighs the downside."</p>
+    </div>
+    <div class="comparison-box thinking-version">
+      <div class="thinking-label">Version 2: Thinking Aloud</div>
+      <p style="margin: 12px 0;">"That's a fair question. I'm thinking out loud here, but... I wouldn't say I'm 100% confident. <span class="highlight">Actually, let me rephrase that</span>—I'm confident in the *direction*, but there are two key unknowns. <span class="highlight">Building on what you said about risk</span>, those unknowns *are* material. But here's what I'm thinking: we can test them without going all-in. <span class="highlight">And if we take that a step further</span>, a phased approach reduces the risk significantly. So my confidence sits around 75% on the full recommendation, but 90% on a phased version."</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt">
+      <span>Why Version 2 is more credible</span>
+      <span style="font-size: 1.2rem;">▼</span>
+    </div>
+    <div class="reveal-content">
+      <ul>
+        <li><strong>"I'm thinking out loud here..."</strong> signals you're not defensive—you're genuinely working through it.</li>
+        <li>Admitting you're <strong>not 100% confident</strong> is more believable than false certainty.</li>
+        <li><strong>"Actually, let me rephrase that"</strong> shows intellectual honesty. You're refining your position, not just defending it.</li>
+        <li><strong>"Building on what you said..."</strong> shows you've listened and are incorporating their concern into your thinking.</li>
+        <li><strong>"And if we take that a step further..."</strong> moves toward a solution that addresses their risk concern.</li>
+        <li><strong>The numbers (75% vs 90%)</strong> give specificity and show you've actually thought through the difference.</li>
+        <li><strong>Overall effect:</strong> You're collaborative, not closed. The CFO feels heard. Trust increases.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Your Turn: Convert Flat to Thinking Aloud</h2>
+  <p><strong>Scenario:</strong> You're asked: "Should we enter this new market?"</p>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt">
+      <span>Flat version: "Yes, the market is growing and we have the capability to serve it."</span>
+      <span style="font-size: 1.2rem;">▼</span>
+    </div>
+    <div class="reveal-content">
+      <p><strong>Possible thinking-aloud version:</strong></p>
+      <p style="margin-top: 12px;">"That's tempting because the market is growing. <span class="highlight">Bear with me—I'm working through this</span>... but I want to look at two things: one, can we really differentiate there, and two, what's the cannibalisation risk to our core? <span class="highlight">And if we take that a step further</span>, if we can't differentiate and there's high cannibalisation, then growth in the new market doesn't actually translate to profit growth for us. <span class="highlight">So where does that leave us?</span> I'd say: yes, if we have real differentiation. No, if we're just chasing volume."</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: PRACTISE -->
+<div id="tab-practise" class="tab-content">
+  <h1>Practise</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">Three types of live thinking drills.</p>
+
+  <h2>Drill 1: Live Thinking on Complex Questions</h2>
+  <p>You get a question. You think out loud using the markers. You're building understanding as you speak.</p>
+
+  <div class="card">
+    <h3>Question 1</h3>
+    <p><strong>"We're seeing a pattern where experienced employees leave after 18-24 months. What's driving it?"</strong></p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Think out loud for 1-2 minutes. Use at least two thinking-aloud expressions from the language tab. Start with something like "Let me think about this for a moment..."</p>
+    <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 16px;"><em>Hints: Consider what happens at the 18-24 month mark. When does someone typically get promoted or stall? When do they leave to apply learning elsewhere?</em></p>
+  </div>
+
+  <div class="card">
+    <h3>Question 2</h3>
+    <p><strong>"Our AI tool is technically superior to competitors, but customers aren't choosing us. Why not?"</strong></p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Think out loud. Challenge the assumption that "technically superior" should win the market. Use at least one "self-correction" expression.</p>
+  </div>
+
+  <div class="card">
+    <h3>Question 3</h3>
+    <p><strong>"Customer satisfaction is high but churn is increasing. How do we interpret this?"</strong></p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Think out loud. What's the logical disconnect? Use "Which raises the question..." to explore it.</p>
+  </div>
+
+  <h2>Drill 2: Self-Correction Practice</h2>
+  <p>Say something. Then deliberately rephrase it more precisely. This trains the muscle of real-time improvement.</p>
+
+  <div class="card">
+    <h3>Round 1</h3>
+    <p><strong>Say this first:</strong> "The project failed because the team didn't work hard enough."</p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Now stop. What did you really mean? That's too simplistic. Use one of the self-correction expressions ("Actually, let me rephrase that...") and give a more nuanced version.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span>Sample rephrase</span>
+        <span style="font-size: 1.2rem;">▼</span>
+      </div>
+      <div class="reveal-content">
+        <p>"Actually, let me rephrase that—the project failed because the scope wasn't clearly defined at the start, so the team was working hard on the wrong things."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Round 2</h3>
+    <p><strong>Say this first:</strong> "We need to be more agile."</p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>"Agile" is too vague. What do you actually mean? Use "That's not quite what I mean—what I'm trying to say is..." and be specific.</p>
+  </div>
+
+  <div class="card">
+    <h3>Round 3</h3>
+    <p><strong>Say this first:</strong> "The competitor has a better product."</p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Better in what dimension? For whom? Rephrase using "Scratch that—a better way to put it would be..."</p>
+  </div>
+
+  <h2>Drill 3: Building Chains</h2>
+  <p>Take an idea through 3-4 building steps. Each step extends or questions the previous one. This is live problem-solving.</p>
+
+  <div class="card">
+    <h3>Chain 1: Revenue Problem</h3>
+    <p><strong>Starting point:</strong> "Revenue growth is slowing."</p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Use the expressions below to build a logical chain. Each step should question or extend the previous one.</p>
+    <div class="chain-step">
+      <span class="chain-step-num">Step 1:</span>
+      Start with the fact. <strong>"Bearing with me—I'm working through this..."</strong> If revenue growth is slowing, what's the first question?
+    </div>
+    <div class="chain-step">
+      <span class="chain-step-num">Step 2:</span>
+      Extend it. <strong>"Building on that..."</strong> What does it mean for profitability or market position?
+    </div>
+    <div class="chain-step">
+      <span class="chain-step-num">Step 3:</span>
+      Take it further. <strong>"And if we take that a step further..."</strong> What's the deeper implication?
+    </div>
+    <div class="chain-step">
+      <span class="chain-step-num">Step 4:</span>
+      Synthesise. <strong>"So where does that leave us?"</strong> What's the actionable insight?
+    </div>
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span>Sample chain</span>
+        <span style="font-size: 1.2rem;">▼</span>
+      </div>
+      <div class="reveal-content">
+        <p>"Revenue growth is slowing. Bear with me—I'm working through this... First question: is this about volume declining, or unit price? Building on that, if it's volume, we need to know whether it's market contraction or share loss. And if we take that a step further, if we're losing share, the question becomes: to whom, and why? That might point to a product gap or a pricing positioning. So where does that leave us? We need to diagnose volume vs. price vs. share first, because each one requires a different response."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Chain 2: Process Problem</h3>
+    <p><strong>Starting point:</strong> "Our time-to-market is too slow."</p>
+    <div class="speak-prompt">🎙 Your Turn</div>
+    <p>Build a chain of 3-4 steps, each deepening your analysis. Use thinking-aloud markers naturally.</p>
+  </div>
+</div>
+
+<!-- TAB 5: UNDER PRESSURE -->
+<div id="tab-pressure" class="tab-content">
+  <h1>Under Pressure</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">Real consulting scenarios. You think out loud under constraint.</p>
+
+  <h2>Pressure Scenarios</h2>
+
+  <div class="discussion-cards">
+    <div class="d-card">
+      <div class="d-icon">⚠️</div>
+      <div class="d-title">Recommendation Under Challenge</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> You've recommended a bold strategic shift. The CEO questions your confidence level mid-presentation.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> You don't want to backtrack, but honesty matters.</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Think out loud about your actual confidence level and the logic that underpins it. Use self-correction if you initially oversell it.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-icon">📊</div>
+      <div class="d-title">Data Contradicts the Brief</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> Your data contradicts what the client/CEO assumed. They assumed X, but your analysis shows Y.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> You need to present this without sounding contradictory or disrespectful.</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Think out loud about what the data *actually* shows. Use "Building on that..." or "That connects to something else..." to reframe their assumption in light of new information.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-icon">🎯</div>
+      <div class="d-title">Explain Complexity in 60 Seconds</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> A non-expert asks you to explain a complex system/problem in one minute. You don't have 60 seconds to prepare.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> You must think in real time and simplify without losing accuracy.</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Start with "Let me think about the simplest way to explain this..." and use "And if we take that a step further..." to build from basics to insight.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-icon">❌</div>
+      <div class="d-title">Your Solution Isn't Working—Live</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> You're implementing your recommendation, and early data shows it's not working as planned. You're in the room. They look at you.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> Don't hide. Think out loud about what's happening and what to do next.</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Use "I'm thinking out loud here..." and work through: Was the assumption wrong? Is the execution off? Use discourse management to reframe next steps.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-icon">💼</div>
+      <div class="d-title">You're Asked a Question You Haven't Thought About</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> Someone asks a sharp question that's *not* in your prepared material. You have no pre-formed answer.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> You want to sound intelligent, not caught off-guard.</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Use thinking-aloud markers. "That's a good question. Let me think about this for a moment..." signals you're engaging seriously, not deflecting.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+
+    <div class="d-card">
+      <div class="d-icon">🔄</div>
+      <div class="d-title">You Realise Mid-Sentence You're Wrong</div>
+      <div class="d-desc">
+        <p style="margin: 8px 0;"><strong>Scenario:</strong> You're in the middle of making a point, and you realise it's flawed or incomplete.</p>
+        <p style="margin: 8px 0;"><strong>Pressure:</strong> Do you keep going and hope no one notices, or do you correct?</p>
+        <p style="margin: 8px 0;"><strong>Your challenge:</strong> Use self-correction markers. "Actually, let me rephrase that..." or "Scratch that—a better way to put it would be..." Your credibility goes UP when you self-correct, not down.</p>
+      </div>
+      <div class="speak-prompt" style="margin-top: 12px;">🎙 Speak It</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Key principle:</strong> In high-pressure moments, thinking out loud is your superpower. It signals confidence in your ability to reason in real time, not confidence in being pre-prepared. Leaders trust people who think live. They distrust people who sound rehearsed when challenged.
+  </div>
+</div>
+
+<!-- TAB 6: THE ART OF THE TANGENT -->
+<div id="tab-tangent" class="tab-content">
+  <h1>The Art of the Tangent</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">Sometimes going off-topic is actually productive. How to do it well.</p>
+
+  <h2>When Tangents Are Valuable</h2>
+  <div class="card">
+    <p><strong>The paradox:</strong> The best ideas often emerge when you're not directly chasing them. A tangent can reveal a hidden assumption, expose a gap, or reframe the entire problem.</p>
+    <ul>
+      <li><strong>Hidden assumptions:</strong> "We keep assuming X, but if we follow that logic to a different context, Y becomes obvious."</li>
+      <li><strong>Adjacent insights:</strong> "This reminds me of a different problem we solved—might there be a parallel here?"</li>
+      <li><strong>Deeper questions:</strong> "I know this isn't exactly on-topic, but I'm wondering if the real issue is something else..."</li>
+    </ul>
+  </div>
+
+  <h2>How to Take a Productive Tangent</h2>
+  <p>Use thinking-aloud markers to signal what you're doing. Don't pretend it's on-topic; be transparent.</p>
+
+  <div class="card">
+    <h3>Example 1: Tangent That Reveals an Assumption</h3>
+    <p><strong>You're discussing:</strong> "We need to improve customer service response time."</p>
+    <p><strong>The tangent:</strong></p>
+    <p style="margin: 14px 0; font-style: italic;">"We're focused on response time, which makes sense. But I'm thinking out loud here—and this might be a tangent—but I'm wondering if what we're really measuring is the right thing. Which raises the question: Do customers actually care about response speed, or do they care about resolution quality? I've gone off on a tangent, but what if we've been optimising for the wrong metric?"</p>
+    <p style="margin-top: 16px;"><strong>Why this works:</strong> You signalled the tangent ("this might be a tangent"), used markers ("Which raises the question"), and brought the listener back to the main point in reframed form. Now "response time" might not be the goal—resolution might be.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example 2: Tangent That Connects Contexts</h3>
+    <p><strong>You're discussing:</strong> "Sales resistance to the new process."</p>
+    <p><strong>The tangent:</strong></p>
+    <p style="margin: 14px 0; font-style: italic;">"Sales is pushing back, and we assumed they don't understand it. But bear with me—I'm working through this, and I'm thinking of a parallel: when we implemented the CRM three years ago, there was similar resistance. And if we take that a step further, the resistance then wasn't actually about the tool; it was about losing autonomy. That connects to something else I've been noticing—our top salespeople are the ones resisting most. So where does that leave us? Maybe the issue isn't understanding; it's that they feel they're losing control."</p>
+    <p style="margin-top: 16px;"><strong>Why this works:</strong> The tangent into history isn't random—it's a parallel that reframes the current problem. Markers make the thinking transparent.</p>
+  </div>
+
+  <h2>Cultural Perspectives on Thinking Aloud</h2>
+  <div class="card">
+    <p><strong>Important note:</strong> Not all cultures value thinking aloud equally.</p>
+    <ul>
+      <li><strong>In many Western/Anglo contexts:</strong> Thinking out loud signals confidence and intellectual honesty. You're not afraid to show your working.</li>
+      <li><strong>In some Asian or hierarchical contexts:</strong> Speaking before you've fully formed your thought can signal uncertainty or lack of preparation. Listening and thinking first might be more valued.</li>
+      <li><strong>In some contexts:</strong> Public self-correction can be seen as a loss of face.</li>
+    </ul>
+    <p style="margin-top: 16px;"><strong>Your responsibility as a C2 speaker:</strong> Be culturally aware. If you're in a context where thinking aloud might undermine credibility, you can still process live—but you might do it more quickly, or you might frame it as "Let me work through the logic" rather than "I'm thinking out loud." The *skill* is the same; the *expression* adapts.</p>
+  </div>
+
+  <h2>Practice: Productive Tangents</h2>
+  <div class="speak-prompt">🎙 Your Challenge</div>
+  <p><strong>Scenario:</strong> You're discussing "How to increase employee retention."</p>
+  <p>Take a tangent into a parallel problem or hidden assumption. Use at least three expressions from the Target Language (e.g., "Building on that...", "I've gone off on a tangent—to come back to the main point...", "That connects to something else..."). At the end, bring the tangent back and show how it reframes the original problem.</p>
+  <div class="reveal-container">
+    <div class="reveal-prompt">
+      <span>Sample productive tangent</span>
+      <span style="font-size: 1.2rem;">▼</span>
+    </div>
+    <div class="reveal-content">
+      <p>"Retention is the goal. But building on that, I'm thinking—and this might be a tangent—what are we actually losing when people leave? Is it knowledge, relationships, or just headcount? That connects to something else: our exit interview data never gets used. Which raises the question: do we actually know *why* people leave, or are we just guessing? I've gone off on a tangent, but to come back to the main point: before we design a retention programme, maybe we need to diagnose the real reasons. Because 'increase retention' without that diagnosis is just... throwing benefits at the problem."</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 7: RECALL & REFLECT -->
+<div id="tab-reflect" class="tab-content">
+  <h1>Recall & Reflect</h1>
+  <p style="font-size: 1.1rem; color: var(--text-light); margin: 16px 0 24px;">Test yourself. Reflect on your learning.</p>
+
+  <h2>Quick Recall: Match Expression to Function</h2>
+  <div class="card">
+    <p>For each scenario, which category of expression would you use?</p>
+    <div style="margin: 16px 0;">
+      <p><strong>1. You've been talking about timelines for 10 minutes, but you realise the real constraint is budget.</strong></p>
+      <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 8px;">Your answer: _______________</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt">
+          <span>See answer</span>
+          <span style="font-size: 1.2rem;">▼</span>
+        </div>
+        <div class="reveal-content">
+          <p><strong>Discourse Management:</strong> "Let me step back for a second..." or "I've gone off on a tangent—to come back to the main point..."</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 16px 0; padding-top: 16px; border-top: 1px solid var(--border);">
+      <p><strong>2. You said X, but mid-sentence realised you meant Y.</strong></p>
+      <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 8px;">Your answer: _______________</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt">
+          <span>See answer</span>
+          <span style="font-size: 1.2rem;">▼</span>
+        </div>
+        <div class="reveal-content">
+          <p><strong>Self-Correction:</strong> "Actually, let me rephrase that..." or "That's not quite what I mean—what I'm trying to say is..."</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 16px 0; padding-top: 16px; border-top: 1px solid var(--border);">
+      <p><strong>3. Someone makes a point, and you want to extend it logically.</strong></p>
+      <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 8px;">Your answer: _______________</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt">
+          <span>See answer</span>
+          <span style="font-size: 1.2rem;">▼</span>
+        </div>
+        <div class="reveal-content">
+          <p><strong>Building Ideas Collaboratively:</strong> "Building on that..." or "And if we take that a step further..."</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 16px 0; padding-top: 16px; border-top: 1px solid var(--border);">
+      <p><strong>4. You're asked a complex question you need a moment to think about.</strong></p>
+      <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 8px;">Your answer: _______________</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt">
+          <span>See answer</span>
+          <span style="font-size: 1.2rem;">▼</span>
+        </div>
+        <div class="reveal-content">
+          <p><strong>Real-Time Processing:</strong> "Let me think about this for a moment..." or "Bear with me—I'm working through this..."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Metacognition: Reflect on Your Learning</h2>
+  <div class="card">
+    <p><strong>Tick the boxes that are true for you now:</strong></p>
+    <div style="margin: 16px 0;">
+      <p style="margin: 10px 0;">☐ I can distinguish between prepared speech and live thinking.</p>
+      <p style="margin: 10px 0;">☐ I know at least two expressions from each of the four categories.</p>
+      <p style="margin: 10px 0;">☐ I can use "Actually, let me rephrase that..." in real time.</p>
+      <p style="margin: 10px 0;">☐ I understand why self-correction increases credibility, not decreases it.</p>
+      <p style="margin: 10px 0;">☐ I can think out loud under pressure without sounding unprepared.</p>
+      <p style="margin: 10px 0;">☐ I know when to take a tangent and how to bring it back.</p>
+      <p style="margin: 10px 0;">☐ I'm aware of cultural contexts that might value thinking aloud differently.</p>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">If you've ticked 5 or more, you're ready to take this skill into real conversations. If fewer, revisit the tabs that matter most to you.</p>
+  </div>
+
+  <h2>Your "I Can..." Statement</h2>
+  <div class="speak-prompt">🎙 Speak Your Reflection</div>
+  <p>Complete this sentence out loud:</p>
+  <p style="font-size: 1.05rem; font-weight: 500; margin: 16px 0; padding: 12px; background: var(--accent-light); border-radius: 8px;">"I can now think out loud in English by..."</p>
+  <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 16px;"><em>Say at least three specific things you can do. Use your own words, not the lesson language. This is how you internalise learning.</em></p>
+
+  <h2>Next Steps</h2>
+  <div class="card">
+    <ul>
+      <li><strong>In your next meeting or conversation:</strong> Intentionally think out loud once. Use at least one marker. Notice how people respond.</li>
+      <li><strong>In feedback conversations:</strong> Self-correct at least once. Observe that the other person respects you more, not less.</li>
+      <li><strong>In low-stakes moments:</strong> Practice building chains. Take an idea from A to B to C to D. Get comfortable with the rhythm.</li>
+      <li><strong>In complex discussions:</strong> Notice when you're about to give a flat answer. Rewind. Give a thinking-aloud answer instead. Compare the impact.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+document.querySelectorAll('.reveal-prompt').forEach(p => {
+  p.addEventListener('click', () => {
+    const content = p.nextElementSibling;
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  });
+});
+</script>
+
+</body>
+</html>
