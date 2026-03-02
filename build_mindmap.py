@@ -853,8 +853,8 @@ def build_itmz_xml(lessons):
     section_xml = []
 
     for idx, (section_title, cat_keys, section_color, section_fill) in enumerate(SECTIONS):
-        # Alternate branches: even index → right (1), odd index → left (2)
-        side = 1 if idx % 2 == 0 else 2
+        # Alternate branches: even index → right, odd index → left
+        side = 'right' if idx % 2 == 0 else 'left'
         # Collect all categories in this section that have lessons
         section_cats = [k for k in cat_keys if k in categories]
         if not section_cats:
