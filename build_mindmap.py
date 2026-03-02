@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 """
-Build Mind Map Script (v3.0 — Smart Categorisation)
+Build Mind Map Script (v4.0 — Website-Aligned Structure)
 Extracts lesson data from malcolm_lesson_index.html and generates an iThoughts (.itmz) file.
 
-Categorisation strategy (layered, in priority order):
-  1. Skip utility files (templates, trackers, etc.)
-  2. Dashboards get their own branch
-  3. Prefix-based course detection (a1p_, wp_, qf_, epicurean_, ois_, etc.)
-  4. Series field from lesson metadata (fallback when prefix doesn't match)
-  5. Filename keyword patterns (ielts, cambridge, speaking_naturally, etc.)
-  6. Title/level heuristics for remaining lessons
-  7. Anything truly uncategorised → "Standalone Lessons" grouped by level
+Structure mirrors the website homepage (malcolmhyndman.com):
+  1. Core Pathways — A1 Pathway, General English, Speaking Pathway
+  2. Conversation & Discussion — Curious Conversations, Speaking Naturally
+  3. Professional & Business — Professional Skills, Business Meetings, Bootcamp, Strategic Storytelling
+  4. Advanced Discourse — Speaking Naturally Teens, Commanding Discourse, Bestiary, Beyond Perfect
+  5. Skills & Exam Prep — Cambridge, Pronunciation, Listening, Quick Fix
+  6. IELTS Preparation — Task 1, Task 2, Writing Pathway, Reading
+  7. Religious Studies — Full secondary curriculum
+  8. The Memory Palace — Art of Memory, Our Island Story, Philosophy, Epicurean, Dewey, Bestiary
+  9. Tools — PowerUp, MandalArt, Speaking Practice, etc.
+  10. Standalone Lessons — Dewey decimal classification (100–900)
+
+Dashboards are placed inside their parent course, not in a separate branch.
 
 Run from the gitsite directory after updating the lesson index.
 """
@@ -33,42 +38,57 @@ BASE_URL = "https://malcolmtheteacher-creator.github.io/preply-lessons/"
 
 
 # ---------------------------------------------------------------------------
-# Category configuration — order controls mindmap layout
+# Category configuration — mirrors website homepage sections
 # ---------------------------------------------------------------------------
 PATH_CONFIG = {
-    # Core structured courses
-    'grammar':       {'icon': '📚', 'title': 'Grammar Course (A2-C1)',     'order': 1,  'color': '4A90D9', 'fill': 'E8F4FD'},
-    'a1_pathway':    {'icon': '🌱', 'title': 'A1 Pathway (Beginner)',      'order': 2,  'color': '27AE60', 'fill': 'E8FDF0'},
-    'speaking_path': {'icon': '🎙️', 'title': 'Speaking Pathway (A2-C1)',   'order': 3,  'color': '00897B', 'fill': 'E0F2F1'},
-    'speaking':      {'icon': '🗣️', 'title': 'Speaking Naturally',         'order': 4,  'color': '2ECC71', 'fill': 'EAFAF1'},
-    'curious_conv':  {'icon': '💭', 'title': 'Curious Conversations',      'order': 5,  'color': 'E67E22', 'fill': 'FEF5E7'},
-    'b2c1_conv':     {'icon': '💬', 'title': 'B2/C1 Conversations',        'order': 6,  'color': 'FF7043', 'fill': 'FBE9E7'},
+    # ── 1. Core Pathways ─────────────────────────────────────────────────
+    'a1_pathway':      {'icon': '🌱', 'title': 'A1 English Pathway',           'order': 1,  'color': '2563EB', 'fill': 'DBEAFE'},
+    'grammar':         {'icon': '📚', 'title': 'General English (A2→C1)',      'order': 2,  'color': '2563EB', 'fill': 'DBEAFE'},
+    'speaking_path':   {'icon': '🎙️', 'title': 'Speaking Pathway (A2→C1)',     'order': 3,  'color': '2563EB', 'fill': 'DBEAFE'},
 
-    # Exam prep
-    'ielts':         {'icon': '📝', 'title': 'IELTS Exam Prep',            'order': 7,  'color': 'D94A4A', 'fill': 'FDE8E8'},
-    'cambridge':     {'icon': '🎓', 'title': 'Cambridge (CAE/CPE)',        'order': 8,  'color': '9B59B6', 'fill': 'F5EEF8'},
-    'ote':           {'icon': '🏅', 'title': 'OTE Exam Prep',              'order': 9,  'color': 'AF7AC5', 'fill': 'F5EEF8'},
+    # ── 2. Conversation & Discussion ─────────────────────────────────────
+    'curious_conv':    {'icon': '💭', 'title': 'Curious Conversations',        'order': 4,  'color': 'D97706', 'fill': 'FEF3C7'},
+    'speaking_nat':    {'icon': '🗣️', 'title': 'Speaking Naturally',           'order': 5,  'color': 'D97706', 'fill': 'FEF3C7'},
 
-    # Specialist courses
-    'quick_fix':     {'icon': '⚡', 'title': 'Quick Fix',                  'order': 10, 'color': 'E74C3C', 'fill': 'FDEDEC'},
-    'philosophy':    {'icon': '🏛️', 'title': 'Philosophy Courses',         'order': 11, 'color': '8E44AD', 'fill': 'F4ECF7'},
-    'history':       {'icon': '🏰', 'title': 'History Courses',            'order': 12, 'color': 'A0522D', 'fill': 'FBF0E6'},
-    'memory':        {'icon': '🧠', 'title': 'Art of Memory',              'order': 13, 'color': '2980B9', 'fill': 'D6EAF8'},
-    'professional':  {'icon': '💼', 'title': 'Professional English',       'order': 14, 'color': '34495E', 'fill': 'EBEDEF'},
-    'writing':       {'icon': '✍️', 'title': 'Writing & Essay Skills',     'order': 15, 'color': '16A085', 'fill': 'E8F8F5'},
-    'topics':        {'icon': '🌍', 'title': 'Topic-Based / Young Learners','order': 16, 'color': 'F39C12', 'fill': 'FEF9E7'},
-    'news':          {'icon': '📰', 'title': 'Breaking News',              'order': 17, 'color': 'C0392B', 'fill': 'FDEDEC'},
-    'teens':         {'icon': '🎮', 'title': 'Teens Course',               'order': 18, 'color': 'E91E63', 'fill': 'FCE4EC'},
-    'rs':            {'icon': '🕊️', 'title': 'Religious Studies (KS3)',     'order': 19, 'color': '607D8B', 'fill': 'ECEFF1'},
-    'academic':      {'icon': '🎓', 'title': 'Academic & IB English',      'order': 20, 'color': '5D6D7E', 'fill': 'EBF5FB'},
+    # ── 3. Professional & Business ───────────────────────────────────────
+    'professional':    {'icon': '💼', 'title': 'Professional & Business',      'order': 6,  'color': '16A34A', 'fill': 'DCFCE7'},
 
-    # Utility & navigation
-    'first_lessons': {'icon': '👋', 'title': 'First Lesson Assessments',   'order': 21, 'color': '1ABC9C', 'fill': 'E8F6F3'},
-    'dashboards':    {'icon': '🎛️', 'title': 'Course Dashboards',          'order': 22, 'color': '8E44AD', 'fill': 'F4ECF7'},
-    'tools':         {'icon': '🔧', 'title': 'Pronunciation & Grammar Tools','order': 23, 'color': '95A5A6', 'fill': 'F2F4F4'},
+    # ── 4. Advanced Discourse ────────────────────────────────────────────
+    'adv_discourse':   {'icon': '🎯', 'title': 'Advanced Discourse',           'order': 7,  'color': '7C3AED', 'fill': 'EDE9FE'},
 
-    # Catch-all
-    'standalone':    {'icon': '🎯', 'title': 'Standalone Lessons',         'order': 24, 'color': '7F8C8D', 'fill': 'F2F3F4'},
+    # ── 5. Skills & Exam Prep ────────────────────────────────────────────
+    'cambridge':       {'icon': '🎓', 'title': 'Cambridge Exams',              'order': 8,  'color': '64748B', 'fill': 'F1F5F9'},
+    'pronunciation':   {'icon': '🔊', 'title': 'Pronunciation Pathway',        'order': 9,  'color': '64748B', 'fill': 'F1F5F9'},
+    'listening':       {'icon': '🎧', 'title': 'Listening Practice',            'order': 10, 'color': '64748B', 'fill': 'F1F5F9'},
+    'quick_fix':       {'icon': '⚡', 'title': 'Quick Fix Matrix',             'order': 11, 'color': '64748B', 'fill': 'F1F5F9'},
+    'ote':             {'icon': '🏅', 'title': 'OTE Exam Prep',                'order': 12, 'color': '64748B', 'fill': 'F1F5F9'},
+
+    # ── 6. IELTS Preparation ────────────────────────────────────────────
+    'ielts':           {'icon': '📝', 'title': 'IELTS Preparation',            'order': 13, 'color': 'DC2626', 'fill': 'FEE2E2'},
+
+    # ── 7. Religious Studies ─────────────────────────────────────────────
+    'rs':              {'icon': '🕊️', 'title': 'Religious Studies',             'order': 14, 'color': '1A5C3A', 'fill': 'D1FAE5'},
+
+    # ── 8. The Memory Palace ─────────────────────────────────────────────
+    'memory':          {'icon': '🧠', 'title': 'Art of Memory',                'order': 15, 'color': 'D4A843', 'fill': '1A2744'},
+    'history':         {'icon': '🏰', 'title': 'Our Island Story',             'order': 16, 'color': 'C9A84C', 'fill': '1A2744'},
+    'philosophy':      {'icon': '🏛️', 'title': 'Western Philosophy',           'order': 17, 'color': '8AB4D6', 'fill': '1A2744'},
+    'epicurean':       {'icon': '🌿', 'title': 'The Epicurean Path',           'order': 18, 'color': '4A7C59', 'fill': '1A2744'},
+    'dewey_palace':    {'icon': '🗂️', 'title': 'Dewey Memory Palace',          'order': 19, 'color': '7B5EA7', 'fill': '1A2744'},
+    'bestiary':        {'icon': '🦁', 'title': 'The Bestiary',                 'order': 20, 'color': 'D4A843', 'fill': '1A2744'},
+
+    # ── 9. Tools ─────────────────────────────────────────────────────────
+    'tools':           {'icon': '🔧', 'title': 'Tools',                        'order': 21, 'color': '475569', 'fill': 'F1F5F9'},
+
+    # ── 10. Other Courses ────────────────────────────────────────────────
+    'teens':           {'icon': '🎮', 'title': 'Teens Course',                 'order': 22, 'color': 'E91E63', 'fill': 'FCE4EC'},
+    'academic':        {'icon': '🎓', 'title': 'Academic & IB English',        'order': 23, 'color': '5D6D7E', 'fill': 'EBF5FB'},
+    'writing':         {'icon': '✍️', 'title': 'Writing & Essay Skills',       'order': 24, 'color': '16A085', 'fill': 'E8F8F5'},
+    'news':            {'icon': '📰', 'title': 'Breaking News English',        'order': 25, 'color': 'C0392B', 'fill': 'FDEDEC'},
+    'first_lessons':   {'icon': '👋', 'title': 'First Lesson Assessments',     'order': 26, 'color': '1ABC9C', 'fill': 'E8F6F3'},
+
+    # ── 11. Standalone — Dewey Decimal ───────────────────────────────────
+    'standalone':      {'icon': '📖', 'title': 'Standalone Lessons (by Topic)','order': 27, 'color': '6B7280', 'fill': 'F3F4F6'},
 }
 
 LEVEL_COLORS = {
@@ -114,68 +134,96 @@ def extract_lesson_data(html_content):
 
 
 # ---------------------------------------------------------------------------
-# Smart categorisation engine
+# Smart categorisation engine (v4 — website-aligned)
 # ---------------------------------------------------------------------------
 def categorize_lesson(filename, title, series='', level='', keywords=''):
     """
-    Categorise a lesson using a layered strategy:
-      1. Skip utility files
-      2. Dashboards
-      3. Prefix-based course matching (most reliable)
-      4. Series field matching
+    Categorise a lesson to match the website homepage structure.
+
+    Strategy (layered, in priority order):
+      1. Skip utility files (templates, trackers, etc.)
+      2. Dashboards → place inside their parent course
+      3. Prefix-based course detection (most reliable)
+      4. Series field matching (fallback)
       5. Filename keyword patterns
-      6. Title/level heuristics
-      7. Fallback → standalone (grouped by level)
+      6. Dewey-style topic classification for everything else
     """
     fl = filename.lower()
     tl = title.lower()
     sl = series.lower().strip()
     lv = level.upper().strip()
 
-    # ── 1. Skip utility / non-lesson files ─────────────────────────────────
+    # ── 1. Skip utility / non-lesson files ─────────────────────────────
     skip_patterns = [
         'template', 'tracker', 'quicknotes', 'bujo', 'kanban',
         'lifebalance', 'teleprompter', 'test_lesson_delete',
-        'placeholder', 'website_with_tabs',
+        'placeholder', 'website_with_tabs', 'index.html',
+        'quick_fix_index', 'lesson_index',
     ]
     if any(x in fl for x in skip_patterns):
         return None
 
-    # ── 2. Dashboards ──────────────────────────────────────────────────────
-    if 'dashboard' in fl:
-        # Try to associate dashboards with their course
-        if 'a1' in fl:
-            return {'cat': 'dashboards', 'sub': 'A1 Pathway'}
-        if 'grammar' in fl or 'lesson_' in fl:
-            return {'cat': 'dashboards', 'sub': 'Grammar Course'}
+    # ── 2. Dashboards → parent course (with 📊 prefix) ────────────────
+    if 'dashboard' in fl or 'pathway' in fl and 'lesson' not in fl:
+        if 'a1' in fl and 'pathway' in fl:
+            return {'cat': 'a1_pathway', 'sub': '📊 Dashboard'}
+        if 'general_english' in fl or ('lesson_' in fl and 'dashboard' in fl):
+            return {'cat': 'grammar', 'sub': '📊 Dashboard'}
+        if 'speaking_pathway' in fl:
+            return {'cat': 'speaking_path', 'sub': '📊 Dashboard'}
+        if 'speaking_naturally_teens' in fl:
+            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
+        if 'speaking_naturally' in fl:
+            return {'cat': 'speaking_nat', 'sub': '📊 Dashboard'}
+        if 'curious_conversation' in fl:
+            return {'cat': 'curious_conv', 'sub': '📊 Dashboard'}
         if 'ielts' in fl:
-            return {'cat': 'dashboards', 'sub': 'IELTS'}
-        if 'speaking_pathway' in fl or 'sp_' in fl:
-            return {'cat': 'dashboards', 'sub': 'Speaking Pathway'}
-        if 'speaking' in fl:
-            return {'cat': 'dashboards', 'sub': 'Speaking Naturally'}
+            return {'cat': 'ielts', 'sub': '📊 Dashboard'}
         if 'cambridge' in fl or 'cae' in fl or 'cpe' in fl:
-            return {'cat': 'dashboards', 'sub': 'Cambridge'}
+            return {'cat': 'cambridge', 'sub': '📊 Dashboard'}
         if 'memory' in fl or 'art_of_memory' in fl:
-            return {'cat': 'dashboards', 'sub': 'Art of Memory'}
-        if 'philosophy' in fl or 'wp_' in fl:
-            return {'cat': 'dashboards', 'sub': 'Philosophy'}
+            return {'cat': 'memory', 'sub': '📊 Dashboard'}
+        if 'wp_' in fl or 'philosophy' in fl:
+            return {'cat': 'philosophy', 'sub': '📊 Dashboard'}
+        if 'epicurean' in fl:
+            return {'cat': 'epicurean', 'sub': '📊 Dashboard'}
         if 'quick_fix' in fl or 'qf_' in fl:
-            return {'cat': 'dashboards', 'sub': 'Quick Fix'}
+            return {'cat': 'quick_fix', 'sub': '📊 Dashboard'}
         if 'professional' in fl or 'pss' in fl:
-            return {'cat': 'dashboards', 'sub': 'Professional'}
+            return {'cat': 'professional', 'sub': '📊 Dashboard'}
+        if 'business_bootcamp' in fl:
+            return {'cat': 'professional', 'sub': '📊 Dashboard'}
+        if 'business_meeting' in fl:
+            return {'cat': 'professional', 'sub': '📊 Dashboard'}
+        if 'strategic_storytelling' in fl:
+            return {'cat': 'professional', 'sub': '📊 Dashboard'}
         if 'teen' in fl:
-            return {'cat': 'dashboards', 'sub': 'Teens'}
-        if 'curious' in fl:
-            return {'cat': 'dashboards', 'sub': 'Curious Conversations'}
+            return {'cat': 'teens', 'sub': '📊 Dashboard'}
         if 'news' in fl:
-            return {'cat': 'dashboards', 'sub': 'Breaking News'}
-        return {'cat': 'dashboards', 'sub': 'General'}
+            return {'cat': 'news', 'sub': '📊 Dashboard'}
+        if 'ois' in fl:
+            return {'cat': 'history', 'sub': '📊 Dashboard'}
+        if 'rs_' in fl or 'religious' in fl:
+            return {'cat': 'rs', 'sub': '📊 Dashboard'}
+        if 'pronunciation' in fl:
+            return {'cat': 'pronunciation', 'sub': '📊 Dashboard'}
+        if 'commanding_discourse' in fl:
+            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
+        if 'beyond_perfect' in fl:
+            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
+        if 'discourse_bestiary' in fl:
+            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
+        if 'ote' in fl:
+            return {'cat': 'ote', 'sub': '📊 Dashboard'}
+        # Generic dashboard — skip rather than miscategorise
+        if 'dashboard' in fl:
+            return None
 
-    # ── 3. Prefix-based course detection ───────────────────────────────────
-    # This is the most reliable method: known filename prefixes → courses
+    # ── 3. Prefix-based course detection ───────────────────────────────
 
-    # A1 Pathway course
+    # ▸ CORE PATHWAYS
+
+    # A1 Pathway (a1p_ prefix — 50 lessons)
     if fl.startswith('a1p_') or fl.startswith('a1_pathway'):
         num = _extract_num(fl)
         if num <= 10:
@@ -188,9 +236,7 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
             return {'cat': 'a1_pathway', 'sub': 'Unit 4: Out & About (31-40)'}
         return {'cat': 'a1_pathway', 'sub': 'Unit 5: Moving Forward (41+)'}
 
-    # Speaking Pathway course (sp_ prefix — 75 lessons A2→C1 + prep packs)
-    # Filename pattern: sp_[prep_]<level>_<num>_<topic>.html
-    # Numbering: A2 (01-20), B1 (21-40), B2 (41-60), C1 (01-06 + 61-75)
+    # Speaking Pathway (sp_ prefix — 75 lessons + prep packs)
     sp_match = re.match(r'sp_(prep_)?([abc]\d)_(\d+)', fl)
     if sp_match:
         is_prep = sp_match.group(1) is not None
@@ -234,16 +280,59 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
                 return {'cat': 'speaking_path', 'sub': f'{prefix}C1 Module 2: Expertise (66-70)'}
             return {'cat': 'speaking_path', 'sub': f'{prefix}C1 Module 3: Mastery (71-75)'}
 
+    # Grammar Course (lesson_XX pattern — the original 50-lesson series)
+    grammar_match = re.match(r'lesson_(\d{2})', fl)
+    if grammar_match:
+        num = int(grammar_match.group(1))
+        if num <= 10:
+            return {'cat': 'grammar', 'sub': 'A2 Elementary (1-10)'}
+        if num <= 25:
+            return {'cat': 'grammar', 'sub': 'B1 Intermediate (11-25)'}
+        if num <= 40:
+            return {'cat': 'grammar', 'sub': 'B2 Upper Intermediate (26-40)'}
+        return {'cat': 'grammar', 'sub': 'C1 Advanced (41-50)'}
+
+    # General Grammar Course files
+    if fl.startswith('general_lesson_'):
+        return {'cat': 'grammar', 'sub': 'General Lessons'}
+
+    if fl.startswith('grammar_'):
+        return {'cat': 'grammar', 'sub': 'Grammar Topics'}
+
+    # ▸ CONVERSATION & DISCUSSION
+
+    # Curious Conversations
+    if 'curious_conversations' in fl or 'curious conversations' in tl:
+        if 'series2' in fl or 'series_2' in fl:
+            return {'cat': 'curious_conv', 'sub': 'Series 2'}
+        return {'cat': 'curious_conv', 'sub': 'Series 1'}
+
+    if 'real_conversations' in fl:
+        return {'cat': 'curious_conv', 'sub': 'Real Conversations'}
+
+    # Speaking Naturally
+    if 'speaking_naturally_teens' in fl:
+        return {'cat': 'adv_discourse', 'sub': 'Speaking Naturally: Teens'}
+    if 'speaking_naturally_advanced' in fl:
+        return {'cat': 'speaking_nat', 'sub': 'Advanced'}
+    if 'speaking_naturally' in fl:
+        return {'cat': 'speaking_nat', 'sub': 'Adults'}
+
     # B2/C1 Conversations (bc_ prefix)
     if fl.startswith('bc_'):
-        return {'cat': 'b2c1_conv', 'sub': None}
+        return {'cat': 'curious_conv', 'sub': 'B2/C1 Conversations'}
 
-    # Business Bootcamp (8 lessons — from business_bootcamp_dashboard)
+    # ▸ PROFESSIONAL & BUSINESS
+
+    # Strategic Storytelling
+    if 'strategic_storytelling' in fl or 'storytelling_' in fl:
+        return {'cat': 'professional', 'sub': 'Strategic Storytelling'}
+
+    # Business Bootcamp (8 lessons)
     if fl.startswith('business-bootcamp') or fl.startswith('business_bootcamp'):
-        if 'dashboard' not in fl:
-            return {'cat': 'professional', 'sub': 'Business Bootcamp'}
+        return {'cat': 'professional', 'sub': 'Business Bootcamp'}
 
-    # Business Meetings (5 lessons — from business_meetings_dashboard)
+    # Business Meetings (5 lessons)
     biz_meetings_files = [
         'closing_meetings_following_up', 'first_impressions_small_talk',
         'giving_opinions_suggestions', 'handling_questions_buying_time',
@@ -252,36 +341,37 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
     if any(fl.startswith(f) for f in biz_meetings_files):
         return {'cat': 'professional', 'sub': 'Business Meeting Essentials'}
 
+    # Professional Speaking Skills (pss_ prefix)
+    if fl.startswith('pss_'):
+        return {'cat': 'professional', 'sub': 'Professional Speaking Skills'}
+
+    # ▸ ADVANCED DISCOURSE
+
+    # Commanding Discourse
+    if 'commanding_discourse' in fl or fl.startswith('sp_c1_0'):
+        # sp_c1_01 through sp_c1_06 are Commanding Discourse
+        sp_c1_match = re.match(r'sp_c1_0([1-6])', fl)
+        if sp_c1_match:
+            return {'cat': 'adv_discourse', 'sub': 'Commanding Discourse'}
+
+    # Beyond Perfect (bp_ prefix or full name)
+    if 'beyond_perfect' in fl or fl.startswith('bp_'):
+        return {'cat': 'adv_discourse', 'sub': 'Beyond Perfect'}
+
+    # Discourse Bestiary (distinct from Memory Palace bestiary)
+    if 'discourse_bestiary' in fl:
+        return {'cat': 'adv_discourse', 'sub': 'Discourse Bestiary'}
+
+    # ▸ SKILLS & EXAM PREP
+
     # Quick Fix lessons (qf_ prefix)
     if fl.startswith('qf_'):
         if 'falsefriend' in fl or 'false_friend' in fl:
-            # Sub-categorise by L1 language
-            if 'french' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: French'}
-            if 'italian' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Italian'}
-            if 'spanish' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Spanish'}
-            if 'german' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: German'}
-            if 'portuguese' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Portuguese'}
-            if 'polish' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Polish'}
-            if 'turkish' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Turkish'}
-            if 'dutch' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Dutch'}
-            if 'czech' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Czech'}
-            if 'korean' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Korean'}
-            if 'japanese' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Japanese'}
-            if 'arabic' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Arabic'}
-            if 'russian' in fl:
-                return {'cat': 'quick_fix', 'sub': 'False Friends: Russian'}
+            for lang in ['french', 'italian', 'spanish', 'german', 'portuguese',
+                         'polish', 'turkish', 'dutch', 'czech', 'korean',
+                         'japanese', 'arabic', 'russian']:
+                if lang in fl:
+                    return {'cat': 'quick_fix', 'sub': f'False Friends: {lang.title()}'}
             return {'cat': 'quick_fix', 'sub': 'False Friends: Other'}
         if 'grammar' in fl:
             return {'cat': 'quick_fix', 'sub': 'Grammar Fixes'}
@@ -289,44 +379,103 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
             return {'cat': 'quick_fix', 'sub': 'Vocabulary Fixes'}
         if 'pronun' in fl:
             return {'cat': 'quick_fix', 'sub': 'Pronunciation Fixes'}
+        if 'colloc' in fl:
+            return {'cat': 'quick_fix', 'sub': 'Collocation Fixes'}
+        if 'spell' in fl:
+            return {'cat': 'quick_fix', 'sub': 'Spelling Fixes'}
         return {'cat': 'quick_fix', 'sub': 'General Fixes'}
 
-    # Western Philosophy course (wp_ prefix)
+    # Cambridge exams
+    if 'cambridge' in fl or 'cae' in fl or 'cpe' in fl:
+        return {'cat': 'cambridge', 'sub': None}
+
+    # Pronunciation (includes pron_ prefix lessons)
+    if 'pronunciation' in fl or fl.startswith('pron_'):
+        return {'cat': 'pronunciation', 'sub': None}
+
+    # Listening
+    if fl.startswith('general_listening_') or 'listening_lesson' in fl or 'listening-lesson' in fl:
+        return {'cat': 'listening', 'sub': None}
+
+    # Discussion lessons (discuss_ prefix — standalone B2/C1 discussion topics)
+    if fl.startswith('discuss_'):
+        return {'cat': 'curious_conv', 'sub': 'Discussion Topics'}
+
+    # Brave Lessons / Debate series (bl_ prefix)
+    if fl.startswith('bl_'):
+        return {'cat': 'curious_conv', 'sub': 'Brave Lessons'}
+
+    # OTE exam prep
+    if fl.startswith('ote_') or 'ote ' in tl:
+        return {'cat': 'ote', 'sub': None}
+
+    # ▸ IELTS PREPARATION
+
+    if 'ielts_lesson_' in fl and 'task_1' not in fl and 'reading' not in fl:
+        return {'cat': 'ielts', 'sub': 'Writing Task 2'}
+    if 'ielts_task_1' in fl or 'ielts_task1' in fl:
+        return {'cat': 'ielts', 'sub': 'Writing Task 1'}
+    if 'ielts_reading' in fl or 'ielts-reading' in fl:
+        return {'cat': 'ielts', 'sub': 'Reading'}
+    if 'ielts_speaking' in fl:
+        return {'cat': 'ielts', 'sub': 'Speaking'}
+    if 'ielts_writing_pathway' in fl:
+        return {'cat': 'ielts', 'sub': 'Writing Pathway'}
+    if 'ielts_essay' in fl:
+        return {'cat': 'ielts', 'sub': 'Essay Practice'}
+    if 'ielts' in fl:
+        return {'cat': 'ielts', 'sub': 'Other Resources'}
+
+    # ▸ RELIGIOUS STUDIES
+
+    if fl.startswith('rs_'):
+        # Sub-categorise by year/key stage if possible
+        if 'ks3' in fl or 'y7' in fl or 'y8' in fl or 'y9' in fl:
+            return {'cat': 'rs', 'sub': 'KS3 (Years 7-9)'}
+        if 'gcse' in fl or 'y10' in fl or 'y11' in fl:
+            return {'cat': 'rs', 'sub': 'GCSE (Years 10-11)'}
+        if 'alevel' in fl or 'a_level' in fl or 'y12' in fl or 'y13' in fl:
+            return {'cat': 'rs', 'sub': 'A-Level (Years 12-13)'}
+        return {'cat': 'rs', 'sub': None}
+
+    # ▸ THE MEMORY PALACE
+
+    # Western Philosophy (wp_ prefix — 50 lessons)
     if fl.startswith('wp_'):
         num = _extract_num(fl)
         if num <= 10:
-            return {'cat': 'philosophy', 'sub': 'Western Philosophy: Ancient Greece (1-10)'}
+            return {'cat': 'philosophy', 'sub': 'Ancient Greece (1-10)'}
         if num <= 20:
-            return {'cat': 'philosophy', 'sub': 'Western Philosophy: Hellenistic & Roman (11-20)'}
+            return {'cat': 'philosophy', 'sub': 'Hellenistic & Roman (11-20)'}
         if num <= 30:
-            return {'cat': 'philosophy', 'sub': 'Western Philosophy: Medieval (21-30)'}
+            return {'cat': 'philosophy', 'sub': 'Medieval (21-30)'}
         if num <= 40:
-            return {'cat': 'philosophy', 'sub': 'Western Philosophy: Early Modern (31-40)'}
-        return {'cat': 'philosophy', 'sub': 'Western Philosophy: Modern (41-50)'}
+            return {'cat': 'philosophy', 'sub': 'Early Modern (31-40)'}
+        return {'cat': 'philosophy', 'sub': 'Modern (41-50)'}
 
-    # Epicurean course (epicurean_ prefix)
+    # Epicurean course (epicurean_ prefix — 30 lessons)
     if fl.startswith('epicurean_'):
         num = _extract_num(fl)
         if num <= 10:
-            return {'cat': 'philosophy', 'sub': 'Epicurean: Foundations (1-10)'}
+            return {'cat': 'epicurean', 'sub': 'Foundations (1-10)'}
         if num <= 20:
-            return {'cat': 'philosophy', 'sub': 'Epicurean: Deep Dives (11-20)'}
-        return {'cat': 'philosophy', 'sub': 'Epicurean: Legacy & Influence (21+)'}
+            return {'cat': 'epicurean', 'sub': 'Deep Dives (11-20)'}
+        return {'cat': 'epicurean', 'sub': 'Legacy & Influence (21+)'}
 
     # Stoicism
     if 'stoicism' in fl:
         return {'cat': 'philosophy', 'sub': 'Stoicism'}
 
-    # Our Island Story / History (ois_ prefix)
+    # Our Island Story / History (ois_ prefix — 20 lessons)
     if fl.startswith('ois_'):
         num = _extract_num(fl)
         if num <= 10:
-            return {'cat': 'history', 'sub': 'Our Island Story: Early Britain (1-10)'}
+            return {'cat': 'history', 'sub': 'Early Britain (1-10)'}
         if num <= 20:
-            return {'cat': 'history', 'sub': 'Our Island Story: Medieval (11-20)'}
-        return {'cat': 'history', 'sub': 'Our Island Story: Early Modern (21+)'}
+            return {'cat': 'history', 'sub': 'Medieval (11-20)'}
+        return {'cat': 'history', 'sub': 'Early Modern (21+)'}
 
-    # Art of Memory course (lesson-XX-* pattern + memory keywords)
+    # Art of Memory course (lesson-XX-* + memory keywords in title)
     if (fl.startswith('lesson-') and ('memory' in tl or 'art of memory' in tl
          or 'pao' in tl or 'peg' in tl or 'palace' in tl or 'dominic' in tl
          or 'ben system' in tl or 'major system' in tl)):
@@ -343,99 +492,25 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
             return {'cat': 'memory', 'sub': 'Advanced Techniques (21-25)'}
         return {'cat': 'memory', 'sub': 'Mastery & Competition (26-30)'}
 
+    # Dewey Memory Palace
+    if fl.startswith('dewey-') or fl.startswith('dewey_'):
+        return {'cat': 'dewey_palace', 'sub': None}
+
+    # Bestiary (memory system)
+    if 'bestiary' in fl and 'discourse' not in fl:
+        return {'cat': 'bestiary', 'sub': None}
+
     # Memory-related standalone files
     if ('art-of-memory' in fl or 'art_of_memory' in fl or 'memory-books' in fl
-            or 'bestiary' in fl or fl.startswith('dewey-')
-            or fl.startswith('dewey_') or 'memory_lesson' in fl
-            or 'memory_palace' in fl):
-        if 'dewey' in fl:
-            return {'cat': 'memory', 'sub': 'Dewey Memory Palace'}
+            or 'memory_lesson' in fl or 'memory_palace' in fl):
         return {'cat': 'memory', 'sub': 'Resources & Guides'}
 
-    # Religious Studies
-    if fl.startswith('rs_'):
-        return {'cat': 'rs', 'sub': None}
+    # ▸ OTHER COURSES
 
-    # Professional Speaking Skills
-    if fl.startswith('pss_'):
-        return {'cat': 'professional', 'sub': 'Professional Speaking Skills'}
+    # Professional (broader patterns + scenario lessons)
+    if fl.startswith('lessons/scenario') or fl.startswith('scenario'):
+        return {'cat': 'professional', 'sub': 'Professional Scenarios'}
 
-    # OTE exam prep
-    if fl.startswith('ote_') or 'ote ' in tl:
-        return {'cat': 'ote', 'sub': None}
-
-    # Grammar Course (lesson_XX pattern — the original numbered series)
-    match = re.match(r'lesson_(\d{2})', fl)
-    if match:
-        num = int(match.group(1))
-        if num <= 10:
-            return {'cat': 'grammar', 'sub': 'A2 - Elementary (1-10)'}
-        if num <= 25:
-            return {'cat': 'grammar', 'sub': 'B1 - Intermediate (11-25)'}
-        if num <= 40:
-            return {'cat': 'grammar', 'sub': 'B2 - Upper Intermediate (26-40)'}
-        return {'cat': 'grammar', 'sub': 'C1 - Advanced (41-50)'}
-
-    # General Grammar Course files
-    if fl.startswith('general_lesson_'):
-        return {'cat': 'grammar', 'sub': 'General Lessons'}
-
-    # First lessons / assessments
-    if 'first_lesson' in fl or 'diagnostic' in fl:
-        return {'cat': 'first_lessons', 'sub': None}
-
-    # ── 4. Series field matching ───────────────────────────────────────────
-    if sl:
-        if 'grammar' in sl:
-            return {'cat': 'grammar', 'sub': 'From Series: Grammar'}
-        if 'ielts' in sl:
-            return {'cat': 'ielts', 'sub': 'From Series'}
-        if 'speaking naturally' in sl:
-            return {'cat': 'speaking', 'sub': 'From Series'}
-        if 'curious conversation' in sl:
-            return {'cat': 'curious_conv', 'sub': None}
-        if 'cambridge' in sl:
-            return {'cat': 'cambridge', 'sub': None}
-        if 'beginner' in sl:
-            return {'cat': 'a1_pathway', 'sub': 'From Series: Beginner'}
-        if 'teen' in sl:
-            return {'cat': 'teens', 'sub': None}
-        if 'professional' in sl or 'business' in sl:
-            return {'cat': 'professional', 'sub': None}
-
-    # ── 5. Filename keyword patterns ───────────────────────────────────────
-
-    # IELTS
-    if 'ielts_lesson_' in fl and 'task_1' not in fl and 'reading' not in fl:
-        return {'cat': 'ielts', 'sub': 'Writing Task 2'}
-    if 'ielts_task_1' in fl or 'ielts_task1' in fl:
-        return {'cat': 'ielts', 'sub': 'Writing Task 1'}
-    if 'ielts_reading' in fl:
-        return {'cat': 'ielts', 'sub': 'Reading'}
-    if 'ielts_speaking' in fl:
-        return {'cat': 'ielts', 'sub': 'Speaking'}
-    if 'ielts' in fl:
-        return {'cat': 'ielts', 'sub': 'Other Resources'}
-
-    # Cambridge
-    if 'cambridge' in fl or 'cae' in fl or 'cpe' in fl:
-        return {'cat': 'cambridge', 'sub': None}
-
-    # Speaking Naturally
-    if 'speaking_naturally_teens' in fl:
-        return {'cat': 'speaking', 'sub': 'Teens'}
-    if 'speaking_naturally_advanced' in fl:
-        return {'cat': 'speaking', 'sub': 'Advanced'}
-    if 'speaking_naturally' in fl:
-        return {'cat': 'speaking', 'sub': 'Adults'}
-    if 'speaking_pathway' in fl:
-        return {'cat': 'speaking', 'sub': 'Resources'}
-
-    # Curious Conversations
-    if 'curious_conversations' in fl or 'curious conversations' in tl:
-        return {'cat': 'curious_conv', 'sub': None}
-
-    # Professional
     prof_patterns = [
         'professional', 'business', 'interview', 'kuba',
         'presenting', 'workplace', 'leading', 'teams', 'meeting',
@@ -443,7 +518,7 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
     if any(x in fl for x in prof_patterns):
         return {'cat': 'professional', 'sub': None}
 
-    # Essay & Writing
+    # Writing & Essays (non-IELTS)
     if ('essay' in fl or 'writing' in fl or 'sentence_' in fl) and 'ielts' not in fl:
         return {'cat': 'writing', 'sub': None}
 
@@ -459,6 +534,49 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
     if 'teens' in fl or 'teen' in fl:
         return {'cat': 'teens', 'sub': None}
 
+    # First lessons / assessments
+    if 'first_lesson' in fl or 'diagnostic' in fl:
+        return {'cat': 'first_lessons', 'sub': None}
+
+    # ▸ TOOLS
+
+    tool_patterns = [
+        'tenses_guide', 'parts_of_speech', 'past_participle',
+        'speed_reading', 'speaking-practice', 'preply_screen_share',
+        'concorso', 'powerup', 'mandalart', 'countdownart',
+    ]
+    if any(x in fl for x in tool_patterns):
+        return {'cat': 'tools', 'sub': None}
+
+    if fl.startswith('skills_'):
+        return {'cat': 'tools', 'sub': 'Skills Lessons'}
+
+    if 'review_sheet' in fl or 'lesson_review' in fl:
+        return {'cat': 'tools', 'sub': 'Review Sheets'}
+
+    # ── Series field matching (fallback) ─────────────────────────────
+    if sl:
+        if 'grammar' in sl:
+            return {'cat': 'grammar', 'sub': 'From Series'}
+        if 'ielts' in sl:
+            return {'cat': 'ielts', 'sub': 'From Series'}
+        if 'speaking naturally' in sl:
+            return {'cat': 'speaking_nat', 'sub': 'From Series'}
+        if 'curious conversation' in sl:
+            return {'cat': 'curious_conv', 'sub': 'From Series'}
+        if 'cambridge' in sl:
+            return {'cat': 'cambridge', 'sub': None}
+        if 'beginner' in sl:
+            return {'cat': 'a1_pathway', 'sub': 'From Series'}
+        if 'teen' in sl:
+            return {'cat': 'teens', 'sub': None}
+        if 'professional' in sl or 'business' in sl:
+            return {'cat': 'professional', 'sub': None}
+
+    # A1 beginner detection (broader)
+    if fl.startswith('a1_') or '_a1_' in fl or 'beginner' in fl:
+        return {'cat': 'a1_pathway', 'sub': 'Standalone A1'}
+
     # Topic-based / young learners
     topic_patterns = [
         'dinosaur', 'space', 'ocean', 'egypt', 'greece', 'weather',
@@ -467,77 +585,27 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
         'artemis', 'moon', 'path_of_titans', 'tennis',
     ]
     if any(x in fl for x in topic_patterns):
-        return {'cat': 'topics', 'sub': None}
+        return {'cat': 'standalone', 'sub': '700: Daily Life & Lifestyle'}
 
-    # Levelled topic/conversation lessons (filename has level suffix like _b2c1, _c1)
-    # These are standalone speaking/conversation lessons at a specific level
     if fl.startswith('explore_'):
-        return {'cat': 'topics', 'sub': 'Explore Series'}
-    if fl.startswith('skills_'):
-        return {'cat': 'tools', 'sub': 'Skills Lessons'}
-    if fl.startswith('grammar_'):
-        return {'cat': 'grammar', 'sub': 'Grammar Topics'}
-    if fl.startswith('general_listening_'):
-        return {'cat': 'tools', 'sub': 'Listening Practice'}
+        return {'cat': 'standalone', 'sub': '600: Arts, Life & Reflection'}
 
-    # Levelled conversation/topic lessons with b2c1 or c1c2 in filename
+    # Levelled conversation/topic lessons
     if 'b2c1' in fl or 'c1c2' in fl:
-        return {'cat': 'b2c1_conv', 'sub': None}
-    # B1/B2 levelled topic conversations (suffix pattern)
+        return {'cat': 'curious_conv', 'sub': 'B2/C1 Conversations'}
     if fl.endswith('b1b2.html') or '_b1b2' in fl:
-        return {'cat': 'b2c1_conv', 'sub': None}
+        return {'cat': 'curious_conv', 'sub': 'B1/B2 Conversations'}
 
-    # New Year / Christmas / seasonal
+    # Seasonal
     if 'christmas' in fl or 'new_year' in fl:
-        return {'cat': 'topics', 'sub': 'Seasonal'}
+        return {'cat': 'standalone', 'sub': '600: Arts, Life & Reflection'}
 
-    # Review sheets (associated with other lessons)
-    if 'review_sheet' in fl or 'lesson_review' in fl:
-        return {'cat': 'tools', 'sub': 'Review Sheets'}
-
-    # Real Conversations series
-    if 'real_conversations' in fl:
-        return {'cat': 'curious_conv', 'sub': None}
-
-    # Standalone topic lessons identifiable by title patterns
+    # Standalone topic lessons
     if 'boredom' in fl or 'new_year_plans' in fl:
         return {'cat': 'curious_conv', 'sub': None}
 
-    # Tools: pronunciation, grammar guides, tenses reference
-    tool_patterns = [
-        'pronunciation', 'tenses_guide', 'parts_of_speech',
-        'past_participle', 'speed_reading', 'speaking-practice',
-        'preply_screen_share', 'concorso',
-    ]
-    if any(x in fl for x in tool_patterns):
-        return {'cat': 'tools', 'sub': None}
-
-    # ── 6. A1 beginner detection (broader) ─────────────────────────────────
-    if fl.startswith('a1_') or '_a1_' in fl or 'beginner' in fl:
-        return {'cat': 'a1_pathway', 'sub': 'Standalone A1'}
-
-    # ── 7. Dewey-style topic classification ─────────────────────────────
-    # Instead of dumping remaining lessons into level buckets, classify by
-    # TOPIC using title + filename keywords so that lessons on similar
-    # subjects sit together — like a library shelf.
+    # ── Dewey-style topic classification (catch-all) ─────────────────
     topic = _classify_topic(fl, tl)
-
-    # Detect level for the sub-label
-    detected_level = lv
-    if not detected_level:
-        if '_a1' in fl or fl.endswith('a1.html') or fl.startswith('a1'):
-            detected_level = 'A1'
-        elif '_a2' in fl or fl.endswith('a2.html') or ' a2' in tl:
-            detected_level = 'A2'
-        elif 'b1b2' in fl or '_b1' in fl or ' b1' in tl:
-            detected_level = 'B1'
-        elif 'b2c1' in fl or '_b2' in fl or ' b2' in tl:
-            detected_level = 'B2'
-        elif '_c1' in fl or fl.endswith('c1.html') or ' c1' in tl:
-            detected_level = 'C1'
-        elif '_c2' in fl or fl.endswith('c2.html'):
-            detected_level = 'C2'
-
     return {'cat': 'standalone', 'sub': topic}
 
 
@@ -562,12 +630,11 @@ def _classify_topic(filename, title):
       300 — Politics & Power
       400 — Language & Communication
       500 — Science & Technology
-      600 — Arts & Culture
+      600 — Arts, Life & Reflection
       700 — Daily Life & Lifestyle
       800 — Work & Career
       900 — General / Unclassified
     """
-    # Combine filename + title for matching (both already lowered)
     combined = filename + ' ' + title
 
     # ── 100: Psychology & Behaviour ────────────────────────────────────
@@ -627,7 +694,7 @@ def _classify_topic(filename, title):
     if any(kw in combined for kw in science_kw):
         return '500: Science & Technology'
 
-    # ── 600: Arts & Culture ────────────────────────────────────────────
+    # ── 600: Arts, Life & Reflection ───────────────────────────────────
     arts_kw = [
         'book', 'art ', 'arts', 'music', 'film', 'movie', 'story',
         'creative', 'painting', 'museum', 'culture', 'tradition',
@@ -657,6 +724,15 @@ def _classify_topic(filename, title):
     if any(kw in combined for kw in work_kw):
         return '800: Work & Career'
 
+    # ── 900: Language & Learning (catch remaining ELT lessons) ────────
+    learning_kw = [
+        'learn', 'lesson', 'teach', 'experience', 'limerick', 'poem',
+        'writer', 'weapon', 'used to be', 'people we',
+        'yes doesn',
+    ]
+    if any(kw in combined for kw in learning_kw):
+        return '400: Language & Communication'
+
     # ── 900: General ───────────────────────────────────────────────────
     return '900: General'
 
@@ -679,11 +755,10 @@ def get_lesson_num(filename):
 
 
 # ---------------------------------------------------------------------------
-# XML / iThoughts generation  (unchanged logic, cleaner code)
+# XML / iThoughts generation
 # ---------------------------------------------------------------------------
 def build_itmz_xml(lessons):
     """Build the XML content for the .itmz file with iThoughts styling."""
-    # Categorise all lessons (now using full metadata)
     categories = {}
     skipped = 0
 
@@ -727,7 +802,8 @@ def build_itmz_xml(lessons):
                 .replace("'", '&apos;'))
 
     def make_topic(text, level=0, children="", link="",
-                   color=None, fill=None, shape=None, folded=True):
+                   color=None, fill=None, shape=None, folded=True,
+                   position=None):
         attrs = [f'text="{escape_xml(text)}"']
         if link:
             attrs.append(f'link="{escape_xml(link)}"')
@@ -737,6 +813,8 @@ def build_itmz_xml(lessons):
             attrs.append(f'fill-color="#{fill}"')
         if shape:
             attrs.append(f'shape="{shape}"')
+        if position is not None:
+            attrs.append(f'position="{position}"')
         if level > 0 and folded:
             attrs.append('folded="1"')
         attrs.append(f'created="{now}"')
@@ -746,74 +824,124 @@ def build_itmz_xml(lessons):
             return f'<topic {attr_str}>{children}</topic>'
         return f'<topic {attr_str}/>'
 
-    # Build category topics
-    category_xml = []
+    # ── Group categories into website sections for the mindmap ────────
+    SECTIONS = [
+        ('🗺️ Core Pathways',            ['a1_pathway', 'grammar', 'speaking_path'],
+         '2563EB', 'DBEAFE'),
+        ('💬 Conversation & Discussion', ['curious_conv', 'speaking_nat'],
+         'D97706', 'FEF3C7'),
+        ('💼 Professional & Business',   ['professional'],
+         '16A34A', 'DCFCE7'),
+        ('🎯 Advanced Discourse',        ['adv_discourse'],
+         '7C3AED', 'EDE9FE'),
+        ('🔧 Skills & Exam Prep',        ['cambridge', 'pronunciation', 'listening', 'quick_fix', 'ote'],
+         '64748B', 'F1F5F9'),
+        ('📝 IELTS Preparation',         ['ielts'],
+         'DC2626', 'FEE2E2'),
+        ('🕊️ Religious Studies',          ['rs'],
+         '1A5C3A', 'D1FAE5'),
+        ('🧠 The Memory Palace',         ['memory', 'history', 'philosophy', 'epicurean', 'dewey_palace', 'bestiary'],
+         'D4A843', '1A2744'),
+        ('🔧 Tools',                     ['tools'],
+         '475569', 'F1F5F9'),
+        ('📚 Other Courses',             ['teens', 'academic', 'writing', 'news', 'first_lessons'],
+         '6B7280', 'F3F4F6'),
+        ('📖 Standalone (by Topic)',     ['standalone'],
+         '6B7280', 'F3F4F6'),
+    ]
 
-    for cat_key in sorted_cats:
-        cat = categories[cat_key]
-        config = PATH_CONFIG.get(
-            cat_key,
-            {'icon': '📄', 'title': cat_key, 'color': '7F8C8D', 'fill': 'F2F3F4'},
-        )
-        cat_title = f"{config['icon']} {config['title']}"
+    section_xml = []
 
-        # Sort lessons within each bucket
-        cat['lessons'].sort(key=lambda x: get_lesson_num(x['filename']))
-        for sub_lessons in cat['subs'].values():
-            sub_lessons.sort(key=lambda x: get_lesson_num(x['filename']))
+    for idx, (section_title, cat_keys, section_color, section_fill) in enumerate(SECTIONS):
+        # Alternate branches: even index → right (1), odd index → left (2)
+        side = 1 if idx % 2 == 0 else 2
+        # Collect all categories in this section that have lessons
+        section_cats = [k for k in cat_keys if k in categories]
+        if not section_cats:
+            continue
 
-        sub_content = []
+        section_children = []
+        section_total = 0
 
-        # Subcategories first (sorted by name for consistency)
-        for sub_name, sub_lessons in sorted(cat['subs'].items()):
-            lesson_topics = []
-            for lesson in sub_lessons:
+        for cat_key in section_cats:
+            cat = categories[cat_key]
+            config = PATH_CONFIG.get(
+                cat_key,
+                {'icon': '📄', 'title': cat_key, 'color': section_color, 'fill': section_fill},
+            )
+
+            # Sort lessons within each bucket
+            cat['lessons'].sort(key=lambda x: get_lesson_num(x['filename']))
+            for sub_lessons in cat['subs'].values():
+                sub_lessons.sort(key=lambda x: get_lesson_num(x['filename']))
+
+            sub_content = []
+
+            # Subcategories first (sorted)
+            for sub_name, sub_lessons in sorted(cat['subs'].items()):
+                lesson_topics = []
+                for lesson in sub_lessons:
+                    url = BASE_URL + lesson['filename']
+                    lesson_title = lesson['title']
+                    lv_display = lesson.get('level', '').upper()
+                    level_style = LEVEL_COLORS.get(
+                        lv_display, {'color': config['color'], 'fill': config['fill']},
+                    )
+                    if lv_display:
+                        lesson_title += f" [{lv_display}]"
+
+                    lesson_topics.append(make_topic(
+                        lesson_title, level=3, link=url,
+                        color=level_style['color'], fill=level_style['fill'],
+                        shape='rounded-rect',
+                    ))
+
+                sub_topic = make_topic(
+                    f"📂 {sub_name} ({len(sub_lessons)})",
+                    level=2, children=''.join(lesson_topics),
+                    color=config['color'], fill=config['fill'],
+                    shape='rounded-rect',
+                )
+                sub_content.append(sub_topic)
+
+            # Direct lessons (no subcategory)
+            for lesson in cat['lessons']:
                 url = BASE_URL + lesson['filename']
                 lesson_title = lesson['title']
-                lv = lesson.get('level', '').upper()
+                lv_display = lesson.get('level', '').upper()
                 level_style = LEVEL_COLORS.get(
-                    lv, {'color': config['color'], 'fill': config['fill']},
+                    lv_display, {'color': config['color'], 'fill': config['fill']},
                 )
-                if lv:
-                    lesson_title += f" [{lv}]"
+                if lv_display:
+                    lesson_title += f" [{lv_display}]"
 
-                lesson_topics.append(make_topic(
-                    lesson_title, level=3, link=url,
+                sub_content.append(make_topic(
+                    lesson_title, level=2, link=url,
                     color=level_style['color'], fill=level_style['fill'],
                     shape='rounded-rect',
                 ))
 
-            sub_topic = make_topic(
-                f"📂 {sub_name} ({len(sub_lessons)})",
-                level=2, children=''.join(lesson_topics),
-                color=config['color'], fill=config['fill'],
-                shape='rounded-rect',
-            )
-            sub_content.append(sub_topic)
+            total = len(cat['lessons']) + sum(len(s) for s in cat['subs'].values())
+            section_total += total
 
-        # Direct lessons (no subcategory)
-        for lesson in cat['lessons']:
-            url = BASE_URL + lesson['filename']
-            lesson_title = lesson['title']
-            lv = lesson.get('level', '').upper()
-            level_style = LEVEL_COLORS.get(
-                lv, {'color': config['color'], 'fill': config['fill']},
-            )
-            if lv:
-                lesson_title += f" [{lv}]"
+            # If section has only one category, flatten (don't nest)
+            if len(section_cats) == 1:
+                section_children = sub_content
+            else:
+                # Multiple courses in this section — nest under course name
+                cat_title = f"{config['icon']} {config['title']} ({total})"
+                section_children.append(make_topic(
+                    cat_title, level=1, children=''.join(sub_content),
+                    color=config['color'], fill=config['fill'],
+                    shape='rounded-rect',
+                ))
 
-            sub_content.append(make_topic(
-                lesson_title, level=2, link=url,
-                color=level_style['color'], fill=level_style['fill'],
-                shape='rounded-rect',
-            ))
-
-        total = len(cat['lessons']) + sum(len(s) for s in cat['subs'].values())
-        category_xml.append(make_topic(
-            f"{cat_title} ({total})",
-            level=1, children=''.join(sub_content),
-            color=config['color'], fill=config['fill'],
+        section_xml.append(make_topic(
+            f"{section_title} ({section_total})",
+            level=1, children=''.join(section_children),
+            color=section_color, fill=section_fill,
             shape='rounded-rect',
+            position=side,
         ))
 
     # Root node
@@ -823,14 +951,14 @@ def build_itmz_xml(lessons):
     )
     root = make_topic(
         f"📖 Malcolm's Lessons ({total_lessons})",
-        level=0, children=''.join(category_xml),
+        level=0, children=''.join(section_xml),
         color='667EEA', fill='E8EAFD',
         shape='rounded-rect', folded=False,
     )
 
     xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0">
-<xmap-content content-version="12" generator-name="Python build_mindmap.py" generator-version="3.0" timestamp="{now}">
+<xmap-content content-version="12" generator-name="Python build_mindmap.py" generator-version="4.0" timestamp="{now}">
 {root}
 </xmap-content>
 </map>'''
@@ -859,7 +987,7 @@ def create_itmz(xml_content, output_path):
 # ---------------------------------------------------------------------------
 def main():
     """Build the mind map with a full categorisation report."""
-    print(f"📖 Building Mind Map from {INDEX_FILE}")
+    print(f"📖 Building Mind Map v4.0 (Website-Aligned) from {INDEX_FILE}")
 
     if not INDEX_FILE.exists():
         print(f"❌ Error: {INDEX_FILE} not found")
@@ -875,7 +1003,7 @@ def main():
 
     # Print categorisation report
     print(f"\n{'─' * 60}")
-    print(f"  CATEGORISATION REPORT")
+    print(f"  CATEGORISATION REPORT (v4.0 — Website-Aligned)")
     print(f"{'─' * 60}")
 
     total = 0
@@ -897,16 +1025,16 @@ def main():
     print(f"  Skipped (utility): {skipped}")
     print(f"{'─' * 60}")
 
-    # Warn about standalone/unlevelled lessons
+    # Warn about standalone/general lessons
     standalone = categories.get('standalone', {'lessons': [], 'subs': {}})
-    unlevelled = standalone.get('subs', {}).get('Unlevelled', [])
-    if unlevelled:
-        print(f"\n  ⚠️  {len(unlevelled)} lessons in Standalone > Unlevelled:")
-        for l in unlevelled[:10]:
-            print(f"      • {l['filename']}")
-        if len(unlevelled) > 10:
-            print(f"      ... and {len(unlevelled) - 10} more")
-        print(f"  Tip: Add a series or level to these in the lesson index\n")
+    general = standalone.get('subs', {}).get('900: General', [])
+    if general:
+        print(f"\n  ⚠️  {len(general)} lessons in Standalone > 900: General:")
+        for l in general[:10]:
+            print(f"      • {l['filename']} — {l['title']}")
+        if len(general) > 10:
+            print(f"      ... and {len(general) - 10} more")
+        print(f"  Tip: Add keywords to _classify_topic() to categorise these\n")
 
     output = create_itmz(xml_content, OUTPUT_FILE)
     print(f"✅ Created {output}")
