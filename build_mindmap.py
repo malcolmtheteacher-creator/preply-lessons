@@ -163,61 +163,10 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
     if any(x in fl for x in skip_patterns):
         return None
 
-    # ── 2. Dashboards → parent course (with 📊 prefix) ────────────────
-    if 'dashboard' in fl or 'pathway' in fl and 'lesson' not in fl:
-        if 'a1' in fl and 'pathway' in fl:
-            return {'cat': 'a1_pathway', 'sub': '📊 Dashboard'}
-        if 'general_english' in fl or ('lesson_' in fl and 'dashboard' in fl):
-            return {'cat': 'grammar', 'sub': '📊 Dashboard'}
-        if 'speaking_pathway' in fl:
-            return {'cat': 'speaking_path', 'sub': '📊 Dashboard'}
-        if 'speaking_naturally_teens' in fl:
-            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
-        if 'speaking_naturally' in fl:
-            return {'cat': 'speaking_nat', 'sub': '📊 Dashboard'}
-        if 'curious_conversation' in fl:
-            return {'cat': 'curious_conv', 'sub': '📊 Dashboard'}
-        if 'ielts' in fl:
-            return {'cat': 'ielts', 'sub': '📊 Dashboard'}
-        if 'cambridge' in fl or 'cae' in fl or 'cpe' in fl:
-            return {'cat': 'cambridge', 'sub': '📊 Dashboard'}
-        if 'memory' in fl or 'art_of_memory' in fl:
-            return {'cat': 'memory', 'sub': '📊 Dashboard'}
-        if 'wp_' in fl or 'philosophy' in fl:
-            return {'cat': 'philosophy', 'sub': '📊 Dashboard'}
-        if 'epicurean' in fl:
-            return {'cat': 'epicurean', 'sub': '📊 Dashboard'}
-        if 'quick_fix' in fl or 'qf_' in fl:
-            return {'cat': 'quick_fix', 'sub': '📊 Dashboard'}
-        if 'professional' in fl or 'pss' in fl:
-            return {'cat': 'professional', 'sub': '📊 Dashboard'}
-        if 'business_bootcamp' in fl:
-            return {'cat': 'professional', 'sub': '📊 Dashboard'}
-        if 'business_meeting' in fl:
-            return {'cat': 'professional', 'sub': '📊 Dashboard'}
-        if 'strategic_storytelling' in fl:
-            return {'cat': 'professional', 'sub': '📊 Dashboard'}
-        if 'teen' in fl:
-            return {'cat': 'teens', 'sub': '📊 Dashboard'}
-        if 'news' in fl:
-            return {'cat': 'news', 'sub': '📊 Dashboard'}
-        if 'ois' in fl:
-            return {'cat': 'history', 'sub': '📊 Dashboard'}
-        if 'rs_' in fl or 'religious' in fl:
-            return {'cat': 'rs', 'sub': '📊 Dashboard'}
-        if 'pronunciation' in fl:
-            return {'cat': 'pronunciation', 'sub': '📊 Dashboard'}
-        if 'commanding_discourse' in fl:
-            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
-        if 'beyond_perfect' in fl:
-            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
-        if 'discourse_bestiary' in fl:
-            return {'cat': 'adv_discourse', 'sub': '📊 Dashboard'}
-        if 'ote' in fl:
-            return {'cat': 'ote', 'sub': '📊 Dashboard'}
-        # Generic dashboard — skip rather than miscategorise
-        if 'dashboard' in fl:
-            return None
+    # ── 2. Dashboards → skip (used as branch nodes in XML generation) ─
+    if 'dashboard' in fl or ('pathway' in fl and 'lesson' not in fl
+            and not fl.startswith('a1p_') and not fl.startswith('sp_')):
+        return None
 
     # ── 3. Prefix-based course detection ───────────────────────────────
 
@@ -824,6 +773,31 @@ def build_itmz_xml(lessons):
             return f'<topic {attr_str}>{children}</topic>'
         return f'<topic {attr_str}/>'
 
+    # ── Dashboard URLs — course nodes link to their dashboards ────────
+    DASHBOARD_URLS = {
+        'a1_pathway':    BASE_URL + 'a1_pathway_dashboard.html',
+        'grammar':       BASE_URL + 'general_english_dashboard.html',
+        'speaking_path': BASE_URL + 'speaking_pathway_dashboard.html',
+        'curious_conv':  BASE_URL + 'curious_conversations_dashboard.html',
+        'speaking_nat':  BASE_URL + 'speaking_naturally_dashboard.html',
+        'professional':  BASE_URL + 'professional_skills_dashboard.html',
+        'adv_discourse': BASE_URL + 'commanding_discourse_dashboard.html',
+        'cambridge':     BASE_URL + 'cambridge_exam_prep_dashboard.html',
+        'pronunciation': BASE_URL + 'pronunciation_pathway_dashboard.html',
+        'quick_fix':     BASE_URL + 'quick_fix_index.html',
+        'ielts':         BASE_URL + 'ielts_course_dashboard.html',
+        'rs':            BASE_URL + 'rs_master_dashboard.html',
+        'memory':        BASE_URL + 'art-of-memory.html',
+        'history':       BASE_URL + 'ois_dashboard.html',
+        'philosophy':    BASE_URL + 'wp_dashboard.html',
+        'epicurean':     BASE_URL + 'epicurean_dashboard.html',
+        'dewey_palace':  BASE_URL + 'dewey_palace_architecture.html',
+        'bestiary':      BASE_URL + 'bestiary.html',
+        'writing':       BASE_URL + 'writing_course_dashboard.html',
+        'teens':         BASE_URL + 'speaking_naturally_teens_dashboard.html',
+        'news':          BASE_URL + 'breaking_news_dashboard.html',
+    }
+
     # ── Group categories into website sections for the mindmap ────────
     SECTIONS = [
         ('🗺️ Core Pathways',            ['a1_pathway', 'grammar', 'speaking_path'],
@@ -924,21 +898,32 @@ def build_itmz_xml(lessons):
             total = len(cat['lessons']) + sum(len(s) for s in cat['subs'].values())
             section_total += total
 
+            # Get dashboard URL for this course (makes the node clickable)
+            dash_url = DASHBOARD_URLS.get(cat_key, '')
+
             # If section has only one category, flatten (don't nest)
             if len(section_cats) == 1:
                 section_children = sub_content
             else:
                 # Multiple courses in this section — nest under course name
+                # The course node links to its dashboard
                 cat_title = f"{config['icon']} {config['title']} ({total})"
                 section_children.append(make_topic(
                     cat_title, level=1, children=''.join(sub_content),
+                    link=dash_url,
                     color=config['color'], fill=config['fill'],
                     shape='rounded-rect',
                 ))
 
+        # If section has one category, link the section node to that course's dashboard
+        section_link = ''
+        if len(section_cats) == 1:
+            section_link = DASHBOARD_URLS.get(section_cats[0], '')
+
         section_xml.append(make_topic(
             f"{section_title} ({section_total})",
             level=1, children=''.join(section_children),
+            link=section_link,
             color=section_color, fill=section_fill,
             shape='rounded-rect',
             position=side,
