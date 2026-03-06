@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bid, Fix & Flip</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Error Auction */
+.budget-display { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 16px 24px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+.budget-display .amount { font-size: 2.4rem; font-weight: 800; }
+.budget-display .label { font-size: 0.8rem; opacity: 0.9; }
+
+.sentence-card { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.sentence-card.bid { border-color: #667eea; background: #667eea08; }
+.sentence-card.correct-bid { border-color: #28a745; background: #28a74510; }
+.sentence-card.wrong-bid { border-color: #dc3545; background: #dc354510; }
+.sentence-card.missed { border-color: #ffc107; background: #ffc10710; }
+
+.sentence-num { font-size: 0.75rem; font-weight: 700; color: #667eea; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.sentence-text { font-size: 1.05rem; margin-bottom: 12px; line-height: 1.7; }
+
+.bid-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.bid-btn { padding: 8px 20px; border-radius: 8px; border: 2px solid #667eea; background: white; color: #667eea; font-weight: 700; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+.bid-btn:hover { background: #667eea; color: white; }
+.bid-btn.placed { background: #667eea; color: white; }
+.bid-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.correction-input { width: 100%; padding: 10px 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 0.95rem; margin-top: 10px; display: none; font-family: inherit; }
+.correction-input:focus { outline: none; border-color: #667eea; }
+
+.reveal-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: transform 0.2s; }
+.reveal-btn:hover { transform: scale(1.02); }
+
+.result-msg { padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; font-weight: 500; display: none; }
+.result-msg.correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.result-msg.wrong { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.result-msg.missed { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+
+.score-bar { display: flex; justify-content: space-between; background: #f8f9fa; border-radius: 10px; padding: 12px 20px; margin-top: 20px; font-weight: 600; font-size: 0.9rem; }
+.score-bar span { color: #667eea; }
+
+/* Debate Flip */
+.statement-card { background: linear-gradient(135deg, #667eea10, #764ba210); border: 2px solid #667eea30; border-radius: 16px; padding: 28px; text-align: center; margin-bottom: 24px; }
+.statement-card .statement { font-size: 1.3rem; font-weight: 700; color: #1a1a2e; font-style: italic; }
+
+.flip-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media (max-width: 768px) { .flip-container { grid-template-columns: 1fr; } }
+
+.flip-side { border-radius: 12px; padding: 20px; text-align: center; }
+.flip-for { background: #28a74515; border: 2px solid #28a745; }
+.flip-against { background: #dc354515; border: 2px solid #dc3545; }
+.flip-side h3 { font-size: 1rem; margin-bottom: 8px; }
+.flip-for h3 { color: #28a745; }
+.flip-against h3 { color: #dc3545; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.round-tracker { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.round-dot { width: 12px; height: 12px; border-radius: 50%; background: #e9ecef; transition: all 0.3s; }
+.round-dot.active { background: #667eea; transform: scale(1.3); }
+.round-dot.done { background: #28a745; }
+
+.tools-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.notes-area { width: 100%; min-height: 60px; padding: 12px; border: 2px solid #e9ecef; border-radius: 10px; font-family: inherit; font-size: 0.9rem; resize: vertical; margin-top: 10px; }
+.notes-area:focus { outline: none; border-color: #667eea; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Bid, Fix & Flip</h1>
+  <p>Find the errors. Argue both sides. Stay sharp.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">The Auction</div>
+  <div class="tab" onclick="showTab(2)">Fix It</div>
+  <div class="tab" onclick="showTab(3)">Flip Debate</div>
+  <div class="tab" onclick="showTab(4)">The Final Round</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP (CONNECT) -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Spot the Difference</h2>
+    <p style="margin-bottom:16px;">Each pair has one correct sentence and one with an error. Which is which?</p>
+
+    <div style="background:#f8f9fa; border-radius:10px; padding:16px; margin-bottom:4px;">
+      <p style="font-weight:600;">A: "I've lived here for three years."</p>
+      <p style="font-weight:600;">B: "I've lived here since three years."</p>
+    </div>
+    <div class="speak-prompt">Which one is correct? Why is the other one wrong?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#28a745;">A is correct.</strong> Use <em>for</em> + duration (three years), <em>since</em> + point in time (since 2023).</p>
+      </div>
+    </div>
+
+    <div style="background:#f8f9fa; border-radius:10px; padding:16px; margin:16px 0 4px;">
+      <p style="font-weight:600;">A: "If I had more time, I would travel the world."</p>
+      <p style="font-weight:600;">B: "If I would have more time, I would travel the world."</p>
+    </div>
+    <div class="speak-prompt">Which one is correct? What's the rule?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#28a745;">A is correct.</strong> Second conditional: if + past simple, NOT if + would. "Would" only goes in the result clause.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Today's Challenge</h2>
+    <p>Today: <strong>spotting errors under pressure</strong> and <strong>arguing both sides of an issue</strong> — accuracy and critical thinking at the same time.</p>
+    <p style="margin-top:12px;">Two games. One lesson. Let's go.</p>
+  </div>
+
+  <div class="card">
+    <h2>Quick Fire: Correct or Not?</h2>
+    <p style="margin-bottom:12px;">Say whether each sentence is correct or has an error. Trust your instincts.</p>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <p style="font-weight:600; margin-bottom:8px;">"I've been living here since three years."</p>
+      <span class="reveal-label">↓ Tap to check</span>
+      <div class="hidden-content">
+        <p style="color:#dc3545; font-weight:600;">Error — "for three years" (since + point in time, for + duration)</p>
+      </div>
+    </div>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <p style="font-weight:600; margin-bottom:8px;">"Despite being tired, she finished the project on time."</p>
+      <span class="reveal-label">↓ Tap to check</span>
+      <div class="hidden-content">
+        <p style="color:#28a745; font-weight:600;">Correct ✓</p>
+      </div>
+    </div>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <p style="font-weight:600; margin-bottom:8px;">"If I would have known, I would have come earlier."</p>
+      <span class="reveal-label">↓ Tap to check</span>
+      <div class="hidden-content">
+        <p style="color:#dc3545; font-weight:600;">Error — "If I had known..." (third conditional: if + past perfect)</p>
+      </div>
+    </div>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <p style="font-weight:600; margin-bottom:8px;">"The number of people who work from home have increased."</p>
+      <span class="reveal-label">↓ Tap to check</span>
+      <div class="hidden-content">
+        <p style="color:#dc3545; font-weight:600;">Error — "has increased" (the number = singular subject)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: THE AUCTION -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>How It Works</h2>
+    <p>You start with <strong>$500</strong>. Below are 10 sentences — exactly <strong>5 have errors</strong> and <strong>5 are correct</strong>.</p>
+    <ul style="margin-top:12px;">
+      <li><strong>Bid $100</strong> on any sentence you think has an error</li>
+      <li>Correct bid → you <strong>win $200 back</strong> (your $100 + $100 profit)</li>
+      <li>Wrong bid → you <strong>lose your $100</strong></li>
+      <li>Miss an error → no cost, but no profit either</li>
+    </ul>
+    <p style="margin-top:12px; color:#667eea; font-weight:600;">Find all 5 errors = you finish with $1,000. Can you do it?</p>
+  </div>
+
+  <div class="budget-display">
+    <div class="label">YOUR BUDGET</div>
+    <div class="amount" id="budget">$500</div>
+  </div>
+
+  <div id="auction-sentences">
+    <!-- Sentences injected by JS -->
+  </div>
+
+  <button class="reveal-btn" id="auction-reveal-btn" onclick="revealAuction()">Lock In My Bids</button>
+
+  <div id="auction-result" style="display:none; border-radius:16px; padding:24px; text-align:center; margin-top:20px;">
+    <div id="result-emoji" style="font-size:2.5rem;"></div>
+    <div id="result-title" style="font-size:1.4rem; font-weight:800; margin:8px 0;"></div>
+    <div style="display:flex; justify-content:space-around; margin-top:16px;">
+      <div><div style="font-size:1.8rem; font-weight:800;" id="final-budget">$500</div><div style="font-size:0.75rem; color:#6c757d;">FINAL BUDGET</div></div>
+      <div><div style="font-size:1.8rem; font-weight:800; color:#28a745;" id="correct-bids">0</div><div style="font-size:0.75rem; color:#6c757d;">CORRECT BIDS</div></div>
+      <div><div style="font-size:1.8rem; font-weight:800; color:#dc3545;" id="wrong-bids">0</div><div style="font-size:0.75rem; color:#6c757d;">WRONG BIDS</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: FIX IT -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <h2>Now Fix Them</h2>
+    <p>Here are the sentences that had errors. Correct each one — say it out loud first, then type your correction.</p>
+  </div>
+
+  <div id="fix-sentences">
+    <!-- Populated after auction reveal -->
+    <div class="card" style="text-align:center; color:#6c757d;">
+      <p>Complete the auction first, then come back here to fix the errors.</p>
+    </div>
+  </div>
+
+  <div class="card" id="fix-explain" style="display:none;">
+    <h2>Explain the Rules</h2>
+    <div class="speak-prompt">SPEAK: Pick 2 of the errors you corrected. Explain the grammar rule behind each one — as if you're teaching someone who keeps making the same mistake.</div>
+    <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;">Don't just say what's wrong — explain WHY it's wrong and HOW to remember the correct form.</p>
+  </div>
+</div>
+
+<!-- TAB 3: FLIP DEBATE -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <h2>The Flip</h2>
+    <p>You'll see a statement. First, argue <strong style="color:#28a745;">FOR</strong> it for 90 seconds. Then immediately argue <strong style="color:#dc3545;">AGAINST</strong> it for 90 seconds.</p>
+    <p style="margin-top:8px;">The challenge: your arguments against must be DIFFERENT from simply reversing your arguments for. Find genuinely new angles.</p>
+  </div>
+
+  <div class="tools-box">
+    <h4>Useful Language</h4>
+    <span class="tool-chip">The way I see it...</span>
+    <span class="tool-chip">You could argue that...</span>
+    <span class="tool-chip">On the other hand...</span>
+    <span class="tool-chip">Having said that...</span>
+    <span class="tool-chip">That's precisely why...</span>
+    <span class="tool-chip">What people overlook is...</span>
+    <span class="tool-chip">It comes down to...</span>
+    <span class="tool-chip">The counterargument would be...</span>
+  </div>
+
+  <!-- ROUND 1 -->
+  <div class="card" id="debate-round-1" style="margin-top:20px;">
+    <div class="round-tracker">
+      <div class="round-dot active"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+    <div class="statement-card">
+      <div class="statement">"Social media has made us better communicators."</div>
+    </div>
+    <div class="flip-container">
+      <div class="flip-side flip-for">
+        <h3>FOR — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is TRUE</p>
+      </div>
+      <div class="flip-side flip-against">
+        <h3>AGAINST — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is FALSE</p>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleDebateTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <textarea class="notes-area" placeholder="Quick notes before you speak — keywords only..."></textarea>
+  </div>
+
+  <!-- ROUND 2 -->
+  <div class="card" id="debate-round-2">
+    <div class="round-tracker">
+      <div class="round-dot done"></div>
+      <div class="round-dot active"></div>
+      <div class="round-dot"></div>
+    </div>
+    <div class="statement-card">
+      <div class="statement">"University is no longer worth the cost."</div>
+    </div>
+    <div class="flip-container">
+      <div class="flip-side flip-for">
+        <h3>FOR — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is TRUE</p>
+      </div>
+      <div class="flip-side flip-against">
+        <h3>AGAINST — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is FALSE</p>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleDebateTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <textarea class="notes-area" placeholder="Quick notes before you speak — keywords only..."></textarea>
+  </div>
+
+  <!-- ROUND 3 -->
+  <div class="card" id="debate-round-3">
+    <div class="round-tracker">
+      <div class="round-dot done"></div>
+      <div class="round-dot done"></div>
+      <div class="round-dot active"></div>
+    </div>
+    <div class="statement-card">
+      <div class="statement">"Working from home is better for everyone."</div>
+    </div>
+    <div class="flip-container">
+      <div class="flip-side flip-for">
+        <h3>FOR — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is TRUE</p>
+      </div>
+      <div class="flip-side flip-against">
+        <h3>AGAINST — 90 seconds</h3>
+        <p style="font-size:0.85rem;">Argue why this is FALSE</p>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleDebateTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <textarea class="notes-area" placeholder="Quick notes before you speak — keywords only..."></textarea>
+  </div>
+</div>
+
+<!-- TAB 4: THE FINAL ROUND -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Bid, Fix & Flip — Combined</h2>
+    <p>This time, both skills together. You'll see 4 statements. Each one has either a <strong>language error</strong> OR it's a <strong>debate statement</strong>. You decide which — then act.</p>
+    <ul style="margin-top:12px;">
+      <li>If it's an <strong>error</strong> → fix it and explain the rule</li>
+      <li>If it's a <strong>debate topic</strong> → give a 60-second argument FOR, then flip AGAINST</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="sentence-text" style="font-size:1.1rem; font-weight:600; text-align:center; padding:12px;">"If the government would invest more in public transport, cities would be much cleaner."</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Error or debate? Decide, then check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#dc3545;">Error!</strong> → "If the government invested more..." (second conditional: if + past simple)</p>
+        <div class="speak-prompt" style="margin-top:8px;">SPEAK: Correct the sentence and explain when we use the second conditional vs. the third conditional.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sentence-text" style="font-size:1.1rem; font-weight:600; text-align:center; padding:12px;">"People should be required to do one year of community service before the age of 25."</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Error or debate? Decide, then check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#667eea;">Debate!</strong> → This sentence is grammatically correct.</p>
+        <div style="text-align:center; margin-top:8px;">
+          <div class="timer-box" onclick="toggleDebateTimer(this, 60)">
+            <span class="timer-display">1:00</span>
+            <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+          </div>
+        </div>
+        <div class="flip-container" style="margin-top:12px;">
+          <div class="flip-side flip-for"><h3>FOR — 60s</h3></div>
+          <div class="flip-side flip-against"><h3>AGAINST — 60s</h3></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sentence-text" style="font-size:1.1rem; font-weight:600; text-align:center; padding:12px;">"The amount of people attending live events have dropped significantly since 2020."</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Error or debate? Decide, then check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#dc3545;">Error!</strong> → "The <em>number</em> of people... <em>has</em> dropped" (amount = uncountable, number = countable; the number = singular)</p>
+        <div class="speak-prompt" style="margin-top:8px;">SPEAK: When do you use "amount" vs "number"? Give 2 examples of each.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sentence-text" style="font-size:1.1rem; font-weight:600; text-align:center; padding:12px;">"It's impossible to be truly happy without meaningful work."</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Error or debate? Decide, then check</span>
+      <div class="hidden-content">
+        <p><strong style="color:#667eea;">Debate!</strong> → This sentence is grammatically correct.</p>
+        <div style="text-align:center; margin-top:8px;">
+          <div class="timer-box" onclick="toggleDebateTimer(this, 60)">
+            <span class="timer-display">1:00</span>
+            <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+          </div>
+        </div>
+        <div class="flip-container" style="margin-top:12px;">
+          <div class="flip-side flip-for"><h3>FOR — 60s</h3></div>
+          <div class="flip-side flip-against"><h3>AGAINST — 60s</h3></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The 2-Minute Extended Turn</h2>
+    <p>Pick ONE of today's debate topics. Speak for 2 full minutes — but this time, present BOTH sides and finish with your own conclusion.</p>
+    <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;">Structure: "Some people argue... However, others believe... Personally, I think... because..."</p>
+    <div style="text-align:center; margin-top:16px;">
+      <div class="timer-box" onclick="toggleDebateTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK (CONSOLIDATE) -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Recall Zone</h2>
+    <p style="margin-bottom:12px;">Without looking back — from memory:</p>
+    <div class="speak-prompt">SPEAK: What are 3 grammar rules you used today to correct sentences? Give an example of each.</div>
+    <div class="speak-prompt" style="margin-top:12px;">SPEAK: What's the difference between "the number of" and "the amount of"? When do you use "since" vs "for"?</div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="reflection-prompt">
+      <p><strong>Which was harder — finding errors or arguing both sides?</strong> Why do you think that is?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>When you argued AGAINST your own opinion, what happened?</strong> Did you discover any arguments that actually changed your mind?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Which grammar errors from the auction would you still make in real conversation?</strong> Be honest — which ones are tricky for you?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <p>We said you'd be able to spot errors under pressure and argue both sides of an issue. Can you?</p>
+    <div style="margin-top:12px;">
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+        <span class="reveal-label">↓ Tap to see the "I can" checklist</span>
+        <div class="hidden-content">
+          <ul>
+            <li><strong>I can</strong> identify common B2 grammar errors in written sentences</li>
+            <li><strong>I can</strong> explain WHY something is wrong, not just fix it</li>
+            <li><strong>I can</strong> argue convincingly for a position I agree with</li>
+            <li><strong>I can</strong> argue convincingly AGAINST my own opinion</li>
+            <li><strong>I can</strong> use discourse markers to structure my arguments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="margin-top:16px;">What helped you learn most today?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// Tab system
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Auction data
+const sentences = [
+  { text: "She suggested me to apply for the job as soon as possible.", hasError: true, correction: "\"She suggested I apply\" or \"She suggested that I apply.\" After 'suggest', you don't use an object + to. Think of it like: suggest + (that) + person + base verb. Same pattern with 'recommend' and 'insist'." },
+  { text: "Despite the heavy rain, the event went ahead as planned.", hasError: false },
+  { text: "I'm used to work long hours — it doesn't bother me anymore.", hasError: true, correction: "\"I'm used to working long hours.\" Be careful: 'I used to work' (= I did it in the past, not anymore) is different from 'I'm used to working' (= it's normal for me now). After 'be used to', you always need -ing." },
+  { text: "The research, which was published last week, confirms previous findings.", hasError: false },
+  { text: "He denied to have anything to do with the missing money.", hasError: true, correction: "\"He denied having anything to do with...\" After 'deny', always use -ing. You can't say 'deny to do' — it's always 'deny doing'. Same with 'avoid', 'enjoy', 'mind', 'suggest'." },
+  { text: "By this time next year, I will have been working here for a decade.", hasError: false },
+  { text: "The more you practice, the more better you become.", hasError: true, correction: "\"The more you practice, the better you become.\" You can't double up — either use 'more + long adjective' (more interesting) OR 'short adjective + -er' (better). Never both together." },
+  { text: "She asked me where was the nearest station.", hasError: true, correction: "\"She asked me where the nearest station was.\" When you report a question, the word order changes back to normal (subject before verb). Direct: 'Where is it?' → Reported: 'She asked where it was.'" },
+  { text: "Had I known about the delay, I would have taken a different route.", hasError: false },
+  { text: "If you need any further information, please don't hesitate to contact us.", hasError: false }
+];
+
+let budget = 500;
+let bids = new Set();
+let auctionRevealed = false;
+
+// Build auction
+function buildAuction() {
+  const container = document.getElementById('auction-sentences');
+  sentences.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'sentence-card';
+    div.id = 'sent-' + i;
+    div.innerHTML = `
+      <div class="sentence-num">Sentence ${i + 1}</div>
+      <div class="sentence-text">${s.text}</div>
+      <div class="bid-row">
+        <button class="bid-btn" id="bid-btn-${i}" onclick="toggleBid(${i})">Bid $100</button>
+        <span id="bid-status-${i}" style="font-size:0.85rem; color:#6c757d;"></span>
+      </div>
+      <div class="result-msg" id="result-${i}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleBid(i) {
+  if (auctionRevealed) return;
+  const btn = document.getElementById('bid-btn-' + i);
+  const card = document.getElementById('sent-' + i);
+  const status = document.getElementById('bid-status-' + i);
+
+  if (bids.has(i)) {
+    bids.delete(i);
+    budget += 100;
+    btn.classList.remove('placed');
+    btn.textContent = 'Bid $100';
+    card.classList.remove('bid');
+    status.textContent = '';
+  } else {
+    if (budget < 100) { status.textContent = 'No budget left!'; return; }
+    bids.add(i);
+    budget -= 100;
+    btn.classList.add('placed');
+    btn.textContent = 'Remove Bid';
+    card.classList.add('bid');
+    status.textContent = 'Bid placed';
+  }
+  document.getElementById('budget').textContent = '$' + budget;
+}
+
+function revealAuction() {
+  if (auctionRevealed) return;
+  auctionRevealed = true;
+  let correctBids = 0, wrongBids = 0;
+
+  sentences.forEach((s, i) => {
+    const card = document.getElementById('sent-' + i);
+    const result = document.getElementById('result-' + i);
+    const btn = document.getElementById('bid-btn-' + i);
+    btn.disabled = true;
+
+    if (bids.has(i)) {
+      if (s.hasError) {
+        card.className = 'sentence-card correct-bid';
+        result.className = 'result-msg correct';
+        result.textContent = '✓ Correct! There IS an error here. +$200 back';
+        result.style.display = 'block';
+        budget += 200; // get back the $100 bid + $100 profit
+        correctBids++;
+      } else {
+        card.className = 'sentence-card wrong-bid';
+        result.className = 'result-msg wrong';
+        result.textContent = '✗ No error here. This sentence is correct. You lost $100.';
+        result.style.display = 'block';
+        wrongBids++;
+      }
+    } else {
+      if (s.hasError) {
+        card.className = 'sentence-card missed';
+        result.className = 'result-msg missed';
+        result.textContent = '⚠ Missed! There WAS an error here. No cost, but no profit either.';
+        result.style.display = 'block';
+      }
+    }
+  });
+
+  document.getElementById('correct-bids').textContent = correctBids;
+  document.getElementById('wrong-bids').textContent = wrongBids;
+  document.getElementById('final-budget').textContent = '$' + budget;
+
+  // Show result banner
+  const resultBox = document.getElementById('auction-result');
+  const emoji = document.getElementById('result-emoji');
+  const title = document.getElementById('result-title');
+
+  if (budget >= 900) {
+    resultBox.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+    emoji.textContent = '🏆';
+    title.textContent = 'Grammar genius! $' + budget;
+    title.style.color = '#155724';
+  } else if (budget >= 600) {
+    resultBox.style.background = 'linear-gradient(135deg, #d1ecf1, #bee5eb)';
+    emoji.textContent = '👏';
+    title.textContent = 'Solid work! $' + budget;
+    title.style.color = '#0c5460';
+  } else if (budget >= 400) {
+    resultBox.style.background = 'linear-gradient(135deg, #fff3cd, #ffeeba)';
+    emoji.textContent = '🤔';
+    title.textContent = 'Not bad — $' + budget;
+    title.style.color = '#856404';
+  } else {
+    resultBox.style.background = 'linear-gradient(135deg, #f8d7da, #f5c6cb)';
+    emoji.textContent = '😬';
+    title.textContent = 'Ouch — $' + budget;
+    title.style.color = '#721c24';
+  }
+  resultBox.style.display = 'block';
+
+  document.getElementById('auction-reveal-btn').textContent = 'Bids Locked ✓';
+  document.getElementById('auction-reveal-btn').style.opacity = '0.6';
+
+  // Build fix tab
+  buildFixTab();
+}
+
+function buildFixTab() {
+  const container = document.getElementById('fix-sentences');
+  container.innerHTML = '';
+  const errorSentences = sentences.filter(s => s.hasError);
+
+  errorSentences.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <div class="sentence-text" style="color:#dc3545;">${s.text}</div>
+      <div class="speak-prompt">SPEAK: Say the corrected version out loud first.</div>
+      <input class="correction-input" style="display:block;" placeholder="Now type your correction..." />
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">↓ Check the answer</span>
+        <div class="hidden-content">
+          <p style="color:#28a745; font-weight:600;">${s.correction}</p>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+
+  document.getElementById('fix-explain').style.display = 'block';
+}
+
+// Debate timers
+function toggleDebateTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (remaining <= 30 && remaining > 10) { el.className = 'timer-box warning'; }
+    else if (remaining <= 10 && remaining > 0) { el.className = 'timer-box danger'; }
+    else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = "0:00";
+      el.className = 'timer-box';
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+
+// Init
+buildAuction();
+</script>
+</body>
+</html>
