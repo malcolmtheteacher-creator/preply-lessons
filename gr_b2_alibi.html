@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alibi</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; margin-top: 16px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.scenario-card { background: linear-gradient(135deg, #667eea10, #764ba210); border: 2px solid #667eea30; border-radius: 16px; padding: 24px; margin-bottom: 20px; text-align: center; }
+.scenario-card .scenario-title { font-size: 1.1rem; font-weight: 700; color: #667eea; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.scenario-card .scenario-text { font-size: 1.05rem; color: #1a1a2e; font-weight: 500; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.timer-label { font-size: 0.7rem; color: #6c757d; text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+
+.plan-form { background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; font-size: 0.95rem; }
+.form-group input, .form-group textarea { width: 100%; padding: 10px 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: #667eea; }
+
+.question-container { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: all 0.3s; }
+.question-container.revealed { border-color: #667eea; background: #667eea05; }
+.question-num { font-size: 0.75rem; font-weight: 700; color: #667eea; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.question-text { font-size: 1.05rem; font-weight: 600; color: #1a1a2e; margin-bottom: 12px; display: none; }
+.question-text.revealed { display: block; }
+.reveal-next-btn { display: block; width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 700; cursor: pointer; margin-top: 12px; transition: transform 0.2s; }
+.reveal-next-btn:hover { transform: scale(1.02); }
+.reveal-next-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.answer-timer { margin-top: 12px; font-weight: 600; color: #667eea; }
+
+.check-list { background: #f8f9fa; border-radius: 10px; padding: 16px; margin: 16px 0; }
+.check-list p { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.check-list p:before { content: '○'; font-size: 1.2rem; color: #667eea; font-weight: 700; }
+
+.tools-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.goal-box { background: linear-gradient(135deg, #28a74510, #17a2b810); border-left: 4px solid #28a745; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-weight: 500; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.reveal-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: transform 0.2s; }
+.reveal-btn:hover { transform: scale(1.02); }
+
+.speech-result { background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px; padding: 12px; margin-top: 12px; color: #155724; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Alibi</h1>
+  <p>Build your story. Survive the interrogation.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">The Crime</div>
+  <div class="tab" onclick="showTab(2)">Tell Your Story</div>
+  <div class="tab" onclick="showTab(3)">Cross-Exam</div>
+  <div class="tab" onclick="showTab(4)">Round 2</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Where Were You?</h2>
+    <p>Let's start simple. Quick fire questions.</p>
+
+    <div class="speak-prompt">
+      What did you do yesterday evening? Tell me in 30 seconds. Go!
+    </div>
+
+    <div class="timer-box" onclick="startTimer(this, 30)">
+      <span id="timer0">30</span>
+      <span class="timer-label">seconds</span>
+    </div>
+
+    <div class="card" style="background: #f8f9fa; margin-top: 20px;">
+      <h3>Now... tell me again.</h3>
+      <p style="margin-bottom: 12px;">But this time, add 3 MORE details. Where exactly? What time? Who was there? What did you eat? Be specific.</p>
+
+      <div class="timer-box" onclick="startTimer(this, 30)">
+        <span id="timer0b">30</span>
+        <span class="timer-label">seconds</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Key to Success</h2>
+    <p>Did you notice? The second time, you added detail. Names. Times. Places. That's what makes an alibi <em>believable</em>.</p>
+
+    <div class="goal-box">
+      <strong>Today's mission:</strong> Build a detailed, convincing story using past tenses under pressure.
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: THE CRIME -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>The Crime</h2>
+
+    <div class="scenario-card">
+      <div class="scenario-title">⚠️ The Setup</div>
+      <div class="scenario-text">Something happened last night between 7pm and 11pm. You're not a suspect... yet. But the police want to talk to everyone who was in the area.</div>
+    </div>
+
+    <h3>Your Mission</h3>
+    <p>You and a friend were together all evening. You need to tell the EXACT same story — every detail must match.</p>
+
+    <p style="margin-top: 16px; font-weight: 600; color: #667eea;">You have 5 minutes to plan your story.</p>
+  </div>
+
+  <div class="card">
+    <h2>Plan Your Alibi</h2>
+    <p style="margin-bottom: 16px;">Fill in each box. Be specific. Times, places, names.</p>
+
+    <div class="plan-form">
+      <div class="form-group">
+        <label>Where were you? (specific location)</label>
+        <input type="text" id="alibi-location" placeholder="e.g., Joe's Pizza Bar on 5th Avenue">
+      </div>
+
+      <div class="form-group">
+        <label>What time did you arrive?</label>
+        <input type="text" id="alibi-arrival" placeholder="e.g., 7:15pm">
+      </div>
+
+      <div class="form-group">
+        <label>What did you do first?</label>
+        <input type="text" id="alibi-first" placeholder="e.g., ordered a drink, sat by the window">
+      </div>
+
+      <div class="form-group">
+        <label>What did you eat/drink?</label>
+        <input type="text" id="alibi-food" placeholder="e.g., margherita pizza and a Peroni beer">
+      </div>
+
+      <div class="form-group">
+        <label>Who else was there? (names of people)</label>
+        <input type="text" id="alibi-people" placeholder="e.g., Marco, my friend from work, and the waiter was Tony">
+      </div>
+
+      <div class="form-group">
+        <label>What time did you leave?</label>
+        <input type="text" id="alibi-leave" placeholder="e.g., 10:45pm">
+      </div>
+
+      <div class="form-group">
+        <label>How did you get home?</label>
+        <input type="text" id="alibi-transport" placeholder="e.g., took a taxi, walked, got the 47 bus">
+      </div>
+    </div>
+
+    <div class="timer-box" onclick="startTimer(this, 300)">
+      <span id="timer1">5:00</span>
+      <span class="timer-label">planning time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <p style="color: #667eea; font-weight: 600; text-align: center;">Ready? Move to the next tab to tell your story.</p>
+  </div>
+</div>
+
+<!-- TAB 2: TELL YOUR STORY -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <h2>Tell the Whole Story</h2>
+    <p>From start to finish. Include everything: times, places, people, what you saw, what you heard. Make it real.</p>
+
+    <div class="speak-prompt">
+      Start speaking now. Tell me the complete alibi story.
+    </div>
+
+    <div class="timer-box" onclick="startTimer(this, 180)">
+      <span id="timer2">3:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quick Check</h2>
+    <p style="margin-bottom: 16px;">Did you include all of these details?</p>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Click to reveal checklist</span>
+      <div class="hidden-content">
+        <div class="check-list">
+          <p>Specific times (arrival, what you did, departure)?</p>
+          <p>Names of places?</p>
+          <p>What you were wearing?</p>
+          <p>The weather or what you noticed outside?</p>
+          <p>Specific food or drinks you had?</p>
+          <p>Names of real people who were with you?</p>
+          <p>Exactly how you got there and back?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: CROSS-EXAMINATION -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <h2>Cross-Examination</h2>
+    <p>The police are asking questions. Answer each one immediately. No hesitating. No changing your story.</p>
+
+    <p style="margin-top: 16px; font-weight: 600; color: #dc3545;">The pressure is on.</p>
+  </div>
+
+  <div id="questions-container"></div>
+
+  <div class="card" id="consistency-check" style="display:none;">
+    <h3>Consistency Check</h3>
+    <p style="margin-bottom: 12px;">Did your answers match your original story? What caught you out?</p>
+    <div class="reflection-prompt">
+      <strong>What would you change next time?</strong> Think about the details that were hardest to remember.
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: ROUND 2 -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Round 2: New Scenario</h2>
+
+    <div class="scenario-card">
+      <div class="scenario-title">🎵 The Concert</div>
+      <div class="scenario-text">You were at a concert last night. Same rules — build your alibi, tell your story, face the questions.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Plan Your Concert Alibi</h2>
+    <p style="margin-bottom: 16px;">Different location, different details, same pressure.</p>
+
+    <div class="plan-form">
+      <div class="form-group">
+        <label>Which concert? (artist/venue)</label>
+        <input type="text" id="concert-event" placeholder="e.g., Coldplay at the O2 Arena">
+      </div>
+
+      <div class="form-group">
+        <label>What time did you arrive?</label>
+        <input type="text" id="concert-arrival" placeholder="e.g., 6:30pm">
+      </div>
+
+      <div class="form-group">
+        <label>Where did you sit or stand?</label>
+        <input type="text" id="concert-location" placeholder="e.g., in the pit near the stage, section D upper level">
+      </div>
+
+      <div class="form-group">
+        <label>What songs do you remember?</label>
+        <input type="text" id="concert-songs" placeholder="e.g., they opened with 'Paradise', then played 'Yellow'">
+      </div>
+
+      <div class="form-group">
+        <label>Who was with you?</label>
+        <input type="text" id="concert-people" placeholder="e.g., Sarah and David from my class">
+      </div>
+
+      <div class="form-group">
+        <label>What did you notice around you?</label>
+        <input type="text" id="concert-details" placeholder="e.g., a girl with a blue banner, the light show was incredible">
+      </div>
+
+      <div class="form-group">
+        <label>What time did you leave?</label>
+        <input type="text" id="concert-leave" placeholder="e.g., 10:15pm during the encore">
+      </div>
+    </div>
+
+    <div class="timer-box" onclick="startTimer(this, 240)">
+      <span id="timer4a">4:00</span>
+      <span class="timer-label">planning time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Tell Your Concert Story</h2>
+    <div class="speak-prompt">
+      Tell me about the concert. Make it vivid and specific.
+    </div>
+
+    <div class="timer-box" onclick="startTimer(this, 180)">
+      <span id="timer4b">3:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Swap</h2>
+    <p style="margin-bottom: 16px;">Now it's your turn to interrogate me. Ask me 5 tough questions about MY alibi. See if I'm consistent.</p>
+
+    <div class="speak-prompt">
+      Create 5 cross-examination questions. Ask them out loud and see how I do.
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Recall</h2>
+    <p style="margin-bottom: 12px;">Close your eyes. Without looking back — what details did you include in your first alibi? How many can you remember?</p>
+
+    <div class="reflection-prompt">
+      Did the second telling include more details than the first? Why?
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Language Focus</h2>
+    <p style="margin-bottom: 16px;">When you tell stories under pressure, which tense do you reach for?</p>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">↓ Past simple vs past continuous in storytelling</span>
+      <div class="hidden-content">
+        <p style="margin-bottom: 12px;"><strong>Past Simple</strong> = completed actions, the main events</p>
+        <p style="margin-bottom: 12px;">"I <strong>arrived</strong> at 7:15. I <strong>ordered</strong> a pizza. I <strong>left</strong> at 10:45."</p>
+
+        <p style="margin-bottom: 12px; margin-top: 16px;"><strong>Past Continuous</strong> = the background, what was happening</p>
+        <p style="margin-bottom: 12px;">"While I <strong>was eating</strong>, Marco <strong>was telling</strong> me about his job. As I <strong>was leaving</strong>, it <strong>was raining</strong>."</p>
+
+        <p style="margin-top: 16px;"><em>Good alibi stories use both: past simple for your actions, past continuous for context and atmosphere.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+
+    <div class="reflection-prompt">
+      <strong>Which questions caught you out?</strong> Why were they hard to answer?
+    </div>
+
+    <div style="margin-top: 20px; padding: 16px; background: #f8f9fa; border-radius: 10px;">
+      <p style="margin-bottom: 12px; font-weight: 700;">I can...</p>
+      <ul>
+        <li>Tell a detailed story in past tense under pressure</li>
+        <li>Use past continuous to add background and atmosphere</li>
+        <li>Remember and maintain specific details when questioned</li>
+        <li>Use phrases like "I remember clearly," "While we were," and "As soon as we" naturally</li>
+        <li>Catch inconsistencies in my own story</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Useful Language</h2>
+    <div class="tools-box">
+      <div class="tool-chip">I remember clearly that...</div>
+      <div class="tool-chip">It must have been around...</div>
+      <div class="tool-chip">While we were...</div>
+      <div class="tool-chip">As soon as we...</div>
+      <div class="tool-chip">I'm absolutely certain that...</div>
+      <div class="tool-chip">If I remember correctly...</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let currentTab = 0;
+let questionIndex = 0;
+let timerIntervals = {};
+let questionsAsked = false;
+
+const questions1 = [
+  "What was the weather like when you arrived?",
+  "What were you wearing?",
+  "Exactly what time did you order food?",
+  "What was playing on TV or on the radio?",
+  "Describe the person who served you.",
+  "How did you pay — cash or card?",
+  "What did your friend order?",
+  "Did anyone recognise you there?",
+  "What did you talk about?",
+  "When exactly did you leave? How do you know the time?",
+  "Which route did you take home?",
+  "What was the first thing you did when you got home?"
+];
+
+const questions2 = [
+  "What was your first impression when you walked in?",
+  "Describe what the stage looked like.",
+  "What did the crowd sound like during your favourite song?",
+  "What did you eat or drink there?",
+  "Did you see anyone famous in the crowd?",
+  "How did getting out of the venue work?",
+  "What was your mood when you left?",
+  "Would you go again?"
+];
+
+function showTab(n) {
+  const panels = document.querySelectorAll('.panel');
+  const tabs = document.querySelectorAll('.tab');
+
+  panels.forEach(p => p.classList.remove('active'));
+  tabs.forEach(t => t.classList.remove('active'));
+
+  panels[n].classList.add('active');
+  tabs[n].classList.add('active');
+  currentTab = n;
+
+  // Initialize questions when moving to Tab 3
+  if (n === 3 && !questionsAsked) {
+    initializeQuestions();
+    questionsAsked = true;
+  }
+}
+
+function initializeQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+  questionIndex = 0;
+
+  questions1.forEach((q, idx) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-container';
+    qDiv.id = 'q' + idx;
+
+    const qNum = document.createElement('div');
+    qNum.className = 'question-num';
+    qNum.textContent = 'Question ' + (idx + 1);
+
+    const qText = document.createElement('div');
+    qText.className = 'question-text';
+    qText.textContent = q;
+
+    const btn = document.createElement('button');
+    btn.className = 'reveal-next-btn';
+    btn.textContent = idx === 0 ? 'Reveal first question' : 'Show next question';
+    btn.onclick = () => revealQuestion(idx, btn);
+
+    const timer = document.createElement('div');
+    timer.className = 'answer-timer';
+    timer.id = 'answer-timer-' + idx;
+    timer.style.display = 'none';
+
+    qDiv.appendChild(qNum);
+    qDiv.appendChild(qText);
+    qDiv.appendChild(timer);
+    qDiv.appendChild(btn);
+
+    container.appendChild(qDiv);
+  });
+}
+
+function revealQuestion(idx, btn) {
+  const qDiv = document.getElementById('q' + idx);
+  const qText = qDiv.querySelector('.question-text');
+  const timer = document.getElementById('answer-timer-' + idx);
+
+  qText.classList.add('revealed');
+  qDiv.classList.add('revealed');
+  btn.style.display = 'none';
+
+  // Show answer timer
+  timer.style.display = 'block';
+  timer.innerHTML = '<strong>20 seconds to answer</strong>';
+  startAnswerTimer(timer, 20, idx);
+
+  // Show next button if not last question
+  if (idx < questions1.length - 1) {
+    const nextBtn = document.getElementById('q' + (idx + 1)).querySelector('.reveal-next-btn');
+    nextBtn.style.display = 'block';
+  } else if (idx === questions1.length - 1) {
+    // Show consistency check after all questions
+    setTimeout(() => {
+      document.getElementById('consistency-check').style.display = 'block';
+    }, 1000);
+  }
+}
+
+function startAnswerTimer(timerEl, duration, qIdx) {
+  let time = duration;
+  const updateTimer = () => {
+    if (time > 0) {
+      time--;
+      if (time > 10) {
+        timerEl.style.color = '#667eea';
+      } else if (time > 5) {
+        timerEl.style.color = '#ffc107';
+      } else {
+        timerEl.style.color = '#dc3545';
+      }
+      timerEl.innerHTML = '<strong>' + time + ' seconds remaining</strong>';
+    } else {
+      clearInterval(timerIntervals['answer-' + qIdx]);
+      timerEl.innerHTML = '<strong style="color: #dc3545;">Time\'s up!</strong>';
+    }
+  };
+  timerIntervals['answer-' + qIdx] = setInterval(updateTimer, 1000);
+}
+
+function startTimer(element, duration) {
+  const timerDisplay = element.querySelector('span');
+  let time = duration;
+  const timerKey = timerDisplay.id;
+
+  // Stop existing timer if running
+  if (timerIntervals[timerKey]) {
+    clearInterval(timerIntervals[timerKey]);
+  }
+
+  element.classList.remove('warning', 'danger');
+  element.classList.add('running');
+
+  const updateTimer = () => {
+    if (time > 0) {
+      time--;
+
+      if (duration > 60) {
+        const mins = Math.floor(time / 60);
+        const secs = time % 60;
+        timerDisplay.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+      } else {
+        timerDisplay.textContent = time;
+      }
+
+      // Color changes
+      if (time <= Math.floor(duration * 0.25)) {
+        element.classList.add('danger');
+      } else if (time <= Math.floor(duration * 0.5)) {
+        element.classList.add('warning');
+      }
+    } else {
+      clearInterval(timerIntervals[timerKey]);
+      element.classList.remove('running', 'warning', 'danger');
+      timerDisplay.textContent = '0';
+    }
+  };
+
+  timerIntervals[timerKey] = setInterval(updateTimer, 1000);
+}
+</script>
+
+</body>
+</html>

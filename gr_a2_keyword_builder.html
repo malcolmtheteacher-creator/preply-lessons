@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Keyword Builder | The Game Room</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .lesson-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Header - Teal for Speaking */
+        .lesson-header {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .lesson-header h1 { font-size: 2.2em; margin-bottom: 5px; }
+        .lesson-header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        /* Tabs - Centered */
+        .tab-nav {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 15px 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85em;
+            min-width: 80px;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.2); }
+        .tab-btn.active { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
+        .tab-btn .tab-number { display: block; font-size: 0.75em; opacity: 0.7; }
+
+        /* Content */
+        .tab-content {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content h2 { color: #4ecdc4; font-size: 1.8em; margin-bottom: 20px; }
+        .tab-content h3 { color: #fff; font-size: 1.3em; margin: 25px 0 15px; }
+        .tab-content p { line-height: 1.8; margin-bottom: 15px; color: rgba(255,255,255,0.9); }
+
+        /* Skill Cards */
+        .skill-card {
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .skill-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2); }
+        .skill-card h4 { color: #4ecdc4; font-size: 1.2em; margin-bottom: 10px; }
+        .skill-card .hidden-content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .skill-card.revealed .hidden-content { display: block; }
+
+        /* Step badge */
+        .step-badge {
+            display: inline-block;
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid rgba(78, 205, 196, 0.4);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+        }
+
+        /* Comparison */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .compare-bad { background: rgba(233, 69, 96, 0.15); border: 2px solid rgba(233, 69, 96, 0.4); border-radius: 15px; padding: 25px; }
+        .compare-bad h4 { color: #e94560; margin-bottom: 12px; font-size: 1.1em; }
+        .compare-good { background: rgba(78, 205, 196, 0.15); border: 2px solid rgba(78, 205, 196, 0.4); border-radius: 15px; padding: 25px; }
+        .compare-good h4 { color: #4ecdc4; margin-bottom: 12px; font-size: 1.1em; }
+
+        /* Keyword chips */
+        .keywords-row { display: flex; gap: 15px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+        .keyword-chip {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .keyword-chip:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(78, 205, 196, 0.3); }
+
+        /* ===== KEYWORD BUILDER WORKSPACE ===== */
+        .workspace {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+        .workspace-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .keyword-input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .keyword-input {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(78, 205, 196, 0.4);
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            width: 180px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .keyword-input::placeholder { color: rgba(255,255,255,0.3); font-weight: normal; }
+        .keyword-input:focus {
+            border-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.1);
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+        }
+
+        /* Ignite constellation */
+        .ignite-zone {
+            min-height: 60px;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.5s;
+        }
+        .ignite-zone.active {
+            background: rgba(78, 205, 196, 0.05);
+            border: 1px solid rgba(78, 205, 196, 0.15);
+        }
+        .ignite-cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .ignite-label {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+        .ignite-word {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: igniteIn 0.4s ease-out;
+        }
+        @keyframes igniteIn {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .ignite-word:hover { transform: scale(1.1); }
+        .ignite-word.syn { background: rgba(78, 205, 196, 0.2); border: 1px solid rgba(78, 205, 196, 0.4); color: #4ecdc4; }
+        .ignite-word.ant { background: rgba(233, 69, 96, 0.2); border: 1px solid rgba(233, 69, 96, 0.4); color: #e94560; }
+        .ignite-word.rel { background: rgba(240, 147, 251, 0.2); border: 1px solid rgba(240, 147, 251, 0.4); color: #f093fb; }
+        .ignite-word.col { background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.4); color: #ffc107; }
+
+        .ignite-word.picked {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%) !important;
+            color: #1a1a2e !important;
+            border-color: #4ecdc4 !important;
+            font-weight: bold;
+        }
+
+        /* Legend */
+        .ignite-legend {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 10px 0 20px;
+            flex-wrap: wrap;
+            font-size: 0.8em;
+        }
+        .ignite-legend span { display: flex; align-items: center; gap: 5px; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .legend-dot.syn { background: #4ecdc4; }
+        .legend-dot.ant { background: #e94560; }
+        .legend-dot.rel { background: #f093fb; }
+        .legend-dot.col { background: #ffc107; }
+
+        /* Picked words */
+        .picked-words {
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px dashed rgba(78, 205, 196, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            min-height: 50px;
+        }
+        .picked-words-label {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .picked-chip {
+            display: inline-block;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: #1a1a2e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .picked-chip:hover { opacity: 0.7; }
+
+        /* Timer */
+        .timer-section { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 4em; font-weight: bold; font-family: 'Courier New', monospace; margin: 20px 0; color: #4ecdc4; }
+        .timer-display.warning { color: #ffc107; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .timer-btn { padding: 12px 30px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; transition: all 0.3s; }
+        .timer-btn.start { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; }
+        .timer-btn.reset { background: rgba(255,255,255,0.1); color: white; }
+        .timer-btn:hover { transform: scale(1.05); }
+
+        /* Mini timer */
+        .mini-timer { display: flex; align-items: center; gap: 12px; margin-top: 15px; padding: 12px 18px; background: rgba(0,0,0,0.3); border-radius: 12px; }
+        .mini-timer .mini-display { font-size: 1.8em; font-weight: bold; font-family: 'Courier New', monospace; color: #4ecdc4; min-width: 55px; }
+        .mini-timer .mini-display.warning { color: #ffc107; }
+        .mini-timer .mini-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        .mini-timer .mini-btn { padding: 8px 18px; border: none; border-radius: 20px; font-size: 0.85em; cursor: pointer; transition: all 0.3s; }
+        .mini-timer .mini-btn.start { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; }
+        .mini-timer .mini-btn.reset { background: rgba(255,255,255,0.15); color: white; }
+        .mini-timer .mini-btn:hover { transform: scale(1.05); }
+
+        /* Ladder */
+        .ladder { display: flex; flex-direction: column; gap: 0; margin: 25px 0; }
+        .ladder-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            border-radius: 12px;
+            margin: 4px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .ladder-step:hover { transform: translateX(5px); }
+        .ladder-step .step-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+        .ladder-step .step-text { flex: 1; }
+        .ladder-step .step-keywords { font-weight: bold; color: #4ecdc4; }
+        .step-5 { background: rgba(78, 205, 196, 0.25); }
+        .step-5 .step-num { background: #4ecdc4; color: #1a1a2e; }
+        .step-7 { background: rgba(78, 205, 196, 0.20); }
+        .step-7 .step-num { background: rgba(78, 205, 196, 0.7); color: #1a1a2e; }
+        .step-9 { background: rgba(78, 205, 196, 0.15); }
+        .step-9 .step-num { background: rgba(78, 205, 196, 0.5); color: white; }
+
+        /* Ladder timer */
+        .ladder-timer-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .ladder-timer-display {
+            font-size: 3.5em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            color: #4ecdc4;
+        }
+        .ladder-timer-display.warning { color: #ffc107; }
+        .ladder-timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+
+        /* Practice prompts */
+        .practice-prompt {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #4ecdc4;
+        }
+        .practice-prompt .scenario { font-size: 1.1em; margin-bottom: 15px; }
+        .practice-prompt .task { color: #4ecdc4; font-weight: bold; }
+        .practice-prompt .hint { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-top: 10px; font-style: italic; }
+
+        /* Recall */
+        .recall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .recall-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        .recall-box h4 { color: #4ecdc4; margin-bottom: 12px; font-size: 1.1em; }
+        .recall-box p { font-size: 0.95em; }
+
+        /* CTA */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3); }
+
+        /* Offline message */
+        .offline-message {
+            background: rgba(233, 69, 96, 0.15);
+            border: 1px solid rgba(233, 69, 96, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            color: rgba(255,255,255,0.8);
+            display: none;
+        }
+        .offline-message.show { display: block; }
+
+        /* Extended turn timer */
+        .extended-timer-display {
+            font-size: 3em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            color: #4ecdc4;
+        }
+        .extended-timer-display.warning { color: #ffc107; }
+        .extended-timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <!-- Header -->
+        <div class="lesson-header">
+            <h1>The Keyword Builder</h1>
+            <div class="subtitle">Build your speaking toolkit with words that connect ideas</div>
+            <div class="skill-tag">Speaking • Vocabulary Building • Fluency</div>
+        </div>
+
+        <!-- Tab Navigation (Centered) -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'spark')">
+                <span class="tab-number">1</span>Spark
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'howitworks')">
+                <span class="tab-number">2</span>How It Works
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'build')">
+                <span class="tab-number">3</span>Build & Speak
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'ladder')">
+                <span class="tab-number">4</span>The Ladder
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'freebuild')">
+                <span class="tab-number">5</span>Free Build
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'check')">
+                <span class="tab-number">6</span>Check
+            </button>
+        </div>
+
+        <!-- ===== TAB 1: SPARK ===== -->
+        <div id="spark" class="tab-content active">
+            <h2>Spark</h2>
+            <p>Let's warm up with some quick word associations. You'll have 15 seconds for each word to tell me related words, feelings, or ideas.</p>
+
+            <h3>Word Chain Warm-Up</h3>
+            <p>When I say a word, say the first 3 things that come to your mind. Go fast—don't think too much!</p>
+
+            <div class="keywords-row">
+                <div class="keyword-chip" onclick="startWarmupTimer(this, 'food')">food</div>
+                <div class="keyword-chip" onclick="startWarmupTimer(this, 'happy')">happy</div>
+                <div class="keyword-chip" onclick="startWarmupTimer(this, 'family')">family</div>
+            </div>
+
+            <div class="mini-timer" id="warmupTimer" style="display:none;">
+                <div class="mini-display" id="warmupDisplay">15</div>
+                <div class="mini-btn reset" onclick="resetWarmupTimer()">Reset</div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Today's Goal</h3>
+            <p>You'll learn how to build a "keyword map"—a special group of connected words. When you speak, these keywords help you:</p>
+            <ul style="margin: 15px 0 15px 30px; line-height: 2;">
+                <li>Say more interesting things</li>
+                <li>Remember ideas when speaking</li>
+                <li>Connect your ideas together</li>
+            </ul>
+
+            <p style="margin-top: 20px; color: #4ecdc4; font-weight: bold;">Let's build your first keyword map!</p>
+        </div>
+
+        <!-- ===== TAB 2: HOW IT WORKS ===== -->
+        <div id="howitworks" class="tab-content">
+            <h2>How It Works</h2>
+            <p>Making a keyword map is simple. Here's what we do:</p>
+
+            <div class="skill-card" onclick="toggleCard(this)">
+                <h4>Step 1: Pick 3 Starting Words</h4>
+                <div class="hidden-content">
+                    <p>You choose 3 words that are important to your answer. For example, if the question is "What is the perfect weekend?", you might pick: <strong>relax</strong>, <strong>family</strong>, <strong>adventure</strong></p>
+                </div>
+            </div>
+
+            <div class="skill-card" onclick="toggleCard(this)">
+                <h4>Step 2: Find Connected Words</h4>
+                <div class="hidden-content">
+                    <p>The computer finds words that connect to your words. You might see similar words, opposite words, or related words. Look at all the options!</p>
+                </div>
+            </div>
+
+            <div class="skill-card" onclick="toggleCard(this)">
+                <h4>Step 3: Pick More Words</h4>
+                <div class="hidden-content">
+                    <p>From all the connected words, choose the ones that help you talk about the question. You can pick as many as you want!</p>
+                </div>
+            </div>
+
+            <div class="skill-card" onclick="toggleCard(this)">
+                <h4>Step 4: Speak for 45 Seconds</h4>
+                <div class="hidden-content">
+                    <p>Use your keyword map to speak. Try to use as many of your keywords as possible. The timer helps you talk for the right amount of time.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Demo Workspace</h3>
+            <p>Let's look at an example so you understand what to do:</p>
+
+            <div class="workspace">
+                <div class="workspace-question">What is the perfect weekend?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input" value="relax" readonly>
+                    <input type="text" class="keyword-input" value="family" readonly>
+                    <input type="text" class="keyword-input" value="adventure" readonly>
+                </div>
+
+                <div class="ignite-legend">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone active">
+                    <div class="ignite-cluster">
+                        <span class="ignite-label">From "relax":</span>
+                    </div>
+                    <div class="ignite-cluster">
+                        <span class="ignite-word syn" onclick="pickWord(this)">rest</span>
+                        <span class="ignite-word syn" onclick="pickWord(this)">sleep</span>
+                        <span class="ignite-word ant" onclick="pickWord(this)">busy</span>
+                        <span class="ignite-word rel" onclick="pickWord(this)">peaceful</span>
+                    </div>
+                </div>
+
+                <div class="ignite-zone active">
+                    <div class="ignite-cluster">
+                        <span class="ignite-label">From "family":</span>
+                    </div>
+                    <div class="ignite-cluster">
+                        <span class="ignite-word syn" onclick="pickWord(this)">parents</span>
+                        <span class="ignite-word rel" onclick="pickWord(this)">together</span>
+                        <span class="ignite-word col" onclick="pickWord(this)">time</span>
+                    </div>
+                </div>
+
+                <div class="ignite-zone active">
+                    <div class="ignite-cluster">
+                        <span class="ignite-label">From "adventure":</span>
+                    </div>
+                    <div class="ignite-cluster">
+                        <span class="ignite-word syn" onclick="pickWord(this)">explore</span>
+                        <span class="ignite-word rel" onclick="pickWord(this)">exciting</span>
+                        <span class="ignite-word rel" onclick="pickWord(this)">new</span>
+                        <span class="ignite-word col" onclick="pickWord(this)">activities</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; color: rgba(255,255,255,0.8);"><em>Tip: You don't need to understand every word—just pick the ones that make sense and help your answer!</em></p>
+        </div>
+
+        <!-- ===== TAB 3: BUILD & SPEAK ===== -->
+        <div id="build" class="tab-content">
+            <h2>Build & Speak</h2>
+            <p>Now it's your turn! Complete 5 rounds. For each round, enter 3 keywords, find connected words, and speak for 45 seconds.</p>
+
+            <!-- Round 1 -->
+            <h3 style="margin-top: 30px;">Round 1</h3>
+            <div class="workspace">
+                <div class="workspace-question">What is the perfect weekend?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input round1-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input round1-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input round1-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('round1')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="round1-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="round1-ignite"></div>
+
+                <div class="picked-words" id="round1-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="round1-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="round1-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="round1-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('round1', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('round1')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="round1-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+
+            <!-- Round 2 -->
+            <h3 style="margin-top: 30px;">Round 2</h3>
+            <div class="workspace">
+                <div class="workspace-question">Tell me about your favourite place.</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input round2-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input round2-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input round2-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('round2')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="round2-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="round2-ignite"></div>
+
+                <div class="picked-words" id="round2-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="round2-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="round2-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="round2-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('round2', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('round2')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="round2-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+
+            <!-- Round 3 -->
+            <h3 style="margin-top: 30px;">Round 3</h3>
+            <div class="workspace">
+                <div class="workspace-question">What makes a good friend?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input round3-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input round3-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input round3-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('round3')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="round3-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="round3-ignite"></div>
+
+                <div class="picked-words" id="round3-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="round3-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="round3-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="round3-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('round3', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('round3')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="round3-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+
+            <!-- Round 4 -->
+            <h3 style="margin-top: 30px;">Round 4</h3>
+            <div class="workspace">
+                <div class="workspace-question">If you had a superpower, what would it be?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input round4-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input round4-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input round4-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('round4')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="round4-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="round4-ignite"></div>
+
+                <div class="picked-words" id="round4-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="round4-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="round4-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="round4-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('round4', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('round4')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="round4-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+
+            <!-- Round 5 -->
+            <h3 style="margin-top: 30px;">Round 5</h3>
+            <div class="workspace">
+                <div class="workspace-question">What food do you love and what food do you hate?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input round5-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input round5-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input round5-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('round5')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="round5-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="round5-ignite"></div>
+
+                <div class="picked-words" id="round5-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="round5-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="round5-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="round5-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('round5', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('round5')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="round5-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+
+            <!-- Rebuild -->
+            <h3 style="margin-top: 30px;">Rebuild</h3>
+            <p>Now let's use the first question again with NEW keywords. This time, see how different you can make your answer!</p>
+            <div class="workspace">
+                <div class="workspace-question">What is the perfect weekend?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input rebuild-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input rebuild-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input rebuild-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('rebuild')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="rebuild-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="rebuild-ignite"></div>
+
+                <div class="picked-words" id="rebuild-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="rebuild-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="rebuild-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="rebuild-display">45</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('rebuild', 45)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('rebuild')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="rebuild-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB 4: THE LADDER ===== -->
+        <div id="ladder" class="tab-content">
+            <h2>The Ladder</h2>
+            <p>Ready for a challenge? Pick a question and climb the ladder by adding more keywords. The ladder shows 5, 7, and 9 keywords—each step is harder!</p>
+
+            <div class="workspace">
+                <div class="workspace-question">What is the perfect weekend?</div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input ladder-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input ladder-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input ladder-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('ladder')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="ladder-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="ladder-ignite"></div>
+
+                <div class="picked-words" id="ladder-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="ladder-picked-display"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">The Challenge</h3>
+            <div class="ladder">
+                <div class="ladder-step step-5" onclick="startLadderTimer(5)">
+                    <div class="step-num">5</div>
+                    <div class="step-text">
+                        <div><strong>Easy</strong></div>
+                        <div style="font-size: 0.9em; color: rgba(255,255,255,0.7);">Speak with your 3 starting words + 2 connected words</div>
+                    </div>
+                    <div class="step-keywords">45 sec</div>
+                </div>
+
+                <div class="ladder-step step-7" onclick="startLadderTimer(7)">
+                    <div class="step-num">7</div>
+                    <div class="step-text">
+                        <div><strong>Medium</strong></div>
+                        <div style="font-size: 0.9em; color: rgba(255,255,255,0.7);">Speak with your 3 starting words + 4 connected words</div>
+                    </div>
+                    <div class="step-keywords">45 sec</div>
+                </div>
+
+                <div class="ladder-step step-9" onclick="startLadderTimer(9)">
+                    <div class="step-num">9</div>
+                    <div class="step-text">
+                        <div><strong>Hard</strong></div>
+                        <div style="font-size: 0.9em; color: rgba(255,255,255,0.7);">Speak with 3 starting words + 6 connected words</div>
+                    </div>
+                    <div class="step-keywords">45 sec</div>
+                </div>
+            </div>
+
+            <div class="ladder-timer-section" id="ladderTimerSection" style="display:none;">
+                <div style="font-size: 1.2em; margin-bottom: 15px; color: #4ecdc4;"><strong id="ladderChallenge"></strong></div>
+                <div class="ladder-timer-display" id="ladderTimerDisplay">45</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="ladderTimerStart()">Start</button>
+                    <button class="timer-btn reset" onclick="ladderTimerReset()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB 5: FREE BUILD ===== -->
+        <div id="freebuild" class="tab-content">
+            <h2>Free Build</h2>
+            <p>Choose a topic you love and build your own keyword map. You'll have 90 seconds to speak—that's longer, so you can really tell a story!</p>
+
+            <h3>Choose Your Topic</h3>
+            <div class="workspace" style="cursor: pointer; margin-bottom: 15px;" onclick="selectFreeBuildTopic('My dream holiday', this)">
+                <div class="workspace-question">My dream holiday</div>
+                <p style="text-align: center; font-size: 0.9em; color: rgba(255,255,255,0.6);">Click to choose this topic</p>
+            </div>
+
+            <div class="workspace" style="cursor: pointer; margin-bottom: 15px;" onclick="selectFreeBuildTopic('The best age to be', this)">
+                <div class="workspace-question">The best age to be</div>
+                <p style="text-align: center; font-size: 0.9em; color: rgba(255,255,255,0.6);">Click to choose this topic</p>
+            </div>
+
+            <div class="workspace" style="cursor: pointer; margin-bottom: 15px;" onclick="selectFreeBuildTopic('A person I admire', this)">
+                <div class="workspace-question">A person I admire</div>
+                <p style="text-align: center; font-size: 0.9em; color: rgba(255,255,255,0.6);">Click to choose this topic</p>
+            </div>
+
+            <div class="workspace" id="freebuildWorkspace" style="display:none;">
+                <div class="workspace-question" id="freebuildQuestion"></div>
+
+                <div class="keyword-input-area">
+                    <input type="text" class="keyword-input freebuild-input" placeholder="keyword 1" maxlength="20">
+                    <input type="text" class="keyword-input freebuild-input" placeholder="keyword 2" maxlength="20">
+                    <input type="text" class="keyword-input freebuild-input" placeholder="keyword 3" maxlength="20">
+                </div>
+
+                <button class="timer-btn start" onclick="fetchWords('freebuild')">Find Connected Words</button>
+
+                <div class="ignite-legend" id="freebuild-legend" style="display:none;">
+                    <span><span class="legend-dot syn"></span>Similar</span>
+                    <span><span class="legend-dot ant"></span>Opposite</span>
+                    <span><span class="legend-dot rel"></span>Related</span>
+                    <span><span class="legend-dot col"></span>Collocate</span>
+                </div>
+
+                <div class="ignite-zone" id="freebuild-ignite"></div>
+
+                <div class="picked-words" id="freebuild-picked" style="display:none;">
+                    <div class="picked-words-label">Your Keywords</div>
+                    <div id="freebuild-picked-display"></div>
+                </div>
+
+                <div class="mini-timer" id="freebuild-timer" style="display:none;">
+                    <span style="flex: 1;">Speaking time:</span>
+                    <div class="mini-display" id="freebuild-display">90</div>
+                    <div class="mini-btn start" onclick="startSpeakingTimer('freebuild', 90)">Start</div>
+                    <div class="mini-btn reset" onclick="resetSpeakingTimer('freebuild')">Reset</div>
+                </div>
+
+                <div class="offline-message" id="freebuild-offline">
+                    <strong>Can't connect to word finder?</strong> No problem! Just come up with your own connected words and continue. You can still speak great without it!
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB 6: CHECK ===== -->
+        <div id="check" class="tab-content">
+            <h2>Check</h2>
+            <p>Let's review what you learned today.</p>
+
+            <h3>Recall: What Did You Learn?</h3>
+            <div class="recall-grid">
+                <div class="recall-box">
+                    <h4>What is a keyword?</h4>
+                    <p>A word that is important to your answer. It helps you speak more and remember ideas.</p>
+                </div>
+                <div class="recall-box">
+                    <h4>What are connected words?</h4>
+                    <p>Words that are similar, opposite, or related to your main keywords. They give you more choices for speaking.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Reflection</h3>
+            <div class="practice-prompt">
+                <div class="scenario">Think about today's lesson:</div>
+                <div class="task">Which question was the easiest for you to speak about? What keywords did you use?</div>
+            </div>
+
+            <h3 style="margin-top: 30px;">I Can Now...</h3>
+            <div class="keywords-row">
+                <div class="keyword-chip" style="background: rgba(78, 205, 196, 0.2); border: 1px solid #4ecdc4;">
+                    <span style="color: #4ecdc4;">✓ Choose keywords for speaking</span>
+                </div>
+                <div class="keyword-chip" style="background: rgba(78, 205, 196, 0.2); border: 1px solid #4ecdc4;">
+                    <span style="color: #4ecdc4;">✓ Find connected words</span>
+                </div>
+                <div class="keyword-chip" style="background: rgba(78, 205, 196, 0.2); border: 1px solid #4ecdc4;">
+                    <span style="color: #4ecdc4;">✓ Use keywords to speak longer</span>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; text-align: center; color: rgba(255,255,255,0.7); font-style: italic;">Well done! You've built great keyword maps today!</p>
+        </div>
+    </div>
+
+    <script>
+        // ===== TAB MANAGEMENT =====
+        function openTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // ===== SKILL CARDS =====
+        function toggleCard(card) {
+            card.classList.toggle('revealed');
+        }
+
+        // ===== WARM-UP TIMER =====
+        let warmupTimer = null;
+        function startWarmupTimer(element, word) {
+            const label = element.textContent;
+            element.textContent = 'Timer running...';
+            element.style.opacity = '0.5';
+            element.style.pointerEvents = 'none';
+
+            const timerEl = document.getElementById('warmupTimer');
+            timerEl.style.display = 'flex';
+            let remaining = 15;
+            document.getElementById('warmupDisplay').textContent = remaining;
+
+            clearInterval(warmupTimer);
+            warmupTimer = setInterval(() => {
+                remaining--;
+                const display = document.getElementById('warmupDisplay');
+                display.textContent = remaining;
+                if (remaining <= 5) {
+                    display.classList.add('warning');
+                } else {
+                    display.classList.remove('warning');
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(warmupTimer);
+                    element.textContent = label;
+                    element.style.opacity = '1';
+                    element.style.pointerEvents = 'auto';
+                    display.classList.remove('warning');
+                    document.getElementById('warmupDisplay').textContent = '15';
+                }
+            }, 1000);
+        }
+
+        function resetWarmupTimer() {
+            clearInterval(warmupTimer);
+            document.getElementById('warmupDisplay').textContent = '15';
+            document.getElementById('warmupDisplay').classList.remove('warning');
+            const chips = document.querySelectorAll('.keyword-chip');
+            chips.forEach(chip => {
+                chip.style.opacity = '1';
+                chip.style.pointerEvents = 'auto';
+            });
+        }
+
+        // ===== DATAMUSE API FETCH =====
+        async function fetchWords(round) {
+            const inputs = document.querySelectorAll(`.${round}-input`);
+            const keywords = Array.from(inputs).map(i => i.value.trim()).filter(k => k);
+
+            if (keywords.length < 1) {
+                alert('Please enter at least 1 keyword');
+                return;
+            }
+
+            const legendEl = document.getElementById(`${round}-legend`);
+            const igniteEl = document.getElementById(`${round}-ignite`);
+            const offlineEl = document.getElementById(`${round}-offline`);
+            const pickedEl = document.getElementById(`${round}-picked`);
+            const timerEl = document.getElementById(`${round}-timer`);
+
+            legendEl.style.display = 'flex';
+            igniteEl.innerHTML = '';
+            offlineEl.classList.remove('show');
+            pickedEl.style.display = 'none';
+
+            for (const keyword of keywords) {
+                try {
+                    const response = await fetch(`https://api.datamuse.com/words?ml=${encodeURIComponent(keyword)}&max=5`);
+                    const similarWords = await response.json();
+
+                    const response2 = await fetch(`https://api.datamuse.com/words?rel_jjb=${encodeURIComponent(keyword)}&max=3`);
+                    const relatedWords = await response2.json();
+
+                    const response3 = await fetch(`https://api.datamuse.com/words?rel_bga=${encodeURIComponent(keyword)}&max=2`);
+                    const collocateWords = await response3.json();
+
+                    const cluster = document.createElement('div');
+                    cluster.className = 'ignite-zone active';
+
+                    const label = document.createElement('div');
+                    label.className = 'ignite-cluster';
+                    const span = document.createElement('span');
+                    span.className = 'ignite-label';
+                    span.textContent = `From "${keyword}":`;
+                    label.appendChild(span);
+                    cluster.appendChild(label);
+
+                    const words = document.createElement('div');
+                    words.className = 'ignite-cluster';
+
+                    similarWords.slice(0, 3).forEach(w => {
+                        const word = document.createElement('span');
+                        word.className = 'ignite-word syn';
+                        word.textContent = w.word;
+                        word.onclick = () => pickWord(word, round);
+                        words.appendChild(word);
+                    });
+
+                    collocateWords.slice(0, 2).forEach(w => {
+                        const word = document.createElement('span');
+                        word.className = 'ignite-word col';
+                        word.textContent = w.word;
+                        word.onclick = () => pickWord(word, round);
+                        words.appendChild(word);
+                    });
+
+                    cluster.appendChild(words);
+                    igniteEl.appendChild(cluster);
+                } catch (error) {
+                    console.error('Error fetching words:', error);
+                    offlineEl.classList.add('show');
+                }
+            }
+
+            pickedEl.style.display = 'block';
+            timerEl.style.display = 'flex';
+        }
+
+        // ===== PICK WORDS =====
+        function pickWord(element, round) {
+            element.classList.toggle('picked');
+            updatePickedDisplay(round);
+        }
+
+        function updatePickedDisplay(round) {
+            const picked = document.querySelectorAll(`#${round}-ignite .ignite-word.picked`);
+            const displayEl = document.getElementById(`${round}-picked-display`);
+            displayEl.innerHTML = '';
+
+            picked.forEach(word => {
+                const chip = document.createElement('span');
+                chip.className = 'picked-chip';
+                chip.textContent = word.textContent;
+                chip.onclick = () => {
+                    word.classList.remove('picked');
+                    updatePickedDisplay(round);
+                };
+                displayEl.appendChild(chip);
+            });
+        }
+
+        // ===== SPEAKING TIMER =====
+        let speakingTimers = {};
+
+        function startSpeakingTimer(round, duration) {
+            if (speakingTimers[round]) clearInterval(speakingTimers[round]);
+
+            let remaining = duration;
+            const display = document.getElementById(`${round}-display`);
+            const btn = document.querySelector(`#${round}-timer .mini-btn.start`);
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+
+            speakingTimers[round] = setInterval(() => {
+                remaining--;
+                display.textContent = remaining;
+
+                if (remaining <= 10) {
+                    display.classList.add('danger');
+                } else if (remaining <= 15) {
+                    display.classList.add('warning');
+                    display.classList.remove('danger');
+                } else {
+                    display.classList.remove('warning', 'danger');
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(speakingTimers[round]);
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    display.textContent = duration;
+                    display.classList.remove('warning', 'danger');
+                }
+            }, 1000);
+        }
+
+        function resetSpeakingTimer(round) {
+            if (speakingTimers[round]) clearInterval(speakingTimers[round]);
+            const display = document.getElementById(`${round}-display`);
+            const duration = display.getAttribute('data-duration') || (round === 'freebuild' ? 90 : 45);
+            display.textContent = duration;
+            display.classList.remove('warning', 'danger');
+            const btn = document.querySelector(`#${round}-timer .mini-btn.start`);
+            if (btn) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+
+        // ===== LADDER =====
+        function startLadderTimer(level) {
+            const section = document.getElementById('ladderTimerSection');
+            section.style.display = 'block';
+
+            const levelNames = { 5: 'Easy (5 keywords)', 7: 'Medium (7 keywords)', 9: 'Hard (9 keywords)' };
+            document.getElementById('ladderChallenge').textContent = levelNames[level];
+
+            ladderTimerReset();
+        }
+
+        let ladderTimer = null;
+        function ladderTimerStart() {
+            if (ladderTimer) clearInterval(ladderTimer);
+            let remaining = 45;
+            const display = document.getElementById('ladderTimerDisplay');
+            const btn = document.querySelector('#ladderTimerSection .timer-btn.start');
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+
+            ladderTimer = setInterval(() => {
+                remaining--;
+                display.textContent = remaining;
+
+                if (remaining <= 10) {
+                    display.classList.add('danger');
+                } else if (remaining <= 15) {
+                    display.classList.add('warning');
+                    display.classList.remove('danger');
+                } else {
+                    display.classList.remove('warning', 'danger');
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(ladderTimer);
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    display.textContent = '45';
+                    display.classList.remove('warning', 'danger');
+                }
+            }, 1000);
+        }
+
+        function ladderTimerReset() {
+            if (ladderTimer) clearInterval(ladderTimer);
+            const display = document.getElementById('ladderTimerDisplay');
+            display.textContent = '45';
+            display.classList.remove('warning', 'danger');
+            const btn = document.querySelector('#ladderTimerSection .timer-btn.start');
+            if (btn) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+
+        // ===== FREE BUILD =====
+        function selectFreeBuildTopic(topic, element) {
+            document.getElementById('freebuildQuestion').textContent = topic;
+            document.getElementById('freebuildWorkspace').style.display = 'block';
+            document.querySelectorAll('#freebuild .workspace').forEach((ws, i) => {
+                if (i > 0) ws.style.opacity = '0.3';
+            });
+            element.style.opacity = '1';
+            element.style.pointerEvents = 'auto';
+        }
+
+        // ===== INITIAL SETUP =====
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-btn').click();
+        });
+    </script>
+</body>
+</html>

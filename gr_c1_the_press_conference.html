@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Press Conference</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.example-box { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-style: italic; color: #495057; font-size: 0.95rem; }
+
+.toolkit-card { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #667eea; }
+.toolkit-card h4 { font-size: 0.95rem; color: #667eea; font-weight: 700; margin-bottom: 8px; }
+.toolkit-card p { font-size: 0.9rem; color: #495057; margin-bottom: 4px; }
+.toolkit-card .example-text { font-size: 0.85rem; color: #6c757d; font-style: italic; margin-top: 8px; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.scenario-card { background: linear-gradient(135deg, #667eea08, #764ba208); border: 2px solid #667eea; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.scenario-card h3 { color: #667eea; font-size: 1.1rem; margin-bottom: 8px; }
+.scenario-card .role { font-size: 0.95rem; color: #495057; line-height: 1.5; margin-bottom: 12px; }
+
+.question-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 16px 0; transition: all 0.3s; }
+.question-reveal:hover { border-color: #667eea; }
+.question-reveal .reveal-label { color: #6c757d; font-size: 0.85rem; }
+.question-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.question-reveal.revealed .reveal-label { display: none; }
+.question-reveal.revealed .question-text { display: block; }
+.question-text { display: none; font-size: 1rem; font-weight: 600; color: #1a1a2e; }
+
+.question-counter { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.checklist { margin-top: 12px; }
+.check-item { display: flex; align-items: baseline; margin-bottom: 8px; }
+.check-item input { margin-right: 8px; cursor: pointer; }
+.check-item label { cursor: pointer; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.goal-badge { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 12px; }
+
+.reveal-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: transform 0.2s; }
+.reveal-btn:hover { transform: scale(1.02); }
+
+.text-input-box { width: 100%; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.95rem; margin: 8px 0; resize: vertical; min-height: 100px; }
+.text-input-box:focus { outline: none; border-color: #667eea; }
+
+.scenario-option { background: #f8f9fa; border: 2px solid #dee2e6; border-radius: 10px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.3s; }
+.scenario-option:hover { background: #667eea08; border-color: #667eea; }
+.scenario-option h4 { color: #667eea; margin-bottom: 6px; font-size: 0.95rem; }
+.scenario-option p { color: #495057; font-size: 0.9rem; }
+
+.assessment-box { background: linear-gradient(135deg, #667eea08, #764ba208); border: 2px solid #667eea; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.assessment-box h4 { color: #667eea; margin-bottom: 8px; }
+
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.section-label { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-top: 16px; margin-bottom: 8px; display: block; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>The Press Conference</h1>
+  <p>Control the narrative under pressure. Master crisis communication.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">The Toolkit</div>
+  <div class="tab" onclick="showTab(2)">The CEO</div>
+  <div class="tab" onclick="showTab(3)">The Minister</div>
+  <div class="tab" onclick="showTab(4)">Your Choice</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Politician Mode</h2>
+    <p style="margin-bottom:16px;">Someone asks: <strong>"Did you lie about the budget?"</strong></p>
+    <div class="speak-prompt">SPEAK: Answer this question in 3 completely different ways. Try direct denial, deflection, and reframing. No timer — just give it a go.</div>
+  </div>
+
+  <div class="card">
+    <h3>Why This Is Hard</h3>
+    <p>The question assumes guilt. A direct "no" sounds defensive. Smart communicators use several techniques:</p>
+    <ul style="margin-top:12px;">
+      <li>Change the question</li>
+      <li>Lead with emotion</li>
+      <li>Promise without committing</li>
+      <li>Add context that reframes the story</li>
+      <li>Dodge gracefully</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>CEO Mode</h2>
+    <p style="margin-bottom:16px;">A journalist asks: <strong>"Why did you fire 500 people?"</strong></p>
+    <div class="speak-prompt">SPEAK: Again, give 3 different answers. Make them sound authentic each time — not robotic.</div>
+  </div>
+
+  <div class="card">
+    <h2>Today's Goal</h2>
+    <p style="margin-bottom:16px;">You'll play a public figure under pressure. Questions will be tough. You need to:</p>
+    <ul style="margin-top:12px;">
+      <li><strong>Stay calm</strong> — panic shows</li>
+      <li><strong>Control the narrative</strong> — answer WHAT you want, not what they ask</li>
+      <li><strong>Use hedging language</strong> — "exploring options", "actively working", "committed to"</li>
+      <li><strong>Lead with emotion</strong> — show you understand the concern</li>
+      <li><strong>Bridge and pivot</strong> — acknowledge, then change the topic</li>
+      <li><strong>Know when to stay silent</strong> — sometimes "no comment" is the answer</li>
+    </ul>
+    <span class="goal-badge">You'll need quick thinking and composure</span>
+  </div>
+</div>
+
+<!-- TAB 1: THE TOOLKIT -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>Crisis Communication Moves</h2>
+    <p style="margin-bottom:20px; color:#6c757d;">Click each to see the technique and an example.</p>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 1: The Redirect</h4>
+    <p>Answer a different (better) question instead. Don't ignore the question — just answer the one you prefer.</p>
+    <p class="example-text">"What I think is really important here is..." / "The real issue is..." / "Let me address what matters most..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "Have you cut corners on safety?"</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "What matters here is that we're committed to industry-leading safety standards. Our record speaks for itself — zero incidents in three years."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>You didn't answer the corner-cutting question. You answered why safety is non-negotiable.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 2: The Empathy Shield</h4>
+    <p>Lead with feeling before facts. Show you understand the concern, then explain.</p>
+    <p class="example-text">"I completely understand the concern..." / "I hear what you're saying..." / "That's a fair question because..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "People are angry about the price increase."</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "I completely understand the frustration. Price increases hurt families. What's important to know is that we've invested every penny from the last three years into making this product safer and more reliable."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>Empathy first = you're not heartless. Then pivot to your message.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 3: The Vague Commitment</h4>
+    <p>Promise action without promising a specific outcome. Sounds positive but buys you time.</p>
+    <p class="example-text">"We're actively exploring..." / "We're committed to..." / "We're looking at every option..." / "We're determined to..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "Will you fix this by next month?"</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "This is our top priority. We're actively working with our teams to resolve this as quickly as possible."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>You didn't promise "next month" — but you sound committed and urgent.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 4: The Context Bomb</h4>
+    <p>Add context that completely changes how people see the story. Not a lie — just incomplete reporting.</p>
+    <p class="example-text">"What hasn't been reported..." / "To put this in perspective..." / "The full picture is..." / "What people don't realize..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "Your company's carbon footprint is massive."</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "What hasn't been reported is that we've cut our carbon footprint by 40% in five years — faster than any competitor. We've also invested 200 million in renewable energy."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>The footprint is huge — true. But the context makes you look proactive, not guilty.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 5: The Bridge</h4>
+    <p>Acknowledge the question, then pivot to your message. Small agreement = you're not dismissive.</p>
+    <p class="example-text">"That's a fair question, and what I'd add to that is..." / "You're right, and..." / "That's important, and here's what else matters..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "The project is over budget."</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "That's true, and what's important to understand is why. We discovered structural issues that weren't visible at the start. We've done them right rather than quickly. The final result is stronger and safer."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>Yes, over budget — you don't deny it. But now people see the reason and the benefit.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 6: The Non-Answer</h4>
+    <p>When you genuinely can't say anything. Sounds professional, not evasive — if you do it right.</p>
+    <p class="example-text">"I'm not in a position to comment on that at this time." / "That's still under review." / "I can't speak to that publicly yet."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">↓ Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Q:</strong> "Are you closing the London office?"</p>
+        <p style="margin-top:8px;"><strong>A:</strong> "That's confidential business information, and I'm not in a position to comment on that at this time. What I CAN tell you is that we're committed to our UK operations and our people."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>You're not lying. You're protecting sensitive info while staying positive.</em></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: THE CEO -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <div class="scenario-card">
+      <h3>The Scenario</h3>
+      <div class="role">
+        You are the CEO of a major tech company. Yesterday, a massive data breach exposed the personal information of 50 million users. The press is waiting. Your opening statement is 90 seconds. Then you'll answer 6 tough questions, 30 seconds each.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your Opening Statement</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">You have 90 seconds. Prepare something now. The tone should be: serious, responsible, but not panicked. Show you're in control and taking action.</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">What will you say? Apologize? Explain the breach? Tell people how to protect themselves? Go.</p>
+  </div>
+
+  <div class="card">
+    <h2>Question Round</h2>
+    <p style="margin-bottom:20px; color:#6c757d;">Below are 6 questions. They appear one at a time. You get 30 seconds per answer. You can't see the next question until you finish.</p>
+
+    <!-- Question 1 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 0)" id="ceo-q0">
+      <div class="question-counter">Question 1 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"How long have you known about this breach?"</div>
+    </div>
+    <div id="ceo-a0" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">You have 30 seconds. Go.</p>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 1)" id="ceo-q1" style="display:none;">
+      <div class="question-counter">Question 2 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Is it true that your security team warned you about vulnerabilities 6 months ago?"</div>
+    </div>
+    <div id="ceo-a1" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">30 seconds.</p>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 2)" id="ceo-q2" style="display:none;">
+      <div class="question-counter">Question 3 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"What do you say to the millions of users whose data is now in the hands of criminals?"</div>
+    </div>
+    <div id="ceo-a2" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">30 seconds.</p>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 3)" id="ceo-q3" style="display:none;">
+      <div class="question-counter">Question 4 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Will you be resigning?"</div>
+    </div>
+    <div id="ceo-a3" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">30 seconds.</p>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 4)" id="ceo-q4" style="display:none;">
+      <div class="question-counter">Question 5 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Your competitor says they use a far more secure system. Are they right?"</div>
+    </div>
+    <div id="ceo-a4" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">30 seconds.</p>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 5)" id="ceo-q5" style="display:none;">
+      <div class="question-counter">Question 6 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Can you guarantee this won't happen again?"</div>
+    </div>
+    <div id="ceo-a5" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">30 seconds. Final question.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">↓ Tap when finished with all 6 questions</span>
+      <div class="hidden-content">
+        <p><strong>How did you do?</strong></p>
+        <p style="margin-top:8px;">Which questions felt easiest to dodge? Which forced you to think on your feet? Which move from the toolkit did you use most?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: THE MINISTER -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <div class="scenario-card">
+      <h3>The Scenario</h3>
+      <div class="role">
+        You are the Minister for Education. Your government just announced that university tuition fees will double from next year. Student protests are happening across the country. Your opening statement is 90 seconds. Then 6 tough questions, 30 seconds each.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your Opening Statement</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">You have 90 seconds. Justify the decision. Frame it positively. You need to sound confident, not defensive.</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">Why are higher fees good for students? What's the benefit? Go.</p>
+  </div>
+
+  <div class="card">
+    <h2>Question Round</h2>
+    <p style="margin-bottom:20px; color:#6c757d;">6 questions. One at a time. 30 seconds per answer.</p>
+
+    <!-- Question 1 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 6)" id="min-q0">
+      <div class="question-counter">Question 1 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"You went to university for free. How can you justify making students pay twice as much?"</div>
+    </div>
+    <div id="min-a0" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">This one's personal. 30 seconds.</p>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 7)" id="min-q1" style="display:none;">
+      <div class="question-counter">Question 2 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Isn't this just punishing young people to fix a problem created by older generations?"</div>
+    </div>
+    <div id="min-a1" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 8)" id="min-q2" style="display:none;">
+      <div class="question-counter">Question 3 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"What about students who can't afford this? Are you saying university is only for the rich?"</div>
+    </div>
+    <div id="min-a2" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 9)" id="min-q3" style="display:none;">
+      <div class="question-counter">Question 4 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Three members of your own party have publicly opposed this. Is your government divided?"</div>
+    </div>
+    <div id="min-a3" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 10)" id="min-q4" style="display:none;">
+      <div class="question-counter">Question 5 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"Student unions are calling for your resignation. What's your response?"</div>
+    </div>
+    <div id="min-a4" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question-reveal" onclick="revealQuestion(this, 11)" id="min-q5" style="display:none;">
+      <div class="question-counter">Question 6 of 6</div>
+      <span class="reveal-label">↓ Tap to see the question</span>
+      <div class="question-text">"If your own child had to pay these fees, would you still support this policy?"</div>
+    </div>
+    <div id="min-a5" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 30)">
+          <span class="timer-display">0:30</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">Final question.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">↓ Tap when finished</span>
+      <div class="hidden-content">
+        <p><strong>Reflection:</strong></p>
+        <p style="margin-top:8px;">That last question was personal ("your own child"). Was it harder to answer? What made it different from the others? Did you stay in character or did the emotion break through?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: YOUR CHOICE -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Choose Your Scenario</h2>
+    <p style="margin-bottom:20px;">Pick one of these 3 crisis roles. You'll have 2 minutes to prepare, then deliver an opening statement (90 seconds), then answer 6 live questions from the teacher (no script — pure improvisation).</p>
+  </div>
+
+  <div class="card">
+    <div class="scenario-option" onclick="selectScenario('a')">
+      <h4>Option A: Football Manager</h4>
+      <p>You're the manager of a national football team that just lost badly in a major tournament. Everyone expected you to win. The media is furious. Fans are calling for your resignation.</p>
+    </div>
+    <div class="scenario-option" onclick="selectScenario('b')">
+      <h4>Option B: Hospital Director</h4>
+      <p>You're a hospital director. A documentary has revealed poor conditions, understaffing, and neglect in your hospital. Patients are angry. Families are demanding accountability. The government is investigating.</p>
+    </div>
+    <div class="scenario-option" onclick="selectScenario('c')">
+      <h4>Option C: City Mayor</h4>
+      <p>You're the mayor of a city. A major bridge has collapsed due to poor maintenance. Fortunately no one died, but it was a close call. Construction companies are blaming budget cuts. The public is terrified.</p>
+    </div>
+  </div>
+
+  <div class="card" id="prep-card" style="display:none;">
+    <h3>Preparation Time</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">You have 2 minutes to think about your opening statement. Who is this person? What are they worried about? What will you say first?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:16px; color:#6c757d; font-size:0.85rem;">When you're ready, tell the teacher. They'll ask you 6 questions live. No seeing them first — just react.</p>
+  </div>
+
+  <div class="card" id="live-section" style="display:none;">
+    <h3>Live Q&A</h3>
+    <p style="margin-bottom:12px;">The teacher will now ask you 6 questions. You don't know what they are. You have 30 seconds per answer. Ready?</p>
+    <p style="color:#667eea; font-weight:600;">Tell the teacher you're ready to start.</p>
+  </div>
+
+  <div class="card" id="bonus-card" style="display:none;">
+    <h3>Bonus Round</h3>
+    <p style="margin-bottom:16px;">Now YOU play the journalist. Write 3 of the toughest questions you can think of for ONE of the scenarios you DIDN'T choose.</p>
+    <p style="color:#6c757d; font-size:0.9rem; margin-bottom:12px;">These should be questions designed to trip someone up. Questions that attack weak points or expose contradictions.</p>
+    <textarea class="text-input-box" placeholder="Write your 3 questions here. Example: 'How can you claim the bridge was properly maintained when...?'" id="bonus-questions"></textarea>
+    <div class="speak-prompt" style="margin-top:16px;">SPEAK: Now read these questions as if YOU were the journalist. Then answer them as the public figure from the scenario you DID choose. This is the real challenge — being ready for anything.</div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Recall Zone</h2>
+    <p style="margin-bottom:16px;">From memory:</p>
+    <div class="reflection-prompt">
+      <p><strong>The Moves:</strong> Name as many crisis communication techniques as you can remember from the toolkit. What were they called? Can you give an example of each?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Hardest Role:</strong> Which scenario was most uncomfortable to play? Why? Was it the questions themselves, the emotion, or the pressure?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Real Life:</strong> Think of a real politician or CEO you've seen in a crisis. Did they use any of these moves? When? Did they do it well or did it backfire?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">↓ Tap to see what we covered</span>
+      <div class="hidden-content">
+        <div class="checklist">
+          <div class="check-item">
+            <input type="checkbox" id="can1">
+            <label for="can1"><strong>I can</strong> stay calm and compose a response under time pressure</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can2">
+            <label for="can2"><strong>I can</strong> redirect a tough question to answer what I want instead</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can3">
+            <label for="can3"><strong>I can</strong> lead with empathy to disarm criticism</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can4">
+            <label for="can4"><strong>I can</strong> use vague language that sounds committed without being specific</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can5">
+            <label for="can5"><strong>I can</strong> reframe a story by adding context</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can6">
+            <label for="can6"><strong>I can</strong> bridge an uncomfortable question and pivot gracefully</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can7">
+            <label for="can7"><strong>I can</strong> know when to give no comment professionally</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can8">
+            <label for="can8"><strong>I can</strong> improvise under pressure and think on my feet</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="margin-top:16px;">SPEAK: Which of these did you actually use in the press conferences? Which one do you want to practice more?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// Tab system
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Question reveal system
+function revealQuestion(el, qIndex) {
+  if (el.classList.contains('revealed')) return;
+  el.classList.add('revealed');
+
+  // Show the answer timer area
+  const answerAreaId = 'ceo-a' + (qIndex % 6) > 5 ? qIndex - 6 : qIndex;
+  if (qIndex < 6) {
+    document.getElementById('ceo-a' + qIndex).style.display = 'block';
+  } else {
+    document.getElementById('min-a' + (qIndex - 6)).style.display = 'block';
+  }
+
+  // Show next question if available
+  const nextIndex = qIndex + 1;
+  const nextQId = qIndex < 5 ? 'ceo-q' + (qIndex + 1) : (qIndex < 11 ? 'min-q' + (qIndex - 5) : null);
+  if (nextQId) {
+    setTimeout(() => {
+      const nextEl = document.getElementById(nextQId);
+      if (nextEl) nextEl.style.display = 'block';
+    }, 500);
+  }
+}
+
+// Scenario selection
+function selectScenario(letter) {
+  document.getElementById('prep-card').style.display = 'block';
+  document.getElementById('live-section').style.display = 'block';
+  document.getElementById('bonus-card').style.display = 'block';
+  window.scrollTo(0, 400);
+}
+
+// Timer function
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (remaining <= 30 && remaining > 10) {
+      el.classList.remove('running');
+      el.classList.add('warning');
+    } else if (remaining <= 10 && remaining > 0) {
+      el.classList.remove('warning');
+      el.classList.add('danger');
+    } else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = '0:00';
+      el.classList.remove('danger');
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  // Reveal first question on tab open
+  document.getElementById('ceo-q0').style.display = 'block';
+  document.getElementById('min-q0').style.display = 'block';
+});
+</script>
+
+</body>
+</html>

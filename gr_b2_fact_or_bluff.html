@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fact or Bluff</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; margin-top: 16px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.statement-card { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+.statement-card:hover { border-color: #667eea; }
+.statement-card.revealed { border-color: #667eea; background: #667eea05; }
+.statement-num { font-size: 0.75rem; font-weight: 700; color: #667eea; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.statement-text { font-size: 1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 16px; }
+
+.button-group { display: flex; gap: 10px; margin-bottom: 16px; }
+.btn { padding: 10px 16px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.btn-fact { background: #28a745; color: white; }
+.btn-fact:hover { transform: scale(1.05); }
+.btn-bluff { background: #dc3545; color: white; }
+.btn-bluff:hover { transform: scale(1.05); }
+.btn-reveal { background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 100%; }
+.btn-reveal:hover { transform: scale(1.02); }
+.btn-reveal:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.hidden-result { display: none; padding: 16px; background: #f8f9fa; border-radius: 8px; margin-top: 12px; }
+.hidden-result.revealed { display: block; }
+.result-label { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.result-text { color: #495057; font-size: 0.9rem; }
+
+.score-box { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; font-weight: 600; font-size: 0.95rem; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+.timer-label { font-size: 0.7rem; color: #6c757d; text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+
+.debate-container { background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.debate-side { margin-bottom: 20px; }
+.debate-side:last-child { margin-bottom: 0; }
+.debate-label { font-size: 0.85rem; font-weight: 700; color: #667eea; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 8px 12px; background: #667eea15; border-radius: 6px; display: inline-block; }
+.debate-label.against { color: #764ba2; background: #764ba215; }
+
+.text-input-group { background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.text-input-group label { display: block; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; font-size: 0.95rem; }
+.text-input-group textarea { width: 100%; padding: 12px 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 0.9rem; font-family: inherit; margin-bottom: 12px; }
+.text-input-group textarea:focus { outline: none; border-color: #667eea; }
+
+.check-list { background: #f8f9fa; border-radius: 10px; padding: 16px; margin: 16px 0; }
+.check-list p { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.check-list p:before { content: '○'; font-size: 1.2rem; color: #667eea; font-weight: 700; }
+
+.tools-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.goal-box { background: linear-gradient(135deg, #28a74510, #17a2b810); border-left: 4px solid #28a745; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-weight: 500; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.i-can-box { margin-top: 20px; padding: 16px; background: #f8f9fa; border-radius: 10px; }
+.i-can-box p { font-weight: 700; margin-bottom: 8px; }
+.i-can-box ul { margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Fact or Bluff</h1>
+  <p>Guess what's true. Explain why. Then debate it.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">Round 1: Human Body</div>
+  <div class="tab" onclick="showTab(2)">Round 2: Money & Society</div>
+  <div class="tab" onclick="showTab(3)">Round 3: Technology</div>
+  <div class="tab" onclick="showTab(4)">Create Your Own</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Quick Fire</h2>
+    <p>Four statements. Guess which are true, which are made up. Click to reveal the answer.</p>
+  </div>
+
+  <div class="statement-card" id="warmup0">
+    <div class="statement-num">Question 1</div>
+    <div class="statement-text">"Honey never goes bad. Archaeologists found 3,000-year-old honey in Egyptian tombs and it was still edible."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guessWarmUp(this, 0)">True</button>
+      <button class="btn btn-bluff" onclick="guessWarmUp(this, 0)">False</button>
+    </div>
+    <div class="hidden-result" id="result0">
+      <div class="result-label">✓ TRUE</div>
+      <div class="result-text">Honey's chemical composition (sugar, water, enzymes) means it never spoils. Archaeologists have found edible honey in sealed Egyptian tombs from 3,000+ years ago.</div>
+    </div>
+  </div>
+
+  <div class="statement-card" id="warmup1">
+    <div class="statement-num">Question 2</div>
+    <div class="statement-text">"The Great Wall of China is visible from space with the naked eye."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guessWarmUp(this, 1)">True</button>
+      <button class="btn btn-bluff" onclick="guessWarmUp(this, 1)">False</button>
+    </div>
+    <div class="hidden-result" id="result1">
+      <div class="result-label">✗ FALSE</div>
+      <div class="result-text">This is a common myth. The Great Wall is about 20 feet wide — too narrow to see with the naked eye from space. You'd need a telescope or zoomed satellite image.</div>
+    </div>
+  </div>
+
+  <div class="statement-card" id="warmup2">
+    <div class="statement-num">Question 3</div>
+    <div class="statement-text">"Octopuses have three hearts."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guessWarmUp(this, 2)">True</button>
+      <button class="btn btn-bluff" onclick="guessWarmUp(this, 2)">False</button>
+    </div>
+    <div class="hidden-result" id="result2">
+      <div class="result-label">✓ TRUE</div>
+      <div class="result-text">Octopuses have three hearts: two pump blood to the gills, one pumps it to the rest of the body. When they swim, the heart pumping to the body actually stops, which is why they prefer crawling.</div>
+    </div>
+  </div>
+
+  <div class="statement-card" id="warmup3">
+    <div class="statement-num">Question 4</div>
+    <div class="statement-text">"Lightning never strikes the same place twice."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guessWarmUp(this, 3)">True</button>
+      <button class="btn btn-bluff" onclick="guessWarmUp(this, 3)">False</button>
+    </div>
+    <div class="hidden-result" id="result3">
+      <div class="result-label">✗ FALSE</div>
+      <div class="result-text">Lightning strikes the same places repeatedly. The Empire State Building is hit about 20-25 times per year. Tall structures are struck much more often than random locations.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Warm-Up Reflection</h2>
+    <div class="speak-prompt">
+      Did you know any of these? Which one surprised you the most? Why?
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 60)">
+      <span id="timer-warmup">1:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="goal-box">
+      <strong>Today's mission:</strong> Think critically. Guess which facts are real, explain your reasoning, and debate why certain statements sound believable even when they're not.
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: ROUND 1 - HUMAN BODY -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>Round 1: The Human Body</h2>
+    <p>Six statements. Three are true, three are false. Guess first, then explain why you think so.</p>
+    <div class="score-box">
+      Score: <span id="score1">0</span> / 6
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 1</div>
+    <div class="statement-text">"Your brain uses 20% of your body's total energy, even though it's only 2% of your weight."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 0, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 0, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s0">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">The brain is energy-hungry. Even at rest, it uses about 20% of your body's oxygen and calories — disproportionate to its 2% weight.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 2</div>
+    <div class="statement-text">"Humans share 60% of their DNA with bananas."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 1, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 1, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s1">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">Many basic cellular processes are shared across life. Humans and bananas share about 60% of genes because we both need to grow, metabolize, and reproduce. But this doesn't mean we're 60% banana.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 3</div>
+    <div class="statement-text">"The average person swallows 8 spiders in their sleep per year."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 2, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 2, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s2">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">This is an internet myth. Spiders actively avoid humans. The vibrations and smell of breath keep them away. There's no scientific evidence for this claim.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 4</div>
+    <div class="statement-text">"Your stomach acid is strong enough to dissolve metal."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 3, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 3, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s3">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">Stomach acid (pH 1.5-3.5) can dissolve zinc and other soft metals. It's one of the most acidic environments in your body — designed to break down food and kill bacteria.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 5</div>
+    <div class="statement-text">"Fingernails continue to grow after you die."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 4, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 4, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s4">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">Nails don't grow after death. But as the body dehydrates, skin shrinks back, making nails appear longer. It's an optical illusion.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 6</div>
+    <div class="statement-text">"Humans can survive for up to 2 months without food, but only 3-4 days without water."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(1, 5, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(1, 5, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r1s5">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">The body can store energy as fat and protein, lasting weeks or months without food. But water loss affects every cell immediately. Survival without water: typically 3-5 days.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Debrief</h2>
+    <div class="speak-prompt">
+      Which fact surprised you the most? Why did it surprise you? What made the bluffs sound believable?
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 60)">
+      <span id="timer-r1">1:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: ROUND 2 - MONEY & SOCIETY -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <h2>Round 2: Money & Society</h2>
+    <p>Six statements. Three are true, three are false. Guess, explain your reasoning, then we'll debate the real ones.</p>
+    <div class="score-box">
+      Score: <span id="score2">0</span> / 6
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 1</div>
+    <div class="statement-text">"The richest 1% of people own more than half of all the world's wealth."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 0, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 0, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s0">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">According to Oxfam and recent wealth studies, the top 1% owns approximately 32-40% of global wealth (some studies show over 50% including hidden assets). Meanwhile, the bottom 50% owns about 2%.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 2</div>
+    <div class="statement-text">"The average CEO earns 300 times more than their average worker."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 1, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 1, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s1">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">In the U.S., CEO-to-worker pay ratios average 270-370:1 depending on the year and industry. In 1965, this ratio was about 20:1. In Europe, the ratio is typically 50-100:1.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 3</div>
+    <div class="statement-text">"Countries with higher taxes consistently have lower levels of happiness."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 2, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 2, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s2">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">The opposite is often true. Nordic countries (Denmark, Finland, Norway) have the highest taxes AND the highest happiness levels. Tax rates alone don't determine well-being — how taxes are spent matters more.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 4</div>
+    <div class="statement-text">"More people die from taking selfies each year than from shark attacks."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 3, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 3, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s3">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">Selfie-related deaths (typically from falling or risky situations) number around 250-300 per year globally. Shark attacks cause about 10 deaths per year. The statistics are shocking but real.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 5</div>
+    <div class="statement-text">"Cash will be completely replaced by digital payments in most countries by 2030."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 4, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 4, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s4">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">Cash use is declining but nowhere near elimination. Most countries will still use cash widely beyond 2030. Older generations, unbanked populations, and those without digital access depend on physical money.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 6</div>
+    <div class="statement-text">"If you earn more than $34,000 a year, you're in the richest 1% globally."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(2, 5, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(2, 5, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r2s5">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">Global income distribution is extremely unequal. An annual income of $32,400-$40,000 puts you in the top 1% globally when accounting for global wealth and cost of living disparities.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Big Question</h2>
+    <div class="speak-prompt">
+      Is wealth inequality the biggest problem in the world? Why or why not? What problems do you think are bigger?
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 90)">
+      <span id="timer-r2">1:30</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: ROUND 3 - TECHNOLOGY -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <h2>Round 3: Technology & The Future</h2>
+    <p>Six statements. Three are true, three are false. Then we'll debate one using a flip argument format.</p>
+    <div class="score-box">
+      Score: <span id="score3">0</span> / 6
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 1</div>
+    <div class="statement-text">"There are more mobile phones on Earth than toothbrushes."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 0, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 0, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s0">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">About 6.6+ billion mobile phone users exist. Toothbrushes: approximately 3-4 billion (many people don't have regular access). Phones are more ubiquitous than dental care tools.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 2</div>
+    <div class="statement-text">"AI can now write music that is indistinguishable from music written by humans."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 1, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 1, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s1">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">AI music is improving rapidly, but experts can still distinguish it from human composition. AI can create technically correct but emotionally repetitive pieces. True indistinguishability is not yet achieved.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 3</div>
+    <div class="statement-text">"The first computer virus was created in 1986."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 2, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 2, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s2">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">The "Brain" virus (also called Pakistani virus) was created in 1986 by two Pakistani brothers. It infected IBM PCs and marked the start of the computer virus era.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 4</div>
+    <div class="statement-text">"90% of all the data in the world was created in the last 2 years."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 3, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 3, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s3">
+      <div class="result-label">✓ FACT</div>
+      <div class="result-text">Data creation is exponential. Every two years, more data is produced than in all of human history before. This statistic remains true each year because generation accelerates.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 5</div>
+    <div class="statement-text">"Self-driving cars have never caused a fatal accident."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 4, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 4, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s4">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">Autonomous vehicles have been involved in fatal accidents. For example, Uber's self-driving car struck and killed a pedestrian in Arizona in 2018. The technology is still developing safety systems.</div>
+    </div>
+  </div>
+
+  <div class="statement-card">
+    <div class="statement-num">Statement 6</div>
+    <div class="statement-text">"The average person checks their phone 150 times a day."</div>
+    <div class="button-group">
+      <button class="btn btn-fact" onclick="guess(3, 5, true)">Fact</button>
+      <button class="btn btn-bluff" onclick="guess(3, 5, false)">Bluff</button>
+    </div>
+    <div class="hidden-result" id="r3s5">
+      <div class="result-label">✗ BLUFF</div>
+      <div class="result-text">Studies suggest the average person checks their phone 80-100 times per day, not 150. Still shockingly frequent — about once every 7-10 minutes. The number varies by age and country.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Debate</h2>
+    <p style="margin-bottom: 16px;"><strong>Question:</strong> Should there be limits on how much technology companies know about us?</p>
+
+    <div class="debate-container">
+      <div class="debate-side">
+        <div class="debate-label">FOR 90 seconds</div>
+        <div class="speak-prompt">
+          Argue FOR limiting what tech companies know. Why is data privacy important? What are the risks?
+        </div>
+        <div class="timer-box" onclick="startTimer(this, 90)">
+          <span id="timer-debate-for">1:30</span>
+          <span class="timer-label">speaking time</span>
+        </div>
+      </div>
+
+      <div class="debate-side">
+        <div class="debate-label against">AGAINST 90 seconds</div>
+        <div class="speak-prompt">
+          Now argue AGAINST limiting tech company data collection. What are the benefits? What problems would restrictions cause?
+        </div>
+        <div class="timer-box" onclick="startTimer(this, 90)">
+          <span id="timer-debate-against">1:30</span>
+          <span class="timer-label">speaking time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: CREATE YOUR OWN -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Create Your Own Statements</h2>
+    <p>Write 3 statements: 2 TRUE, 1 FALSE. Make the false one believable. Write all 3 out loud with a straight face. Can you bluff convincingly?</p>
+  </div>
+
+  <div class="text-input-group">
+    <label>Statement 1 (True or False?)</label>
+    <textarea id="user-statement-1" rows="2" placeholder="Write a true or false statement about any topic..."></textarea>
+  </div>
+
+  <div class="text-input-group">
+    <label>Statement 2 (True or False?)</label>
+    <textarea id="user-statement-2" rows="2" placeholder="Write another statement..."></textarea>
+  </div>
+
+  <div class="text-input-group">
+    <label>Statement 3 (True or False?)</label>
+    <textarea id="user-statement-3" rows="2" placeholder="And one more..."></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Read Them Aloud</h2>
+    <div class="speak-prompt">
+      Read all 3 statements out loud with confidence. Try to sound completely believable for all of them — even the false one.
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 120)">
+      <span id="timer-create">2:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Go Deeper</h2>
+    <div class="speak-prompt">
+      Pick the topic from today that interested you most (from any round). Tell me everything you think about it. What makes it interesting? What questions do you have about it?
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 120)">
+      <span id="timer-deeper">2:00</span>
+      <span class="timer-label">extended turn</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Recall</h2>
+    <p style="margin-bottom: 12px;">Without looking back — name 3 facts from today that surprised you. Go.</p>
+
+    <div class="speak-prompt">
+      Tell me 3 facts you remember. Why did they stick with you?
+    </div>
+    <div class="timer-box" onclick="startTimer(this, 60)">
+      <span id="timer-recall">1:00</span>
+      <span class="timer-label">speaking time</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Critical Thinking</h2>
+
+    <div class="reflection-prompt">
+      <strong>Which bluffs were hardest to spot?</strong> What made them sound true?
+    </div>
+
+    <div class="reflection-prompt">
+      <strong>What makes something sound believable even when it's false?</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Useful Language</h2>
+    <div class="tools-box">
+      <div class="tool-chip">That sounds too crazy to be true...</div>
+      <div class="tool-chip">I'm going to say that's a bluff because...</div>
+      <div class="tool-chip">Actually, I think that might be real...</div>
+      <div class="tool-chip">The reason I'm skeptical is...</div>
+      <div class="tool-chip">It wouldn't surprise me if...</div>
+      <div class="tool-chip">That can't be right because...</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="i-can-box">
+      <p>I can...</p>
+      <ul>
+        <li>Think critically about claims and ask "Is this true?"</li>
+        <li>Explain my reasoning and support my guesses with logic</li>
+        <li>Detect bluffs by looking for patterns and inconsistencies</li>
+        <li>Argue both sides of a debate even if I disagree</li>
+        <li>Use phrases like "I'm skeptical because..." and "That wouldn't surprise me..."</li>
+        <li>Remember facts and explain why they're surprising</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let currentTab = 0;
+let timerIntervals = {};
+let scores = { 1: 0, 2: 0, 3: 0 };
+const correctAnswers = {
+  1: [true, true, false, true, false, true],
+  2: [true, true, false, true, false, true],
+  3: [true, false, true, true, false, false]
+};
+
+function showTab(n) {
+  const panels = document.querySelectorAll('.panel');
+  const tabs = document.querySelectorAll('.tab');
+
+  panels.forEach(p => p.classList.remove('active'));
+  tabs.forEach(t => t.classList.remove('active'));
+
+  panels[n].classList.add('active');
+  tabs[n].classList.add('active');
+  currentTab = n;
+}
+
+function guess(round, statementIdx, studentGuess) {
+  const resultId = 'r' + round + 's' + statementIdx;
+  const resultEl = document.getElementById(resultId);
+  const isCorrect = studentGuess === correctAnswers[round][statementIdx];
+
+  if (isCorrect) {
+    scores[round]++;
+  }
+
+  document.getElementById('score' + round).textContent = scores[round];
+  resultEl.classList.add('revealed');
+}
+
+function guessWarmUp(btn, idx) {
+  const resultId = 'result' + idx;
+  document.getElementById(resultId).classList.add('revealed');
+}
+
+function startTimer(element, duration) {
+  const timerDisplay = element.querySelector('span');
+  let time = duration;
+  const timerKey = timerDisplay.id;
+
+  if (timerIntervals[timerKey]) {
+    clearInterval(timerIntervals[timerKey]);
+  }
+
+  element.classList.remove('warning', 'danger');
+  element.classList.add('running');
+
+  const updateTimer = () => {
+    if (time > 0) {
+      time--;
+
+      if (duration > 60) {
+        const mins = Math.floor(time / 60);
+        const secs = time % 60;
+        timerDisplay.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+      } else {
+        timerDisplay.textContent = time;
+      }
+
+      if (time <= Math.floor(duration * 0.25)) {
+        element.classList.add('danger');
+      } else if (time <= Math.floor(duration * 0.5)) {
+        element.classList.add('warning');
+      }
+    } else {
+      clearInterval(timerIntervals[timerKey]);
+      element.classList.remove('running', 'warning', 'danger');
+      timerDisplay.textContent = '0';
+    }
+  };
+
+  timerIntervals[timerKey] = setInterval(updateTimer, 1000);
+}
+</script>
+
+</body>
+</html>

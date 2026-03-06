@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ranking Game</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.ranking-container { margin: 20px 0; }
+.ranking-item { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 2px solid #e9ecef; transition: all 0.3s; }
+.ranking-item.ranked { background: #667eea08; border-color: #667eea; }
+
+.item-text { flex: 1; font-weight: 500; }
+.rank-buttons { display: flex; gap: 4px; }
+.rank-btn { width: 36px; height: 36px; border-radius: 6px; border: 2px solid #dee2e6; background: #fff; color: #6c757d; font-weight: 700; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
+.rank-btn:hover { border-color: #667eea; color: #667eea; }
+.rank-btn.selected { background: #667eea; color: white; border-color: #667eea; }
+
+.ranked-position { padding: 8px 16px; background: #667eea; color: white; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.round-tracker { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.round-dot { width: 12px; height: 12px; border-radius: 50%; background: #e9ecef; transition: all 0.3s; }
+.round-dot.active { background: #667eea; transform: scale(1.3); }
+.round-dot.done { background: #28a745; }
+
+.tools-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.reveal-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: transform 0.2s; }
+.reveal-btn:hover { transform: scale(1.02); }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.checklist { margin-top: 12px; }
+.check-item { display: flex; align-items: baseline; margin-bottom: 8px; }
+.check-item input { margin-right: 8px; cursor: pointer; }
+.check-item label { cursor: pointer; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.justify-label { font-size: 0.85rem; color: #6c757d; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 16px; margin-bottom: 8px; display: block; }
+
+.round-instruction { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px; border-radius: 0 10px 10px 0; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>The Ranking Game</h1>
+  <p>Rank items. Justify your choices. Speak with confidence.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">Round 1</div>
+  <div class="tab" onclick="showTab(2)">Round 2</div>
+  <div class="tab" onclick="showTab(3)">Round 3</div>
+  <div class="tab" onclick="showTab(4)">The Challenge</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Quick Ranking 1</h2>
+    <p style="margin-bottom:12px;">Put these 4 things in order of importance. Don't overthink it — go with your gut.</p>
+    <p style="font-weight:600; margin-bottom:16px;">Sleep, Money, Friends, Health</p>
+    <div class="speak-prompt">SPEAK: Say them in your order. Then explain: why did you put your #1 first?</div>
+  </div>
+
+  <div class="card">
+    <h2>Quick Ranking 2</h2>
+    <p style="margin-bottom:12px;">Best to worst — rank these types of food.</p>
+    <p style="font-weight:600; margin-bottom:16px;">Cooking at home, Fast food, Restaurant, Street food</p>
+    <div class="speak-prompt">SPEAK: Say your ranking. Then: which one is most misunderstood or underrated?</div>
+  </div>
+
+  <div class="card">
+    <h2>Today's Goal</h2>
+    <p>In this lesson, you'll:</p>
+    <ul style="margin-top:12px;">
+      <li><strong>Rank items</strong> on a scale of 1–8 (or fewer)</li>
+      <li><strong>Justify your top 3 choices</strong> by speaking about why they matter</li>
+      <li><strong>Justify your bottom 3</strong> — explain why you put them there</li>
+      <li><strong>Think aloud</strong> about trade-offs and priorities</li>
+    </ul>
+    <p style="margin-top:16px; color:#667eea; font-weight:600;">No perfect answers. Only YOUR answers — with reasons behind them.</p>
+  </div>
+
+  <div class="tools-box">
+    <h4>Useful Language</h4>
+    <span class="tool-chip">"For me, the most important..."</span>
+    <span class="tool-chip">"I'd put X above Y because..."</span>
+    <span class="tool-chip">"What people underestimate is..."</span>
+    <span class="tool-chip">"On reflection..."</span>
+    <span class="tool-chip">"I couldn't live without..."</span>
+    <span class="tool-chip">"X is overrated because..."</span>
+  </div>
+</div>
+
+<!-- TAB 1: ROUND 1 -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <div class="round-tracker">
+      <div class="round-dot active"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+    <h2>What Makes Life Good?</h2>
+    <p style="margin-bottom:12px;">Rank these 8 things from 1 (most important) to 8 (least important).</p>
+    <div class="round-instruction">
+      <strong>How to rank:</strong> Click any number (1–8) to assign that rank to an item. Once you've ranked all 8, scroll down to justify your top 3 and bottom 3.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ranking-container" id="round1-ranking">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <div class="card" id="round1-justify" style="display:none;">
+    <h3>Justify Your Top 3</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why did you rank them as your most important? What makes them essential?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">Speak naturally. Aim for 45 seconds.</p>
+
+    <h3 style="margin-top:20px;">Justify Your Bottom 3</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why are these less important to you? What would you sacrifice first?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">45 seconds. Be honest.</p>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:16px;">
+      <p style="font-weight:600; margin-bottom:8px;">Did your ranking surprise you?</p>
+      <span class="reveal-label">↓ Tap to think about this</span>
+      <div class="hidden-content">
+        <p style="margin-bottom:8px;">Often we think one thing is important until we actually rank everything. Then priorities shift.</p>
+        <p style="color:#667eea; font-weight:600;">What did you discover about what you actually value?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: ROUND 2 -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <div class="round-tracker">
+      <div class="round-dot done"></div>
+      <div class="round-dot active"></div>
+      <div class="round-dot"></div>
+    </div>
+    <h2>Most Important Qualities in a Leader</h2>
+    <p style="margin-bottom:12px;">What makes someone worth following? Rank these 8 qualities.</p>
+    <div class="round-instruction">
+      <strong>Ranking reminder:</strong> Click a number to assign a rank. Ranked items turn blue.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ranking-container" id="round2-ranking">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <div class="card" id="round2-justify" style="display:none;">
+    <h3>Justify Your Top 3</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why are these the most important qualities in a leader?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">Justify Your Bottom 3</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why did you put these at the bottom? When are they NOT necessary?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:16px;">
+      <p style="font-weight:600; margin-bottom:8px;">What about people who disagree with you?</p>
+      <span class="reveal-label">↓ Tap to think about this</span>
+      <div class="hidden-content">
+        <p style="color:#667eea; font-weight:600;">Think of a leader you admire. Do they have all your top 3 qualities? What are they known for instead?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: ROUND 3 -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <div class="round-tracker">
+      <div class="round-dot done"></div>
+      <div class="round-dot done"></div>
+      <div class="round-dot active"></div>
+    </div>
+    <h2>Biggest Threats to the World (Next 50 Years)</h2>
+    <p style="margin-bottom:12px;">Heavy topic. This is your honest ranking of what worries you most. 1 = most serious threat, 8 = least.</p>
+    <div class="round-instruction">
+      <strong>Remember:</strong> There's no "right" answer. This is about what YOU think matters.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ranking-container" id="round3-ranking">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <div class="card" id="round3-justify" style="display:none;">
+    <h3>Justify Your Top 3 (Most Serious)</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why do you see these as the biggest threats? What makes you worried?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">Justify Your Bottom 3 (Less Serious)</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Why are these less of a concern to you? Do you think people worry too much about them?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">Personal Worry (Extended)</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Pick ONE from your top 3. What is it about this threat that worries you most — personally? How do you think about it in your daily life?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">90 seconds. Go deeper.</p>
+  </div>
+</div>
+
+<!-- TAB 4: THE CHALLENGE -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>The Sacrifice Game</h2>
+    <p style="margin-bottom:12px;"><strong>Imagine:</strong> You can ONLY keep 3 of these 8 things. The rest disappear from your life forever.</p>
+    <p style="color:#dc3545; font-weight:600; margin-bottom:16px;">What do you keep? What do you sacrifice?</p>
+    <div class="round-instruction">
+      <strong>This is harder:</strong> You're not ranking all 8. You're choosing your essential 3, then explaining why you'd lose the other 5.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ranking-container" id="round4-ranking">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <div class="card" id="round4-justify" style="display:none;">
+    <h3>Why You Keep These 3</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Explain your top 3. What would life be impossible without?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 60)">
+        <span class="timer-display">1:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">What You'd Sacrifice (And Why)</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">You're losing 5 things forever. Pick 2 of them and explain: why could you live without them? What would change in your life?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">2 minutes. Really think about the impact.</p>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Recall Zone</h2>
+    <p style="margin-bottom:12px;">From memory — what were your answers?</p>
+    <div class="speak-prompt">SPEAK: Without looking back, what were your top 3 items from Round 1 ("What makes life good")? Can you remember them? Why did you put them there?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:12px;">
+      <span class="reveal-label">↓ Scroll down to check</span>
+      <div class="hidden-content">
+        <p style="color:#6c757d; font-size:0.85rem;">Check Tab 1. Did you remember correctly?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="reflection-prompt">
+      <p><strong>Ranking vs. Justifying:</strong> Was it easier to rank the items, or to explain WHY you ranked them that way? What made the explanation harder or easier?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Priorities:</strong> Did any of your rankings surprise you? Was there something you thought was important until you ranked it?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>The Sacrifice Round:</strong> That's real decision-making. How different was it from just ranking? Did it change your priorities?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">↓ Tap to see what we covered</span>
+      <div class="hidden-content">
+        <div class="checklist">
+          <div class="check-item">
+            <input type="checkbox" id="can1">
+            <label for="can1"><strong>I can</strong> rank items and explain my reasoning clearly</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can2">
+            <label for="can2"><strong>I can</strong> justify my top choices with specific reasons</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can3">
+            <label for="can3"><strong>I can</strong> explain trade-offs and what I'm willing to sacrifice</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can4">
+            <label for="can4"><strong>I can</strong> speak about priorities and values for 45+ seconds</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can5">
+            <label for="can5"><strong>I can</strong> think on my feet when priorities are real (like in the Sacrifice Round)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="margin-top:16px;">SPEAK: Did the timers help you? Which speaking round felt most natural? Which was most challenging?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// Tab system
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Round data
+const rounds = [
+  {
+    items: [
+      'Financial security',
+      'Good health',
+      'Close friendships',
+      'Meaningful work',
+      'Freedom to travel',
+      'A loving relationship',
+      'Time for hobbies',
+      'Living somewhere beautiful'
+    ],
+    containerId: 'round1-ranking',
+    justifyId: 'round1-justify'
+  },
+  {
+    items: [
+      'Honesty',
+      'Confidence',
+      'Empathy',
+      'Intelligence',
+      'Creativity',
+      'Decisiveness',
+      'Sense of humour',
+      'Experience'
+    ],
+    containerId: 'round2-ranking',
+    justifyId: 'round2-justify'
+  },
+  {
+    items: [
+      'Climate change',
+      'AI replacing jobs',
+      'Global pandemics',
+      'Political extremism',
+      'Water shortage',
+      'Wealth inequality',
+      'Misinformation',
+      'Nuclear weapons'
+    ],
+    containerId: 'round3-ranking',
+    justifyId: 'round3-justify'
+  },
+  {
+    items: [
+      'Your phone',
+      'Books',
+      'Music',
+      'Cooking',
+      'Sport/exercise',
+      'Social media',
+      'Travel',
+      'TV/streaming'
+    ],
+    containerId: 'round4-ranking',
+    justifyId: 'round4-justify',
+    challengeMode: true
+  }
+];
+
+// Build ranking containers
+function buildRankings() {
+  rounds.forEach((round, roundIndex) => {
+    const container = document.getElementById(round.containerId);
+    const isChallenge = round.challengeMode;
+
+    round.items.forEach((item, itemIndex) => {
+      const div = document.createElement('div');
+      div.className = 'ranking-item';
+      div.id = `item-${roundIndex}-${itemIndex}`;
+      div.dataset.roundIndex = roundIndex;
+      div.dataset.itemIndex = itemIndex;
+      div.dataset.rank = '0';
+
+      let buttons = '';
+      const maxRank = isChallenge ? 3 : 8;
+      for (let i = 1; i <= maxRank; i++) {
+        buttons += `<button class="rank-btn" onclick="assignRank(${roundIndex}, ${itemIndex}, ${i})" data-rank="${i}">${i}</button>`;
+      }
+
+      div.innerHTML = `
+        <div class="item-text">${item}</div>
+        <div class="rank-buttons">${buttons}</div>
+        <div class="ranked-position" style="display:none;"></div>
+      `;
+
+      container.appendChild(div);
+    });
+  });
+}
+
+function assignRank(roundIndex, itemIndex, rank) {
+  const item = document.getElementById(`item-${roundIndex}-${itemIndex}`);
+  const isChallenge = rounds[roundIndex].challengeMode;
+  const maxRank = isChallenge ? 3 : 8;
+
+  // Check if already assigned
+  if (item.dataset.rank == rank) {
+    // Toggle off
+    item.dataset.rank = '0';
+    item.classList.remove('ranked');
+    item.querySelector('.ranked-position').style.display = 'none';
+    item.querySelectorAll('.rank-btn').forEach(btn => btn.classList.remove('selected'));
+  } else {
+    // Check if this rank is already used
+    const alreadyUsed = document.querySelectorAll(`[data-roundIndex="${roundIndex}"][data-rank="${rank}"]`);
+    if (alreadyUsed.length > 0) {
+      alreadyUsed[0].dataset.rank = '0';
+      alreadyUsed[0].classList.remove('ranked');
+      alreadyUsed[0].querySelector('.ranked-position').style.display = 'none';
+      alreadyUsed[0].querySelectorAll('.rank-btn').forEach(btn => btn.classList.remove('selected'));
+    }
+
+    // Assign new rank
+    item.data.rank = rank;
+    item.classList.add('ranked');
+    item.querySelector('.ranked-position').textContent = `#${rank}`;
+    item.querySelector('.ranked-position').style.display = 'block';
+    item.querySelectorAll('.rank-btn').forEach(btn => {
+      btn.classList.toggle('selected', btn.dataset.rank == rank);
+    });
+  }
+
+  // Check if all ranked
+  checkIfAllRanked(roundIndex);
+}
+
+function checkIfAllRanked(roundIndex) {
+  const round = rounds[roundIndex];
+  const isChallenge = round.challengeMode;
+  const maxRank = isChallenge ? 3 : 8;
+  const items = document.querySelectorAll(`[data-roundIndex="${roundIndex}"]`);
+
+  let rankedCount = 0;
+  items.forEach(item => {
+    if (item.dataset.rank > 0) rankedCount++;
+  });
+
+  if (rankedCount === maxRank) {
+    document.getElementById(round.justifyId).style.display = 'block';
+  }
+}
+
+// Timer function
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (remaining <= 30 && remaining > 10) {
+      el.classList.remove('running');
+      el.classList.add('warning');
+    } else if (remaining <= 10 && remaining > 0) {
+      el.classList.remove('warning');
+      el.classList.add('danger');
+    } else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = '0:00';
+      el.classList.remove('danger');
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+
+// Initialize
+buildRankings();
+</script>
+</body>
+</html>
