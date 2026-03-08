@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pressure Cooker</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #e94560, #c0392b); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 0.5px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #e94560; }
+.tab.active { color: #e94560; border-bottom-color: #e94560; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #e9456010, #c0392b08); border-left: 4px solid #e94560; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea10, #764ba210); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Scenario display */
+.scenario-container { display: none; }
+.scenario-container.visible { display: block; }
+
+.situation-box { background: #1a1a2e; color: #e0e0e0; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.situation-box h3 { color: #ffc107; font-size: 1.1rem; margin-bottom: 10px; }
+
+.role-card { border-radius: 12px; padding: 20px; margin: 10px 0; }
+.role-a { background: linear-gradient(135deg, #e9456015, #c0392b08); border: 2px solid #e94560; }
+.role-b { background: linear-gradient(135deg, #667eea15, #764ba208); border: 2px solid #667eea; }
+.role-card h4 { font-size: 1rem; margin-bottom: 8px; }
+.role-a h4 { color: #e94560; }
+.role-b h4 { color: #667eea; }
+.role-card .goal { font-weight: 600; margin-top: 8px; }
+
+.role-assign { text-align: center; background: #ffc10715; border: 1px solid #ffc10740; border-radius: 10px; padding: 14px; margin: 16px 0; font-weight: 600; color: #856404; }
+
+/* Twist */
+.twist-box { display: none; background: linear-gradient(135deg, #ffc10720, #ff850020); border: 2px solid #ffc107; border-radius: 12px; padding: 20px; margin: 16px 0; animation: twistAppear 0.5s ease; }
+.twist-box.visible { display: block; }
+.twist-box h4 { color: #e67e22; font-size: 1rem; margin-bottom: 8px; }
+@keyframes twistAppear { from { opacity: 0; transform: translateY(-10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* Timer */
+.timer-area { text-align: center; margin: 20px 0; }
+.big-timer { font-size: 3rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; letter-spacing: 3px; }
+.big-timer.warning { color: #e67e22; }
+.big-timer.danger { color: #e94560; animation: pulse 0.6s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+.timer-label { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+.phase-label { display: inline-block; padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.phase-reading { background: #ffc10720; color: #856404; }
+.phase-talking { background: #28a74520; color: #28a745; }
+
+/* Buttons */
+.generate-btn { display: block; width: 100%; padding: 18px; background: linear-gradient(135deg, #e94560, #c0392b); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px; text-transform: uppercase; }
+.generate-btn:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(233,69,96,0.3); }
+
+.next-btn { display: none; width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 12px; transition: all 0.3s; text-transform: uppercase; }
+.next-btn:hover { transform: scale(1.02); }
+.next-btn.visible { display: block; }
+
+.start-timer-btn { padding: 14px 40px; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+.start-timer-btn:hover { background: #218838; }
+
+/* Debrief question */
+.debrief-q { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; display: none; }
+.debrief-q.visible { display: block; }
+
+/* Language chips */
+.tools-box { background: #f1f3f5; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+/* Final scores */
+.round-summary { display: flex; align-items: center; padding: 12px 16px; background: #f8f9fa; border-radius: 10px; margin: 8px 0; border-left: 4px solid #dee2e6; }
+.round-summary.completed { border-left-color: #28a745; }
+.round-summary .round-num { font-weight: 800; color: #6c757d; margin-right: 12px; font-size: 1.1rem; }
+.round-summary .round-scenario { font-size: 0.9rem; color: #495057; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE PRESSURE COOKER</h1>
+  <p>Random scenarios. Opposing roles. Unexpected twists.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Round 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Round 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Round 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Round 4</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: HOW IT WORKS -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>What is this?</h2>
+    <p style="margin-bottom:12px;">A conversation game. Each round, a random scenario appears on screen — a situation where two people want different things. One of you plays Person A, the other plays Person B. You talk it out.</p>
+    <div class="accent-box">
+      <strong>The catch:</strong> Halfway through each conversation, a <strong>twist</strong> appears — new information that changes everything. You have to adapt on the spot.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How each round works</h2>
+    <p style="margin-bottom:12px;">Every round follows the same rhythm:</p>
+    <div style="display:grid; gap:10px; margin:12px 0;">
+      <div style="padding:12px 16px; background:#ffc10710; border-radius:8px; border-left:3px solid #ffc107;">
+        <strong>Read</strong> — A random scenario appears. Both of you read the situation and your roles. <em>(30 seconds)</em>
+      </div>
+      <div style="padding:12px 16px; background:#28a74510; border-radius:8px; border-left:3px solid #28a745;">
+        <strong>Talk</strong> — Start the conversation in your roles. Argue, negotiate, persuade, complain — whatever the situation needs. <em>(3 minutes)</em>
+      </div>
+      <div style="padding:12px 16px; background:#e9456010; border-radius:8px; border-left:3px solid #e94560;">
+        <strong>Twist</strong> — At 1:30, new information appears on screen. Both of you see it. React to it. <em>(keep talking)</em>
+      </div>
+      <div style="padding:12px 16px; background:#764ba210; border-radius:8px; border-left:3px solid #764ba2;">
+        <strong>Debrief</strong> — Quick reflection question. Who won? What worked? <em>(1 minute)</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Before we start</h2>
+    <div class="speak-prompt">
+      <strong>Quick question:</strong> Think of the last time you had to persuade someone in real life — a shop, a landlord, a colleague, anyone. What happened? Who won? <em>(1 minute)</em>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tools-box">
+      <h4>Language you'll need across all rounds</h4>
+      <span class="tool-chip">"I understand, but..."</span>
+      <span class="tool-chip">"What if we..."</span>
+      <span class="tool-chip">"That's not acceptable because..."</span>
+      <span class="tool-chip">"I see your point, however..."</span>
+      <span class="tool-chip">"The problem with that is..."</span>
+      <span class="tool-chip">"Could you at least..."</span>
+      <span class="tool-chip">"I'm willing to... if you..."</span>
+      <span class="tool-chip">"Let me be honest with you..."</span>
+    </div>
+    <button class="generate-btn" style="margin-top:20px;" onclick="showTab(1)">LET'S GO — ROUND 1</button>
+  </div>
+</div>
+
+<!-- ROUND PANELS (1-4) generated by same template -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+
+<!-- TAB 5: DEBRIEF -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>All 4 Rounds Complete</h2>
+    <div id="roundSummaries"></div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which scenario was the most difficult to handle?</strong> Was it the situation itself, or the twist that made it hard?
+    </div>
+    <div class="speak-prompt" style="border-color:#e94560;">
+      <strong>Did you find it easier to argue FOR something you wanted, or AGAINST something you didn't want?</strong> Which role felt more natural — attacking or defending?
+    </div>
+    <div class="speak-prompt" style="border-color:#28a745;">
+      <strong>In real life, how do you usually handle conflict?</strong> Do you avoid it, confront it directly, or try to find a compromise? Did any of these scenarios feel like a real situation you've been in?
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Language check</h2>
+    <div class="speak-prompt" style="border-color:#ffc107;">
+      <strong>Pick 3 phrases from today that you want to remember.</strong> Say them out loud in a new sentence — not from the scenarios, but from your own life.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// SCENARIO DATABASE — 16 complete scenarios
+// Each: situation, roleA, roleB, goalA, goalB, twist
+// ============================================================
+const SCENARIOS = [
+  {
+    title: "The Cold Meal",
+    situation: "A restaurant. It's a special anniversary dinner. The main course arrived cold, and one dish was completely wrong.",
+    roleA: "The customer",
+    roleAContext: "You've been planning this dinner for weeks. The restaurant is expensive. The food was terrible. You want a full refund — not a discount, not a free dessert. A refund.",
+    goalA: "Get a full refund for the meal.",
+    roleB: "The restaurant manager",
+    roleBContext: "Two staff called in sick tonight. The kitchen is overwhelmed. You've already comped three tables. If you give another full refund, you're losing money. You can offer a free bottle of wine and 30% off.",
+    goalB: "Keep the customer happy WITHOUT giving a full refund.",
+    twist: "A waiter just came over and whispered something — apparently the wrong dish was served because another table sent it back. The kitchen made it twice and charged both tables."
+  },
+  {
+    title: "The Apartment",
+    situation: "An apartment viewing. The apartment is perfect — great location, great price. But the landlord has had terrible tenants before and is very cautious.",
+    roleA: "The person who wants the apartment",
+    roleAContext: "You NEED this apartment. Your current lease ends in 2 weeks. This is the only affordable place in the area. You have a stable job but you can't prove it with paperwork today.",
+    goalA: "Convince the landlord to choose you over other applicants.",
+    roleB: "The landlord",
+    roleBContext: "Your last tenants left the place destroyed — holes in walls, unpaid bills, a broken bathroom. You had to pay €3,000 in repairs. You have 3 other applicants. You want someone SAFE.",
+    goalB: "Find out if this person is trustworthy. Ask tough questions. Don't commit to anything.",
+    twist: "The landlord just got a text — one of the other applicants has offered to pay 3 months' rent upfront."
+  },
+  {
+    title: "The Salary",
+    situation: "A job offer meeting. The candidate has been offered their dream job — but the salary is 20% lower than they need.",
+    roleA: "The job candidate",
+    roleAContext: "You love this company, this role, everything about it. But the salary is €38,000 and you need at least €45,000 to cover your rent and loans. You can't accept €38,000.",
+    goalA: "Negotiate the salary up to at least €43,000 without losing the offer.",
+    roleB: "The hiring manager",
+    roleBContext: "This candidate is your top choice. But your budget is fixed at €40,000 maximum. You can't go higher — it would be unfair to the team. You CAN offer remote work, flexible hours, or an extra week of holiday.",
+    goalB: "Keep the candidate without exceeding €40,000. Offer non-salary benefits instead.",
+    twist: "HR just sent a message — the other finalist has accepted a different job. This candidate is now your only option. But they don't know that."
+  },
+  {
+    title: "The Barking Dog",
+    situation: "A hallway outside two apartments. It's 10pm. One neighbour has come to the other's door about a noise problem.",
+    roleA: "The sleep-deprived neighbour",
+    roleAContext: "Your neighbour's dog barks every night from 11pm to 2am. You haven't slept properly in 3 weeks. You have an important presentation at work tomorrow. You need this solved TONIGHT.",
+    goalA: "Get a concrete solution — not just an apology. Something needs to change.",
+    roleB: "The dog owner",
+    roleBContext: "Your dog has separation anxiety since your partner moved out 2 months ago. You're already taking the dog to training classes. You feel terrible, but you also feel attacked. You're doing your best.",
+    goalB: "Defend yourself while acknowledging the problem. Don't agree to anything unreasonable like getting rid of the dog.",
+    twist: "A formal noise complaint has just been posted under both your doors from building management — if it's not resolved in 7 days, there will be fines."
+  },
+  {
+    title: "The Broken Jacket",
+    situation: "A shop. A customer wants to return an expensive jacket bought 2 weeks ago. The zip is broken after one wear.",
+    roleA: "The customer",
+    roleAContext: "You paid €180 for this jacket. You wore it once — to a wedding — and the zip broke halfway through the evening. It's clearly a manufacturing defect. You want your money back.",
+    goalA: "Get a full cash refund. You don't want a replacement or store credit.",
+    roleB: "The store manager",
+    roleBContext: "Store policy: after 7 days, exchanges only. You've seen customers break things and try to return them. The zip looks like it was forced. But you also can't prove that. Head office checks your refund numbers.",
+    goalB: "Offer an exchange or store credit, not a refund. Follow the policy.",
+    twist: "The customer just pulled up the brand's website on their phone — the exact same jacket model has been recalled for a zip defect."
+  },
+  {
+    title: "The Cancelled Flight",
+    situation: "An airport service desk. A passenger's connecting flight has just been cancelled. The departure board behind them shows 'CANCELLED' in red.",
+    roleA: "The stranded passenger",
+    roleAContext: "You MUST be in Barcelona by tomorrow at 10am. Your sister is getting married at noon. You are the best man/maid of honour. There is no option to arrive late.",
+    goalA: "Get on a flight that arrives by 10am tomorrow. You will accept any route, any airline.",
+    roleB: "The airline desk agent",
+    roleBContext: "All direct flights today are full. You can offer: (1) a route with 2 stops arriving at 2pm tomorrow, or (2) a seat on another airline's flight at 7am tomorrow arriving 9:30am — but the airline won't cover it, the passenger would have to pay €280.",
+    goalB: "Help the passenger within what you can actually offer. You can't invent flights that don't exist.",
+    twist: "A business class passenger at the front of the queue just voluntarily gave up their seat on tonight's last direct flight. One seat is now available — but it's business class and costs €400 more than the original ticket."
+  },
+  {
+    title: "The Waiting Room",
+    situation: "A doctor's waiting room. A patient has been waiting 2 hours past their appointment time.",
+    roleA: "The patient",
+    roleAContext: "You took time off work for this appointment. You've been waiting 2 hours. You need to pick up your child from school in 30 minutes. If you leave now, the next available appointment is in 6 weeks.",
+    goalA: "Be seen by the doctor within 15 minutes, or get a same-week appointment.",
+    roleB: "The receptionist",
+    roleBContext: "The doctor had a medical emergency this morning — a patient collapsed. Everything is delayed. Everyone in the waiting room is angry. You can't prioritise one patient over another. The next available appointment is genuinely in 6 weeks.",
+    goalB: "Keep the patient calm. Explain the situation. You cannot move them ahead of others.",
+    twist: "Another patient just walked out in frustration — there's now one slot that could open up in 10 minutes, but a patient who arrived before this one is also still waiting."
+  },
+  {
+    title: "The Unpaid Invoice",
+    situation: "A video call between a freelance designer and their client. The project was delivered 6 weeks ago. Payment: zero.",
+    roleA: "The freelancer",
+    roleAContext: "You completed the branding project on time — logo, business cards, social media kit. The client approved everything. That was 6 weeks ago. They owe you €2,400. This is your rent money. Every email you've sent has been ignored.",
+    goalA: "Get paid in full within 7 days. No more excuses.",
+    roleB: "The client",
+    roleBContext: "The work was... fine. Not what you imagined, but you approved it because you were in a rush. You've been using the logo but you feel it's not worth €2,400. Your own business is struggling. You were hoping to renegotiate to €1,500.",
+    goalB: "Pay less than the agreed amount. Negotiate the price down.",
+    twist: "The freelancer just noticed that the client posted on Instagram using the full branding kit — including work that wasn't in the original contract — with no credit."
+  },
+  {
+    title: "The Hotel Room",
+    situation: "A hotel reception desk. A couple has just arrived for their anniversary weekend.",
+    roleA: "The hotel guest",
+    roleAContext: "You booked a sea-view room 3 months ago. You paid extra for it. You arrive and they've put you in a room overlooking the car park. This is your 10th wedding anniversary. You are not happy.",
+    goalA: "Get the sea-view room you booked and paid for. Nothing else is acceptable.",
+    roleB: "The hotel manager",
+    roleBContext: "There was an overbooking error — a system glitch. You have NO sea-view rooms available tonight. You can offer: a free room upgrade to a suite (car park view), a full refund on the room rate difference, and a free dinner at the hotel restaurant. But you cannot create a room that doesn't exist.",
+    goalB: "Calm the guest down and offer the best alternative you have.",
+    twist: "A guest in a sea-view room just called reception — they're checking out early due to a family emergency. That room could be available in about 2 hours, but it needs to be cleaned."
+  },
+  {
+    title: "The Stolen Idea",
+    situation: "An office meeting room. Two colleagues have just sat down to talk. One of them requested this meeting urgently.",
+    roleA: "The frustrated colleague",
+    roleAContext: "Your colleague keeps presenting YOUR ideas in meetings as if they thought of them. It happened again today — you mentioned a marketing strategy in a private chat last week, and today they pitched it to the director as their own. You have the chat messages to prove it.",
+    goalA: "Get them to admit what they did and agree to correct it with the director.",
+    roleB: "The accused colleague",
+    roleBContext: "You genuinely don't think you stole anything. You had a conversation, it inspired you, and you developed the idea further. The version you presented was much more detailed. You feel you're being accused unfairly. You're also worried this could damage your reputation.",
+    goalB: "Defend yourself. You don't think you did anything wrong. But you also don't want to destroy the working relationship.",
+    twist: "The director just sent both of you an email: 'Great idea from the meeting today. I'd like BOTH of you to present it to the CEO next week.' Now you have to work together."
+  },
+  {
+    title: "The School Decision",
+    situation: "A school office. A parent has requested an urgent meeting about their child being moved to a lower class.",
+    roleA: "The parent",
+    roleAContext: "Your child was in the advanced class and doing well — they loved it. Now the school has moved them down without warning. Your child came home crying. You think this is a mistake and possibly unfair.",
+    goalA: "Get your child moved back to the advanced class immediately.",
+    roleB: "The head of department",
+    roleBContext: "The child's recent test scores dropped significantly — from 85% to 52% over three assessments. They were struggling and not participating in class. You believe the move is in the child's best interest. You have the data to support it.",
+    goalB: "Explain the decision with evidence. Keep the child in the current class unless the parent presents a genuinely compelling reason.",
+    twist: "The child's previous class teacher just sent an email to both of you — they disagree with the move and say the child was one of their strongest students, and the drop was due to personal issues at home that have now been resolved."
+  },
+  {
+    title: "The Gym Contract",
+    situation: "A gym reception desk. A member wants to cancel their membership. They signed a 12-month contract 3 months ago.",
+    roleA: "The gym member",
+    roleAContext: "You joined the gym 3 months ago. Since then, you've been diagnosed with a back problem and your doctor has told you to stop weight training. You physically cannot use the gym. You want to cancel with no fee.",
+    goalA: "Cancel the membership without paying the €200 early termination fee.",
+    roleB: "The gym manager",
+    roleBContext: "The contract is clear — early cancellation costs €200. You hear medical excuses every week. Some are real, some aren't. Company policy requires a doctor's letter for medical cancellations, and even then, it's a 50% fee reduction, not a full waiver.",
+    goalB: "Follow company policy. Be sympathetic but don't waive the fee without proper documentation.",
+    twist: "The member just pointed out that the gym's own website currently advertises 'Join with NO contract — cancel anytime!' for new members at the same price."
+  },
+  {
+    title: "The Late Delivery",
+    situation: "A phone call. A customer ordered a sofa 8 weeks ago. It was supposed to arrive 2 weeks ago. Nothing.",
+    roleA: "The customer",
+    roleAContext: "You ordered a €1,200 sofa. Delivery was promised in 6 weeks. It's now week 8. You've called 3 times and each time been told 'next week.' You threw away your old sofa 2 weeks ago. You've been sitting on the floor.",
+    goalA: "Get a confirmed delivery date THIS WEEK or a full refund. No more 'next week.'",
+    roleB: "The customer service manager",
+    roleBContext: "The supplier is having production delays — this is affecting 200+ orders, not just this one. You honestly don't know when it will arrive. You can offer a €100 discount or a temporary replacement sofa, but refunds require a 14-day processing period.",
+    goalB: "Keep the customer from cancelling. A refund would look terrible on your numbers this month.",
+    twist: "The customer just found the exact same sofa on a competitor's website — in stock, free delivery in 3 days, and €50 cheaper."
+  },
+  {
+    title: "The Wedding Venue",
+    situation: "A meeting at a wedding venue. The wedding is in 6 weeks.",
+    roleA: "The couple (one half)",
+    roleAContext: "You booked this venue a year ago. You just found out they've also booked ANOTHER wedding on the same day — in the afternoon. Your reception would have to end by 3pm instead of 10pm. 120 guests have been invited. This is unacceptable.",
+    goalA: "Keep your full-day booking as originally agreed. You have the contract.",
+    roleB: "The venue owner",
+    roleBContext: "It was a booking error by a staff member who has since left. The afternoon wedding also has a signed contract. You genuinely have two valid bookings. You can offer: a 50% refund and a full evening (6pm-midnight), or a different date entirely. You cannot cancel the other wedding — they've also been preparing for months.",
+    goalB: "Find a solution that doesn't involve cancelling either wedding. You cannot afford the legal consequences.",
+    twist: "The other couple just called — they're willing to move their ceremony to a different room on the same property, but they want the garden for photos between 2pm-4pm, which overlaps with your planned ceremony time."
+  },
+  {
+    title: "The Car Problem",
+    situation: "A second-hand car dealership. A customer bought a car 3 weeks ago. It's broken down.",
+    roleA: "The car buyer",
+    roleAContext: "You bought this car for €8,500. The salesperson said it was 'in perfect condition.' After 3 weeks, the engine warning light came on, it makes a grinding noise, and the mechanic says it needs €2,000 of repairs. You want your money back.",
+    goalA: "Full refund, or the dealer pays for all repairs. No compromise.",
+    roleB: "The car dealer",
+    roleBContext: "The car was sold 'as seen' — it's in the contract. You did an inspection before the sale and everything was fine. Cars are mechanical — things break. You'll offer to cover 50% of repair costs as a goodwill gesture, but a full refund isn't possible — you've already used that money.",
+    goalB: "Avoid a full refund. Offer a repair contribution. Protect your business.",
+    twist: "The buyer just showed you a review online from another customer — same car model, same dealership, same engine problem, 2 months ago. This might be a pattern."
+  },
+  {
+    title: "The Work Trip",
+    situation: "A meeting between an employee and their manager. The employee has just been told they must go on a 2-week work trip — starting Monday.",
+    roleA: "The employee",
+    roleAContext: "You're a single parent. Your child is 7. You have nobody to look after them for 2 weeks. You literally cannot go. But you also know that saying no could affect your promotion.",
+    goalA: "Find a way to not go on the trip without damaging your career.",
+    roleB: "The manager",
+    roleBContext: "This trip is critical — the client specifically requested this employee. If they don't go, you could lose a €200,000 contract. You have no one else with the right skills. You're sympathetic to personal issues but the business need is real.",
+    goalB: "Get the employee on that trip. Be flexible about how — but they need to be there.",
+    twist: "IT just confirmed that 60% of the meetings can be done remotely via video call. But the client's CEO specifically wants an in-person dinner on Wednesday — that one meeting cannot be virtual."
+  }
+];
+
+const DEBRIEF_QUESTIONS = [
+  "Who won that negotiation — and why? What was the strongest single argument?",
+  "At what point did the conversation shift? Was there a moment where the power changed?",
+  "Did the twist help you or hurt you? How quickly did you adapt?",
+  "What would you do differently if you replayed that exact scenario?",
+  "Which role was harder — the one pushing for change or the one defending the status quo?",
+  "Was there a moment where you nearly gave in? What stopped you?",
+  "Did you reach a compromise? If so, was it fair to both sides?",
+  "If this were a real situation, would you be happy with the outcome?"
+];
+
+// ============================================================
+// GAME STATE
+// ============================================================
+let usedScenarios = [];
+let roundData = [null, null, null, null];
+let roundTimers = [null, null, null, null];
+
+// ============================================================
+// TAB SYSTEM
+// ============================================================
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Auto-generate scenario when entering a round tab for first time
+  if (i >= 1 && i <= 4 && !roundData[i - 1]) {
+    generateRound(i);
+  }
+  // Build debrief when entering tab 5
+  if (i === 5) buildDebrief();
+}
+
+// ============================================================
+// PICK RANDOM SCENARIO (no repeats)
+// ============================================================
+function pickScenario() {
+  const available = SCENARIOS.filter((_, idx) => !usedScenarios.includes(idx));
+  if (available.length === 0) { usedScenarios = []; return pickScenario(); }
+  const pool = SCENARIOS.map((s, idx) => ({ s, idx })).filter(x => !usedScenarios.includes(x.idx));
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  usedScenarios.push(pick.idx);
+  return pick.s;
+}
+
+// ============================================================
+// GENERATE A ROUND
+// ============================================================
+function generateRound(tabNum) {
+  const r = tabNum - 1; // 0-indexed round
+  const scenario = pickScenario();
+  roundData[r] = scenario;
+
+  // Pick a debrief question
+  const dq = DEBRIEF_QUESTIONS[Math.floor(Math.random() * DEBRIEF_QUESTIONS.length)];
+
+  // Randomly assign who is A and B
+  const studentIsA = Math.random() > 0.5;
+  const assignText = studentIsA
+    ? "Student → <strong style='color:#e94560;'>" + scenario.roleA + "</strong>&nbsp;&nbsp;|&nbsp;&nbsp;Teacher → <strong style='color:#667eea;'>" + scenario.roleB + "</strong>"
+    : "Student → <strong style='color:#667eea;'>" + scenario.roleB + "</strong>&nbsp;&nbsp;|&nbsp;&nbsp;Teacher → <strong style='color:#e94560;'>" + scenario.roleA + "</strong>";
+
+  const panel = document.getElementById('panel' + tabNum);
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Round ${tabNum}: ${scenario.title}</h2>
+      <div class="situation-box">
+        <h3>The Situation</h3>
+        <p>${scenario.situation}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-card role-a">
+        <h4>${scenario.roleA}</h4>
+        <p>${scenario.roleAContext}</p>
+        <p class="goal">Your goal: ${scenario.goalA}</p>
+      </div>
+      <div class="role-card role-b">
+        <h4>${scenario.roleB}</h4>
+        <p>${scenario.roleBContext}</p>
+        <p class="goal">Your goal: ${scenario.goalB}</p>
+      </div>
+      <div class="role-assign">${assignText}</div>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <span class="phase-label phase-reading" id="phaseLabel${tabNum}">READING TIME</span>
+      <div class="timer-area">
+        <div class="big-timer" id="timer${tabNum}">0:30</div>
+        <div class="timer-label" id="timerLabel${tabNum}">Read the scenario. Get into character.</div>
+      </div>
+      <button class="start-timer-btn" id="startBtn${tabNum}" onclick="startRoundTimer(${tabNum})">Start Timer</button>
+    </div>
+
+    <div class="twist-box" id="twist${tabNum}">
+      <h4>⚡ TWIST</h4>
+      <p>${scenario.twist}</p>
+      <p style="margin-top:8px; font-weight:600; font-size:0.85rem; color:#856404;">React to this. How does it change things?</p>
+    </div>
+
+    <div class="debrief-q" id="debrief${tabNum}">
+      <strong>Quick debrief:</strong> ${dq}
+    </div>
+
+    <button class="next-btn" id="nextBtn${tabNum}" onclick="finishRound(${tabNum})">${tabNum < 4 ? 'NEXT ROUND →' : 'FINISH — GO TO DEBRIEF'}</button>
+  `;
+}
+
+// ============================================================
+// ROUND TIMER: 30s reading → 3min talking (twist at 1:30 left) → debrief
+// ============================================================
+function startRoundTimer(tabNum) {
+  const btn = document.getElementById('startBtn' + tabNum);
+  btn.style.display = 'none';
+  const timerEl = document.getElementById('timer' + tabNum);
+  const labelEl = document.getElementById('timerLabel' + tabNum);
+  const phaseEl = document.getElementById('phaseLabel' + tabNum);
+
+  let phase = 'reading';
+  let remaining = 30;
+
+  function updateDisplay() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    timerEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  const interval = setInterval(() => {
+    remaining--;
+    updateDisplay();
+
+    if (phase === 'reading' && remaining <= 0) {
+      // Switch to talking phase
+      phase = 'talking';
+      remaining = 180;
+      phaseEl.textContent = 'CONVERSATION';
+      phaseEl.className = 'phase-label phase-talking';
+      labelEl.textContent = 'Start talking. Stay in character.';
+      timerEl.className = 'big-timer';
+      updateDisplay();
+    }
+    else if (phase === 'talking') {
+      // Twist at 90 seconds remaining
+      if (remaining === 90) {
+        document.getElementById('twist' + tabNum).classList.add('visible');
+        timerEl.className = 'big-timer warning';
+      }
+      if (remaining <= 30) {
+        timerEl.className = 'big-timer danger';
+      }
+      if (remaining <= 0) {
+        clearInterval(interval);
+        timerEl.textContent = "0:00";
+        timerEl.className = 'big-timer';
+        labelEl.textContent = 'Time\'s up!';
+        phaseEl.textContent = 'DEBRIEF';
+        phaseEl.className = 'phase-label';
+        phaseEl.style.background = '#764ba220';
+        phaseEl.style.color = '#764ba2';
+        document.getElementById('debrief' + tabNum).classList.add('visible');
+        document.getElementById('nextBtn' + tabNum).classList.add('visible');
+      }
+    }
+  }, 1000);
+
+  roundTimers[tabNum - 1] = interval;
+}
+
+// ============================================================
+// FINISH ROUND
+// ============================================================
+function finishRound(tabNum) {
+  const tab = document.getElementById('tab' + tabNum);
+  tab.classList.add('done');
+  if (tabNum < 4) {
+    showTab(tabNum + 1);
+  } else {
+    showTab(5);
+  }
+}
+
+// ============================================================
+// BUILD DEBRIEF
+// ============================================================
+function buildDebrief() {
+  const container = document.getElementById('roundSummaries');
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    const d = roundData[i];
+    if (d) {
+      html += `<div class="round-summary completed">
+        <span class="round-num">R${i+1}</span>
+        <span class="round-scenario"><strong>${d.title}</strong> — ${d.roleA} vs ${d.roleB}</span>
+      </div>`;
+    } else {
+      html += `<div class="round-summary">
+        <span class="round-num">R${i+1}</span>
+        <span class="round-scenario" style="color:#adb5bd;">Not played</span>
+      </div>`;
+    }
+  }
+  container.innerHTML = html;
+}
+</script>
+</body>
+</html>
