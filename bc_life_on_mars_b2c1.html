@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life on Mars | B2-C1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .timer {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .timer.active {
+            background: #ffffff;
+            color: #667eea;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            background: #fafafa;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 140px;
+            padding: 18px 20px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+            background: #f0f0f0;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px 30px;
+            min-height: 500px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .content-block h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .content-block p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .question-list {
+            list-style: none;
+        }
+
+        .question-list li {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #764ba2;
+            color: #333;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .reveal-box {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reveal-box:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .reveal-box.revealed {
+            background: #f0f4ff;
+            border-color: #667eea;
+        }
+
+        .reveal-label {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reveal-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .reveal-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .reveal-content.visible {
+            display: block;
+        }
+
+        .reveal-content p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .error-box {
+            background: #fff5f5;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        .correction {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .correct-idiom {
+            background: #f0fdf4;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+
+        .correct-idiom p {
+            color: #333;
+            margin: 0;
+        }
+
+        .correct-idiom .idiom {
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .selection-panel {
+            margin-top: 25px;
+        }
+
+        .candidate {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .candidate:hover {
+            border-color: #667eea;
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.15);
+        }
+
+        .candidate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .candidate-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .candidate-role {
+            color: #764ba2;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .candidate-details {
+            display: none;
+            color: #555;
+            line-height: 1.7;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .candidate.expanded .candidate-details {
+            display: block;
+        }
+
+        .candidate-details p {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .expand-indicator {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+
+        .candidate.expanded .expand-indicator {
+            transform: rotate(180deg);
+        }
+
+        .ranking-input {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ranking-input label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .ranking-input input {
+            width: 60px;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .ranking-input input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 12px;
+        }
+
+        .reflection-questions {
+            list-style: none;
+        }
+
+        .reflection-questions li {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #764ba2;
+            color: #333;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .notification {
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            border-radius: 4px;
+            color: #0c5460;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .notification.hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .tab-button {
+                min-width: 100px;
+                padding: 14px 12px;
+                font-size: 0.9em;
+            }
+
+            .tab-content {
+                padding: 25px 20px;
+                min-height: auto;
+            }
+
+            .content-block {
+                padding: 18px;
+            }
+
+            .timer-container {
+                gap: 8px;
+            }
+
+            .timer {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Life on Mars</h1>
+            <p>B2-C1 English Lesson</p>
+            <div class="timer-container">
+                <div class="timer active" id="timer-context">Context</div>
+                <div class="timer" id="timer-language">Language</div>
+                <div class="timer" id="timer-task">Your Turn</div>
+                <div class="timer" id="timer-wrap">Wrap-Up</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="context">Context</button>
+            <button class="tab-button" data-tab="language">Language Focus</button>
+            <button class="tab-button" data-tab="task">Your Turn</button>
+            <button class="tab-button" data-tab="wrap">Wrap-Up</button>
+        </div>
+
+        <!-- TAB 1: CONTEXT -->
+        <div id="context" class="tab-content active">
+            <div class="content-block">
+                <h3>What Do You Know About Mars?</h3>
+                <p>Let's explore Mars colonisation and what it would mean to be part of humanity's next great adventure.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Discussion Questions</h3>
+                <ul class="question-list">
+                    <li>What do you know about Mars? What makes it different from Earth?</li>
+                    <li>Have you heard about Mars One? What would a one-way mission mean for the people who applied?</li>
+                    <li>How would you feel if a family member decided to apply for a Mars colonisation mission?</li>
+                    <li>What are the biggest problems an ordinary citizen would face living on Mars?</li>
+                    <li>If you could take three personal items with you to Mars, what would they be? Why?</li>
+                    <li>Do you think humans will colonise Mars in your lifetime? What would it take?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 2: LANGUAGE FOCUS -->
+        <div id="language" class="tab-content">
+            <div class="content-block">
+                <h3>Idioms About Difficulties</h3>
+                <p>In this section, you'll spot and correct mistakes in idioms, then review the correct ones.</p>
+            </div>
+
+            <div class="section-title">Spot the Errors</div>
+            <p style="color: #555; margin-bottom: 20px; font-size: 1.05em;">Click each box to reveal the correction.</p>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                <div class="reveal-label">
+                    <span class="reveal-icon">1</span>
+                    <span>"We've <strong>bitten off more than we can swallow</strong> with this project."</span>
+                </div>
+                <div class="reveal-content">
+                    <p><strong>Correct:</strong> <span class="correction">"We've bitten off more than we can <strong>chew</strong> with this project."</span></p>
+                    <p style="margin-top: 10px; font-size: 0.95em;"><em>Meaning: We've taken on more responsibility than we can handle.</em></p>
+                </div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                <div class="reveal-label">
+                    <span class="reveal-icon">2</span>
+                    <span>"The <strong>stumbling stone</strong> in our plan is lack of funding."</span>
+                </div>
+                <div class="reveal-content">
+                    <p><strong>Correct:</strong> <span class="correction">The <strong>stumbling block</strong> in our plan is lack of funding.</span></p>
+                    <p style="margin-top: 10px; font-size: 0.95em;"><em>Meaning: Something that prevents progress or causes difficulty.</em></p>
+                </div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                <div class="reveal-label">
+                    <span class="reveal-icon">3</span>
+                    <span>"The mission <strong>goes without a hiccups</strong> if we plan carefully."</span>
+                </div>
+                <div class="reveal-content">
+                    <p><strong>Correct:</strong> <span class="correction">The mission <strong>goes without a hitch</strong> if we plan carefully.</span></p>
+                    <p style="margin-top: 10px; font-size: 0.95em;"><em>Meaning: Everything happens smoothly without problems.</em></p>
+                </div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                <div class="reveal-label">
+                    <span class="reveal-icon">4</span>
+                    <span>"If something <strong>goes apple-shaped</strong>, we need a backup plan."</span>
+                </div>
+                <div class="reveal-content">
+                    <p><strong>Correct:</strong> <span class="correction">If something <strong>goes pear-shaped</strong>, we need a backup plan.</span></p>
+                    <p style="margin-top: 10px; font-size: 0.95em;"><em>Meaning: If something goes wrong or doesn't work out as planned.</em></p>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 35px;">Correct Idioms</div>
+            <p style="color: #555; margin-bottom: 20px; font-size: 1.05em;">These idioms are all correct. Learn them:</p>
+
+            <div class="correct-idiom">
+                <p><span class="idiom">In a tight spot</span> — in a difficult situation or facing pressure</p>
+            </div>
+
+            <div class="correct-idiom">
+                <p><span class="idiom">A thorny issue</span> — a complex or difficult problem to solve</p>
+            </div>
+
+            <div class="correct-idiom">
+                <p><span class="idiom">Unmitigated disaster</span> — a complete failure with no redeeming qualities</p>
+            </div>
+
+            <div class="correct-idiom">
+                <p><span class="idiom">Have teething problems</span> — experience early difficulties with something new</p>
+            </div>
+
+            <div class="content-block" style="margin-top: 30px;">
+                <h3>Passive Reporting Verbs</h3>
+                <p>When discussing Mars colonisation, we often use passive reporting structures:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px;"><strong>is said to</strong> — "The project is said to be the next giant leap for humanity."</li>
+                    <li style="margin-bottom: 12px;"><strong>is believed to</strong> — "Mars is believed to have the potential for supporting life."</li>
+                    <li style="margin-bottom: 12px;"><strong>is thought to</strong> — "The mission is thought to require extraordinary courage."</li>
+                    <li><strong>is estimated to</strong> — "The trip is estimated to take six months."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 3: YOUR TURN -->
+        <div id="task" class="tab-content">
+            <div class="content-block">
+                <h3>Selection Panel Task</h3>
+                <p>You are part of a selection committee for a Mars colonisation mission. Your job is to review candidate profiles, rank them by suitability, and explain your reasoning.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>What Makes a Good Candidate?</h3>
+                <p><strong>Skills:</strong> What professional expertise would be valuable on Mars?</p>
+                <p><strong>Personality:</strong> What character traits matter in an isolated, high-pressure environment?</p>
+                <p><strong>Physical Fitness:</strong> Why is health and resilience important for a long-term mission?</p>
+            </div>
+
+            <div class="selection-panel">
+                <div class="section-title">Candidate Profiles</div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">Dr Sarah Chen</div>
+                            <div class="candidate-role">Biologist & Medical Officer</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> 12 years of experience in extreme environment research. Worked on Antarctic expeditions and space station projects.</p>
+                        <p><strong>Skills:</strong> Medical expertise, problem-solving, can adapt to isolation. Excellent research background.</p>
+                        <p><strong>Concerns:</strong> Limited hands-on engineering experience. Perfectionist who struggles with uncertainty.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">Marcus Johnson</div>
+                            <div class="candidate-role">Mechanical Engineer</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> 15 years building and maintaining systems in demanding environments. Former military technician.</p>
+                        <p><strong>Skills:</strong> Practical problem-solving, equipment maintenance, leadership experience, physically strong.</p>
+                        <p><strong>Concerns:</strong> Limited scientific background. May struggle with long-term research documentation.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">Elena Volkov</div>
+                            <div class="candidate-role">Psychologist & Team Manager</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> Specialist in team dynamics and mental health in isolated environments. Trained astronaut.</p>
+                        <p><strong>Skills:</strong> Excellent communication, conflict resolution, psychological resilience, group cohesion.</p>
+                        <p><strong>Concerns:</strong> No technical skills for habitat maintenance or emergency repairs.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">Hiroshi Tanaka</div>
+                            <div class="candidate-role">Chemist & Life Support Specialist</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> Expert in water extraction and oxygen generation systems. Worked on sustainability projects.</p>
+                        <p><strong>Skills:</strong> Technical expertise, chemical knowledge, systems thinking, meticulous attention to detail.</p>
+                        <p><strong>Concerns:</strong> Introverted; may not collaborate well under pressure. Limited physical strength.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">Amara Okafor</div>
+                            <div class="candidate-role">Agricultural Engineer</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> Pioneering work in vertical farming and sustainable food systems. Trained in basic mechanics.</p>
+                        <p><strong>Skills:</strong> Self-reliant, innovative thinking, practical problem-solving, good all-rounder.</p>
+                        <p><strong>Concerns:</strong> No medical training. Limited experience in truly extreme environments.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+
+                <div class="candidate" onclick="toggleCandidate(this)">
+                    <div class="candidate-header">
+                        <div>
+                            <div class="candidate-name">David O'Brien</div>
+                            <div class="candidate-role">Structural Engineer</div>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="candidate-details">
+                        <p><strong>Background:</strong> 20 years designing structures in harsh climates. Recently retired from major engineering firm.</p>
+                        <p><strong>Skills:</strong> Extensive building expertise, safety protocols, mature judgment, steady temperament.</p>
+                        <p><strong>Concerns:</strong> Oldest candidate; health may deteriorate over years. May resist new ideas from younger team members.</p>
+                        <p><strong>Your ranking:</strong> <input type="number" min="1" max="6" placeholder="1-6"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block" style="margin-top: 30px;">
+                <h3>Discuss Your Reasoning</h3>
+                <p>Once you've ranked the candidates, explain your choices. Consider:</p>
+                <ul class="question-list">
+                    <li>Why did you rank your top candidate first? What makes them essential?</li>
+                    <li>Which candidate would you struggle without? Why?</li>
+                    <li>How do different skills complement each other in a team?</li>
+                    <li>What would happen if you had to leave someone out?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 4: WRAP-UP -->
+        <div id="wrap" class="tab-content">
+            <div class="content-block">
+                <h3>Review & Reflection</h3>
+                <p>Let's reflect on what we've learned and discussed today.</p>
+            </div>
+
+            <div class="section-title">Idiom Review</div>
+            <p style="color: #555; margin-bottom: 20px; font-size: 1.05em;">Which idiom describes each situation?</p>
+
+            <ul class="reflection-questions">
+                <li><strong>We have limited budget and too many projects:</strong><br>We've <span style="color: #764ba2; font-weight: 600;">bitten off more than we can chew</span></li>
+                <li><strong>The shortage of trained pilots is preventing the mission:</strong><br>That's a <span style="color: #764ba2; font-weight: 600;">stumbling block</span></li>
+                <li><strong>Everything in the launch sequence worked perfectly:</strong><br>It <span style="color: #764ba2; font-weight: 600;">went without a hitch</span></li>
+                <li><strong>If equipment fails unexpectedly:</strong><br>Things could <span style="color: #764ba2; font-weight: 600;">go pear-shaped</span></li>
+                <li><strong>The team is struggling with early operational difficulties:</strong><br>We're having <span style="color: #764ba2; font-weight: 600;">teething problems</span></li>
+                <li><strong>Negotiations are complicated and sensitive:</strong><br>That's a <span style="color: #764ba2; font-weight: 600;">thorny issue</span></li>
+            </ul>
+
+            <div class="section-title" style="margin-top: 35px;">Final Reflection Questions</div>
+            <ul class="reflection-questions">
+                <li>Tell me about a time when you <strong>bitten off more than you could chew</strong>. What happened?</li>
+                <li>Have you worked on a project that <strong>went without a hiccup</strong>? What made it run so smoothly?</li>
+                <li>What could potentially <strong>go pear-shaped</strong> on a Mars mission? What's the biggest risk?</li>
+                <li>If you were leaving Earth to colonise Mars, how would you spend your final week? What would you do?</li>
+                <li>Is Mars colonisation the solution to finding a habitable planet for humanity? Or are there better alternatives?</li>
+            </ul>
+
+            <div class="content-block" style="margin-top: 30px;">
+                <h3>Lesson Complete</h3>
+                <p>You've explored the challenges of Mars colonisation, learned idioms for discussing difficulties, and worked as a selection committee to evaluate candidates for an extraordinary mission.</p>
+                <p style="margin-top: 15px;"><strong>Key takeaways:</strong> Idioms help us discuss complex problems naturally. Team composition requires balancing skills, personality, and physical resilience. Space exploration pushes the boundaries of human capability and cooperation.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                switchTab(tabName);
+            });
+        });
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Remove active from all timers
+            document.querySelectorAll('.timer').forEach(timer => {
+                timer.classList.remove('active');
+            });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Activate selected button
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Activate corresponding timer
+            const timerMap = {
+                'context': 'timer-context',
+                'language': 'timer-language',
+                'task': 'timer-task',
+                'wrap': 'timer-wrap'
+            };
+            if (timerMap[tabName]) {
+                document.getElementById(timerMap[tabName]).classList.add('active');
+            }
+        }
+
+        // Reveal boxes for idioms
+        function toggleReveal(element) {
+            element.classList.toggle('revealed');
+            const content = element.querySelector('.reveal-content');
+            content.classList.toggle('visible');
+        }
+
+        // Expand candidate profiles
+        function toggleCandidate(element) {
+            element.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
