@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Black Box</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #2d1b69, #11998e); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 0.5px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #2d1b69; }
+.tab.active { color: #2d1b69; border-bottom-color: #2d1b69; }
+.tab.opened { color: #11998e; }
+.tab.opened::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #2d1b69; margin-bottom: 12px; }
+.card h3 { font-size: 1.05rem; color: #11998e; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #2d1b6910, #11998e10); border-left: 4px solid #2d1b69; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* THE BOX */
+.box-container { text-align: center; margin: 24px 0; }
+.black-box { width: 200px; height: 200px; margin: 0 auto; background: linear-gradient(145deg, #1a1a2e, #2d1b69); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.05); cursor: pointer; transition: all 0.4s; position: relative; overflow: hidden; }
+.black-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(17,153,142,0.1), transparent 30%); animation: boxSpin 6s linear infinite; }
+@keyframes boxSpin { to { transform: rotate(360deg); } }
+.black-box:hover { transform: scale(1.03); box-shadow: 0 10px 50px rgba(45,27,105,0.4); }
+.box-question { font-size: 3rem; color: white; z-index: 2; text-shadow: 0 0 20px rgba(17,153,142,0.5); }
+.box-label { margin-top: 12px; font-size: 0.85rem; color: #888; }
+
+/* Question counter */
+.question-counter { text-align: center; margin: 16px 0; }
+.q-count { font-size: 1.6rem; font-weight: 900; color: #2d1b69; }
+.q-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Clue system */
+.clue-section { margin: 16px 0; }
+.clue-card { background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 10px; padding: 14px 18px; margin: 8px 0; cursor: pointer; transition: all 0.3s; }
+.clue-card:hover { border-color: #11998e; }
+.clue-card.revealed-clue { border-style: solid; border-color: #11998e; background: #11998e08; }
+.clue-card .clue-text { display: none; color: #1a1a2e; font-weight: 500; margin-top: 6px; }
+.clue-card.revealed-clue .clue-text { display: block; }
+.clue-card.revealed-clue .clue-label { display: none; }
+.clue-label { color: #888; font-size: 0.85rem; }
+.clue-num { font-weight: 700; color: #2d1b69; }
+
+/* The reveal */
+.reveal-box { display: none; background: linear-gradient(135deg, #2d1b6910, #11998e10); border: 2px solid #11998e; border-radius: 14px; padding: 24px; margin: 20px 0; text-align: center; animation: revealPop 0.5s ease; }
+.reveal-box.show { display: block; }
+@keyframes revealPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.reveal-answer { font-size: 1.3rem; font-weight: 800; color: #2d1b69; margin-bottom: 8px; }
+.reveal-detail { color: #555; font-size: 0.95rem; margin-bottom: 16px; }
+.reveal-source { font-size: 0.8rem; color: #888; font-style: italic; }
+
+/* Opinion section */
+.opinion-section { margin-top: 20px; }
+.stance-buttons { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+.stance-btn { padding: 10px 24px; border: 2px solid #dee2e6; background: #fff; border-radius: 25px; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: all 0.2s; }
+.stance-btn:hover { border-color: #2d1b69; color: #2d1b69; }
+.stance-btn.picked { background: #2d1b69; color: white; border-color: #2d1b69; }
+
+/* Timer */
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #2d1b69; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #2d1b69; margin: 12px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+/* Guess input */
+.guess-area { margin: 16px 0; text-align: center; }
+.open-btn { padding: 14px 40px; background: linear-gradient(135deg, #2d1b69, #11998e); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px; }
+.open-btn:hover { transform: scale(1.03); box-shadow: 0 4px 15px rgba(45,27,105,0.3); }
+
+/* Progress */
+.progress-bar { height: 6px; background: #e9ecef; border-radius: 3px; margin: 12px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #2d1b69, #11998e); border-radius: 3px; transition: width 0.5s ease; }
+
+/* Tools */
+.tools-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #2d1b69; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #2d1b6910; border-left: 4px solid #2d1b69; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.checklist { margin-top: 12px; }
+.check-item { display: flex; align-items: baseline; margin-bottom: 8px; }
+.check-item input { margin-right: 8px; cursor: pointer; }
+.check-item label { cursor: pointer; }
+
+.score-display { text-align: center; padding: 16px; }
+.score-num { font-size: 2.5rem; font-weight: 900; color: #2d1b69; }
+.score-label { font-size: 0.85rem; color: #888; }
+
+.box-theme { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.theme-law { background: #e17055; color: white; }
+.theme-human { background: #6c5ce7; color: white; }
+.theme-world { background: #00b894; color: white; }
+.theme-money { background: #fdcb6e; color: #333; }
+.theme-future { background: #0984e3; color: white; }
+.theme-wild { background: #e84393; color: white; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE BLACK BOX</h1>
+  <p>6 sealed boxes. Ask questions. Guess what's inside. Then argue about it.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Briefing</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Box 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Box 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Box 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Box 4</div>
+  <div class="tab" onclick="showTab(5)" id="tab5">Box 5</div>
+  <div class="tab" onclick="showTab(6)" id="tab6">Box 6</div>
+  <div class="tab" onclick="showTab(7)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: BRIEFING -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>What's in the Box?</h2>
+    <p style="margin-bottom:12px;">There are 6 sealed black boxes. Each one contains something real — a law, a fact, a statistic, a phenomenon, or a real-world situation. Something that actually exists or happened.</p>
+    <p style="margin-bottom:12px;">For each box, you get <strong>3 clues</strong>, revealed one at a time. After each clue, you can guess what's inside — or ask for the next clue.</p>
+    <p>Once you open the box, the REAL challenge begins: <strong>you have to give your opinion on what you found.</strong> Is it fair? Is it smart? Is it surprising? Would you change it?</p>
+  </div>
+
+  <div class="card">
+    <h2>Quick Warm-Up</h2>
+    <div class="speak-prompt">
+      Think of the most surprising fact you know — something that sounds made up but is actually true. Tell me what it is and why you find it so hard to believe.
+    </div>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 45)">
+        <span class="timer-display">0:45</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Scoring</h2>
+    <p style="margin-bottom:8px;">Guess after <strong>Clue 1</strong> = 3 points</p>
+    <p style="margin-bottom:8px;">Guess after <strong>Clue 2</strong> = 2 points</p>
+    <p style="margin-bottom:8px;">Guess after <strong>Clue 3</strong> = 1 point</p>
+    <p>Didn't guess = 0 points. <strong>Maximum score: 18.</strong></p>
+  </div>
+
+  <div class="tools-box">
+    <h4>Useful Language — Guessing</h4>
+    <span class="tool-chip">"Could it be something to do with...?"</span>
+    <span class="tool-chip">"My first instinct is..."</span>
+    <span class="tool-chip">"That makes me think of..."</span>
+    <span class="tool-chip">"I'm going to go with..."</span>
+    <span class="tool-chip">"I've changed my mind because..."</span>
+  </div>
+
+  <div class="tools-box" style="margin-top:12px;">
+    <h4>Useful Language — Opinions</h4>
+    <span class="tool-chip">"I think this is... because..."</span>
+    <span class="tool-chip">"On one hand... but on the other..."</span>
+    <span class="tool-chip">"What surprises me most is..."</span>
+    <span class="tool-chip">"I can see why... but I still think..."</span>
+    <span class="tool-chip">"If I had to choose, I'd say..."</span>
+  </div>
+</div>
+
+<!-- BOXES ARE GENERATED BY JS — panels 1-6 -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+<div class="panel" id="panel5"></div>
+<div class="panel" id="panel6"></div>
+
+<!-- TAB 7: DEBRIEF -->
+<div class="panel" id="panel7">
+  <div class="card">
+    <h2>Your Score</h2>
+    <div class="score-display">
+      <div class="score-num" id="totalScore">0</div>
+      <div class="score-label">out of 18</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="scoreFill" style="width:0%;"></div></div>
+    <p id="scoreVerdict" style="text-align:center; margin-top:8px; color:#2d1b69; font-weight:600;"></p>
+  </div>
+
+  <div class="card">
+    <h2>What Stuck With You?</h2>
+    <div class="speak-prompt">
+      Of the 6 things you discovered today, which one will you still be thinking about tomorrow? Why?
+    </div>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 60)">
+        <span class="timer-display">1:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="reflection-prompt">
+      <p><strong>The guessing:</strong> What strategy did you use? Did you get better at guessing as the boxes went on?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Forming questions:</strong> Was it hard to think of good yes/no questions? What makes a good question versus a bad one?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>The opinions:</strong> Which box gave you the strongest opinion? Which one were you most unsure about?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">Tap to see what we covered</span>
+      <div class="hidden-content">
+        <div class="checklist">
+          <div class="check-item"><input type="checkbox" id="c1"><label for="c1"><strong>I can</strong> form strategic yes/no questions to narrow down possibilities</label></div>
+          <div class="check-item"><input type="checkbox" id="c2"><label for="c2"><strong>I can</strong> speculate and reason out loud</label></div>
+          <div class="check-item"><input type="checkbox" id="c3"><label for="c3"><strong>I can</strong> express strong opinions and justify them</label></div>
+          <div class="check-item"><input type="checkbox" id="c4"><label for="c4"><strong>I can</strong> see both sides of an argument</label></div>
+          <div class="check-item"><input type="checkbox" id="c5"><label for="c5"><strong>I can</strong> react to surprising information and discuss it naturally</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// TAB SYSTEM
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// BOX DATA
+const boxes = [
+  {
+    theme: 'law', themeLabel: 'A Real Law',
+    clues: [
+      "This is a law that exists in an Asian country. It was introduced in the 2000s to solve a public health crisis.",
+      "The government measures citizens' waistlines once a year. If you're over the limit, you get flagged.",
+      "Companies can be fined if too many of their employees fail the measurement. The limit for men is 85cm."
+    ],
+    answer: "Japan's 'Metabo Law' (2008)",
+    detail: "Japan requires all citizens aged 40–74 to have their waistlines measured annually. Men must be under 85cm, women under 90cm. If too many employees fail, their company gets fined. It was introduced because Japan's healthcare costs were rising due to metabolic syndrome. Since the law was introduced, obesity rates have stayed among the lowest in the world.",
+    debate: "Should governments be allowed to regulate your body size? Is this smart public health policy — or is it controlling and humiliating?",
+    stances: ["Smart policy", "Too controlling", "Good idea, bad method", "It depends"]
+  },
+  {
+    theme: 'human', themeLabel: 'Human Behaviour',
+    clues: [
+      "This is about how humans behave in emergencies. It was discovered after a famous murder case in New York in the 1960s.",
+      "Researchers found that the MORE people who witness a crisis, the LESS likely anyone is to help.",
+      "It happens because each person assumes someone else will take responsibility. The more witnesses, the stronger this effect."
+    ],
+    answer: "The Bystander Effect",
+    detail: "After the murder of Kitty Genovese in 1964 — reportedly witnessed by 38 neighbours who did nothing — psychologists Darley and Latané discovered that people are far less likely to help in an emergency when others are present. In experiments, 70% of people helped when alone, but only 40% helped when others were nearby. Each person thinks 'someone else will do it' — so nobody does.",
+    debate: "If you saw someone collapse in a busy street, would YOU help — or would you assume someone else would? Have you ever been in a situation where nobody helped?",
+    stances: ["I'd definitely help", "I'd hesitate honestly", "It depends on the situation", "This is a design problem, not a people problem"]
+  },
+  {
+    theme: 'money', themeLabel: 'Money & Society',
+    clues: [
+      "This is a real experiment that took place in Finland between 2017 and 2018.",
+      "The government gave 2,000 unemployed people money every month with absolutely no conditions. They could spend it however they wanted, even if they found a job.",
+      "The amount was €560 per month. The people who received it reported being happier and healthier — but they didn't find jobs any faster than the control group."
+    ],
+    answer: "Finland's Universal Basic Income Experiment",
+    detail: "Finland ran a 2-year trial giving €560/month to 2,000 randomly selected unemployed people — no strings attached. Results: participants were significantly happier, less stressed, and more trusting of institutions. They were also slightly more likely to start businesses. However, they didn't get employed any faster than people who didn't receive the money. The experiment was not extended, partly due to political opposition.",
+    debate: "Should governments give everyone free money with no conditions? Does it make people lazy — or does it free them to take risks and be creative?",
+    stances: ["Great idea — do it everywhere", "People need incentives to work", "Good idea but too expensive", "The results prove it works"]
+  },
+  {
+    theme: 'world', themeLabel: 'The World',
+    clues: [
+      "This is about a country that made a radical decision about its education system. It consistently ranks as one of the best in the world for education.",
+      "Children don't start formal school until age 7. Before that, they just play.",
+      "There is almost no homework, no standardised testing, and teachers are paid as much as doctors. Every teacher must have a Master's degree."
+    ],
+    answer: "Finland's Education System",
+    detail: "Finnish children don't start school until age 7. There are no standardised tests (except one at age 16), almost no homework, and 15-minute breaks every 45 minutes. Teachers are selected from the top 10% of graduates and must have a Master's degree. Teaching is one of the most prestigious professions. Despite — or because of — this approach, Finland consistently ranks among the top 5 countries in the world for reading, maths, and science.",
+    debate: "Would this system work in YOUR country? What would need to change? Is the problem with education the system, the teachers, the parents, or the culture?",
+    stances: ["This would work anywhere", "Only works in small countries", "The teacher training is the key", "We need some testing and homework"]
+  },
+  {
+    theme: 'future', themeLabel: 'Technology',
+    clues: [
+      "This technology already exists and is being used in at least one country. It affects every citizen, every day.",
+      "You receive a score. The score goes up when you do 'good' things — paying bills, volunteering, buying healthy food. It goes down when you do 'bad' things — jaywalking, playing too many video games, criticising the government online.",
+      "A low score means you can't buy train tickets, rent certain apartments, or send your children to certain schools."
+    ],
+    answer: "China's Social Credit System",
+    detail: "China has been developing a 'Social Credit System' since 2014, with full implementation in various cities. Citizens and businesses receive scores based on their behaviour — financial trustworthiness, social conduct, and even online activity. High scores bring rewards: cheaper loans, priority for schools, better dating profiles. Low scores bring punishments: being banned from flights and trains (over 20 million flight bookings were blocked in 2018 alone), public shaming on billboards, and restricted internet speeds.",
+    debate: "Is this the future of all societies? Would something like this ever be acceptable in Europe? Where is the line between encouraging good behaviour and total surveillance?",
+    stances: ["Terrifying — this must never spread", "Actually... it could reduce crime", "We already have something similar (credit scores)", "It's only a problem without democracy"]
+  },
+  {
+    theme: 'wild', themeLabel: 'Wild Card',
+    clues: [
+      "This is about something your brain does automatically, without you knowing. It was proven in an experiment using wine.",
+      "Researchers took a cheap white wine and added red food colouring to make it look like red wine. Then they asked professional wine experts to describe it.",
+      "Every single expert described the dyed white wine using red wine vocabulary — dark fruit, leather, tannins. None of them noticed it was white wine."
+    ],
+    answer: "Your Eyes Override Your Taste Buds",
+    detail: "In 2001, researcher Frédéric Brochet at the University of Bordeaux gave 54 wine experts a white wine dyed red. Every single expert described it as a red wine, using terms like 'crushed red fruit' and 'raspberry.' Not one detected it was actually white wine. The experiment proved that what we SEE dramatically overrides what we actually taste. Your brain is constantly lying to you based on what it expects to find.",
+    debate: "How much of what you experience is real versus what your brain expects? Can you think of other situations where your expectations completely change your experience?",
+    stances: ["We can't trust our senses at all", "Experts are overrated", "This is just wine — it doesn't apply everywhere", "This actually explains a LOT"]
+  }
+];
+
+let totalScore = 0;
+
+// BUILD BOX PANELS
+function buildBoxes() {
+  boxes.forEach((box, i) => {
+    const panel = document.getElementById('panel' + (i + 1));
+    const themeClass = 'theme-' + box.theme;
+
+    panel.innerHTML = `
+      <div class="card">
+        <span class="box-theme ${themeClass}">${box.themeLabel}</span>
+        <h2>Box ${i + 1}</h2>
+        <div class="box-container">
+          <div class="black-box">
+            <div class="box-question">?</div>
+          </div>
+          <div class="box-label">What's inside?</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Clues</h3>
+        <p style="margin-bottom:12px; color:#888; font-size:0.9rem;">Reveal clues one at a time. After each clue, try to guess — or ask for the next one.</p>
+
+        <div class="clue-section">
+          <div class="clue-card" id="clue-${i}-0" onclick="revealClue(${i}, 0)">
+            <span class="clue-label"><span class="clue-num">Clue 1</span> — tap to reveal (worth 3 points if you guess now)</span>
+            <div class="clue-text">${box.clues[0]}</div>
+          </div>
+
+          <div class="speak-prompt" id="guess-prompt-${i}-0" style="display:none;">
+            <strong>Guess now?</strong> Say what you think is in the box — and explain your reasoning. Or tap Clue 2 for more help.
+          </div>
+
+          <div class="clue-card" id="clue-${i}-1" onclick="revealClue(${i}, 1)">
+            <span class="clue-label"><span class="clue-num">Clue 2</span> — tap to reveal (worth 2 points if you guess now)</span>
+            <div class="clue-text">${box.clues[1]}</div>
+          </div>
+
+          <div class="speak-prompt" id="guess-prompt-${i}-1" style="display:none;">
+            <strong>Guess now?</strong> Getting closer? Say your best guess. Or tap Clue 3 for the final hint.
+          </div>
+
+          <div class="clue-card" id="clue-${i}-2" onclick="revealClue(${i}, 2)">
+            <span class="clue-label"><span class="clue-num">Clue 3</span> — tap to reveal (worth 1 point if you guess now)</span>
+            <div class="clue-text">${box.clues[2]}</div>
+          </div>
+
+          <div class="speak-prompt" id="guess-prompt-${i}-2" style="display:none;">
+            <strong>Last chance!</strong> What's your final answer?
+          </div>
+        </div>
+
+        <div class="guess-area">
+          <p style="margin-bottom:12px; color:#888; font-size:0.85rem;">Once you've guessed (or given up), open the box.</p>
+          <button class="open-btn" onclick="openBox(${i})">OPEN THE BOX</button>
+        </div>
+      </div>
+
+      <div class="reveal-box" id="reveal-${i}">
+        <div class="reveal-answer">${box.answer}</div>
+        <div class="reveal-detail">${box.detail}</div>
+      </div>
+
+      <div class="card" id="opinion-${i}" style="display:none;">
+        <h3>Now — Your Opinion</h3>
+        <div class="speak-prompt" style="border-color:#11998e;">
+          ${box.debate}
+        </div>
+
+        <div class="stance-buttons">
+          ${box.stances.map(s => `<button class="stance-btn" onclick="pickStance(this)">${s}</button>`).join('')}
+        </div>
+
+        <p style="margin-top:12px; color:#888; font-size:0.85rem;">Pick your position. Then defend it for 60 seconds.</p>
+
+        <div style="text-align:center;">
+          <div class="timer-box" onclick="toggleTimer(this, 60)">
+            <span class="timer-display">1:00</span>
+            <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+          </div>
+        </div>
+
+        <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:16px;">
+          <span class="reveal-label">Done defending? Tap for the counter-argument challenge.</span>
+          <div class="hidden-content">
+            <div class="speak-prompt" style="border-color:#e17055;">
+              <strong>Now argue the OPPOSITE of what you just said.</strong> Even if you don't believe it. 45 seconds. Go.
+            </div>
+            <div style="text-align:center;">
+              <div class="timer-box" onclick="toggleTimer(this, 45)">
+                <span class="timer-display">0:45</span>
+                <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button class="open-btn" onclick="showTab(${i + 2 <= 7 ? i + 2 : 7})" style="font-size:0.9rem; padding:12px 30px;">
+            ${i < 5 ? 'NEXT BOX →' : 'GO TO DEBRIEF →'}
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function revealClue(boxIndex, clueIndex) {
+  const card = document.getElementById(`clue-${boxIndex}-${clueIndex}`);
+  if (card.classList.contains('revealed-clue')) return;
+  card.classList.add('revealed-clue');
+  const prompt = document.getElementById(`guess-prompt-${boxIndex}-${clueIndex}`);
+  if (prompt) prompt.style.display = 'block';
+}
+
+function openBox(boxIndex) {
+  const reveal = document.getElementById(`reveal-${boxIndex}`);
+  reveal.classList.add('show');
+  const opinion = document.getElementById(`opinion-${boxIndex}`);
+  opinion.style.display = 'block';
+
+  // Mark tab
+  const tab = document.getElementById(`tab${boxIndex + 1}`);
+  tab.classList.add('opened');
+
+  // Scroll to reveal
+  reveal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Calculate score for this box
+  let cluesUsed = 0;
+  for (let c = 0; c < 3; c++) {
+    if (document.getElementById(`clue-${boxIndex}-${c}`).classList.contains('revealed-clue')) {
+      cluesUsed = c + 1;
+    }
+  }
+  const points = cluesUsed === 0 ? 0 : Math.max(0, 4 - cluesUsed);
+  totalScore += points;
+  updateTotalScore();
+}
+
+function updateTotalScore() {
+  document.getElementById('totalScore').textContent = totalScore;
+  document.getElementById('scoreFill').style.width = (totalScore / 18 * 100) + '%';
+  let msg = '';
+  if (totalScore >= 15) msg = 'Incredible instincts. You barely needed the clues.';
+  else if (totalScore >= 10) msg = 'Sharp mind. You pieced things together well.';
+  else if (totalScore >= 5) msg = 'Solid effort — the opinions were the real challenge anyway.';
+  else msg = 'The guessing was tough — but the conversations were the point.';
+  document.getElementById('scoreVerdict').textContent = msg;
+}
+
+function pickStance(btn) {
+  btn.closest('.stance-buttons').querySelectorAll('.stance-btn').forEach(b => b.classList.remove('picked'));
+  btn.classList.add('picked');
+}
+
+// TIMER
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 15 && remaining > 5) { el.classList.remove('running'); el.classList.add('warning'); }
+    else if (remaining <= 5 && remaining > 0) { el.classList.remove('warning'); el.classList.add('danger'); }
+    else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = "0:00";
+      el.classList.remove('danger');
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+
+// INIT
+buildBoxes();
+</script>
+</body>
+</html>
