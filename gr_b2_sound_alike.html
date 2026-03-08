@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Alike</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #00b894, #00cec9); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #00b894; }
+.tab.active { color: #00b894; border-bottom-color: #00b894; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #00b89410, #00cec910); border-left: 4px solid #00b894; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #00b89410, #00cec910); border-left: 4px solid #00b894; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Pair display */
+.pair-container { margin: 20px 0; }
+.pair-box { display: flex; gap: 16px; justify-content: center; align-items: stretch; margin: 16px 0; }
+.pair-option { flex: 1; max-width: 300px; background: #1a1a2e; border-radius: 14px; padding: 24px 16px; text-align: center; cursor: pointer; transition: all 0.3s; border: 3px solid transparent; }
+.pair-option:hover { border-color: #00b894; transform: scale(1.03); }
+.pair-option.selected { border-color: #00b894; background: #00b89420; }
+.pair-option.correct { border-color: #28a745; background: #28a74520; }
+.pair-option.wrong { border-color: #e94560; background: #e9456020; }
+.pair-text { font-size: 1.4rem; font-weight: 800; color: #00cec9; }
+.pair-label { font-size: 0.75rem; color: #6c757d; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+.vs-divider { display: flex; align-items: center; justify-content: center; font-weight: 800; color: #6c757d; font-size: 0.9rem; }
+
+/* Connected speech decoder */
+.decode-box { background: #1a1a2e; border-radius: 14px; padding: 24px; margin: 16px 0; text-align: center; }
+.decode-text { font-size: 1.3rem; font-weight: 700; color: #00cec9; font-family: 'Courier New', monospace; letter-spacing: 1px; line-height: 1.8; }
+.decode-answer { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #333; color: #a29bfe; font-size: 1.1rem; }
+
+.reveal-btn { display: inline-block; padding: 10px 24px; background: #00b894; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 12px; font-size: 0.9rem; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #00b894, #00cec9); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.instruction-step { padding: 10px 16px; border-radius: 8px; margin: 8px 0; }
+
+.score-tracker { text-align: center; background: #f1f3f5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+.score-tracker span { font-weight: 800; color: #00b894; font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SOUND ALIKE</h1>
+  <p>When fast English tricks your ears.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Pairs</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Say & Guess</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Decode</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0 -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Why does English sound so different from how it's written?</h2>
+    <p style="margin-bottom:12px;">When English speakers talk naturally, words blend together. Sounds disappear, merge, and change. "Did you eat yet?" becomes "Jeet yet?" "I don't know" becomes "I dunno."</p>
+    <div class="accent-box">
+      This game trains your ear and your mouth to handle <strong>connected speech</strong> — the way English actually sounds at normal speed.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3 rounds</h2>
+    <div class="instruction-step" style="background:#00b89410; border-left:3px solid #00b894;">
+      <strong>Round 1 — Pairs:</strong> Two phrases that sound almost identical in fast speech. One person says one — the other has to identify which.
+    </div>
+    <div class="instruction-step" style="background:#6c5ce710; border-left:3px solid #6c5ce7;">
+      <strong>Round 2 — Say & Guess:</strong> One person says a sentence at NATURAL speed. The other writes/says what they heard. Then compare.
+    </div>
+    <div class="instruction-step" style="background:#fdcb6e10; border-left:3px solid #fdcb6e;">
+      <strong>Round 3 — Decode:</strong> Sentences written as they SOUND. Figure out the real English.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Warm-up</h2>
+    <div class="speak-prompt">
+      Say "What do you want to do?" as fast as you naturally can. Now say it again. And again, even faster. What happened to the words? Which sounds disappeared?
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<!-- TAB 1: PAIRS -->
+<div class="panel" id="panel1"></div>
+
+<!-- TAB 2: SAY & GUESS -->
+<div class="panel" id="panel2"></div>
+
+<!-- TAB 3: DECODE -->
+<div class="panel" id="panel3"></div>
+
+<!-- TAB 4: DEBRIEF -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which sounds were hardest to distinguish?</strong> Was it vowel sounds, consonant clusters, or the way words joined together?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>Do you think you should try to speak with connected speech?</strong> Or is it only important for listening? What are the risks of using it too much?
+    </div>
+    <div class="speak-prompt" style="border-color:#e67e22;">
+      <strong>What advice would you give to someone learning English</strong> about understanding native speakers? What's the most important thing you learned today?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const PAIRS = [
+  { a: "I scream", b: "ice cream", context: "In fast speech, 'I scream' and 'ice cream' are almost identical. The boundary between words vanishes.", tip: "The difference is tiny — 'I scream' has a very slight pause and stronger 'I', while 'ice cream' flows as one unit." },
+  { a: "grey day", b: "grade A", context: "The /d/ in 'grade' can sound like a pause between 'grey' and 'day'. Fast speech makes them nearly identical.", tip: "In 'grade A', the stress falls on 'A'. In 'grey day', stress is more even." },
+  { a: "four candles", b: "fork handles", context: "A famous British comedy sketch. The sounds overlap almost perfectly when said quickly.", tip: "The /k/ in 'fork' and 'four' differ only in where the /k/ falls relative to the vowel." },
+  { a: "it's not easy", b: "it's no tea, see?", context: "When 'not easy' runs together, the /t/ links to the /e/, creating 'no-tea-zee'.", tip: "The phrase boundary between 'not' and 'easy' creates a linking /t/ sound." },
+  { a: "I'll let you know", b: "aisle, let you know", context: "The 'I'll' contracts so much it becomes almost indistinguishable from 'aisle'.", tip: "'I'll' in fast speech often sounds like just a long /aɪ/ sound." },
+  { a: "next stop", b: "neck stop", context: "The /ks/ in 'next' and /k/ in 'neck' blend when followed by /s/ in 'stop'.", tip: "Say 'next' slowly — you can hear /nekst/. But fast, the /t/ before /s/ often disappears." },
+  { a: "that stuff", b: "that's tough", context: "The /s/ in 'stuff' and the /s/ + /t/ in 'that's tough' blur in fast speech.", tip: "Listen for whether the /t/ sound appears before or after the /s/." },
+  { a: "we trained", b: "we'd rained", context: "The /tr/ cluster in 'trained' and the /d r/ in 'we'd rained' sound very similar at speed.", tip: "In 'trained', it's one word. In 'we'd rained', there's a contraction + separate word." },
+  { a: "real eyes", b: "realise", context: "Three syllables either way. The /l/ links /rea-/ to /-eyes/ just like /-lise/.", tip: "The stress pattern is actually different: 'REAL eyes' vs 'rea-LISE'." },
+  { a: "he lies", b: "he'll eyes", context: "The dark /l/ in 'he'll' before 'eyes' sounds very close to 'he lies'.", tip: "The /l/ sound is the key — is it at the end of 'he'll' or the start of 'lies'?" },
+];
+
+const SAY_GUESS = [
+  { written: "What are you going to do about it?", natural: "Whaddya gonna do about it?", features: "• 'What are you' → 'Whaddya' (linking + reduction)\n• 'going to' → 'gonna' (elision)" },
+  { written: "I should have told her about that.", natural: "I shoulda told her about that.", features: "• 'should have' → 'shoulda' (weak form of 'have')\n• 'her' is often reduced to /ər/" },
+  { written: "Do you want to get out of here?", natural: "D'you wanna get outta here?", features: "• 'Do you' → 'D'you' (reduction)\n• 'want to' → 'wanna' (elision)\n• 'out of' → 'outta' (assimilation)" },
+  { written: "I have got to go. I will see you later.", natural: "I gotta go. I'll see ya later.", features: "• 'have got to' → 'gotta' (elision)\n• 'I will' → 'I'll' (contraction)\n• 'you' → 'ya' (weak form)" },
+  { written: "He is not going to be able to make it.", natural: "He's not gonna be able to make it.", features: "• 'He is' → 'He's' (contraction)\n• 'going to' → 'gonna' (elision)\n• 'able to' — the 'to' often becomes /tə/" },
+  { written: "Could you give me a hand with this?", natural: "Couldya gimme a hand with this?", features: "• 'Could you' → 'Couldya' (linking /dʒ/)\n• 'give me' → 'gimme' (assimilation)" },
+  { written: "What did he say to them?", natural: "Whaddee say to 'em?", features: "• 'What did he' → 'Whaddee' (linking)\n• 'them' → 'em' (weak form, dropped /ð/)" },
+  { written: "I do not know. Let me think about it.", natural: "I dunno. Lemme think about it.", features: "• 'do not' → 'dunno' (reduction + linking)\n• 'Let me' → 'Lemme' (assimilation)" },
+  { written: "Are you not going to eat anything?", natural: "Aren'tcha gonna eat anything?", features: "• 'Are you not' → 'Aren'tcha' (contraction + /tʃ/ linking)\n• 'going to' → 'gonna'" },
+  { written: "I would have gone if you had asked me.", natural: "I woulda gone if you'd asked me.", features: "• 'would have' → 'woulda' (weak 'have')\n• 'you had' → 'you'd' (contraction)" },
+];
+
+const DECODES = [
+  { encoded: "Djuwanna cuppa tea?", decoded: "Do you want a cup of tea?", notes: "'Do you want a' compresses into 'Djuwanna'. 'Cup of' becomes 'cuppa'." },
+  { encoded: "Amma gonna hafta do it meself.", decoded: "I am going to have to do it myself.", notes: "'I am' → 'Amma'. 'going to' → 'gonna'. 'have to' → 'hafta'. 'myself' → 'meself'." },
+  { encoded: "Wotcha doin tomorrer?", decoded: "What are you doing tomorrow?", notes: "'What are you' → 'Wotcha'. 'tomorrow' → 'tomorrer' (common in spoken British English)." },
+  { encoded: "Ee shouldna dunnat.", decoded: "He shouldn't have done that.", notes: "'He' → 'Ee'. 'shouldn't have' → 'shouldna'. 'done that' → 'dunnat'." },
+  { encoded: "Cancha see amma busy?", decoded: "Can't you see I am busy?", notes: "'Can't you' → 'Cancha' (the /t/ and /j/ merge to /tʃ/). 'I am' → 'amma'." },
+  { encoded: "Yer gonna wanna see this.", decoded: "You are going to want to see this.", notes: "'You are' → 'Yer'. 'going to' → 'gonna'. 'want to' → 'wanna'." },
+  { encoded: "Avencha finished yet?", decoded: "Haven't you finished yet?", notes: "'Haven't you' → 'Avencha'. The /h/ drops and /t/+/j/ merge to /tʃ/." },
+  { encoded: "Lemme gedda biddov water.", decoded: "Let me get a bit of water.", notes: "'Let me' → 'Lemme'. 'get a' → 'gedda'. 'bit of' → 'biddov'." },
+];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildPairs();
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildSayGuess();
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildDecode();
+}
+
+function buildPairs() {
+  const selected = [...PAIRS].sort(() => Math.random() - 0.5).slice(0, 5);
+  let html = `<div class="card"><h2>Round 1: Which one did you hear?</h2>
+    <p>One person says ONE of the two phrases at natural speed. The other has to identify which one they said. Take turns.</p>
+    <div class="score-tracker">Score: <span id="pairScore">0</span> / ${selected.length}</div></div>`;
+
+  selected.forEach((p, i) => {
+    html += `
+    <div class="card" id="pair${i}">
+      <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">Pair ${i + 1}</p>
+      <div class="pair-box">
+        <div class="pair-option" onclick="selectPair(${i}, 'a')">
+          <div class="pair-text">"${p.a}"</div>
+          <div class="pair-label">Option A</div>
+        </div>
+        <div class="vs-divider">or</div>
+        <div class="pair-option" onclick="selectPair(${i}, 'b')">
+          <div class="pair-text">"${p.b}"</div>
+          <div class="pair-label">Option B</div>
+        </div>
+      </div>
+      <p style="text-align:center; color:#6c757d; font-size:0.85rem;">One person: say one of these at normal speed. Other person: tap which one you heard.</p>
+      <div id="pairReveal${i}" style="display:none;">
+        <div class="accent-box">
+          <p><strong>Why they sound alike:</strong> ${p.context}</p>
+          <p style="margin-top:8px;"><strong>Tip:</strong> ${p.tip}</p>
+        </div>
+        <div class="speak-prompt">
+          <strong>Both try:</strong> Say each phrase 3 times, getting faster each time. Can you still hear the difference at full speed?
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → SAY & GUESS</button>`;
+  document.getElementById('panel1').innerHTML = html;
+  window._pairData = selected;
+}
+
+let pairScore = 0;
+function selectPair(idx, choice) {
+  // Just reveal the explanation — there's no "right" answer since one person chose which to say
+  document.getElementById('pairReveal' + idx).style.display = 'block';
+  const options = document.getElementById('pair' + idx).querySelectorAll('.pair-option');
+  if (choice === 'a') options[0].classList.add('selected');
+  else options[1].classList.add('selected');
+}
+
+function buildSayGuess() {
+  const selected = [...SAY_GUESS].sort(() => Math.random() - 0.5).slice(0, 5);
+  let html = `<div class="card"><h2>Round 2: Say it naturally</h2>
+    <p>One person reads the sentence at <strong>natural, fast speed</strong>. The other listens and tries to catch every word. Then reveal what was actually said vs. what's written.</p></div>`;
+
+  selected.forEach((s, i) => {
+    html += `
+    <div class="card">
+      <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">Sentence ${i + 1}</p>
+      <div class="decode-box">
+        <p style="color:#6c757d; font-size:0.8rem; margin-bottom:8px;">THE WRITTEN VERSION:</p>
+        <div class="decode-text">${s.written}</div>
+      </div>
+      <div class="speak-prompt">
+        <strong>Person A:</strong> Say this at your normal speaking speed — don't slow down for clarity. Let it flow naturally.<br>
+        <strong>Person B:</strong> Listen carefully. What words blur together? What sounds disappear?
+      </div>
+      <div style="text-align:center;">
+        <button class="reveal-btn" onclick="this.parentElement.nextElementSibling.style.display='block'; this.style.display='none';">Reveal: How it actually sounds</button>
+      </div>
+      <div style="display:none;">
+        <div class="decode-box" style="border:2px solid #00b894;">
+          <p style="color:#00b894; font-size:0.8rem; margin-bottom:8px;">HOW IT ACTUALLY SOUNDS:</p>
+          <div class="decode-text" style="color:#00cec9;">${s.natural}</div>
+        </div>
+        <div class="accent-box">
+          <p style="font-size:0.9rem; white-space:pre-line;">${s.features}</p>
+        </div>
+        <div class="speak-prompt" style="border-color:#6c5ce7;">
+          <strong>Both try:</strong> Say both versions — the slow/written one and the natural one. Can you feel the difference in your mouth?
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab2').classList.add('done'); showTab(3);">NEXT → DECODE</button>`;
+  document.getElementById('panel2').innerHTML = html;
+}
+
+function buildDecode() {
+  const selected = [...DECODES].sort(() => Math.random() - 0.5).slice(0, 5);
+  let html = `<div class="card"><h2>Round 3: Decode the connected speech</h2>
+    <p>These sentences are written the way they SOUND in fast English. Work together to figure out what they actually say.</p></div>`;
+
+  selected.forEach((d, i) => {
+    html += `
+    <div class="card">
+      <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">Decode ${i + 1}</p>
+      <div class="decode-box">
+        <div class="decode-text">${d.encoded}</div>
+      </div>
+      <p style="text-align:center; margin:12px 0; font-weight:600;">Say it out loud. What do you think the real sentence is?</p>
+      <div style="text-align:center;">
+        <button class="reveal-btn" onclick="this.parentElement.nextElementSibling.style.display='block'; this.style.display='none';">Reveal the real sentence</button>
+      </div>
+      <div style="display:none;">
+        <div class="decode-box" style="border:2px solid #00b894;">
+          <p style="color:#00b894; font-size:0.8rem; margin-bottom:8px;">THE REAL SENTENCE:</p>
+          <div class="decode-text" style="color:#00cec9;">${d.decoded}</div>
+        </div>
+        <div class="accent-box">
+          <p>${d.notes}</p>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">FINISH → DEBRIEF</button>`;
+  document.getElementById('panel3').innerHTML = html;
+}
+</script>
+</body>
+</html>

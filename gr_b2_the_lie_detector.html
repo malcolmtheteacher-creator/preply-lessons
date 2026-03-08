@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lie Detector</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #c0392b, #e74c3c); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #c0392b; }
+.tab.active { color: #c0392b; border-bottom-color: #c0392b; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #c0392b10, #e74c3c08); border-left: 4px solid #c0392b; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #c0392b10, #e74c3c08); border-left: 4px solid #c0392b; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Question display */
+.question-display { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 14px; margin: 20px 0; }
+.question-text { font-size: 1.3rem; font-weight: 700; color: #e74c3c; line-height: 1.5; }
+.question-num { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+
+/* Verdict buttons */
+.verdict-box { display: flex; gap: 16px; justify-content: center; margin: 20px 0; }
+.verdict-btn { flex: 1; max-width: 200px; padding: 20px; border: 3px solid #dee2e6; border-radius: 14px; background: #fff; cursor: pointer; text-align: center; transition: all 0.3s; }
+.verdict-btn:hover { transform: scale(1.05); }
+.verdict-btn.truth { border-color: #28a745; }
+.verdict-btn.truth:hover, .verdict-btn.truth.selected { background: #28a74520; border-color: #28a745; }
+.verdict-btn.lie { border-color: #e94560; }
+.verdict-btn.lie:hover, .verdict-btn.lie.selected { background: #e9456020; border-color: #e94560; }
+.verdict-icon { font-size: 2rem; margin-bottom: 4px; }
+.verdict-label { font-weight: 800; font-size: 1rem; }
+
+/* Follow-up questions */
+.followup-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 16px; margin: 12px 0; }
+.followup-q { padding: 10px 16px; background: #fff; border-radius: 8px; margin: 8px 0; border-left: 3px solid #e74c3c; font-weight: 500; }
+
+/* Score */
+.scoreboard { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+.score-col { text-align: center; }
+.score-name { font-size: 0.85rem; color: #6c757d; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.score-val { font-size: 2.5rem; font-weight: 900; }
+.score-col.student .score-val { color: #e74c3c; }
+.score-col.teacher .score-val { color: #667eea; }
+
+/* Timer */
+.timer-inline { display: inline-flex; align-items: center; gap: 8px; background: #1a1a2e; border: 2px solid #e74c3c; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #e74c3c; font-family: 'Courier New', monospace; cursor: pointer; transition: all 0.3s; }
+.timer-inline.running { border-color: #28a745; color: #28a745; }
+.timer-inline.danger { color: #e94560; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #c0392b, #e74c3c); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.tools-box { background: #f1f3f5; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.swap-banner { text-align: center; background: linear-gradient(135deg, #667eea20, #764ba220); border: 2px solid #667eea; border-radius: 12px; padding: 20px; margin: 20px 0; }
+.swap-banner h3 { color: #667eea; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE LIE DETECTOR</h1>
+  <p>Answer the question. Truth or lie — you decide. Can they catch you?</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Rounds 1–3</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Rounds 4–6</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Final Round</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0 -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The rules</h2>
+    <p style="margin-bottom:12px;">A question appears on screen. The answerer secretly decides: <strong>truth or lie?</strong> They answer the question — and the detective has to figure out which it is.</p>
+    <div class="accent-box">
+      <strong>The detective gets 2 follow-up questions</strong> to probe the story. Look for hesitation, inconsistency, too much detail, or not enough detail. Then make your verdict: truth or lie?
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <div style="padding:10px 16px; background:#c0392b10; border-radius:8px; border-left:3px solid #c0392b; margin:8px 0;">
+      <strong>Rounds 1–3:</strong> The student answers, the teacher detects.
+    </div>
+    <div style="padding:10px 16px; background:#667eea10; border-radius:8px; border-left:3px solid #667eea; margin:8px 0;">
+      <strong>Rounds 4–6:</strong> Roles swap. Teacher answers, student detects.
+    </div>
+    <div style="padding:10px 16px; background:#fdcb6e10; border-radius:8px; border-left:3px solid #fdcb6e; margin:8px 0;">
+      <strong>Final Round:</strong> The hardest question. Highest stakes.
+    </div>
+    <p style="margin-top:12px; color:#6c757d;">Score: 1 point if you fool the detective. 1 point if you catch the lie.</p>
+  </div>
+
+  <div class="card">
+    <div class="tools-box">
+      <h4>Lying language (for the answerer)</h4>
+      <span class="tool-chip">"Well, it was something like..."</span>
+      <span class="tool-chip">"I think it was probably..."</span>
+      <span class="tool-chip">"To be honest..."</span>
+      <span class="tool-chip">"I remember because..."</span>
+    </div>
+    <div class="tools-box" style="margin-top:10px;">
+      <h4>Probing language (for the detective)</h4>
+      <span class="tool-chip">"Can you be more specific about...?"</span>
+      <span class="tool-chip">"That's interesting — why did you...?"</span>
+      <span class="tool-chip">"Wait, you said earlier that..."</span>
+      <span class="tool-chip">"How did that make you feel?"</span>
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START THE GAME</button>
+</div>
+
+<!-- TAB 1: Rounds 1-3 -->
+<div class="panel" id="panel1"></div>
+<!-- TAB 2: Rounds 4-6 -->
+<div class="panel" id="panel2"></div>
+<!-- TAB 3: Final -->
+<div class="panel" id="panel3"></div>
+
+<!-- TAB 4: DEBRIEF -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Final Score</h2>
+    <div class="scoreboard">
+      <div class="score-col student"><div class="score-name">Student</div><div class="score-val" id="finalStudent">0</div></div>
+      <div class="score-col teacher"><div class="score-name">Teacher</div><div class="score-val" id="finalTeacher">0</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>What gives a liar away?</strong> Was it hesitation, too much detail, not enough detail, or something in the voice? What patterns did you notice?
+    </div>
+    <div class="speak-prompt" style="border-color:#667eea;">
+      <strong>Were you a better liar or a better detective?</strong> Which was harder — making up a convincing story, or spotting the fake one?
+    </div>
+    <div class="speak-prompt" style="border-color:#28a745;">
+      <strong>Think about real life.</strong> When do people lie in everyday situations? White lies, social lies, professional lies. Is it always wrong? When is it acceptable?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  // Personal experience questions — easy to truth OR lie
+  "What's the most expensive thing you've ever bought that you later regretted?",
+  "Have you ever been caught doing something you shouldn't have been doing?",
+  "What's the strangest food you've ever eaten — and did you like it?",
+  "Have you ever pretended to be sick to avoid something?",
+  "What's the most embarrassing thing that's happened to you in public?",
+  "Have you ever met someone famous? What happened?",
+  "What's the biggest lie you've ever told someone?",
+  "Have you ever walked out of a restaurant without paying? By accident or on purpose?",
+  "What's the craziest thing you did as a teenager?",
+  "Have you ever been in a car accident? What happened?",
+  "What's the worst date you've ever been on?",
+  "Have you ever stolen anything — even something small?",
+  "What's the most spontaneous thing you've ever done?",
+  "Have you ever been fired from a job? Why?",
+  "What's the scariest experience of your life?",
+  "Have you ever lied on your CV or in a job interview?",
+  "What's the longest you've gone without sleeping — and why?",
+  "Have you ever broken a bone? How did it happen?",
+  "What's the most money you've ever lost or wasted?",
+  "Have you ever been to a country that surprised you — in a good or bad way?",
+];
+
+const FOLLOW_UPS = [
+  "Can you describe exactly where you were when this happened?",
+  "Who else was there? What did they say?",
+  "What time of day was it? What were you wearing?",
+  "How did you feel in that exact moment?",
+  "What happened immediately after?",
+  "How long ago was this? What year?",
+  "Did you tell anyone about it at the time?",
+  "If I asked someone who was there, would they tell the same story?",
+  "What's one small detail about that moment that most people wouldn't notice?",
+  "Why do you think you still remember this?",
+];
+
+const FINAL_QUESTIONS = [
+  "Tell me something about yourself that nobody in this room knows — something real, something personal, something that would surprise me.",
+  "What's something you've done that you've never told anyone about — not because it's bad, but because you never found the right moment?",
+  "If you could go back and change ONE decision in your life, what would it be — and what would you do differently?",
+];
+
+let scores = { student: 0, teacher: 0 };
+let usedQuestions = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildRounds(1, 1, 3, 'student');
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildRounds(2, 4, 6, 'teacher');
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildFinal();
+  if (i === 4) updateFinalScore();
+}
+
+function pickQuestion() {
+  const available = QUESTIONS.filter((_, i) => !usedQuestions.includes(i));
+  if (available.length === 0) return QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
+  const idx = QUESTIONS.indexOf(available[Math.floor(Math.random() * available.length)]);
+  usedQuestions.push(idx);
+  return QUESTIONS[idx];
+}
+
+function pickFollowUps() {
+  return [...FOLLOW_UPS].sort(() => Math.random() - 0.5).slice(0, 2);
+}
+
+function buildRounds(tabNum, startRound, endRound, answerer) {
+  const panel = document.getElementById('panel' + tabNum);
+  let html = '';
+
+  if (answerer === 'teacher') {
+    html += `<div class="swap-banner"><h3>Roles Swap!</h3><p>Now the teacher answers and the student detects.</p></div>`;
+  }
+
+  html += `<div class="card"><div class="scoreboard">
+    <div class="score-col student"><div class="score-name">Student</div><div class="score-val" id="score${tabNum}s">${scores.student}</div></div>
+    <div class="score-col teacher"><div class="score-name">Teacher</div><div class="score-val" id="score${tabNum}t">${scores.teacher}</div></div>
+  </div></div>`;
+
+  for (let r = startRound; r <= endRound; r++) {
+    const q = pickQuestion();
+    const fups = pickFollowUps();
+    const detector = answerer === 'student' ? 'Teacher' : 'Student';
+
+    html += `
+    <div class="card" id="round${r}">
+      <div class="question-display">
+        <div class="question-num">Round ${r}</div>
+        <div class="question-text">${q}</div>
+      </div>
+
+      <p style="text-align:center; margin:16px 0; font-weight:600;">${answerer === 'student' ? 'Student' : 'Teacher'}: decide secretly — truth or lie? Then answer.</p>
+
+      <div style="text-align:center; margin:12px 0;">
+        <div class="timer-inline" onclick="toggleTimer(this, 60)">
+          <span class="timer-display-inline">1:00</span>
+          <span style="font-size:0.65rem; font-weight:400;">answer time</span>
+        </div>
+      </div>
+
+      <div class="followup-box">
+        <p style="font-weight:600; margin-bottom:8px;">${detector}: Ask your 2 follow-up questions to investigate.</p>
+        <div class="followup-q">${fups[0]}</div>
+        <div class="followup-q">${fups[1]}</div>
+        <p style="color:#6c757d; font-size:0.8rem; margin-top:8px;">Or ask your own questions — these are just suggestions.</p>
+      </div>
+
+      <p style="text-align:center; font-weight:700; margin:16px 0;">${detector}: What's your verdict?</p>
+      <div class="verdict-box">
+        <div class="verdict-btn truth" onclick="this.classList.add('selected')">
+          <div class="verdict-icon">✓</div>
+          <div class="verdict-label">TRUTH</div>
+        </div>
+        <div class="verdict-btn lie" onclick="this.classList.add('selected')">
+          <div class="verdict-icon">✗</div>
+          <div class="verdict-label">LIE</div>
+        </div>
+      </div>
+
+      <div class="speak-prompt" style="margin-top:16px;">
+        <strong>Reveal:</strong> Was it truth or lie? Who gets the point?<br>
+        <em>Answerer fools detector → answerer scores. Detector catches it → detector scores.</em>
+      </div>
+    </div>`;
+  }
+
+  html += `<button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum + 1});">${tabNum === 1 ? 'SWAP ROLES → ROUNDS 4-6' : 'FINAL ROUND →'}</button>`;
+  panel.innerHTML = html;
+}
+
+function buildFinal() {
+  const q = FINAL_QUESTIONS[Math.floor(Math.random() * FINAL_QUESTIONS.length)];
+  const panel = document.getElementById('panel3');
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>The Final Round</h2>
+      <p>The hardest question. The highest stakes. <strong>Both people answer this one.</strong></p>
+    </div>
+
+    <div class="card">
+      <div class="question-display" style="background: linear-gradient(135deg, #1a1a2e, #c0392b);">
+        <div class="question-num">FINAL QUESTION</div>
+        <div class="question-text">${q}</div>
+      </div>
+
+      <p style="text-align:center; margin:16px 0; font-weight:600;">Student goes first. Truth or lie? Then the teacher answers the same question.</p>
+
+      <div style="text-align:center; margin:12px 0;">
+        <div class="timer-inline" onclick="toggleTimer(this, 90)">
+          <span class="timer-display-inline">1:30</span>
+          <span style="font-size:0.65rem; font-weight:400;">each person</span>
+        </div>
+      </div>
+
+      <div class="speak-prompt">
+        After both people have answered and both verdicts are in — reveal the truth. Who was lying? Who was caught?
+      </div>
+    </div>
+
+    <button class="btn" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">SEE FINAL SCORES →</button>
+  `;
+}
+
+function updateFinalScore() {
+  document.getElementById('finalStudent').textContent = scores.student;
+  document.getElementById('finalTeacher').textContent = scores.teacher;
+}
+
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display-inline');
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 10) { el.classList.remove('running'); el.classList.add('danger'); }
+    if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = "0:00";
+      el.classList.remove('danger');
+      el.style.borderColor = '#dee2e6';
+      el.style.color = '#6c757d';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>

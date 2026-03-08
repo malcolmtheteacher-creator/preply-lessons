@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shade</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #e17055, #fdcb6e); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #e17055; }
+.tab.active { color: #e17055; border-bottom-color: #e17055; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #e1705510, #fdcb6e10); border-left: 4px solid #e17055; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #e1705510, #fdcb6e10); border-left: 4px solid #e17055; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Word spectrum */
+.spectrum-container { margin: 20px 0; }
+.spectrum-label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; padding: 0 8px; }
+.spectrum-bar { height: 8px; background: linear-gradient(90deg, #28a745, #ffc107, #e94560); border-radius: 4px; margin-bottom: 16px; }
+.word-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 16px 0; }
+.word-chip { padding: 10px 20px; background: #1a1a2e; color: #fdcb6e; font-size: 1.1rem; font-weight: 700; border-radius: 10px; cursor: grab; border: 2px solid transparent; transition: all 0.2s; user-select: none; }
+.word-chip:hover { border-color: #e17055; }
+.word-chip.placed { opacity: 0.5; }
+
+/* Drop zones */
+.drop-zone { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; min-height: 50px; padding: 12px; background: #f1f3f5; border: 2px dashed #dee2e6; border-radius: 10px; margin: 12px 0; }
+.drop-zone .word-chip { cursor: pointer; }
+
+/* Scenario cards */
+.scenario-card { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 16px; margin: 10px 0; }
+.scenario-card p { margin-bottom: 8px; }
+.scenario-answer { display: none; margin-top: 8px; padding: 10px; background: #e1705510; border-radius: 8px; border-left: 3px solid #e17055; }
+.scenario-answer.visible { display: block; }
+
+/* Timer */
+.timer-box { text-align: center; margin: 16px 0; }
+.timer-display { font-size: 2.5rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; }
+.timer-display.danger { color: #e94560; animation: pulse 0.6s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #e17055, #fdcb6e); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.reveal-btn { display: inline-block; padding: 10px 24px; background: #e17055; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 12px; font-size: 0.9rem; }
+
+.start-btn { padding: 12px 30px; background: #28a745; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE SHADE</h1>
+  <p>Same meaning. Different feeling. Choose the right word.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Rank</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Scenarios</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Speed Round</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0 -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The difference between the right word and the almost-right word</h2>
+    <p style="margin-bottom:12px;">"Slim" and "skinny" both mean thin. But call someone "slim" and they smile. Call them "skinny" and they don't. The meaning is the same — the <strong>shade</strong> is completely different.</p>
+    <div class="accent-box">
+      This game is about those shades — the tiny differences in feeling, formality, and connotation between words that a dictionary says mean "the same thing."
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3 rounds</h2>
+    <div style="padding:10px 16px; background:#28a74510; border-radius:8px; border-left:3px solid #28a745; margin:8px 0;">
+      <strong>Round 1 — Rank:</strong> Put synonyms in order from most positive to most negative. Discuss disagreements.
+    </div>
+    <div style="padding:10px 16px; background:#e1705510; border-radius:8px; border-left:3px solid #e17055; margin:8px 0;">
+      <strong>Round 2 — Scenarios:</strong> A situation appears. Which synonym fits best? Sometimes you'll disagree — that's the point.
+    </div>
+    <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+      <strong>Round 3 — Speed:</strong> Situations fly at you. Pick the right shade FAST. No time to overthink.
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<!-- ROUND PANELS -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<!-- TAB 4: DEBRIEF -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which word group surprised you the most?</strong> Were there shades you hadn't thought about before?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>In your language, do similar words have these same shade differences?</strong> Give an example of two words that mean the same thing but feel different.
+    </div>
+    <div class="speak-prompt" style="border-color:#28a745;">
+      <strong>Which 3 new words or shades do you want to remember from today?</strong> Use each one in a sentence about your own life.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const WORD_GROUPS = [
+  {
+    theme: "Ways to say 'thin'",
+    words: ["slender", "slim", "lean", "thin", "skinny", "scrawny", "gaunt"],
+    order: ["slender", "slim", "lean", "thin", "skinny", "scrawny", "gaunt"],
+    explanation: "'Slender' and 'slim' are compliments — elegant, attractive. 'Lean' suggests fitness. 'Thin' is neutral. 'Skinny' is slightly negative — too thin. 'Scrawny' is definitely negative — weak and bony. 'Gaunt' is the worst — ill, starving, haunted.",
+    scenarios: [
+      { situation: "Describing a fashion model in a magazine", best: "slender", why: "Magazines use aspirational, elegant language. 'Slender' sounds graceful." },
+      { situation: "Your friend has been going to the gym and looks great", best: "lean", why: "'Lean' implies fitness and muscle tone — it's a gym compliment." },
+      { situation: "You're worried about someone who hasn't been eating", best: "gaunt", why: "'Gaunt' carries concern — it suggests illness or suffering." },
+      { situation: "A child who's very thin and doesn't eat enough at school", best: "scrawny", why: "'Scrawny' suggests a child who needs more food — small and underfed." }
+    ]
+  },
+  {
+    theme: "Ways to say 'angry'",
+    words: ["irritated", "annoyed", "frustrated", "angry", "furious", "livid", "enraged"],
+    order: ["irritated", "annoyed", "frustrated", "angry", "furious", "livid", "enraged"],
+    explanation: "'Irritated' is mild — a mosquito buzz. 'Annoyed' is a bit stronger — someone cut in the queue. 'Frustrated' adds helplessness. 'Angry' is the standard. 'Furious' is intense. 'Livid' is white-hot. 'Enraged' implies potential loss of control.",
+    scenarios: [
+      { situation: "The Wi-Fi keeps cutting out during a video call", best: "frustrated", why: "'Frustrated' captures the helplessness — you can't fix it, and it keeps happening." },
+      { situation: "Someone ate your labelled lunch from the office fridge", best: "annoyed", why: "It's rude and inconsiderate, but it's not worth being furious about." },
+      { situation: "You discover your partner has been lying to you for months", best: "livid", why: "'Livid' captures the white-hot betrayal anger — beyond just 'angry'." },
+      { situation: "A fly keeps landing on your face while you're trying to read", best: "irritated", why: "It's minor but persistent — 'irritated' is the perfect low-level annoyance." }
+    ]
+  },
+  {
+    theme: "Ways to say 'walk'",
+    words: ["stroll", "amble", "wander", "trudge", "march", "stride", "stomp"],
+    order: ["stroll", "amble", "wander", "trudge", "march", "stride", "stomp"],
+    explanation: "These aren't positive-to-negative — they're about MOOD. 'Stroll' is relaxed and pleasant. 'Amble' is slow and aimless. 'Wander' has no destination. 'Trudge' is tired and reluctant. 'March' is purposeful and military. 'Stride' is confident. 'Stomp' is angry.",
+    scenarios: [
+      { situation: "A Sunday morning in the park with no plans", best: "stroll", why: "No rush, no destination, just enjoying the walk — that's a stroll." },
+      { situation: "Walking home after a 12-hour shift in the rain", best: "trudge", why: "'Trudge' captures the exhaustion and reluctance perfectly." },
+      { situation: "A CEO walking into a board meeting", best: "stride", why: "'Stride' projects confidence and authority." },
+      { situation: "A teenager going to their room after being grounded", best: "stomp", why: "'Stomp' shows the anger and protest — heavy, deliberate footsteps." }
+    ]
+  },
+  {
+    theme: "Ways to say 'said'",
+    words: ["whispered", "mentioned", "stated", "claimed", "insisted", "demanded", "snapped"],
+    order: ["whispered", "mentioned", "stated", "claimed", "insisted", "demanded", "snapped"],
+    explanation: "'Whispered' is quiet and intimate. 'Mentioned' is casual — almost throwaway. 'Stated' is formal and neutral. 'Claimed' implies doubt — you're not sure it's true. 'Insisted' adds pressure and repetition. 'Demanded' is forceful. 'Snapped' is sharp and irritable.",
+    scenarios: [
+      { situation: "A politician talking about economic growth numbers", best: "claimed", why: "'Claimed' signals skepticism — you don't necessarily believe them." },
+      { situation: "A child asking for ice cream for the fifth time", best: "insisted", why: "'Insisted' captures the repeated, stubborn asking." },
+      { situation: "Your boss telling you to finish the report by 5pm with no excuses", best: "demanded", why: "'Demanded' conveys authority and no room for negotiation." },
+      { situation: "Telling a secret to your best friend late at night", best: "whispered", why: "'Whispered' captures the intimacy and secrecy of the moment." }
+    ]
+  },
+  {
+    theme: "Ways to say 'surprised'",
+    words: ["taken aback", "startled", "astonished", "stunned", "shocked", "horrified", "flabbergasted"],
+    order: ["taken aback", "startled", "astonished", "stunned", "shocked", "horrified", "flabbergasted"],
+    explanation: "'Taken aback' is mild social surprise. 'Startled' is physical — a jump. 'Astonished' is positive amazement. 'Stunned' is frozen, can't respond. 'Shocked' is strong and usually negative. 'Horrified' adds disgust or fear. 'Flabbergasted' is extreme disbelief — almost comic.",
+    scenarios: [
+      { situation: "A loud bang in a quiet room", best: "startled", why: "'Startled' is the physical jump reaction to a sudden sound." },
+      { situation: "Your friend tells you they're moving to another country next week", best: "stunned", why: "'Stunned' captures that frozen moment — you can't process it fast enough." },
+      { situation: "Reading about a politician's corruption scandal", best: "shocked", why: "'Shocked' implies moral outrage combined with disbelief." },
+      { situation: "Watching a street magician make a car disappear", best: "flabbergasted", why: "'Flabbergasted' is that wide-eyed, jaw-dropping, 'how is that possible?' disbelief." }
+    ]
+  },
+  {
+    theme: "Ways to say 'smart'",
+    words: ["bright", "clever", "sharp", "intelligent", "brilliant", "cunning", "shrewd"],
+    order: ["bright", "clever", "sharp", "intelligent", "brilliant", "cunning", "shrewd"],
+    explanation: "'Bright' is warm and encouraging — often for young people. 'Clever' is practical intelligence. 'Sharp' is quick-witted. 'Intelligent' is formal and academic. 'Brilliant' is exceptional. 'Cunning' is smart but manipulative. 'Shrewd' is smart about money or deals — not always a compliment.",
+    scenarios: [
+      { situation: "A 7-year-old who reads above their age level", best: "bright", why: "'Bright' is the warm, encouraging word adults use for smart children." },
+      { situation: "A business person who always gets the best deal", best: "shrewd", why: "'Shrewd' implies calculating intelligence about money and advantage." },
+      { situation: "A detective in a crime novel who solves cases before anyone else", best: "sharp", why: "'Sharp' captures quick observation and fast thinking." },
+      { situation: "A politician who manipulates people into supporting them", best: "cunning", why: "'Cunning' is intelligence used for personal gain — often at others' expense." }
+    ]
+  }
+];
+
+let usedGroups = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildRank();
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildScenarios();
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildSpeed();
+}
+
+function pickGroups(n) {
+  const available = WORD_GROUPS.filter((_, idx) => !usedGroups.includes(idx));
+  const shuffled = available.sort(() => Math.random() - 0.5).slice(0, n);
+  shuffled.forEach(g => usedGroups.push(WORD_GROUPS.indexOf(g)));
+  return shuffled;
+}
+
+function buildRank() {
+  const groups = pickGroups(3);
+  let html = `<div class="card"><h2>Round 1: Rank the shades</h2>
+    <p>Each group has words that mean roughly the same thing. But they FEEL different. Discuss together: put them in order from most positive/mild to most negative/extreme.</p></div>`;
+
+  groups.forEach((g, gi) => {
+    const shuffledWords = [...g.words].sort(() => Math.random() - 0.5);
+    html += `
+    <div class="card">
+      <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">${g.theme}</p>
+      <div class="spectrum-container">
+        <div class="spectrum-label"><span>Most positive / mild</span><span>Most negative / extreme</span></div>
+        <div class="spectrum-bar"></div>
+      </div>
+      <div class="word-chips">${shuffledWords.map(w => `<span class="word-chip">${w}</span>`).join('')}</div>
+      <div class="speak-prompt">
+        <strong>Discuss:</strong> Where does each word sit on the scale? Do you agree with each other? Use examples to justify your ranking.
+      </div>
+      <div style="text-align:center;">
+        <button class="reveal-btn" onclick="this.parentElement.nextElementSibling.style.display='block'; this.style.display='none';">Reveal suggested order</button>
+      </div>
+      <div style="display:none;">
+        <div class="accent-box">
+          <p style="font-weight:600; margin-bottom:8px;">Suggested order (mild → extreme):</p>
+          <p style="font-size:1.05rem;">${g.order.join('  →  ')}</p>
+          <p style="margin-top:12px;">${g.explanation}</p>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → SCENARIOS</button>`;
+  document.getElementById('panel1').innerHTML = html;
+}
+
+function buildScenarios() {
+  // Use same groups from rank round via usedGroups
+  const groups = usedGroups.slice(0, 3).map(i => WORD_GROUPS[i]);
+  let html = `<div class="card"><h2>Round 2: Pick the right shade</h2>
+    <p>A situation appears. Which word from the group fits BEST? Discuss it — sometimes you'll disagree.</p></div>`;
+
+  groups.forEach((g, gi) => {
+    html += `<div class="card"><p style="font-size:0.9rem; font-weight:700; color:#e17055; margin-bottom:12px;">${g.theme}</p>`;
+    g.scenarios.forEach((s, si) => {
+      html += `
+      <div class="scenario-card">
+        <p><strong>Situation:</strong> ${s.situation}</p>
+        <p>Which word fits best? <strong>${g.words.join(', ')}</strong></p>
+        <div style="text-align:center;">
+          <button class="reveal-btn" style="font-size:0.8rem; padding:6px 16px;" onclick="this.parentElement.nextElementSibling.classList.add('visible'); this.style.display='none';">Reveal best answer</button>
+        </div>
+        <div class="scenario-answer">
+          <p><strong>Best fit: "${s.best}"</strong></p>
+          <p style="margin-top:4px; color:#495057;">${s.why}</p>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab2').classList.add('done'); showTab(3);">NEXT → SPEED ROUND</button>`;
+  document.getElementById('panel2').innerHTML = html;
+}
+
+function buildSpeed() {
+  // Pick 2 new groups for speed round
+  const groups = pickGroups(2);
+  if (groups.length < 2) { // fallback if we've used too many
+    groups.push(WORD_GROUPS[Math.floor(Math.random() * WORD_GROUPS.length)]);
+  }
+
+  let allScenarios = [];
+  groups.forEach(g => {
+    g.scenarios.forEach(s => {
+      allScenarios.push({ ...s, words: g.words, theme: g.theme });
+    });
+  });
+  allScenarios = allScenarios.sort(() => Math.random() - 0.5).slice(0, 8);
+
+  let html = `<div class="card">
+    <h2>Round 3: Speed Shade</h2>
+    <p>A situation appears. You have <strong>10 seconds</strong> to pick the best word. Say it out loud — don't overthink it. First instinct.</p>
+    <div class="timer-box">
+      <div class="timer-display" id="speedTimer">0:10</div>
+    </div>
+    <div style="text-align:center;">
+      <button class="start-btn" id="speedStartBtn" onclick="startSpeedRound()">Start Speed Round</button>
+    </div>
+  </div>
+  <div id="speedContainer"></div>
+  <button class="btn" id="speedFinishBtn" style="display:none;" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">FINISH → DEBRIEF</button>`;
+
+  document.getElementById('panel3').innerHTML = html;
+  window._speedScenarios = allScenarios;
+  window._speedIdx = 0;
+}
+
+function startSpeedRound() {
+  document.getElementById('speedStartBtn').style.display = 'none';
+  showSpeedScenario();
+}
+
+function showSpeedScenario() {
+  const scenarios = window._speedScenarios;
+  const idx = window._speedIdx;
+  if (idx >= scenarios.length) {
+    document.getElementById('speedFinishBtn').style.display = 'block';
+    document.getElementById('speedTimer').textContent = 'Done!';
+    document.getElementById('speedTimer').className = 'timer-display';
+    return;
+  }
+
+  const s = scenarios[idx];
+  const container = document.getElementById('speedContainer');
+  container.innerHTML = `
+    <div class="card">
+      <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">Situation ${idx + 1} of ${scenarios.length}</p>
+      <p style="font-size:0.85rem; color:#e17055; margin-bottom:8px;">${s.theme}</p>
+      <p style="font-size:1.1rem; font-weight:600; margin-bottom:12px;">${s.situation}</p>
+      <div class="word-chips">${s.words.map(w => `<span class="word-chip">${w}</span>`).join('')}</div>
+      <p style="text-align:center; margin-top:12px; font-weight:600;">Say the best word NOW!</p>
+    </div>`;
+
+  // Start 10s timer
+  let remaining = 10;
+  const timerEl = document.getElementById('speedTimer');
+  timerEl.className = 'timer-display';
+  timerEl.textContent = '0:10';
+
+  const interval = setInterval(() => {
+    remaining--;
+    timerEl.textContent = '0:' + (remaining < 10 ? '0' : '') + remaining;
+    if (remaining <= 3) timerEl.className = 'timer-display danger';
+    if (remaining <= 0) {
+      clearInterval(interval);
+      // Show answer and move on
+      container.innerHTML += `
+        <div class="card" style="border-left:4px solid #e17055;">
+          <p><strong>Best answer: "${s.best}"</strong></p>
+          <p style="color:#495057; margin-top:4px;">${s.why}</p>
+          <button class="reveal-btn" style="margin-top:12px;" onclick="window._speedIdx++; showSpeedScenario();">Next →</button>
+        </div>`;
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>

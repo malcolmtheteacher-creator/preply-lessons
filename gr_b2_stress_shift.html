@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stress Shift</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #6c5ce7, #a29bfe); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 0.5px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #6c5ce7; }
+.tab.active { color: #6c5ce7; border-bottom-color: #6c5ce7; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #6c5ce710, #a29bfe10); border-left: 4px solid #6c5ce7; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #6c5ce710, #a29bfe10); border-left: 4px solid #6c5ce7; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* The big sentence display */
+.sentence-display { text-align: center; padding: 30px 20px; margin: 20px 0; background: #1a1a2e; border-radius: 14px; }
+.sentence-word { display: inline-block; font-size: 1.6rem; font-weight: 700; color: #a29bfe; padding: 8px 6px; margin: 4px 2px; cursor: pointer; border-radius: 8px; transition: all 0.2s; border: 2px solid transparent; }
+.sentence-word:hover { background: #6c5ce730; border-color: #6c5ce7; }
+.sentence-word.stressed { background: #6c5ce7; color: #fff; border-color: #6c5ce7; transform: scale(1.15); }
+
+.meaning-reveal { display: none; background: linear-gradient(135deg, #ffeaa710, #fdcb6e10); border: 2px solid #fdcb6e; border-radius: 12px; padding: 20px; margin: 16px 0; text-align: center; animation: fadeIn 0.3s ease; }
+.meaning-reveal.visible { display: block; }
+.meaning-reveal h4 { color: #e67e22; margin-bottom: 8px; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
+.btn:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(108,92,231,0.3); }
+.btn.secondary { background: linear-gradient(135deg, #00b894, #00cec9); }
+
+.tools-box { background: #f1f3f5; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+
+.round-counter { text-align: center; font-size: 0.85rem; color: #6c757d; margin-bottom: 12px; font-weight: 600; }
+
+.score-display { text-align: center; padding: 20px; }
+.score-big { font-size: 3rem; font-weight: 900; color: #6c5ce7; }
+.score-label { font-size: 0.85rem; color: #6c757d; }
+
+.discussion-card { background: #e9ecef; border-radius: 10px; padding: 16px; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>STRESS SHIFT</h1>
+  <p>Same words. Different stress. Completely different meaning.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Round 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Round 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Round 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Challenge</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0 -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The idea</h2>
+    <p style="margin-bottom:12px;">In English, the SAME sentence can mean completely different things depending on which word you stress. This game is about hearing and feeling that difference.</p>
+    <div class="accent-box">
+      <strong>Example:</strong> "I didn't say she stole the money."<br><br>
+      Stress <em>"I"</em> → Someone else said it, not me.<br>
+      Stress <em>"say"</em> → I didn't say it — I implied it.<br>
+      Stress <em>"she"</em> → She didn't steal it — someone else did.<br>
+      Stress <em>"stole"</em> → She didn't steal it — she borrowed it.<br>
+      Stress <em>"money"</em> → She stole something, but not money.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How each round works</h2>
+    <p>A sentence appears on screen. Tap a word to stress it. Then:</p>
+    <div style="margin:12px 0;">
+      <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+        <strong>Step 1:</strong> Say the sentence out loud, stressing that word.
+      </div>
+      <div style="padding:10px 16px; background:#fdcb6e10; border-radius:8px; border-left:3px solid #fdcb6e; margin:8px 0;">
+        <strong>Step 2:</strong> Explain what that stress IMPLIES — what hidden meaning does it create?
+      </div>
+      <div style="padding:10px 16px; background:#00b89410; border-radius:8px; border-left:3px solid #00b894; margin:8px 0;">
+        <strong>Step 3:</strong> The other person picks a DIFFERENT word. Say it again with the new stress. New meaning.
+      </div>
+    </div>
+    <p style="margin-top:12px; color:#6c757d;">Take turns picking which word to stress. Push each other to find the strangest or most surprising meaning shift.</p>
+  </div>
+
+  <div class="card">
+    <h2>Quick warm-up</h2>
+    <div class="speak-prompt">
+      Say this sentence 3 different ways, stressing a different word each time: <strong>"You want ME to do THAT right NOW?"</strong> How does the feeling change each time?
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START ROUND 1</button>
+</div>
+
+<!-- ROUND PANELS generated dynamically -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<!-- TAB 4: CHALLENGE -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>The Stress Challenge</h2>
+    <p>Now flip it around. Instead of seeing the sentence and choosing the stress, you'll see the MEANING — and you have to figure out which word to stress.</p>
+  </div>
+  <div id="challengeContainer"></div>
+  <button class="btn secondary" onclick="document.getElementById('tab4').classList.add('done'); showTab(5);" style="margin-top:20px;">FINISH → DEBRIEF</button>
+</div>
+
+<!-- TAB 5: DEBRIEF -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which sentence had the most surprising stress shift?</strong> Was there a meaning you didn't expect?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>In your language, does stress work the same way?</strong> Can you change the meaning of a sentence just by emphasising a different word? Give an example.
+    </div>
+    <div class="speak-prompt" style="border-color:#e67e22;">
+      <strong>Think about misunderstandings.</strong> Have you ever said something and someone understood it differently because of HOW you said it — not WHAT you said?
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Real life</h2>
+    <p>Sentence stress is one of the biggest reasons for misunderstandings in English — especially on the phone or in meetings where you can't see body language. Next time you hear a native speaker say something that feels "loaded," listen for which word they stress.</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const SENTENCES = [
+  {
+    text: "I never said she was a bad teacher",
+    meanings: {
+      "I": "Someone else said it — not me.",
+      "never": "I absolutely did NOT say this — it's a strong denial.",
+      "said": "I didn't say it out loud — maybe I thought it, or wrote it, or implied it.",
+      "she": "I said someone was a bad teacher, but not HER — someone else.",
+      "was": "She's not a bad teacher NOW — maybe she used to be, but not anymore.",
+      "a": "She's not just A bad teacher — she's THE WORST teacher.",
+      "bad": "I said she was a teacher, but I didn't say she was BAD. Maybe I said she was boring, or lazy.",
+      "teacher": "She's bad at something, but not at teaching — maybe she's a bad manager, or a bad friend."
+    }
+  },
+  {
+    text: "We should have told them about the problem",
+    meanings: {
+      "We": "WE should have told them — not someone else. It was our responsibility.",
+      "should": "We didn't tell them, but we SHOULD have. It was a mistake not to.",
+      "have": "We definitely should have — this emphasises the regret.",
+      "told": "We should have TOLD them — not hinted, not emailed, not let them find out themselves.",
+      "them": "We should have told THEM specifically — not other people. We told the wrong people.",
+      "about": "We mentioned the topic but didn't go into detail ABOUT it.",
+      "the": "Not just any problem — THE problem. The specific, important one.",
+      "problem": "We told them about something, but not about the PROBLEM. We left out the bad news."
+    }
+  },
+  {
+    text: "She said she would finish it by Friday",
+    meanings: {
+      "She": "SHE said it — I'm reporting what she said, not what I think.",
+      "said": "She SAID she would — but did she actually do it? The stress suggests doubt.",
+      "she": "She said SHE would do it — not someone else. She took personal responsibility.",
+      "would": "She said she WOULD — implying a promise or commitment.",
+      "finish": "She said she'd FINISH it — not just work on it, but complete it entirely.",
+      "it": "She'd finish IT — this specific thing, not the other tasks.",
+      "by": "She'd finish it BY Friday — meaning before or on Friday, not after.",
+      "Friday": "By FRIDAY specifically — not Thursday, not next week. Friday was the deadline."
+    }
+  },
+  {
+    text: "I thought you were bringing the food",
+    meanings: {
+      "I": "I thought this — it was MY understanding. Maybe others knew differently.",
+      "thought": "I THOUGHT you were — but clearly I was wrong. There's been a miscommunication.",
+      "you": "I thought YOU were bringing it — not me, not Sarah, not anyone else. You.",
+      "were": "I thought you WERE bringing it — implying you didn't. Past expectation, present disappointment.",
+      "bringing": "You were supposed to BRING it — not order it, not make it there, but bring it with you.",
+      "the": "THE food — the specific food we discussed, not just any food.",
+      "food": "The FOOD specifically — maybe you brought drinks but forgot the food."
+    }
+  },
+  {
+    text: "They didn't ask us to change the design",
+    meanings: {
+      "They": "THEY didn't ask — someone else asked us, not them.",
+      "didn't": "They absolutely did NOT ask us. Strong denial.",
+      "ask": "They didn't ASK — maybe they demanded, or suggested, or just hinted. But they didn't formally ask.",
+      "us": "They didn't ask US — they asked someone else to do it.",
+      "to": "They didn't ask us TO change it — they asked us about something else entirely.",
+      "change": "They didn't want us to CHANGE it — maybe they wanted us to remove it, or improve it, or start over.",
+      "the": "Not THE design — they wanted a different design changed.",
+      "design": "They didn't ask us to change the DESIGN — they wanted us to change the timeline, or the budget, or the team."
+    }
+  },
+  {
+    text: "You don't have to tell her everything",
+    meanings: {
+      "You": "YOU specifically don't have to — but maybe someone else should.",
+      "don't": "You DON'T have to — it's not obligatory. You're free not to.",
+      "have": "You don't HAVE to — no one is forcing you. It's your choice.",
+      "to": "You don't have TO tell her — emphasis on the obligation itself.",
+      "tell": "You don't have to TELL her — maybe she already knows, or she'll find out another way.",
+      "her": "You don't have to tell HER — tell someone else instead, or tell no one.",
+      "everything": "You don't have to tell her EVERYTHING — tell her some things, but not all of it. Keep some back."
+    }
+  },
+  {
+    text: "He only said that because he was nervous",
+    meanings: {
+      "He": "HE said it — not anyone else. It was specifically him.",
+      "only": "The ONLY reason was nervousness — there was no other motivation.",
+      "said": "He only SAID it — he didn't mean it. Words vs. actual feelings.",
+      "that": "He only said THAT — that specific thing. His other comments were genuine.",
+      "because": "BECAUSE he was nervous — the nervousness directly caused it.",
+      "he": "Because HE was nervous — not because of what you did. It was his issue.",
+      "was": "He WAS nervous at the time — he isn't anymore. It was temporary.",
+      "nervous": "He was NERVOUS — not rude, not angry, not trying to hurt anyone. Just nervous."
+    }
+  },
+  {
+    text: "I can't believe you actually did that",
+    meanings: {
+      "I": "I personally can't believe it — even if others expected it.",
+      "can't": "I absolutely CANNOT believe it — total shock.",
+      "believe": "I can't BELIEVE it — it's beyond what I thought possible.",
+      "you": "I can't believe YOU did it — you of all people. I expected better from you.",
+      "actually": "You ACTUALLY did it — I thought you were joking or bluffing, but you really went through with it.",
+      "did": "You actually DID it — emphasis on the action being completed.",
+      "that": "You did THAT — that specific thing. Out of everything you could have done, you chose that."
+    }
+  }
+];
+
+const CHALLENGES = [
+  { sentence: "I didn't take your laptop", meaning: "Someone took it, but it wasn't me.", answer: "I" },
+  { sentence: "I didn't take your laptop", meaning: "I didn't take it — I borrowed it.", answer: "take" },
+  { sentence: "I didn't take your laptop", meaning: "I took someone's laptop, but not yours.", answer: "your" },
+  { sentence: "We could have won the game", meaning: "We had the ability to win but we didn't.", answer: "could" },
+  { sentence: "We could have won the game", meaning: "Not just played well — actually WON.", answer: "won" },
+  { sentence: "She told me to stay here", meaning: "SHE told me — I didn't decide myself.", answer: "She" },
+  { sentence: "She told me to stay here", meaning: "Stay HERE — not there, not at home. This specific place.", answer: "here" },
+  { sentence: "They want us to start tomorrow", meaning: "TOMORROW — not next week. It's urgent.", answer: "tomorrow" },
+  { sentence: "They want us to start tomorrow", meaning: "They want US to start — not the other team.", answer: "us" },
+  { sentence: "He promised he would call", meaning: "He PROMISED — it was a commitment, and he broke it.", answer: "promised" },
+];
+
+let usedSentences = [];
+let roundNum = 0;
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i >= 1 && i <= 3 && document.getElementById('panel' + i).innerHTML === '') {
+    buildRound(i);
+  }
+  if (i === 4 && document.getElementById('challengeContainer').innerHTML === '') {
+    buildChallenge();
+  }
+}
+
+function pickSentence() {
+  const available = SENTENCES.filter((_, idx) => !usedSentences.includes(idx));
+  if (available.length === 0) return SENTENCES[Math.floor(Math.random() * SENTENCES.length)];
+  const idx = SENTENCES.indexOf(available[Math.floor(Math.random() * available.length)]);
+  usedSentences.push(idx);
+  return SENTENCES[idx];
+}
+
+function buildRound(tabNum) {
+  const s = pickSentence();
+  const words = s.text.split(' ');
+  const panel = document.getElementById('panel' + tabNum);
+
+  let wordSpans = words.map((w, i) =>
+    `<span class="sentence-word" id="r${tabNum}w${i}" onclick="stressWord(${tabNum}, ${i}, '${w}')">${w}</span>`
+  ).join(' ');
+
+  panel.innerHTML = `
+    <div class="card">
+      <div class="round-counter">Round ${tabNum} of 3</div>
+      <h2>Say this sentence — but stress different words</h2>
+      <div class="sentence-display" id="sentenceDisplay${tabNum}">${wordSpans}</div>
+      <p style="text-align:center; color:#6c757d; margin-top:12px; font-size:0.85rem;">Tap any word to stress it. Then say the sentence out loud.</p>
+    </div>
+    <div class="meaning-reveal" id="meaning${tabNum}">
+      <h4>What that stress implies:</h4>
+      <p id="meaningText${tabNum}" style="font-size:1.05rem;"></p>
+    </div>
+    <div class="card" id="discuss${tabNum}" style="display:none;">
+      <div class="speak-prompt">
+        <strong>Discuss:</strong> Try stressing every single word in the sentence, one by one. Which stress creates the most surprising change in meaning?
+      </div>
+      <div class="speak-prompt" style="border-color:#00b894;">
+        <strong>Take turns:</strong> One person picks a word. The other says the sentence with that stress AND explains the meaning. Then swap.
+      </div>
+      <button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum < 3 ? tabNum + 1 : 4});">${tabNum < 3 ? 'NEXT ROUND →' : 'GO TO CHALLENGE →'}</button>
+    </div>
+  `;
+
+  // Store meanings for this round
+  panel.dataset.meanings = JSON.stringify(s.meanings);
+}
+
+function stressWord(tabNum, wordIdx, word) {
+  // Remove previous stress
+  const panel = document.getElementById('panel' + tabNum);
+  panel.querySelectorAll('.sentence-word').forEach(w => w.classList.remove('stressed'));
+
+  // Add stress to clicked word
+  document.getElementById(`r${tabNum}w${wordIdx}`).classList.add('stressed');
+
+  // Show meaning
+  const meanings = JSON.parse(panel.dataset.meanings);
+  const meaning = meanings[word];
+  const meaningEl = document.getElementById('meaning' + tabNum);
+  const meaningText = document.getElementById('meaningText' + tabNum);
+
+  if (meaning) {
+    meaningText.textContent = meaning;
+    meaningEl.classList.add('visible');
+  } else {
+    meaningText.textContent = "This word is harder to stress meaningfully — but try it! What does it feel like?";
+    meaningEl.classList.add('visible');
+  }
+
+  // Show discussion prompts
+  document.getElementById('discuss' + tabNum).style.display = 'block';
+}
+
+function buildChallenge() {
+  const container = document.getElementById('challengeContainer');
+  // Pick 5 random challenges
+  const shuffled = [...CHALLENGES].sort(() => Math.random() - 0.5).slice(0, 5);
+
+  let html = '';
+  shuffled.forEach((c, i) => {
+    html += `
+      <div class="card">
+        <p style="font-size:0.85rem; color:#6c757d; font-weight:600;">Challenge ${i + 1}</p>
+        <div class="sentence-display" style="padding:20px;">
+          <span style="font-size:1.3rem; font-weight:700; color:#a29bfe;">"${c.sentence}"</span>
+        </div>
+        <div style="background:#fdcb6e15; border:1px solid #fdcb6e40; border-radius:10px; padding:16px; margin:12px 0; text-align:center;">
+          <p style="font-weight:600; color:#e67e22;">The intended meaning:</p>
+          <p style="font-size:1.05rem; margin-top:4px;">"${c.meaning}"</p>
+        </div>
+        <p style="text-align:center; font-weight:600;">Which word do you need to stress? Say it out loud first, then check.</p>
+        <div style="text-align:center; margin-top:12px;">
+          <div onclick="this.querySelector('.answer-text').style.display='block'; this.querySelector('.answer-label').style.display='none';" style="cursor:pointer; background:#6c5ce715; border:2px dashed #6c5ce740; border-radius:10px; padding:14px;">
+            <span class="answer-label" style="color:#6c757d; font-size:0.85rem;">Tap to reveal the answer</span>
+            <span class="answer-text" style="display:none; font-size:1.3rem; font-weight:800; color:#6c5ce7;">"${c.answer}"</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+</script>
+</body>
+</html>

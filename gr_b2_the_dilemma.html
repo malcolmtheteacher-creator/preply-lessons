@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dilemma</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a1a2e, #2d3436, #636e72); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #2d3436; }
+.tab.active { color: #2d3436; border-bottom-color: #2d3436; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+
+.accent-box { background: linear-gradient(135deg, #2d343610, #636e7210); border-left: 4px solid #2d3436; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #2d343610, #636e7210); border-left: 4px solid #2d3436; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Dilemma display */
+.dilemma-box { background: #1a1a2e; border-radius: 14px; padding: 28px; margin: 20px 0; text-align: center; }
+.dilemma-text { font-size: 1.2rem; font-weight: 600; color: #dfe6e9; line-height: 1.6; }
+.dilemma-label { font-size: 0.75rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+
+/* Phase system */
+.phase { display: none; margin: 16px 0; animation: fadeIn 0.4s ease; }
+.phase.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.phase-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; color: white; }
+.phase-title { font-weight: 700; font-size: 1rem; }
+
+.phase-1 .phase-num { background: #e17055; }
+.phase-2 .phase-num { background: #6c5ce7; }
+.phase-3 .phase-num { background: #fdcb6e; color: #1a1a2e; }
+.phase-4 .phase-num { background: #00b894; }
+
+/* Twist */
+.twist-card { background: linear-gradient(135deg, #fdcb6e20, #e1705520); border: 2px solid #fdcb6e; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.twist-card h4 { color: #e67e22; margin-bottom: 8px; }
+
+/* Timer */
+.timer-center { text-align: center; margin: 16px 0; }
+.timer-btn { display: inline-flex; align-items: center; gap: 8px; background: #1a1a2e; border: 2px solid #636e72; border-radius: 10px; padding: 10px 24px; font-size: 1.4rem; font-weight: 800; color: #dfe6e9; font-family: 'Courier New', monospace; cursor: pointer; transition: all 0.3s; }
+.timer-btn.running { border-color: #00b894; color: #00b894; }
+.timer-btn.danger { border-color: #e94560; color: #e94560; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.next-phase-btn { display: inline-block; padding: 12px 30px; background: #2d3436; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+.next-phase-btn:hover { background: #636e72; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #2d3436, #636e72); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.position-box { display: flex; gap: 12px; justify-content: center; margin: 16px 0; }
+.position-btn { padding: 12px 24px; border: 2px solid #dee2e6; border-radius: 10px; background: #fff; cursor: pointer; font-weight: 700; transition: all 0.2s; font-size: 0.95rem; }
+.position-btn:hover { border-color: #2d3436; }
+.position-btn.selected { border-color: #2d3436; background: #2d343610; }
+
+.tools-box { background: #f1f3f5; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE DILEMMA</h1>
+  <p>No right answer. No easy way out. Just talk.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Dilemma 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Dilemma 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Dilemma 3</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0 -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>What is this?</h2>
+    <p style="margin-bottom:12px;">An impossible choice appears. There is no right answer — only arguments. Both of you take a position, attack the other's, then deal with a twist that makes everything harder.</p>
+  </div>
+
+  <div class="card">
+    <h2>Each dilemma has 4 phases</h2>
+    <div style="padding:10px 16px; background:#e1705510; border-radius:8px; border-left:3px solid #e17055; margin:8px 0;">
+      <strong>Phase 1 — Take a position:</strong> Both of you read the dilemma. Each person states their position and defends it. (60 seconds each)
+    </div>
+    <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+      <strong>Phase 2 — Argue the opposite:</strong> Now argue AGAINST your own position. Defend the side you disagree with. (60 seconds each)
+    </div>
+    <div style="padding:10px 16px; background:#fdcb6e10; border-radius:8px; border-left:3px solid #fdcb6e; margin:8px 0;">
+      <strong>Phase 3 — The twist:</strong> New information appears that complicates everything. Discuss how it changes your thinking.
+    </div>
+    <div style="padding:10px 16px; background:#00b89410; border-radius:8px; border-left:3px solid #00b894; margin:8px 0;">
+      <strong>Phase 4 — Final verdict:</strong> Has your position changed? Why or why not?
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tools-box">
+      <h4>Language for arguing both sides</h4>
+      <span class="tool-chip">"On one hand... on the other..."</span>
+      <span class="tool-chip">"I see the argument for..."</span>
+      <span class="tool-chip">"Playing devil's advocate..."</span>
+      <span class="tool-chip">"Even though I believe X, I can see why..."</span>
+      <span class="tool-chip">"The strongest argument against my position is..."</span>
+      <span class="tool-chip">"Having said that..."</span>
+      <span class="tool-chip">"This changes things because..."</span>
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START DILEMMA 1</button>
+</div>
+
+<!-- ROUND PANELS -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<!-- TAB 4: DEBRIEF -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which dilemma was hardest?</strong> Was it because you felt strongly about one side, or because both sides seemed equally valid?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>How did it feel to argue against your own position?</strong> Did you discover anything? Did it make your original position stronger or weaker?
+    </div>
+    <div class="speak-prompt" style="border-color:#e17055;">
+      <strong>Did any twist genuinely change your mind?</strong> Or did you stick with your original gut feeling despite the new information?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>In real life, when was the last time you changed your mind about something important?</strong> What convinced you?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const DILEMMAS = [
+  {
+    text: "You find your best friend's partner on a dating app. They're clearly looking for someone else. Do you tell your friend?",
+    context: "Your friend is happy. They've been together for 3 years. You have no proof of actual cheating — just the dating profile.",
+    twist: "You just found out that your friend and their partner had a huge argument last week and are 'on a break.' But your friend didn't tell you about it.",
+    twistQ: "Does the 'break' change things? Is being on a dating app during a break the same as cheating? Should you still say something?"
+  },
+  {
+    text: "Your company asks you to fire someone who is a good worker but whose position is being eliminated. You know they're the sole provider for their family. Do you fight to keep them, even if it risks your own position?",
+    context: "The decision has come from senior management. You've been told it's final. But you have a good relationship with the CEO and could push back — at personal risk.",
+    twist: "You just learned that the person being fired has a job interview next week at a competitor. They haven't told anyone. If you fight to keep them and succeed, they might leave anyway.",
+    twistQ: "Does knowing they might leave change your obligation to fight for them? Is loyalty a one-way street?"
+  },
+  {
+    text: "You're a doctor. A patient with terminal cancer asks you to help them end their life peacefully. It's illegal in your country. The patient is suffering and has no family. Do you help?",
+    context: "The patient is mentally competent and has asked repeatedly over several months. They're in significant pain that medication can't fully control. If you help, you could lose your medical license and face criminal charges.",
+    twist: "A new experimental treatment has just been announced that has a 15% chance of extending life by 6-12 months — but the treatment itself causes severe side effects and additional suffering.",
+    twistQ: "Does a 15% chance change the ethical calculation? Is 6-12 extra months of life worth severe suffering? Who gets to decide — the doctor or the patient?"
+  },
+  {
+    text: "Your teenage child confides in you that their friend is self-harming. Your child made you promise not to tell anyone. Do you keep the promise or break it?",
+    context: "Your child trusts you deeply and rarely shares things like this. The friend is 15. Breaking the promise could destroy your child's trust in you AND their friendship. Not breaking it means a child could be in danger.",
+    twist: "Your child just told you the friend has stopped self-harming for the past 2 weeks and seems much happier. But you've noticed fresh marks on the friend's arms when they came over yesterday.",
+    twistQ: "Your child says it's over. The evidence suggests it isn't. Do you trust your child's version or your own eyes? How do you handle the contradiction without accusing your child of lying?"
+  },
+  {
+    text: "You witness a hit-and-run accident. The driver is your brother. The victim is seriously injured but will survive. Your brother begs you not to say anything. Do you report him?",
+    context: "Your brother was slightly over the alcohol limit. He panicked and drove away. The victim has been taken to hospital. No one else saw it happen. If your brother is caught, he'll lose his licence, his job, and possibly go to prison.",
+    twist: "The victim's family has started a public appeal for witnesses. They're offering a reward. The victim needs surgery that they can't afford, and a conviction would mean compensation.",
+    twistQ: "The victim needs money for surgery that only a conviction can provide. Does that change things? Is protecting family more important than helping a stranger get medical care?"
+  },
+  {
+    text: "You're offered your dream job in another country. Your partner can't come — their career, family, and life are here. Long-distance has a 90% failure rate. Do you take the job?",
+    context: "You've been together 5 years. You're happy. But this is a once-in-a-lifetime opportunity that won't come again. Your partner says 'go if you need to' but you can tell they don't mean it.",
+    twist: "Your partner just told you they've been offered a promotion at work — a role they've wanted for years. If you stay, you can celebrate together. If you go, they'll take the promotion alone. Either way, someone achieves their dream without the other.",
+    twistQ: "Two dreams, one relationship. Can both people get what they want? Is compromise always the answer, or is it sometimes a way of making sure nobody gets what they really want?"
+  },
+  {
+    text: "A self-driving car must choose: swerve left and hit an elderly couple, or swerve right and hit a child. Going straight means the passenger (you) dies. Who should the car save?",
+    context: "This is a real ethical question being debated by AI engineers right now. The car must be programmed to make this decision in advance — before it ever happens.",
+    twist: "What if the car knows the passenger is a surgeon who saves 200 lives a year? Does the 'value' of a life change depending on what that person contributes to society?",
+    twistQ: "Should we put a value on human life based on contribution? Is a surgeon's life worth more than a retired person's? Who decides?"
+  },
+  {
+    text: "You find €10,000 in cash in a bag at a train station. There's no ID inside. You're struggling financially — behind on rent, debts mounting. Do you keep it?",
+    context: "The money is untraceable. No cameras in that area. No one saw you pick it up. Handing it in means the police keep it for 6 months, and if no one claims it, it goes to the state — not back to you.",
+    twist: "The next day, you see a news article: a small local charity is desperately asking for the return of their fundraising cash — €10,000 collected over 6 months — which was lost at the train station yesterday.",
+    twistQ: "Does knowing the owner change things? What if it belonged to a millionaire — would you feel different? Is the morality of keeping it dependent on who lost it?"
+  },
+  {
+    text: "You discover that your company's best-selling product has a minor safety flaw that affects 1 in 100,000 users. Fixing it would cost millions and delay the product by a year. Reporting it would probably sink the company. 500 jobs depend on it. Do you report it?",
+    context: "The flaw has never actually caused harm — it's theoretical. But engineers say it could. Competitors don't have this flaw. Your boss says 'don't worry about it.'",
+    twist: "You just read that a competitor's similar product — with the exact same flaw — has just caused its first injury. A child was hurt. The media hasn't connected it to your product yet, but they will.",
+    twistQ: "A theoretical risk has just become real — for a competitor. Does the fact that it hasn't happened to YOUR product yet still count as a defence? How long can you wait?"
+  },
+  {
+    text: "Your elderly parent needs full-time care. You can either quit your job to care for them yourself, or put them in a care home. They've told you they'd rather die than go to a home. Your family depends on your income.",
+    context: "The care home is good quality but expensive — it would use most of your parent's savings. Caring for them yourself means losing your career during a critical period. Your partner supports whatever you decide but is clearly worried about money.",
+    twist: "Your parent's doctor tells you privately that your parent has early-stage dementia. In 2-3 years, they won't recognise you. The care home has specialist dementia support. You don't.",
+    twistQ: "Your parent said they'd rather die than go to a home — but they said that before the dementia diagnosis. Can you honour a wish made by someone who may soon not remember making it?"
+  }
+];
+
+let usedDilemmas = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i >= 1 && i <= 3 && !document.getElementById('panel' + i).innerHTML) buildDilemma(i);
+}
+
+function pickDilemma() {
+  const available = DILEMMAS.filter((_, i) => !usedDilemmas.includes(i));
+  if (available.length === 0) return DILEMMAS[Math.floor(Math.random() * DILEMMAS.length)];
+  const pick = available[Math.floor(Math.random() * available.length)];
+  usedDilemmas.push(DILEMMAS.indexOf(pick));
+  return pick;
+}
+
+function buildDilemma(tabNum) {
+  const d = pickDilemma();
+  const panel = document.getElementById('panel' + tabNum);
+
+  panel.innerHTML = `
+    <div class="card">
+      <div class="dilemma-box">
+        <div class="dilemma-label">Dilemma ${tabNum}</div>
+        <div class="dilemma-text">${d.text}</div>
+      </div>
+      <div class="accent-box">
+        <p>${d.context}</p>
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase active phase-1" id="d${tabNum}p1">
+      <div class="card">
+        <div class="phase-header">
+          <div class="phase-num">1</div>
+          <div class="phase-title">Take your position</div>
+        </div>
+        <p>Both of you: read the dilemma. Think for 30 seconds. Then each person states their position and defends it for 60 seconds.</p>
+
+        <div class="timer-center">
+          <div class="timer-btn" onclick="toggleTimer(this, 60)">
+            <span class="tdisp">1:00</span>
+            <span style="font-size:0.65rem; font-weight:400;">per person</span>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button class="next-phase-btn" onclick="showPhase(${tabNum}, 2)">Phase 2: Argue the opposite →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase phase-2" id="d${tabNum}p2">
+      <div class="card">
+        <div class="phase-header">
+          <div class="phase-num">2</div>
+          <div class="phase-title">Argue the opposite</div>
+        </div>
+        <p>Now argue <strong>AGAINST your own position</strong>. Defend the side you disagree with. Find the strongest arguments for the other side.</p>
+
+        <div class="speak-prompt" style="border-color:#6c5ce7;">
+          This is the hardest part. You have to genuinely try to convince the other person — not just go through the motions.
+        </div>
+
+        <div class="timer-center">
+          <div class="timer-btn" onclick="toggleTimer(this, 60)">
+            <span class="tdisp">1:00</span>
+            <span style="font-size:0.65rem; font-weight:400;">per person</span>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button class="next-phase-btn" onclick="showPhase(${tabNum}, 3)">Phase 3: The twist →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase phase-3" id="d${tabNum}p3">
+      <div class="card">
+        <div class="twist-card">
+          <h4>⚡ TWIST — New information</h4>
+          <p style="margin-top:8px; font-size:1.05rem;">${d.twist}</p>
+        </div>
+
+        <div class="speak-prompt" style="border-color:#fdcb6e;">
+          <strong>${d.twistQ}</strong>
+        </div>
+
+        <div class="timer-center">
+          <div class="timer-btn" onclick="toggleTimer(this, 120)">
+            <span class="tdisp">2:00</span>
+            <span style="font-size:0.65rem; font-weight:400;">discuss the twist</span>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button class="next-phase-btn" onclick="showPhase(${tabNum}, 4)">Phase 4: Final verdict →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase phase-4" id="d${tabNum}p4">
+      <div class="card">
+        <div class="phase-header">
+          <div class="phase-num">4</div>
+          <div class="phase-title">Final verdict</div>
+        </div>
+
+        <div class="speak-prompt" style="border-color:#00b894;">
+          <strong>Has your position changed?</strong> State your final answer — and explain whether the twist, or arguing the opposite, changed your thinking.
+        </div>
+
+        <div class="speak-prompt">
+          <strong>What was the single strongest argument you heard today</strong> — from either side? Can you repeat it in your own words?
+        </div>
+
+        <button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum < 3 ? tabNum + 1 : 4});">${tabNum < 3 ? 'NEXT DILEMMA →' : 'FINISH → DEBRIEF'}</button>
+      </div>
+    </div>
+  `;
+}
+
+function showPhase(tabNum, phaseNum) {
+  document.querySelectorAll(`#panel${tabNum} .phase`).forEach(p => p.classList.remove('active'));
+  document.getElementById(`d${tabNum}p${phaseNum}`).classList.add('active');
+  document.getElementById(`d${tabNum}p${phaseNum}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.tdisp');
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 10) { el.classList.remove('running'); el.classList.add('danger'); }
+    if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = "0:00";
+      el.classList.remove('danger');
+      el.style.borderColor = '#dee2e6';
+      el.style.color = '#6c757d';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
