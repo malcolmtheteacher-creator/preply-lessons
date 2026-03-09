@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tone Shift</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #6c5ce7, #fd79a8); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #6c5ce7; }
+.tab.active { color: #6c5ce7; border-bottom-color: #6c5ce7; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.accent-box { background: linear-gradient(135deg, #6c5ce710, #fd79a810); border-left: 4px solid #6c5ce7; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #6c5ce710, #fd79a810); border-left: 4px solid #6c5ce7; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.phrase-display { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 14px; margin: 20px 0; }
+.phrase-text { font-size: 1.8rem; font-weight: 800; color: #fd79a8; }
+.phrase-sub { font-size: 0.85rem; color: #636e72; margin-top: 8px; }
+
+.tone-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.tone-card { padding: 16px; border: 2px solid #dee2e6; border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.2s; }
+.tone-card:hover { border-color: #6c5ce7; transform: scale(1.03); }
+.tone-card.selected { border-color: #6c5ce7; background: #6c5ce710; }
+.tone-card.correct { border-color: #28a745; background: #28a74510; }
+.tone-card.wrong { border-color: #e94560; background: #e9456010; }
+.tone-emoji { font-size: 1.8rem; }
+.tone-name { font-weight: 700; font-size: 0.9rem; margin-top: 4px; }
+
+.reveal-box { display: none; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 16px; margin: 12px 0; }
+.reveal-box.visible { display: block; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #6c5ce7, #fd79a8); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+.reveal-btn { display: inline-block; padding: 10px 24px; background: #6c5ce7; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+
+.score-bar { display: flex; justify-content: center; gap: 30px; background: #f1f3f5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+.score-item { text-align: center; }
+.score-item .num { font-size: 1.5rem; font-weight: 900; color: #6c5ce7; }
+.score-item .label { font-size: 0.7rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>TONE SHIFT</h1>
+  <p>Same words. Different voice. Completely different meaning.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Round 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Round 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Round 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Challenge</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>It's not what you say — it's how you say it</h2>
+    <p style="margin-bottom:12px;">"That's great" can mean genuine excitement, biting sarcasm, total boredom, or surprised disbelief — depending entirely on your tone of voice. This game trains that skill.</p>
+    <div class="accent-box">
+      <strong>How it works:</strong> A phrase appears. One person secretly picks a tone/emotion from the options, then says the phrase in that tone. The other person has to identify which tone they used. Then swap.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Warm-up</h2>
+    <div class="speak-prompt">
+      Say <strong>"Oh, you're here"</strong> in these 4 ways:<br>
+      1. You're happy to see them<br>
+      2. You're annoyed they showed up<br>
+      3. You're surprised — you thought they left<br>
+      4. You're terrified of them<br><br>
+      What changed? The words are identical — what did your voice do differently each time?
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which tone was hardest to produce?</strong> Sarcasm? Disappointment? Boredom? Why?
+    </div>
+    <div class="speak-prompt" style="border-color:#fd79a8;">
+      <strong>Which tone was hardest to detect?</strong> Were there tones that sounded similar to each other?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>In your language, do the same tones work?</strong> Is sarcasm expressed the same way? Are there tones in your language that don't exist in English?
+    </div>
+    <div class="speak-prompt" style="border-color:#e17055;">
+      <strong>Think about real misunderstandings.</strong> Has your tone ever been misread in English? A message that was meant as a joke but taken seriously? What happened?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const PHRASES = [
+  {
+    phrase: "That's really interesting.",
+    tones: [
+      { name: "Genuinely fascinated", emoji: "🤩", clue: "Rising pitch, slower pace, emphasis on 'really'. You mean it." },
+      { name: "Sarcastic / bored", emoji: "😒", clue: "Flat, monotone, maybe slightly drawn out. You absolutely do not find it interesting." },
+      { name: "Surprised", emoji: "😲", clue: "Rising pitch at the end, slightly breathless. You didn't expect this." },
+      { name: "Suspicious", emoji: "🤨", clue: "Slower, narrowed emphasis on 'interesting'. You think something's off." }
+    ]
+  },
+  {
+    phrase: "I'm fine.",
+    tones: [
+      { name: "Actually fine", emoji: "😊", clue: "Light, quick, casual. Nothing to discuss." },
+      { name: "Clearly not fine", emoji: "😤", clue: "Clipped, tight, maybe louder. The opposite of fine." },
+      { name: "Resigned / giving up", emoji: "😔", clue: "Soft, quiet, falling pitch. You've accepted it." },
+      { name: "Annoyed you were asked", emoji: "🙄", clue: "Sharp, short, emphasis on 'fine'. Stop asking." }
+    ]
+  },
+  {
+    phrase: "Oh, you made dinner.",
+    tones: [
+      { name: "Grateful and touched", emoji: "🥰", clue: "Warm, slow, rising then falling. You're genuinely moved." },
+      { name: "Dreading the food", emoji: "😬", clue: "Slight pause before 'dinner', forced brightness. You know their cooking." },
+      { name: "Surprised — didn't expect it", emoji: "😯", clue: "Rising pitch throughout, genuine shock." },
+      { name: "Passive-aggressive", emoji: "😏", clue: "Emphasis on 'you'. Implying you always cook and they never do." }
+    ]
+  },
+  {
+    phrase: "We need to talk.",
+    tones: [
+      { name: "Serious / bad news coming", emoji: "😐", clue: "Low, steady, no emotion. This is going to be heavy." },
+      { name: "Excited — good news", emoji: "😃", clue: "Fast, rising, barely containing yourself." },
+      { name: "Angry but controlled", emoji: "😠", clue: "Measured, tight, emphasis on 'need'. Barely holding it together." },
+      { name: "Nervous / awkward", emoji: "😰", clue: "Hesitant, maybe a pause after 'we'. You don't want to have this conversation." }
+    ]
+  },
+  {
+    phrase: "I didn't know you could do that.",
+    tones: [
+      { name: "Genuinely impressed", emoji: "👏", clue: "Rising pitch on 'that', emphasis on 'could'. Real admiration." },
+      { name: "Jealous", emoji: "😒", clue: "Slightly flat, emphasis on 'you'. Why can THEY do it and not me?" },
+      { name: "Shocked / alarmed", emoji: "😱", clue: "Fast, rising throughout. Maybe slightly horrified." },
+      { name: "Condescending", emoji: "🤭", clue: "Slow, sing-song, slight smile. As if talking to a child who drew a picture." }
+    ]
+  },
+  {
+    phrase: "Sure, whatever you want.",
+    tones: [
+      { name: "Genuinely agreeable", emoji: "😊", clue: "Light, quick, easy. You really don't mind." },
+      { name: "Passive-aggressive", emoji: "😤", clue: "Emphasis on 'whatever'. You very much DO mind." },
+      { name: "Defeated / exhausted", emoji: "😩", clue: "Slow, falling, no energy. You've given up fighting." },
+      { name: "Sarcastic surrender", emoji: "🙃", clue: "Exaggerated, slightly theatrical. Fine, you win, happy now?" }
+    ]
+  },
+  {
+    phrase: "That was quite a performance.",
+    tones: [
+      { name: "Genuine compliment", emoji: "🌟", clue: "Warm, emphasis on 'quite'. You're impressed." },
+      { name: "Sarcastic — it was terrible", emoji: "😏", clue: "Dry, slight pause before 'performance'. It was embarrassing." },
+      { name: "Understatement — it was incredible", emoji: "🤯", clue: "Restrained, British-style understatement. 'Quite' means 'absolutely extraordinary'." },
+      { name: "Disapproving — they made a scene", emoji: "😒", clue: "Emphasis on 'performance'. As in: that was an act, and not a good one." }
+    ]
+  },
+  {
+    phrase: "I thought you knew.",
+    tones: [
+      { name: "Apologetic — genuinely thought so", emoji: "😔", clue: "Soft, falling pitch. You feel bad about the miscommunication." },
+      { name: "Accusatory — you should have known", emoji: "😠", clue: "Emphasis on 'you'. Why didn't you know? It's your fault." },
+      { name: "Surprised — everyone knew", emoji: "😳", clue: "Rising pitch. You're shocked they were out of the loop." },
+      { name: "Defensive — covering yourself", emoji: "😬", clue: "Quick, slightly higher pitch. Trying to avoid blame." }
+    ]
+  },
+  {
+    phrase: "Good luck with that.",
+    tones: [
+      { name: "Genuine encouragement", emoji: "💪", clue: "Warm, sincere, slightly slower. You really hope they succeed." },
+      { name: "Sarcastic — you'll need it", emoji: "😏", clue: "Slight smirk in the voice, emphasis on 'that'. It's doomed." },
+      { name: "Dismissive — not my problem", emoji: "🤷", clue: "Fast, throwaway, already moving on. You don't care." },
+      { name: "Warning — be careful", emoji: "⚠️", clue: "Lower, slower, meaningful pause. You're saying 'be careful' without saying it." }
+    ]
+  },
+  {
+    phrase: "I'm not angry.",
+    tones: [
+      { name: "Truthful — actually calm", emoji: "😌", clue: "Soft, relaxed, genuine. You really aren't angry." },
+      { name: "Obviously furious", emoji: "🔥", clue: "Tight, forced calm, the words come out through gritted teeth." },
+      { name: "Hurt, not angry", emoji: "💔", clue: "Quiet, emphasis on 'angry'. You're something worse — disappointed." },
+      { name: "Confused why they think so", emoji: "🤔", clue: "Rising pitch on 'angry', genuine confusion. Why would I be angry?" }
+    ]
+  }
+];
+
+let usedPhrases = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i >= 1 && i <= 3 && !document.getElementById('panel' + i).innerHTML) buildRound(i);
+  if (i === 4 && !document.getElementById('panel4').innerHTML) buildChallenge();
+}
+
+function pickPhrase() {
+  const available = PHRASES.filter((_, i) => !usedPhrases.includes(i));
+  if (available.length === 0) return PHRASES[Math.floor(Math.random() * PHRASES.length)];
+  const pick = available[Math.floor(Math.random() * available.length)];
+  usedPhrases.push(PHRASES.indexOf(pick));
+  return pick;
+}
+
+function buildRound(tabNum) {
+  const p = pickPhrase();
+  const panel = document.getElementById('panel' + tabNum);
+
+  let toneCards = p.tones.map((t, i) =>
+    `<div class="tone-card" onclick="selectTone(${tabNum}, ${i})">
+      <div class="tone-emoji">${t.emoji}</div>
+      <div class="tone-name">${t.name}</div>
+    </div>`
+  ).join('');
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Round ${tabNum}</h2>
+      <div class="phrase-display">
+        <div class="phrase-text">"${p.phrase}"</div>
+        <div class="phrase-sub">Say this phrase — but pick a tone first.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Step 1: Speaker — pick a tone secretly</h2>
+      <p>Look at the 4 tones below. <strong>Don't say which one you're choosing.</strong> Just remember it. Then say the phrase in that tone.</p>
+      <div class="tone-grid">${toneCards}</div>
+    </div>
+
+    <div class="card">
+      <h2>Step 2: Listener — which tone was it?</h2>
+      <p>After the speaker says the phrase, the listener taps the tone they think they heard. Then reveal.</p>
+      <div class="speak-prompt">
+        <strong>Discuss:</strong> What gave it away? Was it the pitch, the speed, the pauses, or something in the face? What would have made it more convincing?
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Step 3: Swap and repeat</h2>
+      <p>The other person now picks a <strong>different</strong> tone and says the same phrase. Can the listener get it right?</p>
+      <div class="speak-prompt" style="border-color:#fd79a8;">
+        <strong>Then try the hardest version:</strong> Both say the phrase in the <strong>SAME</strong> tone — but make your version sound different from theirs. How many ways can you express the same emotion?
+      </div>
+    </div>
+
+    <div class="card" id="clues${tabNum}" style="display:none;">
+      <h2>Tone Guide</h2>
+      ${p.tones.map(t => `
+        <div style="padding:10px 16px; background:#f8f9fa; border-radius:8px; margin:8px 0; border-left:3px solid #6c5ce7;">
+          <strong>${t.emoji} ${t.name}:</strong> ${t.clue}
+        </div>
+      `).join('')}
+    </div>
+
+    <div style="text-align:center; margin:12px 0;">
+      <button class="reveal-btn" onclick="document.getElementById('clues${tabNum}').style.display='block'; this.style.display='none';">Show tone guide (after guessing)</button>
+    </div>
+
+    <button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum < 3 ? tabNum + 1 : 4});">${tabNum < 3 ? 'NEXT PHRASE →' : 'CHALLENGE ROUND →'}</button>
+  `;
+}
+
+function selectTone(tabNum, idx) {
+  const panel = document.getElementById('panel' + tabNum);
+  panel.querySelectorAll('.tone-card').forEach(c => c.classList.remove('selected'));
+  panel.querySelectorAll('.tone-card')[idx].classList.add('selected');
+}
+
+function buildChallenge() {
+  // Pick 3 phrases for rapid-fire
+  const phrases = [];
+  for (let i = 0; i < 3; i++) phrases.push(pickPhrase());
+
+  let html = `<div class="card">
+    <h2>Challenge: Rapid Tone Switch</h2>
+    <p>For each phrase, the speaker must say it in ALL 4 tones, one after another, as quickly as possible. The listener rates which one was most convincing.</p>
+  </div>`;
+
+  phrases.forEach((p, i) => {
+    html += `
+    <div class="card">
+      <div class="phrase-display" style="padding:20px;">
+        <div class="phrase-text" style="font-size:1.4rem;">"${p.phrase}"</div>
+      </div>
+      <p style="text-align:center; font-weight:600; margin:12px 0;">Say this in ALL 4 tones — rapid fire:</p>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:12px 0;">
+        ${p.tones.map(t => `<div style="padding:10px; background:#f8f9fa; border-radius:8px; text-align:center; font-size:0.85rem;"><span style="font-size:1.2rem;">${t.emoji}</span><br>${t.name}</div>`).join('')}
+      </div>
+      <div class="speak-prompt">
+        <strong>Listener:</strong> Which tone was the most convincing? Which was the weakest? Give specific feedback — what could they change about their voice to make it clearer?
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab4').classList.add('done'); showTab(5);">FINISH → DEBRIEF</button>`;
+  document.getElementById('panel4').innerHTML = html;
+}
+</script>
+</body>
+</html>

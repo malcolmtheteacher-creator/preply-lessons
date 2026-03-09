@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split Second</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #e94560, #ff6348); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #e94560; }
+.tab.active { color: #e94560; border-bottom-color: #e94560; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: linear-gradient(135deg, #e9456010, #ff634810); border-left: 4px solid #e94560; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+/* Choice display */
+.choice-box { background: #1a1a2e; border-radius: 14px; padding: 20px; margin: 20px 0; }
+.choice-label { text-align: center; font-size: 0.75rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.choice-options { display: flex; gap: 12px; align-items: stretch; }
+.choice-option { flex: 1; padding: 20px 16px; background: #2d3436; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+.choice-option:hover { border-color: #e94560; transform: scale(1.03); }
+.choice-option.picked { border-color: #e94560; background: #e9456020; }
+.choice-text { font-size: 1rem; font-weight: 700; color: #dfe6e9; line-height: 1.4; }
+.choice-or { display: flex; align-items: center; justify-content: center; font-weight: 900; color: #e94560; font-size: 1.1rem; padding: 0 4px; }
+
+/* Timer */
+.big-timer { text-align: center; margin: 16px 0; }
+.timer-num { font-size: 4rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; }
+.timer-num.danger { color: #e94560; animation: pulse 0.4s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.1); } }
+.timer-sub { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; }
+
+.counter-btn { display: inline-block; padding: 10px 30px; background: #e94560; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1rem; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #e94560, #ff6348); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.round-num { text-align: center; font-size: 0.85rem; color: #6c757d; font-weight: 700; margin-bottom: 8px; }
+
+.argue-box { background: #6c5ce710; border: 2px solid #6c5ce7; border-radius: 12px; padding: 20px; margin: 16px 0; text-align: center; }
+.argue-box h4 { color: #6c5ce7; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SPLIT SECOND</h1>
+  <p>Choose. Justify. 10 seconds. Go.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Quick Round</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Argue Back</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Impossible</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>No time to think</h2>
+    <p style="margin-bottom:12px;">An either/or choice appears. You have <strong>10 seconds</strong> to pick one AND give one reason. No essays. No "it depends." Just pick and justify — NOW.</p>
+    <div class="speak-prompt">
+      <strong>Then the twist:</strong> The other person has to argue the OPPOSITE of what you chose — in 20 seconds. Even if they agree with you. Especially if they agree with you.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3 rounds</h2>
+    <div style="padding:10px 16px; background:#e9456010; border-radius:8px; border-left:3px solid #e94560; margin:8px 0;">
+      <strong>Quick Round:</strong> 8 rapid choices. 10 seconds each. Pure gut instinct.
+    </div>
+    <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+      <strong>Argue Back:</strong> Same format, but after each choice the other person argues the opposite for 20 seconds.
+    </div>
+    <div style="padding:10px 16px; background:#1a1a2e10; border-radius:8px; border-left:3px solid #1a1a2e; margin:8px 0;">
+      <strong>Impossible:</strong> The hardest choices. Both truly terrible. Deeper discussion.
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which choice was hardest?</strong> Was there one where you genuinely couldn't decide?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>Did arguing the opposite ever convince you?</strong> Did you change your mind on any choice after hearing the counter-argument?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>What does your choice pattern say about you?</strong> Did you tend to pick safety or adventure? Money or time? People or independence?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const QUICK = [
+  { a: "Be able to fly", b: "Be able to read minds" },
+  { a: "Live in the city forever", b: "Live in the countryside forever" },
+  { a: "Never use social media again", b: "Never watch TV or films again" },
+  { a: "Always say what you think", b: "Always know what others think" },
+  { a: "Be famous but poor", b: "Be rich but anonymous" },
+  { a: "Relive your past", b: "See your future" },
+  { a: "Have more time", b: "Have more money" },
+  { a: "Be the smartest person in the room", b: "Be the most liked person in the room" },
+  { a: "Live 200 years in the past", b: "Live 200 years in the future" },
+  { a: "Never eat cheese again", b: "Never eat chocolate again" },
+  { a: "Know every language fluently", b: "Know how to play every instrument" },
+  { a: "Have a rewind button for your life", b: "Have a pause button for your life" },
+  { a: "Travel the whole world in a year", b: "Live in your dream city for 10 years" },
+  { a: "Be immune to all diseases", b: "Have unlimited creative talent" },
+  { a: "Always be 10 minutes early", b: "Always get the best parking spot" },
+  { a: "Never need to sleep", b: "Never need to eat" },
+];
+
+const ARGUE = [
+  { a: "Work your dream job for low pay", b: "Work a boring job for double the salary" },
+  { a: "Lose all your photos and memories from your phone", b: "Lose all your contacts and phone numbers" },
+  { a: "Be stuck in traffic for 2 hours every day", b: "Have a 2-hour commute by train with no delays" },
+  { a: "Only eat one meal a day (any food you want)", b: "Eat three meals a day (but you can't choose what)" },
+  { a: "Know the date of your death", b: "Know the cause of your death" },
+  { a: "Have a perfect memory", b: "Have the ability to forget anything on command" },
+  { a: "Win an argument but lose the friendship", b: "Lose the argument but keep the friend" },
+  { a: "Be the best at one thing", b: "Be good at everything" },
+  { a: "Live without music", b: "Live without books" },
+  { a: "Always be slightly too hot", b: "Always be slightly too cold" },
+];
+
+const IMPOSSIBLE = [
+  { a: "Live forever but watch everyone you love die", b: "Die at 60 with everyone around you", discuss: "This is really about loneliness vs. loss. What's worse — being alone forever, or leaving others behind? Does the answer change if you can make new relationships?" },
+  { a: "Save 5 strangers' lives", b: "Save 1 person you love", discuss: "The classic trolley problem made personal. Is love rational? Is it selfish to save one person over five? Or is it the most human thing possible?" },
+  { a: "Everyone can read YOUR mind", b: "You can read EVERYONE'S mind", discuss: "Total vulnerability vs. total knowledge. Would reading minds be a gift or a curse? Would you ever trust anyone again? Would anyone trust you if they knew?" },
+  { a: "Relive your worst day every year", b: "Forget your best day completely", discuss: "Pain vs. loss. Reliving trauma is horrible — but at least you keep your best memories. Forgetting the best day means less suffering but also less joy. Which matters more?" },
+  { a: "Be honest 100% of the time (even when it hurts)", b: "Never be lied to (even when the truth hurts)", discuss: "Radical honesty vs. radical truth. If you were always honest, you'd lose friends. If no one could lie to you, you might hear things you wish you hadn't. Which relationships survive?" },
+  { a: "Go back to age 10 with everything you know now", b: "Jump forward to age 70 with €10 million", discuss: "Youth + knowledge vs. age + wealth. Would childhood be fun if you had an adult brain? Would €10 million matter if you'd skipped your whole life?" },
+];
+
+let usedQuick = [], usedArgue = [], usedImpossible = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildQuick();
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildArgue();
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildImpossible();
+}
+
+function pick(arr, used, n) {
+  const available = arr.filter((_, i) => !used.includes(i));
+  const shuffled = available.sort(() => Math.random() - 0.5).slice(0, n);
+  shuffled.forEach(s => used.push(arr.indexOf(s)));
+  return shuffled;
+}
+
+function buildQuick() {
+  const items = pick(QUICK, usedQuick, 8);
+  let html = `<div class="card"><h2>Quick Round: 10 seconds each</h2>
+    <p>Both people answer. Say your choice AND one reason. No "it depends." GO.</p></div>`;
+
+  items.forEach((q, i) => {
+    html += `
+    <div class="card">
+      <div class="round-num">${i + 1} / ${items.length}</div>
+      <div class="choice-box">
+        <div class="choice-options">
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.a}</div>
+          </div>
+          <div class="choice-or">OR</div>
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.b}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → ARGUE BACK</button>`;
+  document.getElementById('panel1').innerHTML = html;
+}
+
+function buildArgue() {
+  const items = pick(ARGUE, usedArgue, 5);
+  let html = `<div class="card"><h2>Argue Back</h2>
+    <p>Person A picks and justifies (10 seconds). Then Person B argues the OPPOSITE (20 seconds). Swap each round.</p></div>`;
+
+  items.forEach((q, i) => {
+    const whoFirst = i % 2 === 0 ? 'Student' : 'Teacher';
+    const whoSecond = i % 2 === 0 ? 'Teacher' : 'Student';
+    html += `
+    <div class="card">
+      <div class="round-num">${i + 1} / ${items.length}</div>
+      <div class="choice-box">
+        <div class="choice-options">
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.a}</div>
+          </div>
+          <div class="choice-or">OR</div>
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.b}</div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; font-weight:600; margin:8px 0;">${whoFirst}: Pick and justify (10 seconds)</p>
+      <div class="argue-box">
+        <h4>${whoSecond}: Argue the opposite</h4>
+        <p>Even if you agree — find the best argument AGAINST what they chose. 20 seconds.</p>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab2').classList.add('done'); showTab(3);">NEXT → IMPOSSIBLE CHOICES</button>`;
+  document.getElementById('panel2').innerHTML = html;
+}
+
+function buildImpossible() {
+  const items = pick(IMPOSSIBLE, usedImpossible, 3);
+  let html = `<div class="card"><h2>The Impossible Choices</h2>
+    <p>These are the hard ones. Take your time. Discuss properly. There really is no right answer.</p></div>`;
+
+  items.forEach((q, i) => {
+    html += `
+    <div class="card">
+      <div class="round-num">Impossible ${i + 1}</div>
+      <div class="choice-box">
+        <div class="choice-options">
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.a}</div>
+          </div>
+          <div class="choice-or">OR</div>
+          <div class="choice-option" onclick="this.classList.toggle('picked')">
+            <div class="choice-text">${q.b}</div>
+          </div>
+        </div>
+      </div>
+      <div class="speak-prompt">
+        ${q.discuss}
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">FINISH → DEBRIEF</button>`;
+  document.getElementById('panel3').innerHTML = html;
+}
+</script>
+</body>
+</html>

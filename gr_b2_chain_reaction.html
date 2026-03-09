@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chain Reaction</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #e17055, #fdcb6e); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #e17055; }
+.tab.active { color: #e17055; border-bottom-color: #e17055; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.accent-box { background: linear-gradient(135deg, #e1705510, #fdcb6e10); border-left: 4px solid #e17055; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #e1705510, #fdcb6e10); border-left: 4px solid #e17055; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.event-box { text-align: center; padding: 28px 20px; background: #1a1a2e; border-radius: 14px; margin: 20px 0; }
+.event-text { font-size: 1.2rem; font-weight: 700; color: #fdcb6e; line-height: 1.5; }
+.event-label { font-size: 0.75rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+
+.chain-container { margin: 20px 0; }
+.chain-link { display: flex; align-items: flex-start; margin: 12px 0; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+.chain-num { min-width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; color: white; margin-right: 12px; margin-top: 2px; }
+.chain-num.a { background: #e17055; }
+.chain-num.b { background: #6c5ce7; }
+.chain-content { flex: 1; padding: 12px 16px; border-radius: 10px; font-size: 0.95rem; }
+.chain-content.a { background: #e1705510; border-left: 3px solid #e17055; }
+.chain-content.b { background: #6c5ce710; border-left: 3px solid #6c5ce7; }
+.chain-content .who { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.chain-content.a .who { color: #e17055; }
+.chain-content.b .who { color: #6c5ce7; }
+
+.add-link-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: 2px dashed #dee2e6; border-radius: 10px; background: transparent; cursor: pointer; font-weight: 600; color: #6c757d; transition: all 0.2s; font-size: 0.9rem; }
+.add-link-btn:hover { border-color: #e17055; color: #e17055; }
+
+.timer-inline { display: inline-flex; align-items: center; gap: 8px; background: #1a1a2e; border: 2px solid #e17055; border-radius: 10px; padding: 8px 16px; font-size: 1.2rem; font-weight: 800; color: #e17055; font-family: 'Courier New', monospace; cursor: pointer; transition: all 0.3s; }
+.timer-inline.running { border-color: #28a745; color: #28a745; }
+.timer-inline.danger { border-color: #e94560; color: #e94560; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #e17055, #fdcb6e); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.generate-btn { padding: 14px 30px; background: #e17055; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+.generate-btn:hover { background: #d63031; }
+
+.chain-length { text-align: center; font-size: 0.85rem; color: #6c757d; margin: 8px 0; }
+.chain-length strong { color: #e17055; font-size: 1.1rem; }
+
+.tools-box { background: #f1f3f5; border-radius: 10px; padding: 16px; margin-top: 16px; }
+.tools-box h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.tool-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>CHAIN REACTION</h1>
+  <p>One event. Endless consequences. How far can you go?</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Chain 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Chain 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Chain 3</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The butterfly effect</h2>
+    <p style="margin-bottom:12px;">A small event happens. What happens next? And then what? And then what? You take turns building a chain of consequences — each one caused by the previous one.</p>
+    <div class="accent-box">
+      <strong>The rules:</strong> Person A says what happens because of the event. Person B says what happens because of THAT. Keep alternating. Each link must be a logical (or creative) consequence of the previous one. 20 seconds per link. How long can you keep the chain going?
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Example</h2>
+    <div class="event-box" style="padding:16px;">
+      <div class="event-label">Starting Event</div>
+      <div class="event-text" style="font-size:1rem;">"You oversleep by 30 minutes."</div>
+    </div>
+    <div class="chain-container">
+      <div class="chain-link"><div class="chain-num a">1</div><div class="chain-content a"><div class="who">Person A</div>"So I skip breakfast and run to the bus stop."</div></div>
+      <div class="chain-link"><div class="chain-num b">2</div><div class="chain-content b"><div class="who">Person B</div>"But because you ran, you drop your phone on the pavement and crack the screen."</div></div>
+      <div class="chain-link"><div class="chain-num a">3</div><div class="chain-content a"><div class="who">Person A</div>"So now I can't check my emails, and I miss a message from my boss saying the meeting was moved to 8am."</div></div>
+      <div class="chain-link"><div class="chain-num b">4</div><div class="chain-content b"><div class="who">Person B</div>"You arrive at the empty meeting room. Your colleagues are all in a different room. You look terrible."</div></div>
+    </div>
+    <p style="text-align:center; color:#6c757d; font-size:0.85rem; margin-top:8px;">...and so on. See how one small event spirals?</p>
+  </div>
+
+  <div class="card">
+    <div class="tools-box">
+      <h4>Cause & effect language</h4>
+      <span class="tool-chip">"So because of that..."</span>
+      <span class="tool-chip">"Which means that..."</span>
+      <span class="tool-chip">"As a result..."</span>
+      <span class="tool-chip">"That leads to..."</span>
+      <span class="tool-chip">"The consequence of that is..."</span>
+      <span class="tool-chip">"And then naturally..."</span>
+      <span class="tool-chip">"But the problem is..."</span>
+      <span class="tool-chip">"Which makes things worse because..."</span>
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START CHAIN 1</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which chain went the most unexpected direction?</strong> Was there a moment where one link completely changed where the story was heading?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>Did the chains stay realistic or become absurd?</strong> Is it harder to keep things realistic, or is the fun in letting them spiral into chaos?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>Think about real life:</strong> Can you think of a time when one small decision led to a chain of unexpected consequences? Tell the story.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const EVENTS = [
+  "You send a text message to the wrong person.",
+  "The Wi-Fi in your city goes down for 24 hours.",
+  "You accidentally like your ex's photo from 3 years ago on social media.",
+  "Your boss accidentally sends their salary to the entire company.",
+  "A cat walks into the middle of a live TV news broadcast.",
+  "You find a €50 note on the street and pick it up.",
+  "You call in sick to work but then get spotted at a shopping centre by your colleague.",
+  "The person sitting next to you on the plane is someone you went to school with 15 years ago.",
+  "Your alarm doesn't go off and you wake up 2 hours late on the most important day of the year.",
+  "You accidentally reply-all to a company email with a personal comment about your manager.",
+  "A famous celebrity moves in next door to you.",
+  "You discover you've been paying for a subscription you never signed up for — for 3 years.",
+  "The supermarket runs out of coffee on a Monday morning in your town.",
+  "Your phone autocorrects a word in a message to your partner and it changes the meaning completely.",
+  "You win a competition you forgot you entered — the prize is a one-way ticket to Tokyo, leaving tomorrow.",
+  "A stranger gives you their business card and says 'call me when you're ready to change your life.'",
+  "You accidentally walk into the wrong meeting room at work and sit down before you realise.",
+  "Your neighbours start renovation work at 7am on a Saturday. It will last 6 months.",
+  "You open your laptop and realise your presentation has been deleted. The meeting starts in 10 minutes.",
+  "A friend asks you to look after their dog for a weekend. The dog destroys your apartment on day one.",
+];
+
+let usedEvents = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i >= 1 && i <= 3 && !document.getElementById('panel' + i).innerHTML) buildChain(i);
+}
+
+function pickEvent() {
+  const available = EVENTS.filter((_, i) => !usedEvents.includes(i));
+  if (available.length === 0) return EVENTS[Math.floor(Math.random() * EVENTS.length)];
+  const pick = available[Math.floor(Math.random() * available.length)];
+  usedEvents.push(EVENTS.indexOf(pick));
+  return pick;
+}
+
+function buildChain(tabNum) {
+  const event = pickEvent();
+  const panel = document.getElementById('panel' + tabNum);
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Chain ${tabNum}</h2>
+      <div class="event-box">
+        <div class="event-label">The starting event</div>
+        <div class="event-text">${event}</div>
+      </div>
+      <p style="text-align:center; color:#6c757d; margin-top:8px;">Read this. Now take turns building the chain. 20 seconds per link.</p>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h2 style="margin:0;">The chain</h2>
+        <div class="timer-inline" onclick="startChainTimer(this)">
+          <span class="ct-display">0:20</span>
+          <span style="font-size:0.6rem; font-weight:400;">per link</span>
+        </div>
+      </div>
+
+      <div class="chain-length">Links: <strong id="linkCount${tabNum}">0</strong></div>
+
+      <div class="chain-container" id="chain${tabNum}"></div>
+
+      <button class="add-link-btn" onclick="addLink(${tabNum})">+ Add a link (after someone speaks)</button>
+
+      <div class="speak-prompt" style="margin-top:20px;">
+        <strong>Goal:</strong> Try to reach at least <strong>8 links</strong>. Can you get to 12? The chain breaks when someone can't think of a consequence in 20 seconds.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="speak-prompt">
+        <strong>After the chain breaks:</strong> Look back at the whole chain. At which point did the chain go from realistic to ridiculous? Could any of these consequences actually happen in real life?
+      </div>
+      <button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum < 3 ? tabNum + 1 : 4});">${tabNum < 3 ? 'NEXT CHAIN →' : 'FINISH → DEBRIEF'}</button>
+    </div>
+  `;
+
+  panel._linkCount = 0;
+}
+
+function addLink(tabNum) {
+  const panel = document.getElementById('panel' + tabNum);
+  panel._linkCount = (panel._linkCount || 0) + 1;
+  const n = panel._linkCount;
+  const isA = n % 2 === 1;
+  const side = isA ? 'a' : 'b';
+  const who = isA ? 'Person A' : 'Person B';
+
+  const chain = document.getElementById('chain' + tabNum);
+  const link = document.createElement('div');
+  link.className = 'chain-link';
+  link.innerHTML = `<div class="chain-num ${side}">${n}</div><div class="chain-content ${side}"><div class="who">${who}</div><em style="color:#6c757d;">(said their consequence out loud)</em></div>`;
+  chain.appendChild(link);
+
+  document.getElementById('linkCount' + tabNum).textContent = n;
+}
+
+function startChainTimer(el) {
+  if (el.dataset.running === 'true') {
+    // Reset for next person
+    el.dataset.running = 'false';
+    el.classList.remove('running', 'danger');
+    el.querySelector('.ct-display').textContent = '0:20';
+    el.style.borderColor = '#e17055';
+    el.style.color = '#e17055';
+    return;
+  }
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = 20;
+  const display = el.querySelector('.ct-display');
+  const interval = setInterval(() => {
+    remaining--;
+    display.textContent = '0:' + (remaining < 10 ? '0' : '') + remaining;
+    if (remaining <= 5) { el.classList.remove('running'); el.classList.add('danger'); }
+    if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = 'TAP';
+      el.classList.remove('danger');
+      el.style.borderColor = '#fdcb6e';
+      el.style.color = '#fdcb6e';
+      el.dataset.running = 'false';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>

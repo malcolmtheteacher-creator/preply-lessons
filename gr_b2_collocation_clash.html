@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collocation Clash</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #00b894, #55efc4); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #00b894; }
+.tab.active { color: #00b894; border-bottom-color: #00b894; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.accent-box { background: linear-gradient(135deg, #00b89410, #55efc410); border-left: 4px solid #00b894; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+.speak-prompt { background: linear-gradient(135deg, #00b89410, #55efc410); border-left: 4px solid #00b894; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.clash-box { background: #1a1a2e; border-radius: 14px; padding: 24px; margin: 16px 0; text-align: center; }
+.clash-word { font-size: 2rem; font-weight: 900; color: #55efc4; margin-bottom: 8px; }
+.clash-q { color: #b2bec3; font-size: 0.9rem; }
+
+.option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.option-btn { padding: 16px; border: 2px solid #dee2e6; border-radius: 12px; background: #fff; cursor: pointer; text-align: center; font-weight: 700; font-size: 1rem; transition: all 0.2s; }
+.option-btn:hover { border-color: #00b894; transform: scale(1.03); }
+.option-btn.correct { border-color: #28a745; background: #28a74510; color: #28a745; }
+.option-btn.wrong { border-color: #e94560; background: #e9456010; color: #e94560; }
+.option-btn.selected { border-color: #00b894; background: #00b89410; }
+
+.explanation { display: none; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 16px; margin: 12px 0; }
+.explanation.visible { display: block; }
+
+.score-bar { text-align: center; background: #f1f3f5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+.score-bar strong { color: #00b894; font-size: 1.3rem; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #00b894, #55efc4); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.vs { font-size: 1.4rem; font-weight: 900; color: #e17055; text-align: center; margin: 8px 0; }
+
+.pair-display { display: flex; justify-content: center; gap: 20px; margin: 16px 0; }
+.pair-word { padding: 14px 24px; background: #1a1a2e; border-radius: 10px; font-size: 1.3rem; font-weight: 800; color: #55efc4; }
+
+.fill-blank { font-size: 1.1rem; text-align: center; margin: 16px 0; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+.blank { display: inline-block; min-width: 100px; border-bottom: 3px solid #00b894; margin: 0 4px; font-weight: 800; color: #00b894; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>COLLOCATION CLASH</h1>
+  <p>Which words go together? English has rules — but they make no sense.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Quick Fire</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Battle</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Why?!</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Why "heavy rain" but not "heavy wind"?</h2>
+    <p style="margin-bottom:12px;">In English, certain words just GO together — and others don't. "Make a decision" but "do homework." "Strong coffee" but not "powerful coffee." There's no grammar rule for this. You just have to know.</p>
+    <div class="accent-box">
+      This game tests whether you know which words English pairs together naturally — and then makes you discuss the weirdest ones.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3 rounds</h2>
+    <div style="padding:10px 16px; background:#00b89410; border-radius:8px; border-left:3px solid #00b894; margin:8px 0;">
+      <strong>Quick Fire:</strong> A word appears with 4 options. Which one collocates? Both guess — fastest correct answer wins.
+    </div>
+    <div style="padding:10px 16px; background:#e1705510; border-radius:8px; border-left:3px solid #e17055; margin:8px 0;">
+      <strong>Battle:</strong> Two similar words. Which one goes in the sentence? Discuss, then reveal.
+    </div>
+    <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+      <strong>Why?!</strong> The strangest collocations in English. Discuss why they exist — and why the alternatives sound wrong.
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which collocations surprised you?</strong> Were there any you were SURE about — and got wrong?
+    </div>
+    <div class="speak-prompt" style="border-color:#e17055;">
+      <strong>Does your language have the same problem?</strong> Are there word combinations that foreigners always get wrong in your language?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>Pick 5 collocations from today</strong> that you want to use naturally. Say each one in a sentence about your real life.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const QUICK_FIRE = [
+  { word: "make", options: ["homework", "a mistake", "a sport", "the shopping"], correct: 1, explain: "'Make a mistake' — not 'do a mistake'. We MAKE decisions, mistakes, progress, friends, money, an effort." },
+  { word: "heavy", options: ["wind", "rain", "heat", "speed"], correct: 1, explain: "'Heavy rain' — but 'strong wind', 'intense heat', 'high speed'. Heavy collocates with rain, traffic, workload, smoker, drinker." },
+  { word: "strong", options: ["rain", "possibility", "coffee", "speed"], correct: 2, explain: "'Strong coffee' — not 'powerful coffee'. Strong goes with: coffee, accent, feeling, opinion, wind, argument." },
+  { word: "take", options: ["a mistake", "a photo", "a sport", "an effort"], correct: 1, explain: "'Take a photo' — not 'make a photo' (common error!). We TAKE: photos, advice, a break, a risk, a chance, responsibility." },
+  { word: "do", options: ["a decision", "progress", "damage", "money"], correct: 2, explain: "'Do damage' — not 'make damage'. We DO: homework, damage, business, a favour, your best, exercise, research." },
+  { word: "pay", options: ["a visit", "a mistake", "a decision", "a progress"], correct: 0, explain: "'Pay a visit' — also 'pay attention', 'pay a compliment', 'pay respect'. Interesting because none involve money!" },
+  { word: "catch", options: ["a bus", "a mistake", "a decision", "a progress"], correct: 0, explain: "'Catch a bus' — also 'catch a cold', 'catch fire', 'catch someone's eye', 'catch your breath'." },
+  { word: "break", options: ["a promise", "a decision", "a progress", "an effort"], correct: 0, explain: "'Break a promise' — also 'break the news', 'break a record', 'break the ice', 'break the law', 'break a habit'." },
+  { word: "run", options: ["a business", "a decision", "a mistake", "a favour"], correct: 0, explain: "'Run a business' — also 'run a risk', 'run a bath', 'run late', 'run out of time'." },
+  { word: "keep", options: ["a promise", "a decision", "a progress", "a damage"], correct: 0, explain: "'Keep a promise' — also 'keep a secret', 'keep calm', 'keep in touch', 'keep a diary', 'keep your word'." },
+  { word: "raise", options: ["a question", "a mistake", "a favour", "a cold"], correct: 0, explain: "'Raise a question' — also 'raise awareness', 'raise money', 'raise concerns', 'raise children'." },
+  { word: "commit", options: ["a crime", "a promise", "a favour", "a visit"], correct: 0, explain: "'Commit a crime' — also 'commit suicide', 'commit to a plan'. Interesting — mostly negative things!" },
+];
+
+const BATTLE = [
+  { word1: "make", word2: "do", sentence: "Can you ___ me a favour?", answer: "do", explain: "We 'do someone a favour' — not 'make'. But we 'make someone a cup of tea.' No logic." },
+  { word1: "say", word2: "tell", sentence: "She ___ me the truth.", answer: "told", explain: "'Tell' needs a person: tell ME, tell HER. 'Say' doesn't: she SAID the truth (wrong), she SAID it was true (right)." },
+  { word1: "high", word2: "tall", sentence: "The ___ prices are a problem.", answer: "high", explain: "Prices are 'high' not 'tall'. Buildings can be both, but: 'tall building' (physical height), 'high building' (less common, more abstract)." },
+  { word1: "big", word2: "large", sentence: "That was a ___ mistake.", answer: "big", explain: "'Big mistake' — not 'large mistake'. 'Large' is for measurable size: large portion, large number. 'Big' is for impact: big deal, big problem." },
+  { word1: "fast", word2: "quick", sentence: "Let me have a ___ look.", answer: "quick", explain: "'Quick look' — not 'fast look'. 'Quick' for duration: quick break, quick question. 'Fast' for speed: fast car, fast runner." },
+  { word1: "hard", word2: "hardly", sentence: "I can ___ believe it.", answer: "hardly", explain: "'Hardly' means 'almost not' — I can barely believe it. 'Hard believe it' would mean... nothing. Tricky pair!" },
+  { word1: "job", word2: "work", sentence: "I've got a lot of ___ to do.", answer: "work", explain: "'A lot of work' (uncountable). But 'a lot of jobs to do' (countable, meaning tasks). Never 'a lot of job'." },
+  { word1: "travel", word2: "trip", sentence: "How was your ___?", answer: "trip", explain: "'How was your trip?' — not 'how was your travel?'. 'Travel' is the general activity. 'Trip' is a specific journey." },
+  { word1: "watch", word2: "see", sentence: "Did you ___ that documentary?", answer: "see/watch", explain: "Both work! But: 'see a film' (at the cinema), 'watch a film' (at home). 'Watch' implies actively paying attention." },
+  { word1: "bored", word2: "boring", sentence: "The lesson was really ___.", answer: "boring", explain: "The lesson is boring (it causes boredom). I am bored (I feel boredom). -ING = the cause. -ED = the feeling." },
+];
+
+const WHY = [
+  { collocation: "It's raining cats and dogs", wrong: "It's raining heavily (boring but correct)", discuss: "Why cats and dogs? There are theories — one is that in old London, dead animals would wash through streets during heavy rain. Another: thatched roofs where animals sheltered would collapse in storms. Whatever the origin, NO other language uses this image. What's your language's equivalent?" },
+  { collocation: "Commit a crime / commit to a relationship", wrong: "Do a crime / commit into a relationship", discuss: "Why does 'commit' work for both crimes AND relationships? Think about what they have in common: they're both things you can't easily take back. 'Commit' implies permanence and consequence. What other things can you 'commit' to?" },
+  { collocation: "Make the bed / do the dishes", wrong: "Do the bed / make the dishes", discuss: "Why MAKE the bed but DO the dishes? There's a rough pattern: 'make' implies creating or constructing something (you're 'making' the bed look tidy). 'Do' implies completing a task. But honestly — native speakers don't know why either." },
+  { collocation: "Take a break / give a speech", wrong: "Make a break / take a speech", discuss: "You TAKE a break (for yourself) but GIVE a speech (to others). The direction matters: take = receive/get, give = deliver/provide. What about 'take offence' and 'give offence'? Same event, different perspective!" },
+  { collocation: "A flock of birds / a pack of wolves / a school of fish", wrong: "A group of birds (boring but correct)", discuss: "Every animal group has a specific collective noun. A 'murder' of crows. A 'parliament' of owls. A 'conspiracy' of lemurs. Most of these come from medieval English. Why do you think crows got 'murder' and owls got 'parliament'?" },
+  { collocation: "Bitterly cold / deeply sorry / highly unlikely", wrong: "Very cold / very sorry / very unlikely", discuss: "These adverb + adjective combinations are very specific. You can be 'bitterly disappointed' but not 'bitterly happy'. You can be 'deeply moved' but not 'deeply amused'. Why does 'bitterly' only work with negative feelings?" },
+];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildQuickFire();
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildBattle();
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildWhy();
+}
+
+function buildQuickFire() {
+  const selected = [...QUICK_FIRE].sort(() => Math.random() - 0.5).slice(0, 8);
+  let html = `<div class="card"><h2>Quick Fire: Which word goes with it?</h2>
+    <p>A word appears. 4 options below. Which one naturally collocates? Both guess — say your answer out loud at the same time.</p>
+    <div class="score-bar">Score: <strong id="qfScore">0</strong> / ${selected.length}</div></div>`;
+
+  selected.forEach((q, i) => {
+    html += `
+    <div class="card" id="qf${i}">
+      <div class="clash-box">
+        <div class="clash-word">${q.word} + ?</div>
+        <div class="clash-q">Which word naturally follows?</div>
+      </div>
+      <div class="option-grid">
+        ${q.options.map((opt, oi) => `<div class="option-btn" onclick="checkQF(${i}, ${oi}, ${q.correct})">${q.word} ${opt}</div>`).join('')}
+      </div>
+      <div class="explanation" id="qfExp${i}">
+        <p>${q.explain}</p>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → BATTLE</button>`;
+  document.getElementById('panel1').innerHTML = html;
+}
+
+let qfScore = 0;
+function checkQF(qIdx, chosen, correct) {
+  const card = document.getElementById('qf' + qIdx);
+  const btns = card.querySelectorAll('.option-btn');
+  if (btns[0].classList.contains('correct') || btns[0].classList.contains('wrong')) return;
+  btns[correct].classList.add('correct');
+  if (chosen !== correct) btns[chosen].classList.add('wrong');
+  else { qfScore++; document.getElementById('qfScore').textContent = qfScore; }
+  document.getElementById('qfExp' + qIdx).classList.add('visible');
+}
+
+function buildBattle() {
+  const selected = [...BATTLE].sort(() => Math.random() - 0.5).slice(0, 6);
+  let html = `<div class="card"><h2>Battle: Which word fits?</h2>
+    <p>Two similar words. One sentence. Discuss which word fits — then reveal the answer.</p></div>`;
+
+  selected.forEach((b, i) => {
+    html += `
+    <div class="card">
+      <div class="pair-display">
+        <div class="pair-word">${b.word1}</div>
+        <div class="pair-word">${b.word2}</div>
+      </div>
+      <div class="fill-blank">
+        ${b.sentence.replace('___', '<span class="blank" id="blank${i}">?</span>')}
+      </div>
+      <p style="text-align:center; font-weight:600; margin:12px 0;">Discuss: which word goes in the gap?</p>
+      <div style="text-align:center;">
+        <button class="reveal-btn" style="background:#00b894;" onclick="document.getElementById('blank${i}').textContent='${b.answer}'; this.parentElement.nextElementSibling.classList.add('visible'); this.style.display='none';">Reveal answer</button>
+      </div>
+      <div class="explanation">
+        <p>${b.explain}</p>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab2').classList.add('done'); showTab(3);">NEXT → WHY?!</button>`;
+  document.getElementById('panel2').innerHTML = html;
+}
+
+function buildWhy() {
+  const selected = [...WHY].sort(() => Math.random() - 0.5).slice(0, 4);
+  let html = `<div class="card"><h2>Why?! — The weirdest collocations</h2>
+    <p>These collocations exist. They make no logical sense. Discuss why they work — and why the alternatives sound wrong.</p></div>`;
+
+  selected.forEach((w, i) => {
+    html += `
+    <div class="card">
+      <div class="clash-box" style="text-align:left;">
+        <p style="color:#55efc4; font-weight:800; font-size:1.2rem; margin-bottom:8px;">"${w.collocation}"</p>
+        <p style="color:#636e72; font-size:0.85rem;">Why not: "${w.wrong}"</p>
+      </div>
+      <div class="speak-prompt">
+        ${w.discuss}
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">FINISH → DEBRIEF</button>`;
+  document.getElementById('panel3').innerHTML = html;
+}
+
+const reveal_btn_style = `display:inline-block; padding:10px 24px; background:#00b894; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.9rem;`;
+</script>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Register</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #0984e3, #6c5ce7); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #0984e3; }
+.tab.active { color: #0984e3; border-bottom-color: #0984e3; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: linear-gradient(135deg, #0984e310, #6c5ce710); border-left: 4px solid #0984e3; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.situation-box { background: #1a1a2e; border-radius: 14px; padding: 24px; margin: 16px 0; text-align: center; }
+.situation-label { font-size: 0.7rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.situation-text { font-size: 1.2rem; font-weight: 700; color: #dfe6e9; line-height: 1.5; }
+
+.audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.audience-card { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.3s; text-align: center; }
+.audience-card:hover { border-color: #0984e3; transform: scale(1.02); }
+.audience-card.revealed { border-color: #0984e3; background: #0984e310; }
+.audience-icon { font-size: 2rem; margin-bottom: 8px; }
+.audience-name { font-size: 0.85rem; font-weight: 700; color: #1a1a2e; }
+.audience-desc { font-size: 0.75rem; color: #6c757d; margin-top: 4px; }
+
+.example-box { display: none; background: #f8f9fa; border-radius: 10px; padding: 16px; margin-top: 12px; border-left: 3px solid #0984e3; }
+.example-box.show { display: block; }
+.example-label { font-size: 0.7rem; color: #0984e3; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; }
+.example-text { font-size: 0.95rem; font-style: italic; color: #2d3436; }
+
+.discuss-prompt { background: #6c5ce710; border: 2px solid #6c5ce7; border-radius: 12px; padding: 16px; margin: 16px 0; }
+.discuss-prompt h4 { color: #6c5ce7; margin-bottom: 8px; font-size: 0.9rem; }
+
+.round-num { text-align: center; font-size: 0.85rem; color: #6c757d; font-weight: 700; margin-bottom: 8px; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #0984e3, #6c5ce7); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.scale { display: flex; justify-content: space-between; margin: 16px 0; padding: 12px; background: linear-gradient(90deg, #00b894, #fdcb6e, #e17055, #d63031); border-radius: 10px; }
+.scale-label { color: white; font-size: 0.75rem; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+.swap-note { text-align: center; background: #fdcb6e30; border: 2px dashed #fdcb6e; border-radius: 10px; padding: 12px; margin: 12px 0; font-weight: 600; font-size: 0.85rem; color: #636e72; }
+
+.challenge-box { background: linear-gradient(135deg, #d63031, #e17055); border-radius: 14px; padding: 20px; margin: 16px 0; color: white; text-align: center; }
+.challenge-box h4 { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE REGISTER</h1>
+  <p>Same message. Four audiences. Completely different words.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Say It Four Ways</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Guess the Audience</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Register Roulette</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>How you say it changes everything</h2>
+    <p style="margin-bottom:12px;">The same message — said to your best friend, your boss, a child, or a stranger — uses completely different words, tone, and grammar. That shift is <strong>register</strong>, and getting it right is what makes you sound natural.</p>
+    <div class="speak-prompt">
+      <strong>Example:</strong> "I don't understand" → to a friend: <em>"Wait, what?"</em> → to a professor: <em>"Sorry, could you explain that again?"</em> → to a child: <em>"Hmm, can you show me what you mean?"</em>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3 rounds</h2>
+    <div style="padding:10px 16px; background:#0984e310; border-radius:8px; border-left:3px solid #0984e3; margin:8px 0;">
+      <strong>Say It Four Ways:</strong> A situation appears. Both of you say it to 4 different audiences. Compare your versions.
+    </div>
+    <div style="padding:10px 16px; background:#6c5ce710; border-radius:8px; border-left:3px solid #6c5ce7; margin:8px 0;">
+      <strong>Guess the Audience:</strong> One person says it in a specific register. The other guesses WHO they're talking to.
+    </div>
+    <div style="padding:10px 16px; background:#d6303110; border-radius:8px; border-left:3px solid #d63031; margin:8px 0;">
+      <strong>Register Roulette:</strong> Random audience + random situation. You have 15 seconds. No time to plan.
+    </div>
+  </div>
+
+  <div class="scale">
+    <span class="scale-label">CASUAL</span>
+    <span class="scale-label">NEUTRAL</span>
+    <span class="scale-label">FORMAL</span>
+    <span class="scale-label">VERY FORMAL</span>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which audience was hardest to speak to?</strong> Was it the very formal one? The child? Why?
+    </div>
+    <div class="speak-prompt" style="border-color:#6c5ce7;">
+      <strong>What actually changes between registers?</strong> Think about: vocabulary, sentence length, directness, politeness markers, body language.
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>When have you got the register wrong in real life?</strong> Too formal with friends? Too casual in a meeting? What happened?
+    </div>
+    <div class="speak-prompt" style="border-color:#d63031;">
+      <strong>Is your native language the same?</strong> Do you shift register as much in your first language? More? Less?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const SITUATIONS = [
+  {
+    msg: "Tell someone their work isn't good enough",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They wrote a blog post and asked your opinion", ex: "Honestly? It's not your best. The middle bit lost me completely." },
+      { icon: "👔", name: "Your Boss", desc: "Giving feedback on their presentation draft", ex: "I think there are a few areas where we could strengthen the messaging." },
+      { icon: "👶", name: "A 7-year-old", desc: "They drew you a picture", ex: "I love the colours! What if you added some more detail to this part?" },
+      { icon: "🏢", name: "A Client", desc: "Responding to a proposal you can't accept", ex: "Thank you for this. We feel the proposal doesn't quite align with our current requirements." }
+    ],
+    discuss: "How direct can you be? Notice how the casual version is blunt while the formal version hides the criticism inside positive framing."
+  },
+  {
+    msg: "Ask someone to be quiet",
+    audiences: [
+      { icon: "👫", name: "Your Flatmate", desc: "They're being loud at midnight", ex: "Mate, shut up. Some of us are trying to sleep." },
+      { icon: "👔", name: "A Colleague", desc: "They're talking during a presentation", ex: "Sorry, would you mind keeping it down? I'm finding it hard to concentrate." },
+      { icon: "👶", name: "A Child", desc: "They're shouting in a library", ex: "Hey, we need to use our quiet voices in here, okay?" },
+      { icon: "🏢", name: "A Stranger", desc: "Someone on the phone in a quiet carriage", ex: "Excuse me, I think this is actually a quiet zone." }
+    ],
+    discuss: "The casual version uses a direct command. The formal versions use questions and hedging ('would you mind', 'I think'). Why do we soften requests for strangers?"
+  },
+  {
+    msg: "Say you can't come to an event",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "Their birthday party this weekend", ex: "I'm so sorry, I literally can't make Saturday. I feel awful." },
+      { icon: "👔", name: "Your Manager", desc: "A team building event", ex: "Unfortunately I won't be able to attend. I have a prior commitment that day." },
+      { icon: "👶", name: "A Child", desc: "A school play you'll miss", ex: "I really really wish I could come watch you, but I have to work. You'll be amazing though!" },
+      { icon: "🏢", name: "A Client", desc: "An industry networking dinner", ex: "Thank you for the invitation. Regrettably, I have a scheduling conflict and won't be able to join." }
+    ],
+    discuss: "Everyone apologises, but HOW they apologise changes completely. Casual: emotional ('feel awful'). Formal: distanced ('regrettably', 'scheduling conflict')."
+  },
+  {
+    msg: "Ask someone to lend you money",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "You need €50 until payday", ex: "Can you spot me fifty quid till Friday? I'm completely skint." },
+      { icon: "👔", name: "Your Parent", desc: "You need help with rent this month", ex: "Mum, I hate asking, but I'm a bit short this month. Could you help me out?" },
+      { icon: "👶", name: "A Younger Sibling", desc: "They have birthday money saved up", ex: "I know this is your money, but could I borrow a little bit? I promise I'll pay you back double." },
+      { icon: "🏢", name: "Your Bank", desc: "Requesting a loan increase", ex: "I'd like to discuss the possibility of extending my current credit facility." }
+    ],
+    discuss: "Asking for money is awkward at every level. Notice how we add more justification and promises as the relationship gets less personal."
+  },
+  {
+    msg: "Tell someone you disagree with them",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They think a terrible film is amazing", ex: "No way. That film was garbage. What are you on about?" },
+      { icon: "👔", name: "Your Boss", desc: "They've proposed a strategy you think is wrong", ex: "I see the logic, but I wonder if we've considered an alternative approach." },
+      { icon: "👶", name: "A Student", desc: "They've given an incorrect answer confidently", ex: "Interesting idea! Let's look at it together — what if we think about it this way?" },
+      { icon: "🏢", name: "A Panel", desc: "You're on a debate panel at a conference", ex: "That's a valid perspective. However, I'd suggest the evidence points in a somewhat different direction." }
+    ],
+    discuss: "Disagreeing casually is direct ('no way'). Formally, we often AGREE FIRST before disagreeing ('I see the logic, but...'). Why? Is this honest or just strategic?"
+  },
+  {
+    msg: "Complain that something is taking too long",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "You've been waiting 40 minutes for them", ex: "Where ARE you? I've been standing here like an idiot for ages." },
+      { icon: "👔", name: "A Contractor", desc: "A renovation that's 3 weeks overdue", ex: "I'd like to check in on the timeline. We're now quite a bit past the original completion date." },
+      { icon: "👶", name: "A Child", desc: "They're taking forever to get dressed", ex: "Come on, speedy! We need to get our shoes on. Can you do it in ten seconds?" },
+      { icon: "🏢", name: "Customer Service", desc: "Your delivery is 2 weeks late", ex: "I placed this order on the 15th and the estimated delivery has now passed. Could you look into this for me?" }
+    ],
+    discuss: "Casual complaints are emotional. Formal complaints are factual. To customer service, you state dates and facts. To a friend, you exaggerate ('ages', 'like an idiot')."
+  },
+  {
+    msg: "Tell someone they have food on their face",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "At lunch together", ex: "You've got something on your face. No, other side. Yeah, there." },
+      { icon: "👔", name: "Your Boss", desc: "Before they walk into a meeting", ex: "Sorry, just wanted to mention — you might want to check... you've got a little something just here." },
+      { icon: "👶", name: "A Child", desc: "Chocolate all over their cheeks", ex: "Look at you, messy monster! Let's get you cleaned up." },
+      { icon: "🏢", name: "A Date", desc: "First date, they have sauce on their chin", ex: "Oh, you've just got a tiny bit of... yeah, just there. Don't worry, happens to everyone." }
+    ],
+    discuss: "An embarrassing situation for the listener. Notice how we minimise it ('tiny bit', 'little something') more with people we don't know well. With friends, we're blunt."
+  },
+  {
+    msg: "Say you don't know the answer",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They've asked you a random question", ex: "No idea. Google it." },
+      { icon: "👔", name: "Your Boss", desc: "They've asked about project numbers in a meeting", ex: "I don't have those figures to hand, but I'll get them to you by end of day." },
+      { icon: "👶", name: "A Child", desc: "They've asked why the sky is blue", ex: "Ooh, that's a brilliant question! I think it's something to do with light... shall we find out together?" },
+      { icon: "🏢", name: "A Job Interviewer", desc: "They've asked something you can't answer", ex: "That's not an area I've worked in directly, but based on my experience with similar challenges, I'd approach it by..." }
+    ],
+    discuss: "Casually, 'I don't know' is fine. Formally, we NEVER just say 'I don't know' — we redirect, promise follow-up, or reframe. Is this dishonest or just professional?"
+  },
+  {
+    msg: "Ask someone to repeat what they said",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "Noisy pub, you can't hear them", ex: "What?! Say that again, I can't hear a thing." },
+      { icon: "👔", name: "A Professor", desc: "They explained something complex in a lecture", ex: "I'm sorry, would you mind going over that last point again?" },
+      { icon: "👶", name: "A Small Child", desc: "They're mumbling something", ex: "I really want to hear what you're saying! Can you say it nice and clearly for me?" },
+      { icon: "🏢", name: "A Client on a Video Call", desc: "The connection broke up", ex: "Apologies, I think we had a connection issue. Would you mind repeating that last part?" }
+    ],
+    discuss: "From 'What?' to 'Would you mind repeating...' — same request, completely different social signal. The formal version always includes an EXCUSE for not hearing."
+  },
+  {
+    msg: "Tell someone their idea won't work",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They want to quit their job and become an influencer", ex: "Look, I love you, but that's a terrible idea. You'd be broke in a month." },
+      { icon: "👔", name: "A Colleague", desc: "They've pitched a plan in a meeting", ex: "There are some strong elements here. I think the challenge might be the implementation timeline." },
+      { icon: "👶", name: "A Child", desc: "They want to build a rocket from cardboard", ex: "That's so cool! It might not fly for real, but we could definitely make an amazing model." },
+      { icon: "🏢", name: "An Investor", desc: "They've suggested a strategy for your startup", ex: "We appreciate the input. We explored a similar approach earlier and found some significant obstacles around scalability." }
+    ],
+    discuss: "To a friend: blunt rejection. To colleagues and investors: the 'compliment sandwich' — positive, negative, redirect. To a child: redirect without crushing the idea. Which is kindest?"
+  },
+  {
+    msg: "Say goodbye and that you want to leave",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "A house party that's getting boring", ex: "Right, I'm out. This is dead. Text me tomorrow." },
+      { icon: "👔", name: "Your Boss", desc: "A networking event they invited you to", ex: "It's been a great evening. I should probably head off — early start tomorrow. Thanks so much for the invitation." },
+      { icon: "👶", name: "A Child", desc: "Babysitting a kid who doesn't want you to leave", ex: "I've had SO much fun with you today! I have to go now, but we'll play again really soon, okay?" },
+      { icon: "🏢", name: "A Client", desc: "Wrapping up a dinner meeting", ex: "This has been incredibly productive. I don't want to keep you too late — shall we pick this up next week?" }
+    ],
+    discuss: "Casual: no excuse needed. Formal: we always give a REASON for leaving, even a fake one ('early start'). With children, we focus on the future ('we'll play again')."
+  },
+  {
+    msg: "Ask for help with something you should probably know",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "How to boil an egg properly", ex: "This is embarrassing but... how long do you boil an egg? I never learned." },
+      { icon: "👔", name: "IT Support", desc: "Your computer does something you can't fix", ex: "Hi, I'm having an issue with my display settings. I've tried restarting but it hasn't resolved it." },
+      { icon: "👶", name: "A Child", desc: "They're better at a video game than you", ex: "Okay, you're clearly the expert here. How do I get past this level? Teach me!" },
+      { icon: "🏢", name: "A New Colleague", desc: "You should know the system but you forgot", ex: "I know this is probably straightforward, but could you walk me through the process? I want to make sure I'm doing it correctly." }
+    ],
+    discuss: "Admitting ignorance casually is fine ('I never learned'). Formally, we disguise it ('I want to make sure I'm doing it correctly'). Is it harder to admit you don't know something at work?"
+  },
+  {
+    msg: "Tell someone you're angry with them",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They told someone your secret", ex: "I told you that in confidence. I'm actually really upset." },
+      { icon: "👔", name: "Your Boss", desc: "They took credit for your idea", ex: "I wanted to raise something. In the meeting, the idea I shared last week was presented without attribution, and I'd appreciate if we could address that." },
+      { icon: "👶", name: "A Child", desc: "They broke something on purpose", ex: "That really wasn't okay. I'm feeling quite upset about that. We need to talk about it." },
+      { icon: "🏢", name: "A Landlord", desc: "They haven't fixed something for months", ex: "I've raised this issue several times now without resolution. I'd like to formally request that this is addressed within the next 14 days." }
+    ],
+    discuss: "Casual anger uses emotion ('I'm upset'). Formal anger uses process ('I'd like to formally request'). The landlord version doesn't sound angry at all — but it's actually the most threatening."
+  },
+  {
+    msg: "Recommend a restaurant",
+    audiences: [
+      { icon: "👫", name: "Best Friend", desc: "They want somewhere good for dinner", ex: "Oh, go to that place on the corner. The pasta is insane. Get the carbonara, trust me." },
+      { icon: "👔", name: "Your Boss", desc: "They're looking for a client dinner venue", ex: "I'd suggest Osteria Rosso. It's excellent for business dinners — intimate but not too casual, with a strong wine list." },
+      { icon: "👶", name: "A Child", desc: "They want to choose where to eat", ex: "There's a place with AMAZING pizza — and I think they might even have ice cream for after!" },
+      { icon: "🏢", name: "A Travel Blog", desc: "Writing a recommendation for readers", ex: "For an authentic dining experience, the restaurant offers a carefully curated menu of seasonal dishes in an elegant yet approachable setting." }
+    ],
+    discuss: "Casual: personal enthusiasm ('insane', 'trust me'). Formal/written: descriptive adjectives ('curated', 'seasonal', 'approachable'). The information is the same — only the packaging changes."
+  },
+];
+
+const ROULETTE_AUDIENCES = [
+  { icon: "👫", name: "Best Friend" },
+  { icon: "👔", name: "Your Boss" },
+  { icon: "👶", name: "A 5-year-old" },
+  { icon: "🏢", name: "The Queen" },
+  { icon: "👩‍⚕️", name: "Your Doctor" },
+  { icon: "🎤", name: "A TV Interviewer" },
+  { icon: "👮", name: "A Police Officer" },
+  { icon: "💑", name: "A First Date" },
+  { icon: "👨‍🏫", name: "A Strict Teacher" },
+  { icon: "👵", name: "Your Grandmother" },
+  { icon: "🤝", name: "A Job Interviewer" },
+  { icon: "🏋️", name: "A Personal Trainer" },
+];
+
+const ROULETTE_SITUATIONS = [
+  "Say you need the toilet",
+  "Admit you were wrong",
+  "Ask them to hurry up",
+  "Say the food is terrible",
+  "Tell them their breath smells",
+  "Say you're bored",
+  "Ask for a pay rise",
+  "Explain you broke something",
+  "Say you forgot their name",
+  "Tell them they're wrong about something",
+  "Ask to borrow their phone",
+  "Say you need a day off",
+  "Admit you lied about something small",
+  "Ask them to stop talking",
+  "Say you don't like their outfit",
+  "Ask for directions",
+  "Complain about the noise",
+  "Say you're lost",
+  "Explain you're going to be very late",
+  "Tell them their fly is open",
+];
+
+let usedSit = [], usedGuess = [];
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (i === 1 && !document.getElementById('panel1').innerHTML) buildRound1();
+  if (i === 2 && !document.getElementById('panel2').innerHTML) buildRound2();
+  if (i === 3 && !document.getElementById('panel3').innerHTML) buildRound3();
+}
+
+function pick(arr, used, n) {
+  const available = arr.filter((_, i) => !used.includes(i));
+  const shuffled = available.sort(() => Math.random() - 0.5).slice(0, n);
+  shuffled.forEach(s => used.push(arr.indexOf(s)));
+  return shuffled;
+}
+
+function buildRound1() {
+  const items = pick(SITUATIONS, usedSit, 4);
+  let html = `<div class="card"><h2>Say It Four Ways</h2>
+    <p>A situation appears. Take turns — say it to each audience. Then tap to reveal an example and compare.</p></div>`;
+
+  items.forEach((sit, si) => {
+    html += `<div class="card">
+      <div class="round-num">${si + 1} / ${items.length}</div>
+      <div class="situation-box">
+        <div class="situation-label">The Situation</div>
+        <div class="situation-text">${sit.msg}</div>
+      </div>
+      <div class="audience-grid">`;
+
+    sit.audiences.forEach((aud, ai) => {
+      const id = `r1_${si}_${ai}`;
+      html += `
+        <div class="audience-card" onclick="toggleExample('${id}', this)">
+          <div class="audience-icon">${aud.icon}</div>
+          <div class="audience-name">${aud.name}</div>
+          <div class="audience-desc">${aud.desc}</div>
+          <div class="example-box" id="${id}">
+            <div class="example-label">One way to say it</div>
+            <div class="example-text">"${aud.ex}"</div>
+          </div>
+        </div>`;
+    });
+
+    html += `</div>
+      <div class="discuss-prompt">
+        <h4>What changed?</h4>
+        <p>${sit.discuss}</p>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → GUESS THE AUDIENCE</button>`;
+  document.getElementById('panel1').innerHTML = html;
+}
+
+function toggleExample(id, card) {
+  const box = document.getElementById(id);
+  box.classList.toggle('show');
+  card.classList.toggle('revealed');
+}
+
+function buildRound2() {
+  const items = pick(SITUATIONS, usedGuess, 4);
+  let html = `<div class="card"><h2>Guess the Audience</h2>
+    <p>One person picks a situation and an audience (secretly). They say the message in that register. The other person guesses WHO they were talking to.</p></div>`;
+
+  items.forEach((sit, si) => {
+    const who = si % 2 === 0 ? 'Person A' : 'Person B';
+    const guesser = si % 2 === 0 ? 'Person B' : 'Person A';
+    html += `<div class="card">
+      <div class="round-num">${si + 1} / ${items.length}</div>
+      <div class="situation-box">
+        <div class="situation-label">The Message</div>
+        <div class="situation-text">${sit.msg}</div>
+      </div>
+      <div class="swap-note">${who}: Choose an audience below (don't say which!) and say the message in that style</div>
+      <div class="audience-grid">`;
+
+    sit.audiences.forEach((aud, ai) => {
+      const id = `r2_${si}_${ai}`;
+      html += `
+        <div class="audience-card" onclick="toggleExample('${id}', this)">
+          <div class="audience-icon">${aud.icon}</div>
+          <div class="audience-name">${aud.name}</div>
+          <div class="audience-desc">${aud.desc}</div>
+          <div class="example-box" id="${id}">
+            <div class="example-label">Example</div>
+            <div class="example-text">"${aud.ex}"</div>
+          </div>
+        </div>`;
+    });
+
+    html += `</div>
+      <div class="speak-prompt" style="border-color:#6c5ce7;">
+        <strong>${guesser}: Who were they talking to?</strong> What specific words or phrases gave it away?
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab2').classList.add('done'); showTab(3);">NEXT → REGISTER ROULETTE</button>`;
+  document.getElementById('panel2').innerHTML = html;
+}
+
+function buildRound3() {
+  // Generate 8 random combinations
+  const combos = [];
+  for (let i = 0; i < 8; i++) {
+    const sit = ROULETTE_SITUATIONS[Math.floor(Math.random() * ROULETTE_SITUATIONS.length)];
+    const aud = ROULETTE_AUDIENCES[Math.floor(Math.random() * ROULETTE_AUDIENCES.length)];
+    combos.push({ sit, aud });
+  }
+
+  let html = `<div class="card"><h2>Register Roulette</h2>
+    <p>Random situation + random audience. No time to prepare — just say it. Take turns.</p></div>`;
+
+  combos.forEach((c, i) => {
+    const who = i % 2 === 0 ? 'Person A' : 'Person B';
+    html += `<div class="card" id="roulette_${i}" style="${i > 0 ? 'opacity:0.3;' : ''}">
+      <div class="round-num">${who} — Round ${i + 1}</div>
+      <div class="challenge-box">
+        <h4>${c.aud.icon} Say this to: ${c.aud.name}</h4>
+        <p style="font-size:1.2rem; margin-top:8px; font-weight:700;">"${c.sit}"</p>
+      </div>
+      ${i < 7 ? `<button class="btn" style="background:#2d3436;" onclick="document.getElementById('roulette_${i}').style.opacity='1'; document.getElementById('roulette_${i+1}').style.opacity='1'; this.style.display='none';">REVEAL NEXT</button>` : ''}
+    </div>`;
+  });
+
+  html += `<button class="btn" onclick="document.getElementById('tab3').classList.add('done'); showTab(4);">FINISH → DEBRIEF</button>`;
+  document.getElementById('panel3').innerHTML = html;
+}
+</script>
+</body>
+</html>
