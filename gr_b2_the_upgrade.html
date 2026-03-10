@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Upgrade</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #0984e3, #6c5ce7); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #0984e3; }
+.tab.active { color: #0984e3; border-bottom-color: #0984e3; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: #f1f3f5; border-left: 4px solid #0984e3; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 0.95rem; }
+
+.product-box { background: #1a1a2e; border-radius: 14px; padding: 28px; margin: 16px 0; text-align: center; }
+.product-icon { font-size: 4rem; margin-bottom: 12px; }
+.product-name { font-size: 1.3rem; color: #dfe6e9; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+.product-desc { font-size: 0.85rem; color: #636e72; margin-top: 8px; }
+
+.constraint-box { background: linear-gradient(135deg, #6c5ce710, #0984e310); border: 2px solid #6c5ce7; border-radius: 12px; padding: 16px; margin: 16px 0; }
+.constraint-label { font-size: 0.7rem; color: #6c5ce7; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px; }
+.constraint-text { font-size: 0.95rem; color: #2d3436; font-weight: 600; }
+
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.role-card { padding: 20px; border-radius: 12px; text-align: center; }
+.role-card.pitcher { background: linear-gradient(135deg, #0984e310, #6c5ce710); border: 2px solid #0984e3; }
+.role-card.investor { background: linear-gradient(135deg, #e74c3c10, #c0392b10); border: 2px solid #e74c3c; }
+.role-icon { font-size: 2rem; margin-bottom: 8px; }
+.role-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+.role-card.pitcher .role-name { color: #0984e3; }
+.role-card.investor .role-name { color: #e74c3c; }
+.role-rules { font-size: 0.8rem; color: #636e72; line-height: 1.4; }
+
+.timer-box { text-align: center; margin: 20px 0; }
+.timer-display { font-size: 3rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; cursor: pointer; user-select: none; }
+.timer-display.running { color: #0984e3; }
+.timer-display.danger { color: #e74c3c; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+.timer-label { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #0984e3, #6c5ce7); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 16px 0; }
+.verdict-btn { padding: 14px 8px; border-radius: 10px; border: 2px solid #dee2e6; background: #fff; cursor: pointer; text-align: center; font-weight: 700; font-size: 0.85rem; transition: all 0.2s; }
+.verdict-btn:hover { transform: scale(1.03); }
+.verdict-btn.invest { border-color: #27ae60; color: #27ae60; }
+.verdict-btn.invest:hover, .verdict-btn.invest.selected { background: #27ae60; color: white; }
+.verdict-btn.maybe { border-color: #f39c12; color: #f39c12; }
+.verdict-btn.maybe:hover, .verdict-btn.maybe.selected { background: #f39c12; color: white; }
+.verdict-btn.pass { border-color: #e74c3c; color: #e74c3c; }
+.verdict-btn.pass:hover, .verdict-btn.pass.selected { background: #e74c3c; color: white; }
+
+.swap-note { text-align: center; background: #fdcb6e30; border: 2px dashed #fdcb6e; border-radius: 10px; padding: 12px; margin: 12px 0; font-weight: 600; font-size: 0.85rem; color: #636e72; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE UPGRADE</h1>
+  <p>Pitch ridiculous improvements. Convince a sceptical investor.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Pitch 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Pitch 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Pitch 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Pitch 4</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- HOW IT WORKS -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>How This Works</h2>
+    <p style="margin-bottom:16px;">You're going to take boring, everyday objects and pitch creative upgrades to a sceptical investor. Think Dragon's Den / Shark Tank — but for things like pillows, shopping trolleys, and park benches.</p>
+
+    <div class="role-grid">
+      <div class="role-card pitcher">
+        <div class="role-icon">💡</div>
+        <div class="role-name">The Pitcher</div>
+        <div class="role-rules">Presents the upgraded product. Must make it sound like the most important invention of the century.</div>
+      </div>
+      <div class="role-card investor">
+        <div class="role-icon">🦈</div>
+        <div class="role-name">The Investor</div>
+        <div class="role-rules">Asks tough questions. Looks for weaknesses. Decides: invest, maybe, or walk away.</div>
+      </div>
+    </div>
+
+    <div class="speak-prompt"><strong>Each round:</strong> A mundane object + a creative constraint appear. The Pitcher has <strong>90 seconds</strong> to prepare, then <strong>2 minutes</strong> to pitch. The Investor grills them. Then swap roles.</div>
+
+    <p style="margin-top:16px; font-size:0.85rem; color:#636e72;">4 pitches total. You'll alternate who pitches and who invests.</p>
+
+    <button class="btn" onclick="startGame()">Let's Go</button>
+  </div>
+</div>
+
+<!-- ROUNDS -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+
+<!-- DEBRIEF -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Language Debrief</h2>
+    <p style="margin-bottom:16px;">Pitching and persuasion use very specific language patterns. Let's look at the key ones.</p>
+
+    <div class="speak-prompt"><strong>Selling the vision:</strong><br>"Imagine a world where..."<br>"What if I told you that [everyday problem] could be solved by..."<br>"This isn't just a [product] — it's a revolution in [area]."<br>"We're not selling a product. We're selling a lifestyle."</div>
+
+    <div class="speak-prompt"><strong>Handling tough questions:</strong><br>"That's a great question, and here's why..."<br>"I'm glad you asked that, because..."<br>"The research actually shows that..."<br>"I understand your concern, but consider this..."</div>
+
+    <div class="speak-prompt"><strong>Investor pushback:</strong><br>"Where's the evidence for that?"<br>"Who is actually going to buy this?"<br>"What's your competitive advantage?"<br>"That sounds great in theory, but in practice..."<br>"I'm not convinced. Change my mind."</div>
+
+    <div class="speak-prompt"><strong>Qualifying and hedging:</strong><br>"Early data suggests..."<br>"Based on our research..."<br>"While it's still in the early stages..."<br>"The potential market is estimated at..."</div>
+  </div>
+
+  <div class="card">
+    <h2>Discussion</h2>
+    <div class="speak-prompt">Which pitch was the most convincing? What made it work?</div>
+    <div class="speak-prompt">Have you ever had to persuade someone to invest in an idea — at work, in a meeting, or in daily life? What techniques did you use?</div>
+    <div class="speak-prompt">What's the difference between a good salesperson and a pushy one? Where's the line?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const products = [
+  { icon: "🛒", name: "Shopping Trolley", desc: "The humble supermarket trolley" },
+  { icon: "🛋️", name: "Sofa", desc: "The classic living room sofa" },
+  { icon: "🪥", name: "Toothbrush", desc: "The everyday manual toothbrush" },
+  { icon: "☂️", name: "Umbrella", desc: "The standard rain umbrella" },
+  { icon: "🚪", name: "Door", desc: "A regular interior door" },
+  { icon: "🪑", name: "Office Chair", desc: "The standard office swivel chair" },
+  { icon: "🗑️", name: "Bin", desc: "An ordinary household rubbish bin" },
+  { icon: "📎", name: "Paperclip", desc: "The classic metal paperclip" },
+  { icon: "🧹", name: "Broom", desc: "A traditional sweeping broom" },
+  { icon: "🛁", name: "Bathtub", desc: "A standard household bathtub" },
+  { icon: "📬", name: "Letterbox", desc: "A typical front-door letterbox" },
+  { icon: "🧤", name: "Gloves", desc: "Ordinary winter gloves" },
+  { icon: "🪞", name: "Mirror", desc: "A basic bathroom mirror" },
+  { icon: "🧲", name: "Fridge Magnet", desc: "A decorative fridge magnet" },
+  { icon: "🪣", name: "Bucket", desc: "A plain plastic bucket" },
+  { icon: "🧺", name: "Laundry Basket", desc: "A household laundry basket" }
+];
+
+const constraints = [
+  { text: "It must appeal to people over 70", label: "Target Audience" },
+  { text: "It must cost less than €5 to make", label: "Budget" },
+  { text: "It must solve a problem people don't realise they have", label: "Innovation" },
+  { text: "It must be powered by something unusual (not electricity)", label: "Power Source" },
+  { text: "It must be designed for use in space", label: "Environment" },
+  { text: "It must also work as something completely different", label: "Dual Purpose" },
+  { text: "It must be luxury / premium priced at €500+", label: "Market Position" },
+  { text: "It must be designed for pets as well as humans", label: "Audience" },
+  { text: "It must incorporate AI in a useful way", label: "Technology" },
+  { text: "It must be completely silent", label: "Constraint" },
+  { text: "It must be made from only recycled materials", label: "Sustainability" },
+  { text: "It must double as a piece of art", label: "Aesthetics" },
+  { text: "It must be designed for a world without smartphones", label: "Scenario" },
+  { text: "It must be unbreakable", label: "Durability" }
+];
+
+let selectedProducts = [];
+let selectedConstraints = [];
+let roundTimers = {};
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  selectedProducts = shuffle(products).slice(0, 4);
+  selectedConstraints = shuffle(constraints).slice(0, 4);
+  for (let r = 0; r < 4; r++) {
+    buildRound(r);
+  }
+  showTab(1);
+}
+
+function buildRound(r) {
+  const panel = document.getElementById(`panel${r + 1}`);
+  const prod = selectedProducts[r];
+  const cons = selectedConstraints[r];
+  const pitcher = r % 2 === 0 ? 'Person A' : 'Person B';
+  const investor = r % 2 === 0 ? 'Person B' : 'Person A';
+
+  panel.innerHTML = `
+    <div style="text-align:center;font-size:0.8rem;color:#6c757d;font-weight:700;margin-bottom:12px;">PITCH ${r + 1} OF 4</div>
+
+    <div class="card">
+      <div class="swap-note">${pitcher} pitches · ${investor} invests</div>
+
+      <div class="product-box">
+        <div class="product-icon">${prod.icon}</div>
+        <div class="product-name">${prod.name}</div>
+        <div class="product-desc">${prod.desc}</div>
+      </div>
+
+      <div class="constraint-box">
+        <div class="constraint-label">${cons.label} — Your Constraint</div>
+        <div class="constraint-text">${cons.text}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Preparation (90 seconds)</h2>
+      <p style="margin-bottom:12px;">The Pitcher thinks about their upgrade. What's the product called? What does it do? Why does the world need it?</p>
+
+      <div class="timer-box">
+        <div class="timer-label">Tap to Start / Reset</div>
+        <div class="timer-display" id="prep_timer_${r}" onclick="toggleTimer('prep', ${r}, 90)">1:30</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>The Pitch (2 minutes)</h2>
+      <p style="margin-bottom:8px;">The Pitcher presents. The Investor listens, then asks tough questions.</p>
+
+      <div class="speak-prompt"><strong>Pitcher — try to include:</strong><br>
+      • A catchy product name<br>
+      • The problem it solves<br>
+      • How the constraint makes it better<br>
+      • Who will buy it and why<br>
+      • A memorable closing line</div>
+
+      <div class="timer-box">
+        <div class="timer-label">Tap to Start / Reset</div>
+        <div class="timer-display" id="pitch_timer_${r}" onclick="toggleTimer('pitch', ${r}, 120)">2:00</div>
+      </div>
+
+      <div class="speak-prompt"><strong>Investor — ask things like:</strong><br>
+      "How much would this actually cost?"<br>
+      "Who's your target customer?"<br>
+      "What happens when it breaks?"<br>
+      "Why wouldn't someone just use a normal ${prod.name.toLowerCase()}?"<br>
+      "What makes this different from [competitor]?"</div>
+    </div>
+
+    <div class="card">
+      <h2>The Verdict</h2>
+      <p style="margin-bottom:12px;">Investor — what's your decision?</p>
+
+      <div class="verdict-grid" id="verdict_${r}">
+        <div class="verdict-btn invest" onclick="selectVerdict(${r}, this)">💰 Invest!</div>
+        <div class="verdict-btn maybe" onclick="selectVerdict(${r}, this)">🤔 Maybe...</div>
+        <div class="verdict-btn pass" onclick="selectVerdict(${r}, this)">👋 I'm Out</div>
+      </div>
+
+      <div class="speak-prompt" style="margin-top:12px;"><strong>Investor — explain your reasoning:</strong><br>
+      "I'm investing because..."<br>
+      "I like the concept, but I need to see..."<br>
+      "I'm out because..."</div>
+    </div>
+
+    <button class="btn" onclick="completeRound(${r})">
+      ${r < 3 ? `Next Pitch →` : `Go to Debrief →`}
+    </button>
+  `;
+}
+
+function toggleTimer(type, r, total) {
+  const key = `${type}_${r}`;
+  const el = document.getElementById(`${type}_timer_${r}`);
+
+  if (roundTimers[key]) {
+    clearInterval(roundTimers[key].interval);
+    delete roundTimers[key];
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    el.className = 'timer-display';
+    return;
+  }
+
+  let seconds = total;
+  el.className = 'timer-display running';
+
+  const interval = setInterval(() => {
+    seconds--;
+    if (seconds <= 0) {
+      clearInterval(interval);
+      delete roundTimers[key];
+      el.textContent = '0:00';
+      el.className = 'timer-display danger';
+      return;
+    }
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    if (seconds <= 15) el.className = 'timer-display danger';
+  }, 1000);
+
+  roundTimers[key] = { interval, seconds };
+}
+
+function selectVerdict(r, el) {
+  document.querySelectorAll(`#verdict_${r} .verdict-btn`).forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function completeRound(r) {
+  Object.keys(roundTimers).forEach(key => {
+    if (key.includes(`_${r}`)) {
+      clearInterval(roundTimers[key].interval);
+      delete roundTimers[key];
+    }
+  });
+  const tab = document.getElementById(`tab${r + 1}`);
+  if (tab) tab.classList.add('done');
+  showTab(r < 3 ? r + 2 : 5);
+}
+
+function showTab(idx) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

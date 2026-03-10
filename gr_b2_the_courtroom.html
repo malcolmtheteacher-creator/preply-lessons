@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Courtroom</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #6c3483, #2c3e50); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #6c3483; }
+.tab.active { color: #6c3483; border-bottom-color: #6c3483; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: #f1f3f5; border-left: 4px solid #6c3483; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 0.95rem; }
+
+.scenario-box { background: #1a1a2e; border-radius: 14px; padding: 24px; margin: 16px 0; }
+.scenario-label { font-size: 0.7rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; text-align: center; }
+.scenario-text { font-size: 1.1rem; color: #dfe6e9; line-height: 1.5; text-align: center; font-weight: 600; }
+
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.role-card { padding: 20px; border-radius: 12px; text-align: center; }
+.role-card.lawyer { background: linear-gradient(135deg, #6c348310, #8e44ad10); border: 2px solid #6c3483; }
+.role-card.witness { background: linear-gradient(135deg, #2c3e5010, #34495e10); border: 2px solid #2c3e50; }
+.role-icon { font-size: 2rem; margin-bottom: 8px; }
+.role-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+.role-card.lawyer .role-name { color: #6c3483; }
+.role-card.witness .role-name { color: #2c3e50; }
+.role-rules { font-size: 0.8rem; color: #636e72; line-height: 1.4; }
+
+.secret-box { background: linear-gradient(135deg, #e74c3c10, #c0392b10); border: 2px solid #e74c3c; border-radius: 12px; padding: 16px; margin: 16px 0; display: none; }
+.secret-box.show { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.secret-label { font-size: 0.7rem; color: #e74c3c; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px; }
+.secret-text { font-size: 0.95rem; color: #2d3436; line-height: 1.5; }
+
+.timer-box { text-align: center; margin: 16px 0; }
+.timer-display { font-size: 3rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; cursor: pointer; }
+.timer-display.running { color: #6c3483; }
+.timer-display.danger { color: #e74c3c; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+.timer-label { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; }
+
+.reveal-btn { display: block; width: 100%; padding: 14px; background: #e74c3c; color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin: 12px 0; transition: all 0.2s; text-transform: uppercase; }
+.reveal-btn:hover { background: #c0392b; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #6c3483, #2c3e50); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+
+.swap-note { text-align: center; background: #fdcb6e30; border: 2px dashed #fdcb6e; border-radius: 10px; padding: 12px; margin: 12px 0; font-weight: 600; font-size: 0.85rem; color: #636e72; }
+.round-num { text-align: center; font-size: 0.85rem; color: #6c757d; font-weight: 700; margin-bottom: 8px; }
+
+.question-bank { background: #f1f3f5; border-radius: 10px; padding: 16px; margin: 12px 0; }
+.question-bank h4 { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.q-chip { display: inline-block; background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 3px; color: #495057; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE COURTROOM</h1>
+  <p>The lawyer asks. The witness answers. Yes or no only.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Case 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Case 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Case 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Case 4</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The interrogation game</h2>
+    <p style="margin-bottom:12px;">Something happened. The lawyer knows the situation but not the details. The witness knows everything. The lawyer can ONLY ask <strong>yes/no questions</strong>. The witness must answer honestly — but can be as vague and unhelpful as legally possible.</p>
+  </div>
+
+  <div class="card">
+    <h2>The roles</h2>
+    <div class="role-grid">
+      <div class="role-card lawyer">
+        <div class="role-icon">⚖️</div>
+        <div class="role-name">THE LAWYER</div>
+        <div class="role-rules">You see the situation. You DON'T see the secret details. You have 2 minutes to figure out what happened using ONLY yes/no questions. Be strategic.</div>
+      </div>
+      <div class="role-card witness">
+        <div class="role-icon">🧑‍💼</div>
+        <div class="role-name">THE WITNESS</div>
+        <div class="role-rules">You see the secret details. Answer honestly — but you can say "yes", "no", "I don't remember", or "I can't answer that." Be evasive. Make them work for it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="question-bank">
+      <h4>Question starters for the lawyer</h4>
+      <span class="q-chip">"Were you alone?"</span>
+      <span class="q-chip">"Did this happen at night?"</span>
+      <span class="q-chip">"Was money involved?"</span>
+      <span class="q-chip">"Did you plan this in advance?"</span>
+      <span class="q-chip">"Were there other people present?"</span>
+      <span class="q-chip">"Is this something you'd do again?"</span>
+      <span class="q-chip">"Did anyone get hurt?"</span>
+      <span class="q-chip">"Was it your idea?"</span>
+    </div>
+  </div>
+
+  <button class="btn" onclick="showTab(1)">START CASE 1</button>
+</div>
+
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Reflection</h2>
+    <div class="speak-prompt">
+      <strong>Which role was harder — lawyer or witness?</strong> Is it harder to ask the right question, or to answer without giving too much away?
+    </div>
+    <div class="speak-prompt" style="border-color:#e74c3c;">
+      <strong>What questioning strategy worked best?</strong> Did you narrow down with big questions first, or go straight for specific details?
+    </div>
+    <div class="speak-prompt" style="border-color:#00b894;">
+      <strong>Think about real life:</strong> When do you need to extract information from someone who doesn't want to give it? Job interviews? Negotiations? Arguments?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const CASES = [
+  {
+    situation: "Someone called in sick to work — but they weren't actually sick.",
+    secret: "They called in sick because they had a job interview at a rival company. They got the job. They haven't told their boss yet. Their colleague saw them in a suit in the city centre and posted a photo on social media.",
+    lawyerNote: "You know the person wasn't really sick. Find out where they were and why."
+  },
+  {
+    situation: "A large amount of money appeared in someone's bank account overnight.",
+    secret: "Their elderly neighbour passed away and left them €50,000 in their will. The person had helped the neighbour with shopping for years. The neighbour's family is furious and claims the person manipulated the old woman. The person had no idea they were in the will.",
+    lawyerNote: "You know the money appeared. Find out where it came from and why."
+  },
+  {
+    situation: "Someone was seen leaving a hotel at 2am on a Tuesday night.",
+    secret: "They were attending a secret surprise birthday party for their best friend, organised at the hotel bar. They told their partner they were 'working late.' Their partner saw the hotel on their bank statement. It's completely innocent but looks terrible.",
+    lawyerNote: "You know they were at a hotel at 2am. Find out why."
+  },
+  {
+    situation: "A teacher's laptop was found open on a student's desk after class.",
+    secret: "The student found the laptop left behind after class and was trying to find the teacher's email to report it. While the laptop was open, a notification popped up showing next week's exam questions. The student didn't read them — but another student walked in and took a photo of the screen.",
+    lawyerNote: "You know the student had the teacher's laptop. Find out what happened."
+  },
+  {
+    situation: "Someone returned from a weekend trip with a wedding ring they didn't have before.",
+    secret: "They went to Las Vegas for a friend's birthday. They got extremely drunk. They married a stranger in a chapel at 4am. They don't remember any of it. They woke up with the ring and a marriage certificate. They're now legally married to someone they've never met sober.",
+    lawyerNote: "You know they came back with a ring. Find out what happened that weekend."
+  },
+  {
+    situation: "A company's confidential client list was emailed to a competitor.",
+    secret: "An employee accidentally attached the wrong file to an email. They were sending their CV to the competitor (looking for a new job). Instead of their CV, they attached the client list which had a similar filename. They immediately realised and called the competitor, who agreed to delete it. But the damage was already flagged by IT.",
+    lawyerNote: "You know the list was sent. Find out if it was deliberate."
+  },
+  {
+    situation: "Someone's car was found abandoned on a motorway bridge at 3am.",
+    secret: "They ran out of petrol on the bridge. Their phone was dead. They walked 4 miles to the nearest petrol station, bought a canister, and walked back. When they returned at 5am, the police had already found the car and started a missing person search. They felt terrible about the panic they caused.",
+    lawyerNote: "You know the car was abandoned on a bridge at night. Find out what happened to the driver."
+  },
+  {
+    situation: "A restaurant chef was caught adding an unlisted ingredient to every dish.",
+    secret: "The chef had been adding a tiny amount of miso paste to every dish — including desserts — because it enhances flavour without being detectable. No customers had complained; in fact, reviews improved dramatically. But the restaurant owner discovered it and was furious because some customers might have soy allergies.",
+    lawyerNote: "You know the chef added something secret. Find out what and why."
+  },
+  {
+    situation: "Someone was photographed entering a building that was supposed to be empty and condemned.",
+    secret: "They're a street artist who has been secretly painting murals inside abandoned buildings for years. The condemned building has an entire gallery of their work inside. A journalist found out and took the photo. The artwork is stunning, but the person was technically trespassing.",
+    lawyerNote: "You know they entered a condemned building. Find out what they were doing inside."
+  },
+  {
+    situation: "An employee has been clocking in at 6am every day, but their actual work doesn't start until 9am.",
+    secret: "They arrive at 6am to use the office gym (which is free for employees) and shower before work. They've been doing this for 2 years. But the system logs it as overtime, and they've been accidentally paid an extra €15,000 over that period. They genuinely didn't notice the extra money until HR flagged it.",
+    lawyerNote: "You know they arrive 3 hours early every day. Find out why."
+  },
+  {
+    situation: "A passenger was removed from a flight after an argument with the cabin crew.",
+    secret: "The passenger's 4-year-old daughter was terrified of flying and was crying uncontrollably. A flight attendant told them to 'control the child or leave.' The passenger responded angrily, defending their daughter. Other passengers sided with the parent. The airline later apologised publicly.",
+    lawyerNote: "You know the passenger was removed. Find out what the argument was about."
+  },
+  {
+    situation: "Someone has been receiving anonymous letters every week for six months.",
+    secret: "The letters contain beautiful, hand-written poetry. They're from the person's elderly father, who has early-stage dementia and has forgotten that he already gave them a book of his poems years ago. He writes them fresh each week, thinking it's the first time. The person hasn't told him they know.",
+    lawyerNote: "You know about the anonymous letters. Find out who's sending them and why."
+  },
+];
+
+let usedCases = [];
+let caseTimer = null;
+
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+  if (caseTimer) { clearInterval(caseTimer); caseTimer = null; }
+  if (i >= 1 && i <= 4 && !document.getElementById('panel' + i).innerHTML) buildCase(i);
+}
+
+function pickCase() {
+  const available = CASES.filter((_, i) => !usedCases.includes(i));
+  if (available.length === 0) return CASES[Math.floor(Math.random() * CASES.length)];
+  const pick = available[Math.floor(Math.random() * available.length)];
+  usedCases.push(CASES.indexOf(pick));
+  return pick;
+}
+
+function buildCase(tabNum) {
+  const c = pickCase();
+  const lawyerIs = tabNum % 2 === 1 ? 'Person A' : 'Person B';
+  const witnessIs = tabNum % 2 === 1 ? 'Person B' : 'Person A';
+
+  document.getElementById('panel' + tabNum).innerHTML = `
+    <div class="card">
+      <div class="round-num">Case ${tabNum}</div>
+      <div class="scenario-box">
+        <div class="scenario-label">The Situation (both read this)</div>
+        <div class="scenario-text">${c.situation}</div>
+      </div>
+      <div class="role-grid">
+        <div class="role-card lawyer">
+          <div class="role-icon">⚖️</div>
+          <div class="role-name">${lawyerIs}: LAWYER</div>
+          <div class="role-rules">${c.lawyerNote} Ask yes/no questions only.</div>
+        </div>
+        <div class="role-card witness">
+          <div class="role-icon">🧑‍💼</div>
+          <div class="role-name">${witnessIs}: WITNESS</div>
+          <div class="role-rules">Tap below to see the secret details. Answer honestly but minimally.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="reveal-btn" onclick="document.getElementById('secret${tabNum}').classList.add('show'); this.style.display='none';">
+        ${witnessIs}: TAP TO SEE THE SECRET DETAILS
+      </button>
+      <div class="secret-box" id="secret${tabNum}">
+        <div class="secret-label">The Full Truth (witness only — don't read aloud!)</div>
+        <div class="secret-text">${c.secret}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="timer-box">
+        <div class="timer-label">Tap to start · 2 minutes</div>
+        <div class="timer-display" id="timer${tabNum}" onclick="startCaseTimer(${tabNum})">2:00</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="speak-prompt">
+        <strong>After the timer:</strong> Lawyer — summarise what you think happened. Then the witness reveals the full truth. How close were you?
+      </div>
+      <button class="btn" onclick="document.getElementById('tab${tabNum}').classList.add('done'); showTab(${tabNum < 4 ? tabNum + 1 : 5});">${tabNum < 4 ? 'NEXT CASE →' : 'FINISH → DEBRIEF'}</button>
+    </div>
+  `;
+}
+
+function startCaseTimer(tabNum) {
+  const el = document.getElementById('timer' + tabNum);
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = 120;
+  if (caseTimer) clearInterval(caseTimer);
+  caseTimer = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 15) { el.classList.remove('running'); el.classList.add('danger'); }
+    if (remaining <= 0) {
+      clearInterval(caseTimer);
+      caseTimer = null;
+      el.textContent = "TIME";
+      el.classList.remove('danger');
+      el.dataset.running = 'false';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>

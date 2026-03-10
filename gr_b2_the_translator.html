@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Translator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #c0392b, #e67e22); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #c0392b; }
+.tab.active { color: #c0392b; border-bottom-color: #c0392b; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: #f1f3f5; border-left: 4px solid #c0392b; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 0.95rem; }
+
+.idiom-box { background: #1a1a2e; border-radius: 14px; padding: 24px; margin: 16px 0; text-align: center; }
+.idiom-lang { font-size: 0.65rem; color: #e67e22; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-weight: 700; }
+.idiom-original { font-size: 1.15rem; color: #dfe6e9; font-weight: 700; font-style: italic; margin-bottom: 12px; }
+.idiom-literal { font-size: 1rem; color: #fdcb6e; font-weight: 600; }
+.idiom-literal-label { font-size: 0.6rem; color: #636e72; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+
+.reveal-box { background: linear-gradient(135deg, #c0392b10, #e67e2210); border: 2px solid #c0392b; border-radius: 12px; padding: 20px; margin: 16px 0; display: none; }
+.reveal-box.show { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.reveal-label { font-size: 0.7rem; color: #c0392b; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px; }
+.reveal-meaning { font-size: 1rem; color: #2d3436; font-weight: 600; margin-bottom: 8px; }
+.reveal-english { font-size: 0.95rem; color: #636e72; line-height: 1.5; }
+.reveal-english strong { color: #c0392b; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #c0392b, #e67e22); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+.btn-reveal { display: block; width: 100%; padding: 14px; background: #c0392b; color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin: 12px 0; transition: all 0.2s; }
+.btn-reveal:hover { background: #a93226; }
+
+.round-num { text-align: center; font-size: 0.85rem; color: #6c757d; font-weight: 700; margin-bottom: 8px; }
+
+.flag-row { display: flex; justify-content: center; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.flag-tag { background: #f1f3f5; border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; color: #495057; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE TRANSLATOR</h1>
+  <p>Foreign idioms. Literal translations. Can you guess what they really mean?</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Round 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Round 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Round 3</div>
+  <div class="tab" onclick="showTab(4)" id="tab4">Round 4</div>
+  <div class="tab" onclick="showTab(5)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- HOW IT WORKS -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>How This Works</h2>
+    <p style="margin-bottom:16px;">Every language has idioms that sound completely bizarre when translated literally into English. You'll see the literal translation — and try to figure out what it actually means.</p>
+
+    <div class="speak-prompt"><strong>Each round:</strong> You'll see 3 idioms from different languages, translated literally into English. Discuss what you think each one means before revealing the answer.</div>
+
+    <div class="speak-prompt"><strong>Then:</strong> Try to think of the closest English equivalent — is there an English idiom that means the same thing?</div>
+
+    <div class="flag-row">
+      <span class="flag-tag">🇩🇪 German</span>
+      <span class="flag-tag">🇫🇷 French</span>
+      <span class="flag-tag">🇯🇵 Japanese</span>
+      <span class="flag-tag">🇪🇸 Spanish</span>
+      <span class="flag-tag">🇮🇹 Italian</span>
+      <span class="flag-tag">🇧🇷 Portuguese</span>
+      <span class="flag-tag">🇷🇺 Russian</span>
+      <span class="flag-tag">🇸🇪 Swedish</span>
+      <span class="flag-tag">🇹🇷 Turkish</span>
+      <span class="flag-tag">🇵🇱 Polish</span>
+      <span class="flag-tag">🇳🇱 Dutch</span>
+      <span class="flag-tag">🇰🇷 Korean</span>
+    </div>
+
+    <p style="margin-top:16px; font-size:0.85rem; color:#636e72;">12 idioms across 4 rounds, randomly selected each session from a pool of 24.</p>
+
+    <button class="btn" onclick="startGame()">Start</button>
+  </div>
+</div>
+
+<!-- ROUNDS -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+<div class="panel" id="panel4"></div>
+
+<!-- DEBRIEF -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>Language Debrief</h2>
+    <p style="margin-bottom:16px;">Idioms reveal how cultures see the world differently — even when they're describing the same human experiences.</p>
+
+    <div class="speak-prompt"><strong>Speculating about meaning:</strong><br>"I think it might mean..."<br>"It could be their way of saying..."<br>"My best guess is..."<br>"It sounds like it's about..."</div>
+
+    <div class="speak-prompt"><strong>Comparing across languages:</strong><br>"In English we'd say..."<br>"We have something similar: ..."<br>"There's no direct equivalent, but the closest would be..."<br>"It's like our expression '...' but more..."</div>
+
+    <div class="speak-prompt"><strong>Discussing cultural differences:</strong><br>"It's interesting that they use [image] to describe [concept]..."<br>"That tells you something about the culture..."<br>"English tends to use [X] metaphors, but this language uses [Y]..."</div>
+  </div>
+
+  <div class="card">
+    <h2>Discussion</h2>
+    <div class="speak-prompt">Which idiom was your favourite? Which one was hardest to guess?</div>
+    <div class="speak-prompt">Do you know any idioms from your own language (or another language you speak) that sound funny in English?</div>
+    <div class="speak-prompt">Why do you think different cultures use such different images to describe the same ideas?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const allIdioms = [
+  { lang: "German", flag: "🇩🇪", original: "Ich verstehe nur Bahnhof", literal: "I only understand train station", meaning: "I don't understand anything / It's all going over my head", english: "It's all Greek to me" },
+  { lang: "German", flag: "🇩🇪", original: "Da steppt der Bär", literal: "The bear dances there", meaning: "It's going to be a great party / Things are really happening", english: "The place is buzzing / It's going to be a blast" },
+  { lang: "French", flag: "🇫🇷", original: "Avoir le cafard", literal: "To have the cockroach", meaning: "To feel depressed or down", english: "To feel blue / To be down in the dumps" },
+  { lang: "French", flag: "🇫🇷", original: "Poser un lapin à quelqu'un", literal: "To put a rabbit on someone", meaning: "To stand someone up / Not show up to a date or meeting", english: "To stand someone up" },
+  { lang: "Japanese", flag: "🇯🇵", original: "猿も木から落ちる (Saru mo ki kara ochiru)", literal: "Even monkeys fall from trees", meaning: "Even experts make mistakes sometimes", english: "Nobody's perfect / Even Homer nods" },
+  { lang: "Japanese", flag: "🇯🇵", original: "猫の手も借りたい (Neko no te mo karitai)", literal: "I want to borrow a cat's paws", meaning: "I'm so busy I'll take any help I can get", english: "I could use an extra pair of hands" },
+  { lang: "Spanish", flag: "🇪🇸", original: "Estar en la edad del pavo", literal: "To be at the age of the turkey", meaning: "To be at that awkward teenage age", english: "Going through an awkward phase" },
+  { lang: "Spanish", flag: "🇪🇸", original: "No tener pelos en la lengua", literal: "To have no hairs on your tongue", meaning: "To speak very directly / not hold back", english: "To not mince words / To be blunt" },
+  { lang: "Italian", flag: "🇮🇹", original: "In bocca al lupo", literal: "Into the mouth of the wolf", meaning: "Good luck! (said before exams, performances, etc.)", english: "Break a leg!" },
+  { lang: "Italian", flag: "🇮🇹", original: "Avere le mani in pasta", literal: "To have your hands in the dough", meaning: "To be involved in everything / to have a finger in every pie", english: "To have a finger in every pie" },
+  { lang: "Portuguese", flag: "🇧🇷", original: "Engolir sapos", literal: "To swallow frogs", meaning: "To put up with something unpleasant without complaining", english: "To bite your tongue / To grin and bear it" },
+  { lang: "Portuguese", flag: "🇧🇷", original: "Pagar o pato", literal: "To pay the duck", meaning: "To take the blame for something you didn't do", english: "To be the scapegoat / To take the fall" },
+  { lang: "Russian", flag: "🇷🇺", original: "Вешать лапшу на уши (Veshat' lapshu na ushi)", literal: "To hang noodles on someone's ears", meaning: "To lie to someone / To tell tall tales", english: "To pull the wool over someone's eyes" },
+  { lang: "Russian", flag: "🇷🇺", original: "Когда рак на горе свистнет (Kogda rak na gore svistnet)", literal: "When the crayfish whistles on the mountain", meaning: "Something that will never happen", english: "When pigs fly" },
+  { lang: "Swedish", flag: "🇸🇪", original: "Det är ingen ko på isen", literal: "There is no cow on the ice", meaning: "There's nothing to worry about / No need to panic", english: "No need to worry / It's all good" },
+  { lang: "Swedish", flag: "🇸🇪", original: "Att glida in på en räkmacka", literal: "To slide in on a shrimp sandwich", meaning: "To have things handed to you without working for them", english: "To have it handed to you on a silver platter" },
+  { lang: "Turkish", flag: "🇹🇷", original: "Ayıkla pirincin taşını", literal: "Pick the stones out of the rice", meaning: "A response to an impossible or unreasonable request — 'deal with it yourself'", english: "That's your problem / Good luck with that" },
+  { lang: "Turkish", flag: "🇹🇷", original: "Armut piş ağzıma düş", literal: "Pear, cook yourself and fall into my mouth", meaning: "Someone who wants everything done for them without effort", english: "Expecting things to fall into your lap" },
+  { lang: "Polish", flag: "🇵🇱", original: "Nie mój cyrk, nie moje małpy", literal: "Not my circus, not my monkeys", meaning: "Not my problem / Not my responsibility", english: "Not my circus, not my monkeys (borrowed into English!)" },
+  { lang: "Polish", flag: "🇵🇱", original: "Mieć muchy w nosie", literal: "To have flies in your nose", meaning: "To be in a bad mood / to be grumpy", english: "To be in a foul mood / To have a bee in your bonnet" },
+  { lang: "Dutch", flag: "🇳🇱", original: "Helaas, pindakaas", literal: "Unfortunately, peanut butter", meaning: "Too bad, nothing you can do about it (said light-heartedly)", english: "Tough luck / Oh well" },
+  { lang: "Dutch", flag: "🇳🇱", original: "Nu komt de aap uit de mouw", literal: "Now the monkey comes out of the sleeve", meaning: "The truth is finally revealed / The hidden motive becomes clear", english: "The cat's out of the bag / Now we see your true colours" },
+  { lang: "Korean", flag: "🇰🇷", original: "눈에 콩깍지가 씌다 (Nun-e kongkkakji-ga ssida)", literal: "To have bean pods over your eyes", meaning: "To be blinded by love / unable to see someone's faults", english: "Love is blind / To see through rose-tinted glasses" },
+  { lang: "Korean", flag: "🇰🇷", original: "식은 죽 먹기 (Sigeun juk meokgi)", literal: "Eating cold porridge", meaning: "Something extremely easy to do", english: "A piece of cake / Easy as pie" }
+];
+
+let selectedIdioms = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  selectedIdioms = shuffle(allIdioms).slice(0, 12);
+  for (let r = 0; r < 4; r++) {
+    buildRound(r);
+  }
+  showTab(1);
+}
+
+function buildRound(r) {
+  const panel = document.getElementById(`panel${r + 1}`);
+  const idioms = selectedIdioms.slice(r * 3, r * 3 + 3);
+
+  panel.innerHTML = `
+    <div style="text-align:center;font-size:0.8rem;color:#6c757d;font-weight:700;margin-bottom:16px;">ROUND ${r + 1} OF 4</div>
+    ${idioms.map((idiom, i) => {
+      const globalIdx = r * 3 + i;
+      return `
+        <div class="card">
+          <h2>${idiom.flag} ${idiom.lang}</h2>
+          <div class="idiom-box">
+            <div class="idiom-lang">${idiom.lang} Idiom</div>
+            <div class="idiom-original">"${idiom.original}"</div>
+            <div class="idiom-literal-label">Literal Translation</div>
+            <div class="idiom-literal">"${idiom.literal}"</div>
+          </div>
+
+          <div class="speak-prompt"><strong>Discuss:</strong> What do you think this actually means? When would someone say it?</div>
+
+          <button class="btn-reveal" onclick="revealIdiom(${globalIdx})">Reveal Meaning</button>
+
+          <div class="reveal-box" id="reveal_${globalIdx}">
+            <div class="reveal-label">Actual Meaning</div>
+            <div class="reveal-meaning">${idiom.meaning}</div>
+            <div class="reveal-english"><strong>Closest English equivalent:</strong> "${idiom.english}"</div>
+          </div>
+        </div>
+      `;
+    }).join('')}
+
+    <button class="btn" onclick="completeRound(${r})">
+      ${r < 3 ? `Next Round →` : `Go to Debrief →`}
+    </button>
+  `;
+}
+
+function revealIdiom(idx) {
+  document.getElementById(`reveal_${idx}`).classList.add('show');
+}
+
+function completeRound(r) {
+  const tab = document.getElementById(`tab${r + 1}`);
+  if (tab) tab.classList.add('done');
+  showTab(r < 3 ? r + 2 : 5);
+}
+
+function showTab(idx) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

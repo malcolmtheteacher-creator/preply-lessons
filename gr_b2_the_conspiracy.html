@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Conspiracy</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #2d4a22, #1a1a2e); color: white; padding: 24px; text-align: center; }
+.header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 3px; }
+.header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 18px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #2d4a22; }
+.tab.active { color: #2d4a22; border-bottom-color: #2d4a22; }
+.tab.done { color: #28a745; }
+.tab.done::after { content: ' ✓'; }
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.card h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 12px; }
+.speak-prompt { background: #f1f3f5; border-left: 4px solid #2d4a22; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 0.95rem; }
+
+.fact-card { background: #1a1a2e; border-radius: 12px; padding: 20px; margin: 10px 0; cursor: pointer; transition: all 0.3s; }
+.fact-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+.fact-card.revealed { background: linear-gradient(135deg, #1a1a2e, #2d4a22); }
+.fact-num { font-size: 0.65rem; color: #636e72; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.fact-text { font-size: 1rem; color: #dfe6e9; line-height: 1.5; font-weight: 600; }
+.fact-source { font-size: 0.75rem; color: #636e72; margin-top: 8px; font-style: italic; }
+
+.phase-box { background: linear-gradient(135deg, #2d4a2210, #1a1a2e10); border: 2px solid #2d4a22; border-radius: 14px; padding: 20px; margin: 20px 0; }
+.phase-label { font-size: 0.7rem; color: #2d4a22; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 8px; }
+.phase-text { font-size: 0.95rem; color: #2d3436; line-height: 1.6; }
+
+.timer-box { text-align: center; margin: 20px 0; }
+.timer-display { font-size: 3rem; font-weight: 900; font-family: 'Courier New', monospace; color: #1a1a2e; cursor: pointer; user-select: none; }
+.timer-display.running { color: #2d4a22; }
+.timer-display.danger { color: #e74c3c; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+.timer-label { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; }
+
+.btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #2d4a22, #1a1a2e); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 0.3s; text-transform: uppercase; }
+.btn:hover { transform: scale(1.02); }
+.btn-sm { display: inline-block; width: auto; padding: 10px 20px; font-size: 0.85rem; margin: 6px 4px; }
+
+.fallacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+.fallacy-card { background: #fff; border: 2px solid #dee2e6; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; }
+.fallacy-card:hover { border-color: #e74c3c; }
+.fallacy-card.selected { border-color: #e74c3c; background: #e74c3c10; }
+.fallacy-name { font-weight: 700; font-size: 0.85rem; color: #1a1a2e; margin-bottom: 4px; }
+.fallacy-desc { font-size: 0.75rem; color: #636e72; line-height: 1.4; }
+
+.vs-divider { text-align: center; font-size: 1.5rem; font-weight: 900; color: #e74c3c; margin: 20px 0; letter-spacing: 4px; }
+
+.score-bar { display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; border-radius: 10px; padding: 14px 20px; margin: 16px 0; color: white; }
+.score-side { text-align: center; }
+.score-num { font-size: 2rem; font-weight: 900; }
+.score-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+
+.notes-area { width: 100%; min-height: 80px; border: 2px solid #dee2e6; border-radius: 10px; padding: 12px; font-family: inherit; font-size: 0.9rem; resize: vertical; margin: 8px 0; }
+.notes-area:focus { outline: none; border-color: #2d4a22; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>THE CONSPIRACY</h1>
+  <p>Connect real facts. Build a theory. Then tear it apart.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">How It Works</div>
+  <div class="tab" onclick="showTab(1)" id="tab1">Round 1</div>
+  <div class="tab" onclick="showTab(2)" id="tab2">Round 2</div>
+  <div class="tab" onclick="showTab(3)" id="tab3">Round 3</div>
+  <div class="tab" onclick="showTab(4)">Debrief</div>
+</div>
+
+<div class="content">
+
+<!-- HOW IT WORKS -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>How This Works</h2>
+    <p style="margin-bottom:16px;">Every conspiracy theory starts with real facts — then takes a creative leap. You're going to do exactly that... and then destroy your own argument.</p>
+
+    <div class="phase-box">
+      <div class="phase-label">Step 1 — The Facts</div>
+      <div class="phase-text">Four real, verified facts appear on screen. They seem unrelated.</div>
+    </div>
+    <div class="phase-box">
+      <div class="phase-label">Step 2 — Build the Theory</div>
+      <div class="phase-text">Work together. You have <strong>3 minutes</strong> to connect all four facts into one convincing conspiracy theory. The more creative, the better.</div>
+    </div>
+    <div class="phase-box">
+      <div class="phase-label">Step 3 — Destroy it</div>
+      <div class="phase-text">Now switch sides. Find every logical fallacy, weak link, and alternative explanation. Pick the theory apart — no mercy.</div>
+    </div>
+
+    <p style="margin-top:16px; font-size:0.85rem; color:#636e72;">There are 3 rounds, each with different facts. The language here is about <strong>argumentation</strong> — persuading, linking, qualifying, and debunking.</p>
+
+    <button class="btn" onclick="startGame()">Let's Go</button>
+  </div>
+</div>
+
+<!-- ROUNDS (generated by JS) -->
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
+<div class="panel" id="panel3"></div>
+
+<!-- DEBRIEF -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Language Debrief</h2>
+    <p style="margin-bottom:16px;">Conspiracy theories rely on specific language patterns. Which of these did you use today?</p>
+
+    <div class="speak-prompt"><strong>Connecting unrelated things:</strong><br>"What if... isn't a coincidence?"<br>"The timing is suspicious — just weeks after..."<br>"It can't be a coincidence that X happened right when Y..."</div>
+
+    <div class="speak-prompt"><strong>Sounding convincing without evidence:</strong><br>"They don't want you to know..."<br>"If you look closely enough..."<br>"It's been well documented that..." (when it hasn't)</div>
+
+    <div class="speak-prompt"><strong>Hedging (useful in real life!):</strong><br>"I'm not saying it's true, but..."<br>"All I'm saying is..."<br>"You have to admit it's suspicious..."</div>
+
+    <div class="speak-prompt"><strong>Debunking and calling out fallacies:</strong><br>"That's correlation, not causation."<br>"You're cherry-picking the evidence."<br>"Just because A happened before B doesn't mean A caused B."<br>"There's a much simpler explanation..."<br>"That's a massive leap in logic."</div>
+  </div>
+
+  <div class="card">
+    <h2>Discussion</h2>
+    <div class="speak-prompt">Why do you think conspiracy theories are so convincing to some people? What makes them psychologically appealing?</div>
+    <div class="speak-prompt">Can you think of a real conspiracy theory that turned out to be TRUE? What about one that was completely debunked?</div>
+    <div class="speak-prompt">In your language, are there specific phrases people use when they think something is being covered up?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const factSets = [
+  {
+    facts: [
+      { text: "Honey never spoils. Archaeologists found 3,000-year-old honey in Egyptian tombs that was still edible.", source: "Verified — Smithsonian" },
+      { text: "The Vatican has one of the highest crime rates per capita in the world.", source: "Verified — Vatican statistics" },
+      { text: "Octopuses have three hearts and blue blood.", source: "Verified — Marine biology" },
+      { text: "Finland has more saunas than cars.", source: "Verified — Finnish statistics" }
+    ]
+  },
+  {
+    facts: [
+      { text: "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.", source: "Verified — Historical timeline" },
+      { text: "There is a town in Norway called Hell, and it freezes over every winter.", source: "Verified — Norwegian geography" },
+      { text: "Bananas are slightly radioactive due to their potassium content.", source: "Verified — Physics" },
+      { text: "The inventor of the Pringles can is buried in one.", source: "Verified — Fredric Baur's will, 2008" }
+    ]
+  },
+  {
+    facts: [
+      { text: "Oxford University is older than the Aztec Empire.", source: "Verified — Founded ~1096 vs. Aztec ~1428" },
+      { text: "A group of flamingos is called a 'flamboyance'.", source: "Verified — Ornithology" },
+      { text: "Nintendo was founded in 1889, originally selling handmade playing cards.", source: "Verified — Company records" },
+      { text: "There are more possible chess games than atoms in the observable universe.", source: "Verified — Shannon number" }
+    ]
+  },
+  {
+    facts: [
+      { text: "Crows can recognise human faces and hold grudges for years.", source: "Verified — University of Washington study" },
+      { text: "The shortest war in history lasted 38 minutes (Britain vs. Zanzibar, 1896).", source: "Verified — Historical records" },
+      { text: "Humans share about 60% of their DNA with bananas.", source: "Verified — Genetics" },
+      { text: "There is a basketball court on the top floor of the US Supreme Court building. It's called 'the highest court in the land'.", source: "Verified — US government" }
+    ]
+  },
+  {
+    facts: [
+      { text: "The Eiffel Tower can grow up to 15cm taller in summer due to thermal expansion.", source: "Verified — Engineering" },
+      { text: "Scotland's national animal is the unicorn.", source: "Verified — Scottish heraldry" },
+      { text: "Astronauts' fingernails often fall off due to pressure in space gloves.", source: "Verified — NASA reports" },
+      { text: "The world's oldest known joke is a Sumerian fart joke from 1900 BC.", source: "Verified — University of Wolverhampton research" }
+    ]
+  },
+  {
+    facts: [
+      { text: "Dolphins have been observed calling each other by unique 'names' (signature whistles).", source: "Verified — Marine biology research" },
+      { text: "The Vatican's ATMs are the only ones in the world with Latin language options.", source: "Verified — Vatican operations" },
+      { text: "A single bolt of lightning contains enough energy to toast 100,000 slices of bread.", source: "Verified — Physics calculations" },
+      { text: "In Switzerland, it's illegal to own just one guinea pig because they get lonely.", source: "Verified — Swiss animal welfare law" }
+    ]
+  },
+  {
+    facts: [
+      { text: "The heart of a blue whale is so large that a small child could swim through its arteries.", source: "Verified — Marine biology" },
+      { text: "There are more trees on Earth than stars in the Milky Way.", source: "Verified — Nature journal, 2015" },
+      { text: "Ancient Romans used crushed mouse brains as toothpaste.", source: "Verified — Historical records" },
+      { text: "GPS satellites must account for Einstein's theory of relativity or they'd be inaccurate by about 10km per day.", source: "Verified — Physics/Engineering" }
+    ]
+  },
+  {
+    facts: [
+      { text: "The average person walks about 100,000 miles in their lifetime — roughly 4 times around the Earth.", source: "Verified — Health statistics" },
+      { text: "Vending machines kill more people per year than sharks.", source: "Verified — US Consumer Product Safety Commission" },
+      { text: "The longest English word without a vowel is 'rhythms'.", source: "Verified — Linguistics" },
+      { text: "There's a species of jellyfish (Turritopsis dohrnii) that is biologically immortal.", source: "Verified — Marine biology" }
+    ]
+  },
+  {
+    facts: [
+      { text: "Russia has a larger surface area than Pluto.", source: "Verified — Astronomy/Geography" },
+      { text: "The inventor of the fire hydrant is unknown because the patent was destroyed in a fire.", source: "Verified — Patent Office records" },
+      { text: "Koalas have fingerprints nearly identical to human fingerprints.", source: "Verified — Forensic biology" },
+      { text: "A day on Venus is longer than a year on Venus.", source: "Verified — NASA planetary data" }
+    ]
+  }
+];
+
+const fallacies = [
+  { name: "Correlation ≠ Causation", desc: "Two things happened together, but one didn't cause the other" },
+  { name: "Cherry-Picking", desc: "Only selecting facts that support the theory, ignoring others" },
+  { name: "False Connection", desc: "Linking unrelated things as if they're connected" },
+  { name: "Appeal to Mystery", desc: "'We can't explain it, therefore my theory is right'" },
+  { name: "Slippery Slope", desc: "If A, then B, then C... leading to absurd conclusions" },
+  { name: "Post Hoc", desc: "A happened before B, so A must have caused B" },
+  { name: "Circular Reasoning", desc: "The theory proves itself ('it's true because it's true')" },
+  { name: "Unfalsifiable", desc: "The theory can't be disproven ('that's what THEY want you to think')" }
+];
+
+let selectedSets = [];
+let roundTimers = [null, null, null];
+let roundSeconds = [180, 180, 180];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  const shuffled = shuffle(factSets);
+  selectedSets = shuffled.slice(0, 3);
+
+  for (let r = 0; r < 3; r++) {
+    buildRound(r);
+  }
+  showTab(1);
+}
+
+function buildRound(r) {
+  const set = selectedSets[r];
+  const panel = document.getElementById(`panel${r + 1}`);
+  const roundNum = r + 1;
+
+  panel.innerHTML = `
+    <div class="card">
+      <div style="text-align:center;font-size:0.8rem;color:#6c757d;font-weight:700;margin-bottom:12px;">ROUND ${roundNum} OF 3</div>
+      <h2>The Facts</h2>
+      <p style="margin-bottom:16px;">Four real facts. All verified. Your job: connect them into one conspiracy theory.</p>
+      ${set.facts.map((f, i) => `
+        <div class="fact-card" id="fact_${r}_${i}">
+          <div class="fact-num">Fact ${i + 1}</div>
+          <div class="fact-text">${f.text}</div>
+          <div class="fact-source">${f.source}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <h2>Build Your Theory</h2>
+      <p style="margin-bottom:12px;">You have <strong>3 minutes</strong>. Work together to connect ALL four facts into one conspiracy theory. Make it as convincing as possible.</p>
+
+      <div class="speak-prompt"><strong>Start with:</strong> "What if I told you that these four facts are all connected?"</div>
+
+      <div class="timer-box">
+        <div class="timer-label">Tap to Start / Reset</div>
+        <div class="timer-display" id="timer_${r}" onclick="toggleTimer(${r})">3:00</div>
+      </div>
+
+      <div class="speak-prompt"><strong>Useful language:</strong><br>
+      "It's no coincidence that..."<br>
+      "Think about it — if [fact 1], and we KNOW that [fact 2]..."<br>
+      "They've been hiding this in plain sight..."<br>
+      "Follow the money / Follow the logic..."<br>
+      "What the mainstream narrative won't tell you is..."</div>
+
+      <textarea class="notes-area" placeholder="Jot down your theory here (optional — just for your own reference)..."></textarea>
+    </div>
+
+    <div class="vs-divider">⚔ NOW DESTROY IT ⚔</div>
+
+    <div class="card">
+      <h2>Tear It Apart</h2>
+      <p style="margin-bottom:12px;">Switch sides. Find every weakness, logical fallacy, and alternative explanation. No mercy.</p>
+
+      <div class="speak-prompt"><strong>Debunking language:</strong><br>
+      "The problem with that argument is..."<br>
+      "You're assuming that... but actually..."<br>
+      "There's a much simpler explanation: ..."<br>
+      "That's a huge logical leap."<br>
+      "Just because X doesn't mean Y."</div>
+
+      <p style="margin:16px 0;font-weight:600;">Which fallacies did the theory rely on? (tap all that apply)</p>
+
+      <div class="fallacy-grid" id="fallacies_${r}">
+        ${fallacies.map((f, i) => `
+          <div class="fallacy-card" onclick="toggleFallacy(this)" data-name="${f.name}">
+            <div class="fallacy-name">${f.name}</div>
+            <div class="fallacy-desc">${f.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <button class="btn" onclick="completeRound(${r})">
+      ${r < 2 ? `Next Round →` : `Go to Debrief →`}
+    </button>
+  `;
+}
+
+function toggleTimer(r) {
+  if (roundTimers[r]) {
+    clearInterval(roundTimers[r]);
+    roundTimers[r] = null;
+    roundSeconds[r] = 180;
+    const el = document.getElementById(`timer_${r}`);
+    el.textContent = '3:00';
+    el.className = 'timer-display';
+    return;
+  }
+
+  roundSeconds[r] = 180;
+  const el = document.getElementById(`timer_${r}`);
+  el.className = 'timer-display running';
+
+  roundTimers[r] = setInterval(() => {
+    roundSeconds[r]--;
+    if (roundSeconds[r] <= 0) {
+      clearInterval(roundTimers[r]);
+      roundTimers[r] = null;
+      el.textContent = '0:00';
+      el.className = 'timer-display danger';
+      return;
+    }
+    const m = Math.floor(roundSeconds[r] / 60);
+    const s = roundSeconds[r] % 60;
+    el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    if (roundSeconds[r] <= 30) el.className = 'timer-display danger';
+  }, 1000);
+}
+
+function toggleFallacy(el) {
+  el.classList.toggle('selected');
+}
+
+function completeRound(r) {
+  if (roundTimers[r]) {
+    clearInterval(roundTimers[r]);
+    roundTimers[r] = null;
+  }
+  const tab = document.getElementById(`tab${r + 1}`);
+  if (tab) tab.classList.add('done');
+  showTab(r < 2 ? r + 2 : 4);
+}
+
+function showTab(idx) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
