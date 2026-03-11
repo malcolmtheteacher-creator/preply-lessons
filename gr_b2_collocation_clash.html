@@ -35,6 +35,16 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; colo
 .option-btn.wrong { border-color: #e94560; background: #e9456010; color: #e94560; }
 .option-btn.selected { border-color: #00b894; background: #00b89410; }
 
+.flash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.flash-option { padding: 16px; border: 2px solid #55efc4; border-radius: 12px; background: #1a1a2e; text-align: center; font-weight: 700; font-size: 1rem; color: #55efc4; transition: opacity 0.5s; }
+.flash-option.hidden { opacity: 0; visibility: hidden; }
+.flash-countdown { text-align: center; font-size: 1.5rem; font-weight: 900; color: #e17055; margin: 8px 0; min-height: 36px; }
+.guess-prompt { text-align: center; font-size: 1.1rem; font-weight: 700; color: #00b894; margin: 16px 0; display: none; }
+.guess-prompt.show { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.reveal-answer-btn { display: none; width: 100%; padding: 14px; background: #00b894; color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin: 8px 0; }
+.reveal-answer-btn.show { display: block; }
+
 .explanation { display: none; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 16px; margin: 12px 0; }
 .explanation.visible { display: block; }
 
@@ -82,7 +92,7 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; colo
   <div class="card">
     <h2>3 rounds</h2>
     <div style="padding:10px 16px; background:#00b89410; border-radius:8px; border-left:3px solid #00b894; margin:8px 0;">
-      <strong>Quick Fire:</strong> A word appears with 4 options. Which one collocates? Both guess — fastest correct answer wins.
+      <strong>Quick Fire:</strong> A word appears with 4 options — but they vanish after a few seconds. Can you remember them AND pick the right one?
     </div>
     <div style="padding:10px 16px; background:#e1705510; border-radius:8px; border-left:3px solid #e17055; margin:8px 0;">
       <strong>Battle:</strong> Two similar words. Which one goes in the sentence? Discuss, then reveal.
@@ -165,41 +175,100 @@ function showTab(i) {
   if (i === 3 && !document.getElementById('panel3').innerHTML) buildWhy();
 }
 
+let qfSelected = [];
+let qfCurrent = 0;
+const FLASH_TIME = 4; // seconds options stay visible
+
 function buildQuickFire() {
-  const selected = [...QUICK_FIRE].sort(() => Math.random() - 0.5).slice(0, 8);
+  qfSelected = [...QUICK_FIRE].sort(() => Math.random() - 0.5).slice(0, 8);
+  qfCurrent = 0;
   let html = `<div class="card"><h2>Quick Fire: Which word goes with it?</h2>
-    <p>A word appears. 4 options below. Which one naturally collocates? Both guess — say your answer out loud at the same time.</p>
-    <div class="score-bar">Score: <strong id="qfScore">0</strong> / ${selected.length}</div></div>`;
+    <p>A word appears with 4 options — but they vanish after ${FLASH_TIME} seconds. Try to remember them, then say which one collocates.</p>
+    <div class="score-bar">Question: <strong id="qfProgress">1</strong> / ${qfSelected.length} · Score: <strong id="qfScore">0</strong></div></div>`;
 
-  selected.forEach((q, i) => {
-    html += `
-    <div class="card" id="qf${i}">
-      <div class="clash-box">
-        <div class="clash-word">${q.word} + ?</div>
-        <div class="clash-q">Which word naturally follows?</div>
-      </div>
-      <div class="option-grid">
-        ${q.options.map((opt, oi) => `<div class="option-btn" onclick="checkQF(${i}, ${oi}, ${q.correct})">${q.word} ${opt}</div>`).join('')}
-      </div>
-      <div class="explanation" id="qfExp${i}">
-        <p>${q.explain}</p>
-      </div>
-    </div>`;
-  });
+  html += `<div id="qfArea"></div>`;
+  html += `<button class="btn" id="qfNextBtn" style="display:none;" onclick="nextQF()">NEXT → BATTLE</button>`;
 
-  html += `<button class="btn" onclick="document.getElementById('tab1').classList.add('done'); showTab(2);">NEXT → BATTLE</button>`;
   document.getElementById('panel1').innerHTML = html;
+  showQF(0);
+}
+
+function showQF(idx) {
+  if (idx >= qfSelected.length) {
+    document.getElementById('qfNextBtn').style.display = 'block';
+    document.getElementById('qfNextBtn').onclick = function() {
+      document.getElementById('tab1').classList.add('done');
+      showTab(2);
+    };
+    document.getElementById('qfArea').innerHTML = `<div class="card" style="text-align:center;"><h2>Round complete!</h2><p>Score: ${document.getElementById('qfScore').textContent} / ${qfSelected.length}</p></div>`;
+    return;
+  }
+
+  const q = qfSelected[idx];
+  document.getElementById('qfProgress').textContent = idx + 1;
+
+  let html = `
+  <div class="card" id="qfCard">
+    <div class="clash-box">
+      <div class="clash-word">${q.word} + ?</div>
+      <div class="clash-q">Which word naturally follows?</div>
+    </div>
+    <div class="flash-countdown" id="qfCountdown"></div>
+    <div class="flash-grid" id="qfFlash">
+      ${q.options.map(opt => `<div class="flash-option">${q.word} ${opt}</div>`).join('')}
+    </div>
+    <div class="guess-prompt" id="qfGuess">The options have vanished! Which collocation sounded right?</div>
+    <button class="reveal-answer-btn" id="qfReveal" onclick="revealQF(${idx})">Reveal Answer</button>
+    <div class="explanation" id="qfExp">
+      <p style="margin-bottom:8px;"><strong style="color:#28a745;">✓ ${q.word} ${q.options[q.correct]}</strong></p>
+      <p>${q.explain}</p>
+    </div>
+    <button class="btn" id="qfContinue" style="display:none;" onclick="nextQF()">Next Question →</button>
+  </div>`;
+
+  document.getElementById('qfArea').innerHTML = html;
+
+  // Start countdown then hide options
+  let remaining = FLASH_TIME;
+  document.getElementById('qfCountdown').textContent = `Vanishing in ${remaining}...`;
+
+  const countdownInterval = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+      document.getElementById('qfCountdown').textContent = '';
+      document.querySelectorAll('.flash-option').forEach(el => el.classList.add('hidden'));
+      document.getElementById('qfGuess').classList.add('show');
+      document.getElementById('qfReveal').classList.add('show');
+    } else {
+      document.getElementById('qfCountdown').textContent = `Vanishing in ${remaining}...`;
+    }
+  }, 1000);
 }
 
 let qfScore = 0;
-function checkQF(qIdx, chosen, correct) {
-  const card = document.getElementById('qf' + qIdx);
-  const btns = card.querySelectorAll('.option-btn');
-  if (btns[0].classList.contains('correct') || btns[0].classList.contains('wrong')) return;
-  btns[correct].classList.add('correct');
-  if (chosen !== correct) btns[chosen].classList.add('wrong');
-  else { qfScore++; document.getElementById('qfScore').textContent = qfScore; }
-  document.getElementById('qfExp' + qIdx).classList.add('visible');
+function revealQF(idx) {
+  document.getElementById('qfExp').classList.add('visible');
+  document.getElementById('qfReveal').style.display = 'none';
+
+  // Show options again with correct highlighted
+  const q = qfSelected[idx];
+  document.querySelectorAll('.flash-option').forEach((el, i) => {
+    el.classList.remove('hidden');
+    el.style.opacity = '0.4';
+    if (i === q.correct) {
+      el.style.opacity = '1';
+      el.style.borderColor = '#28a745';
+      el.style.color = '#28a745';
+    }
+  });
+
+  document.getElementById('qfContinue').style.display = 'block';
+}
+
+function nextQF() {
+  qfCurrent++;
+  showQF(qfCurrent);
 }
 
 function buildBattle() {
