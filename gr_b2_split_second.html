@@ -45,12 +45,10 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; colo
 .timer-bar-track { height: 6px; background: #2d3436; width: 100%; }
 .timer-bar-fill { height: 100%; background: linear-gradient(90deg, #e94560, #ff6348); transition: width 0.15s linear; width: 100%; }
 .timer-bar-fill.danger { background: linear-gradient(90deg, #e74c3c, #c0392b); }
-.timer-inner { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 20px; }
-.timer-seconds { font-size: 2.4rem; font-weight: 900; font-family: 'Courier New', monospace; color: #fff; min-width: 60px; text-align: center; }
+.timer-inner { display: flex; align-items: center; justify-content: center; padding: 10px 20px; }
+.timer-seconds { font-size: 2.4rem; font-weight: 900; font-family: 'Courier New', monospace; color: #fff; text-align: center; }
 .timer-seconds.danger { color: #e74c3c; animation: pulse 0.4s infinite alternate; }
 @keyframes pulse { to { transform: scale(1.1); } }
-.timer-context { color: #b2bec3; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-.timer-question { color: #dfe6e9; font-size: 0.95rem; font-weight: 700; max-width: 400px; text-align: center; line-height: 1.3; }
 </style>
 </head>
 <body>
@@ -122,10 +120,6 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; colo
     <div class="timer-bar-fill" id="timerBarFill"></div>
   </div>
   <div class="timer-inner">
-    <div>
-      <div class="timer-context" id="timerContext">CHOOSE & JUSTIFY</div>
-      <div class="timer-question" id="timerQuestion"></div>
-    </div>
     <div class="timer-seconds" id="timerSeconds">10</div>
   </div>
 </div>
@@ -182,8 +176,6 @@ let observer = null;
 const stickyTimer = document.getElementById('stickyTimer');
 const timerSeconds = document.getElementById('timerSeconds');
 const timerBarFill = document.getElementById('timerBarFill');
-const timerContext = document.getElementById('timerContext');
-const timerQuestion = document.getElementById('timerQuestion');
 
 function showStickyTimer() { stickyTimer.classList.add('visible'); }
 function hideStickyTimer() {
@@ -191,7 +183,7 @@ function hideStickyTimer() {
   stopTimer();
 }
 
-function startTimer(seconds, label, questionText) {
+function startTimer(seconds) {
   stopTimer();
   activeSeconds = seconds;
   activeTotalSeconds = seconds;
@@ -199,8 +191,6 @@ function startTimer(seconds, label, questionText) {
   timerSeconds.classList.remove('danger');
   timerBarFill.classList.remove('danger');
   timerBarFill.style.width = '100%';
-  timerContext.textContent = label;
-  timerQuestion.textContent = questionText || '';
   showStickyTimer();
 
   activeTimer = setInterval(() => {
@@ -231,7 +221,7 @@ function stopTimer() {
   }
 }
 
-function setupObserver(selector, timerDuration, timerLabel) {
+function setupObserver(selector, timerDuration) {
   if (observer) observer.disconnect();
 
   const cards = document.querySelectorAll(selector);
@@ -243,8 +233,7 @@ function setupObserver(selector, timerDuration, timerLabel) {
         const card = entry.target;
         if (card === currentActiveCard) return;
         currentActiveCard = card;
-        const questionText = card.dataset.question || '';
-        startTimer(timerDuration, timerLabel, questionText);
+        startTimer(timerDuration);
       }
     });
   }, { threshold: 0.5 });
@@ -270,8 +259,8 @@ function showTab(i) {
 
   // Set up observers for timed rounds
   requestAnimationFrame(() => {
-    if (i === 1) setupObserver('.quick-choice', 10, 'CHOOSE & JUSTIFY — 10 SECONDS');
-    if (i === 2) setupObserver('.argue-choice', 10, 'CHOOSE & JUSTIFY — 10 SECONDS');
+    if (i === 1) setupObserver('.quick-choice', 10);
+    if (i === 2) setupObserver('.argue-choice', 10);
     if (i === 3) hideStickyTimer(); // No timer for Impossible
     if (i === 0 || i === 4) hideStickyTimer();
   });
@@ -291,7 +280,7 @@ function buildQuick() {
 
   items.forEach((q, i) => {
     html += `
-    <div class="card quick-choice" data-question="${q.a} or ${q.b}">
+    <div class="card quick-choice">
       <div class="round-num">${i + 1} / ${items.length}</div>
       <div class="choice-box">
         <div class="choice-options">
@@ -320,7 +309,7 @@ function buildArgue() {
     const whoFirst = i % 2 === 0 ? 'Person A' : 'Person B';
     const whoSecond = i % 2 === 0 ? 'Person B' : 'Person A';
     html += `
-    <div class="card argue-choice" data-question="${q.a} or ${q.b}" data-index="${i}">
+    <div class="card argue-choice" data-index="${i}">
       <div class="round-num">${i + 1} / ${items.length}</div>
       <div class="choice-box">
         <div class="choice-options">
@@ -337,7 +326,7 @@ function buildArgue() {
       <div class="argue-box">
         <h4>${whoSecond}: Argue the opposite</h4>
         <p>Even if you agree — find the best argument AGAINST what they chose.</p>
-        <button class="btn" style="margin-top:12px; background:linear-gradient(135deg, #6c5ce7, #a29bfe);" onclick="startTimer(20, 'ARGUE THE OPPOSITE — 20 SECONDS', ''); this.style.display='none';">Start 20-second counter-argument</button>
+        <button class="btn" style="margin-top:12px; background:linear-gradient(135deg, #6c5ce7, #a29bfe);" onclick="startTimer(20); this.style.display='none';">Start 20-second counter-argument</button>
       </div>
     </div>`;
   });
