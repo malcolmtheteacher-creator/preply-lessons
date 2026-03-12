@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prove It | Conversation Toolkit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.7; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 16px; color: white; }
+        header h1 { font-size: 2.2em; margin-bottom: 6px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .tab-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background-color: #ede9fe; border: 2px solid #d4ccf7; color: #1a1a2e; padding: 12px 22px; cursor: pointer; border-radius: 8px; font-size: 0.95em; font-weight: 600; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn:hover { background-color: #ddd6fe; border-color: #6c5ce7; }
+        .tab-btn.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .card h2 { color: #6c5ce7; font-size: 1.5em; margin-bottom: 16px; }
+        .card h3 { color: #333; font-size: 1.15em; margin: 18px 0 10px; }
+        .reveal-card { background: #f5f3ff; border: 2px solid #e0dbf7; border-radius: 12px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s ease; }
+        .reveal-card:hover { border-color: #6c5ce7; transform: translateY(-2px); }
+        .reveal-card .prompt { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+        .reveal-card .answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; color: #444; }
+        .reveal-card.open .answer { display: block; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+        .vocab-item { background: #f5f3ff; border: 1px solid #e0dbf7; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .vocab-item:hover { border-color: #6c5ce7; background: #ede9fe; }
+        .vocab-item .word { font-weight: 700; color: #6c5ce7; font-size: 1.05em; }
+        .vocab-item .meaning { display: none; margin-top: 8px; font-size: 0.9em; color: #555; }
+        .vocab-item.open .meaning { display: block; }
+        .speak-prompt { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-left: 5px solid #6c5ce7; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; font-size: 1.05em; }
+        .speak-prompt .label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .pattern-box { background: #1a1a2e; color: white; border-radius: 14px; padding: 24px; margin: 16px 0; }
+        .pattern-box .example { color: #a29bfe; font-weight: 600; }
+        .pattern-box .note { color: rgba(255,255,255,0.7); font-size: 0.9em; margin-top: 6px; }
+        .timer-section { background: white; border-radius: 14px; padding: 30px; text-align: center; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .timer-display { font-size: 3.5em; font-weight: 700; font-family: 'Courier New', monospace; color: #6c5ce7; margin: 15px 0; }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .timer-btn { padding: 10px 28px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .timer-btn.start { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .timer-btn.reset { background: #eee; color: #333; }
+        .timer-btn:hover { transform: scale(1.05); }
+        .scenario-card { background: white; border: 2px solid #e0dbf7; border-radius: 14px; padding: 24px; margin: 14px 0; cursor: pointer; transition: all 0.3s; }
+        .scenario-card:hover { border-color: #6c5ce7; }
+        .scenario-card .round-label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+        .scenario-card .task { font-size: 1.15em; font-weight: 600; margin: 10px 0; }
+        .scenario-card .details { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; }
+        .scenario-card.open .details { display: block; }
+        .recall-card { background: #f0faf8; border: 2px solid #d0ece7; border-radius: 12px; padding: 20px; margin: 14px 0; cursor: pointer; }
+        .recall-card .from { color: #44a08d; font-weight: 600; font-size: 0.85em; margin-bottom: 6px; }
+        .recall-card .question { font-weight: 600; color: #1a1a2e; }
+        .recall-card .recall-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d0ece7; color: #444; }
+        .recall-card.open .recall-answer { display: block; }
+        .lesson-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
+        .nav-link { padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.2s; }
+        .nav-link.back { background: #eee; color: #333; }
+        .nav-link.next { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .nav-link:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Prove It</h1>
+        <p class="subtitle">Cause-effect connectors, evidence language, and personal anecdote structures</p>
+    </header>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(1)">Warm-Up</button>
+        <button class="tab-btn" onclick="showTab(2)">The Pattern</button>
+        <button class="tab-btn" onclick="showTab(3)">Word Power</button>
+        <button class="tab-btn" onclick="showTab(4)">The Game</button>
+        <button class="tab-btn" onclick="showTab(5)">Wrap-Up</button>
+    </div>
+
+    <!-- TAB 1: WARM-UP -->
+    <div class="tab-content active" id="tab-1">
+        <div class="card">
+            <h2>Quick Chat</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                Tell me an opinion you strongly believe. It could be about anything — food, sports, education, relationships. Just one sentence. Don't explain yet.
+            </div>
+
+            <p style="margin-top: 16px;">Now here's the hard part: proving it. "I believe X" is just a claim. But "I believe X because..." is an argument. The difference is the connector. The difference is the evidence. The difference is moving from opinion to persuasion.</p>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                Think of a time someone convinced you to change your mind. What did they show you? An example? A story? Research? How did they connect their claim to evidence?
+            </div>
+
+            <p style="margin-top: 12px; color: #6c5ce7; font-weight: 600;">Today: the grammar and vocabulary of justification — so your opinions aren't just heard, they're believed.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE PATTERN -->
+    <div class="tab-content" id="tab-2">
+        <div class="card">
+            <h2>From Claim to Evidence: The Justification Chain</h2>
+            <p>Opinions need proof. Here are the connectors that bridge the gap:</p>
+
+            <h3>1. Cause-Effect Connectors: "Because" → "So"</h3>
+            <div class="pattern-box">
+                <p class="example">CAUSE first: "Because exercise improves mood, many people feel happier when they work out."</p>
+                <p class="example">EFFECT first: "Exercise improves mood. So it makes sense that active people feel better."</p>
+                <p class="example">Other cause words: "Since he studied hard, he passed." / "As they arrived late, they missed the opening."</p>
+                <p class="example">Other effect words: "The economy is struggling, therefore prices are rising." / "She trained hard, as a result she won."</p>
+                <p class="note">Key rule: "Because/since/as" introduce the REASON. "So/therefore/as a result" introduce the CONSEQUENCE. Same logic, different order.</p>
+            </div>
+
+            <h3>2. Evidence Connectors: "This Shows..." / "That's the Reason..."</h3>
+            <div class="pattern-box">
+                <p class="example">"Learning languages changes brain structure. This shows that language learning rewires your thinking."</p>
+                <p class="example">"I've failed three times. That's the reason I'm determined to succeed."</p>
+                <p class="example">"She quit suddenly. This explains why the team is struggling."</p>
+                <p class="note">These backward-looking connectors link what you observed (evidence) to what you conclude (claim). They make the logic visible.</p>
+            </div>
+
+            <h3>3. Personal Anecdote Structure: "From My Experience..."</h3>
+            <div class="pattern-box">
+                <p class="example">Intro: "From my own experience..." / "I've seen this myself when..." / "This happened to me when..." — use present perfect or past simple</p>
+                <p class="example">Story: Move to past simple to tell what happened</p>
+                <p class="example">"From my own experience, learning a language changes the way you think. I moved to France at 22. After six months, I noticed I was thinking in French. Even my dreams were in French. That shift in my mind — that's proof language rewires you."</p>
+                <p class="note">Personal stories are powerful evidence. Use them to show, not tell.</p>
+            </div>
+
+            <h3>4. Generalizing From Examples: "This Is Why..." / "Cases Like This Prove..."</h3>
+            <div class="pattern-box">
+                <p class="example">"My friend built a company from nothing. This is why I believe entrepreneurship teaches more than any business school."</p>
+                <p class="example">"I saw a documentary about ocean plastic. Cases like this prove that individual actions matter."</p>
+                <p class="example">"One example is enough: people who travel become more open-minded. This shows education isn't just in classrooms."</p>
+                <p class="note">Move from one specific example to a general claim. The logic: "If this is true for X, it's probably true for many things like X."</p>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">What's the difference between "because" and "so"?</div>
+                <div class="answer">
+                    <p><strong>"Because":</strong> Introduces the REASON (cause). "I left because it was late."</p>
+                    <p><strong>"So":</strong> Introduces the RESULT (effect). "It was late, so I left."</p>
+                    <p>Same relationship, different order. Use "because" when you're explaining WHY. Use "so" when you're showing WHAT HAPPENED as a result.</p>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Try it</div>
+                Take your opinion from the warm-up. Now build a justification chain: state your claim, give a cause (because/since), show the effect (so/therefore), then add evidence (this shows...). Aim for 3-4 sentences.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: WORD POWER -->
+    <div class="tab-content" id="tab-3">
+        <div class="card">
+            <h2>Word Power</h2>
+            <p>Tap to reveal. These vocabulary sets turn weak opinions into strong arguments.</p>
+
+            <h3>Cause & Reason Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">because</div>
+                    <div class="meaning">most common reason connector: "I studied because I wanted to pass."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">since</div>
+                    <div class="meaning">more formal than "because," same meaning: "Since you asked, I'll explain."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">as</div>
+                    <div class="meaning">formal reason word, often used with time: "As the sun rose, people woke up."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">due to</div>
+                    <div class="meaning">more formal, focuses on cause: "The game was cancelled due to rain."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">owing to</div>
+                    <div class="meaning">very formal version of "due to": "Owing to circumstances, we postponed."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">thanks to</div>
+                    <div class="meaning">positive reason: "Thanks to your help, I succeeded."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">on account of</div>
+                    <div class="meaning">formal for "because of": "On account of his experience, he was hired."</div>
+                </div>
+            </div>
+
+            <h3>Effect & Consequence Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">so</div>
+                    <div class="meaning">most common effect word: "I was tired, so I slept."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">therefore</div>
+                    <div class="meaning">more formal than "so": "The evidence is clear; therefore, we must act."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">as a result</div>
+                    <div class="meaning">shows consequence in separate clause: "She studied. As a result, she passed."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">consequently</div>
+                    <div class="meaning">very formal effect word: "The roads flooded. Consequently, traffic stopped."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">which means</div>
+                    <div class="meaning">shows what the consequence IS: "He's left the company, which means we need a new manager."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">this leads to</div>
+                    <div class="meaning">shows cause-effect over time: "Climate change warms the oceans, which leads to coral bleaching."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">this results in</div>
+                    <div class="meaning">shows the natural outcome: "Poor diet results in health problems."</div>
+                </div>
+            </div>
+
+            <h3>Evidence & Research Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">research shows that</div>
+                    <div class="meaning">citing scientific studies: "Research shows that sleep improves memory."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">studies suggest</div>
+                    <div class="meaning">evidence points to but isn't absolute: "Studies suggest climate change is accelerating."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">there's evidence that</div>
+                    <div class="meaning">proof exists: "There's evidence that plants have consciousness."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">it's been proven that</div>
+                    <div class="meaning">absolute certainty: "It's been proven that vaccines save lives."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">statistics indicate</div>
+                    <div class="meaning">numbers show: "Statistics indicate that most people fear public speaking."</div>
+                </div>
+            </div>
+
+            <h3>Anecdote Starters</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">from my experience</div>
+                    <div class="meaning">personal perspective: "From my experience, traveling changes you."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">I've seen this myself</div>
+                    <div class="meaning">witnessed it personally: "I've seen this myself when working with children."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">a friend of mine once</div>
+                    <div class="meaning">secondhand story: "A friend of mine once turned down a job and regretted it."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">I remember when</div>
+                    <div class="meaning">personal memory: "I remember when I first learned to swim."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">there was a time when</div>
+                    <div class="meaning">setting up a story from the past: "There was a time when I believed in luck."</div>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Challenge</div>
+                Close all cards. From memory: give two cause words, two effect words, two evidence phrases, and one anecdote starter.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: THE GAME -->
+    <div class="tab-content" id="tab-4">
+        <div class="card">
+            <h2>Back It Up</h2>
+            <p>You'll get opinions that need defending. You have <strong>90 seconds</strong> to build a complete argument: claim → evidence → conclusion. Make it persuasive.</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">1:30</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 1</div>
+                <div class="task">Defend this: "Learning a language changes the way you think."</div>
+                <div class="details">
+                    <p>Use a cause connector, a personal anecdote, and a conclusion phrase. Show, don't just claim.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> a cause connector + a personal anecdote + "this shows that"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 2</div>
+                <div class="task">Defend this: "Money doesn't buy happiness."</div>
+                <div class="details">
+                    <p>Acknowledge what money CAN buy, but show why it doesn't guarantee happiness. Use examples and evidence.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "due to" or "owing to" + an evidence phrase (research shows / studies suggest) + "from my experience"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 3</div>
+                <div class="task">Defend this: "Travel is the best form of education."</div>
+                <div class="details">
+                    <p>Show what travel teaches that school doesn't. Connect a specific example to a general principle.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "since/as" + a specific example + "this is why"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 4 — Extended Argument</div>
+                <div class="task">Defend this: "The way we eat will completely change in the next 20 years."</div>
+                <div class="details">
+                    <p>Build a complete argument: What's changing? Why? What evidence supports this? What will the consequences be? Show your reasoning chain.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> at least 3 cause-effect connectors + 2 evidence phrases + a clear claim-evidence-conclusion structure</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: WRAP-UP -->
+    <div class="tab-content" id="tab-5">
+        <div class="card">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-32: Speculation</div>
+                <div class="question">What's the difference between "must be" and "might be"?</div>
+                <div class="recall-answer">
+                    <p><strong>"Must be" = high certainty (strong evidence). "Might be" = low certainty (just guessing).</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">When justifying opinions, you show evidence to move listeners up the certainty scale. Without evidence, your claim "might be" true. With evidence, it "must be" worth considering.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-31: Diplomatic Disagreement</div>
+                <div class="question">What's the purpose of softening language like "I'd argue" or "to some extent"?</div>
+                <div class="recall-answer">
+                    <p><strong>It shows humility while stating your opinion:</strong> "I'd argue the benefits outweigh the risks."</p>
+                    <p style="margin-top: 8px; color: #44a08d;">When you justify an opinion with evidence, you can be stronger. But softening language shows you're open to being wrong. Combine them: strong evidence + respectful tone = persuasion.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-29: Reformulation</div>
+                <div class="question">What does "prove" mean in the context of discussion?</div>
+                <div class="recall-answer">
+                    <p><strong>"Prove" in conversation = "show clear evidence for." "This proves my point" = "This example demonstrates what I'm claiming."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">In justification, you use "prove" loosely. One example doesn't mathematically prove anything. But it shows your claim is worth considering. That's the power of anecdotes and evidence in conversation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What did you learn?</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Final challenge</div>
+                State a controversial opinion. Then build a complete, persuasive argument using: a cause-effect chain (because/so), a personal anecdote or example, an evidence phrase, and a conclusion (this shows/proves/means). Aim for 4-5 sentences that build logically from claim to proof.
+            </div>
+
+            <p style="margin-top: 16px; color: #888; font-style: italic;">The strongest opinions aren't the loudest ones. They're the ones backed by evidence, delivered with clarity, and connected by grammar that shows the logic.</p>
+        </div>
+    </div>
+
+    <div class="lesson-nav">
+        <a href="ct_b1_32_speculation_language.html" class="nav-link back">← CT-32</a>
+        <a href="index.html" class="nav-link next">Dashboard →</a>
+    </div>
+</div>
+
+<script>
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + n).classList.add('active');
+        document.querySelectorAll('.tab-btn')[n - 1].classList.add('active');
+    }
+    let timerInterval = null, timeLeft = 90, isRunning = false;
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        const d = document.getElementById('timer');
+        d.textContent = m + ':' + String(s).padStart(2, '0');
+        d.classList.remove('warning', 'danger');
+        if (timeLeft <= 10) d.classList.add('danger');
+        else if (timeLeft <= 20) d.classList.add('warning');
+    }
+    function toggleTimer() {
+        const btn = document.querySelector('.timer-btn.start');
+        if (isRunning) { clearInterval(timerInterval); btn.textContent = 'Continue'; isRunning = false; }
+        else { timerInterval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(timerInterval); isRunning = false; btn.textContent = 'Done!'; } }, 1000); btn.textContent = 'Pause'; isRunning = true; }
+    }
+    function resetTimer() { clearInterval(timerInterval); timeLeft = 90; isRunning = false; updateDisplay(); document.querySelector('.timer-btn.start').textContent = 'Start'; }
+</script>
+</body>
+</html>

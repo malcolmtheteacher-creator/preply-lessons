@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's the Story? | Conversation Toolkit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.7; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 16px; color: white; }
+        header h1 { font-size: 2.2em; margin-bottom: 6px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .tab-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background-color: #ede9fe; border: 2px solid #d4ccf7; color: #1a1a2e; padding: 12px 22px; cursor: pointer; border-radius: 8px; font-size: 0.95em; font-weight: 600; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn:hover { background-color: #ddd6fe; border-color: #6c5ce7; }
+        .tab-btn.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .card h2 { color: #6c5ce7; font-size: 1.5em; margin-bottom: 16px; }
+        .card h3 { color: #333; font-size: 1.15em; margin: 18px 0 10px; }
+        .reveal-card { background: #f5f3ff; border: 2px solid #e0dbf7; border-radius: 12px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s ease; }
+        .reveal-card:hover { border-color: #6c5ce7; transform: translateY(-2px); }
+        .reveal-card .prompt { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+        .reveal-card .answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; color: #444; }
+        .reveal-card.open .answer { display: block; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+        .vocab-item { background: #f5f3ff; border: 1px solid #e0dbf7; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .vocab-item:hover { border-color: #6c5ce7; background: #ede9fe; }
+        .vocab-item .word { font-weight: 700; color: #6c5ce7; font-size: 1.05em; }
+        .vocab-item .meaning { display: none; margin-top: 8px; font-size: 0.9em; color: #555; }
+        .vocab-item.open .meaning { display: block; }
+        .speak-prompt { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-left: 5px solid #6c5ce7; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; font-size: 1.05em; }
+        .speak-prompt .label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .pattern-box { background: #1a1a2e; color: white; border-radius: 14px; padding: 24px; margin: 16px 0; }
+        .pattern-box .example { color: #a29bfe; font-weight: 600; }
+        .pattern-box .note { color: rgba(255,255,255,0.7); font-size: 0.9em; margin-top: 6px; }
+        .timer-section { background: white; border-radius: 14px; padding: 30px; text-align: center; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .timer-display { font-size: 3.5em; font-weight: 700; font-family: 'Courier New', monospace; color: #6c5ce7; margin: 15px 0; }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .timer-btn { padding: 10px 28px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .timer-btn.start { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .timer-btn.reset { background: #eee; color: #333; }
+        .timer-btn:hover { transform: scale(1.05); }
+        .scenario-card { background: white; border: 2px solid #e0dbf7; border-radius: 14px; padding: 24px; margin: 14px 0; cursor: pointer; transition: all 0.3s; }
+        .scenario-card:hover { border-color: #6c5ce7; }
+        .scenario-card .round-label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+        .scenario-card .task { font-size: 1.15em; font-weight: 600; margin: 10px 0; }
+        .scenario-card .details { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; }
+        .scenario-card.open .details { display: block; }
+        .recall-card { background: #f0faf8; border: 2px solid #d0ece7; border-radius: 12px; padding: 20px; margin: 14px 0; cursor: pointer; }
+        .recall-card .from { color: #44a08d; font-weight: 600; font-size: 0.85em; margin-bottom: 6px; }
+        .recall-card .question { font-weight: 600; color: #1a1a2e; }
+        .recall-card .recall-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d0ece7; color: #444; }
+        .recall-card.open .recall-answer { display: block; }
+        .lesson-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
+        .nav-link { padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.2s; }
+        .nav-link.back { background: #eee; color: #333; }
+        .nav-link.next { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .nav-link:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>What's the Story?</h1>
+        <p class="subtitle">Modal verbs for guessing, appearance vocabulary, and moving from facts to interpretation</p>
+    </header>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(1)">Warm-Up</button>
+        <button class="tab-btn" onclick="showTab(2)">The Pattern</button>
+        <button class="tab-btn" onclick="showTab(3)">Word Power</button>
+        <button class="tab-btn" onclick="showTab(4)">The Game</button>
+        <button class="tab-btn" onclick="showTab(5)">Wrap-Up</button>
+    </div>
+
+    <!-- TAB 1: WARM-UP -->
+    <div class="tab-content active" id="tab-1">
+        <div class="card">
+            <h2>Quick Chat</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                Look at this image: someone sitting alone at a café table, staring out the window. What do they think is happening in their mind? What kind of day are they having?
+            </div>
+
+            <p style="margin-top: 16px;">Every image tells a story. But facts and interpretations are different things. The fact is: "Person at table." The interpretation is: "They're upset" or "They're waiting for someone." The skill is moving from facts to guessing — using language that shows the difference between what you see and what you imagine.</p>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                When you see something confusing or ambiguous — like someone's mood, or a scene you don't understand — how do you describe it in English? Do you guess? Do you ask questions?
+            </div>
+
+            <p style="margin-top: 12px; color: #6c5ce7; font-weight: 600;">Today: the grammar and vocabulary of speculation — so you can interpret images, situations, and feelings with confidence.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE PATTERN -->
+    <div class="tab-content" id="tab-2">
+        <div class="card">
+            <h2>From Facts to Guesses: The Certainty Ladder</h2>
+            <p>Modals aren't just about possibility. They're a certainty scale. From "I'm sure" to "I don't know":</p>
+
+            <h3>1. The Certainty Ladder: Modals in Order</h3>
+            <div class="pattern-box">
+                <p class="example">"He <strong>must be</strong> waiting for someone." (90% sure — strong evidence)</p>
+                <p class="example">"She <strong>looks like / seems to be</strong> tired." (70% sure — clear signs but not certain)</p>
+                <p class="example">"They <strong>might be / could be</strong> on a date." (50% sure — just guessing)</p>
+                <p class="example">"That <strong>can't be</strong> his real job." (90% sure it's NOT — clear contradiction)</p>
+                <p class="note">Higher certainty = stronger modals. Lower certainty = weaker modals. This is the key to sounding like you're thinking, not claiming facts.</p>
+            </div>
+
+            <h3>2. "It Looks As If..." / "It Seems Like...": Full Clauses Matter</h3>
+            <div class="pattern-box">
+                <p class="example">Correct: "It looks as if they're waiting." / "It seems like she's upset."</p>
+                <p class="example">Wrong: "It looks as if tired." / "It seems like upset."</p>
+                <p class="note">These structures NEED a subject and verb after them. You're guessing about a complete situation, not just an adjective.</p>
+            </div>
+
+            <h3>3. Speculation About Right Now: Present Continuous</h3>
+            <div class="pattern-box">
+                <p class="example">"They <strong>could be waiting</strong> for a bus." (happening now)</p>
+                <p class="example">"She <strong>might be thinking</strong> about something." (in progress)</p>
+                <p class="example">"He <strong>must be working</strong> from home today." (right now)</p>
+                <p class="note">For things happening in this moment: modal + continuous form (be + -ing). This shows the action is in progress, not complete.</p>
+            </div>
+
+            <h3>4. Educated Guesses: "I'd Guess," "I'd Imagine," "I'd Say"</h3>
+            <div class="pattern-box">
+                <p class="example">"I'd guess she's about 30." / "I'd imagine they've been friends for years."</p>
+                <p class="example">"I'd say he's nervous about something."</p>
+                <p class="note">The conditional "would" signals: this is my best guess, but I could be wrong. Less absolute than "I think."</p>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">What's the difference between "must be" and "might be"?</div>
+                <div class="answer">
+                    <p><strong>"Must be":</strong> Strong evidence points to one conclusion. "They must be French" (they're speaking French, have French accents).</p>
+                    <p><strong>"Might be":</strong> No clear evidence. Just possibility. "She might be French" (could be, but you don't know).</p>
+                    <p>Higher certainty = stronger modal. Lower certainty = weaker modal.</p>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Try it</div>
+                Describe this scene using all four certainty levels: "A man runs down the street, looking at his watch, carrying a briefcase." Use must, looks like/seems, might, and "I'd guess..."
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: WORD POWER -->
+    <div class="tab-content" id="tab-3">
+        <div class="card">
+            <h2>Word Power</h2>
+            <p>Tap to reveal. These vocabulary sets help you describe what you see and imagine what it means.</p>
+
+            <h3>Appearance & Looks</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">looks like</div>
+                    <div class="meaning">appears to be from visual clues: "She looks like she's about 25."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">appears to be</div>
+                    <div class="meaning">formal version of "looks like": "They appear to be lost."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">seems to be</div>
+                    <div class="meaning">based on impression, not just looks: "He seems to be uncomfortable."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">gives the impression of</div>
+                    <div class="meaning">creates a certain feeling: "The room gives the impression of abandonment."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">comes across as</div>
+                    <div class="meaning">the overall feeling or vibe: "She comes across as very confident."</div>
+                </div>
+            </div>
+
+            <h3>Location & Position</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">in the background</div>
+                    <div class="meaning">far away, less important in the image: "There's a building in the background."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">in the foreground</div>
+                    <div class="meaning">close, most important, at the front: "A person in the foreground is waving."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">on the left/right</div>
+                    <div class="meaning">directional placement: "On the left, there's a door."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">at the top/bottom</div>
+                    <div class="meaning">vertical position: "At the top of the building is a flag."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">in the centre</div>
+                    <div class="meaning">middle of the image: "In the centre, there's a fountain."</div>
+                </div>
+            </div>
+
+            <h3>Mood & Atmosphere</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">tense</div>
+                    <div class="meaning">anxious, uncomfortable feeling: "The atmosphere feels quite tense."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">relaxed</div>
+                    <div class="meaning">calm, comfortable, at ease: "The mood is surprisingly relaxed."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">chaotic</div>
+                    <div class="meaning">messy, disorganized, confusing: "The room looks chaotic and disorganized."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">peaceful</div>
+                    <div class="meaning">calm, quiet, serene: "The scene is quite peaceful."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">lively / vibrant</div>
+                    <div class="meaning">energetic, full of life and color: "The street is lively with activity."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">gloomy</div>
+                    <div class="meaning">dark, sad, depressing feeling: "The whole scene feels gloomy."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">isolated</div>
+                    <div class="meaning">alone, separated, lonely: "The figure looks isolated and alone."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">crowded</div>
+                    <div class="meaning">full of people or things: "The space is packed and crowded."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">mysterious</div>
+                    <div class="meaning">unclear, intriguing, enigmatic: "There's something mysterious about the image."</div>
+                </div>
+            </div>
+
+            <h3>Speculation Triggers</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">judging by (his expression)</div>
+                    <div class="meaning">inferring from visible evidence: "Judging by her face, she's unhappy."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">based on (what I can see)</div>
+                    <div class="meaning">inferring from available information: "Based on the clothes, it's probably winter."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">given that (they're wearing coats)</div>
+                    <div class="meaning">considering the fact that: "Given that it's empty, it must have closed."</div>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Challenge</div>
+                Close all cards. From memory: give three mood words, three position words, and two speculation triggers.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: THE GAME -->
+    <div class="tab-content" id="tab-4">
+        <div class="card">
+            <h2>What's Going On?</h2>
+            <p>You'll get scene descriptions. You have <strong>90 seconds</strong> to speculate about what's happening, using the certainty ladder. Aim for rich, detailed guesses.</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">1:30</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 1</div>
+                <div class="task">Two people at a table in a café. One is looking at their phone. The other is staring out the window.</div>
+                <div class="details">
+                    <p>Describe what you see. Then guess what they're thinking and feeling.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "might be" + "it looks as if" + a mood word (tense, relaxed, distant, etc.)</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 2</div>
+                <div class="task">A person in a suit running down a city street, carrying a briefcase and looking worried.</div>
+                <div class="details">
+                    <p>Describe location and position. What's their story? What time of day is it? Where are they going?</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "must be" + "could be" + "judging by"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 3</div>
+                <div class="task">A group of teenagers sitting in a circle on grass, some laughing, one looking at the ground.</div>
+                <div class="details">
+                    <p>Use present continuous to describe what's happening right now. Speculate about relationships and moods.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> continuous speculation + "seems to be" + "I'd guess"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 4 — Extended Scene</div>
+                <div class="task">An empty room with one chair, an open window, and a glass of water on the floor.</div>
+                <div class="details">
+                    <p>This is artistic and strange. Build a complete story from the details. What happened here? What's the mood? What will happen next?</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> at least 5 different speculation phrases + mood/atmosphere language + location words</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: WRAP-UP -->
+    <div class="tab-content" id="tab-5">
+        <div class="card">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-31: Diplomatic Disagreement</div>
+                <div class="question">What's the difference between "I think" and "I'd say"?</div>
+                <div class="recall-answer">
+                    <p><strong>"I think" = certainty. "I'd say" = conditional opinion.</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">In speculation, "I'd say" works the same way: "I'd say she looks happy" = offering an interpretation, not claiming fact. This is safer for guesses.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-30: Signposting</div>
+                <div class="question">What's a discourse marker used to show transition between ideas?</div>
+                <div class="recall-answer">
+                    <p><strong>Words like "however," "on the other hand," "in contrast."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">In speculation, you use transitions like "However" or "That said" to move from facts to guesses: "The man is running. However, he might be late for work."</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-22: Certainty Scale</div>
+                <div class="question">What are three modal verbs that show different degrees of certainty?</div>
+                <div class="recall-answer">
+                    <p><strong>"Must be" (90% sure), "might be" (50% sure), "can't be" (90% sure it's NOT)</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">This is THE foundation of speculation. Modals let you show the listener how confident you are in your guess.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What did you learn?</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Final challenge</div>
+                Describe someone or something you saw today. Tell the facts first, then build a complete story using the certainty ladder: must be, looks like, might be, I'd guess, can't be. Use at least 3 mood words.
+            </div>
+
+            <p style="margin-top: 16px; color: #888; font-style: italic;">The best storytellers don't just report facts — they imagine what's hidden. But they show the listener they're guessing, not claiming.</p>
+        </div>
+    </div>
+
+    <div class="lesson-nav">
+        <a href="ct_b1_31_diplomatic_disagreement.html" class="nav-link back">← CT-31</a>
+        <a href="ct_b1_33_justifying_opinions.html" class="nav-link next">CT-33 →</a>
+    </div>
+</div>
+
+<script>
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + n).classList.add('active');
+        document.querySelectorAll('.tab-btn')[n - 1].classList.add('active');
+    }
+    let timerInterval = null, timeLeft = 90, isRunning = false;
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        const d = document.getElementById('timer');
+        d.textContent = m + ':' + String(s).padStart(2, '0');
+        d.classList.remove('warning', 'danger');
+        if (timeLeft <= 10) d.classList.add('danger');
+        else if (timeLeft <= 20) d.classList.add('warning');
+    }
+    function toggleTimer() {
+        const btn = document.querySelector('.timer-btn.start');
+        if (isRunning) { clearInterval(timerInterval); btn.textContent = 'Continue'; isRunning = false; }
+        else { timerInterval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(timerInterval); isRunning = false; btn.textContent = 'Done!'; } }, 1000); btn.textContent = 'Pause'; isRunning = true; }
+    }
+    function resetTimer() { clearInterval(timerInterval); timeLeft = 90; isRunning = false; updateDisplay(); document.querySelector('.timer-btn.start').textContent = 'Start'; }
+</script>
+</body>
+</html>
