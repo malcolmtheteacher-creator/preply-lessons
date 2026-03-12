@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Things Work | Conversation Toolkit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border-radius: 16px;
+            color: white;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 6px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.9; }
+
+        /* Tabs */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background-color: #fce4e4;
+            border: 2px solid #f0c0c0;
+            color: #1a1a2e;
+            padding: 12px 22px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background-color: #f8d0d0; border-color: #ee5a24; }
+        .tab-btn.active { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; border-color: transparent; }
+
+        /* Tab Content */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Section cards */
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+        }
+        .card h2 { color: #ee5a24; font-size: 1.5em; margin-bottom: 16px; }
+        .card h3 { color: #333; font-size: 1.15em; margin: 18px 0 10px; }
+
+        /* Reveal cards */
+        .reveal-card {
+            background: #fff5f2;
+            border: 2px solid #fce4e4;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .reveal-card:hover { border-color: #ee5a24; transform: translateY(-2px); }
+        .reveal-card .prompt { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+        .reveal-card .answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #f0c0c0; color: #444; }
+        .reveal-card.open .answer { display: block; }
+
+        /* Vocab grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .vocab-item {
+            background: #fff5f2;
+            border: 1px solid #fce4e4;
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .vocab-item:hover { border-color: #ee5a24; background: #fff0eb; }
+        .vocab-item .word { font-weight: 700; color: #ee5a24; font-size: 1.05em; }
+        .vocab-item .meaning { display: none; margin-top: 8px; font-size: 0.9em; color: #555; }
+        .vocab-item.open .meaning { display: block; }
+
+        /* Speak prompts */
+        .speak-prompt {
+            background: linear-gradient(135deg, #fff5f2, #fce4e4);
+            border-left: 5px solid #ee5a24;
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 16px 0;
+            font-size: 1.05em;
+        }
+        .speak-prompt .label { color: #ee5a24; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+        /* Pattern box */
+        .pattern-box {
+            background: #1a1a2e;
+            color: white;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .pattern-box .example { color: #ff6b6b; font-weight: 600; }
+        .pattern-box .note { color: rgba(255,255,255,0.7); font-size: 0.9em; margin-top: 6px; }
+
+        /* Timer */
+        .timer-section {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+        }
+        .timer-display {
+            font-size: 3.5em;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #ee5a24;
+            margin: 15px 0;
+        }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .timer-btn {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .timer-btn.start { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; }
+        .timer-btn.reset { background: #eee; color: #333; }
+        .timer-btn:hover { transform: scale(1.05); }
+
+        /* Scenario cards for game */
+        .scenario-card {
+            background: white;
+            border: 2px solid #fce4e4;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 14px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .scenario-card:hover { border-color: #ee5a24; }
+        .scenario-card .round-label { color: #ee5a24; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+        .scenario-card .task { font-size: 1.15em; font-weight: 600; margin: 10px 0; }
+        .scenario-card .details { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #f0c0c0; }
+        .scenario-card.open .details { display: block; }
+
+        /* Recall zone */
+        .recall-card {
+            background: #f0faf8;
+            border: 2px solid #d0ece7;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 14px 0;
+            cursor: pointer;
+        }
+        .recall-card .from { color: #44a08d; font-weight: 600; font-size: 0.85em; margin-bottom: 6px; }
+        .recall-card .question { font-weight: 600; color: #1a1a2e; }
+        .recall-card .recall-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d0ece7; color: #444; }
+        .recall-card.open .recall-answer { display: block; }
+
+        /* Nav */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .nav-link {
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+        .nav-link.back { background: #eee; color: #333; }
+        .nav-link.next { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; }
+        .nav-link:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>How Things Work</h1>
+        <p class="subtitle">Giving instructions and explaining step by step</p>
+    </header>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(1)">Warm-Up</button>
+        <button class="tab-btn" onclick="showTab(2)">The Pattern</button>
+        <button class="tab-btn" onclick="showTab(3)">Word Power</button>
+        <button class="tab-btn" onclick="showTab(4)">The Game</button>
+        <button class="tab-btn" onclick="showTab(5)">Wrap-Up</button>
+    </div>
+
+    <!-- TAB 1: WARM-UP -->
+    <div class="tab-content active" id="tab-1">
+        <div class="card">
+            <h2>Quick Chat</h2>
+            <p>Think about these questions — no right or wrong answers.</p>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                Are you good at explaining things? Or do people usually say "Wait — what?"
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                What's something you know how to do really well? How would you start explaining it to someone?
+            </div>
+
+            <h3>How do you give instructions?</h3>
+            <p>Look at these two explanations. Which one is easier to follow?</p>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">Version A: "So you put the stuff in and then you do the thing and then it goes and you wait and then it's done."</div>
+                <div class="answer">
+                    <p>Hard to follow! No clear steps, no order, vague words ("stuff", "the thing").</p>
+                </div>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">Version B: "First, you need to add the ingredients. Then, mix everything together. After that, put it in the oven. Finally, wait 30 minutes."</div>
+                <div class="answer">
+                    <p>Much clearer! Each step is separate. Sequencing words show the order. Specific verbs (add, mix, put, wait).</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 16px; color: #ee5a24; font-weight: 600;">Today: building the grammar and vocabulary you need to explain any process clearly.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE PATTERN -->
+    <div class="tab-content" id="tab-2">
+        <div class="card">
+            <h2>Giving Instructions</h2>
+            <p>When you explain how to do something, you're giving instructions. English uses a special verb form for this.</p>
+
+            <h3>The Imperative</h3>
+            <p>Use the base verb — no "you", no "to", just the action:</p>
+
+            <div class="pattern-box">
+                <p class="example">Add the sugar. → Mix it well. → Wait ten minutes. → Don't forget the salt.</p>
+                <p class="note">No subject needed. Just the verb. For negatives: Don't + verb.</p>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">How is "Mix it well" different from "You mix it well"?</div>
+                <div class="answer">
+                    <p>"<strong>Mix it well</strong>" = an instruction (imperative). You're telling someone what to do.</p>
+                    <p>"<strong>You mix it well</strong>" = a description of what someone does (present simple).</p>
+                    <p>Instructions drop the "you" — they're direct and clear.</p>
+                </div>
+            </div>
+
+            <h3>"You need to..." / "You have to..."</h3>
+            <p>For steps that are essential — things you can't skip:</p>
+
+            <div class="pattern-box">
+                <p class="example">You need to preheat the oven first.</p>
+                <p class="example">You have to wait until it boils.</p>
+                <p class="example">You don't need to add salt — it's optional.</p>
+                <p class="note">need to / have to + base verb. Use these when the step is important or required.</p>
+            </div>
+
+            <h3>"Make sure you..." / "Be careful not to..."</h3>
+            <p>For warnings and important tips:</p>
+
+            <div class="pattern-box">
+                <p class="example">Make sure you save the file before closing.</p>
+                <p class="example">Be careful not to burn the butter.</p>
+                <p class="example">Don't forget to turn it off afterwards.</p>
+                <p class="note">These add helpful advice inside your instructions.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Try it</div>
+                Give three instructions for making a cup of coffee. Use an imperative, a "you need to", and a "make sure you".
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: WORD POWER -->
+    <div class="tab-content" id="tab-3">
+        <div class="card">
+            <h2>Word Power</h2>
+            <p>Tap each word to see the meaning. Try to guess first!</p>
+
+            <h3>Sequencing Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">First / First of all</div>
+                    <div class="meaning">The beginning step</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">Then / Next</div>
+                    <div class="meaning">The following step</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">After that</div>
+                    <div class="meaning">When the previous step is done</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">Once you've done that</div>
+                    <div class="meaning">When a step is complete (slightly more advanced)</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">Finally / Lastly</div>
+                    <div class="meaning">The very last step</div>
+                </div>
+            </div>
+
+            <h3>Instruction Verbs (Cooking)</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">chop</div>
+                    <div class="meaning">cut into small pieces with a knife</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">stir</div>
+                    <div class="meaning">move a spoon round and round in a liquid or mixture</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">pour</div>
+                    <div class="meaning">make a liquid flow from one container to another</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">boil</div>
+                    <div class="meaning">heat water until it bubbles (100°C)</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">preheat</div>
+                    <div class="meaning">turn on the oven and let it reach the right temperature before using it</div>
+                </div>
+            </div>
+
+            <h3>Instruction Verbs (Technology)</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">click on</div>
+                    <div class="meaning">press a button or link with your mouse / finger</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">scroll down</div>
+                    <div class="meaning">move the page down to see more</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">type in</div>
+                    <div class="meaning">write something using a keyboard</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">select</div>
+                    <div class="meaning">choose an option from a list or menu</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">attach</div>
+                    <div class="meaning">add a file to an email or message</div>
+                </div>
+            </div>
+
+            <h3>Instruction Verbs (General)</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">plug in</div>
+                    <div class="meaning">connect something to electricity</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">turn on / off</div>
+                    <div class="meaning">start or stop a machine or device</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">press</div>
+                    <div class="meaning">push a button</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">hold</div>
+                    <div class="meaning">keep something in your hand / keep a button pressed</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">adjust</div>
+                    <div class="meaning">change something slightly to make it right</div>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Challenge</div>
+                Close all the cards. How many of the 15 instruction verbs can you remember? Say each one in a sentence.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: THE GAME -->
+    <div class="tab-content" id="tab-4">
+        <div class="card">
+            <h2>The Instruction Game</h2>
+            <p>You have <strong>90 seconds</strong> per round to explain a process. Use sequencing words, imperatives, and "you need to" — make it crystal clear!</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">1:30</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 1</div>
+                <div class="task">Explain how to make your favourite simple meal</div>
+                <div class="details">
+                    <p>Think about a dish you actually cook. Explain it step by step as if talking to someone who has never cooked before.</p>
+                    <p style="margin-top: 8px; color: #ee5a24;"><strong>Must include:</strong> at least 4 sequencing words + 2 cooking verbs from Word Power</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 2</div>
+                <div class="task">Explain how to send a photo on a messaging app</div>
+                <div class="details">
+                    <p>Imagine you're explaining to someone who has never used a smartphone. Every step matters — don't skip anything!</p>
+                    <p style="margin-top: 8px; color: #ee5a24;"><strong>Must include:</strong> at least 3 tech verbs + "make sure you..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 3</div>
+                <div class="task">Explain a process from your job or daily life</div>
+                <div class="details">
+                    <p>How do you do something at work? Or explain your morning routine from alarm to leaving the house.</p>
+                    <p style="margin-top: 8px; color: #ee5a24;"><strong>Must include:</strong> "you need to..." + "don't forget to..." + "after that..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 4 — The Hard One</div>
+                <div class="task">Explain how to get from the nearest train station to your home</div>
+                <div class="details">
+                    <p>Give clear walking/bus/driving directions. Include landmarks, turns, and distances.</p>
+                    <p style="margin-top: 8px; color: #ee5a24;"><strong>Must include:</strong> "first..." + "then..." + "be careful not to..." + at least 5 steps</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: WRAP-UP -->
+    <div class="tab-content" id="tab-5">
+        <div class="card">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From Lesson 16: Fillers & Hesitation</div>
+                <div class="question">What are three phrases you can use to buy thinking time?</div>
+                <div class="recall-answer">
+                    <p><strong>"Well, let me think..." / "That's a good question..." / "How can I put this..."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">These are useful at the START of an explanation too: "OK so let me think... right, first you need to..."</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From Lesson 11: Cause & Effect</div>
+                <div class="question">How do you show that one thing causes another? Give two phrases.</div>
+                <div class="recall-answer">
+                    <p><strong>"...because..." / "...so..." / "This means..." / "That's why..."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">In instructions, use these to explain WHY a step matters: "Make sure you stir it, because otherwise it burns."</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From Lesson 4: Telling Stories</div>
+                <div class="question">What sequencing words did you learn for stories? How are they different from instruction sequencing?</div>
+                <div class="recall-answer">
+                    <p><strong>Stories: "So... → First... → Then... → Suddenly... → In the end..."</strong></p>
+                    <p><strong>Instructions: "First... → Then... → After that... → Finally..."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">Similar, but instructions don't use "suddenly" — steps are predictable, not surprising!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What did you learn?</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Final challenge</div>
+                Without looking at the lesson — explain how to make a cup of tea in at least 5 steps. Use imperatives, "you need to", sequencing words, and one warning.
+            </div>
+
+            <p style="margin-top: 16px; color: #888; font-style: italic;">Which part of giving instructions do you find easiest? Which is hardest?</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="lesson-nav">
+        <a href="conversation_toolkit_dashboard.html" class="nav-link back">← Dashboard</a>
+        <a href="ct_a2_20_mastery_prep.html" class="nav-link next">CT-20 →</a>
+    </div>
+</div>
+
+<script>
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + n).classList.add('active');
+        document.querySelectorAll('.tab-btn')[n - 1].classList.add('active');
+    }
+
+    let timerInterval = null, timeLeft = 90, isRunning = false;
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        const d = document.getElementById('timer');
+        d.textContent = m + ':' + String(s).padStart(2, '0');
+        d.classList.remove('warning', 'danger');
+        if (timeLeft <= 10) d.classList.add('danger');
+        else if (timeLeft <= 20) d.classList.add('warning');
+    }
+    function toggleTimer() {
+        const btn = document.querySelector('.timer-btn.start');
+        if (isRunning) { clearInterval(timerInterval); btn.textContent = 'Continue'; isRunning = false; }
+        else { timerInterval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(timerInterval); isRunning = false; btn.textContent = 'Done!'; } }, 1000); btn.textContent = 'Pause'; isRunning = true; }
+    }
+    function resetTimer() { clearInterval(timerInterval); timeLeft = 90; isRunning = false; updateDisplay(); document.querySelector('.timer-btn.start').textContent = 'Start'; }
+</script>
+</body>
+</html>

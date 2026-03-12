@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Going to Happen? | Conversation Toolkit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.7; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 16px; color: white; }
+        header h1 { font-size: 2.2em; margin-bottom: 6px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .tab-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background-color: #ede9fe; border: 2px solid #d4ccf7; color: #1a1a2e; padding: 12px 22px; cursor: pointer; border-radius: 8px; font-size: 0.95em; font-weight: 600; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn:hover { background-color: #ddd6fe; border-color: #6c5ce7; }
+        .tab-btn.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .card h2 { color: #6c5ce7; font-size: 1.5em; margin-bottom: 16px; }
+        .card h3 { color: #333; font-size: 1.15em; margin: 18px 0 10px; }
+        .reveal-card { background: #f5f3ff; border: 2px solid #e0dbf7; border-radius: 12px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s ease; }
+        .reveal-card:hover { border-color: #6c5ce7; transform: translateY(-2px); }
+        .reveal-card .prompt { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+        .reveal-card .answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; color: #444; }
+        .reveal-card.open .answer { display: block; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+        .vocab-item { background: #f5f3ff; border: 1px solid #e0dbf7; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .vocab-item:hover { border-color: #6c5ce7; background: #ede9fe; }
+        .vocab-item .word { font-weight: 700; color: #6c5ce7; font-size: 1.05em; }
+        .vocab-item .meaning { display: none; margin-top: 8px; font-size: 0.9em; color: #555; }
+        .vocab-item.open .meaning { display: block; }
+        .speak-prompt { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-left: 5px solid #6c5ce7; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; font-size: 1.05em; }
+        .speak-prompt .label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .pattern-box { background: #1a1a2e; color: white; border-radius: 14px; padding: 24px; margin: 16px 0; }
+        .pattern-box .example { color: #a29bfe; font-weight: 600; }
+        .pattern-box .note { color: rgba(255,255,255,0.7); font-size: 0.9em; margin-top: 6px; }
+        .certainty-scale { margin: 20px 0; }
+        .certainty-level { display: flex; align-items: center; gap: 16px; padding: 14px 20px; margin: 6px 0; border-radius: 10px; background: #f5f3ff; border: 1px solid #e0dbf7; }
+        .certainty-pct { font-weight: 700; color: #6c5ce7; min-width: 50px; font-size: 1.1em; }
+        .certainty-bar { height: 8px; border-radius: 4px; background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
+        .certainty-phrase { font-weight: 600; color: #1a1a2e; }
+        .timer-section { background: white; border-radius: 14px; padding: 30px; text-align: center; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .timer-display { font-size: 3.5em; font-weight: 700; font-family: 'Courier New', monospace; color: #6c5ce7; margin: 15px 0; }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .timer-btn { padding: 10px 28px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .timer-btn.start { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .timer-btn.reset { background: #eee; color: #333; }
+        .timer-btn:hover { transform: scale(1.05); }
+        .scenario-card { background: white; border: 2px solid #e0dbf7; border-radius: 14px; padding: 24px; margin: 14px 0; cursor: pointer; transition: all 0.3s; }
+        .scenario-card:hover { border-color: #6c5ce7; }
+        .scenario-card .round-label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+        .scenario-card .task { font-size: 1.15em; font-weight: 600; margin: 10px 0; }
+        .scenario-card .details { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; }
+        .scenario-card.open .details { display: block; }
+        .recall-card { background: #f0faf8; border: 2px solid #d0ece7; border-radius: 12px; padding: 20px; margin: 14px 0; cursor: pointer; }
+        .recall-card .from { color: #44a08d; font-weight: 600; font-size: 0.85em; margin-bottom: 6px; }
+        .recall-card .question { font-weight: 600; color: #1a1a2e; }
+        .recall-card .recall-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d0ece7; color: #444; }
+        .recall-card.open .recall-answer { display: block; }
+        .lesson-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
+        .nav-link { padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.2s; }
+        .nav-link.back { background: #eee; color: #333; }
+        .nav-link.next { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .nav-link:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>What's Going to Happen?</h1>
+        <p class="subtitle">Predictions, probability, and being carefully uncertain</p>
+    </header>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(1)">Warm-Up</button>
+        <button class="tab-btn" onclick="showTab(2)">The Pattern</button>
+        <button class="tab-btn" onclick="showTab(3)">Word Power</button>
+        <button class="tab-btn" onclick="showTab(4)">The Game</button>
+        <button class="tab-btn" onclick="showTab(5)">Wrap-Up</button>
+    </div>
+
+    <!-- TAB 1: WARM-UP -->
+    <div class="tab-content active" id="tab-1">
+        <div class="card">
+            <h2>Quick Chat</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                "Cars will fly by 2050." Do you agree? How sure are you — 100%? 50%? 10%?
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                Think of a prediction about your own life in 5 years. How confident are you it will happen?
+            </div>
+
+            <p style="margin-top: 16px;">Strong speakers don't just say "I think..." — they show HOW SURE they are. "Cars will fly" sounds foolish. "Cars might fly" sounds thoughtful. Same idea, different certainty.</p>
+
+            <p style="margin-top: 12px; color: #6c5ce7; font-weight: 600;">Today: the grammar of certainty — from "definitely" to "I doubt it" — and the vocabulary to talk about the future.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE PATTERN -->
+    <div class="tab-content" id="tab-2">
+        <div class="card">
+            <h2>The Certainty Scale</h2>
+            <p>English has different modal verbs and adverbs for different levels of certainty. The scale runs from 100% sure to almost impossible:</p>
+
+            <div class="certainty-scale">
+                <div class="certainty-level">
+                    <div class="certainty-pct">100%</div>
+                    <div><span class="certainty-phrase">will definitely / is certain to</span><br><span style="color: #888; font-size: 0.9em;">"Electric cars will definitely replace petrol cars."</span></div>
+                </div>
+                <div class="certainty-level">
+                    <div class="certainty-pct">90%</div>
+                    <div><span class="certainty-phrase">will probably / is very likely to</span><br><span style="color: #888; font-size: 0.9em;">"AI will probably change most jobs."</span></div>
+                </div>
+                <div class="certainty-level">
+                    <div class="certainty-pct">70%</div>
+                    <div><span class="certainty-phrase">should / is likely to</span><br><span style="color: #888; font-size: 0.9em;">"Prices should come down eventually."</span></div>
+                </div>
+                <div class="certainty-level">
+                    <div class="certainty-pct">50%</div>
+                    <div><span class="certainty-phrase">might / could / may</span><br><span style="color: #888; font-size: 0.9em;">"We might see flying taxis in our lifetime."</span></div>
+                </div>
+                <div class="certainty-level">
+                    <div class="certainty-pct">30%</div>
+                    <div><span class="certainty-phrase">probably won't / is unlikely to</span><br><span style="color: #888; font-size: 0.9em;">"Cash probably won't disappear completely."</span></div>
+                </div>
+                <div class="certainty-level">
+                    <div class="certainty-pct">10%</div>
+                    <div><span class="certainty-phrase">I doubt... / I can't see... happening</span><br><span style="color: #888; font-size: 0.9em;">"I doubt we'll live on Mars in my lifetime."</span></div>
+                </div>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">Where does "probably" go in a sentence?</div>
+                <div class="answer">
+                    <p><strong>After "will":</strong> "It will probably rain."</p>
+                    <p><strong>Before "won't":</strong> "It probably won't work."</p>
+                    <p>This is a common mistake — the position changes with positive vs negative!</p>
+                </div>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">What's the difference between "might" and "could"?</div>
+                <div class="answer">
+                    <p>Almost the same at this level. Both = ~50% certainty.</p>
+                    <p><strong>"Might"</strong> slightly more about possibility: "It might rain."</p>
+                    <p><strong>"Could"</strong> slightly more about ability/potential: "This could change everything."</p>
+                    <p>In practice, they're interchangeable for predictions.</p>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Try it</div>
+                Make 6 predictions about the next 20 years — one at each level of the certainty scale. Use a different modal each time.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: WORD POWER -->
+    <div class="tab-content" id="tab-3">
+        <div class="card">
+            <h2>Word Power</h2>
+            <p>Tap to reveal. These help you talk about the future and change.</p>
+
+            <h3>Future & Change Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">gradually</div>
+                    <div class="meaning">slowly, step by step — "Things are gradually improving"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">rapidly</div>
+                    <div class="meaning">very quickly — "Technology is changing rapidly"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">replace</div>
+                    <div class="meaning">take the place of — "Robots could replace some workers"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">transform</div>
+                    <div class="meaning">change completely — "AI will transform education"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">decline</div>
+                    <div class="meaning">become less / get worse — "The number of shops is declining"</div>
+                </div>
+            </div>
+
+            <h3>Prediction Topics</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">renewable energy</div>
+                    <div class="meaning">energy from sun, wind, water — not oil or gas</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">remote working</div>
+                    <div class="meaning">working from home instead of an office</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">climate change</div>
+                    <div class="meaning">long-term changes in temperature and weather patterns</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">automation</div>
+                    <div class="meaning">machines doing work that people used to do</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">ageing population</div>
+                    <div class="meaning">when the average age of people in a country goes up</div>
+                </div>
+            </div>
+
+            <h3>Hedging Phrases</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">I'd say...</div>
+                    <div class="meaning">a soft way to give your opinion — less direct than "I think"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">arguably</div>
+                    <div class="meaning">you could make a case for this — "Arguably, this is the biggest problem"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">to some extent</div>
+                    <div class="meaning">partly true — "To some extent, I agree"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">it's hard to say</div>
+                    <div class="meaning">honest uncertainty — "It's hard to say what will happen"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">I wouldn't be surprised if</div>
+                    <div class="meaning">you think something is possible — "I wouldn't be surprised if it happened"</div>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Challenge</div>
+                Close all cards. Make 5 predictions about your country using 5 different vocabulary words from the grid.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: THE GAME -->
+    <div class="tab-content" id="tab-4">
+        <div class="card">
+            <h2>The Prediction Game</h2>
+            <p>For each topic, make <strong>3 predictions</strong> at different certainty levels. You have 90 seconds per round.</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">1:30</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 1 — Transport</div>
+                <div class="task">How will people travel in 2050?</div>
+                <div class="details">
+                    <p>Make 3 predictions: one you're very sure about (will definitely/probably), one you're 50/50 on (might/could), and one you doubt (probably won't / I doubt).</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> 3 different certainty levels</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 2 — Work</div>
+                <div class="task">What will jobs look like in 20 years?</div>
+                <div class="details">
+                    <p>Think about: automation, remote working, new types of jobs. Use hedging phrases — not everything is certain!</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "I'd say..." + "arguably" + one "I wouldn't be surprised if..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 3 — Your Life</div>
+                <div class="task">Where will you be in 10 years?</div>
+                <div class="details">
+                    <p>Personal predictions — career, home, lifestyle. Be honest about what you're sure about and what you're not.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> "will probably" + "might" + "it's hard to say"</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Round 4 — The Debate</div>
+                <div class="task">"Cash will completely disappear within 10 years." Do you agree?</div>
+                <div class="details">
+                    <p>Take a position but use hedging. Show certainty where you have it, and uncertainty where you don't.</p>
+                    <p style="margin-top: 8px; color: #6c5ce7;"><strong>Must use:</strong> at least 4 different phrases from the certainty scale</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: WRAP-UP -->
+    <div class="tab-content" id="tab-5">
+        <div class="card">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-21: Big Questions</div>
+                <div class="question">What phrase shows you've considered something carefully before answering? Give two examples.</div>
+                <div class="recall-answer">
+                    <p><strong>"I've always thought that..." / "I've never really considered..." / "I've noticed that..."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">Present perfect = your thinking connects past to now. It shows depth.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-20: All About Me</div>
+                <div class="question">How do you connect your past to your present when telling your story?</div>
+                <div class="recall-answer">
+                    <p><strong>"I studied law, but now I work in sales." / "I used to live in a small town, but I moved to the city."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">Connectors (but, so, and then) bridge past simple → present simple.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-19: How Things Work</div>
+                <div class="question">What are the 5 sequencing words for explaining steps in order?</div>
+                <div class="recall-answer">
+                    <p><strong>First → Then → After that → Next → Finally</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">These work for predictions too: "First, automation will affect factories. Then, it'll spread to offices..."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What did you learn?</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Final challenge</div>
+                "What will the world look like in 2050?" — Speak for 90 seconds. Use at least 4 different certainty levels from the scale. No notes!
+            </div>
+
+            <p style="margin-top: 16px; color: #888; font-style: italic;">Do you tend to be too certain or too uncertain when you speak English? What's your natural style?</p>
+        </div>
+    </div>
+
+    <div class="lesson-nav">
+        <a href="ct_b1_21_complex_questions.html" class="nav-link back">← CT-21</a>
+        <a href="ct_b1_23_structuring_arguments.html" class="nav-link next">CT-23 →</a>
+    </div>
+</div>
+
+<script>
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + n).classList.add('active');
+        document.querySelectorAll('.tab-btn')[n - 1].classList.add('active');
+    }
+
+    let timerInterval = null, timeLeft = 90, isRunning = false;
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        const d = document.getElementById('timer');
+        d.textContent = m + ':' + String(s).padStart(2, '0');
+        d.classList.remove('warning', 'danger');
+        if (timeLeft <= 10) d.classList.add('danger');
+        else if (timeLeft <= 20) d.classList.add('warning');
+    }
+    function toggleTimer() {
+        const btn = document.querySelector('.timer-btn.start');
+        if (isRunning) { clearInterval(timerInterval); btn.textContent = 'Continue'; isRunning = false; }
+        else { timerInterval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(timerInterval); isRunning = false; btn.textContent = 'Done!'; } }, 1000); btn.textContent = 'Pause'; isRunning = true; }
+    }
+    function resetTimer() { clearInterval(timerInterval); timeLeft = 90; isRunning = false; updateDisplay(); document.querySelector('.timer-btn.start').textContent = 'Start'; }
+</script>
+</body>
+</html>

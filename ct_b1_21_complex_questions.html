@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Questions | Conversation Toolkit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 16px; color: white; }
+        header h1 { font-size: 2.2em; margin-bottom: 6px; }
+        header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .tab-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { background-color: #ede9fe; border: 2px solid #d4ccf7; color: #1a1a2e; padding: 12px 22px; cursor: pointer; border-radius: 8px; font-size: 0.95em; font-weight: 600; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn:hover { background-color: #ddd6fe; border-color: #6c5ce7; }
+        .tab-btn.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .card h2 { color: #6c5ce7; font-size: 1.5em; margin-bottom: 16px; }
+        .card h3 { color: #333; font-size: 1.15em; margin: 18px 0 10px; }
+        .reveal-card { background: #f5f3ff; border: 2px solid #e0dbf7; border-radius: 12px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s ease; }
+        .reveal-card:hover { border-color: #6c5ce7; transform: translateY(-2px); }
+        .reveal-card .prompt { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+        .reveal-card .answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; color: #444; }
+        .reveal-card.open .answer { display: block; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+        .vocab-item { background: #f5f3ff; border: 1px solid #e0dbf7; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .vocab-item:hover { border-color: #6c5ce7; background: #ede9fe; }
+        .vocab-item .word { font-weight: 700; color: #6c5ce7; font-size: 1.05em; }
+        .vocab-item .meaning { display: none; margin-top: 8px; font-size: 0.9em; color: #555; }
+        .vocab-item.open .meaning { display: block; }
+        .speak-prompt { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-left: 5px solid #6c5ce7; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; font-size: 1.05em; }
+        .speak-prompt .label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .pattern-box { background: #1a1a2e; color: white; border-radius: 14px; padding: 24px; margin: 16px 0; }
+        .pattern-box .example { color: #a29bfe; font-weight: 600; }
+        .pattern-box .note { color: rgba(255,255,255,0.7); font-size: 0.9em; margin-top: 6px; }
+        .timer-section { background: white; border-radius: 14px; padding: 30px; text-align: center; margin: 20px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eee; }
+        .timer-display { font-size: 3.5em; font-weight: 700; font-family: 'Courier New', monospace; color: #6c5ce7; margin: 15px 0; }
+        .timer-display.warning { color: #f0a500; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .timer-btn { padding: 10px 28px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .timer-btn.start { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .timer-btn.reset { background: #eee; color: #333; }
+        .timer-btn:hover { transform: scale(1.05); }
+        .scenario-card { background: white; border: 2px solid #e0dbf7; border-radius: 14px; padding: 24px; margin: 14px 0; cursor: pointer; transition: all 0.3s; }
+        .scenario-card:hover { border-color: #6c5ce7; }
+        .scenario-card .round-label { color: #6c5ce7; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+        .scenario-card .task { font-size: 1.15em; font-weight: 600; margin: 10px 0; }
+        .scenario-card .details { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d4ccf7; }
+        .scenario-card.open .details { display: block; }
+        .recall-card { background: #f0faf8; border: 2px solid #d0ece7; border-radius: 12px; padding: 20px; margin: 14px 0; cursor: pointer; }
+        .recall-card .from { color: #44a08d; font-weight: 600; font-size: 0.85em; margin-bottom: 6px; }
+        .recall-card .question { font-weight: 600; color: #1a1a2e; }
+        .recall-card .recall-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 2px dashed #d0ece7; color: #444; }
+        .recall-card.open .recall-answer { display: block; }
+        .lesson-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
+        .nav-link { padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.2s; }
+        .nav-link.back { background: #eee; color: #333; }
+        .nav-link.next { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; }
+        .nav-link:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Big Questions</h1>
+        <p class="subtitle">Talking about society, the future, and abstract ideas</p>
+    </header>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(1)">Warm-Up</button>
+        <button class="tab-btn" onclick="showTab(2)">The Pattern</button>
+        <button class="tab-btn" onclick="showTab(3)">Word Power</button>
+        <button class="tab-btn" onclick="showTab(4)">The Game</button>
+        <button class="tab-btn" onclick="showTab(5)">Wrap-Up</button>
+    </div>
+
+    <!-- TAB 1: WARM-UP -->
+    <div class="tab-content active" id="tab-1">
+        <div class="card">
+            <h2>Quick Chat</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                "Is technology making us smarter or lazier?" — What's your first reaction? Don't think too hard — just speak.
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Speak</div>
+                What's a topic you have strong opinions about? Why does it matter to you?
+            </div>
+
+            <p style="margin-top: 16px;">Complex questions need complex language. "I think it's good" isn't enough anymore. You need to show that you've considered different angles.</p>
+
+            <p style="margin-top: 12px; color: #6c5ce7; font-weight: 600;">Today: building the grammar and vocabulary to discuss big ideas — with nuance and depth.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE PATTERN -->
+    <div class="tab-content" id="tab-2">
+        <div class="card">
+            <h2>Thinking Language</h2>
+
+            <h3>1. Showing You've Considered Something (Present Perfect)</h3>
+            <div class="pattern-box">
+                <p class="example">I've always thought that... / I've never really considered... / I've noticed that...</p>
+                <p class="note">Present perfect connects your past thinking to NOW. It shows depth — you're not just reacting, you've thought about it.</p>
+            </div>
+
+            <div class="reveal-card" onclick="this.classList.toggle('open')">
+                <div class="prompt">"I think education is important" vs "I've always believed education is important" — what changes?</div>
+                <div class="answer">
+                    <p><strong>"I think"</strong> = a simple opinion right now.</p>
+                    <p><strong>"I've always believed"</strong> = this is a considered, long-held view. It sounds more thoughtful and mature.</p>
+                </div>
+            </div>
+
+            <h3>2. Exploring Possibilities (If... / Could... / Might...)</h3>
+            <div class="pattern-box">
+                <p class="example">If I had to choose, I'd say... / This could lead to... / It might change the way we...</p>
+                <p class="note">Modal verbs (could, might, would) let you explore ideas without being too certain. This sounds intelligent — not everything is black and white.</p>
+            </div>
+
+            <h3>3. Acknowledging Other Views</h3>
+            <div class="pattern-box">
+                <p class="example">Some people argue that... / It depends on... / There are different ways to look at this...</p>
+                <p class="note">Showing you understand other perspectives makes your own opinion stronger, not weaker.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Try it</div>
+                "Should everyone go to university?" — Answer using all three patterns: "I've always thought...", "It could..." and "Some people argue..."
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: WORD POWER -->
+    <div class="tab-content" id="tab-3">
+        <div class="card">
+            <h2>Word Power</h2>
+            <p>Tap to reveal. These words help you discuss big ideas.</p>
+
+            <h3>Abstract Topic Words</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">society</div>
+                    <div class="meaning">people living together with shared laws and customs</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">generation</div>
+                    <div class="meaning">people born around the same time — "the younger generation"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">inequality</div>
+                    <div class="meaning">when some people have more money, rights, or chances than others</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">progress</div>
+                    <div class="meaning">improvement over time — "We've made a lot of progress"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">impact</div>
+                    <div class="meaning">a strong effect — "Technology has had a huge impact on..."</div>
+                </div>
+            </div>
+
+            <h3>Thinking Verbs</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">consider</div>
+                    <div class="meaning">think carefully about — "We need to consider the risks"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">assume</div>
+                    <div class="meaning">believe something without proof — "People assume it's easy, but..."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">tend to</div>
+                    <div class="meaning">usually do something — "People tend to forget that..."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">depend on</div>
+                    <div class="meaning">be affected by — "It really depends on where you live"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">influence</div>
+                    <div class="meaning">have an effect on — "Social media influences how people think"</div>
+                </div>
+            </div>
+
+            <h3>Useful Phrases for Complex Ideas</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">it's a complex issue</div>
+                    <div class="meaning">it's not simple — there are many sides to consider</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">in the long run</div>
+                    <div class="meaning">over a long period of time — "In the long run, it could help"</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">at the same time</div>
+                    <div class="meaning">but also — shows two things are true together</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">the reality is</div>
+                    <div class="meaning">what actually happens (vs what people think) — "The reality is that..."</div>
+                </div>
+                <div class="vocab-item" onclick="this.classList.toggle('open')">
+                    <div class="word">it raises the question</div>
+                    <div class="meaning">it makes you wonder — "This raises the question: is it fair?"</div>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <div class="label">Challenge</div>
+                Close all cards. "Technology is changing education." — Talk about this for 1 minute using at least 5 words from the grid.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: THE GAME -->
+    <div class="tab-content" id="tab-4">
+        <div class="card">
+            <h2>The Deep Dive</h2>
+            <p>You get a big question. Think for 10 seconds, then speak for <strong>2 minutes</strong>. Use "thinking language" — don't just say "I think it's good/bad."</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">2:00</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Question 1</div>
+                <div class="task">"Will artificial intelligence create more jobs or destroy them?"</div>
+                <div class="details">
+                    <p>Consider both sides. Use: "I've noticed that..." + "It could..." + "Some people argue..." + "It depends on..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Question 2</div>
+                <div class="task">"Is it better to live in a big city or a small town?"</div>
+                <div class="details">
+                    <p>Draw on your own experience AND think about different people. Use: "I've always thought..." + "At the same time..." + "In the long run..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Question 3</div>
+                <div class="task">"Should governments spend more money on space exploration or on solving problems on Earth?"</div>
+                <div class="details">
+                    <p>This is genuinely hard! Use: "It's a complex issue..." + "The reality is..." + "If I had to choose, I'd say..."</p>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="this.classList.toggle('open')">
+                <div class="round-label">Question 4</div>
+                <div class="task">"How will the world be different in 50 years?"</div>
+                <div class="details">
+                    <p>Pure speculation — use modal verbs! "It might..." + "It could..." + "People will probably..." + "I wouldn't be surprised if..."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: WRAP-UP -->
+    <div class="tab-content" id="tab-5">
+        <div class="card">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-20: All About Me</div>
+                <div class="question">What three time frames can you use to talk about yourself? Give an example phrase for each.</div>
+                <div class="recall-answer">
+                    <p><strong>Present:</strong> "I work as..." / "I'm currently studying..."</p>
+                    <p><strong>Past:</strong> "I grew up in..." / "I moved to... three years ago"</p>
+                    <p><strong>Opinion:</strong> "I think... because..." / "In my opinion..."</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From CT-19: How Things Work</div>
+                <div class="question">What's the difference between an imperative and "you need to"?</div>
+                <div class="recall-answer">
+                    <p><strong>Imperative:</strong> "Add the salt" — direct instruction.</p>
+                    <p><strong>"You need to":</strong> "You need to add the salt" — emphasises it's essential, can't be skipped.</p>
+                </div>
+            </div>
+
+            <div class="recall-card" onclick="this.classList.toggle('open')">
+                <div class="from">From Lesson 16: Fillers & Hesitation</div>
+                <div class="question">What phrase can you use to sound thoughtful before answering a difficult question?</div>
+                <div class="recall-answer">
+                    <p><strong>"That's a really interesting question..." / "I haven't thought about that recently, but..." / "Let me think about this for a moment..."</strong></p>
+                    <p style="margin-top: 8px; color: #44a08d;">These are essential for big questions — they buy you time AND make you sound thoughtful.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What did you learn?</h2>
+
+            <div class="speak-prompt">
+                <div class="label">Final challenge</div>
+                Pick any topic from today. Without notes, speak for 90 seconds. Use at least: one present perfect phrase, one modal verb, and one phrase that acknowledges the other side.
+            </div>
+
+            <p style="margin-top: 16px; color: #888; font-style: italic;">What was harder — finding the ideas, or finding the English to express them?</p>
+        </div>
+    </div>
+
+    <div class="lesson-nav">
+        <a href="ct_a2_20_mastery_prep.html" class="nav-link back">← CT-20</a>
+        <a href="ct_b1_22_hedging_language.html" class="nav-link next">CT-22 →</a>
+    </div>
+</div>
+
+<script>
+    function showTab(n) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + n).classList.add('active');
+        document.querySelectorAll('.tab-btn')[n - 1].classList.add('active');
+    }
+
+    let timerInterval = null, timeLeft = 120, isRunning = false;
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        const d = document.getElementById('timer');
+        d.textContent = m + ':' + String(s).padStart(2, '0');
+        d.classList.remove('warning', 'danger');
+        if (timeLeft <= 15) d.classList.add('danger');
+        else if (timeLeft <= 30) d.classList.add('warning');
+    }
+    function toggleTimer() {
+        const btn = document.querySelector('.timer-btn.start');
+        if (isRunning) { clearInterval(timerInterval); btn.textContent = 'Continue'; isRunning = false; }
+        else { timerInterval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(timerInterval); isRunning = false; btn.textContent = 'Done!'; } }, 1000); btn.textContent = 'Pause'; isRunning = true; }
+    }
+    function resetTimer() { clearInterval(timerInterval); timeLeft = 120; isRunning = false; updateDisplay(); document.querySelector('.timer-btn.start').textContent = 'Start'; }
+</script>
+</body>
+</html>
