@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Topic</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            max-width: 1100px;
+            margin: 24px auto 0;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            background: #f0edff;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 2px solid #ddd;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: #667eea;
+        }
+
+        /* Cards grid */
+        .grid {
+            max-width: 1100px;
+            margin: 24px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .category-label {
+            grid-column: 1 / -1;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #444;
+            margin-top: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-label .cat-icon {
+            font-size: 1.4rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        }
+
+        .card-banner {
+            height: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-banner.c2 {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-level {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .card-level.a2 {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .card-level.c2 {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .tag {
+            padding: 3px 10px;
+            background: #f0f0ff;
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* Empty state */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state .emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .header h1 { font-size: 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .filter-bar { flex-direction: column; }
+            .search-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Choose Your Topic</h1>
+    <p>Pick a lesson that interests you — learn what you want, when you want.</p>
+</div>
+
+<div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all')">All</button>
+    <button class="filter-btn" onclick="filter('food')">Food &amp; Culture</button>
+    <button class="filter-btn" onclick="filter('travel')">Travel &amp; Places</button>
+    <button class="filter-btn" onclick="filter('life')">Daily Life</button>
+    <button class="filter-btn" onclick="filter('entertainment')">Entertainment</button>
+    <button class="filter-btn" onclick="filter('work')">Work &amp; Money</button>
+    <button class="filter-btn" onclick="filter('advanced')">Advanced</button>
+    <input type="text" class="search-box" placeholder="Search topics..." oninput="search(this.value)">
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const lessons = [
+    // Food & Culture
+    {
+        cat: 'food', icon: '🍽️', catLabel: 'Food & Culture',
+        title: 'Discussing Restaurants',
+        desc: 'Talk about your favourite restaurants, describe dishes, and share food recommendations.',
+        tags: ['food vocabulary', 'opinions', 'present tenses'],
+        level: 'a2',
+        file: 'su_a2_01_discussing_restaurants.html'
+    },
+    {
+        cat: 'food',
+        title: 'Memorable Meals',
+        desc: 'Describe unforgettable food experiences and tell stories about meals that left an impression.',
+        tags: ['past tenses', 'adjectives', 'storytelling'],
+        level: 'a2',
+        file: 'su_a2_06_memorable_meals.html'
+    },
+    {
+        cat: 'food',
+        title: 'Comparing Cultures',
+        desc: 'Explore cultural differences and similarities — customs, traditions, and everyday life.',
+        tags: ['comparatives', 'culture', 'opinions'],
+        level: 'a2',
+        file: 'su_a2_05_comparing_cultures.html'
+    },
+    {
+        cat: 'food',
+        title: 'Cultural Celebrations',
+        desc: 'Learn to describe festivals, holidays, and celebrations from different cultures.',
+        tags: ['present simple', 'traditions', 'descriptions'],
+        level: 'a2',
+        file: 'su_a2_11_cultural_celebrations.html'
+    },
+
+    // Travel & Places
+    {
+        cat: 'travel', icon: '✈️', catLabel: 'Travel & Places',
+        title: 'Getting Around Town',
+        desc: 'Give and follow directions, talk about transport, and navigate unfamiliar places.',
+        tags: ['directions', 'prepositions', 'transport'],
+        level: 'a2',
+        file: 'su_a2_03_getting_around_town.html'
+    },
+    {
+        cat: 'travel',
+        title: 'Holidays',
+        desc: 'Talk about past holidays, ask about travel experiences, and share favourite memories.',
+        tags: ['past simple', 'question forms', 'travel'],
+        level: 'a2',
+        file: 'su_a2_08_holidays.html'
+    },
+    {
+        cat: 'travel',
+        title: 'Travel Plans',
+        desc: 'Discuss future trips, make plans, and talk about what you want to do on holiday.',
+        tags: ['going to', 'future plans', 'travel'],
+        level: 'a2',
+        file: 'su_a2_09_travel_plans.html'
+    },
+    {
+        cat: 'travel',
+        title: 'It Was a Disaster!',
+        desc: 'Tell stories about travel problems — lost luggage, bad hotels, and holiday nightmares.',
+        tags: ['negative adjectives', 'sympathy phrases', 'past tenses'],
+        level: 'a2',
+        file: 'su_a2_20_it_was_a_disaster.html'
+    },
+
+    // Daily Life
+    {
+        cat: 'life', icon: '🏠', catLabel: 'Daily Life',
+        title: 'Lifestyle Changes',
+        desc: 'Describe changes in your life, health habits, and everyday routines.',
+        tags: ['used to', 'present perfect', 'health'],
+        level: 'a2',
+        file: 'su_a2_02_lifestyle_changes.html'
+    },
+    {
+        cat: 'life',
+        title: 'Planning the Future',
+        desc: 'Talk about goals, ambitions, and plans for the future using time expressions.',
+        tags: ['future forms', 'time phrases', 'goals'],
+        level: 'a2',
+        file: 'su_a2_10_planning_the_future.html'
+    },
+    {
+        cat: 'life',
+        title: 'Talking About Fashion',
+        desc: 'Describe clothing and style, discuss fashion trends, and express preferences.',
+        tags: ['adjectives', 'preferences', 'present tenses'],
+        level: 'a2',
+        file: 'su_a2_13_talking_about_fashion.html'
+    },
+    {
+        cat: 'life',
+        title: 'Online or Offline?',
+        desc: 'Compare online and offline activities — shopping, learning, and social life.',
+        tags: ['likes & dislikes', 'comparisons', 'technology'],
+        level: 'a2',
+        file: 'su_a2_14_online_or_offline.html'
+    },
+    {
+        cat: 'life',
+        title: 'Describing Objects',
+        desc: 'Describe everyday items, explain what things are for, and practise selling an object.',
+        tags: ['adjective order', 'function phrases', 'descriptions'],
+        level: 'a2',
+        file: 'su_a2_15_describing_objects.html'
+    },
+    {
+        cat: 'life',
+        title: 'A Special Occasion',
+        desc: 'Describe important events — weddings, birthdays, ceremonies — and what happened.',
+        tags: ['past simple', 'past continuous', 'events'],
+        level: 'a2',
+        file: 'su_a2_19_a_special_occasion.html'
+    },
+
+    // Entertainment
+    {
+        cat: 'entertainment', icon: '🎬', catLabel: 'Entertainment',
+        title: 'Describing Experiences',
+        desc: 'Share personal experiences, react to stories, and describe memorable moments.',
+        tags: ['present perfect', 'reactions', 'experiences'],
+        level: 'a2',
+        file: 'su_a2_04_describing_experiences.html'
+    },
+    {
+        cat: 'entertainment',
+        title: 'The Silver Screen',
+        desc: 'Talk about films, describe plots, and share your opinions on movies.',
+        tags: ['film vocabulary', 'opinions', 'adjectives'],
+        level: 'a2',
+        file: 'su_a2_07_the_silver_screen.html'
+    },
+    {
+        cat: 'entertainment',
+        title: 'Musicians',
+        desc: 'Discuss music, describe musicians and bands, and talk about concerts and songs.',
+        tags: ['past simple', 'music vocabulary', 'interviews'],
+        level: 'a2',
+        file: 'su_a2_12_musicians.html'
+    },
+    {
+        cat: 'entertainment',
+        title: 'Surprising Tales',
+        desc: 'Tell and react to surprising stories using adverbs and dramatic language.',
+        tags: ['adverbs', 'storytelling', 'reactions'],
+        level: 'a2',
+        file: 'su_a2_16_surprising_tales.html'
+    },
+
+    // Work & Money
+    {
+        cat: 'work', icon: '💼', catLabel: 'Work & Money',
+        title: 'Getting a Bargain',
+        desc: 'Practise negotiating, giving shopping advice, and talking about spending and saving.',
+        tags: ['first conditional', 'shopping', 'advice'],
+        level: 'a2',
+        file: 'su_a2_17_getting_a_bargain.html'
+    },
+    {
+        cat: 'work',
+        title: 'Choosing a Job',
+        desc: 'Explore different jobs, discuss what makes work enjoyable, and match skills to careers.',
+        tags: ['job vocabulary', 'collocations', 'preferences'],
+        level: 'a2',
+        file: 'su_a2_18_choosing_a_job.html'
+    },
+
+    // Advanced
+    {
+        cat: 'advanced', icon: '📊', catLabel: 'Advanced',
+        title: 'The Way Things Are Going',
+        desc: 'Analyse real-world data, discuss trends, and practise hedging and speculating at an advanced level.',
+        tags: ['data analysis', 'hedging', 'trend language'],
+        level: 'c2',
+        file: 'c2_01_the_way_things_are_going.html'
+    }
+];
+
+let activeFilter = 'all';
+let searchTerm = '';
+
+function render() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+
+    const filtered = lessons.filter(l => {
+        const matchFilter = activeFilter === 'all' || l.cat === activeFilter;
+        const matchSearch = !searchTerm ||
+            l.title.toLowerCase().includes(searchTerm) ||
+            l.desc.toLowerCase().includes(searchTerm) ||
+            l.tags.some(t => t.toLowerCase().includes(searchTerm));
+        return matchFilter && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div class="empty-state"><div class="emoji">🔍</div><p>No lessons match your search. Try a different keyword!</p></div>';
+        return;
+    }
+
+    // Group by category
+    const categories = [];
+    const seen = new Set();
+    filtered.forEach(l => {
+        if (!seen.has(l.cat)) {
+            seen.add(l.cat);
+            categories.push(l.cat);
+        }
+    });
+
+    categories.forEach(cat => {
+        const catLessons = filtered.filter(l => l.cat === cat);
+        const first = lessons.find(l => l.cat === cat && l.icon);
+
+        const label = document.createElement('div');
+        label.className = 'category-label';
+        label.innerHTML = `<span class="cat-icon">${first ? first.icon : ''}</span> ${first ? first.catLabel : cat}`;
+        grid.appendChild(label);
+
+        catLessons.forEach(l => {
+            const a = document.createElement('a');
+            a.className = 'card';
+            a.href = l.file;
+
+            a.innerHTML = `
+                <div class="card-banner ${l.level}"></div>
+                <div class="card-body">
+                    <span class="card-level ${l.level}">${l.level.toUpperCase()}</span>
+                    <div class="card-title">${l.title}</div>
+                    <div class="card-desc">${l.desc}</div>
+                    <div class="card-tags">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                </div>`;
+            grid.appendChild(a);
+        });
+    });
+}
+
+function filter(cat) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase().replace(/ & /g,'').replace(/ /g,'') === cat ||
+            (cat === 'all' && btn.textContent.trim() === 'All') ||
+            (cat === 'food' && btn.textContent.includes('Food')) ||
+            (cat === 'travel' && btn.textContent.includes('Travel')) ||
+            (cat === 'life' && btn.textContent.includes('Daily')) ||
+            (cat === 'entertainment' && btn.textContent.includes('Entertainment')) ||
+            (cat === 'work' && btn.textContent.includes('Work')) ||
+            (cat === 'advanced' && btn.textContent.includes('Advanced'))
+        );
+    });
+    render();
+}
+
+function search(val) {
+    searchTerm = val.toLowerCase().trim();
+    render();
+}
+
+render();
+</script>
+</body>
+</html>
