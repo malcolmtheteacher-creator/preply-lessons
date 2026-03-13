@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluative Language & Nuanced Selection — C2 Mastery</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+  .text-input::placeholder { color: #aaa; }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+  .feedback.visible { display: block; }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-3 { background: var(--accent-light); color: var(--accent); }
+  .btn-5 { background: var(--accent-light); color: var(--accent); }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── EXAMPLE BOX ─── */
+  .example-box {
+    background: #f5f5f5;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-radius: 8px;
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  .example-box .ex-label {
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: var(--text-light);
+  }
+  .example-box .ex-text {
+    margin-bottom: 6px;
+  }
+  .example-box .ex-note {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+  .comparison-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .comparison-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table tr:nth-child(even) { background: #fafafa; }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .d-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .d-card.selected { border-color: var(--accent); background: var(--accent-light); }
+  .d-card .d-title { font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
+  .d-card .d-desc { font-size: 0.85rem; color: var(--text-light); }
+
+  /* ─── HIGHLIGHT FEATURE ─── */
+  .highlight-yellow { background: #fff9e6; padding: 2px 6px; }
+  .highlight-blue { background: #e8ecff; padding: 2px 6px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .tab-content { padding: 20px 16px; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .discussion-cards { grid-template-columns: 1fr; }
+    .comparison-table { font-size: 0.85rem; }
+    .comparison-table th, .comparison-table td { padding: 10px 12px; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('tab1')">Connect</button>
+  <button class="tab-btn" onclick="showTab('tab2')">Content</button>
+  <button class="tab-btn" onclick="showTab('tab3')">Build</button>
+  <button class="tab-btn" onclick="showTab('tab4')">Apply</button>
+  <button class="tab-btn" onclick="showTab('tab5')">Extend</button>
+  <button class="tab-btn" onclick="showTab('tab6')">Recall</button>
+  <button class="tab-btn" onclick="showTab('tab7')">Retrieve</button>
+</div>
+
+<!-- TAB 1: CONNECT ──────────────────────────────────────────── -->
+<div id="tab1" class="tab-content active">
+  <h1>Evaluative Language & Nuanced Selection</h1>
+  <p style="margin-bottom: 20px; color: var(--text-light); font-size: 0.95rem;">C2 Mastery | Knowledge Building</p>
+
+  <div class="learning-intention">
+    <strong>Today:</strong> You'll develop sophisticated evaluative language and understand how advanced speakers and writers select between gerunds and infinitives for rhetorical precision — so you can craft nuanced academic and professional discourse.
+  </div>
+
+  <h2>What do you already know?</h2>
+  <p>Let's see what comes to mind. Don't worry about perfect answers — just write what you remember:</p>
+
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>1. Think of a sentence where you disagree with something. How did you express your disagreement? Write it down.</strong></p>
+    <textarea class="text-input" id="q1" placeholder="e.g., 'I think that's wrong because...' or something different?" maxlength="300"></textarea>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>2. When you're not sure about something, how do you soften your statement in English? Give me one example.</strong></p>
+    <textarea class="text-input" id="q2" placeholder="e.g., 'It could be that...' or..." maxlength="300"></textarea>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>3. What's the difference (if any) between: "I enjoy reading books" and "I enjoy to read books"?</strong></p>
+    <textarea class="text-input" id="q3" placeholder="One sounds right, one doesn't — why?" maxlength="300"></textarea>
+  </div>
+
+  <h2>Why this matters</h2>
+  <p>At C2, evaluative language separates competent speakers from sophisticated ones. It's how you:</p>
+  <ul style="margin: 12px 0 12px 30px;">
+    <li><strong>Signal certainty precisely</strong> — not just "true" or "false", but "arguably", "conceivably", "purportedly" (the modal game)</li>
+    <li><strong>Argue without dogmatism</strong> — express a strong position while acknowledging alternative views</li>
+    <li><strong>Choose gerunds vs infinitives strategically</strong> — each carries different meaning and tone in academic/professional writing</li>
+  </ul>
+  <p>These choices mark you as someone who thinks in shades of grey, not black and white. That's C2.</p>
+
+</div>
+
+<!-- TAB 2: CONTENT ──────────────────────────────────────────────── -->
+<div id="tab2" class="tab-content">
+  <h1>Evaluative & Stance Adverbs</h1>
+
+  <h2>What makes language "evaluative"?</h2>
+  <p>Evaluative language judges, appraises, or signals the speaker's certainty about a claim. At C2, this gets subtle.</p>
+
+  <div class="card">
+    <h3>The Certainty Spectrum</h3>
+    <p style="margin-bottom: 14px;">These adverbs signal how confident you are — not about facts, but about your position on them:</p>
+    <table class="comparison-table">
+      <tr>
+        <th>CERTAINTY LEVEL</th>
+        <th>ADVERB</th>
+        <th>MEANING / USE</th>
+      </tr>
+      <tr>
+        <td><strong>Factual claim</strong></td>
+        <td>Undoubtedly, Certainly, Definitely</td>
+        <td>You stand behind the fact completely</td>
+      </tr>
+      <tr>
+        <td><strong>Strong position</strong></td>
+        <td>Arguably, Substantially, Demonstrably</td>
+        <td>You can defend it with evidence, but it's still an argument</td>
+      </tr>
+      <tr>
+        <td><strong>Qualified position</strong></td>
+        <td>Conceivably, Possibly, Ostensibly</td>
+        <td>Intellectually sound, but you acknowledge alternatives</td>
+      </tr>
+      <tr>
+        <td><strong>Report without judgment</strong></td>
+        <td>Purportedly, Allegedly, Reputedly</td>
+        <td>You're reporting what's claimed, not endorsing it</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Examples in Context</h3>
+    <div class="example-box">
+      <div class="ex-label">Undoubtedly</div>
+      <div class="ex-text">"The pandemic undoubtedly accelerated digital transformation in education."</div>
+      <div class="ex-note">You're stating a fact no one disputes.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Arguably</div>
+      <div class="ex-text">"The pandemic is arguably the most significant disruption to global labour markets in the past century."</div>
+      <div class="ex-note">You're making a strong claim, but you know others might counter it. Still defensible.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Conceivably</div>
+      <div class="ex-text">"Conceivably, remote work could become the default in knowledge industries within a decade."</div>
+      <div class="ex-note">Intellectually possible, but you're not betting your reputation on it.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Purportedly</div>
+      <div class="ex-text">"The report purportedly demonstrates that AI training uses massive amounts of water."</div>
+      <div class="ex-note">You're reporting a claim. You haven't verified it yourself.</div>
+    </div>
+  </div>
+
+  <h2>Tone Matters: Evaluative Adjectives</h2>
+  <p>Evaluative adjectives judge qualities. They carry stance:</p>
+
+  <div class="card">
+    <table class="comparison-table">
+      <tr>
+        <th>ADJECTIVE TYPE</th>
+        <th>EXAMPLES</th>
+        <th>EFFECT</th>
+      </tr>
+      <tr>
+        <td><strong>Positive evaluations</strong></td>
+        <td>Insightful, Compelling, Rigorous, Elegant</td>
+        <td>Signal approval; presume shared standards</td>
+      </tr>
+      <tr>
+        <td><strong>Negative evaluations</strong></td>
+        <td>Spurious, Incoherent, Reductive, Fraught</td>
+        <td>Signal criticism; often in academic debate</td>
+      </tr>
+      <tr>
+        <td><strong>Neutral descriptors (NOT evaluative)</strong></td>
+        <td>Large, Frequent, Simple, Old</td>
+        <td>Describe properties, not quality</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Context Matters</h3>
+    <div class="example-box">
+      <div class="ex-label">Evaluative (judges quality)</div>
+      <div class="ex-text">"Her analysis is remarkably <span class="highlight-yellow">insightful</span> — she identifies the core tension most commentators miss."</div>
+      <div class="ex-note">You're endorsing her intellectual contribution.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Evaluative (judges negatively)</div>
+      <div class="ex-text">"The argument is circular and <span class="highlight-blue">reductive</span> — it collapses two distinct phenomena into one."</div>
+      <div class="ex-note">You're critiquing the logical structure.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 3: BUILD ──────────────────────────────────────────────– -->
+<div id="tab3" class="tab-content">
+  <h1>I DO, WE DO, YOU DO</h1>
+
+  <h2>I DO: Teacher Models</h2>
+  <p style="margin-bottom: 16px;"><strong>Watch how these sentences are constructed and listen to the reasoning:</strong></p>
+
+  <div class="card">
+    <h3>Model 1: Expressing Uncertainty Without Appearing Weak</h3>
+    <p style="margin-bottom: 8px;"><strong>Bad version:</strong> "AI regulation might be necessary."</p>
+    <p style="margin-bottom: 14px;"><strong>Why it's weak:</strong> "Might" is too tentative. It sounds like you haven't thought it through.</p>
+    <p style="margin-bottom: 8px;"><strong>C2 version:</strong> "Arguably, effective AI regulation will prove essential, despite conceivable implementation challenges."</p>
+    <p><strong>Why it works:</strong> "Arguably" signals this is a defended position. "Conceivable implementation challenges" acknowledges real obstacles WITHOUT backing away from your main claim. You've elevated the discussion to the level of trade-offs, not uncertainty.</p>
+  </div>
+
+  <div class="card">
+    <h3>Model 2: Using Evaluative Adjectives in Academic Context</h3>
+    <p style="margin-bottom: 8px;"><strong>Weak:</strong> "The study found something important about climate migration."</p>
+    <p style="margin-bottom: 14px;"><strong>C2 version:</strong> "The study offers a compelling and methodologically rigorous analysis of climate-driven migration patterns."</p>
+    <p><strong>Why it works:</strong> "Compelling" = you judge its value. "Methodologically rigorous" = you evaluate its scientific approach. These signal you're not just summarising — you're assessing.</p>
+  </div>
+
+  <h2>WE DO: Build Together</h2>
+  <p style="margin-bottom: 16px;"><strong>I'll start these sentences, and you complete them:</strong></p>
+
+  <div class="card">
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span><strong>1.</strong> "The conference demonstrated that virtual work is arguably ___."</span>
+        <span class="click-hint">Click to see one possibility</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Suggested completion:</strong> "...arguably here to stay, despite persistent productivity concerns."<br>
+        <br><strong>Why this works:</strong> "Arguably" lets you make a strong claim while "despite" signals you're aware of counterarguments. You're balanced and intellectually honest.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span><strong>2.</strong> "The committee's proposal is conceivably effective, though ___."</span>
+        <span class="click-hint">Click to see one possibility</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Suggested completion:</strong> "...though implementation would likely prove challenging in under-resourced contexts."<br>
+        <br><strong>Why this works:</strong> "Conceivably" = intellectually sound idea. "Though" = you've identified a real limitation. This is how C2 speakers balance optimism and realism.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span><strong>3.</strong> "His research is rigorous but ___" (use a negative evaluative adjective).</span>
+        <span class="click-hint">Click to see one possibility</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Suggested completion:</strong> "...rigorous but rather reductive in its treatment of cultural nuance."<br>
+        <br><strong>Why this works:</strong> You're not dismissing the work. "Rigorous" is genuine praise. "Reductive" is a specific, technical critique. This is how scholars critique each other — with respect.
+      </div>
+    </div>
+  </div>
+
+  <h2>YOU DO: Produce Independently</h2>
+  <p style="margin-bottom: 16px;"><strong>Now you complete these sentences in your own words:</strong></p>
+
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>4. "The proposal is arguably ___." (Make a strong claim about something you believe in.)</strong></p>
+    <textarea class="text-input" id="udo1" placeholder="e.g., 'The proposal is arguably the most pragmatic solution to the housing crisis...'" maxlength="400"></textarea>
+    <button class="timer-btn btn-3" onclick="checkYouDo1()">Check</button>
+    <div id="feedback1" class="feedback"></div>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>5. "While conceivably _____, the reality suggests _____." (Acknowledge one view, then your counter-position.)</strong></p>
+    <textarea class="text-input" id="udo2" placeholder="e.g., 'While conceivably the policy could work in wealthy nations, the reality suggests most developing economies lack the infrastructure...'" maxlength="400"></textarea>
+    <button class="timer-btn btn-3" onclick="checkYouDo2()">Check</button>
+    <div id="feedback2" class="feedback"></div>
+  </div>
+
+</div>
+
+<!-- TAB 4: APPLY ──────────────────────────────────────────────– -->
+<div id="tab4" class="tab-content">
+  <h1>Application: Real-World Discourse</h1>
+
+  <h2>Scenario: You're in an academic debate</h2>
+  <p>A colleague claims that "Remote work is the future of knowledge work." You disagree, but you want to sound sophisticated, not dismissive.</p>
+
+  <h3>Your task: Write a 150–200-word response.</h3>
+  <p style="margin-bottom: 16px; color: var(--text-light);">Use at least one evaluative adverb and one evaluative adjective. Show that you can acknowledge their point while maintaining your position.</p>
+
+  <div class="card">
+    <textarea class="text-input" id="application" placeholder="Start here. You want to sound intelligent, balanced, and serious. You're not dismissing their claim — you're complicating it." maxlength="600" style="min-height: 150px;"></textarea>
+    <button class="timer-btn btn-3" onclick="submitApplication()">Submit Response</button>
+    <div id="app-feedback" class="feedback"></div>
+  </div>
+
+  <h2>Reflection Questions</h2>
+  <div class="discussion-cards">
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Did you use hedge language?</div>
+      <div class="d-desc">Look for words like "arguably", "conceivably", "arguably" — did you use at least one?</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Did you acknowledge their position?</div>
+      <div class="d-desc">Do you show you understood their claim before countering it?</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Is your tone professional?</div>
+      <div class="d-desc">Are you debating the idea, not the person?</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 5: EXTEND ──────────────────────────────────────────────– -->
+<div id="tab5" class="tab-content">
+  <h1>Nuanced Gerund vs Infinitive Selection</h1>
+
+  <h2>Why this matters at C2</h2>
+  <p>You probably learned: some verbs take gerunds, others take infinitives. At C2, you learn that the choice often carries <strong>pragmatic meaning</strong>.</p>
+
+  <div class="card">
+    <h3>The Distinction</h3>
+    <table class="comparison-table">
+      <tr>
+        <th>GERUND (-ing)</th>
+        <th>INFINITIVE (to +verb)</th>
+      </tr>
+      <tr>
+        <td><strong>Habitual, repeated action</strong><br>"I enjoy <span class="highlight-yellow">reading</span> books."<br>= Something you do regularly</td>
+        <td><strong>Specific occasion, future intention</strong><br>"I'd love <span class="highlight-blue">to read</span> that novel."<br>= A particular instance you're contemplating</td>
+      </tr>
+      <tr>
+        <td><strong>Abstract concept</strong><br>"<span class="highlight-yellow">Learning</span> languages fascinates me."<br>= The activity as a whole</td>
+        <td><strong>Concrete goal or attempt</strong><br>"I need <span class="highlight-blue">to learn</span> Japanese by next year."<br>= A specific, bounded objective</td>
+      </tr>
+      <tr>
+        <td><strong>Completed or familiar</strong><br>"I regret <span class="highlight-yellow">accepting</span> the job."<br>= It's done; you reflect on it</td>
+        <td><strong>Future or hypothetical</strong><br>"I'd prefer <span class="highlight-blue">to decline</span> the offer."<br>= You're considering it, not done yet</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Examples: How Meaning Shifts</h3>
+    <div class="example-box">
+      <div class="ex-label">Gerund: Habitual practice</div>
+      <div class="ex-text">"I advocate <span class="highlight-yellow">teaching</span> critical thinking from primary school."</div>
+      <div class="ex-note">You're saying this should be standard practice, embedded in curriculum.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Infinitive: Specific action</div>
+      <div class="ex-text">"We should <span class="highlight-blue">teach</span> critical thinking from primary school."</div>
+      <div class="ex-note">You're arguing for a policy change. More urgent, more directive.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Gerund: Reflection on past</div>
+      <div class="ex-text">"I regret <span class="highlight-yellow">not pursuing</span> mathematics at university."</div>
+      <div class="ex-note">It's done. You're looking back.</div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Infinitive: Unfinished business</div>
+      <div class="ex-text">"I would have liked <span class="highlight-blue">to study</span> mathematics at university."</div>
+      <div class="ex-note">Emphasis on the missed opportunity, the road not taken.</div>
+    </div>
+  </div>
+
+  <h2>Strategic Interleaved Practice</h2>
+
+  <div class="card">
+    <p style="margin-bottom: 16px;"><strong>For each sentence, decide: gerund or infinitive? Why?</strong></p>
+
+    <div style="margin-bottom: 20px; padding: 14px; background: #f5f5f5; border-radius: 10px;">
+      <p style="margin-bottom: 10px;"><strong>1.</strong> "The government should prioritise _____ [reduce] carbon emissions."</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Which form and why?</span>
+          <span class="click-hint">Click to reveal</span>
+        </div>
+        <div class="reveal-answer">
+          <strong>Answer:</strong> "...prioritise <span class="highlight-yellow">reducing</span> carbon emissions."<br>
+          <strong>Why:</strong> Once you prioritise something, it becomes policy — habitual, embedded practice. Gerund emphasises this shift to normal practice.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 20px; padding: 14px; background: #f5f5f5; border-radius: 10px;">
+      <p style="margin-bottom: 10px;"><strong>2.</strong> "The company has committed _____ [implement] the recommendations by Q2."</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Which form and why?</span>
+          <span class="click-hint">Click to reveal</span>
+        </div>
+        <div class="reveal-answer">
+          <strong>Answer:</strong> "...committed <span class="highlight-blue">to implementing</span> the recommendations..."<br>
+          <strong>Why:</strong> They've made a promise about a specific, future action. Though "to implement" also works — both emphasise futurity. "To implementing" shows the commitment is a bounded, time-limited obligation.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 20px; padding: 14px; background: #f5f5f5; border-radius: 10px;">
+      <p style="margin-bottom: 10px;"><strong>3.</strong> "She appreciates _____ [collaborate] with researchers from different disciplines."</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Which form and why?</span>
+          <span class="click-hint">Click to reveal</span>
+        </div>
+        <div class="reveal-answer">
+          <strong>Answer:</strong> "...appreciates <span class="highlight-yellow">collaborating</span> with researchers..."<br>
+          <strong>Why:</strong> She enjoys this as an ongoing practice, something she does regularly. It's characterised as habitual pleasure, not a one-off event.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 20px; padding: 14px; background: #f5f5f5; border-radius: 10px;">
+      <p style="margin-bottom: 10px;"><strong>4.</strong> "She would prefer _____ [collaborate] with a smaller team on this project."</p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Which form and why?</span>
+          <span class="click-hint">Click to reveal</span>
+        </div>
+        <div class="reveal-answer">
+          <strong>Answer:</strong> "...prefer <span class="highlight-blue">to collaborate</span> with a smaller team..."<br>
+          <strong>Why:</strong> She's expressing a specific preference for THIS project. Future, bounded, particular. Infinitive captures that specificity.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- TAB 6: RECALL ──────────────────────────────────────────────– -->
+<div id="tab6" class="tab-content">
+  <h1>Recall Zone: Build Your Memory</h1>
+
+  <p style="margin-bottom: 20px; color: var(--text-light);">Before looking at the answers below, try to recall from earlier in this lesson or from your own knowledge:</p>
+
+  <div class="card">
+    <h3>Spaced Retrieval Questions</h3>
+
+    <div style="margin-bottom: 18px;">
+      <p style="margin-bottom: 10px;"><strong>1. What's the difference between expressing a claim with "It's true that..." vs "Arguably..."?</strong></p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Reveal answer</span>
+          <span class="click-hint">Try first</span>
+        </div>
+        <div class="reveal-answer">
+          "It's true that..." = You're stating a fact. "Arguably..." = You're making a defended position; you know there are alternative views, but you can argue for yours. "Arguably" signals intellectual honesty — you're not claiming certainty, just validity.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <p style="margin-bottom: 10px;"><strong>2. When would you use "purportedly" instead of "ostensibly" or "reputedly"?</strong></p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Reveal answer</span>
+          <span class="click-hint">Try first</span>
+        </div>
+        <div class="reveal-answer">
+          All three distance you from a claim. "Purportedly" emphasises you're reporting what's claimed, not endorsing it. "Reputedly" focuses on what people say. "Ostensibly" suggests an apparent but possibly false appearance. In practice, they overlap — choose based on what you want to emphasise about your distance from the claim.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <p style="margin-bottom: 10px;"><strong>3. I enjoy _____ (read / reading). Why is one more natural than the other?</strong></p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Reveal answer</span>
+          <span class="click-hint">Try first</span>
+        </div>
+        <div class="reveal-answer">
+          "I enjoy reading" (gerund) is correct. "Enjoy" typically takes a gerund because it's about habitual pleasure — something you do regularly and get satisfaction from. "To read" would imply a specific reading occasion, which sounds odd after "enjoy".
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <p style="margin-bottom: 10px;"><strong>4. "The study demonstrates _____ (effect / effecting) real change." Gerund or infinitive?</strong></p>
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal(this)">
+          <span>Reveal answer</span>
+          <span class="click-hint">Try first</span>
+        </div>
+        <div class="reveal-answer">
+          "The study demonstrates effecting real change" (gerund). "Demonstrate" + gerund = the action/outcome is observable, established. "To effect" would sound awkward here. The gerund turns the infinitive action into a concrete phenomenon the study has revealed.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- TAB 7: RETRIEVE ──────────────────────────────────────────────– -->
+<div id="tab7" class="tab-content">
+  <h1>Final Retrieval & Metacognition</h1>
+
+  <h2>Recall from Memory: No Cheating</h2>
+
+  <div class="card">
+    <p style="margin-bottom: 16px;"><strong>Write down from memory:</strong></p>
+    <p style="margin-bottom: 12px;">What are three evaluative adverbs that signal a defended position (not a fact)? Give me the words and explain why you'd use them instead of "It's true that..."</p>
+    <textarea class="text-input" id="final1" placeholder="Write from memory..." maxlength="400"></textarea>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom: 16px;"><strong>Complete this rule in your own words:</strong></p>
+    <p style="margin-bottom: 12px;">"When I choose a gerund instead of an infinitive, I'm usually emphasising..." (or "...I'm signalling that...").</p>
+    <textarea class="text-input" id="final2" placeholder="Write from memory..." maxlength="300"></textarea>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom: 16px;"><strong>Create one original sentence:</strong></p>
+    <p style="margin-bottom: 12px;">Write a sentence where you express disagreement with something, using evaluative language. Show me you can sound sophisticated, not dismissive.</p>
+    <textarea class="text-input" id="final3" placeholder="Original sentence using evaluative language..." maxlength="400"></textarea>
+  </div>
+
+  <h2>Metacognition: What Helped You Learn?</h2>
+
+  <div class="discussion-cards">
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Seeing the examples</div>
+      <div class="d-desc">Did real sentences from academic/professional contexts help cement the patterns?</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Completing sentences together</div>
+      <div class="d-desc">Did co-constructing (We Do) help you understand the reasoning?</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">The comparison table</div>
+      <div class="d-desc">Did seeing gerund vs infinitive side-by-side clarify the pragmatic difference?</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">Writing your own examples</div>
+      <div class="d-desc">Did producing your own sentences deepen understanding?</div>
+    </div>
+  </div>
+
+  <h2>I Can...</h2>
+  <div class="card" style="background: var(--accent-light); border-left: 4px solid var(--accent);">
+    <p style="margin-bottom: 10px;"><strong>By the end of this lesson, you can:</strong></p>
+    <ul style="margin-left: 20px;">
+      <li>Use evaluative adverbs (arguably, conceivably, purportedly) to signal the strength and certainty of my claims in academic discourse</li>
+      <li>Employ evaluative adjectives (rigorous, compelling, reductive) to appraise ideas and arguments while maintaining an intellectual tone</li>
+      <li>Choose strategically between gerunds and infinitives to convey habitual vs specific action, established practice vs future intention</li>
+      <li>Write balanced arguments that acknowledge alternative positions without weakening my own</li>
+      <li>Craft sentences that mark me as a sophisticated speaker/writer — someone who thinks in nuance, not absolutes</li>
+    </ul>
+  </div>
+
+  <h2>3-Minute Reflection Timer</h2>
+  <p style="margin-bottom: 12px;">Take three minutes to reflect: Which of the four skills above feels most natural to you? Which one will you need to practise more?</p>
+  <div class="timer-container">
+    <div class="timer-display" id="timerDisplay">3:00</div>
+    <button class="timer-btn btn-3" onclick="startTimer(180)">Start</button>
+    <button class="timer-btn btn-reset" onclick="resetTimer()">Reset</button>
+  </div>
+  <textarea class="text-input" id="reflection" placeholder="Reflection notes..." maxlength="300" style="margin-top: 16px;"></textarea>
+
+</div>
+
+<script>
+  function showTab(tabId) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const btns = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    btns.forEach(btn => btn.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleReveal(elem) {
+    const answer = elem.nextElementSibling;
+    answer.classList.toggle('visible');
+    const hint = elem.querySelector('.click-hint');
+    if (answer.classList.contains('visible')) {
+      hint.textContent = 'Click to hide';
+    } else {
+      hint.textContent = 'Click to reveal';
+    }
+  }
+
+  function toggleCard(card) {
+    card.classList.toggle('selected');
+  }
+
+  function checkYouDo1() {
+    const input = document.getElementById('udo1').value.trim();
+    const feedback = document.getElementById('feedback1');
+    if (input.length < 30) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Write a bit more — at least 30 characters. Give your claim space.';
+    } else if (input.toLowerCase().includes('arguably')) {
+      feedback.className = 'feedback success';
+      feedback.textContent = '✓ Strong. You used "arguably" — you're defending a position, not stating a fact. That's exactly C2.';
+    } else {
+      feedback.className = 'feedback success';
+      feedback.textContent = '✓ Good. Your claim is there. Next time, try using "arguably" or another hedging adverb to signal you know this is an argument, not a certainty.';
+    }
+  }
+
+  function checkYouDo2() {
+    const input = document.getElementById('udo2').value.trim();
+    const feedback = document.getElementById('feedback2');
+    if (input.length < 50) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Expand this. You need both parts: the acknowledged view AND your counter-position.';
+    } else if (input.toLowerCase().includes('conceivably') || input.toLowerCase().includes('while')) {
+      feedback.className = 'feedback success';
+      feedback.textContent = '✓ Excellent. You've structured a balanced argument — acknowledge one view, then your position. This is how C2 writers build credibility.';
+    } else {
+      feedback.className = 'feedback success';
+      feedback.textContent = '✓ Good structure. You've acknowledged a different view. For C2, consider adding hedging language like "conceivably" to the first clause to soften it diplomatically.';
+    }
+  }
+
+  function submitApplication() {
+    const input = document.getElementById('application').value.trim();
+    const feedback = document.getElementById('app-feedback');
+    const words = input.split(/\s+/).length;
+    if (words < 80) {
+      feedback.className = 'feedback error';
+      feedback.textContent = `You've written about ${words} words. Aim for 150–200 to have room for a developed argument.`;
+    } else if (words > 250) {
+      feedback.className = 'feedback error';
+      feedback.textContent = `You've written about ${words} words — a bit long. Try condensing to 150–200 so your main points stand out.`;
+    } else {
+      feedback.className = 'feedback success';
+      feedback.textContent = `✓ Word count: ${words} words. Perfect length. Now check: Did you use at least one evaluative adverb or adjective? Did you acknowledge their position before countering it? If yes to both, you're ready.`;
+    }
+  }
+
+  let timerInterval = null;
+
+  function startTimer(seconds) {
+    if (timerInterval) clearInterval(timerInterval);
+    const display = document.getElementById('timerDisplay');
+    let remaining = seconds;
+
+    timerInterval = setInterval(() => {
+      remaining--;
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+      display.classList.remove('warning', 'danger');
+      if (remaining <= 10) {
+        display.classList.add('danger');
+      } else if (remaining <= 30) {
+        display.classList.add('warning');
+      }
+
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        display.textContent = '0:00';
+      }
+    }, 1000);
+  }
+
+  function resetTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    const display = document.getElementById('timerDisplay');
+    display.textContent = '3:00';
+    display.classList.remove('warning', 'danger');
+  }
+</script>
+
+</body>
+</html>

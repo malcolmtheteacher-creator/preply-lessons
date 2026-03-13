@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentence Architecture | C1 +Preply +Adult</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 0 16px;
+  }
+
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  /* ─── TIMER ─── */
+  .timer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: 4px;
+    background: var(--bg);
+    margin-bottom: 12px;
+  }
+
+  .timer-progress {
+    height: 100%;
+    background: var(--timer-green);
+    width: 100%;
+    transition: background-color 0.3s, width 0.1s linear;
+  }
+
+  .timer-progress.warning {
+    background: var(--timer-yellow);
+  }
+
+  .timer-progress.danger {
+    background: var(--timer-red);
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 0;
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .tab-btn {
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover {
+    color: var(--accent);
+  }
+
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ─── CONTENT ─── */
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.2s;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ─── HEADINGS ─── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* ─── CARDS & BOXES ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .example-box {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .example-box .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .sentence {
+    font-family: 'Courier New', monospace;
+    background: #f5f5f5;
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin: 6px 0;
+    word-break: break-word;
+  }
+
+  .translation {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ─── BUTTONS & INTERACTIONS ─── */
+  button.toggle-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+    margin: 8px 0;
+  }
+
+  button.toggle-btn:hover {
+    background: #5568d3;
+  }
+
+  .answer-box {
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 6px;
+    padding: 12px;
+    margin: 8px 0;
+    display: none;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .answer-box.show {
+    display: block;
+  }
+
+  /* ─── DUAL CODING ─── */
+  .dual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) {
+    .dual-box {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .analysis-col, .visual-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .visual-col {
+    background: #f9f8f3;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-x: auto;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    border-radius: 6px;
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 13px;
+    display: none;
+  }
+
+  .feedback.show {
+    display: block;
+  }
+
+  .feedback.correct {
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    color: var(--text);
+  }
+
+  .feedback.incorrect {
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--text);
+  }
+
+  .feedback-icon {
+    margin-right: 6px;
+  }
+
+  /* ─── SPEAKING PROMPTS ─── */
+  .speaking-prompt {
+    background: #fffbf0;
+    border-left: 4px solid #f4a261;
+    padding: 14px;
+    margin: 16px 0;
+    border-radius: 4px;
+  }
+
+  .speaking-prompt .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #f4a261;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .speaking-prompt p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ─── LISTS ─── */
+  ul, ol {
+    margin: 12px 0 12px 20px;
+    line-height: 1.8;
+  }
+
+  li {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  /* ─── INLINE ELEMENTS ─── */
+  strong {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+  }
+
+  /* ─── PROGRESS INDICATOR ─── */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .dot.active {
+    background: var(--accent);
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  .comparison th, .comparison td {
+    border: 1px solid var(--border);
+    padding: 10px;
+    text-align: left;
+  }
+
+  .comparison th {
+    background: var(--accent-light);
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .comparison tr:nth-child(even) {
+    background: #fafafa;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    padding: 16px;
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  /* ─── MISC ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  .highlight-word {
+    background: #fffacd;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .spacer {
+    height: 16px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Timer bar -->
+  <div class="timer-bar">
+    <div class="timer-progress" id="timerProgress"></div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(event, 'tab1')">Start</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab2')">Fronting</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab3')">Inversion</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab4')">Extraposition</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab5')">Ellipsis</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab6')">Apply</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab7')">Reflect</button>
+  </div>
+
+  <!-- TAB 1: START (CONNECT) -->
+  <div id="tab1" class="tab-content active">
+    <h2>Sentence Architecture</h2>
+    <p class="subtitle">How advanced speakers reshape word order for precision and power</p>
+
+    <div class="card">
+      <h3>What do you already know?</h3>
+      <p>Think about a sentence you've written or spoken recently. Now imagine saying it in three different ways—moving words around to emphasize different parts. Can you do that?</p>
+      <div class="speaking-prompt">
+        <div class="label">Your Turn (30s)</div>
+        <p>Take any simple sentence: "I cannot accept this." Now rephrase it three times, each time emphasizing a different word. Say them aloud. Notice how the meaning shifts slightly?</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Why this matters</h3>
+      <p>In C1 writing and speech, you're not just grammatically correct—you're strategically precise. These four techniques let you:</p>
+      <ul>
+        <li><strong>Control attention</strong> by moving important words to prominent positions</li>
+        <li><strong>Create emphasis</strong> through inversion and fronting</li>
+        <li><strong>Improve clarity</strong> by shifting heavy subjects away from the front</li>
+        <li><strong>Sound sophisticated</strong> by avoiding repetition through ellipsis</li>
+      </ul>
+      <p style="margin-top: 14px;"><em>Today's goal:</em> Master these four advanced sentence reshaping techniques and use them consciously in your speaking.</p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot active" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 2: FRONTING/PREPOSING (ACTIVATE: I DO + WE DO) -->
+  <div id="tab2" class="tab-content">
+    <h2>Fronting & Preposing</h2>
+    <p class="subtitle">Moving phrases to the front for emphasis and drama</p>
+
+    <div class="card">
+      <h3>What is fronting?</h3>
+      <p>Fronting (or preposing) moves an element that would normally come later in the sentence to the beginning. This shifts the reader's focus and creates emphasis.</p>
+
+      <div class="example-box">
+        <div class="label">Normal order</div>
+        <div class="sentence">I cannot accept this under any circumstances.</div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Fronted (emphasis on what is rejected)</div>
+        <div class="sentence">This I cannot accept.</div>
+        <div class="translation">The speaker prioritizes rejection of "this" itself.</div>
+      </div>
+
+      <p style="margin-top: 14px;">Notice: moving "this" to the front makes the emotional resistance immediate and forceful.</p>
+    </div>
+
+    <div class="card">
+      <h3>I model this</h3>
+      <p><strong>Watch how I build this sentence:</strong></p>
+      <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin: 12px 0;">
+        <p style="margin-bottom: 8px;"><strong>Standard:</strong> She had never imagined such cruelty before.</p>
+        <p style="margin-bottom: 8px;"><strong>Fronting:</strong> Such cruelty she had never imagined before.</p>
+        <p><strong>Effect:</strong> The fronted phrase lands harder. "Such cruelty" is the target of shock.</p>
+      </div>
+      <p>The moved element can be an object, adverbial phrase, or predicative adjective.</p>
+    </div>
+
+    <div class="card">
+      <h3>We build this together</h3>
+      <div class="speaking-prompt">
+        <div class="label">Your Turn (45s)</div>
+        <p>I'll give you a sentence. You front a different element each time:</p>
+        <p style="margin-top: 8px;"><strong>Sentence:</strong> "He would never forgive himself for that mistake."</p>
+        <p style="margin-top: 8px;">Try fronting <strong>three</strong> different parts (that mistake, himself, never). Say each version aloud. Which sounds most powerful to you?</p>
+      </div>
+      <button class="toggle-btn" onclick="toggleAnswer('answer1')">Show possible versions</button>
+      <div id="answer1" class="answer-box">
+        <p><strong>That mistake</strong> he would never forgive himself for.</p>
+        <p><strong>Himself</strong> he would never forgive for that mistake.</p>
+        <p><strong>Never</strong> would he forgive himself for that mistake. (This is also inversion!)</p>
+      </div>
+    </div>
+
+    <div class="dual-box">
+      <div class="analysis-col">
+        <h3 style="margin-top: 0;">Common fronted phrases</h3>
+        <ul style="font-size: 13px; margin-left: 16px;">
+          <li>Direct objects: "This idea I reject."</li>
+          <li>Adverbials: "In silence we waited."</li>
+          <li>Comparatives: "Harder than steel, it remained."</li>
+          <li>Negatives: "Not a word did she say." (→ triggers inversion)</li>
+        </ul>
+      </div>
+      <div class="visual-col">
+        Pattern:
+        [moved element] +
+        [subject] +
+        [verb] +
+        [remainder]
+
+        Example:
+        Such arrogance | I | have never | seen.
+      </div>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: INVERSION (ACTIVATE: I DO + WE DO) -->
+  <div id="tab3" class="tab-content">
+    <h2>Inversion for Emphasis</h2>
+    <p class="subtitle">Flipping subject and auxiliary for dramatic effect</p>
+
+    <div class="card">
+      <h3>What is inversion?</h3>
+      <p>Inversion swaps the position of the subject and auxiliary verb (or main verb in simple tenses). It's triggered by negative or restrictive adverbials at the start of a sentence.</p>
+
+      <div class="example-box">
+        <div class="label">Normal</div>
+        <div class="sentence">I did not realize until then.</div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Inverted (Subject-Auxiliary swap)</div>
+        <div class="sentence">Not until then did I realize.</div>
+        <div class="translation">The negation triggers the flip: auxiliary (did) moves before the subject (I).</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>I model this</h3>
+      <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin: 12px 0;">
+        <p style="margin-bottom: 8px;"><strong>Standard:</strong> Never have I seen such dedication.</p>
+        <p style="margin-bottom: 8px;"><strong>Why it inverts:</strong> "Never" is a negative adverbial at the start.</p>
+        <p><strong>The pattern:</strong> Never + have (aux) + I (subj) + seen + object</p>
+      </div>
+      <p>Other triggers: <strong>Only, Under no circumstances, Barely, Scarcely, At no point, Not once, Seldom</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h3>We build this together</h3>
+      <div class="speaking-prompt">
+        <div class="label">Your Turn (50s)</div>
+        <p>Transform these normal sentences into inverted versions. Notice how the inversion creates a more formal, emphatic tone:</p>
+        <p style="margin-top: 8px;">1. "I have rarely experienced such rudeness."</p>
+        <p style="margin: 4px 0;">2. "Under no circumstances will I agree to this."</p>
+        <p style="margin: 4px 0;">3. "They had scarcely arrived when the storm began."</p>
+        <p style="margin-top: 12px;"><em>Say each inverted version aloud. Hear how the stress pattern changes?</em></p>
+      </div>
+      <button class="toggle-btn" onclick="toggleAnswer('answer2')">Show inverted versions</button>
+      <div id="answer2" class="answer-box">
+        <p>1. <strong>Rarely</strong> have I experienced such rudeness.</p>
+        <p>2. Under no circumstances <strong>will I</strong> agree to this. (already inverted)</p>
+        <p>3. <strong>Scarcely</strong> had they arrived when the storm began.</p>
+      </div>
+    </div>
+
+    <div class="dual-box">
+      <div class="analysis-col">
+        <h3 style="margin-top: 0;">Inversion triggers</h3>
+        <p style="font-size: 13px; margin-bottom: 8px;"><strong>Negative adverbials:</strong></p>
+        <ul style="font-size: 13px; margin-left: 16px; margin-bottom: 12px;">
+          <li>Never, Rarely, Seldom</li>
+          <li>Not, Under no circumstances</li>
+          <li>Barely, Scarcely, Hardly</li>
+        </ul>
+        <p style="font-size: 13px; margin-bottom: 8px;"><strong>Restrictive adverbials:</strong></p>
+        <ul style="font-size: 13px; margin-left: 16px;">
+          <li>Only, Only if, Only when</li>
+          <li>Not until, Not only</li>
+        </ul>
+      </div>
+      <div class="visual-col">
+        Pattern:
+        [negative adv] +
+        [auxiliary] +
+        [subject] +
+        [verb] + ...
+
+        Example:
+        Never | have | they | been | told.
+      </div>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 4: EXTRAPOSITION (ACTIVATE: I DO + WE DO) -->
+  <div id="tab4" class="tab-content">
+    <h2>Extraposition</h2>
+    <p class="subtitle">Moving heavy subjects to the end for readability</p>
+
+    <div class="card">
+      <h3>What is extraposition?</h3>
+      <p>Extraposition moves a long or complex subject to the end of the sentence, using "it" as a placeholder at the front. This improves clarity and flow.</p>
+
+      <div class="example-box">
+        <div class="label">Heavy subject upfront (awkward)</div>
+        <div class="sentence">That they will ever reach an agreement seems unlikely.</div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Extraposed (clearer)</div>
+        <div class="sentence">It seems unlikely that they will ever reach an agreement.</div>
+        <div class="translation">The subject (that-clause) moves to the end; "it" holds the subject position.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>I model this</h3>
+      <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin: 12px 0;">
+        <p style="margin-bottom: 8px;"><strong>Awkward:</strong> That she had kept this secret all these years remained a mystery.</p>
+        <p style="margin-bottom: 8px;"><strong>Extraposed:</strong> It remained a mystery that she had kept this secret all these years.</p>
+        <p><strong>Why this works:</strong> "It" is a light placeholder; the real subject comes later, after we've set the mood with the main clause.</p>
+      </div>
+      <p>Common frame structures: <em>It seems, It appears, It turns out, It remains, It is clear, It is true, It is not surprising.</em></p>
+    </div>
+
+    <div class="card">
+      <h3>We build this together</h3>
+      <div class="speaking-prompt">
+        <div class="label">Your Turn (50s)</div>
+        <p>Rewrite these using extraposition. Then say each version aloud to compare the flow:</p>
+        <p style="margin-top: 8px;">1. "That the company had lied about safety standards became evident only later."</p>
+        <p style="margin: 4px 0;">2. "Whether he could be trusted remained doubtful throughout."</p>
+        <p style="margin-top: 12px;"><em>Which reads more naturally to you?</em></p>
+      </div>
+      <button class="toggle-btn" onclick="toggleAnswer('answer3')">Show extraposed versions</button>
+      <div id="answer3" class="answer-box">
+        <p>1. It became evident only later that the company had lied about safety standards.</p>
+        <p>2. It remained doubtful throughout whether he could be trusted.</p>
+      </div>
+    </div>
+
+    <div class="dual-box">
+      <div class="analysis-col">
+        <h3 style="margin-top: 0;">What can be extraposed?</h3>
+        <ul style="font-size: 13px; margin-left: 16px;">
+          <li><strong>That-clauses:</strong> "It is clear that..."</li>
+          <li><strong>Whether-clauses:</strong> "It is doubtful whether..."</li>
+          <li><strong>To-infinitives:</strong> "It would be wise to..."</li>
+          <li><strong>Gerunds:</strong> "It is worth noting that..." (less common)</li>
+        </ul>
+      </div>
+      <div class="visual-col">
+        Pattern:
+        It +
+        [verb/predicate] +
+        [subject clause/phrase]
+
+        Example:
+        It | seems | that he
+        didn't know.
+      </div>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 5: ELLIPSIS & SUBSTITUTION (ACTIVATE: WE DO + YOU DO) -->
+  <div id="tab5" class="tab-content">
+    <h2>Ellipsis & Substitution</h2>
+    <p class="subtitle">Avoiding repetition by omitting or replacing words</p>
+
+    <div class="card">
+      <h3>What is ellipsis?</h3>
+      <p>Ellipsis removes words that are already understood from context. This makes sentences more concise and prevents awkward repetition.</p>
+
+      <div class="example-box">
+        <div class="label">With repetition (clumsy)</div>
+        <div class="sentence">She can swim and he can swim, but I cannot swim.</div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">With ellipsis (elegant)</div>
+        <div class="sentence">She can swim and he can too, but I cannot.</div>
+        <div class="translation">We omit the repeated "swim" and understand it from context.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Types of ellipsis</h3>
+
+      <h3 style="font-size: 15px; color: var(--accent);">Verb ellipsis (using do/does/did/don't)</h3>
+      <div class="example-box" style="margin: 10px 0;">
+        <p style="margin: 0; font-size: 13px;"><strong>Full:</strong> "I know he studies hard, and she studies hard too."</p>
+        <p style="margin: 4px 0; font-size: 13px;"><strong>Ellipsis with do:</strong> "I know he studies hard, and she does too."</p>
+      </div>
+
+      <h3 style="font-size: 15px; color: var(--accent);">Noun phrase ellipsis (using one/ones)</h3>
+      <div class="example-box" style="margin: 10px 0;">
+        <p style="margin: 0; font-size: 13px;"><strong>Full:</strong> "The red car and the blue car are both expensive."</p>
+        <p style="margin: 4px 0; font-size: 13px;"><strong>Ellipsis with one:</strong> "The red one and the blue one are both expensive."</p>
+      </div>
+
+      <h3 style="font-size: 15px; color: var(--accent);">Bare ellipsis (just omitting)</h3>
+      <div class="example-box" style="margin: 10px 0;">
+        <p style="margin: 0; font-size: 13px;"><strong>Full:</strong> "A: Did you finish? B: I did finish."</p>
+        <p style="margin: 4px 0; font-size: 13px;"><strong>Bare ellipsis:</strong> "A: Did you finish? B: Yes, I did."</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>We build and you produce</h3>
+      <div class="speaking-prompt">
+        <div class="label">Your Turn (60s)</div>
+        <p><strong>Part 1 (together):</strong> I give you a wordy sentence. You shorten it using ellipsis:</p>
+        <p style="margin-top: 8px; font-style: italic;">"He said he would come, and I said I would come, but they said they would not come."</p>
+        <p style="margin-top: 8px;"><strong>Part 2 (you produce):</strong> Now you create your own example using ellipsis:</p>
+        <ul style="font-size: 13px; margin-left: 20px; margin-top: 8px;">
+          <li>Compare two people: what one does, the other doesn't</li>
+          <li>Use do/does/did where possible</li>
+          <li>Say it aloud three times to make it natural</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dual-box">
+      <div class="analysis-col">
+        <h3 style="margin-top: 0;">Why ellipsis matters</h3>
+        <ul style="font-size: 13px; margin-left: 16px;">
+          <li>Creates flowing, natural speech</li>
+          <li>Avoids repetitive, mechanical sound</li>
+          <li>Shows sophistication (C1 speakers do this)</li>
+          <li>Reduces sentence length without loss of meaning</li>
+        </ul>
+      </div>
+      <div class="visual-col">
+        Use when:
+        • Verb repeated
+          (use do/does/did)
+        • Noun repeated
+          (use one/ones)
+        • Whole clause implied
+          (use bare ellipsis)
+
+        Example:
+        She can, and so
+        can he.
+      </div>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 6: APPLY (DEMONSTRATE: Real Task, 70%+ student output) -->
+  <div id="tab6" class="tab-content">
+    <h2>Apply All Four Techniques</h2>
+    <p class="subtitle">Speaking task: Use sentence architecture strategically in a real scenario</p>
+
+    <div class="card">
+      <h3>Your speaking task (5 minutes)</h3>
+      <p>You are in a professional discussion where you need to:</p>
+      <ul>
+        <li>Reject a proposal firmly (use fronting)</li>
+        <li>Emphasize how rare something is (use inversion)</li>
+        <li>Clarify a complex idea (use extraposition)</li>
+        <li>Compare two positions without repetition (use ellipsis)</li>
+      </ul>
+      <p style="margin-top: 14px;"><strong>Scenario:</strong> Your team is proposing to cut corners on quality standards to save costs. You disagree strongly.</p>
+    </div>
+
+    <div class="card">
+      <h3>Framework for your response</h3>
+      <div class="example-box" style="background: #e8ecff; border-left-color: #667eea;">
+        <p style="font-size: 13px; line-height: 1.8; margin: 0;">
+          <strong>Rejection (fronting):</strong> "This proposal I cannot support..." or "That decision I will not endorse..."
+        </p>
+      </div>
+      <div class="example-box" style="background: #e8ecff; border-left-color: #667eea; margin-top: 10px;">
+        <p style="font-size: 13px; line-height: 1.8; margin: 0;">
+          <strong>Emphasis (inversion):</strong> "Never have I seen quality compromised for profit in our sector..." or "Rarely does a company succeed after cutting standards..."
+        </p>
+      </div>
+      <div class="example-box" style="background: #e8ecff; border-left-color: #667eea; margin-top: 10px;">
+        <p style="font-size: 13px; line-height: 1.8; margin: 0;">
+          <strong>Clarification (extraposition):</strong> "It is clear that our reputation depends on quality, not cost-cutting..."
+        </p>
+      </div>
+      <div class="example-box" style="background: #e8ecff; border-left-color: #667eea; margin-top: 10px;">
+        <p style="font-size: 13px; line-height: 1.8; margin: 0;">
+          <strong>Comparison (ellipsis):</strong> "Short-term gains they want; long-term damage they'll face. We won't, and they should know it..."
+        </p>
+      </div>
+    </div>
+
+    <div class="speaking-prompt">
+      <div class="label">Your Turn (4 minutes)</div>
+      <p><strong>Step 1:</strong> Write 2–3 key sentences using the techniques above. (1 minute)</p>
+      <p style="margin-top: 8px;"><strong>Step 2:</strong> Practice speaking them aloud. Make them sound natural, not forced. (1.5 minutes)</p>
+      <p style="margin-top: 8px;"><strong>Step 3:</strong> Deliver your full response as if in a real meeting. (1.5 minutes)</p>
+      <p style="margin-top: 8px;"><em>Goal: Use at least 3 of the 4 techniques. Sound confident and sophisticated.</em></p>
+    </div>
+
+    <div class="card">
+      <h3>Inline feedback checklist</h3>
+      <p style="font-size: 13px; margin-bottom: 12px;">As you speak, mentally check:</p>
+      <div style="background: #f9f8f3; padding: 12px; border-radius: 6px; font-size: 13px;">
+        <p style="margin: 6px 0;">✓ Did I front anything for emphasis?</p>
+        <p style="margin: 6px 0;">✓ Did I use a negative adverbial + inversion?</p>
+        <p style="margin: 6px 0;">✓ Did I make any abstract idea clear with "It is..."?</p>
+        <p style="margin: 6px 0;">✓ Did I avoid repeating the same noun or verb?</p>
+      </div>
+      <p style="margin-top: 14px;"><strong>Not all will appear in 4 minutes.</strong> That's fine. Naturalness first, technique second.</p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <!-- TAB 7: REFLECT (CONSOLIDATE: Student explains WHY) -->
+  <div id="tab7" class="tab-content">
+    <h2>Consolidate Your Learning</h2>
+    <p class="subtitle">Reflect on what you've learned and why it matters</p>
+
+    <div class="card">
+      <h3>Review the four techniques</h3>
+      <table class="comparison">
+        <thead>
+          <tr>
+            <th>Technique</th>
+            <th>What it does</th>
+            <th>When to use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fronting</strong></td>
+            <td>Moves an element to the front for emphasis</td>
+            <td>When you want to highlight the object or rejection</td>
+          </tr>
+          <tr>
+            <td><strong>Inversion</strong></td>
+            <td>Swaps subject & auxiliary after negative adverbials</td>
+            <td>To emphasize rarity, surprise, or strong negation</td>
+          </tr>
+          <tr>
+            <td><strong>Extraposition</strong></td>
+            <td>Moves heavy subjects to the end; uses "it"</td>
+            <td>When the subject is a long clause and needs clarity</td>
+          </tr>
+          <tr>
+            <td><strong>Ellipsis</strong></td>
+            <td>Omits repeated words; uses do/one</td>
+            <td>When comparing, contrasting, or answering questions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Why does this matter?</h3>
+      <p>At C1, you're not just correct—you're <strong>precise</strong>, <strong>natural</strong>, and <strong>strategically aware</strong>. These four techniques let you:</p>
+      <ul>
+        <li>Control what your listener focuses on first</li>
+        <li>Sound sophisticated without sounding artificial</li>
+        <li>Improve readability in writing by restructuring complex ideas</li>
+        <li>Reduce repetition and maintain variety in speech</li>
+        <li>Match the rhythm and emphasis patterns of native speakers</li>
+      </ul>
+    </div>
+
+    <div class="speaking-prompt">
+      <div class="label">Final Reflection (3 minutes)</div>
+      <p><strong>Answer these questions aloud to yourself:</strong></p>
+      <ol style="font-size: 13px; margin-left: 20px; margin-top: 8px;">
+        <li>Which technique felt most natural to you during the speaking task? Why?</li>
+        <li>Which one do you think you'll use most in your writing or speech?</li>
+        <li>Can you think of one situation in your real life where you'd use fronting or inversion?</li>
+        <li>What's one way these techniques made your language sound more powerful?</li>
+      </ol>
+      <p style="margin-top: 14px; font-size: 13px;"><em>There are no "right" answers here. The goal is to notice patterns in how you think about sentence structure.</em></p>
+    </div>
+
+    <div class="card">
+      <h3>Next steps</h3>
+      <p><strong>Over the next week:</strong></p>
+      <ul>
+        <li>Notice when native speakers use these techniques (podcasts, TED talks, articles)</li>
+        <li>Try one technique consciously in your next writing task</li>
+        <li>In your speaking, experiment with inversion after "never" or "rarely"—it's the easiest to begin with</li>
+        <li>Notice when you repeat words—that's your cue to use ellipsis</li>
+      </ul>
+      <p style="margin-top: 14px;"><strong>Why this works:</strong> C1 isn't a destination; it's noticing how language patterns work and choosing them deliberately.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="card" style="background: #f9f8f3; border: none; box-shadow: none;">
+      <h3 style="margin-top: 0; color: var(--text-light);">Summary</h3>
+      <p style="font-size: 13px; color: var(--text-light); line-height: 1.8;">
+        You've learned four ways to reshape sentences for emphasis, clarity, and sophistication. You've used them in a realistic speaking scenario. The next step is to notice them in the wild and use them until they feel like your own voice.
+      </p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="dot" onclick="switchTab(null, 'tab1')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab2')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab3')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab4')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab5')"></div>
+      <div class="dot" onclick="switchTab(null, 'tab6')"></div>
+      <div class="dot active" onclick="switchTab(null, 'tab7')"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>C1 Grammar Lesson | Sentence Architecture</p>
+  </div>
+
+</div>
+
+<script>
+  let currentTab = 'tab1';
+  let timerInterval;
+
+  function switchTab(event, tabName) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    // Hide all content
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => {
+      content.classList.remove('active');
+    });
+
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    // Update dots
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+      const tabNumber = idx + 1;
+      dot.classList.remove('active');
+      if ('tab' + tabNumber === tabName) {
+        dot.classList.add('active');
+      }
+    });
+
+    // Show selected tab
+    document.getElementById(tabName).classList.add('active');
+    currentTab = tabName;
+
+    // Activate corresponding button
+    buttons.forEach(btn => {
+      if (btn.textContent.toLowerCase() === getTabLabel(tabName).toLowerCase()) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Reset and restart timer
+    resetTimer();
+  }
+
+  function getTabLabel(tabName) {
+    const labels = {
+      'tab1': 'Start',
+      'tab2': 'Fronting',
+      'tab3': 'Inversion',
+      'tab4': 'Extraposition',
+      'tab5': 'Ellipsis',
+      'tab6': 'Apply',
+      'tab7': 'Reflect'
+    };
+    return labels[tabName] || '';
+  }
+
+  function toggleAnswer(answerId) {
+    const answerBox = document.getElementById(answerId);
+    answerBox.classList.toggle('show');
+  }
+
+  function resetTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+
+    const timerProgress = document.getElementById('timerProgress');
+    timerProgress.style.width = '100%';
+    timerProgress.classList.remove('warning', 'danger');
+
+    const duration = getTabDuration(currentTab);
+    let elapsed = 0;
+
+    timerInterval = setInterval(() => {
+      elapsed += 0.1;
+      const percentage = Math.max(0, 100 - (elapsed / duration) * 100);
+      timerProgress.style.width = percentage + '%';
+
+      if (percentage <= 20) {
+        timerProgress.classList.add('danger');
+        timerProgress.classList.remove('warning');
+      } else if (percentage <= 50) {
+        timerProgress.classList.add('warning');
+        timerProgress.classList.remove('danger');
+      } else {
+        timerProgress.classList.remove('warning', 'danger');
+      }
+
+      if (elapsed >= duration) {
+        clearInterval(timerInterval);
+      }
+    }, 100);
+  }
+
+  function getTabDuration(tabName) {
+    const durations = {
+      'tab1': 90,   // 1.5 min
+      'tab2': 120,  // 2 min
+      'tab3': 120,  // 2 min
+      'tab4': 120,  // 2 min
+      'tab5': 150,  // 2.5 min
+      'tab6': 300,  // 5 min
+      'tab7': 180   // 3 min
+    };
+    return durations[tabName] || 120;
+  }
+
+  // Initialize timer on page load
+  window.addEventListener('load', () => {
+    resetTimer();
+  });
+</script>
+
+</body>
+</html>

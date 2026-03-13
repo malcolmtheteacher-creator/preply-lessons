@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Negation, Cohesion & Discourse — C2 Mastery</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* ─── EXAMPLE BOX ─── */
+  .example-box {
+    background: #f5f7ff;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  .example-box .ex-label {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-3 { background: var(--accent-light); color: var(--accent); }
+  .btn-5 { background: var(--accent-light); color: var(--accent); }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+
+  /* ─── "I CAN" STATEMENT ─── */
+  .ican {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success);
+    padding: 20px 24px;
+    border-radius: 0 10px 10px 0;
+    margin: 24px 0;
+  }
+  .ican h3 {
+    margin-top: 0;
+    color: var(--success);
+  }
+  .ican p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  /* ─── QUOTE BLOCK ─── */
+  .quote-block {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    box-shadow: var(--shadow);
+  }
+  .quote-block .attribution {
+    font-style: normal;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  /* ─── CONTRAST TABLE ─── */
+  .contrast-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .contrast-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f0f0f0;
+  }
+  .contrast-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .contrast-table tr:last-child td { border-bottom: none; }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .d-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .d-card .d-title { font-weight: 600; margin-bottom: 6px; }
+  .d-card .d-desc { font-size: 0.85rem; color: var(--text-light); }
+
+  /* ─── ANNOTATIONS ─── */
+  .annotation {
+    background: #fff9e6;
+    border-left: 3px solid #f4a261;
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 10px 0;
+    font-size: 0.9rem;
+  }
+  .annotation .ann-label {
+    font-weight: 600;
+    color: #f4a261;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .card { padding: 18px; }
+    .tab-content { padding: 20px 14px; }
+    .tab-nav { gap: 2px; padding: 10px 12px; }
+    .tab-btn { padding: 8px 12px; font-size: 0.75rem; }
+    .discussion-cards { grid-template-columns: 1fr; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NAVIGATION                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(1)">1. Connect</button>
+  <button class="tab-btn" onclick="showTab(2)">2. Activate: Content</button>
+  <button class="tab-btn" onclick="showTab(3)">3. Activate: Practice</button>
+  <button class="tab-btn" onclick="showTab(4)">4. Demonstrate: Apply</button>
+  <button class="tab-btn" onclick="showTab(5)">5. Demonstrate: Elaborate</button>
+  <button class="tab-btn" onclick="showTab(6)">6. Consolidate: Recall</button>
+  <button class="tab-btn" onclick="showTab(7)">7. Consolidate: Mastery</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 1: CONNECT — Retrieval + Hook              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab1">
+  <h1>Negation, Cohesion & Discourse</h1>
+  <h3>C2 Mastery — Grammar at Text Level</h3>
+
+  <div class="learning-intention">
+    <strong>Today we're exploring:</strong> How advanced writers control meaning through negation scope, discourse markers, and textual flow — so you can write with the precision and elegance of published prose.
+  </div>
+
+  <div class="card">
+    <h3>What Do You Already Know?</h3>
+    <p>Let's see what comes to mind — no notes, just your thinking.</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('ret1')">
+        <span><strong>1.</strong> How would you express strong disagreement with something without using "not"? Try to give me 3 ways.</span>
+        <span class="click-hint">Speak first → Click</span>
+      </div>
+      <div class="reveal-answer" id="ret1">
+        <p>You might say: "That's false," "I'd argue otherwise," "Far from it," "I'd contest that," "Quite the contrary," "Not necessarily," "I have serious reservations," etc. Each carries a different tone and formality level — and that's exactly what this lesson is about.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('ret2')">
+        <span><strong>2.</strong> What connectors do you use in academic or formal writing to move from one idea to the next?</span>
+        <span class="click-hint">Speak first → Click</span>
+      </div>
+      <div class="reveal-answer" id="ret2">
+        <p>Common ones: "however," "nevertheless," "that said," "on the other hand," "be that as it may," "all things considered," "even so," "admittedly," "granted that..." The fact that you can list many means you already have an intuition for discourse flow. Now we'll make that intuition explicit.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('ret3')">
+        <span><strong>3.</strong> What's the difference between saying "Not everyone attended" and "Everyone didn't attend"?</span>
+        <span class="click-hint">Speak first → Click</span>
+      </div>
+      <div class="reveal-answer" id="ret3">
+        <p>"Not everyone attended" = Some people came. / "Everyone didn't attend" = No one came (though in practice, people say this ambiguously). This is <strong>negation scope</strong> — where the "not" attaches in the sentence changes meaning. At C2, you master this precision.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why This Matters at C2</h3>
+    <p>By this level, you've mastered basic negation and most connectors. But C2 is about <strong>control at the text level</strong>. The three areas we're exploring today separate competent writers from elegant ones:</p>
+    <ul style="margin: 14px 0 0 20px; font-size: 0.95rem; line-height: 1.8;">
+      <li><strong>Negation scope:</strong> Placing "not" so precisely that you avoid ambiguity and create rhetorical effect.</li>
+      <li><strong>Cohesive devices:</strong> Using sophisticated connectors that signal not just "before" or "after," but nuance, concession, and intellectual weight.</li>
+      <li><strong>Discourse coherence:</strong> Organizing sentences so ideas flow naturally, reader's expectations are managed, and text feels unified.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 2: ACTIVATE — Content (I Do / We Do)       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab2">
+  <h2>Part 1: Negation Scope & Rhetorical Effect</h2>
+
+  <div class="card">
+    <h3>The Precision Problem</h3>
+    <p>Consider these two sentences:</p>
+    <div class="example-box">
+      <div class="ex-label">Example A</div>
+      <p>"The research doesn't prove that climate change is accelerating."</p>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Example B</div>
+      <p>"The research proves that climate change isn't accelerating."</p>
+    </div>
+    <p style="margin-top: 16px;">These sound similar, but they're <strong>logically different</strong>:</p>
+    <ul style="margin: 10px 0 0 20px;">
+      <li><strong>A:</strong> The research offers no evidence either way. We don't know.</li>
+      <li><strong>B:</strong> The research shows the opposite — acceleration is slowing. (Or: there is no acceleration.)</li>
+    </ul>
+    <p style="margin-top: 12px;">At C2, you control where the negation attaches. This is called <strong>scope</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Litotes: Affirmation Through Denial</h3>
+    <p>One of the most elegant C2 techniques is <strong>litotes</strong> — saying something affirmative by negating the opposite.</p>
+    <div class="example-box">
+      <div class="ex-label">Definition</div>
+      <p>Litotes = Affirming something by denying its opposite. Usually creates understatement or irony.</p>
+    </div>
+    <p style="margin-top: 16px;"><strong>Examples:</strong></p>
+    <ul style="margin: 10px 0 0 20px;">
+      <li>"This is <strong>not</strong> a small problem" = This is a MAJOR problem (understatement for effect).</li>
+      <li>"She was <strong>not</strong> unfamiliar with success" = She was VERY familiar with success.</li>
+      <li>"It's <strong>not</strong> impossible that we'll meet again" = We probably will meet again (tentative affirmation).</li>
+      <li>"He was <strong>not</strong> unkind to us" = He was KIND to us (but perhaps not enthusiastically so).</li>
+    </ul>
+    <p style="margin-top: 12px;">Notice: litotes often creates a tone of <strong>understatement, irony, or politeness</strong>. It's more sophisticated than direct statement because it invites the reader to do the interpretive work.</p>
+  </div>
+
+  <div class="card">
+    <h3>Double Negation: Two Uses</h3>
+    <p>Native speakers use double negation in two ways. Let's build this together.</p>
+    <p style="margin-top: 12px;"><strong>Use 1: Rhetorical (C2 — for emphasis)</strong></p>
+    <div class="example-box">
+      <div class="ex-label">Example</div>
+      <p>"It is not unreasonable to suggest that the government failed to act."</p>
+    </div>
+    <p style="margin-top: 12px;">Why use this? What work does the double negative do here?</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('double1')">
+        <span>What's the effect of the double negative?</span>
+        <span class="click-hint">Think → Click</span>
+      </div>
+      <div class="reveal-answer" id="double1">
+        <p>Instead of saying "The government clearly failed," you say "It is not unreasonable to suggest that the government failed." The double negative creates <strong>academic restraint</strong> — you're making a bold claim but wrapping it in scholarly caution. It's strategically modest.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;"><strong>Use 2: Colloquial (Non-standard, but common in speech)</strong></p>
+    <div class="example-box">
+      <div class="ex-label">Example</div>
+      <p>"I can't not think about what she said" = "I can only think about it" (intensification).</p>
+    </div>
+    <p style="margin-top: 12px;">In writing, avoid this except in dialogue. But in speech, it's very natural.</p>
+  </div>
+
+  <h2>Part 2: Sophisticated Cohesive Devices</h2>
+
+  <div class="card">
+    <h3>Beyond "However" and "But"</h3>
+    <p>These are the discourse markers that separate B1 from C2 writing:</p>
+    <table class="contrast-table">
+      <tr>
+        <th>Function</th>
+        <th>C2 Markers</th>
+      </tr>
+      <tr>
+        <td><strong>Concession (acknowledging an opposite point)</strong></td>
+        <td>"Be that as it may," "That said," "Admittedly," "Granted that," "It is true that... however," "Even so,"</td>
+      </tr>
+      <tr>
+        <td><strong>Contrastive (showing opposition)</strong></td>
+        <td>"Conversely," "By contrast," "On the other hand," "Quite the reverse," "In fact,"</td>
+      </tr>
+      <tr>
+        <td><strong>Additive (building on previous)</strong></td>
+        <td>"Furthermore," "Moreover," "In addition to," "What is more," "Not only that, but,"</td>
+      </tr>
+      <tr>
+        <td><strong>Causative (explaining consequence)</strong></td>
+        <td>"As a result," "Consequently," "For this reason," "It follows that," "In consequence,"</td>
+      </tr>
+      <tr>
+        <td><strong>Temporal (showing time relationships)</strong></td>
+        <td>"Hitherto," "Thereafter," "Subsequently," "In the interim," "By then,"</td>
+      </tr>
+    </table>
+    <p style="margin-top: 14px; font-size: 0.9rem; color: var(--text-light);">The key: these are not just connectors — they're <strong>attitude markers</strong>. They tell the reader how to interpret what comes next.</p>
+  </div>
+
+  <div class="card">
+    <h3>The Given-New Contract</h3>
+    <p>Here's a fundamental principle of readable prose at any level, but C2 writers execute it flawlessly:</p>
+    <div class="annotation">
+      <div class="ann-label">Principle</div>
+      <p><strong>Given-New Contract:</strong> Start sentences with information the reader already knows (given), then introduce new information. This creates coherence.</p>
+    </div>
+    <p style="margin-top: 16px;"><strong>Look at these two versions of the same idea:</strong></p>
+    <div class="example-box">
+      <div class="ex-label">Weak Coherence (Random order)</div>
+      <p>The novel explores complex themes. These themes are crucial to understanding modern philosophy. Identity, agency, and responsibility form the novel's core. Understanding these themes is essential.</p>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">Strong Coherence (Given→New)</div>
+      <p>The novel explores three complex themes. These themes — identity, agency, and responsibility — are central to modern philosophy. Understanding them is essential to the text.</p>
+    </div>
+    <p style="margin-top: 14px;">Notice how the second version moves smoothly because each sentence begins with what you've already introduced. That's cohesion at the C2 level.</p>
+  </div>
+
+  <h2>Part 3: Thematic Progression Patterns</h2>
+
+  <div class="card">
+    <h3>How to Organize a Paragraph for Maximum Clarity</h3>
+    <p>At C2, you control how ideas flow within and between sentences. There are three main patterns:</p>
+    <table class="contrast-table">
+      <tr>
+        <th>Pattern</th>
+        <th>Structure</th>
+        <th>Effect</th>
+      </tr>
+      <tr>
+        <td><strong>Linear</strong></td>
+        <td>S1 (new info) → S2 (builds on S1 new info) → S3 (builds on S2 new info)</td>
+        <td>Accumulation; logical progression through steps</td>
+      </tr>
+      <tr>
+        <td><strong>Constant Theme</strong></td>
+        <td>S1 (introduces theme A) → S2 (adds to A) → S3 (adds to A)</td>
+        <td>Focus; depth on one topic; coherence</td>
+      </tr>
+      <tr>
+        <td><strong>Split Rheme</strong></td>
+        <td>S1 (introduces idea + parts) → S2 (develops part 1) → S3 (develops part 2)</td>
+        <td>Systematic exploration of subtopics</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 3: ACTIVATE — Practice (I Do / We Do / You Do) -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab3">
+  <h2>Guided Practice</h2>
+
+  <div class="card">
+    <h3>Spotting Negation Scope</h3>
+    <p>Read these sentences. For each, identify where the negation is "scoped" — what does it actually negate?</p>
+
+    <div class="example-box">
+      <div class="ex-label">Modelled</div>
+      <p>"She did not claim that the theory was wrong."</p>
+    </div>
+    <p style="margin-top: 12px;">The "not" negates "claim" — she made no such claim. This leaves the truth of the theory open.</p>
+
+    <p style="margin-top: 16px;"><strong>Why does this matter?</strong> If you'd said "She claimed that the theory was not wrong," the emphasis shifts — now you're implying she actively defended the theory. Different meanings; different rhetorical effects.</p>
+  </div>
+
+  <div class="card">
+    <h3>Practice: Rewrite for Rhetorical Effect</h3>
+    <p>I'll show you a sentence. Your job: rewrite it using a different negation scope to change the meaning slightly. Let's work through one together.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Original</div>
+      <p>"The study does not demonstrate that meditation improves memory."</p>
+    </div>
+    <p style="margin-top: 12px;"><strong>What are you saying here?</strong> (The study provides no evidence either way.)</p>
+
+    <p style="margin-top: 12px;"><strong>Now rewrite it so you're saying:</strong> "The study shows meditation does NOT improve memory."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('scope1')">
+        <span>How would you rewrite it?</span>
+        <span class="click-hint">Attempt → Click</span>
+      </div>
+      <div class="reveal-answer" id="scope1">
+        <p>"The study demonstrates that meditation does not improve memory" or "The study shows that meditation fails to improve memory." The negation now applies to "improve," not to "demonstrate."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;"><strong>Now it's your turn.</strong></p>
+
+    <div class="example-box">
+      <div class="ex-label">Your Turn</div>
+      <p>"The committee did not agree that we should proceed."</p>
+    </div>
+
+    <p style="margin-top: 12px;">Rewrite this to mean: "The committee agrees we should NOT proceed."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('scope2')">
+        <span>Write your version</span>
+        <span class="click-hint">Attempt → Click</span>
+      </div>
+      <div class="reveal-answer" id="scope2">
+        <p>"The committee agrees that we should not proceed" or "The committee determined that we should not proceed." You've moved the negation from "agree" to "proceed."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Independent Practice: Litotes Creation</h3>
+    <p>Create litotes for each of these ideas. Remember: litotes affirms by negating the opposite.</p>
+
+    <p style="margin-top: 14px;"><strong>Example given:</strong> "This report is impressive." → "This report is not without merit."</p>
+
+    <p style="margin-top: 16px;"><strong>1. Create a litotes for:</strong> "She is a brilliant strategist."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('litotes1')">
+        <span>Speak or write your litotes</span>
+        <span class="click-hint">Attempt → Click</span>
+      </div>
+      <div class="reveal-answer" id="litotes1">
+        <p>Sample answers: "She is not unintelligent when it comes to strategy," "Her strategic thinking is not lacking," "She is not a poor strategist," "She demonstrates considerable competence in strategy."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px;"><strong>2. Create a litotes for:</strong> "The evidence contradicts their argument."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('litotes2')">
+        <span>Your turn</span>
+        <span class="click-hint">Attempt → Click</span>
+      </div>
+      <div class="reveal-answer" id="litotes2">
+        <p>"The evidence does not support their argument," "Their argument is not consistent with the evidence," "The evidence is not favourable to their position."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px;"><strong>3. Create a litotes for:</strong> "Her dedication to the project was obvious."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('litotes3')">
+        <span>Your turn</span>
+        <span class="click-hint">Attempt → Click</span>
+      </div>
+      <div class="reveal-answer" id="litotes3">
+        <p>"Her commitment to the project was not in doubt," "She did not lack dedication to the project," "Her focus was not absent," "She showed no shortage of commitment."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Independent Practice: Cohesion Flow</h3>
+    <p>Here's a paragraph with weak cohesion. Rewrite it by:</p>
+    <ol style="margin: 10px 0 0 20px;">
+      <li>Starting each sentence with the "given" (what the reader knows)</li>
+      <li>Adding new information at the end</li>
+      <li>Using sophisticated connectors</li>
+    </ol>
+
+    <div class="example-box">
+      <div class="ex-label">Original (Weak)</div>
+      <p>Neuroplasticity is the brain's ability to change. Scientists have discovered this is true throughout life. We can form new neural pathways. Learning and practice strengthen these pathways. Memory and skill depend on this. Recovery from brain injury is possible through this mechanism.</p>
+    </div>
+
+    <p style="margin-top: 14px;"><strong>Your rewrite:</strong> Reorganize for coherence. Speak or write it.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('cohesion1')">
+        <span>Compare your version with a strong example</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="cohesion1">
+        <p>"Neuroplasticity — the brain's ability to change and adapt — is a fundamental property that persists throughout life. This capacity enables the formation of new neural pathways, which strengthen through learning and deliberate practice. Consequently, memory and skill acquisition depend on sustained engagement with these mechanisms. Moreover, this same principle facilitates recovery from brain injury, demonstrating that even damaged neural networks can be rehabilitated through appropriate intervention."</p>
+        <p style="margin-top: 12px;">Notice: each sentence starts with information you've introduced, then adds depth. The connectors ("Consequently," "Moreover") signal how ideas relate.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 4: DEMONSTRATE — Application (70%+ Output) -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab4">
+  <h2>Real-World Application: Academic Writing Challenge</h2>
+
+  <div class="card">
+    <h3>Challenge 1: Crafting a Nuanced Argument</h3>
+    <p>You're writing an essay about a controversial topic. You want to acknowledge the opposition's point, but maintain your position. Use sophisticated negation and cohesion to do this.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">5:00</div>
+      <button class="timer-btn btn-5" onclick="startTimer('timer1', 300)">5 min</button>
+      <button class="timer-btn btn-3" onclick="startTimer('timer1', 180)">3 min</button>
+      <button class="timer-btn btn-reset" onclick="resetTimer('timer1', 300)">Reset</button>
+    </div>
+
+    <p style="margin-top: 14px;"><strong>Scenario:</strong> You're arguing that remote work is not optimal for team cohesion.</p>
+
+    <p style="margin-top: 12px;"><strong>Your opposition says:</strong> "Remote work increases flexibility and reduces commute stress."</p>
+
+    <p style="margin-top: 12px;"><strong>Write a 2-3 sentence response that:</strong></p>
+    <ol style="margin: 8px 0 0 20px; font-size: 0.95rem;">
+      <li>Acknowledges their point (use a concessive marker like "Be that as it may" or "Admittedly")</li>
+      <li>Introduces your counter-evidence (use a contrastive marker like "Conversely" or "By contrast")</li>
+      <li>Use at least one instance of double negation for rhetorical effect</li>
+    </ol>
+
+    <div style="margin-top: 16px;">
+      <label class="input-label">Your argument:</label>
+      <textarea class="text-input" id="input1" placeholder="Write your nuanced response here..."></textarea>
+    </div>
+
+    <div class="reveal-container" style="margin-top: 12px;">
+      <div class="reveal-prompt" onclick="toggleReveal('example1')">
+        <span>See a strong example response</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="example1">
+        <p>"Admittedly, remote work does offer flexibility and reduces commute-related stress. That said, these individual benefits do not offset the substantial costs to team cohesion, innovation, and institutional knowledge transfer. Conversely, it is not unreasonable to argue that the long-term loss to organisational culture outweighs the short-term gain in employee convenience."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: var(--accent);">Speak: Read your response aloud. Does it sound academic and precise? Adjust if needed.</p>
+  </div>
+
+  <div class="card">
+    <h3>Challenge 2: Revising for Coherence</h3>
+    <p>Below is a paragraph with correct grammar but poor textual coherence. Your job: rewrite it for maximum flow, using:</p>
+    <ul style="margin: 8px 0 0 20px; font-size: 0.95rem;">
+      <li>Given-new progression</li>
+      <li>Thematic consistency</li>
+      <li>Sophisticated connectors</li>
+    </ul>
+
+    <div class="example-box">
+      <div class="ex-label">Original Paragraph</div>
+      <p>The role of gut bacteria in mental health has emerged as a significant area of research. Serotonin production is partially regulated by these microorganisms. Depression and anxiety disorders have been linked to microbial imbalance in recent studies. The communication pathway is complex. The brain and gut communicate through multiple channels. Diet can influence bacterial composition directly. Mental health interventions increasingly include dietary recommendations.</p>
+    </div>
+
+    <p style="margin-top: 14px;"><strong>Rewrite this paragraph for maximum coherence:</strong></p>
+    <div style="margin-top: 12px;">
+      <label class="input-label">Your revised paragraph:</label>
+      <textarea class="text-input" id="input2" placeholder="Write your coherent revision..."></textarea>
+    </div>
+
+    <div class="reveal-container" style="margin-top: 12px;">
+      <div class="reveal-prompt" onclick="toggleReveal('example2')">
+        <span>Compare with a model revision</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="example2">
+        <p>"Emerging research has identified gut bacteria as a significant factor in mental health regulation. These microorganisms play a crucial role in serotonin production, and emerging evidence links microbial imbalance to depression and anxiety disorders. The mechanism underlying this connection is complex, involving bidirectional communication between the brain and gut through multiple neurological, hormonal, and immunological pathways. Notably, dietary composition can directly influence bacterial composition, which explains why contemporary mental health interventions increasingly incorporate nutritional recommendations alongside traditional therapeutic approaches."</p>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-light);">Notice: single topic (gut-brain-mental health) developed linearly. Connectors signal relationships. Each sentence begins with established info and adds depth.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: var(--accent);">Speak: Read both versions aloud. What's the difference in ease of reading?</p>
+  </div>
+
+  <div class="card">
+    <h3>Challenge 3: Negation Precision in Academic Context</h3>
+    <p>You're critiquing another researcher's work. Write 2-3 sentences that:</p>
+    <ul style="margin: 8px 0 0 20px; font-size: 0.95rem;">
+      <li>Use precise negation scope (not attacking the researcher, but the methodology or conclusions)</li>
+      <li>Demonstrate scholarly restraint (use double negation or litotes)</li>
+      <li>Remain collegial (use academic connectors)</li>
+    </ul>
+
+    <p style="margin-top: 14px;"><strong>Context:</strong> Researcher claims their study "proves" a link between social media and depression. You think the evidence is correlation, not causation.</p>
+
+    <div style="margin-top: 12px;">
+      <label class="input-label">Your critique:</label>
+      <textarea class="text-input" id="input3" placeholder="Write your scholarly critique..."></textarea>
+    </div>
+
+    <div class="reveal-container" style="margin-top: 12px;">
+      <div class="reveal-prompt" onclick="toggleReveal('example3')">
+        <span>Compare with a model critique</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="example3">
+        <p>"While the authors' correlation between social media use and depressive symptoms is noteworthy, the study does not establish causation, a limitation the authors themselves acknowledge. That said, it is not unreasonable to suggest that the causal claims presented in the conclusion exceed what the methodology can support. More rigorous longitudinal work would be required to substantiate the stronger interpretive claims."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: var(--accent);">Speak: How does scholarly critique differ from casual disagreement? What tone are you creating with these structures?</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 5: DEMONSTRATE — Elaboration + Interleaved -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab5">
+  <h2>Deeper Exploration: Why These Structures Matter</h2>
+
+  <div class="card">
+    <h3>The Rhetorical Purpose of Negation</h3>
+    <p>Negation isn't just about saying "no." At C2, you understand its strategic uses:</p>
+
+    <table class="contrast-table">
+      <tr>
+        <th>Technique</th>
+        <th>Rhetorical Effect</th>
+        <th>When to Use</th>
+      </tr>
+      <tr>
+        <td><strong>Scope Precision</strong><br>("not X" vs "X not Y")</td>
+        <td>Clarity; avoids ambiguity; controls reader interpretation</td>
+        <td>Academic/technical writing; anywhere precision matters</td>
+      </tr>
+      <tr>
+        <td><strong>Litotes</strong><br>(affirm by negating opposite)</td>
+        <td>Understatement; irony; politeness; intellectual weight</td>
+        <td>Formal argument; scholarship; when you want to invite reader interpretation</td>
+      </tr>
+      <tr>
+        <td><strong>Double Negation</strong><br>("is not unreasonable")</td>
+        <td>Scholarly caution; hedge; making bold claims safely</td>
+        <td>Academic writing; when you want to sound measured</td>
+      </tr>
+      <tr>
+        <td><strong>Metalinguistic Negation</strong><br>("Not that he's unwelcome, but...")</td>
+        <td>Correction; refinement of previous utterance</td>
+        <td>Speech; personal essays; narrative</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Why Cohesive Devices Matter More Than You Think</h3>
+
+    <p>A simple example: compare these two paragraphs about artificial intelligence.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Without Strategic Connectors</div>
+      <p>AI has improved rapidly. It offers significant benefits for healthcare. There are serious risks to consider. Job displacement is a concern. Regulatory frameworks lag behind. Technical standards are emerging.</p>
+    </div>
+
+    <p style="margin-top: 12px;">It reads like a list.</p>
+
+    <div class="example-box">
+      <div class="ex-label">With Strategic Connectors</div>
+      <p>AI has improved rapidly and offers significant benefits for healthcare. That said, serious risks warrant equal attention. Chief among these are job displacement and the lag in regulatory frameworks. Nevertheless, technical standards are emerging, suggesting a path forward.</p>
+    </div>
+
+    <p style="margin-top: 12px;">Now it's an argument. The connectors ("That said," "Nevertheless") guide the reader through the complexity. They signal tone — acknowledgment, tension, cautious optimism. That's what C2 mastery looks like.</p>
+  </div>
+
+  <div class="card">
+    <h3>Mixed Challenge: Identify and Apply</h3>
+    <p>For each scenario below, decide which C2 structure fits best, then write a sentence or two.</p>
+
+    <p style="margin-top: 16px;"><strong>1. Scenario: You're introducing a counterargument before refuting it.</strong></p>
+    <div style="margin: 10px 0;">
+      <label class="input-label">Your opening:</label>
+      <textarea class="text-input" id="mixed1" placeholder="Write a sentence that introduces the counterargument with scholarly tone..." style="min-height: 60px;"></textarea>
+    </div>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('mixed1ans')">
+        <span>Model answer</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="mixed1ans">
+        <p>"Admittedly, some scholars argue that..." or "One might reasonably contend that..." or "Be that as it may, the evidence suggests otherwise."</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 18px;"><strong>2. Scenario: You're saying something was "almost" achieved but not quite.</strong></p>
+    <div style="margin: 10px 0;">
+      <label class="input-label">Your sentence:</label>
+      <textarea class="text-input" id="mixed2" placeholder="Use litotes to express 'not quite succeeded'..." style="min-height: 60px;"></textarea>
+    </div>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('mixed2ans')">
+        <span>Model answer</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="mixed2ans">
+        <p>"The project fell not far short of its goals," "We did not entirely achieve what we set out to accomplish," "The initiative was not unsuccessful, though improvements remain." These use understatement (litotes) for effect.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 18px;"><strong>3. Scenario: You're showing that two ideas are related, not in simple sequence but in complex ways.</strong></p>
+    <div style="margin: 10px 0;">
+      <label class="input-label">Your connector:</label>
+      <textarea class="text-input" id="mixed3" placeholder="Use a sophisticated connector that shows complex relationship..." style="min-height: 60px;"></textarea>
+    </div>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('mixed3ans')">
+        <span>Model answer</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="mixed3ans">
+        <p>Options: "In consequence," "It follows that," "Thereupon," "Accordingly," "By this logic," "As a corollary," etc. These show causation or logical progression, not just "and then."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The Topic Sentence as Macro-organiser</h3>
+    <p>At C2, you control discourse at the paragraph level. The topic sentence does more than introduce — it <strong>signals the entire paragraph's structure</strong>.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Weak Topic Sentence</div>
+      <p>"There are many theories about climate change."</p>
+    </div>
+    <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">This tells the reader nothing about what follows or why it matters.</p>
+
+    <div class="example-box">
+      <div class="ex-label">C2 Topic Sentence</div>
+      <p>"While consensus models predict warming of 1.5–2 degrees Celsius by 2050, emerging research suggests acceleration in positive feedback loops, a scenario that would necessitate urgent policy revision."</p>
+    </div>
+    <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">This topic sentence tells you: existing view (consensus), new evidence (acceleration), implication (policy revision). The paragraph that follows explains each of these. The reader knows where they're going.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 6: CONSOLIDATE — Recall Zone                -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab6">
+  <h2>Recall Zone: Retrieving What You've Learned</h2>
+
+  <p style="margin-bottom: 20px; font-size: 0.95rem; color: var(--text-light);">Before looking ahead, let's retrieve what you've learned today from memory. Attempt each question, then click to reveal. This strengthens retention.</p>
+
+  <div class="card">
+    <h3>Core Concepts</h3>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall1')">
+        <span><strong>1.</strong> What is the difference between "The study does not show that X is true" and "The study shows that X is not true"? Why does this matter?</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall1">
+        <p><strong>First:</strong> The study provides no evidence either way. <strong>Second:</strong> The study demonstrates that X is false. This is <strong>negation scope</strong> — the placement of negation changes meaning. At C2, you control this for precision and rhetorical effect.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall2')">
+        <span><strong>2.</strong> What is litotes and give me one original example.</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall2">
+        <p><strong>Litotes:</strong> Affirming something by negating its opposite. Creates understatement, irony, or politeness. Examples: "This is not a trivial concern" (= serious), "She was not unkind to us" (= kind, but maybe not warm), "It is not impossible that we'll succeed" (= we might, tentatively).</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall3')">
+        <span><strong>3.</strong> What is the "given-new contract" in writing and how does it improve coherence?</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall3">
+        <p><strong>Given-new contract:</strong> Start sentences with information the reader already knows (given), then introduce new information. This creates smooth flow and coherence because the reader's attention follows naturally. Each sentence builds on the last without jarring jumps.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall4')">
+        <span><strong>4.</strong> Name three sophisticated cohesive devices and when you'd use each one.</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall4">
+        <p><strong>Concessive:</strong> "Be that as it may," "Admittedly" — acknowledge opposing view. <strong>Contrastive:</strong> "Conversely," "By contrast" — show opposition. <strong>Additive:</strong> "Moreover," "Furthermore" — build on previous idea. <strong>Causative:</strong> "As a result," "Consequently" — show cause/effect relationship.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall5')">
+        <span><strong>5.</strong> What is a C2 topic sentence and why is it more than just an introduction?</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall5">
+        <p>A C2 topic sentence signals the paragraph's entire structure and argument, not just the topic. It tells the reader what the paragraph will address, what perspective it takes, and often what the implication is. It's a roadmap that makes what follows coherent and predictable.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall6')">
+        <span><strong>6.</strong> What is the rhetorical effect of double negation (e.g., "It is not unreasonable to suggest...")? When would you use it?</span>
+        <span class="click-hint">Attempt first → Click</span>
+      </div>
+      <div class="reveal-answer" id="recall6">
+        <p>Double negation creates <strong>scholarly caution</strong> and <strong>measured tone</strong>. You're making a claim but wrapping it in academic restraint. Use it when you want to make a strong point without appearing dogmatic. Common in formal argument, scholarship, and diplomacy.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 7: CONSOLIDATE — Mastery + Metacognition   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab7">
+  <h2>Final Retrieval & Metacognition</h2>
+
+  <div class="card">
+    <h3>Synthesis: Can You Apply These Structures?</h3>
+
+    <p style="margin-bottom: 12px;">Below is an excerpt from a student essay. Identify:</p>
+    <ol style="margin: 0 0 14px 20px;">
+      <li>Where negation scope is used (underline the negation and explain its scope)</li>
+      <li>What cohesive devices are present (circle them)</li>
+      <li>How the given-new contract is maintained (note where established info repeats at the start of new sentences)</li>
+    </ol>
+
+    <div class="example-box">
+      <div class="ex-label">Student Essay Excerpt</div>
+      <p>The effectiveness of traditional classroom teaching is not simply a matter of delivery method. Admittedly, online education offers logistical advantages and increased accessibility. Nevertheless, emerging research demonstrates that face-to-face interaction facilitates deeper learning, particularly in collaborative contexts. The mechanisms underlying this finding are complex. Social presence — the psychological sensation of being with others — activates neural pathways associated with engagement and memory consolidation. In consequence, classrooms that neglect interpersonal connection do not merely fail pedagogically; they undermine the neurobiological foundations of learning itself.</p>
+    </div>
+
+    <p style="margin-top: 14px;"><strong>Your analysis:</strong> Speak through what you notice.</p>
+
+    <div class="reveal-container" style="margin-top: 12px;">
+      <div class="reveal-prompt" onclick="toggleReveal('synthesis')">
+        <span>See the model analysis</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="synthesis">
+        <p><strong>Negation scope:</strong> "is not simply a matter of delivery method" — negates "simple," implying complexity. "do not merely fail" — emphasises the strength of the failure. / <strong>Cohesive devices:</strong> "Admittedly," "Nevertheless," "In consequence" — signal logical relationships and tone. / <strong>Given-new:</strong> "The effectiveness... is not simply..." → "Admittedly, online education..." (given: online education mentioned) → "Nevertheless, research demonstrates..." (given: effectiveness in question) → "The mechanisms... are complex" (given: research finding) → "Social presence..." (given: mechanisms) → "In consequence, classrooms..." (given: social presence activates learning) (new: classrooms undermine foundations).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Thinking About Your Learning</h3>
+
+    <p style="margin-bottom: 12px;">Answer these questions out loud:</p>
+
+    <ul style="margin: 0 0 16px 20px; font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;"><strong>Which structure was most useful to you today — negation scope precision, litotes, or cohesive devices? Why?</strong></li>
+      <li style="margin-bottom: 10px;"><strong>When you write, do you typically think about where the "not" goes, or does it happen naturally? How might being more intentional change your writing?</strong></li>
+      <li style="margin-bottom: 10px;"><strong>In your own writing, where do you see your biggest opportunity for improvement — clarity of negation, smoother cohesion between sentences, or stronger topic sentences?</strong></li>
+      <li><strong>How might these skills transfer to writing in other languages you speak or study?</strong></li>
+    </ul>
+  </div>
+
+  <div class="ican">
+    <h3>"I can..." Statement</h3>
+    <p>I can <strong>place negation precisely to avoid ambiguity and create rhetorical effect</strong> (including litotes and double negation), <strong>use sophisticated cohesive devices</strong> to signal complex relationships between ideas, and <strong>organise paragraphs for maximum coherence</strong> through given-new progression and strategic topic sentences — enabling me to write with the precision and elegance of published academic prose.</p>
+  </div>
+
+  <div class="card">
+    <h3>Further Exploration</h3>
+    <p>If this topic resonates, dig deeper into these areas:</p>
+    <ul style="margin: 10px 0 0 20px;">
+      <li style="margin-bottom: 6px;"><strong>Halliday's Systemic Functional Linguistics</strong> — deep theory of cohesion and coherence</li>
+      <li style="margin-bottom: 6px;"><strong>George Orwell's "Politics and the English Language"</strong> — clarity and precision through example</li>
+      <li style="margin-bottom: 6px;"><strong>Joseph Williams' "Style: Toward Clarity and Grace"</strong> — practical guide to elegant writing</li>
+      <li style="margin-bottom: 6px;"><strong>Read published academic journals in your field</strong> — note how expert writers use these structures</li>
+      <li><strong>Wayne Booth's "The Rhetoric of Fiction"</strong> — understanding how form shapes meaning</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<script>
+// ─── TAB NAVIGATION ───
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index - 1].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── CLICK TO REVEAL ───
+function toggleReveal(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('visible');
+}
+
+// ─── TIMERS ───
+let timerIntervals = {};
+
+function startTimer(id, seconds) {
+  clearInterval(timerIntervals[id]);
+  let remaining = seconds;
+  const display = document.getElementById(id);
+  updateTimerDisplay(display, remaining, seconds);
+
+  timerIntervals[id] = setInterval(() => {
+    remaining--;
+    updateTimerDisplay(display, remaining, seconds);
+    if (remaining <= 0) {
+      clearInterval(timerIntervals[id]);
+      display.textContent = "0:00";
+      display.className = 'timer-display danger';
+    }
+  }, 1000);
+}
+
+function resetTimer(id, seconds) {
+  clearInterval(timerIntervals[id]);
+  const display = document.getElementById(id);
+  display.className = 'timer-display';
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function updateTimerDisplay(display, remaining, total) {
+  const m = Math.floor(remaining / 60);
+  const s = remaining % 60;
+  display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  if (remaining <= 10) {
+    display.className = 'timer-display danger';
+  } else if (remaining <= 30) {
+    display.className = 'timer-display warning';
+  } else {
+    display.className = 'timer-display';
+  }
+}
+</script>
+</body>
+</html>

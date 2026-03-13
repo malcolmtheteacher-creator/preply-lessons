@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Modal Expressions — C1 Grammar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .card.dare-card { border-left: 5px solid #a78bfa; }
+  .card.shall-card { border-left: 5px solid #60a5fa; }
+  .card.suppose-card { border-left: 5px solid #34d399; }
+
+  .card h4 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .example-box {
+    background: #f9fafb;
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    margin: 12px 0;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CONTEXT LABELS ─── */
+  .context-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 4px 4px 4px 0;
+  }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+  .text-input::placeholder { color: #aaa; }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+  .feedback.visible { display: block; }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── QUOTE BLOCK ─── */
+  .quote-block {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    box-shadow: var(--shadow);
+  }
+  .quote-block .attribution {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .d-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .d-card.selected { border-color: var(--accent); background: var(--accent-light); }
+  .d-card .d-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .d-card .d-title { font-weight: 600; margin-bottom: 6px; }
+  .d-card .d-desc { font-size: 0.85rem; color: var(--text-light); }
+
+  /* ─── BUTTON ─── */
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ─── I CAN STATEMENT ─── */
+  .ican {
+    background: linear-gradient(135deg, var(--accent-light), #fff);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+  .ican h3 { color: var(--accent); margin-bottom: 8px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .tab-nav { padding: 8px 12px; }
+    .tab-btn { padding: 8px 12px; font-size: 0.78rem; }
+    .tab-content { padding: 20px 14px; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .discussion-cards { grid-template-columns: 1fr; }
+  }
+
+  /* ─── UTILITY ─── */
+  .hidden { display: none; }
+  .word-count {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* ─── TWO-COLUMN LAYOUT ─── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 16px 0;
+  }
+  @media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ─── MODAL FORM TABLE ─── */
+  .modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .modal-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 8px 8px 0 0;
+  }
+  .modal-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-table tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab(0)">1. What You Know</button>
+  <button class="tab-btn" onclick="switchTab(1)">2. Meet the Modals</button>
+  <button class="tab-btn" onclick="switchTab(2)">3. I Model</button>
+  <button class="tab-btn" onclick="switchTab(3)">4. We Construct</button>
+  <button class="tab-btn" onclick="switchTab(4)">5. You Apply</button>
+  <button class="tab-btn" onclick="switchTab(5)">6. Check Memory</button>
+  <button class="tab-btn" onclick="switchTab(6)">7. Final Test</button>
+</div>
+
+<!-- TAB 1: CONNECT — Retrieval -->
+<div class="tab-content active">
+  <h1>Advanced Modal Expressions</h1>
+  <p style="color: var(--text-light); margin-bottom: 24px;">C1 Advanced | KNOWLEDGE BUILDING</p>
+
+  <h2>What Do You Already Know?</h2>
+  <p>You've worked with will, can, must, should, and might. Now — without looking anything up — tell me:</p>
+
+  <div style="margin: 20px 0;">
+    <p><strong>SPEAK:</strong></p>
+    <ul style="margin-left: 20px; margin-top: 10px;">
+      <li>Can you think of a sentence using "shall" in formal or official language?</li>
+      <li>What does it feel like when someone says "How dare you!" vs "I dare you to..."?</li>
+      <li>Have you heard phrases like "You're supposed to..." or "That's bound to happen"? What do they mean?</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 24px; color: var(--text-light); font-style: italic;">Write or record your thoughts. Don't worry about being perfect — just let your thinking show.</p>
+
+  <div class="learning-intention">
+    <strong>Today we're working on:</strong> Three advanced modal expressions — DARE, SHALL, and semi-modals like BE SUPPOSED TO / BE BOUND TO / BE DUE TO — so you can recognise them in formal, legal, and literary writing and use them naturally in your own speech.
+  </div>
+
+  <h2>Why This Matters</h2>
+  <p>At C1, you'll meet formal modals in contracts, legal documents, classic literature, and formal speeches. Understanding them isn't just about grammar — it's about recognising power dynamics, tone shifts, and register. These three modals are *rare* in casual conversation, but *essential* in professional and academic English.</p>
+</div>
+
+<!-- TAB 2: ACTIVATE — New Content ➔ Small Chunks + Dual Coding -->
+<div class="tab-content">
+  <h1>Three Advanced Modals</h1>
+
+  <p>Here are the three modal expressions you're learning today. Read each one closely, then we'll dig deeper.</p>
+
+  <!-- DARE -->
+  <div class="card dare-card">
+    <h4>1. DARE (modal, not auxiliary dare)</h4>
+    <p><strong>Function:</strong> Challenge, provocation, literary/formal contexts. Also: audacity, challenge, defiance.</p>
+
+    <p style="margin-top: 12px;"><strong>Usage Patterns:</strong></p>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li><em>How dare you!</em> — Indignation. Challenge someone's behaviour.</li>
+      <li><em>Dare I say it?</em> — Literary, formal. "I risk saying this..."</li>
+      <li><em>I dare you to...</em> — Challenge someone to do something.</li>
+    </ul>
+
+    <p style="margin-top: 12px;"><strong>Key Point:</strong> "Dare" as a modal is archaic/literary. In modern English, we use "how dare" (exclamation) or "dare" as a regular verb.</p>
+
+    <div class="example-box">
+      <p><em>How dare you interrupt me!</em></p>
+      <p><em>She dared to challenge the minister.</em></p>
+      <p><em>Dare I suggest that we've been too cautious?</em> (formal, reflective)</p>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span class="context-badge">Literary</span>
+      <span class="context-badge">Formal</span>
+      <span class="context-badge">Indignation</span>
+    </div>
+  </div>
+
+  <!-- SHALL -->
+  <div class="card shall-card">
+    <h4>2. SHALL (modal, formal/legal contexts)</h4>
+    <p><strong>Function:</strong> Obligation, requirement, legal/official language. Also: future intention (archaic).</p>
+
+    <p style="margin-top: 12px;"><strong>Usage Patterns:</strong></p>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li><em>The tenant shall pay rent monthly.</em> — Legal obligation (contracts, terms).</li>
+      <li><em>Shall we go?</em> — Formal suggestion (archaic; now rare).</li>
+      <li><em>He shall not pass!</em> — Archaic future or command.</li>
+    </ul>
+
+    <p style="margin-top: 12px;"><strong>Key Point:</strong> In modern English, SHALL is almost dead except in legal/formal documents. Outside those contexts, use MUST, SHOULD, HAVE TO, or WILL.</p>
+
+    <div class="example-box">
+      <p><em>The contractor shall complete the work by March 2026.</em> (contract)</p>
+      <p><em>All participants shall sign the agreement.</em> (formal requirements)</p>
+      <p><em>Shall I help you?</em> (archaic; now sounds very old-fashioned)</p>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span class="context-badge">Legal</span>
+      <span class="context-badge">Formal</span>
+      <span class="context-badge">Official</span>
+    </div>
+  </div>
+
+  <!-- SEMI-MODALS -->
+  <div class="card suppose-card">
+    <h4>3. Semi-Modal Expressions: BE SUPPOSED TO / BE BOUND TO / BE DUE TO</h4>
+    <p><strong>Function:</strong> Expectation, presumed obligation, likelihood, scheduled events.</p>
+
+    <p style="margin-top: 12px;"><strong>Usage Patterns:</strong></p>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li><em>You're supposed to...</em> — Expectation or rule (what someone expects of you).</li>
+      <li><em>She's bound to...</em> — Certain, inevitable (high probability).</li>
+      <li><em>The train is due to arrive at 5pm.</em> — Scheduled time.</li>
+    </ul>
+
+    <p style="margin-top: 12px;"><strong>Key Point:</strong> These are NOT true modals, but they function like modals. They express obligation (supposed to), certainty (bound to), or schedule (due to) in a softer way.</p>
+
+    <div class="example-box">
+      <p><em>You're supposed to arrive 15 minutes early.</em> (expected, but not absolute)</p>
+      <p><em>He's bound to react badly to that news.</em> (very likely)</p>
+      <p><em>The report is due to be published next week.</em> (scheduled)</p>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <span class="context-badge">Expectation</span>
+      <span class="context-badge">Certainty</span>
+      <span class="context-badge">Schedule</span>
+    </div>
+  </div>
+
+  <h2>Quick Reference Table</h2>
+  <table class="modal-table">
+    <thead>
+      <tr>
+        <th>Modal</th>
+        <th>Function</th>
+        <th>Example</th>
+        <th>Register</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Dare</strong></td>
+        <td>Challenge, audacity</td>
+        <td>How dare you interrupt!</td>
+        <td>Formal / Literary</td>
+      </tr>
+      <tr>
+        <td><strong>Shall</strong></td>
+        <td>Legal obligation</td>
+        <td>The company shall comply.</td>
+        <td>Legal / Formal</td>
+      </tr>
+      <tr>
+        <td><strong>Be supposed to</strong></td>
+        <td>Expectation, rule</td>
+        <td>You're supposed to know this.</td>
+        <td>Everyday / Formal</td>
+      </tr>
+      <tr>
+        <td><strong>Be bound to</strong></td>
+        <td>Certainty, likelihood</td>
+        <td>They're bound to ask questions.</td>
+        <td>Formal / Everyday</td>
+      </tr>
+      <tr>
+        <td><strong>Be due to</strong></td>
+        <td>Scheduled time</td>
+        <td>The meeting is due to start at 2pm.</td>
+        <td>Formal / Everyday</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TAB 3: ACTIVATE — I DO (Teacher Models) -->
+<div class="tab-content">
+  <h1>I Model: Seeing These Modals in Action</h1>
+
+  <p>Watch me identify and analyse these modals in real text. I'm thinking aloud so you can see my reasoning.</p>
+
+  <h2>Example 1: DARE in Literary Context</h2>
+
+  <div class="quote-block">
+    "How dare you suggest such a thing? I dare say you'll regret those words."
+    <div class="attribution">— Imagined formal speech</div>
+  </div>
+
+  <p><strong>My thinking:</strong></p>
+  <ul style="margin-left: 20px; margin-top: 8px;">
+    <li>"How dare you" — This is an emotional challenge, expressing outrage. It's archaic/literary in structure, very formal.</li>
+    <li>"I dare say" — This is an old expression meaning "I would argue" or "I would risk saying." It signals the speaker is being reflective and perhaps a bit formal.</li>
+    <li><strong>Register clue:</strong> The repetition of DARE and the overall tone tell me this is a formal, literary moment.</li>
+  </ul>
+
+  <h2>Example 2: SHALL in a Contract</h2>
+
+  <div class="quote-block">
+    "The Contractor shall deliver all materials by 30 April 2026. The Client shall provide payment within 30 days of invoice."
+  </div>
+
+  <p><strong>My thinking:</strong></p>
+  <ul style="margin-left: 20px; margin-top: 8px;">
+    <li>This is clearly legal language. SHALL appears twice, setting obligations for both parties.</li>
+    <li>In everyday English, I'd say "The Contractor WILL deliver..." or "The Contractor MUST deliver..." But here, SHALL signals that this is a binding legal requirement.</li>
+    <li><strong>Register clue:</strong> The phrase "Contractor shall" is *signature* legal English. I'd spot this immediately.</li>
+  </ul>
+
+  <h2>Example 3: Semi-Modals in Conversation</h2>
+
+  <p><strong>Scenario:</strong> A manager talking to a team member about a missed deadline.</p>
+  <div class="quote-block">
+    "You were supposed to submit this yesterday. The client is bound to be upset. The final report is due to go to them by Friday."
+  </div>
+
+  <p><strong>My thinking:</strong></p>
+  <ul style="margin-left: 20px; margin-top: 8px;">
+    <li>"You were supposed to" — Expresses what was expected. It's not harsh (like MUST), but it's clear: this was the expectation.</li>
+    <li>"is bound to be upset" — I'm saying the upset is almost certain, very likely.</li>
+    <li>"is due to go" — This emphasises the scheduled time/deadline.</li>
+    <li><strong>Register clue:</strong> This is workplace English — slightly formal, clear, no drama.</li>
+  </ul>
+
+  <h2>What I'm Listening For</h2>
+  <p><strong>Register signals:</strong> DARE and SHALL scream formality and age. Semi-modals (supposed to, bound to, due to) fit everyday speech AND formal writing. When you hear or read these, ask: "Is this legal? Literary? A conversation?" The context tells you which modal is at work.</p>
+</div>
+
+<!-- TAB 4: ACTIVATE — WE DO (Guided Practice / Co-Construction) -->
+<div class="tab-content">
+  <h1>We Build Understanding Together</h1>
+
+  <p>Let's work through some sentences together. For each one, I'll ask you a question. Try to answer first, then we'll talk through the analysis.</p>
+
+  <h2>Text 1: From a Job Contract</h2>
+  <div class="quote-block">
+    "All employees shall work a 40-hour week. The company shall provide a 30-minute lunch break. Employees shall report to their manager by 9am."
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Question: Why is SHALL repeated three times here? What does that tell us?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p><strong>Analysis:</strong> SHALL appears three times because this is a formal, binding legal document. Each use creates an obligation. The repetition emphasises that these are non-negotiable rules for both employer and employee. In conversational English, we'd never repeat SHALL like this — it would sound bizarre. But in contracts, it's the standard way to state obligations clearly.</p>
+    </div>
+  </div>
+
+  <h2>Text 2: A Literary Passage</h2>
+  <div class="quote-block">
+    "How dare he speak to me that way! I would dare to argue that he's forgotten his place."
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Question: Find the two uses of DARE. Which one is angry? Which one is reflective?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p><strong>Analysis:</strong> "How dare he" = anger, outrage, immediate emotional response. "I would dare to argue" = more reflective, literary. The speaker is making a point but in a formal, measured way. Even in literary English, the two uses have different *feelings*. The first is explosive; the second is deliberative.</p>
+    </div>
+  </div>
+
+  <h2>Text 3: Mixed Register</h2>
+  <div class="quote-block">
+    "The report was supposed to be finished yesterday, but I'm bound to say the quality will be worth the wait. The presentation is due to happen at 2pm."
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Question: Spot all three semi-modals. What does each one contribute to the tone?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p><strong>Analysis:</strong></p>
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li>"was supposed to" = mild reproach, but not harsh. The report missed its deadline, but that's understandable given the quality.</li>
+        <li>"I'm bound to say" = formal, slightly old-fashioned way of saying "I must admit" or "I'll argue."</li>
+        <li>"is due to happen" = neutral, factual. Just states the scheduled time.</li>
+      </ul>
+      <p style="margin-top: 10px;">Together, they create a tone that's professional, slightly formal, and somewhat defensive. The speaker is protecting their work.</p>
+    </div>
+  </div>
+
+  <h2>Your Turn to Think Aloud</h2>
+  <p><strong>SPEAK:</strong> I'll give you a sentence with one of these modals. Don't just say "yes" or "no" — think aloud. Tell me:</p>
+  <ul style="margin-left: 20px; margin-top: 10px;">
+    <li>Which modal is it?</li>
+    <li>What does it express? (obligation, challenge, likelihood, schedule?)</li>
+    <li>What's the tone or context?</li>
+  </ul>
+
+  <p style="margin-top: 20px;"><strong>Test sentence:</strong> "You're bound to meet resistance when you propose that idea."</p>
+</div>
+
+<!-- TAB 5: DEMONSTRATE — Application + Elaboration -->
+<div class="tab-content">
+  <h1>You Apply: Real Work</h1>
+
+  <p>Now you work. Your job is to analyse and produce. This is where you show me what you've learned.</p>
+
+  <h2>Task A: Identify & Analyse</h2>
+
+  <p>Read the following three texts. For each one, identify the advanced modal and explain its function in 1-2 sentences.</p>
+
+  <div class="card" style="background: var(--accent-light); border-left: 4px solid var(--accent);">
+    <p><strong>Text 1 (from a UK university student handbook):</strong></p>
+    <p style="margin: 10px 0; font-style: italic;">"Students shall attend all scheduled lectures and tutorials. Any absence of more than three sessions shall be reported to the academic department."</p>
+  </div>
+
+  <div class="card" style="background: var(--accent-light); border-left: 4px solid var(--accent);">
+    <p><strong>Text 2 (from a personal diary):</strong></p>
+    <p style="margin: 10px 0; font-style: italic;">"I dare say I made a mistake. How dare she accuse me without evidence?"</p>
+  </div>
+
+  <div class="card" style="background: var(--accent-light); border-left: 4px solid var(--accent);">
+    <p><strong>Text 3 (from a meeting invitation):</strong></p>
+    <p style="margin: 10px 0; font-style: italic;">"You're bound to have questions about the new policy. The full guidelines are due to be released by end of month."</p>
+  </div>
+
+  <p style="margin-top: 20px;"><strong>WRITE:</strong> For each text, identify the modal and explain its function. Aim for 2-3 sentences per text.</p>
+
+  <textarea class="text-input" id="analysis-input" placeholder="Your analysis here..."></textarea>
+  <div class="word-count" id="analysis-count">0 words</div>
+
+  <button class="btn btn-primary" onclick="checkAnalysis()">Check My Work</button>
+  <div id="analysis-feedback" class="feedback"></div>
+
+  <h2 style="margin-top: 32px;">Task B: Production</h2>
+
+  <p>Write three sentences of your own — one using DARE (or how dare), one using SHALL (imagine a formal document), one using a semi-modal.</p>
+
+  <p style="margin-top: 12px;"><strong>Constraint:</strong> Each sentence should be different in tone/register from the others. Try to show control of the form by varying your contexts.</p>
+
+  <textarea class="text-input" id="production-input" placeholder="Your three sentences here..."></textarea>
+  <div class="word-count" id="production-count">0 words</div>
+
+  <button class="btn btn-primary" onclick="checkProduction()">Submit & Reflect</button>
+  <div id="production-feedback" class="feedback"></div>
+
+  <h2 style="margin-top: 32px;">Elaboration: Why Do These Matter?</h2>
+
+  <p><strong>SPEAK or WRITE:</strong> Imagine you're reading a legal document or a novel and you spot SHALL or DARE or one of the semi-modals. Why is it useful to recognise these specifically? What would you miss if you didn't know them?</p>
+
+  <textarea class="text-input" id="elaboration-input" placeholder="Your thinking here..."></textarea>
+  <div class="word-count" id="elaboration-count">0 words</div>
+</div>
+
+<!-- TAB 6: CONSOLIDATE — Recall Zone (Spaced Retrieval) -->
+<div class="tab-content">
+  <h1>Check Your Memory</h1>
+
+  <p>Without looking back at the earlier tabs, try to answer these questions. This tests what you've actually retained, not what you can read from the page.</p>
+
+  <h2>Retrieval Questions</h2>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Q1: What's the main difference between "I dare you to do this" and "How dare you do this"?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p>"I dare you to" = you're challenging someone to do something (confrontational but playful). "How dare you" = you're expressing outrage or shock at something they've already done (angry, accusatory).</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Q2: In what contexts would you expect to see SHALL most often?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p>Legal and formal official documents — contracts, laws, terms & conditions, formal regulations. In everyday speech and writing, SHALL is almost extinct. It sounds archaic outside these formal contexts.</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Q3: What's the difference between "You're supposed to do this" and "You're bound to do this"?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p>"Supposed to" = something is expected of you, a rule or obligation. "Bound to" = something is very likely or certain to happen (not about obligation, but probability). Example: "You're supposed to arrive on time" vs "You're bound to be confused at first."</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span><strong>Q4: When would you use "due to" as a semi-modal?</strong></span>
+      <span class="click-hint">Click to reveal</span>
+    </div>
+    <div class="reveal-answer">
+      <p>"Due to" as a semi-modal means scheduled or expected at a specific time. Examples: "The train is due at 5pm," "The report is due to be published Friday." It's factual, neutral, and often used for deadlines or scheduled events.</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 28px;">Interleaved Practice: Mixed Problems</h2>
+
+  <p>Here are five sentences. For each, identify which modal/semi-modal is used and what it expresses.</p>
+
+  <div class="discussion-cards">
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">1. "She shall inherit the estate."</div>
+      <div class="d-desc" style="display: none;">Modal: SHALL | Function: Legal/formal future certainty or command (rare, archaic)</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">2. "How dare you betray my trust?"</div>
+      <div class="d-desc" style="display: none;">Modal: DARE | Function: Outrage, indignation, challenge</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">3. "You're supposed to know that."</div>
+      <div class="d-desc" style="display: none;">Semi-modal: BE SUPPOSED TO | Function: Expectation, rule, mild reproach</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">4. "The train is bound to be late."</div>
+      <div class="d-desc" style="display: none;">Semi-modal: BE BOUND TO | Function: High probability, near certainty</div>
+    </div>
+    <div class="d-card" onclick="toggleCard(this)">
+      <div class="d-title">5. "The election results are due to be announced at 9pm."</div>
+      <div class="d-desc" style="display: none;">Semi-modal: BE DUE TO | Function: Scheduled time, expected moment</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px;">
+    <div class="timer-container">
+      <span class="timer-display" id="recall-timer">03:00</span>
+      <button class="timer-btn" onclick="startRecallTimer(180)">Start 3-min timer</button>
+      <button class="timer-btn btn-reset" onclick="resetRecallTimer()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 7: CONSOLIDATE — Final Retrieval + Metacognition -->
+<div class="tab-content">
+  <h1>Final Test & Reflection</h1>
+
+  <p>At the start, we said: <em>"Today we're working on advanced modal expressions — DARE, SHALL, and semi-modals — so you can recognise them in formal, legal, and literary writing and use them naturally in your own speech."</em></p>
+
+  <p style="margin-top: 16px;">Can you do that now? Let's find out.</p>
+
+  <h2>Your Challenge</h2>
+
+  <p><strong>WRITE:</strong> You're a professional writing an email to a colleague about a delayed project. In your email, you must naturally include:</p>
+  <ul style="margin-left: 20px; margin-top: 10px;">
+    <li>One use of a semi-modal (supposed to / bound to / due to)</li>
+    <li>A tone that's professional but not cold</li>
+    <li>A clear sense of timeline and expectation</li>
+  </ul>
+
+  <p style="margin-top: 12px;">Aim for 100-150 words. Your goal isn't perfection — it's to show you can deploy these structures naturally in a realistic context.</p>
+
+  <textarea class="text-input" id="final-output" placeholder="Write your email here..." style="min-height: 120px;"></textarea>
+  <div class="word-count" id="final-word-count">0 words</div>
+
+  <button class="btn btn-primary" onclick="checkFinalOutput()">Check & Give Feedback</button>
+  <div id="final-feedback" class="feedback"></div>
+
+  <h2 style="margin-top: 28px;">Metacognition: Thinking About Thinking</h2>
+
+  <p><strong>REFLECT:</strong> Answer these honestly. There are no wrong answers.</p>
+
+  <div style="margin: 16px 0;">
+    <p style="font-weight: 600; margin-bottom: 8px;">1. Which of these three was easiest to understand? Why?</p>
+    <textarea class="text-input" id="meta-1" placeholder="Your reflection..." style="min-height: 60px;"></textarea>
+  </div>
+
+  <div style="margin: 16px 0;">
+    <p style="font-weight: 600; margin-bottom: 8px;">2. Which one confused you most? What would help?</p>
+    <textarea class="text-input" id="meta-2" placeholder="Your reflection..." style="min-height: 60px;"></textarea>
+  </div>
+
+  <div style="margin: 16px 0;">
+    <p style="font-weight: 600; margin-bottom: 8px;">3. Did any particular example or explanation stick with you? Which one, and why?</p>
+    <textarea class="text-input" id="meta-3" placeholder="Your reflection..." style="min-height: 60px;"></textarea>
+  </div>
+
+  <h2 style="margin-top: 28px;">I Can...</h2>
+
+  <div class="ican">
+    <h3>I can recognise and explain DARE, SHALL, and semi-modal expressions (be supposed to, be bound to, be due to) in formal, legal, and literary contexts, and use them naturally in my own professional communication.</h3>
+  </div>
+
+  <p style="margin-top: 20px; color: var(--text-light); font-style: italic;">You've completed a C1 Advanced grammar lesson. Well done.</p>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+  // Tab switching
+  function switchTab(n) {
+    const contents = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    contents.forEach(c => c.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
+    contents[n].classList.add('active');
+    buttons[n].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // Reveal answer
+  function toggleReveal(el) {
+    const answer = el.nextElementSibling;
+    answer.classList.toggle('visible');
+  }
+
+  // Card selection
+  function toggleCard(el) {
+    el.classList.toggle('selected');
+    const desc = el.querySelector('.d-desc');
+    desc.style.display = desc.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Word count
+  function countWords(text) {
+    return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  }
+
+  document.getElementById('analysis-input')?.addEventListener('input', function() {
+    document.getElementById('analysis-count').textContent = countWords(this.value) + ' words';
+  });
+
+  document.getElementById('production-input')?.addEventListener('input', function() {
+    document.getElementById('production-count').textContent = countWords(this.value) + ' words';
+  });
+
+  document.getElementById('elaboration-input')?.addEventListener('input', function() {
+    document.getElementById('elaboration-count').textContent = countWords(this.value) + ' words';
+  });
+
+  document.getElementById('final-output')?.addEventListener('input', function() {
+    document.getElementById('final-word-count').textContent = countWords(this.value) + ' words';
+  });
+
+  // Check analysis
+  function checkAnalysis() {
+    const input = document.getElementById('analysis-input').value.trim();
+    const feedback = document.getElementById('analysis-feedback');
+    const wordCount = countWords(input);
+
+    if (wordCount === 0) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Please write your analysis before submitting.';
+      return;
+    }
+
+    if (wordCount < 30) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Your analysis seems quite short. Try to expand your thinking for each text.';
+      return;
+    }
+
+    feedback.className = 'feedback success';
+    feedback.textContent = '✓ Good work. You've identified the modals and their functions. Next, try producing your own sentences in Task B.';
+  }
+
+  // Check production
+  function checkProduction() {
+    const input = document.getElementById('production-input').value.trim();
+    const feedback = document.getElementById('production-feedback');
+    const wordCount = countWords(input);
+
+    if (wordCount === 0) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Please write your three sentences before submitting.';
+      return;
+    }
+
+    // Check for sentence count (rough)
+    const sentences = input.split(/[.!?]+/).filter(s => s.trim().length > 0);
+    if (sentences.length < 3) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'You need three sentences — one with DARE, one with SHALL, one with a semi-modal.';
+      return;
+    }
+
+    feedback.className = 'feedback success';
+    feedback.textContent = '✓ You've produced three sentences showing control of these structures. The variety of registers shows good understanding. Move on to elaboration.';
+  }
+
+  // Check final output
+  function checkFinalOutput() {
+    const input = document.getElementById('final-output').value.trim();
+    const feedback = document.getElementById('final-feedback');
+    const wordCount = countWords(input);
+
+    if (wordCount === 0) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Please write your email before checking.';
+      return;
+    }
+
+    if (wordCount < 80) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Your email is quite short. Aim for 100-150 words to give yourself space to show the language naturally.';
+      return;
+    }
+
+    if (wordCount > 200) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'Your email is longer than the target 100-150 words. Try to trim it down a bit.';
+      return;
+    }
+
+    // Check for semi-modal (rough)
+    const hasSemiModal = /\b(supposed|bound|due)\b/i.test(input);
+    if (!hasSemiModal) {
+      feedback.className = 'feedback error';
+      feedback.textContent = 'I don't see a clear semi-modal (supposed to, bound to, due to) in your email. Try working one in naturally.';
+      return;
+    }
+
+    feedback.className = 'feedback success';
+    feedback.textContent = '✓ Well done. You've written a professional email that naturally deploys a semi-modal. The context is clear, the tone is appropriate, and the language is controlled.';
+  }
+
+  // Timer for recall zone
+  let recallTimerInterval;
+
+  function startRecallTimer(seconds) {
+    let remaining = seconds;
+    const display = document.getElementById('recall-timer');
+
+    clearInterval(recallTimerInterval);
+    recallTimerInterval = setInterval(() => {
+      remaining--;
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      display.textContent = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+      if (remaining <= 30) {
+        display.classList.add('warning');
+      }
+      if (remaining <= 10) {
+        display.classList.add('danger');
+      }
+
+      if (remaining <= 0) {
+        clearInterval(recallTimerInterval);
+        display.textContent = '00:00';
+        display.classList.remove('warning', 'danger');
+      }
+    }, 1000);
+  }
+
+  function resetRecallTimer() {
+    clearInterval(recallTimerInterval);
+    document.getElementById('recall-timer').textContent = '03:00';
+    document.getElementById('recall-timer').classList.remove('warning', 'danger');
+  }
+</script>
+
+</body>
+</html>

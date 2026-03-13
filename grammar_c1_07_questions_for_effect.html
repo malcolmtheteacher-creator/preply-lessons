@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questions for Effect — C1 Grammar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .d-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .d-card.selected { border-color: var(--accent); background: var(--accent-light); }
+  .d-card .d-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .d-card .d-title { font-weight: 600; margin-bottom: 6px; }
+  .d-card .d-desc { font-size: 0.85rem; color: var(--text-light); }
+
+  /* ─── VISUAL STRUCTURE ─── */
+  .structure-box {
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .example-block {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .example-statement {
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .example-text {
+    color: var(--text);
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .example-note {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 8px;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .tab-nav { gap: 2px; padding: 10px 12px; }
+    .tab-btn { padding: 8px 14px; font-size: 0.75rem; }
+    .tab-content { padding: 20px 16px; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .discussion-cards { grid-template-columns: 1fr; }
+    .structure-box { font-size: 0.85rem; line-height: 1.7; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-nav" id="tab-nav">
+  <button class="tab-btn active" data-tab="1">Retrieval</button>
+  <button class="tab-btn" data-tab="2">Rhetorical Questions</button>
+  <button class="tab-btn" data-tab="3">Echo & Reply Questions</button>
+  <button class="tab-btn" data-tab="4">Model & Analyse</button>
+  <button class="tab-btn" data-tab="5">You Do — Speaking Task</button>
+  <button class="tab-btn" data-tab="6">Application — Real Scenarios</button>
+  <button class="tab-btn" data-tab="7">Recall & Reflect</button>
+</div>
+
+<!-- TAB 1: RETRIEVAL -->
+<div class="tab-content active" id="tab-1">
+  <h1>Questions for Effect</h1>
+  <p style="font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px;">C1 Advanced | Grammar | 1-to-1 Online</p>
+
+  <h2>What do you already know?</h2>
+  <p>Think about these without looking anything up — just what comes to mind.</p>
+
+  <div class="card">
+    <h3>Retrieval Prompts</h3>
+    <p style="margin-bottom: 16px;">Tell me what you know about these:</p>
+    <ul style="margin-left: 20px; color: var(--text-light); font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;"><strong>Rhetorical questions:</strong> What are they? Give an example you know.</li>
+      <li style="margin-bottom: 10px;"><strong>Echo questions:</strong> Have you heard someone repeat back what you said as a question? Why might they do that?</li>
+      <li><strong>Effect:</strong> Why would a speaker ask a question that they don't expect an answer to?</li>
+    </ul>
+  </div>
+
+  <div class="learning-intention">
+    <strong>Today:</strong> Understanding and using questions for rhetorical effect — so you can add emphasis, surprise, and sophistication to your advanced English speech and writing.
+  </div>
+
+  <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 24px;">👇 Speak your answers aloud — don't write them down. Let's see what comes to mind first.</p>
+</div>
+
+<!-- TAB 2: RHETORICAL QUESTIONS -->
+<div class="tab-content" id="tab-2">
+  <h2>Rhetorical Questions — Questions Without Answers</h2>
+
+  <div class="card">
+    <h3>What is a Rhetorical Question?</h3>
+    <p><strong>A question asked for effect — the speaker doesn't expect an actual answer.</strong></p>
+    <p style="margin-top: 12px; color: var(--text-light); font-size: 0.95rem;">The function is to emphasise, provoke thinking, or engage the listener emotionally — not to elicit information.</p>
+  </div>
+
+  <h3>How Rhetorical Questions Work</h3>
+
+  <div class="structure-box">
+    <strong>Form:</strong> Normal question structure (word order, intonation)<br>
+    <strong>Function:</strong> Statement of emphasis, criticism, or proof<br>
+    <strong>Effect:</strong> Stronger impact than a declarative statement
+  </div>
+
+  <h3>Examples — See the Pattern</h3>
+
+  <div class="example-block">
+    <div class="example-statement">Emphasis / Agreement</div>
+    <div class="example-text">"Isn't the new policy absurd?"</div>
+    <div class="example-note">≈ The new policy is absurd. (Invites listener to agree.)</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Challenge / Proof</div>
+    <div class="example-text">"Who wouldn't want better pay and working conditions?"</div>
+    <div class="example-note">≈ Everyone would want better pay and working conditions. (Makes a universal claim.)</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Blame / Blame-shifting</div>
+    <div class="example-text">"How could they have made such a decision without consulting us?"</div>
+    <div class="example-note">≈ They shouldn't have made this decision. (Implies criticism.)</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Dismissal / Minimisation</div>
+    <div class="example-text">"What difference does it make?"</div>
+    <div class="example-note">≈ It makes no difference. (Suggests irrelevance.)</div>
+  </div>
+
+  <h3>I Do — Teacher Models Structure</h3>
+  <p style="margin-bottom: 16px;">Watch how the same idea works as a statement vs. a rhetorical question:</p>
+
+  <div class="card" style="background: var(--accent-light);">
+    <p style="margin-bottom: 12px;"><strong>Statement:</strong></p>
+    <p style="margin-bottom: 20px; font-style: italic;">"The government has failed to protect ordinary people."</p>
+
+    <p style="margin-bottom: 12px;"><strong>Rhetorical question:</strong></p>
+    <p style="margin-bottom: 12px; font-style: italic;">"Has the government done anything to protect ordinary people?"</p>
+
+    <p style="font-size: 0.9rem; color: var(--text-light);"><strong>The rhetorical version:</strong> Is stronger. Draws listener in. Makes them internally agree before an answer is stated.</p>
+  </div>
+
+  <h3>We Do — You Identify the Function</h3>
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>What does this rhetorical question do? 💭</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="margin-bottom: 12px;"><strong>"Why would anyone trust a word he says?"</strong></p>
+      <p style="color: var(--success);"><strong>Function:</strong> Dismissal / disbelief. The speaker implies: "No one should trust him."</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>What does this one do? 💭</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="margin-bottom: 12px;"><strong>"Don't we all deserve a second chance?"</strong></p>
+      <p style="color: var(--success);"><strong>Function:</strong> Agreement-seeking / shared humanity. The speaker implies: "Everyone deserves a second chance."</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: ECHO & REPLY QUESTIONS -->
+<div class="tab-content" id="tab-3">
+  <h2>Echo Questions & Reply Questions — Questions for Surprise</h2>
+
+  <div class="card">
+    <h3>What Are Echo Questions?</h3>
+    <p><strong>You repeat back what someone said — in whole or in part — as a question.</strong></p>
+    <p style="margin-top: 12px; color: var(--text-light); font-size: 0.95rem;">Function: Express surprise, disbelief, shock, or need for clarification. Very common in spoken English at C1+.</p>
+  </div>
+
+  <h3>Forms of Echo Questions</h3>
+
+  <div class="example-block">
+    <div class="example-statement">Full Repetition</div>
+    <div class="example-text">A: "I've quit my job."<br>B: "You've quit your job?!"</div>
+    <div class="example-note">Repeating the entire statement + rising intonation = shock</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Partial Repetition (Key Phrase)</div>
+    <div class="example-text">A: "We're moving to Tokyo next month."<br>B: "Moving to Tokyo?!"</div>
+    <div class="example-note">Repeating just the key part creates stronger focus</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Question Word Echo (Wh-)</div>
+    <div class="example-text">A: "I'm resigning from the board."<br>B: "You're doing what?!"</div>
+    <div class="example-note">"What?" / "Where?" / "When?" focuses disbelief on that element</div>
+  </div>
+
+  <div class="example-block">
+    <div class="example-statement">Emphatic Echo (Inversion / Stress)</div>
+    <div class="example-text">A: "She won the competition."<br>B: "SHE won it? I thought it was impossible for her!"</div>
+    <div class="example-note">Emphatic stress = strong reaction to one element</div>
+  </div>
+
+  <h3>Emotional Functions</h3>
+
+  <div class="card">
+    <ul style="margin-left: 20px; font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;"><strong>Shock / Disbelief:</strong> "You paid HOW much?!"</li>
+      <li style="margin-bottom: 10px;"><strong>Seeking clarification:</strong> "She's left the company? Since when?"</li>
+      <li style="margin-bottom: 10px;"><strong>Offense / Indignation:</strong> "You think I'M the problem here?!"</li>
+      <li style="margin-bottom: 10px;"><strong>Joy / Celebration:</strong> "We're getting married?!" (excited tone)</li>
+      <li><strong>Sarcasm / Irony:</strong> "Oh, that's a GREAT idea, is it?" (opposite meaning)</li>
+    </ul>
+  </div>
+
+  <h3>I Do — Teacher Models Intonation & Stress</h3>
+
+  <div class="card" style="background: var(--accent-light);">
+    <p style="margin-bottom: 16px;"><strong>Sentence: "He was promoted to director."</strong></p>
+
+    <p style="margin-bottom: 12px; font-size: 0.9rem;"><strong style="color: var(--accent);">Neutral echo:</strong></p>
+    <p style="margin-bottom: 16px; font-style: italic;">"He was promoted to director?" (rising intonation = need clarification)</p>
+
+    <p style="margin-bottom: 12px; font-size: 0.9rem;"><strong style="color: var(--accent);">Shocked echo:</strong></p>
+    <p style="margin-bottom: 16px; font-style: italic;">"HE was promoted to director?!" (emphasis on "he" = surprise it's him specifically)</p>
+
+    <p style="margin-bottom: 12px; font-size: 0.9rem;"><strong style="color: var(--accent);">Questioning the role:</strong></p>
+    <p style="font-style: italic;">"Promoted to DIRECTOR?" (emphasis on "director" = surprise at the level of promotion)</p>
+  </div>
+
+  <h3>We Do — Match the Intonation to the Function</h3>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>If someone says, "I'm staying an extra year," what intonation shows joy? 🎉</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);"><strong>RISING intonation with falling end:</strong> "You're staying another year?" (said with genuine happiness — the question softens what could be a demand for details.)</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>If they say, "I'm leaving town," what shows you think it's a bad idea? ⚠️</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);"><strong>Falling intonation + sarcastic stress:</strong> "You're LEAVING town?" (said with skepticism — implies doubt or disapproval.)</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: MODEL & ANALYSE -->
+<div class="tab-content" id="tab-4">
+  <h2>Model & Analyse — Speaking Patterns in Context</h2>
+
+  <p>Below are real examples of questions for effect. Your job: identify the TYPE and the FUNCTION.</p>
+
+  <h3>Example 1</h3>
+  <div class="card">
+    <p style="font-style: italic; margin-bottom: 12px;"><strong>Context:</strong> A person is defending a controversial policy.</p>
+    <p style="font-style: italic; margin-bottom: 16px; color: var(--text-light);">""Wouldn't you want your children to have the best possible education, regardless of cost?"</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What TYPE and FUNCTION? 🔍</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="margin-bottom: 8px;"><strong>Type:</strong> Rhetorical question</p>
+        <p><strong>Function:</strong> Universal agreement / emotional persuasion. The speaker assumes everyone agrees that good education is important — making opposition to their policy seem unnatural.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Example 2</h3>
+  <div class="card">
+    <p style="font-style: italic; margin-bottom: 12px;"><strong>Context:</strong> A friend mentions they just got offered a dream job abroad.</p>
+    <p style="font-style: italic; margin-bottom: 16px; color: var(--text-light);">A: "I've accepted the job. We leave next month."<br>B: "You're LEAVING?! What about everything here?"</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What TYPE and FUNCTION for B's question? 🔍</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="margin-bottom: 8px;"><strong>Type:</strong> Echo question + follow-up</p>
+        <p><strong>Function:</strong> Shock, then seeking reassurance. The echo ("You're LEAVING?!") expresses surprise. The follow-up ("What about everything here?") shows concern and asks for clarification — but with emotional weight.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Example 3</h3>
+  <div class="card">
+    <p style="font-style: italic; margin-bottom: 12px;"><strong>Context:</strong> A manager is critiquing a team's decision.</p>
+    <p style="font-style: italic; margin-bottom: 16px; color: var(--text-light);">""So you're telling me you spent three weeks on this project without once asking the client for feedback?"</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What TYPE and FUNCTION? 🔍</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="margin-bottom: 8px;"><strong>Type:</strong> Rhetorical question (with implied disbelief)</p>
+        <p><strong>Function:</strong> Blame / criticism. Phrased as a question, but it's a statement of criticism. More sophisticated and cutting than saying directly: "You made a mistake."</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Example 4</h3>
+  <div class="card">
+    <p style="font-style: italic; margin-bottom: 12px;"><strong>Context:</strong> Two colleagues discussing a cancelled meeting.</p>
+    <p style="font-style: italic; margin-bottom: 16px; color: var(--text-light);">A: "The board just cancelled the entire investment review."<br>B: "They DID what? Without consulting the research team?"</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What's happening in B's response? 🔍</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="margin-bottom: 8px;"><strong>Type:</strong> Echo question ("They DID what?") + implied rhetorical question</p>
+        <p><strong>Function:</strong> The echo expresses shock at the action. The follow-up ("Without consulting...?") implies blame — it's rhetorical because B already knows the answer. This is very natural C1 conversational speech.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Your Turn — Quick Identification</h3>
+
+  <p style="margin-bottom: 16px; font-size: 0.95rem;">For each, decide: Is it a <strong>rhetorical question</strong> or an <strong>echo question</strong>?</p>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>"You've never heard of him? He's quite famous!"</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);"><strong>Echo question.</strong> Repeating back what was said (implied from context) with surprise intonation.</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>"Doesn't everyone deserve a fair trial?"</span>
+      <span class="click-hint">CLICK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);"><strong>Rhetorical question.</strong> Not repeating anything — asking a universal principle that no one would disagree with. Expects no answer.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: YOU DO — SPEAKING TASK -->
+<div class="tab-content" id="tab-5">
+  <h2>You Do — Create Questions for Effect</h2>
+
+  <p style="margin-bottom: 20px; color: var(--text-light);">Your task: You'll create and speak a series of questions — rhetorical or echo — to express different functions. Record yourself or speak aloud for 60 seconds.</p>
+
+  <h3>Speaking Challenge 1: Express Disagreement (Rhetorical)</h3>
+  <div class="card">
+    <p style="margin-bottom: 16px; font-size: 0.95rem;"><strong>Scenario:</strong> Someone has just said, "We should cancel the project entirely."</p>
+    <p style="margin-bottom: 12px; font-size: 0.95rem;">Create a rhetorical question that expresses your disagreement without saying "I disagree."</p>
+    <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px;">💡 Hint: What about the resources already spent? The team morale? The client expectations?</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Example from a teacher:</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);">"After everything we've already invested, wouldn't it be wise to see it through to at least the next milestone?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">This rhetorical question implies disagreement and positions continuing as the sensible option.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Speaking Challenge 2: Express Shock (Echo)</h3>
+  <div class="card">
+    <p style="margin-bottom: 16px; font-size: 0.95rem;"><strong>Scenario:</strong> A friend says, "I'm moving back to my hometown and starting a farm."</p>
+    <p style="margin-bottom: 12px; font-size: 0.95rem;">Create an echo question that shows real surprise. Then add a follow-up that seeks clarification.</p>
+    <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px;">💡 Hint: Emphasise a key element. What's most surprising to you?</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Example from a teacher:</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);">"You're starting a FARM?! Have you done that before? What made you decide this?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">The emphatic echo ("farm") shows which element surprises you. The follow-ups are genuine questions — you need more info.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Speaking Challenge 3: Express Blame / Criticism (Rhetorical)</h3>
+  <div class="card">
+    <p style="margin-bottom: 16px; font-size: 0.95rem;"><strong>Scenario:</strong> A colleague has forgotten an important deadline without informing anyone.</p>
+    <p style="margin-bottom: 12px; font-size: 0.95rem;">Create a rhetorical question that implies blame — but sounds more sophisticated than direct accusation.</p>
+    <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px;">💡 Hint: Focus on the lack of communication. How could they have acted differently?</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Example from a teacher:</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);">"How could you not have flagged this with the team beforehand?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">This rhetorical question criticises their behaviour — it implies they SHOULD have done so. More sophisticated than: "You should have told us."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="timer-container" style="margin-top: 32px;">
+    <div class="timer-display" id="timer-display">3:00</div>
+    <button class="timer-btn" onclick="startTimer(180)">Start 3-min Timer</button>
+    <button class="timer-btn" onclick="resetTimer()" style="background: #f0f0f0; color: var(--text-light);">Reset</button>
+  </div>
+
+  <div style="margin-top: 32px; padding: 16px; background: var(--accent-light); border-radius: 10px; font-size: 0.9rem; color: var(--text);">
+    <strong>How to use the timer:</strong> Hit "Start" and speak your answers aloud to all three challenges. Try to fill the 3 minutes with genuine attempts. If you finish early, repeat a challenge with different emphasis or wording. Record if you can, or just note what felt natural.
+  </div>
+</div>
+
+<!-- TAB 6: APPLICATION — REAL SCENARIOS -->
+<div class="tab-content" id="tab-6">
+  <h2>Application — Questions for Effect in Real Situations</h2>
+
+  <p style="margin-bottom: 20px; color: var(--text-light);">These are scenarios you might actually face. Your job: choose one and create a 2-3 minute spoken response using at least 2 questions for effect (rhetorical or echo).</p>
+
+  <h3>Scenario A: Defending a Decision</h3>
+  <div class="d-card" onclick="toggleCard(this)">
+    <div class="d-icon">🛡️</div>
+    <div class="d-title">You're Explaining a Controversial Choice</div>
+    <div class="d-desc">Someone has questioned your decision to leave a well-paid job. Explain your reasoning using at least one rhetorical question to strengthen your position. Include an echo question if someone interrupts with doubt.</div>
+  </div>
+
+  <h3>Scenario B: Expressing Surprise in a Meeting</h3>
+  <div class="d-card" onclick="toggleCard(this)">
+    <div class="d-icon">😲</div>
+    <div class="d-title">Reacting to Unexpected News at Work</div>
+    <div class="d-desc">In a meeting, your manager announces a major restructure. Create an authentic response using echo questions to express your surprise naturally, then follow up with questions seeking clarification.</div>
+  </div>
+
+  <h3>Scenario C: Making a Persuasive Argument</h3>
+  <div class="d-card" onclick="toggleCard(this)">
+    <div class="d-icon">💪</div>
+    <div class="d-title">Convincing Someone to Take Your Side</div>
+    <div class="d-desc">You disagree with a friend's plan. Rather than arguing directly, use 2-3 rhetorical questions to lead them to your conclusion. Make the questions appeal to shared values or common sense.</div>
+  </div>
+
+  <h3>Scenario D: Handling Criticism</h3>
+  <div class="d-card" onclick="toggleCard(this)">
+    <div class="d-icon">⚔️</div>
+    <div class="d-title">Responding to Blame or Accusation</div>
+    <div class="d-desc">Someone has blamed you for something unfair. Use a rhetorical question (or a few) to challenge their logic without becoming defensive. Show sophistication through questioning rather than denial.</div>
+  </div>
+
+  <h3>Your Task</h3>
+  <div class="card" style="background: var(--accent-light);">
+    <p><strong>Pick one scenario above.</strong> Then:</p>
+    <ol style="margin-left: 20px; margin-top: 12px; font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;">Speak for 2-3 minutes, responding authentically to that scenario.</li>
+      <li style="margin-bottom: 10px;">Aim to use at least 2 questions for effect — rhetorical, echo, or both.</li>
+      <li style="margin-bottom: 10px;">Record if you can. If not, just speak aloud and note which questions you used and why.</li>
+      <li>After speaking: reflect on whether the questions felt natural and served your purpose.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- TAB 7: RECALL & REFLECT -->
+<div class="tab-content" id="tab-7">
+  <h2>What Have You Learned?</h2>
+
+  <h3>Final Recall — From Memory</h3>
+  <p style="margin-bottom: 16px; color: var(--text-light);">Without looking back, answer these:</p>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>What's the main difference between a rhetorical question and an echo question?</span>
+      <span class="click-hint">CHECK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);"><strong>Rhetorical:</strong> Asks a question not expecting a real answer — used for emphasis, persuasion, or proof. <strong>Echo:</strong> Repeats back (all or part of) what someone said — used to express surprise, disbelief, or seek clarification.</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>Give an example of a rhetorical question you might use to express disagreement.</span>
+      <span class="click-hint">CHECK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);">Any persuasive universal claim works. E.g., "Wouldn't you want your efforts to be recognised?" / "How could you blame them without all the facts?" / "Doesn't everyone deserve a chance to explain?"</p>
+    </div>
+  </div>
+
+  <div class="reveal-container">
+    <div class="reveal-prompt" onclick="toggleReveal(this)">
+      <span>Why is the intonation so important for echo questions?</span>
+      <span class="click-hint">CHECK</span>
+    </div>
+    <div class="reveal-answer">
+      <p style="color: var(--success);">The same echo question can express joy, shock, anger, sarcasm, or disbelief — depending on intonation and stress. "You're leaving?!" said with joy ≠ "You're LEAVING?!" said with outrage.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px;">What Helped You Learn Today?</h3>
+  <div class="card">
+    <label class="input-label">Reflect (60 seconds speaking or writing):</label>
+    <ul style="margin-left: 20px; margin-top: 12px; font-size: 0.95rem; color: var(--text-light);">
+      <li style="margin-bottom: 10px;">Which activity made the function clearest to you? (Modelling? Click-to-reveals? Speaking tasks?)</li>
+      <li style="margin-bottom: 10px;">When might you actually use questions for effect in your own speaking?</li>
+      <li>What's one question technique you'll try to use this week?</li>
+    </ul>
+  </div>
+
+  <h3 style="margin-top: 28px;">You Can Now...</h3>
+  <div class="card" style="background: var(--success-bg);">
+    <ul style="margin-left: 20px; margin-top: 12px; font-size: 0.95rem;">
+      <li style="margin-bottom: 10px;">✓ Recognise and use rhetorical questions for emphasis, persuasion, and criticism.</li>
+      <li style="margin-bottom: 10px;">✓ Create echo questions that express surprise and seek clarification authentically.</li>
+      <li style="margin-bottom: 10px;">✓ Use intonation and stress to shape the emotional effect of your questions.</li>
+      <li style="margin-bottom: 10px;">✓ Apply questions for effect in high-stakes situations (meetings, arguments, presentations).</li>
+      <li>✓ Understand why this technique is a hallmark of C1+ advanced speech.</li>
+    </ul>
+  </div>
+
+  <h3 style="margin-top: 28px;">To Go Deeper</h3>
+  <div class="card">
+    <p style="margin-bottom: 12px;"><strong>Next lesson ideas:</strong></p>
+    <ul style="margin-left: 20px; font-size: 0.95rem; color: var(--text-light);">
+      <li style="margin-bottom: 8px;">Tag questions (rising intonation for genuine questions, falling for confirmation) — another way to invite audience participation.</li>
+      <li style="margin-bottom: 8px;">Embedded questions in complex sentences — maintaining sophistication in longer utterances.</li>
+      <li>Rhetorical questions in formal writing (essays, presentations) — how the rules differ from spoken effect.</li>
+    </ul>
+  </div>
+
+  <h3 style="margin-top: 28px;">Spaced Retrieval — From Previous Lessons</h3>
+  <div class="card">
+    <p style="margin-bottom: 16px; font-size: 0.95rem;">To strengthen your long-term memory, recall these from earlier C1 grammar work:</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What is the difference between present perfect simple and present perfect continuous?</span>
+        <span class="click-hint">RECALL</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);"><strong>PPS:</strong> Focuses on the completed action and its result ("I've written the report"). <strong>PPC:</strong> Emphasises the duration or ongoing nature ("I've been working on the report for hours").</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>When do you use mixed conditionals, and what's an example?</span>
+        <span class="click-hint">RECALL</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);">When the condition and the result are in different time frames. E.g., "If I had studied harder at university, I would be in a better position now" (past condition → present result).</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>What's the difference between "despite" and "although"?</span>
+        <span class="click-hint">RECALL</span>
+      </div>
+      <div class="reveal-answer">
+        <p style="color: var(--success);"><strong>Although:</strong> Conjunction introducing a clause ("Although it rained, we went out"). <strong>Despite:</strong> Preposition followed by a noun phrase ("Despite the rain, we went out").</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // TAB SWITCHING
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabNum = btn.getAttribute('data-tab');
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`tab-${tabNum}`).classList.add('active');
+      btn.classList.add('active');
+    });
+  });
+
+  // CLICK-TO-REVEAL
+  function toggleReveal(el) {
+    const answer = el.nextElementSibling;
+    if (answer && answer.classList.contains('reveal-answer')) {
+      answer.classList.toggle('visible');
+    }
+  }
+
+  // DISCUSSION CARD SELECTION
+  function toggleCard(el) {
+    el.classList.toggle('selected');
+  }
+
+  // TIMER
+  let timerInterval = null;
+  function startTimer(seconds) {
+    if (timerInterval) return;
+    let remaining = seconds;
+    const display = document.getElementById('timer-display');
+
+    timerInterval = setInterval(() => {
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+      if (remaining <= 10 && remaining > 0) {
+        display.classList.add('danger');
+      } else if (remaining <= 30) {
+        display.classList.add('warning');
+      }
+
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        display.textContent = "0:00";
+        alert("Time's up!");
+      }
+
+      remaining--;
+    }, 1000);
+  }
+
+  function resetTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    document.getElementById('timer-display').textContent = '3:00';
+    document.getElementById('timer-display').classList.remove('warning', 'danger');
+  }
+</script>
+
+</body>
+</html>

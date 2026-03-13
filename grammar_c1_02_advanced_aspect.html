@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Aspect Distinctions — C1 Grammar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --simple: #2d6a4f;
+    --simple-bg: #d8f3dc;
+    --continuous: #e07a3a;
+    --continuous-bg: #fdebd0;
+    --perfect: #7b2d8e;
+    --perfect-bg: #f0e6f6;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .card.simple { border-left: 5px solid var(--simple); }
+  .card.continuous { border-left: 5px solid var(--continuous); }
+  .card.perfect { border-left: 5px solid var(--perfect); }
+
+  /* ─── ASPECT LAYER VISUAL ─── */
+  .aspect-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px auto;
+    max-width: 600px;
+  }
+  .aspect-layer {
+    padding: 20px 28px;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .aspect-layer:hover { transform: scale(1.02); }
+  .layer-perfect {
+    background: var(--perfect-bg);
+    color: var(--perfect);
+    border-radius: 12px 12px 0 0;
+    border: 2px solid var(--perfect);
+    border-bottom: 1px dashed var(--perfect);
+  }
+  .layer-continuous {
+    background: var(--continuous-bg);
+    color: var(--continuous);
+    border-left: 2px solid var(--continuous);
+    border-right: 2px solid var(--continuous);
+  }
+  .layer-simple {
+    background: var(--simple-bg);
+    color: var(--simple);
+    border-radius: 0 0 12px 12px;
+    border: 2px solid var(--simple);
+    border-top: 1px dashed var(--simple);
+    font-size: 1.1rem;
+  }
+  .aspect-layer .layer-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
+    opacity: 0.8;
+  }
+  .aspect-layer .layer-example {
+    font-weight: 400;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    opacity: 0.9;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .aspect-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .aspect-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .aspect-table th.col-simple { background: var(--simple-bg); color: var(--simple); border-radius: 8px 0 0 0; }
+  .aspect-table th.col-continuous { background: var(--continuous-bg); color: var(--continuous); }
+  .aspect-table th.col-perfect { background: var(--perfect-bg); color: var(--perfect); border-radius: 0 8px 0 0; }
+  .aspect-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .aspect-table tr:last-child td { border-bottom: none; }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+  .text-input::placeholder { color: #aaa; }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+  .feedback.visible { display: block; }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-3 { background: var(--accent-light); color: var(--accent); }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .d-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .d-card.selected { border-color: var(--accent); background: var(--accent-light); }
+  .d-card .d-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .d-card .d-title { font-weight: 600; margin-bottom: 6px; }
+  .d-card .d-desc { font-size: 0.85rem; color: var(--text-light); }
+
+  /* ─── MATCHING EXERCISE ─── */
+  .match-zones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .match-zone {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .match-zone .zone-title {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+  }
+
+  .match-item {
+    padding: 8px 12px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+  .match-item:hover { border-color: var(--accent); background: var(--accent-light); }
+  .match-item.matched { opacity: 0.4; cursor: default; }
+
+  /* ─── QUOTE BLOCK ─── */
+  .quote-block {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    box-shadow: var(--shadow);
+  }
+  .quote-block .attribution {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  /* ─── BEFORE/AFTER COMPARISON ─── */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .comp-side {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .comp-before {
+    background: var(--perfect-bg);
+    border: 1px solid var(--perfect);
+  }
+  .comp-after {
+    background: var(--simple-bg);
+    border: 1px solid var(--simple);
+  }
+  .comp-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .comp-before .comp-label { color: var(--perfect); }
+  .comp-after .comp-label { color: var(--simple); }
+
+  /* ─── BUTTON ─── */
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-secondary { background: var(--accent-light); color: var(--accent); }
+
+  /* ─── I CAN STATEMENT ─── */
+  .ican {
+    background: linear-gradient(135deg, var(--accent-light), #fff);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+  .ican h3 { color: var(--accent); margin-bottom: 8px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .tab-nav { padding: 8px 12px; }
+    .tab-btn { padding: 8px 12px; font-size: 0.78rem; }
+    .tab-content { padding: 20px 14px; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .match-zones { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .discussion-cards { grid-template-columns: 1fr; }
+    .aspect-layer { padding: 14px 16px; }
+  }
+
+  /* ─── HIDDEN UTILITY ─── */
+  .hidden { display: none; }
+
+  /* ─── WORD COUNT ─── */
+  .word-count {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* ─── STEP INDICATOR ─── */
+  .step {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    background: var(--accent-light);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── EXAMPLE BOXES ─── */
+  .example-box {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TAB NAVIGATION ═══════════════ -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">Connect: The Puzzle</button>
+  <button class="tab-btn" onclick="showTab(1)">Activate: Aspect System</button>
+  <button class="tab-btn" onclick="showTab(2)">Activate: Simple vs Continuous</button>
+  <button class="tab-btn" onclick="showTab(3)">Activate: Perfect & Would</button>
+  <button class="tab-btn" onclick="showTab(4)">Demonstrate: Translation Task</button>
+  <button class="tab-btn" onclick="showTab(5)">Demonstrate: Discourse Analysis</button>
+  <button class="tab-btn" onclick="showTab(6)">Consolidate: Recall & Reflect</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 0: CONNECT — Retrieval + Hook               -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab0">
+  <h1>Aspect & Nuance at C1</h1>
+  <div class="learning-intention">
+    <strong>Today:</strong> Master the subtle difference between simple, continuous, and perfect aspects — and the hidden power of "would" — so you can express exact meaning in academic and professional contexts.
+  </div>
+
+  <div class="card">
+    <span class="step">Retrieval</span>
+    <h3>The Meaning Puzzle</h3>
+    <p>Three sentences. Same situation. But each says something slightly different. Can you feel the difference?</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer0">3:00</div>
+      <button class="timer-btn btn-3" onclick="startTimer('timer0', 180)">3 min</button>
+      <button class="timer-btn btn-reset" onclick="resetTimer('timer0', 180)">Reset</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div class="example-box">
+        <strong>A:</strong> "I thought about your proposal."
+      </div>
+      <div class="example-box">
+        <strong>B:</strong> "I've been thinking about your proposal."
+      </div>
+      <div class="example-box">
+        <strong>C:</strong> "I've thought about your proposal."
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;"><strong>Question for you:</strong> Say all three aloud. Which one means "I made a decision"? Which one means "the thinking is still happening"? Which one is neutral? <em>You already know this instinctively — let's make it explicit.</em></p>
+  </div>
+
+  <div class="card">
+    <span class="step">Hook</span>
+    <h3>Why This Matters</h3>
+    <p>At C1 level, your grammar is probably correct. But are you saying <em>what you mean</em>? A native speaker doesn't just use simple past — they choose the aspect that carries the exact emotional and temporal weight they need.</p>
+    <p style="margin-top: 12px;">Master aspect, and you move from "grammatically correct" to "sounds native."</p>
+  </div>
+
+  <div class="card">
+    <span class="step">Retrieval</span>
+    <h3>What Do You Already Know?</h3>
+    <p>Before we go further — tell me what you know about <strong>tense vs. aspect</strong>. Are they the same thing? Can you think of any other languages you speak that mark aspect differently than English?</p>
+    <p style="margin-top: 14px; font-weight: 600; color: var(--accent);">🎙 Speak: Describe what you notice about these three sentences. Don't overthink — just tell me what feels different.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 1: ACTIVATE — The Aspect System              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab1">
+  <h2>The Aspect System Demystified</h2>
+
+  <p>English aspect answers one core question: <strong>How do we view the action?</strong> Not WHEN it happened — that's tense. But HOW we frame it: complete? ongoing? with emphasis on the result?</p>
+
+  <div class="aspect-stack">
+    <div class="aspect-layer layer-perfect" onclick="toggleReveal('perfect-detail')">
+      <span class="layer-label">Aspect 3: Perfect</span>
+      <strong>The Result Matters</strong>
+      <span class="layer-example">have + past participle</span>
+    </div>
+    <div class="aspect-layer layer-continuous" onclick="toggleReveal('continuous-detail')">
+      <span class="layer-label">Aspect 2: Continuous</span>
+      <strong>Still Happening</strong>
+      <span class="layer-example">be + -ing</span>
+    </div>
+    <div class="aspect-layer layer-simple" onclick="toggleReveal('simple-detail')">
+      <span class="layer-label">Aspect 1: Simple</span>
+      <strong>The Fact</strong>
+      <span class="layer-example">bare verb (eat, walked, will go)</span>
+    </div>
+  </div>
+
+  <div class="reveal-answer" id="perfect-detail" style="background: var(--perfect-bg); border-color: var(--perfect); margin-bottom: 8px;">
+    <p><strong>The Perfect marks a connection between two times:</strong> Something happened at an unspecified past time, and the result is relevant NOW.</p>
+    <p style="margin-top: 8px;"><em>Example:</em> "I've lost my keys" (I lost them at some point; they are still missing now). Not "I lost my keys at 9am" — that's simple past with a specific time.</p>
+  </div>
+  <div class="reveal-answer" id="continuous-detail" style="background: var(--continuous-bg); border-color: var(--continuous); margin-bottom: 8px;">
+    <p><strong>Continuous emphasizes the process, duration, or incompleteness:</strong> The action is/was/will be in progress. Imagine the action as a video — you're inside the frame while it's still playing.</p>
+    <p style="margin-top: 8px;"><em>Example:</em> "I'm eating" (the meal is not finished). "I was sleeping when you called" (the sleep was interrupted).</p>
+  </div>
+  <div class="reveal-answer" id="simple-detail" style="background: var(--simple-bg); border-color: var(--simple);">
+    <p><strong>Simple states a fact, habit, or completed action:</strong> Just the event itself, no emphasis on process or connection. The most neutral, unmarked form.</p>
+    <p style="margin-top: 8px;"><em>Example:</em> "I ate lunch" (fact). "I drink coffee every morning" (habit). "I will go to Paris next summer" (future event).</p>
+  </div>
+
+  <div class="card">
+    <h3>The Key Insight: Why Aspect Matters</h3>
+    <p>In many languages, aspect is <strong>obligatory</strong>. In English, it's more subtle. But that subtlety is <em>powerful</em>. Consider these three:</p>
+
+    <table class="aspect-table" style="margin-top: 12px;">
+      <tr>
+        <th class="col-simple">Simple Past</th>
+        <th class="col-continuous">Continuous</th>
+        <th class="col-perfect">Perfect</th>
+      </tr>
+      <tr>
+        <td><strong>I worked on the report.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Neutral fact. I did it. Done.</span></td>
+        <td><strong>I was working on the report.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">I was in the middle of it when something interrupted.</span></td>
+        <td><strong>I have worked on the report.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">I did it, and the result is relevant now (it's finished; it's here).</span></td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;">All three are grammatically correct. But each carries a different message about relevance, completeness, and tone.</p>
+  </div>
+
+  <div class="card">
+    <span class="step">I Do — Teacher Models</span>
+    <h3>The "Think" Example Revisited</h3>
+    <p>Remember the puzzle from the first tab? Here's how aspect explains it:</p>
+
+    <table class="aspect-table" style="margin-top: 12px;">
+      <tr>
+        <th class="col-simple">Simple</th>
+        <th class="col-continuous">Continuous</th>
+        <th class="col-perfect">Perfect</th>
+      </tr>
+      <tr>
+        <td><strong>I thought about it.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Past fact. Neutral tone. No emphasis.</span></td>
+        <td><strong>I was thinking about it.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">In the middle of thinking. Ongoing process.</span></td>
+        <td><strong>I've thought about it.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Completed consideration. Result: I've decided. It's done. Relevant now.</span></td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;"><strong>In context:</strong> If someone asks "What do you think of my idea?" and you say "I've thought about it" — you're telling them you've finished considering it and you have a conclusion. If you say "I'm thinking about it" — they should wait; you're still deciding. If you say "I thought about it" — that was in the past; what do you think NOW is unclear.</p>
+  </div>
+
+  <div class="card">
+    <span class="step">We Do — Notice Together</span>
+    <h3>The Grammar Bridge: Present Tense + Aspect</h3>
+    <p>You can combine aspect with any tense. Let's look at the PRESENT tense combined with each aspect:</p>
+
+    <table class="aspect-table" style="margin-top: 12px;">
+      <tr>
+        <th class="col-simple">Simple Present</th>
+        <th class="col-continuous">Present Continuous</th>
+        <th class="col-perfect">Present Perfect</th>
+      </tr>
+      <tr>
+        <td><strong>I eat pasta.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Habit or general fact.</span></td>
+        <td><strong>I am eating pasta.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Right now, in this moment, I'm in the middle of eating.</span></td>
+        <td><strong>I have eaten pasta.</strong><br><span style="font-size:0.8rem; color: var(--text-light);">At some point in my life, I've eaten pasta. It's relevant to this conversation now.</span></td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;">Notice: The formula is always the same. SIMPLE (bare verb) + CONTINUOUS (be + -ing) + PERFECT (have + past participle). This pattern works for past, present, future — any tense. You already know this pattern. We're just making it conscious.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 2: ACTIVATE — Simple vs Continuous          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab2">
+  <h2>Choosing: Simple vs. Continuous</h2>
+
+  <p>The most common choice in English. When do we use simple? When do we reach for continuous? This decision shapes how native the speaker sounds.</p>
+
+  <div class="card">
+    <span class="step">I Do — Teacher Models</span>
+    <h3>The Interruption Rule</h3>
+
+    <p><strong>Continuous = interrupted. Simple = uninterrupted.</strong> Here's the rule made visible:</p>
+
+    <div class="comparison">
+      <div class="comp-side comp-before">
+        <div class="comp-label">Continuous (Interrupted)</div>
+        <p>"I <strong>was watching</strong> the news when the power cut out."</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">The watching was interrupted by the power cut. Two actions: one ongoing, one sudden.</p>
+      </div>
+      <div class="comp-side comp-after">
+        <div class="comp-label">Simple (No Interruption)</div>
+        <p>"I <strong>watched</strong> the news yesterday."</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">One completed action. No interrupt. No emphasis on process.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('interrupt-examples')">
+        <span>More interruption examples — click to see</span>
+        <span class="click-hint">Click to reveal</span>
+      </div>
+      <div class="reveal-answer" id="interrupt-examples">
+        <ul style="margin-left: 20px; color: var(--text); font-size: 0.95rem;">
+          <li>"I <strong>was making</strong> dinner when she arrived." (Dinner-making was interrupted.)</li>
+          <li>"She <strong>was explaining</strong> her idea when I interrupted." (She was mid-explanation.)</li>
+          <li>"They <strong>were playing</strong> tennis when it started to rain." (The game was interrupted.)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="step">We Do — Pattern Hunt</span>
+    <h3>Read Aloud & Notice: Which Feels More Natural?</h3>
+    <p>For each pair, say both versions out loud. Which one sounds more natural to a native ear?</p>
+
+    <table class="aspect-table" style="margin-top: 12px;">
+      <tr>
+        <th class="col-continuous">Continuous (Process)</th>
+        <th class="col-simple">Simple (Fact)</th>
+      </tr>
+      <tr>
+        <td><strong>I was reading your email.</strong></td>
+        <td><strong>I read your email.</strong></td>
+      </tr>
+      <tr>
+        <td><span style="font-size:0.8rem; color: var(--text-light);">"I was in the middle of it."</span></td>
+        <td><span style="font-size:0.8rem; color: var(--text-light);">"I did it. It's done."</span></td>
+      </tr>
+      <tr>
+        <td><strong>Were you listening?</strong></td>
+        <td><strong>Did you listen?</strong></td>
+      </tr>
+      <tr>
+        <td><span style="font-size:0.8rem; color: var(--text-light);">"Were you paying attention the whole time?"</span></td>
+        <td><span style="font-size:0.8rem; color: var(--text-light);">"Did you hear what I said?"</span></td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="card">
+    <span class="step">You Do — Choose the Aspect</span>
+    <h3>Your Turn: Simple or Continuous?</h3>
+    <p>For each scenario, choose the verb form that fits best. Say it aloud first — let your ear guide you.</p>
+
+    <div style="margin-top: 16px;">
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('choice1')">
+          <span><strong>Scenario 1:</strong> "The phone rang while I __________ (work) at my desk."</span>
+          <span class="click-hint">Reveal answer</span>
+        </div>
+        <div class="reveal-answer" id="choice1">
+          <p><strong>Answer:</strong> <em>was working</em> (continuous)</p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">You were in the middle of work when the phone interrupted.</p>
+        </div>
+      </div>
+
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('choice2')">
+          <span><strong>Scenario 2:</strong> "Last week, I __________ (attend) three meetings."</span>
+          <span class="click-hint">Reveal answer</span>
+        </div>
+        <div class="reveal-answer" id="choice2">
+          <p><strong>Answer:</strong> <em>attended</em> (simple)</p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">Neutral fact. Three completed actions. No emphasis on process.</p>
+        </div>
+      </div>
+
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('choice3')">
+          <span><strong>Scenario 3:</strong> "When you arrived, I __________ (shower). I'm so sorry!"</span>
+          <span class="click-hint">Reveal answer</span>
+        </div>
+        <div class="reveal-answer" id="choice3">
+          <p><strong>Answer:</strong> <em>was showering</em> (continuous)</p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">You were in the middle of it when they arrived. It was happening at that moment.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="step">Elaboration</span>
+    <h3>The Question That Tests Understanding</h3>
+    <p>Explain in your own words: Why would you use continuous in an interruption story, but simple for a list of facts? What's the difference in HOW the speaker is viewing the action?</p>
+    <p style="margin-top: 14px; font-weight: 600; color: var(--accent);">🎙 Speak: Describe the difference without using the word "continuous" or "simple." Just tell me the feeling.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 3: ACTIVATE — Perfect & Advanced Would      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab3">
+  <h2>Perfect Aspect & Advanced Uses of Would</h2>
+
+  <p>The perfect tense is subtle — even intermediate learners often get it wrong. And "would" is not just conditional. Let's unlock both.</p>
+
+  <div class="card">
+    <span class="step">I Do — Teacher Models</span>
+    <h3>Present Perfect: The Bridge Between Past and Present</h3>
+
+    <p>This is the #1 mistake even B2 learners make: mixing up simple past and present perfect.</p>
+
+    <div class="comparison">
+      <div class="comp-side comp-before">
+        <div class="comp-label">Simple Past (No Bridge)</div>
+        <p>"I <strong>ate</strong> breakfast <strong>at 7am.</strong>"</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">Finished action + specific time. No connection to now.</p>
+      </div>
+      <div class="comp-side comp-after">
+        <div class="comp-label">Present Perfect (Bridge)</div>
+        <p>"I <strong>have eaten</strong> breakfast."</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">Finished action + relevant NOW (e.g., I'm not hungry).</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px;"><strong>Rule:</strong> Use present perfect when you don't mention (or don't know) the specific time. If you say a time, simple past is correct.</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('perfect-rule')">
+        <span>The time rule explained — click to see</span>
+        <span class="click-hint">Click to reveal</span>
+      </div>
+      <div class="reveal-answer" id="perfect-rule">
+        <ul style="margin-left: 20px; color: var(--text); font-size: 0.95rem;">
+          <li>"I've visited Paris." ✓ (Perfect — no time mentioned. It's relevant that I've been there.)</li>
+          <li>"I visited Paris last summer." ✓ (Simple — specific time given.)</li>
+          <li>"I visited Paris." ✓ (Simple — implicit past, no present relevance.)</li>
+          <li>"I've visited Paris last summer." ✗ (WRONG. Don't mix perfect with specific time.)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="step">I Do — Teacher Models</span>
+    <h3>Present Perfect Continuous: Process WITH Relevance</h3>
+
+    <p>What if you want to show that an action started in the past, is still happening, and is relevant now?</p>
+
+    <div class="example-box">
+      <strong>"I've been studying English for three years."</strong>
+      <p style="margin-top: 8px;">Meaning: I started three years ago. I'm still studying. And that's relevant NOW because my skill level reflects those three years.</p>
+    </div>
+
+    <div class="example-box">
+      <strong>"How long have you been working here?"</strong>
+      <p style="margin-top: 8px;">Meaning: You started at some point. You still work here. Tell me the duration.</p>
+    </div>
+
+    <p style="margin-top: 12px;">Formula: <strong>have + been + -ing</strong>. It combines the "result matters now" of perfect with the "process" emphasis of continuous.</p>
+
+  </div>
+
+  <div class="card">
+    <span class="step">I Do — Teacher Models</span>
+    <h3>Advanced Would: Habitual Past & Literary Patterns</h3>
+
+    <p>"Would" is not just conditional. At C1, you need to recognize it for what it is: a modal marker of repeated, habitual, or characteristic action in the past.</p>
+
+    <div class="example-box">
+      <strong>"When I was young, I would spend hours reading in the garden."</strong>
+      <p style="margin-top: 8px;">Meaning: This was a repeated habit. Every day (or regularly), I did this. Like "I used to spend hours..."</p>
+    </div>
+
+    <div class="example-box">
+      <strong>"He would sit in silence for hours, staring at the sea."</strong>
+      <p style="margin-top: 8px;">Literary/narrative use. Characteristic behavior. What he typically did.</p>
+    </div>
+
+    <p style="margin-top: 12px;"><strong>Key difference:</strong></p>
+    <ul style="margin-left: 20px; color: var(--text); font-size: 0.95rem;">
+      <li>"I used to be shy." (Past state, not anymore.)</li>
+      <li>"I would be shy in class." (Habitual action in the past — I kept being shy.)</li>
+    </ul>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('would-vs-used')">
+        <span>When to use would vs. used to — detailed guide</span>
+        <span class="click-hint">Click to reveal</span>
+      </div>
+      <div class="reveal-answer" id="would-vs-used">
+        <p><strong>Used to:</strong> State that was true in the past but no longer is. Can be habitual OR not.</p>
+        <ul style="margin-left: 20px; margin-top: 8px;">
+          <li>"I used to live in Berlin." (State — I don't anymore.)</li>
+          <li>"I used to play tennis." (Habit — I don't anymore.)</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Would:</strong> Habitual or characteristic past action. Implies regularity. More literary/formal.</p>
+        <ul style="margin-left: 20px; margin-top: 8px;">
+          <li>"Every summer, we would visit my grandmother." (Regular habit.)</li>
+          <li>"She would always arrive late." (Characteristic behavior.)</li>
+        </ul>
+        <p style="margin-top: 12px;"><strong>Used to is broader; would is more specific to repeated action.</strong></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="step">We Do — Noticing Task</span>
+    <h3>Perfect vs. Simple: Read and Notice</h3>
+    <p>Read these pairs. Which feels correct for the context? Why?</p>
+
+    <table class="aspect-table" style="margin-top: 12px;">
+      <tr>
+        <th class="col-perfect">Present Perfect</th>
+        <th class="col-simple">Simple Past</th>
+      </tr>
+      <tr>
+        <td><strong>"Have you finished the report?"</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Status question. Is it done NOW?</span></td>
+        <td><strong>"Did you finish the report?"</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Past action. Less about now.</span></td>
+      </tr>
+      <tr>
+        <td><strong>"She has lived in Tokyo for 10 years."</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Still lives there. The duration is relevant now.</span></td>
+        <td><strong>"She lived in Tokyo for 10 years."</strong><br><span style="font-size:0.8rem; color: var(--text-light);">Doesn't live there anymore. Past period.</span></td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 4: DEMONSTRATE — Translation / Production Task -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab4">
+  <h2>Translation Lab: Aspect in Real Text</h2>
+
+  <p>You'll read a paragraph with aspect choices already made. Your job: <strong>explain WHY each choice was made</strong>. This is how you internalize the system.</p>
+
+  <div class="card">
+    <span class="step">Application</span>
+    <h3>Read This Paragraph. Explain the Aspect Choices.</h3>
+
+    <div class="quote-block">
+      "When Sarah arrived at the office that morning, I <strong>was finishing</strong> an email to the client. Over the past three weeks, I <strong>have been</strong> managing this account, and it <strong>has been</strong> the most demanding project I <strong>have ever handled</strong>. Sarah <strong>sat</strong> down and asked how things <strong>were going</strong>. I <strong>have been thinking</strong> about a new strategy, and I <strong>decided</strong> to share it with her then."
+      <div class="attribution">— Fictional office scenario</div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div class="input-label">Now Your Turn — Explain These Choices:</div>
+      <textarea class="text-input" id="explanationInput" placeholder="Pick 3-4 of the bolded verbs above. For each one, explain: What aspect is it? Why did the writer choose it instead of another aspect? (e.g., 'was finishing = continuous because the email-writing was interrupted by Sarah's arrival')"></textarea>
+      <div class="word-count"><span id="wordCount1">0</span> words</div>
+
+      <button class="btn btn-primary" style="margin-top: 12px;" onclick="countWords('explanationInput', 'wordCount1')">Count Words</button>
+    </div>
+
+    <div class="feedback" id="feedbackExplain" style="margin-top: 12px;"></div>
+  </div>
+
+  <div class="card">
+    <span class="step">Elaboration</span>
+    <h3>The Deeper Question</h3>
+    <p>Look back at the paragraph. Would the meaning change significantly if we changed:</p>
+    <ul style="margin-left: 20px; color: var(--text); font-size: 0.95rem; margin-top: 10px;">
+      <li>"I was finishing an email" → "I finished an email"? What's lost?</li>
+      <li>"I have been managing" → "I managed"? What's the difference?</li>
+      <li>"I decided" → "I have decided"? Does the time reference matter?</li>
+    </ul>
+    <p style="margin-top: 14px; font-weight: 600; color: var(--accent);">🎙 Speak: Pick one change and explain what it would mean for the story.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 5: DEMONSTRATE — Discourse Analysis           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab5">
+  <h2>Discourse Analysis: Aspect in Context</h2>
+
+  <p>Aspect is a choice — and the same verb could take different aspects depending on context. Your job: Choose the aspect that fits the discourse (the conversation, the story, the purpose).</p>
+
+  <div class="card">
+    <span class="step">Application & Analysis</span>
+    <h3>Complete the Dialogue</h3>
+    <p>For each blank, choose from the options given. Then explain your choice in one sentence.</p>
+
+    <div style="margin-top: 16px;">
+      <p><strong>Context:</strong> A job interview. The candidate is talking about their work experience.</p>
+
+      <div style="margin-top: 12px;">
+        <p>Interviewer: "Tell me about your recent projects."</p>
+        <p style="margin-left: 20px; margin-top: 8px;">Candidate: "Well, I <strong style="color: var(--accent);">[choose one]</strong> on three major campaigns over the past year."</p>
+        <p style="font-size: 0.85rem; margin-left: 20px; margin-top: 4px; color: var(--text-light);">A) worked B) have worked C) was working</p>
+      </div>
+
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('dialogue1')">
+          <span>Which option is best, and why?</span>
+          <span class="click-hint">Reveal</span>
+        </div>
+        <div class="reveal-answer" id="dialogue1">
+          <p><strong>Answer: B) have worked</strong></p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">Because: The time period (past year) is recent and relevant to the present. The candidate is demonstrating their current capabilities. "Have worked" shows a connection between the past projects and now. (A) would work too in some contexts, but (B) is more natural here.)</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <p>Interviewer: "And what were you doing before that?"</p>
+        <p style="margin-left: 20px; margin-top: 8px;">Candidate: "Before that, I <strong style="color: var(--accent);">[choose one]</strong> as a junior analyst."</p>
+        <p style="font-size: 0.85rem; margin-left: 20px; margin-top: 4px; color: var(--text-light);">A) worked B) have worked C) was working</p>
+      </div>
+
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('dialogue2')">
+          <span>Which option is best, and why?</span>
+          <span class="click-hint">Reveal</span>
+        </div>
+        <div class="reveal-answer" id="dialogue2">
+          <p><strong>Answer: A) worked</strong></p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">Because: The phrase "before that" marks a clear past period. No connection to present. Simple past is neutral and correct here.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <p>Interviewer: "How long were you in that role?"</p>
+        <p style="margin-left: 20px; margin-top: 8px;">Candidate: "Three years. I <strong style="color: var(--accent);">[choose one]</strong> data analysis and report writing."</p>
+        <p style="font-size: 0.85rem; margin-left: 20px; margin-top: 4px; color: var(--text-light);">A) focused on B) have focused on C) was focusing on</p>
+      </div>
+
+      <div class="reveal-container">
+        <div class="reveal-prompt" onclick="toggleReveal('dialogue3')">
+          <span>Which option is best, and why?</span>
+          <span class="click-hint">Reveal</span>
+        </div>
+        <div class="reveal-answer" id="dialogue3">
+          <p><strong>Answer: A) focused on</strong></p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-light);">Because: Simple past with a specific time frame ("three years"). No need for perfect or continuous. Just the facts.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="step">Higher-Level Application</span>
+    <h3>Your Discourse: Build a Paragraph Using Aspect Deliberately</h3>
+
+    <p>Write 4-5 sentences about something you've been doing recently. <strong>Consciously use three different aspects</strong> — simple, continuous, and perfect. Aim for 70+ words.</p>
+
+    <div style="margin-top: 16px;">
+      <div class="input-label">Your Paragraph:</div>
+      <textarea class="text-input" id="paragraphInput" placeholder="Write about a project, hobby, or work you've been doing. Use simple, continuous, and perfect aspects intentionally."></textarea>
+      <div class="word-count"><span id="wordCount2">0</span> words</div>
+
+      <button class="btn btn-primary" style="margin-top: 12px;" onclick="countWords('paragraphInput', 'wordCount2')">Count Words</button>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="input-label">Which Aspects Did You Use? (Explain briefly)</div>
+      <textarea class="text-input" id="aspectExplain" placeholder="e.g., 'I used present perfect to show a recent completed action, continuous to show ongoing work, and simple past for background facts.'"></textarea>
+    </div>
+
+    <div class="feedback" id="feedbackParagraph" style="margin-top: 12px;"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 6: CONSOLIDATE — Recall & Reflect             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab6">
+  <h2>Recall & Reflect</h2>
+
+  <p>Time to step back and make sure the system is solid in your mind. No perfect answers here — just genuine reflection.</p>
+
+  <div class="card">
+    <span class="step">Consolidation</span>
+    <h3>The Essence: One Sentence Per Aspect</h3>
+
+    <p>Without looking back at your notes, complete these three sentences:</p>
+
+    <div style="margin-top: 16px;">
+      <div class="input-label">1. Simple aspect means...</div>
+      <textarea class="text-input" style="min-height: 60px;" id="simpleDefn" placeholder="What does simple aspect do? What's the feeling?"></textarea>
+
+      <div class="input-label" style="margin-top: 12px;">2. Continuous aspect means...</div>
+      <textarea class="text-input" style="min-height: 60px;" id="contDefn" placeholder="What does continuous aspect do? What's the feeling?"></textarea>
+
+      <div class="input-label" style="margin-top: 12px;">3. Perfect aspect means...</div>
+      <textarea class="text-input" style="min-height: 60px;" id="perfectDefn" placeholder="What does perfect aspect do? What's the feeling?"></textarea>
+    </div>
+
+    <div class="feedback" id="feedbackDefns" style="margin-top: 12px;"></div>
+  </div>
+
+  <div class="card">
+    <h3>Check-In Questions</h3>
+    <p>Respond to these honestly — there's no "wrong" answer, only honest reflection:</p>
+
+    <div class="discussion-cards">
+      <div class="d-card" onclick="selectCard(this, 'ican-q')">
+        <div class="d-icon">🎯</div>
+        <div class="d-title">Can I Identify Aspect?</div>
+        <div class="d-desc">Could you pick out simple vs. continuous vs. perfect in a real text?</div>
+      </div>
+      <div class="d-card" onclick="selectCard(this, 'ican-q')">
+        <div class="d-icon">🎤</div>
+        <div class="d-title">Can I Produce It?</div>
+        <div class="d-desc">Can you use each aspect accurately in spontaneous speech?</div>
+      </div>
+      <div class="d-card" onclick="selectCard(this, 'ican-q')">
+        <div class="d-icon">💡</div>
+        <div class="d-title">Do I Understand the Nuance?</div>
+        <div class="d-desc">Do you understand WHY a speaker chooses one aspect over another?</div>
+      </div>
+      <div class="d-card" onclick="selectCard(this, 'ican-q')">
+        <div class="d-icon">🗣</div>
+        <div class="d-title">Does It Feel Natural Yet?</div>
+        <div class="d-desc">Is this starting to feel instinctive, or does it still require conscious effort?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>One Final Question</h3>
+    <p>You've learned the system. Now think about your own English:</p>
+
+    <div class="input-label" style="margin-top: 14px;">What's one aspect choice you know you often get wrong or hesitate on? How will you practice it?</div>
+    <textarea class="text-input" id="finalReflection" placeholder="e.g., 'I often mix up simple past and present perfect when I'm speaking quickly. I'll practice by recording myself talking about my week.'"></textarea>
+
+    <button class="btn btn-primary" style="margin-top: 12px;" onclick="showFeedback('finalReflection', 'feedbackFinal')">Submit Reflection</button>
+    <div class="feedback success" id="feedbackFinal" style="margin-top: 12px;">You've completed the lesson. Well done — this is the kind of metacognitive thinking that drives real progress.</div>
+  </div>
+
+  <div class="ican">
+    <h3>By the End of This Lesson, You Can:</h3>
+    <p style="margin-top: 12px; font-size: 0.95rem;">
+      Identify and explain the subtle differences between simple, continuous, and perfect aspects in English • Recognize when to use each aspect to convey precise meaning • Understand advanced uses of "would" for habitual past and narrative effect • Apply these choices in real discourse contexts with confidence
+    </p>
+  </div>
+
+</div>
+
+<script>
+  function showTab(n) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const btns = document.querySelectorAll('.tab-btn');
+    tabs.forEach(t => t.classList.remove('active'));
+    btns.forEach(b => b.classList.remove('active'));
+    tabs[n].classList.add('active');
+    btns[n].classList.add('active');
+  }
+
+  function toggleReveal(id) {
+    const answer = document.getElementById(id);
+    if (answer) {
+      answer.classList.toggle('visible');
+    }
+  }
+
+  function startTimer(id, seconds) {
+    const display = document.getElementById(id);
+    let remaining = seconds;
+    const interval = setInterval(() => {
+      remaining--;
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+      if (remaining <= 30) {
+        display.classList.add('warning');
+      }
+      if (remaining <= 10) {
+        display.classList.remove('warning');
+        display.classList.add('danger');
+      }
+      if (remaining <= 0) {
+        clearInterval(interval);
+        display.textContent = '0:00';
+        display.classList.remove('warning', 'danger');
+      }
+    }, 1000);
+  }
+
+  function resetTimer(id, seconds) {
+    const display = document.getElementById(id);
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+    display.classList.remove('warning', 'danger');
+  }
+
+  function countWords(inputId, countId) {
+    const text = document.getElementById(inputId).value;
+    const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+    document.getElementById(countId).textContent = words;
+  }
+
+  function selectCard(card, group) {
+    const allCards = document.querySelectorAll('.' + group);
+    allCards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+  }
+
+  function showFeedback(inputId, feedbackId) {
+    const input = document.getElementById(inputId);
+    const feedback = document.getElementById(feedbackId);
+    if (input.value.trim().length > 10) {
+      feedback.style.display = 'block';
+    }
+  }
+</script>
+
+</body>
+</html>

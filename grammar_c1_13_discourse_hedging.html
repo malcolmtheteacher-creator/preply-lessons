@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discourse Markers & Hedging | C1 +Preply +Adult</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --spoken: #7b2d8e;
+    --spoken-bg: #f0e6f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  /* ─── TAB CONTENT ─── */
+  .tab-content { display: none; padding: 30px 20px; max-width: 768px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin: 28px 0 14px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  .learning-intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .card.spoken { border-left: 5px solid var(--spoken); }
+  .card.formal { border-left: 5px solid var(--accent); }
+
+  /* ─── MARKERS TABLE ─── */
+  .markers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .markers-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .markers-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .markers-table tr:last-child td { border-bottom: none; }
+  .marker-word {
+    font-weight: 600;
+    color: var(--accent);
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ─── CLICK TO REVEAL ─── */
+  .reveal-container { margin: 12px 0; }
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+  .reveal-prompt .click-hint {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+    animation: fadeIn 0.3s;
+  }
+  .reveal-answer.visible { display: block; }
+
+  /* ─── SPEECH BUBBLE (For Dialogue) ─── */
+  .dialogue {
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .speech-bubble {
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .speech-bubble.student {
+    background: var(--accent-light);
+    color: var(--accent);
+    text-align: left;
+    margin-left: 0;
+  }
+  .speech-bubble.teacher {
+    background: var(--success-bg);
+    color: var(--success);
+    text-align: left;
+    margin-left: 0;
+  }
+
+  /* ─── TEXT INPUT ─── */
+  .text-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: var(--accent); }
+  .text-input::placeholder { color: #aaa; }
+
+  .input-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+  .feedback.visible { display: block; }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 80px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+
+  .timer-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .timer-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+  /* ─── INSTRUCTION BOX ─── */
+  .instruction {
+    background: #f5f5f5;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  .instruction strong { color: var(--text); display: block; margin-bottom: 6px; }
+
+  /* ─── DUAL CODING: Icons & Text ─── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .feature-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+  }
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .feature-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+  .feature-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+
+  /* ─── SPOKEN OUTPUT BOX ─── */
+  .speak-box {
+    background: var(--spoken-bg);
+    border: 2px solid var(--spoken);
+    border-radius: 10px;
+    padding: 18px;
+    margin: 16px 0;
+  }
+  .speak-box strong {
+    color: var(--spoken);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .speak-prompt {
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .tab-nav { gap: 2px; padding: 8px 12px; }
+    .tab-btn { padding: 8px 12px; font-size: 0.75rem; }
+    .tab-content { padding: 20px 16px; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'tab-1')">Connect</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-2')">Content: Spoken Markers</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-3')">Co-construct: Patterns</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-4')">Practice: Dialogue</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-5')">Hedging & Formality</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-6')">Application: 3-Min Speak</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab-7')">Recall & Reflect</button>
+</div>
+
+<!-- TAB 1: CONNECT ─────────────────────────────────────────────────── -->
+<div id="tab-1" class="tab-content active">
+  <h1>Discourse Markers & Hedging</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">C1 Spoken Grammar for Precision and Flexibility</p>
+
+  <div class="learning-intention">
+    <strong>Today we're working on discourse markers and hedging expressions so you can sound more natural and nuanced in unprepared speech, giving yourself thinking time and qualifying claims appropriately.</strong>
+  </div>
+
+  <h2>Retrieval: What Do You Already Use?</h2>
+  <p style="margin-bottom: 16px;">Without looking anything up — tell me:</p>
+  <div class="speak-box">
+    <strong>🗣️ Speak (1 minute):</strong>
+    <div class="speak-prompt">
+      Think of a recent conversation in English. What words did you use to start a sentence or to "buy time" while thinking? Examples: "well, um, like, you know, sort of, I think, basically..."<br><br>
+      Tell me 5–6 words or phrases you use when speaking naturally, and explain briefly what they do for you (e.g., "I say 'well' when I'm changing direction" or "I use 'you know' to check the listener is following").
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why This Matters</h3>
+    <p>Fluency isn't just accuracy. Native speakers at C1 level use <strong>discourse markers</strong> (well, right, so, actually) and <strong>hedging language</strong> (to some extent, sort of, arguably) to:</p>
+    <ul style="margin-left: 20px; margin-top: 10px;">
+      <li><strong>Buy thinking time</strong> without awkward silence</li>
+      <li><strong>Signal shifts</strong> in topic or direction (anyway, right, so)</li>
+      <li><strong>Qualify claims</strong> and avoid overstating (arguably, more or less, broadly speaking)</li>
+      <li><strong>Sound spontaneous</strong> and authentic — essential for interviews, debates, and unprepared speech</li>
+      <li><strong>Show speaker awareness</strong> — that you understand nuance and complexity</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- TAB 2: CONTENT ─────────────────────────────────────────────────── -->
+<div id="tab-2" class="tab-content">
+  <h1>Discourse Markers: Spoken Grammar</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">How native speakers structure real speech</p>
+
+  <div class="learning-intention">
+    <strong>You'll learn 8 discourse markers and their functions in live conversation.</strong>
+  </div>
+
+  <h2>The Core 8 Markers</h2>
+  <p style="margin-bottom: 18px;">These do the heavy lifting in natural speech:</p>
+
+  <table class="markers-table">
+    <tr>
+      <th>Marker</th>
+      <th>Function</th>
+      <th>Example (Spoken)</th>
+    </tr>
+    <tr>
+      <td><span class="marker-word">Well</span></td>
+      <td>Buying time; softening; disagreement prep</td>
+      <td>"Well, I think that's a good point, but..." [gives you time to formulate]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">Right</span></td>
+      <td>Signalling agreement; moving forward; topic shift</td>
+      <td>"Right, so now we can see the pattern." [confirms and moves on]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">So</span></td>
+      <td>Drawing conclusions; linking ideas; opening a point</td>
+      <td>"So what that means is, we need to reconsider the strategy." [cause-effect]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">Anyway</span></td>
+      <td>Refocusing; returning to main point; dismissing tangent</td>
+      <td>"Anyway, the real question is whether..." [returning from digression]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">Actually</span></td>
+      <td>Introducing new/contrary info; correction; emphasis</td>
+      <td>"Actually, I should clarify — that's not quite what I meant." [new angle]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">I mean</span></td>
+      <td>Self-clarification; restating for clarity; repair</td>
+      <td>"It's quite demanding, I mean, it takes real discipline." [elaborating]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">Basically</span></td>
+      <td>Simplifying; summing up; getting to the point</td>
+      <td>"Basically, the issue is cost — everything else is secondary." [reducing to essentials]</td>
+    </tr>
+    <tr>
+      <td><span class="marker-word">You know</span></td>
+      <td>Seeking confirmation; checking listener follows; vague reference</td>
+      <td>"It's like that time when you're, you know, completely exhausted but can't sleep." [listener fills gap]</td>
+    </tr>
+  </table>
+
+  <h2>Why These Are Not "Filler"</h2>
+  <p>In formal writing, these markers seem redundant. In speech, they're <strong>structural grammar</strong>:</p>
+
+  <div class="card spoken">
+    <strong>🗣️ Key insight:</strong> A discourse marker marks a speaker's relationship to what comes next. It's <em>attitude packed into one word</em>.
+    <ul style="margin-top: 12px; margin-left: 20px;">
+      <li><strong>"Well"</strong> signals: "I'm about to hedge / be diplomatic"</li>
+      <li><strong>"Actually"</strong> signals: "Expect new or contradictory info"</li>
+      <li><strong>"So"</strong> signals: "Here comes a logical conclusion"</li>
+    </ul>
+  </div>
+
+  <h2>Position in Speech</h2>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon">📍</div>
+      <div class="feature-label">Sentence Start</div>
+      <div class="feature-desc">"Well, I'd argue that..." — most common, sets tone upfront</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">↔️</div>
+      <div class="feature-label">Mid-Sentence (Repair)</div>
+      <div class="feature-desc">"It's really, I mean, absolutely crucial..."</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔚</div>
+      <div class="feature-label">End (Tag)</div>
+      <div class="feature-desc">"That's how it works, you know?" — seeking confirmation</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 3: CO-CONSTRUCT ─────────────────────────────────────────────── -->
+<div id="tab-3" class="tab-content">
+  <h1>Pattern Hunt: Marker + Intonation</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">How meaning shifts with delivery</p>
+
+  <h2>Listen & Notice</h2>
+  <p style="margin-bottom: 18px;">Here's the crucial thing: <strong>the same marker can have different meanings depending on intonation and context.</strong></p>
+
+  <div class="dialogue">
+    <div class="speech-bubble student">
+      <strong>Scenario A (Disagreement brewing):</strong><br>
+      "Well, I understand what you're saying, but I'm not sure I agree."
+      <br><br><em style="font-size: 0.85rem; opacity: 0.8;">[Rising intonation on "Well" = diplomatic skepticism]</em>
+    </div>
+  </div>
+
+  <div class="dialogue">
+    <div class="speech-bubble student">
+      <strong>Scenario B (Relief / agreement):</strong><br>
+      "Well, thank goodness someone finally said it!"
+      <br><br><em style="font-size: 0.85rem; opacity: 0.8;">[Falling intonation on "Well" = validation]</em>
+    </div>
+  </div>
+
+  <h2>Pattern Recognition: Co-Construct</h2>
+
+  <div class="card">
+    <h3>Your Turn: Spot the Function</h3>
+    <p style="margin-bottom: 16px;">For each marker + context, tell me: <strong>What is the speaker doing?</strong> (e.g., buying time, correcting, moving on, hedging)</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span><strong>1. "Actually, I should point out that the data shows the opposite."</strong></span>
+        <span class="click-hint">→ Click to check</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Function:</strong> Introducing contradictory information. "Actually" signals the speaker is about to correct or contradict something expected.
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span><strong>2. "Right, so what this demonstrates is the need for policy reform."</strong></span>
+        <span class="click-hint">→ Click to check</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Function:</strong> Drawing a conclusion. "Right, so" = "moving forward with a logical conclusion."
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span><strong>3. "Basically, we don't have the budget — everything else is detail."</strong></span>
+        <span class="click-hint">→ Click to check</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Function:</strong> Simplifying to the core issue. "Basically" = reducing to essentials, cutting through complexity.
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span><strong>4. "I mean, it's not just about money — it's about values."</strong></span>
+        <span class="click-hint">→ Click to check</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Function:</strong> Self-clarification / elaboration. "I mean" = restating for deeper clarity.
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt">
+        <span><strong>5. "Anyway, the point I'm making is..."</strong></span>
+        <span class="click-hint">→ Click to check</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>Function:</strong> Refocusing after digression. "Anyway" = returning to the main thread.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="speak-box">
+    <strong>🗣️ Now You Co-Construct:</strong>
+    <div class="speak-prompt">
+      For each of these 5 examples, <strong>speak aloud</strong> what the marker is doing. You don't have to be technical — just: "The speaker is... [buying time / correcting / simplifying / etc.]"<br><br>
+      Then pick ONE marker from this tab and create your own spoken example. Speak it out naturally.
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 4: PRACTICE ─────────────────────────────────────────────────── -->
+<div id="tab-4" class="tab-content">
+  <h1>Practice: Authentic Dialogue</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">Discourse markers in real conversation</p>
+
+  <h2>Listen & Notice: Full Dialogue</h2>
+  <p style="margin-bottom: 16px;">Two professionals discussing a proposal. Spot the markers:</p>
+
+  <div class="dialogue">
+    <div class="speech-bubble teacher">
+      <strong>Person A:</strong> "So, we've got the budget approved. What do you think about the timeline?"
+    </div>
+    <div class="speech-bubble student">
+      <strong>Person B:</strong> "Well, I'm concerned about the resources. I mean, we'd be running three projects simultaneously."
+    </div>
+    <div class="speech-bubble teacher">
+      <strong>Person A:</strong> "Right. Actually, I've been thinking about that. Could we stagger the launch?"
+    </div>
+    <div class="speech-bubble student">
+      <strong>Person B:</strong> "Basically, yes — that solves the main issue. You know, my team was worried about exactly that."
+    </div>
+    <div class="speech-bubble teacher">
+      <strong>Person A:</strong> "Anyway, let's revise the schedule. So we're agreed on that?"
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Mark the Functions</h3>
+    <p style="margin-bottom: 14px;">In the dialogue above, identify what each marker is doing:</p>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li><strong>"So"</strong> (A's first line): ___________</li>
+      <li><strong>"Well"</strong> (B's first line): ___________</li>
+      <li><strong>"I mean"</strong> (B's first line): ___________</li>
+      <li><strong>"Right"</strong> (A's second line): ___________</li>
+      <li><strong>"Actually"</strong> (A's second line): ___________</li>
+      <li><strong>"Basically"</strong> (B's second line): ___________</li>
+      <li><strong>"You know"</strong> (B's second line): ___________</li>
+      <li><strong>"Anyway"</strong> (A's third line): ___________</li>
+    </ul>
+  </div>
+
+  <div class="speak-box">
+    <strong>🗣️ Speak the Dialogue:</strong>
+    <div class="speak-prompt">
+      Read aloud the dialogue above — alternate lines with your teacher. Pay attention to where the markers fall and how they shape the meaning. Then, work together to create a similar dialogue (same topic, different content) using at least 5 of these markers naturally.
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 5: HEDGING & FORMALITY ──────────────────────────────────── -->
+<div id="tab-5" class="tab-content">
+  <h1>Hedging & Qualifying Language</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">Formal and sophisticated ways to soften claims</p>
+
+  <div class="learning-intention">
+    <strong>Hedging is not weakness — it's precision. C1 speakers use it to show nuance, avoid absolutism, and build credibility.</strong>
+  </div>
+
+  <h2>Why Hedge?</h2>
+  <p>At C1, making absolute claims without qualification sounds <strong>naive or aggressive</strong>. Hedging shows you understand complexity:</p>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon">❌</div>
+      <div class="feature-label">No Hedge</div>
+      <div class="feature-desc">"Remote work is better." [Too absolute]</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">✅</div>
+      <div class="feature-label">Hedged</div>
+      <div class="feature-desc">"Remote work appears to be better, to some extent, depending on the role." [Nuanced]</div>
+    </div>
+  </div>
+
+  <h2>The Hedging Toolkit</h2>
+
+  <table class="markers-table">
+    <tr>
+      <th>Hedge Type</th>
+      <th>Examples</th>
+      <th>Effect</th>
+    </tr>
+    <tr>
+      <td><strong>Adverbials</strong></td>
+      <td><span class="marker-word">arguably, arguably, seemingly, apparently, sort of, rather, fairly, quite</span></td>
+      <td>Softens claim; suggests speaker's tentative position</td>
+    </tr>
+    <tr>
+      <td><strong>Prepositional Phrases</strong></td>
+      <td><span class="marker-word">to some extent, to a degree, up to a point, in a sense, broadly speaking</span></td>
+      <td>Acknowledges limitations; more formal than adverbials</td>
+    </tr>
+    <tr>
+      <td><strong>Verbal Hedges</strong></td>
+      <td><span class="marker-word">seems to, appears to, tends to, could be, might be</span></td>
+      <td>Uncertainty baked into the verb; precise and academic</td>
+    </tr>
+    <tr>
+      <td><strong>Formal/Legal Connectors</strong></td>
+      <td><span class="marker-word">notwithstanding, insofar as, inasmuch as</span></td>
+      <td>Conceding a point while advancing argument; highly formal</td>
+    </tr>
+  </table>
+
+  <h2>Formal Connectors Explained</h2>
+
+  <div class="card formal">
+    <h3>Notwithstanding</h3>
+    <p><strong>Meaning:</strong> Despite; in spite of (acknowledging an obstacle but proceeding anyway)</p>
+    <p><strong>Formula:</strong> Notwithstanding [the fact that X], [statement Y is still true]</p>
+    <p><strong>Example:</strong> "Notwithstanding the recent setbacks, the company remains profitable."</p>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);"><em>Why it works:</em> You're conceding reality (setbacks exist) but asserting a bigger truth (still profitable). Very sophisticated.</p>
+  </div>
+
+  <div class="card formal">
+    <h3>Insofar As</h3>
+    <p><strong>Meaning:</strong> To the extent that; in the way/degree that</p>
+    <p><strong>Formula:</strong> [Statement] insofar as [qualifier / boundary]</p>
+    <p><strong>Example:</strong> "The proposal is viable insofar as we can secure funding by June."</p>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);"><em>Why it works:</em> Sets a boundary on your claim. It's not "the proposal is viable (period)" — it's viable *under these conditions*.</p>
+  </div>
+
+  <div class="card formal">
+    <h3>Inasmuch As</h3>
+    <p><strong>Meaning:</strong> In the degree/extent that; since / because (causal hedging)</p>
+    <p><strong>Formula:</strong> [Statement is true] inasmuch as [reason / qualification]</p>
+    <p><strong>Example:</strong> "This argument holds weight inasmuch as the data is recent and sample size is large."</p>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);"><em>Why it works:</em> You're saying "this is true *because* of these conditions." If conditions change, truth may change. Very precise.</p>
+  </div>
+
+  <h2>Comparison: Informal vs. Formal Hedging</h2>
+
+  <div class="card">
+    <table class="markers-table" style="margin-top: 14px;">
+      <tr>
+        <th>Claim</th>
+        <th>Informal Hedge</th>
+        <th>Formal Hedge</th>
+      </tr>
+      <tr>
+        <td>AI will replace jobs</td>
+        <td>"AI will, sort of, replace some jobs, I think"</td>
+        <td>"AI appears to threaten certain roles insofar as automation improves"</td>
+      </tr>
+      <tr>
+        <td>Remote work is worse</td>
+        <td>"Remote work is, like, arguably worse for collaboration"</td>
+        <td>"Remote work may diminish collaboration, notwithstanding technological advances"</td>
+      </tr>
+      <tr>
+        <td>The plan will work</td>
+        <td>"It could, sort of, work, you know, if everything goes right"</td>
+        <td>"The plan will succeed inasmuch as stakeholder buy-in remains high"</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="speak-box">
+    <strong>🗣️ Speak: Hedge a Claim:</strong>
+    <div class="speak-prompt">
+      I'll give you 3 strong claims. For each one, speak aloud a hedged version using:
+      <br>1. An informal hedge (sort of, arguably, I mean, basically)
+      <br>2. A formal hedge (notwithstanding, insofar as, inasmuch as)
+      <br><br>
+      <strong>Claim 1:</strong> "Social media is bad for young people."<br>
+      <strong>Claim 2:</strong> "Remote work is the future of employment."<br>
+      <strong>Claim 3:</strong> "This policy will reduce costs."
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 6: APPLICATION ─────────────────────────────────────────────── -->
+<div id="tab-6" class="tab-content">
+  <h1>Application: 3-Minute Speaking Challenge</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">Put markers & hedging into extended speech</p>
+
+  <div class="learning-intention">
+    <strong>You'll speak for 3 minutes on a topic of your choice, using at least 5 discourse markers and 3 hedging expressions naturally.</strong>
+  </div>
+
+  <div class="instruction">
+    <strong>What you'll do:</strong>
+    <ul style="margin-top: 8px; margin-left: 20px;">
+      <li>Choose <strong>ONE topic</strong> from the list below (or propose your own)</li>
+      <li><strong>Speak for 3 minutes</strong> unprepared — this is impromptu speech</li>
+      <li><strong>Use</strong> at least 5 discourse markers and 3 hedging expressions (aim for natural integration, not forced)</li>
+      <li><strong>Don't write a script</strong> — notes are fine, but speak conversationally</li>
+      <li>Your teacher will time you and note where you use markers well</li>
+    </ul>
+  </div>
+
+  <h2>Topic Menu</h2>
+  <p style="margin-bottom: 12px;">Choose one:</p>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon">💼</div>
+      <div class="feature-label">Work & Career</div>
+      <div class="feature-desc">"What skills will matter most in the workplace in 10 years?"</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🌍</div>
+      <div class="feature-label">Global Issues</div>
+      <div class="feature-desc">"What's one global challenge your country faces, and what's a potential solution?"</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🎓</div>
+      <div class="feature-label">Learning & Education</div>
+      <div class="feature-desc">"How should education change to prepare people for the future?"</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔮</div>
+      <div class="feature-label">Technology & Society</div>
+      <div class="feature-desc">"What's one way technology is changing how we live, and is it positive or negative?"</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Success Criteria</h3>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li><strong>Discourse markers</strong> appear naturally — not forced or all at once</li>
+      <li><strong>Hedging language</strong> shows you're thinking critically (not just stating facts)</li>
+      <li><strong>Fluency</strong> — you're thinking on your feet, not reading</li>
+      <li><strong>Coherence</strong> — ideas link together with your markers and connectors</li>
+      <li><strong>3 minutes minimum</strong> of sustained speech</li>
+    </ul>
+  </div>
+
+  <div class="speak-box">
+    <strong>🗣️ Timer (3 minutes):</strong>
+    <div class="timer-container">
+      <div class="timer-display" id="timer">3:00</div>
+      <button class="timer-btn" onclick="startTimer(180)">Start</button>
+      <button class="timer-btn" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <div class="speak-prompt" style="margin-top: 16px;">
+    <strong>Your speech notes (optional):</strong>
+    <textarea class="text-input" placeholder="Write 3–5 bullet points or key words to guide your speech. Not a full script — just anchors."></textarea>
+  </div>
+
+</div>
+
+<!-- TAB 7: CONSOLIDATE ────────────────────────────────────────────── -->
+<div id="tab-7" class="tab-content">
+  <h1>Recall & Reflect</h1>
+  <p style="color: var(--text-light); margin-bottom: 20px;">What's stuck with you?</p>
+
+  <h2>Quick Retrieval</h2>
+  <p style="margin-bottom: 16px;">Without looking back at the previous tabs, answer (spoken or written):</p>
+
+  <div class="card">
+    <h3>Question 1</h3>
+    <p>"Give me three discourse markers and explain what each one does in speech."</p>
+  </div>
+
+  <div class="card">
+    <h3>Question 2</h3>
+    <p>"What's the difference between <strong>'I mean'</strong> and <strong>'basically'</strong> as discourse markers?"</p>
+  </div>
+
+  <div class="card">
+    <h3>Question 3</h3>
+    <p>"Explain one of these: <strong>notwithstanding, insofar as, inasmuch as.</strong> Give your own example."</p>
+  </div>
+
+  <div class="card">
+    <h3>Question 4</h3>
+    <p>"Why do C1 speakers use hedging language? What does it show about your understanding?"</p>
+  </div>
+
+  <h2>Metacognition: Thinking About Your Learning</h2>
+
+  <div class="speak-box">
+    <strong>🗣️ Reflect (spoken):</strong>
+    <div class="speak-prompt">
+      <strong>1. Which marker or hedging expression felt most natural to you today? Why?</strong><br><br>
+      <strong>2. Which one will you consciously use in your next English conversation?</strong><br><br>
+      <strong>3. When you're speaking unprepared, what helps you remember to use these tools — is it the meaning, the sound, the function, or something else?</strong>
+    </div>
+  </div>
+
+  <h2>Connection to Real English</h2>
+
+  <div class="card">
+    <h3>Looking Forward</h3>
+    <p>These markers are your <strong>scaffolding for real speech</strong>. They're not tricks or "nice to have" — they're how native speakers think aloud.</p>
+    <p style="margin-top: 12px;">In your next lesson or conversation, notice:</p>
+    <ul style="margin-left: 20px; margin-top: 8px;">
+      <li>Which markers appear in podcasts, interviews, or videos you watch</li>
+      <li>How tone changes when a speaker says "Well" vs. "Right" vs. "Actually"</li>
+      <li>Where hedging appears in news reports or academic speech</li>
+    </ul>
+    <p style="margin-top: 14px;"><strong>The learning intention from the start:</strong> We said you'd be able to sound more natural and nuanced in unprepared speech, giving yourself thinking time and qualifying claims appropriately.</p>
+    <p style="margin-top: 10px; font-weight: 600; color: var(--accent);">Can you? What got you there?</p>
+  </div>
+
+</div>
+
+<!-- FOOTER ─────────────────────────────────────────────────────────── -->
+<div style="text-align: center; padding: 40px 20px; background: var(--bg); border-top: 1px solid var(--border); margin-top: 40px; font-size: 0.9rem; color: var(--text-light);">
+  <p>C1 Grammar Lesson | Discourse Markers & Hedging<br>
+  Designed for unprepared, authentic English speech</p>
+</div>
+
+<script>
+  // TAB SWITCHING
+  function openTab(evt, tabName) {
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    evt.currentTarget.classList.add('active');
+  }
+
+  // REVEAL ANSWER
+  document.querySelectorAll('.reveal-prompt').forEach(prompt => {
+    prompt.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      answer.classList.toggle('visible');
+    });
+  });
+
+  // TIMER
+  let timerInterval = null;
+  function startTimer(seconds) {
+    const display = document.getElementById('timer');
+    let remaining = seconds;
+
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+      const mins = Math.floor(remaining / 60);
+      const secs = remaining % 60;
+      display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+      if (remaining <= 30) {
+        display.classList.add('warning');
+      }
+      if (remaining <= 10) {
+        display.classList.remove('warning');
+        display.classList.add('danger');
+      }
+
+      remaining--;
+      if (remaining < 0) {
+        clearInterval(timerInterval);
+        display.textContent = 'Time!';
+        display.classList.remove('danger');
+      }
+    }, 1000);
+  }
+
+  function resetTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    const display = document.getElementById('timer');
+    display.textContent = '3:00';
+    display.classList.remove('warning', 'danger');
+  }
+</script>
+
+</body>
+</html>

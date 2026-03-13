@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reported Speech — Nuance & Formality</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover {
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ─── CONTENT AREA ─── */
+  .tab-content {
+    display: none;
+    padding: 28px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .tab-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .tab-content > p {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    color: var(--text);
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .card p {
+    color: var(--text-light);
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─── STEP LABELS ─── */
+  .step {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ─── REVEAL CONTAINERS ─── */
+  .reveal-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  .reveal-prompt {
+    background: var(--accent-light);
+    padding: 14px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    color: var(--accent);
+    transition: all 0.2s ease;
+  }
+  .reveal-prompt:hover {
+    background: #dde3ff;
+  }
+  .click-hint {
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  .reveal-answer {
+    display: none;
+    background: #f0f2ff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .reveal-answer.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; max-height: 0; }
+    to { opacity: 1; max-height: 800px; }
+  }
+  .reveal-answer p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+  .reveal-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─── TIMER ─── */
+  .timer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f5f7ff;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 80px;
+    font-family: 'Courier New', monospace;
+  }
+  .timer-btn {
+    padding: 8px 14px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+  }
+  .timer-btn:hover {
+    background: #5568d3;
+  }
+  .btn-reset {
+    background: var(--text-light);
+  }
+  .btn-reset:hover {
+    background: var(--text);
+  }
+
+  /* ─── TABLES ─── */
+  .power-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .power-table th {
+    background: var(--accent);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .power-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .power-table tr:nth-child(even) {
+    background: var(--accent-light);
+  }
+
+  /* ─── COMPARISON BOXES ─── */
+  .comp-side {
+    padding: 14px 16px;
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+  }
+  .comp-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .comp-side p {
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  /* ─── DISCUSSION CARDS ─── */
+  .discussion-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .d-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  .d-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .d-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .d-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .d-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .d-desc {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* ─── EXAMPLE BOXES ─── */
+  .example {
+    background: #fef9e7;
+    border-left: 3px solid #f59e0b;
+    padding: 14px 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  .example strong {
+    color: var(--text);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .tab-nav {
+      padding: 10px 12px;
+      gap: 2px;
+    }
+    .tab-btn {
+      padding: 8px 12px;
+      font-size: 0.85rem;
+    }
+    .tab-content {
+      padding: 20px 16px;
+    }
+    .tab-content h2 {
+      font-size: 1.5rem;
+    }
+    .discussion-cards {
+      grid-template-columns: 1fr;
+    }
+    .power-table {
+      font-size: 0.85rem;
+    }
+    .power-table th,
+    .power-table td {
+      padding: 8px;
+    }
+    .timer-display {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB NAVIGATION                                  -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab(event, 'tab1')">1. Retrieval</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab2')">2. Learn</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab3')">3. Model</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab4')">4. Co-construct</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab5')">5. Apply</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab6')">6. Practice</button>
+  <button class="tab-btn" onclick="switchTab(event, 'tab7')">7. Recall</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 1: CONNECT — Retrieval + Hook               -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab1">
+  <h2>What Do You Already Know?</h2>
+  <p>Let's start by retrieving what you already know about reported speech. Don't overthink this — just speak what comes to mind.</p>
+
+  <div class="card">
+    <span class="step">Retrieval</span>
+    <h3>Warm-Up: Basic Reported Speech</h3>
+    <p>Convert these direct speeches into reported speech. Use whatever rules you already know. Speak your answer aloud.</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('retrieval1')">
+        <span>1. "I'm leaving tomorrow." — What did she say?</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="retrieval1">
+        <p><strong>Your answer might be:</strong> She said she was leaving tomorrow. / She said she would be leaving the next day.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('retrieval2')">
+        <span>2. "The earth is round." — What did the scientist claim?</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="retrieval2">
+        <p><strong>Your answer might be:</strong> The scientist claimed the earth is round. OR The scientist claimed the earth was round.</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"><em>Notice: Did you backshift or not? Both are actually correct here. We'll explore when and why in a moment.</em></p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('retrieval3')">
+        <span>3. "Can you help me?" — What did she ask?</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="retrieval3">
+        <p><strong>Your answer might be:</strong> She asked if I could help her. / She asked me to help her.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Learning Intention</h3>
+    <p style="font-weight: 600; color: var(--accent);">Today we're learning when to backshift (or not) in reported speech, and how to report requests and demands with subjunctive forms. This matters because C1 speakers use these nuances to sound natural and precise in formal settings.</p>
+  </div>
+
+  <div class="card">
+    <h3>The Hook: When Backshift Feels Wrong</h3>
+    <p>Here's a scenario. Someone says to you: <strong>"The sun is a star."</strong></p>
+    <p>Do you report it as:</p>
+    <p><strong>A:</strong> "They said the sun <em>was</em> a star." ❌ (Sounds like it's not anymore!)</p>
+    <p><strong>B:</strong> "They said the sun <em>is</em> a star." ✓ (Still true.)</p>
+    <p style="margin-top: 12px;">This is the nuance problem. Both are technically "reported speech," but B sounds more intelligent and precise. At C1, you know which one to choose — and why it matters.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 2: ACTIVATE — New Content (Dual Coding)     -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab2">
+  <h2>The Two Systems of Reported Speech</h2>
+  <p>Reported speech works through two overlapping systems: <strong>tense backshift</strong> and <strong>modal nuance</strong>. Understanding both is the key to sounding C1.</p>
+
+  <div class="card">
+    <h3>System 1: Optional Backshift — When Truth Is Timeless</h3>
+    <p>Backshift is the traditional rule: shift the tense back one step. But at C1, you learn it's <strong>optional</strong> when the statement is still true.</p>
+
+    <table class="power-table">
+      <tr>
+        <th style="background: var(--accent);">Direct Speech</th>
+        <th style="background: var(--accent);">Reported (Backshift)</th>
+        <th style="background: var(--accent);">Reported (No Backshift)</th>
+        <th style="background: var(--accent);">Which Is Better?</th>
+      </tr>
+      <tr>
+        <td><strong>"The Eiffel Tower is in Paris."</strong></td>
+        <td>He said it was in Paris.</td>
+        <td>He said it is in Paris. ✓</td>
+        <td>No backshift (still true)</td>
+      </tr>
+      <tr>
+        <td><strong>"I graduate next May."</strong></td>
+        <td>She said she graduated next May.</td>
+        <td>She said she graduates next May. ✓</td>
+        <td>No backshift (future tense = timeless future)</td>
+      </tr>
+      <tr>
+        <td><strong>"Water boils at 100°C."</strong></td>
+        <td>He said water boiled at 100°C. ❌</td>
+        <td>He said water boils at 100°C. ✓</td>
+        <td>No backshift (scientific fact)</td>
+      </tr>
+      <tr>
+        <td><strong>"I saw him yesterday."</strong></td>
+        <td>She said she had seen him the day before. ✓</td>
+        <td>She said she saw him yesterday.</td>
+        <td>Backshift needed (now has context: which day?)</td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;"><strong>The Rule:</strong> If the statement is still true at the moment of reporting, <strong>no backshift is needed</strong>. In fact, backshift sounds inaccurate.</p>
+  </div>
+
+  <div class="card">
+    <h3>System 2: Reporting Demands with Subjunctive</h3>
+    <p>When you report commands, requests, recommendations, or demands, English uses a special form: <strong>the bare infinitive (should + infinitive)</strong>. This is formal and precise at C1.</p>
+
+    <table class="power-table">
+      <tr>
+        <th style="background: var(--accent);">Direct Form</th>
+        <th style="background: var(--accent);">Reported (Formal/C1)</th>
+      </tr>
+      <tr>
+        <td><strong>"Take a break!"</strong></td>
+        <td>She insisted that he take a break. / She insisted that he should take a break.</td>
+      </tr>
+      <tr>
+        <td><strong>"You must attend the meeting."</strong></td>
+        <td>The director demanded that he attend the meeting. (subjunctive, no -s)</td>
+      </tr>
+      <tr>
+        <td><strong>"I suggest you apply for the role."</strong></td>
+        <td>He suggested that she (should) apply for the role.</td>
+      </tr>
+      <tr>
+        <td><strong>"Can you finish by Friday?"</strong></td>
+        <td>She requested that the work be finished by Friday. (passive subjunctive)</td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;"><strong>Key Verbs (Formal Report):</strong> suggest, recommend, insist, demand, request, propose, urge, require.</p>
+
+    <div class="example">
+      <strong>Why this matters:</strong> "He demanded that she apologize" (subjunctive) sounds more formal and emphatic than "He demanded that she apologizes" (normal present). At C1 settings (legal documents, formal meetings, reports), this distinction is noticeable.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The Modal Shift Chart</h3>
+    <p>Modals also have special rules in reported speech. Here's when they shift and when they don't:</p>
+
+    <table class="power-table">
+      <tr>
+        <th style="background: var(--accent);">Original Modal</th>
+        <th style="background: var(--accent);">In Reported Speech</th>
+        <th style="background: var(--accent);">Example</th>
+      </tr>
+      <tr>
+        <td>will</td>
+        <td>would</td>
+        <td>"I'll call you" → She said she would call me.</td>
+      </tr>
+      <tr>
+        <td>can</td>
+        <td>could</td>
+        <td>"I can swim" → He said he could swim.</td>
+      </tr>
+      <tr>
+        <td>may</td>
+        <td>might</td>
+        <td>"It may rain" → She said it might rain.</td>
+      </tr>
+      <tr>
+        <td>must</td>
+        <td>had to (or must)</td>
+        <td>"I must go" → He said he had to go. / He said he must go. ✓</td>
+      </tr>
+      <tr>
+        <td>should</td>
+        <td>should (no shift)</td>
+        <td>"You should rest" → I said you should rest.</td>
+      </tr>
+      <tr>
+        <td>ought to</td>
+        <td>ought to (no shift)</td>
+        <td>"You ought to apologise" → He said you ought to apologise.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 3: DEMONSTRATE — I Do (Teacher Models)      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab3">
+  <h2>Watch & Listen: Nuance in Action</h2>
+  <p>Here are real-world examples where choice matters. I'm going to show you both versions and explain why one is better.</p>
+
+  <div class="card">
+    <h3>Example 1: Scientific Fact — No Backshift</h3>
+    <p><strong>Direct:</strong> "The human brain uses 20% of the body's energy."</p>
+    <p><strong>Option A:</strong> The neuroscientist said the brain <em>used</em> 20% of the body's energy. ❌</p>
+    <p><strong>Option B:</strong> The neuroscientist said the brain <em>uses</em> 20% of the body's energy. ✓</p>
+    <p style="margin-top: 12px;"><strong>Why B is better:</strong> This is a fact. It was true when she said it, and it's still true now. Backshifting makes it sound like the brain no longer uses 20% — which is wrong. At C1, you preserve the truth-value of the statement.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example 2: Opinion (Now Changed) — Backshift Required</h3>
+    <p><strong>Direct (in 2015):</strong> "Social media is great for society."</p>
+    <p><strong>Option A:</strong> Ten years ago, she said social media <em>is</em> great for society. ❌ (But she changed her mind)</p>
+    <p><strong>Option B:</strong> Ten years ago, she said social media <em>was</em> great for society. ✓</p>
+    <p style="margin-top: 12px;"><strong>Why B is better:</strong> Here, backshift signals "this is what she believed then, not necessarily now." Without it, the present tense makes it sound like she still holds that opinion.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example 3: Demand with Subjunctive — Formal Register</h3>
+    <p><strong>Direct:</strong> "You must submit your proposal by Friday."</p>
+    <p><strong>Informal:</strong> The manager said I had to submit it by Friday.</p>
+    <p><strong>Formal (C1):</strong> The manager required that I submit my proposal by Friday. <span style="font-weight: 600; color: var(--accent);">✓</span></p>
+    <p style="margin-top: 12px;"><strong>Why the subjunctive version is better:</strong> In formal contexts (reports, minutes, documentation), the subjunctive form signals that this is a rule or requirement, not just information. It's more authoritative.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example 4: Permission/Possibility — Should vs. May</h3>
+    <p><strong>Direct:</strong> "You can stay until midnight."</p>
+    <p><strong>Reported (permission):</strong> She said I could stay until midnight.</p>
+    <p><strong>OR Reported (possibility):</strong> She said I might stay until midnight.</p>
+    <p style="margin-top: 12px;"><strong>The difference:</strong> "could" means "you have permission." "might" means "it's possible." The original "can" is ambiguous — that's why context matters in reporting.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 4: ACTIVATE — We Do (Co-construction)       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab4">
+  <h2>Let's Work This Out Together</h2>
+  <p>For each scenario, you decide: <strong>backshift or no backshift? Why?</strong> Then we'll compare reasoning. Speak your thinking aloud.</p>
+
+  <div class="card">
+    <span class="step">Co-construct</span>
+    <h3>Scenario 1: Historical Fact</h3>
+    <p><strong>Direct:</strong> "Napoleon was defeated at Waterloo in 1815."</p>
+    <p><strong>Question:</strong> If a historian says this today, should we report it with backshift?</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: var(--accent);">🎙 Speak: Should it be "was defeated" or "was defeated"? Or does it matter? Explain your thinking.</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('coco1')">
+        <span>Compare your reasoning</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="coco1">
+        <p><strong>The answer:</strong> No backshift needed. "The historian said Napoleon was defeated..." ✓</p>
+        <p style="margin-top: 8px;">It's a historical fact, so no backshift. We're not changing the truth-value. Even though "was defeated" is past tense in the direct form, we can report it without shifting.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Co-construct</span>
+    <h3>Scenario 2: A Conversation That Just Happened</h3>
+    <p><strong>Direct (2 minutes ago):</strong> "I'm feeling stressed about the presentation tomorrow."</p>
+    <p><strong>Question:</strong> You're telling your colleague what someone just said. Do you backshift?</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: var(--accent);">🎙 Speak: "They said they're feeling stressed..." OR "They said they were feeling stressed..." Which sounds more natural right now?</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('coco2')">
+        <span>Compare your reasoning</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="coco2">
+        <p><strong>Best answer:</strong> Both work, but context matters.</p>
+        <p style="margin-top: 8px;">"They said they're feeling stressed..." (present) = emphasizes that it's happening right now, still true.</p>
+        <p>"They said they were feeling stressed..." (past) = reports what they said at that moment (2 mins ago).</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);">At C1, you choose based on what you want to emphasize: immediate relevance (no backshift) or historical accuracy (backshift).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Co-construct</span>
+    <h3>Scenario 3: A Formal Request</h3>
+    <p><strong>Direct:</strong> "I insist that you attend the board meeting on Friday."</p>
+    <p><strong>Question:</strong> Report this in three levels of formality. Speak each one.</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: var(--accent);">🎙 Speak: First, informal. Then, neutral. Then, very formal.</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('coco3')">
+        <span>Compare your versions</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="coco3">
+        <p><strong>Informal:</strong> "She insisted I had to be at the board meeting on Friday."</p>
+        <p><strong>Neutral:</strong> "She insisted that I attend the board meeting on Friday."</p>
+        <p><strong>Very Formal:</strong> "She insisted that attendance at the board meeting on Friday was mandatory." (or: "She required attendance...")</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 5: DEMONSTRATE — Application (You Do)       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab5">
+  <h2>Your Turn: Speaking Practice</h2>
+  <p>You're going to do the thinking here. For each item, decide on the reported form AND explain why you chose it. 70% of this is your production.</p>
+
+  <div class="card">
+    <span class="step">Production Task</span>
+    <h3>Challenge 1: Facts vs. Opinions</h3>
+    <p>Convert these to reported speech. For each one, decide: do I backshift or not? Speak your answer out loud and then explain your reasoning in one sentence.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">5:00</div>
+      <button class="timer-btn btn-5" onclick="startTimer('timer1', 300)">5 min</button>
+      <button class="timer-btn btn-3" onclick="startTimer('timer1', 180)">3 min</button>
+      <button class="timer-btn btn-reset" onclick="resetTimer('timer1', 300)">Reset</button>
+    </div>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">1. Direct Speech</div>
+        <p>"Coffee contains caffeine."</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Report it. Then say: "I chose no backshift because..."</p>
+    </div>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">2. Direct Speech</div>
+        <p>"This restaurant was amazing last year."</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Report it. Explain your choice.</p>
+    </div>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">3. Direct Speech</div>
+        <p>"Artificial intelligence will change everything."</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Report it. Why did you choose that form?</p>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('challenge1')">
+        <span>Compare your choices with these answers</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="challenge1">
+        <p><strong>1.</strong> "She said coffee contains caffeine." ✓ (Fact — no backshift.)</p>
+        <p><strong>2.</strong> "She said this restaurant was amazing last year." OR "...is amazing." (Both work — but backshift shows it may have changed.)</p>
+        <p><strong>3.</strong> "He said AI will change everything." OR "...would change everything." (No backshift emphasizes the prediction is still relevant. Backshift is neutral.)</p>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-light);">Key insight: These aren't yes/no answers. Your reasoning is what matters at C1 level.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Production Task</span>
+    <h3>Challenge 2: Demands & Recommendations with Subjunctive</h3>
+    <p>Use the subjunctive form to report these. Speak both the informal and formal versions.</p>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">1. Direct Speech</div>
+        <p>"I strongly recommend you take this opportunity."</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Speak the formal version using "recommend that..."</p>
+    </div>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">2. Direct Speech</div>
+        <p>"You must finish this report by Friday."</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Make it formal: "demanded that..."</p>
+    </div>
+
+    <div style="margin: 16px 0;">
+      <div class="comp-side comp-before" style="margin-bottom: 12px;">
+        <div class="comp-label">3. Direct Speech</div>
+        <p>"Could you possibly attend the meeting tomorrow?"</p>
+      </div>
+      <p style="font-weight: 600; color: var(--accent);">🎙 Use "requested" — speak the subjunctive form.</p>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('challenge2')">
+        <span>Compare your subjunctive forms</span>
+        <span class="click-hint">Click</span>
+      </div>
+      <div class="reveal-answer" id="challenge2">
+        <p><strong>1.</strong> "She recommended that he take this opportunity." (or: ...should take...)</p>
+        <p><strong>2.</strong> "She demanded that he finish the report by Friday." (Note: no -s on "finish")</p>
+        <p><strong>3.</strong> "She requested that he attend the meeting the next day." (or: ...should attend...)</p>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-light);">The hallmark of C1 subjunctive: the verb has no -s ending, even with he/she. This is formal and signals authority or urgency.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 6: INTERLEAVED PRACTICE — Mixed Scenarios    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab6">
+  <h2>Real-World Scenarios: Choose Your Form</h2>
+  <p>These scenarios mix different rules together. You decide: backshift? Subjunctive? Modal shift? Choose 2-3 that challenge you and speak for 2-3 minutes on each.</p>
+
+  <div class="timer-container">
+    <div class="timer-display" id="timer2">3:00</div>
+    <button class="timer-btn btn-3" onclick="startTimer('timer2', 180)">3 min</button>
+    <button class="timer-btn btn-5" onclick="startTimer('timer2', 300)">5 min</button>
+    <button class="timer-btn btn-reset" onclick="resetTimer('timer2', 180)">Reset</button>
+  </div>
+
+  <div class="discussion-cards">
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">📰</div>
+      <div class="d-title">The News Report</div>
+      <div class="d-desc">A politician said "We must create 50,000 jobs in the next 5 years." Report this formally. When would you backshift? When would you use subjunctive?</div>
+    </div>
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">📧</div>
+      <div class="d-title">The Contract Review</div>
+      <div class="d-desc">The lawyer said "The defendant must pay damages and the plaintiff is entitled to compensation." Report both. Do these need backshift?</div>
+    </div>
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">🎓</div>
+      <div class="d-title">The Professor's Advice</div>
+      <div class="d-desc">Your professor said "You should apply for the scholarship, and you can finish your thesis by next summer." Report this in a formal recommendation letter.</div>
+    </div>
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">💼</div>
+      <div class="d-title">The Boss's Mixed Message</div>
+      <div class="d-desc">Your manager said "I appreciate your work, but you need to improve your time management." Report this. What's the formal way to report both the appreciation and the demand?</div>
+    </div>
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">⚖️</div>
+      <div class="d-title">The Scientific Debate</div>
+      <div class="d-desc">Dr. A claims "Climate change is caused by human activity." Dr. B claims "The climate changes naturally over centuries." Report both statements without backshift. Why is this the right choice?</div>
+    </div>
+    <div class="d-card" onclick="this.classList.toggle('selected')">
+      <div class="d-icon">🌐</div>
+      <div class="d-title">The Negotiation</div>
+      <div class="d-desc">In a business negotiation, you heard "We can offer you a 10% discount, but we require that you sign by next Friday." Report this. Which parts use subjunctive?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Elaboration</span>
+    <h3>Explain Your Reasoning</h3>
+    <p>For one of the scenarios you chose, explain out loud:</p>
+    <p style="margin-top: 12px; font-weight: 600; color: var(--accent);">🎙 "I reported it this way because..." (2-3 sentences about backshift, subjunctive, or modal choice)</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- TAB 7: CONSOLIDATE — Recall & Metacognition      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab7">
+  <h2>Recall & Reflect</h2>
+
+  <div class="card" style="border-left: 4px solid #f59e0b; background: #fffbeb;">
+    <span class="step">Recall Zone</span>
+    <h3>From Previous Lessons</h3>
+    <p style="color: #92400e;">Close your eyes for a moment. Without looking back at previous lessons, answer this:</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall1')">
+        <span>What are the five ways to modify or soften direct requests? (Think about last week's polite requests lesson.)</span>
+        <span class="click-hint">Attempt → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="recall1">
+        <p><strong>Example answer:</strong> Could you..., Would you mind..., I was wondering if you could..., Would it be possible to..., Is there any chance you could...</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);">These are ways to make requests more polite. Today, we're reporting these polite requests formally.</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('recall2')">
+        <span>In the lesson on modals (2 weeks ago), what's the difference between "must" and "have to"?</span>
+        <span class="click-hint">Attempt → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="recall2">
+        <p><strong>Difference:</strong> "Must" is personal obligation (internal). "Have to" is external obligation (external rule or person).</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);">In reported speech, when someone says "I must," you can report it as "had to" or "must" — either works, but context matters.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Final Retrieval</span>
+    <h3>Close Everything. Tell Me From Memory.</h3>
+    <p>Without looking at any notes or previous tabs, answer these out loud:</p>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('final1')">
+        <span><strong>1.</strong> When is backshift optional in reported speech? Give a clear rule and an example.</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="final1">
+        <p><strong>Rule:</strong> Backshift is optional (not needed) when the statement is still true at the moment of reporting.</p>
+        <p><strong>Example:</strong> "The earth is round." Reported: "He said the earth is round." (No backshift — still true.)</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('final2')">
+        <span><strong>2.</strong> Which verbs take subjunctive in formal reported speech? Give three examples with full reported forms.</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="final2">
+        <p><strong>Verbs:</strong> suggest, recommend, insist, demand, request, propose, urge, require.</p>
+        <p><strong>Examples:</strong></p>
+        <p>"She suggested that he take a break."</p>
+        <p>"They demanded that she resign."</p>
+        <p>"He requested that the work be completed by Friday."</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('final3')">
+        <span><strong>3.</strong> How do these modals shift in reported speech? (will, can, may, must)</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="final3">
+        <p><strong>will</strong> → would | <strong>can</strong> → could | <strong>may</strong> → might | <strong>must</strong> → had to (or must)</p>
+      </div>
+    </div>
+
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal('final4')">
+        <span><strong>4.</strong> When would you choose NO backshift for a past tense statement? What does that signal?</span>
+        <span class="click-hint">Attempt first → Reveal</span>
+      </div>
+      <div class="reveal-answer" id="final4">
+        <p><strong>When:</strong> When the action is still relevant to the present, or when the statement remains true.</p>
+        <p><strong>Example:</strong> "They broke up last year." Reported: "She said they broke up last year." (Not "had broken up" — the fact is still relevant.)</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);">This signals that the information is current and relevant, not ancient history.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="step">Metacognition</span>
+    <h3>Thinking About Your Thinking</h3>
+    <p style="margin-top: 12px; font-weight: 600; color: var(--accent);">🎙 Answer aloud: Which part of reported speech was hardest for you today — deciding when to backshift, or using subjunctive forms? What helped you understand it?</p>
+
+    <div style="margin-top: 16px; padding: 12px; background: var(--accent-light); border-radius: 6px;">
+      <p><strong>What comes next:</strong> In future lessons, you'll use these reported speech forms in essays, presentations, and nuanced speaking. The subjunctive especially will appear in formal writing contexts. Keep these patterns in mind.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color: var(--accent);">You Can Now...</h3>
+    <p>✓ Decide when backshift is optional and when it's needed</p>
+    <p>✓ Report demands and recommendations using subjunctive forms</p>
+    <p>✓ Explain the difference between preserving truth-value and historical accuracy</p>
+    <p>✓ Use formal reported speech structures in C1 contexts (legal, academic, professional)</p>
+  </div>
+</body>
+
+<script>
+function switchTab(event, tabName) {
+  const contents = document.querySelectorAll('.tab-content');
+  contents.forEach(content => content.classList.remove('active'));
+
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleReveal(id) {
+  const element = document.getElementById(id);
+  element.classList.toggle('show');
+}
+
+function startTimer(displayId, seconds) {
+  let remaining = seconds;
+  const display = document.getElementById(displayId);
+
+  const interval = setInterval(() => {
+    const mins = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+    display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      display.style.color = 'var(--timer-red)';
+    } else if (remaining <= 60) {
+      display.style.color = 'var(--timer-red)';
+    } else if (remaining <= 120) {
+      display.style.color = 'var(--timer-yellow)';
+    }
+
+    remaining--;
+  }, 1000);
+}
+
+function resetTimer(displayId, seconds) {
+  const display = document.getElementById(displayId);
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+  display.style.color = 'var(--accent)';
+}
+</script>
+
+</html>
