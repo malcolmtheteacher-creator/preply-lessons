@@ -46,6 +46,9 @@ PATH_CONFIG = {
     'grammar':         {'icon': '📚', 'title': 'General English (A2→C1)',      'order': 2,  'color': '2563EB', 'fill': 'DBEAFE'},
     'speaking_path':   {'icon': '🎙️', 'title': 'Speaking Pathway (A2→C1)',     'order': 3,  'color': '2563EB', 'fill': 'DBEAFE'},
 
+    # ── 1b. Topic Explorer ─────────────────────────────────────────────────
+    'topic_explorer':  {'icon': '🧭', 'title': 'Topic Explorer (A2→C2)',       'order': 3.5,'color': '7C3AED', 'fill': 'EDE9FE'},
+
     # ── 2. Conversation & Discussion ─────────────────────────────────────
     'curious_conv':    {'icon': '💭', 'title': 'Curious Conversations',        'order': 4,  'color': 'D97706', 'fill': 'FEF3C7'},
     'speaking_nat':    {'icon': '🗣️', 'title': 'Speaking Naturally',           'order': 5,  'color': 'D97706', 'fill': 'FEF3C7'},
@@ -266,6 +269,16 @@ def categorize_lesson(filename, title, series='', level='', keywords=''):
         return {'cat': 'speaking_nat', 'sub': 'Advanced'}
     if 'speaking_naturally' in fl:
         return {'cat': 'speaking_nat', 'sub': 'Adults'}
+
+    # Topic Explorer (su_a2_, b1_##_, b2_##_, c2_##_ lessons)
+    if fl.startswith('su_a2_'):
+        return {'cat': 'topic_explorer', 'sub': 'A2 - Elementary'}
+    if re.match(r'^b1_\d', fl):
+        return {'cat': 'topic_explorer', 'sub': 'B1 - Intermediate'}
+    if re.match(r'^b2_\d', fl):
+        return {'cat': 'topic_explorer', 'sub': 'B2 - Upper Intermediate'}
+    if re.match(r'^c2_\d', fl):
+        return {'cat': 'topic_explorer', 'sub': 'C2 - Proficiency'}
 
     # B2/C1 Conversations (bc_ prefix)
     if fl.startswith('bc_'):
