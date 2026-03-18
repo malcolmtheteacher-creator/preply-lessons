@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Delegation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .scenario-box { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .scenario-box h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 120px; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Art of Delegation</h1>
+            <p>C1 Level · Management Skills</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Why We Don't Delegate</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Delegation Language</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">The Handover</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Reflection</button>
+        </div>
+
+        <!-- TAB 1: Why We Don't Delegate -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Why We Don't Delegate</h2>
+                <p>Delegation is one of the most critical leadership skills—yet one of the hardest to master. Many talented professionals struggle with it, often without realizing why.</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflect on these questions:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Do you find yourself keeping critical tasks? Why?</li>
+                    <li>What are your fears about handing work off?</li>
+                    <li>Have you ever not delegated because you knew you could do it better?</li>
+                    <li>What's the difference between control and accountability?</li>
+                    <li>How does perfectionism show up in your delegation habits?</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>The Real Barriers to Delegation</h3>
+                <p><strong>Fear of losing control:</strong> Once you delegate, you can't control every variable. This uncertainty triggers anxiety in detail-oriented leaders and subject matter experts.</p>
+                <p><strong>Perceived incompetence:</strong> It's faster to do it yourself than to explain it. This is often true in the short term, but it's exactly why growth doesn't happen.</p>
+                <p><strong>Accountability avoidance:</strong> If you do it, you own the outcome. When others do it, they own it—but you're still responsible. This paradox paralyzes many leaders.</p>
+                <p><strong>The "no one does it like me" trap:</strong> You may be right. But the question isn't whether they can do it exactly your way—it's whether they can do it well enough to free you for higher-value work.</p>
+                <p><strong>Trust deficit:</strong> You delegate to people you trust, but you don't develop people you don't trust. This becomes a self-fulfilling prophecy.</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Discussion prompt:</strong> Which of these barriers most resonates with your experience? Can you think of a time you didn't delegate—and what it cost you?</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: Delegation Language -->
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Vocabulary & Key Concepts</h2>
+                <p>Master these terms to understand and practice effective delegation.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Delegate</span>
+                    <span class="definition">To entrust a task or authority to another person; to assign responsibility.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Empower</span>
+                    <span class="definition">To give someone the authority and confidence to make decisions and take action independently.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Autonomy</span>
+                    <span class="definition">The freedom to make decisions and work independently within defined boundaries.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Oversight</span>
+                    <span class="definition">Supervision and monitoring of work to ensure quality and progress; not micromanagement.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Accountability</span>
+                    <span class="definition">The obligation to explain and justify your actions; ownership of outcomes and consequences.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Capacity</span>
+                    <span class="definition">Someone's ability to take on additional work; their bandwidth or available resources.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Mandate</span>
+                    <span class="definition">Official authority to do something; the scope and limits of what you're authorized to decide.</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">Trust</span>
+                    <span class="definition">Confidence that someone will act competently and with good intent; the foundation of delegation.</span>
+                </div>
+            </div>
+
+            <div class="reading-passage">
+                <h3>The Delegation Spectrum</h3>
+                <p>Delegation isn't binary. There's a spectrum of how much decision-making authority you share:</p>
+                <p><strong>Tell:</strong> "Here's what you're doing and how." You make the decision; they execute. Low autonomy, high control.</p>
+                <p><strong>Sell:</strong> "Here's what I've decided and why it matters." You explain your reasoning to build buy-in. Still your decision, but more context.</p>
+                <p><strong>Consult:</strong> "Here's the problem—what are your thoughts?" You gather input before deciding. They influence but don't decide.</p>
+                <p><strong>Participate:</strong> "Let's solve this together." You decide jointly. They have significant influence.</p>
+                <p><strong>Delegate:</strong> "This is yours to own." They decide within your mandate. You trust their judgment; you maintain accountability.</p>
+                <p style="margin-top: 15px; font-style: italic; color: #667eea;"><strong>Key insight:</strong> Effective leaders move along this spectrum based on the person's capability, the task's criticality, and the time available. The goal is to delegate as much as possible.</p>
+            </div>
+        </div>
+
+        <!-- TAB 3: The Handover -->
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Scenario: The Handover</h2>
+                <p>You have 10 minutes to work through three realistic delegation challenges. Think through your approach.</p>
+            </div>
+
+            <div class="timer">
+                <span id="timer-display">10:00</span>
+                <div>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="scenario-box">
+                <h4>Scenario 1: The Critical Presentation</h4>
+                <p>You're scheduled to present quarterly results to the board in three weeks. You know a talented junior team member could deliver it—they know the data better than anyone. But this is high-visibility and high-stakes. Your instinct is to do it yourself.</p>
+                <p><strong>Your task:</strong> How would you approach delegating this? What guardrails would you put in place? How would you frame it to the junior person?</p>
+                <textarea class="textarea-box" placeholder="Write your approach here..."></textarea>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Guidance</button>
+                <div class="answer-text">
+                    <p><strong>Effective approach:</strong> Delegate with high support. Explain why they're the right choice (they know the data). Set milestones: draft slides by date X, rehearse together by date Y, final run-through the day before. Be clear about boundaries: this is their show, but you'll co-review. Frame it as development, not risk transfer. This shows trust while maintaining appropriate oversight.</p>
+                </div>
+            </div>
+
+            <div class="scenario-box">
+                <h4>Scenario 2: The Mid-Stream Handoff</h4>
+                <p>A project you've been managing is 6 weeks in. You've been promoted and need to hand it off to someone else. The problem: you're deeply embedded in client relationships, you know every decision rationale, and the timeline is tight. You're tempted to keep "just advising."</p>
+                <p><strong>Your task:</strong> How do you make a clean handoff without creating dependency or micro-managing from your new role?</p>
+                <textarea class="textarea-box" placeholder="Write your approach here..."></textarea>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Guidance</button>
+                <div class="answer-text">
+                    <p><strong>Effective approach:</strong> Set a clear transition period (e.g., 2 weeks) where they shadow and take incremental ownership. Create a detailed handoff document: decisions made, rationale, stakeholder context, risk register. Make client introductions where you clearly position them as the lead. Then step back. Your "advising" should only happen if they ask. Build their confidence by asking them how they'd handle situations before offering your solution.</p>
+                </div>
+            </div>
+
+            <div class="scenario-box">
+                <h4>Scenario 3: The Excellence Trap</h4>
+                <p>Your team member produces good work—maybe 80% as polished as you'd deliver. They're developing and the work doesn't have significant external impact. But it's hard to accept the difference between "good enough" and "your standard." You find yourself redoing parts of their work.</p>
+                <p><strong>Your task:</strong> How do you let go of perfectionism while maintaining quality?</p>
+                <textarea class="textarea-box" placeholder="Write your approach here..."></textarea>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Guidance</button>
+                <div class="answer-text">
+                    <p><strong>Effective approach:</strong> Reframe: your job isn't to produce perfect work—it's to develop people. Give clear quality criteria upfront, then trust their work unless it falls below that bar. Provide feedback for growth, not perfection. When you feel tempted to redo it, ask: "Is this actually failing the standard, or is it just different from my approach?" This mindset shift is transformational. Over time, your standards and theirs converge.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Reflection -->
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Delegation as Leadership Development</h2>
+                <p>Delegation is fundamentally about developing others. It's how you create a team that can operate without you.</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Deep reflection questions:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>What would change if you delegated more? What would open up for you?</li>
+                    <li>Who on your team is ready for more challenge? What's holding you back from giving it to them?</li>
+                    <li>How does your perfectionism serve you? How does it limit you and your team?</li>
+                    <li>When is "good enough" actually good enough?</li>
+                    <li>What's your theory of trust? Do you trust first or require people to earn it?</li>
+                    <li>How would your team describe your delegation style? How is that helping or hurting them?</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>The Paradox of Accountability</h3>
+                <p>Here's the thing many leaders get wrong: delegating the task means the other person executes it. But you retain accountability for the outcome. You're responsible for making sure they have what they need, that they understand the stakes, and that they deliver.</p>
+                <p>This is different from being responsible for their work—that's micromanagement. Your responsibility is for their success. You set them up to win, then let them win (or learn from falling short).</p>
+                <p>The best leaders are those who've built teams that can do things without them. That's only possible if you delegate—not just tasks, but authority, autonomy, and the chance to develop.</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Action step:</strong> Identify one task you could delegate this week that would both help someone develop and free up your time. What's stopping you? What would it take to move forward?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
