@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changing Places - C1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* === HEADER === */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+
+        /* === TABS === */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active {
+            background: #f8f9fa;
+            border-bottom-color: #667eea;
+            color: #764ba2;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* === CONTENT BLOCKS === */
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+        /* === ANSWER BUTTONS === */
+        .answer-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+            color: #333;
+        }
+        .answer-text.show { display: block; }
+
+        /* === QUESTION BLOCKS === */
+        .question-block {
+            background: white;
+            padding: 20px;
+            border-left: 5px solid #764ba2;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+
+        /* === DISCUSSION BOX === */
+        .discussion-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+
+        /* === TIMER === */
+        .timer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timer.warning {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
+        }
+        .timer.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+        .timer-btn {
+            padding: 8px 15px;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* === TEXTAREA === */
+        .textarea-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button {
+                width: 100%;
+                text-align: left;
+                border-bottom: 3px solid transparent;
+                border-left: 5px solid transparent;
+            }
+            .tab-button.active {
+                border-bottom: none;
+                border-left-color: #667eea;
+                background: #f8f9fa;
+            }
+            .timer { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Changing Places</h1>
+            <p>C1 Level &middot; Travel, Holidays &amp; the Environment Focus</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'intro')">Global Trends</button>
+            <button class="tab-button" onclick="openTab(event, 'grammar')">Comparative Structures</button>
+            <button class="tab-button" onclick="openTab(event, 'vocabulary')">Describing Trends</button>
+            <button class="tab-button" onclick="openTab(event, 'task')">Speaking Task</button>
+            <button class="tab-button" onclick="openTab(event, 'reflection')">Reflection</button>
+        </div>
+
+        <div id="intro" class="tab-content active">
+            <div class="content-block">
+                <h2>How Things Are Changing</h2>
+                <p>Trends and changes are happening all around the world. In this lesson, you'll learn how to describe these changes and talk about places you know.</p>
+
+                <h3>Look at These Global Trends:</h3>
+                <div class="question-block">
+                    <p>• The rate of obesity is <strong>increasing</strong> worldwide.</p>
+                    <p>• The influence of religion is <strong>collapsing</strong>.</p>
+                    <p>• The quality of workmanship in the building trade is <strong>rapidly deteriorating</strong>.</p>
+                    <p>• Crime is <strong>steadily decreasing</strong> in most countries.</p>
+                    <p>• Technology and medical care are <strong>improving continually</strong>.</p>
+                    <p>• People's standard of living is <strong>falling</strong> year in, year out.</p>
+                    <p>• Housing prices never stop <strong>rising</strong>.</p>
+                    <p>• The number of fatalities is <strong>levelling off</strong> across the globe.</p>
+                </div>
+
+                <h3>Think About These Questions:</h3>
+                <div class="discussion-box">
+                    <p><strong>Which of these trends have you noticed in your own country?</strong></p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>Are there places where you've seen dramatic changes?</strong></p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>What changes worry you the most? What changes are positive?</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="grammar" class="tab-content">
+            <div class="content-block">
+                <h2>Comparative Structures: Comparing Then and Now</h2>
+                <p>Use these structures to describe how things have changed in places you know.</p>
+
+                <h3>Example Topics to Compare:</h3>
+                <div class="question-block">
+                    <h4>Mobile Phones</h4>
+                    <p><strong>20 years ago:</strong> Expensive, few features, status symbol.</p>
+                    <p><strong>Today:</strong> Cheap, many features, everyone has one.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Religious Observance</h4>
+                    <p><strong>When you were a child:</strong> Very important in the community.</p>
+                    <p><strong>Young people today:</strong> Less focused on organized religion.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Hairstyles</h4>
+                    <p><strong>In the 1990s:</strong> More conservative, traditional.</p>
+                    <p><strong>Today:</strong> More experimental, diverse.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Attitudes Towards Women</h4>
+                    <p><strong>50 years ago:</strong> Limited career opportunities.</p>
+                    <p><strong>Today:</strong> Much greater equality and freedom.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Online Shopping</h4>
+                    <p><strong>10 years ago:</strong> Unusual, risky, limited selection.</p>
+                    <p><strong>Today:</strong> Normal, trusted, huge variety.</p>
+                </div>
+
+                <h3>Practice: Complete These Comparisons</h3>
+                <div class="question-block">
+                    <h4>1. Modern communication is __________ than it was 20 years ago.</h4>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                    <div class="answer-text"><strong>much faster/more instant</strong> — Technology has revolutionized how we communicate.</div>
+                </div>
+
+                <div class="question-block">
+                    <h4>2. The cost of technology has __________ significantly.</h4>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                    <div class="answer-text"><strong>decreased/dropped/fallen</strong> — Computers and phones are much cheaper now.</div>
+                </div>
+
+                <div class="question-block">
+                    <h4>3. Environmental awareness today is __________ than in the 1980s.</h4>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                    <div class="answer-text"><strong>much greater/far more developed</strong> — People now understand climate change and recycling.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vocabulary" class="tab-content">
+            <div class="content-block">
+                <h2>Vocabulary for Describing Trends</h2>
+
+                <h3>Trends Going UP:</h3>
+                <div class="question-block">
+                    <p><strong>increase, rise, grow, expand,</strong> improve, climb, soar, surge</p>
+                </div>
+
+                <h3>Trends Going DOWN:</h3>
+                <div class="question-block">
+                    <p><strong>decrease, drop, fall, decline,</strong> shrink, plummet, deteriorate, collapse</p>
+                </div>
+
+                <h3>Trends STAYING the SAME:</h3>
+                <div class="question-block">
+                    <p><strong>level off, stabilize, plateau,</strong> remain constant, stay steady</p>
+                </div>
+
+                <h3>Adverbs for Speed of Change:</h3>
+                <div class="question-block">
+                    <p><strong>steadily, rapidly, gradually, continuously, dramatically,</strong> sharply, slowly, progressively</p>
+                </div>
+
+                <h3>Example Sentences:</h3>
+                <div class="question-block">
+                    <p>"The population in my city has <strong>grown dramatically</strong> in the last decade."</p>
+                    <p>"Traffic congestion has <strong>steadily increased</strong> as more cars flood the streets."</p>
+                    <p>"Traditional crafts have <strong>gradually declined</strong> as young people move to cities."</p>
+                    <p>"The quality of life has <strong>improved significantly</strong> with better infrastructure."</p>
+                </div>
+
+                <h3>Practice: Choose the Right Word</h3>
+                <div class="question-block">
+                    <h4>The number of tourists visiting our country has __________ by 50% in the last 5 years.</h4>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                    <div class="answer-text"><strong>increased, grown, risen, surged</strong> — Any of these works! "Surged" sounds more dramatic.</div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Environmental pollution in the river has __________ since the new factory closed.</h4>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                    <div class="answer-text"><strong>decreased, dropped, fallen</strong> — These all work. "Dropped" sounds the most informal.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="task" class="tab-content">
+            <div class="content-block">
+                <h2>Your Speaking Task: Describe How a Place Has Changed</h2>
+
+                <h3>Prepare to Talk About a Place:</h3>
+                <p>Choose a place you know well — your hometown, a city you visited, a neighborhood, or a country. Think about how it has changed over time.</p>
+
+                <div class="discussion-box">
+                    <p><strong>Ideas:</strong> Your childhood neighborhood, a city you've lived in, a holiday destination you return to, your country as a whole.</p>
+                </div>
+
+                <h3>Planning Guide (Make Notes Only):</h3>
+                <p><strong>Make brief notes — don't write full sentences!</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>What was the place like in the past?</li>
+                    <li>What is it like now?</li>
+                    <li>What specific changes have you noticed? (buildings, people, atmosphere, economy, culture)</li>
+                    <li>Do you think these changes are positive or negative?</li>
+                </ul>
+
+                <h3>Speaking Time:</h3>
+                <div class="timer">
+                    <span>Time to describe changes: <strong><span id="timer-display">10:00</span></strong></span>
+                    <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                </div>
+
+                <h3>Language Checklist:</h3>
+                <p>When you speak, try to use:</p>
+                <div class="question-block">
+                    <p>□ At least 3 trend words (increase, decline, improve, etc.)</p>
+                    <p>□ At least 1 adverb to describe speed (dramatically, gradually, steadily, etc.)</p>
+                    <p>□ At least 2 comparative structures (more/less than, different from)</p>
+                    <p>□ Specific examples or details</p>
+                </div>
+
+                <h3>After You Speak:</h3>
+                <p>If speaking with another student: Listen to their description and ask follow-up questions like:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"What do you think caused that change?"</li>
+                    <li>"Do you think it will continue to change?"</li>
+                    <li>"Was that change surprising to you?"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="reflection" class="tab-content">
+            <div class="content-block">
+                <h2>Reflect on What You've Learned</h2>
+
+                <div class="discussion-box">
+                    <p><strong>What place did you choose to describe, and why?</strong></p>
+                </div>
+                <textarea class="textarea-box" placeholder="Write your thoughts here..."></textarea>
+
+                <div class="discussion-box" style="margin-top: 20px;">
+                    <p><strong>Which trend words or comparatives did you find most useful?</strong></p>
+                </div>
+                <textarea class="textarea-box" placeholder="Write your thoughts here..."></textarea>
+
+                <div class="discussion-box" style="margin-top: 20px;">
+                    <p><strong>What made it easy or difficult to describe the changes?</strong></p>
+                </div>
+                <textarea class="textarea-box" placeholder="Write your thoughts here..."></textarea>
+
+                <div class="discussion-box" style="margin-top: 20px;">
+                    <p><strong>Did your classmate mention any interesting changes you didn't expect to hear about?</strong></p>
+                </div>
+                <textarea class="textarea-box" placeholder="Write your thoughts here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === TAB SWITCHING ===
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // === TIMER (click-to-start ONLY) ===
+        let timerInterval = null;
+        let timeRemaining = 600; // 10 minutes for C1
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent =
+                    minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

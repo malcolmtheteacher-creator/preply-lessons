@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choosing a Restaurant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* === HEADER === */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+
+        /* === TABS === */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active {
+            background: #f8f9fa;
+            border-bottom-color: #667eea;
+            color: #764ba2;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* === CONTENT BLOCKS === */
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+        /* === VOCAB CARDS === */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .vocab-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .vocab-card:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+        }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+
+        /* === ANSWER BUTTONS === */
+        .answer-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+            color: #333;
+        }
+        .answer-text.show { display: block; }
+
+        /* === QUESTION BLOCKS === */
+        .question-block {
+            background: white;
+            padding: 20px;
+            border-left: 5px solid #764ba2;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+
+        /* === DISCUSSION BOX === */
+        .discussion-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+
+        /* === TIMER === */
+        .timer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timer.warning {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
+        }
+        .timer.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+        .timer-btn {
+            padding: 8px 15px;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button {
+                width: 100%;
+                text-align: left;
+                border-bottom: 3px solid transparent;
+                border-left: 5px solid transparent;
+            }
+            .tab-button.active {
+                border-bottom: none;
+                border-left-color: #667eea;
+                background: #f8f9fa;
+            }
+            .vocab-grid { grid-template-columns: 1fr; }
+            .timer { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Choosing a Restaurant</h1>
+            <p>A2 Level &middot; Speaking &amp; Vocabulary Focus</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Restaurant Preferences</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Linking Words</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice Exercises</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Restaurant Discussion</button>
+            <button class="tab-button" onclick="openTab(event, 'tab5')">Conversation Task</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>What Makes a Good Restaurant?</h2>
+                <p>When choosing a restaurant, different things are important to different people. What matters most to you?</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Rate These Factors</h3>
+                <p>Put these in order of importance for you (1 = most important, 5 = least important):</p>
+                <ul style="margin: 15px 0 15px 20px; line-height: 2;">
+                    <li>The atmosphere and environment</li>
+                    <li>The quality of food</li>
+                    <li>The quality of service</li>
+                    <li>The size of portions</li>
+                    <li>The price</li>
+                </ul>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Think about this:</strong></p>
+                <p>Tell your teacher about one of these factors. Why is it important to you? Have you had a bad experience in a restaurant because of this factor?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Linking Words for Describing Restaurants</h2>
+                <p>When we describe restaurants, we often need to show connections between ideas. Here are four important linking words:</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word"><strong>So</strong></span>
+                    <span class="definition">Shows the result or consequence of something</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word"><strong>Because</strong></span>
+                    <span class="definition">Gives the reason why something happens</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word"><strong>But / Although</strong></span>
+                    <span class="definition">Shows contrast between two ideas (something positive with something negative)</span>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word"><strong>And... too</strong></span>
+                    <span class="definition">Adds more information; gives additional details</span>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Examples</h3>
+                <ul style="margin: 15px 0 15px 20px; line-height: 2;">
+                    <li><strong>So:</strong> The food was delicious and the service was professional, <span style="color: #667eea; font-weight: 600;">so</span> we will definitely come again.</li>
+                    <li><strong>Because:</strong> I don't think we will go here again <span style="color: #667eea; font-weight: 600;">because</span> it wasn't lively enough for us.</li>
+                    <li><strong>But:</strong> The staff were helpful, <span style="color: #667eea; font-weight: 600;">but</span> not that fast.</li>
+                    <li><strong>Although:</strong> <span style="color: #667eea; font-weight: 600;">Although</span> the service was slow, the portions were huge.</li>
+                    <li><strong>And... too:</strong> The waiters were slow and rude, and we had to pay a very expensive bill <span style="color: #667eea; font-weight: 600;">too</span>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Complete the Sentences</h2>
+                <p>Link each sentence using one of the linking words: <strong>too, so, because, although, but</strong></p>
+            </div>
+
+            <div class="question-block">
+                <h4>1. I want to keep fit. I go to the gym three times a week.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text">I want to keep fit <strong>so</strong> I go to the gym three times a week.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>2. I'm saving money. I want to go to Italy for my next holiday.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text">I'm saving money <strong>because</strong> I want to go to Italy for my next holiday.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>3. I usually finish work at 6 p.m. I sometimes need to do overtime.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text"><strong>Although</strong> I usually work at 6 p.m., I sometimes need to do overtime.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>4. I usually take the train to work. It's quicker.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text">I usually take the train to work <strong>because</strong> it's quicker.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>5. I'm allergic to seafood. I'm always very careful when I go out to eat.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text">I'm allergic to seafood <strong>so</strong> I'm always very careful when I go out to eat.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>6. I'm keen on vegetables. I like fruit.</h4>
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+                <div class="answer-text">I'm keen on vegetables, and I like fruit <strong>too</strong>.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Three Restaurants to Choose From</h2>
+                <p>You have decided to go out to eat. You have to choose from three restaurants:</p>
+                <ul style="margin: 15px 0 15px 20px; font-size: 1.1em; font-weight: 600;">
+                    <li>The Blue Dolphin</li>
+                    <li>Chequers</li>
+                    <li>The Hungry Hound</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>Your Restaurant Preferences</h3>
+                <p><strong>What you prefer:</strong> The Blue Dolphin</p>
+                <ul style="margin: 15px 0 15px 20px; line-height: 1.8;">
+                    <li>Last time you were there, you had delicious food</li>
+                    <li>The price was really good</li>
+                </ul>
+                <p><strong>What you want to avoid:</strong> The Hungry Hound</p>
+                <ul style="margin: 15px 0 15px 20px; line-height: 1.8;">
+                    <li>Last time you were there, the waiter was rude</li>
+                    <li>The portions were very small</li>
+                </ul>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>How will you convince your teacher?</strong></p>
+                <p>Use the linking words you learned to explain why The Blue Dolphin is the best choice and why you don't want to go to The Hungry Hound.</p>
+            </div>
+        </div>
+
+        <div id="tab5" class="tab-content">
+            <div class="content-block">
+                <h2>Restaurant Debate</h2>
+                <p>You will discuss which restaurant to choose with your teacher. Each of you has different preferences.</p>
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">3:00</span></strong></span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+            </div>
+
+            <div class="content-block">
+                <h3>Conversation Points</h3>
+                <ul style="margin: 15px 0 15px 20px; line-height: 2;">
+                    <li>Which restaurant would you choose and why?</li>
+                    <li>What was your experience at each restaurant?</li>
+                    <li>What is most important to you in a restaurant?</li>
+                    <li>Can you persuade your teacher to agree with you?</li>
+                </ul>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Remember:</strong> Use the linking words (so, because, but, although, too) to make your arguments stronger. Use full sentences and explain your reasoning.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+
+        let timerInterval = null;
+        let timeRemaining = 180;
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent =
+                    minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 180;
+            document.getElementById("timer-display").textContent = "3:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
