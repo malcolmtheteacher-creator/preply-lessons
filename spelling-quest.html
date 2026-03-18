@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spelling Quest: The Diagnostic Dungeon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
+
+  :root {
+    --green: #4CAF50;
+    --dark-green: #2d7a30;
+    --brown: #8B6914;
+    --dark-brown: #5c4710;
+    --stone: #888;
+    --dark-stone: #555;
+    --sky: #87CEEB;
+    --dirt: #6B4423;
+    --gold: #FFD700;
+    --xp-green: #7CFC00;
+    --red: #E74C3C;
+    --purple: #9B59B6;
+    --blue: #3498DB;
+    --bg: #1a1a2e;
+    --card-bg: #16213e;
+    --text: #e0e0e0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .pixel-font { font-family: 'Press Start 2P', cursive; }
+
+  /* Pixel art background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      linear-gradient(180deg, #0f0c29 0%, #1a1a2e 40%, #16213e 100%);
+    z-index: -2;
+  }
+
+  /* Stars */
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: white;
+    animation: twinkle 2s infinite alternate;
+  }
+  @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+
+  /* Container */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* HUD */
+  .hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.6);
+    border: 3px solid var(--stone);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hud-item { text-align: center; }
+  .hud-label { font-size: 10px; color: #aaa; margin-bottom: 4px; }
+  .hud-value { font-size: 14px; font-weight: 700; }
+  .hud-value.gold { color: var(--gold); }
+  .hud-value.xp { color: var(--xp-green); }
+
+  .xp-bar-container {
+    width: 100%;
+    height: 16px;
+    background: #333;
+    border: 2px solid var(--stone);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .xp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--xp-green));
+    transition: width 0.8s ease;
+    border-radius: 2px;
+    position: relative;
+  }
+  .xp-bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px 2px 0 0;
+  }
+
+  /* Level badge */
+  .level-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--purple);
+    border: 2px solid #c480e0;
+    border-radius: 4px;
+    font-size: 11px;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  /* Screen styles */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* Title screen */
+  .title-screen {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .title-screen h1 {
+    font-size: 22px;
+    line-height: 1.6;
+    color: var(--gold);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    margin-bottom: 12px;
+  }
+  .title-screen .subtitle {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+  .sword-icon {
+    font-size: 60px;
+    margin: 20px 0;
+    animation: float 2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .btn:active { transform: translateY(2px); }
+
+  .btn-start {
+    background: var(--green);
+    color: white;
+    border-bottom: 4px solid var(--dark-green);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  }
+  .btn-start:hover { background: #5cbf60; }
+
+  .btn-option {
+    display: block;
+    width: 100%;
+    padding: 16px 20px;
+    margin: 10px 0;
+    background: var(--card-bg);
+    color: var(--text);
+    border: 3px solid var(--stone);
+    border-bottom-width: 5px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    letter-spacing: 1px;
+  }
+  .btn-option:hover {
+    border-color: var(--blue);
+    background: #1c2d50;
+    transform: translateX(4px);
+  }
+  .btn-option.correct {
+    border-color: var(--green);
+    background: rgba(76,175,80,0.2);
+    animation: correctPulse 0.5s;
+  }
+  .btn-option.wrong {
+    border-color: var(--red);
+    background: rgba(231,76,60,0.2);
+    animation: shake 0.4s;
+  }
+  @keyframes correctPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .btn-next {
+    background: var(--blue);
+    color: white;
+    border-bottom: 4px solid #2573a3;
+    margin-top: 20px;
+  }
+
+  /* Question card */
+  .question-card {
+    background: var(--card-bg);
+    border: 3px solid var(--stone);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .question-card h2 {
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .question-card .question-text {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .question-card .hint {
+    font-size: 13px;
+    color: #aaa;
+    font-style: italic;
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    border-left: 3px solid var(--purple);
+  }
+
+  /* Feedback */
+  .feedback {
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    display: none;
+  }
+  .feedback.show { display: block; animation: fadeIn 0.3s; }
+  .feedback.correct-fb {
+    background: rgba(76,175,80,0.15);
+    border: 2px solid var(--green);
+  }
+  .feedback.wrong-fb {
+    background: rgba(231,76,60,0.15);
+    border: 2px solid var(--red);
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* XP popup */
+  .xp-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    color: var(--xp-green);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 100;
+    animation: xpFloat 1.2s ease-out forwards;
+    display: none;
+  }
+  @keyframes xpFloat {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    30% { opacity: 1; transform: translate(-50%, -70%) scale(1.3); }
+    100% { opacity: 0; transform: translate(-50%, -120%) scale(1); }
+  }
+
+  /* Level transition */
+  .level-transition {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .level-transition.show { display: flex; animation: fadeIn 0.5s; }
+  .level-transition h2 {
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .level-transition p { color: #ccc; font-size: 14px; margin-bottom: 20px; }
+  .level-transition .level-icon { font-size: 60px; margin-bottom: 16px; }
+
+  /* Typing challenge */
+  .type-input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    background: #0d1b36;
+    border: 3px solid var(--stone);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+  .type-input:focus { border-color: var(--blue); }
+
+  .btn-submit {
+    background: var(--purple);
+    color: white;
+    border-bottom: 4px solid #7a3f96;
+    margin-top: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border-top: none; border-left: none; border-right: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  /* Letter tiles for unscramble */
+  .letter-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+  }
+  .letter-tile {
+    width: 44px; height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    background: var(--brown);
+    border: 3px solid var(--dark-brown);
+    border-bottom-width: 5px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+  .letter-tile:hover { transform: translateY(-3px); background: #a07818; }
+  .letter-tile.selected { background: var(--green); border-color: var(--dark-green); }
+  .letter-tile.slot { background: #0d1b36; border-color: var(--stone); min-width: 44px; }
+  .letter-tile.slot.filled { background: var(--blue); border-color: #2573a3; }
+
+  .answer-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+    min-height: 50px;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    border: 2px dashed var(--stone);
+  }
+
+  /* Report */
+  .report {
+    background: var(--card-bg);
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .report h2 { color: var(--gold); font-size: 16px; margin-bottom: 20px; }
+
+  .skill-bar-row {
+    margin-bottom: 16px;
+  }
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .skill-bar-track {
+    height: 20px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid #555;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .skill-bar-fill.high { background: linear-gradient(90deg, var(--green), var(--xp-green)); }
+  .skill-bar-fill.mid { background: linear-gradient(90deg, var(--gold), #ffaa00); }
+  .skill-bar-fill.low { background: linear-gradient(90deg, var(--red), #ff6b6b); }
+
+  .diagnosis-box {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(155, 89, 182, 0.15);
+    border: 2px solid var(--purple);
+    border-radius: 8px;
+  }
+  .diagnosis-box h3 { color: var(--purple); font-size: 14px; margin-bottom: 12px; }
+  .diagnosis-box p { font-size: 14px; line-height: 1.7; color: #ccc; margin-bottom: 10px; }
+  .diagnosis-box .strength { color: var(--green); font-weight: 600; }
+  .diagnosis-box .weakness { color: var(--red); font-weight: 600; }
+
+  .parent-note {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 2px solid var(--blue);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+  .parent-note strong { color: var(--blue); }
+
+  .progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #333;
+    border: 2px solid #555;
+  }
+  .dot.done { background: var(--green); border-color: var(--dark-green); }
+  .dot.current { background: var(--gold); border-color: #cca700; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+  /* Word display for memory challenge */
+  .word-display {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    padding: 30px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    border: 3px solid var(--purple);
+    letter-spacing: 6px;
+    margin: 16px 0;
+    color: white;
+  }
+  .word-display.hidden-word {
+    color: transparent;
+    text-shadow: none;
+    background: repeating-linear-gradient(
+      45deg, rgba(100,100,100,0.1), rgba(100,100,100,0.1) 10px,
+      transparent 10px, transparent 20px
+    );
+    border-color: var(--stone);
+  }
+
+  .timer-bar {
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+  .timer-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.1s linear;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 500px) {
+    .title-screen h1 { font-size: 16px; }
+    .btn { font-size: 11px; padding: 12px 20px; }
+    .question-card { padding: 18px; }
+    .letter-tile { width: 36px; height: 36px; font-size: 16px; }
+    .word-display { font-size: 24px; letter-spacing: 4px; padding: 20px; }
+    .hud { padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="xp-popup" id="xpPopup">+10 XP</div>
+
+<div class="level-transition" id="levelTransition">
+  <div class="level-icon" id="levelIcon"></div>
+  <h2 class="pixel-font" id="levelTitle"></h2>
+  <p id="levelDesc"></p>
+  <button class="btn btn-start" onclick="closeLevelTransition()" id="levelBtn">ENTER</button>
+</div>
+
+<div class="container">
+  <!-- HUD -->
+  <div class="hud" id="hud" style="display:none;">
+    <div class="hud-item">
+      <div class="hud-label">LEVEL</div>
+      <div class="hud-value gold pixel-font" id="hudLevel">1</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">SCORE</div>
+      <div class="hud-value xp pixel-font" id="hudScore">0</div>
+    </div>
+    <div class="hud-item">
+      <div class="hud-label">STREAK</div>
+      <div class="hud-value pixel-font" id="hudStreak">0🔥</div>
+    </div>
+    <div style="width:100%;">
+      <div class="xp-bar-container">
+        <div class="xp-bar" id="xpBar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE SCREEN -->
+  <div class="screen active" id="titleScreen">
+    <div class="title-screen">
+      <div class="sword-icon">⚔️</div>
+      <h1 class="pixel-font">SPELLING QUEST</h1>
+      <h2 class="pixel-font" style="font-size:11px; color:#aaa; margin-bottom:8px;">The Diagnostic Dungeon</h2>
+      <p class="subtitle">
+        A dark enchantment has scrambled the words of the realm!
+        Only a true Spelling Champion can break the curse.
+        Battle through 5 dungeon levels to prove your power!
+      </p>
+      <p style="font-size:12px; color:var(--gold); margin-bottom:30px;">
+        🏆 Earn XP &bull; 🔥 Build streaks &bull; 💎 Unlock loot
+      </p>
+      <button class="btn btn-start pixel-font" onclick="startGame()">
+        ⚔️ BEGIN QUEST
+      </button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="screen" id="gameScreen">
+    <div class="progress-dots" id="progressDots"></div>
+    <div id="questionArea"></div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="resultsScreen"></div>
+</div>
+
+<script>
+// ====== GAME DATA ======
+const levels = [
+  {
+    name: "The Visual Vault",
+    icon: "👁️",
+    desc: "Can you remember what words LOOK like? Study each word, then spell it from memory!",
+    skill: "visual_memory",
+    skillLabel: "Visual Memory",
+    questions: [
+      { word: "because", displayTime: 3000 },
+      { word: "beautiful", displayTime: 3000 },
+      { word: "Wednesday", displayTime: 3000 },
+      { word: "separate", displayTime: 3000 },
+      { word: "different", displayTime: 3000 }
+    ]
+  },
+  {
+    name: "The Sound Forge",
+    icon: "🔊",
+    desc: "Some words are sneaky — they don't sound the way they're spelled! Pick the CORRECT spelling.",
+    skill: "phonetic_awareness",
+    skillLabel: "Sound-to-Spelling",
+    questions: [
+      { prompt: "Which is the correct spelling?", correct: "said", options: ["sed", "said", "sayed", "sayd"], tip: "This word doesn't follow the rules!" },
+      { prompt: "Which is the correct spelling?", correct: "people", options: ["peeple", "people", "peaple", "pepole"], tip: "A very common word with a tricky middle." },
+      { prompt: "Which is the correct spelling?", correct: "could", options: ["cood", "culd", "could", "coud"], tip: "There's a silent letter hiding in here..." },
+      { prompt: "Which is the correct spelling?", correct: "tongue", options: ["tung", "tounge", "tongue", "tonge"], tip: "This one is really sneaky!" },
+      { prompt: "Which is the correct spelling?", correct: "enough", options: ["enuf", "enugh", "enouf", "enough"], tip: "The ending is the tricky part." }
+    ]
+  },
+  {
+    name: "The Sequencing Cavern",
+    icon: "🔀",
+    desc: "The letters got jumbled by a creeper explosion! Put them back in the right order.",
+    skill: "letter_sequencing",
+    skillLabel: "Letter Ordering",
+    questions: [
+      { correct: "friend", scrambled: "freind", prompt: "One swap has been made. Which is correct?", options: ["freind", "friend", "frend", "freand"] },
+      { correct: "receive", scrambled: "recieve", prompt: "One swap has been made. Which is correct?", options: ["recieve", "receve", "receive", "receeve"] },
+      { correct: "believe", scrambled: "beleive", prompt: "One swap has been made. Which is correct?", options: ["beleive", "believe", "beleave", "belive"] },
+      { correct: "weird", scrambled: "wierd", prompt: "One swap has been made. Which is correct?", options: ["wierd", "weerd", "weird", "weard"] },
+      { correct: "rhythm", scrambled: "rythm", prompt: "Something is missing or swapped. Which is correct?", options: ["rythm", "rythym", "rhythm", "rhythem"] }
+    ]
+  },
+  {
+    name: "The Silent Crypt",
+    icon: "🤫",
+    desc: "Beware! Silent letters lurk in the shadows. Can you find where they hide?",
+    skill: "silent_letters",
+    skillLabel: "Silent Letters & Patterns",
+    questions: [
+      { prompt: "Type the missing silent letter: _nife", answer: "k", display: "_nife", fullWord: "knife" },
+      { prompt: "Type the missing silent letter: _rite", answer: "w", display: "_rite", fullWord: "write" },
+      { prompt: "Type the missing silent letter: dou_t", answer: "b", display: "dou_t", fullWord: "doubt" },
+      { prompt: "Type the missing silent letter: lis_en", answer: "t", display: "lis_en", fullWord: "listen" },
+      { prompt: "Type the missing silent letter: cas_le", answer: "t", display: "cas_le", fullWord: "castle" }
+    ]
+  },
+  {
+    name: "The Boss Battle",
+    icon: "🐉",
+    desc: "The Ender Dragon of spelling! Tricky patterns — double letters, endings, and the dreaded ie/ei rule!",
+    skill: "spelling_patterns",
+    skillLabel: "Spelling Rules & Patterns",
+    questions: [
+      { prompt: "Double letter or not? Pick the right one:", correct: "necessary", options: ["neccessary", "necessary", "neccesary", "necesary"], rule: "One C, two S's: ne-CES-SA-ry" },
+      { prompt: "Which ending is correct?", correct: "definitely", options: ["definately", "definatly", "definitely", "definitly"], rule: "It has 'finite' inside it: de-FINITE-ly" },
+      { prompt: "How does this word end?", correct: "accommodation", options: ["accomodation", "accommodation", "acommodation", "acomodation"], rule: "Two C's AND two M's — it's a big word with lots of double letters!" },
+      { prompt: "Which is spelled correctly?", correct: "occurrence", options: ["occurence", "occurance", "occurrence", "ocurrence"], rule: "Two C's, two R's: oc-CUR-RENCE" },
+      { prompt: "Tricky ending! Which is right?", correct: "embarrass", options: ["embarass", "embarrass", "embarras", "embaras"], rule: "Two R's AND two S's — it's really embarrassing to get wrong!" }
+    ]
+  }
+];
+
+// ====== GAME STATE ======
+let state = {
+  currentLevel: 0,
+  currentQuestion: 0,
+  score: 0,
+  streak: 0,
+  maxStreak: 0,
+  totalXP: 0,
+  answered: false,
+  results: {},
+  memoryPhase: 'show' // for visual memory: 'show' or 'type'
+};
+
+// Initialize results tracking
+levels.forEach(l => {
+  state.results[l.skill] = { correct: 0, total: l.questions.length, errors: [] };
+});
+
+// ====== STARS BACKGROUND ======
+(function createStars() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 60 + '%';
+    star.style.animationDelay = Math.random() * 2 + 's';
+    star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+    container.appendChild(star);
+  }
+})();
+
+// ====== UI FUNCTIONS ======
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateHUD() {
+  document.getElementById('hudLevel').textContent = state.currentLevel + 1;
+  document.getElementById('hudScore').textContent = state.score;
+  document.getElementById('hudStreak').textContent = state.streak + '🔥';
+
+  const totalQ = levels.reduce((a, l) => a + l.questions.length, 0);
+  let doneQ = 0;
+  for (let i = 0; i < state.currentLevel; i++) doneQ += levels[i].questions.length;
+  doneQ += state.currentQuestion;
+  const pct = (doneQ / totalQ) * 100;
+  document.getElementById('xpBar').style.width = pct + '%';
+}
+
+function buildProgressDots() {
+  const dotsEl = document.getElementById('progressDots');
+  const level = levels[state.currentLevel];
+  let html = '';
+  for (let i = 0; i < level.questions.length; i++) {
+    if (i < state.currentQuestion) html += '<div class="dot done"></div>';
+    else if (i === state.currentQuestion) html += '<div class="dot current"></div>';
+    else html += '<div class="dot"></div>';
+  }
+  dotsEl.innerHTML = html;
+}
+
+function showXPPopup(amount) {
+  const popup = document.getElementById('xpPopup');
+  popup.textContent = `+${amount} XP`;
+  popup.style.display = 'block';
+  popup.style.animation = 'none';
+  popup.offsetHeight;
+  popup.style.animation = 'xpFloat 1.2s ease-out forwards';
+  setTimeout(() => popup.style.display = 'none', 1200);
+}
+
+function showLevelTransition(levelIdx) {
+  const level = levels[levelIdx];
+  document.getElementById('levelIcon').textContent = level.icon;
+  document.getElementById('levelTitle').textContent = 'Level ' + (levelIdx + 1) + ': ' + level.name;
+  document.getElementById('levelDesc').textContent = level.desc;
+  document.getElementById('levelBtn').textContent = levelIdx === 0 ? '⚔️ ENTER' : '⚔️ CONTINUE';
+  document.getElementById('levelTransition').classList.add('show');
+}
+
+function closeLevelTransition() {
+  document.getElementById('levelTransition').classList.remove('show');
+  renderQuestion();
+}
+
+// ====== GAME FLOW ======
+function startGame() {
+  showScreen('gameScreen');
+  document.getElementById('hud').style.display = 'flex';
+  state.currentLevel = 0;
+  state.currentQuestion = 0;
+  updateHUD();
+  showLevelTransition(0);
+}
+
+function renderQuestion() {
+  buildProgressDots();
+  updateHUD();
+
+  const level = levels[state.currentLevel];
+  const qIdx = state.currentQuestion;
+  const q = level.questions[qIdx];
+  const area = document.getElementById('questionArea');
+  state.answered = false;
+
+  if (level.skill === 'visual_memory') {
+    renderVisualMemory(area, q, qIdx, level);
+  } else if (level.skill === 'phonetic_awareness' || level.skill === 'letter_sequencing' || level.skill === 'spelling_patterns') {
+    renderMultipleChoice(area, q, qIdx, level);
+  } else if (level.skill === 'silent_letters') {
+    renderSilentLetter(area, q, qIdx, level);
+  }
+}
+
+// ====== VISUAL MEMORY LEVEL ======
+function renderVisualMemory(area, q, qIdx, level) {
+  const timeSeconds = q.displayTime / 1000;
+  area.innerHTML = `
+    <div class="level-badge pixel-font">${level.icon} ${level.name}</div>
+    <div class="question-card">
+      <h2 class="pixel-font">Word ${qIdx + 1} of ${level.questions.length}</h2>
+      <p class="question-text">Study this word carefully! You'll need to type it from memory.</p>
+      <div class="hint">💡 Look at the SHAPE of the word — notice which letters are tall, short, or hang below the line.</div>
+      <div class="word-display" id="memoryWord">${q.word}</div>
+      <div class="timer-bar"><div class="timer-fill" id="memoryTimer" style="width:100%"></div></div>
+      <p style="text-align:center; color:#aaa; font-size:13px;" id="memoryStatus">Memorise it! ${timeSeconds} seconds...</p>
+    </div>
+  `;
+
+  // Countdown
+  let elapsed = 0;
+  const interval = 50;
+  const timer = setInterval(() => {
+    elapsed += interval;
+    const pct = Math.max(0, 100 - (elapsed / q.displayTime) * 100);
+    document.getElementById('memoryTimer').style.width = pct + '%';
+    if (pct < 30) document.getElementById('memoryTimer').style.background = 'var(--red)';
+  }, interval);
+
+  setTimeout(() => {
+    clearInterval(timer);
+    // Switch to typing phase
+    area.innerHTML = `
+      <div class="level-badge pixel-font">${level.icon} ${level.name}</div>
+      <div class="question-card">
+        <h2 class="pixel-font">Word ${qIdx + 1} of ${level.questions.length}</h2>
+        <p class="question-text">Now type the word you just saw!</p>
+        <div class="word-display hidden-word">????????</div>
+        <input type="text" class="type-input" id="memoryInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
+        <button class="btn-submit" onclick="checkMemoryAnswer('${q.word}')">CHECK ⚔️</button>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    `;
+    document.getElementById('memoryInput').focus();
+    document.getElementById('memoryInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkMemoryAnswer(q.word);
+    });
+  }, q.displayTime);
+}
+
+function checkMemoryAnswer(correctWord) {
+  if (state.answered) return;
+  state.answered = true;
+  const input = document.getElementById('memoryInput').value.trim().toLowerCase();
+  const correct = correctWord.toLowerCase();
+  const isCorrect = input === correct;
+  const fb = document.getElementById('feedback');
+
+  if (isCorrect) {
+    handleCorrect(fb, `That's it! "${correctWord}" — your visual memory is sharp!`);
+  } else {
+    handleWrong(fb, `Not quite! The correct spelling is "<strong>${correctWord}</strong>". You wrote "${input}".`, 'visual_memory', correctWord, input);
+  }
+}
+
+// ====== MULTIPLE CHOICE LEVELS ======
+function renderMultipleChoice(area, q, qIdx, level) {
+  let optionsHTML = '';
+  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+  shuffled.forEach((opt, i) => {
+    optionsHTML += `<button class="btn-option" data-answer="${opt}" onclick="checkMCAnswer(this, '${q.correct}', '${level.skill}')">${opt}</button>`;
+  });
+
+  area.innerHTML = `
+    <div class="level-badge pixel-font">${level.icon} ${level.name}</div>
+    <div class="question-card">
+      <h2 class="pixel-font">Word ${qIdx + 1} of ${level.questions.length}</h2>
+      <p class="question-text">${q.prompt}</p>
+      ${q.tip ? `<div class="hint">💡 ${q.tip}</div>` : ''}
+      ${optionsHTML}
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+}
+
+function checkMCAnswer(btn, correct, skill) {
+  if (state.answered) return;
+  state.answered = true;
+
+  const chosen = btn.dataset.answer;
+  const isCorrect = chosen === correct;
+  const fb = document.getElementById('feedback');
+  const level = levels[state.currentLevel];
+  const q = level.questions[state.currentQuestion];
+
+  document.querySelectorAll('.btn-option').forEach(b => {
+    if (b.dataset.answer === correct) b.classList.add('correct');
+    else if (b === btn && !isCorrect) b.classList.add('wrong');
+    b.style.pointerEvents = 'none';
+  });
+
+  if (isCorrect) {
+    const rule = q.rule ? ` Tip: ${q.rule}` : '';
+    handleCorrect(fb, `Correct! ⚔️${rule}`);
+  } else {
+    const rule = q.rule ? ` Remember: ${q.rule}` : '';
+    handleWrong(fb, `The correct answer is "<strong>${correct}</strong>".${rule}`, skill, correct, chosen);
+  }
+}
+
+// ====== SILENT LETTER LEVEL ======
+function renderSilentLetter(area, q, qIdx, level) {
+  area.innerHTML = `
+    <div class="level-badge pixel-font">${level.icon} ${level.name}</div>
+    <div class="question-card">
+      <h2 class="pixel-font">Word ${qIdx + 1} of ${level.questions.length}</h2>
+      <p class="question-text">${q.prompt}</p>
+      <div class="hint">💡 The underscore shows where a silent letter is hiding!</div>
+      <div class="word-display">${q.display}</div>
+      <input type="text" class="type-input" id="silentInput" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="?" style="max-width:80px; margin:0 auto; display:block;">
+      <button class="btn-submit" onclick="checkSilentAnswer('${q.answer}', '${q.fullWord}')">CHECK ⚔️</button>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+  document.getElementById('silentInput').focus();
+  document.getElementById('silentInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkSilentAnswer(q.answer, q.fullWord);
+  });
+}
+
+function checkSilentAnswer(correct, fullWord) {
+  if (state.answered) return;
+  state.answered = true;
+  const input = document.getElementById('silentInput').value.trim().toLowerCase();
+  const fb = document.getElementById('feedback');
+
+  if (input === correct.toLowerCase()) {
+    handleCorrect(fb, `Yes! The silent letter is "${correct.toUpperCase()}" — the word is "${fullWord}". 🤫`);
+  } else {
+    handleWrong(fb, `The silent letter was "<strong>${correct.toUpperCase()}</strong>" — making the word "<strong>${fullWord}</strong>".`, 'silent_letters', correct, input);
+  }
+}
+
+// ====== ANSWER HANDLING ======
+function handleCorrect(fb, message) {
+  state.score += 10 + (state.streak * 2);
+  state.streak++;
+  if (state.streak > state.maxStreak) state.maxStreak = state.streak;
+  state.totalXP += 10 + (state.streak * 2);
+
+  const level = levels[state.currentLevel];
+  state.results[level.skill].correct++;
+
+  fb.className = 'feedback correct-fb show';
+  fb.innerHTML = `✅ ${message}<br><button class="btn btn-next pixel-font" onclick="nextQuestion()">NEXT →</button>`;
+  showXPPopup(10 + ((state.streak - 1) * 2));
+  updateHUD();
+}
+
+function handleWrong(fb, message, skill, correct, given) {
+  state.streak = 0;
+  state.results[skill].errors.push({ correct, given });
+
+  fb.className = 'feedback wrong-fb show';
+  fb.innerHTML = `❌ ${message}<br><button class="btn btn-next pixel-font" onclick="nextQuestion()">NEXT →</button>`;
+  updateHUD();
+}
+
+function nextQuestion() {
+  const level = levels[state.currentLevel];
+  state.currentQuestion++;
+
+  if (state.currentQuestion >= level.questions.length) {
+    // Next level
+    state.currentLevel++;
+    state.currentQuestion = 0;
+    if (state.currentLevel >= levels.length) {
+      showResults();
+    } else {
+      showLevelTransition(state.currentLevel);
+    }
+  } else {
+    renderQuestion();
+  }
+}
+
+// ====== RESULTS ======
+function showResults() {
+  document.getElementById('hud').style.display = 'none';
+  showScreen('resultsScreen');
+
+  const totalCorrect = Object.values(state.results).reduce((a, r) => a + r.correct, 0);
+  const totalQuestions = Object.values(state.results).reduce((a, r) => a + r.total, 0);
+  const overallPct = Math.round((totalCorrect / totalQuestions) * 100);
+
+  // Build skill bars
+  let skillBarsHTML = '';
+  let strengths = [];
+  let weaknesses = [];
+
+  levels.forEach(level => {
+    const r = state.results[level.skill];
+    const pct = Math.round((r.correct / r.total) * 100);
+    let barClass = pct >= 70 ? 'high' : pct >= 40 ? 'mid' : 'low';
+    if (pct >= 80) strengths.push(level.skillLabel);
+    if (pct <= 40) weaknesses.push(level.skillLabel);
+
+    skillBarsHTML += `
+      <div class="skill-bar-row">
+        <div class="skill-bar-label">
+          <span>${level.icon} ${level.skillLabel}</span>
+          <span>${r.correct}/${r.total} (${pct}%)</span>
+        </div>
+        <div class="skill-bar-track">
+          <div class="skill-bar-fill ${barClass}" style="width:${pct}%"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  // Build diagnosis text
+  let diagnosisHTML = '';
+  if (weaknesses.length > 0) {
+    diagnosisHTML += `<p><span class="weakness">Areas to focus on:</span> ${weaknesses.join(', ')}. These are the dungeon levels where the monsters were toughest — but that just means there's loads of XP to earn by practising!</p>`;
+  }
+  if (strengths.length > 0) {
+    diagnosisHTML += `<p><span class="strength">Superpowers:</span> ${strengths.join(', ')}. These skills are already strong — nice work, champion! 💪</p>`;
+  }
+  if (weaknesses.length === 0 && strengths.length === 0) {
+    diagnosisHTML += `<p>A balanced result across all areas — some room to grow in each skill. Regular practice across all areas will help!</p>`;
+  }
+
+  // Error details for parent
+  let errorDetails = '';
+  levels.forEach(level => {
+    const r = state.results[level.skill];
+    if (r.errors.length > 0) {
+      errorDetails += `<p><strong>${level.icon} ${level.skillLabel}:</strong> `;
+      errorDetails += r.errors.map(e => `wrote "${e.given}" instead of "${e.correct}"`).join('; ');
+      errorDetails += `</p>`;
+    }
+  });
+
+  // Rank
+  let rank, rankEmoji;
+  if (overallPct >= 90) { rank = 'Spelling Legend'; rankEmoji = '👑'; }
+  else if (overallPct >= 70) { rank = 'Word Warrior'; rankEmoji = '⚔️'; }
+  else if (overallPct >= 50) { rank = 'Apprentice Mage'; rankEmoji = '🧙'; }
+  else { rank = 'Brave Explorer'; rankEmoji = '🗺️'; }
+
+  document.getElementById('resultsScreen').innerHTML = `
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="font-size:60px; margin-bottom:12px;">${rankEmoji}</div>
+      <h1 class="pixel-font" style="color:var(--gold); font-size:16px;">QUEST COMPLETE!</h1>
+      <p style="color:#aaa; margin-top:8px;">Final Rank: <strong style="color:var(--gold);">${rank}</strong></p>
+      <p style="color:var(--xp-green); margin-top:4px;">Total XP: ${state.totalXP} &bull; Best Streak: ${state.maxStreak}🔥 &bull; Score: ${totalCorrect}/${totalQuestions}</p>
+    </div>
+
+    <div class="report">
+      <h2 class="pixel-font">📊 Skill Breakdown</h2>
+      ${skillBarsHTML}
+
+      <div class="diagnosis-box">
+        <h3 class="pixel-font">🔍 Diagnostic Report</h3>
+        ${diagnosisHTML}
+      </div>
+
+      <div class="parent-note">
+        <strong>📋 For Dad — Detailed Errors:</strong><br><br>
+        ${errorDetails || '<p>No errors! Perfect score! 🎉</p>'}
+        <br>
+        <strong>💡 What this tells us:</strong><br>
+        <p>• <strong>Visual Memory</strong> (${state.results.visual_memory.correct}/5): How well he can picture a word in his mind and reproduce it. Low scores here suggest visual memory strategies (flashcards, look-cover-write-check) would help most.</p>
+        <p>• <strong>Sound-to-Spelling</strong> (${state.results.phonetic_awareness.correct}/5): Whether he over-relies on phonetic (sound-based) spelling. Low scores suggest working on irregular high-frequency words.</p>
+        <p>• <strong>Letter Ordering</strong> (${state.results.letter_sequencing.correct}/5): Can he spot when letters are in the wrong order? Low scores point to sequencing difficulties — tracing and segmenting exercises help.</p>
+        <p>• <strong>Silent Letters</strong> (${state.results.silent_letters.correct}/5): Awareness of English's quirky silent letters. Low scores are very common and respond well to word-family grouping (kn- words, wr- words, etc.).</p>
+        <p>• <strong>Spelling Patterns</strong> (${state.results.spelling_patterns.correct}/5): Understanding double letters, suffixes, and rules. Low scores suggest explicit rule teaching (mnemonics, word building) would be effective.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <button class="btn btn-start pixel-font" onclick="location.reload()">🔄 PLAY AGAIN</button>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>

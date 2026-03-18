@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a1a2e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Spelling Arena</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;800&display=swap');
+  :root {
+    --green:#4CAF50; --dark-green:#2d7a30; --gold:#FFD700; --xp:#7CFC00;
+    --red:#E74C3C; --purple:#9B59B6; --blue:#3498DB; --orange:#F39C12;
+    --bg:#1a1a2e; --card:#16213e; --text:#e0e0e0; --stone:#888;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  .pf{font-family:'Press Start 2P',cursive;}
+  .stars{position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;overflow:hidden;}
+  .star{position:absolute;width:2px;height:2px;background:white;animation:tw 2s infinite alternate;}
+  @keyframes tw{0%{opacity:.2}100%{opacity:1}}
+
+  .container{max-width:480px;margin:0 auto;padding:16px;padding-bottom:100px;}
+
+  /* ===== HUD ===== */
+  .hud{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(0,0,0,.6);border:2px solid #555;border-radius:8px;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+  .hud-item{text-align:center;}
+  .hud-lbl{font-size:9px;color:#888;margin-bottom:2px;}
+  .hud-val{font-size:13px;font-weight:700;}
+  .hud-val.gold{color:var(--gold)}.hud-val.xp{color:var(--xp)}
+  .xp-track{width:100%;height:12px;background:#333;border:2px solid #555;border-radius:4px;overflow:hidden;margin-top:6px;}
+  .xp-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--xp));transition:width .8s;border-radius:2px;}
+
+  /* ===== SCREENS ===== */
+  .screen{display:none}.screen.active{display:block}
+
+  /* ===== HOME ===== */
+  .home-title{text-align:center;padding:20px 0 10px;}
+  .home-title h1{font-size:18px;color:var(--gold);text-shadow:2px 2px 0 rgba(0,0,0,.5);}
+  .home-title .sub{font-size:11px;color:#aaa;margin-top:6px;}
+  .streak-banner{text-align:center;padding:12px;background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,165,0,.1));border:2px solid var(--gold);border-radius:10px;margin:14px 0;}
+  .streak-banner .num{font-size:28px;color:var(--gold);}
+  .streak-banner .lbl{font-size:11px;color:#ccc;margin-top:2px;}
+
+  .zone-card{background:var(--card);border:3px solid #555;border-radius:12px;padding:18px;margin:12px 0;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;}
+  .zone-card:hover,.zone-card:active{border-color:var(--blue);transform:translateX(4px);}
+  .zone-card .icon{font-size:32px;margin-bottom:8px;}
+  .zone-card h3{font-size:12px;color:var(--gold);margin-bottom:4px;}
+  .zone-card p{font-size:13px;color:#aaa;line-height:1.4;}
+  .zone-card .badge{position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:12px;font-size:10px;font-weight:700;}
+  .badge-focus{background:rgba(231,76,60,.2);color:var(--red);border:1px solid var(--red);}
+  .badge-reinforce{background:rgba(52,152,219,.2);color:var(--blue);border:1px solid var(--blue);}
+  .zone-progress{height:6px;background:#333;border-radius:3px;margin-top:10px;overflow:hidden;}
+  .zone-progress-fill{height:100%;border-radius:3px;transition:width .5s;}
+
+  .stats-row{display:flex;gap:10px;margin:14px 0;}
+  .stat-box{flex:1;background:var(--card);border:2px solid #444;border-radius:8px;padding:12px;text-align:center;}
+  .stat-box .val{font-size:18px;font-weight:800;color:var(--xp);}
+  .stat-box .lbl{font-size:10px;color:#888;margin-top:2px;}
+
+  /* ===== GAME COMMON ===== */
+  .q-card{background:var(--card);border:3px solid #555;border-radius:12px;padding:22px;margin-bottom:14px;}
+  .q-card h2{font-size:11px;color:var(--gold);margin-bottom:4px;}
+  .q-card .q-text{font-size:16px;line-height:1.5;margin-bottom:16px;}
+  .q-card .hint{font-size:12px;color:#aaa;font-style:italic;margin-bottom:14px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:6px;border-left:3px solid var(--purple);}
+
+  .opt-btn{display:block;width:100%;padding:14px 16px;margin:8px 0;background:var(--card);color:var(--text);border:3px solid #666;border-bottom-width:5px;border-radius:8px;font-family:'Inter',sans-serif;font-size:17px;font-weight:600;cursor:pointer;text-align:left;transition:all .15s;letter-spacing:.5px;}
+  .opt-btn:active{transform:scale(.97);}
+  .opt-btn.correct{border-color:var(--green);background:rgba(76,175,80,.2);}
+  .opt-btn.wrong{border-color:var(--red);background:rgba(231,76,60,.2);animation:shake .4s;}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+  .fb{padding:14px;border-radius:8px;margin-top:14px;font-size:13px;line-height:1.5;display:none;}
+  .fb.show{display:block;animation:fadeUp .3s;}
+  .fb.ok{background:rgba(76,175,80,.15);border:2px solid var(--green);}
+  .fb.no{background:rgba(231,76,60,.15);border:2px solid var(--red);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .btn{display:inline-block;padding:12px 22px;font-family:'Press Start 2P',cursive;font-size:11px;border:none;cursor:pointer;border-radius:6px;color:white;}
+  .btn:active{transform:translateY(2px);}
+  .btn-go{background:var(--green);border-bottom:4px solid var(--dark-green);}
+  .btn-next{background:var(--blue);border-bottom:4px solid #2573a3;margin-top:14px;}
+  .btn-home{background:#555;border-bottom:4px solid #333;margin-top:14px;}
+
+  .type-in{width:100%;padding:12px 16px;font-size:18px;font-family:'Inter',sans-serif;font-weight:600;background:#0d1b36;border:3px solid #666;border-radius:8px;color:white;outline:none;letter-spacing:2px;text-align:center;}
+  .type-in:focus{border-color:var(--blue);}
+  .btn-check{background:var(--purple);color:white;border:none;border-bottom:4px solid #7a3f96;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;padding:12px;width:100%;cursor:pointer;margin-top:10px;}
+
+  .word-show{font-size:28px;font-weight:700;text-align:center;padding:24px;background:rgba(0,0,0,.3);border-radius:12px;border:3px solid var(--purple);letter-spacing:5px;margin:14px 0;color:white;}
+  .word-hide{color:transparent;border-color:#555;background:repeating-linear-gradient(45deg,rgba(100,100,100,.08),rgba(100,100,100,.08) 10px,transparent 10px,transparent 20px);}
+  .timer-bar{height:5px;background:#333;border-radius:3px;overflow:hidden;margin:8px 0;}
+  .timer-fill{height:100%;background:var(--gold);border-radius:3px;}
+
+  .dots{display:flex;justify-content:center;gap:5px;margin-bottom:12px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#333;border:2px solid #555;}
+  .dot.done{background:var(--green);border-color:var(--dark-green);}
+  .dot.now{background:var(--gold);border-color:#cca700;animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+
+  .xp-pop{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-family:'Press Start 2P',cursive;font-size:22px;color:var(--xp);text-shadow:2px 2px 0 rgba(0,0,0,.8);pointer-events:none;z-index:100;display:none;}
+  @keyframes xpFly{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}30%{opacity:1;transform:translate(-50%,-70%) scale(1.3)}100%{opacity:0;transform:translate(-50%,-120%) scale(1)}}
+
+  .complete-box{text-align:center;padding:30px 20px;background:var(--card);border:3px solid var(--gold);border-radius:12px;}
+  .complete-box .big-icon{font-size:50px;margin-bottom:12px;}
+  .complete-box h2{font-size:14px;color:var(--gold);margin-bottom:8px;}
+  .complete-box .score-line{font-size:13px;color:var(--xp);margin-bottom:6px;}
+  .complete-box .msg{font-size:13px;color:#aaa;line-height:1.6;margin:12px 0;}
+
+  .level-up{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);display:none;justify-content:center;align-items:center;z-index:200;flex-direction:column;text-align:center;padding:20px;}
+  .level-up.show{display:flex;animation:fadeUp .5s;}
+  .level-up .big{font-size:50px;margin-bottom:12px;}
+  .level-up h2{font-size:14px;color:var(--gold);margin-bottom:8px;}
+  .level-up p{color:#ccc;font-size:13px;margin-bottom:16px;max-width:320px;}
+
+  /* Match pairs */
+  .pairs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+  .pair-card{padding:14px 10px;background:#0d1b36;border:3px solid #555;border-radius:8px;text-align:center;font-size:16px;font-weight:600;cursor:pointer;transition:all .15s;min-height:52px;display:flex;align-items:center;justify-content:center;}
+  .pair-card:active{transform:scale(.95);}
+  .pair-card.selected{border-color:var(--blue);background:rgba(52,152,219,.2);}
+  .pair-card.matched{border-color:var(--green);background:rgba(76,175,80,.2);pointer-events:none;}
+  .pair-card.miss{border-color:var(--red);background:rgba(231,76,60,.2);}
+
+  /* Fill the gap */
+  .gap-word{font-size:24px;font-weight:700;text-align:center;padding:20px;letter-spacing:3px;margin:14px 0;}
+  .gap-word .blank{display:inline-block;min-width:30px;border-bottom:3px solid var(--gold);margin:0 2px;color:var(--gold);}
+
+  /* Mnemonic display */
+  .mnemonic{padding:12px;background:rgba(255,215,0,.1);border:2px solid var(--gold);border-radius:8px;margin-top:10px;font-size:13px;color:var(--gold);text-align:center;line-height:1.5;}
+  .mnemonic strong{color:white;}
+
+  @media(max-width:400px){
+    .home-title h1{font-size:15px;}
+    .zone-card h3{font-size:11px;}
+    .word-show{font-size:22px;padding:18px;}
+    .opt-btn{font-size:15px;padding:12px;}
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="xp-pop" id="xpPop"></div>
+<div class="level-up" id="levelUp">
+  <div class="big" id="luIcon"></div>
+  <h2 class="pf" id="luTitle"></h2>
+  <p id="luDesc"></p>
+  <button class="btn btn-go" onclick="closeLevelUp()">LET'S GO</button>
+</div>
+
+<div class="container">
+
+<!-- ===== HOME SCREEN ===== -->
+<div class="screen active" id="homeScreen">
+  <div class="home-title">
+    <h1 class="pf">⚔️ SPELLING ARENA</h1>
+    <p class="sub">Ben's Daily Training Hub</p>
+  </div>
+
+  <div class="streak-banner">
+    <div class="num pf" id="homeStreak">0</div>
+    <div class="lbl">Day Streak 🔥</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="val pf" id="homeTotalXP">0</div>
+      <div class="lbl">Total XP</div>
+    </div>
+    <div class="stat-box">
+      <div class="val pf" id="homeWordsLearned">0</div>
+      <div class="lbl">Words Mastered</div>
+    </div>
+    <div class="stat-box">
+      <div class="val pf" id="homeBestStreak">0</div>
+      <div class="lbl">Best Run 🔥</div>
+    </div>
+  </div>
+
+  <div class="zone-card" onclick="startZone('silent')">
+    <span class="badge badge-focus">PRIORITY</span>
+    <div class="icon">🤫</div>
+    <h3 class="pf">The Silent Crypt</h3>
+    <p>Master the sneaky silent letters — kn, wr, bt, tle and more. Your #1 area to level up!</p>
+    <div class="zone-progress"><div class="zone-progress-fill" id="progSilent" style="width:0%;background:var(--red);"></div></div>
+  </div>
+
+  <div class="zone-card" onclick="startZone('patterns')">
+    <span class="badge badge-focus">PRIORITY</span>
+    <div class="icon">🐉</div>
+    <h3 class="pf">Pattern Dungeon</h3>
+    <p>Double letters, tricky endings, and spelling rules. Defeat the Ender Dragon of spelling!</p>
+    <div class="zone-progress"><div class="zone-progress-fill" id="progPatterns" style="width:0%;background:var(--red);"></div></div>
+  </div>
+
+  <div class="zone-card" onclick="startZone('ierie')">
+    <span class="badge badge-reinforce">REINFORCE</span>
+    <div class="icon">🔀</div>
+    <h3 class="pf">The ie/ei Forge</h3>
+    <p>i before e, except after c... or is it? Master the most confusing rule in English!</p>
+    <div class="zone-progress"><div class="zone-progress-fill" id="progIeei" style="width:0%;background:var(--blue);"></div></div>
+  </div>
+
+  <div class="zone-card" onclick="startZone('review')">
+    <div class="icon">📝</div>
+    <h3 class="pf">Review Arena</h3>
+    <p>Practice words you've gotten wrong before. They keep coming back until you've nailed them!</p>
+    <div class="zone-progress"><div class="zone-progress-fill" id="progReview" style="width:0%;background:var(--gold);"></div></div>
+  </div>
+
+  <p style="text-align:center;font-size:11px;color:#555;margin-top:20px;" id="lastPlayed"></p>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div class="screen" id="gameScreen">
+  <div class="hud" id="hud">
+    <div class="hud-item"><div class="hud-lbl">ZONE</div><div class="hud-val gold pf" id="hudZone" style="font-size:10px;">-</div></div>
+    <div class="hud-item"><div class="hud-lbl">SCORE</div><div class="hud-val xp pf" id="hudScore">0</div></div>
+    <div class="hud-item"><div class="hud-lbl">STREAK</div><div class="hud-val pf" id="hudStreak">0🔥</div></div>
+    <div style="width:100%"><div class="xp-track"><div class="xp-fill" id="xpBar" style="width:0%"></div></div></div>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div id="questionArea"></div>
+</div>
+
+<!-- ===== COMPLETE SCREEN ===== -->
+<div class="screen" id="completeScreen"></div>
+
+</div>
+
+<script>
+// ========== WORD BANKS ==========
+const ZONES = {
+  silent: {
+    name: "Silent Crypt",
+    icon: "🤫",
+    rounds: [
+      // Round type: 'gap' = fill the silent letter, 'mc' = multiple choice, 'memory' = see then type
+      { type:'gap', word:'knife', display:'_nife', answer:'k', hint:'A silent K at the start!', mnemonic:'The K-night uses a K-nife', family:'kn' },
+      { type:'gap', word:'knight', display:'_night', answer:'k', hint:'Medieval warrior with a silent start.', mnemonic:'K-night with a K-nife in the K-nee', family:'kn' },
+      { type:'gap', word:'knock', display:'_nock', answer:'k', hint:'What you do at a door...', mnemonic:'K-nock K-nock! Who\'s there? K!', family:'kn' },
+      { type:'gap', word:'know', display:'_now', answer:'k', hint:'To have knowledge of something.', mnemonic:'You K-now with your K-nowledge', family:'kn' },
+      { type:'mc', prompt:'Which is correct?', correct:'write', options:['rite','write','writ','wryte'], hint:'Pen to paper!', mnemonic:'W-rite with your W-rist', family:'wr' },
+      { type:'mc', prompt:'Which is correct?', correct:'wrong', options:['rong','wrong','wrang','wronge'], hint:'The opposite of right.', mnemonic:'W-rong is W-ritten W-eirdly', family:'wr' },
+      { type:'gap', word:'wrist', display:'_rist', answer:'w', hint:'Where you wear a watch.', mnemonic:'W-rite with your W-rist', family:'wr' },
+      { type:'gap', word:'doubt', display:'dou_t', answer:'b', hint:'When you\'re not sure about something.', mnemonic:'Don\'t douBt the silent B', family:'bt' },
+      { type:'gap', word:'debt', display:'de_t', answer:'b', hint:'Money you owe someone.', mnemonic:'You\'re in deBt to the letter B', family:'bt' },
+      { type:'mc', prompt:'Which is correct?', correct:'castle', options:['casle','cassle','castle','castel'], hint:'Where a king lives.', mnemonic:'The T is silent — casTle', family:'stl' },
+      { type:'mc', prompt:'Which is correct?', correct:'listen', options:['lisen','listen','listan','lissten'], hint:'Use your ears!', mnemonic:'LisTen — the T hides in the middle', family:'stl' },
+      { type:'gap', word:'whistle', display:'whi_tle', answer:'s', hint:'Blow to make a sound!', mnemonic:'WhiSTle has a silent S hiding', family:'stl' },
+      { type:'memory', word:'gnaw', time:2500, hint:'What a dog does to a bone.', mnemonic:'G-naw and G-nat start with silent G', family:'gn' },
+      { type:'memory', word:'gnat', time:2500, hint:'A tiny annoying flying insect.', mnemonic:'G-nat is a G-nuisance!', family:'gn' },
+      { type:'mc', prompt:'Which is correct?', correct:'scissors', options:['scisors','sissors','scissors','scizzors'], hint:'You cut paper with these.', mnemonic:'SCI-SS-ORS — the C is silent!', family:'sc' },
+    ]
+  },
+  patterns: {
+    name: "Pattern Dungeon",
+    icon: "🐉",
+    rounds: [
+      { type:'mc', prompt:'Double letters: pick the right one!', correct:'necessary', options:['neccessary','necessary','neccesary','necesary'], rule:'1 Collar, 2 Socks: ne-C-e-SS-ary', category:'double' },
+      { type:'mc', prompt:'Double letters!', correct:'accommodation', options:['accomodation','accommodation','acomodation','acommodation'], rule:'2 Cots, 2 Mattresses: a-CC-o-MM-odation', category:'double' },
+      { type:'mc', prompt:'Double letters!', correct:'occurrence', options:['occurence','occurance','occurrence','ocurrence'], rule:'2 Cats, 2 Rats: o-CC-u-RR-ence', category:'double' },
+      { type:'mc', prompt:'Double letters!', correct:'embarrass', options:['embarass','embarrass','embarras','embaras'], rule:'2 Red cheeks, 2 Shy smiles: e-RR-a-SS', category:'double' },
+      { type:'mc', prompt:'Double letters!', correct:'broccoli', options:['brocoli','brocolli','broccoli','broccolli'], rule:'2 C\'s, 1 L: bro-CC-oli', category:'double' },
+      { type:'mc', prompt:'Tricky ending! Which is right?', correct:'definitely', options:['definately','definatly','definitely','definitly'], rule:'de-FINITE-ly — "finite" hides inside!', category:'ending' },
+      { type:'mc', prompt:'Tricky ending!', correct:'separately', options:['seperately','separatly','separately','seperatley'], rule:'There\'s A RAT in sepARATely!', category:'ending' },
+      { type:'mc', prompt:'Tricky ending!', correct:'desperate', options:['desparate','desprate','desperate','despirate'], rule:'Don\'t be desPERate — PER in the middle!', category:'ending' },
+      { type:'memory', word:'beginning', time:3000, rule:'1 B, 2 N\'s: be-G-INN-ING', category:'double' },
+      { type:'memory', word:'disappear', time:3000, rule:'1 S, 2 P\'s: dis-A-PP-ear', category:'double' },
+      { type:'memory', word:'disappoint', time:3000, rule:'1 S, 2 P\'s: dis-A-PP-oint', category:'double' },
+      { type:'mc', prompt:'Which ending?', correct:'temperature', options:['temprature','temperture','temperature','temperatur'], rule:'TEMPER-A-TURE — say all 4 syllables!', category:'ending' },
+      { type:'mc', prompt:'Which is right?', correct:'government', options:['goverment','government','govenment','govermnent'], rule:'GOVERN-MENT — there\'s an N before the M!', category:'ending' },
+      { type:'memory', word:'conscience', time:3500, rule:'CON-SCI-ENCE — science with CON!', category:'ending' },
+      { type:'mc', prompt:'Which is correct?', correct:'environment', options:['enviroment','environment','enviorment','envirnoment'], rule:'ENVIRON-MENT — iron is hiding in there!', category:'ending' },
+    ]
+  },
+  ierie: {
+    name: "ie/ei Forge",
+    icon: "🔀",
+    rounds: [
+      { type:'mc', prompt:'i before e, or e before i?', correct:'receive', options:['recieve','receive'], hint:'After C, it\'s E before I', rule:'re-CEI-ve: after C → EI' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'believe', options:['beleive','believe'], hint:'No C here — so standard rule applies!', rule:'be-LIE-ve: no C → IE' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'achieve', options:['acheive','achieve'], hint:'Think about the rule...', rule:'a-CHIE-ve: no C → IE' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'ceiling', options:['cieling','ceiling'], hint:'Look up! After C...', rule:'CEI-ling: after C → EI' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'receipt', options:['reciept','receipt'], hint:'What you get after buying something.', rule:'re-CEI-pt: after C → EI' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'friend', options:['freind','friend'], hint:'Your best mate!', rule:'fr-IE-nd: no C → IE. FRI-END = I am your friend to the END' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'piece', options:['peice','piece'], hint:'A slice of pie!', rule:'p-IE-ce: a PIE-ce of PIE' },
+      { type:'mc', prompt:'EXCEPTION! Which is right?', correct:'weird', options:['wierd','weird'], hint:'This word IS weird — it breaks the rule!', rule:'W-EI-RD is weird — it breaks the ie/ei rule!' },
+      { type:'mc', prompt:'EXCEPTION! Which is right?', correct:'their', options:['thier','their'], hint:'Belonging to them.', rule:'TH-EI-R is an exception — just memorise it!' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'thief', options:['theif','thief'], hint:'Someone who steals...', rule:'th-IE-f: no C → IE' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'deceive', options:['decieve','deceive'], hint:'To trick someone. After C...', rule:'de-CEI-ve: after C → EI' },
+      { type:'mc', prompt:'i before e, or e before i?', correct:'field', options:['feild','field'], hint:'Where you play football!', rule:'f-IE-ld: no C → IE' },
+    ]
+  }
+};
+
+// ========== PERSISTENCE ==========
+function loadData() {
+  try {
+    return JSON.parse(localStorage.getItem('spellingArena') || 'null') || defaultData();
+  } catch(e) { return defaultData(); }
+}
+function defaultData() {
+  return {
+    totalXP: 0, dayStreak: 0, bestRun: 0, wordsCorrect: {},
+    wrongWords: [], lastDate: null,
+    zoneProgress: { silent:0, patterns:0, ierie:0 }
+  };
+}
+function saveData() { try { localStorage.setItem('spellingArena', JSON.stringify(data)); } catch(e){} }
+
+let data = loadData();
+
+// ========== GAME STATE ==========
+let gs = { zone:null, rounds:[], idx:0, score:0, streak:0, correct:0, total:0, answered:false, sessionWrong:[] };
+
+// ========== STARS ==========
+(function(){const c=document.getElementById('stars');for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*60+'%';s.style.animationDelay=Math.random()*2+'s';c.appendChild(s);}})();
+
+// ========== UI HELPERS ==========
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function xpPop(n){ const el=document.getElementById('xpPop');el.textContent='+'+n+' XP';el.style.display='block';el.style.animation='none';el.offsetHeight;el.style.animation='xpFly 1.2s ease-out forwards';setTimeout(()=>el.style.display='none',1200); }
+
+// ========== HOME ==========
+function updateHome() {
+  // Streak check
+  const today = new Date().toDateString();
+  if (data.lastDate) {
+    const last = new Date(data.lastDate);
+    const diff = Math.floor((new Date(today) - last) / 86400000);
+    if (diff > 1) data.dayStreak = 0;
+  }
+  document.getElementById('homeStreak').textContent = data.dayStreak;
+  document.getElementById('homeTotalXP').textContent = data.totalXP;
+  document.getElementById('homeBestStreak').textContent = data.bestRun;
+  const mastered = Object.values(data.wordsCorrect).filter(v => v >= 3).length;
+  document.getElementById('homeWordsLearned').textContent = mastered;
+
+  // Zone progress bars
+  const silentTotal = ZONES.silent.rounds.length;
+  const patternsTotal = ZONES.patterns.rounds.length;
+  const ieTotal = ZONES.ierie.rounds.length;
+  const silentMastered = ZONES.silent.rounds.filter(r => (data.wordsCorrect[r.word||r.correct]||0) >= 3).length;
+  const patternsMastered = ZONES.patterns.rounds.filter(r => (data.wordsCorrect[r.word||r.correct]||0) >= 3).length;
+  const ieMastered = ZONES.ierie.rounds.filter(r => (data.wordsCorrect[r.word||r.correct]||0) >= 3).length;
+
+  setProgress('progSilent', silentMastered/silentTotal*100, silentMastered/silentTotal);
+  setProgress('progPatterns', patternsMastered/patternsTotal*100, patternsMastered/patternsTotal);
+  setProgress('progIeei', ieMastered/ieTotal*100, ieMastered/ieTotal);
+
+  const reviewCount = data.wrongWords.length;
+  document.getElementById('progReview').style.width = reviewCount > 0 ? '100%' : '0%';
+  document.getElementById('progReview').style.background = reviewCount > 0 ? 'var(--gold)' : '#333';
+
+  if (data.lastDate) {
+    document.getElementById('lastPlayed').textContent = 'Last played: ' + data.lastDate;
+  }
+
+  saveData();
+}
+
+function setProgress(id, pct, ratio) {
+  const el = document.getElementById(id);
+  el.style.width = Math.min(100, pct) + '%';
+  el.style.background = ratio >= 0.7 ? 'var(--green)' : ratio >= 0.4 ? 'var(--gold)' : 'var(--red)';
+}
+
+// ========== START ZONE ==========
+function startZone(zone) {
+  gs.zone = zone;
+  gs.score = 0;
+  gs.streak = 0;
+  gs.correct = 0;
+  gs.answered = false;
+  gs.sessionWrong = [];
+
+  if (zone === 'review') {
+    if (data.wrongWords.length === 0) {
+      alert("No words to review yet! Play other zones first.");
+      return;
+    }
+    // Build review rounds from wrong words
+    gs.rounds = data.wrongWords.slice(0, 10).map(w => {
+      // Find the word in any zone
+      for (const z of Object.values(ZONES)) {
+        const found = z.rounds.find(r => (r.word||r.correct) === w);
+        if (found) return {...found};
+      }
+      return { type:'memory', word:w, time:3000 };
+    });
+  } else {
+    // Pick 8 rounds: prioritise words not yet mastered
+    const all = [...ZONES[zone].rounds];
+    const unmastered = all.filter(r => (data.wordsCorrect[r.word||r.correct]||0) < 3);
+    const mastered = all.filter(r => (data.wordsCorrect[r.word||r.correct]||0) >= 3);
+    // Shuffle both
+    shuffle(unmastered); shuffle(mastered);
+    gs.rounds = [...unmastered.slice(0,8)];
+    if (gs.rounds.length < 8) gs.rounds.push(...mastered.slice(0, 8 - gs.rounds.length));
+    if (gs.rounds.length < 5) gs.rounds = shuffle([...all]).slice(0,8); // fallback
+  }
+
+  gs.total = gs.rounds.length;
+  gs.idx = 0;
+
+  const info = zone === 'review' ? {icon:'📝',name:'Review Arena',desc:'Words you got wrong are back for revenge! Beat them this time!'} : ZONES[zone];
+  document.getElementById('luIcon').textContent = info.icon;
+  document.getElementById('luTitle').textContent = info.name;
+  document.getElementById('luDesc').textContent = info.desc || '';
+  document.getElementById('levelUp').classList.add('show');
+}
+
+function closeLevelUp() {
+  document.getElementById('levelUp').classList.remove('show');
+  show('gameScreen');
+  renderRound();
+}
+
+function shuffle(arr) { for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+
+// ========== RENDER ==========
+function renderRound() {
+  const r = gs.rounds[gs.idx];
+  const area = document.getElementById('questionArea');
+  gs.answered = false;
+
+  // HUD
+  const zoneNames = {silent:'SILENT',patterns:'PATTERNS',ierie:'IE/EI',review:'REVIEW'};
+  document.getElementById('hudZone').textContent = zoneNames[gs.zone]||'';
+  document.getElementById('hudScore').textContent = gs.score;
+  document.getElementById('hudStreak').textContent = gs.streak+'🔥';
+  document.getElementById('xpBar').style.width = (gs.idx/gs.total*100)+'%';
+
+  // Dots
+  let dotsH='';
+  for(let i=0;i<gs.total;i++){
+    dotsH += i<gs.idx?'<div class="dot done"></div>':i===gs.idx?'<div class="dot now"></div>':'<div class="dot"></div>';
+  }
+  document.getElementById('dots').innerHTML = dotsH;
+
+  if (r.type === 'mc') renderMC(area, r);
+  else if (r.type === 'gap') renderGap(area, r);
+  else if (r.type === 'memory') renderMemory(area, r);
+}
+
+function renderMC(area, r) {
+  const opts = shuffle([...r.options]);
+  let html = `<div class="q-card">
+    <h2 class="pf">Word ${gs.idx+1} of ${gs.total}</h2>
+    <p class="q-text">${r.prompt}</p>
+    ${r.hint?`<div class="hint">💡 ${r.hint}</div>`:''}`;
+  opts.forEach(o => {
+    html += `<button class="opt-btn" data-ans="${o}" onclick="checkMC(this,'${escapeStr(r.correct||r.word)}')">${o}</button>`;
+  });
+  html += `<div class="fb" id="fb"></div></div>`;
+  area.innerHTML = html;
+}
+
+function renderGap(area, r) {
+  area.innerHTML = `<div class="q-card">
+    <h2 class="pf">Word ${gs.idx+1} of ${gs.total}</h2>
+    <p class="q-text">${r.hint||'Type the missing silent letter!'}</p>
+    <div class="gap-word">${r.display.replace('_','<span class="blank">?</span>')}</div>
+    <input type="text" class="type-in" id="gapIn" maxlength="2" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="?" style="max-width:80px;margin:0 auto;display:block;">
+    <button class="btn-check" onclick="checkGap('${r.answer}','${escapeStr(r.word)}')">CHECK ⚔️</button>
+    <div class="fb" id="fb"></div>
+  </div>`;
+  document.getElementById('gapIn').focus();
+  document.getElementById('gapIn').addEventListener('keydown',e=>{if(e.key==='Enter')checkGap(r.answer,r.word);});
+}
+
+function renderMemory(area, r) {
+  const secs = (r.time||3000)/1000;
+  area.innerHTML = `<div class="q-card">
+    <h2 class="pf">Word ${gs.idx+1} of ${gs.total}</h2>
+    <p class="q-text">Study this word carefully, then spell it!</p>
+    ${r.hint?`<div class="hint">💡 ${r.hint}</div>`:''}
+    <div class="word-show" id="memWord">${r.word}</div>
+    <div class="timer-bar"><div class="timer-fill" id="memTimer" style="width:100%"></div></div>
+    <p style="text-align:center;color:#aaa;font-size:12px;" id="memStatus">${secs}s — memorise it!</p>
+  </div>`;
+
+  let elapsed = 0;
+  const interval = 50;
+  const total = r.time||3000;
+  const timer = setInterval(()=>{
+    elapsed+=interval;
+    const pct = Math.max(0,100-(elapsed/total)*100);
+    const tf = document.getElementById('memTimer');
+    if(tf) tf.style.width=pct+'%';
+    if(pct<30 && tf) tf.style.background='var(--red)';
+  },interval);
+
+  setTimeout(()=>{
+    clearInterval(timer);
+    area.innerHTML = `<div class="q-card">
+      <h2 class="pf">Word ${gs.idx+1} of ${gs.total}</h2>
+      <p class="q-text">Now type the word!</p>
+      <div class="word-show word-hide">????</div>
+      <input type="text" class="type-in" id="memIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
+      <button class="btn-check" onclick="checkMemory('${escapeStr(r.word)}')">CHECK ⚔️</button>
+      <div class="fb" id="fb"></div>
+    </div>`;
+    document.getElementById('memIn').focus();
+    document.getElementById('memIn').addEventListener('keydown',e=>{if(e.key==='Enter')checkMemory(r.word);});
+  }, total);
+}
+
+function escapeStr(s){return s.replace(/'/g,"\\'");}
+
+// ========== CHECK ANSWERS ==========
+function checkMC(btn, correct) {
+  if(gs.answered)return;
+  gs.answered=true;
+  const chosen = btn.dataset.ans;
+  const ok = chosen === correct;
+  document.querySelectorAll('.opt-btn').forEach(b=>{
+    if(b.dataset.ans===correct)b.classList.add('correct');
+    else if(b===btn&&!ok)b.classList.add('wrong');
+    b.style.pointerEvents='none';
+  });
+  const r = gs.rounds[gs.idx];
+  resolve(ok, correct, r);
+}
+
+function checkGap(answer, word) {
+  if(gs.answered)return;
+  gs.answered=true;
+  const input = document.getElementById('gapIn').value.trim().toLowerCase();
+  const ok = input === answer.toLowerCase();
+  const r = gs.rounds[gs.idx];
+  resolve(ok, word, r);
+}
+
+function checkMemory(word) {
+  if(gs.answered)return;
+  gs.answered=true;
+  const input = document.getElementById('memIn').value.trim().toLowerCase();
+  const ok = input === word.toLowerCase();
+  const r = gs.rounds[gs.idx];
+  resolve(ok, word, r);
+}
+
+function resolve(ok, word, r) {
+  const fb = document.getElementById('fb');
+  const ruleOrMnemonic = r.mnemonic || r.rule || '';
+  const mnemonicHTML = ruleOrMnemonic ? `<div class="mnemonic">💡 <strong>Remember:</strong> ${ruleOrMnemonic}</div>` : '';
+
+  if (ok) {
+    gs.streak++;
+    if(gs.streak > data.bestRun) data.bestRun = gs.streak;
+    const pts = 10 + gs.streak * 2;
+    gs.score += pts;
+    gs.correct++;
+    data.totalXP += pts;
+    data.wordsCorrect[word] = (data.wordsCorrect[word]||0) + 1;
+    // Remove from wrong words if mastered
+    if ((data.wordsCorrect[word]||0) >= 3) {
+      data.wrongWords = data.wrongWords.filter(w => w !== word);
+    }
+    fb.className='fb ok show';
+    fb.innerHTML=`✅ Correct! ${mnemonicHTML}<button class="btn btn-next" onclick="nextRound()">NEXT →</button>`;
+    xpPop(pts);
+  } else {
+    gs.streak = 0;
+    gs.sessionWrong.push(word);
+    if (!data.wrongWords.includes(word)) data.wrongWords.push(word);
+    fb.className='fb no show';
+    fb.innerHTML=`❌ The answer is "<strong>${word}</strong>". ${mnemonicHTML}<button class="btn btn-next" onclick="nextRound()">NEXT →</button>`;
+  }
+
+  document.getElementById('hudScore').textContent = gs.score;
+  document.getElementById('hudStreak').textContent = gs.streak+'🔥';
+  saveData();
+}
+
+function nextRound() {
+  gs.idx++;
+  if (gs.idx >= gs.total) {
+    finishZone();
+  } else {
+    renderRound();
+  }
+}
+
+// ========== FINISH ==========
+function finishZone() {
+  // Update streak
+  const today = new Date().toDateString();
+  if (data.lastDate !== today) {
+    if (data.lastDate) {
+      const last = new Date(data.lastDate);
+      const diff = Math.floor((new Date(today) - last) / 86400000);
+      data.dayStreak = diff <= 1 ? data.dayStreak + 1 : 1;
+    } else {
+      data.dayStreak = 1;
+    }
+    data.lastDate = today;
+  }
+  saveData();
+
+  const pct = Math.round(gs.correct / gs.total * 100);
+  let rank, emoji;
+  if(pct>=90){rank='Legendary';emoji='👑';}
+  else if(pct>=70){rank='Epic';emoji='⚔️';}
+  else if(pct>=50){rank='Solid';emoji='🛡️';}
+  else{rank='Keep Training!';emoji='💪';}
+
+  const wrongHTML = gs.sessionWrong.length > 0
+    ? `<p style="color:var(--red);font-size:12px;margin-top:10px;">Words to keep practising: ${gs.sessionWrong.join(', ')}</p>`
+    : `<p style="color:var(--green);font-size:12px;margin-top:10px;">Perfect run! No mistakes! 🎉</p>`;
+
+  show('completeScreen');
+  document.getElementById('completeScreen').innerHTML = `
+    <div class="complete-box">
+      <div class="big-icon">${emoji}</div>
+      <h2 class="pf">ZONE COMPLETE!</h2>
+      <div class="score-line">${gs.correct}/${gs.total} correct &bull; ${gs.score} XP earned &bull; Best streak: ${gs.streak}🔥</div>
+      <p class="msg">Rating: <strong style="color:var(--gold)">${rank}</strong></p>
+      ${wrongHTML}
+      <button class="btn btn-go" onclick="show('homeScreen');updateHome();" style="margin-top:16px;">🏠 HOME</button>
+      <button class="btn btn-next" onclick="startZone('${gs.zone}')">🔄 PLAY AGAIN</button>
+    </div>
+  `;
+}
+
+// ========== INIT ==========
+updateHome();
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
