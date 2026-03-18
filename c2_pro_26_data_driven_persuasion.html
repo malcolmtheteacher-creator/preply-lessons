@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data-Driven Persuasion</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Data-Driven Persuasion</h1>
+            <p>C2 Level · Strategic Communication</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Numbers That Speak</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Data Language</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">The Presentation</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Analysis</button>
+        </div>
+
+        <!-- Tab 1: Numbers That Speak -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>How Data Persuades & Misleads</h2>
+                <p>Data possesses extraordinary persuasive power. A statistic feels objective, scientific, authoritative. "Studies show" triggers deference to expertise. Numerical claims create false precision: "87% of customers prefer our product" feels more credible than "most customers prefer our product," even though both are vague claims supported by selective samples.</p>
+
+                <p>Yet data is frequently manipulated—not through intentional lying but through selective presentation, cherry-picking favorable metrics, and obscuring uncertainty. A company might highlight "45% revenue growth" (impressive number) while hiding that costs grew 60% (reducing profit). A politician might cite "unemployment down 2%!" while omitting that labor force participation fell (fewer people looking for work). A pharmaceutical company might emphasize that a drug "reduced symptoms in 60% of patients" while downplaying that the control group (placebo) showed symptom improvement in 55%—a clinically insignificant difference.</p>
+
+                <h3>Cherry-Picking: The Selection Problem</h3>
+                <p>The most insidious data manipulation is choosing which data to present. If I have five data points and three support my position while two contradict it, I can present only the supportive three and claim to be "data-driven." The listener hears three supporting points and intuitively trusts the conclusion, unaware that contradictory data exists. This is technically honest (the presented data is true) but fundamentally misleading (the full picture contradicts the conclusion).</p>
+
+                <h3>Correlation vs. Causation: The Reasoning Problem</h3>
+                <p>Ice cream consumption correlates with drowning deaths (both increase in summer). This doesn't mean ice cream causes drowning; both correlate with warm weather, the actual cause. Yet correlated data frequently drives false causal conclusions. "Students who attend tutoring improve their grades" might suggest tutoring causes improvement. Alternatively, motivated students self-select into tutoring, and their motivation (not tutoring) drives improvement. Distinguishing correlation from causation requires either experimental design (randomized controlled trials where tutoring is assigned, not chosen) or rigorous statistical control (accounting for confounding variables). Without this rigor, correlation claims deserve skepticism.</p>
+
+                <h3>Statistical Significance: The P-Value Problem</h3>
+                <p>Statistical significance measures whether an observed effect is likely due to chance rather than real differences. A p-value of 0.05 means there's a 5% probability the observed effect occurred by random chance. However, this is misunderstood constantly. A "statistically significant" finding is not necessarily practically significant (a 0.5% improvement in test scores might be statistically significant but meaningless practically). Additionally, if enough statistical tests are performed, some will achieve p-value < 0.05 by chance alone, a problem called "p-hacking" or "HARKing" (Hypothesizing After Results are Known). Sophisticated data manipulation involves running many analyses, publishing the "successful" ones, and ignoring the failures—creating false impressions of effect reliability.</p>
+
+                <h3>The Uncertainty Problem</h3>
+                <p>All data contains uncertainty. A survey reporting "45% prefer option A" should include margins of error: "45% ± 3%," indicating true preference is likely 42-48%. Yet persuasive communication often strips uncertainty from claims: "Our product lasts 50% longer" (without margin of error, confidence intervals, or sample sizes). Rigorous data communication always includes uncertainty estimates; simplified communication often omits them to increase persuasive impact.</p>
+            </div>
+        </div>
+
+        <!-- Tab 2: Data Language -->
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Essential Data Vocabulary</h2>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Correlation</span>
+                        <span class="definition">Relationship between two variables where one tends to change with the other; does not imply causation.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Causation</span>
+                        <span class="definition">Relationship where one variable directly causes changes in another; requires more rigorous evidence than correlation.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Statistical Significance</span>
+                        <span class="definition">Measure of whether observed differences are likely real (not due to chance); typically defined as p-value < 0.05.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Benchmark</span>
+                        <span class="definition">Reference standard for comparison; e.g., comparing your product performance to competitors' products establishes relative positioning.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Outlier</span>
+                        <span class="definition">Data point that differs dramatically from others; can distort averages and mislead conclusions if not properly handled.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Bias</span>
+                        <span class="definition">Systematic error in data collection or analysis that distorts conclusions; e.g., surveying only satisfied customers introduces positive bias.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Longitudinal</span>
+                        <span class="definition">Data collected over extended time periods, tracking changes in same subjects; stronger for causal inference than cross-sectional data.</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Extrapolation</span>
+                        <span class="definition">Extending data conclusions beyond observed range; risky because patterns may not hold beyond the original data.</span>
+                    </div>
+                </div>
+
+                <h3>Data Visualization & Storytelling</h3>
+                <div class="reading-passage">
+                    <p><strong>Visualization Principles</strong></p>
+                    <p>Data visualization translates numbers into visual form—charts, graphs, maps. Effective visualization enables rapid comprehension; poor visualization obscures insight or misleads. A line chart showing sales growth is more persuasive than a table of numbers. However, visualization choices create manipulation opportunities. A chart axis starting at 1.5M instead of 0 exaggerates small differences into apparent cliffs. A pie chart with one slice exploded forward suggests importance. Color choices (red = danger, green = success) prime emotional reactions. Effective communicators use visualization to clarify; manipulative communicators use visualization to mislead.</p>
+
+                    <p><strong>Data Storytelling</strong></p>
+                    <p>Raw data doesn't persuade; stories do. "Our conversion rate improved from 2.1% to 3.7%"—data alone. "Our conversion rate improved from 2.1% to 3.7%, representing 76% growth. At our current traffic volume, this converts 500,000 additional customers annually, generating $50M in incremental revenue"—story with impact. Effective data storytelling: (1) starts with a question or observation ("Why is our sales growth slowing?"), (2) presents data that addresses the question ("We analyzed 50,000 customer interactions and found..."), (3) draws conclusions ("This suggests three changes..."), and (4) proposes action ("We recommend..."). This narrative structure is far more persuasive than raw data presentation.</p>
+
+                    <p><strong>Intellectual Honesty in Data Communication</strong></p>
+                    <p>The most sophisticated data communicators acknowledge limitations. "We found correlation between training programs and employee retention. However, causation is uncertain because motivated employees may self-select into training. These results are suggestive, not conclusive." This transparency builds credibility far more than overconfident claims. Listeners recognize that perfect certainty is impossible; acknowledging uncertainty signals honesty and sophistication. Conversely, unqualified claims ("training increases retention 40%") without caveats trigger skepticism among sophisticated audiences.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: The Presentation -->
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Task: Present Data-Driven Market Expansion Argument</h2>
+                <div class="timer">
+                    <span id="timer-display">10:00</span>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <h3>Scenario</h3>
+                <p>You are the Chief Strategy Officer presenting a recommendation to expand into a new geographic market—Southeast Asia—to the executive team and board. Expansion requires $100M capital investment, 18-month setup timeline, and could increase company revenue 20-30% if successful. However, expansion risk is significant: new regulatory environment, unfamiliar competition, supply chain complexity, cultural adaptation challenges. You must present data-driven evidence that expansion makes strategic and financial sense, while acknowledging risks and uncertainties.</p>
+
+                <h3>Data Points (Hypothetical)</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Southeast Asian market size: $180B (vs. your current North American market: $120B)</li>
+                    <li>Market growth rate: 12% CAGR (vs. 2% in North America)</li>
+                    <li>Our addressable market (customers who could use our products): $45B</li>
+                    <li>Current market share: 0% (entry point for competition analysis)</li>
+                    <li>Competitors already operating there: 8 international players (smaller than us), 12 local players (less sophisticated)</li>
+                    <li>Successful expansions: your company expanded to Europe in 2012; took 3 years to profitability, now generates 35% of revenue</li>
+                    <li>Customer willingness: survey of 500 Southeast Asian prospects shows 68% interested in your offerings</li>
+                    <li>Projected market share by year 5: 2-3% (conservative vs. Europe's 15% eventually)</li>
+                    <li>Projected revenue at 2.5% share: $1.1B annually</li>
+                    <li>Expansion cost estimate: $100M (with 20% contingency uncertainty)</li>
+                    <li>Breakeven timeline: 4-5 years (depending on execution and competitive response)</li>
+                </ul>
+
+                <h3>Presentation Components</h3>
+                <div class="question-block">
+                    <h4>1. Market Opportunity Framing</h4>
+                    <p>You have two minutes to establish why Southeast Asia matters. Frame the opportunity compellingly while establishing the scale.</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Strategic Opening</button>
+                    <div class="answer-text">
+                        <p>Example: "Our company has $8B in annual revenue, concentrated primarily in North America. North America is mature, growing 2% annually. Southeast Asia represents a fundamentally different opportunity: a $180B market growing at 12% annually, with rising consumer purchasing power and digital adoption. Within this market, our addressable segment is approximately $45B—larger than our entire current revenue. We currently operate in zero markets in Southeast Asia, meaning we have zero market share but also zero competition from within our company. The strategic question isn't whether to enter Southeast Asia eventually; it's whether to enter now while market dynamics are favorable, competitive positioning is achievable, or to delay and face stronger competitors."</p>
+                        <p><em>This frames the market opportunity using concrete numbers, establishes growth differential vs. home market, and converts the expansion decision into strategic timing, not binary choice.</em></p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>2. Risk Acknowledgment with Data</h4>
+                    <p>Sophisticated audiences expect you to address risks, not pretend they don't exist. How do you acknowledge risks while maintaining confidence in the expansion?</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Honest Risk Framing</button>
+                    <div class="answer-text">
+                        <p>Example: "Our Europe expansion in 2012 took 4.5 years to profitability—longer than originally projected. We underestimated regulatory complexity, customer acquisition costs, and local competition. Southeast Asia carries similar risks with additional uncertainty: political volatility (higher than Europe), supply chain complexity (manufacturing is more distributed), and cultural adaptation (our product positioning required adjustment). I'm not confident we'll hit every milestone. However, our Europe experience provides a playbook: we now understand the ramp curve, typical timelines, and capital efficiency. We project breakeven in 4-5 years here, with 20% uncertainty buffer for delays. Given the market size and our proven ability to scale internationally, this expansion risk is acceptable."</p>
+                        <p><em>This acknowledges real risks, uses historical data to calibrate projections, and frames acceptable risk management rather than pretending risk doesn't exist.</em></p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>3. Competitive Analysis with Data Nuance</h4>
+                    <p>You note that 8 international and 12 local competitors already operate in Southeast Asia. An executive asks: "If so many competitors are there, why haven't they dominated?" Respond with data-driven insight.</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Competitive Positioning</button>
+                    <div class="answer-text">
+                        <p>Example: "Fair observation. The competitors are fragmented: eight international players have regional presence but lack deep market penetration—none exceeds 5% market share individually. Twelve local players have customer relationships but limited product sophistication and capital resources. Fragmentation suggests market opportunity remains undercapitalized. Our advantage: we're larger than any single competitor (our $8B revenue exceeds any competitor's annual revenue), we have capital resources to invest in product localization and sales infrastructure, and our international experience gives us operational discipline. We don't need to be the largest player. A 2-3% market share—conservative relative to our European performance—would generate $1.1B annually in revenue. That's material growth from a $100M investment."</p>
+                        <p><em>This uses competitive fragmentation as evidence of opportunity, rather than threat. It frames competitive positioning realistically without dismissing legitimate competition.</em></p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>4. Addressing the "Prove Success" Challenge</h4>
+                    <p>A board member pushes back: "You're asking for $100M commitment based on projections and historical analogies. How can you guarantee success?" Frame your response to acknowledge the impossibility of guarantees while defending the decision logic.</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Uncertainty Management</button>
+                    <div class="answer-text">
+                        <p>Example: "You're right that I cannot guarantee success. No expansion is certain. However, strategic decisions aren't binary success/failure; they're probability-weighted. We have data suggesting Southeast Asia is attractive: 12% market growth, 68% customer willingness in surveys, fragmented competitive landscape. We have evidence we can execute: our Europe expansion succeeded despite initial overruns and uncertainties. We have financial capacity: $100M represents 1.2% of our market cap; we can absorb this investment if it fails without existential risk. The question is whether expected value is positive: probability of success multiplied by financial upside, minus probability of failure multiplied by financial downside. My analysis suggests expected value is strongly positive. That's the decision framework: not certainty, but risk-adjusted return."</p>
+                        <p><em>This reframes the decision from certainty (impossible) to expected value (realistic), using probability thinking that sophisticated investors understand.</em></p>
+                    </div>
+                </div>
+
+                <h3>Your Argument Structure</h3>
+                <textarea class="textarea-box" placeholder="Build your data-driven expansion case. What data points are most compelling? What uncertainties do you acknowledge? How do you address skepticism while maintaining confidence? What's your strongest counterargument to opposing viewpoints?"></textarea>
+            </div>
+        </div>
+
+        <!-- Tab 4: Analysis -->
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Data Ethics & Literacy in Leadership</h2>
+
+                <h3>Data Manipulation Techniques & How to Spot Them</h3>
+                <div class="discussion-box">
+                    <p><strong>Metric Selection:</strong> "We're the #1 rated company" (among subset of providers in one industry ranking). "Our product is fastest" (on one benchmark test, in one category). Suspicious when claims are true but narrowly scoped. Better: "Among competitors in our market segment, we rank highest on customer satisfaction according to third-party surveys by J.D. Power and Consumer Reports."</p>
+
+                    <p><strong>Baseline Manipulation:</strong> "We reduced costs 30%!" (from an artificially high baseline set when costs were inflated). "Our growth outpaces competitors" (comparing recent quarters when competitors faced challenges to your best quarters). Look for baseline transparency: "We reduced costs from $50/unit to $35/unit, a 30% improvement."</p>
+
+                    <p><strong>Time Period Selection:</strong> "Our stock is up 150% this year!" (during a bull market when entire sector rose 200%). "Our employees received generous raises" (in one department, in one year, ignoring overall stagnation). Better: multi-year trends and sector comparisons.</p>
+
+                    <p><strong>Aggregation Obscuring Disaggregation:</strong> "Customer satisfaction improved!" (average improved because dissatisfied customers left; remaining customers aren't happier, just fewer unhappy ones). "Revenue grew 20%!" (from two large deals in one category; core business actually declined). Look for segment breakdowns and composition effects.</p>
+                </div>
+
+                <h3>Building Data Literacy in Leadership</h3>
+                <div class="discussion-box">
+                    <p>Many executives lack statistical literacy. They interpret data intuitively rather than rigorously, making them vulnerable to manipulation. Building organizational data literacy requires: (1) executive education on basic statistics (correlation/causation, statistical significance, sampling bias), (2) demand for rigor in data presentations (margins of error, confidence intervals, sample sizes), (3) incentivizing exploration of alternative explanations ("What if X is caused by Y rather than Z?"), and (4) building skepticism toward unsupported claims.</p>
+                    <p>A simple question transforms culture: "What's the evidence for that claim?" Repetition trains leaders to demand evidence rather than accepting assertions. Similarly, "What evidence would change your mind?" forces consideration of alternative scenarios rather than confirmation bias (seeking evidence that supports existing beliefs).</p>
+                </div>
+
+                <h3>Ethical Data Communication</h3>
+                <div class="discussion-box">
+                    <p><strong>The Honest Communicator's Dilemma:</strong> You've discovered data that slightly supports your position but includes caveats. Do you present the data confidently (maximizing persuasiveness) or with caveats (weakening persuasiveness)? Ethical communicators present findings with appropriate uncertainty, sacrificing some persuasive impact for accuracy. This is harder than cherry-picking, but it builds long-term credibility. If you overstate findings and later contradictions emerge, audience trust evaporates.</p>
+                    <p><strong>Data as Tool vs. Data as Truth:</strong> Sophisticated leaders recognize that data is a tool—useful for decision-making but not destiny. A/B tests show improvement X. That data is accurate. But the interpretation (why improvement occurred, whether it persists, how it generalizes) involves judgment. Leaders who treat data as infallible truth are vulnerable to false confidence. Those who treat data as evidence requiring interpretation are more resilient.</p>
+                    <p><strong>The Long-Term Value of Honesty:</strong> Overstating findings might win a single decision. Understating findings or hedging claims might lose it. However, over time, leaders who consistently overstate findings lose credibility when predictions don't materialize. Those who communicate honestly about uncertainty build trust, even when forecasts miss. Trust is long-term asset more valuable than winning individual decisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        function toggleAnswer(btn) {
+            const answer = btn.nextElementSibling;
+            answer.classList.toggle("show");
+            btn.textContent = answer.classList.contains("show") ? "Hide" : "Strategic Opening";
+        }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
