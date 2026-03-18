@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SU A2-77: Budget | Speaking Pathway</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .lesson-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Header - Purple gradient */
+        .lesson-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .lesson-header h1 { font-size: 2.2em; margin-bottom: 5px; }
+        .lesson-header .subtitle { font-size: 1.1em; opacity: 0.9; }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        /* Tabs */
+        .tab-nav { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn {
+            flex: 1; min-width: 80px; padding: 15px 10px;
+            background: rgba(255,255,255,0.1); border: none; border-radius: 10px;
+            color: white; cursor: pointer; transition: all 0.3s; font-size: 0.85em;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.2); }
+        .tab-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .tab-btn .tab-number { display: block; font-size: 0.8em; opacity: 0.7; }
+
+        /* Content */
+        .tab-content {
+            display: none; background: rgba(255,255,255,0.05); border-radius: 20px;
+            padding: 30px; border: 1px solid rgba(255,255,255,0.1); animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content h2 { color: #667eea; font-size: 1.8em; margin-bottom: 20px; }
+        .tab-content h3 { color: #fff; font-size: 1.3em; margin: 25px 0 15px; }
+        .tab-content p { line-height: 1.8; margin-bottom: 15px; color: rgba(255,255,255,0.9); }
+
+        /* Vocab Flip Cards */
+        .vocab-card {
+            background: rgba(255,255,255,0.08); border-radius: 15px; margin: 15px 0;
+            overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .vocab-card-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .vocab-card-header:hover { background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%); }
+        .vocab-phrase { font-size: 1.4em; font-weight: bold; color: white; }
+        .click-hint { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+        .vocab-card-content { padding: 0; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .vocab-card-content.open { padding: 20px; max-height: 500px; }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .example-tag {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 12px 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+            border: 1px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .conversation {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .conv-line {
+            display: flex;
+            margin: 15px 0;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .conv-line.speaker-a { justify-content: flex-start; }
+        .conv-line.speaker-b { justify-content: flex-end; flex-direction: row-reverse; }
+        .conv-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+        .speaker-a .conv-avatar { background: #667eea; }
+        .speaker-b .conv-avatar { background: #764ba2; }
+        .conv-bubble {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            max-width: 70%;
+        }
+        .speaker-b .conv-bubble { background: rgba(102, 126, 234, 0.3); }
+
+        /* Prompt Box */
+        .prompt-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 15px; padding: 25px; margin: 15px 0; border-left: 4px solid #667eea;
+        }
+        .prompt-box .question { font-size: 1.2em; margin-bottom: 10px; }
+        .prompt-box .hint { font-size: 0.9em; color: rgba(255,255,255,0.7); font-style: italic; }
+
+        /* Task Box */
+        .task-box {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15) 0%, rgba(68, 160, 141, 0.15) 100%);
+            border-radius: 15px; padding: 25px; margin: 20px 0; border: 2px solid rgba(78, 205, 196, 0.3);
+        }
+        .task-box h3 { color: #4ecdc4; margin-bottom: 15px; }
+        .task-checklist {
+            background: rgba(0,0,0,0.2); border-radius: 10px; padding: 15px; margin: 15px 0;
+        }
+        .checklist-item {
+            display: flex; gap: 10px; margin: 10px 0; align-items: flex-start;
+        }
+        .checklist-checkbox {
+            width: 24px; height: 24px; border: 2px solid #4ecdc4; border-radius: 4px;
+            cursor: pointer; transition: all 0.3s; flex-shrink: 0; margin-top: 2px;
+        }
+        .checklist-item input[type="checkbox"] { display: none; }
+        .checklist-item input[type="checkbox"]:checked + .checklist-checkbox {
+            background: #4ecdc4; border-color: #4ecdc4;
+        }
+
+        /* Discussion Box */
+        .discussion-box {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.15) 100%);
+            border-radius: 15px; padding: 25px; margin: 20px 0; border-left: 4px solid #ffc107;
+        }
+        .discussion-box h3 { color: #ffc107; margin-bottom: 15px; }
+        .discussion-question {
+            background: rgba(0,0,0,0.2); border-radius: 10px; padding: 15px; margin: 10px 0;
+        }
+        .discussion-question p { margin: 5px 0; }
+
+        /* Timer */
+        .timer-section { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 4em; font-weight: bold; font-family: 'Courier New', monospace; margin: 20px 0; color: #667eea; }
+        .timer-display.warning { color: #ffc107; }
+        .timer-display.danger { color: #e94560; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .timer-btn { padding: 12px 30px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; transition: all 0.3s; }
+        .timer-btn.start { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .timer-btn.reset { background: rgba(255,255,255,0.1); color: white; }
+        .timer-btn:hover { transform: scale(1.05); }
+
+        /* Can-Do */
+        .can-do-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px; padding: 30px; text-align: center; margin: 20px 0;
+        }
+        .can-do-statement h3 { margin-bottom: 15px; font-size: 1.5em; }
+        .confidence-scale { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .confidence-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1); color: white; font-size: 1.2em; cursor: pointer; transition: all 0.3s;
+        }
+        .confidence-btn:hover, .confidence-btn.selected { background: rgba(255,255,255,0.3); border-color: white; transform: scale(1.1); }
+
+        /* Navigation */
+        .lesson-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .nav-btn { padding: 15px 30px; border: none; border-radius: 25px; font-size: 1em; cursor: pointer; transition: all 0.3s; text-decoration: none; color: white; }
+        .nav-btn.back { background: rgba(255,255,255,0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .nav-btn:hover { transform: translateX(5px); }
+        .nav-btn.back:hover { transform: translateX(-5px); }
+
+        @media (max-width: 768px) {
+            .timer-display { font-size: 3em; }
+            .conv-bubble { max-width: 85%; }
+            .example-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <span class="level-badge">A2 Level &middot; Speaking &amp; Future Forms</span>
+            <h1>Budget</h1>
+            <p class="subtitle">Talk about the future and solve local problems</p>
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="1"><span class="tab-number">1</span>Opening Questions</button>
+            <button class="tab-btn" data-tab="2"><span class="tab-number">2</span>Future Plans Language</button>
+            <button class="tab-btn" data-tab="3"><span class="tab-number">3</span>Mayor for a Day</button>
+            <button class="tab-btn" data-tab="4"><span class="tab-number">4</span>Your Views</button>
+        </div>
+
+        <!-- Tab 1: Opening Questions -->
+        <div class="tab-content active" id="tab-1">
+            <h2>Opening Questions: Politics in Your Country</h2>
+            <p>Think about these questions and discuss them:</p>
+
+            <div class="prompt-box">
+                <p class="question">When was the last election in your country?</p>
+                <p class="hint">💡 Think about the year and what you remember about it</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Which issues were important in that election?</p>
+                <p class="hint">💡 Consider: education, healthcare, jobs, environment, taxes, immigration...</p>
+            </div>
+
+            <div class="prompt-box">
+                <p class="question">Who won and why do you think they won?</p>
+                <p class="hint">💡 Think about what voters wanted and what the winning candidate promised</p>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: rgba(102, 126, 234, 0.15); border-radius: 10px;">
+                <strong>Key idea:</strong> Politicians make promises about the FUTURE. Today you'll learn the language they use to talk about what they WILL, PLAN TO, or HOPE TO do.
+            </p>
+        </div>
+
+        <!-- Tab 2: Future Plans Language -->
+        <div class="tab-content" id="tab-2">
+            <h2>Future Plans Language: How Politicians Talk About Tomorrow</h2>
+            <p>Click each phrase to see examples and how to use it:</p>
+
+            <div class="vocab-card">
+                <div class="vocab-card-header" onclick="toggleCard(this)">
+                    <span class="vocab-phrase">"will" (promise)</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="vocab-card-content">
+                    <p>The strongest future promise. Certain, definite.</p>
+                    <div class="example-grid">
+                        <div class="example-tag">"We will lower taxes"</div>
+                        <div class="example-tag">"We will build new schools"</div>
+                        <div class="example-tag">"We will fix the roads"</div>
+                        <div class="example-tag">"We will create more jobs"</div>
+                    </div>
+                    <p><strong>Try:</strong> What will your government do in the next year?</p>
+                </div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-card-header" onclick="toggleCard(this)">
+                    <span class="vocab-phrase">"plan to" (intention)</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="vocab-card-content">
+                    <p>A serious intention. Thought-out, organized.</p>
+                    <div class="example-grid">
+                        <div class="example-tag">"We plan to improve healthcare"</div>
+                        <div class="example-tag">"We plan to reduce pollution"</div>
+                        <div class="example-tag">"We plan to invest in technology"</div>
+                        <div class="example-tag">"We plan to cut costs"</div>
+                    </div>
+                    <p><strong>Try:</strong> What do you plan to do this week?</p>
+                </div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-card-header" onclick="toggleCard(this)">
+                    <span class="vocab-phrase">"hope to" (wish/desire)</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="vocab-card-content">
+                    <p>Optimistic but less certain. It's a dream or goal.</p>
+                    <div class="example-grid">
+                        <div class="example-tag">"We hope to make everyone feel richer"</div>
+                        <div class="example-tag">"We hope to reduce crime"</div>
+                        <div class="example-tag">"We hope to have zero unemployment"</div>
+                        <div class="example-tag">"We hope to clean the rivers"</div>
+                    </div>
+                    <p><strong>Try:</strong> What do you hope to achieve in your life?</p>
+                </div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-card-header" onclick="toggleCard(this)">
+                    <span class="vocab-phrase">"promise to" (commitment)</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="vocab-card-content">
+                    <p>A personal commitment. You're taking responsibility.</p>
+                    <div class="example-grid">
+                        <div class="example-tag">"I promise to keep interest rates low"</div>
+                        <div class="example-tag">"I promise to never raise taxes"</div>
+                        <div class="example-tag">"I promise to listen to ordinary people"</div>
+                        <div class="example-tag">"I promise to be honest"</div>
+                    </div>
+                    <p><strong>Try:</strong> What can you promise to do in your next lesson?</p>
+                </div>
+            </div>
+
+            <div class="vocab-card">
+                <div class="vocab-card-header" onclick="toggleCard(this)">
+                    <span class="vocab-phrase">"want to" (desire)</span>
+                    <span class="click-hint">Click to expand</span>
+                </div>
+                <div class="vocab-card-content">
+                    <p>Simple desire or goal. Personal and direct.</p>
+                    <div class="example-grid">
+                        <div class="example-tag">"We want to reduce VAT"</div>
+                        <div class="example-tag">"We want to support small businesses"</div>
+                        <div class="example-tag">"We want to help young people"</div>
+                        <div class="example-tag">"We want to make life easier"</div>
+                    </div>
+                    <p><strong>Try:</strong> What do you want to do after this lesson?</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Role-Play Practice: Choose Your Role</h3>
+            <p>Choose one role and use the language above to talk about your future plans:</p>
+
+            <div class="conversation">
+                <p style="text-align: center; color: #667eea; font-weight: bold; margin-bottom: 15px;">Pick one:</p>
+                <p style="margin: 10px 0;">👨‍💼 <strong>POLITICIAN:</strong> What will you do for the economy?</p>
+                <p style="margin: 10px 0;">💼 <strong>CEO:</strong> What's your plan for the company?</p>
+                <p style="margin: 10px 0;">🌍 <strong>ENVIRONMENTALIST:</strong> What do you hope to achieve?</p>
+                <p style="margin: 10px 0;">👨‍👩‍👧 <strong>PARENT:</strong> What will you do with your family budget?</p>
+                <p style="margin: 10px 0;">👨‍⚖️ <strong>MAYOR:</strong> What solutions do you promise for your city?</p>
+            </div>
+
+            <div class="prompt-box" style="margin-top: 20px;">
+                <p class="question">Now say out loud: <strong>"I [will / plan to / hope to / promise to / want to] + your plan"</strong></p>
+                <p class="hint">💡 Example: "As CEO, I will reduce costs and increase our market share"</p>
+            </div>
+        </div>
+
+        <!-- Tab 3: Mayor for a Day -->
+        <div class="tab-content" id="tab-3">
+            <h2>Mayor for a Day: Your Mayoral Proposals</h2>
+            <p>You are now the mayor of your city. What problems will you solve?</p>
+
+            <div class="prompt-box">
+                <p class="question">Pre-Task: If you were the mayor of your city, what problem would you address?</p>
+                <p class="hint">💡 Think: traffic, pollution, schools, parks, safety, jobs, housing...</p>
+            </div>
+
+            <div class="timer-section">
+                <h3>Preparation & Speaking: 3 Minutes</h3>
+                <div class="timer-display" id="timer">3:00</div>
+                <div class="timer-controls">
+                    <button class="timer-btn start" onclick="toggleTimer()">Start</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="task-box">
+                <h3>Your Task: Present Your Mayoral Proposals</h3>
+                <p>Use these sentence starters to present your ideas:</p>
+
+                <div class="conversation">
+                    <p style="margin: 10px 0;"><strong>"I'd like to focus on the problem of..."</strong></p>
+                    <p style="margin: 10px 0;"><strong>"I propose that we..."</strong></p>
+                    <p style="margin: 10px 0;"><strong>"We will/plan to/hope to + solution"</strong></p>
+                </div>
+
+                <div class="task-checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1" class="checklist-checkbox"></label>
+                        <span>Identify one problem in your city</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2" class="checklist-checkbox"></label>
+                        <span>Propose at least one solution</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3" class="checklist-checkbox"></label>
+                        <span>Use future language: will / plan to / hope to / want to / promise to</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4" class="checklist-checkbox"></label>
+                        <span>Speak for at least 2-3 minutes</span>
+                    </div>
+                </div>
+
+                <p style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                    <strong>Example:</strong> "I'd like to focus on the problem of traffic in our city. I propose that we build more bike lanes and improve public transport. We will invest in new buses and trains. We hope to reduce car use by 30% within two years. I promise to make our city cleaner and more modern."
+                </p>
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Views -->
+        <div class="tab-content" id="tab-4">
+            <h2>Your Views: Discussion Questions</h2>
+            <p>Pick at least two questions and discuss them. There are no wrong answers!</p>
+
+            <div class="discussion-box">
+                <h3>Politics & Work</h3>
+                <div class="discussion-question">
+                    <p><strong>Would you like to work in politics?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">Why or why not? What would you do?</p>
+                </div>
+                <div class="discussion-question">
+                    <p><strong>Should voting be mandatory (by law)?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">What are the advantages and disadvantages?</p>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h3>Money & The Economy</h3>
+                <div class="discussion-question">
+                    <p><strong>Is a low interest rate positive or negative?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">Think about borrowing money, saving, and business growth.</p>
+                </div>
+                <div class="discussion-question">
+                    <p><strong>What could you do to cut costs in your household budget?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">Where do you spend money? What would you reduce?</p>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h3>Real-World Thinking</h3>
+                <div class="discussion-question">
+                    <p><strong>What's the biggest problem in your country right now?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">If you were in government, how would you solve it?</p>
+                </div>
+                <div class="discussion-question">
+                    <p><strong>Do you trust your government to make good decisions?</strong></p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">Why or why not?</p>
+                </div>
+            </div>
+
+            <div class="can-do-statement" style="margin-top: 30px;">
+                <h3>📋 Today's "I Can" Statement</h3>
+                <p style="font-size: 1.3em; margin: 15px 0;">I can talk about future plans and solve local problems</p>
+                <p style="opacity: 0.9;">How confident do you feel?</p>
+                <div class="confidence-scale">
+                    <button class="confidence-btn" onclick="selectConfidence(this)">1</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">2</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">3</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">4</button>
+                    <button class="confidence-btn" onclick="selectConfidence(this)">5</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <a href="su_a2_76_economy.html" class="nav-btn back">← Previous</a>
+            <a href="su_a2_78_next_lesson.html" class="nav-btn next">Next →</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabNum = this.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tab-' + tabNum).classList.add('active');
+            });
+        });
+
+        function toggleCard(header) {
+            const content = header.nextElementSibling;
+            const hint = header.querySelector('.click-hint');
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                hint.textContent = 'Click to expand';
+            } else {
+                document.querySelectorAll('.vocab-card-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('.click-hint').forEach(h => h.textContent = 'Click to expand');
+                content.classList.add('open');
+                hint.textContent = 'Click to close';
+            }
+        }
+
+        function selectConfidence(btn) {
+            document.querySelectorAll('.confidence-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        let timerInterval = null, timeLeft = 180, isRunning = false;
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const display = document.getElementById('timer');
+            display.textContent = minutes + ':' + seconds.toString().padStart(2, '0');
+            display.classList.remove('warning', 'danger');
+            if (timeLeft <= 10) display.classList.add('danger');
+            else if (timeLeft <= 30) display.classList.add('warning');
+        }
+        function toggleTimer() {
+            const btn = document.querySelector('.timer-btn.start');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = 'Continue';
+                isRunning = false;
+            } else {
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        btn.textContent = 'Done!';
+                    }
+                }, 1000);
+                btn.textContent = 'Pause';
+                isRunning = true;
+            }
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 180;
+            isRunning = false;
+            updateTimerDisplay();
+            document.querySelector('.timer-btn.start').textContent = 'Start';
+        }
+
+        // Checkbox functionality
+        document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                input.checked = !input.checked;
+            });
+        });
+    </script>
+</body>
+</html>

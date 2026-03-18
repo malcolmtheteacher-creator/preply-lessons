@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1.32 - Environmental Reading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .timer {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background-color: #f8f9fa;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+            border-bottom: 3px solid #764ba2;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-block {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .vocab-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .vocab-card.flipped {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .vocab-word {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .vocab-definition {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .reading-passage {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .reading-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .passage-text {
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .matching-container {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .matching-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .match-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .match-item:hover {
+            background-color: #e8ecff;
+            transform: translateX(5px);
+        }
+
+        .match-item.revealed {
+            background-color: #667eea;
+            color: white;
+            border-left-color: #764ba2;
+        }
+
+        .match-function {
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .match-item.revealed .match-function {
+            display: block;
+        }
+
+        .synonyms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .synonym-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .synonym-card:hover {
+            background-color: #f8f9fa;
+        }
+
+        .synonym-card.revealed {
+            background-color: #667eea;
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .synonym-word {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .synonym-meaning {
+            font-size: 13px;
+            display: none;
+        }
+
+        .synonym-card.revealed .synonym-meaning {
+            display: block;
+        }
+
+        .timer-display {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .timer-display.warning {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .rhino-task {
+            background: white;
+            border: 2px solid #764ba2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .rhino-instructions {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .paragraph-match {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .paragraph-match:hover {
+            background-color: #e8ecff;
+        }
+
+        .paragraph-letter {
+            font-weight: 700;
+            font-size: 16px;
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+
+        .paragraph-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .statement-item {
+            background: white;
+            border: 2px solid #764ba2;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .statement-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .statement-item.matched {
+            background-color: #764ba2;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .match-answer {
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .statement-item.matched .match-answer {
+            display: block;
+        }
+
+        .discussion-question {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+            margin-bottom: 20px;
+        }
+
+        .discussion-question h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .discussion-question p {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .instructions {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #764ba2;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #6a4099;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .synonyms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>An Environmental Project</h1>
+            <p>B1 Level &middot; Reading &amp; Environment</p>
+            <div class="timer">⏱ 5 minutes</div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'issues')">Environmental Issues</button>
+            <button class="tab-button" onclick="openTab(event, 'vocabulary')">Key Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'reading')">Reading Skills</button>
+            <button class="tab-button" onclick="openTab(event, 'conservation')">Conservation Reading</button>
+            <button class="tab-button" onclick="openTab(event, 'discussion')">Discussion</button>
+        </div>
+
+        <!-- TAB 1: ENVIRONMENTAL ISSUES -->
+        <div id="issues" class="tab-content active">
+            <div class="section-block">
+                <div class="section-title">Environmental Problems Around Us</div>
+                <div class="question">
+                    The world faces many environmental challenges. Some affect our air, water, and land. Others threaten plants and animals. Think about these problems:
+                </div>
+                <div style="background: white; border-radius: 8px; padding: 20px; margin-top: 15px;">
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: #667eea; display: block; margin-bottom: 5px;">Air Pollution</strong>
+                        <span style="font-size: 14px;">Cars, factories, and industry release harmful gases into the air.</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: #667eea; display: block; margin-bottom: 5px;">Endangered Species</strong>
+                        <span style="font-size: 14px;">Many animals and plants are dying out. Hunting, habitat loss, and climate change threaten them.</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: #667eea; display: block; margin-bottom: 5px;">Household Waste</strong>
+                        <span style="font-size: 14px;">Plastic, paper, and other waste fills landfills and pollutes oceans.</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: #667eea; display: block; margin-bottom: 5px;">Water Pollution</strong>
+                        <span style="font-size: 14px;">Chemicals and waste contaminate rivers, lakes, and oceans.</span>
+                    </div>
+                    <div>
+                        <strong style="color: #667eea; display: block; margin-bottom: 5px;">Destruction of Green Spaces</strong>
+                        <span style="font-size: 14px;">Forests and natural habitats disappear when land is cleared for cities and farms.</span>
+                    </div>
+                </div>
+
+                <div class="instructions" style="margin-top: 20px;">
+                    <strong>Think about it:</strong> Which of these problems affects your country or community most? What examples have you seen or heard about?
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: KEY VOCABULARY -->
+        <div id="vocabulary" class="tab-content">
+            <div class="section-block">
+                <div class="section-title">Environmental and Reading Skills Vocabulary</div>
+                <div class="instructions">
+                    Click each card to reveal the meaning.
+                </div>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">endangered</div>
+                            <div class="vocab-definition" style="display:none;">At risk of extinction; nearly extinct</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">habitat</div>
+                            <div class="vocab-definition" style="display:none;">The natural environment where an animal or plant lives</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">extinction</div>
+                            <div class="vocab-definition" style="display:none;">The permanent disappearance of a species</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">conservation</div>
+                            <div class="vocab-definition" style="display:none;">Protecting and preserving nature and wildlife</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">species</div>
+                            <div class="vocab-definition" style="display:none;">A group of plants or animals of the same kind</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">pollute</div>
+                            <div class="vocab-definition" style="display:none;">To make air, water, or land dirty with harmful substances</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">decline</div>
+                            <div class="vocab-definition" style="display:none;">To decrease in number or quality</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">recovery</div>
+                            <div class="vocab-definition" style="display:none;">A return to a healthy or better state</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">impact</div>
+                            <div class="vocab-definition" style="display:none;">A strong effect or influence</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">consequence</div>
+                            <div class="vocab-definition" style="display:none;">A result or effect of an action</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">threaten</div>
+                            <div class="vocab-definition" style="display:none;">To put at risk; to endanger</div>
+                        </div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div>
+                            <div class="vocab-word">restore</div>
+                            <div class="vocab-definition" style="display:none;">To bring back to a former or better state</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: READING SKILLS -->
+        <div id="reading" class="tab-content">
+            <div class="section-block">
+                <div class="section-title">Understanding Text Organisation: The American Bison</div>
+                <div class="instructions">
+                    Read the text below. It shows how authors organise information about problems and recovery.
+                </div>
+
+                <div class="reading-passage">
+                    <div class="reading-title">The American Bison Story</div>
+                    <div class="passage-text">
+                        The American bison was once the largest land animal in North America. Before the 1800s, approximately 60 million bison lived across the continent. However, the population fell dramatically to just 500 animals in 1889. This decline was caused by hunting for meat and hides, as well as diseases. Fortunately, people recognised the problem and took action. Bison became protected by law. Conservation programmes helped numbers increase again. Today, there are approximately 350,000 bison in North America.
+                    </div>
+                </div>
+
+                <div class="section-block" style="border-left-color: #764ba2; background-color: #faf5ff;">
+                    <div style="color: #764ba2; font-weight: 700; margin-bottom: 15px;">Choose the Best Title:</div>
+                    <div style="display: grid; gap: 12px;">
+                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #764ba2; cursor: pointer; transition: all 0.3s ease;" class="title-option" onclick="selectTitle(this, 'A')">
+                            <strong style="color: #764ba2;">A.</strong> Farming the American Bison
+                        </div>
+                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #764ba2; cursor: pointer; transition: all 0.3s ease;" class="title-option" onclick="selectTitle(this, 'B')">
+                            <strong style="color: #764ba2;">B.</strong> How the American Bison Became Extinct
+                        </div>
+                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #764ba2; cursor: pointer; transition: all 0.3s ease;" class="title-option" onclick="selectTitle(this, 'C')">
+                            <strong style="color: #764ba2;">C.</strong> The Fall and Rise of the American Bison
+                        </div>
+                    </div>
+                    <div id="titleFeedback" style="margin-top: 15px; font-size: 14px; padding: 12px; border-radius: 6px; display: none;"></div>
+                </div>
+
+                <div class="matching-container" style="margin-top: 20px;">
+                    <div class="matching-title">Match Sentences to Their Function:</div>
+                    <div class="instructions">
+                        Click each item to reveal the sentence function (what it does in the text).
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <div class="match-item" onclick="toggleMatch(this)">
+                            <strong style="font-size: 15px;">Before the 1800s, approximately 60 million bison lived across the continent.</strong>
+                            <div class="match-function">Explaining what it is / providing context</div>
+                        </div>
+                        <div class="match-item" onclick="toggleMatch(this)">
+                            <strong style="font-size: 15px;">The population fell dramatically to just 500 animals in 1889.</strong>
+                            <div class="match-function">Showing decline / describing the problem</div>
+                        </div>
+                        <div class="match-item" onclick="toggleMatch(this)">
+                            <strong style="font-size: 15px;">This decline was caused by hunting for meat and hides, as well as diseases.</strong>
+                            <div class="match-function">Giving reasons for decline</div>
+                        </div>
+                        <div class="match-item" onclick="toggleMatch(this)">
+                            <strong style="font-size: 15px;">Bison became protected by law. Conservation programmes helped numbers increase again.</strong>
+                            <div class="match-function">Explaining action taken / describing solution</div>
+                        </div>
+                        <div class="match-item" onclick="toggleMatch(this)">
+                            <strong style="font-size: 15px;">Today, there are approximately 350,000 bison in North America.</strong>
+                            <div class="match-function">Saying result / showing the outcome</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block">
+                <div class="section-title">Key Words and Synonyms</div>
+                <div class="instructions">
+                    Click each card to find a synonym. These words help you understand environmental texts.
+                </div>
+                <div class="synonyms-grid">
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">impact</div>
+                        <div class="synonym-meaning">effect / influence</div>
+                    </div>
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">paying</div>
+                        <div class="synonym-meaning">spending / giving money</div>
+                    </div>
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">reason</div>
+                        <div class="synonym-meaning">cause / why something happened</div>
+                    </div>
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">early</div>
+                        <div class="synonym-meaning">beginning / first</div>
+                    </div>
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">size</div>
+                        <div class="synonym-meaning">height / scale / dimensions</div>
+                    </div>
+                    <div class="synonym-card" onclick="toggleSynonym(this)">
+                        <div class="synonym-word">effects</div>
+                        <div class="synonym-meaning">results / consequences</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: CONSERVATION READING -->
+        <div id="conservation" class="tab-content">
+            <div class="rhino-task">
+                <div class="matching-title">Conservation Project: Southern White Rhino</div>
+                <div class="rhino-instructions">
+                    <strong>Task:</strong> Read paragraphs A-F about white rhino conservation. Then match each paragraph to the correct information statement below. Click each statement to reveal the matching paragraph letter.
+                </div>
+
+                <div class="timer-display" id="timerDisplay">
+                    Time remaining: <span id="timeLeft">5:00</span>
+                </div>
+
+                <div style="background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                    <div style="font-weight: 700; color: #764ba2; margin-bottom: 15px; font-size: 15px;">Reading Passage: The White Rhino</div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">A.</div>
+                        <div class="paragraph-text">The white rhino has five species of rhino living in Africa and Asia. Some of these species have very few members left. The Javan rhino and Sumatran rhino both have fewer than 100 individuals remaining in the wild.</div>
+                    </div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">B.</div>
+                        <div class="paragraph-text">The southern white rhino is a large animal with thick, grey skin. It has two horns on its head: a long horn at the front and a smaller horn behind it. Adults can weigh up to 2,300 kilograms.</div>
+                    </div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">C.</div>
+                        <div class="paragraph-text">In the early 1900s, the southern white rhino was hunted so heavily that only about 50 animals remained. The species was nearly extinct. Without intervention, it would have disappeared completely.</div>
+                    </div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">D.</div>
+                        <div class="paragraph-text">Protection laws were introduced to stop hunting. National parks and reserves were created to provide safe habitats. These actions saved the species from extinction and allowed populations to grow.</div>
+                    </div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">E.</div>
+                        <div class="paragraph-text">As a result of these conservation efforts, southern white rhino numbers increased dramatically. By the 2000s, the population had grown to over 20,000 individuals. This was seen as a major conservation success.</div>
+                    </div>
+
+                    <div class="paragraph-match">
+                        <div class="paragraph-letter">F.</div>
+                        <div class="paragraph-text">However, poaching remains a serious threat today. Rhino horns are illegally hunted and sold for traditional medicine. Conservation programmes must continue to protect these animals from extinction.</div>
+                    </div>
+                </div>
+
+                <div style="background-color: #f0f7ff; border: 2px solid #667eea; border-radius: 8px; padding: 20px;">
+                    <div style="font-weight: 700; color: #667eea; margin-bottom: 15px; font-size: 15px;">Match the Information:</div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'D', 'Protection laws')">
+                        <strong>1.</strong> Describe what was done to save the rhino (what actions were taken)
+                        <div class="match-answer">Answer: D — Laws and parks protected the rhinos</div>
+                    </div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'C', 'Risk')">
+                        <strong>2.</strong> Explain the danger the species faced (showing the problem)
+                        <div class="match-answer">Answer: C — Only 50 animals remained; species was nearly extinct</div>
+                    </div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'E', 'Success')">
+                        <strong>3.</strong> Give the positive result of conservation (showing what happened next)
+                        <div class="match-answer">Answer: E — Population grew to over 20,000; major success</div>
+                    </div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'A', 'Overview')">
+                        <strong>4.</strong> Provide information about different rhino species
+                        <div class="match-answer">Answer: A — Five species; Javan and Sumatran have fewer than 100</div>
+                    </div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'B', 'Description')">
+                        <strong>5.</strong> Describe the physical appearance of the southern white rhino
+                        <div class="match-answer">Answer: B — Large, two horns, weighs up to 2,300 kg</div>
+                    </div>
+
+                    <div class="statement-item" onclick="toggleStatement(this, 'F', 'Current threat')">
+                        <strong>6.</strong> Explain the current threat to rhino survival
+                        <div class="match-answer">Answer: F — Poaching for horns; sold for traditional medicine</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: DISCUSSION -->
+        <div id="discussion" class="tab-content">
+            <div class="section-block">
+                <div class="section-title">Reflection and Discussion</div>
+
+                <div class="discussion-question">
+                    <h3>1. Attitudes to Hunting</h3>
+                    <p>In some countries, hunting is allowed or traditional. In others, it is illegal. What is the situation in your country? Do you think hunting animals is acceptable? Why or why not?</p>
+                </div>
+
+                <div class="discussion-question">
+                    <h3>2. Safari Tourism and Conservation</h3>
+                    <p>Safari holidays bring money to African countries. Some people argue this helps preserve wildlife. Others worry about animal stress and habitat damage. Do you think safari tourism helps protect endangered animals?</p>
+                </div>
+
+                <div class="discussion-question">
+                    <h3>3. Environmental Projects Nearby</h3>
+                    <p>Are there any environmental protection projects in your area or country? What do they do? Have you seen changes in the environment or wildlife because of these projects?</p>
+                </div>
+
+                <div class="discussion-question">
+                    <h3>4. Endangered Species You Know</h3>
+                    <p>What endangered animals do you know about? Why are they endangered? Do you think they can be saved? What would need to happen?</p>
+                </div>
+
+                <div class="discussion-question">
+                    <h3>5. Zoos of the Future</h3>
+                    <p>Some people say zoos are important for conservation. Others believe wild animals should only live in nature. How do you feel about zoos? Should they keep endangered species to protect them, or is this wrong?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let timeLeft = 300; // 5 minutes in seconds
+
+        function startTimer() {
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timerDisplay').textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            document.getElementById('timeLeft').textContent = timeString;
+
+            const timerDiv = document.getElementById('timerDisplay');
+            if (timeLeft <= 60) {
+                timerDiv.classList.add('warning');
+            }
+        }
+
+        // Start timer when conservation tab is opened
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            if (tabName === 'conservation' && timeLeft === 300) {
+                startTimer();
+            }
+        }
+
+        // Vocabulary flip cards
+        function toggleVocab(card) {
+            card.classList.toggle("flipped");
+            const word = card.querySelector(".vocab-word");
+            const def = card.querySelector(".vocab-definition");
+
+            if (card.classList.contains("flipped")) {
+                word.style.display = "none";
+                def.style.display = "block";
+            } else {
+                word.style.display = "block";
+                def.style.display = "none";
+            }
+        }
+
+        // Title selection
+        function selectTitle(element, answer) {
+            const allOptions = document.querySelectorAll('.title-option');
+            allOptions.forEach(opt => {
+                opt.style.backgroundColor = 'white';
+                opt.style.borderLeft = '4px solid #764ba2';
+            });
+
+            const feedback = document.getElementById('titleFeedback');
+            if (answer === 'C') {
+                element.style.backgroundColor = '#d4edda';
+                element.style.borderLeft = '4px solid #28a745';
+                feedback.textContent = '✓ Correct! This title shows both the problem (fall) and the solution (rise).';
+                feedback.style.backgroundColor = '#d4edda';
+                feedback.style.color = '#155724';
+                feedback.style.display = 'block';
+            } else {
+                element.style.backgroundColor = '#f8d7da';
+                element.style.borderLeft = '4px solid #dc3545';
+                feedback.textContent = '✗ Try again. Think about what the whole text describes.';
+                feedback.style.backgroundColor = '#f8d7da';
+                feedback.style.color = '#721c24';
+                feedback.style.display = 'block';
+            }
+        }
+
+        // Match functions reveal
+        function toggleMatch(item) {
+            item.classList.toggle("revealed");
+        }
+
+        // Synonym cards
+        function toggleSynonym(card) {
+            card.classList.toggle("revealed");
+        }
+
+        // Statement matching
+        function toggleStatement(item, correctAnswer, context) {
+            item.classList.toggle("matched");
+        }
+    </script>
+</body>
+</html>
