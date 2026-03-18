@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wellbeing & Screen Time</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .matching-exercise { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .matching-left, .matching-right { background: white; padding: 15px; border: 2px solid #667eea; border-radius: 8px; }
+        .matching-left h4, .matching-right h4 { color: #764ba2; margin-bottom: 10px; }
+        .matching-item { margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 4px; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .matching-exercise { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Digital Wellbeing & Screen Time</h1>
+            <p>B2 Level · Health & Technology</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Your Digital Life</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Wellbeing Language</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">The Experiment</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Discussion</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Your Digital Life</h2>
+                <p>Technology is woven into our daily existence. We wake to notifications, work on screens, communicate digitally, and fall asleep scrolling. Most of us couldn't imagine life without our devices. But at what cost?</p>
+
+                <h3>Screen Time Reality</h3>
+                <p>Global average daily screen time has grown from 3-4 hours in 2012 to over 7 hours currently. Young people often exceed 8-10 hours daily. Some of this is work or education—legitimate use. But much involves social media, streaming, and casual browsing that feels necessary but isn't.</p>
+
+                <div class="discussion-box">
+                    <p><strong>Honestly:</strong> How much time do you spend daily on screens? What's your breakdown—work, communication, entertainment, social media? How does this feel to you?</p>
+                </div>
+
+                <h3>The Habit Loop</h3>
+                <p>Apps are designed to be addictive. They use notifications, streaks, variable rewards, and social validation to keep you engaged. Dopamine—the pleasure chemical—is released when you see likes, comments, or new messages. This creates a habit loop: you feel bored or anxious, so you check your phone; brief pleasure follows; the cycle repeats. Your brain develops neural pathways that make the behaviour feel almost involuntary.</p>
+
+                <p>This isn't a character flaw or weakness. It's deliberate design. Companies employ teams of engineers to maximise "engagement"—a metric that means you spending more time in their app. Your attention is the product being sold to advertisers.</p>
+
+                <div class="question-block">
+                    <h4>Reflection</h4>
+                    <p>Do you feel in control of your screen time, or does it feel habitual? Can you go an hour without checking your phone comfortably?</p>
+                </div>
+
+                <h3>The Invisible Costs</h3>
+                <p>Excessive screen time correlates with decreased sleep quality, anxiety, depression, reduced attention span, and neck/eye strain. It reduces face-to-face interaction, which humans need for psychological wellbeing. It displaces other activities—reading, exercise, outdoor time, deep work. The cognitive load of constant notifications fragmentary attention, making deep focus difficult.</p>
+
+                <p>Yet we're ambivalent. Technology connects us to distant loved ones, provides information, enables work flexibility, and offers entertainment. The issue isn't technology itself—it's balance and intention.</p>
+
+                <div class="discussion-box">
+                    <p><strong>Think:</strong> What do you gain from technology? What are you losing? Are these balanced?</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Wellbeing Language</h2>
+                <p>Vocabulary for discussing digital wellbeing:</p>
+
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Digital Detox</span>
+                        <span class="definition">A period of abstinence from electronic devices to reduce stress and improve wellbeing</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Screen Addiction</span>
+                        <span class="definition">Compulsive use of screens that interferes with normal functioning and wellbeing</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Doomscrolling</span>
+                        <span class="definition">Compulsively consuming negative news or social media, often causing anxiety</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Notification Fatigue</span>
+                        <span class="definition">Mental exhaustion from constant alerts and digital interruptions</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Blue Light</span>
+                        <span class="definition">Short-wavelength light from screens that disrupts sleep cycles when viewed before bed</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Sleep Hygiene</span>
+                        <span class="definition">Habits and practices that promote good sleep quality and duration</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Dopamine Hit</span>
+                        <span class="definition">A brief rush of pleasure from an activity, reward, or stimulation</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Digital Minimalism</span>
+                        <span class="definition">Intentional use of technology, selecting tools that add real value to life</span>
+                    </div>
+                </div>
+
+                <h3>Reading: A Journalist's 30-Day Digital Detox</h3>
+                <div class="reading-passage">
+                    <p><strong>Going Offline: One Reporter's Journey Back to Balance</strong></p>
+
+                    <p>Journalist Sarah Chen spent an average of 12 hours daily on screens—her job required email and research, but personal social media consumption had spiralled. She'd wake checking Twitter, scroll between meetings, doomscroll before sleep. Anxiety and insomnia plagued her. Her relationships suffered; she'd be physically present but mentally elsewhere.</p>
+
+                    <p>At 35, Sarah decided on a radical experiment: 30 days without voluntary screen time. Work emails during business hours only. Phone in another room. No social media, streaming, or casual browsing. She'd read physical books, take walks, call friends instead of texting.</p>
+
+                    <p>The first week was brutal. Anxiety spiked. She felt phantom vibrations in her pocket. She craved the dopamine hits. Her mind wandered without distraction to fill the void. But gradually, something shifted. By week two, she read an entire novel—something she'd claimed "no time" for. She slept better. Her anxiety decreased. She noticed beauty: trees, architecture, people's faces.</p>
+
+                    <p>Most surprisingly: she didn't miss much. The digital world continued without her engagement. She caught up on important news through occasional check-ins. Most social media drama was irrelevant. She'd wasted thousands of hours consuming content that didn't enhance her life.</p>
+
+                    <p>After 30 days, Sarah didn't fully return to old habits. She established boundaries: no phones at dinner, no screens after 9 PM, 90 minutes screen-free each morning. She's selective about notifications. She deliberately chooses when to engage rather than reactively responding to prompts.</p>
+
+                    <p>She admits it's hard. The compulsion lingers. But she's reclaimed time and mental space. Her anxiety decreased by 40%. She completed three major writing projects. She rekindles friendships. She doesn't regret it for a moment.</p>
+                </div>
+
+                <h3>Key Phrases</h3>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li><strong>"To reduce screen time"</strong> — to spend less time on devices</li>
+                    <li><strong>"To set boundaries"</strong> — to establish limits on behaviour or time</li>
+                    <li><strong>"To feel compelled to..."</strong> — to feel an urge to do something</li>
+                    <li><strong>"To be mindful of..."</strong> — to be aware and intentional about something</li>
+                    <li><strong>"To reclaim..."</strong> — to take back possession of something</li>
+                    <li><strong>"To disengage from..."</strong> — to disconnect from or stop participating in something</li>
+                    <li><strong>"To prioritise..."</strong> — to consider something as most important</li>
+                    <li><strong>"To find balance"</strong> — to achieve equilibrium between different aspects</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>The Experiment</h2>
+
+                <h3>Digital Problems & Solutions</h3>
+                <p>Match each common digital problem with potential solutions:</p>
+
+                <div class="matching-exercise">
+                    <div class="matching-left">
+                        <h4>Problems</h4>
+                        <div class="matching-item">1. Constant notifications interrupt focus</div>
+                        <div class="matching-item">2. Social media comparison causes anxiety</div>
+                        <div class="matching-item">3. Blue light disrupts sleep</div>
+                        <div class="matching-item">4. Phone use reduces face-to-face connection</div>
+                        <div class="matching-item">5. News consumption increases stress</div>
+                    </div>
+                    <div class="matching-right">
+                        <h4>Solutions</h4>
+                        <div class="matching-item">A. Use blue light filters; no screens 1 hour before bed</div>
+                        <div class="matching-item">B. Turn off non-essential notifications; use Focus modes</div>
+                        <div class="matching-item">C. Limit news check-ins to 15 minutes daily</div>
+                        <div class="matching-item">D. Designate phone-free times and spaces</div>
+                        <div class="matching-item">E. Unfollow accounts that trigger comparison; follow positive creators</div>
+                    </div>
+                </div>
+
+                <button class="answer-btn" onclick="toggleAnswer(this, 'answers')">Show Answers</button>
+                <div class="answer-text" id="answers">
+                    <p><strong>Suggested Matches:</strong> 1-B, 2-E, 3-A, 4-D, 5-C</p>
+                    <p style="margin-top: 10px;">Note: Multiple solutions often work for each problem. The goal is identifying what works for your situation.</p>
+                </div>
+
+                <h3>Design Your Digital Wellbeing Plan</h3>
+                <p>Based on your actual habits and challenges, design a realistic plan:</p>
+
+                <div class="task-checklist">
+                    <h3>Personal Digital Wellbeing Strategy</h3>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Define your goal:</strong> What specific change do you want? (e.g., reduce bedtime scrolling, limit social media, improve focus)</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Identify triggers:</strong> When and why do you use screens excessively? (Boredom? Anxiety? Habit? FOMO?)</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Set specific boundaries:</strong> Which apps? Which times? Which locations?</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Choose replacement activities:</strong> What will you do instead? (Reading? Walking? Stretching? Conversation?)</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Use tech tools:</strong> Enable app timers, notification filters, Focus modes, grayscale mode</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Create accountability:</strong> Share your plan with someone; check in regularly</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Plan for setbacks:</strong> How will you respond if you slip back into old patterns?</span>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span><strong>Track benefits:</strong> Notice sleep quality, mood, focus, relationship quality improvements</span>
+                    </div>
+                </div>
+
+                <h3>Your Plan</h3>
+                <p>Write your digital wellbeing plan (you'll have 5 minutes):</p>
+                <textarea class="textarea-box" placeholder="My goal: | Current challenges: | Specific boundaries I'll set: | Replacement activities: | How I'll support myself: | How I'll track progress:"></textarea>
+
+                <div class="timer">
+                    <span id="timer-display">5:00</span>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Discussion</h2>
+
+                <h3>Technology and Children</h3>
+                <p>Children's brains are still developing. Excessive screen time during critical periods impacts attention, impulse control, and emotional regulation. Yet preventing children from technology entirely isn't realistic—it's a key tool for learning and connection. The balance is incredibly delicate, and parents face enormous pressure.</p>
+
+                <div class="discussion-box">
+                    <p><strong>Perspective:</strong> If you're a parent or work with children, how do you navigate screen time? If you're not, what do you think is a healthy approach for young people?</p>
+                </div>
+
+                <h3>Workplace Screen Time</h3>
+                <p>Many jobs demand constant digital presence. Emails require responses; meetings happen on video; communication is Slack-based. Productivity tools monitor activity. Working from home blurs boundaries, making "logging off" psychologically difficult. Yet burnout and mental health issues spike with excessive work screen time.</p>
+
+                <div class="question-block">
+                    <h4>Reflection</h4>
+                    <p>How does your work require screen time? What boundaries help you maintain balance? Is "balance" realistically possible in your field?</p>
+                </div>
+
+                <h3>The Future of Human-Technology Relationship</h3>
+                <p>Technology isn't going away. If anything, immersive technologies like virtual reality will intensify digital engagement. Rather than seeking elimination, we need cultural shifts: normalising "off" time, designing apps for wellbeing rather than engagement maximisation, teaching digital literacy and intentional use, and creating spaces and norms that support real-world connection.</p>
+
+                <p>Some organisations are pioneering this. Tech companies are implementing "no-email weekends" and banning notifications after hours. Some nations are exploring regulations limiting app features designed for addiction. Schools are teaching digital citizenship. Change is slow, but it's happening.</p>
+
+                <div class="discussion-box">
+                    <p><strong>Vision:</strong> Imagine a society with healthier technology habits. What would be different? What changes would help most?</p>
+                </div>
+
+                <h3>Your Commitment</h3>
+                <p>Digital wellbeing isn't a one-time fix; it's ongoing practice. Start small. Choose one boundary and commit to it for two weeks. Notice how you feel. Build from there. Remember: you're not trying to eliminate technology—you're reclaiming agency over how it shapes your life.</p>
+
+                <div class="question-block">
+                    <h4>Final Reflection</h4>
+                    <p>What one change would most improve your digital wellbeing? What stops you from making it? What support would help?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) { document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active")); document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active")); document.getElementById(tabName).classList.add("active"); evt.currentTarget.classList.add("active"); }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        function toggleAnswer(btn, id) { document.getElementById(id).classList.toggle("show"); btn.textContent = document.getElementById(id).classList.contains("show") ? "Hide Answers" : "Show Answers"; }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() { if (timerInterval) return; timerInterval = setInterval(function() { timeRemaining--; const minutes = Math.floor(timeRemaining / 60); const seconds = timeRemaining % 60; document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds; const timerEl = document.querySelector(".timer"); if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); } else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); } else { timerEl.classList.remove("warning", "danger"); } if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; } }, 1000); }
+        function resetTimer() { clearInterval(timerInterval); timerInterval = null; timeRemaining = 300; document.getElementById("timer-display").textContent = "5:00"; document.querySelector(".timer").classList.remove("warning", "danger"); }
+    </script>
+</body>
+</html>
