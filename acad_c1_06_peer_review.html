@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giving & Receiving Peer Review | C1 English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .matching-exercise { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .matching-left, .matching-right { background: white; padding: 15px; border: 2px solid #667eea; border-radius: 8px; }
+        .matching-left h4, .matching-right h4 { color: #764ba2; margin-bottom: 10px; }
+        .matching-item { margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 4px; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        .feedback-box { border: 2px solid #667eea; border-radius: 8px; padding: 15px; margin: 15px 0; background: white; }
+        .positive { border-left: 5px solid #667eea; }
+        .constructive { border-left: 5px solid #764ba2; }
+        .feedback-box h4 { margin-bottom: 8px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .matching-exercise { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Giving & Receiving Peer Review</h1>
+            <p>Constructive Feedback in Academic Communities</p>
+        </header>
+
+        <div class="timer">
+            <span id="timer-display">10:00</span>
+            <div>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, "tab1")">Why Peer Review?</button>
+            <button class="tab-button" onclick="openTab(event, "tab2")">Review Language</button>
+            <button class="tab-button" onclick="openTab(event, "tab3")">Write a Review</button>
+            <button class="tab-button" onclick="openTab(event, "tab4")">Responding to Feedback</button>
+        </div>
+
+        <!-- Tab 1: Why Peer Review? -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>The Purpose of Peer Review</h2>
+                <p>Peer review is the mechanism by which academic knowledge is vetted and legitimised. It ensures quality, identifies weaknesses, and improves scholarship before publication.</p>
+
+                <h3>Functions of Peer Review</h3>
+                <p><strong>Quality Control:</strong> Reviewers assess whether the work meets rigorous academic standards in methodology, reasoning, and evidence.</p>
+                <p><strong>Improving Scholarship:</strong> Constructive criticism identifies gaps, suggests clarifications, and proposes future directions. Many authors report their work improves substantially through review.</p>
+                <p><strong>Detecting Errors:</strong> Multiple expert readers may catch errors, logical flaws, or methodological issues authors missed.</p>
+                <p><strong>Gatekeeping:</strong> Not all work meets publication standards. Peer review prevents dissemination of substandard research.</p>
+                <p><strong>Legitimisation:</strong> Peer-reviewed publication signals that the work has withstood scrutiny from expert readers.</p>
+
+                <h3>Forms of Peer Review</h3>
+                <p><strong>Single Blind:</strong> Authors don" + "'"t know reviewers, but reviewers know authors.</p>
+                <p><strong>Double Blind:</strong> Neither authors nor reviewers know each other" + "'"s identities.</p>
+                <p><strong>Open Review:</strong> Reviewer names are revealed to authors; sometimes published with the paper.</p>
+                <p><strong>Post-Publication Review:</strong> Community comments on published work; increasingly common online.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>The Reviewer" + "'"s Responsibility</h2>
+                <p>Serving as a peer reviewer is an intellectual obligation. It requires careful, thorough reading and honest, constructive feedback. The goal is not to guard disciplinary gatekeeping power, but to improve scholarship.</p>
+
+                <h3>Ethical Principles</h3>
+                <p><strong>Confidentiality:</strong> Reviewer identity and manuscript details remain confidential.</p>
+                <p><strong>Objectivity:</strong> Assess the work on its merits, not personal relationships or competing interests.</p>
+                <p><strong>Conflict of Interest:</strong> Decline to review if you have financial interest, close professional relationships, or competing work.</p>
+                <p><strong>Honesty:</strong> Provide truthful, substantive assessment. Don" + "'"t inflate praise or harsh criticism.</p>
+                <p><strong>Constructiveness:</strong> Aim to help the author improve their work, not to reject it arbitrarily.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Vocabulary: Peer Review Terms</h2>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Manuscript</span>
+                        <span class="definition">Unpublished work submitted for review or publication</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Revise and Resubmit</span>
+                        <span class="definition">Editor decision requiring substantial revisions before final decision</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Desk Reject</span>
+                        <span class="definition">Editor rejection without sending to reviewers, due to scope or quality</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Substantive Review</span>
+                        <span class="definition">Detailed feedback addressing content, logic, and significance</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Copyediting</span>
+                        <span class="definition">Correction of grammar, style, and formatting after acceptance</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Conflict of Interest</span>
+                        <span class="definition">Situation where personal interests may compromise objective judgment</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Impact Factor</span>
+                        <span class="definition">Metric measuring journal influence based on citation rates</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Citation</span>
+                        <span class="definition">Reference to and acknowledgment of another scholar" + "'"s work</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Review Language -->
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Structuring a Peer Review</h2>
+
+                <h3>Opening Paragraph</h3>
+                <p>Summarise the manuscript" + "'"s main contribution and position. This shows you" + "'"ve understood the work and signals your engagement.</p>
+                <p>• "This manuscript examines X through Y methodology, arguing that Z. The work contributes to the literature by..."</p>
+                <p>• "The authors investigate an important but understudied question regarding..."</p>
+
+                <h3>Strengths Section</h3>
+                <p>Identify genuine strengths before criticisms. This establishes fairness and provides context for subsequent concerns.</p>
+                <p>• "The methodology is sound, employing triangulation across multiple data sources..."</p>
+                <p>• "The theoretical framework is well-grounded in current scholarship..."</p>
+                <p>• "The analysis is nuanced and attentive to contextual complexity..."</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Providing Constructive Critique</h2>
+
+                <h3>Identifying Weaknesses Helpfully</h3>
+                <p><strong>Specific rather than vague:</strong> "The conclusion doesn" + "'"t follow from the evidence presented in Chapter 3" rather than "the conclusion is weak."</p>
+                <p><strong>Evidence-based:</strong> Point to specific passages or issues. "On page 12, the claim that X requires more support because..."</p>
+                <p><strong>Generous interpretation:</strong> Assume good faith. "While the authors likely intend to argue X, the wording here might be misunderstood to mean Y..."</p>
+
+                <h3>Framing Critical Comments</h3>
+                <p>• "A potential limitation is..."</p>
+                <p>• "This could be strengthened by..."</p>
+                <p>• "The logic here is unclear. Could the authors clarify..."</p>
+                <p>• "I would question whether..."</p>
+                <p>• "This claim would benefit from additional evidence such as..."</p>
+                <p>• "An important consideration is..."</p>
+                <p>• "The generalisability might be limited because..."</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Making Recommendations</h2>
+
+                <h3>Constructive Suggestions</h3>
+                <p>Don" + "'"t just identify problems; suggest improvements.</p>
+                <p>• "This section could be clarified by moving X paragraph to earlier in the chapter..."</p>
+                <p>• "Addressing this concern might require..."</p>
+                <p>• "Consider adding a table comparing your findings with Chen" + "'"s 2021 results..."</p>
+                <p>• "This limitation could be explicitly addressed by..."</p>
+
+                <h3>Distinguishing Severity</h3>
+                <p>• <strong>Major issues:</strong> "This methodological choice fundamentally undermines the claims..."</p>
+                <p>• <strong>Moderate issues:</strong> "This section requires substantial revision to..."</p>
+                <p>• <strong>Minor issues:</strong> "A small clarification would improve..."</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Closing Your Review</h2>
+
+                <h3>Summary Recommendation</h3>
+                <p>End with clear assessment: Accept, Accept with Minor Revisions, Revise and Resubmit, or Reject.</p>
+                <p>• "Despite the limitations noted above, this work makes a solid contribution and merits publication after minor revisions."</p>
+                <p>• "The work addresses an important question, but requires substantial revision to..."</p>
+                <p>• "While the authors have tackled a relevant topic, the methodological limitations are too severe for publication in its current form."</p>
+            </div>
+        </div>
+
+        <!-- Tab 3: Write a Review -->
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Practice Peer Review</h2>
+                <p>Here" + "'"s a manuscript excerpt to review. Use the framework below.</p>
+
+                <div class="reading-passage">
+                    <p><strong>From Methodology Section:</strong> "This study employs qualitative interviews with 12 participants from urban areas. Participants were selected opportunistically through university networks. Interviews lasted 45-60 minutes and were transcribed verbatim. Analysis employed thematic coding using NVivo software. The research was approved by the institutional review board."</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>1. Summarise the manuscript" + "'"s contribution</h4>
+                    <textarea class="textarea-box" placeholder="What is this work trying to do?"></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>2. Identify strengths</h4>
+                    <textarea class="textarea-box" placeholder="What works well about this methodology?"></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>3. Identify concerns and limitations</h4>
+                    <textarea class="textarea-box" placeholder="What issues or limitations do you see?"></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>4. Suggest improvements</h4>
+                    <textarea class="textarea-box" placeholder="How could the author address these concerns?"></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>5. Make a recommendation</h4>
+                    <textarea class="textarea-box" placeholder="Accept? Accept with revisions? Reject? Why?"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Responding to Feedback -->
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Receiving Peer Review: Perspective Shift</h2>
+                <p>Peer review is not personal attack, but expert feedback intended to improve your work. The most successful scholars see reviewers as collaborators, not opponents.</p>
+
+                <h3>Initial Response Strategies</h3>
+                <p><strong>Take a break:</strong> Don" + "'"t respond to reviews immediately. Let your emotional response settle.</p>
+                <p><strong>Separate valid criticism from disagreement:</strong> A reviewer may disagree with your theoretical position but still offer valid points about evidence or clarity.</p>
+                <p><strong>Distinguish major and minor issues:</strong> Some comments require substantial revision; others are minor clarifications.</p>
+                <p><strong>Seek mentorship:</strong> Discuss reviews with senior colleagues. They" + "'"ve navigated similar criticism.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Responding to Reviewer Comments</h2>
+
+                <div class="feedback-box constructive">
+                    <h4>Example: Major Concern</h4>
+                    <p><strong>Reviewer Comment:</strong> "The sample is too small to support claims about population generalisability. Recruiting only 12 participants from university networks introduces significant selection bias."</p>
+                    <p><strong>Potential Responses:</strong></p>
+                    <p>— Accept the critique and revise claims: "You" + "'"re correct. We have revised the conclusion to acknowledge that findings are exploratory and represent perspectives of university-affiliated participants rather than claiming population generalisability."</p>
+                    <p>— Defend with clarification: "We agree that our sample is limited. However, qualitative research often employs smaller purposive samples. We have added discussion of purposive sampling as a valid methodology for exploratory research..."</p>
+                </div>
+
+                <div class="feedback-box positive">
+                    <h4>Example: Minor Concern</h4>
+                    <p><strong>Reviewer Comment:</strong> "The chronology of events in the introduction is confusing. Consider reorganising for clarity."</p>
+                    <p><strong>Response:</strong> "Thank you for this suggestion. We have reorganised the introduction chronologically, moving the discussion of X before Y for improved clarity."</p>
+                </div>
+
+                <div class="feedback-box positive">
+                    <h4>Example: Disagreement</h4>
+                    <p><strong>Reviewer Comment:</strong> "The authors" + "'"s reliance on critical realist epistemology is problematic. Post-positivist approaches would be more appropriate."</p>
+                    <p><strong>Response:</strong> "We appreciate the reviewer" + "'"s concern. Our choice of critical realism reflects our position that..."</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Crafting Your Response Letter</h2>
+
+                <h3>Structure</h3>
+                <p><strong>Opening:</strong> Thank reviewers. Acknowledge the value of their feedback.</p>
+                <p><strong>Point-by-point Response:</strong> Address each major comment. Explain what you changed and why, or defend your original position with clarification.</p>
+                <p><strong>Closing:</strong> Thank them again. Indicate how their feedback strengthened your work.</p>
+
+                <h3>Tone</strong></h3>
+                <p>Professional, respectful, non-defensive. You" + "'"re in conversation with experts who care about quality. Treat them as such.</p>
+
+                <div class="question-block">
+                    <h4>Draft a Response to a Hypothetical Review</h4>
+                    <p>Reviewer Comment: "The literature review covers important sources but overlooks recent work by Smith (2022) on this exact topic. This omission undermines the author" + "'"s claim about the gap in literature."</p>
+                    <textarea class="textarea-box" placeholder="How would you respond to this comment?"></textarea>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Learning from Feedback</h2>
+
+                <div class="task-checklist">
+                    <h3>Post-Revision Reflection</h3>
+                    <label class="checklist-item">
+                        <input type="checkbox">
+                        <span>Did reviewer feedback identify genuine weaknesses?</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox">
+                        <span>How will this revision improve future work?</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox">
+                        <span>What patterns do I notice in reviewer feedback?</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox">
+                        <span>Are there systematic issues I should address in all future work?</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox">
+                        <span>Have I developed thicker skin while remaining open to criticism?</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Growing as a Scholar:</strong> The willingness to revise in response to expert feedback, while maintaining your intellectual integrity, is a hallmark of mature scholarship. Some of the best publications only reached excellence through multiple revision cycles.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) { document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active")); document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active")); document.getElementById(tabName).classList.add("active"); evt.currentTarget.classList.add("active"); }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        function toggleAnswer(btn) { btn.nextElementSibling.classList.toggle("show"); btn.textContent = btn.nextElementSibling.classList.contains("show") ? "Hide" : "Show"; }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() { if (timerInterval) return; timerInterval = setInterval(function() { timeRemaining--; const minutes = Math.floor(timeRemaining / 60); const seconds = timeRemaining % 60; document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds; const timerEl = document.querySelector(".timer"); if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); } else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); } else { timerEl.classList.remove("warning", "danger"); } if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time" + "'" + "s up!"; } }, 1000); }
+        function resetTimer() { clearInterval(timerInterval); timerInterval = null; timeRemaining = 600; document.getElementById("timer-display").textContent = "10:00"; document.querySelector(".timer").classList.remove("warning", "danger"); }
+    </script>
+</body>
+</html>
