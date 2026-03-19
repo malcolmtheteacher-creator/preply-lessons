@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Describing Trends - C1 Advanced</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Describing Trends</h1>
+            <p>Science, Space and Technology</p>
+        </header>
+
+        <div class="timer">
+            <span>Time: <span id="timer-display">10:00</span></span>
+            <div>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'vocab')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'language')">Language Focus</button>
+            <button class="tab-button" onclick="openTab(event, 'comprehension')">Comprehension</button>
+            <button class="tab-button" onclick="openTab(event, 'discussion')">Discussion</button>
+            <button class="tab-button" onclick="openTab(event, 'task')">Task</button>
+        </div>
+
+        <div id="vocab" class="tab-content active">
+            <div class="content-block">
+                <h2>Key Vocabulary</h2>
+                <p>Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">shoot up</span>
+                            <span class="definition">to increase rapidly and suddenly</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">plummet</span>
+                            <span class="definition">to fall or decrease very quickly</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">plateau</span>
+                            <span class="definition">to reach a level and stay there without changing</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">rocket</span>
+                            <span class="definition">to increase very quickly and suddenly (like a rocket)</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">slump</span>
+                            <span class="definition">to fall suddenly and significantly</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">tail off</span>
+                            <span class="definition">to gradually decrease in quantity or intensity</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">creep up</span>
+                            <span class="definition">to increase very slowly and gradually</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">stabilise</span>
+                            <span class="definition">to become stable or stop changing significantly</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="language" class="tab-content">
+            <div class="content-block">
+                <h2>Expressing Uncertainty</h2>
+                <p>Use these phrases when you're not sure about data or trends:</p>
+                <div class="vocab-grid" style="grid-template-columns: 1fr;">
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">I am/was under the impression that…</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">It looks like/as if…</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">I take/took it that…</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">To the best of my knowledge…</span>
+                        </span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Practice: Match Line to Trend Description</h3>
+                <div class="question-block">
+                    <h4>Which verb best describes each movement?</h4>
+                    <p>Read the trend descriptions and decide which of the verbs you learned (shoot up, plummet, plateau, rocket, slump, creep up, tail off, stabilise) fits best.</p>
+                    <p style="margin-top: 15px;">
+                        <strong>1. A value that rises from 20 to 95 in one year:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>shoot up / rocket</strong></span>
+                    </p>
+                    <p>
+                        <strong>2. A value that stays at 45 for several years:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>plateau / stabilise</strong></span>
+                    </p>
+                    <p>
+                        <strong>3. A value that falls from 80 to 15 suddenly:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>plummet / slump</strong></span>
+                    </p>
+                    <p>
+                        <strong>4. A value that rises from 10 to 35 very gradually over time:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>creep up</strong></span>
+                    </p>
+                    <p>
+                        <strong>5. A value that decreases slowly from 60 to 40 over a long period:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>tail off</strong></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="comprehension" class="tab-content">
+            <div class="content-block">
+                <h2>Understanding Data</h2>
+                <div class="question-block">
+                    <h4>Analyse the Trends</h4>
+                    <p>Consider crime statistics and happiness trends. For each scenario below, choose the best explanation.</p>
+                    <p style="margin-top: 15px;">
+                        <strong>Why might crime rates show significant variation over decades?</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Possible Causes</button>
+                        <span class="answer-text">
+                            Changes in economic conditions, policing effectiveness, demographic shifts, improved reporting systems, or changes in legislation and law enforcement priorities.
+                        </span>
+                    </p>
+                    <p>
+                        <strong>If happiness decreased relative to higher expectations, what might explain this?</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Possible Causes</button>
+                        <span class="answer-text">
+                            Unmet expectations, slower social change than anticipated, increased awareness of remaining inequalities, or external pressures like economic crises.
+                        </span>
+                    </p>
+                    <p>
+                        <strong>How can we evaluate the reliability of self-reported data?</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Discussion Points</button>
+                        <span class="answer-text">
+                            Self-reported data can be influenced by mood, external events, personal bias, and changing definitions of happiness. Multiple data sources and longitudinal studies provide better insight.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="discussion" class="tab-content">
+            <div class="content-block">
+                <h2>Discussion Questions</h2>
+                <div class="discussion-box">
+                    <p><strong>1. What do you think are the most significant trends in your country?</strong></p>
+                    <p>Think about social, demographic, or economic trends you have observed.</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>2. How do you typically discover what is happening in the world?</strong></p>
+                    <p>Do you rely on news, social media, personal networks, or something else?</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>3. Is it important to understand what is happening globally and locally?</strong></p>
+                    <p>What are the benefits and challenges of staying informed?</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>4. Compare two different trends you have observed.</strong></p>
+                    <p>Use the vocabulary you learned to describe the movement and explain possible reasons.</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>5. Wealth and Inequality: Is household wealth growing or declining in your country?</strong></p>
+                    <p>What factors might be driving this trend?</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="task" class="tab-content">
+            <div class="content-block">
+                <h2>Presentation Task</h2>
+                <p>Prepare an informative talk about trends using the structure below:</p>
+
+                <h3>Step 1: Select Your Data</h3>
+                <p>Choose an interesting trend or dataset that interests you (climate, technology adoption, population changes, education levels, etc.).</p>
+
+                <h3>Step 2: Describe the Trend</h3>
+                <p>Use the vocabulary you learned (shoot up, plummet, plateau, creep up, tail off, stabilise, etc.) to describe what the data shows.</p>
+                <textarea class="textarea-box" placeholder="Write your trend description here. Use at least 3 trend verbs."></textarea>
+
+                <h3>Step 3: Interpret the Data</h3>
+                <p>Suggest reasons for the trend. Use phrases for expressing uncertainty:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"It looks like..."</li>
+                    <li>"I take it that..."</li>
+                    <li>"To the best of my knowledge..."</li>
+                </ul>
+                <textarea class="textarea-box" placeholder="Write your interpretation and possible causes here."></textarea>
+
+                <h3>Step 4: Reflect on Your Presentation</h3>
+                <p>Consider these questions:</p>
+                <div class="discussion-box">
+                    <p>Which trend verbs did you use most naturally?</p>
+                    <p>How confident were you in interpreting the data?</p>
+                    <p>What additional information would make your interpretation stronger?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Being Green - C1 Advanced</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Being Green</h1>
+            <p>The World of Tomorrow</p>
+        </header>
+
+        <div class="timer">
+            <span>Time: <span id="timer-display">10:00</span></span>
+            <div>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'vocab')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'attitudes')">Attitudes & Collocations</button>
+            <button class="tab-button" onclick="openTab(event, 'comprehension')">Comprehension</button>
+            <button class="tab-button" onclick="openTab(event, 'discussion')">Discussion</button>
+            <button class="tab-button" onclick="openTab(event, 'task')">Task</button>
+        </div>
+
+        <div id="vocab" class="tab-content active">
+            <div class="content-block">
+                <h2>Environmental Collocations</h2>
+                <p>Click each card to see the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">conscious shopper</span>
+                            <span class="definition">someone who makes careful, thoughtful purchasing decisions considering impact</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">beat myself up</span>
+                            <span class="definition">to criticise oneself harshly</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">practise what (I) preach</span>
+                            <span class="definition">to act according to one's own values and advice</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">drive me crazy</span>
+                            <span class="definition">to annoy or frustrate greatly</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">not have a clue</span>
+                            <span class="definition">to not understand something at all</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">feel overwhelmed</span>
+                            <span class="definition">to feel completely unable to cope with something</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">limiting consumption</span>
+                            <span class="definition">reducing the amount of goods and resources one uses</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span>
+                            <span class="word">go a bit over the top</span>
+                            <span class="definition">to behave in an exaggerated or extreme way</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="attitudes" class="tab-content">
+            <div class="content-block">
+                <h2>Expressing Attitudes to Green Behaviour</h2>
+                <p>These phrases help you discuss environmental attitudes:</p>
+
+                <div class="vocab-grid" style="grid-template-columns: 1fr;">
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">I feel strongly that...</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">I'm all for...</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">I'm a very conscious...</span>
+                        </span>
+                    </div>
+                    <div class="vocab-card">
+                        <span>
+                            <span class="word">...is key</span>
+                        </span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Practice: Complete the Sentences</h3>
+                <div class="question-block">
+                    <p style="margin-bottom: 15px;">
+                        <strong>1. I feel strongly that_____ (complete with a belief about the environment):</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Example</button>
+                        <span class="answer-text"><strong>...supporting organic farming is important.</strong></span>
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>2. I'm all for helping the environment, but I don't_____:</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Example</button>
+                        <span class="answer-text"><strong>...want to spend significantly more money on everything.</strong></span>
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>3. One thing that drives me crazy is _____ (describe annoying behaviour):</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Example</button>
+                        <span class="answer-text"><strong>...people using plastic bags for single items.</strong></span>
+                    </p>
+                    <p>
+                        <strong>4. For me, _____ is key (complete with what matters):</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Example</button>
+                        <span class="answer-text"><strong>...reducing overall consumption is key.</strong></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="comprehension" class="tab-content">
+            <div class="content-block">
+                <h2>Green Myths and Facts</h2>
+                <div class="question-block">
+                    <h4>Test Your Knowledge</h4>
+                    <p style="margin-bottom: 15px;">
+                        <strong>1. Appliances use no energy when turned off.</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>False.</strong> Many appliances use energy for clocks and remote sensors. Unplug devices when possible.</span>
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>2. Washing by hand always uses less water than modern dishwashers.</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>False.</strong> Energy Star dishwashers often use less water (up to 50% less) than hand washing.</span>
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>3. Paper and plastic bags are equally harmful.</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>True.</strong> Both are harmful to manufacture and dispose of. Reuse is the best option.</span>
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <strong>4. Hybrid cars perform worse than conventional cars.</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>False.</strong> Modern hybrids perform as well as or better than conventional vehicles.</span>
+                    </p>
+                    <p>
+                        <strong>5. Most global energy comes from renewable resources.</strong> <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle(\"show\")">Show Answer</button>
+                        <span class="answer-text"><strong>False.</strong> Only 8% of global energy is renewable; the rest comes from fossil fuels.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="discussion" class="tab-content">
+            <div class="content-block">
+                <h2>Discussion Topics</h2>
+                <div class="discussion-box">
+                    <p><strong>1. Your Environmental Habits</strong></p>
+                    <p>What do you personally do (or not do) to help the environment? Think about your home, workplace, and shopping habits.</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>2. Anti-Green Behaviours</strong></p>
+                    <p>What behaviours in other people annoy or frustrate you when it comes to environmental issues?</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>3. Government Action</strong></p>
+                    <p>How much does your government do to help with environmental problems? Is it enough?</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>4. Recycling Effectiveness</strong></p>
+                    <p>How does your local government support or hinder recycling efforts?</p>
+                </div>
+                <div class="discussion-box">
+                    <p><strong>5. Balancing Progress with Protection</strong></p>
+                    <p>Can we protect the environment and improve people's standard of living simultaneously?</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="task" class="tab-content">
+            <div class="content-block">
+                <h2>Action Lists Task</h2>
+                <p>Create two lists of environmental actions with justifications:</p>
+
+                <h3>Part A: Personal Actions</h3>
+                <p>List 5 actions you could personally take to help the environment. Use the collocations and attitude phrases you learned.</p>
+                <textarea class="textarea-box" placeholder="1. (action) - because...&#10;2. (action) - because...&#10;3. (action) - because...&#10;4. (action) - because...&#10;5. (action) - because..."></textarea>
+
+                <h3 style="margin-top: 30px;">Part B: Government/Societal Actions</h3>
+                <p>List 5 actions you would like to see implemented at local or national government level. What is your reasoning?</p>
+                <textarea class="textarea-box" placeholder="1. (action) - because...&#10;2. (action) - because...&#10;3. (action) - because...&#10;4. (action) - because...&#10;5. (action) - because..."></textarea>
+
+                <h3 style="margin-top: 30px;">Reflection</h3>
+                <div class="discussion-box">
+                    <p>Which actions from Part A are you genuinely willing to implement?</p>
+                    <p>Which government actions would make the biggest difference in your opinion?</p>
+                    <p>What obstacles prevent more people from being consciously green?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

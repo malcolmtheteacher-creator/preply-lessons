@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids and Meteorites</title>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin: 0 5px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+.strategy-card { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+.strategy-card h4 { color: #764ba2; margin-bottom: 10px; }
+@media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Asteroids and Meteorites</h1>
+            <p>Science, Space, and Technology</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'lesson-objective')">Lesson Objective</button>
+            <button class="tab-button" onclick="openTab(event, 'grammar-focus')">Grammar & Language</button>
+            <button class="tab-button" onclick="openTab(event, 'vocabulary')">Space Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'discussion-task')">Discussion Task</button>
+            <button class="tab-button" onclick="openTab(event, 'reflection')">Reflection</button>
+        </div>
+
+        <!-- Lesson Objective Tab -->
+        <div id="lesson-objective" class="tab-content active">
+            <div class="content-block">
+                <h2>Lesson Objective</h2>
+                <p style="margin-bottom: 20px;">In this lesson, you will take part in a think tank discussion on the best strategies for avoiding a disaster through a meteorite hitting your city.</p>
+
+                <h3>Key Focus Areas</h3>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>Grammar:</strong> Present Perfect and Present Perfect Continuous tenses</li>
+                    <li style="margin-bottom: 10px;"><strong>Vocabulary:</strong> Modifying adverbs and collocations</li>
+                    <li style="margin-bottom: 10px;"><strong>Speaking:</strong> Discourse markers for managing conversation</li>
+                </ul>
+
+                <h3>The Scenario</h3>
+                <div style="background: white; padding: 20px; border-left: 5px solid #667eea; margin-bottom: 20px; border-radius: 4px;">
+                    <p style="margin-bottom: 10px;">A large asteroid has been detected by an amateur enthusiast on a collision course for your nation's capital. On its present trajectory, it is due to impact in roughly ten years' time.</p>
+                    <p style="margin-bottom: 10px;">You belong to a think tank that has been urgently convened to discuss the situation and report to the head of state and an anxious public informing them about the nature of the threat and how it can be best avoided.</p>
+                    <p>Your task: Discuss different asteroid avoidance strategies, evaluate their viability, effectiveness, time and cost, and decide on the best three options.</p>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Warm-up:</strong> How much space vocabulary do you know? Can you think of 10 items? (E.g., comet, black hole, meteor, orbit, trajectory...)</p>
+            </div>
+        </div>
+
+        <!-- Grammar & Language Tab -->
+        <div id="grammar-focus" class="tab-content">
+            <div class="timer">
+                <span id="timer-display">10:00</span>
+                <div>
+                    <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                    <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Present Perfect vs Present Perfect Continuous</h2>
+                <p style="margin-bottom: 20px;">Both tenses connect past and present, but they show different perspectives on an action.</p>
+
+                <h3>Present Perfect</h3>
+                <p style="margin-bottom: 15px;">Use to show a completed action with present relevance:</p>
+                <div style="background: white; padding: 15px; border-left: 5px solid #667eea; margin-bottom: 15px; border-radius: 4px;">
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">NASA has detected ten large asteroids in the past year.</p>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Scientists have brought out new research on asteroid deflection.</p>
+                </div>
+
+                <h3>Present Perfect Continuous</h3>
+                <p style="margin-bottom: 15px;">Use to show an ongoing action from the past until now:</p>
+                <div style="background: white; padding: 15px; border-left: 5px solid #667eea; margin-bottom: 20px; border-radius: 4px;">
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">I've basically been spending the last 30 years studying meteorites.</p>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">NASA has been tracking this asteroid for months.</p>
+                </div>
+
+                <h3>Practice: Choose the Right Form</h3>
+                <p style="margin-bottom: 15px;">Which verb form is correct?</p>
+
+                <div class="question-block">
+                    <h4>1. I'm here with Chuck Larsson who's brought out / who's just been bringing out a book.</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Explain</button>
+                    <div class="answer-text">
+                        <p><strong>Answer: who's brought out</strong> — This is a completed action. The book is now published and available (present relevance). The Present Perfect Continuous would suggest he's still in the process of writing, which doesn't make sense here.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>2. I've basically spent / I've basically been spending the last 30 years studying meteorites.</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Explain</button>
+                    <div class="answer-text">
+                        <p><strong>Answer: I've basically been spending</strong> — This emphasizes the ongoing, continuous nature of the action. It highlights the duration and commitment to research over 30 years.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Discourse Markers for Conversation</h2>
+                <p style="margin-bottom: 20px;">Use these markers to manage conversation smoothly and keep discussions organised:</p>
+
+                <div class="strategy-card">
+                    <h4>To show we are considering what someone said:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "Well, that's an interesting point, but..."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To show we are taking up an invitation to enter a conversation:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "Right, so if we could use rockets to deflect the asteroid..."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To show we understand or agree:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "OK, so the cost is the main problem with that option."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To suggest the listener is already familiar with something:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "You know, we really only have a few viable strategies."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To express personal feelings or opinions:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "I mean, deflecting is cheaper than evacuation."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To show what we're saying is related to the topic:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "So, we need to decide which strategy is most effective."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To show we are about to disagree:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "Actually, I think nuclear deflection is too risky."</p>
+                </div>
+
+                <div class="strategy-card">
+                    <h4>To show we are getting back to the main topic:</h4>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Example: "Anyway, the key question is: which strategy can we implement?"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vocabulary Tab -->
+        <div id="vocabulary" class="tab-content">
+            <div class="content-block">
+                <h2>Space and Science Vocabulary</h2>
+                <p style="margin-bottom: 20px;">Click on each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Asteroid</span>
+                        <span class="definition">A small rocky body orbiting the sun, typically in the belt between Mars and Jupiter</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Meteorite</span>
+                        <span class="definition">A fragment of rock from space that reaches the Earth's surface</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Trajectory</span>
+                        <span class="definition">The path or course an object takes as it moves through space</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Collision Course</span>
+                        <span class="definition">A path that will result in a crash or impact</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Deflection</span>
+                        <span class="definition">The act of changing the direction or path of something</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Viability</span>
+                        <span class="definition">The ability to work successfully; the practicality of a plan</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Comet</span>
+                        <span class="definition">A icy body that orbits the sun and often has a visible tail</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Evacuation</span>
+                        <span class="definition">The act of moving people away from a dangerous area</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Modifying Adverbs with Collocations</h2>
+                <p style="margin-bottom: 20px;">Adverbs like "completely," "deeply," and "barely" modify adjectives and verbs. Some combinations are natural, others sound awkward:</p>
+
+                <h3>Common Collocations</h3>
+                <div style="background: white; padding: 15px; border-left: 5px solid #667eea; margin-bottom: 15px; border-radius: 4px;">
+                    <p style="margin-bottom: 8px;"><strong>Bitterly:</strong> cold, ashamed, disappointed (but not hot)</p>
+                    <p style="margin-bottom: 8px;"><strong>Barely:</strong> alive, legible, comprehensible (but not healthy)</p>
+                    <p style="margin-bottom: 8px;"><strong>Completely:</strong> serious, open, honest, funny</p>
+                    <p style="margin-bottom: 8px;"><strong>Deeply:</strong> miserable, hurt, saddened, upset</p>
+                    <p style="margin-bottom: 8px;"><strong>Entirely:</strong> clear, convinced, satisfactory (but not clever)</p>
+                    <p style="margin-bottom: 8px;"><strong>Perfectly:</strong> capable, aware, reasonable (but not bad)</p>
+                </div>
+
+                <p style="margin-bottom: 15px;"><strong>Tip:</strong> When describing risk or danger in the asteroid scenario, you might say:</p>
+                <ul style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">"This strategy is <strong>completely viable</strong>"</li>
+                    <li style="margin-bottom: 8px;">"The cost is <strong>entirely prohibitive</strong>"</li>
+                    <li style="margin-bottom: 8px;">"We are <strong>deeply concerned</strong> about the timeline"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Discussion Task Tab -->
+        <div id="discussion-task" class="tab-content">
+            <div class="content-block">
+                <h2>Think Tank Discussion: Asteroid Avoidance Strategies</h2>
+                <p style="margin-bottom: 20px;">You have been asked to evaluate different strategies for protecting your nation's capital from an incoming asteroid. Consider each option's viability, effectiveness, time required, and cost.</p>
+
+                <h3>Strategy A: Kinetic Impact (Rocket Collision)</h3>
+                <div class="strategy-card">
+                    <p style="margin-bottom: 10px;"><strong>Description:</strong> Launch a rocket that collides with the asteroid to change its trajectory.</p>
+                    <p style="margin-bottom: 10px;"><strong>Viability:</strong> High — proven technology, successful tests</p>
+                    <p style="margin-bottom: 10px;"><strong>Effectiveness:</strong> Can deflect small to medium asteroids</p>
+                    <p style="margin-bottom: 10px;"><strong>Timeline:</strong> Possible within 10 years</p>
+                    <p><strong>Cost:</strong> Moderate — millions to billions</p>
+                </div>
+
+                <h3>Strategy B: Nuclear Detonation</h3>
+                <div class="strategy-card">
+                    <p style="margin-bottom: 10px;"><strong>Description:</strong> Use a nuclear warhead to blast the asteroid off course or break it apart.</p>
+                    <p style="margin-bottom: 10px;"><strong>Viability:</strong> Moderate — controversial, untested at scale</p>
+                    <p style="margin-bottom: 10px;"><strong>Effectiveness:</strong> Very effective for large asteroids</p>
+                    <p style="margin-bottom: 10px;"><strong>Timeline:</strong> Could be implemented in 10 years</p>
+                    <p><strong>Cost:</strong> High — diplomatic and military implications</p>
+                </div>
+
+                <h3>Strategy C: Gravitational Tractor Beam</h3>
+                <div class="strategy-card">
+                    <p style="margin-bottom: 10px;"><strong>Description:</strong> Position a spacecraft near the asteroid to gradually pull it off course using its gravitational field.</p>
+                    <p style="margin-bottom: 10px;"><strong>Viability:</strong> Low — experimental, requires new technology</p>
+                    <p style="margin-bottom: 10px;"><strong>Effectiveness:</strong> Very gentle and controlled</p>
+                    <p style="margin-bottom: 10px;"><strong>Timeline:</strong> Unlikely within 10 years — needs more research</p>
+                    <p><strong>Cost:</strong> Very high — cutting-edge technology</p>
+                </div>
+
+                <h3>Strategy D: Evacuation</h3>
+                <div class="strategy-card">
+                    <p style="margin-bottom: 10px;"><strong>Description:</strong> Evacuate the capital and surrounding areas before impact.</p>
+                    <p style="margin-bottom: 10px;"><strong>Viability:</strong> High — readily available option</p>
+                    <p style="margin-bottom: 10px;"><strong>Effectiveness:</strong> Saves lives but doesn't prevent damage</p>
+                    <p style="margin-bottom: 10px;"><strong>Timeline:</strong> Can be done anytime in the 10-year period</p>
+                    <p><strong>Cost:</strong> Enormous — economic, social, logistical challenges</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Your Discussion Notes</h2>
+
+                <h3>Compare the Strategies</h3>
+                <p style="margin-bottom: 15px;">Which strategy is most viable? Most effective? Most practical given the timeline and cost?</p>
+                <textarea class="textarea-box" placeholder="Write your analysis of each strategy. What are the pros and cons?"></textarea>
+
+                <h3 style="margin-top: 20px;">Your Recommendations</h3>
+                <p style="margin-bottom: 15px;">Which three strategies would you recommend to the government and public? Why?</p>
+                <textarea class="textarea-box" placeholder="Write your top three recommendations and your reasoning..."></textarea>
+
+                <h3 style="margin-top: 20px;">Discussion Points</h3>
+                <p style="margin-bottom: 15px;">Use these discourse markers as you discuss with your partner:</p>
+                <ul style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">"Well, I think <strong>kinetic impact</strong> is the most realistic option."</li>
+                    <li style="margin-bottom: 8px;">"Right, so if we combine <strong>deflection with evacuation</strong>, we have a backup plan."</li>
+                    <li style="margin-bottom: 8px;">"I mean, nuclear detonation is too risky for the environment."</li>
+                    <li style="margin-bottom: 8px;">"Actually, we should prepare for multiple scenarios."</li>
+                    <li style="margin-bottom: 8px;">"You know, 10 years isn't very long for such a complex task."</li>
+                    <li style="margin-bottom: 8px;">"Anyway, we need a comprehensive plan that includes all these elements."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reflection Tab -->
+        <div id="reflection" class="tab-content">
+            <div class="content-block">
+                <h2>Check Your Understanding</h2>
+
+                <div class="question-block">
+                    <h4>What's the difference between Present Perfect and Present Perfect Continuous?</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                    <div class="answer-text">
+                        <p>Present Perfect shows a completed action with present relevance ("I've studied meteorites"). Present Perfect Continuous emphasizes the duration and ongoing nature of the action ("I've been studying meteorites for years").</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>When would you use the discourse marker "I mean"?</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                    <div class="answer-text">
+                        <p>Use "I mean" to clarify or rephrase something you just said. Example: "The cost is prohibitive. I mean, we simply don't have the budget for nuclear detonation."</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>What does "trajectory" mean in the context of asteroids?</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                    <div class="answer-text">
+                        <p>Trajectory is the path or course an asteroid takes as it moves through space. Understanding the asteroid's trajectory is essential to predicting whether it will collide with Earth.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Which adverb collocation is correct: "completely viable" or "deeply viable"?</h4>
+                    <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                    <div class="answer-text">
+                        <p>"Completely viable" is correct. "Completely" modifies adjectives that describe a state or condition (viable, possible, clear). "Deeply" modifies emotions or experiences (concerned, sorry, grateful).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Reflect on the Discussion</h2>
+
+                <div style="background: white; padding: 15px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px;">
+                    <p style="margin-bottom: 10px;"><strong>What was the most challenging aspect of this discussion?</strong></p>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Was it understanding the scientific concepts, making the decision, or expressing your ideas clearly?</p>
+                </div>
+
+                <div style="background: white; padding: 15px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px;">
+                    <p style="margin-bottom: 10px;"><strong>Which discourse marker did you use most naturally?</strong></p>
+                    <p style="margin-bottom: 10px; font-style: italic; color: #555;">Which ones felt awkward? Practice the ones that feel unnatural.</p>
+                </div>
+
+                <div style="background: white; padding: 15px; border-left: 5px solid #764ba2; border-radius: 4px;">
+                    <p style="margin-bottom: 10px;"><strong>How confident were you using Present Perfect and Present Perfect Continuous?</strong></p>
+                    <p style="font-style: italic; color: #555;">These tenses are essential for discussions. Recording yourself and listening back can help improve accuracy.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Further Learning</h2>
+                <p style="margin-bottom: 20px;">To continue learning about asteroids and space science:</p>
+                <ul style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Research real asteroid deflection proposals</li>
+                    <li style="margin-bottom: 8px;">Watch documentaries about space threats</li>
+                    <li style="margin-bottom: 8px;">Practice using discourse markers in other discussions</li>
+                    <li style="margin-bottom: 8px;">Learn more collocations with modifying adverbs</li>
+                    <li style="margin-bottom: 8px;">Explore how Present Perfect is used in scientific contexts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipCard(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+    </script>
+</body>
+</html>
