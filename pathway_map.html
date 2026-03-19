@@ -422,6 +422,63 @@
             }
         }
 
+        /* ========== SHELF PREVIEW ========== */
+        .shelf-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--warm-gray);
+        }
+
+        .shelf-spine {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, rgba(30,58,47,0.06), rgba(30,58,47,0.03));
+            border-left: 3px solid var(--line-color);
+            font-size: 0.72rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        .shelf-spine:hover {
+            background: var(--line-color);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .shelf-more {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            font-size: 0.72rem;
+            color: var(--mid-gray);
+            font-weight: 600;
+            cursor: default;
+        }
+
+        .station-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--mid-gray);
+        }
+
+        .station-stats span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* Dashboard link special style */
         .dashboard-link {
             display: inline-block;
@@ -1381,6 +1438,66 @@
             }
         }
 
+        function buildShelfPreviews() {
+            document.querySelectorAll('.station').forEach(station => {
+                // Remove any existing shelf preview
+                const existing = station.querySelector('.shelf-preview');
+                if (existing) existing.remove();
+
+                // Collect all lessons from all groups in this station
+                const stationId = station.id;
+                const chips = station.querySelectorAll('.group-chip');
+                let totalLessons = 0;
+                let totalGroups = chips.length;
+                let sampleFiles = [];
+
+                chips.forEach(chip => {
+                    const groupKey = chip.dataset.group;
+                    const files = lessonData[groupKey];
+                    if (files && Array.isArray(files)) {
+                        totalLessons += files.length;
+                        // Take first 2 from each group for variety
+                        sampleFiles.push(...files.slice(0, 2));
+                    }
+                });
+
+                if (totalLessons === 0) return;
+
+                // Shuffle and take first 8
+                sampleFiles = sampleFiles.sort(() => Math.random() - 0.5).slice(0, 8);
+
+                const remaining = totalLessons - sampleFiles.length;
+
+                // Build shelf
+                const shelf = document.createElement('div');
+                shelf.className = 'shelf-preview';
+
+                sampleFiles.forEach(f => {
+                    const a = document.createElement('a');
+                    a.href = f;
+                    a.className = 'shelf-spine';
+                    a.textContent = filenameToTitle(f);
+                    shelf.appendChild(a);
+                });
+
+                if (remaining > 0) {
+                    const more = document.createElement('span');
+                    more.className = 'shelf-more';
+                    more.textContent = `+${remaining} more`;
+                    shelf.appendChild(more);
+                }
+
+                // Add stats line
+                const stats = document.createElement('div');
+                stats.className = 'station-stats';
+                stats.innerHTML = `<span>📚 ${totalLessons} lessons</span><span>📂 ${totalGroups} collections</span>`;
+
+                const content = station.querySelector('.station-content');
+                content.appendChild(stats);
+                content.appendChild(shelf);
+            });
+        }
+
         function setupSideNav() {
             const pathway = document.querySelector('.pathway.active');
             const stations = pathway.querySelectorAll('.station');
@@ -1404,6 +1521,7 @@
 
             setupSideNav();
             populateLessons();
+            buildShelfPreviews();
         }
 
         document.addEventListener('click', function(e) {
@@ -1423,6 +1541,7 @@
         window.addEventListener('load', function() {
             setupSideNav();
             populateLessons();
+            buildShelfPreviews();
 
             // Auto-select tab from URL parameter (?path=general|academic|professional)
             // Auto-select tab from URL parameter (?path=general|academic|professional)
@@ -1440,6 +1559,7 @@
         setTimeout(() => {
             if (document.querySelectorAll('.lesson-link').length === 0) {
                 populateLessons();
+                buildShelfPreviews();
             }
         }, 100);
     </script>
