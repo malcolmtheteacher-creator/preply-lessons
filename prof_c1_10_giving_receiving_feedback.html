@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giving and Receiving Feedback</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        .framework-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .sbi-section { background: white; border-left: 5px solid #667eea; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .sbi-section strong { color: #764ba2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Giving and Receiving Feedback</h1>
+            <p>C1 Level · Professional Development</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, "vocab")">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, "frameworks")">Feedback Frameworks</button>
+            <button class="tab-button" onclick="openTab(event, "language")">Language Toolkit</button>
+            <button class="tab-button" onclick="openTab(event, "practice")">Practice</button>
+        </div>
+
+        <!-- Vocabulary Tab -->
+        <div id="vocab" class="tab-content active">
+            <div class="content-block">
+                <h2>Feedback Vocabulary</h2>
+                <p style="margin-bottom: 20px; color: #666;">Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Constructive</span>
+                        <span class="definition">Feedback designed to help someone improve; specific, actionable, and focused on growth</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Developmental</span>
+                        <span class="definition">Feedback aimed at building skills and capabilities; often on areas where someone isn't yet strong</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">360-Degree</span>
+                        <span class="definition">Feedback collected from multiple sources: managers, peers, direct reports, and self; provides a complete picture</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Blind Spot</span>
+                        <span class="definition">Something about yourself that you don't see but others do; often revealed through feedback</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Growth Mindset</span>
+                        <span class="definition">The belief that abilities and skills can be developed; viewing feedback as an opportunity to improve</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Specific</span>
+                        <span class="definition">Feedback tied to actual behaviors or situations, not general judgments or personality traits</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Actionable</span>
+                        <span class="definition">Feedback that includes concrete steps or guidance on how to change or improve</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Calibration</span>
+                        <span class="definition">Alignment among managers on performance standards; ensuring feedback is fair and consistent</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Appraisal</span>
+                        <span class="definition">A formal assessment of someone's performance, usually annual; includes feedback and ratings</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Self-Assessment</span>
+                        <span class="definition">Your own evaluation of your performance and capabilities; often part of formal review process</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frameworks Tab -->
+        <div id="frameworks" class="tab-content">
+            <div class="content-block">
+                <h2>The SBI Feedback Framework</h2>
+
+                <p style="margin-bottom: 20px;">
+                    The most effective feedback follows the SBI framework: Situation, Behaviour, Impact. This approach removes emotion and focuses on observable actions and their consequences.
+                </p>
+
+                <div class="framework-box">
+                    <div class="sbi-section">
+                        <strong>S — SITUATION</strong>
+                        <p style="margin-top: 10px;">
+                            Set the context. When did this happen? Where were you? What was happening?
+                        </p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            Example: "In the meeting yesterday about the marketing campaign..."
+                        </p>
+                    </div>
+
+                    <div class="sbi-section">
+                        <strong>B — BEHAVIOUR</strong>
+                        <p style="margin-top: 10px;">
+                            Describe the specific action or behaviour you observed. Be factual, not interpretive. Avoid saying "you were rude" (interpretation). Instead say "you interrupted others three times" (behaviour).
+                        </p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            Example: "...you interrupted others when they were speaking, and when Sarah disagreed with you, you said her idea wouldn't work without asking follow-up questions."
+                        </p>
+                    </div>
+
+                    <div class="sbi-section">
+                        <strong>I — IMPACT</strong>
+                        <p style="margin-top: 10px;">
+                            Explain the consequence of the behaviour. How did it affect the team, the project, or others? Be specific about the impact.
+                        </p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            Example: "...which made the discussion feel one-sided, and some people stopped contributing ideas. Sarah looked uncomfortable, and I'm concerned she might be hesitant to voice opinions in future meetings."
+                        </p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Why SBI Works</h3>
+                <ul style="margin-left: 25px; line-height: 1.8;">
+                    <li><strong>It's objective:</strong> Based on what you saw, not your interpretation</li>
+                    <li><strong>It's specific:</strong> The person knows exactly what to address</li>
+                    <li><strong>It shows consequences:</strong> They understand why it matters</li>
+                    <li><strong>It's less defensive:</strong> Harder to argue with "you did X" than "you're rude"</li>
+                    <li><strong>It's actionable:</strong> Clear what needs to change</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">Types of Feedback</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div style="border: 2px solid #667eea; padding: 15px; border-radius: 8px; background: white;">
+                        <h4 style="color: #764ba2; margin-bottom: 10px;">Positive Feedback</h4>
+                        <p><strong>Purpose:</strong> Reinforce what's working; build confidence; show appreciation</p>
+                        <p style="margin-top: 10px;"><strong>Key principle:</strong> Be specific about what went well and why it matters</p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">"In the project review, you broke down the problem into clear steps and kept everyone focused. That kind of structured thinking helped us solve it 20% faster."</p>
+                    </div>
+
+                    <div style="border: 2px solid #667eea; padding: 15px; border-radius: 8px; background: white;">
+                        <h4 style="color: #764ba2; margin-bottom: 10px;">Developmental Feedback</h4>
+                        <p><strong>Purpose:</strong> Help someone grow in an area; build new skills; address gaps</p>
+                        <p style="margin-top: 10px;"><strong>Key principle:</strong> Combine honest observation with belief in their potential</p>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">"Your technical execution is strong. To move into leadership, you need to work on delegating more and trusting your team. How can we practice that?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Toolkit Tab -->
+        <div id="language" class="tab-content">
+            <div class="content-block">
+                <h2>Language for Giving Feedback</h2>
+
+                <h3>Opening the Conversation</h3>
+                <div class="framework-box">
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li>"I'd like to give you some feedback. Do you have a few minutes?"</li>
+                        <li>"I noticed something I wanted to talk about. Can we find some time this week?"</li>
+                        <li>"You did something really well, and I wanted to acknowledge it."</li>
+                        <li>"I want to share some observations from the project. Would that be helpful?"</li>
+                    </ul>
+                </div>
+
+                <h3>Positive Feedback Language</h3>
+                <div class="framework-box">
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li>"I noticed you... and that was really valuable because..."</li>
+                        <li>"What you did with... showed [quality] that the team needs."</li>
+                        <li>"The way you handled that situation demonstrates growth. Specifically..."</li>
+                        <li>"You should feel proud of... because it directly contributed to..."</li>
+                    </ul>
+                </div>
+
+                <h3>Developmental Feedback Language</h3>
+                <div class="framework-box">
+                    <p style="margin-bottom: 15px;"><strong>Non-defensive framing:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"I want to share something I observed that I think could help you..."</li>
+                        <li>"I believe in your potential. Here's something to work on..."</li>
+                        <li>"This is an area where you can grow..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Using SBI structure:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"In [situation], you did [behaviour]. This resulted in [impact]. Here's what I'd suggest instead..."</li>
+                        <li>"I noticed [specific behaviour]. The impact was [consequence]. For next time, consider [actionable suggestion]."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Ending with growth mindset:</strong></p>
+                    <ul style="margin-left: 25px;">
+                        <li>"This is a skill you can develop. How can I help you with that?"</li>
+                        <li>"I see this as a growth opportunity for you."</li>
+                        <li>"What support do you need to improve in this area?"</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">Language for Receiving Feedback</h3>
+                <div class="framework-box">
+                    <p style="margin-bottom: 15px;"><strong>In the moment:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"Thank you for that feedback. Let me make sure I understand..."</li>
+                        <li>"Can you give me an example of what you mean?"</li>
+                        <li>"I appreciate you saying this. I want to reflect on it."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>When you disagree:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"I hear your perspective. I see it differently because... But I'm open to thinking more about this."</li>
+                        <li>"That's interesting. It's not how I experienced it, but I can see why you'd say that."</li>
+                        <li>"I don't think that's accurate, but I appreciate the feedback. Can we discuss this further?"</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>When it stings:</strong></p>
+                    <ul style="margin-left: 25px;">
+                        <li>"That's hard to hear, but thank you for being direct."</li>
+                        <li>"I need a moment to process that, but I appreciate your honesty."</li>
+                        <li>"I don't feel great about hearing that, but I know it's meant to help me grow."</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">Growth Mindset Responses</h3>
+                <div class="framework-box">
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li>"This is helpful. What specific changes would make the biggest difference?"</li>
+                        <li>"I want to work on this. Can we set up a plan together?"</li>
+                        <li>"I'm committed to improving. What's your advice?"</li>
+                        <li>"I see where I missed the mark. Here's what I'll do differently next time."</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Tab -->
+        <div id="practice" class="tab-content">
+            <div class="content-block">
+                <h2>Practice: Give and Receive Feedback on a Presentation</h2>
+
+                <div class="timer">
+                    <span>Time Remaining: <strong id="timer-display">10:00</strong></span>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="discussion-box">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">The Scenario</h3>
+                    <p style="margin-bottom: 15px;">
+                        Your colleague, Jordan, just presented a quarterly strategy update to the leadership team. You were in the meeting. Overall, the presentation was solid, but you noticed a few things:
+                    </p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px;">
+                        <li>Jordan spoke very quickly and used a lot of jargon; some leaders looked confused</li>
+                        <li>When the CFO asked a tough question about ROI, Jordan became defensive and dismissed the concern rather than exploring it</li>
+                        <li>The data visualizations were excellent and really helped the team understand the strategy</li>
+                        <li>Jordan's passion for the topic was infectious and kept everyone engaged</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>Your Task: Give Constructive Feedback Using SBI</h3>
+
+                    <div class="question-block">
+                        <h4>Task 1: Positive Feedback (What Went Well)</h4>
+                        <p>Write feedback praising two specific strengths using SBI or simple positive language.</p>
+                        <textarea class="textarea-box" placeholder="Write your positive feedback..."></textarea>
+                        <button class="answer-btn" onclick="document.getElementById("ans1").classList.toggle("show")">Show Sample Feedback</button>
+                        <div id="ans1" class="answer-text">
+                            "I want to acknowledge two things that really worked well. First, your data visualizations were excellent—they made the strategy concrete and easy to follow. You could see people's faces light up when they understood the numbers. Second, your passion for this initiative was infectious. You kept people engaged even during the dense sections. That's a real strength."
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>Task 2: Developmental Feedback (Room for Growth)</h4>
+                        <p>Write feedback on the fast pace and defensive reaction using SBI framework. Make it specific, show the impact, and offer a constructive suggestion.</p>
+                        <textarea class="textarea-box" placeholder="Write your developmental feedback using SBI..."></textarea>
+                        <button class="answer-btn" onclick="document.getElementById("ans2").classList.toggle("show")">Show Sample Feedback</button>
+                        <div id="ans2" class="answer-text">
+                            "I also want to give you something to work on for next time. In the presentation, you spoke quickly and used a lot of technical jargon—terms like 'velocity optimization' and 'resource allocation tiers.' I noticed some leaders looked confused and stopped taking notes. Then when the CFO asked about ROI, you seemed to shut down the question rather than explore it. The impact was that it felt like you weren't open to their concerns. I think slowing down, simplifying language, and being more curious about tough questions would make you even stronger. Questions are opportunities to show you've thought things through."
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>Task 3: Receiving Feedback Role Play</h4>
+                        <p>
+                            Imagine you're Jordan receiving this feedback. The feedback you just gave is shown to you. Write your response. Try to show:
+                        </p>
+                        <ul style="margin-left: 25px; margin-bottom: 15px;">
+                            <li>Appreciation for the feedback</li>
+                            <li>Acknowledgment of the point (even if you felt defensive)</li>
+                            <li>Commitment to growth</li>
+                        </ul>
+                        <textarea class="textarea-box" placeholder="Write your response as Jordan..."></textarea>
+                        <button class="answer-btn" onclick="document.getElementById("ans3").classList.toggle("show")">Show Strong Response</button>
+                        <div id="ans3" class="answer-text">
+                            "Thank you for that feedback. I really appreciate you being specific about what worked and what didn't. Hearing that people looked confused makes me realize I was talking to an audience that needed simpler language. And you're right about the CFO question—I could have been more curious instead of dismissive. That's something I need to work on. I do get attached to the strategy, and I think I heard criticism as a personal attack instead of a real question. I'm going to slow down and practice explaining this more clearly. Can we do a practice run before the next big presentation?"
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>Task 4: Reflection</h4>
+                        <p>What made this feedback effective? What would have made it less effective? How did you balance being honest with being supportive?</p>
+                        <textarea class="textarea-box" placeholder="Write your reflection..."></textarea>
+                    </div>
+                </div>
+
+                <div class="content-block" style="margin-top: 30px;">
+                    <h3>Key Principles for Feedback Conversations</h3>
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li><strong>Lead with positive:</strong> Start with what worked. It sets a collaborative tone.</li>
+                        <li><strong>Be specific:</strong> "You spoke quickly" is better than "You were unclear." "You dismissed the CFO's question" is better than "You were defensive."</li>
+                        <li><strong>Show impact:</strong> Help them see why the behaviour matters. "People looked confused" is more persuasive than just saying it was wrong.</li>
+                        <li><strong>Offer support:</strong> End with "How can I help?" or suggest next steps. Don't just criticize and leave.</li>
+                        <li><strong>Receive gracefully:</strong> Thank the person. Ask clarifying questions. Don't over-explain or defend. Commit to reflection.</li>
+                        <li><strong>Growth mindset:</strong> Frame everything as development, not judgment. Everyone can improve.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 60) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

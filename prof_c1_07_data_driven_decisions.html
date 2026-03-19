@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Data-Driven Decisions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        .chart-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Making Data-Driven Decisions</h1>
+            <p>C1 Level · Business Analytics</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, "vocab")">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, "interpreting")">Interpreting Data</button>
+            <button class="tab-button" onclick="openTab(event, "presenting")">Presenting Findings</button>
+            <button class="tab-button" onclick="openTab(event, "discussion")">Discussion</button>
+        </div>
+
+        <!-- Vocabulary Tab -->
+        <div id="vocab" class="tab-content active">
+            <div class="content-block">
+                <h2>Data Analytics Vocabulary</h2>
+                <p style="margin-bottom: 20px; color: #666;">Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">KPI</span>
+                        <span class="definition">Key Performance Indicator; a measurable value showing how effectively something is being achieved</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Benchmark</span>
+                        <span class="definition">A standard or reference point for comparison; usually from competitors or industry best practices</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Correlation</span>
+                        <span class="definition">A statistical relationship between two variables; how closely they move together</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Trend</span>
+                        <span class="definition">A general direction or tendency in data over time (upward, downward, or stable)</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Outlier</span>
+                        <span class="definition">A data point that differs significantly from other observations in a dataset</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Sample Size</span>
+                        <span class="definition">The number of observations or respondents in a study; larger samples are generally more reliable</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Variance</span>
+                        <span class="definition">The spread or dispersion of data points from the average; indicates data consistency</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Dashboard</span>
+                        <span class="definition">A visual interface displaying key metrics and performance data in real time</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Insight</span>
+                        <span class="definition">A meaningful observation or understanding derived from data analysis</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Metric</span>
+                        <span class="definition">A system of measurement or a quantifiable indicator used to track performance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interpreting Data Tab -->
+        <div id="interpreting" class="tab-content">
+            <div class="content-block">
+                <h2>Language for Describing Data</h2>
+
+                <h3>Describing Trends and Movements</h3>
+                <div class="chart-box">
+                    <p style="margin-bottom: 15px;"><strong>When values increase:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"There is a significant upward trend in..."</li>
+                        <li>"The data shows a sharp increase in..."</li>
+                        <li>"We have experienced consistent growth in..."</li>
+                        <li>"The metric has risen steadily from X to Y"</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>When values decrease:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"There is a marked decline in..."</li>
+                        <li>"The data reveals a sharp drop in..."</li>
+                        <li>"We have seen a consistent downward trend in..."</li>
+                        <li>"The metric has fallen from X to Y"</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>When suggesting relationships:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"The data suggests a correlation between..."</li>
+                        <li>"This is consistent with..."</li>
+                        <li>"We can observe a pattern where..."</li>
+                        <li>"The evidence indicates that..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>When drawing conclusions:</strong></p>
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li>"Based on these findings, we can infer that..."</li>
+                        <li>"The data implies that..."</li>
+                        <li>"If this trend continues, we should expect..."</li>
+                        <li>"It is reasonable to conclude that..."</li>
+                    </ul>
+                </div>
+
+                <h3>Expressing Confidence and Uncertainty</h3>
+                <div class="chart-box">
+                    <p style="margin-bottom: 15px;"><strong>High confidence:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"The data clearly shows..."</li>
+                        <li>"It is evident that..."</li>
+                        <li>"There is strong evidence that..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Moderate confidence:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                        <li>"The data appears to show..."</li>
+                        <li>"There is evidence suggesting that..."</li>
+                        <li>"It seems that..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Low confidence or caution:</strong></p>
+                    <ul style="margin-left: 25px; line-height: 1.8;">
+                        <li>"The data could indicate that..."</li>
+                        <li>"We should be cautious about concluding that..."</li>
+                        <li>"More data is needed to confirm that..."</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presenting Findings Tab -->
+        <div id="presenting" class="tab-content">
+            <div class="content-block">
+                <h2>Practice Describing Data</h2>
+
+                <div class="question-block">
+                    <h4>Sample Dataset: Monthly Customer Acquisition</h4>
+                    <p style="margin-bottom: 15px;">
+                        <strong>Scenario:</strong> A software company has tracked customer acquisition over 6 months. Here are the numbers:
+                    </p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px;">
+                        <li>January: 145 new customers</li>
+                        <li>February: 168 new customers</li>
+                        <li>March: 152 new customers</li>
+                        <li>April: 203 new customers (spring marketing campaign launched)</li>
+                        <li>May: 245 new customers</li>
+                        <li>June: 287 new customers</li>
+                    </ul>
+                    <p style="color: #666; font-size: 0.95em;">Note: Industry benchmark for similar companies is 180 customers/month.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 1: Describe the Trend</h4>
+                    <p>Write 2-3 sentences describing what the data shows. Use language from the "Interpreting Data" section.</p>
+                    <textarea class="textarea-box" placeholder="Write your description here..."></textarea>
+                    <button class="answer-btn" onclick="document.getElementById("ans1").classList.toggle("show")">Show Sample Answer</button>
+                    <div id="ans1" class="answer-text">
+                        "The data shows a significant upward trend in customer acquisition over the six-month period. Starting from 145 customers in January, the company experienced steady growth, with a marked acceleration following the spring marketing campaign launch in April. By June, acquisitions had increased to 287 customers, representing a 98% increase from the baseline."
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 2: Compare to Benchmark</h4>
+                    <p>The industry benchmark is 180 customers/month. How does this company compare? Write 1-2 sentences.</p>
+                    <textarea class="textarea-box" placeholder="Write your comparison here..."></textarea>
+                    <button class="answer-btn" onclick="document.getElementById("ans2").classList.toggle("show")">Show Sample Answer</button>
+                    <div id="ans2" class="answer-text">
+                        "The company performed below benchmark in January through March, averaging 155 customers compared to the 180-customer benchmark. However, from April onwards, the company has consistently exceeded the benchmark, suggesting the marketing campaign was highly effective and has established a new competitive advantage."
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 3: Identify Patterns</h4>
+                    <p>What insights does this data provide? What patterns do you notice? What might be happening?</p>
+                    <textarea class="textarea-box" placeholder="Write your insights here..."></textarea>
+                    <button class="answer-btn" onclick="document.getElementById("ans3").classList.toggle("show")">Show Sample Insights</button>
+                    <div id="ans3" class="answer-text">
+                        "The data suggests a strong correlation between the marketing campaign and customer acquisition rates. The turning point in April indicates that the investment in marketing yielded measurable results. The continued acceleration in May and June could indicate growing word-of-mouth momentum or sustained campaign effectiveness. The absence of any decline suggests customer retention is supporting ongoing growth."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discussion Tab -->
+        <div id="discussion" class="tab-content">
+            <div class="content-block">
+                <h2>Discussion: When Data Conflicts with Instinct</h2>
+
+                <div class="timer">
+                    <span>Time Remaining: <strong id="timer-display">10:00</strong></span>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="discussion-box">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">The Scenario</h3>
+                    <p style="margin-bottom: 15px;">
+                        Your company has sold products in three regions for five years. Regional managers have strong instincts about their markets and believe Region A is most profitable. However, the data analytics team has just released a comprehensive audit. Their findings show:
+                    </p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px;">
+                        <li><strong>Region A (manager's favourite):</strong> High revenue but high costs; actual profit margin is 12%</li>
+                        <li><strong>Region B:</strong> Moderate revenue; profit margin is 31% (highest)</li>
+                        <li><strong>Region C:</strong> Low revenue; profit margin is 24%</li>
+                    </ul>
+                    <p style="margin-bottom: 15px;">
+                        The regional managers argue: "We know our markets. Revenue is what matters. The numbers might be wrong."
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h3>Discussion Questions</h3>
+
+                    <div class="question-block">
+                        <h4>1. Why might the data show something different from the managers' instincts?</h4>
+                        <p>Consider: What are they measuring? What might they be missing? How do revenue and profit differ?</p>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>2. How would you respond to "The numbers might be wrong"?</h4>
+                        <p>What questions would you ask to verify the data? How would you build confidence in the findings?</p>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>3. What decision should the company make?</h4>
+                        <p>Should they trust the data or the managers' instinct? How could they combine both sources of information?</p>
+                    </div>
+
+                    <div class="question-block">
+                        <h4>4. Speaking Challenge</h4>
+                        <p>Prepare a 3-minute explanation to the management team on why this data matters. Use language like "The data suggests...", "This is consistent with...", "We can infer that..."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 60) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
