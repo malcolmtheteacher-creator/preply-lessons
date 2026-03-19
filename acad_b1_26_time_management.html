@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managing Your Study Time</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .technique-box { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 12px; }
+        .technique-box strong { color: #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Managing Your Study Time</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Breaking Tasks Into Smaller Steps</h2>
+                <p>Large projects feel overwhelming. Breaking them into smaller, manageable pieces makes them achievable.</p>
+
+                <h3>How to Break Down Tasks</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Identify the goal:</strong> What is the final product? (essay, presentation, exam)</li>
+                    <li><strong>List all steps:</strong> What must happen to reach that goal?</li>
+                    <li><strong>Estimate time:</strong> How long will each step take?</li>
+                    <li><strong>Set deadlines:</strong> When must each step be complete?</li>
+                    <li><strong>Work backwards:</strong> If the essay is due Friday, research must finish Wednesday</li>
+                </ul>
+
+                <h3>Example: 5,000-Word Essay Due in 4 Weeks</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Week 1: Read sources and take notes (15 hours)</li>
+                    <li>Week 2: Plan outline and organise ideas (5 hours)</li>
+                    <li>Week 3: Write first draft (15 hours)</li>
+                    <li>Week 4: Revise, edit, proofread (8 hours)</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>The Pomodoro Technique</h2>
+                <p>A simple time management method that uses focused work intervals with short breaks.</p>
+
+                <div class="technique-box">
+                    <strong>How It Works:</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;"><strong>1. Choose a task</strong> — One specific piece of work<br><strong>2. Set a 25-minute timer</strong> — Work with full focus<br><strong>3. Take a 5-minute break</strong> — Step away, rest, stretch<br><strong>4. Repeat</strong> — After 4 cycles, take a longer 15-30 minute break</p>
+                </div>
+
+                <h3>Why This Works</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>25 minutes is long enough to make real progress</li>
+                    <li>Knowing a break is coming helps you focus</li>
+                    <li>Regular breaks prevent fatigue and improve concentration</li>
+                    <li>You can see your progress (number of completed pomodoros)</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Avoiding Procrastination</h2>
+                <h3>Why We Procrastinate</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Task feels too large or overwhelming</li>
+                    <li>Fear of failure or not being "perfect"</li>
+                    <li>Lack of clear deadline or structure</li>
+                    <li>Other tasks seem more interesting or urgent</li>
+                </ul>
+
+                <h3>Strategies to Overcome Procrastination</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Start small:</strong> Commit to just 10 minutes—momentum builds</li>
+                    <li><strong>Remove distractions:</strong> Phone away, notifications off</li>
+                    <li><strong>Set a specific deadline:</strong> "Tuesday 6pm" not "soon"</li>
+                    <li><strong>Use the Pomodoro Technique:</strong> Makes large tasks manageable</li>
+                    <li><strong>Track progress:</strong> Crossing things off feels rewarding</li>
+                    <li><strong>Reward yourself:</strong> After finishing, do something enjoyable</li>
+                </ul>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>What does procrastination look like for you? What triggers it? How can understanding this help you manage your time better?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Time Management Vocabulary</h2>
+                <p>Click each card to see words for discussing productivity.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Schedule</span>
+                        <span class="definition">A plan showing when things will happen; a timetable</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Deadline</span>
+                        <span class="definition">The date and time by which something must be completed</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Procrastinate</span>
+                        <span class="definition">Delay or postpone something unnecessarily</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Priority</span>
+                        <span class="definition">Something that is more important and should be dealt with first</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Productivity</span>
+                        <span class="definition">The quality of producing or accomplishing a good amount of work</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Focus</span>
+                        <span class="definition">Concentrated attention on one thing; not distracted</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Milestone</span>
+                        <span class="definition">A significant point in progress; a marker of achievement</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Sustainable</span>
+                        <span class="definition">Able to be maintained; not too intense to continue long-term</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Breaking Down an Assignment</h2>
+                <p>Choose a current assignment. Create a step-by-step plan with timeline.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Assignment Details</h4>
+                <p>Assignment: ________________ Due date: ________________</p>
+                <p>Today's date: ________________ Days remaining: ________________</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Step 1: Identify the Goal</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">What is the final product? What must you deliver?</p>
+                <textarea class="textarea-box" placeholder="Describe the final deliverable..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Step 2: List All Steps Required</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Break the assignment into 5-8 smaller tasks:</p>
+                <textarea class="textarea-box" placeholder="1.&#10;2.&#10;3.&#10;4.&#10;5."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Step 3: Assign Time and Deadlines</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">For each step, estimate hours needed and set a deadline:</p>
+                <textarea class="textarea-box" placeholder="Step 1: [hours] → Complete by [date]&#10;Step 2: [hours] → Complete by [date]"></textarea>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> Does this timeline feel realistic? Do you have enough time? Where might you need to adjust?</p>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Your Study Schedule This Week</h2>
+                <p>Plan your study activities using time management techniques.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Daily Study Schedule</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">List what you will study each day and for how long. Use the Pomodoro Technique (25-min sessions):</p>
+                <textarea class="textarea-box" placeholder="Monday: [task] - [# of pomodoros]&#10;Tuesday: [task] - [# of pomodoros]&#10;[Continue for week]"></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Potential Distractions</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">What might distract you? How will you prevent it?</p>
+                <textarea class="textarea-box" placeholder="Distraction: [what] → Prevention: [how I'll avoid it]"></textarea>
+            </div>
+
+            <div class="task-checklist" style="background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: #764ba2; margin-bottom: 15px;">Before You Start</h3>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I have a clear schedule for this week</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I know what my top 3 priorities are</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I have removed distractions from my study space</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I'm ready to try the Pomodoro Technique</label>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> Which time management strategy will you try first? How will you know if it's working?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

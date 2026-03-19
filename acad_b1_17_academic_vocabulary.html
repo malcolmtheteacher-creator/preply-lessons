@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Your Academic Vocabulary</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .word-family { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 15px; }
+        .word-family strong { color: #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Building Your Academic Vocabulary</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Essential Academic Words</h2>
+                <p>These words appear frequently in academic texts across different subjects. Learning them helps you understand and write better.</p>
+
+                <h3>Common Academic Verbs</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Analyse:</strong> Examine something in detail to understand it</li>
+                    <li><strong>Evaluate:</strong> Judge the value or quality of something</li>
+                    <li><strong>Argue:</strong> Present reasons and evidence to support a point</li>
+                    <li><strong>Suggest:</strong> Propose an idea or possibility</li>
+                    <li><strong>Compare:</strong> Look at similarities and differences</li>
+                    <li><strong>Contrast:</strong> Focus on differences between things</li>
+                    <li><strong>Demonstrate:</strong> Show or prove something clearly</li>
+                    <li><strong>Investigate:</strong> Research carefully to learn facts</li>
+                </ul>
+
+                <h3>Common Academic Adjectives</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Significant:</strong> Important or meaningful</li>
+                    <li><strong>Relevant:</strong> Connected to the topic being discussed</li>
+                    <li><strong>Substantial:</strong> Considerable in size or amount</li>
+                    <li><strong>Theoretical:</strong> Based on ideas rather than practical experience</li>
+                    <li><strong>Empirical:</strong> Based on observation and data</li>
+                    <li><strong>Fundamental:</strong> Basic or essential</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Word Families and Collocations</h2>
+                <p>Learning words in families helps you use them accurately in different forms. Collocations are words that often go together.</p>
+
+                <div class="word-family">
+                    <strong>Evidence (noun)</strong> - The facts or information indicating something
+                    <br><strong>Evident (adjective)</strong> - Clear or obvious
+                    <br><strong>Evidently (adverb)</strong> - Clearly or obviously
+                    <br><strong>Collocation:</strong> "provide evidence," "strong evidence," "evidence suggests"
+                </div>
+
+                <div class="word-family">
+                    <strong>Theory (noun)</strong> - An idea or set of ideas to explain something
+                    <br><strong>Theoretical (adjective)</strong> - Based on theory rather than practice
+                    <br><strong>Theoretically (adverb)</strong> - In theory; based on principles
+                    <br><strong>Collocation:</strong> "according to theory," "in theory," "support a theory"
+                </div>
+
+                <div class="word-family">
+                    <strong>Method (noun)</strong> - A way of doing something
+                    <br><strong>Methodical (adjective)</strong> - Done in an organized, careful way
+                    <br><strong>Methodology (noun)</strong> - The system of methods used in research
+                    <br><strong>Collocation:</strong> "research method," "effective method," "describe the methodology"
+                </div>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>How do word families help you write more academically? Can you use the same word in different forms in one sentence?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Academic Vocabulary Cards</h2>
+                <p>Click each card to reveal the definition and example.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Analyse</span>
+                        <span class="definition">Examine in detail. Example: "Analyse the data carefully."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Significant</span>
+                        <span class="definition">Important or meaningful. Example: "This discovery is significant."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Evidence</span>
+                        <span class="definition">Facts proving something. Example: "The evidence supports this argument."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Theory</span>
+                        <span class="definition">Idea explaining something. Example: "According to Piaget's theory..."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Method</span>
+                        <span class="definition">Way of doing something. Example: "The research method was qualitative."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Evaluate</span>
+                        <span class="definition">Judge quality or value. Example: "Evaluate the effectiveness of this approach."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Relevant</span>
+                        <span class="definition">Connected to the topic. Example: "This information is relevant to our discussion."</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Argue</span>
+                        <span class="definition">Present reasons for a position. Example: "The author argues that education is essential."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Vocabulary in Context</h2>
+                <p>Choose the correct academic word for each sentence.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 1</h4>
+                <p>The researcher used a qualitative ________ to collect data from interviews. (method / evidence)</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Answer:</strong> method. Qualitative research requires a method (way of doing something), not evidence (which is the result).</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 2</h4>
+                <p>To ________ the effectiveness of the program, we need to compare results before and after. (analyse / evaluate)</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Answer:</strong> evaluate. Evaluate means judge quality or success. Analyse is to examine in detail but doesn't focus on judging effectiveness.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 3</h4>
+                <p>According to Darwin's ________, humans and primates share a common ancestor. (evidence / theory)</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Answer:</strong> theory. A theory is an idea or set of ideas explaining something. Evolution is Darwin's theory.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 4</h4>
+                <p>The study provides strong ________ that exercise improves mental health. (evidence / relevant)</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Answer:</strong> evidence. Evidence is the facts supporting a claim. "Relevant" is an adjective describing whether information is connected to the topic.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Building Your Word Bank</h2>
+                <p>Choose one academic word from this lesson and use it in 3 different academic sentences about your field of study.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Word Choice</h4>
+                <p>Which word will you focus on? ________________</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Sentence 1</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Write a sentence using this word:</p>
+                <textarea class="textarea-box" placeholder="Type your sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Sentence 2</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Write another sentence with the same word:</p>
+                <textarea class="textarea-box" placeholder="Type your sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Sentence 3</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Write a third sentence showing you understand this word:</p>
+                <textarea class="textarea-box" placeholder="Type your sentence here..."></textarea>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> Which academic words will you try to use in your next essay or assignment?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

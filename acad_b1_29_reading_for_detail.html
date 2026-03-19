@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading for Detail vs Reading for Gist</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdance, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-type { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 12px; }
+        .reading-type strong { color: #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reading for Detail vs Reading for Gist</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Two Different Reading Strategies</h2>
+                <p>Not all reading requires the same approach. Different tasks demand different reading speeds and focus levels.</p>
+
+                <div class="reading-type">
+                    <strong>Reading for Gist (Skimming)</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Fast reading to understand the main idea. You don't need every detail.</p>
+                </div>
+
+                <div class="reading-type">
+                    <strong>Reading for Detail (Scanning and Close Reading)</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Careful, slow reading to find specific information or understand deeply.</p>
+                </div>
+
+                <h3>When to Read for Gist</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Deciding if an article is useful for your research</li>
+                    <li>Getting an overview of a topic quickly</li>
+                    <li>Reading news or general interest articles</li>
+                    <li>Previewing a textbook chapter before deep reading</li>
+                    <li>When you have limited time</li>
+                </ul>
+
+                <h3>When to Read for Detail</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Research for an essay—you need accurate information</li>
+                    <li>Understanding complex concepts in your field</li>
+                    <li>Finding specific data or statistics</li>
+                    <li>Preparing for an exam</li>
+                    <li>Reading a primary source (original research)</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Skimming Techniques (Reading for Gist)</h2>
+                <h3>How to Skim Effectively</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Read the title, introduction, and conclusion:</strong> These frame the main idea</li>
+                    <li><strong>Read the first sentence of each paragraph:</strong> Often contains the key point</li>
+                    <li><strong>Look for headings and subheadings:</strong> Shows the structure and topics</li>
+                    <li><strong>Notice bold text and highlighted information:</strong> Authors emphasise key points</li>
+                    <li><strong>Read more slowly when you see important content:</strong> Speed varies based on what you find</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Close Reading Techniques (Reading for Detail)</h2>
+                <h3>How to Read Carefully</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Read every word:</strong> Don't skip over anything</li>
+                    <li><strong>Take notes as you read:</strong> Record key points, questions, ideas</li>
+                    <li><strong>Look up unfamiliar words:</strong> Understand every concept</li>
+                    <li><strong>Mark important passages:</strong> Highlight, underline, or use notes</li>
+                    <li><strong>Reread complex sections:</strong> Academic writing often requires multiple readings</li>
+                    <li><strong>Ask critical questions:</strong> Do I agree? Is this supported by evidence?</li>
+                </ul>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>What reading strategy do you naturally use? How might combining both approaches improve your academic reading?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Reading Strategy Vocabulary</h2>
+                <p>Click each card to see important reading terms.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Skim</span>
+                        <span class="definition">Read quickly to find the main idea; move eyes rapidly over text</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Scan</span>
+                        <span class="definition">Look through text quickly to find specific information like a word or number</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Gist</span>
+                        <span class="definition">The main idea or general meaning of something; the overall point</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Close reading</span>
+                        <span class="definition">Careful, detailed reading of a text to understand every aspect</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Key point</span>
+                        <span class="definition">The most important idea or piece of information in a text</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Emphasis</span>
+                        <span class="definition">Special importance or prominence given to something</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Annotate</span>
+                        <span class="definition">Add notes or marks to a text to highlight important information</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Preview</span>
+                        <span class="definition">Look at something quickly before reading it fully; get an overview first</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Practice Reading Strategies</h2>
+                <p>For each situation, decide which reading strategy is best and why.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Situation 1</h4>
+                <p>You have found 10 academic articles for your research. You have limited time to identify which ones are most relevant.</p>
+                <p>Which strategy? Why?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Strategy: Skim (Read for Gist)</strong> You need to evaluate relevance quickly. Read titles, abstracts, introductions, and conclusions to determine if each article is worth your time. Once you identify the most useful articles, you can read them in detail.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Situation 2</h4>
+                <p>You found a key research paper directly related to your essay. This paper contains complex statistical analysis you need to understand thoroughly.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Strategy: Close Reading (Read for Detail)</strong> You need to understand the methodology, analysis, and findings thoroughly. Read slowly, take notes, look up unfamiliar terms, and reread complex sections. This is your primary source material.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Situation 3</h4>
+                <p>Your teacher assigns a 30-page textbook chapter for next class. You want to understand it well but have only one hour to read.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Strategy: Combination - First Skim, Then Close Read Selectively</strong> Skim the entire chapter to understand its structure and main ideas. Then read carefully the most important sections. This balances time constraints with understanding.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Situation 4</h4>
+                <p>You need to find one specific statistic from a 50-page report quickly.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Strategy: Scan</strong> Look through the document for the specific statistic. Check tables, graphs, and the index or contents page. You're not reading for understanding, just finding one piece of information.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Plan Your Reading Approach</h2>
+                <p>Choose a reading task from your current studies. Plan which strategies you'll use.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Your Reading Task</h4>
+                <p>What do you need to read? ________________<br>Why are you reading it? ________________<br>How much time do you have? ________________</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Reading Strategy Decision</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Which approach will you use: Skim, Scan, Close Reading, or a combination? Why?</p>
+                <textarea class="textarea-box" placeholder="Explain your strategy choice..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Reading Plan</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">Outline your reading process step-by-step:</p>
+                <textarea class="textarea-box" placeholder="Step 1: ...&#10;Step 2: ...&#10;Step 3: ..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Note-Taking Plan</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">How will you capture important information?</p>
+                <textarea class="textarea-box" placeholder="I will take notes on..."></textarea>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> After reading, how will you know if you chose the right strategy? How will you adjust your approach for future readings?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

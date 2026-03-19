@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Information Online</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .matching-exercise { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .matching-left, .matching-right { background: white; padding: 15px; border: 2px solid #667eea; border-radius: 8px; }
+        .matching-left h4, .matching-right h4 { color: #764ba2; margin-bottom: 10px; }
+        .matching-item { margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 4px; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .matching-exercise { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Finding Information Online</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Evaluating Online Sources</h2>
+                <p>When researching online, you need to determine if a source is reliable and trustworthy. This skill is essential for academic work.</p>
+
+                <h3>Key Criteria for Evaluating Websites</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Authority:</strong> Who wrote this? What are their qualifications?</li>
+                    <li><strong>Purpose:</strong> Why was this written? Is it trying to sell you something or inform you?</li>
+                    <li><strong>Currency:</strong> When was it published? Is the information up-to-date?</li>
+                    <li><strong>Accuracy:</strong> Are claims backed by evidence? Are sources cited?</li>
+                    <li><strong>Bias:</strong> Does the author present a balanced view or a one-sided perspective?</li>
+                </ul>
+
+                <div class="question-block">
+                    <h4>💡 Think About This</h4>
+                    <p>Would you trust medical advice from a blog post as much as from a hospital website? Why or why not?</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Wikipedia: Useful Starting Point, Not Final Source</h2>
+                <p>Wikipedia can be valuable for getting basic information and finding references, but it shouldn't be your only source for academic work.</p>
+
+                <h3>Advantages of Wikipedia</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Gives quick overview of topic</li>
+                    <li>Contains links to credible sources</li>
+                    <li>Updated regularly by community</li>
+                </ul>
+
+                <h3>Limitations</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Anyone can edit (quality varies)</li>
+                    <li>May contain errors or outdated info</li>
+                    <li>Not acceptable as final source in academic papers</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Finding Reliable Sources</h2>
+                <h3>Where to Look</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Google Scholar:</strong> Academic papers and peer-reviewed articles</li>
+                    <li><strong>University Library:</strong> Databases, journals, books</li>
+                    <li><strong>Government Websites:</strong> Official statistics and reports (.gov domains)</li>
+                    <li><strong>Peer-Reviewed Journals:</strong> Articles checked by experts</li>
+                    <li><strong>Books by Academic Publishers:</strong> Vetted content from established publishers</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Academic Vocabulary</h2>
+                <p>Click on each card to see the definition.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Reliable</span>
+                        <span class="definition">Trustworthy; dependable and consistent</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Authority</span>
+                        <span class="definition">The person or organization with expertise or power in a field</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Credible</span>
+                        <span class="definition">Worthy of trust; able to be believed</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Currency</span>
+                        <span class="definition">How recent or up-to-date something is</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Bias</span>
+                        <span class="definition">A preference or prejudice that favors one side unfairly</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Peer-Reviewed</span>
+                        <span class="definition">Checked by experts in the field before publication</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Accuracy</span>
+                        <span class="definition">The quality of being correct and free from errors</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Source</span>
+                        <span class="definition">The origin or document from which information comes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Evaluating Sources Exercise</h2>
+                <p>Read each scenario and decide if the source is reliable for academic research.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 1: Blog Post</h4>
+                <p>You find a blog post about climate change written by someone named "Tom." The blog has nice design and interesting information. There are no dates or citations.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Not reliable. No author credentials, no dates, no citations or sources given. Good design doesn't mean accurate information.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 2: University Research</h4>
+                <p>A published study from Oxford University researchers in a peer-reviewed journal about psychology. Published in 2024. Includes methodology and data.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Highly reliable. From respected institution, peer-reviewed, recent, transparent methodology. Good source for academic work.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 3: Product Website</h4>
+                <p>A skincare company's website describing the benefits of their product. Information is detailed with testimonials.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Not reliable for unbiased information. Source has clear bias—they want to sell the product. Not peer-reviewed or independent.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 4: Government Health Report</h4>
+                <p>An official health report from WHO (World Health Organization) published in 2023 with statistics and research references.</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Highly reliable. International authority, recent, includes data and citations. Trustworthy for academic research.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Your Research Task</h2>
+                <p>Choose an academic topic you're studying. Find 3 sources and evaluate them using the criteria from Tab 1.</p>
+            </div>
+
+            <div class="task-checklist">
+                <h3>Source Evaluation Checklist</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 1: I can identify the author and their qualifications</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 1: The publication date is recent (within last 5 years)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 1: Sources are cited or evidence is provided</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 2: I can identify the author and their qualifications</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 2: The publication date is recent (within last 5 years)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 2: Sources are cited or evidence is provided</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 3: I can identify the author and their qualifications</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 3: The publication date is recent (within last 5 years)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>Source 3: Sources are cited or evidence is provided</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <label>I have ranked my sources from most to least reliable</label>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Discussion Question:</strong> How has your understanding of source reliability changed? What will you do differently in future research?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

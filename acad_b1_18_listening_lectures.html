@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Lectures</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .signpost-box { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 12px; }
+        .signpost-box strong { color: #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Understanding Lectures</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Recognising Signpost Language</h2>
+                <p>Lecturers use signpost language to guide you through their talk. These words and phrases tell you what's coming next.</p>
+
+                <h3>Common Signpost Phrases</h3>
+
+                <div class="signpost-box">
+                    <strong>Starting an explanation:</strong> "Let me explain...", "Let me start with...", "I'll begin by..."
+                </div>
+
+                <div class="signpost-box">
+                    <strong>Listing points:</strong> "Firstly", "Secondly", "Finally", "First of all", "In addition", "Moreover"
+                </div>
+
+                <div class="signpost-box">
+                    <strong>Moving to a new point:</strong> "Moving on...", "Now let's look at...", "Another point is...", "Let me turn to..."
+                </div>
+
+                <div class="signpost-box">
+                    <strong>Summarising:</strong> "To summarise", "In summary", "In short", "To recap", "What I've covered so far..."
+                </div>
+
+                <div class="signpost-box">
+                    <strong>Giving examples:</strong> "For example", "For instance", "Such as", "To illustrate", "Here's an example"
+                </div>
+
+                <div class="signpost-box">
+                    <strong>Concluding:</strong> "In conclusion", "Finally", "To sum up", "In the end", "Last but not least"
+                </div>
+
+                <h3>Why This Matters</h3>
+                <p>When you hear these phrases, you know important information is coming. They help you:</p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Predict what's coming next</li>
+                    <li>Know when to expect examples or explanations</li>
+                    <li>Identify main points vs supporting details</li>
+                    <li>Stay focused and take better notes</li>
+                    <li>Understand the structure of the lecture</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Predicting Content and Staying Focused</h2>
+                <p>Good lecture listeners actively predict. Before the lecturer speaks, you can guess what they'll discuss.</p>
+
+                <h3>Before the Lecture</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Read the lecture title and syllabus</li>
+                    <li>Review previous lecture notes</li>
+                    <li>Note any questions you have</li>
+                    <li>Predict 3-4 main topics</li>
+                </ul>
+
+                <h3>Staying Focused</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Listen for signpost language</li>
+                    <li>Write down main points, not everything</li>
+                    <li>If you miss something, keep listening—don't get stuck</li>
+                    <li>Ask questions during question time</li>
+                    <li>Review notes within 24 hours</li>
+                </ul>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>What happens when you predict the content before listening? Does it help you understand better?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Lecture Language Cards</h2>
+                <p>Click each card to see when you use these phrases in a lecture.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Firstly</span>
+                        <span class="definition">Introducing the first point in a series. Listen for what comes next.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Moving on</span>
+                        <span class="definition">Changing to a new topic. Time to move to a new section in your notes.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">To summarise</span>
+                        <span class="definition">Repeating main points. This is important information—write it down.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">For example</span>
+                        <span class="definition">Giving a specific instance. An example shows how theory works in practice.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">In conclusion</span>
+                        <span class="definition">Final thought. The lecture is ending. Write down this summary.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Let me explain</span>
+                        <span class="definition">Giving more detail about a concept. This detail is important.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">In addition</span>
+                        <span class="definition">Adding another related point. More information on the current topic.</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">To recap</span>
+                        <span class="definition">Brief summary of earlier points. Check your notes for accuracy.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Identifying Signpost Language</h2>
+                <p>Read the transcript excerpt and identify what the signpost phrase tells you.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 1</h4>
+                <p><em>"Today I'll discuss three main causes of climate change. Firstly, we need to look at carbon dioxide emissions..."</em></p>
+                <p>What does "Firstly" tell you?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">This tells you there are multiple points coming (at least 2 more). You should expect "Secondly" and "Thirdly". This is the first main point of the lecture.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 2</h4>
+                <p><em>"...and that's the historical background. Now let me turn to the economic implications of this policy..."</em></p>
+                <p>What's happening at this moment?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">The topic is changing. The first topic (historical background) has finished. A new topic (economic implications) is starting. This is a good time to create a new section in your notes.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 3</h4>
+                <p><em>"...to illustrate this point, let me give you an example. In Japan, renewable energy adoption..."</em></p>
+                <p>What should you expect?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">A specific example showing how the theory works in practice. This makes the abstract concept concrete. Important for understanding.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Question 4</h4>
+                <p><em>"...and that covers the main theories. To summarise what we've discussed: four key frameworks exist..."</em></p>
+                <p>What's the speaker doing?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Summarising main points. This is a good time to check your notes and ensure you've captured the key points. The lecture is moving toward a conclusion.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Your Lecture Listening Plan</h2>
+                <p>In your next lecture, apply what you've learned about signpost language and prediction.</p>
+            </div>
+
+            <div class="task-checklist" style="background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: #764ba2; margin-bottom: 15px;">Before the Lecture</h3>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I read the lecture title and syllabus</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I reviewed previous notes to prepare</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I predicted 3-4 main topics</label>
+                </div>
+            </div>
+
+            <div class="task-checklist" style="background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: #764ba2; margin-bottom: 15px;">During the Lecture</h3>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I listened for signpost language</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I wrote main points, not everything</label>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <input type="checkbox" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea;">
+                    <label>I asked a question or clarified something</label>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> Which signpost phrases did you hear? How did recognising them help you understand the lecture structure?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

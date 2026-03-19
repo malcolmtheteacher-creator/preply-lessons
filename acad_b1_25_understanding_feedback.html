@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Teacher Feedback</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .feedback-box { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 12px; }
+        .feedback-box strong { color: #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Understanding Teacher Feedback</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Types of Feedback</h2>
+                <p>Teachers give feedback to help you improve. Learning to understand it helps you develop academically.</p>
+
+                <h3>Common Feedback Phrases</h3>
+
+                <div class="feedback-box">
+                    <strong>"Well done" / "Excellent"</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Positive feedback praising good work. Means this section meets or exceeds expectations.</p>
+                </div>
+
+                <div class="feedback-box">
+                    <strong>"Good point, but..." / "Consider..."</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Mixed feedback. Acknowledges something good, then suggests improvement.</p>
+                </div>
+
+                <div class="feedback-box">
+                    <strong>"Needs development" / "Unclear"</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Constructive criticism. The idea needs more work or explanation.</p>
+                </div>
+
+                <div class="feedback-box">
+                    <strong>"Evidence?" / "Citation needed"</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Points out missing support. You've made a claim but haven't proven it.</p>
+                </div>
+
+                <div class="feedback-box">
+                    <strong>"Off-topic" / "Not relevant"</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Indicates the section doesn't relate to your main argument.</p>
+                </div>
+
+                <div class="feedback-box">
+                    <strong>"Proofread carefully" / "Grammar"</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Points out language or spelling errors. Easy to fix in revision.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Correction Codes and Abbreviations</h2>
+                <p>Teachers often use shorthand codes. Understanding these saves time and helps you improve.</p>
+
+                <h3>Common Correction Codes</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Sp</strong> — Spelling error</li>
+                    <li><strong>Gr / G</strong> — Grammar mistake</li>
+                    <li><strong>AWK</strong> — Awkward phrasing; sounds unnatural</li>
+                    <li><strong>Ww / W</strong> — Wrong word choice</li>
+                    <li><strong>P / Punct</strong> — Punctuation error</li>
+                    <li><strong>^</strong> — Something is missing; add a word</li>
+                    <li><strong>Ref</strong> — Reference unclear or missing</li>
+                    <li><strong>Tense</strong> — Wrong verb tense</li>
+                    <li><strong>?</strong> — Meaning unclear</li>
+                    <li><strong>Org</strong> — Organisation or structure needs work</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Responding to Feedback</h2>
+                <h3>Don't Get Discouraged</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Feedback is about your work, not you as a person</li>
+                    <li>Teachers want to help you improve</li>
+                    <li>Mistakes are how we learn</li>
+                </ul>
+
+                <h3>What to Do with Feedback</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Read all comments carefully</li>
+                    <li>Look for patterns (do you always make the same mistake?)</li>
+                    <li>Ask for clarification if you don't understand</li>
+                    <li>Make changes in future work based on feedback</li>
+                    <li>Track your progress—mark improvements</li>
+                </ul>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>How do you feel when you receive critical feedback? How can you use it to improve?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Feedback Language Vocabulary</h2>
+                <p>Click each card to understand common feedback phrases.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Constructive</span>
+                        <span class="definition">Helpful criticism aimed at improvement, not just pointing out flaws</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Clarity</span>
+                        <span class="definition">The quality of being clear and easy to understand</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Development</span>
+                        <span class="definition">Growth or expansion of an idea; making something more complete</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Revision</span>
+                        <span class="definition">Reviewing and making changes to improve your work</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Citation</span>
+                        <span class="definition">A reference showing where information or ideas came from</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Relevant</span>
+                        <span class="definition">Connected to the topic; appropriate and related to the main point</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Progress</span>
+                        <span class="definition">Movement toward improvement or achieving a goal</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Clarify</span>
+                        <span class="definition">Make something clearer or easier to understand</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Interpreting Feedback</h2>
+                <p>What does each piece of feedback mean? How should you respond?</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 1</h4>
+                <p>Comment on your essay: "Good introduction, but needs more evidence in paragraph 3."</p>
+                <p>What does this mean?</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Meaning:</strong> Your introduction is strong. However, your paragraph 3 makes claims without supporting them with facts, studies, or examples. <strong>What to do:</strong> Find credible sources to support the points in paragraph 3. Add citations.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 2</h4>
+                <p>Correction code marked on your sentence: "Tense" with an arrow pointing to "He is studying for three years."</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Meaning:</strong> The verb tense is wrong. "Is studying" (present continuous) doesn't match the context. <strong>What to do:</strong> Change to "He has been studying for three years" (present perfect) to show a period from past until now.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 3</h4>
+                <p>Comment: "This is off-topic. How does this relate to your main argument?"</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Meaning:</strong> The paragraph or section doesn't connect to your thesis. It may be interesting but doesn't support your main point. <strong>What to do:</strong> Either remove this section or add a sentence explaining how it relates to your argument.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 4</h4>
+                <p>Comment with question mark: "Smith argues that exercise improves mood?"</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Meaning:</strong> The sentence is unclear. Does Smith say this? Is he correct? What's your point? <strong>What to do:</strong> Clarify the statement. Example: "According to Smith's research, exercise improves mood by releasing endorphins."</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Create a Feedback Action Plan</h2>
+                <p>Take feedback from a recent assignment. Plan how you'll improve based on it.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Assignment Details</h4>
+                <p>Assignment: ________________ Grade/Feedback received: ________________</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Key Feedback Points</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">List the main feedback you received:</p>
+                <textarea class="textarea-box" placeholder="1.&#10;2.&#10;3."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Understanding Each Point</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">For each feedback point, write what it means and what you'll do about it:</p>
+                <textarea class="textarea-box" placeholder="Feedback 1: [what it means] → [what I'll do]&#10;Feedback 2: [what it means] → [what I'll do]&#10;Feedback 3: [what it means] → [what I'll do]"></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Progress Tracking</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">How will you apply this feedback to your next assignment?</p>
+                <textarea class="textarea-box" placeholder="Next steps..."></textarea>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> How has understanding feedback changed the way you view it? What's one improvement you've made based on past feedback?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

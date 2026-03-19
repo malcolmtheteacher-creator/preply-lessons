@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Arguments</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .reading-passage { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+        .reading-passage p { margin-bottom: 15px; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .argument-box { background: white; padding: 15px; border: 1px solid #667eea; border-radius: 4px; margin-bottom: 12px; }
+        .argument-box strong { color: #764ba2; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Understanding Arguments</h1>
+            <p>B1 Intermediate Academic English</p>
+        </header>
+
+        <div class="timer">
+            <span>⏱️ Time: <span id="timer-display">5:00</span></span>
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Key Concepts</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Application</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>The Three Parts of an Argument</h2>
+                <p>All academic arguments have the same basic structure: claim + reasons + evidence.</p>
+
+                <div class="argument-box">
+                    <strong>1. Claim (Main Idea)</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">What the author believes or argues. Often stated in the introduction.</p>
+                </div>
+
+                <div class="argument-box">
+                    <strong>2. Reasons (Why)</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Why the author believes the claim. Logical explanations that support the main idea.</p>
+                </div>
+
+                <div class="argument-box">
+                    <strong>3. Evidence (Proof)</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Facts, statistics, examples, or research that support the reasons. Shows the claim is true.</p>
+                </div>
+
+                <h3>Simple Example</h3>
+                <div class="reading-passage">
+                    <p><strong>Claim:</strong> "Universities should require all first-year students to live on campus."</p>
+                    <p><strong>Reason:</strong> "Living on campus helps students adapt to university life and build community."</p>
+                    <p><strong>Evidence:</strong> "A 2023 study found that residential students report 23% higher satisfaction and are 15% more likely to graduate on time."</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Spotting Weak Arguments</h2>
+                <p>Not all arguments are strong. Good critical readers identify weaknesses in reasoning.</p>
+
+                <h3>Common Logical Fallacies (Weak Arguments)</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Hasty Generalisation:</strong> "One person did this, so everyone does" — Not enough evidence</li>
+                    <li><strong>Ad Hominem:</strong> Attacking the person instead of their argument — Irrelevant</li>
+                    <li><strong>False Cause:</strong> "This happened, then that happened, so one caused the other" — May be coincidence</li>
+                    <li><strong>Circular Reasoning:</strong> Using the claim to prove the claim — No real evidence</li>
+                    <li><strong>Appeal to Authority:</strong> "Famous person X believes this, so it's true" — Authority isn't always right</li>
+                    <li><strong>Straw Man:</strong> Attacking a weak version of the argument — Misrepresenting the opposing view</li>
+                </ul>
+
+                <h3>Asking Critical Questions</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Is the claim clearly stated?</li>
+                    <li>Are the reasons logical and relevant?</li>
+                    <li>Is the evidence sufficient and credible?</li>
+                    <li>Are there counterarguments the author hasn't addressed?</li>
+                    <li>Is the argument biased or one-sided?</li>
+                </ul>
+            </div>
+
+            <div class="question-block">
+                <h4>💡 Think About This</h4>
+                <p>What makes some arguments convincing and others unconvincing? Can you think of an advertisement with a weak argument?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Argument Analysis Vocabulary</h2>
+                <p>Click each card to see words for discussing arguments.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Claim</span>
+                        <span class="definition">The main idea or statement someone argues for</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Evidence</span>
+                        <span class="definition">Facts or data that support or prove an argument</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Reasoning</span>
+                        <span class="definition">The logical thinking behind an argument</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Fallacy</span>
+                        <span class="definition">A mistake or weakness in logical reasoning</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Counterargument</span>
+                        <span class="definition">An opposing argument against the main claim</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Persuasive</span>
+                        <span class="definition">Able to convince or influence someone's opinion</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Bias</span>
+                        <span class="definition">Unfair preference that prevents objective judgment</span>
+                    </div>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Logical</span>
+                        <span class="definition">Based on reasoning; making sense; reasonable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Identifying Argument Components</h2>
+                <p>For each passage, identify the claim, reasons, and evidence.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 1</h4>
+                <p><em>"Smartphones are harming young people's mental health. Research shows that teenagers who spend more than four hours daily on social media experience higher rates of anxiety and depression. A 2022 study of 5,000 adolescents found that heavy phone users had 30% more depressive symptoms than light users."</em></p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Claim:</strong> "Smartphones are harming young people's mental health." <strong>Reason:</strong> Heavy phone use correlates with anxiety and depression. <strong>Evidence:</strong> 2022 study of 5,000 adolescents showing 30% more symptoms in heavy users. Strong argument with specific evidence.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 2</h4>
+                <p><em>"Exercise is good for you. Many people exercise regularly. Therefore, society should require daily exercise."</em></p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Claim:</strong> "Society should require daily exercise" <strong>Weak reason:</strong> "Many people do it" (that doesn't mean it should be required). <strong>Missing evidence:</strong> No data or research. The logic is weak—popularity doesn't justify mandatory requirements.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 3</h4>
+                <p><em>"Remote work reduces productivity. When companies switched to remote work during 2020, some experienced difficulties coordinating teams. Therefore, all employees should work in offices."</em></p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Claim:</strong> "All employees should work in offices" <strong>Weak reason:</strong> Some companies had difficulties (cherry-picked examples) <strong>Weak evidence:</strong> No actual data. Logical fallacy: hasty generalisation from selected examples. Ignores successful remote work models.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Example 4</h4>
+                <p><em>"Online education is effective. A meta-analysis of 355 studies comparing online and in-person learning found no significant difference in learning outcomes. Furthermore, online students reported greater flexibility and lower costs. However, online learning requires strong self-discipline, which not all students possess."</em></p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none"><strong>Claim:</strong> "Online education is effective" <strong>Strong reasons:</strong> Equivalent learning outcomes, greater flexibility, lower costs. <strong>Strong evidence:</strong> Meta-analysis of 355 studies. Additional note: acknowledges counterargument (self-discipline requirement). Balanced, well-supported argument.</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Evaluate an Argument</h2>
+                <p>Choose an academic article or opinion piece. Analyse its argument using what you've learned.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Source Information</h4>
+                <p>Title: ________________ Author: ________________ Source: ________________</p>
+            </div>
+
+            <div class="question-block">
+                <h4>Main Claim</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">What is the author arguing?</p>
+                <textarea class="textarea-box" placeholder="Write the main claim here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Key Reasons</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">List 2-3 main reasons supporting the claim:</p>
+                <textarea class="textarea-box" placeholder="Reason 1: &#10;Reason 2: &#10;Reason 3:"></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Evidence Quality</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">What evidence is provided? Is it sufficient and credible?</p>
+                <textarea class="textarea-box" placeholder="Describe the evidence quality..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <h4>Critical Assessment</h4>
+                <p style="color: #999; font-size: 0.9em; margin-bottom: 10px;">What weaknesses or logical fallacies do you identify?</p>
+                <textarea class="textarea-box" placeholder="Write your critical analysis..."></textarea>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Reflection:</strong> How has learning to identify argument structure changed the way you read academic texts?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

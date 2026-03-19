@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taking Notes in English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .example-note { background: white; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 4px; font-family: monospace; font-size: 0.95em; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Taking Notes in English</h1>
+            <p>Learn essential strategies for effective note-taking: abbreviations, symbols, and organisation</p>
+        </header>
+
+        <div class="timer">
+            <span id="timer-display">5:00</span>
+            <div>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">Abbreviations</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">Examples</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <div class="content-block">
+                <h2>Common Abbreviations</h2>
+                <h3>Symbols and Short Forms</h3>
+                <p><strong>w/</strong> = with</p>
+                <p><strong>w/o</strong> = without</p>
+                <p><strong>→</strong> = leads to, causes, results in</p>
+                <p><strong>←</strong> = comes from, is caused by</p>
+                <p><strong>↑</strong> = increases, rises</p>
+                <p><strong>↓</strong> = decreases, falls</p>
+                <p><strong>∴</strong> = therefore</p>
+                <p><strong>∵</strong> = because</p>
+                <p><strong>e.g.</strong> = for example</p>
+                <p><strong>etc.</strong> = and so on</p>
+                <p><strong>approx.</strong> = approximately</p>
+                <p><strong>vs/v</strong> = versus, against</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Academic Abbreviations</h2>
+                <h3>Subject-Specific Shorthand</h3>
+                <p><strong>govt</strong> = government</p>
+                <p><strong>dev.</strong> = development</p>
+                <p><strong>imp.</strong> = important</p>
+                <p><strong>intro</strong> = introduction</p>
+                <p><strong>concl.</strong> = conclusion</p>
+                <p><strong>ch. 3</strong> = chapter 3</p>
+                <p><strong>p. 45</strong> = page 45</p>
+                <p><strong>para</strong> = paragraph</p>
+                <p><strong>def.</strong> = definition</p>
+                <p><strong>exp.</strong> = explanation</p>
+                <p><strong>q</strong> = question</p>
+                <p><strong>ans</strong> = answer</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Note-Taking Structure</h2>
+                <h3>Organizing Your Notes</h3>
+                <p><strong>Date & Topic:</strong> Always write the date and lesson topic at the top</p>
+                <p><strong>Main Points:</strong> Use bullet points or numbers for main ideas</p>
+                <p><strong>Indentation:</strong> Indent supporting details under main points</p>
+                <p><strong>Underline Key Terms:</strong> Emphasise important vocabulary</p>
+                <p><strong>Leave Space:</strong> Leave margins for additions and reviews</p>
+                <p><strong>Mark Questions:</strong> Use ? for things you need to clarify later</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="content-block">
+                <h2>Essential Vocabulary</h2>
+            </div>
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Concise</span>
+                        <span class="definition">Brief and clear, using few words</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Abbreviation</span>
+                        <span class="definition">A shortened form of a word or phrase</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Legible</span>
+                        <span class="definition">Easy to read and understand</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Retrieve</span>
+                        <span class="definition">Find and get information again</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Highlight</span>
+                        <span class="definition">Mark or emphasise important information</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Indent</span>
+                        <span class="definition">Start a line further to the right than usual</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Margin</span>
+                        <span class="definition">The blank space around the edge of a page</span>
+                    </div>
+                </div>
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <div>
+                        <span class="word">Synthesis</span>
+                        <span class="definition">Combining different ideas into one whole</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="content-block">
+                <h2>Practice Exercises</h2>
+            </div>
+
+            <div class="question-block">
+                <h4>Exercise 1: Abbreviate the Following</h4>
+                <p>"The government development programme is important because it leads to economic growth."</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">Govt dev. prog. imp. ∵ → econ. growth</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Exercise 2: Write Symbols</h4>
+                <p>Fill in the correct symbol: "Water temperature _____ during winter months"</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">↓ (decreases/falls)</div>
+            </div>
+
+            <div class="question-block">
+                <h4>Exercise 3: Structure Notes</h4>
+                <p>Organise this information into note form:</p>
+                <p>"The main point is that renewable energy is becoming more important. For example, solar power and wind energy are growing rapidly. This is because fossil fuels are running out and climate change is a serious issue."</p>
+                <button class="answer-btn" onclick="var a=this.nextElementSibling; a.classList.toggle('show'); if(a.classList.contains('show')){a.style.display='block';this.textContent='Hide Answer'}else{a.style.display='none';this.textContent='Show Answer'}">Show Answer</button>
+                <div class="answer-text" style="display:none">• Renewable energy ↑ imp. | e.g. solar, wind power ↑ | ∵ fossil fuels ↓ + climate change</div>
+            </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <div class="content-block">
+                <h2>Example Notes from Lecture</h2>
+            </div>
+
+            <div class="example-note">
+                <strong>Date: 19 March 2026</strong><br>
+                <strong>Topic: Climate Change Impacts</strong><br><br>
+                • Global temp ↑ approx. 1.5°C last 100 yrs<br>
+                &nbsp;&nbsp;→ sea levels ↑<br>
+                &nbsp;&nbsp;→ weather extremes (storms, floods)<br><br>
+                • Causes:<br>
+                &nbsp;&nbsp;- CO₂ emissions ↑ (industry, transport)<br>
+                &nbsp;&nbsp;- Deforestation (fewer trees → less O₂)<br><br>
+                • Solutions (p. 45 textbook):<br>
+                &nbsp;&nbsp;✓ Renewable energy (solar, wind)<br>
+                &nbsp;&nbsp;✓ Reforestation programmes<br>
+                &nbsp;&nbsp;✓ Govt policy changes<br><br>
+                ? Need more info on carbon pricing
+            </div>
+
+            <div class="content-block">
+                <h2>Key Takeaways</h2>
+                <p>✓ Abbreviations save time and space</p>
+                <p>✓ Use consistent symbols throughout</p>
+                <p>✓ Keep notes legible for future review</p>
+                <p>✓ Structure helps you remember better</p>
+                <p>✓ Review and edit notes within 24 hours</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 300;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) {
+                    timerEl.classList.add("danger");
+                    timerEl.classList.remove("warning");
+                } else if (timeRemaining <= 30) {
+                    timerEl.classList.add("warning");
+                    timerEl.classList.remove("danger");
+                } else {
+                    timerEl.classList.remove("warning", "danger");
+                }
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("timer-display").textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 300;
+            document.getElementById("timer-display").textContent = "5:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
