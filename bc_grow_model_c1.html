@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GROW Model | C1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        .grow-card { background: white; border: 3px solid #667eea; border-radius: 8px; padding: 25px; margin: 15px 0; }
+        .grow-card h3 { color: #764ba2; margin-bottom: 10px; font-size: 1.2em; }
+        .grow-card p { color: #555; margin-bottom: 10px; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GROW Model: Goal Setting Framework</h1>
+            <p>A structured approach to professional development</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'framework')">The Framework</button>
+            <button class="tab-button" onclick="openTab(event, 'vocabulary')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'matching')">Matching Exercise</button>
+            <button class="tab-button" onclick="openTab(event, 'speaking')">Speaking Task</button>
+            <button class="tab-button" onclick="openTab(event, 'practice')">Practice Questions</button>
+        </div>
+
+        <!-- FRAMEWORK TAB -->
+        <div id="framework" class="tab-content active">
+            <div class="content-block">
+                <h2>What is the GROW Model?</h2>
+                <p>GROW is a simple framework for setting and achieving professional goals. It guides you through four key stages:</p>
+
+                <div class="grow-card">
+                    <h3>G = Goal</h3>
+                    <p><strong>What do you want to achieve?</strong></p>
+                    <p>Define your target clearly. Be specific about what success looks like.</p>
+                </div>
+
+                <div class="grow-card">
+                    <h3>R = Reality</h3>
+                    <p><strong>Where are you now?</strong></p>
+                    <p>Assess your current situation honestly. What skills do you have? What obstacles exist?</p>
+                </div>
+
+                <div class="grow-card">
+                    <h3>O = Options</h3>
+                    <p><strong>What could you do?</strong></p>
+                    <p>Brainstorm different ways to reach your goal. Consider multiple strategies and solutions.</p>
+                </div>
+
+                <div class="grow-card">
+                    <h3>W = Will</h3>
+                    <p><strong>What will you do?</strong></p>
+                    <p>Choose one option and commit to action. Create a concrete plan with specific steps.</p>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Why Use GROW?</h4>
+                    <p>The GROW model helps you:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Think clearly about your objectives</li>
+                        <li>Understand your starting point</li>
+                        <li>Explore creative solutions</li>
+                        <li>Make practical commitments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOCABULARY TAB -->
+        <div id="vocabulary" class="tab-content">
+            <div class="content-block">
+                <h2>Goal-Setting Vocabulary</h2>
+                <p>Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Goal</span>
+                        <span class="definition">An aim or desired result that you work toward</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Reality</span>
+                        <span class="definition">The actual current situation or state of things</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Options</span>
+                        <span class="definition">Different possible choices or courses of action</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Challenge</span>
+                        <span class="definition">A difficult task or obstacle to overcome</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Strategy</span>
+                        <span class="definition">A planned approach to achieve a goal</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Commitment</span>
+                        <span class="definition">A pledge to do something or follow through on a plan</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Progress</span>
+                        <span class="definition">Forward movement toward a goal</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Professional</span>
+                        <span class="definition">Related to work or a career; showing competence and responsibility</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATCHING TAB -->
+        <div id="matching" class="tab-content">
+            <div class="content-block">
+                <h2>Matching Exercise</h2>
+                <p>Match each question to the correct GROW stage. Click "Show Answer" to check.</p>
+
+                <div class="question-block">
+                    <h4>Question 1: "Where are you now?"</h4>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer-text">
+                        <strong>R = Reality</strong> — This question asks about your current situation and starting point.
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 2: "What do you want?"</h4>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer-text">
+                        <strong>G = Goal</strong> — This question asks you to define your objective and target.
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 3: "What could you do?"</h4>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer-text">
+                        <strong>O = Options</strong> — This question asks you to brainstorm possible solutions and strategies.
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 4: "What will you do?"</h4>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer-text">
+                        <strong>W = Will</strong> — This question asks for your commitment and the specific action you'll take.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPEAKING TASK TAB -->
+        <div id="speaking" class="tab-content">
+            <div class="content-block">
+                <h2>Speaking Task: Apply GROW to Your Goal</h2>
+
+                <div class="timer">
+                    <div>
+                        <strong>Time Remaining</strong><br>
+                        <span id="timer-display">10:00</span>
+                    </div>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Your Task</h4>
+                    <p>Choose a professional goal and speak for 10 minutes using the GROW model to structure your response.</p>
+                </div>
+
+                <div class="discussion-box">
+                    <p><strong>Suggested Goals:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Improve your English speaking skills</li>
+                        <li>Advance to a leadership position</li>
+                        <li>Learn a new technical skill</li>
+                        <li>Start your own business</li>
+                        <li>Get a promotion within 6 months</li>
+                    </ul>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Structure Your Speech</h4>
+                    <p><strong>Spend about 2–3 minutes on each stage:</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Goal:</strong> What is your professional goal? Why is it important to you?</li>
+                        <li><strong>Reality:</strong> Where are you now? What skills and resources do you have? What obstacles might you face?</li>
+                        <li><strong>Options:</strong> What are 2–3 different strategies you could use? What are the pros and cons?</li>
+                        <li><strong>Will:</strong> Which option will you choose? What specific actions will you take? When will you start?</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICE TAB -->
+        <div id="practice" class="tab-content">
+            <div class="content-block">
+                <h2>Practice Questions</h2>
+                <p>Use these questions to build your GROW conversation skills.</p>
+
+                <div class="question-block">
+                    <h4>Goal Questions</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>What is your biggest professional goal for this year?</li>
+                        <li>Why is this goal important to you?</li>
+                        <li>How will you know when you have achieved it?</li>
+                    </ul>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Discussion Points</button>
+                    <div class="answer-text">
+                        <p>Goals should be specific, measurable, and meaningful to you personally. Share what drives you.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Reality Questions</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>What challenges might stop you from reaching your goal?</li>
+                        <li>What skills and strengths do you already have?</li>
+                        <li>What resources do you have access to?</li>
+                    </ul>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Discussion Points</button>
+                    <div class="answer-text">
+                        <p>Be honest about your current position. Understanding reality helps you plan better and avoid surprises.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Options Questions</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>What are three possible ways to overcome these challenges?</li>
+                        <li>Who could help or mentor you?</li>
+                        <li>What have other successful people done?</li>
+                    </ul>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Discussion Points</button>
+                    <div class="answer-text">
+                        <p>Brainstorm freely. Consider creative solutions and learn from others' experiences.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Will Questions</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Which option will you commit to and why?</li>
+                        <li>What are your next three concrete steps?</li>
+                        <li>When will you take these steps?</li>
+                    </ul>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Show Discussion Points</button>
+                    <div class="answer-text">
+                        <p>Commitment and action are key. Be specific about what you will do and when.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        function toggleAnswer(btn) {
+            const answerText = btn.nextElementSibling;
+            answerText.classList.toggle("show");
+            btn.textContent = answerText.classList.contains("show") ? "Hide" : (btn.textContent.includes("Answer") ? "Show Answer" : "Show Discussion Points");
+        }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>

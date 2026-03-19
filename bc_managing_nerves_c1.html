@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Manage Nerves | C1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+        .technique-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; margin: 15px 0; }
+        .technique-card h4 { color: #764ba2; margin-bottom: 10px; }
+        .table-responsive { overflow-x: auto; margin: 15px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #667eea; }
+        th { background: #667eea; color: white; font-weight: 600; }
+        tr:hover { background: #f8f9fa; }
+        @media (max-width: 768px) { .container { padding: 15px; } header h1 { font-size: 1.8em; } .tabs { flex-direction: column; border-bottom: none; } .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; } .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; } .vocab-grid { grid-template-columns: 1fr; } .timer { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>How to Manage Nerves</h1>
+            <p>Techniques for confident public speaking</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'vocabulary')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'stress-reduction')">Stress Reduction</button>
+            <button class="tab-button" onclick="openTab(event, 'rehearsal')">Rehearsal Techniques</button>
+            <button class="tab-button" onclick="openTab(event, 'speaking')">Speaking Task</button>
+            <button class="tab-button" onclick="openTab(event, 'reflection')">Action Plan</button>
+        </div>
+
+        <!-- VOCABULARY TAB -->
+        <div id="vocabulary" class="tab-content active">
+            <div class="content-block">
+                <h2>Public Speaking Vocabulary</h2>
+                <p>Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Nerves</span>
+                        <span class="definition">Anxiety or tension felt before or during a performance</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Panic Attack</span>
+                        <span class="definition">Sudden intense fear or anxiety with physical symptoms</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Stress</span>
+                        <span class="definition">Physical or mental tension caused by demanding situations</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Breathing</span>
+                        <span class="definition">The process of taking air in and out of the lungs; can calm anxiety</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Visualization</span>
+                        <span class="definition">Forming mental images to prepare and calm yourself</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Rehearse</span>
+                        <span class="definition">To practice a speech or performance to become comfortable</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Confidence</span>
+                        <span class="definition">A feeling of certainty about your abilities</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Anxiety</span>
+                        <span class="definition">Worry or nervousness about a future event</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STRESS REDUCTION TAB -->
+        <div id="stress-reduction" class="tab-content">
+            <div class="content-block">
+                <h2>Stress Reduction Techniques</h2>
+                <p>When you feel nervous or panicked during a speech, use these techniques to calm down.</p>
+
+                <div class="technique-card">
+                    <h4>Deep Breathing</h4>
+                    <p>Slow, controlled breathing calms your nervous system. Try breathing in for 4 counts, holding for 4, and exhaling for 4.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>Reframing Your Beliefs</h4>
+                    <p>Instead of "I'm nervous," say "I'm excited." Replace fear with anticipation. Nervousness and excitement feel similar—choose a positive interpretation.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>Positive Visualization</h4>
+                    <p>Before your speech, close your eyes and imagine yourself delivering confidently. See the audience smiling and engaged. Picture success.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>Manage "Flight or Fight"</h4>
+                    <p>Your body releases stress hormones when nervous. Acknowledge this physical response as your body preparing to perform, not a sign of danger.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>Use Your Space</h4>
+                    <p>Move around purposefully. Physical movement helps burn nervous energy and makes you feel more grounded and present.</p>
+                </div>
+
+                <div class="technique-card">
+                    <h4>Audience Connection</h4>
+                    <p>Remember your audience wants you to succeed. Make eye contact, smile, and connect with individuals. This shifts focus from your anxiety to your message.</p>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Your Calm-Down Plan</h4>
+                    <p>Choose three techniques that appeal to you. Practice them before your next presentation so they feel natural when you need them.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REHEARSAL TAB -->
+        <div id="rehearsal" class="tab-content">
+            <div class="content-block">
+                <h2>Eight Key Rehearsal Techniques</h2>
+                <p>Full preparation significantly reduces anxiety. Here are the eight techniques matched to their descriptions:</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technique</th>
+                                <th>What It Means</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Rehearse</strong></td>
+                                <td>Practice your speech using the same format as speech day (cue cards, notes, scripted, or by memory)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gestures</strong></td>
+                                <td>Video yourself with your phone to assess your body language. Break it down: hand movement, emphasizing, balancing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Visuals</strong></td>
+                                <td>Practice giving the speech with any technology you plan to use. Dress in what you'll wear on speech day</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Environment</strong></td>
+                                <td>Try to practice in the actual venue. Imitate the lighting and the technology you'll use</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feedback</strong></td>
+                                <td>Ask yourself specific questions: What do I like most/least? What's missing? How's the start? How's my body language?</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Timing</strong></td>
+                                <td>Practice to a clock. If you go over time, identify which area needs reducing and practice again</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vocals</strong></td>
+                                <td>Record yourself giving the speech a few times. Measure vocal improvement: volume, intonation, pausing, stress</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Keep Going</strong></td>
+                                <td>On speech day, if you make mistakes, aim to fix them the next time without stopping</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Which techniques are most important?</h4>
+                    <p>All of them matter, but start with:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Rehearse</strong> — Know your material inside out</li>
+                        <li><strong>Timing</strong> — Stay within limits to feel in control</li>
+                        <li><strong>Environment</strong> — Practice where you'll perform if possible</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPEAKING TASK TAB -->
+        <div id="speaking" class="tab-content">
+            <div class="content-block">
+                <h2>Speaking Task: Your Preparation Strategy</h2>
+
+                <div class="timer">
+                    <div>
+                        <strong>Time Remaining</strong><br>
+                        <span id="timer-display">10:00</span>
+                    </div>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Your Task</h4>
+                    <p>Speak for 10 minutes about how you manage nerves before public speaking. Use specific techniques and examples from your experience.</p>
+                </div>
+
+                <div class="discussion-box">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">Structure Your Talk</h4>
+                    <ol style="margin-left: 20px;">
+                        <li><strong>Your Experience (2 min):</strong> Describe how you feel before giving a speech. Where does your fear come from?</li>
+                        <li><strong>Stress Reduction (3 min):</strong> Choose two stress-reduction techniques and explain how they help you. Give examples.</li>
+                        <li><strong>Rehearsal Strategies (3 min):</strong> Talk about which rehearsal techniques you use or plan to use. Why are they effective?</li>
+                        <li><strong>Your Action Plan (2 min):</strong> Describe what you will do differently for your next speech.</li>
+                    </ol>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Discussion Questions to Help You</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>Are you afraid of speaking in front of other people in a public setting?</li>
+                        <li>What definitely doesn't work to calm your nerves?</li>
+                        <li>Do you think famous speakers feel nervous? Why or why not?</li>
+                        <li>Describe the most nerve-wracking experience in your life so far.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTION PLAN TAB -->
+        <div id="reflection" class="tab-content">
+            <div class="content-block">
+                <h2>Create Your Action Plan</h2>
+                <p>Design a personal strategy to prepare for your next speech and reduce anxiety.</p>
+
+                <div class="question-block">
+                    <h4>Step 1: Choose Rehearsal Techniques</h4>
+                    <p>Select three rehearsal techniques you will use:</p>
+                    <textarea class="textarea-box" placeholder="e.g., 1) Record myself to check body language, 2) Practice with a clock, 3) Use the actual venue if possible..."></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>Step 2: Pre-Speech Stress Reduction</h4>
+                    <p>List three techniques you'll use before the speech starts:</p>
+                    <textarea class="textarea-box" placeholder="e.g., 1) Deep breathing (4-4-4 counts), 2) Positive visualization, 3) Brief conversation with a friend..."></textarea>
+                </div>
+
+                <div class="question-block">
+                    <h4>Step 3: During-Speech Stress Reduction</h4>
+                    <p>List three techniques you'll use if you feel nervous during the speech:</p>
+                    <textarea class="textarea-box" placeholder="e.g., 1) Pause and take a breath, 2) Connect with the audience, 3) Move around purposefully..."></textarea>
+                </div>
+
+                <div class="discussion-box" style="margin-top: 20px;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">Remember</h4>
+                    <p>Being fully prepared on the day can significantly reduce anxiety. The more you practice, the more confident you'll feel. Start now, not the night before!</p>
+                </div>
+
+                <div class="question-block" style="margin-top: 20px;">
+                    <h4>Reflection</h4>
+                    <p>What are you going to do differently, as a result of this lesson, for managing nerves when public speaking?</p>
+                    <textarea class="textarea-box" placeholder="Write your personal commitment..."></textarea>
+                </div>
+
+                <div class="discussion-box" style="margin-top: 20px;">
+                    <p><strong>Recommended Resources:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>TED Talk: "How to Make Stress Your Friend" by Kelly McGonigal</li>
+                        <li>YouTube: Quick breathing technique for stress relief before a speech</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
