@@ -243,7 +243,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
      ========================================================= -->
 <div class="step active" id="stepIntro">
   <h2 class="step-title">Let's build your pathway</h2>
-  <p class="step-subtitle">Tell us a little about yourself — what you do, what you need English for, and roughly where you are. We'll use your own words to personalise your lessons.</p>
+  <p class="step-subtitle">Tell us about yourself — fill in both lines below. The more you share, the better the match.</p>
 
   <div class="form-group">
     <label class="form-label">Your name</label>
@@ -251,23 +251,20 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
   </div>
 
   <div class="intro-hint">
-    <strong>Tip:</strong> Try to mention the type of work you do — we use this to match professional vocabulary and real-world contexts. We recognise many common jobs, but not every profession in the world, so don't worry if yours isn't detected.
+    <strong>Fill in both lines</strong> — your job helps us match real workplace vocabulary, and your goal helps us find the right type of lessons. We recognise many common jobs but not every profession, so don't worry if yours isn't detected.
   </div>
 
-  <div class="starter-row">
-    <span class="starter-label">Quick-start:</span>
-    <button class="starter-chip" onclick="insertStarter('job')">I work as a...</button>
-    <button class="starter-chip" onclick="insertStarter('goal')">I need English for...</button>
-    <button class="starter-chip" onclick="insertStarter('level')">My level is roughly...</button>
-    <button class="starter-chip" onclick="insertStarter('interest')">I'm also interested in...</button>
-    <button class="starter-chip" onclick="insertStarter('exam')">I'm preparing for...</button>
-  </div>
+  <textarea class="profile-textarea" id="profileText" oninput="debounceParseText(); updateIntroBuildBtn()"></textarea>
 
-  <textarea class="profile-textarea" id="profileText" oninput="debounceParseText()"
-    placeholder="e.g. I'm a nurse working in Switzerland. I need to improve my English for talking to patients and writing medical notes. I'd say I'm around intermediate level. I'm also interested in science and health topics."></textarea>
+  <div class="starter-row" style="margin-top:10px;">
+    <span class="starter-label">Add more detail:</span>
+    <button class="starter-chip" onclick="insertStarter('level')">+ my level</button>
+    <button class="starter-chip" onclick="insertStarter('interest')">+ a topic I like</button>
+    <button class="starter-chip" onclick="insertStarter('exam')">+ an exam I'm taking</button>
+  </div>
 
   <div class="detected-row" id="detectedRow">
-    <span class="nothing-detected" id="nothingDetected">Start typing and we'll pick up your level, goals and interests automatically...</span>
+    <span class="nothing-detected" id="nothingDetected">Fill in both lines above and we'll build your profile automatically...</span>
   </div>
 
   <div class="nav-row" style="flex-direction:column;align-items:stretch;gap:10px;margin-top:28px;">
@@ -635,7 +632,7 @@ function resetAndStart() {
   document.getElementById('nextBtn4').disabled = true;
   // Reset intro fields
   document.getElementById('introName').value = '';
-  document.getElementById('profileText').value = '';
+  document.getElementById('profileText').value = INTRO_TEMPLATE;
   detectedState = { level: null, goals: [], profession: null, topics: [], removed: {} };
   document.getElementById('introBuildBtn').disabled = true;
   renderDetectedChips();
@@ -794,10 +791,25 @@ function debounceParseText() {
   parseTimer = setTimeout(parseProfileText, 280);
 }
 
+var INTRO_TEMPLATE = 'I work as a \nI need English for \n';
+
+function initIntroTemplate() {
+  var ta = document.getElementById('profileText');
+  if (!ta.value || ta.value.trim() === '') {
+    ta.value = INTRO_TEMPLATE;
+    // Place cursor at end of first line so student fills in job first
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = 'I work as a '.length;
+  }
+}
+
 function updateIntroBuildBtn() {
   var name = (document.getElementById('introName').value || '').trim();
   var text = (document.getElementById('profileText').value || '').trim();
-  document.getElementById('introBuildBtn').disabled = !(name.length > 0 && text.length > 8);
+  var template = INTRO_TEMPLATE.trim();
+  // Enable once name is filled AND student has added content beyond the bare template
+  var hasContent = name.length > 0 && text.length > template.length + 4 && text !== template;
+  document.getElementById('introBuildBtn').disabled = !hasContent;
 }
 
 function parseProfileText() {
@@ -892,8 +904,6 @@ function removeDetectedChip(id) {
 }
 
 var STARTERS = {
-  job: 'I work as a ',
-  goal: 'I need English for ',
   level: 'My level is roughly ',
   interest: "I'm also interested in ",
   exam: "I'm preparing for ",
@@ -902,11 +912,13 @@ function insertStarter(type) {
   var ta = document.getElementById('profileText');
   var phrase = STARTERS[type] || '';
   var cur = ta.value;
-  if (cur.length > 0 && !cur.endsWith('\n') && !cur.endsWith(' ')) phrase = '\n' + phrase;
+  // Always append on a new line
+  if (cur.length > 0 && !cur.endsWith('\n')) phrase = '\n' + phrase;
   ta.value = cur + phrase;
   ta.focus();
   ta.selectionStart = ta.selectionEnd = ta.value.length;
   debounceParseText();
+  updateIntroBuildBtn();
 }
 
 function applyAndBuild() {
@@ -2249,6 +2261,9 @@ body { font-family:'Inter',sans-serif; color:#222; background:#fff; font-size:13
     win.document.close();
   }
 }
+
+// Initialise intro template on page load
+initIntroTemplate();
 
 </script>
 </body>
