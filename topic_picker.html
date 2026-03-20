@@ -181,6 +181,27 @@
             .filter-row { flex-direction: column; align-items: stretch; }
             .search-box { width: 100%; }
         }
+
+        /* Sub-category labels */
+        .sub-label {
+            grid-column: 1 / -1;
+            font-size: 0.82rem; font-weight: 700; color: #888;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            margin-top: 14px; margin-bottom: 2px;
+            padding: 4px 0 4px 4px;
+            border-left: 3px solid #c4b5fd;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* Skill filter buttons */
+        .filter-btn.skill { border-color: #a855f7; color: #7c3aed; font-size: 0.82rem; padding: 5px 14px; }
+        .filter-btn.skill:hover { background: #faf5ff; }
+        .filter-btn.skill.active { background: #7c3aed; color: white; border-color: #7c3aed; }
+
+        /* Clickable tags */
+        .tag { cursor: pointer; transition: background 0.15s, color 0.15s; }
+        .tag:hover { background: #667eea; color: white; }
+        .tag.active-tag { background: #764ba2; color: white; }
     </style>
 </head>
 <body>
@@ -212,6 +233,17 @@
         <button class="filter-btn lvl" onclick="fl('c1')">B2–C1</button>
         <button class="filter-btn lvl" onclick="fl('c2')">C2</button>
     </div>
+    <div class="filter-row">
+        <span class="filter-label">Skills</span>
+        <button class="filter-btn skill active" onclick="fsk('all')">All</button>
+        <button class="filter-btn skill" onclick="fsk('discussion')">💬 Discussion</button>
+        <button class="filter-btn skill" onclick="fsk('role-play')">🎭 Role Play</button>
+        <button class="filter-btn skill" onclick="fsk('writing')">✍️ Writing</button>
+        <button class="filter-btn skill" onclick="fsk('pronunciation')">🔊 Pronunciation</button>
+        <button class="filter-btn skill" onclick="fsk('grammar')">📝 Grammar Focus</button>
+        <button class="filter-btn skill" onclick="fsk('reading')">📖 Reading</button>
+    </div>
+
 </div>
 <div class="lesson-count" id="cnt"></div>
 
@@ -1696,7 +1728,104 @@ const L = [
       tags:['privacy','digital','law','internet','CPE reading'], g:'CPE Reading', gl:'grammar_c1_13_discourse_hedging.html' }
 ];
 
-let aT='all', aL='all', sT='';
+let aT='all', aL='all', sT='', aSk='all', activeTagFilter='';
+
+// ── Skill filter ──
+const SKILL_TAGS = {
+    'discussion': ['discussion','debate','opinion','argue','argument','seminar','speaking','conversation','fluency','giving opinions','agree disagree','expressing opinions','advanced opinions','speculating','opinion language'],
+    'role-play': ['role-play','roleplay','role play','scenario','simulation','meeting simulation','case study','negotiation'],
+    'writing': ['writing','email writing','academic writing','proposal writing','report writing','formal writing','email skills','letter writing','drafting','composition','essay','journal writing'],
+    'pronunciation': ['pronunciation','stress','intonation','sounds','phonics','linking sounds','sentence stress','speech rhythm'],
+    'grammar': [],   // matched by g field presence
+    'reading': ['reading','CPE reading','reading skills','text analysis','comprehension','skim','scan','True/False/Not Given','IELTS reading'],
+};
+
+function skillMatch(l, sk) {
+    if (sk === 'all') return true;
+    if (sk === 'grammar') return !!l.g;
+    const tags = l.tags.map(t => t.toLowerCase());
+    const desc = (l.d || '').toLowerCase();
+    return SKILL_TAGS[sk].some(kw => tags.some(t => t.includes(kw)) || desc.includes(kw));
+}
+
+// ── Sub-category computation ──
+function getSub(l) {
+    const t = (l.t || '').toLowerCase();
+    const tags = (l.tags || []).join(' ').toLowerCase();
+    const f = (l.f || '').toLowerCase();
+    const c = l.cat;
+
+    if (c === 'food') {
+        if (/restaur|order|meal|dining|cook|drink|recipe|menu|cafe|lunch|dinner/.test(t+tags)) return 'Food & Dining';
+        return 'Culture & Traditions';
+    }
+    if (c === 'travel') {
+        if (/direct|town|transport|getting around|navigate|information/.test(t+tags)) return 'Getting Around';
+        if (/holiday|tourism|hotel|flight|trip|luggage|dark tourism|tourist|resort/.test(t+tags)) return 'Holidays & Tourism';
+        return 'Cultural Experiences';
+    }
+    if (c === 'life') {
+        if (/tech|digital|online|internet|future|gadget|device|app|social media/.test(t+tags)) return 'Technology & Modern Life';
+        if (/home|house|flat|neighbour|living/.test(t+tags)) return 'Home & Living';
+        if (/celebrat|occasion|wedding|birthday|event|festival|christmas|carnival/.test(t+tags)) return 'Events & Celebrations';
+        if (/fashion|cloth|style|shop|buying|retail|dress/.test(t+tags)) return 'Shopping & Fashion';
+        if (/learn|educat|school|study|lesson|course/.test(t+tags)) return 'Education & Learning';
+        if (/complaint|complain/.test(t+tags)) return 'Everyday Communication';
+        return 'Lifestyle & Habits';
+    }
+    if (c === 'health') {
+        if (/sport|game|fitness|exercise|gym|keep fit|athlete/.test(t+tags)) return 'Sports & Fitness';
+        return 'Health & Wellbeing';
+    }
+    if (c === 'entertainment') {
+        if (/film|movie|cinema|screen|uncanny|tv|television|series/.test(t+tags)) return 'Film & Screen';
+        if (/music|musician|concert|band|song|album|festival/.test(t+tags)) return 'Music & Performance';
+        if (/book|read|novel|literature|author|comic|story|biblioth/.test(t+tags)) return 'Books & Literature';
+        if (/art|design|creative|theatre|museum|gallery|perform|dance|cultural centre/.test(t+tags)) return 'Arts & Culture';
+        return 'Hobbies & Leisure';
+    }
+    if (c === 'people') {
+        if (/psycholog|bias|cognitive|behaviour|emotion|motivat|kahneman|mental health|mind/.test(t+tags)) return 'Psychology & Behaviour';
+        if (/relation|friend|family|social|personalit|romantic/.test(t+tags)) return 'Relationships & Social Life';
+        if (/culture|identity|intercultural|diversity|global|nation|citizen|admire|person/.test(t+tags)) return 'Cultural Identity';
+        return 'People & Perspectives';
+    }
+    if (c === 'work') {
+        if (/present|pitch|speech|keynote|speak|nerves|humour|stage|debate|defend/.test(t+tags)) return 'Presentations & Speaking';
+        if (/meeting|contribut|interrupt|agenda|minute|professional meeting/.test(t+tags)) return 'Meetings & Communication';
+        if (/email|writing|report|complaint letter|proposal|formal writing|document|deduction|recommend/.test(t+tags)) return 'Professional Writing';
+        if (/job|career|hir|interview|cv|appl|recruit|changing job|finding a job/.test(t+tags)) return 'Career & Jobs';
+        if (/lead|manag|team|culture|motivat|staff|morale|hr|succession|innovat/.test(t+tags)) return 'Leadership & Management';
+        if (/financ|money|budget|invest|profit|cost|econom|supplier|market|fair trade|no free lunch|free lunch/.test(t+tags)) return 'Business & Finance';
+        if (/negotiat|conflict|problem|difficult|intercultural|reframe|complaint|question/.test(t+tags)) return 'Workplace Challenges';
+        if (/project|plan|priorit|time|stress|goal|strateg|grow model|action/.test(t+tags)) return 'Planning & Productivity';
+        return 'Professional Skills';
+    }
+    if (c === 'world') {
+        if (/academ|research|journal|thesis|grant|viva|phd|imrad|prisma|supervis|lecture|dissertat|abstract|methodolog|literature review|systematic review/.test(t+tags)) return 'Academic Skills';
+        if (/ai|robot|tech|science|space|manufactur|digital|data|innovat|asteroid|longitude/.test(t+tags)) return 'Science & Technology';
+        if (/philosoph|ethic|moral|paradox|thought experiment|justice|identity|trolley|ship of theseus|boredom|moral luck/.test(t+tags)) return 'Philosophy & Ethics';
+        if (/environ|climate|eco|sustainab|green|nature|planet|population|demograph|panopticon|surveillance/.test(t+tags)) return 'Society & Environment';
+        if (/media|news|journalism|social media|broadcast|press|panopticon/.test(t+tags)) return 'Media & Society';
+        if (/histor|monument|memory|heritage|society|collective|cathedral/.test(t+tags)) return 'Society & History';
+        if (/politic|citizen|vote|government|law|right|gender|women|citizen|right to/.test(t+tags)) return 'Society & Citizenship';
+        if (/language|translat|linguistic|word|cpe|lost in translat/.test(t+tags)) return 'Language & Linguistics';
+        return 'Global Issues & Ideas';
+    }
+    return '';
+}
+
+// ── Sub-category ordering ──
+const SUB_ORDER = {
+    food:          ['Food & Dining','Culture & Traditions'],
+    travel:        ['Getting Around','Holidays & Tourism','Cultural Experiences'],
+    life:          ['Lifestyle & Habits','Home & Living','Shopping & Fashion','Events & Celebrations','Technology & Modern Life','Education & Learning','Everyday Communication'],
+    health:        ['Sports & Fitness','Health & Wellbeing'],
+    entertainment: ['Film & Screen','Music & Performance','Arts & Culture','Books & Literature','Hobbies & Leisure'],
+    people:        ['Psychology & Behaviour','Relationships & Social Life','Cultural Identity','People & Perspectives'],
+    work:          ['Career & Jobs','Meetings & Communication','Presentations & Speaking','Professional Writing','Workplace Challenges','Planning & Productivity','Leadership & Management','Business & Finance','Professional Skills'],
+    world:         ['Science & Technology','Society & Environment','Society & Citizenship','Media & Society','Society & History','Philosophy & Ethics','Language & Linguistics','Academic Skills','Global Issues & Ideas'],
+};
 
 function render() {
     const g = document.getElementById('grid');
@@ -1706,32 +1835,88 @@ function render() {
         const ml = aL==='all' || l.lv===aL || (aL==='c1' && (l.lv==='b2'||l.lv==='c1'));
         const ms = !sT || l.t.toLowerCase().includes(sT) || l.d.toLowerCase().includes(sT)
             || l.g.toLowerCase().includes(sT) || l.tags.some(x=>x.toLowerCase().includes(sT));
-        return mt && ml && ms;
+        const msk = skillMatch(l, aSk);
+        const mtag = !activeTagFilter || l.tags.some(x=>x.toLowerCase()===activeTagFilter);
+        return mt && ml && ms && msk && mtag;
     });
     document.getElementById('cnt').textContent = f.length===L.length ? L.length+' lessons available' : 'Showing '+f.length+' of '+L.length+' lessons';
     if(!f.length){ g.innerHTML='<div class="empty-state"><div class="emoji">🔍</div><p>No lessons match. Try different filters!</p></div>'; return; }
+
     const cats=[]; const seen=new Set();
     f.forEach(l=>{ if(!seen.has(l.cat)){ seen.add(l.cat); cats.push(l.cat); }});
+
     cats.forEach(c=>{
         const cl=f.filter(l=>l.cat===c);
         const first=L.find(l=>l.cat===c && l.ic);
         const lb=document.createElement('div'); lb.className='category-label';
         lb.innerHTML=`<span>${first?first.ic:''}</span> ${first?first.cl:c}`;
         g.appendChild(lb);
-        cl.forEach(l=>{
-            const d=document.createElement('a'); d.className='card'; d.href=l.f;
-            let badges='';
-            if(l.gl) badges+=`<a href="${l.gl}" class="cefr-badge" title="Study the grammar" onclick="event.stopPropagation()">${l.g}</a>`;
-            if(l.sl) badges+=`<a href="${l.sl}" class="sp-badge" title="Speaking skills practice" onclick="event.stopPropagation()">Speaking</a>`;
-            d.innerHTML=`<div class="card-banner ${l.lv}"></div><div class="card-body">
-                <span class="card-level ${l.lv}">${l.lv.toUpperCase()}</span>
-                <div class="card-title-row"><span class="card-title">${l.t}</span>${badges}</div>
-                <div class="card-desc">${l.d}</div>
-                <div class="card-tags">${l.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
-            </div>`;
-            g.appendChild(d);
+
+        // Group into sub-categories
+        const subMap = new Map();
+        cl.forEach(l => {
+            const sub = getSub(l) || '';
+            if (!subMap.has(sub)) subMap.set(sub, []);
+            subMap.get(sub).push(l);
+        });
+
+        const order = SUB_ORDER[c] || [];
+        const subKeys = [...subMap.keys()].sort((a,b) => {
+            const ia = order.indexOf(a); const ib = order.indexOf(b);
+            if (ia===-1 && ib===-1) return a.localeCompare(b);
+            if (ia===-1) return 1; if (ib===-1) return -1;
+            return ia - ib;
+        });
+
+        subKeys.forEach(sub => {
+            const lessons = subMap.get(sub);
+            // Only show sub-label if there are multiple sub-categories in this section
+            if (subKeys.length > 1 && sub) {
+                const sl = document.createElement('div'); sl.className='sub-label';
+                sl.textContent = sub;
+                g.appendChild(sl);
+            }
+            lessons.forEach(l => {
+                const d=document.createElement('a'); d.className='card'; d.href=l.f;
+                let badges='';
+                if(l.gl) badges+=`<a href="${l.gl}" class="cefr-badge" title="Study the grammar" onclick="event.stopPropagation()">${l.g}</a>`;
+                if(l.sl) badges+=`<a href="${l.sl}" class="sp-badge" title="Speaking skills practice" onclick="event.stopPropagation()">Speaking</a>`;
+                const tagHtml = l.tags.map(x => {
+                    const isActive = x.toLowerCase()===activeTagFilter;
+                    return `<span class="tag${isActive?' active-tag':''}" onclick="event.preventDefault();event.stopPropagation();filterByTag('${x.toLowerCase().replace(/'/g,"\'")}');">${x}</span>`;
+                }).join('');
+                d.innerHTML=`<div class="card-banner ${l.lv}"></div><div class="card-body">
+                    <span class="card-level ${l.lv}">${l.lv.toUpperCase()}</span>
+                    <div class="card-title-row"><span class="card-title">${l.t}</span>${badges}</div>
+                    <div class="card-desc">${l.d}</div>
+                    <div class="card-tags">${tagHtml}</div>
+                </div>`;
+                g.appendChild(d);
+            });
         });
     });
+}
+
+function fsk(sk){
+    aSk=sk;
+    document.querySelectorAll('.filter-btn.skill').forEach(b=>{
+        const lbl=b.textContent.replace(/^[^a-zA-Z]*/,'').trim().toLowerCase();
+        b.classList.toggle('active',
+            (sk==='all'&&b.textContent.trim()==='All')||
+            (sk==='discussion'&&lbl.includes('discussion'))||
+            (sk==='role-play'&&lbl.includes('role'))||
+            (sk==='writing'&&lbl.includes('writing'))||
+            (sk==='pronunciation'&&lbl.includes('pronunciation'))||
+            (sk==='grammar'&&lbl.includes('grammar'))||
+            (sk==='reading'&&lbl.includes('reading'))
+        );
+    }); render();
+}
+
+function filterByTag(tag){
+    if(activeTagFilter===tag){ activeTagFilter=''; }
+    else { activeTagFilter=tag; }
+    render();
 }
 
 function ft(c){
