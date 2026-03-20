@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Conquest</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --player: #3b82f6;
+    --player-light: #93c5fd;
+    --enemy: #ef4444;
+    --enemy-light: #fca5a5;
+    --neutral: #6b7280;
+    --neutral-light: #d1d5db;
+    --gold: #f59e0b;
+    --gold-light: #fcd34d;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-border: #334155;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
+    --success: #22c55e;
+    --bonus-continent: #8b5cf6;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SPLASH SCREEN ── */
+  #splash {
+    position: fixed; inset: 0; z-index: 1000;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    animation: splashPulse 3s ease-in-out infinite;
+  }
+  @keyframes splashPulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  #splash h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), #fbbf24, var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  #splash .subtitle {
+    font-size: 1.1rem; color: var(--text-dim); margin-bottom: 2rem; text-align: center;
+  }
+  #splash .player-name {
+    font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold);
+    margin-bottom: 2rem;
+  }
+  .start-btn {
+    font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700;
+    padding: 1rem 3rem; border: 2px solid var(--gold); border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05));
+    color: var(--gold); cursor: pointer; transition: all 0.3s;
+  }
+  .start-btn:hover {
+    background: linear-gradient(135deg, rgba(245,158,11,0.4), rgba(245,158,11,0.15));
+    transform: scale(1.05); box-shadow: 0 0 30px rgba(245,158,11,0.3);
+  }
+  .difficulty-select { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+  .diff-btn {
+    padding: 0.6rem 1.5rem; border-radius: 8px; cursor: pointer;
+    border: 2px solid var(--card-border); background: var(--card); color: var(--text);
+    font-weight: 600; transition: all 0.3s;
+  }
+  .diff-btn.active { border-color: var(--gold); background: rgba(245,158,11,0.15); color: var(--gold); }
+  .diff-btn:hover { border-color: var(--gold); }
+
+  /* ── TOP BAR ── */
+  #topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.8rem 1.5rem; background: var(--card); border-bottom: 1px solid var(--card-border);
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+  .logo { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.2rem; color: var(--gold); }
+  .stats { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .stat { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; }
+  .stat .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .stat .val { font-weight: 700; }
+
+  /* ── MAIN LAYOUT ── */
+  #game { display: none; }
+  #main-layout {
+    display: grid; grid-template-columns: 1fr 320px;
+    min-height: calc(100vh - 52px);
+  }
+  @media (max-width: 900px) { #main-layout { grid-template-columns: 1fr; } }
+
+  /* ── MAP ── */
+  #map-container {
+    padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+  #map-title {
+    font-family: 'Cinzel', serif; font-size: 1rem; color: var(--text-dim);
+  }
+  #map {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 6px;
+    flex: 1;
+    min-height: 400px;
+  }
+  .territory {
+    border-radius: 10px; border: 2px solid var(--card-border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0.5rem; cursor: pointer; transition: all 0.3s; position: relative;
+    background: var(--card); min-height: 70px;
+  }
+  .territory:hover { transform: scale(1.04); z-index: 2; }
+  .territory.player { border-color: var(--player); background: rgba(59,130,246,0.15); }
+  .territory.enemy { border-color: var(--enemy); background: rgba(239,68,68,0.12); }
+  .territory.neutral { border-color: var(--neutral); background: rgba(107,114,128,0.1); }
+  .territory.attackable { animation: glow 1.5s ease-in-out infinite; cursor: crosshair; }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(245,158,11,0.3); }
+    50% { box-shadow: 0 0 20px rgba(245,158,11,0.6); }
+  }
+  .territory .t-name {
+    font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+    font-weight: 700; text-align: center; line-height: 1.2;
+  }
+  .territory .t-troops {
+    font-size: 1.4rem; font-weight: 900; margin-top: 2px;
+  }
+  .territory .t-icon { font-size: 1rem; position: absolute; top: 4px; right: 6px; }
+  .territory .continent-badge {
+    position: absolute; top: 3px; left: 6px; font-size: 0.5rem;
+    padding: 1px 5px; border-radius: 4px; font-weight: 700;
+    background: rgba(139,92,246,0.3); color: #c4b5fd;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    background: var(--card); border-left: 1px solid var(--card-border);
+    padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+    overflow-y: auto; max-height: calc(100vh - 52px);
+  }
+  .section-title {
+    font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 2px;
+  }
+  #turn-info { font-size: 0.9rem; color: var(--text-dim); }
+  #action-log {
+    flex: 1; overflow-y: auto; font-size: 0.8rem; color: var(--text-dim);
+    display: flex; flex-direction: column; gap: 0.3rem; max-height: 200px;
+  }
+  .log-entry { padding: 0.3rem 0; border-bottom: 1px solid rgba(51,65,85,0.5); }
+  .log-entry.good { color: var(--success); }
+  .log-entry.bad { color: var(--enemy); }
+
+  .phase-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .phase-btn {
+    flex: 1; padding: 0.7rem; border-radius: 8px; font-weight: 700;
+    font-size: 0.8rem; cursor: pointer; border: 2px solid var(--card-border);
+    background: var(--bg); color: var(--text); transition: all 0.3s;
+    min-width: 120px; text-align: center;
+  }
+  .phase-btn:hover { border-color: var(--gold); }
+  .phase-btn.active { border-color: var(--player); background: rgba(59,130,246,0.15); color: var(--player-light); }
+  .phase-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ── QUESTION MODAL ── */
+  #question-modal {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  #question-modal.show { display: flex; }
+  .q-card {
+    background: var(--card); border: 2px solid var(--card-border);
+    border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .q-card .q-header {
+    font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .q-card .q-type {
+    font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1rem;
+    padding: 0.2rem 0.8rem; background: rgba(245,158,11,0.1); border-radius: 20px;
+    display: inline-block;
+  }
+  .q-card .q-text {
+    font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.5;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .q-opt {
+    padding: 0.9rem 1.2rem; border: 2px solid var(--card-border); border-radius: 10px;
+    cursor: pointer; transition: all 0.2s; font-size: 0.95rem; background: var(--bg);
+  }
+  .q-opt:hover { border-color: var(--player); background: rgba(59,130,246,0.1); }
+  .q-opt.correct { border-color: var(--success); background: rgba(34,197,94,0.15); color: var(--success); }
+  .q-opt.wrong { border-color: var(--enemy); background: rgba(239,68,68,0.15); color: var(--enemy); }
+  .q-explanation {
+    margin-top: 1rem; padding: 1rem; border-radius: 8px;
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+    font-size: 0.85rem; color: var(--text-dim); display: none; line-height: 1.5;
+  }
+  .q-explanation.show { display: block; }
+  .q-timer {
+    float: right; font-weight: 700; font-size: 1.1rem;
+    color: var(--gold); font-family: 'Cinzel', serif;
+  }
+  .q-result-btn {
+    margin-top: 1rem; padding: 0.7rem 2rem; border-radius: 8px;
+    font-weight: 700; cursor: pointer; border: none;
+    background: var(--player); color: white; font-size: 0.9rem;
+    display: none; transition: all 0.3s;
+  }
+  .q-result-btn.show { display: inline-block; }
+  .q-result-btn:hover { opacity: 0.85; }
+
+  /* ── BATTLE ANIMATION ── */
+  #battle-overlay {
+    position: fixed; inset: 0; z-index: 400;
+    background: rgba(0,0,0,0.8);
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem;
+  }
+  #battle-overlay.show { display: flex; }
+  .battle-text {
+    font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900;
+    animation: battlePop 0.5s ease-out;
+  }
+  @keyframes battlePop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .battle-text.win { color: var(--success); }
+  .battle-text.lose { color: var(--enemy); }
+
+  /* ── VICTORY / DEFEAT ── */
+  #endscreen {
+    position: fixed; inset: 0; z-index: 600;
+    background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1.5rem;
+  }
+  #endscreen.show { display: flex; }
+  #endscreen h1 {
+    font-family: 'Cinzel', serif; font-size: 3rem; font-weight: 900;
+  }
+  #endscreen .end-stats { font-size: 1.1rem; color: var(--text-dim); text-align: center; line-height: 2; }
+  .words-learned {
+    background: var(--card); border-radius: 12px; padding: 1.5rem;
+    max-width: 500px; width: 90%; max-height: 200px; overflow-y: auto;
+  }
+  .words-learned h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.8rem; font-size: 0.9rem; }
+  .words-learned .word-chip {
+    display: inline-block; padding: 0.3rem 0.8rem; margin: 0.2rem;
+    border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+    background: rgba(59,130,246,0.15); color: var(--player-light);
+    border: 1px solid rgba(59,130,246,0.3);
+  }
+
+  /* ── REINFORCEMENT MODAL ── */
+  #reinforce-modal {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center; padding: 1rem;
+  }
+  #reinforce-modal.show { display: flex; }
+  .r-card {
+    background: var(--card); border: 2px solid var(--card-border);
+    border-radius: 16px; padding: 2rem; max-width: 400px; width: 100%;
+  }
+  .r-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 1rem; }
+  .r-card p { color: var(--text-dim); margin-bottom: 1rem; font-size: 0.9rem; }
+  .r-slider-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .r-slider-row input[type=range] { flex: 1; }
+  .r-slider-row .r-val { font-weight: 700; font-size: 1.2rem; color: var(--player-light); min-width: 30px; text-align: center; }
+  .r-confirm {
+    width: 100%; padding: 0.8rem; border-radius: 8px; font-weight: 700;
+    cursor: pointer; border: 2px solid var(--player); background: rgba(59,130,246,0.15);
+    color: var(--player-light); font-size: 0.9rem;
+  }
+  .r-confirm:hover { background: rgba(59,130,246,0.3); }
+
+  /* ── STREAK / COMBO ── */
+  .streak-banner {
+    position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+    padding: 0.6rem 1.5rem; border-radius: 20px;
+    font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem;
+    background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(251,191,36,0.1));
+    border: 2px solid var(--gold); color: var(--gold);
+    z-index: 300; display: none; animation: streakIn 0.4s ease-out;
+  }
+  .streak-banner.show { display: block; }
+  @keyframes streakIn { from { transform: translateX(-50%) translateY(-20px); opacity: 0; } }
+
+  /* ── HELP ── */
+  .help-btn {
+    position: fixed; bottom: 1rem; right: 1rem; width: 40px; height: 40px;
+    border-radius: 50%; background: var(--card); border: 2px solid var(--card-border);
+    color: var(--gold); font-weight: 700; cursor: pointer; font-size: 1.1rem;
+    z-index: 100; display: flex; align-items: center; justify-content: center;
+  }
+  #help-panel {
+    position: fixed; bottom: 4rem; right: 1rem; width: 320px;
+    background: var(--card); border: 2px solid var(--card-border); border-radius: 12px;
+    padding: 1.5rem; z-index: 100; display: none; font-size: 0.8rem;
+    color: var(--text-dim); line-height: 1.7;
+  }
+  #help-panel.show { display: block; }
+  #help-panel h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <h1>⚔️ English Conquest</h1>
+  <div class="subtitle">Conquer the world with the power of English</div>
+  <div style="margin-bottom:1.5rem;">
+    <input type="text" id="player-name-input" placeholder="Enter your name, Commander..."
+      style="background:var(--card);border:2px solid var(--card-border);border-radius:10px;padding:0.8rem 1.2rem;color:var(--gold);font-family:'Cinzel',serif;font-size:1.1rem;text-align:center;width:300px;outline:none;"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--card-border)'" value="">
+  </div>
+  <div style="margin-bottom:1rem;color:var(--text-dim);font-size:0.85rem;">Choose your challenge:</div>
+  <div class="difficulty-select">
+    <button class="diff-btn" data-diff="normal" onclick="setDiff(this)">Standard War</button>
+    <button class="diff-btn active" data-diff="hard" onclick="setDiff(this)">C1 Challenge</button>
+    <button class="diff-btn" data-diff="blitz" onclick="setDiff(this)">Blitz Mode ⚡</button>
+  </div>
+  <button class="start-btn" onclick="startGame()">Begin Conquest ⚔️</button>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <div id="topbar">
+    <div class="logo">⚔️ English Conquest</div>
+    <div class="stats">
+      <div class="stat"><div class="dot" style="background:var(--player)"></div> <span id="player-display-name">You</span>: <span class="val" id="stat-player-terr">0</span> 🏰 <span class="val" id="stat-player-troops">0</span> ⚔️</div>
+      <div class="stat"><div class="dot" style="background:var(--enemy)"></div> AI Empire: <span class="val" id="stat-enemy-terr">0</span> 🏰 <span class="val" id="stat-enemy-troops">0</span> ⚔️</div>
+      <div class="stat">🎯 Streak: <span class="val" id="stat-streak">0</span></div>
+      <div class="stat">📖 Turn: <span class="val" id="stat-turn">1</span></div>
+      <div class="stat">⭐ Score: <span class="val" id="stat-score">0</span></div>
+    </div>
+  </div>
+
+  <div id="main-layout">
+    <div id="map-container">
+      <div id="map-title">🌍 Click a glowing territory to attack — or reinforce your lands</div>
+      <div id="map"></div>
+    </div>
+    <div id="sidebar">
+      <div class="section-title">Phase</div>
+      <div class="phase-btns">
+        <button class="phase-btn active" id="btn-reinforce" onclick="setPhase('reinforce')">🛡️ Reinforce</button>
+        <button class="phase-btn" id="btn-attack" onclick="setPhase('attack')">⚔️ Attack</button>
+        <button class="phase-btn" id="btn-end" onclick="endTurn()">⏭️ End Turn</button>
+      </div>
+      <div id="turn-info">Reinforce your territories, then attack!</div>
+      <div class="section-title" style="margin-top:0.5rem;">Continents</div>
+      <div id="continent-info" style="font-size:0.8rem;color:var(--text-dim);line-height:1.8;"></div>
+      <div class="section-title" style="margin-top:0.5rem;">Battle Log</div>
+      <div id="action-log"></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION MODAL -->
+<div id="question-modal">
+  <div class="q-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="q-header" id="q-header">Battle for Territory</div>
+      <div class="q-timer" id="q-timer">⏱️ 30</div>
+    </div>
+    <span class="q-type" id="q-type">Vocabulary</span>
+    <div class="q-text" id="q-text"></div>
+    <div class="q-options" id="q-options"></div>
+    <div class="q-explanation" id="q-explanation"></div>
+    <button class="q-result-btn" id="q-next" onclick="closeQuestion()">Continue ➜</button>
+  </div>
+</div>
+
+<!-- BATTLE OVERLAY -->
+<div id="battle-overlay">
+  <div class="battle-text" id="battle-text"></div>
+  <div style="color:var(--text-dim);font-size:0.9rem;" id="battle-sub"></div>
+</div>
+
+<!-- REINFORCE MODAL -->
+<div id="reinforce-modal">
+  <div class="r-card">
+    <h3>🛡️ Reinforce Territory</h3>
+    <p>Deploy troops to <strong id="r-terr-name"></strong></p>
+    <div class="r-slider-row">
+      <span style="font-size:0.8rem;color:var(--text-dim);">Troops:</span>
+      <input type="range" id="r-slider" min="1" max="3" value="1" oninput="document.getElementById('r-val').textContent=this.value">
+      <span class="r-val" id="r-val">1</span>
+    </div>
+    <button class="r-confirm" onclick="confirmReinforce()">Deploy!</button>
+  </div>
+</div>
+
+<!-- END SCREEN -->
+<div id="endscreen">
+  <h1 id="end-title"></h1>
+  <div class="end-stats" id="end-stats"></div>
+  <div class="words-learned" id="words-learned">
+    <h3>📖 Vocabulary Encountered</h3>
+    <div id="word-chips"></div>
+  </div>
+  <button class="start-btn" onclick="location.reload()">Play Again ⚔️</button>
+</div>
+
+<!-- STREAK BANNER -->
+<div class="streak-banner" id="streak-banner"></div>
+
+<!-- HELP -->
+<button class="help-btn" onclick="toggleHelp()">?</button>
+<div id="help-panel">
+  <h3>How to Play</h3>
+  <strong>Goal:</strong> Conquer all territories!<br>
+  <strong>Reinforce Phase:</strong> Click your territories to add troops (you get bonus troops for continents you own).<br>
+  <strong>Attack Phase:</strong> Click glowing enemy/neutral territories adjacent to yours. Answer an English question to win the battle!<br>
+  <strong>Streak Bonus:</strong> Get 3+ correct in a row for bonus troops.<br>
+  <strong>Continents:</strong> Own all territories in a continent for bonus reinforcements each turn.<br>
+  <strong>Troops matter:</strong> More troops = stronger defense. You need more troops nearby to attack!
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// ENGLISH CONQUEST — A Risk-style English Learning Game
+// ══════════════════════════════════════════════════════════════
+
+// ── CONFIGURATION ──
+let difficulty = 'hard'; // default C1
+let timerDuration = 30;
+let playerName = 'Commander';
+
+function setDiff(btn) {
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  difficulty = btn.dataset.diff;
+}
+
+// ── CONTINENTS & TERRITORIES ──
+const CONTINENTS = {
+  'North America': { color: '#3b82f6', bonus: 3, icon: '🗽' },
+  'South America': { color: '#22c55e', bonus: 2, icon: '🌴' },
+  'Europe': { color: '#8b5cf6', bonus: 3, icon: '🏰' },
+  'Africa': { color: '#f59e0b', bonus: 2, icon: '🌍' },
+  'Asia': { color: '#ef4444', bonus: 4, icon: '🏯' },
+};
+
+const TERRITORIES = [
+  // North America (row 0-1, col 0-2)
+  { name: 'Alaska', continent: 'North America', grid: [1,1], adj: ['Canada','Kamchatka'] },
+  { name: 'Canada', continent: 'North America', grid: [1,2], adj: ['Alaska','USA East','USA West','Greenland'] },
+  { name: 'USA West', continent: 'North America', grid: [2,1], adj: ['Canada','USA East','Mexico'] },
+  { name: 'USA East', continent: 'North America', grid: [2,2], adj: ['Canada','USA West','Mexico','Greenland'] },
+  { name: 'Mexico', continent: 'North America', grid: [3,1], adj: ['USA West','USA East','Colombia'] },
+  { name: 'Greenland', continent: 'North America', grid: [1,3], adj: ['Canada','USA East','Scandinavia'] },
+  // South America (row 3-4, col 0-1)
+  { name: 'Colombia', continent: 'South America', grid: [3,2], adj: ['Mexico','Brazil','Peru'] },
+  { name: 'Brazil', continent: 'South America', grid: [4,2], adj: ['Colombia','Peru','West Africa'] },
+  { name: 'Peru', continent: 'South America', grid: [4,1], adj: ['Colombia','Brazil','Argentina'] },
+  { name: 'Argentina', continent: 'South America', grid: [5,1], adj: ['Peru','Brazil'] },
+  // Europe (row 0-2, col 3-4)
+  { name: 'Scandinavia', continent: 'Europe', grid: [1,4], adj: ['Greenland','Britain','Central EU','Russia'] },
+  { name: 'Britain', continent: 'Europe', grid: [2,3], adj: ['Scandinavia','Central EU','West Africa'] },
+  { name: 'Central EU', continent: 'Europe', grid: [2,4], adj: ['Scandinavia','Britain','Italy','Russia'] },
+  { name: 'Italy', continent: 'Europe', grid: [3,3], adj: ['Central EU','North Africa','Middle East'] },
+  // Africa (row 3-5, col 3)
+  { name: 'North Africa', continent: 'Africa', grid: [3,4], adj: ['Italy','West Africa','East Africa','Middle East'] },
+  { name: 'West Africa', continent: 'Africa', grid: [4,3], adj: ['Brazil','Britain','North Africa','East Africa'] },
+  { name: 'East Africa', continent: 'Africa', grid: [4,4], adj: ['North Africa','West Africa','Middle East'] },
+  { name: 'South Africa', continent: 'Africa', grid: [5,3], adj: ['West Africa','East Africa'] },
+  // Asia (row 1-3, col 5-6)
+  { name: 'Russia', continent: 'Asia', grid: [1,5], adj: ['Scandinavia','Central EU','Kamchatka','China','Middle East'] },
+  { name: 'Middle East', continent: 'Asia', grid: [3,5], adj: ['Italy','North Africa','East Africa','Russia','India'] },
+  { name: 'China', continent: 'Asia', grid: [2,5], adj: ['Russia','India','Kamchatka','Japan'] },
+  { name: 'India', continent: 'Asia', grid: [3,6], adj: ['Middle East','China','Southeast Asia'] },
+  { name: 'Kamchatka', continent: 'Asia', grid: [1,6], adj: ['Alaska','Russia','China','Japan'] },
+  { name: 'Japan', continent: 'Asia', grid: [2,6], adj: ['China','Kamchatka','Southeast Asia'] },
+  { name: 'Southeast Asia', continent: 'Asia', grid: [4,6], adj: ['India','Japan','China'] },
+];
+
+// ── C1 QUESTION BANK (curated for 13-year-old Italian-American) ──
+const QUESTIONS = [
+  // VOCABULARY
+  { type: 'Vocabulary', q: 'What does "ubiquitous" mean?', opts: ['Extremely rare', 'Found everywhere', 'Very beautiful', 'Incredibly fast'], correct: 1, explain: '"Ubiquitous" means present, appearing, or found everywhere. Example: "Smartphones have become ubiquitous in modern life."', word: 'ubiquitous' },
+  { type: 'Vocabulary', q: 'Choose the synonym of "ephemeral":', opts: ['Eternal', 'Fleeting', 'Massive', 'Brilliant'], correct: 1, explain: '"Ephemeral" means lasting for a very short time. Like a beautiful sunset — it\'s ephemeral.', word: 'ephemeral' },
+  { type: 'Vocabulary', q: '"She gave a very eloquent speech." What does "eloquent" mean?', opts: ['Boring and long', 'Fluent and persuasive', 'Quiet and shy', 'Angry and loud'], correct: 1, explain: '"Eloquent" means fluent, persuasive, and articulate in speaking or writing.', word: 'eloquent' },
+  { type: 'Vocabulary', q: 'What is the meaning of "pragmatic"?', opts: ['Dealing with things practically', 'Being extremely dramatic', 'Feeling very tired', 'Acting suspiciously'], correct: 0, explain: '"Pragmatic" means dealing with things sensibly and realistically. A pragmatic person focuses on what works.', word: 'pragmatic' },
+  { type: 'Vocabulary', q: 'The word "ambiguous" means:', opts: ['Clear and obvious', 'Open to multiple interpretations', 'Extremely dangerous', 'Very expensive'], correct: 1, explain: '"Ambiguous" means open to more than one interpretation; not clear. Like a confusing text message!', word: 'ambiguous' },
+  { type: 'Vocabulary', q: '"The restaurant received a scathing review." What does "scathing" mean?', opts: ['Extremely positive', 'Mildly critical', 'Harshly critical', 'Completely neutral'], correct: 2, explain: '"Scathing" means witheringly harsh and critical. A scathing review would be devastatingly negative.', word: 'scathing' },
+  { type: 'Vocabulary', q: 'What does "inadvertently" mean?', opts: ['On purpose', 'Without intention', 'With great care', 'Very loudly'], correct: 1, explain: '"Inadvertently" means without intention; accidentally. "I inadvertently deleted the file."', word: 'inadvertently' },
+  { type: 'Vocabulary', q: '"A resilient person" is someone who:', opts: ['Gives up easily', 'Recovers quickly from difficulties', 'Avoids all problems', 'Ignores other people'], correct: 1, explain: '"Resilient" means able to recover quickly from tough situations. Think of a rubber band bouncing back!', word: 'resilient' },
+  { type: 'Vocabulary', q: 'What does "meticulous" mean?', opts: ['Careless', 'Very detailed and careful', 'Extremely fast', 'Somewhat lazy'], correct: 1, explain: '"Meticulous" means showing great attention to detail; very careful and precise.', word: 'meticulous' },
+  { type: 'Vocabulary', q: '"The juxtaposition of old and new buildings..." — "juxtaposition" means:', opts: ['Destruction', 'Placing side by side for contrast', 'Building on top of', 'Moving far apart'], correct: 1, explain: '"Juxtaposition" means placing two things close together to highlight their contrast or similarities.', word: 'juxtaposition' },
+
+  // IDIOMS
+  { type: 'Idioms & Phrases', q: 'What does "bite off more than you can chew" mean?', opts: ['Eat too much food', 'Take on more than you can handle', 'Be very hungry', 'Talk too much'], correct: 1, explain: 'This idiom means to take on a commitment you cannot fulfill. Like signing up for 10 clubs at school!', word: 'bite off more than you can chew' },
+  { type: 'Idioms & Phrases', q: '"Let\'s not beat around the bush." This means:', opts: ['Let\'s go gardening', 'Let\'s avoid the forest', 'Let\'s talk directly about the topic', 'Let\'s run away'], correct: 2, explain: '"Beat around the bush" means to avoid talking about what\'s important. "Don\'t beat around the bush — tell me the truth!"', word: 'beat around the bush' },
+  { type: 'Idioms & Phrases', q: '"He\'s playing devil\'s advocate." What is he doing?', opts: ['Being evil', 'Arguing the opposing side for discussion', 'Playing a card game', 'Lying to everyone'], correct: 1, explain: 'To "play devil\'s advocate" means to argue against something you may actually agree with, to test the strength of the argument.', word: "devil's advocate" },
+  { type: 'Idioms & Phrases', q: '"That exam was a piece of cake!" means:', opts: ['It involved food', 'It was very easy', 'It was very hard', 'It was unfair'], correct: 1, explain: '"A piece of cake" is an idiom meaning something very easy. A very common English idiom!', word: 'piece of cake' },
+  { type: 'Idioms & Phrases', q: '"She\'s sitting on the fence." This means she:', opts: ['Is at a farm', 'Hasn\'t made a decision yet', 'Is very comfortable', 'Is being punished'], correct: 1, explain: '"Sitting on the fence" means being undecided, not taking sides in a debate or decision.', word: 'sitting on the fence' },
+  { type: 'Idioms & Phrases', q: '"The ball is in your court" means:', opts: ['You dropped a ball', 'It\'s your turn to take action', 'You\'re playing tennis', 'You made a mistake'], correct: 1, explain: '"The ball is in your court" means it\'s your turn to act or make a decision. Comes from tennis!', word: 'the ball is in your court' },
+  { type: 'Idioms & Phrases', q: '"He burned his bridges." This means:', opts: ['He\'s an arsonist', 'He destroyed his chances of going back', 'He built something new', 'He crossed a river'], correct: 1, explain: '"Burn your bridges" means to destroy relationships or opportunities, making it impossible to return to how things were.', word: 'burn bridges' },
+  { type: 'Idioms & Phrases', q: '"It\'s not rocket science." What does this suggest?', opts: ['It involves space', 'It\'s not that difficult', 'It\'s extremely complex', 'Scientists are needed'], correct: 1, explain: '"It\'s not rocket science" is used to say something isn\'t as complicated as it seems.', word: 'not rocket science' },
+
+  // GRAMMAR
+  { type: 'Grammar', q: 'Choose the correct sentence:', opts: ['If I would have known, I would have helped.', 'If I had known, I would have helped.', 'If I knew, I would have helped.', 'If I have known, I would helped.'], correct: 1, explain: 'This is the third conditional: IF + past perfect, WOULD HAVE + past participle. It talks about an unreal past situation.', word: 'third conditional' },
+  { type: 'Grammar', q: '"By next year, she ___ for the company for a decade."', opts: ['will work', 'will have been working', 'has worked', 'is working'], correct: 1, explain: 'Future perfect continuous: "will have been + -ing" for actions continuing up to a future point. Duration (for a decade) is the clue!', word: 'future perfect continuous' },
+  { type: 'Grammar', q: 'Which sentence uses the subjunctive correctly?', opts: ['I suggest that he goes home.', 'I suggest that he go home.', 'I suggest that he will go home.', 'I suggest he is going home.'], correct: 1, explain: 'The subjunctive mood after "suggest/recommend/insist" uses the base form: "suggest that he GO" (not goes).', word: 'subjunctive mood' },
+  { type: 'Grammar', q: '"She\'s used to ___ early." Choose the correct form:', opts: ['wake', 'waking', 'woke', 'waken'], correct: 1, explain: '"Be used to" + gerund (-ing) = be accustomed to something. Don\'t confuse with "used to + infinitive" (past habit)!', word: 'used to vs be used to' },
+  { type: 'Grammar', q: '"Not only ___ the test, but she also got the highest score."', opts: ['she passed', 'did she pass', 'she did pass', 'has she passed'], correct: 1, explain: '"Not only" at the start of a sentence requires INVERSION: "Not only DID she pass..." The auxiliary comes before the subject.', word: 'inversion' },
+  { type: 'Grammar', q: '"I wish I ___ speak Italian fluently." (But I can\'t right now)', opts: ['can', 'could', 'would', 'will'], correct: 1, explain: '"I wish + past simple/could" expresses a wish about the present that\'s unreal. "I wish I could" = I want to but I can\'t right now.', word: 'wish + could' },
+  { type: 'Grammar', q: 'Which is correct? "The book, ___ was written in 1984, is still relevant."', opts: ['that', 'which', 'what', 'who'], correct: 1, explain: 'Non-defining relative clauses (with commas) use "which" for things, never "that". The clause adds extra info.', word: 'relative clauses' },
+  { type: 'Grammar', q: '"Had I known about the party, I ___ gone."', opts: ['would', 'would have', 'will have', 'could'], correct: 1, explain: 'Inverted third conditional: "Had I known... I WOULD HAVE gone." This is a formal way of saying "If I had known..."', word: 'inverted conditional' },
+
+  // WORD FORMATION
+  { type: 'Word Formation', q: 'The noun form of "perceive" is:', opts: ['perceivance', 'perception', 'perceival', 'perceivment'], correct: 1, explain: 'perceive → perception. Many verbs ending in -ceive form nouns with -ception: receive → reception, conceive → conception.', word: 'perception' },
+  { type: 'Word Formation', q: 'What is the adjective form of "consequence"?', opts: ['consequential', 'consequent', 'consequenced', 'consequenting'], correct: 0, explain: '"Consequential" means important, significant — having major consequences. "This is a consequential decision."', word: 'consequential' },
+  { type: 'Word Formation', q: 'The opposite of "overestimate" is:', opts: ['disestimate', 'underestimate', 'misestimate', 'unestimate'], correct: 1, explain: 'The prefix "under-" is the opposite of "over-": overestimate ↔ underestimate, overreact ↔ underreact.', word: 'underestimate' },
+  { type: 'Word Formation', q: '"He spoke with great ___." (persuade → noun)', opts: ['persuadeness', 'persuasion', 'persuadement', 'persuasiveness'], correct: 1, explain: 'persuade → persuasion (noun). Note the spelling change! Also: persuasive (adj), persuasively (adv).', word: 'persuasion' },
+
+  // READING / CONTEXT
+  { type: 'Reading Comprehension', q: '"Despite the team\'s lacklustre performance, the coach remained optimistic." The team played:', opts: ['Brilliantly', 'Poorly or without energy', 'With great passion', 'Illegally'], correct: 1, explain: '"Lacklustre" (also "lackluster") means lacking in vitality, force, or conviction. The "despite" tells us the coach was positive even though the team was bad.', word: 'lacklustre' },
+  { type: 'Reading Comprehension', q: '"The politician\'s rhetoric was compelling but ultimately hollow." This means her words were:', opts: ['Persuasive but empty/meaningless', 'Boring but truthful', 'Confusing and long', 'Quiet but powerful'], correct: 0, explain: '"Rhetoric" = persuasive language. "Hollow" = empty, lacking substance. Her words sounded good but meant nothing.', word: 'rhetoric' },
+  { type: 'Reading Comprehension', q: '"In hindsight, the decision was reckless." When did they realize this?', opts: ['Before making the decision', 'While making the decision', 'After making the decision', 'They never realized it'], correct: 2, explain: '"In hindsight" means looking back at something after it happened. "Hindsight is 20/20" means things are clearer when you look back.', word: 'hindsight' },
+  { type: 'Reading Comprehension', q: '"The author\'s tone was sardonic throughout the essay." The author was being:', opts: ['Cheerful and supportive', 'Mockingly humorous/cynical', 'Deeply sad', 'Aggressively angry'], correct: 1, explain: '"Sardonic" means grimly mocking or cynical. It\'s a sophisticated form of dry, cutting humor.', word: 'sardonic' },
+
+  // COLLOCATIONS
+  { type: 'Collocations', q: 'Which collocation is correct?', opts: ['Make a decision', 'Do a decision', 'Take a decision', 'Have a decision'], correct: 0, explain: 'In English we "MAKE a decision" (not do/have). "Take a decision" is also used in British English but "make" is more universal.', word: 'make a decision' },
+  { type: 'Collocations', q: '"He ___ a huge risk by investing everything."', opts: ['made', 'did', 'took', 'had'], correct: 2, explain: 'We "TAKE a risk" in English. Also: take a chance, take responsibility, take action. A key collocation to remember!', word: 'take a risk' },
+  { type: 'Collocations', q: 'Which is correct: "___  attention to the details"?', opts: ['Give', 'Pay', 'Make', 'Put'], correct: 1, explain: 'We "PAY attention" in English. Also: pay a compliment, pay a visit, pay respect.', word: 'pay attention' },
+  { type: 'Collocations', q: '"The news ___ light on the mystery."', opts: ['threw', 'shed', 'put', 'gave'], correct: 1, explain: '"Shed light on" means to clarify or explain something. "The investigation shed light on what really happened."', word: 'shed light on' },
+
+  // FALSE FRIENDS (Italian-English)
+  { type: 'False Friends', q: 'In many languages, "sensible" means sensitive. In English, "sensible" means:', opts: ['Sensitive/emotional', 'Having good judgment; practical', 'Very smart', 'Easily upset'], correct: 1, explain: 'Classic false friend! In many languages "sensible" = sensitive. But in English, "sensible" = having common sense, practical, reasonable.', word: 'sensible' },
+  { type: 'False Friends', q: 'Many languages use "actual" to mean current/present. In English, "actual" means:', opts: ['Current, present', 'Real, existing in fact', 'Up to date', 'Active'], correct: 1, explain: 'False friend! In many languages "actual" = current/present. But in English, "actual" = real, true, existing in fact.', word: 'actual' },
+  { type: 'False Friends', q: '"Sympathetic" in many languages means nice/friendly. In English it means:', opts: ['Nice and friendly', 'Feeling sorry for someone\'s situation', 'Very attractive', 'Extremely kind'], correct: 1, explain: '"Sympathetic" = feeling pity or understanding for someone\'s suffering. NOT "nice" or "likeable" as in many other languages!', word: 'sympathetic' },
+  { type: 'False Friends', q: '"Eventually" sounds like it should mean "possibly." It actually means:', opts: ['Possibly, maybe', 'In the end, after a long time', 'Fortunately', 'Obviously'], correct: 1, explain: '"Eventually" = in the end/finally (after delays). NOT "possibly"! "He eventually passed the exam" = after trying many times, he finally passed.', word: 'eventually' },
+];
+
+// ── GAME STATE ──
+let territories = [];
+let phase = 'reinforce';
+let turn = 1;
+let score = 0;
+let streak = 0;
+let bestStreak = 0;
+let reinforcementsLeft = 0;
+let wordsEncountered = new Set();
+let questionsCorrect = 0;
+let questionsTotal = 0;
+let currentAttackTarget = null;
+let currentAttackSource = null;
+let questionTimer = null;
+let usedQuestions = new Set();
+
+function startGame() {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('game').style.display = 'block';
+  if (difficulty === 'blitz') timerDuration = 15;
+  else if (difficulty === 'normal') timerDuration = 45;
+  else timerDuration = 30;
+  initTerritories();
+  render();
+  const pName = document.getElementById('player-name-input').value.trim() || 'Commander';
+  playerName = pName;
+  document.getElementById('player-display-name').textContent = pName;
+  log(`⚔️ ${pName} begins the conquest!`);
+  log('🛡️ Reinforce phase — click your territories to add troops.');
+}
+
+function initTerritories() {
+  territories = TERRITORIES.map((t, i) => ({
+    ...t, id: i, troops: 1, owner: 'neutral'
+  }));
+  // Assign starting territories
+  const shuffled = [...Array(territories.length).keys()].sort(() => Math.random() - 0.5);
+  const playerStart = shuffled.slice(0, 5);
+  const enemyStart = shuffled.slice(5, 10);
+  playerStart.forEach(i => { territories[i].owner = 'player'; territories[i].troops = 2; });
+  enemyStart.forEach(i => { territories[i].owner = 'enemy'; territories[i].troops = 2; });
+  reinforcementsLeft = calcReinforcements('player');
+}
+
+function calcReinforcements(owner) {
+  const owned = territories.filter(t => t.owner === owner);
+  let base = Math.max(3, Math.floor(owned.length / 3));
+  // Continent bonus
+  for (const [cName, cData] of Object.entries(CONTINENTS)) {
+    const cTerrs = territories.filter(t => t.continent === cName);
+    if (cTerrs.every(t => t.owner === owner)) base += cData.bonus;
+  }
+  return base;
+}
+
+function getAdjacentOwned(territory, owner) {
+  return territory.adj.filter(adjName => {
+    const t = territories.find(x => x.name === adjName);
+    return t && t.owner === owner;
+  });
+}
+
+function isAttackable(territory) {
+  if (territory.owner === 'player') return false;
+  const adjPlayerTerrs = territory.adj.filter(adjName => {
+    const t = territories.find(x => x.name === adjName);
+    return t && t.owner === 'player' && t.troops > 1;
+  });
+  return adjPlayerTerrs.length > 0;
+}
+
+function getAttackSource(target) {
+  let best = null;
+  target.adj.forEach(adjName => {
+    const t = territories.find(x => x.name === adjName);
+    if (t && t.owner === 'player' && t.troops > 1) {
+      if (!best || t.troops > best.troops) best = t;
+    }
+  });
+  return best;
+}
+
+// ── RENDERING ──
+function render() {
+  renderMap();
+  renderStats();
+  renderContinentInfo();
+}
+
+function renderMap() {
+  const map = document.getElementById('map');
+  map.innerHTML = '';
+  // Create grid
+  territories.forEach(t => {
+    const div = document.createElement('div');
+    div.className = `territory ${t.owner}`;
+    if (phase === 'attack' && isAttackable(t)) div.classList.add('attackable');
+    if (phase === 'reinforce' && t.owner === 'player' && reinforcementsLeft > 0) div.classList.add('attackable');
+
+    const contInfo = CONTINENTS[t.continent];
+    div.innerHTML = `
+      <span class="continent-badge" style="background:${contInfo.color}33;color:${contInfo.color}">${contInfo.icon}</span>
+      <span class="t-name">${t.name}</span>
+      <span class="t-troops">${t.troops}</span>
+    `;
+    div.style.gridRow = t.grid[0];
+    div.style.gridColumn = t.grid[1];
+    div.onclick = () => handleTerritoryClick(t);
+    map.appendChild(div);
+  });
+}
+
+function renderStats() {
+  const pTerrs = territories.filter(t => t.owner === 'player');
+  const eTerrs = territories.filter(t => t.owner === 'enemy');
+  document.getElementById('stat-player-terr').textContent = pTerrs.length;
+  document.getElementById('stat-player-troops').textContent = pTerrs.reduce((s, t) => s + t.troops, 0);
+  document.getElementById('stat-enemy-terr').textContent = eTerrs.length;
+  document.getElementById('stat-enemy-troops').textContent = eTerrs.reduce((s, t) => s + t.troops, 0);
+  document.getElementById('stat-streak').textContent = streak;
+  document.getElementById('stat-turn').textContent = turn;
+  document.getElementById('stat-score').textContent = score;
+}
+
+function renderContinentInfo() {
+  const div = document.getElementById('continent-info');
+  let html = '';
+  for (const [name, data] of Object.entries(CONTINENTS)) {
+    const cTerrs = territories.filter(t => t.continent === name);
+    const owned = cTerrs.filter(t => t.owner === 'player').length;
+    const total = cTerrs.length;
+    const complete = owned === total;
+    html += `<div style="color:${complete ? data.color : 'var(--text-dim)'}">${data.icon} ${name}: ${owned}/${total} ${complete ? `<strong>(+${data.bonus} bonus!)</strong>` : ''}</div>`;
+  }
+  div.innerHTML = html;
+}
+
+// ── PHASES ──
+function setPhase(p) {
+  phase = p;
+  document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + (p === 'reinforce' ? 'reinforce' : p === 'attack' ? 'attack' : 'end')).classList.add('active');
+  if (p === 'reinforce') {
+    document.getElementById('turn-info').textContent = `Deploy ${reinforcementsLeft} troops to your territories.`;
+    document.getElementById('map-title').textContent = '🛡️ Click your territories to reinforce them';
+  } else if (p === 'attack') {
+    document.getElementById('turn-info').textContent = 'Click a glowing territory to attack!';
+    document.getElementById('map-title').textContent = '⚔️ Click a glowing territory to attack — answer correctly to conquer!';
+  }
+  render();
+}
+
+function handleTerritoryClick(territory) {
+  if (phase === 'reinforce' && territory.owner === 'player' && reinforcementsLeft > 0) {
+    openReinforce(territory);
+  } else if (phase === 'attack' && isAttackable(territory)) {
+    const source = getAttackSource(territory);
+    if (source) {
+      currentAttackTarget = territory;
+      currentAttackSource = source;
+      openQuestion(territory);
+    }
+  }
+}
+
+// ── REINFORCE ──
+function openReinforce(territory) {
+  currentAttackTarget = territory;
+  const modal = document.getElementById('reinforce-modal');
+  document.getElementById('r-terr-name').textContent = territory.name;
+  const slider = document.getElementById('r-slider');
+  slider.max = Math.min(reinforcementsLeft, 5);
+  slider.value = 1;
+  document.getElementById('r-val').textContent = '1';
+  modal.classList.add('show');
+}
+
+function confirmReinforce() {
+  const amount = parseInt(document.getElementById('r-slider').value);
+  currentAttackTarget.troops += amount;
+  reinforcementsLeft -= amount;
+  log(`🛡️ +${amount} troops to ${currentAttackTarget.name} (${reinforcementsLeft} left)`);
+  document.getElementById('reinforce-modal').classList.remove('show');
+  if (reinforcementsLeft <= 0) {
+    setPhase('attack');
+    log('⚔️ All troops deployed! Attack phase begins.');
+  } else {
+    document.getElementById('turn-info').textContent = `Deploy ${reinforcementsLeft} troops to your territories.`;
+  }
+  render();
+}
+
+// ── QUESTIONS ──
+function openQuestion(territory) {
+  const modal = document.getElementById('question-modal');
+  // Pick a question
+  let available = QUESTIONS.filter((_, i) => !usedQuestions.has(i));
+  if (available.length < 5) usedQuestions.clear();
+  available = QUESTIONS.filter((_, i) => !usedQuestions.has(i));
+
+  const qIdx = QUESTIONS.indexOf(available[Math.floor(Math.random() * available.length)]);
+  usedQuestions.add(qIdx);
+  const question = QUESTIONS[qIdx];
+
+  document.getElementById('q-header').textContent = `⚔️ Battle for ${territory.name}`;
+  document.getElementById('q-type').textContent = question.type;
+  document.getElementById('q-text').textContent = question.q;
+  document.getElementById('q-explanation').textContent = question.explain;
+  document.getElementById('q-explanation').classList.remove('show');
+  document.getElementById('q-next').classList.remove('show');
+
+  const optsDiv = document.getElementById('q-options');
+  optsDiv.innerHTML = '';
+  question.opts.forEach((opt, i) => {
+    const btn = document.createElement('div');
+    btn.className = 'q-opt';
+    btn.textContent = opt;
+    btn.onclick = () => answerQuestion(i, question, territory);
+    optsDiv.appendChild(btn);
+  });
+
+  // Timer
+  let timeLeft = timerDuration;
+  document.getElementById('q-timer').textContent = `⏱️ ${timeLeft}`;
+  clearInterval(questionTimer);
+  questionTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('q-timer').textContent = `⏱️ ${timeLeft}`;
+    if (timeLeft <= 5) document.getElementById('q-timer').style.color = 'var(--enemy)';
+    if (timeLeft <= 0) {
+      clearInterval(questionTimer);
+      answerQuestion(-1, question, territory); // timeout = wrong
+    }
+  }, 1000);
+
+  modal.classList.add('show');
+  wordsEncountered.add(question.word);
+}
+
+function answerQuestion(chosen, question, territory) {
+  clearInterval(questionTimer);
+  document.getElementById('q-timer').style.color = 'var(--gold)';
+  questionsTotal++;
+
+  const opts = document.querySelectorAll('.q-opt');
+  opts.forEach((o, i) => {
+    o.onclick = null;
+    if (i === question.correct) o.classList.add('correct');
+    if (i === chosen && chosen !== question.correct) o.classList.add('wrong');
+  });
+
+  document.getElementById('q-explanation').classList.add('show');
+  document.getElementById('q-next').classList.add('show');
+
+  const correct = chosen === question.correct;
+
+  if (correct) {
+    questionsCorrect++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    score += 100 + (streak * 25);
+    // Streak bonus
+    if (streak >= 3 && streak % 3 === 0) {
+      showStreakBanner(`🔥 ${streak} Streak! +1 bonus troop!`);
+      // Add bonus troop to a random player territory
+      const pTerrs = territories.filter(t => t.owner === 'player');
+      if (pTerrs.length > 0) pTerrs[Math.floor(Math.random() * pTerrs.length)].troops++;
+    }
+    currentAttackTarget._result = 'win';
+  } else {
+    streak = 0;
+    currentAttackTarget._result = 'lose';
+  }
+}
+
+function closeQuestion() {
+  document.getElementById('question-modal').classList.remove('show');
+  const result = currentAttackTarget._result;
+  delete currentAttackTarget._result;
+  showBattle(result);
+}
+
+function showBattle(result) {
+  const overlay = document.getElementById('battle-overlay');
+  const text = document.getElementById('battle-text');
+  const sub = document.getElementById('battle-sub');
+
+  if (result === 'win') {
+    text.className = 'battle-text win';
+    text.textContent = '⚔️ VICTORY!';
+    sub.textContent = `${currentAttackTarget.name} is yours!`;
+
+    // Conquer territory
+    currentAttackTarget.owner = 'player';
+    const moveTroops = Math.min(currentAttackSource.troops - 1, 2);
+    currentAttackTarget.troops = moveTroops;
+    currentAttackSource.troops -= moveTroops;
+
+    log(`✅ Conquered ${currentAttackTarget.name}!`, 'good');
+  } else {
+    text.className = 'battle-text lose';
+    text.textContent = '💥 DEFEATED!';
+    sub.textContent = `${currentAttackTarget.name} held strong...`;
+    currentAttackSource.troops = Math.max(1, currentAttackSource.troops - 1);
+    log(`❌ Failed to take ${currentAttackTarget.name}`, 'bad');
+  }
+
+  overlay.classList.add('show');
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    render();
+    checkWinLose();
+  }, 1500);
+}
+
+// ── END TURN ──
+function endTurn() {
+  // AI Turn
+  log('🤖 AI Empire is making moves...');
+  aiTurn();
+  turn++;
+  reinforcementsLeft = calcReinforcements('player');
+  setPhase('reinforce');
+  log(`📅 Turn ${turn} — You have ${reinforcementsLeft} reinforcements.`);
+  render();
+  checkWinLose();
+}
+
+function aiTurn() {
+  // AI reinforcements
+  const aiReinf = calcReinforcements('enemy');
+  const enemyTerrs = territories.filter(t => t.owner === 'enemy');
+  if (enemyTerrs.length === 0) return;
+
+  // Distribute reinforcements to border territories
+  let remaining = aiReinf;
+  const borderTerrs = enemyTerrs.filter(t =>
+    t.adj.some(a => { const at = territories.find(x => x.name === a); return at && at.owner !== 'enemy'; })
+  );
+  const targets = borderTerrs.length > 0 ? borderTerrs : enemyTerrs;
+  while (remaining > 0) {
+    targets[Math.floor(Math.random() * targets.length)].troops++;
+    remaining--;
+  }
+
+  // AI attacks (1-3 attacks)
+  const attacks = Math.min(2 + Math.floor(Math.random() * 2), 3);
+  for (let a = 0; a < attacks; a++) {
+    const attackers = territories.filter(t => t.owner === 'enemy' && t.troops > 1);
+    if (attackers.length === 0) break;
+
+    const attacker = attackers[Math.floor(Math.random() * attackers.length)];
+    const possibleTargets = attacker.adj
+      .map(n => territories.find(x => x.name === n))
+      .filter(t => t && t.owner !== 'enemy');
+
+    if (possibleTargets.length === 0) continue;
+    const target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
+
+    // AI has ~55% win chance (simulates dice)
+    const aiWins = Math.random() < 0.5;
+    if (aiWins && attacker.troops > target.troops) {
+      const prevOwner = target.owner;
+      target.owner = 'enemy';
+      const moveTroops = Math.min(attacker.troops - 1, 2);
+      target.troops = moveTroops;
+      attacker.troops -= moveTroops;
+      if (prevOwner === 'player') {
+        log(`🤖 AI conquered ${target.name}!`, 'bad');
+      } else {
+        log(`🤖 AI took neutral ${target.name}`);
+      }
+    } else {
+      attacker.troops = Math.max(1, attacker.troops - 1);
+    }
+  }
+
+  // Neutral territories get a troop occasionally
+  territories.filter(t => t.owner === 'neutral').forEach(t => {
+    if (Math.random() < 0.15) t.troops = Math.min(t.troops + 1, 4);
+  });
+}
+
+// ── WIN / LOSE ──
+function checkWinLose() {
+  const pCount = territories.filter(t => t.owner === 'player').length;
+  const eCount = territories.filter(t => t.owner === 'enemy').length;
+
+  if (eCount === 0 && territories.filter(t => t.owner === 'neutral').length === 0) {
+    showEnd(true);
+  } else if (pCount === 0) {
+    showEnd(false);
+  }
+}
+
+function showEnd(won) {
+  const screen = document.getElementById('endscreen');
+  const title = document.getElementById('end-title');
+  const stats = document.getElementById('end-stats');
+  const chips = document.getElementById('word-chips');
+
+  if (won) {
+    title.textContent = '🏆 TOTAL CONQUEST!';
+    title.style.color = 'var(--gold)';
+  } else {
+    title.textContent = '💀 DEFEATED';
+    title.style.color = 'var(--enemy)';
+  }
+
+  const accuracy = questionsTotal > 0 ? Math.round(questionsCorrect / questionsTotal * 100) : 0;
+  stats.innerHTML = `
+    Score: ${score}<br>
+    Turns survived: ${turn}<br>
+    Questions: ${questionsCorrect}/${questionsTotal} (${accuracy}% accuracy)<br>
+    Best streak: ${bestStreak} 🔥<br>
+    Territories conquered: ${territories.filter(t => t.owner === 'player').length}/${territories.length}<br>
+    Words encountered: ${wordsEncountered.size}
+  `;
+
+  chips.innerHTML = '';
+  wordsEncountered.forEach(w => {
+    const chip = document.createElement('span');
+    chip.className = 'word-chip';
+    chip.textContent = w;
+    chips.appendChild(chip);
+  });
+
+  screen.classList.add('show');
+}
+
+// ── UTILITIES ──
+function log(msg, type = '') {
+  const logDiv = document.getElementById('action-log');
+  const entry = document.createElement('div');
+  entry.className = `log-entry ${type}`;
+  entry.textContent = msg;
+  logDiv.prepend(entry);
+  if (logDiv.children.length > 50) logDiv.lastChild.remove();
+}
+
+function showStreakBanner(text) {
+  const banner = document.getElementById('streak-banner');
+  banner.textContent = text;
+  banner.classList.add('show');
+  setTimeout(() => banner.classList.remove('show'), 2500);
+}
+
+function toggleHelp() {
+  document.getElementById('help-panel').classList.toggle('show');
+}
+</script>
+</body>
+</html>
