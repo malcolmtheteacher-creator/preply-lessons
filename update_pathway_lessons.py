@@ -107,30 +107,162 @@ SKILL_TYPE_MAP = {
 
 # ── Semantic topic tagging ────────────────────────────────────────────────────
 TOPIC_KEYWORDS = {
-    'medicine':      ['medical','doctor','patient','health','nurse','hospital','surgery','diagnos','clinic','disease','treatment','therapy','symptom','anatomy','dental','pandemic'],
-    'law':           ['legal','law','court','justice','contract','rights','crime','criminal','attorney','barrister','solicitor','judge','trial','evidence','regulation','legislation','copyright','patent'],
-    'finance':       ['finance','financial','invest','budget','profit','revenue','market','stock','bank','loan','debt','interest','tax','accountant','accounting','insurance','pension','mortgage','economy','GDP','trade'],
-    'technology':    ['tech','digital','software','hardware','data','AI','artificial intelligence','robot','algorithm','program','code','developer','internet','network','cyber','app','cloud','machine learning','automation','computer','smartphone'],
-    'management':    ['manag','leader','leadership','team','meeting','decision','strategy','strategic','executive','CEO','director','corporate','HR','performance','objective','planning','project','delegation','mentor'],
-    'negotiation':   ['negotiat','deal','persuad','compromise','bargain','mediat','dispute','resolution','agreement','concession','leverage','win-win'],
-    'presentations': ['present','pitch','slide','audience','public speaking','conference','webinar','seminar','deliver','speech','storytelling','PowerPoint','engage'],
-    'writing':       ['writ','essay','report','draft','edit','thesis','dissertation','paragraph','structure','argument','persuasive','analytical','narrative','proofreading','citation','bibliography','academic writing'],
-    'communication': ['communicat','conversation','discuss','dialogue','listening','speak','verbal','nonverbal','body language','tone','assertive','feedback','clarity','interpersonal','email','interview','small talk'],
-    'culture':       ['culture','cultural','tradition','custom','intercultural','diversity','global','international','multicultural','identity','society','norm','expat'],
-    'environment':   ['environment','climate','carbon','green','sustainable','ecology','nature','wildlife','conservation','pollution','renewable','energy','solar','recycle','biodiversity','fossil fuel'],
-    'politics':      ['polit','government','democra','election','vote','parliament','congress','policy','minister','diplomat','international relations','geopolit','sanction','treaty','ideology'],
-    'education':     ['educat','teach','learn','student','university','school','college','academic','curriculum','degree','qualification','research','study','lecture','tutor','professor','training','exam','assessment'],
-    'history':       ['history','historical','ancient','medieval','modern','century','era','war','revolution','empire','civilisation','civilization','archaeology','heritage','museum','timeline','colonial','dynasty'],
-    'science':       ['science','scientific','research','experiment','hypothesis','theory','biology','chemistry','physics','mathematics','statistic','laboratory','innovation','discovery','space','astronomy','genetics','quantum'],
-    'psychology':    ['psycholog','mental','emotion','behavior','behaviour','cognitive','therapy','counselling','stress','anxiety','depression','mindfulness','personality','motivation','perception','memory','intelligence','resilience','habit'],
-    'business':      ['business','company','enterprise','entrepreneur','startup','commercial','brand','marketing','sales','customer','client','product','service','logistics','B2B','revenue','merger'],
-    'arts':          ['art','music','film','cinema','theatre','theater','literature','poetry','painting','sculpture','design','architecture','fashion','photography','gallery','creative','performance','dance','opera'],
-    'food':          ['food','cook','cuisine','restaurant','chef','recipe','ingredient','nutrition','diet','meal','dish','flavour','flavor','drink','wine','coffee','bakery','organic','vegan'],
-    'travel':        ['travel','trip','destination','tourism','tourist','hotel','transport','flight','airport','visa','passport','explore','adventure','landmark','sightseeing','itinerary'],
-    'sport':         ['sport','athletic','fitness','exercise','training','competition','team','player','champion','tournament','race','marathon','football','tennis','swimming','cycling','yoga','gym'],
-    'ethics':        ['ethic','moral','value','principle','integrity','justice','fairness','responsibility','accountability','transparent','honest','dilemma','controversial','bias','discrimination','equality','human rights'],
-    'media':         ['media','journalism','news','broadcast','podcast','social media','press','editor','reporter','headline','digital media','PR','public relations','advertising','brand','content','influencer'],
-    'creativity':    ['creativ','design','innovat','imaginat','art','invent','original','brainstorm','inspiration','vision'],
+    # NOTE: Keep keywords SPECIFIC to the topic — avoid generic words that appear
+    # in lesson instructions ("write", "discuss", "learn", "study", "structure",
+    # "policy", "social media") since those flood every lesson with every tag.
+    # These keywords will be matched against: filename + title + description +
+    # headings + tab labels + intro paragraph only.
+    'medicine':      [
+        'medical','doctor','patient','nurse','hospital','surgery','diagnos','clinic',
+        'disease','treatment','symptom','anatomy','dental','pandemic',
+        'physician','specialist','prescription','medication','vaccine','vaccination',
+        'anaesthetic','ward','triage','referral','blood test','x-ray','mri',
+        'infection','antibiotic','allergy','GP','a&e','emergency room',
+        'prognosis','outpatient','patholog','cardiolog','oncolog','neurolog',
+        'dermatolog','radiolog','paramedic','midwife','obstetrician','geriatrician',
+        'psychiatr','healthcare','pharmaceutical','physiology',
+    ],
+    'law':           [
+        'legal','law','court','justice','contract','crime','criminal',
+        'attorney','barrister','solicitor','judge','trial','evidence','legislation',
+        'copyright','patent','lawsuit','liability','damages','verdict','sentence',
+        'defendant','plaintiff','jury','prosecution','defence','defense',
+        'employment law','human rights','tribunal','arbitration','compliance',
+        'gdpr','intellectual property','trademark','fraud',
+    ],
+    'finance':       [
+        'finance','financial','invest','budget','profit','revenue','stock market',
+        'bank loan','debt','accountant','accounting','insurance','pension',
+        'mortgage','GDP','cash flow','balance sheet','shareholder','dividend',
+        'equity','venture capital','private equity','ipo','portfolio',
+        'inflation','recession','fiscal','monetary','currency','exchange rate',
+        'cryptocurrency','bitcoin','fintech','audit','payroll','profit margin',
+    ],
+    'technology':    [
+        'technology','software','hardware','artificial intelligence',
+        'robot','algorithm','coding','developer','cybersecurity','cyber','cloud',
+        'machine learning','automation','smartphone','blockchain',
+        'internet of things','big data','analytics','encryption','hack','malware',
+        'digital transformation','virtual reality','augmented reality',
+    ],
+    'management':    [
+        'manag','leadership','executive','director','corporate',
+        'human resources','appraisal','stakeholder','delegation','coaching',
+        'line manager','redundancy','restructure','change management',
+        'agile','scrum','kanban','one-to-one',
+    ],
+    'negotiation':   [
+        'negotiat','bargaining','mediator','mediation','concession','leverage','win-win',
+        'counter-offer','contract negotiation','salary negotiation',
+        'closing a deal','objection handling','stalemate','walk away',
+    ],
+    'presentations': [
+        'presentation','presenting','presenter','pitch','public speaking','conference',
+        'webinar','seminar','keynote','powerpoint','q&a','panel','moderator',
+        'visual aid','signposting','hook','opening statement','delivery','slides',
+    ],
+    'writing':       [
+        'essay','report','thesis','dissertation','proofreading',
+        'citation','bibliography','academic writing','formal letter',
+        'topic sentence','coherence','cohesion','executive summary',
+        'abstract','paraphrase','footnote','annotate',
+    ],
+    'communication': [
+        'interpersonal','small talk','body language','assertive',
+        'active listening','telephone english','video call english',
+        'difficult conversations','cross-cultural communication',
+        'giving feedback','conflict resolution','rapport','empathy',
+    ],
+    'culture':       [
+        'culture','cultural','tradition','custom','intercultural','diversity',
+        'multicultural','expat','stereotype','culture shock','taboo',
+        'cross-cultural','etiquette','manners','working abroad','living abroad',
+    ],
+    'environment':   [
+        'environment','climate change','carbon','sustainable','ecology',
+        'wildlife','conservation','pollution','renewable energy','recycle',
+        'biodiversity','fossil fuel','global warming','greenhouse gas','emission',
+        'net zero','carbon footprint','plastic waste','deforestation',
+        'electric vehicle','wind power','paris agreement','cop26','cop30',
+    ],
+    'politics':      [
+        'politics','political','politician','government','election','vote',
+        'parliament','diplomat','treaty','ideology','campaign','referendum',
+        'geopolit','sanction','foreign policy','nato','sovereignty',
+        'asylum seeker','refugee','nationalism','populism','left wing','right wing',
+        'prime minister','president','secretary of state','senate','congress',
+    ],
+    'education':     [
+        'university','curriculum','degree','qualification','dissertation',
+        'scholarship','tuition fees','admissions','gap year',
+        'e-learning','mooc','vocational','apprenticeship','academic pressure',
+        'grading system','standardised test','higher education',
+    ],
+    'history':       [
+        'history','historical','ancient','medieval','century','era',
+        'revolution','empire','civilisation','civilization','archaeology',
+        'colonial','dynasty','world war','cold war','genocide','holocaust',
+        'slavery','colonialism','apartheid','suffragette','reformation',
+        'renaissance','enlightenment','industrial revolution',
+    ],
+    'science':       [
+        'science','scientific','biology','chemistry','physics','genetics',
+        'quantum','atom','molecule','laboratory','space exploration','astronomy',
+        'nanotechnology','biotechnology','evolution','dna','peer review',
+        'clinical trial','research paper','scientific method',
+    ],
+    'psychology':    [
+        'psycholog','cognitive','counselling','anxiety','depression','mindfulness',
+        'personality','trauma','self-esteem','social psychology','burnout',
+        'phobia','ocd','adhd','autism','bipolar','therapist','psychotherapist',
+        'unconscious bias','heuristic','attachment theory','grief',
+    ],
+    'business':      [
+        'business','entrepreneur','startup','brand','marketing','B2B',
+        'acquisition','merger','supply chain','ecommerce','retail',
+        'customer service','market research','competitor analysis','pitch deck',
+        'business plan','trade fair','franchise','import duties','exporting','networking',
+    ],
+    'arts':          [
+        'film','cinema','theatre','theater','literature','poetry','painting',
+        'sculpture','architecture','photography','gallery','opera','ballet',
+        'novel','fiction','playwright','director','musician','composer',
+        'exhibition','oscar','bafta','grammy','screenplay','animation',
+    ],
+    'food':          [
+        'food','cuisine','restaurant','chef','recipe','nutrition','diet',
+        'vegan','vegetarian','seafood','street food','fine dining','michelin',
+        'breakfast','lunch','dinner','supermarket','gut health',
+        'organic','allergy','intolerance','gluten-free','halal',
+    ],
+    'travel':        [
+        'travel','tourism','tourist','hotel','flight','airport','visa','passport',
+        'sightseeing','itinerary','accommodation','backpack','cruise',
+        'package holiday','landmark','cultural trip','business travel',
+    ],
+    'sport':         [
+        'sport','athletic','fitness','marathon','football','tennis','swimming',
+        'cycling','rugby','cricket','basketball','triathlon','yoga',
+        'tournament','champion','referee','stadium','penalty',
+        'doping','transfer window','fan culture',
+    ],
+    'ethics':        [
+        'ethic','moral','dilemma','integrity','discrimination','equality',
+        'corporate social responsibility','csr','whistleblower',
+        'corruption','consent','privacy','surveillance','ai ethics',
+        'medical ethics','animal rights','euthanasia','capital punishment',
+        'social justice','bias','privilege','inequality',
+    ],
+    'media':         [
+        'journalism','broadcast','podcast','press freedom','fake news',
+        'misinformation','propaganda','tabloid','broadsheet',
+        'social media influencer','youtube','instagram','tiktok','viral',
+        'press release','pr strategy','advertising campaign',
+    ],
+    'creativity':    [
+        'creativ','brainstorm','ideation','prototype','lateral thinking',
+        'design thinking','creative writing','storytelling','innovation',
+    ],
 }
 
 CAT_DEFAULT_TOPICS = {
@@ -215,12 +347,15 @@ def extract_lesson(filepath):
     filename = os.path.basename(filepath)
     try:
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
-            content = f.read(8000)
+            content = f.read()          # read entire file for rich tagging
     except Exception:
         return None
 
+    # Working window — cap at 60 000 chars to keep speed reasonable
+    working = content[:60000]
+
     # Title
-    tm = re.search(r'<title>([^<]+)</title>', content, re.I)
+    tm = re.search(r'<title>([^<]+)</title>', working, re.I)
     title = tm.group(1).strip() if tm else filename
     title = re.sub(r'\s*[|\-].*Malcolm.*$', '', title, flags=re.I).strip()
     title = re.sub(r'\s*\|\s*.*$', '', title).strip()[:80]
@@ -229,15 +364,15 @@ def extract_lesson(filepath):
     lv = infer_level(filename)
 
     # Category
-    cat = infer_category(filename, title, content[:2000])
+    cat = infer_category(filename, title, working[:2000])
 
     # Description — meta first, then first meaningful <p>
     desc = ''
-    md = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']', content[:5000], re.I)
+    md = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']', working[:5000], re.I)
     if md:
         desc = md.group(1).strip()[:100]
     if len(desc) < 20:
-        for p in re.findall(r'<p[^>]*>(.*?)</p>', content[:6000], re.S):
+        for p in re.findall(r'<p[^>]*>(.*?)</p>', working[:6000], re.S):
             clean = re.sub(r'<[^>]+>', '', p).strip()
             if len(clean) > 30 and not clean.startswith('©') and 'Malcolm' not in clean:
                 desc = clean[:100]
@@ -248,13 +383,51 @@ def extract_lesson(filepath):
 
     # Grammar point & link — look for data-grammar or known patterns
     g, gl = '', ''
-    gm = re.search(r'data-grammar=["\']([^"\']+)["\']', content, re.I)
+    gm = re.search(r'data-grammar=["\']([^"\']+)["\']', working, re.I)
     if gm: g = gm.group(1).strip()[:50]
-    glm = re.search(r'href=["\'](grammar_[^"\']+\.html)["\']', content, re.I)
+    glm = re.search(r'href=["\'](grammar_[^"\']+\.html)["\']', working, re.I)
     if glm: gl = glm.group(1)
 
-    # Topics
-    topics = get_topics(title + ' ' + desc + ' ' + cat, cat)
+    # ── Rich topic extraction ──────────────────────────────────────────────────
+    # Use high-signal sources only — NOT full body text, because generic lesson
+    # instructions ("write your answer", "discuss", "policy", "social media") would
+    # tag almost every lesson with almost every topic, making boosts meaningless.
+    #
+    # High-signal sources (specific to lesson content):
+    #   1. Filename words — the most descriptive signal ("bc_b2_negotiating_salary")
+    #   2. Title — what the lesson is actually about
+    #   3. Description — curated summary
+    #   4. H1–H3 headings — section titles like "Vocabulary: Medical Terms"
+    #   5. data-* attributes & aria-labels — structured metadata
+    #   6. Tab/button labels — often named after the topic (e.g. "Negotiation Tips")
+    #   7. Intro paragraph only — first substantive <p> after the title area
+
+    # 1. Filename
+    fname_words = re.sub(r'[_\-]', ' ', filename.replace('.html', ''))
+
+    # 2+3. Title and desc already extracted above
+
+    # 4. H1–H3 headings
+    headings = ' '.join(re.findall(r'<h[1-3][^>]*>([^<]+)</h[1-3]>', working, re.I))
+
+    # 5. data-* and aria-label attributes (vocabulary sets, card content labels)
+    data_attrs = ' '.join(re.findall(r'(?:data-[\w-]+|aria-label)=["\']([^"\']{4,60})["\']', working, re.I))
+
+    # 6. Tab and button text (short labels: "Negotiation", "Medical Vocabulary", etc.)
+    tab_labels = ' '.join(re.findall(r'<(?:button|a|span|li)[^>]*class=["\'][^"\']*(?:tab|btn|chip|label)[^"\']*["\'][^>]*>([^<]{3,40})</(?:button|a|span|li)>', working, re.I))
+
+    # 7. First intro paragraph — context for what the lesson is about
+    intro_para = ''
+    for p in re.findall(r'<p[^>]*>(.*?)</p>', working[:8000], re.S):
+        clean_p = re.sub(r'<[^>]+>', '', p).strip()
+        if len(clean_p) > 40 and 'Malcolm' not in clean_p and not clean_p.startswith('©'):
+            intro_para = clean_p[:300]
+            break
+
+    # Combine all high-signal sources
+    rich_text = ' '.join([fname_words, title, desc, headings, tab_labels, data_attrs, intro_para])
+
+    topics = get_topics(rich_text, cat)
 
     entry = {'f': filename, 't': title, 'lv': lv, 'cat': cat, 'd': desc, 'sk': sk}
     if g:  entry['g']  = g
@@ -333,11 +506,10 @@ def main():
         if fname not in old_cache:
             new_count += 1
         else:
-            # Preserve manually-curated data from cache (topics, descriptions, grammar)
             cached = old_cache[fname]
-            if cached.get('topics') and len(cached['topics']) > len(entry.get('topics', [])):
-                entry['topics'] = cached['topics']
-            if cached.get('d') and len(cached.get('d','')) > len(entry.get('d','')):
+            # Topics: always use freshly computed (rich-text tagging is now reliable)
+            # Description/grammar: keep cached if it's longer/richer
+            if cached.get('d') and len(cached.get('d', '')) > len(entry.get('d', '')):
                 entry['d'] = cached['d']
             if cached.get('g') and not entry.get('g'):
                 entry['g'] = cached['g']
