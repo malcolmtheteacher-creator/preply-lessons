@@ -1177,6 +1177,56 @@ function generatePathway(p) {
     revPool.forEach(function(l,i){ selectedTopics.splice(i,0,Object.assign({},l,{type:'topic',revision:true})); });
   }
 
+  // ── SERIES START ENFORCEMENT ─────────────────────────────────
+  // For tightly-coupled series (sp_, ct_, writing_lesson_, epicurean_,
+  // st_pro_, pron_c1_) spaced repetition means lesson 5 without lessons
+  // 1–4 is pedagogically broken. Replace any mid-series lesson with
+  // lesson 1 of that same series and mark it so the card can say why.
+
+  var STRICT_SERIES = [
+    { re: /^(sp_[a-z0-9]+_)\d+_/,    name: function(p){ var lvl = p.replace(/^sp_/,'').replace(/_$/,'').toUpperCase(); return p.startsWith('sp_c1_') ? 'Commanding Discourse' : 'Speaking Pathway – '+lvl; } },
+    { re: /^(ct_[a-z0-9]+_)\d+_/,    name: function(p){ return 'Conversation Toolkit'; } },
+    { re: /^(writing_lesson_)\d+/,    name: function(p){ return 'Writing Academic English'; } },
+    { re: /^(epicurean_)\d+_/,        name: function(p){ return 'The Epicurean Path'; } },
+    { re: /^(st_pro_)\d+_/,           name: function(p){ return 'Strategic Storytelling'; } },
+    { re: /^(pron_c1_)\d+_/,          name: function(p){ return 'Pronunciation Pathway'; } },
+  ];
+
+  function getStrictSeries(fname) {
+    for (var i = 0; i < STRICT_SERIES.length; i++) {
+      var m = fname.match(STRICT_SERIES[i].re);
+      if (m) return { prefix: m[1], name: STRICT_SERIES[i].name(m[1]) };
+    }
+    return null;
+  }
+
+  var seriesLesson1Cache = {};
+  selectedTopics = selectedTopics.map(function(l) {
+    var sNum = getSeriesNum(l.f || '');
+    if (sNum <= 1) return l;
+    var series = getStrictSeries(l.f);
+    if (!series) return l;
+    var prefix = series.prefix;
+    if (!seriesLesson1Cache[prefix]) {
+      // Find the lesson with seriesNum === 1 for this prefix
+      var candidates = LESSONS.filter(function(x) {
+        return x.f.indexOf(prefix) === 0 && getSeriesNum(x.f) === 1;
+      });
+      seriesLesson1Cache[prefix] = candidates[0] || null;
+    }
+    var l1 = seriesLesson1Cache[prefix];
+    if (!l1) return l;
+    return Object.assign({}, l1, { type: l.type, revision: l.revision, seriesStart: true, seriesName: series.name });
+  });
+
+  // Deduplicate — two mid-series hits on same series collapse to one lesson 1
+  var seenFiles = {};
+  selectedTopics = selectedTopics.filter(function(l) {
+    if (seenFiles[l.f]) return false;
+    seenFiles[l.f] = true;
+    return true;
+  });
+
   // Progressive ordering: bc_ first, then sp_, then su_
   selectedTopics.sort(function(a,b){ return getLessonComplexity(a)-getLessonComplexity(b); });
 
@@ -1330,6 +1380,9 @@ function generateAndShow() {
     const tagText = isGrammar ? l.g : (skLabel && skLabel !== 'discussion' ? skLabel + ' · ' + (CAT_LABELS[l.cat]||l.cat) : (CAT_LABELS[l.cat] || l.cat));
     const revisionBadge = l.revision ? ' <span style="color:#ed8936;font-size:0.7rem;">↩ warm-up</span>' : '';
     const lv = l.lv ? (' <span style="color:#999;font-size:0.72rem;">' + LV_LABELS[l.lv] + '</span>') : '';
+    const seriesNote = l.seriesStart
+      ? `<div style="margin-top:6px;font-size:0.78rem;color:#667eea;font-style:italic;">Opening lesson of the ${l.seriesName} series — your profile matched several lessons ahead, so this is where to begin.</div>`
+      : '';
 
     const card = document.createElement('div');
     card.className = 'lesson-card ' + (isGrammar ? 'grammar-card' : 'topic-card');
@@ -1339,6 +1392,7 @@ function generateAndShow() {
         <div class="lesson-title">${l.t}${lv}${revisionBadge}</div>
         <div class="lesson-desc">${l.d || ''}</div>
         <span class="lesson-tag ${isGrammar ? 'grammar-tag' : ''}">${tagText}</span>
+        ${seriesNote}
       </div>`;
     listEl.appendChild(card);
   });
@@ -1416,6 +1470,9 @@ function downloadPathway() {
     const url = SITE_BASE + l.f;
     const lvBadge = l.lv ? `<span style="font-size:0.7rem;color:#aaa;margin-left:6px;">${LV_LABELS[l.lv]}</span>` : '';
     const revNote = l.revision ? `<span style="font-size:0.7rem;color:#ed8936;margin-left:6px;">↩ warm-up</span>` : '';
+    const seriesStartNote = l.seriesStart
+      ? `<div style="margin-top:7px;padding:7px 10px;background:#f0edff;border-radius:8px;font-size:0.78rem;color:#553c9a;line-height:1.45;">Opening lesson of the <strong>${(l.seriesName||'').replace(/'/g,"&#39;")}</strong> series — your profile matched several lessons ahead, so this is the right place to start.</div>`
+      : '';
     const lessonDesc = (l.d || '').replace(/'/g, '&#39;');
     const lessonTitle = l.t.replace(/'/g, '&#39;');
     const tagText = isGrammar
@@ -1465,6 +1522,7 @@ function downloadPathway() {
         <div class="lcard-title"><a href="${url}" target="_blank">${lessonTitle}</a>${lvBadge}${revNote}</div>
         <div class="lcard-desc">${lessonDesc}</div>
         <div class="lcard-tag" style="background:${meta.tagBg};color:${meta.tagCol};">${tagText}</div>
+        ${seriesStartNote}
       </div>
     </div>`;
   });
