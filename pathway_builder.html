@@ -218,6 +218,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2d2d2d; mi
 .det-chip-goal   { background: #e0f2fe; color: #075985; border: 1.5px solid #7dd3fc; }
 .det-chip-prof   { background: #dcfce7; color: #166534; border: 1.5px solid #86efac; }
 .det-chip-topic  { background: #fff7ed; color: #9a3412; border: 1.5px solid #fdba74; }
+.det-chip-avoid  { background: #fef2f2; color: #991b1b; border: 1.5px solid #fca5a5; }
 .det-chip .chip-x { font-size: 0.68rem; opacity: 0.55; }
 .nothing-detected { font-size: 0.82rem; color: #ccc; font-style: italic; }
 
@@ -628,7 +629,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2d2d2d; mi
 // PROFILE STATE
 // =====================================================
 const profile = {
-  name: '', level: '', goals: [], profession: '', interests: [], weakAreas: [], time: ''
+  name: '', level: '', goals: [], profession: '', interests: [], weakAreas: [], avoids: [], time: ''
 };
 
 const TOTAL_STEPS = 6;
@@ -659,7 +660,7 @@ function goBack(current) {
 }
 function resetAndStart() {
   profile.name = ''; profile.level = ''; profile.goals = []; profile.profession = '';
-  profile.goals.length = 0; profile.interests.length = 0; profile.weakAreas.length = 0; profile.time = '';
+  profile.goals.length = 0; profile.interests.length = 0; profile.weakAreas.length = 0; profile.avoids = []; profile.time = '';
   const profEl = document.getElementById('studentProfession'); if(profEl) profEl.value = '';
   document.querySelectorAll('.option-card').forEach(function(el) { el.classList.remove('selected'); });
   document.querySelectorAll('.check-card, .option-card').forEach(function(el) { el.classList.remove('selected'); });
@@ -924,10 +925,43 @@ function parseProfileText() {
     } catch(e) {}
   }
 
+  // Avoidances — extract text after "avoid", "don't want", "no X", "not X"
+  var avoidLabels = {
+    'grammar': 'grammar', 'grammar lessons': 'grammar',
+    'writing': 'writing', 'written': 'writing',
+    'speaking': 'speaking', 'spoken': 'speaking',
+    'reading': 'reading', 'texts': 'reading',
+    'listening': 'listening', 'audio': 'listening',
+    'vocabulary': 'vocabulary', 'vocab': 'vocabulary',
+    'business': 'business', 'politics': 'politics', 'history': 'history',
+    'science': 'science', 'medicine': 'medicine', 'law': 'law',
+    'finance': 'finance', 'technology': 'technology', 'media': 'media',
+    'sport': 'sport', 'sports': 'sport', 'food': 'food',
+    'travel': 'travel', 'arts': 'arts', 'art': 'arts',
+    'culture': 'culture', 'ethics': 'ethics', 'psychology': 'psychology',
+    'religion': 'ethics', 'philosophy': 'ethics', 'environment': 'environment',
+    'presentations': 'presentations', 'presentation': 'presentations',
+  };
+  var foundAvoids = {};
+  // Extract the avoid clause from the text
+  var avoidMatch = text.match(/(?:i'?d? prefer (?:not |to avoid )|i want to avoid |i don'?t want |no |avoid )([^.\n]+)/gi);
+  if (avoidMatch) {
+    avoidMatch.forEach(function(clause) {
+      var clauseLower = clause.toLowerCase().replace(/i'?d? prefer (?:not |to avoid )|i want to avoid |i don'?t want |avoid /i, '');
+      Object.keys(avoidLabels).forEach(function(kw) {
+        if (new RegExp('\\b' + kw + '\\b', 'i').test(clauseLower)) {
+          foundAvoids[avoidLabels[kw]] = true;
+        }
+      });
+    });
+  }
+  found.avoids = Object.keys(foundAvoids);
+
   detectedState.level = found.level;
   detectedState.goals = found.goals;
   detectedState.profession = found.profession;
   detectedState.topics = found.topics;
+  detectedState.avoids = found.avoids;
   renderDetectedChips();
 }
 
@@ -945,6 +979,10 @@ function renderDetectedChips() {
   detectedState.topics.forEach(function(t) {
     if (!detectedState.removed['topic_'+t])
       chips.push({ id:'topic_'+t, type:'topic', label: TOPIC_LABELS[t]||t });
+  });
+  (detectedState.avoids||[]).forEach(function(a) {
+    if (!detectedState.removed['avoid_'+a])
+      chips.push({ id:'avoid_'+a, type:'avoid', label: '✕ no ' + a });
   });
 
   var text = (document.getElementById('profileText').value||'').trim();
@@ -1036,6 +1074,10 @@ function applyAndContinue() {
       detectedTopics.forEach(function(t) { if (fn.indexOf("'"+t+"'") !== -1) card.classList.add('selected'); });
     });
   }
+
+  // Store avoidances
+  var detectedAvoids = (detectedState.avoids||[]).filter(function(a) { return !detectedState.removed['avoid_'+a]; });
+  if (detectedAvoids.length > 0) profile.avoids = detectedAvoids;
 
   // Always go into the wizard
   showStep(0);
@@ -1407,7 +1449,7 @@ function detectCourseSequences(pathway) {
 
 function generatePathway(p) {
   var level = p.level, goals = p.goals || [p.goal||'general'], profession = p.profession||'',
-      interests = p.interests, weakAreas = p.weakAreas, time = p.time;
+      interests = p.interests, weakAreas = p.weakAreas, avoids = p.avoids || [], time = p.time;
   var goal = goals[0]; // primary goal for pool logic
   var profBoosts = getProfessionBoosts(profession);
 
@@ -1510,6 +1552,14 @@ function generatePathway(p) {
     if (weakAreas.indexOf('vocabulary') !== -1 && sk === 'quick-fix') score += 15;
     if (weakAreas.indexOf('confidence') !== -1 && sk === 'speaking') score += 15;
 
+    // Penalise avoided topics (lessons with mixed topics may still be in pool)
+    if (avoidedTopics.length && lessonTopicsArr.length) {
+      var avoidHits = lessonTopicsArr.filter(function(t){ return avoidedTopics.indexOf(t) !== -1; }).length;
+      score -= avoidHits * 30;
+    }
+    // Penalise avoided skill types that slipped through (e.g. quick-fix when grammar avoided)
+    if (avoidedSks.length && avoidedSks.indexOf(sk) !== -1) score -= 100;
+
     // Small randomness
     score += Math.random() * 4;
     return score;
@@ -1528,12 +1578,27 @@ function generatePathway(p) {
   // Exclude Cambridge exam lessons from general pool unless cambridge is one of the goals
   var hasCambridgeGoal = goals.indexOf('cambridge') !== -1;
   var hasIeltsGoal     = goals.indexOf('ielts') !== -1;
+  // Map avoidance labels → skill type codes for hard filtering
+  var avoidSkMap = { grammar:['grammar','quick-fix'], writing:['writing','academic'],
+                     speaking:['speaking'], reading:['reading'], listening:['listening'] };
+  var avoidedSks = [];
+  avoids.forEach(function(a){ if(avoidSkMap[a]) avoidedSks = avoidedSks.concat(avoidSkMap[a]); });
+  // Topic avoidances (anything not a skill type)
+  var skillTypeKeys = Object.keys(avoidSkMap).concat(['vocabulary']);
+  var avoidedTopics = avoids.filter(function(a){ return skillTypeKeys.indexOf(a) === -1; });
+
   var pool = LESSONS.filter(function(l){
     if (isDashboard(l)) return false;
     if (l.lv !== level) return false;
-    // Exam-specific lessons only appear when student has chosen that exam goal
     if (!hasCambridgeGoal && (l.cat === 'cambridge-cae' || l.cat === 'cambridge-cpe')) return false;
     if (!hasIeltsGoal && (l.cat === 'ielts' || l.sk === 'ielts')) return false;
+    // Hard-exclude avoided skill types
+    if (avoidedSks.length && avoidedSks.indexOf(l.sk) !== -1) return false;
+    // Hard-exclude lessons whose ONLY topics are avoided topics
+    if (avoidedTopics.length && l.topics && l.topics.length) {
+      var nonAvoided = l.topics.filter(function(t){ return avoidedTopics.indexOf(t) === -1; });
+      if (nonAvoided.length === 0) return false;
+    }
     return true;
   });
   // Always include quick-fix lessons (grammar/vocab) and speaking pathway at target level
