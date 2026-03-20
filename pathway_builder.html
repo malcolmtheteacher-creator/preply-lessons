@@ -1413,6 +1413,175 @@ function saveNotes() {
   URL.revokeObjectURL(url);
 }
 
+// =====================================================
+// PDF DOWNLOAD — open a print-optimised window
+// =====================================================
+function downloadPathwayPDF() {
+  const p = profile;
+  const pathway = generatedPathway;
+  const lessonsPerWeek = { light:1, regular:2.5, intensive:4 }[p.time] || 2;
+  const weeks = Math.ceil(pathway.length / lessonsPerWeek);
+  const grammarCount = pathway.filter(l => l.type === 'grammar').length;
+  const today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  const SK_META2 = {
+    'discussion':   { label:'Discussion',    icon:'🗣️', col:'#48bb78', tagBg:'#f0fdf4', tagFg:'#276749' },
+    'speaking':     { label:'Speaking',      icon:'🎤', col:'#38b2ac', tagBg:'#e6fffa', tagFg:'#234e52' },
+    'professional': { label:'Professional',  icon:'💼', col:'#667eea', tagBg:'#ebf4ff', tagFg:'#2c5282' },
+    'writing':      { label:'Writing',       icon:'✍️', col:'#805ad5', tagBg:'#f5f0ff', tagFg:'#553c9a' },
+    'academic':     { label:'Academic',      icon:'🎓', col:'#805ad5', tagBg:'#f5f0ff', tagFg:'#553c9a' },
+    'ielts':        { label:'IELTS',         icon:'📋', col:'#d69e2e', tagBg:'#fffff0', tagFg:'#744210' },
+    'quick-fix':    { label:'Grammar Focus', icon:'🔧', col:'#e53e3e', tagBg:'#fff5f5', tagFg:'#822727' },
+    'general':      { label:'General',       icon:'📖', col:'#48bb78', tagBg:'#f0fdf4', tagFg:'#276749' },
+  };
+  const G_META2 = { label:'Grammar Checkpoint', icon:'📝', col:'#667eea', tagBg:'#e8f0fe', tagFg:'#3949ab' };
+  const PHASE_COLS2 = ['#48bb78','#667eea','#764ba2'];
+  const PHASE_NAMES2 = ['Foundation','Building Up','Mastery'];
+
+  const topicOnly2 = pathway.filter(l => l.type !== 'grammar');
+  const ph1b = Math.ceil(topicOnly2.length * 0.35);
+  const ph2b = Math.ceil(topicOnly2.length * 0.68);
+  const lpwb = { light:1, regular:2.5, intensive:4 }[p.time] || 2;
+
+  let bodyRows = '';
+  let tCnt = 0, lastSkPdf = null;
+
+  pathway.forEach((l, i) => {
+    const isGr = l.type === 'grammar';
+    const sk2 = isGr ? null : (l.sk || 'discussion');
+    const m2 = isGr ? G_META2 : (SK_META2[sk2] || SK_META2['discussion']);
+    const url2 = SITE_BASE + l.f;
+    const rev2 = l.revision ? ' <em style="color:#ed8936;font-size:0.75em;"> ↩ warm-up</em>' : '';
+    const lv2 = l.lv ? (' <em style="color:#aaa;font-size:0.75em;">' + (LV_LABELS[l.lv]||l.lv) + '</em>') : '';
+    const tagTxt = isGr ? ('Grammar — ' + l.g) : ((SKILL_LABELS[sk2]||sk2) + (l.cat ? ' · '+(CAT_LABELS[l.cat]||l.cat) : ''));
+
+    if (!isGr) {
+      // Phase header
+      let phIdx = tCnt === 0 ? 0 : tCnt === ph1b ? 1 : tCnt === ph2b ? 2 : -1;
+      if (phIdx >= 0) {
+        const w1b = phIdx === 0 ? 1 : phIdx === 1 ? Math.round(ph1b/lpwb)+1 : Math.round(ph2b/lpwb)+1;
+        const w2b = phIdx === 0 ? Math.round(ph1b/lpwb) : phIdx === 1 ? Math.round(ph2b/lpwb) : null;
+        const wLb = w2b ? 'Weeks '+w1b+'–'+w2b : 'Week '+w1b+'+';
+        bodyRows += `<tr class="phase-row"><td colspan="4" style="background:linear-gradient(135deg,${PHASE_COLS2[phIdx]}22,${PHASE_COLS2[phIdx]}08);border-left:5px solid ${PHASE_COLS2[phIdx]};padding:10px 16px;">
+          <span style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:20px;padding:2px 10px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;">Phase ${phIdx+1}</span>
+          <strong style="font-size:0.9rem;">${PHASE_NAMES2[phIdx]}</strong>
+          <span style="float:right;font-size:0.75rem;color:#888;">${wLb}</span>
+        </td></tr>`;
+      }
+      // Skill section header
+      if (sk2 !== lastSkPdf) {
+        bodyRows += `<tr><td colspan="4" style="padding:8px 16px 3px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:${m2.col};border-bottom:1px solid #f0f0f0;">${m2.icon} ${m2.label}</td></tr>`;
+        lastSkPdf = sk2;
+      }
+      tCnt++;
+    } else {
+      bodyRows += `<tr><td colspan="4" style="padding:8px 16px 3px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:${G_META2.col};border-bottom:1px solid #eaedff;">${G_META2.icon} Grammar Checkpoint</td></tr>`;
+    }
+
+    bodyRows += `<tr class="lesson-row" style="border-left:3px solid ${m2.col};">
+      <td class="num-cell">${String(i+1).padStart(2,'0')}</td>
+      <td class="icon-cell">${m2.icon}</td>
+      <td class="title-cell"><strong>${l.t}</strong>${lv2}${rev2}<br><span style="font-size:0.78em;color:#777;">${l.d||''}</span></td>
+      <td class="tag-cell"><span style="background:${m2.tagBg};color:${m2.tagFg};padding:2px 8px;border-radius:10px;font-size:0.7em;font-weight:600;white-space:nowrap;">${tagTxt}</span></td>
+    </tr>`;
+  });
+
+  const interestStr2 = p.interests.length ? p.interests.map(i2 => CAT_LABELS[i2]||i2).join(', ') : 'All topics';
+
+  const pdfHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${p.name}'s English Pathway</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Inter',sans-serif; color:#222; background:#fff; font-size:13px; }
+.cover {
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  color: white; padding: 48px 40px 36px; page-break-after: always;
+  min-height: 280px; display: flex; flex-direction: column; justify-content: flex-end;
+}
+.cover-name { font-size: 2.4rem; font-weight: 800; margin-bottom: 6px; }
+.cover-sub  { font-size: 1.1rem; opacity: 0.85; margin-bottom: 24px; }
+.cover-badges { display:flex; gap:10px; flex-wrap:wrap; }
+.cbadge { background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.35); border-radius:20px; padding:5px 14px; font-size:0.82rem; font-weight:600; }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:24px 40px; background:#f9f8ff; border-bottom:1px solid #eee; }
+.stat-box { text-align:center; }
+.stat-n { font-size:1.8rem; font-weight:800; color:#667eea; }
+.stat-l { font-size:0.72rem; color:#999; margin-top:2px; }
+.section { padding: 16px 40px 0; }
+.lessons-table { width:100%; border-collapse:collapse; }
+.lessons-table td { padding:8px 10px; vertical-align:top; border-bottom:1px solid #f5f5f5; }
+.num-cell  { width:32px; font-size:0.75rem; font-weight:700; color:#aaa; text-align:center; padding-top:10px; }
+.icon-cell { width:28px; text-align:center; font-size:1.1rem; padding-top:8px; }
+.title-cell { }
+.tag-cell  { width:140px; text-align:right; padding-top:10px; white-space:nowrap; }
+.lesson-row td { border-left:3px solid transparent; }
+.footer { padding:24px 40px; border-top:1px solid #eee; font-size:0.78rem; color:#aaa; display:flex; justify-content:space-between; margin-top:16px; }
+@media print {
+  @page { margin: 10mm 12mm; size: A4 portrait; }
+  body { font-size:11px; }
+  .cover { padding:32px 24px 24px; min-height:220px; }
+  .cover-name { font-size:1.8rem; }
+  .stats-grid { padding:16px 24px; }
+  .section { padding:12px 24px 0; }
+  .footer { padding:16px 24px; }
+  .tag-cell { width:120px; }
+  .no-print { display:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-name">✨ ${p.name}&rsquo;s English Pathway</div>
+  <div class="cover-sub">${GOAL_LABELS[p.goal]} · ${LV_LABELS[p.level]} Level · Created ${today}</div>
+  <div class="cover-badges">
+    <span class="cbadge">📚 ${LV_LABELS[p.level]}</span>
+    <span class="cbadge">🎯 ${GOAL_LABELS[p.goal]}</span>
+    <span class="cbadge">⏱ ${TIME_LABELS[p.time]}</span>
+    ${p.profession ? '<span class="cbadge">👤 '+p.profession+'</span>' : ''}
+    ${p.interests.length ? '<span class="cbadge">❤️ '+interestStr2+'</span>' : ''}
+    <span class="cbadge">📖 ${pathway.length} lessons</span>
+    <span class="cbadge">~${weeks} weeks</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-grid">
+  <div class="stat-box"><div class="stat-n">${pathway.length}</div><div class="stat-l">Total Lessons</div></div>
+  <div class="stat-box"><div class="stat-n">${grammarCount}</div><div class="stat-l">Grammar Points</div></div>
+  <div class="stat-box"><div class="stat-n">${pathway.length - grammarCount}</div><div class="stat-l">Topic Lessons</div></div>
+  <div class="stat-box"><div class="stat-n">~${weeks}</div><div class="stat-l">Weeks</div></div>
+</div>
+
+<!-- LESSONS TABLE -->
+<div class="section">
+  <table class="lessons-table">
+    <tbody>
+      ${bodyRows}
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <span>Created with ❤️ · malcolmhyndman.com</span>
+  <span>${today}</span>
+</div>
+
+<script>window.onload = function(){ setTimeout(function(){ window.print(); },800); }<\/script>
+</body>
+</html>`;
+
+  const win = window.open('', '_blank');
+  if (win) {
+    win.document.write(pdfHtml);
+    win.document.close();
+  }
+}
+
 </script>
 </body>
 </html>
