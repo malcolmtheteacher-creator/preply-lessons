@@ -884,6 +884,46 @@ function getLessonComplexity(l) {
   return base + (seqNum / 40);
 }
 
+// =====================================================
+// COURSE SEQUENCE DETECTION
+// Maps lesson filename patterns → their dashboard courses
+// =====================================================
+const DASHBOARDS = [
+  { re: /^curious_conversations_0[1-6]_/, name: 'Curious Conversations – Series 1', url: 'curious_conversations_dashboard.html', desc: 'Six thought-provoking topics to spark rich real-world discussions', min: 2 },
+  { re: /^curious_conversations_(0[7-9]|1[0-2])_/, name: 'Curious Conversations – Series 2', url: 'curious_conversations_series2_dashboard.html', desc: 'Six more fascinating topics exploring human behaviour and society', min: 2 },
+  { re: /^epicurean_/, name: 'The Epicurean Path', url: 'epicurean_dashboard.html', desc: 'A 30-lesson deep-dive through Epicurean philosophy and its modern legacy', min: 2 },
+  { re: /^cambridge_cae_/, name: 'Cambridge CAE Preparation', url: 'cambridge_exam_prep_dashboard.html', desc: 'Structured exam preparation for Cambridge C1 Advanced', min: 1 },
+  { re: /^cambridge_cpe_/, name: 'Cambridge CPE Preparation', url: 'cambridge_exam_prep_dashboard.html', desc: 'Full preparation course for Cambridge C2 Proficiency', min: 1 },
+  { re: /^cpe_read_(c1|c2)_/, name: 'CPE Reading Series', url: 'cpe_reading_dashboard.html', desc: 'Challenging reading practice across C1–C2 texts and topics', min: 2 },
+  { re: /^ielts_task_1_/, name: 'IELTS Writing Task 1', url: 'ielts_task_1_dashboard.html', desc: 'Step-by-step practice for IELTS Academic Writing Task 1', min: 2 },
+  { re: /^essay_practice_/, name: 'IELTS Essay Practice', url: 'ielts_essay_dashboard.html', desc: 'Five essay types fully covered for IELTS Writing Task 2', min: 2 },
+  { re: /^speaking_naturally_(0[1-6]_|lesson)/, name: 'Speaking Naturally – Series 1', url: 'speaking_naturally_dashboard.html', desc: 'A complete course building natural, fluent spoken English', min: 2 },
+  { re: /^speaking_naturally_advanced_/, name: 'Speaking Naturally: Real Conversations', url: 'speaking_naturally_real_conversations_dashboard.html', desc: 'Advanced lessons for authentic, unrehearsed conversation', min: 2 },
+  { re: /^writing_lesson_\d+\.html$/, name: 'Writing Academic English', url: 'writing_course_dashboard.html', desc: 'A 50-lesson structured academic writing programme', min: 3 },
+  { re: /^ct_(a2|b1)_/, name: 'Conversation Toolkit', url: 'conversation_toolkit_dashboard.html', desc: 'Essential language blocks for confident, natural conversation', min: 2 },
+  { re: /^bp_c2_/, name: 'Beyond Perfect – C2 English', url: 'beyond_perfect_dashboard.html', desc: 'C2-level precision, nuance and consulting-register language', min: 2 },
+  { re: /^st_pro_/, name: 'Strategic Storytelling', url: 'strategic_storytelling_dashboard.html', desc: 'Professional storytelling for leadership and business contexts', min: 2 },
+  { re: /^Business-Bootcamp-/, name: 'The Boardroom: Business Bootcamp', url: 'business_bootcamp_dashboard.html', desc: 'Eight intensive lessons through real high-stakes business scenarios', min: 2 },
+  { re: /^skills_(a2|b1b2|c1)_trade_fair_/, name: 'Trade Fair English', url: 'trade_fair_dashboard.html', desc: 'Master professional communication at international trade events', min: 2 },
+  { re: /^sp_c1_0[1-6]_/, name: 'Commanding Discourse', url: 'commanding_discourse_dashboard.html', desc: 'C1-level discourse mastery, argument and high-stakes communication', min: 2 },
+  { re: /^pron_c1_0[1-6]_/, name: 'Pronunciation Pathway', url: 'pronunciation_pathway_dashboard.html', desc: 'Systematic pronunciation improvement through six focused modules', min: 2 },
+  { re: /^(first_impressions_small_talk|giving_opinions_suggestions|handling_questions_buying_time|problems_and_solutions|closing_meetings_following_up)/, name: 'Business Meetings: The Essentials', url: 'business_meetings_dashboard.html', desc: 'Five lessons covering the full language of professional meetings', min: 2 },
+  { re: /^su_b2_discuss_/, name: 'Speaking Naturally – Advanced Discussions', url: 'speaking_naturally_advanced_dashboard.html', desc: 'B2-level discussion practice on contemporary topics', min: 2 },
+];
+
+function detectCourseSequences(pathway) {
+  const counts = {};
+  pathway.forEach(function(l) {
+    if (!l.f) return;
+    DASHBOARDS.forEach(function(d, idx) {
+      if (d.re.test(l.f)) counts[idx] = (counts[idx] || 0) + 1;
+    });
+  });
+  return DASHBOARDS
+    .map(function(d, idx) { return Object.assign({}, d, { count: counts[idx] || 0 }); })
+    .filter(function(d) { return d.count >= d.min; });
+}
+
 function generatePathway(p) {
   var level = p.level, goals = p.goals || [p.goal||'general'], profession = p.profession||'',
       interests = p.interests, weakAreas = p.weakAreas, time = p.time;
@@ -1257,6 +1297,33 @@ function generateAndShow() {
     listEl.appendChild(card);
   });
 
+  // Course sequence callouts — show after lesson list
+  const previewSequences = detectCourseSequences(generatedPathway);
+  if (previewSequences.length > 0) {
+    const seqSection = document.createElement('div');
+    seqSection.style.cssText = 'margin-top:28px;';
+    const seqHeading = document.createElement('div');
+    seqHeading.style.cssText = 'font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:10px;';
+    seqHeading.textContent = 'Courses Worth Exploring';
+    seqSection.appendChild(seqHeading);
+    const seqNote = document.createElement('p');
+    seqNote.style.cssText = 'font-size:0.82rem;color:#aaa;margin-bottom:12px;';
+    seqNote.textContent = 'Some lessons in this pathway come from these full structured courses.';
+    seqSection.appendChild(seqNote);
+    previewSequences.forEach(function(d) {
+      const card = document.createElement('a');
+      card.href = SITE_BASE + d.url;
+      card.target = '_blank';
+      card.style.cssText = 'display:block;text-decoration:none;background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);border-left:4px solid #667eea;';
+      card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">' +
+        '<div><div style="font-weight:700;font-size:0.9rem;color:#333;margin-bottom:2px;">' + d.name + '</div>' +
+        '<div style="font-size:0.78rem;color:#888;">' + d.desc + '</div></div>' +
+        '<div style="color:#667eea;font-size:0.78rem;font-weight:600;white-space:nowrap;flex-shrink:0;">View →</div></div>';
+      seqSection.appendChild(card);
+    });
+    listEl.appendChild(seqSection);
+  }
+
   showStep(5);
 }
 
@@ -1355,6 +1422,28 @@ function downloadPathway() {
       </div>
     </div>`;
   });
+
+  // Detect course sequences in the pathway
+  const sequences = detectCourseSequences(pathway);
+  let sequencesHTML = '';
+  if (sequences.length > 0) {
+    const seqCards = sequences.map(function(d) {
+      return `
+    <a href="${SITE_BASE}${d.url}" target="_blank" style="display:block;text-decoration:none;background:white;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid #667eea;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(102,126,234,0.18)'" onmouseout="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <div>
+          <div style="font-weight:700;font-size:0.95rem;color:#333;margin-bottom:3px;">${d.name}</div>
+          <div style="font-size:0.8rem;color:#888;">${d.desc}</div>
+        </div>
+        <div style="color:#667eea;font-size:0.82rem;font-weight:600;white-space:nowrap;flex-shrink:0;">View course →</div>
+      </div>
+    </a>`;
+    }).join('');
+    sequencesHTML = `
+  <div class="section-heading" style="margin-top:36px;">Courses Worth Exploring</div>
+  <p style="font-size:0.83rem;color:#888;margin:-4px 0 14px;">Several lessons in your pathway come from these full structured courses. If you enjoy those lessons, the complete course is worth following.</p>
+  ${seqCards}`;
+  }
 
   // Build interest + weak area strings for the profile section
   const interestStr = p.interests.length
@@ -1455,6 +1544,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; }
 
   <div class="section-heading">Your Learning Journey</div>
 ${lessonCardsHTML}
+${sequencesHTML}
 
   <div class="notes-section">
     <h3>Notes from your teacher</h3>
