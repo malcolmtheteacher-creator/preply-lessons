@@ -158,6 +158,47 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
 
 .hint-text { font-size: 0.82rem; color: #999; margin-top: 12px; line-height: 1.6; }
 
+/* Free-text intro step */
+.intro-hint {
+  background: #f0edff; border-radius: 12px; padding: 14px 16px;
+  font-size: 0.84rem; color: #553c9a; line-height: 1.6; margin-bottom: 18px;
+  border-left: 4px solid #667eea;
+}
+.starter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+.starter-label { font-size: 0.75rem; color: #aaa; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; }
+.starter-chip {
+  background: white; border: 1.5px solid #d0c8f0; color: #667eea;
+  border-radius: 20px; padding: 5px 14px; font-size: 0.8rem; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.starter-chip:hover { background: #f0edff; border-color: #667eea; }
+.profile-textarea {
+  width: 100%; min-height: 110px; border: 2px solid #e0e0e0; border-radius: 12px;
+  padding: 14px 16px; font-size: 0.95rem; font-family: inherit; resize: vertical;
+  line-height: 1.6; transition: border-color 0.2s; background: white;
+}
+.profile-textarea:focus { outline: none; border-color: #667eea; }
+.detected-row {
+  min-height: 38px; margin-top: 14px; display: flex; flex-wrap: wrap;
+  gap: 8px; align-items: center;
+}
+.detected-label {
+  font-size: 0.72rem; color: #aaa; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; width: 100%; margin-bottom: 2px;
+}
+.det-chip {
+  display: inline-flex; align-items: center; gap: 5px; border-radius: 20px;
+  padding: 5px 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  transition: opacity 0.15s; user-select: none;
+}
+.det-chip:hover { opacity: 0.75; }
+.det-chip-level  { background: #f0edff; color: #553c9a; border: 1.5px solid #c4b5fd; }
+.det-chip-goal   { background: #e0f2fe; color: #075985; border: 1.5px solid #7dd3fc; }
+.det-chip-prof   { background: #dcfce7; color: #166534; border: 1.5px solid #86efac; }
+.det-chip-topic  { background: #fff7ed; color: #9a3412; border: 1.5px solid #fdba74; }
+.det-chip .chip-x { font-size: 0.68rem; opacity: 0.55; }
+.nothing-detected { font-size: 0.82rem; color: #ccc; font-style: italic; }
+
 /* Edit pathway controls */
 .edit-controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 .filter-chip {
@@ -198,9 +239,47 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
 <div class="container">
 
 <!-- =========================================================
+     INTRO: FREE-TEXT PROFILE (optional fast-track)
+     ========================================================= -->
+<div class="step active" id="stepIntro">
+  <h2 class="step-title">Let's build your pathway</h2>
+  <p class="step-subtitle">Tell us a little about yourself — what you do, what you need English for, and roughly where you are. We'll use your own words to personalise your lessons.</p>
+
+  <div class="form-group">
+    <label class="form-label">Your name</label>
+    <input type="text" class="form-input" id="introName" placeholder="e.g. Sofia" autocomplete="off" oninput="updateIntroBuildBtn()">
+  </div>
+
+  <div class="intro-hint">
+    <strong>Tip:</strong> Try to mention the type of work you do — we use this to match professional vocabulary and real-world contexts. We recognise many common jobs, but not every profession in the world, so don't worry if yours isn't detected.
+  </div>
+
+  <div class="starter-row">
+    <span class="starter-label">Quick-start:</span>
+    <button class="starter-chip" onclick="insertStarter('job')">I work as a...</button>
+    <button class="starter-chip" onclick="insertStarter('goal')">I need English for...</button>
+    <button class="starter-chip" onclick="insertStarter('level')">My level is roughly...</button>
+    <button class="starter-chip" onclick="insertStarter('interest')">I'm also interested in...</button>
+    <button class="starter-chip" onclick="insertStarter('exam')">I'm preparing for...</button>
+  </div>
+
+  <textarea class="profile-textarea" id="profileText" oninput="debounceParseText()"
+    placeholder="e.g. I'm a nurse working in Switzerland. I need to improve my English for talking to patients and writing medical notes. I'd say I'm around intermediate level. I'm also interested in science and health topics."></textarea>
+
+  <div class="detected-row" id="detectedRow">
+    <span class="nothing-detected" id="nothingDetected">Start typing and we'll pick up your level, goals and interests automatically...</span>
+  </div>
+
+  <div class="nav-row" style="flex-direction:column;align-items:stretch;gap:10px;margin-top:28px;">
+    <button class="btn btn-primary" id="introBuildBtn" onclick="applyAndBuild()" style="max-width:100%;" disabled>Build my pathway →</button>
+    <button class="btn btn-back" onclick="skipToWizard()" style="text-align:center;border-color:#e0d8ff;color:#888;">Prefer to set it up step by step →</button>
+  </div>
+</div>
+
+<!-- =========================================================
      STEP 1: NAME
      ========================================================= -->
-<div class="step active" id="step0">
+<div class="step" id="step0">
   <h2 class="step-title">Welcome! What's your name?</h2>
   <p class="step-subtitle">Your pathway will be personalised with your name, so we know it's yours.</p>
   <div class="form-group">
@@ -554,7 +633,21 @@ function resetAndStart() {
   document.getElementById('nextBtn1').disabled = true;
   document.getElementById('nextBtn2').disabled = true;
   document.getElementById('nextBtn4').disabled = true;
-  showStep(0);
+  // Reset intro fields
+  document.getElementById('introName').value = '';
+  document.getElementById('profileText').value = '';
+  detectedState = { level: null, goals: [], profession: null, topics: [], removed: {} };
+  document.getElementById('introBuildBtn').disabled = true;
+  renderDetectedChips();
+  // Return to intro screen
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('stepIntro').classList.add('active');
+  document.getElementById('progressFill').style.width = '0%';
+  for (var i = 0; i < 6; i++) {
+    var d = document.getElementById('dot'+i);
+    if (d) { d.classList.remove('active','done'); if (i===0) d.classList.add('active'); }
+  }
+  window.scrollTo(0,0);
 }
 
 
@@ -572,6 +665,290 @@ function showStep(n) {
     else if (i === n) dot.classList.add('active');
   }
   window.scrollTo(0, 0);
+}
+
+// =====================================================
+// FREE-TEXT INTRO PARSER
+// =====================================================
+var TOPIC_LABELS = {
+  communication:'Communication', media:'Media & Journalism', writing:'Writing',
+  culture:'Culture & Society', education:'Education', technology:'Technology',
+  management:'Management', arts:'Arts', creativity:'Creativity',
+  presentations:'Presentations', psychology:'Psychology', business:'Business',
+  negotiation:'Negotiation', history:'History', science:'Science',
+  sport:'Sport & Fitness', travel:'Travel', ethics:'Ethics & Philosophy',
+  food:'Food & Cooking', medicine:'Medicine & Health', finance:'Finance',
+  law:'Law & Legal', environment:'Environment', politics:'Politics'
+};
+
+var LEVEL_PATTERNS = [
+  { re: /\b(c2|cpe\b|c2 proficiency|near.?native|mastery level|proficiency level)\b/i, lv: 'c2' },
+  { re: /\b(c1\b|c1 advanced|c1 level)\b/i, lv: 'c1' },
+  { re: /\badvanced\b/i, lv: 'c1' },
+  { re: /\b(b2\b|upper.?intermediate|b2 level)\b/i, lv: 'b2' },
+  { re: /\b(b1\b|pre.?intermediate|lower intermediate|b1 level)\b/i, lv: 'b1' },
+  { re: /\bintermediate\b/i, lv: 'b1' },
+  { re: /\b(a2\b|elementary|a2 level|false beginner|near beginner)\b/i, lv: 'a2' },
+  { re: /\b(a1\b|complete beginner|total beginner|absolute beginner|a1 level|starting from scratch)\b/i, lv: 'a1' },
+  { re: /\bbeginner\b/i, lv: 'a1' },
+];
+
+var GOAL_PATTERNS = [
+  { re: /\b(ielts|ielts test|ielts exam|band \d|ielts band)\b/i, goal: 'ielts' },
+  { re: /\b(cambridge exam|cae\b|c1 advanced exam|cpe\b|c2 proficiency exam|cambridge test)\b/i, goal: 'cambridge' },
+  { re: /\b(business english|professional english|professional communication|workplace english|work english|professional context)\b/i, goal: 'professional' },
+  { re: /\b(meeting|presentation|email writing|business writing|conference|corporate|clients|colleagues|negotiat|office english|work environment)\b/i, goal: 'professional' },
+  { re: /\b(academic english|academic writing|university english|research english|thesis|dissertation|academic paper|academic skills)\b/i, goal: 'academic' },
+  { re: /\b(university|college|postgraduate|masters|phd|scholarship)\b/i, goal: 'academic' },
+  { re: /\b(general english|everyday english|conversational english|daily english|improve my speaking|improve my conversation|chat in english|socialise|social english)\b/i, goal: 'general' },
+];
+
+var TOPIC_PATTERNS = {
+  communication: /\b(communicat|interact|interpersonal)\b/i,
+  media: /\b(media|journalism|journalist|news|broadcast|podcast|press)\b/i,
+  writing: /\b(writ(ing|e|ten)\b|essay|report|documents?|formal writing)\b/i,
+  culture: /\b(cultur|tradition|heritage)\b/i,
+  education: /\b(teach(ing|er)|educat|classroom|tutor|curriculum)\b/i,
+  technology: /\b(tech(nology)?\b|software\b|(?<!\w)IT\b|digital|computer|coding|programming|(?<!\w)AI\b)\b/i,
+  management: /\b(manag(ing|ement|er)\b|leadership|team lead)\b/i,
+  arts: /\b((?<!\w)art\b|music(al)?\b|film\b|cinema|literature|theatre|drama)\b/i,
+  creativity: /\b(creative|creativity|design\b|innovati)\b/i,
+  presentations: /\b(presentation|public speaking|speech\b|pitching|keynote)\b/i,
+  psychology: /\b(psycholog|behaviour|mental health|mindset|counsell)\b/i,
+  business: /\b(business\b|company|corporate|market(ing)?\b|commerce|trade\b|startup|entrepreneur)\b/i,
+  negotiation: /\b(negotiat|deal(s)?\b|contracts?\b|persuad|convinc|sales\b|selling)\b/i,
+  history: /\b(histor(y|ical)|ancient|medieval)\b/i,
+  science: /\b(scien(ce|tific)|biology|chemistry|physics|laboratory)\b/i,
+  sport: /\b(sport|fitness|exercise|training\b|coaching)\b/i,
+  travel: /\b(travel|tourism|abroad|expat|immigrat|relocat)\b/i,
+  ethics: /\b(ethics|moral\b|philosophy|values\b|rights\b|justice)\b/i,
+  food: /\b(food\b|cooking|chef\b|cuisine|restaurant|nutrition)\b/i,
+  medicine: /\b(medic(al|ine)|doctor\b|nurse\b|hospital|patient|clinical|healthcare?|pharmaceutical|surgery|dental|(?<!\w)GP\b|physician)\b/i,
+  finance: /\b(financ(e|ial)|banking|invest(ment)?\b|account(ing|ant)|audit\b|economics)\b/i,
+  law: /\b((?<!\w)law\b|legal\b|lawyer|solicitor|court\b|compliance|regulation|attorney)\b/i,
+  environment: /\b(environment|climate|sustainab|ecology|green energy|renewable)\b/i,
+  politics: /\b(politic|government|policy\b|election|democracy|parliament)\b/i,
+};
+
+// Known professions: [ [keywords...], canonical name ]
+var PROFESSION_MAP = [
+  [['surgeon'], 'surgeon'],
+  [['doctor','physician','general practitioner','(?<!\w)GP(?!\w)'], 'doctor'],
+  [['nurse','nursing'], 'nurse'],
+  [['dentist','dental hygienist'], 'dentist'],
+  [['pharmacist','pharmacy technician'], 'pharmacist'],
+  [['physiotherapist','physical therapist'], 'physiotherapist'],
+  [['vet(?:erinary|erinarian)?(?=\b)','veterinarian'], 'vet'],
+  [['psychologist','therapist','counsellor','counselor'], 'psychologist'],
+  [['teacher','schoolteacher','english teacher'], 'teacher'],
+  [['professor'], 'professor'],
+  [['lecturer'], 'lecturer'],
+  [['software engineer','software developer','programmer','coder'], 'software engineer'],
+  [['data scientist'], 'data scientist'],
+  [['data analyst'], 'data analyst'],
+  [['(?:mechanical|civil|electrical|chemical) engineer','engineering'], 'engineer'],
+  [['architect'], 'architect'],
+  [['lawyer','solicitor','barrister','attorney'], 'lawyer'],
+  [['accountant','auditor'], 'accountant'],
+  [['financial analyst','finance manager','banker','banking'], 'financial analyst'],
+  [['economist'], 'economist'],
+  [['journalist','reporter'], 'journalist'],
+  [['editor'], 'editor'],
+  [['graphic designer','ux designer','product designer'], 'designer'],
+  [['marketing manager','marketer','digital marketer'], 'marketer'],
+  [['sales manager','salesperson','sales representative','sales rep'], 'salesperson'],
+  [['project manager'], 'project manager'],
+  [['product manager'], 'product manager'],
+  [['consultant'], 'consultant'],
+  [['(?:senior )?manager\b'], 'manager'],
+  [['director\b','managing director'], 'director'],
+  [['(?:chief executive|ceo|cto|cfo|coo)'], 'ceo'],
+  [['entrepreneur','startup founder','co.?founder'], 'entrepreneur'],
+  [['researcher','scientist'], 'researcher'],
+  [['chef\b','culinary'], 'chef'],
+  [['pilot\b'], 'pilot'],
+  [['translator','interpreter'], 'translator'],
+  [['student'], 'student'],
+  [['hr manager','human resources','recruiter'], 'hr manager'],
+  [['civil servant','government worker','public sector'], 'civil servant'],
+  [['police officer','police\b'], 'police officer'],
+  [['(?:military|army|navy|air force) officer','soldier'], 'military officer'],
+  [['logistics manager','logistics\b','supply chain'], 'logistics manager'],
+  [['social worker'], 'social worker'],
+  [['actuary','insurance\b'], 'insurance professional'],
+  [['real estate agent','estate agent'], 'real estate agent'],
+  [['diplomat\b'], 'diplomat'],
+  [['biologist','chemist\b','physicist'], 'scientist'],
+  [['artist\b','painter\b','sculptor'], 'artist'],
+  [['musician\b'], 'musician'],
+  [['actor\b','actress\b','performer'], 'actor'],
+  [['author\b','writer\b'], 'author'],
+];
+
+var detectedState = { level: null, goals: [], profession: null, topics: [], removed: {} };
+var parseTimer = null;
+
+function debounceParseText() {
+  updateIntroBuildBtn();
+  clearTimeout(parseTimer);
+  parseTimer = setTimeout(parseProfileText, 280);
+}
+
+function updateIntroBuildBtn() {
+  var name = (document.getElementById('introName').value || '').trim();
+  var text = (document.getElementById('profileText').value || '').trim();
+  document.getElementById('introBuildBtn').disabled = !(name.length > 0 && text.length > 8);
+}
+
+function parseProfileText() {
+  var text = document.getElementById('profileText').value;
+  detectedState.removed = {}; // reset removals on each new parse
+  var found = { level: null, goals: [], profession: null, topics: [] };
+
+  // Level
+  for (var i = 0; i < LEVEL_PATTERNS.length; i++) {
+    if (LEVEL_PATTERNS[i].re.test(text)) { found.level = LEVEL_PATTERNS[i].lv; break; }
+  }
+
+  // Goals (multiple)
+  var goalsSeen = {};
+  for (var i = 0; i < GOAL_PATTERNS.length; i++) {
+    var g = GOAL_PATTERNS[i].goal;
+    if (!goalsSeen[g] && GOAL_PATTERNS[i].re.test(text)) {
+      found.goals.push(g); goalsSeen[g] = true;
+    }
+  }
+
+  // Profession (first match)
+  for (var i = 0; i < PROFESSION_MAP.length; i++) {
+    var matched = false;
+    for (var j = 0; j < PROFESSION_MAP[i][0].length; j++) {
+      try {
+        if (new RegExp('\\b(' + PROFESSION_MAP[i][0][j] + ')\\b', 'i').test(text)) {
+          found.profession = PROFESSION_MAP[i][1]; matched = true; break;
+        }
+      } catch(e) {
+        if (text.toLowerCase().indexOf(PROFESSION_MAP[i][0][j].toLowerCase()) !== -1) {
+          found.profession = PROFESSION_MAP[i][1]; matched = true; break;
+        }
+      }
+    }
+    if (matched) break;
+  }
+
+  // Topics
+  var topicKeys = Object.keys(TOPIC_PATTERNS);
+  for (var i = 0; i < topicKeys.length; i++) {
+    try {
+      if (TOPIC_PATTERNS[topicKeys[i]].test(text)) found.topics.push(topicKeys[i]);
+    } catch(e) {}
+  }
+
+  detectedState.level = found.level;
+  detectedState.goals = found.goals;
+  detectedState.profession = found.profession;
+  detectedState.topics = found.topics;
+  renderDetectedChips();
+}
+
+function renderDetectedChips() {
+  var row = document.getElementById('detectedRow');
+  var chips = [];
+  if (detectedState.level && !detectedState.removed['level'])
+    chips.push({ id:'level', type:'level', label: (LV_LABELS[detectedState.level]||detectedState.level) + ' level' });
+  detectedState.goals.forEach(function(g) {
+    if (!detectedState.removed['goal_'+g])
+      chips.push({ id:'goal_'+g, type:'goal', label: GOAL_LABELS[g]||g });
+  });
+  if (detectedState.profession && !detectedState.removed['prof'])
+    chips.push({ id:'prof', type:'prof', label: detectedState.profession });
+  detectedState.topics.forEach(function(t) {
+    if (!detectedState.removed['topic_'+t])
+      chips.push({ id:'topic_'+t, type:'topic', label: TOPIC_LABELS[t]||t });
+  });
+
+  var text = (document.getElementById('profileText').value||'').trim();
+  if (chips.length === 0) {
+    row.innerHTML = '<span class="nothing-detected">' + (text.length < 8
+      ? 'Start typing and we\'ll pick up your level, goals and interests automatically...'
+      : 'Keep going — try mentioning your level (e.g. "intermediate") and what you need English for.') + '</span>';
+    return;
+  }
+
+  var html = '<span class="detected-label">What we found — click any to remove:</span>';
+  chips.forEach(function(c) {
+    html += '<span class="det-chip det-chip-' + c.type + '" onclick="removeDetectedChip(\'' + c.id + '\')">'
+          + c.label + ' <span class="chip-x">✕</span></span>';
+  });
+  if (!detectedState.level || detectedState.removed['level']) {
+    html += '<span style="font-size:0.75rem;color:#bbb;width:100%;margin-top:4px;display:block;">Level not detected — we\'ll default to B1. Use <em>step by step</em> below to set it yourself.</span>';
+  }
+  row.innerHTML = html;
+}
+
+function removeDetectedChip(id) {
+  detectedState.removed[id] = true;
+  renderDetectedChips();
+}
+
+var STARTERS = {
+  job: 'I work as a ',
+  goal: 'I need English for ',
+  level: 'My level is roughly ',
+  interest: "I'm also interested in ",
+  exam: "I'm preparing for ",
+};
+function insertStarter(type) {
+  var ta = document.getElementById('profileText');
+  var phrase = STARTERS[type] || '';
+  var cur = ta.value;
+  if (cur.length > 0 && !cur.endsWith('\n') && !cur.endsWith(' ')) phrase = '\n' + phrase;
+  ta.value = cur + phrase;
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = ta.value.length;
+  debounceParseText();
+}
+
+function applyAndBuild() {
+  var name = (document.getElementById('introName').value || '').trim();
+  if (!name) { document.getElementById('introName').focus(); return; }
+
+  profile.name = name;
+  profile.level = (detectedState.level && !detectedState.removed['level']) ? detectedState.level : 'b1';
+  profile.goals = detectedState.goals.filter(function(g) { return !detectedState.removed['goal_'+g]; });
+  if (profile.goals.length === 0) profile.goals = ['general'];
+  profile.profession = (detectedState.profession && !detectedState.removed['prof']) ? detectedState.profession : '';
+  profile.interests = detectedState.topics.filter(function(t) { return !detectedState.removed['topic_'+t]; });
+  profile.time = 'regular';
+  profile.weakAreas = [];
+
+  // Pre-fill wizard fields so "step by step" works if they go back
+  document.getElementById('studentName').value = name;
+  if (document.getElementById('studentProfession')) document.getElementById('studentProfession').value = profile.profession;
+  document.querySelectorAll('#levelGrid .option-card').forEach(function(card) {
+    var txt = card.querySelector('.oc-label').textContent;
+    if (txt.toLowerCase().startsWith(profile.level)) {
+      card.classList.add('selected');
+      document.getElementById('nextBtn1').disabled = false;
+    }
+  });
+  document.querySelectorAll('#goalGrid .option-card').forEach(function(card) {
+    var fn = card.getAttribute('onclick')||'';
+    profile.goals.forEach(function(g) { if (fn.indexOf("'"+g+"'") !== -1) card.classList.add('selected'); });
+  });
+  document.getElementById('nextBtn2').disabled = false;
+  document.querySelectorAll('#interestGrid .check-card').forEach(function(card) {
+    var fn = card.getAttribute('onclick')||'';
+    profile.interests.forEach(function(t) { if (fn.indexOf("'"+t+"'") !== -1) card.classList.add('selected'); });
+  });
+
+  generateAndShow();
+}
+
+function skipToWizard() {
+  var name = (document.getElementById('introName').value || '').trim();
+  if (name) document.getElementById('studentName').value = name;
+  showStep(0);
 }
 
 // =====================================================
