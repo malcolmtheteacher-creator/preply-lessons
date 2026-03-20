@@ -937,9 +937,40 @@ function generatePathway(p) {
   var grammarSpine = (GRAMMAR_SPINE[level]||[]).map(function(g){ return Object.assign({},g,{type:'grammar'}); });
   var topicTarget = total - grammarSpine.length;
 
+  // Returns the sequence number for lessons in ordered series (sp_, ct_, epicurean_, etc.)
+  // Returns 0 for standalone lessons. Used to penalise mid-series lessons.
+  function getSeriesNum(fname) {
+    var patterns = [
+      /^sp_[a-z0-9]+_(\d+)_/,              // sp_a2_15_recall_challenge → 15
+      /^ct_[a-z0-9]+_(\d+)_/,              // ct_b1_21_complex_questions → 21
+      /^epicurean_(\d+)_/,                  // epicurean_15_the_canonic → 15
+      /^curious_conversations_(\d+)_/,      // curious_conversations_07_... → 7
+      /^writing_lesson_0*(\d+)/,            // writing_lesson_15 → 15
+      /^cpe_read_[a-z0-9]+_0*(\d+)_/,      // cpe_read_c1_05_... → 5
+      /^st_pro_0*(\d+)_/,                   // st_pro_07_... → 7
+      /^pron_c1_0*(\d+)_/,                  // pron_c1_04_... → 4
+      /^speaking_naturally_0*(\d+)_/,       // speaking_naturally_06_... → 6
+      /^speaking_naturally_advanced_0*(\d+)_/, // speaking_naturally_advanced_02 → 2
+      /^bp_c2_0*(\d+)_/,                    // bp_c2_05_... → 5
+      /^Business-Bootcamp-Lesson(\d+)-/,    // Business-Bootcamp-Lesson5 → 5
+      /^skills_[a-z0-9]+_trade_fair_.*?(\d+)/  // skills_a2_trade_fair_simulation → skip
+    ];
+    for (var i = 0; i < patterns.length; i++) {
+      var m = fname.match(patterns[i]);
+      if (m) return parseInt(m[1]);
+    }
+    return 0;
+  }
+
   function scoreLesson(l) {
     var score = 0;
     var sk = l.sk || 'discussion';
+
+    // ── SERIES SEQUENCE PENALTY ───────────────────────────────────
+    // Lessons in ordered series (sp_, epicurean_, ct_, etc.) should be
+    // picked from the START. Progressive penalty for mid-series lessons.
+    var sNum = getSeriesNum(l.f || '');
+    if (sNum > 1) score -= (sNum - 1) * 10;  // lesson 5 = -40, lesson 15 = -140
 
     // ── GOAL SCORING (all selected goals contribute) ─────────────
     var goalWeight = goals.length > 1 ? 0.7 : 1.0;
@@ -1130,11 +1161,19 @@ function generatePathway(p) {
   }
 
   // Add 2 revision lessons from level below (warm-up)
+  // Only use standalone lessons — exclude mid-series lessons (seqNum > 2)
+  // so students don't get lesson 15 of a series they've never started
   if (lvIdx > 0 && topicTarget > 10) {
     var below = levelOrder[lvIdx-1];
-    var revPool = LESSONS.filter(function(l){ return l.lv===below && ['discussion','speaking','professional'].indexOf(l.sk)!==-1; })
-                         .sort(function(a,b){ return scoreLesson(b)-scoreLesson(a); })
-                         .slice(0,2);
+    var revPool = LESSONS.filter(function(l){
+      if (l.lv !== below) return false;
+      if (['discussion','speaking','professional'].indexOf(l.sk) === -1) return false;
+      if (isDashboard(l)) return false;
+      if (!hasCambridgeGoal && (l.cat === 'cambridge-cae' || l.cat === 'cambridge-cpe')) return false;
+      var sn = getSeriesNum(l.f || '');
+      if (sn > 2) return false; // Never use lesson 3+ of a series as a warm-up
+      return true;
+    }).sort(function(a,b){ return scoreLesson(b)-scoreLesson(a); }).slice(0,2);
     revPool.forEach(function(l,i){ selectedTopics.splice(i,0,Object.assign({},l,{type:'topic',revision:true})); });
   }
 
