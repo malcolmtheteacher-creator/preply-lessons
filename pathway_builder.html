@@ -614,7 +614,12 @@ body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2d2d2d; mi
       <button class="btn-download" onclick="downloadPathway()">Download as Webpage</button>
       <button class="btn-download" onclick="downloadPathwayPDF()" style="background:linear-gradient(135deg,#e53e3e,#c53030);">Save as PDF</button>
     </div>
-    <p class="hint-text">Send the webpage to your teacher — they'll publish it so you can track progress.<br>Print the PDF for a clean paper copy of your full pathway.</p>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid #d5e8de;">
+      <button class="btn-download" onclick="sendToMalcolm()" style="background:#1e3a2f;font-size:0.95rem;padding:14px 28px;">
+        ✉ Send my profile to Malcolm
+      </button>
+      <p class="hint-text" style="margin-top:8px;">Opens your email with your profile and pathway details pre-filled — just hit send.</p>
+    </div>
   </div>
 
   <div style="margin-top:24px; text-align:center;">
@@ -629,7 +634,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2d2d2d; mi
 // PROFILE STATE
 // =====================================================
 const profile = {
-  name: '', level: '', goals: [], profession: '', interests: [], weakAreas: [], avoids: [], time: ''
+  name: '', level: '', goals: [], profession: '', interests: [], weakAreas: [], avoids: [], introText: '', time: ''
 };
 
 const TOTAL_STEPS = 6;
@@ -1027,6 +1032,9 @@ function insertStarter(type) {
 }
 
 function applyAndContinue() {
+  // Save raw intro text
+  profile.introText = (document.getElementById('profileText').value || '').trim();
+
   // Sync name
   var name = (document.getElementById('introName').value || '').trim();
   if (name) {
@@ -1981,6 +1989,39 @@ function generateAndShow() {
 
 
 // =====================================================
+// SEND TO MALCOLM — mailto with student profile
+// =====================================================
+function sendToMalcolm() {
+  var p = profile;
+  var lvLabel = LV_LABELS[p.level] || p.level || 'Not set';
+  var goalStr = (p.goals||[]).map(function(g){ return GOAL_LABELS[g]||g; }).join(', ') || 'Not set';
+  var interestStr = (p.interests||[]).map(function(t){ return TOPIC_LABELS[t]||t; }).join(', ') || 'None detected';
+  var avoidStr = (p.avoids||[]).length ? (p.avoids||[]).join(', ') : 'None';
+  var weakStr = (p.weakAreas||[]).length ? (p.weakAreas||[]).join(', ') : 'None';
+
+  var subject = encodeURIComponent((p.name || 'A student') + ' — English Pathway Profile');
+  var body = encodeURIComponent(
+    'Hi Malcolm,\n\n' +
+    'Here is my profile from the pathway builder:\n\n' +
+    '--- WHAT I WROTE ---\n' +
+    (p.introText || '(nothing entered)') + '\n\n' +
+    '--- WHAT THE SYSTEM DETECTED ---\n' +
+    'Name: ' + (p.name || '—') + '\n' +
+    'Level: ' + lvLabel + '\n' +
+    'Goals: ' + goalStr + '\n' +
+    'Profession: ' + (p.profession || '—') + '\n' +
+    'Interests: ' + interestStr + '\n' +
+    'Wants to avoid: ' + avoidStr + '\n' +
+    'Weak areas: ' + weakStr + '\n' +
+    'Study pace: ' + (p.time || '—') + '\n\n' +
+    'Looking forward to our lessons!\n' +
+    (p.name || 'Your student')
+  );
+
+  window.location.href = 'mailto:malcolmtheteacher@gmail.com?subject=' + subject + '&body=' + body;
+}
+
+// =====================================================
 // DOWNLOAD — generate standalone student pathway HTML
 // =====================================================
 function downloadPathway() {
@@ -2201,6 +2242,11 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; }
   <div class="section-heading">Your Learning Journey</div>
 ${lessonCardsHTML}
 ${sequencesHTML}
+
+  ${p.introText ? `<div style="background:#f8f7f4;border:1px solid #e0ddd8;border-radius:10px;padding:16px 20px;margin-bottom:20px;">
+    <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:8px;">What ${p.name||'the student'} wrote</div>
+    <pre style="font-family:inherit;font-size:0.88rem;color:#444;white-space:pre-wrap;margin:0;line-height:1.6;">${p.introText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+  </div>` : ''}
 
   <div class="notes-section">
     <h3>Notes from your teacher</h3>
