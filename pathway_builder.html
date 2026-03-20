@@ -111,12 +111,34 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
 /* Lesson cards in preview */
 .lesson-card {
   background: white; border-radius: 12px; padding: 14px 16px;
-  margin-bottom: 8px; display: flex; align-items: flex-start; gap: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-left: 3px solid #ddd;
+  margin-bottom: 6px; display: flex; align-items: flex-start; gap: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-left: 4px solid #ddd;
   transition: box-shadow 0.2s;
 }
+.lesson-card:hover { box-shadow: 0 4px 12px rgba(102,126,234,0.15); }
 .lesson-card.grammar-card { border-left-color: #667eea; }
 .lesson-card.topic-card { border-left-color: #48bb78; }
+/* Phase headers in preview */
+.phase-header {
+  display: flex; align-items: center; gap: 10px;
+  background: white; border-radius: 12px; padding: 12px 16px 12px 20px;
+  margin: 20px 0 6px; border-left: 5px solid #48bb78;
+  font-size: 0.95rem; font-weight: 700; color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.phase-num {
+  background: linear-gradient(135deg,#667eea,#764ba2); color: white;
+  border-radius: 20px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.phase-weeks { margin-left: auto; font-size: 0.78rem; color: #aaa; font-weight: 400; }
+/* Skill type divider */
+.sk-divider {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: #bbb; padding: 8px 4px 3px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sk-divider::after { content:''; flex:1; height:1px; background:#f0f0f0; margin-left:8px; }
 .lesson-num { font-size: 0.75rem; font-weight: 700; color: #999; min-width: 28px; padding-top: 2px; }
 .lesson-info { flex: 1; }
 .lesson-title { font-weight: 600; font-size: 0.92rem; color: #222; }
@@ -431,9 +453,12 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
 
   <div class="download-box">
     <h3>📥 Save Your Pathway</h3>
-    <p>Download your personalised pathway as a webpage — your teacher will publish it so you can bookmark it and track your progress.</p>
-    <button class="btn-download" onclick="downloadPathway()">⬇ Download My Pathway</button>
-    <p class="hint-text">After downloading, send the file to your teacher.<br>They'll publish it so you have a permanent link to check off lessons as you go.</p>
+    <p>Download as an interactive webpage, or save a beautiful PDF to print and use in lessons.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px;">
+      <button class="btn-download" onclick="downloadPathway()">⬇ Download as Webpage</button>
+      <button class="btn-download" onclick="downloadPathwayPDF()" style="background:linear-gradient(135deg,#e53e3e,#c53030);">🖨 Save as PDF</button>
+    </div>
+    <p class="hint-text">Send the webpage to your teacher — they'll publish it so you can track progress.<br>Print the PDF for a clean paper copy of your full pathway.</p>
   </div>
 
   <div style="margin-top:24px; text-align:center;">
@@ -1044,16 +1069,81 @@ function generateAndShow() {
   document.getElementById('statGrammar').textContent = grammarCount;
   document.getElementById('statWeeks').textContent = weeks;
 
-  // Lesson list
+  // Lesson list — grouped by section
   const listEl = document.getElementById('pathwayList');
   listEl.innerHTML = '';
 
+  const total = generatedPathway.length;
+  const lessonsPerWkPreview = { light: 1, regular: 2.5, intensive: 4 }[profile.time] || 2;
+  let lessonNum = 0; // running lesson counter (non-grammar only for phases)
+  let lastGroupKey = null;
+
+  // Compute phase boundaries
+  const topicLessons = generatedPathway.filter(l => l.type !== 'grammar');
+  const ph1End = Math.ceil(topicLessons.length * 0.35);
+  const ph2End = Math.ceil(topicLessons.length * 0.68);
+  let topicIdx = 0;
+
+  const SK_GROUP = {
+    'discussion': { label: 'Discussion', icon: '🗣️', col: '#48bb78' },
+    'speaking':   { label: 'Speaking Practice', icon: '🎤', col: '#38b2ac' },
+    'professional': { label: 'Professional Skills', icon: '💼', col: '#667eea' },
+    'writing':    { label: 'Writing', icon: '✍️', col: '#805ad5' },
+    'academic':   { label: 'Academic', icon: '🎓', col: '#805ad5' },
+    'ielts':      { label: 'IELTS', icon: '📋', col: '#d69e2e' },
+    'quick-fix':  { label: 'Grammar Focus', icon: '🔧', col: '#e53e3e' },
+    'grammar':    { label: 'Grammar Checkpoint', icon: '📝', col: '#667eea' },
+    'general':    { label: 'General', icon: '📖', col: '#48bb78' },
+  };
+
   generatedPathway.forEach((l, i) => {
     const isGrammar = l.type === 'grammar';
+    const sk = isGrammar ? 'grammar' : (l.sk || 'discussion');
+    const grp = SK_GROUP[sk] || { label: sk, icon: '📖', col: '#999' };
+
+    // Phase header for topic lessons
+    if (!isGrammar) {
+      if (topicIdx === 0) {
+        const h = document.createElement('div');
+        h.className = 'phase-header';
+        const wkEnd = Math.round(ph1End / lessonsPerWkPreview);
+        h.innerHTML = '<span class="phase-num">Phase 1</span> Foundation <span class="phase-weeks">Weeks 1–' + Math.max(1,wkEnd) + '</span>';
+        h.style.borderLeftColor = '#48bb78';
+        listEl.appendChild(h);
+      } else if (topicIdx === ph1End) {
+        const h = document.createElement('div');
+        h.className = 'phase-header';
+        const w1 = Math.round(ph1End / lessonsPerWkPreview) + 1;
+        const w2 = Math.round(ph2End / lessonsPerWkPreview);
+        h.innerHTML = '<span class="phase-num">Phase 2</span> Building Up <span class="phase-weeks">Weeks ' + w1 + '–' + w2 + '</span>';
+        h.style.borderLeftColor = '#667eea';
+        listEl.appendChild(h);
+      } else if (topicIdx === ph2End) {
+        const h = document.createElement('div');
+        h.className = 'phase-header';
+        const w1 = Math.round(ph2End / lessonsPerWkPreview) + 1;
+        h.innerHTML = '<span class="phase-num">Phase 3</span> Mastery <span class="phase-weeks">Week ' + w1 + '+</span>';
+        h.style.borderLeftColor = '#764ba2';
+        listEl.appendChild(h);
+      }
+      topicIdx++;
+    }
+
+    // Skill type divider (only show when type changes, skip grammar→grammar)
+    const groupKey = isGrammar ? ('grammar_' + i) : sk; // grammar each gets unique key to prevent grouping
+    if (!isGrammar && groupKey !== lastGroupKey) {
+      // Only show skill divider if it's not a grammar lesson
+      const div = document.createElement('div');
+      div.className = 'sk-divider';
+      div.innerHTML = '<span style="color:' + grp.col + '">' + grp.icon + ' ' + grp.label + '</span>';
+      listEl.appendChild(div);
+      lastGroupKey = groupKey;
+    }
+
     const icon = isGrammar ? '📝' : (CAT_ICONS[l.cat] || '📖');
     const skLabel = SKILL_LABELS[l.sk] || l.sk || '';
     const tagText = isGrammar ? l.g : (skLabel && skLabel !== 'discussion' ? skLabel + ' · ' + (CAT_LABELS[l.cat]||l.cat) : (CAT_LABELS[l.cat] || l.cat));
-    const revisionBadge = l.revision ? ' <span style="color:#ed8936;font-size:0.7rem;">↩ revision</span>' : '';
+    const revisionBadge = l.revision ? ' <span style="color:#ed8936;font-size:0.7rem;">↩ warm-up</span>' : '';
     const lv = l.lv ? (' <span style="color:#999;font-size:0.72rem;">' + LV_LABELS[l.lv] + '</span>') : '';
 
     const card = document.createElement('div');
@@ -1084,34 +1174,89 @@ function downloadPathway() {
   const grammarCount = pathway.filter(l => l.type === 'grammar').length;
   const today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
 
-  // Build lesson cards HTML
-  const lessonCardsHTML = pathway.map((l, i) => {
+  // Build lesson cards HTML — grouped by phase and skill type
+  const SK_META = {
+    'discussion':   { label:'Discussion',        icon:'🗣️', tagBg:'#f0fdf4', tagCol:'#276749', border:'#48bb78' },
+    'speaking':     { label:'Speaking',          icon:'🎤', tagBg:'#e6fffa', tagCol:'#234e52', border:'#38b2ac' },
+    'professional': { label:'Professional',      icon:'💼', tagBg:'#ebf4ff', tagCol:'#2c5282', border:'#667eea' },
+    'writing':      { label:'Writing',           icon:'✍️', tagBg:'#f5f0ff', tagCol:'#553c9a', border:'#805ad5' },
+    'academic':     { label:'Academic',          icon:'🎓', tagBg:'#f5f0ff', tagCol:'#553c9a', border:'#805ad5' },
+    'ielts':        { label:'IELTS',             icon:'📋', tagBg:'#fffff0', tagCol:'#744210', border:'#d69e2e' },
+    'quick-fix':    { label:'Grammar Focus',     icon:'🔧', tagBg:'#fff5f5', tagCol:'#822727', border:'#e53e3e' },
+    'general':      { label:'General',           icon:'📖', tagBg:'#f0fdf4', tagCol:'#276749', border:'#48bb78' },
+  };
+  const GRAMMAR_META = { label:'Grammar Checkpoint', icon:'📝', tagBg:'#e8f0fe', tagCol:'#3949ab', border:'#667eea' };
+  const PHASE_COLORS = ['#48bb78','#667eea','#764ba2'];
+  const PHASE_LABELS = ['Phase 1 · Foundation','Phase 2 · Building Up','Phase 3 · Mastery'];
+
+  const topicOnly = pathway.filter(l => l.type !== 'grammar');
+  const ph1 = Math.ceil(topicOnly.length * 0.35);
+  const ph2 = Math.ceil(topicOnly.length * 0.68);
+  const lpw = { light:1, regular:2.5, intensive:4 }[p.time] || 2;
+
+  let lessonCardsHTML = '';
+  let topicCount2 = 0;
+  let lastSk = null;
+
+  pathway.forEach((l, i) => {
     const isGrammar = l.type === 'grammar';
-    const icon = isGrammar ? '📝' : (CAT_ICONS[l.cat] || '📖');
-    const catLabel = isGrammar ? 'Grammar' : (CAT_LABELS[l.cat] || l.cat);
-    const tagColour = isGrammar ? '#e8f0fe' : '#f0fdf4';
-    const tagTextColour = isGrammar ? '#3949ab' : '#276749';
-    const borderColour = isGrammar ? '#667eea' : '#48bb78';
+    const sk = isGrammar ? null : (l.sk || 'discussion');
+    const meta = isGrammar ? GRAMMAR_META : (SK_META[sk] || SK_META['discussion']);
     const url = SITE_BASE + l.f;
     const lvBadge = l.lv ? `<span style="font-size:0.7rem;color:#aaa;margin-left:6px;">${LV_LABELS[l.lv]}</span>` : '';
-    const revNote = l.revision ? `<span style="font-size:0.7rem;color:#ed8936;margin-left:6px;">↩ revision</span>` : '';
+    const revNote = l.revision ? `<span style="font-size:0.7rem;color:#ed8936;margin-left:6px;">↩ warm-up</span>` : '';
     const lessonDesc = (l.d || '').replace(/'/g, '&#39;');
     const lessonTitle = l.t.replace(/'/g, '&#39;');
+    const tagText = isGrammar
+      ? ('Grammar — ' + l.g)
+      : (SKILL_LABELS[sk] || sk) + (l.cat ? ' · ' + (CAT_LABELS[l.cat]||l.cat) : '');
 
-    return `
-    <div class="lcard" id="lcard${i}" style="border-left-color:${borderColour};">
+    // Phase header
+    if (!isGrammar) {
+      let phaseIdx = topicCount2 === 0 ? 0 : topicCount2 === ph1 ? 1 : topicCount2 === ph2 ? 2 : -1;
+      if (phaseIdx >= 0) {
+        const wStart = phaseIdx === 0 ? 1 : phaseIdx === 1 ? Math.round(ph1/lpw)+1 : Math.round(ph2/lpw)+1;
+        const wEnd   = phaseIdx === 0 ? Math.round(ph1/lpw) : phaseIdx === 1 ? Math.round(ph2/lpw) : null;
+        const wLabel = wEnd ? `Weeks ${wStart}–${wEnd}` : `Week ${wStart}+`;
+        lessonCardsHTML += `
+    <div style="display:flex;align-items:center;gap:10px;margin:24px 0 8px;padding:12px 16px 12px 20px;background:#fff;border-radius:12px;border-left:5px solid ${PHASE_COLORS[phaseIdx]};box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+      <span style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:20px;padding:2px 10px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Phase ${phaseIdx+1}</span>
+      <span style="font-weight:700;color:#333;font-size:0.95rem;">${PHASE_LABELS[phaseIdx].split(' · ')[1]}</span>
+      <span style="margin-left:auto;font-size:0.78rem;color:#aaa;">${wLabel}</span>
+    </div>`;
+      }
+      // Skill type label when it changes
+      if (sk !== lastSk) {
+        lessonCardsHTML += `
+    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#bbb;padding:8px 4px 3px;display:flex;align-items:center;gap:6px;">
+      <span style="color:${meta.border}">${meta.icon} ${meta.label}</span>
+      <span style="flex:1;height:1px;background:#f0f0f0;margin-left:6px;display:inline-block;"></span>
+    </div>`;
+        lastSk = sk;
+      }
+      topicCount2++;
+    } else {
+      lessonCardsHTML += `
+    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#bbb;padding:8px 4px 3px;display:flex;align-items:center;gap:6px;">
+      <span style="color:${GRAMMAR_META.border}">${GRAMMAR_META.icon} Grammar Checkpoint</span>
+      <span style="flex:1;height:1px;background:#e8f0fe;margin-left:6px;display:inline-block;"></span>
+    </div>`;
+    }
+
+    lessonCardsHTML += `
+    <div class="lcard" id="lcard${i}" style="border-left-color:${meta.border};">
       <div class="lcard-check">
         <input type="checkbox" id="chk${i}" onchange="markLesson(${i},this.checked)">
         <label for="chk${i}" class="lcard-num">${String(i+1).padStart(2,'0')}</label>
       </div>
-      <div class="lcard-icon">${icon}</div>
+      <div class="lcard-icon">${meta.icon}</div>
       <div class="lcard-body">
         <div class="lcard-title"><a href="${url}" target="_blank">${lessonTitle}</a>${lvBadge}${revNote}</div>
         <div class="lcard-desc">${lessonDesc}</div>
-        <div class="lcard-tag" style="background:${tagColour};color:${tagTextColour};">${catLabel}${isGrammar ? ' — ' + l.g : ''}</div>
+        <div class="lcard-tag" style="background:${meta.tagBg};color:${meta.tagCol};">${tagText}</div>
       </div>
     </div>`;
-  }).join('\n');
+  });
 
   // Build interest + weak area strings for the profile section
   const interestStr = p.interests.length
