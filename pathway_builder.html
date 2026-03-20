@@ -862,6 +862,28 @@ function parseProfileText() {
     if (matched) break;
   }
 
+  // Profession fallback: if PROFESSION_MAP didn't catch anything,
+  // scan PROFESSION_TOPIC_MAP keys directly — this catches "engineer",
+  // "nurse", "lawyer", "chef", any word that's already in the boost table.
+  if (!found.profession) {
+    var tl = text.toLowerCase();
+    var profKeys = Object.keys(PROFESSION_TOPIC_MAP);
+    // Sort longer keys first so "data scientist" beats "scientist"
+    profKeys.sort(function(a,b){ return b.length - a.length; });
+    for (var pi = 0; pi < profKeys.length; pi++) {
+      var kw = profKeys[pi];
+      // Whole-word match where possible
+      var kwRe;
+      try { kwRe = new RegExp('\\b' + kw + '\\b', 'i'); } catch(e) { kwRe = null; }
+      var hit = kwRe ? kwRe.test(text) : tl.indexOf(kw) !== -1;
+      if (hit) {
+        // Capitalise first letter for display
+        found.profession = kw.charAt(0).toUpperCase() + kw.slice(1);
+        break;
+      }
+    }
+  }
+
   // Topics
   var topicKeys = Object.keys(TOPIC_PATTERNS);
   for (var i = 0; i < topicKeys.length; i++) {
@@ -1122,6 +1144,20 @@ const PROFESSION_TOPIC_MAP = {
   therapist:        { topics:['psychology','health','communication'],                        cats:['health','people'] },
   paramedic:        { topics:['medicine','health','communication'],                          cats:['health','people'] },
   radiologist:      { topics:['medicine','health','science','technology'],                   cats:['health','world'] },
+  pathologist:      { topics:['medicine','health','science','technology'],                   cats:['health','world'] },
+  cardiologist:     { topics:['medicine','health','science','communication'],                cats:['health','world'] },
+  oncologist:       { topics:['medicine','health','science','ethics'],                       cats:['health','world'] },
+  neurologist:      { topics:['medicine','health','science','psychology'],                   cats:['health','world'] },
+  dermatologist:    { topics:['medicine','health','science'],                                cats:['health'] },
+  anaesthetist:     { topics:['medicine','health','science','communication'],                cats:['health'] },
+  obstetrician:     { topics:['medicine','health','communication'],                          cats:['health','people'] },
+  geriatrician:     { topics:['medicine','health','communication','ethics'],                 cats:['health','people'] },
+  salesperson:      { topics:['business','negotiation','communication','psychology'],        cats:['work','people'] },
+  'sales manager':  { topics:['business','management','negotiation','communication'],        cats:['work'] },
+  'estate agent':   { topics:['business','negotiation','communication','finance'],           cats:['work','life'] },
+  'real estate':    { topics:['business','negotiation','finance'],                           cats:['work'] },
+  accountant:       { topics:['finance','business','writing','communication'],               cats:['work'] },
+  auditor:          { topics:['finance','business','ethics','writing'],                      cats:['work'] },
   physiotherapist:  { topics:['medicine','health','sport','communication'],                  cats:['health','people'] },
   dietitian:        { topics:['food','health','medicine','science'],                         cats:['health','food'] },
   midwife:          { topics:['medicine','health','communication','psychology'],             cats:['health','people'] },
