@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>WORD WARS: Dino Conquest</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;800&display=swap');
+  :root{
+    --jungle:#2d5a1e;--dark-jungle:#1a3a10;--lava:#e25822;--amber:#f5a623;
+    --bone:#f5f0e1;--swamp:#3a6b4a;--ridge:#6b4a8a;--sky:#1a1a2e;
+    --card:#1c2a1a;--green:#4CAF50;--red:#e74c3c;--gold:#FFD700;
+    --xp:#7CFC00;--blue:#3498DB;--text:#e8e4d8;--muted:#9a9680;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--sky);color:var(--text);min-height:100vh;min-height:100dvh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  .pf{font-family:'Press Start 2P',cursive;}
+
+  /* Jungle bg */
+  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,#0a1a0a 0%,#1a2a1a 40%,#1c2a1a 100%);z-index:-2;}
+  .container{max-width:500px;margin:0 auto;padding:16px;padding-bottom:80px;}
+
+  /* HUD */
+  .hud{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(0,0,0,.5);border:2px solid #4a6a3a;border-radius:8px;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+  .hud-item{text-align:center;}.hud-lbl{font-size:9px;color:var(--muted);margin-bottom:2px;}.hud-val{font-size:13px;font-weight:700;}
+  .hud-val.gold{color:var(--gold);}.hud-val.xp{color:var(--xp);}
+  .xp-track{width:100%;height:12px;background:#222;border:2px solid #4a6a3a;border-radius:4px;overflow:hidden;margin-top:6px;}
+  .xp-fill{height:100%;background:linear-gradient(90deg,var(--jungle),var(--xp));transition:width .8s;border-radius:2px;}
+
+  /* Dino army display */
+  .dino-army{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin:10px 0;min-height:40px;padding:8px;background:rgba(0,0,0,.3);border-radius:8px;border:2px solid #3a5a2a;}
+  .dino{font-size:28px;animation:hatch .5s ease-out;transition:all .3s;}
+  @keyframes hatch{0%{transform:scale(0) rotate(-20deg);opacity:0;}60%{transform:scale(1.3) rotate(5deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+  .dino.enemy{filter:grayscale(1) brightness(.5);font-size:20px;}
+
+  /* Screens */
+  .screen{display:none;}.screen.active{display:block;}
+
+  /* Title */
+  .title{text-align:center;padding:30px 10px;}
+  .title h1{font-size:18px;color:var(--amber);text-shadow:2px 2px 0 rgba(0,0,0,.6);line-height:1.8;}
+  .title .sub{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5;}
+  .title .dino-big{font-size:70px;margin:16px 0;animation:stomp 2s ease-in-out infinite;}
+  @keyframes stomp{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+  /* Buttons */
+  .btn{display:inline-block;padding:12px 22px;font-family:'Press Start 2P',cursive;font-size:11px;border:none;cursor:pointer;border-radius:6px;color:white;transition:all .1s;}
+  .btn:active{transform:translateY(2px);}
+  .btn-go{background:var(--lava);border-bottom:4px solid #a83e15;}
+  .btn-next{background:var(--swamp);border-bottom:4px solid var(--dark-jungle);margin-top:14px;}
+
+  /* Question card */
+  .q-card{background:var(--card);border:3px solid #4a6a3a;border-radius:12px;padding:20px;margin-bottom:14px;}
+  .q-card h2{font-size:10px;color:var(--amber);margin-bottom:4px;}
+  .q-card .q-text{font-size:16px;line-height:1.5;margin-bottom:14px;}
+  .q-card .context{font-size:14px;color:var(--bone);background:rgba(0,0,0,.3);padding:14px;border-radius:8px;margin-bottom:14px;line-height:1.6;border-left:3px solid var(--amber);}
+  .q-card .context .blank{color:var(--amber);font-weight:700;text-decoration:underline;}
+  .q-card .hint{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:12px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:6px;border-left:3px solid var(--ridge);}
+  .q-card .italian{font-size:12px;color:#e8a0a0;margin-bottom:12px;padding:6px 10px;background:rgba(200,60,60,.1);border-radius:6px;border-left:3px solid #c44;}
+
+  .opt-btn{display:block;width:100%;padding:14px 16px;margin:8px 0;background:rgba(30,50,25,.8);color:var(--text);border:3px solid #4a6a3a;border-bottom-width:5px;border-radius:8px;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;cursor:pointer;text-align:left;transition:all .15s;}
+  .opt-btn:active{transform:scale(.97);}
+  .opt-btn.correct{border-color:var(--green);background:rgba(76,175,80,.2);}
+  .opt-btn.wrong{border-color:var(--red);background:rgba(231,76,60,.2);animation:shake .4s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+
+  .fb{padding:14px;border-radius:8px;margin-top:14px;font-size:13px;line-height:1.6;display:none;}
+  .fb.show{display:block;animation:fadeUp .3s;}
+  .fb.ok{background:rgba(76,175,80,.15);border:2px solid var(--green);}
+  .fb.no{background:rgba(231,76,60,.15);border:2px solid var(--red);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .xp-pop{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-family:'Press Start 2P',cursive;font-size:22px;color:var(--xp);text-shadow:2px 2px 0 rgba(0,0,0,.8);pointer-events:none;z-index:100;display:none;}
+  @keyframes xpFly{0%{opacity:1;transform:translate(-50%,-50%) scale(.5);}30%{opacity:1;transform:translate(-50%,-70%) scale(1.3);}100%{opacity:0;transform:translate(-50%,-120%) scale(1);}}
+
+  .dots{display:flex;justify-content:center;gap:5px;margin-bottom:12px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#222;border:2px solid #4a6a3a;}
+  .dot.done{background:var(--green);border-color:var(--dark-jungle);}.dot.now{background:var(--amber);border-color:#c98a10;animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+
+  .zone-badge{display:inline-block;padding:4px 12px;border-radius:4px;font-size:10px;color:white;margin-bottom:10px;}
+  .badge-jungle{background:var(--jungle);border:2px solid #5a9a3a;}
+  .badge-swamp{background:var(--swamp);border:2px solid #5a9b6a;}
+  .badge-ridge{background:var(--ridge);border:2px solid #9a7ab5;}
+
+  /* Level transition */
+  .level-up{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);display:none;justify-content:center;align-items:center;z-index:200;flex-direction:column;text-align:center;padding:20px;}
+  .level-up.show{display:flex;animation:fadeUp .5s;}
+  .level-up .big{font-size:50px;margin-bottom:12px;}
+  .level-up h2{font-size:14px;color:var(--amber);margin-bottom:8px;}
+  .level-up p{color:#ccc;font-size:13px;margin-bottom:16px;max-width:340px;line-height:1.5;}
+
+  /* Report */
+  .report{background:var(--card);border:3px solid var(--amber);border-radius:12px;padding:24px;}
+  .report h2{color:var(--amber);font-size:14px;margin-bottom:16px;}
+  .skill-row{margin-bottom:14px;}
+  .skill-lbl{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;}
+  .skill-track{height:18px;background:#222;border-radius:4px;overflow:hidden;border:2px solid #444;}
+  .skill-fill{height:100%;border-radius:2px;transition:width 1s;}
+  .skill-fill.high{background:linear-gradient(90deg,var(--green),var(--xp));}.skill-fill.mid{background:linear-gradient(90deg,var(--amber),#ffa);}.skill-fill.low{background:linear-gradient(90deg,var(--red),#f88);}
+
+  .diag{margin-top:20px;padding:16px;background:rgba(107,74,138,.15);border:2px solid var(--ridge);border-radius:8px;}
+  .diag h3{color:var(--ridge);font-size:12px;margin-bottom:10px;}
+  .diag p{font-size:13px;line-height:1.7;color:#ccc;margin-bottom:8px;}
+  .diag .str{color:var(--green);font-weight:600;}.diag .wk{color:var(--red);font-weight:600;}
+
+  .parent-box{margin-top:16px;padding:14px;background:rgba(52,152,219,.08);border:2px solid var(--blue);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;}
+  .parent-box strong{color:var(--blue);}
+  .parent-box p{margin-bottom:8px;}
+
+  .complete-head{text-align:center;margin-bottom:20px;}
+  .complete-head .big{font-size:50px;margin-bottom:10px;}
+  .complete-head h1{font-size:15px;color:var(--amber);}
+  .complete-head .stats{font-size:12px;color:var(--xp);margin-top:6px;}
+
+  @media(max-width:420px){.title h1{font-size:14px;}.opt-btn{font-size:14px;padding:12px;}.q-card{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="xp-pop" id="xpPop"></div>
+<div class="level-up" id="levelUp">
+  <div class="big" id="luIcon"></div>
+  <h2 class="pf" id="luTitle"></h2>
+  <p id="luDesc"></p>
+  <button class="btn btn-go" onclick="closeLU()">CONQUER ⚔️</button>
+</div>
+
+<div class="container">
+  <!-- HUD -->
+  <div class="hud" id="hud" style="display:none;">
+    <div class="hud-item"><div class="hud-lbl">ZONE</div><div class="hud-val gold pf" id="hudZone" style="font-size:9px;">-</div></div>
+    <div class="hud-item"><div class="hud-lbl">ARMY</div><div class="hud-val pf" id="hudArmy">0</div></div>
+    <div class="hud-item"><div class="hud-lbl">STREAK</div><div class="hud-val xp pf" id="hudStreak">0🔥</div></div>
+    <div style="width:100%;"><div class="xp-track"><div class="xp-fill" id="xpBar" style="width:0%"></div></div></div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="screen active" id="titleScreen">
+    <div class="title">
+      <div class="dino-big">🦖</div>
+      <h1 class="pf">WORD WARS</h1>
+      <h2 class="pf" style="font-size:10px;color:var(--lava);margin-top:4px;">DINO CONQUEST</h2>
+      <p class="sub">
+        An ancient language curse has weakened the dinosaur kingdom!<br>
+        Conquer 3 territories to build your dino army.<br>
+        Every correct answer hatches a new dinosaur. 🥚➡️🦕
+      </p>
+      <p style="font-size:11px;color:var(--amber);margin:16px 0;">
+        🦕 Hatch dinos &bull; 🔥 Build streaks &bull; ⚔️ Conquer zones
+      </p>
+      <button class="btn btn-go pf" onclick="startGame()">⚔️ BEGIN CONQUEST</button>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen" id="gameScreen">
+    <div class="dino-army" id="dinoArmy"></div>
+    <div class="dots" id="dots"></div>
+    <div id="questionArea"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="resultsScreen"></div>
+</div>
+
+<script>
+// ========== DINOS ==========
+const DINOS = ['🦕','🦖','🦎','🐊','🐉','🐲','🦴','🥚'];
+const HATCH_DINOS = ['🦕','🦖','🦎','🐊','🐉'];
+let armyDinos = [];
+
+function hatchDino(){
+  const d = HATCH_DINOS[Math.floor(Math.random()*HATCH_DINOS.length)];
+  armyDinos.push(d);
+  renderArmy();
+  return d;
+}
+function renderArmy(){
+  const el=document.getElementById('dinoArmy');
+  el.innerHTML=armyDinos.map(d=>`<span class="dino">${d}</span>`).join('');
+  document.getElementById('hudArmy').textContent=armyDinos.length;
+}
+
+// ========== ZONES ==========
+const ZONES = [
+  {
+    name:"False Friends Jungle",
+    icon:"🌿",
+    badge:"badge-jungle",
+    hudName:"FALSE FRIENDS",
+    desc:"Italian and English share many words — but some are TRAPS! The same-looking word means something totally different. Can you spot the real meaning?",
+    skill:"false_friends",
+    skillLabel:"False Friends & Vocabulary",
+    questions:[
+      {
+        type:'mc',
+        context:'"I\'m going to the library to study." What does <span class="blank">library</span> mean?',
+        prompt:'In Italian, "libreria" means bookshop. But in English, "library" means...',
+        correct:'A place to borrow books (biblioteca)',
+        options:['A place to borrow books (biblioteca)','A bookshop (libreria)','A study room','A collection of ebooks'],
+        italian:'🇮🇹 Trappola! Libreria ≠ Library. Library = biblioteca, bookshop = libreria',
+        explain:'Classic false friend! "Library" = biblioteca. If you want to buy books, say "bookshop" or "bookstore".'
+      },
+      {
+        type:'mc',
+        context:'"She\'s very <span class="blank">sensible</span> about money — she always saves."',
+        prompt:'What does "sensible" mean here?',
+        correct:'Practical and wise (ragionevole)',
+        options:['Practical and wise (ragionevole)','Sensitive and emotional (sensibile)','Intelligent (intelligente)','Careful (attento)'],
+        italian:'🇮🇹 Sensibile ≠ Sensible! Sensible = ragionevole. Sensitive = sensibile.',
+        explain:'"Sensible" means practical/wise. "Sensitive" (sensibile) is the emotional one. They look the same but mean opposite things!'
+      },
+      {
+        type:'mc',
+        context:'"<span class="blank">Eventually</span>, after three years, he got promoted."',
+        prompt:'What does "eventually" mean?',
+        correct:'In the end / after a long time (alla fine)',
+        options:['In the end / after a long time (alla fine)','Maybe / possibly (eventualmente)','Occasionally (ogni tanto)','Suddenly (improvvisamente)'],
+        italian:'🇮🇹 Eventualmente ≠ Eventually! Eventually = alla fine. Possibly = eventualmente.',
+        explain:'"Eventually" = alla fine, after a long time. NOT "eventualmente" (which means possibly/maybe in Italian).'
+      },
+      {
+        type:'mc',
+        context:'"The <span class="blank">actual</span> cost was much higher than the estimate."',
+        prompt:'What does "actual" mean?',
+        correct:'Real / true (reale, effettivo)',
+        options:['Real / true (reale, effettivo)','Current / present (attuale)','Updated (aggiornato)','Approximate (approssimativo)'],
+        italian:'🇮🇹 Attuale ≠ Actual! Actual = reale/effettivo. Current = attuale.',
+        explain:'"Actual" means real/true. "Attuale" in Italian means current/present — totally different!'
+      },
+      {
+        type:'mc',
+        context:'"I need to <span class="blank">attend</span> a meeting at 3pm."',
+        prompt:'What does "attend" mean?',
+        correct:'Go to / be present at (partecipare, presenziare)',
+        options:['Go to / be present at (partecipare, presenziare)','Wait for (attendere)','Pay attention to (fare attenzione)','Expect (aspettarsi)'],
+        italian:'🇮🇹 Attendere ≠ Attend! Attend = partecipare/presenziare. Wait = attendere/aspettare.',
+        explain:'"Attend" = go to, be present at. NOT "attendere" (wait). If you wait, say "wait" — simple!'
+      }
+    ]
+  },
+  {
+    name:"The Grammar Swamp",
+    icon:"🪹",
+    badge:"badge-swamp",
+    hudName:"GRAMMAR",
+    desc:"The swamp is full of grammar quicksand! Articles, prepositions, and word order traps that catch Italian speakers. Step carefully...",
+    skill:"grammar",
+    skillLabel:"Grammar (Articles & Prepositions)",
+    questions:[
+      {
+        type:'mc',
+        context:'"___ life is short, so enjoy every moment."',
+        prompt:'Which article (if any) goes in the blank?',
+        correct:'No article (Life is short)',
+        options:['No article (Life is short)','The (The life is short)','A (A life is short)','This (This life is short)'],
+        italian:'🇮🇹 In Italian: "La vita è breve" — but English drops "the" for general/abstract nouns.',
+        explain:'In English, abstract nouns (life, love, time, music) don\'t need "the" when speaking generally. "Life is short" NOT "The life is short".'
+      },
+      {
+        type:'mc',
+        context:'"She\'s really good ___ maths."',
+        prompt:'Which preposition completes this?',
+        correct:'at (good at)',
+        options:['at (good at)','in (good in)','with (good with)','for (good for)'],
+        italian:'🇮🇹 In Italian: "brava IN matematica" — but English uses "good AT".',
+        explain:'"Good AT something" — never "good in" (that\'s the Italian pattern: bravo in). Also: bad at, brilliant at, terrible at.'
+      },
+      {
+        type:'mc',
+        context:'"I\'m going ___ home after school."',
+        prompt:'Which preposition goes here?',
+        correct:'No preposition (going home)',
+        options:['No preposition (going home)','to (going to home)','at (going at home)','for (going for home)'],
+        italian:'🇮🇹 In Italian: "Vado A casa" — but English says "go home" with NO preposition.',
+        explain:'"Go home" — no preposition needed! Also: "get home", "come home", "arrive home". But: "go TO school", "go TO work".'
+      },
+      {
+        type:'mc',
+        context:'"He asked me ___ I wanted to join them."',
+        prompt:'Complete the sentence:',
+        correct:'if / whether (asked me if I wanted)',
+        options:['if / whether (asked me if I wanted)','that (asked me that I wanted)','to (asked me to I wanted)','what (asked me what I wanted)'],
+        italian:'🇮🇹 In Italian: "Mi ha chiesto SE volevo" — this one actually transfers well! "If" = "se".',
+        explain:'Reported yes/no questions use "if" or "whether". This is one where Italian and English actually agree!'
+      },
+      {
+        type:'mc',
+        context:'"I\'ve been living here ___ five years."',
+        prompt:'Which word completes this?',
+        correct:'for (for five years)',
+        options:['for (for five years)','since (since five years)','from (from five years)','during (during five years)'],
+        italian:'🇮🇹 In Italian: "DA cinque anni" — "da" can be "since" or "for", but in English they\'re different!',
+        explain:'"For" + duration (for 5 years, for 3 months). "Since" + point in time (since 2021, since Monday). Italian "da" covers both — English splits them!'
+      }
+    ]
+  },
+  {
+    name:"Register Ridge",
+    icon:"🏔️",
+    badge:"badge-ridge",
+    hudName:"REGISTER",
+    desc:"The volcanic ridge tests your ability to switch between casual and formal English. Heritage speakers often mix these up — can you tell the difference?",
+    skill:"register",
+    skillLabel:"Register & Formality",
+    questions:[
+      {
+        type:'mc',
+        context:'You\'re writing an email to your teacher about a missing assignment.',
+        prompt:'Which opening is the right register?',
+        correct:'"Dear Mr. Thompson, I\'m writing to explain why my assignment is late."',
+        options:['"Dear Mr. Thompson, I\'m writing to explain why my assignment is late."','"Hey Mr. T, so basically my homework\'s late lol."','"To Whom It May Concern, I hereby submit my formal apology..."','"Hi! Quick question about my homework thing."'],
+        explain:'Semi-formal is right for a teacher — "Dear [name]" + clear explanation. Not too casual (hey/lol), not too stiff (To Whom It May Concern).'
+      },
+      {
+        type:'mc',
+        context:'Your friend asks: "Wanna come to the movies tonight?"',
+        prompt:'Which response matches the casual register?',
+        correct:'"Yeah sure, what time?"',
+        options:['"Yeah sure, what time?"','"I would be delighted to accept your invitation."','"I shall endeavour to attend the cinema this evening."','"Thank you for the kind invitation. I\'d be happy to join."'],
+        italian:'🇮🇹 Heritage speakers sometimes go too formal with friends because they learned "textbook" English.',
+        explain:'With friends = casual! "Yeah sure" is perfect. The formal options would sound weird and awkward in a friendship.'
+      },
+      {
+        type:'mc',
+        context:'In a school presentation about climate change:',
+        prompt:'Which sentence has the right academic register?',
+        correct:'"Research suggests that rising temperatures will significantly impact coastal cities."',
+        options:['"Research suggests that rising temperatures will significantly impact coastal cities."','"So like, the oceans are getting super hot and cities are gonna flood."','"It is hereby decreed that thermal escalation shall precipitate urban inundation."','"Global warming is bad and everyone should care about it more."'],
+        explain:'Academic register: evidence-based language ("research suggests"), precise vocabulary ("significantly impact"), neutral tone. Not too casual, not absurdly formal.'
+      },
+      {
+        type:'mc',
+        context:'You\'re texting your Italian grandmother (in English) to thank her for a birthday gift:',
+        prompt:'Which is the best register?',
+        correct:'"Thanks so much Nonna! I love the sweater, it\'s perfect 💛"',
+        options:['"Thanks so much Nonna! I love the sweater, it\'s perfect 💛"','"I wish to formally express my gratitude for the garment."','"thx 4 the gift lol 🔥🔥"','"Dear Grandmother, thank you for your generous gift."'],
+        italian:'🇮🇹 Warm but clear — grandparents deserve love, not corporate emails or cryptic slang!',
+        explain:'Warm, personal, enthusiastic — perfect for family. Too formal sounds cold, too much slang might confuse her.'
+      },
+      {
+        type:'mc',
+        context:'A stranger on the street asks you for directions. You say:',
+        prompt:'Which register is appropriate?',
+        correct:'"Sure! Go straight ahead and it\'s on your left."',
+        options:['"Sure! Go straight ahead and it\'s on your left."','"Yo, just go that way bro."','"I would recommend proceeding northward along this thoroughfare."','"Hmm I dunno, maybe Google it?"'],
+        explain:'Polite but natural — "Sure!" is friendly, directions are clear. Not too casual (bro) or too formal (thoroughfare). Helpful stranger mode!'
+      }
+    ]
+  }
+];
+
+// ========== STATE ==========
+let gs = {zone:0, qIdx:0, score:0, streak:0, maxStreak:0, answered:false, results:{}};
+ZONES.forEach(z=>{ gs.results[z.skill]={correct:0,total:z.questions.length,errors:[]}; });
+
+// ========== UI ==========
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function xpPop(n){const el=document.getElementById('xpPop');el.textContent='+'+n+' XP';el.style.display='block';el.style.animation='none';el.offsetHeight;el.style.animation='xpFly 1.2s ease-out forwards';setTimeout(()=>el.style.display='none',1200);}
+
+function updateHUD(){
+  document.getElementById('hudStreak').textContent=gs.streak+'🔥';
+  const totalQ=ZONES.reduce((a,z)=>a+z.questions.length,0);
+  let done=0;for(let i=0;i<gs.zone;i++)done+=ZONES[i].questions.length;
+  done+=gs.qIdx;
+  document.getElementById('xpBar').style.width=(done/totalQ*100)+'%';
+}
+
+function buildDots(){
+  const z=ZONES[gs.zone];
+  let h='';
+  for(let i=0;i<z.questions.length;i++){
+    h+=i<gs.qIdx?'<div class="dot done"></div>':i===gs.qIdx?'<div class="dot now"></div>':'<div class="dot"></div>';
+  }
+  document.getElementById('dots').innerHTML=h;
+}
+
+function showLU(zIdx){
+  const z=ZONES[zIdx];
+  document.getElementById('luIcon').textContent=z.icon;
+  document.getElementById('luTitle').textContent='Zone '+(zIdx+1)+': '+z.name;
+  document.getElementById('luDesc').textContent=z.desc;
+  document.getElementById('levelUp').classList.add('show');
+}
+function closeLU(){document.getElementById('levelUp').classList.remove('show');renderQ();}
+
+// ========== GAME ==========
+function startGame(){
+  show('gameScreen');
+  document.getElementById('hud').style.display='flex';
+  gs.zone=0;gs.qIdx=0;gs.score=0;gs.streak=0;gs.maxStreak=0;
+  armyDinos=[];renderArmy();
+  ZONES.forEach(z=>{gs.results[z.skill]={correct:0,total:z.questions.length,errors:[]};});
+  showLU(0);
+}
+
+function renderQ(){
+  buildDots();updateHUD();
+  gs.answered=false;
+  const z=ZONES[gs.zone];
+  const q=z.questions[gs.qIdx];
+  document.getElementById('hudZone').textContent=z.hudName;
+
+  const area=document.getElementById('questionArea');
+  // Shuffle options
+  const opts=[...q.options].sort(()=>Math.random()-.5);
+
+  let html=`<div class="zone-badge pf ${z.badge}">${z.icon} ${z.name}</div>`;
+  html+=`<div class="q-card">`;
+  html+=`<h2 class="pf">Battle ${gs.qIdx+1} of ${z.questions.length}</h2>`;
+  if(q.context) html+=`<div class="context">${q.context}</div>`;
+  html+=`<p class="q-text">${q.prompt}</p>`;
+  opts.forEach((o,i)=>{
+    html+=`<button class="opt-btn" data-ans="${encodeURIComponent(o)}" onclick="checkAnswer(this)">${o}</button>`;
+  });
+  html+=`<div class="fb" id="fb"></div></div>`;
+  area.innerHTML=html;
+}
+
+function checkAnswer(btn){
+  if(gs.answered)return;
+  gs.answered=true;
+  const z=ZONES[gs.zone];
+  const q=z.questions[gs.qIdx];
+  const chosen=decodeURIComponent(btn.dataset.ans);
+  const ok=chosen===q.correct;
+
+  // Highlight buttons
+  document.querySelectorAll('.opt-btn').forEach(b=>{
+    const val=decodeURIComponent(b.dataset.ans);
+    if(val===q.correct)b.classList.add('correct');
+    else if(b===btn&&!ok)b.classList.add('wrong');
+    b.style.pointerEvents='none';
+  });
+
+  const fb=document.getElementById('fb');
+
+  if(ok){
+    gs.streak++;
+    if(gs.streak>gs.maxStreak)gs.maxStreak=gs.streak;
+    const pts=10+gs.streak*2;
+    gs.score+=pts;
+    gs.results[z.skill].correct++;
+
+    const dino=hatchDino();
+    let msg=`✅ ${dino} A new dino joins your army!`;
+    if(q.explain)msg+=`<br><br>💡 ${q.explain}`;
+    if(q.italian)msg+=`<br><span style="font-size:11px;color:#e8a0a0;">${q.italian}</span>`;
+    fb.className='fb ok show';
+    fb.innerHTML=msg+`<br><button class="btn btn-next pf" onclick="nextQ()">NEXT ⚔️</button>`;
+    xpPop(pts);
+  } else {
+    gs.streak=0;
+    gs.results[z.skill].errors.push({prompt:q.prompt,given:chosen,correct:q.correct});
+
+    let msg=`❌ The enemy captured a dino! The answer was: <strong>${q.correct}</strong>`;
+    if(q.explain)msg+=`<br><br>💡 ${q.explain}`;
+    if(q.italian)msg+=`<br><span style="font-size:11px;color:#e8a0a0;">${q.italian}</span>`;
+    fb.className='fb no show';
+    fb.innerHTML=msg+`<br><button class="btn btn-next pf" onclick="nextQ()">NEXT ⚔️</button>`;
+  }
+
+  updateHUD();
+}
+
+function nextQ(){
+  gs.qIdx++;
+  const z=ZONES[gs.zone];
+  if(gs.qIdx>=z.questions.length){
+    gs.zone++;
+    gs.qIdx=0;
+    if(gs.zone>=ZONES.length){
+      showResults();
+    } else {
+      showLU(gs.zone);
+    }
+  } else {
+    renderQ();
+  }
+}
+
+// ========== RESULTS ==========
+function showResults(){
+  document.getElementById('hud').style.display='none';
+  show('resultsScreen');
+
+  const totalCorrect=Object.values(gs.results).reduce((a,r)=>a+r.correct,0);
+  const totalQ=Object.values(gs.results).reduce((a,r)=>a+r.total,0);
+  const pct=Math.round(totalCorrect/totalQ*100);
+
+  let rank,emoji;
+  if(pct>=90){rank='Dino Emperor';emoji='👑';}
+  else if(pct>=70){rank='Rex Commander';emoji='🦖';}
+  else if(pct>=50){rank='Raptor Scout';emoji='🦎';}
+  else{rank='Egg Hatchling';emoji='🥚';}
+
+  let barsHTML='';
+  let strengths=[],weaknesses=[];
+
+  ZONES.forEach(z=>{
+    const r=gs.results[z.skill];
+    const p=Math.round(r.correct/r.total*100);
+    const cls=p>=80?'high':p>=50?'mid':'low';
+    if(p>=80)strengths.push(z.skillLabel);
+    if(p<=40)weaknesses.push(z.skillLabel);
+    barsHTML+=`<div class="skill-row"><div class="skill-lbl"><span>${z.icon} ${z.skillLabel}</span><span>${r.correct}/${r.total} (${p}%)</span></div><div class="skill-track"><div class="skill-fill ${cls}" style="width:${p}%"></div></div></div>`;
+  });
+
+  let diagHTML='';
+  if(strengths.length)diagHTML+=`<p><span class="str">Conquered territories:</span> ${strengths.join(', ')}. These zones are under your control! 💪</p>`;
+  if(weaknesses.length)diagHTML+=`<p><span class="wk">Enemy strongholds:</span> ${weaknesses.join(', ')}. These zones need more battles to conquer!</p>`;
+  if(!strengths.length&&!weaknesses.length)diagHTML+=`<p>Balanced across all zones — room to grow in each area. Keep training, Commander!</p>`;
+
+  let errHTML='';
+  ZONES.forEach(z=>{
+    const r=gs.results[z.skill];
+    if(r.errors.length>0){
+      errHTML+=`<p><strong>${z.icon} ${z.skillLabel}:</strong> `;
+      errHTML+=r.errors.map(e=>`chose "${e.given.substring(0,40)}..." instead of "${e.correct.substring(0,40)}..."`).join('; ');
+      errHTML+=`</p>`;
+    }
+  });
+
+  // Dino army display
+  const armyStr=armyDinos.length>0?armyDinos.join(' '):'No dinos hatched yet!';
+
+  document.getElementById('resultsScreen').innerHTML=`
+    <div class="complete-head">
+      <div class="big">${emoji}</div>
+      <h1 class="pf">CONQUEST COMPLETE!</h1>
+      <div class="stats">Rank: <strong style="color:var(--gold);">${rank}</strong> &bull; Army: ${armyDinos.length} dinos &bull; Best streak: ${gs.maxStreak}🔥</div>
+      <div class="dino-army" style="margin-top:12px;border-color:var(--amber);">${armyDinos.map(d=>`<span class="dino">${d}</span>`).join('')}</div>
+    </div>
+    <div class="report">
+      <h2 class="pf">📊 Territory Report</h2>
+      ${barsHTML}
+      <div class="diag"><h3 class="pf">🔍 Diagnostic Report</h3>${diagHTML}</div>
+      <div class="parent-box">
+        <strong>📋 For Malcolm — Detailed Analysis:</strong><br><br>
+        ${errHTML||'<p>No errors — perfect conquest! 🎉</p>'}
+        <br><strong>💡 What each zone reveals:</strong>
+        <p>• <strong>False Friends</strong> (${gs.results.false_friends.correct}/5): Italian-English lexical interference. Low scores = the student defaults to Italian word meanings. Focus: explicit false friend lists, contrastive vocabulary work, "same word, different meaning" drilling.</p>
+        <p>• <strong>Grammar</strong> (${gs.results.grammar.correct}/5): L1 transfer in articles & prepositions. Low scores = Italian syntactic patterns are overriding English rules. Focus: zero article with abstract nouns, preposition collocations (good AT, listen TO), "go home" vs "go to school" patterns.</p>
+        <p>• <strong>Register</strong> (${gs.results.register.correct}/5): Ability to code-switch between formal/informal English. Low scores = register mixing (common in heritage speakers). Focus: situational writing tasks, email register practice, "same message, 3 registers" exercises.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <button class="btn btn-go pf" onclick="location.reload()">🔄 RECONQUER</button>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
