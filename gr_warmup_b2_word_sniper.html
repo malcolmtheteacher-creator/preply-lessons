@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Sniper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        header {
+            background: linear-gradient(90deg, #1a1a2e 0%, #48dbfb 100%);
+            padding: 30px 20px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .game-area {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 0 0 12px 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .score-tracker {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #48dbfb;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(72, 219, 251, 0.3);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .category-label {
+            font-size: 0.85em;
+            color: rgba(72, 219, 251, 0.7);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-text {
+            font-size: 1.8em;
+            color: #48dbfb;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .countdown {
+            display: none;
+            font-size: 3em;
+            color: #48dbfb;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(135deg, #48dbfb, #1a9fcf);
+            color: #0f0c29;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(72, 219, 251, 0.4);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #48dbfb;
+            border: 2px solid rgba(72, 219, 251, 0.5);
+        }
+
+        .secondary-btn:hover:not(:disabled) {
+            background: rgba(72, 219, 251, 0.15);
+            box-shadow: 0 8px 24px rgba(72, 219, 251, 0.2);
+        }
+
+        .game-over {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .game-over h2 {
+            font-size: 2em;
+            color: #48dbfb;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .game-over p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .category-text {
+                font-size: 1.4em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Word Sniper</h1>
+            <p class="tagline">Quick, think! Can you name one?</p>
+        </header>
+
+        <div class="game-area" id="gameArea">
+            <div class="score-tracker">
+                Round <span id="round">1</span> of 10
+            </div>
+
+            <div class="category-card">
+                <div class="category-label">Category</div>
+                <div id="countdown" class="countdown"></div>
+                <div id="categoryText" class="category-text">Click to start</div>
+            </div>
+
+            <div class="button-group">
+                <button id="nextBtn" onclick="revealCategory()">Next Category</button>
+                <button id="resetBtn" class="secondary-btn" onclick="resetGame()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            "Things you might find in a hospital",
+            "Reasons to call in sick to work",
+            "Things that are better when they\"re old",
+            "Complaints about neighbours",
+            "Things you do when you can\"t sleep",
+            "Jobs that will exist in 100 years",
+            "Things that make you irrationally angry",
+            "Reasons people cry",
+            "Things you shouldn\"t say on a first date",
+            "Things that are overrated",
+            "Excuses for being late",
+            "Things you\"d save in a fire",
+            "Sounds you hear in a city at night",
+            "Things adults pretend to enjoy",
+            "Things that get worse the more you think about them",
+            "Red flags in a job interview",
+            "Things tourists always do wrong",
+            "Things you learn the hard way",
+            "Things you\"d never do for money",
+            "Problems that money can\"t solve"
+        ];
+
+        let currentRound = 1;
+        let shuffledCategories = [];
+        let currentCategoryIndex = 0;
+        let countdownActive = false;
+
+        function initializeGame() {
+            shuffledCategories = [...categories].sort(() => Math.random() - 0.5);
+            currentRound = 1;
+            currentCategoryIndex = 0;
+            updateRound();
+            document.getElementById("categoryText").textContent = "Click to start";
+            document.getElementById("nextBtn").disabled = false;
+            document.getElementById("countdown").textContent = "";
+            document.getElementById("countdown").style.display = "none";
+        }
+
+        function updateRound() {
+            document.getElementById("round").textContent = currentRound;
+        }
+
+        function revealCategory() {
+            if (countdownActive) return;
+            if (currentRound > 10) {
+                endGame();
+                return;
+            }
+
+            countdownActive = true;
+            document.getElementById("nextBtn").disabled = true;
+            startCountdown();
+        }
+
+        function startCountdown() {
+            const countdownEl = document.getElementById("countdown");
+            countdownEl.style.display = "block";
+            let count = 3;
+
+            const interval = setInterval(() => {
+                countdownEl.textContent = count;
+                count--;
+
+                if (count < 0) {
+                    clearInterval(interval);
+                    countdownEl.style.display = "none";
+                    showCategory();
+                    countdownActive = false;
+                    document.getElementById("nextBtn").disabled = false;
+                }
+            }, 800);
+        }
+
+        function showCategory() {
+            if (currentCategoryIndex < shuffledCategories.length) {
+                const category = shuffledCategories[currentCategoryIndex];
+                document.getElementById("categoryText").textContent = category;
+                currentCategoryIndex++;
+
+                if (currentRound < 10) {
+                    currentRound++;
+                    updateRound();
+                } else {
+                    currentRound++;
+                    updateRound();
+                    document.getElementById("nextBtn").textContent = "Finish";
+                }
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            document.getElementById("gameArea").innerHTML = `
+                <div class="game-over">
+                    <h2>Game Complete!</h2>
+                    <p>All 10 rounds played. Well done!</p>
+                    <button onclick="resetGame()">Play Again</button>
+                </div>
+            `;
+        }
+
+        function resetGame() {
+            initializeGame();
+            document.getElementById("gameArea").innerHTML = `
+                <div class="score-tracker">
+                    Round <span id="round">1</span> of 10
+                </div>
+
+                <div class="category-card">
+                    <div class="category-label">Category</div>
+                    <div id="countdown" class="countdown"></div>
+                    <div id="categoryText" class="category-text">Click to start</div>
+                </div>
+
+                <div class="button-group">
+                    <button id="nextBtn" onclick="revealCategory()">Next Category</button>
+                    <button id="resetBtn" class="secondary-btn" onclick="resetGame()">Play Again</button>
+                </div>
+            `;
+        }
+
+        initializeGame();
+    </script>
+</body>
+</html>

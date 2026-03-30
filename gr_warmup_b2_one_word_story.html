@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Word at a Time</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0f0c29;
+            color: #ffffff;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0abde3 50%, #48dbfb 100%);
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        .round-counter {
+            text-align: center;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(72, 219, 251, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .prompt-section {
+            display: none;
+        }
+
+        .prompt-section.active {
+            display: block;
+        }
+
+        .prompt-label {
+            font-size: 0.9em;
+            color: #48dbfb;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .prompt-text {
+            font-size: 1.4em;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #48dbfb;
+            color: #0f0c29;
+        }
+
+        .btn-primary:hover {
+            background: #0abde3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 219, 251, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(72, 219, 251, 0.2);
+            color: #48dbfb;
+            border: 2px solid #48dbfb;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(72, 219, 251, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-rating {
+            background: rgba(72, 219, 251, 0.15);
+            color: #48dbfb;
+            padding: 10px 16px;
+            font-size: 0.9em;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .btn-rating:hover {
+            background: rgba(72, 219, 251, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-rating.selected {
+            background: #48dbfb;
+            color: #0f0c29;
+        }
+
+        .timer-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .timer-display {
+            font-size: 3em;
+            font-weight: 700;
+            color: #48dbfb;
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-display.running {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .story-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(72, 219, 251, 0.3);
+            border-radius: 6px;
+            color: #ffffff;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .story-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .story-textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(72, 219, 251, 0.6);
+            box-shadow: 0 0 0 3px rgba(72, 219, 251, 0.1);
+        }
+
+        .rating-section {
+            display: none;
+        }
+
+        .rating-section.active {
+            display: block;
+        }
+
+        .rating-label {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .rating-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .rating-buttons .btn-rating {
+            grid-column: span 1;
+        }
+
+        .rating-buttons .btn-rating:nth-child(3) {
+            grid-column: 1 / -1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .prompt-text {
+                font-size: 1.2em;
+            }
+
+            .timer-display {
+                font-size: 2.5em;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>One Word at a Time</h1>
+            <p>Build a story. One word each. Try not to crash it.</p>
+        </div>
+
+        <div class="round-counter">
+            <span id="storyCount">Story 1 of 10</span>
+        </div>
+
+        <div class="card prompt-section active" id="promptSection">
+            <div class="prompt-label">Your Scene</div>
+            <div class="prompt-text" id="promptText"></div>
+            <div class="button-group">
+                <button class="btn-primary" onclick="startGame()">Let's Go</button>
+            </div>
+        </div>
+
+        <div class="card hidden" id="gameSection">
+            <div class="timer-section">
+                <div class="timer-display" id="timerDisplay">1:00</div>
+            </div>
+
+            <textarea class="story-textarea" id="storyTextarea" placeholder="Watch the story build here..."></textarea>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="revealStory()">Show me what we created</button>
+            </div>
+        </div>
+
+        <div class="card rating-section" id="ratingSection">
+            <div class="rating-label" id="finalStory"></div>
+            <div class="rating-label">How did that go?</div>
+            <div class="rating-buttons">
+                <button class="btn-rating" onclick="rateStory(5, this)">Masterpiece</button>
+                <button class="btn-rating" onclick="rateStory(4, this)">Pretty Good</button>
+                <button class="btn-rating" onclick="rateStory(3, this)">Delightfully Chaotic</button>
+                <button class="btn-rating" onclick="rateStory(2, this)">A Bit Wild</button>
+                <button class="btn-rating" onclick="rateStory(1, this)">Beautiful Disaster</button>
+            </div>
+            <div class="button-group">
+                <button class="btn-primary" onclick="nextStory()">Next Story</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const prompts = [
+            "A detective walked into a bar and immediately noticed...",
+            "The president was about to give a speech when suddenly...",
+            "Nobody expected the wedding to end with...",
+            "The last human on Earth heard a knock on the door and...",
+            "The job interview was going well until the candidate...",
+            "At 3am, the hotel receptionist heard...",
+            "The astronaut opened the pod door and saw...",
+            "The restaurant review started with five stars but ended with...",
+            "The teacher walked into the classroom to find...",
+            "On the first day of retirement, the plan was simple until..."
+        ];
+
+        let currentStoryIndex = 0;
+        let shuffledPrompts = [];
+        let currentStory = "";
+        let timerInterval = null;
+        let timeRemaining = 60;
+        let isTimerRunning = false;
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function initializeGame() {
+            shuffledPrompts = shuffleArray(prompts);
+            currentStoryIndex = 0;
+            displayPrompt();
+        }
+
+        function displayPrompt() {
+            document.getElementById("promptText").textContent = shuffledPrompts[currentStoryIndex];
+            document.getElementById("storyCount").textContent = `Story ${currentStoryIndex + 1} of 10`;
+            document.getElementById("promptSection").classList.add("active");
+            document.getElementById("gameSection").classList.add("hidden");
+            document.getElementById("ratingSection").classList.remove("active");
+        }
+
+        function startGame() {
+            currentStory = "";
+            document.getElementById("storyTextarea").value = "";
+            document.getElementById("promptSection").classList.remove("active");
+            document.getElementById("gameSection").classList.remove("hidden");
+            timeRemaining = 60;
+            isTimerRunning = true;
+            updateTimerDisplay();
+            startTimer();
+        }
+
+        function startTimer() {
+            document.getElementById("timerDisplay").classList.add("running");
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    document.getElementById("timerDisplay").classList.remove("running");
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById("timerDisplay").textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        }
+
+        function revealStory() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            currentStory = document.getElementById("storyTextarea").value.trim();
+            document.getElementById("gameSection").classList.add("hidden");
+            document.getElementById("ratingSection").classList.add("active");
+            document.getElementById("finalStory").textContent = currentStory || "(The story that got away...)";
+        }
+
+        function rateStory(rating, element) {
+            document.querySelectorAll(".btn-rating").forEach(btn => btn.classList.remove("selected"));
+            element.classList.add("selected");
+        }
+
+        function nextStory() {
+            currentStoryIndex++;
+            if (currentStoryIndex >= shuffledPrompts.length) {
+                currentStoryIndex = 0;
+                shuffledPrompts = shuffleArray(prompts);
+            }
+            displayPrompt();
+        }
+
+        initializeGame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbal Tightrope - C1 Warm-up Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #0f0c29 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(84, 160, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2e86de 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(84, 160, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #54a0ff;
+        }
+
+        .game-area {
+            display: none;
+        }
+
+        .game-area.active {
+            display: block;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid #54a0ff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .topic-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .topic-text {
+            font-size: 1.4em;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .banned-words {
+            margin-bottom: 25px;
+        }
+
+        .banned-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .banned-cards {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .banned-card {
+            background: rgba(255, 59, 48, 0.15);
+            border: 2px solid #ff3b30;
+            border-radius: 6px;
+            padding: 12px 18px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #ff6b6b;
+            position: relative;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .banned-card::before,
+        .banned-card::after {
+            content: "";
+            position: absolute;
+            background: #ff3b30;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .banned-card::before {
+            width: 90%;
+            height: 2px;
+        }
+
+        .banned-card::after {
+            width: 2px;
+            height: 90%;
+        }
+
+        .timer-section {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(84, 160, 255, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .timer-display {
+            font-size: 4em;
+            font-weight: bold;
+            color: #54a0ff;
+            margin-bottom: 15px;
+            font-family: "Courier New", monospace;
+        }
+
+        .timer-display.warning {
+            color: #ff9500;
+        }
+
+        .timer-display.critical {
+            color: #ff3b30;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #54a0ff 0%, #2e86de 100%);
+            color: white;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btn-start:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(84, 160, 255, 0.4);
+        }
+
+        .btn-start:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-caught {
+            background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-caught:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4);
+        }
+
+        .btn-caught.triggered {
+            animation: caught-flash 0.5s;
+        }
+
+        @keyframes caught-flash {
+            0%, 100% { background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%); }
+            50% { background: #ffffff; color: #ff3b30; }
+        }
+
+        .btn-next {
+            background: rgba(84, 160, 255, 0.2);
+            color: #54a0ff;
+            border: 2px solid #54a0ff;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-next:hover {
+            background: rgba(84, 160, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .caught-counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .caught-count {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .start-screen {
+            display: block;
+        }
+
+        .start-screen.hidden {
+            display: none;
+        }
+
+        .start-screen-content {
+            text-align: center;
+        }
+
+        .start-screen-content h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #54a0ff;
+        }
+
+        .start-screen-content p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .instructions {
+            background: rgba(84, 160, 255, 0.1);
+            border-left: 4px solid #54a0ff;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .round-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .timer-display {
+                font-size: 3em;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Verbal Tightrope</h1>
+            <p>Speak for 60 seconds. Avoid the banned words. Don't fall.</p>
+        </div>
+
+        <div class="content">
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Challenge</div>
+                    <div class="stat-value"><span id="roundNumber">0</span>/12</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Clean Rounds</div>
+                    <div class="stat-value" id="cleanScore">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Caught</div>
+                    <div class="stat-value" id="caughtScore">0</div>
+                </div>
+            </div>
+
+            <div class="start-screen" id="startScreen">
+                <div class="start-screen-content">
+                    <h2>Ready to Walk the Tightrope?</h2>
+                    <p>Test your speaking skills in this fast-paced verbal challenge.</p>
+
+                    <div class="instructions">
+                        <ul>
+                            <li><strong>Click "Next Challenge"</strong> to reveal your topic and banned words</li>
+                            <li><strong>Speak continuously</strong> for exactly 60 seconds on the given topic</li>
+                            <li><strong>Avoid the three banned words</strong> at all costs</li>
+                            <li><strong>If you use a banned word,</strong> your listener clicks "CAUGHT!"</li>
+                            <li><strong>Paraphrase, circumlocute, and be creative</strong> to stay in the game</li>
+                            <li>Complete all 12 challenges and see your final survival score</li>
+                        </ul>
+                    </div>
+
+                    <div class="round-info">
+                        <p>You have 12 challenges. Make them count!</p>
+                    </div>
+
+                    <button class="btn-start" onclick="startGame()">Start Game</button>
+                </div>
+            </div>
+
+            <div class="game-area" id="gameArea">
+                <div class="topic-card">
+                    <div class="topic-label">Your Topic</div>
+                    <div class="topic-text" id="topicText">Click Next Challenge to begin</div>
+                </div>
+
+                <div class="banned-words">
+                    <div class="banned-label">Banned Words (Don't Say These!)</div>
+                    <div class="banned-cards" id="bannedCards"></div>
+                </div>
+
+                <div class="timer-section">
+                    <div class="timer-display" id="timerDisplay">0:00</div>
+                    <button class="btn-start" id="speakBtn" onclick="toggleSpeaking()">Click to Start Speaking</button>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-caught" id="caughtBtn" onclick="triggerCaught()" disabled>CAUGHT!</button>
+                    <button class="btn-next" onclick="nextChallenge()">Next Challenge</button>
+                </div>
+
+                <div class="caught-counter">
+                    This round: <span class="caught-count" id="roundCaughtCount">0</span> caught
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const challenges = [
+            { topic: "Describe your perfect holiday", banned: ["travel", "relax", "beach"] },
+            { topic: "Explain why learning English is important", banned: ["important", "job", "communication"] },
+            { topic: "Talk about a meal you'll never forget", banned: ["delicious", "restaurant", "food"] },
+            { topic: "Describe the city you live in", banned: ["city", "buildings", "people"] },
+            { topic: "Explain how social media affects society", banned: ["social", "media", "phone"] },
+            { topic: "Talk about a skill you'd love to learn", banned: ["learn", "time", "difficult"] },
+            { topic: "Describe your morning routine", banned: ["morning", "wake", "coffee"] },
+            { topic: "Explain why some people love their jobs and others hate theirs", banned: ["work", "money", "boss"] },
+            { topic: "Talk about a film or book that changed your perspective", banned: ["story", "character", "interesting"] },
+            { topic: "Describe the perfect weekend", banned: ["weekend", "fun", "friends"] },
+            { topic: "Explain why people travel", banned: ["travel", "experience", "culture"] },
+            { topic: "Talk about how technology has changed education", banned: ["technology", "computer", "online"] }
+        ];
+
+        let shuffledChallenges = [];
+        let currentRound = 0;
+        let cleanRounds = 0;
+        let totalCaught = 0;
+        let timeRemaining = 60;
+        let timerInterval = null;
+        let isSpeaking = false;
+        let currentRoundCaught = 0;
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function startGame() {
+            shuffledChallenges = shuffleArray(challenges);
+            currentRound = 0;
+            cleanRounds = 0;
+            totalCaught = 0;
+            document.getElementById("startScreen").classList.add("hidden");
+            document.getElementById("gameArea").classList.add("active");
+            nextChallenge();
+        }
+
+        function nextChallenge() {
+            if (isSpeaking) {
+                stopSpeaking();
+            }
+
+            if (currentRound > 0) {
+                if (currentRoundCaught === 0) {
+                    cleanRounds++;
+                }
+            }
+
+            currentRound++;
+            if (currentRound > 12) {
+                endGame();
+                return;
+            }
+
+            currentRoundCaught = 0;
+            const challenge = shuffledChallenges[currentRound - 1];
+
+            document.getElementById("topicText").textContent = challenge.topic;
+            document.getElementById("roundNumber").textContent = currentRound;
+            document.getElementById("cleanScore").textContent = cleanRounds;
+            document.getElementById("caughtScore").textContent = totalCaught;
+            document.getElementById("roundCaughtCount").textContent = currentRoundCaught;
+
+            const bannedCardsDiv = document.getElementById("bannedCards");
+            bannedCardsDiv.innerHTML = "";
+            challenge.banned.forEach(word => {
+                const card = document.createElement("div");
+                card.className = "banned-card";
+                card.textContent = word;
+                bannedCardsDiv.appendChild(card);
+            });
+
+            timeRemaining = 60;
+            updateTimerDisplay();
+            document.getElementById("speakBtn").textContent = "Click to Start Speaking";
+            document.getElementById("speakBtn").disabled = false;
+            document.getElementById("caughtBtn").disabled = true;
+            isSpeaking = false;
+        }
+
+        function toggleSpeaking() {
+            if (!isSpeaking) {
+                startSpeaking();
+            } else {
+                stopSpeaking();
+            }
+        }
+
+        function startSpeaking() {
+            isSpeaking = true;
+            document.getElementById("speakBtn").textContent = "Stop Speaking";
+            document.getElementById("caughtBtn").disabled = false;
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    stopSpeaking();
+                }
+            }, 1000);
+        }
+
+        function stopSpeaking() {
+            isSpeaking = false;
+            clearInterval(timerInterval);
+            document.getElementById("speakBtn").textContent = "Time\'s Up!";
+            document.getElementById("speakBtn").disabled = true;
+            document.getElementById("caughtBtn").disabled = true;
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+            const timerElement = document.getElementById("timerDisplay");
+            timerElement.textContent = display;
+
+            timerElement.classList.remove("warning", "critical");
+            if (timeRemaining <= 10 && timeRemaining > 5) {
+                timerElement.classList.add("warning");
+            } else if (timeRemaining <= 5) {
+                timerElement.classList.add("critical");
+            }
+        }
+
+        function triggerCaught() {
+            currentRoundCaught++;
+            totalCaught++;
+            document.getElementById("roundCaughtCount").textContent = currentRoundCaught;
+            document.getElementById("caughtScore").textContent = totalCaught;
+
+            const caughtBtn = document.getElementById("caughtBtn");
+            caughtBtn.classList.add("triggered");
+            setTimeout(() => {
+                caughtBtn.classList.remove("triggered");
+            }, 500);
+        }
+
+        function endGame() {
+            document.getElementById("gameArea").classList.remove("active");
+            document.getElementById("startScreen").classList.remove("hidden");
+
+            const endMessage = document.querySelector(".start-screen-content");
+            endMessage.innerHTML = `
+                <h2>Game Over!</h2>
+                <div class="stats" style="margin-top: 30px;">
+                    <div class="stat-box">
+                        <div class="stat-label">Clean Rounds</div>
+                        <div class="stat-value">${cleanRounds}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Times Caught</div>
+                        <div class="stat-value">${totalCaught}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Accuracy</div>
+                        <div class="stat-value">${Math.round((cleanRounds / 12) * 100)}%</div>
+                    </div>
+                </div>
+                <div class="round-info" style="margin-top: 30px;">
+                    <p>Great effort walking the tightrope! Your circumlocution skills are getting sharper.</p>
+                </div>
+                <button class="btn-start" onclick="location.reload()" style="margin-top: 20px;">Play Again</button>
+            `;
+        }
+
+        // Initialize on load
+        window.addEventListener("load", () => {
+            updateTimerDisplay();
+        });
+    </script>
+</body>
+</html>
