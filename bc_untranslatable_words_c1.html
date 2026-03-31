@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lost in Translation</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; cursor: pointer; transition: all 0.3s ease; min-height: 100px; position: relative; }
+.vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2); }
+.vocab-card .word { font-size: 1.2em; font-weight: 700; color: #764ba2; }
+.vocab-card .origin { font-size: 0.8em; color: #999; margin-bottom: 6px; }
+.vocab-card .definition { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #e0e0e0; font-size: 0.95em; color: #555; }
+.vocab-card.flipped .definition { display: block; }
+.vocab-card .flip-hint { font-size: 0.75em; color: #aaa; position: absolute; bottom: 8px; right: 12px; }
+.vocab-card.flipped .flip-hint { display: none; }
+.speak-prompt { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1)); border-left: 4px solid #764ba2; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 1em; }
+.speak-prompt strong { color: #764ba2; }
+textarea { width: 100%; min-height: 100px; padding: 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 0.95em; resize: vertical; transition: border-color 0.3s; }
+textarea:focus { outline: none; border-color: #667eea; }
+.answer-btn { display: inline-block; background: #667eea; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9em; font-weight: 600; margin: 8px 0; transition: background 0.3s; }
+.answer-btn:hover { background: #764ba2; }
+.answer-reveal { display: none; background: #f0f0ff; padding: 14px; border-radius: 8px; margin: 8px 0; border-left: 3px solid #667eea; }
+.gap-fill { display: inline-block; min-width: 140px; border-bottom: 2px solid #667eea; padding: 2px 8px; margin: 0 4px; font-weight: 600; color: #764ba2; }
+.timer-box { text-align: center; margin: 24px 0; }
+.timer-display { font-size: 2.5em; font-weight: 700; color: #764ba2; margin: 10px 0; font-variant-numeric: tabular-nums; }
+.timer-btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; }
+.timer-btn:hover { opacity: 0.9; }
+.scenario-card { background: white; border: 2px solid #e0e0e0; border-radius: 10px; padding: 20px; margin: 16px 0; }
+.scenario-card h4 { color: #764ba2; margin-bottom: 8px; }
+.checklist { list-style: none; margin: 16px 0; }
+.checklist li { padding: 8px 0; padding-left: 28px; position: relative; }
+.checklist li::before { content: "[ ]"; position: absolute; left: 0; color: #667eea; font-weight: 700; }
+.word-bank { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.word-chip { background: #667eea; color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.9em; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Lost in Translation</h1>
+  <p>Beautiful words that English simply doesn't have</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-button active" onclick="showTab(0)">First Thoughts</button>
+  <button class="tab-button" onclick="showTab(1)">The Words</button>
+  <button class="tab-button" onclick="showTab(2)">Guess the Gap</button>
+  <button class="tab-button" onclick="showTab(3)">Your Words</button>
+  <button class="tab-button" onclick="showTab(4)">The Big Question</button>
+</div>
+
+<!-- TAB 1: First Thoughts -->
+<div class="tab-content active" id="tab0">
+  <div class="content-block">
+    <h2>A word that doesn't exist</h2>
+    <p>Every language has words that are almost impossible to translate into English. Not because they describe something exotic — but because they describe something so specific, so human, that English just never found a word for it.</p>
+    <p style="margin-top:12px;">You probably already know some. And you probably have feelings that you can describe perfectly in your first language but struggle to express in English.</p>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Think about this:</strong> Is there a word or expression in your language that you wish existed in English? Something you keep trying to explain but can never quite capture?
+  </div>
+
+  <div class="content-block">
+    <h2>Some you might recognise</h2>
+    <p>English has actually <em>borrowed</em> words from other languages because it had no equivalent. These are now used in everyday English:</p>
+    <div style="margin-top:12px;">
+      <p><strong>Schadenfreude</strong> (German) — pleasure at someone else's misfortune</p>
+      <p><strong>Je ne sais quoi</strong> (French) — an indefinable, appealing quality</p>
+      <p><strong>Wanderlust</strong> (German) — a deep desire to travel</p>
+      <p><strong>Hygge</strong> (Danish) — a warm, cosy feeling of contentment</p>
+    </div>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Discussion:</strong> Why do you think English borrowed <em>these</em> words specifically? What does it say about English-speaking cultures that they didn't already have them?
+  </div>
+</div>
+
+<!-- TAB 2: The Words -->
+<div class="tab-content" id="tab1">
+  <div class="content-block">
+    <h2>8 beautiful untranslatable words</h2>
+    <p>Click each card to reveal the meaning. After you read it, try to explain the concept in your own words — don't just read the definition.</p>
+  </div>
+
+  <div class="vocab-grid">
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Japanese</div>
+      <div class="word">Komorebi</div>
+      <div class="definition">The sunlight that filters through the leaves of trees — the interplay of light and shadow created by the canopy.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Portuguese</div>
+      <div class="word">Saudade</div>
+      <div class="definition">A deep, melancholic longing for something or someone you love that is absent — a bittersweet incompleteness.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Swedish</div>
+      <div class="word">Lagom</div>
+      <div class="definition">Not too much, not too little — just the right amount. A philosophy of balance and moderation in all things.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Italian</div>
+      <div class="word">Sprezzatura</div>
+      <div class="definition">The art of making something difficult look effortless — a studied carelessness, especially in fashion or art.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Korean</div>
+      <div class="word">Nunchi</div>
+      <div class="definition">The ability to read the atmosphere of a room and understand what others are thinking and feeling without them saying it.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">German</div>
+      <div class="word">Waldeinsamkeit</div>
+      <div class="definition">The feeling of being alone in the woods — a peaceful, almost spiritual solitude surrounded by nature.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Finnish</div>
+      <div class="word">Sisu</div>
+      <div class="definition">An extraordinary determination and inner strength in the face of extreme adversity — a quiet, stubborn resilience.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="origin">Arabic</div>
+      <div class="word">Tarab</div>
+      <div class="definition">A state of musical ecstasy — when a piece of music moves you so deeply that you lose yourself completely in the emotion.</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Pick your favourite 2 words.</strong> For each one: When was the last time you experienced this feeling? Describe the moment. Try to use at least 5 sentences.
+  </div>
+</div>
+
+<!-- TAB 3: Guess the Gap -->
+<div class="tab-content" id="tab2">
+  <div class="content-block">
+    <h2>Which word fills the gap?</h2>
+    <p>Use the words from the previous tab to complete these sentences. Say the full sentence out loud before checking.</p>
+  </div>
+
+  <div class="word-bank">
+    <span class="word-chip">komorebi</span>
+    <span class="word-chip">saudade</span>
+    <span class="word-chip">lagom</span>
+    <span class="word-chip">sprezzatura</span>
+    <span class="word-chip">nunchi</span>
+    <span class="word-chip">waldeinsamkeit</span>
+    <span class="word-chip">sisu</span>
+    <span class="word-chip">tarab</span>
+  </div>
+
+  <div class="scenario-card">
+    <p>1. She walked into the meeting room and immediately sensed the tension. Nobody had to say anything — her <span class="gap-fill">______</span> told her everything she needed to know.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>nunchi</strong> — the ability to read the room without anyone speaking.</div>
+  </div>
+
+  <div class="scenario-card">
+    <p>2. He wore the suit like he'd thrown it on without thinking, but somehow looked impeccable. That kind of effortless elegance — pure <span class="gap-fill">______</span>.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>sprezzatura</strong> — the art of making effort look effortless.</div>
+  </div>
+
+  <div class="scenario-card">
+    <p>3. Walking through the forest alone, the only sounds were birds and her own footsteps. That peaceful solitude — the Germans would call it <span class="gap-fill">______</span>.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>waldeinsamkeit</strong> — the feeling of being alone in the woods.</div>
+  </div>
+
+  <div class="scenario-card">
+    <p>4. It had been twenty years since she left her hometown, and there were days when the longing was almost physical — not sadness exactly, but a bittersweet ache. A kind of <span class="gap-fill">______</span>.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>saudade</strong> — a deep longing for something absent.</div>
+  </div>
+
+  <div class="scenario-card">
+    <p>5. The audience sat in complete silence as the final note faded. Nobody moved. They were all lost in <span class="gap-fill">______</span> — that feeling when music takes you somewhere you can't describe.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>tarab</strong> — a state of musical ecstasy.</div>
+  </div>
+
+  <div class="scenario-card">
+    <p>6. After three failed attempts, most people would have given up. But she had this quiet stubbornness, a refusal to surrender that went beyond normal determination. That's <span class="gap-fill">______</span>.</p>
+    <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer-reveal"><strong>sisu</strong> — extraordinary inner strength in the face of adversity.</div>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Now your turn:</strong> Choose any 2 of the remaining words (<em>komorebi</em> and <em>lagom</em>) and create your own sentence or mini-scenario for each. Make them personal — describe a real memory if you can.
+  </div>
+  <textarea placeholder="Write your sentences here..."></textarea>
+</div>
+
+<!-- TAB 4: Your Words -->
+<div class="tab-content" id="tab3">
+  <div class="content-block">
+    <h2>Words your language has that English needs</h2>
+    <p>Now it's your turn. Think of 2 or 3 words from your own language (or any language you know) that are impossible to translate properly into English.</p>
+  </div>
+
+  <div class="scenario-card">
+    <h4>Word 1</h4>
+    <p style="color:#666; margin-bottom:8px;">Write the word, then try to explain it in English. What situation does it describe? Why doesn't English have it?</p>
+    <textarea placeholder="The word: &#10;&#10;What it means: &#10;&#10;An example situation: &#10;&#10;Why English needs this word: "></textarea>
+  </div>
+
+  <div class="scenario-card">
+    <h4>Word 2</h4>
+    <textarea placeholder="The word: &#10;&#10;What it means: &#10;&#10;An example situation: &#10;&#10;Why English needs this word: "></textarea>
+  </div>
+
+  <div class="scenario-card">
+    <h4>Word 3 (if you have one)</h4>
+    <textarea placeholder="The word: &#10;&#10;What it means: &#10;&#10;An example situation: &#10;&#10;Why English needs this word: "></textarea>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Present your words:</strong> Explain each word as if you're teaching it to someone who has never heard it. Give an example, describe the feeling, and explain what makes it untranslatable. Take your time.
+  </div>
+
+  <div class="timer-box">
+    <p style="color:#666;">Take 2 minutes per word</p>
+    <div class="timer-display" id="timerDisplay">2:00</div>
+    <button class="timer-btn" id="timerBtn" onclick="startTimer()">Start Timer</button>
+  </div>
+</div>
+
+<!-- TAB 5: The Big Question -->
+<div class="tab-content" id="tab4">
+  <div class="content-block">
+    <h2>Does language shape how we think?</h2>
+    <p>There's a famous idea in linguistics: the language you speak doesn't just reflect how you see the world — it actually <em>shapes</em> what you can think and feel.</p>
+    <p style="margin-top:12px;">If English doesn't have a word for <em>saudade</em>, do English speakers experience that feeling less? If Japanese has <em>komorebi</em>, do Japanese speakers notice the sunlight through leaves more than others?</p>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>What do you think?</strong> Do you feel differently about things depending on whether you're thinking in English or in your first language? Can you give an example?
+  </div>
+
+  <div class="scenario-card">
+    <h4>The thought experiment</h4>
+    <p>Imagine you could add ONE word from any language to the English dictionary. Which word would you choose, and why? How would it change the way English speakers communicate?</p>
+    <textarea placeholder="I would add the word... because..."></textarea>
+  </div>
+
+  <div class="speak-prompt">
+    <strong>Final reflection:</strong> Has learning English changed the way you think about anything? Are there ideas that feel different — or clearer — when you express them in English versus your first language?
+  </div>
+
+  <div class="content-block" style="border-left-color: #764ba2; background: #f5f0ff;">
+    <h2>Some beautiful English words to take away</h2>
+    <p>English may borrow a lot, but it has a few untranslatable gems of its own:</p>
+    <div style="margin-top:12px;">
+      <p><strong>Serendipity</strong> — finding something wonderful by accident, when you weren't looking for it</p>
+      <p><strong>Petrichor</strong> — the smell of earth after rain</p>
+      <p><strong>Hiraeth</strong> (borrowed from Welsh) — a deep longing for a home you can't return to, or one that maybe never was</p>
+      <p><strong>Ineffable</strong> — too great or beautiful to be expressed in words</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(index) {
+  document.querySelectorAll(".tab-content").forEach(function(t) { t.classList.remove("active"); });
+  document.querySelectorAll(".tab-button").forEach(function(b) { b.classList.remove("active"); });
+  document.getElementById("tab" + index).classList.add("active");
+  document.querySelectorAll(".tab-button")[index].classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function toggleAnswer(btn) {
+  var reveal = btn.nextElementSibling;
+  if (!reveal || !reveal.classList.contains("answer-reveal")) {
+    reveal = btn.parentElement.querySelector(".answer-reveal");
+  }
+  if (reveal.style.display === "block") {
+    reveal.style.display = "none";
+    btn.textContent = "Show Answer";
+  } else {
+    reveal.style.display = "block";
+    btn.textContent = "Hide Answer";
+  }
+}
+
+var timerInterval = null;
+var timeLeft = 120;
+
+function startTimer() {
+  var btn = document.getElementById("timerBtn");
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeLeft = 120;
+    document.getElementById("timerDisplay").textContent = "2:00";
+    btn.textContent = "Start Timer";
+    return;
+  }
+  btn.textContent = "Reset";
+  timerInterval = setInterval(function() {
+    timeLeft--;
+    var m = Math.floor(timeLeft / 60);
+    var s = timeLeft % 60;
+    document.getElementById("timerDisplay").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+    if (timeLeft <= 10) {
+      document.getElementById("timerDisplay").style.color = "#e74c3c";
+    }
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById("timerDisplay").textContent = "Time!";
+      btn.textContent = "Start Timer";
+      timeLeft = 120;
+      setTimeout(function() {
+        document.getElementById("timerDisplay").style.color = "#764ba2";
+      }, 3000);
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
