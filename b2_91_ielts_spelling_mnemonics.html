@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Never Misspell It Again</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active {
+            background: #f8f9fa;
+            border-bottom-color: #667eea;
+            color: #764ba2;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .vocab-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .vocab-card:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+        }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+
+        .answer-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+            color: #333;
+        }
+        .answer-text.show { display: block; }
+
+        .question-block {
+            background: white;
+            padding: 20px;
+            border-left: 5px solid #764ba2;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+
+        .discussion-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+
+        .timer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timer.warning {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
+        }
+        .timer.danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn {
+            padding: 8px 15px;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .textarea-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Mnemonic cards */
+        .mnemonic-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+        }
+        .mnemonic-word {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 6px;
+        }
+        .mnemonic-word .trap { color: #ef4444; }
+        .mnemonic-word .highlight { color: #667eea; }
+        .mnemonic-rule {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .mnemonic-trick {
+            background: linear-gradient(135deg, #f0edff 0%, #e8f0ff 100%);
+            border-left: 4px solid #764ba2;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #444;
+            margin-top: 8px;
+        }
+        .mnemonic-trick strong { color: #764ba2; font-style: normal; }
+
+        /* Spell-check practice */
+        .spell-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .spell-clue {
+            flex: 1;
+            min-width: 180px;
+            color: #555;
+            font-size: 0.95em;
+        }
+        .spell-input {
+            width: 220px;
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 1em;
+            color: #333;
+        }
+        .spell-input.correct { border-color: #4ade80; background: #f0fdf4; }
+        .spell-input.incorrect { border-color: #ef4444; background: #fef2f2; }
+        .check-btn {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .check-btn:hover { background: #764ba2; }
+        .spell-feedback { font-size: 0.9em; margin-top: 2px; }
+        .spell-feedback.ok { color: #16a34a; }
+        .spell-feedback.wrong { color: #dc2626; }
+
+        /* Jumbled letters */
+        .jumble-word {
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #667eea;
+            font-family: monospace;
+            background: #f0edff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button {
+                width: 100%;
+                text-align: left;
+                border-bottom: 3px solid transparent;
+                border-left: 5px solid transparent;
+            }
+            .tab-button.active {
+                border-bottom: none;
+                border-left-color: #667eea;
+                background: #f8f9fa;
+            }
+            .vocab-grid { grid-template-columns: 1fr; }
+            .timer { flex-direction: column; gap: 10px; }
+            .spell-input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Never Misspell It Again</h1>
+        <p>B2 Level &middot; 10 essential IELTS words &middot; one trick for each</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'tab1')">The Problem</button>
+        <button class="tab-button" onclick="openTab(event, 'tab2')">The Words</button>
+        <button class="tab-button" onclick="openTab(event, 'tab3')">Memory Tricks</button>
+        <button class="tab-button" onclick="openTab(event, 'tab4')">Spell It!</button>
+        <button class="tab-button" onclick="openTab(event, 'tab5')">Use Them</button>
+    </div>
+
+    <!-- TAB 1: The Problem -->
+    <div id="tab1" class="tab-content active">
+        <div class="content-block">
+            <h2>Why does spelling matter in IELTS?</h2>
+            <p>In IELTS Listening and Reading, a correct answer with a spelling mistake is marked <strong>wrong</strong>. One letter can cost you a band score.</p>
+            <p style="margin-top: 12px;">The same 200 or so words appear again and again — and the same ones get misspelled again and again.</p>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Before we start — honest answers:</strong></p>
+            <p>Which of these do you think you could spell correctly right now, without help?</p>
+        </div>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">necessary</span>
+                <span class="definition">Common mistake: neccessary / necessery</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">accommodation</span>
+                <span class="definition">Common mistake: acommodation / accomodation</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">government</span>
+                <span class="definition">Common mistake: goverment (dropped N)</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">environment</span>
+                <span class="definition">Common mistake: enviroment (dropped N)</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">independent</span>
+                <span class="definition">Common mistake: independant (wrong ending)</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">privilege</span>
+                <span class="definition">Common mistake: priviledge / privelege</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">guarantee</span>
+                <span class="definition">Common mistake: guarentee / garantee</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">achievement</span>
+                <span class="definition">Common mistake: acheivment / achievment</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">colleague</span>
+                <span class="definition">Common mistake: collegue / colleage</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">questionnaire</span>
+                <span class="definition">Common mistake: questionaire (one N)</span>
+            </div>
+        </div>
+        <p style="color: #888; font-size: 0.9em; margin-top: -10px;">Click each card to see the most common mistake.</p>
+    </div>
+
+    <!-- TAB 2: The Words -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>What do they mean?</h2>
+            <p>Before learning to spell a word, it helps to know it well. Click each card to see the definition and an example sentence.</p>
+        </div>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">necessary</span>
+                <span class="definition">Needed; cannot be avoided. <br><em>"Sleep is necessary for good health."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">accommodation</span>
+                <span class="definition">A place to live or stay. <br><em>"Student accommodation is expensive in London."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">government</span>
+                <span class="definition">The group of people who run a country. <br><em>"The government introduced new housing policies."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">environment</span>
+                <span class="definition">The natural world; or the surroundings. <br><em>"Pollution is damaging the environment."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">independent</span>
+                <span class="definition">Not controlled by others; self-reliant. <br><em>"She became financially independent at 25."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">privilege</span>
+                <span class="definition">A special advantage not everyone has. <br><em>"Access to good education is a privilege."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">guarantee</span>
+                <span class="definition">A firm promise; to promise something will happen. <br><em>"Hard work does not guarantee success."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">achievement</span>
+                <span class="definition">Something accomplished through effort. <br><em>"Passing IELTS is a real achievement."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">colleague</span>
+                <span class="definition">A person you work with. <br><em>"I discussed the report with my colleagues."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">questionnaire</span>
+                <span class="definition">A set of written questions used to gather information. <br><em>"Participants completed an online questionnaire."</em></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: Memory Tricks -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>One trick for each word</h2>
+            <p>A mnemonic (neh-MON-ik) is a memory trick — a phrase, image, or pattern that makes a spelling stick. The stranger the trick, the better it works.</p>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">ne<span class="highlight">c</span>e<span class="highlight">ss</span>ary</div>
+            <div class="mnemonic-rule">One C, two Ss — the most common confusion.</div>
+            <div class="mnemonic-trick">A shirt has <strong>one Collar</strong> and <strong>two Sleeves</strong> — and so does <strong>ne<u>C</u>e<u>SS</u>ary</strong>.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">a<span class="highlight">cc</span>o<span class="highlight">mm</span>odation</div>
+            <div class="mnemonic-rule">Double C and double M — both get dropped.</div>
+            <div class="mnemonic-trick">A good hotel has <strong>two Comfortable beds</strong> and <strong>two Massive pillows</strong> — a<strong>CC</strong>o<strong>MM</strong>odation.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">gover<span class="highlight">n</span>ment</div>
+            <div class="mnemonic-rule">People drop the N before -ment. It's always there.</div>
+            <div class="mnemonic-trick">The gover<strong>N</strong>ment will <strong>Never</strong> lose its N — it governs the N.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">enviro<span class="highlight">n</span>ment</div>
+            <div class="mnemonic-rule">Same trap — the N before -ment gets forgotten.</div>
+            <div class="mnemonic-trick">The <strong>N</strong>ature in the enviro<strong>N</strong>ment will never disappear.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">independ<span class="highlight">ent</span></div>
+            <div class="mnemonic-rule">Ends in -ENT, not -ANT. This one catches everyone.</div>
+            <div class="mnemonic-trick">To be independ<strong>ENT</strong>, you must <strong>ENTer</strong> the world on your own terms.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">privile<span class="highlight">ge</span></div>
+            <div class="mnemonic-rule">No D — people write "priviledge" but there is no D.</div>
+            <div class="mnemonic-trick">It's a privile<strong>GE</strong>, not a privile<strong>DGE</strong> — only a <strong>GE</strong>nius gets the privilege.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">guaran<span class="highlight">tee</span></div>
+            <div class="mnemonic-rule">Ends in -TEE. The vowels in the middle (ua) also trip people up.</div>
+            <div class="mnemonic-trick">I <strong>guaran-TEE</strong> there's a <strong>TEE</strong> shot at the end — just like in golf.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">ach<span class="highlight">ie</span>vement</div>
+            <div class="mnemonic-rule">I before E — people reverse it to "ei".</div>
+            <div class="mnemonic-trick"><strong>ACH</strong>ieve: <strong>A</strong>lways <strong>C</strong>ome <strong>H</strong>ome — <strong>I</strong> before <strong>E</strong>.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">col<span class="highlight">league</span></div>
+            <div class="mnemonic-rule">Ends in -LEAGUE. The -ea- in the middle is silent and confusing.</div>
+            <div class="mnemonic-trick">My col<strong>LEAGUE</strong> plays in the <strong>LEAGUE</strong> — the league is hiding inside colleague.</div>
+        </div>
+
+        <div class="mnemonic-card">
+            <div class="mnemonic-word">questio<span class="highlight">nn</span>aire</div>
+            <div class="mnemonic-rule">Double N in the middle — almost everyone writes one N.</div>
+            <div class="mnemonic-trick">A questioN<strong>N</strong>aire asks <strong>oNe questioN</strong>, theN <strong>aNother</strong> — two Ns, two questions.</div>
+        </div>
+    </div>
+
+    <!-- TAB 4: Spell It! -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Test yourself</h2>
+            <p>Read the clue, recall the trick, and type the word. Don't look back at Tab 3!</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+
+            <div class="question-block">
+                <h4>1. A shirt has one Collar and two Sleeves. What word does that describe?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s1" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s1','necessary','sf1')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf1"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>2. Two comfortable beds, two massive pillows — what word needs two Cs and two Ms?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s2" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s2','accommodation','sf2')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf2"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>3. It governs the N — which word never loses its N before -ment?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s3" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s3','government','sf3')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf3"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>4. Nature will never disappear — which word has a hidden N before -ment?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s4" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s4','environment','sf4')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf4"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>5. You ENTER the world on your own terms — which word ends in -ENT, not -ANT?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s5" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s5','independent','sf5')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf5"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>6. Only a GEnius gets it — which word has no D, just a GE?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s6" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s6','privilege','sf6')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf6"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>7. There's a TEE shot at the end, just like in golf. Which word is this?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s7" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s7','guarantee','sf7')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf7"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>8. Always Come Home — I before E. What is the word?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s8" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s8','achievement','sf8')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf8"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>9. The LEAGUE is hiding inside it. What word are we talking about?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s9" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s9','colleague','sf9')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf9"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>10. One question, then another — two Ns, two questions. What is this word?</h4>
+                <div class="spell-row">
+                    <input class="spell-input" id="s10" type="text" placeholder="Type the word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('s10','questionnaire','sf10')">Check</button>
+                </div>
+                <div class="spell-feedback" id="sf10"></div>
+            </div>
+
+        </div>
+
+        <div class="content-block">
+            <h3>Jumbled letters — unscramble and spell correctly</h3>
+            <p style="margin-bottom: 15px;">Rearrange the letters to make a word from today's lesson.</p>
+
+            <div class="question-block">
+                <h4>A.</h4>
+                <div class="jumble-word">LEYGUOCE</div>
+                <div class="spell-row" style="margin-top: 10px;">
+                    <input class="spell-input" id="j1" type="text" placeholder="Unscrambled word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('j1','colleague','jf1')">Check</button>
+                </div>
+                <div class="spell-feedback" id="jf1"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>B.</h4>
+                <div class="jumble-word">NGTVERNOEM</div>
+                <div class="spell-row" style="margin-top: 10px;">
+                    <input class="spell-input" id="j2" type="text" placeholder="Unscrambled word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('j2','government','jf2')">Check</button>
+                </div>
+                <div class="spell-feedback" id="jf2"></div>
+            </div>
+
+            <div class="question-block">
+                <h4>C.</h4>
+                <div class="jumble-word">EEGATARNU</div>
+                <div class="spell-row" style="margin-top: 10px;">
+                    <input class="spell-input" id="j3" type="text" placeholder="Unscrambled word..." autocomplete="off">
+                    <button class="check-btn" onclick="checkSpell('j3','guarantee','jf3')">Check</button>
+                </div>
+                <div class="spell-feedback" id="jf3"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TAB 5: Use Them -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Now use the words</h2>
+            <p>The best way to lock in a spelling is to use the word in your own writing. Each prompt below uses at least one of today's words — try to use it correctly.</p>
+        </div>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">5:00</span></strong></span>
+            <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+        </div>
+
+        <div class="question-block">
+            <h4>1. What is one achievement you are proud of? Why was it difficult?</h4>
+            <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Try to also use: <em>necessary, independent</em></p>
+            <textarea class="textarea-box" placeholder="Write 3-4 sentences here..." style="margin-top: 10px;"></textarea>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Is it the government's responsibility to protect the environment? Or do individuals need to act?</h4>
+            <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Try to also use: <em>privilege, guarantee</em></p>
+            <textarea class="textarea-box" placeholder="Write 3-4 sentences here..." style="margin-top: 10px;"></textarea>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Imagine a colleague asks you to fill in a questionnaire about your workplace. What kinds of questions would you expect?</h4>
+            <p style="font-size: 0.9em; color: #888; margin-top: 5px;">Try to also use: <em>accommodation, necessary</em></p>
+            <textarea class="textarea-box" placeholder="Write 3-4 sentences here..." style="margin-top: 10px;"></textarea>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Something to think about:</strong></p>
+            <p>Can you invent your own mnemonic for one of the words? The more personal and ridiculous it is, the better it will stick.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(function(t) { t.classList.remove("active"); });
+        document.querySelectorAll(".tab-button").forEach(function(b) { b.classList.remove("active"); });
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function flipCard(el) {
+        el.classList.toggle("flipped");
+    }
+
+    let timerInterval = null;
+    let timeRemaining = 300;
+
+    function startTimer() {
+        if (timerInterval) return;
+        timerInterval = setInterval(function() {
+            timeRemaining--;
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById("timer-display").textContent =
+                minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+            const timerEl = document.querySelector(".timer");
+            if (timeRemaining <= 10) {
+                timerEl.classList.add("danger");
+                timerEl.classList.remove("warning");
+            } else if (timeRemaining <= 60) {
+                timerEl.classList.add("warning");
+                timerEl.classList.remove("danger");
+            } else {
+                timerEl.classList.remove("warning", "danger");
+            }
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                document.getElementById("timer-display").textContent = "Time's up!";
+            }
+        }, 1000);
+    }
+
+    function checkSpell(inputId, correct, feedbackId) {
+        const input = document.getElementById(inputId);
+        const feedback = document.getElementById(feedbackId);
+        const val = input.value.trim().toLowerCase();
+
+        if (val === correct.toLowerCase()) {
+            input.classList.add("correct");
+            input.classList.remove("incorrect");
+            feedback.className = "spell-feedback ok";
+            feedback.textContent = "Correct!";
+        } else if (val === "") {
+            feedback.className = "spell-feedback wrong";
+            feedback.textContent = "Type your answer first.";
+        } else {
+            input.classList.add("incorrect");
+            input.classList.remove("correct");
+            feedback.className = "spell-feedback wrong";
+            feedback.textContent = "Not quite — the answer is: " + correct;
+        }
+    }
+</script>
+</body>
+</html>
