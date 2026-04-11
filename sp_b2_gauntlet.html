@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grammar Gauntlet — B2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+/* ── Series nav strip ── */
+.series-strip {
+  background: #1a1a2e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+}
+.series-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.series-step:hover { color: rgba(255,255,255,0.8); }
+.series-step.current { color: #f6c90e; }
+.series-step .badge {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800;
+  background: rgba(255,255,255,0.12);
+}
+.series-step.current .badge { background: #f6c90e; color: #1a1a2e; }
+.series-arrow { color: rgba(255,255,255,0.2); font-size: 0.75rem; padding: 0 2px; }
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #764ba2 55%, #c05621 100%);
+  color: white;
+  padding: 28px 24px 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+.header .eyebrow { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; margin-bottom: 6px; }
+.header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: 6px; }
+.header p { font-size: 0.88rem; opacity: 0.85; }
+
+/* ── Round progress indicator ── */
+.round-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  background: white;
+  border-bottom: 2px solid #e9ecef;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.round-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.round-btn:hover { color: #764ba2; }
+.round-btn.active { color: #c05621; border-bottom-color: #c05621; }
+.round-btn .round-num { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+
+/* ── Layout ── */
+.content { max-width: 760px; margin: 0 auto; padding: 28px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.panel.active { animation: fadeUp 0.3s ease; }
+
+/* ── Cards ── */
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #764ba2; margin-bottom: 12px; font-weight: 700; }
+.card h3 { font-size: 0.95rem; color: #c05621; margin: 16px 0 8px; font-weight: 700; }
+.card p { color: #444; margin-bottom: 8px; font-size: 0.95rem; }
+
+/* ── Warm-up new structures ── */
+.new-tag { display: inline-block; background: #f6c90e; color: #1a1a2e; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+.structure-box { background: #f8f4ff; border-left: 4px solid #764ba2; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 12px 0; }
+.structure-box .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #764ba2; margin-bottom: 8px; }
+.structure-box .rule { font-size: 0.9rem; color: #333; margin-bottom: 6px; }
+.structure-box .examples { font-size: 0.87rem; color: #555; font-style: italic; }
+.structure-box .examples span { display: block; padding: 3px 0; }
+.toggle-reveal { background: none; border: 2px solid #764ba2; color: #764ba2; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 700; margin-top: 8px; transition: all 0.2s; }
+.toggle-reveal:hover { background: #764ba2; color: white; }
+.hidden-reveal { display: none; margin-top: 10px; }
+.hidden-reveal.show { display: block; }
+
+/* ── Round 1: Sprint ── */
+.sprint-counter { text-align: center; font-size: 0.78rem; font-weight: 700; color: #c05621; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.sprint-card {
+  background: white; border: 2px solid #e9ecef; border-radius: 12px;
+  padding: 22px; margin-bottom: 14px; transition: border-color 0.3s;
+}
+.sprint-card.answered-correct { border-color: #28a745; background: #f6fff8; }
+.sprint-card.answered-wrong { border-color: #dc3545; background: #fff5f5; }
+.sprint-num { font-size: 0.7rem; font-weight: 700; color: #c05621; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.sprint-text { font-size: 1.05rem; margin-bottom: 14px; line-height: 1.7; }
+.sprint-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.sprint-btn {
+  padding: 8px 22px; border-radius: 8px; border: 2px solid #e9ecef;
+  background: white; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  font-family: inherit; transition: all 0.2s;
+}
+.sprint-btn.error-btn { border-color: #dc3545; color: #dc3545; }
+.sprint-btn.error-btn:hover { background: #dc3545; color: white; }
+.sprint-btn.correct-btn { border-color: #28a745; color: #28a745; }
+.sprint-btn.correct-btn:hover { background: #28a745; color: white; }
+.sprint-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+.sprint-result { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 8px; font-size: 0.88rem; }
+.sprint-result.show { display: block; }
+.sprint-result.right { background: #e9f7ef; color: #1e7e34; border-left: 4px solid #28a745; }
+.sprint-result.wrong { background: #fdf2f2; color: #c0392b; border-left: 4px solid #dc3545; }
+.sprint-score-bar { background: #f0f4ff; border-radius: 10px; padding: 16px 20px; text-align: center; margin-bottom: 20px; font-weight: 700; color: #764ba2; font-size: 1rem; }
+
+/* ── Round 2: Fix It ── */
+.fix-card { background: white; border: 2px solid #e9ecef; border-radius: 12px; padding: 22px; margin-bottom: 16px; transition: border-color 0.3s; }
+.fix-card.fixed { border-color: #764ba2; background: #faf8ff; }
+.fix-num { font-size: 0.7rem; font-weight: 700; color: #764ba2; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.fix-text { font-size: 1.05rem; line-height: 1.7; margin-bottom: 14px; font-style: italic; color: #333; }
+.fix-input {
+  width: 100%; padding: 10px 14px; border: 2px solid #e9ecef; border-radius: 8px;
+  font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; outline: none;
+}
+.fix-input:focus { border-color: #764ba2; }
+.fix-check { margin-top: 10px; padding: 8px 20px; background: linear-gradient(135deg, #764ba2, #c05621); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; font-family: inherit; transition: opacity 0.2s; }
+.fix-check:hover { opacity: 0.9; }
+.fix-answer { display: none; margin-top: 10px; padding: 12px 14px; background: #f8f4ff; border-left: 4px solid #764ba2; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #333; }
+.fix-answer.show { display: block; }
+.fix-answer strong { color: #28a745; }
+
+/* ── Round 3: Transform ── */
+.transform-card { background: white; border: 2px solid #e9ecef; border-radius: 12px; padding: 22px; margin-bottom: 16px; transition: border-color 0.3s; }
+.transform-card.done { border-color: #c05621; background: #fff9f5; }
+.transform-num { font-size: 0.7rem; font-weight: 700; color: #c05621; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.transform-original { background: #f8f9fa; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 1rem; color: #333; line-height: 1.6; }
+.transform-instruction { font-size: 0.82rem; font-weight: 700; color: #c05621; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.transform-input {
+  width: 100%; padding: 10px 14px; border: 2px solid #e9ecef; border-radius: 8px;
+  font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; outline: none;
+}
+.transform-input:focus { border-color: #c05621; }
+.transform-check { margin-top: 10px; padding: 8px 20px; background: linear-gradient(135deg, #764ba2, #c05621); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; font-family: inherit; transition: opacity 0.2s; }
+.transform-check:hover { opacity: 0.9; }
+.transform-answer { display: none; margin-top: 10px; padding: 12px 14px; background: #fff5ee; border-left: 4px solid #c05621; border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #333; }
+.transform-answer.show { display: block; }
+.transform-answer strong { color: #c05621; }
+
+/* ── Results ── */
+.results-hero { background: linear-gradient(135deg, #1a1a2e, #764ba2, #c05621); color: white; border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 24px; }
+.results-hero h2 { font-size: 1.6rem; margin-bottom: 8px; }
+.results-hero p { opacity: 0.85; font-size: 0.9rem; }
+.score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 20px 0; }
+.score-box { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; text-align: center; }
+.score-box .num { font-size: 2rem; font-weight: 800; }
+.score-box .label { font-size: 0.75rem; opacity: 0.8; margin-top: 4px; }
+.series-complete { background: #f6c90e; color: #1a1a2e; border-radius: 12px; padding: 20px 24px; text-align: center; font-weight: 700; margin-bottom: 20px; }
+.series-complete p { font-size: 0.9rem; font-weight: 600; margin-top: 6px; opacity: 0.75; }
+
+/* ── Next / nav ── */
+.next-btn {
+  display: block; width: 100%; padding: 14px; margin-top: 24px;
+  background: linear-gradient(135deg, #764ba2, #c05621); color: white;
+  border: none; border-radius: 10px; cursor: pointer; font-size: 0.95rem;
+  font-weight: 700; font-family: inherit; text-align: center; transition: opacity 0.2s;
+}
+.next-btn:hover { opacity: 0.9; }
+.back-btn {
+  display: inline-block; padding: 10px 20px; margin-top: 12px;
+  background: white; color: #6c757d; border: 2px solid #e9ecef;
+  border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+  font-weight: 600; font-family: inherit; transition: all 0.2s;
+}
+.back-btn:hover { border-color: #764ba2; color: #764ba2; }
+
+@media (max-width: 600px) {
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .header h1 { font-size: 1.5rem; }
+  .series-strip { gap: 0; padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Series navigation strip ── -->
+<div class="series-strip">
+  <a href="diagnostic_b2.html" class="series-step">
+    <span class="badge">1</span> Diagnostic
+  </a>
+  <span class="series-arrow">›</span>
+  <a href="sp_b2_error_auction_flip.html" class="series-step">
+    <span class="badge">2</span> Auction &amp; Flip
+  </a>
+  <span class="series-arrow">›</span>
+  <span class="series-step current">
+    <span class="badge">3</span> The Gauntlet
+  </span>
+</div>
+
+<div class="header">
+  <div class="eyebrow">B2 Grammar Series · Lesson 3 of 3</div>
+  <h1>🏆 The Grammar Gauntlet</h1>
+  <p>Three rounds · Sprint · Fix · Transform · This is the final test</p>
+</div>
+
+<div class="round-progress">
+  <button class="round-btn active" onclick="goPanel(0)">
+    <span class="round-num">Warm-up</span>New Structures
+  </button>
+  <button class="round-btn" onclick="goPanel(1)">
+    <span class="round-num">Round 1</span>Sprint
+  </button>
+  <button class="round-btn" onclick="goPanel(2)">
+    <span class="round-num">Round 2</span>Fix It
+  </button>
+  <button class="round-btn" onclick="goPanel(3)">
+    <span class="round-num">Round 3</span>Transform
+  </button>
+  <button class="round-btn" onclick="goPanel(4)">
+    <span class="round-num">End</span>Results
+  </button>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════════════════════════
+     WARM-UP — NEW STRUCTURES
+══════════════════════════════════════ -->
+<div id="panel-0" class="panel active">
+
+  <div class="card">
+    <h2>Before the Gauntlet — three new structures</h2>
+    <p>You already know the grammar from Lessons 1 and 2. Today adds three more tools that B2 writers use. Read each one, then click to reveal the pattern.</p>
+  </div>
+
+  <div class="card">
+    <h2>Participle clauses <span class="new-tag">New</span></h2>
+    <p>A participle clause replaces a longer clause to make writing more concise and formal. It connects two ideas when they share the same subject.</p>
+    <div class="structure-box">
+      <div class="label">Having + past participle</div>
+      <div class="rule">"Having finished the report, she went home."<br><span style="color:#888; font-size:0.85em;">(= After she had finished the report, she went home.)</span></div>
+    </div>
+    <div class="structure-box">
+      <div class="label">Not having + past participle</div>
+      <div class="rule">"Not having heard the news, he was surprised."<br><span style="color:#888; font-size:0.85em;">(= Because he hadn't heard the news, he was surprised.)</span></div>
+    </div>
+    <button class="toggle-reveal" onclick="toggle('wu1')">See the common error ▾</button>
+    <div id="wu1" class="hidden-reveal">
+      <div class="structure-box" style="border-left-color:#dc3545; background:#fff5f5;">
+        <div class="label" style="color:#dc3545;">Error</div>
+        <div class="rule">"<span style='color:#dc3545;'>Having finished</span> the report, <span style='color:#dc3545;'>it</span> was sent immediately."</div>
+        <div class="examples"><span>⚠ The subject of the participle clause must be the same as the subject of the main clause. Here, <em>who</em> finished the report? Not "it".</span><span style="color:#28a745;">✓ "Having finished the report, <strong>she</strong> sent it immediately."</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Cleft sentences <span class="new-tag">New</span></h2>
+    <p>Cleft sentences split one idea into two clauses to put emphasis on one part. They are very common in formal spoken and written English.</p>
+    <div class="structure-box">
+      <div class="label">It + be + focus + that/who/which</div>
+      <div class="rule">"It was the deadline that caused the most stress."</div>
+      <div class="examples"><span>Original: "The deadline caused the most stress."</span><span>The cleft version says: <em>not something else — specifically the deadline.</em></span></div>
+    </div>
+    <div class="structure-box">
+      <div class="label">What + clause + be + focus</div>
+      <div class="rule">"What surprised me was how quickly they agreed."</div>
+      <div class="examples"><span>Original: "I was surprised by how quickly they agreed."</span></div>
+    </div>
+    <button class="toggle-reveal" onclick="toggle('wu2')">Try one ▾</button>
+    <div id="wu2" class="hidden-reveal">
+      <div class="structure-box" style="background:#f0fff4; border-left-color:#28a745;">
+        <div class="label" style="color:#28a745;">Practice</div>
+        <div class="rule">Rewrite this sentence as a cleft sentence using <em>It was…</em><br>"The lack of communication caused the misunderstanding."</div>
+        <div class="examples" style="margin-top:10px;"><span>→ "It was the lack of communication <strong>that</strong> caused the misunderstanding."</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Conditional alternatives <span class="new-tag">New</span></h2>
+    <p><em>If</em> is not the only word that introduces a condition. These three alternatives are common in formal and written English:</p>
+    <div class="structure-box">
+      <div class="label">Unless = if… not</div>
+      <div class="rule">"Unless you register by Friday, you will lose your place."<br><span style="color:#888; font-size:0.85em;">(= If you don't register…)</span></div>
+    </div>
+    <div class="structure-box">
+      <div class="label">Provided that / providing = only if</div>
+      <div class="rule">"You can leave early, provided that you finish the report first."</div>
+    </div>
+    <div class="structure-box">
+      <div class="label">As long as = on the condition that</div>
+      <div class="rule">"As long as you are on time, there is no problem."</div>
+    </div>
+    <p style="margin-top:4px; font-size:0.85em; color:#888;">Note: all three are followed by a present tense (not future) in the condition clause — same rule as <em>if</em>.</p>
+  </div>
+
+  <button class="next-btn" onclick="goPanel(1)">Ready — start Round 1: Sprint →</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     ROUND 1 — SPRINT
+══════════════════════════════════════ -->
+<div id="panel-1" class="panel">
+
+  <div class="card">
+    <h2>Round 1 — Sprint</h2>
+    <p>Ten sentences. Each one is either <strong>correct</strong> or contains an <strong>error</strong>. Decide fast — no budget, no bids. Just instinct.</p>
+  </div>
+
+  <div class="sprint-score-bar" id="sprintScore">Score: 0 / 10</div>
+  <div id="sprint-container"></div>
+
+  <button class="next-btn" id="r1-next" style="display:none;" onclick="goPanel(2)">Round 2: Fix It →</button>
+  <button class="back-btn" onclick="goPanel(0)">← Back to warm-up</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     ROUND 2 — FIX IT
+══════════════════════════════════════ -->
+<div id="panel-2" class="panel">
+
+  <div class="card">
+    <h2>Round 2 — Fix It</h2>
+    <p>Five sentences. All of them contain an error from Lessons 1–3. Say the correction out loud, then type it below each sentence.</p>
+  </div>
+
+  <div id="fix-container"></div>
+
+  <button class="next-btn" onclick="goPanel(3)">Round 3: Transform →</button>
+  <button class="back-btn" onclick="goPanel(1)">← Round 1</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     ROUND 3 — TRANSFORM
+══════════════════════════════════════ -->
+<div id="panel-3" class="panel">
+
+  <div class="card">
+    <h2>Round 3 — Transform It</h2>
+    <p>The hardest round. You are given a sentence and an instruction. Rewrite the sentence using the structure shown. The meaning must stay the same.</p>
+  </div>
+
+  <div id="transform-container"></div>
+
+  <button class="next-btn" onclick="showResults()">See your results →</button>
+  <button class="back-btn" onclick="goPanel(2)">← Round 2</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     RESULTS
+══════════════════════════════════════ -->
+<div id="panel-4" class="panel">
+
+  <div class="results-hero">
+    <h2>🏆 Gauntlet complete</h2>
+    <p>B2 Grammar Series · Lesson 3 of 3</p>
+    <div class="score-grid">
+      <div class="score-box">
+        <div class="num" id="res-sprint">—</div>
+        <div class="label">Round 1 Sprint</div>
+      </div>
+      <div class="score-box">
+        <div class="num" id="res-fix">—</div>
+        <div class="label">Round 2 Fix It</div>
+      </div>
+      <div class="score-box">
+        <div class="num" id="res-transform">—</div>
+        <div class="label">Round 3 Transform</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-complete">
+    ✅ B2 Grammar Series complete
+    <p>Diagnostic → Auction &amp; Flip → The Gauntlet</p>
+  </div>
+
+  <div class="card">
+    <h2>Structures you have now practised</h2>
+    <p>✔ Inversion after negative adverbials (Not only did…)</p>
+    <p>✔ Wish + past perfect for regret</p>
+    <p>✔ Despite (never despite of)</p>
+    <p>✔ Double comparative error (the more better)</p>
+    <p>✔ Insist on / suggest that / deny -ing / avoid -ing</p>
+    <p>✔ Be used to + -ing vs used to + base verb</p>
+    <p>✔ Since (point in time) vs for (duration)</p>
+    <p>✔ Reported question word order</p>
+    <p>✔ Inverted conditionals (Had I known…)</p>
+    <p>✔ Participle clauses (Having finished…)</p>
+    <p>✔ Cleft sentences (It was… that / What… was)</p>
+    <p>✔ Unless / provided that / as long as</p>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+    <a href="diagnostic_b2.html" style="flex:1; min-width:160px; text-align:center; padding:12px; background:#f0f4ff; color:#667eea; border-radius:10px; text-decoration:none; font-weight:700; font-size:0.88rem;">← Back to Lesson 1</a>
+    <a href="sp_b2_error_auction_flip.html" style="flex:1; min-width:160px; text-align:center; padding:12px; background:#f0f4ff; color:#667eea; border-radius:10px; text-decoration:none; font-weight:700; font-size:0.88rem;">← Back to Lesson 2</a>
+  </div>
+</div>
+
+</div><!-- end .content -->
+
+<script>
+
+// ── DATA ──
+
+const sprintData = [
+  { text: "Not only she won the prize, but she also broke the record.", error: true, explain: "Inversion required after 'not only' at the start. → Not only did she win the prize, but she also broke the record." },
+  { text: "I wish I had studied harder when I was younger.", error: false, explain: "Correct. Wish + past perfect is right for past regrets." },
+  { text: "Despite of the cold weather, the match continued.", error: true, explain: "'Despite' is never followed by 'of'. → Despite the cold weather… (or: In spite of the cold weather…)" },
+  { text: "She is used to getting up early — she's done it for years.", error: false, explain: "Correct. 'Be used to' takes the -ing form." },
+  { text: "She suggested me to apply for the job.", error: true, explain: "'Suggest' cannot take object + to-infinitive. → She suggested I apply / She suggested that I apply." },
+  { text: "I've been waiting here since two hours.", error: true, explain: "'Since' is for a point in time (since 2020). 'For' is for a duration. → I've been waiting here for two hours." },
+  { text: "He denied having anything to do with the missing files.", error: false, explain: "Correct. 'Deny' takes the -ing form." },
+  { text: "She asked me where was the nearest hospital.", error: true, explain: "Reported questions use statement word order. → She asked me where the nearest hospital was." },
+  { text: "The more you practise, the more better your results.", error: true, explain: "Never combine 'more' with a comparative. → The more you practise, the better your results." },
+  { text: "Had I known about the meeting, I would have prepared.", error: false, explain: "Correct. This is a formal inverted third conditional." }
+];
+
+const fixData = [
+  { text: "Not only the manager was angry, but the whole team was affected too.", answer: "Not only was the manager angry, but the whole team was affected too.", note: "Inversion: 'Not only was the manager…'" },
+  { text: "He's used to work night shifts after ten years in the job.", answer: "He's used to working night shifts after ten years in the job.", note: "'Be used to' always takes -ing. 'He's used to working…'" },
+  { text: "They avoided to discuss the financial results in public.", answer: "They avoided discussing the financial results in public.", note: "'Avoid' always takes -ing. 'They avoided discussing…'" },
+  { text: "She insisted in having the final word on every decision.", answer: "She insisted on having the final word on every decision.", note: "The correct preposition after 'insist' is 'on'. 'She insisted on having…'" },
+  { text: "I wish I would have chosen a different career path.", answer: "I wish I had chosen a different career path.", note: "Wish + past perfect for regrets. 'Would' is not used here. 'I wish I had chosen…'" }
+];
+
+const transformData = [
+  {
+    original: "I didn't know about the problem, so I couldn't fix it.",
+    instruction: "Rewrite as an inverted conditional (start with Had…)",
+    answer: "Had I known about the problem, I would have fixed it.",
+    note: "Remove 'If' and move the auxiliary to the front: Had + subject + past participle."
+  },
+  {
+    original: "Although there was heavy traffic, she arrived on time.",
+    instruction: "Rewrite using 'despite' (not 'despite of')",
+    answer: "Despite the heavy traffic, she arrived on time.",
+    note: "'Despite' + noun phrase. 'Despite of' is always wrong."
+  },
+  {
+    original: "Direct speech: He said to me, 'Where do you work?'",
+    instruction: "Report the question (correct word order)",
+    answer: "He asked me where I worked.",
+    note: "Statement word order in the reported clause: 'where I worked', not 'where did I work'."
+  },
+  {
+    original: "The poor communication caused the misunderstanding — not anything else.",
+    instruction: "Rewrite as a cleft sentence starting with 'It was…'",
+    answer: "It was the poor communication that caused the misunderstanding.",
+    note: "It was + focus noun + that + rest of the sentence."
+  },
+  {
+    original: "If you don't submit the form before Friday, your application will be rejected.",
+    instruction: "Rewrite using 'unless'",
+    answer: "Unless you submit the form before Friday, your application will be rejected.",
+    note: "'Unless' = 'if not'. Keep the verb positive after 'unless' — no double negative."
+  }
+];
+
+// ── STATE ──
+let sprintScore = 0;
+let sprintAnswered = 0;
+let fixRevealed = 0;
+let transformRevealed = 0;
+
+// ── PANEL NAVIGATION ──
+function goPanel(n) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.round-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + n).classList.add('active');
+  document.querySelectorAll('.round-btn')[n].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── WARM-UP TOGGLE ──
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+  const btn = el.previousElementSibling;
+  btn.textContent = el.classList.contains('show') ? btn.textContent.replace('▾','▴') : btn.textContent.replace('▴','▾');
+}
+
+// ── BUILD ROUND 1: SPRINT ──
+function buildSprint() {
+  const container = document.getElementById('sprint-container');
+  sprintData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'sprint-card';
+    div.id = 'sprint-' + i;
+    div.innerHTML = `
+      <div class="sprint-num">Sentence ${i + 1} of ${sprintData.length}</div>
+      <div class="sprint-text">"${item.text}"</div>
+      <div class="sprint-btns">
+        <button class="sprint-btn error-btn" onclick="answerSprint(${i}, true)">✗ Error</button>
+        <button class="sprint-btn correct-btn" onclick="answerSprint(${i}, false)">✓ Correct</button>
+      </div>
+      <div class="sprint-result" id="sprint-res-${i}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function answerSprint(i, guessedError) {
+  const item = sprintData[i];
+  const card = document.getElementById('sprint-' + i);
+  const res = document.getElementById('sprint-res-' + i);
+  card.querySelectorAll('.sprint-btn').forEach(b => b.disabled = true);
+
+  const correct = (guessedError === item.error);
+  if (correct) sprintScore++;
+  sprintAnswered++;
+
+  card.classList.add(correct ? 'answered-correct' : 'answered-wrong');
+  res.classList.add('show', correct ? 'right' : 'wrong');
+  res.innerHTML = correct
+    ? `<strong>✓ Correct.</strong> ${item.explain}`
+    : `<strong>✗ ${item.error ? 'This has an error.' : 'This is actually correct.'}</strong> ${item.explain}`;
+
+  document.getElementById('sprintScore').textContent = `Score: ${sprintScore} / ${sprintData.length}`;
+
+  if (sprintAnswered === sprintData.length) {
+    document.getElementById('r1-next').style.display = 'block';
+    document.getElementById('res-sprint').textContent = sprintScore + '/' + sprintData.length;
+  }
+}
+
+// ── BUILD ROUND 2: FIX IT ──
+function buildFix() {
+  const container = document.getElementById('fix-container');
+  fixData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'fix-card';
+    div.id = 'fix-' + i;
+    div.innerHTML = `
+      <div class="fix-num">Error ${i + 1} of ${fixData.length}</div>
+      <div class="fix-text">"${item.text}"</div>
+      <input class="fix-input" id="fix-input-${i}" placeholder="Type the corrected sentence..." />
+      <button class="fix-check" onclick="revealFix(${i})">Show correction</button>
+      <div class="fix-answer" id="fix-ans-${i}">
+        <strong>Correction:</strong> "${item.answer}"<br>
+        <span style="color:#555; font-size:0.85em; margin-top:6px; display:block;">${item.note}</span>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFix(i) {
+  document.getElementById('fix-ans-' + i).classList.add('show');
+  document.getElementById('fix-' + i).classList.add('fixed');
+  fixRevealed++;
+  if (fixRevealed === fixData.length) {
+    document.getElementById('res-fix').textContent = '✓';
+  }
+}
+
+// ── BUILD ROUND 3: TRANSFORM ──
+function buildTransform() {
+  const container = document.getElementById('transform-container');
+  transformData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'transform-card';
+    div.id = 'transform-' + i;
+    div.innerHTML = `
+      <div class="transform-num">Task ${i + 1} of ${transformData.length}</div>
+      <div class="transform-original">"${item.original}"</div>
+      <div class="transform-instruction">↳ ${item.instruction}</div>
+      <input class="transform-input" id="transform-input-${i}" placeholder="Write your transformed sentence..." />
+      <button class="transform-check" onclick="revealTransform(${i})">Show model answer</button>
+      <div class="transform-answer" id="transform-ans-${i}">
+        <strong>Model answer:</strong> "${item.answer}"<br>
+        <span style="color:#555; font-size:0.85em; margin-top:6px; display:block;">${item.note}</span>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealTransform(i) {
+  document.getElementById('transform-ans-' + i).classList.add('show');
+  document.getElementById('transform-' + i).classList.add('done');
+  transformRevealed++;
+  if (transformRevealed === transformData.length) {
+    document.getElementById('res-transform').textContent = '✓';
+  }
+}
+
+// ── SHOW RESULTS ──
+function showResults() {
+  if (!document.getElementById('res-sprint').textContent.includes('/')) {
+    document.getElementById('res-sprint').textContent = sprintScore + '/' + sprintData.length;
+  }
+  if (document.getElementById('res-fix').textContent === '—') document.getElementById('res-fix').textContent = '✓';
+  if (document.getElementById('res-transform').textContent === '—') document.getElementById('res-transform').textContent = '✓';
+  goPanel(4);
+}
+
+// ── INIT ──
+buildSprint();
+buildFix();
+buildTransform();
+
+</script>
+</body>
+</html>
