@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotting the Spin</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.series-strip{background:#1a1a2e;padding:10px 20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;font-size:0.78rem;letter-spacing:0.3px}
+.series-step{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;color:rgba(255,255,255,0.45);font-weight:600;text-decoration:none;transition:color 0.2s}
+.series-step:hover{color:rgba(255,255,255,0.8)}
+.series-step.current{color:#f6c90e}
+.series-step .badge{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;background:rgba(255,255,255,0.12)}
+.series-step.current .badge{background:#f6c90e;color:#1a1a2e}
+.series-arrow{color:rgba(255,255,255,0.2);font-size:0.75rem;padding:0 2px}
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.example-box { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-style: italic; color: #495057; font-size: 0.95rem; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.checklist { margin-top: 12px; }
+.check-item { display: flex; align-items: baseline; margin-bottom: 8px; }
+.check-item input { margin-right: 8px; cursor: pointer; }
+.check-item label { cursor: pointer; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.goal-badge { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 12px; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.text-input-box { width: 100%; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.95rem; margin: 8px 0; resize: vertical; min-height: 100px; }
+.text-input-box:focus { outline: none; border-color: #667eea; }
+
+.move-tag { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 700; margin: 3px; }
+
+.quote-block { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 20px; position: relative; }
+.quote-block .quote-text { font-size: 1.05rem; font-style: italic; color: #333; line-height: 1.7; margin-bottom: 12px; }
+.quote-block .quote-context { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.quote-block .move-options { margin-top: 12px; }
+
+.score-tracker { background: linear-gradient(135deg, #667eea08, #764ba208); border: 2px solid #667eea; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: center; }
+.score-tracker h3 { color: #667eea; margin-bottom: 8px; }
+.score-display { font-size: 2.5rem; font-weight: 800; color: #667eea; }
+
+.effectiveness-scale { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.scale-btn { padding: 8px 16px; border: 2px solid #dee2e6; border-radius: 20px; background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+.scale-btn:hover { border-color: #667eea; color: #667eea; }
+.scale-btn.selected { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: transparent; }
+
+.transcript-box { background: #f8f9fa; border-radius: 10px; padding: 16px; margin: 12px 0; }
+.transcript-line { padding: 8px 0; border-bottom: 1px solid #e9ecef; }
+.transcript-line:last-child { border-bottom: none; }
+.transcript-line .speaker { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.transcript-line .speaker.journalist { color: #dc3545; }
+.transcript-line .speaker.official { color: #667eea; }
+.transcript-line .line-text { font-size: 0.95rem; color: #333; }
+</style>
+</head>
+<body>
+
+<div class="series-strip">
+  <a href="gr_c1_the_press_conference.html" class="series-step"><span class="badge">1</span> The Press Conference</a>
+  <span class="series-arrow">&#8250;</span>
+  <a href="gr_c1_the_difficult_conversation.html" class="series-step"><span class="badge">2</span> The Difficult Conversation</a>
+  <span class="series-arrow">&#8250;</span>
+  <span class="series-step current"><span class="badge">3</span> Spotting the Spin</span>
+</div>
+
+<div class="header">
+  <h1>Spotting the Spin</h1>
+  <p>Now you know the moves. Can you see when others use them on you?</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">The Spotter</div>
+  <div class="tab" onclick="showTab(2)">Real Spin</div>
+  <div class="tab" onclick="showTab(3)">Spin in Your Life</div>
+  <div class="tab" onclick="showTab(4)">The Challenge</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>Have You Been Spun?</h2>
+    <p style="margin-bottom:16px;">Think about the last time someone avoided answering your question — a colleague, a company, a politician on TV, a partner, anyone.</p>
+    <div class="speak-prompt">SPEAK: What did they say? Did you notice at the time, or only afterwards? How did it make you feel?</div>
+  </div>
+
+  <div class="card">
+    <h3>The Flip</h3>
+    <p style="margin-bottom:16px;">In the first two lessons, you learned to use crisis communication moves. You practised redirecting, shielding with empathy, bridging, and dodging.</p>
+    <p style="margin-bottom:16px;">Today, we flip the perspective. <strong>You are the detector.</strong> Your job is to read what people say, name the technique, and judge whether it worked.</p>
+    <span class="goal-badge">From user to analyst</span>
+  </div>
+
+  <div class="card">
+    <h2>Quick Recall</h2>
+    <p style="margin-bottom:16px;">Without looking back, name as many of the 6 moves as you can.</p>
+    <div class="speak-prompt">SPEAK: List them. If you cannot remember all 6, describe what they do instead.</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:12px;">
+      <span class="reveal-label">&#8595; Tap to check your answers</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">1. Redirect</span> <span class="move-tag">2. Empathy Shield</span> <span class="move-tag">3. Vague Commitment</span></p>
+        <p style="margin-top:6px;"><span class="move-tag">4. Context Bomb</span> <span class="move-tag">5. Bridge</span> <span class="move-tag">6. Non-Answer</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: THE SPOTTER -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>Name That Move</h2>
+    <p style="margin-bottom:16px; color:#6c757d;">Read each response. Identify which move is being used. Keep score.</p>
+  </div>
+
+  <div class="score-tracker">
+    <h3>Your Score</h3>
+    <div class="score-display" id="score">0 / 8</div>
+  </div>
+
+  <!-- QUOTE 1 -->
+  <div class="quote-block">
+    <div class="quote-context">CEO &middot; After product recall</div>
+    <div class="quote-text">"I completely understand why customers are frustrated. Nobody wants to feel unsafe with a product they trusted. That is why we have already recalled every unit and are offering full refunds."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move is this? Say it before you tap.</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"I completely understand" + acknowledging the feeling + then pivoting to action. Classic empathy-first structure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 2 -->
+  <div class="quote-block">
+    <div class="quote-context">Politician &middot; Asked about tax increases</div>
+    <div class="quote-text">"What I think we should really be focusing on is the 2 million jobs we have created in the last three years and the record investment in infrastructure."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Redirect</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">The question was about tax. The answer is about jobs and infrastructure. Total topic change, wrapped in "what we should focus on."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 3 -->
+  <div class="quote-block">
+    <div class="quote-context">Tech CEO &middot; Asked if layoffs are coming</div>
+    <div class="quote-text">"We are looking at every option to ensure the long-term health of the company. We are committed to making the right decisions for all stakeholders."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Vague Commitment</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"Looking at every option" and "committed to" — sounds active and responsible, but says absolutely nothing specific. The question was yes or no. The answer was neither.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 4 -->
+  <div class="quote-block">
+    <div class="quote-context">Minister &middot; Asked about hospital waiting times</div>
+    <div class="quote-text">"That is a fair question, and what I would add is that we have hired 10,000 new nurses this year and waiting times in emergency departments have actually fallen by 12%."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Bridge</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"That is a fair question" = small agreement. "And what I would add" = the bridge to their preferred message. Classic acknowledge-then-pivot.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 5 -->
+  <div class="quote-block">
+    <div class="quote-context">Airline CEO &middot; After flight cancellations</div>
+    <div class="quote-text">"What has not been widely reported is that 94% of our flights operated on time last month. We handled 3 million passengers safely. The cancellations, while regrettable, affected less than 2% of our total schedule."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Context Bomb</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"What has not been widely reported" is the classic trigger. Then flooding with positive statistics to make the problem look small in context.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 6 -->
+  <div class="quote-block">
+    <div class="quote-context">Company spokesperson &middot; Asked about merger rumours</div>
+    <div class="quote-text">"I am not in a position to comment on market speculation. What I can say is that the company remains focused on delivering value to our shareholders."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Non-Answer</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"Not in a position to comment" = textbook non-answer. The add-on about shareholders is just filler to not end on silence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 7: HARDER -->
+  <div class="quote-block">
+    <div class="quote-context">Energy company CEO &middot; Asked about pollution</div>
+    <div class="quote-text">"I hear the concerns of communities living near our facilities, and those concerns are valid. Nobody should worry about the air their children breathe. That is why we have invested 500 million in clean technology this year alone — more than any other company in the sector."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">This one uses more than one move. Can you spot them both?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span> + <span class="move-tag">Context Bomb</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">Opens with empathy ("I hear the concerns... those concerns are valid"). Then drops the context bomb with the 500 million figure. Double move — very effective.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 8: HARDEST -->
+  <div class="quote-block">
+    <div class="quote-context">Politician &middot; Asked why they broke an election promise</div>
+    <div class="quote-text">"You are absolutely right that we made that commitment, and I stand by the intention behind it. The reality is that when we took office, we inherited a deficit that was far larger than anyone expected. We have had to make difficult choices, and I believe those choices have put us in a stronger position for the future."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">How many moves can you find? There are at least three.</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed'); updateScore()">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Bridge</span> + <span class="move-tag">Context Bomb</span> + <span class="move-tag">Redirect</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"You are absolutely right" = bridge. "We inherited a deficit" = context bomb (it is not our fault). "Stronger position for the future" = redirect away from the broken promise to future success. A masterclass in spin.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: REAL SPIN -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <h2>The Full Exchange</h2>
+    <p style="margin-bottom:16px;">Read this press conference transcript. After each answer, identify the move AND rate how effective it was.</p>
+  </div>
+
+  <div class="card">
+    <h3>Scenario: Pharmaceutical Company</h3>
+    <p style="color:#6c757d; margin-bottom:16px;">A pharmaceutical company has been accused of pricing a life-saving drug at 50 times its production cost. The CEO is holding a press conference.</p>
+  </div>
+
+  <div class="card">
+    <div class="transcript-box">
+      <div class="transcript-line">
+        <div class="speaker journalist">Journalist</div>
+        <div class="line-text">"Your drug costs $2 to make and you sell it for $100. How do you justify that?"</div>
+      </div>
+      <div class="transcript-line">
+        <div class="speaker official">CEO</div>
+        <div class="line-text">"What people do not always see is the 15 years and 2 billion dollars of research that went into developing this drug. The $2 is the manufacturing cost — it does not reflect the decades of science behind it."</div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move? Was it effective? Would it convince you?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Context Bomb</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">The R&D cost reframes the story entirely. Whether you believe it depends on whether you think $100 per dose over millions of patients is justified by $2 billion once.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="transcript-box">
+      <div class="transcript-line">
+        <div class="speaker journalist">Journalist</div>
+        <div class="line-text">"But people are dying because they cannot afford it. Does that not matter to you?"</div>
+      </div>
+      <div class="transcript-line">
+        <div class="speaker official">CEO</div>
+        <div class="line-text">"Of course it matters. Every patient matters to us. That is exactly why we have a programme that provides the drug free of charge to anyone who cannot afford it. We have given away over 5 million doses."</div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Which move? How does the emotional appeal change things?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span> + <span class="move-tag">Context Bomb</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"Every patient matters" = empathy. "5 million free doses" = context bomb. Notice how the CEO never actually addresses the pricing itself — just keeps adding positive context.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="transcript-box">
+      <div class="transcript-line">
+        <div class="speaker journalist">Journalist</div>
+        <div class="line-text">"Will you lower the price?"</div>
+      </div>
+      <div class="transcript-line">
+        <div class="speaker official">CEO</div>
+        <div class="line-text">"We are constantly reviewing our pricing to make sure it is fair and sustainable. We are committed to working with governments and insurers to improve access."</div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Did they actually answer? What did they commit to?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Vague Commitment</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">"Constantly reviewing" and "committed to working with" = absolutely zero commitment to lowering the price. The answer is no, but it sounds like maybe.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="reflection-prompt">
+      <p><strong>The Big Question:</strong> Did this CEO handle it well? Were the techniques effective, or did they feel dishonest? Is there a difference between "good communication" and "manipulation"?</p>
+    </div>
+    <div class="speak-prompt">SPEAK: Give your honest verdict. Would you trust this CEO?</div>
+  </div>
+</div>
+
+<!-- TAB 3: SPIN IN YOUR LIFE -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <h2>Everyday Spin</h2>
+    <p style="margin-bottom:16px;">These techniques are not just for press conferences. People use them on you every day. Can you spot them?</p>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-context">Your boss &middot; When you ask about promotion</div>
+    <div class="quote-text">"I really value your contribution. You have been doing great work. Let me have a conversation with HR and we will revisit this soon."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">What is the actual answer? What move is being used?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span> + <span class="move-tag">Vague Commitment</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">The answer is effectively "not now" — but it is wrapped in praise and a promise to "revisit." The word "soon" does the heavy lifting. How would you pin them down?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-context">A friend &middot; Who always cancels plans</div>
+    <div class="quote-text">"I know, I know — I am the worst! But you know how crazy work has been. Next weekend, I promise. Let me check my schedule and I will text you."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">Genuine or spin? Which moves?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span> + <span class="move-tag">Context Bomb</span> + <span class="move-tag">Vague Commitment</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">Self-deprecation is a form of empathy shield. "Crazy work" is the context bomb (it is not my fault). "Let me check" is the vague commitment. Three moves in three sentences. Whether it is genuine depends on whether next weekend actually happens.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-context">Customer service &middot; When you complain</div>
+    <div class="quote-text">"I completely understand your frustration, and I apologise for the inconvenience. Your feedback is really important to us. I am going to escalate this to our specialist team and someone will be in touch within 48 hours."</div>
+    <div class="speak-prompt" style="font-size:0.9rem;">How many moves? Is this good service or good spin?</div>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to check</span>
+      <div class="hidden-content">
+        <p><span class="move-tag">Empathy Shield</span> + <span class="move-tag">Bridge</span> + <span class="move-tag">Vague Commitment</span></p>
+        <p style="margin-top:8px; font-size:0.9rem;">This is interesting because it might be completely genuine OR completely scripted. The moves are identical either way. The test: does someone actually call in 48 hours?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your Experience</h3>
+    <div class="speak-prompt">SPEAK: Can you think of a time someone used one of these moves on you in real life? Did it work? Now that you know the techniques, would you respond differently?</div>
+  </div>
+</div>
+
+<!-- TAB 4: THE CHALLENGE -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Spin vs Counter-Spin</h2>
+    <p style="margin-bottom:16px;">Now the real test. The teacher will play a politician, CEO, or everyday spin-user. Your job is to <strong>spot the move in real time</strong> and <strong>call it out</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Round 1: The Interview</h3>
+    <p style="margin-bottom:12px;">The teacher will give a spun answer to a question. You have 15 seconds to:</p>
+    <ol>
+      <li><strong>Name the move</strong> they just used</li>
+      <li><strong>Ask a follow-up question</strong> that the spin cannot dodge</li>
+    </ol>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.9rem;">A good follow-up is specific, direct, and forces a real answer. "Can you give me a specific date?" "That is not what I asked — my question was..." "You mentioned X, but what about Y?"</p>
+    <div class="speak-prompt">Tell the teacher you are ready. They will begin.</div>
+  </div>
+
+  <div class="card">
+    <h3>Round 2: Write the Spin</h3>
+    <p style="margin-bottom:12px;">Now YOU write the spin. Here is the question:</p>
+    <p style="font-size:1.1rem; font-weight:600; color:#667eea; margin-bottom:16px;">"Your company has been dumping waste in the river for 10 years. What do you have to say?"</p>
+    <p style="margin-bottom:12px; color:#6c757d;">Write the most convincing spun answer you can, using at least 2 different moves.</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+    <textarea class="text-input-box" placeholder="Write your spun response here..." id="spin-response"></textarea>
+    <div class="speak-prompt" style="margin-top:12px;">SPEAK: Now read it out loud. Does it sound convincing? Which moves did you use?</div>
+  </div>
+
+  <div class="card">
+    <h3>Round 3: The Journalist</h3>
+    <p style="margin-bottom:12px;">Swap roles. The teacher now gives you a scenario and <strong>you ask the tough questions</strong>. Your goal: do not let them spin you. Keep asking until you get a real answer.</p>
+    <p style="color:#6c757d; font-size:0.9rem;">Tips for good journalism:</p>
+    <ul>
+      <li>"With respect, you have not answered my question."</li>
+      <li>"Let me ask that again more simply..."</li>
+      <li>"You said X, but the evidence shows Y."</li>
+      <li>"Can you give me a yes or no?"</li>
+    </ul>
+    <div class="speak-prompt" style="margin-top:12px;">Tell the teacher your scenario choice and begin the interview.</div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>The Full Arc</h2>
+    <p style="margin-bottom:16px;">Over these three lessons, you have gone from learning the moves, to using them yourself, to spotting them when others use them on you.</p>
+    <div class="reflection-prompt">
+      <p><strong>The Spectrum:</strong> Where do these techniques sit between "good communication" and "manipulation"? Is it possible to use them honestly?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Media Literacy:</strong> Next time you watch a politician or CEO being interviewed, will you watch differently? What will you listen for?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Self-Awareness:</strong> Have you ever used these techniques without knowing it? Do you think most people do?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">&#8595; Tap to see what we covered</span>
+      <div class="hidden-content">
+        <div class="checklist">
+          <div class="check-item">
+            <input type="checkbox" id="can1">
+            <label for="can1"><strong>I can</strong> identify crisis communication techniques when I hear them</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can2">
+            <label for="can2"><strong>I can</strong> explain why a particular move was chosen for a situation</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can3">
+            <label for="can3"><strong>I can</strong> spot combined techniques in longer answers</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can4">
+            <label for="can4"><strong>I can</strong> evaluate whether spin is effective or transparent</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can5">
+            <label for="can5"><strong>I can</strong> ask follow-up questions that cut through spin</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can6">
+            <label for="can6"><strong>I can</strong> recognise these techniques in everyday conversations</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can7">
+            <label for="can7"><strong>I can</strong> discuss the ethics of persuasion and strategic communication</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="margin-top:16px;">SPEAK: Which lesson in this series was most useful to you — learning the moves, using them in your own life, or spotting them? Why?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+let correctCount = 0;
+function updateScore() {
+  correctCount++;
+  document.getElementById('score').textContent = correctCount + ' / 8';
+}
+
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (remaining <= 30 && remaining > 10) {
+      el.classList.remove('running');
+      el.classList.add('warning');
+    } else if (remaining <= 10 && remaining > 0) {
+      el.classList.remove('warning');
+      el.classList.add('danger');
+    } else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = '0:00';
+      el.classList.remove('danger');
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
