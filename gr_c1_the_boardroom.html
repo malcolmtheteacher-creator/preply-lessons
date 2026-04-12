@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Boardroom</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+.series-strip{background:#1a1a2e;padding:10px 20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;font-size:0.78rem;letter-spacing:0.3px}
+.series-step{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;color:rgba(255,255,255,0.45);font-weight:600;text-decoration:none;transition:color 0.2s}
+.series-step:hover{color:rgba(255,255,255,0.8)}
+.series-step.current{color:#f6c90e}
+.series-step .badge{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;background:rgba(255,255,255,0.12)}
+.series-step.current .badge{background:#f6c90e;color:#1a1a2e}
+.series-arrow{color:rgba(255,255,255,0.2);font-size:0.75rem;padding:0 2px}
+
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px 24px; text-align: center; }
+.header h1 { font-size: 1.6rem; font-weight: 700; }
+.header p { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
+
+.tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #e9ecef; overflow-x: auto; position: sticky; top: 0; z-index: 10; }
+.tab { padding: 12px 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #6c757d; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.tab:hover { color: #667eea; }
+.tab.active { color: #667eea; border-bottom-color: #667eea; }
+
+.content { max-width: 720px; margin: 0 auto; padding: 24px 20px 100px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 12px; }
+.card h3 { font-size: 1rem; color: #764ba2; margin-bottom: 8px; }
+
+.speak-prompt { background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1rem; font-weight: 500; }
+
+.example-box { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-style: italic; color: #495057; font-size: 0.95rem; }
+
+.toolkit-card { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #667eea; }
+.toolkit-card h4 { font-size: 0.95rem; color: #667eea; font-weight: 700; margin-bottom: 8px; }
+.toolkit-card p { font-size: 0.9rem; color: #495057; margin-bottom: 4px; }
+.toolkit-card .example-text { font-size: 0.85rem; color: #6c757d; font-style: italic; margin-top: 8px; }
+
+.timer-box { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #667eea; border-radius: 10px; padding: 10px 20px; font-size: 1.4rem; font-weight: 800; color: #667eea; margin: 16px 0; cursor: pointer; transition: all 0.3s; }
+.timer-box.running { border-color: #28a745; color: #28a745; }
+.timer-box.warning { border-color: #ffc107; color: #ffc107; }
+.timer-box.danger { border-color: #dc3545; color: #dc3545; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
+
+.scenario-card { background: linear-gradient(135deg, #667eea08, #764ba208); border: 2px solid #667eea; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.scenario-card h3 { color: #667eea; font-size: 1.1rem; margin-bottom: 8px; }
+.scenario-card .role { font-size: 0.95rem; color: #495057; line-height: 1.5; margin-bottom: 12px; }
+
+.click-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 12px 0; transition: all 0.3s; }
+.click-reveal:hover { border-color: #667eea; }
+.click-reveal .hidden-content { display: none; text-align: left; }
+.click-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.click-reveal.revealed .hidden-content { display: block; }
+.click-reveal.revealed .reveal-label { display: none; }
+.reveal-label { color: #6c757d; font-size: 0.85rem; }
+
+.reflection-prompt { background: #764ba210; border-left: 4px solid #764ba2; padding: 16px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+
+.checklist { margin-top: 12px; }
+.check-item { display: flex; align-items: baseline; margin-bottom: 8px; }
+.check-item input { margin-right: 8px; cursor: pointer; }
+.check-item label { cursor: pointer; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin-bottom: 6px; }
+
+.goal-badge { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 12px; }
+
+.text-input-box { width: 100%; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.95rem; margin: 8px 0; resize: vertical; min-height: 100px; }
+.text-input-box:focus { outline: none; border-color: #667eea; }
+
+.move-tag { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 700; margin: 3px; }
+
+.agenda-item { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 4px solid #667eea; display: flex; align-items: flex-start; gap: 12px; }
+.agenda-time { font-size: 0.8rem; font-weight: 700; color: #667eea; white-space: nowrap; min-width: 50px; padding-top: 2px; }
+.agenda-content { flex: 1; }
+.agenda-content h4 { font-size: 0.95rem; color: #1a1a2e; margin-bottom: 4px; }
+.agenda-content p { font-size: 0.85rem; color: #6c757d; }
+
+.email-box { background: #fff; border: 2px solid #e9ecef; border-radius: 12px; overflow: hidden; margin: 16px 0; }
+.email-header { background: #f8f9fa; padding: 12px 16px; border-bottom: 1px solid #e9ecef; }
+.email-header .email-field { font-size: 0.8rem; color: #6c757d; margin-bottom: 4px; }
+.email-header .email-field strong { color: #1a1a2e; }
+.email-body { padding: 16px; font-size: 0.9rem; line-height: 1.7; color: #333; }
+
+.pressure-bar { background: linear-gradient(135deg, #667eea08, #764ba208); border: 2px solid #667eea; border-radius: 12px; padding: 16px; margin: 16px 0; }
+.pressure-bar h4 { color: #667eea; font-size: 0.9rem; margin-bottom: 8px; }
+.pressure-level { display: flex; gap: 4px; margin-top: 8px; }
+.pressure-dot { width: 24px; height: 24px; border-radius: 50%; background: #e9ecef; }
+.pressure-dot.active { background: linear-gradient(135deg, #667eea, #764ba2); }
+.pressure-dot.hot { background: linear-gradient(135deg, #dc3545, #ff6b6b); }
+
+.question-reveal { background: #fff; border: 2px dashed #dee2e6; border-radius: 10px; padding: 16px; text-align: center; cursor: pointer; margin: 16px 0; transition: all 0.3s; }
+.question-reveal:hover { border-color: #667eea; }
+.question-reveal .reveal-label { color: #6c757d; font-size: 0.85rem; }
+.question-reveal.revealed { border-style: solid; border-color: #28a745; cursor: default; }
+.question-reveal.revealed .reveal-label { display: none; }
+.question-reveal.revealed .question-text { display: block; }
+.question-text { display: none; font-size: 1rem; font-weight: 600; color: #1a1a2e; }
+.question-counter { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="series-strip">
+  <a href="gr_c1_the_press_conference.html" class="series-step"><span class="badge">1</span> The Press Conference</a>
+  <span class="series-arrow">&#8250;</span>
+  <a href="gr_c1_the_difficult_conversation.html" class="series-step"><span class="badge">2</span> The Difficult Conversation</a>
+  <span class="series-arrow">&#8250;</span>
+  <a href="gr_c1_spotting_the_spin.html" class="series-step"><span class="badge">3</span> Spotting the Spin</a>
+  <span class="series-arrow">&#8250;</span>
+  <span class="series-step current"><span class="badge">4</span> The Boardroom</span>
+</div>
+
+<div class="header">
+  <h1>The Boardroom</h1>
+  <p>Internal politics. Real stakes. No cameras — but everyone is watching.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">Warm-Up</div>
+  <div class="tab" onclick="showTab(1)">The Toolkit+</div>
+  <div class="tab" onclick="showTab(2)">The Budget</div>
+  <div class="tab" onclick="showTab(3)">The Bad Quarter</div>
+  <div class="tab" onclick="showTab(4)">Your Meeting</div>
+  <div class="tab" onclick="showTab(5)">Check</div>
+</div>
+
+<div class="content">
+
+<!-- TAB 0: WARM-UP -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <h2>The Meeting Before the Meeting</h2>
+    <p style="margin-bottom:16px;">You are about to walk into a boardroom. Senior people are there. You need to present something they will not want to hear.</p>
+    <div class="speak-prompt">SPEAK: Describe a real meeting where the atmosphere was tense. What made it uncomfortable? Was it the people, the topic, or the stakes?</div>
+  </div>
+
+  <div class="card">
+    <h3>Press Conference vs Boardroom</h3>
+    <p style="margin-bottom:16px;">In a press conference, the audience does not know you. In a boardroom, they do. They know your track record, your weaknesses, your previous promises. That makes it harder.</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')">
+      <span class="reveal-label">&#8595; Tap to see the key differences</span>
+      <div class="hidden-content">
+        <p style="margin-bottom:8px;"><strong>Press conference:</strong> You can spin. They do not have the data. You control the narrative.</p>
+        <p style="margin-bottom:8px;"><strong>Boardroom:</strong> They HAVE the data. They have seen your slides. They know the numbers. Spin does not work — strategy does.</p>
+        <p style="margin-top:12px; color:#6c757d; font-size:0.9rem;">The same 6 moves still apply, but you need to use them more carefully. Today you also get 3 new boardroom-specific techniques.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Email</h2>
+    <p style="margin-bottom:12px;">You receive this email at 9pm the night before a board meeting:</p>
+    <div class="email-box">
+      <div class="email-header">
+        <div class="email-field"><strong>From:</strong> Sarah Chen, CFO</div>
+        <div class="email-field"><strong>To:</strong> You</div>
+        <div class="email-field"><strong>Subject:</strong> Tomorrow's presentation — heads up</div>
+      </div>
+      <div class="email-body">
+        <p>Hi,</p>
+        <p style="margin-top:8px;">Just wanted to give you a heads up — the board has seen the Q3 numbers and they are not happy. David is going to push hard on the budget overrun. I have heard that some members want to cut your department's funding by 30%.</p>
+        <p style="margin-top:8px;">I would prepare for tough questions. You will need to justify every line.</p>
+        <p style="margin-top:8px;">Good luck tomorrow.</p>
+        <p style="margin-top:8px;">Sarah</p>
+      </div>
+    </div>
+    <div class="speak-prompt">SPEAK: How does this email change your preparation? What would you do between now and the meeting? What is your strategy?</div>
+  </div>
+</div>
+
+<!-- TAB 1: TOOLKIT+ -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <h2>Boardroom Moves</h2>
+    <p style="margin-bottom:16px;">You still have the original 6 moves. But boardroom situations need 3 more.</p>
+    <p style="margin-bottom:16px; color:#6c757d; font-size:0.9rem;">These work specifically when your audience already has the facts.</p>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 7: The Pre-Empt</h4>
+    <p>Address the problem BEFORE they bring it up. This takes away their power and shows you are in control.</p>
+    <p class="example-text">"I know the first thing on everyone's mind is..." / "Before we get to questions, I want to address..." / "Let me get the difficult part out of the way first..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">&#8595; Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Situation:</strong> Your project is 3 months behind schedule.</p>
+        <p style="margin-top:8px;"><strong>You:</strong> "Before I walk you through the progress, I want to address the timeline directly. We are running 12 weeks behind the original schedule. I am going to explain exactly why, what we have done about it, and what the revised timeline looks like."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>You named the problem first. Now they are listening to your explanation instead of waiting to attack you with it.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 8: The Trade-Off Frame</h4>
+    <p>Present the problem as a choice, not a failure. There were two options — you chose the responsible one.</p>
+    <p class="example-text">"We had a choice between X and Y..." / "The alternative was..." / "We could have done Z, but that would have meant..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">&#8595; Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Situation:</strong> You overspent your budget by 20%.</p>
+        <p style="margin-top:8px;"><strong>You:</strong> "We had a choice. We could have stayed within budget and launched a product that did not meet regulatory standards. Or we could invest in getting it right. We chose to get it right. The additional spend covers compliance testing that will save us significantly more in the long run."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>The overspend is now a responsible decision, not a failure. The alternative was worse.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolkit-card">
+    <h4>Move 9: The Numbers Pivot</h4>
+    <p>When they throw a bad number at you, come back with a different number that tells a better story.</p>
+    <p class="example-text">"That is one way to look at it. Another way is..." / "If we zoom out..." / "The number that matters more here is..."</p>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+      <span class="reveal-label">&#8595; Tap for example</span>
+      <div class="hidden-content">
+        <p><strong>Board member:</strong> "Your cost per acquisition has gone up 40%."</p>
+        <p style="margin-top:8px;"><strong>You:</strong> "That is correct for Q3. And if we look at lifetime customer value, each new customer is now worth 3 times what they were last year. We are spending more to acquire higher-value customers. The ROI has actually improved."</p>
+        <p style="margin-top:8px; color:#6c757d; font-size:0.85rem;"><em>Their number was real. Your number is also real — but it tells the opposite story. This is not spin; it is choosing which metric matters.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The Full Toolkit</h3>
+    <p style="margin-bottom:12px;">You now have 9 moves:</p>
+    <div style="margin:12px 0;">
+      <span class="move-tag">1. Redirect</span>
+      <span class="move-tag">2. Empathy Shield</span>
+      <span class="move-tag">3. Vague Commitment</span>
+      <span class="move-tag">4. Context Bomb</span>
+      <span class="move-tag">5. Bridge</span>
+      <span class="move-tag">6. Non-Answer</span>
+    </div>
+    <div style="margin:8px 0;">
+      <span class="move-tag">7. Pre-Empt</span>
+      <span class="move-tag">8. Trade-Off Frame</span>
+      <span class="move-tag">9. Numbers Pivot</span>
+    </div>
+    <p style="margin-top:12px; color:#6c757d; font-size:0.9rem;">Moves 1-6 are for when people do not have the facts. Moves 7-9 are for when they do.</p>
+  </div>
+</div>
+
+<!-- TAB 2: THE BUDGET -->
+<div class="panel" id="panel2">
+  <div class="card">
+    <div class="scenario-card">
+      <h3>The Scenario</h3>
+      <div class="role">
+        You are the Head of Product Development. Your department has overspent its annual budget by 25%. The board wants to cut your funding by 30% next year. You are presenting a case for why they should not. You have 5 senior executives in the room. One of them — David, the CFO — is openly hostile.
+      </div>
+    </div>
+    <div class="pressure-bar">
+      <h4>Pressure Level</h4>
+      <div class="pressure-level">
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your Opening (2 minutes)</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">You need to acknowledge the overspend, explain why, and argue for keeping your budget. Consider using the Pre-Empt — address the problem before they attack you with it.</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Board Questions</h2>
+    <p style="margin-bottom:20px; color:#6c757d;">5 tough questions. One at a time. 45 seconds per answer. These are internal stakeholders — they have the data.</p>
+
+    <div class="question-reveal" onclick="revealQ(this, 'b', 0)" id="b-q0">
+      <div class="question-counter">Question 1 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"You went 25% over budget. That is not a small number. How did you let this happen?"</div>
+    </div>
+    <div id="b-a0" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">&#8595; Which moves could work here?</span>
+        <div class="hidden-content">
+          <p><span class="move-tag">Pre-Empt</span> <span class="move-tag">Trade-Off Frame</span></p>
+          <p style="margin-top:6px; font-size:0.9rem;">Acknowledge it directly (pre-empt the anger). Then frame it as a choice: "We could have cut corners, but..."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'b', 1)" id="b-q1" style="display:none;">
+      <div class="question-counter">Question 2 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"Last year you told us the same thing — that the extra spending would pay off. It did not. Why should we believe you this time?"</div>
+    </div>
+    <div id="b-a1" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">&#8595; Which moves could work here?</span>
+        <div class="hidden-content">
+          <p><span class="move-tag">Context Bomb</span> <span class="move-tag">Numbers Pivot</span></p>
+          <p style="margin-top:6px; font-size:0.9rem;">This is about trust. You need a specific number or result that proves last year's spend DID pay off — just not in the way they expected.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'b', 2)" id="b-q2" style="display:none;">
+      <div class="question-counter">Question 3 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"Your competitor launched a similar product in half the time and at lower cost. What are we doing wrong?"</div>
+    </div>
+    <div id="b-a2" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">&#8595; Which moves could work here?</span>
+        <div class="hidden-content">
+          <p><span class="move-tag">Bridge</span> <span class="move-tag">Trade-Off Frame</span></p>
+          <p style="margin-top:6px; font-size:0.9rem;">"That is true, and what is important to understand is that their product skipped Phase III testing..." — agree, then reframe. Speed is not always the right metric.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'b', 3)" id="b-q3" style="display:none;">
+      <div class="question-counter">Question 4 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"If we cut your budget by 30%, what specifically would you not be able to deliver?"</div>
+    </div>
+    <div id="b-a3" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">&#8595; Which moves could work here?</span>
+        <div class="hidden-content">
+          <p><span class="move-tag">Trade-Off Frame</span></p>
+          <p style="margin-top:6px; font-size:0.9rem;">This is actually your strongest moment. Be specific and make them feel the consequences. "We would lose the European launch, the compliance upgrade, and two key hires." Make the cut sound expensive.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'b', 4)" id="b-q4" style="display:none;">
+      <div class="question-counter">Question 5 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"I am going to be direct. Do you still have the confidence of this board to lead this department?"</div>
+    </div>
+    <div id="b-a4" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <div class="click-reveal" onclick="this.classList.add('revealed')" style="margin-top:8px;">
+        <span class="reveal-label">&#8595; Which moves could work here?</span>
+        <div class="hidden-content">
+          <p><span class="move-tag">Empathy Shield</span> <span class="move-tag">Context Bomb</span></p>
+          <p style="margin-top:6px; font-size:0.9rem;">This is personal. Stay calm. "I understand why you would ask that" (empathy). Then hit them with your track record — 3 successful launches, team growth, revenue figures. Let the facts answer the question.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: THE BAD QUARTER -->
+<div class="panel" id="panel3">
+  <div class="card">
+    <div class="scenario-card">
+      <h3>The Scenario</h3>
+      <div class="role">
+        You are a Regional Director. Your region's Q3 results are the worst in the company. Revenue down 18%. Two key clients lost. Your team is overworked and morale is low. You are presenting at the quarterly review. The CEO and five other regional directors are on the call. Everyone else had a good quarter. You did not.
+      </div>
+    </div>
+    <div class="pressure-bar">
+      <h4>Pressure Level</h4>
+      <div class="pressure-level">
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot active"></div>
+        <div class="pressure-dot hot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Before You Speak</h3>
+    <p style="margin-bottom:12px;">Everyone else has just presented strong results. Now it is your turn. You have 90 seconds for your opening. The room already knows your numbers are bad.</p>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Think about this: do you lead with the bad news or build up to it? Do you show vulnerability or confidence? Do you blame external factors or take ownership?</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 90)">
+        <span class="timer-display">1:30</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Grilling</h2>
+    <p style="margin-bottom:20px; color:#6c757d;">5 questions from the CEO and other directors. 45 seconds each.</p>
+
+    <div class="question-reveal" onclick="revealQ(this, 'q', 0)" id="q-q0">
+      <div class="question-counter">Question 1 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"Every other region grew this quarter. What happened in yours?"</div>
+    </div>
+    <div id="q-a0" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'q', 1)" id="q-q1" style="display:none;">
+      <div class="question-counter">Question 2 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"You lost two major clients. Did you see it coming? What did you do to prevent it?"</div>
+    </div>
+    <div id="q-a1" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'q', 2)" id="q-q2" style="display:none;">
+      <div class="question-counter">Question 3 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"Your team's turnover rate is twice the company average. Is there a leadership problem?"</div>
+    </div>
+    <div id="q-a2" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'q', 3)" id="q-q3" style="display:none;">
+      <div class="question-counter">Question 4 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"What specific, measurable steps are you taking to turn this around in Q4?"</div>
+    </div>
+    <div id="q-a3" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-reveal" onclick="revealQ(this, 'q', 4)" id="q-q4" style="display:none;">
+      <div class="question-counter">Question 5 of 5</div>
+      <span class="reveal-label">&#8595; Tap to see the question</span>
+      <div class="question-text">"If Q4 is the same as Q3, what should we do about your region?"</div>
+    </div>
+    <div id="q-a4" style="display:none;">
+      <div style="text-align:center;">
+        <div class="timer-box" onclick="toggleTimer(this, 45)">
+          <span class="timer-display">0:45</span>
+          <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+        </div>
+      </div>
+      <p style="margin-top:12px; color:#6c757d; font-size:0.85rem;">Final question. This one is about your future.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">&#8595; Tap when finished</span>
+      <div class="hidden-content">
+        <p><strong>The hardest question</strong> is always the last one — because it forces you to imagine failure. Did you stay confident or did the pressure get to you? What move did you reach for?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: YOUR MEETING -->
+<div class="panel" id="panel4">
+  <div class="card">
+    <h2>Your Real Meeting</h2>
+    <p style="margin-bottom:16px;">Think about a real meeting or presentation you have coming up — or one you have had recently that was difficult.</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 1: The Context</h3>
+    <div class="speak-prompt">SPEAK: What is the meeting? Who is in the room? What are the stakes? What is the hardest thing you need to say or defend?</div>
+  </div>
+
+  <div class="card">
+    <h3>Step 2: Predict the Attack</h3>
+    <p style="margin-bottom:12px;">If you were the most hostile person in that room, what questions would you ask?</p>
+    <div class="speak-prompt">SPEAK: Give 3 tough questions you might face. Make them as uncomfortable as possible.</div>
+  </div>
+
+  <div class="card">
+    <h3>Step 3: Choose Your Moves</h3>
+    <p style="margin-bottom:12px;">For each question, which technique would you use?</p>
+    <div style="margin:12px 0;">
+      <span class="move-tag">Redirect</span>
+      <span class="move-tag">Empathy Shield</span>
+      <span class="move-tag">Vague Commitment</span>
+      <span class="move-tag">Context Bomb</span>
+      <span class="move-tag">Bridge</span>
+      <span class="move-tag">Non-Answer</span>
+    </div>
+    <div style="margin:8px 0;">
+      <span class="move-tag">Pre-Empt</span>
+      <span class="move-tag">Trade-Off Frame</span>
+      <span class="move-tag">Numbers Pivot</span>
+    </div>
+    <div class="speak-prompt">SPEAK: Match a move to each of your 3 questions. Explain why it fits.</div>
+  </div>
+
+  <div class="card">
+    <h3>Step 4: The Full Rehearsal</h3>
+    <p style="margin-bottom:12px; color:#6c757d; font-size:0.9rem;">Now deliver your opening statement. 2 minutes. Speak as if the room is in front of you.</p>
+    <div style="text-align:center;">
+      <div class="timer-box" onclick="toggleTimer(this, 120)">
+        <span class="timer-display">2:00</span>
+        <span style="font-size:0.7rem; font-weight:400;">tap to start</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Step 5: The Pushback</h3>
+    <p style="margin-bottom:12px;">The teacher will now play the hostile board member. They will ask the 3 tough questions you predicted — plus some you did not. You have 45 seconds per answer.</p>
+    <div class="speak-prompt">Tell the teacher your scenario. They will begin the grilling.</div>
+  </div>
+</div>
+
+<!-- TAB 5: CHECK -->
+<div class="panel" id="panel5">
+  <div class="card">
+    <h2>The Full Journey</h2>
+    <p style="margin-bottom:16px;">Over this series, you have learned to control narratives in public, in personal life, as an analyst, and in the boardroom.</p>
+    <div class="reflection-prompt">
+      <p><strong>The Difference:</strong> What is harder — facing journalists, facing your boss, or facing a board? Why?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>The 3 New Moves:</strong> Can you name them? When would you use the Pre-Empt vs the Trade-Off Frame vs the Numbers Pivot?</p>
+    </div>
+    <div class="reflection-prompt">
+      <p><strong>Your Toolkit:</strong> Of all 9 moves, which 2-3 do you think you will actually use in your working life? Which feel most natural to you?</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>I can...</h2>
+    <div class="click-reveal" onclick="this.classList.add('revealed')" style="padding:12px;">
+      <span class="reveal-label">&#8595; Tap to see what we covered</span>
+      <div class="hidden-content">
+        <div class="checklist">
+          <div class="check-item">
+            <input type="checkbox" id="can1">
+            <label for="can1"><strong>I can</strong> prepare strategically for a high-stakes meeting</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can2">
+            <label for="can2"><strong>I can</strong> pre-empt criticism by addressing problems before others raise them</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can3">
+            <label for="can3"><strong>I can</strong> frame setbacks as trade-offs rather than failures</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can4">
+            <label for="can4"><strong>I can</strong> pivot to more favourable metrics when challenged with data</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can5">
+            <label for="can5"><strong>I can</strong> defend my position under sustained questioning</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can6">
+            <label for="can6"><strong>I can</strong> stay composed when a question becomes personal</label>
+          </div>
+          <div class="check-item">
+            <input type="checkbox" id="can7">
+            <label for="can7"><strong>I can</strong> rehearse a real upcoming meeting and prepare for pushback</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speak-prompt" style="margin-top:16px;">SPEAK: You now have 9 moves. Which one will change how you communicate at work?</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(i) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel' + i).classList.add('active');
+  document.querySelectorAll('.tab')[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function revealQ(el, prefix, idx) {
+  if (el.classList.contains('revealed')) return;
+  el.classList.add('revealed');
+  document.getElementById(prefix + '-a' + idx).style.display = 'block';
+  const next = document.getElementById(prefix + '-q' + (idx + 1));
+  if (next) setTimeout(() => { next.style.display = 'block'; }, 500);
+}
+
+function toggleTimer(el, duration) {
+  if (el.dataset.running === 'true') return;
+  el.dataset.running = 'true';
+  el.classList.add('running');
+  let remaining = duration;
+  const display = el.querySelector('.timer-display');
+
+  const interval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    if (remaining <= 30 && remaining > 10) {
+      el.classList.remove('running');
+      el.classList.add('warning');
+    } else if (remaining <= 10 && remaining > 0) {
+      el.classList.remove('warning');
+      el.classList.add('danger');
+    } else if (remaining <= 0) {
+      clearInterval(interval);
+      display.textContent = '0:00';
+      el.classList.remove('danger');
+      el.style.borderColor = '#6c757d';
+      el.style.color = '#6c757d';
+      setTimeout(() => { el.dataset.running = 'false'; }, 2000);
+    }
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
