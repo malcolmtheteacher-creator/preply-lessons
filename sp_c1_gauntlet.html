@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The C1 Gauntlet — C1 Grammar Series 3</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+/* ── Series nav strip ── */
+.series-strip {
+  background: #1a1a2e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+}
+.series-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.series-step:hover { color: rgba(255,255,255,0.8); }
+.series-step.current { color: #4ecdc4; }
+.series-step .badge {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800;
+  background: rgba(255,255,255,0.12);
+}
+.series-step.current .badge { background: #4ecdc4; color: #1a1a2e; }
+.series-arrow { color: rgba(255,255,255,0.2); font-size: 0.75rem; padding: 0 2px; }
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a1a2e 30%, #667eea 70%, #4ecdc4 100%);
+  color: white;
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+.header .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 8px;
+}
+.header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: 6px; }
+.header p { font-size: 0.95rem; opacity: 0.85; }
+
+/* ── Round progress bar ── */
+.round-progress {
+  background: #fff;
+  border-bottom: 2px solid #e8e8f0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  overflow-x: auto;
+}
+.round-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #bbb;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.round-btn .round-num { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; opacity: 0.7; }
+.round-btn.active { color: #4ecdc4; border-bottom-color: #4ecdc4; }
+.round-btn.done { color: #22c55e; }
+.round-btn.done .round-num::after { content: ' ✓'; }
+
+/* ── Panels ── */
+.panel { display: none; max-width: 800px; margin: 0 auto; padding: 28px 20px 60px; }
+.panel.active { display: block; }
+
+/* ── Section cards ── */
+.section-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #4ecdc4;
+  margin-bottom: 8px;
+}
+.section-card h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+.section-card p { color: #555; font-size: 0.92rem; line-height: 1.65; }
+
+/* ── Warm-up quick reference ── */
+.qr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+@media (max-width: 640px) { .qr-grid { grid-template-columns: 1fr; } }
+.qr-card {
+  background: #f8f9fa;
+  border: 1px solid #e8e8f0;
+  border-top: 3px solid #4ecdc4;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.85rem;
+}
+.qr-card h4 { font-size: 0.82rem; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.qr-card .formula { font-family: monospace; font-size: 0.78rem; background: #e0f2fe; color: #0c4a6e; padding: 5px 8px; border-radius: 4px; margin-bottom: 7px; line-height: 1.4; }
+.qr-card .ex { color: #15803d; font-size: 0.82rem; }
+
+/* ── Sprint cards ── */
+.sprint-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-left: 4px solid #e8e8f0;
+  transition: border-color 0.2s;
+}
+.sprint-card.voted-yes { border-left-color: #22c55e; }
+.sprint-card.voted-no { border-left-color: #ef4444; }
+.sprint-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+.sprint-sentence { font-size: 0.97rem; color: #1a1a2e; line-height: 1.55; margin-bottom: 14px; }
+.sprint-btns { display: flex; gap: 10px; margin-bottom: 0; }
+.sprint-btn { padding: 9px 20px; border: 2px solid; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s; background: transparent; }
+.sprint-btn.yes { border-color: #22c55e; color: #22c55e; }
+.sprint-btn.yes:hover, .sprint-btn.yes.active { background: #22c55e; color: #fff; }
+.sprint-btn.no { border-color: #ef4444; color: #ef4444; }
+.sprint-btn.no:hover, .sprint-btn.no.active { background: #ef4444; color: #fff; }
+.sprint-explain {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+.sprint-explain.show { display: block; }
+.sprint-explain.ok { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+.sprint-explain.fix { background: #fffbeb; border: 1px solid #fde68a; color: #78350f; }
+
+/* ── Fix items ── */
+.fix-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-left: 4px solid #e8e8f0;
+}
+.fix-item.ok { border-left-color: #22c55e; }
+.fix-item.wrong { border-left-color: #ef4444; }
+.fix-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+.fix-cat { display: inline-block; background: rgba(78,205,196,0.12); color: #0d9488; border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; margin-bottom: 12px; }
+.error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; font-size: 0.95rem; color: #991b1b; margin-bottom: 12px; line-height: 1.5; }
+.error-box::before { content: '✗  '; font-weight: 800; }
+.fix-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.fix-row textarea { flex: 1; min-width: 200px; padding: 10px 14px; border: 2px solid #e8e8f0; border-radius: 8px; font-size: 0.93rem; font-family: inherit; resize: vertical; min-height: 52px; transition: border-color 0.2s; }
+.fix-row textarea:focus { outline: none; border-color: #4ecdc4; }
+.fix-check-btn { background: #4ecdc4; color: #1a1a2e; border: none; border-radius: 8px; padding: 12px 20px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.fix-check-btn:hover { background: #38b2ac; }
+.fix-reveal { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 8px; font-size: 0.87rem; line-height: 1.6; }
+.fix-reveal.show { display: block; }
+.fix-reveal.ok { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.fix-reveal.wrong { background: #fffbeb; border: 1px solid #fde68a; }
+.answer-line { color: #15803d; font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
+.answer-line::before { content: '✓  '; }
+
+/* ── Transform items ── */
+.transform-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-left: 4px solid #e8e8f0;
+}
+.transform-item.ok { border-left-color: #22c55e; }
+.transform-item.wrong { border-left-color: #ef4444; }
+.tr-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+.tr-original { font-size: 0.92rem; color: #666; margin-bottom: 8px; font-style: italic; }
+.tr-instruction { font-size: 0.92rem; color: #1a1a2e; font-weight: 600; margin-bottom: 14px; }
+.tr-instruction .starter { color: #4ecdc4; }
+.tr-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.tr-row textarea { flex: 1; min-width: 200px; padding: 10px 14px; border: 2px solid #e8e8f0; border-radius: 8px; font-size: 0.93rem; font-family: inherit; resize: vertical; min-height: 52px; transition: border-color 0.2s; }
+.tr-row textarea:focus { outline: none; border-color: #4ecdc4; }
+.tr-check-btn { background: #1a1a2e; color: #fff; border: none; border-radius: 8px; padding: 12px 20px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.tr-check-btn:hover { background: #2d2d4e; }
+.tr-reveal { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 8px; font-size: 0.87rem; line-height: 1.6; }
+.tr-reveal.show { display: block; }
+.tr-reveal.ok { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.tr-reveal.wrong { background: #fffbeb; border: 1px solid #fde68a; }
+
+/* ── Next round button ── */
+.next-round-btn {
+  display: none;
+  margin: 22px auto 0;
+  padding: 14px 32px;
+  background: #4ecdc4;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 24px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.next-round-btn.show { display: block; }
+.next-round-btn:hover { background: #38b2ac; }
+
+/* ── Results panel ── */
+.results-header {
+  text-align: center;
+  background: linear-gradient(135deg, #0d1b2a 0%, #667eea 60%, #4ecdc4 100%);
+  color: white;
+  border-radius: 14px;
+  padding: 28px 20px;
+  margin-bottom: 24px;
+}
+.results-header .trophies { font-size: 2.4rem; margin-bottom: 10px; }
+.results-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; }
+.results-header p { opacity: 0.85; font-size: 0.93rem; }
+.score-row { display: flex; gap: 12px; justify-content: center; margin: 16px 0 0; flex-wrap: wrap; }
+.score-pill { background: rgba(255,255,255,0.15); border-radius: 20px; padding: 8px 20px; font-weight: 700; font-size: 0.92rem; }
+.score-pill span { color: #4ecdc4; font-size: 1.15rem; }
+
+.checklist-card { background: #fff; border-radius: 12px; padding: 22px 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.checklist-card h3 { font-size: 0.95rem; font-weight: 800; color: #1a1a2e; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+.checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 560px) { .checklist-grid { grid-template-columns: 1fr; } }
+.cl-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.88rem; color: #444; padding: 6px 10px; border-radius: 6px; background: #f8f9fa; }
+.cl-dot { width: 20px; height: 20px; border-radius: 50%; background: #4ecdc4; color: #1a1a2e; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.cl-item .cl-label strong { display: block; font-size: 0.82rem; color: #1a1a2e; margin-bottom: 1px; }
+
+@media (max-width: 600px) {
+  .qr-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.5rem; }
+  .round-btn { padding: 12px 14px; font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Series navigation strip ── -->
+<div class="series-strip">
+  <a href="diagnostic_c1.html" class="series-step">
+    <span class="badge">1</span> Precision Pick
+  </a>
+  <span class="series-arrow">›</span>
+  <a href="sp_c1_precision_flip.html" class="series-step">
+    <span class="badge">2</span> Precision Flip
+  </a>
+  <span class="series-arrow">›</span>
+  <span class="series-step current">
+    <span class="badge">3</span> The Gauntlet
+  </span>
+</div>
+
+<div class="header">
+  <div class="eyebrow">C1 Grammar Series · Lesson 3 of 3</div>
+  <h1>⚔️ The C1 Gauntlet</h1>
+  <p>Three rounds · Sprint · Fix · Transform · The final test</p>
+</div>
+
+<div class="round-progress">
+  <button class="round-btn active" id="rb-0" onclick="goPanel(0)">
+    <span class="round-num">Warm-up</span>Quick Review
+  </button>
+  <button class="round-btn" id="rb-1" onclick="goPanel(1)">
+    <span class="round-num">Round 1</span>Sprint
+  </button>
+  <button class="round-btn" id="rb-2" onclick="goPanel(2)">
+    <span class="round-num">Round 2</span>Fix It
+  </button>
+  <button class="round-btn" id="rb-3" onclick="goPanel(3)">
+    <span class="round-num">Round 3</span>Transform
+  </button>
+  <button class="round-btn" id="rb-4" onclick="goPanel(4)">
+    <span class="round-num">Results</span>Final Score
+  </button>
+</div>
+
+<!-- ════════════════════════════════════════
+     WARM-UP: QUICK REFERENCE
+     ════════════════════════════════════════ -->
+<div class="panel active" id="panel-0">
+  <div class="section-card">
+    <div class="section-label">Warm-up</div>
+    <h3>The 13 Structures — Quick Reference</h3>
+    <p>All 10 structures from the Precision Pick, plus the 3 new ones from the Precision Flip. Check the quick reference cards before you go into battle.</p>
+  </div>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <h4>1 · Inverted Conditionals</h4>
+      <div class="formula">Were / Had / Should + subject + infinitive…</div>
+      <div class="ex">Were it not for the funding, it would have failed.</div>
+    </div>
+    <div class="qr-card">
+      <h4>2 · Scarcely / Hardly</h4>
+      <div class="formula">Scarcely/Hardly had…<strong>when</strong> (not "that")</div>
+      <div class="ex">Scarcely had she arrived when the alarm rang.</div>
+    </div>
+    <div class="qr-card">
+      <h4>3 · It's High Time</h4>
+      <div class="formula">It's (high) time + subject + past tense</div>
+      <div class="ex">It's high time he took responsibility.</div>
+    </div>
+    <div class="qr-card">
+      <h4>4 · Not Until + Inversion</h4>
+      <div class="formula">Not until X + auxiliary + subject + verb</div>
+      <div class="ex">Not until the report was published did they act.</div>
+    </div>
+    <div class="qr-card">
+      <h4>5 · Would Sooner / Rather</h4>
+      <div class="formula">would sooner/rather + bare infinitive (no "to")</div>
+      <div class="ex">She would sooner resign than compromise.</div>
+    </div>
+    <div class="qr-card">
+      <h4>6 · Participle Clauses</h4>
+      <div class="formula">Participle subject = main clause subject</div>
+      <div class="ex">Having reviewed the data, the team approved the plan.</div>
+    </div>
+    <div class="qr-card">
+      <h4>7 · Be Supposed To</h4>
+      <div class="formula">be supposed to + have + past participle</div>
+      <div class="ex">They are supposed to have completed it by now.</div>
+    </div>
+    <div class="qr-card">
+      <h4>8 · Comment Adverbials</h4>
+      <div class="formula">…were, to put it mildly, disappointing.</div>
+      <div class="ex">Commas required around interrupting adverbials.</div>
+    </div>
+    <div class="qr-card">
+      <h4>9 · What-Cleft Agreement</h4>
+      <div class="formula">What X does is/are → agrees with complement</div>
+      <div class="ex">What concerns us is the lack of transparency.</div>
+    </div>
+    <div class="qr-card">
+      <h4>10 · Whether vs If</h4>
+      <div class="formula">decide/consider + whether + to-infinitive</div>
+      <div class="ex">She hasn't decided whether to accept the offer.</div>
+    </div>
+    <div class="qr-card">
+      <h4>★ A · Negative Adverbial Inversion</h4>
+      <div class="formula">Never/Rarely/Seldom + aux + subject + verb</div>
+      <div class="ex">Never have I witnessed such precision.</div>
+    </div>
+    <div class="qr-card">
+      <h4>★ B · Mandative Subjunctive</h4>
+      <div class="formula">insist/demand/require that + bare infinitive</div>
+      <div class="ex">The court ordered that the fine be paid immediately.</div>
+    </div>
+    <div class="qr-card">
+      <h4>★ C · Fronted Concession</h4>
+      <div class="formula">Much as / Try as + subject + verb, main clause</div>
+      <div class="ex">Much as I value her opinion, I must disagree.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center">
+    <button class="next-round-btn show" onclick="goPanel(1)">Enter Round 1: Sprint →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     ROUND 1: SPRINT
+     ════════════════════════════════════════ -->
+<div class="panel" id="panel-1">
+  <div class="section-card">
+    <div class="section-label">Round 1 of 3</div>
+    <h3>⚡ Sprint — Correct or Error?</h3>
+    <p>12 sentences. Each one is either grammatically correct or contains a single C1-level error. Vote fast, then check the explanation.</p>
+  </div>
+
+  <div id="sprint-container"></div>
+
+  <button class="next-round-btn" id="sprint-next" onclick="goPanel(2)">Continue to Round 2: Fix It →</button>
+</div>
+
+<!-- ════════════════════════════════════════
+     ROUND 2: FIX IT
+     ════════════════════════════════════════ -->
+<div class="panel" id="panel-2">
+  <div class="section-card">
+    <div class="section-label">Round 2 of 3</div>
+    <h3>🔧 Fix It — Type the Correction</h3>
+    <p>Five sentences, each with one error. Type the corrected sentence, then check. Accuracy over speed here.</p>
+  </div>
+
+  <div id="fix-container"></div>
+
+  <button class="next-round-btn" id="fix-next" onclick="goPanel(3)">Continue to Round 3: Transform →</button>
+</div>
+
+<!-- ════════════════════════════════════════
+     ROUND 3: TRANSFORM
+     ════════════════════════════════════════ -->
+<div class="panel" id="panel-3">
+  <div class="section-card">
+    <div class="section-label">Round 3 of 3</div>
+    <h3>🔀 Transform — Rewrite It</h3>
+    <p>Five production tasks. You're given a sentence and an instruction. Rewrite using the target structure. This is the hardest round — take your time.</p>
+  </div>
+
+  <div id="transform-container"></div>
+
+  <button class="next-round-btn" id="transform-next" onclick="goPanel(4)">See Final Results →</button>
+</div>
+
+<!-- ════════════════════════════════════════
+     RESULTS
+     ════════════════════════════════════════ -->
+<div class="panel" id="panel-4">
+  <div class="results-header">
+    <div class="trophies">⚔️ 🏆</div>
+    <h2>C1 Gauntlet Complete</h2>
+    <p>Here's how you did across all three rounds</p>
+    <div class="score-row">
+      <div class="score-pill">Round 1 Sprint: <span id="r1-score">—</span>/12</div>
+      <div class="score-pill">Round 2 Fix: <span id="r2-score">—</span>/5</div>
+      <div class="score-pill">Round 3 Transform: <span id="r3-score">—</span>/5</div>
+    </div>
+  </div>
+
+  <div class="checklist-card">
+    <h3>Your C1 Grammar Toolkit — 13 Structures</h3>
+    <div class="checklist-grid">
+      <div class="cl-item"><div class="cl-dot">1</div><div class="cl-label"><strong>Inverted conditionals</strong>Were it not for / Had she known</div></div>
+      <div class="cl-item"><div class="cl-dot">2</div><div class="cl-label"><strong>Scarcely / Hardly</strong>…when (not "that")</div></div>
+      <div class="cl-item"><div class="cl-dot">3</div><div class="cl-label"><strong>It's high time</strong>+ past tense subjunctive</div></div>
+      <div class="cl-item"><div class="cl-dot">4</div><div class="cl-label"><strong>Not until + inversion</strong>…did I understand</div></div>
+      <div class="cl-item"><div class="cl-dot">5</div><div class="cl-label"><strong>Would sooner / rather</strong>+ bare infinitive</div></div>
+      <div class="cl-item"><div class="cl-dot">6</div><div class="cl-label"><strong>Participle clauses</strong>No dangling modifiers</div></div>
+      <div class="cl-item"><div class="cl-dot">7</div><div class="cl-label"><strong>Be supposed to</strong>+ perfect infinitive</div></div>
+      <div class="cl-item"><div class="cl-dot">8</div><div class="cl-label"><strong>Comment adverbials</strong>Commas required</div></div>
+      <div class="cl-item"><div class="cl-dot">9</div><div class="cl-label"><strong>What-cleft agreement</strong>Verb agrees with complement</div></div>
+      <div class="cl-item"><div class="cl-dot">10</div><div class="cl-label"><strong>Whether vs if</strong>Before to-infinitive: whether</div></div>
+      <div class="cl-item"><div class="cl-dot">A</div><div class="cl-label"><strong>Negative adverbial inversion</strong>Never/Rarely + aux + subject</div></div>
+      <div class="cl-item"><div class="cl-dot">B</div><div class="cl-label"><strong>Mandative subjunctive</strong>demand/require that + bare inf</div></div>
+      <div class="cl-item"><div class="cl-dot">C</div><div class="cl-label"><strong>Fronted concession</strong>Much as / Try as + subject</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ──────────────────────────────────────────
+   DATA
+   ────────────────────────────────────────── */
+
+const sprintData = [
+  {
+    id: 's1',
+    text: 'Were she to accept the position, the entire team dynamic would change.',
+    isError: false,
+    explain: '✓ Correct. Inverted conditional with were — formal and correct.'
+  },
+  {
+    id: 's2',
+    text: 'Hardly had the negotiations ended that the protests began.',
+    isError: true,
+    explain: '✗ Error. "Hardly had…that" is wrong. The correct connector is <strong>when</strong>: <em>Hardly had the negotiations ended when the protests began.</em>'
+  },
+  {
+    id: 's3',
+    text: "It's high time this industry adopts more transparent reporting standards.",
+    isError: true,
+    explain: '✗ Error. After "it\'s high time", use the past subjunctive: <em>It\'s high time this industry <strong>adopted</strong> more transparent reporting standards.</em>'
+  },
+  {
+    id: 's4',
+    text: 'Not until the final audit was completed did the board authorise the merger.',
+    isError: false,
+    explain: '✓ Correct. "Not until…did" — inversion is correctly applied.'
+  },
+  {
+    id: 's5',
+    text: 'She would sooner to accept a pay cut than relocate to another city.',
+    isError: true,
+    explain: '✗ Error. "Would sooner" takes the bare infinitive. Remove "to": <em>She would sooner <strong>accept</strong> a pay cut…</em>'
+  },
+  {
+    id: 's6',
+    text: 'Having reviewed all the evidence, the verdict remained inconclusive to the jury.',
+    isError: true,
+    explain: '✗ Error (dangling modifier). The jury reviewed the evidence, not the verdict. Correct: <em>Having reviewed all the evidence, the jury found the verdict inconclusive.</em>'
+  },
+  {
+    id: 's7',
+    text: 'The report is supposed to have been submitted last week.',
+    isError: false,
+    explain: '✓ Correct. "Be supposed to + have been submitted" — perfect passive infinitive expressing a past expectation.'
+  },
+  {
+    id: 's8',
+    text: 'The policy was, to say the least somewhat controversial among stakeholders.',
+    isError: true,
+    explain: '✗ Error. The comment adverbial needs commas on both sides: <em>…was, to say the least<strong>,</strong> somewhat controversial…</em>'
+  },
+  {
+    id: 's9',
+    text: 'Never have I encountered a more nuanced argument in academic writing.',
+    isError: false,
+    explain: '✓ Correct. Negative adverbial inversion: Never + have + I + past participle.'
+  },
+  {
+    id: 's10',
+    text: 'The committee insisted that the director should present a full account.',
+    isError: true,
+    explain: '✗ Error. Mandative subjunctive requires the bare infinitive, not "should": <em>The committee insisted that the director <strong>present</strong> a full account.</em>'
+  },
+  {
+    id: 's11',
+    text: 'Much as the proposal has merit, it fails to address the core structural issue.',
+    isError: false,
+    explain: '✓ Correct. Fronted concession with "Much as" + subject + verb, followed by the main clause.'
+  },
+  {
+    id: 's12',
+    text: 'The panel had not decided if to publish the findings before the conference.',
+    isError: true,
+    explain: '✗ Error. Before a to-infinitive, use <strong>whether</strong>, not "if": <em>…had not decided <strong>whether</strong> to publish the findings…</em>'
+  }
+];
+
+const fixData = [
+  {
+    id: 'fix1',
+    cat: 'Sentence Structure',
+    error: 'Scarcely had the witness begun her testimony that the defence counsel objected.',
+    answer: 'Scarcely had the witness begun her testimony when the defence counsel objected.',
+    rule: '<strong>Scarcely/Hardly had…when</strong> (not "that"). This is the correct correlative conjunction pair.'
+  },
+  {
+    id: 'fix2',
+    cat: 'Participle Clauses',
+    error: 'Having carefully analysed the market trends, the strategy was revised by the team.',
+    answer: 'Having carefully analysed the market trends, the team revised the strategy.',
+    rule: 'The implied subject of the participle clause must match the main clause subject. The team analysed the trends — not "the strategy".'
+  },
+  {
+    id: 'fix3',
+    cat: 'Negative Adverbial Inversion',
+    error: 'Rarely the government acknowledges such a fundamental policy failure so quickly.',
+    answer: 'Rarely does the government acknowledge such a fundamental policy failure so quickly.',
+    rule: 'After <strong>Rarely</strong> at the front of a sentence, invert: <em>Rarely does + subject + base verb</em>.'
+  },
+  {
+    id: 'fix4',
+    cat: 'Mandative Subjunctive',
+    error: 'The board recommended that the CEO should step down pending the investigation.',
+    answer: 'The board recommended that the CEO step down pending the investigation.',
+    rule: 'Mandative subjunctive after <strong>recommended that</strong>: bare infinitive only — remove "should".'
+  },
+  {
+    id: 'fix5',
+    cat: 'What-Cleft Agreement',
+    error: 'What the data consistently reveal are a significant gap between expectation and outcome.',
+    answer: 'What the data consistently reveal is a significant gap between expectation and outcome.',
+    rule: 'In a what-cleft, the verb "be" agrees with the <strong>complement</strong>. "A significant gap" is singular → <em>is</em>, not "are".'
+  }
+];
+
+const transformData = [
+  {
+    id: 'tr1',
+    original: 'I have rarely encountered such a precise use of statistical inference.',
+    instruction: 'Rewrite using negative adverbial inversion (start with <span class="starter">Rarely</span>):',
+    answer: 'Rarely have I encountered such a precise use of statistical inference.',
+    answers: [
+      'rarely have i encountered such a precise use of statistical inference',
+      'rarely have i encountered such a precise use of statistical inference.'
+    ],
+    hint: 'Rarely + have + I + past participle (invert subject and auxiliary)'
+  },
+  {
+    id: 'tr2',
+    original: 'The ethics committee demanded that he should withdraw the paper immediately.',
+    instruction: 'Rewrite using the mandative subjunctive (remove "should"):',
+    answer: 'The ethics committee demanded that he withdraw the paper immediately.',
+    answers: [
+      'the ethics committee demanded that he withdraw the paper immediately',
+      'the ethics committee demanded that he withdraw the paper immediately.'
+    ],
+    hint: 'demand that + subject + bare infinitive (no "should")'
+  },
+  {
+    id: 'tr3',
+    original: 'Although I admire her commitment to the project, I cannot agree with her conclusions.',
+    instruction: 'Rewrite using a fronted concession (start with <span class="starter">Much as</span>):',
+    answer: 'Much as I admire her commitment to the project, I cannot agree with her conclusions.',
+    answers: [
+      'much as i admire her commitment to the project, i cannot agree with her conclusions',
+      'much as i admire her commitment to the project i cannot agree with her conclusions',
+      'much as i admire her commitment to the project, i cannot agree with her conclusions.'
+    ],
+    hint: 'Much as I admire…, I cannot… (fronted concession with comma)'
+  },
+  {
+    id: 'tr4',
+    original: "The chair hadn't decided about postponing the vote until after the recount.",
+    instruction: 'Rewrite using <span class="starter">Not until…did</span> inversion:',
+    answer: "Not until after the recount did the chair decide to postpone the vote.",
+    answers: [
+      'not until after the recount did the chair decide to postpone the vote',
+      'not until after the recount did the chair decide to postpone the vote.',
+      'not until the recount did the chair decide to postpone the vote',
+      'not until the recount did the chair decide to postpone the vote.'
+    ],
+    hint: 'Not until [time clause] + did + subject + verb'
+  },
+  {
+    id: 'tr5',
+    original: 'The lack of independent oversight is what the inquiry identified as the core problem.',
+    instruction: 'Rewrite as a what-cleft sentence (start with <span class="starter">What the inquiry identified</span>):',
+    answer: 'What the inquiry identified as the core problem was the lack of independent oversight.',
+    answers: [
+      'what the inquiry identified as the core problem was the lack of independent oversight',
+      'what the inquiry identified as the core problem was the lack of independent oversight.',
+      'what the inquiry identified was the lack of independent oversight'
+    ],
+    hint: 'What X identified… was [noun phrase] — verb agrees with complement (singular = was)'
+  }
+];
+
+/* ──────────────────────────────────────────
+   STATE
+   ────────────────────────────────────────── */
+let sprintScores = {};
+let fixScores = {};
+let trScores = {};
+
+/* ──────────────────────────────────────────
+   NORMALISE + LEVENSHTEIN
+   ────────────────────────────────────────── */
+function normalise(s) {
+  return s.toLowerCase().replace(/['']/g, "'").replace(/[^a-z0-9 ',]/g, '').replace(/\s+/g, ' ').trim();
+}
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) dp[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    }
+  }
+  return dp[a.length][b.length];
+}
+
+/* ──────────────────────────────────────────
+   RENDER
+   ────────────────────────────────────────── */
+function renderSprint() {
+  const c = document.getElementById('sprint-container');
+  sprintData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'sprint-card';
+    div.id = 'sc-' + item.id;
+    div.innerHTML = `
+      <div class="sprint-num">Sentence ${i+1}</div>
+      <div class="sprint-sentence">${item.text}</div>
+      <div class="sprint-btns">
+        <button class="sprint-btn yes" onclick="voteSprint('${item.id}', false)">✓ Correct</button>
+        <button class="sprint-btn no" onclick="voteSprint('${item.id}', true)">✗ Error</button>
+      </div>
+      <div class="sprint-explain" id="sp-ex-${item.id}"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function voteSprint(id, userSaysError) {
+  const item = sprintData.find(s => s.id === id);
+  const card = document.getElementById('sc-' + id);
+  const exEl = document.getElementById('sp-ex-' + id);
+  if (card.classList.contains('voted-yes') || card.classList.contains('voted-no')) return;
+  const isCorrect = userSaysError === item.isError;
+  sprintScores[id] = isCorrect;
+  card.classList.add(isCorrect ? 'voted-yes' : 'voted-no');
+  exEl.classList.add('show');
+  exEl.classList.add(isCorrect ? 'ok' : 'fix');
+  exEl.innerHTML = item.explain;
+  if (Object.keys(sprintScores).length === sprintData.length) {
+    document.getElementById('sprint-next').classList.add('show');
+    document.getElementById('r1-score').textContent = Object.values(sprintScores).filter(Boolean).length;
+  }
+}
+
+function renderFix() {
+  const c = document.getElementById('fix-container');
+  fixData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'fix-item';
+    div.id = 'fi-' + item.id;
+    div.innerHTML = `
+      <div class="fix-num">Fix ${i+1}</div>
+      <div class="fix-cat">${item.cat}</div>
+      <div class="error-box">${item.error}</div>
+      <div class="fix-row">
+        <textarea id="fta-${item.id}" placeholder="Type the corrected sentence…" rows="2"></textarea>
+        <button class="fix-check-btn" onclick="checkFix('${item.id}')">Check ✓</button>
+      </div>
+      <div class="fix-reveal" id="frev-${item.id}"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function checkFix(id) {
+  const item = fixData.find(f => f.id === id);
+  const ta = document.getElementById('fta-' + id);
+  const rev = document.getElementById('frev-' + id);
+  const card = document.getElementById('fi-' + id);
+  const userVal = normalise(ta.value);
+  const correct = normalise(item.answer);
+  const isOk = userVal === correct || levenshtein(userVal, correct) <= 4;
+  fixScores[id] = isOk;
+  card.classList.add(isOk ? 'ok' : 'wrong');
+  rev.classList.add('show');
+  rev.classList.add(isOk ? 'ok' : 'wrong');
+  rev.innerHTML = `<div class="answer-line">${item.answer}</div><div style="font-size:0.85rem;color:#555;margin-top:4px">${item.rule}</div>`;
+  ta.disabled = true;
+  if (Object.keys(fixScores).length === fixData.length) {
+    document.getElementById('fix-next').classList.add('show');
+    document.getElementById('r2-score').textContent = Object.values(fixScores).filter(Boolean).length;
+  }
+}
+
+function renderTransform() {
+  const c = document.getElementById('transform-container');
+  transformData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'transform-item';
+    div.id = 'tri-' + item.id;
+    div.innerHTML = `
+      <div class="tr-num">Transform ${i+1}</div>
+      <div class="tr-original">${item.original}</div>
+      <div class="tr-instruction">${item.instruction}</div>
+      <div class="tr-row">
+        <textarea id="tra-${item.id}" placeholder="Write your transformation…" rows="2"></textarea>
+        <button class="tr-check-btn" onclick="checkTransform('${item.id}')">Check</button>
+      </div>
+      <div class="tr-reveal" id="tr-rev-${item.id}"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function checkTransform(id) {
+  const item = transformData.find(t => t.id === id);
+  const ta = document.getElementById('tra-' + id);
+  const rev = document.getElementById('tr-rev-' + id);
+  const card = document.getElementById('tri-' + id);
+  const userVal = normalise(ta.value);
+  const isOk = item.answers.some(a => userVal === normalise(a) || levenshtein(userVal, normalise(a)) <= 5);
+  trScores[id] = isOk;
+  card.classList.add(isOk ? 'ok' : 'wrong');
+  rev.classList.add('show');
+  rev.classList.add(isOk ? 'ok' : 'wrong');
+  if (isOk) {
+    rev.innerHTML = `<div class="answer-line">${item.answer}</div><div style="font-size:0.85rem;color:#555;margin-top:4px">✓ Correct</div>`;
+  } else {
+    rev.innerHTML = `<div class="answer-line">${item.answer}</div><div style="font-size:0.85rem;color:#78350f;margin-top:4px"><strong>Hint:</strong> ${item.hint}</div>`;
+  }
+  ta.disabled = true;
+  if (Object.keys(trScores).length === transformData.length) {
+    document.getElementById('transform-next').classList.add('show');
+    document.getElementById('r3-score').textContent = Object.values(trScores).filter(Boolean).length;
+  }
+}
+
+/* ──────────────────────────────────────────
+   PANEL NAVIGATION
+   ────────────────────────────────────────── */
+function goPanel(n) {
+  document.querySelectorAll('.panel').forEach((p, i) => {
+    p.classList.toggle('active', i === n);
+  });
+  document.querySelectorAll('.round-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === n);
+    if (i < n) b.classList.add('done');
+  });
+  window.scrollTo(0, 0);
+}
+
+/* ──────────────────────────────────────────
+   INIT
+   ────────────────────────────────────────── */
+renderSprint();
+renderFix();
+renderTransform();
+</script>
+</body>
+</html>
