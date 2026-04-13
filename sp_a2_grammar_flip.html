@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Flip — A2 Grammar Series 2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+/* ── Series nav strip ── */
+.series-strip {
+  background: #1a1a2e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+}
+.series-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.series-step:hover { color: rgba(255,255,255,0.8); }
+.series-step.current { color: #f97316; }
+.series-step .badge {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800;
+  background: rgba(255,255,255,0.12);
+}
+.series-step.current .badge { background: #f97316; color: #fff; }
+.series-arrow { color: rgba(255,255,255,0.2); font-size: 0.75rem; padding: 0 2px; }
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #667eea 55%, #f97316 100%);
+  color: white;
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+.eyebrow { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.75; margin-bottom: 8px; }
+.header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: 6px; }
+.header p { font-size: 0.95rem; opacity: 0.85; }
+
+/* ── Phase nav ── */
+.phase-nav {
+  background: #fff;
+  border-bottom: 2px solid #e8e8f0;
+  display: flex;
+  justify-content: center;
+}
+.phase-btn {
+  padding: 14px 28px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #888;
+  transition: all 0.2s;
+}
+.phase-btn.active { color: #f97316; border-bottom-color: #f97316; }
+.phase-btn:hover:not(.active) { color: #444; }
+
+/* ── Containers ── */
+.phase-content { display: none; max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+.phase-content.active { display: block; }
+
+/* ── Section card ── */
+.section-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.section-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 8px; }
+.section-card h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+.section-card p { color: #555; font-size: 0.92rem; line-height: 1.65; }
+
+/* ── Flip items ── */
+.flip-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-left: 4px solid #e8e8f0;
+  transition: border-color 0.2s;
+}
+.flip-item.correct { border-left-color: #22c55e; }
+.flip-item.wrong { border-left-color: #ef4444; }
+.flip-num { font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+.cat-tag { display: inline-block; background: rgba(249,115,22,0.1); color: #c2410c; border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; margin-bottom: 12px; }
+.error-sentence { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 14px 16px; font-size: 0.97rem; color: #991b1b; margin-bottom: 14px; line-height: 1.5; }
+.error-sentence::before { content: '✗  '; font-weight: 800; }
+.flip-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.flip-row textarea { flex: 1; min-width: 200px; padding: 10px 14px; border: 2px solid #e8e8f0; border-radius: 8px; font-size: 0.93rem; font-family: inherit; resize: vertical; min-height: 52px; transition: border-color 0.2s; }
+.flip-row textarea:focus { outline: none; border-color: #f97316; }
+.flip-btn { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 12px 20px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+.flip-btn:hover { background: #ea580c; }
+.flip-reveal { display: none; margin-top: 14px; padding: 14px 16px; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; }
+.flip-reveal.show { display: block; }
+.flip-reveal.ok { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.flip-reveal.fix { background: #fffbeb; border: 1px solid #fde68a; }
+.correct-line { color: #15803d; font-weight: 700; font-size: 0.97rem; margin-bottom: 6px; }
+.correct-line::before { content: '✓  '; }
+.rule-line { color: #555; font-size: 0.87rem; margin-top: 4px; }
+
+/* ── Structure cards ── */
+.structure-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+.structure-head {
+  background: linear-gradient(135deg, #1a1a2e, #f97316);
+  color: white;
+  padding: 18px 22px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.structure-head h3 { font-size: 1rem; font-weight: 700; }
+.structure-head .toggle { font-size: 1.2rem; transition: transform 0.25s; }
+.structure-head.open .toggle { transform: rotate(90deg); }
+.structure-body { display: none; padding: 20px 22px; }
+.structure-body.open { display: block; }
+.formula { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 16px; font-family: monospace; font-size: 0.92rem; color: #7c2d12; margin-bottom: 14px; line-height: 1.5; }
+.eg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+@media (max-width: 560px) { .eg-grid { grid-template-columns: 1fr; } }
+.eg-box { border-radius: 8px; padding: 12px 14px; font-size: 0.88rem; line-height: 1.55; }
+.eg-box.bad { background: #fef2f2; border: 1px solid #fecaca; color: #7f1d1d; }
+.eg-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+.eg-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; margin-bottom: 5px; }
+.watch-out { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; font-size: 0.87rem; color: #78350f; margin-top: 10px; }
+.watch-out::before { content: '⚠ '; font-weight: 800; }
+
+/* ── Quick practice ── */
+.qp-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.q-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+.prompt { font-size: 0.95rem; color: #1a1a2e; margin-bottom: 14px; line-height: 1.55; }
+.original { color: #888; font-size: 0.88rem; font-style: italic; margin-top: 4px; }
+.starter { color: #f97316; font-weight: 700; }
+.qp-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.qp-row input { flex: 1; min-width: 180px; padding: 10px 14px; border: 2px solid #e8e8f0; border-radius: 8px; font-size: 0.93rem; font-family: inherit; transition: border-color 0.2s; }
+.qp-row input:focus { outline: none; border-color: #f97316; }
+.qp-btn { background: #1a1a2e; color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.qp-btn:hover { background: #2d2d4e; }
+.qp-fb { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 8px; font-size: 0.88rem; line-height: 1.6; }
+.qp-fb.show { display: block; }
+.qp-fb.ok { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+.qp-fb.fix { background: #fffbeb; border: 1px solid #fde68a; color: #78350f; }
+
+/* ── Score banner ── */
+.score-banner { display: none; text-align: center; background: #1a1a2e; color: white; border-radius: 12px; padding: 22px 20px; margin-bottom: 22px; }
+.score-banner.show { display: block; }
+.score-num { font-size: 2.4rem; font-weight: 800; color: #f97316; }
+.next-btn { display: inline-block; margin-top: 14px; background: #f97316; color: #fff; text-decoration: none; font-weight: 800; padding: 12px 28px; border-radius: 24px; font-size: 0.95rem; border: none; cursor: pointer; transition: background 0.2s; }
+.next-btn:hover { background: #ea580c; }
+
+@media (max-width: 600px) { .phase-btn { padding: 12px 14px; font-size: 0.82rem; } .header h1 { font-size: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="series-strip">
+  <a href="diagnostic_a2.html" class="series-step">
+    <span class="badge">1</span> Grammar Bingo
+  </a>
+  <span class="series-arrow">›</span>
+  <span class="series-step current">
+    <span class="badge">2</span> Grammar Flip
+  </span>
+  <span class="series-arrow">›</span>
+  <a href="sp_a2_gauntlet.html" class="series-step">
+    <span class="badge">3</span> The Gauntlet
+  </a>
+</div>
+
+<div class="header">
+  <div class="eyebrow">A2 Grammar Series · Lesson 2 of 3</div>
+  <h1>🔄 Grammar Flip</h1>
+  <p>Fix the Bingo errors · Learn three new structures · Build your A2 toolkit</p>
+</div>
+
+<div class="phase-nav">
+  <button class="phase-btn active" onclick="switchPhase(event,'flip')">Phase 1: The Flip</button>
+  <button class="phase-btn" onclick="switchPhase(event,'new-structures')">Phase 2: New Structures</button>
+  <button class="phase-btn" onclick="switchPhase(event,'quickfire')">Phase 3: Quick Fire</button>
+</div>
+
+<!-- ══════════ PHASE 1: THE FLIP ══════════ -->
+<div id="flip" class="phase-content active">
+  <div class="section-card">
+    <div class="section-label">Phase 1</div>
+    <h3>The Grammar Flip</h3>
+    <p>These are the five errors from the Grammar Bingo. This time, instead of spotting them — you have to fix them. Type the corrected sentence and check.</p>
+  </div>
+  <div id="flip-container"></div>
+  <div class="score-banner" id="flip-score">
+    <div class="score-num" id="flip-score-num">—</div>
+    <p>out of 5 flipped correctly</p>
+    <br>
+    <button class="next-btn" onclick="switchPhase(null,'new-structures')">Continue to New Structures →</button>
+  </div>
+</div>
+
+<!-- ══════════ PHASE 2: NEW STRUCTURES ══════════ -->
+<div id="new-structures" class="phase-content">
+  <div class="section-card">
+    <div class="section-label">Phase 2</div>
+    <h3>Three New A2 Structures</h3>
+    <p>These three patterns come up all the time at A2 level. Open each card, read the formula and examples, then try to remember — you'll need all three in the Gauntlet.</p>
+  </div>
+
+  <!-- Structure A: Comparatives -->
+  <div class="structure-card">
+    <div class="structure-head" onclick="toggleCard(this)">
+      <h3>Structure A — Comparatives</h3>
+      <span class="toggle">›</span>
+    </div>
+    <div class="structure-body">
+      <p style="color:#555;font-size:0.92rem;margin-bottom:14px">Use comparatives to say that one thing is different from another. The form depends on the length of the adjective.</p>
+      <div class="formula">
+        Short adjective (1 syllable): adjective + <strong>-er + than</strong><br>
+        Long adjective (2+ syllables): <strong>more</strong> + adjective + <strong>than</strong><br>
+        Not as… as: <strong>not as</strong> + adjective + <strong>as</strong>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>My flat is more big than yours.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>My flat is bigger than yours.</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>This lesson is interestinger than the last one.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>This lesson is more interesting than the last one.</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>The train is not so fast as the plane.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>The train is not as fast as the plane.</div>
+      </div>
+      <div class="watch-out">Irregular: good → better, bad → worse, far → further. Never say "more better" or "more worse".</div>
+    </div>
+  </div>
+
+  <!-- Structure B: Too / Enough -->
+  <div class="structure-card">
+    <div class="structure-head" onclick="toggleCard(this)">
+      <h3>Structure B — Too / Enough</h3>
+      <span class="toggle">›</span>
+    </div>
+    <div class="structure-body">
+      <p style="color:#555;font-size:0.92rem;margin-bottom:14px"><strong>Too</strong> = more than needed (negative). <strong>Enough</strong> = the right amount. The word order is the key thing to get right.</p>
+      <div class="formula">
+        <strong>too</strong> + adjective (+ to + verb)<br>
+        adjective/adverb + <strong>enough</strong> (+ to + verb)<br>
+        <strong>enough</strong> + noun
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>The coffee is enough hot to drink.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>The coffee is too hot to drink.</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>She isn't enough old to vote.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>She isn't old enough to vote.</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>We don't have money enough for the trip.</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>We don't have enough money for the trip.</div>
+      </div>
+      <div class="watch-out"><em>Enough</em> comes AFTER adjectives/adverbs but BEFORE nouns. This is a very common word-order error.</div>
+    </div>
+  </div>
+
+  <!-- Structure C: Question Tags -->
+  <div class="structure-card">
+    <div class="structure-head" onclick="toggleCard(this)">
+      <h3>Structure C — Question Tags</h3>
+      <span class="toggle">›</span>
+    </div>
+    <div class="structure-body">
+      <p style="color:#555;font-size:0.92rem;margin-bottom:14px">A question tag is a short question added to the end of a statement. Positive statement → negative tag. Negative statement → positive tag.</p>
+      <div class="formula">
+        Positive statement + negative tag: It's cold, <strong>isn't it?</strong><br>
+        Negative statement + positive tag: You haven't met her, <strong>have you?</strong><br>
+        Use the same auxiliary verb as the main sentence.
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>It's a nice day, isn't?</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>It's a nice day, isn't it?</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>She can swim, can she?</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>She can swim, can't she?</div>
+      </div>
+      <div class="eg-grid">
+        <div class="eg-box bad"><div class="eg-label">✗ Wrong</div>You like coffee, don't you? (said to someone who never drinks coffee)</div>
+        <div class="eg-box good"><div class="eg-label">✓ Correct</div>You don't like coffee, do you?</div>
+      </div>
+      <div class="watch-out">With "I am" the tag is "aren't I?" — not "amn't I?" (except in some dialects). E.g. "I'm next, aren't I?"</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:10px">
+    <button onclick="switchPhase(null,'quickfire')" class="next-btn">Ready for Quick Fire →</button>
+  </div>
+</div>
+
+<!-- ══════════ PHASE 3: QUICK FIRE ══════════ -->
+<div id="quickfire" class="phase-content">
+  <div class="section-card">
+    <div class="section-label">Phase 3</div>
+    <h3>Quick Fire — New Structures</h3>
+    <p>Six short exercises — two for each new structure. Use the starter given. Focus on getting the structure right.</p>
+  </div>
+  <div id="qp-container"></div>
+  <div class="score-banner" id="qp-score">
+    <div class="score-num" id="qp-score-num">—</div>
+    <p>out of 6 correct</p>
+    <a href="sp_a2_gauntlet.html" class="next-btn">Final challenge: The A2 Gauntlet →</a>
+  </div>
+</div>
+
+<script>
+/* ─── DATA ─── */
+const flipData = [
+  {
+    id: 'f1', num: 'Bingo Error 1', cat: 'Modal Verbs',
+    error: 'I must to finish this report before Friday.',
+    answer: 'I must finish this report before Friday.',
+    rule: 'After modal verbs (must, can, should, will), use the base form — no "to".'
+  },
+  {
+    id: 'f2', num: 'Bingo Error 2', cat: 'Tenses',
+    error: "I'm going to visit my parents next weekend. I already booked the tickets.",
+    answer: "I'm going to visit my parents next weekend. I've already booked the tickets.",
+    rule: 'Use present perfect (have + past participle) with "already", "just", "yet" — these words connect a past action to the present moment.'
+  },
+  {
+    id: 'f3', num: 'Bingo Error 3', cat: 'Adjectives',
+    error: 'The film was really bored — I nearly fell asleep.',
+    answer: 'The film was really boring — I nearly fell asleep.',
+    rule: '-ED adjectives describe how a person feels (I was bored). -ING adjectives describe the thing causing the feeling (the film was boring).'
+  },
+  {
+    id: 'f4', num: 'Bingo Error 4', cat: 'Reported Speech',
+    error: "She told me that she doesn't want to come.",
+    answer: "She told me that she didn't want to come.",
+    rule: 'After past reporting verbs (told, said), the tense shifts back: doesn\'t → didn\'t, is → was, will → would.'
+  },
+  {
+    id: 'f5', num: 'Bingo Error 5', cat: 'Tenses',
+    error: 'I used to lived in a small village when I was young.',
+    answer: 'I used to live in a small village when I was young.',
+    rule: '"Used to" is followed by the base form of the verb — not the past form. Used to + live (NOT lived).'
+  }
+];
+
+const qpData = [
+  {
+    id: 'q1', struct: 'A', label: 'Comparatives',
+    prompt: 'Rewrite using a comparative. Use <span class="starter">…than</span>:',
+    original: 'My new phone is good. My old phone is not so good.',
+    starter: 'My new phone',
+    answers: ['my new phone is better than my old phone', 'my new phone is better than my old one'],
+    hint: 'good → better (irregular). My new phone is better than my old phone.'
+  },
+  {
+    id: 'q2', struct: 'A', label: 'Comparatives',
+    prompt: 'Rewrite using <span class="starter">not as… as</span>:',
+    original: 'The red car is faster than the blue car.',
+    starter: 'The blue car',
+    answers: ['the blue car is not as fast as the red car', 'the blue car is not as fast as the red one'],
+    hint: 'The blue car is not as fast as the red car.'
+  },
+  {
+    id: 'q3', struct: 'B', label: 'Too / Enough',
+    prompt: 'Complete the sentence using <span class="starter">too</span> or <span class="starter">enough</span>:',
+    original: 'He wants to vote but he is only 16. He is not ____ old.',
+    starter: 'He is not',
+    answers: ['he is not old enough', 'he is not old enough to vote'],
+    hint: 'old enough — "enough" comes AFTER the adjective.'
+  },
+  {
+    id: 'q4', struct: 'B', label: 'Too / Enough',
+    prompt: 'Rewrite using <span class="starter">too</span>:',
+    original: "I can't carry this box — it's very heavy.",
+    starter: "The box is",
+    answers: ['the box is too heavy to carry', 'the box is too heavy for me to carry', 'it is too heavy to carry', "it's too heavy to carry"],
+    hint: 'The box is too heavy to carry.'
+  },
+  {
+    id: 'q5', struct: 'C', label: 'Question Tags',
+    prompt: 'Add the correct question tag:',
+    original: "You've been to Paris before, ____?",
+    starter: "You've been to Paris before,",
+    answers: ["you've been to paris before, haven't you", "haven't you"],
+    hint: "Positive statement (you've been) → negative tag: haven't you?"
+  },
+  {
+    id: 'q6', struct: 'C', label: 'Question Tags',
+    prompt: 'Add the correct question tag:',
+    original: "She can't drive, ____?",
+    starter: "She can't drive,",
+    answers: ["she can't drive, can she", 'can she'],
+    hint: "Negative statement (can't) → positive tag: can she?"
+  }
+];
+
+/* ─── STATE ─── */
+let flipScores = {}, qpScores = {};
+
+/* ─── HELPERS ─── */
+function normalise(s) {
+  return s.toLowerCase().replace(/['']/g,"'").replace(/[^a-z0-9 ',?]/g,'').replace(/\s+/g,' ').trim();
+}
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length+1},(_,i)=>[i]);
+  for(let j=1;j<=b.length;j++) dp[0][j]=j;
+  for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[a.length][b.length];
+}
+
+/* ─── RENDER FLIP ─── */
+function renderFlip() {
+  const c = document.getElementById('flip-container');
+  flipData.forEach(item => {
+    const d = document.createElement('div');
+    d.className = 'flip-item';
+    d.id = 'fi-' + item.id;
+    d.innerHTML = `
+      <div class="flip-num">${item.num}</div>
+      <div class="cat-tag">${item.cat}</div>
+      <div class="error-sentence">${item.error}</div>
+      <div class="flip-row">
+        <textarea id="ta-${item.id}" placeholder="Type the corrected sentence…" rows="2"></textarea>
+        <button class="flip-btn" onclick="checkFlip('${item.id}')">Flip it ✓</button>
+      </div>
+      <div class="flip-reveal" id="rev-${item.id}"></div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+function checkFlip(id) {
+  const item = flipData.find(f=>f.id===id);
+  const ta = document.getElementById('ta-'+id);
+  const rev = document.getElementById('rev-'+id);
+  const card = document.getElementById('fi-'+id);
+  const userVal = normalise(ta.value);
+  const correct = normalise(item.answer);
+  const isOk = userVal===correct || levenshtein(userVal,correct)<=3;
+  flipScores[id] = isOk;
+  card.classList.add(isOk?'correct':'wrong');
+  rev.classList.add('show', isOk?'ok':'fix');
+  rev.innerHTML = `<div class="correct-line">${item.answer}</div><div class="rule-line"><strong>Rule:</strong> ${item.rule}</div>`;
+  ta.disabled = true;
+  if(Object.keys(flipScores).length===flipData.length){
+    const total = Object.values(flipScores).filter(Boolean).length;
+    document.getElementById('flip-score-num').textContent = total;
+    document.getElementById('flip-score').classList.add('show');
+  }
+}
+
+/* ─── RENDER QP ─── */
+function renderQP() {
+  const c = document.getElementById('qp-container');
+  qpData.forEach((item,i) => {
+    const d = document.createElement('div');
+    d.className = 'qp-item';
+    d.innerHTML = `
+      <div class="q-label">Q${i+1} · Structure ${item.struct} — ${item.label}</div>
+      <div class="prompt">${item.prompt}<div class="original">${item.original}</div></div>
+      <div class="qp-row">
+        <input type="text" id="qp-${item.id}" placeholder="${item.starter}…" />
+        <button class="qp-btn" onclick="checkQP('${item.id}')">Check</button>
+      </div>
+      <div class="qp-fb" id="qp-fb-${item.id}"></div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+function checkQP(id) {
+  const item = qpData.find(q=>q.id===id);
+  const input = document.getElementById('qp-'+id);
+  const fb = document.getElementById('qp-fb-'+id);
+  const userVal = normalise(input.value);
+  const isOk = item.answers.some(a=>userVal===normalise(a)||levenshtein(userVal,normalise(a))<=3);
+  qpScores[id] = isOk;
+  fb.classList.add('show', isOk?'ok':'fix');
+  fb.innerHTML = isOk
+    ? '✓ Correct! ' + item.hint
+    : '✗ Not quite. <strong>Model answer:</strong> ' + item.answers[0] + '<br><strong>Hint:</strong> ' + item.hint;
+  input.disabled = true;
+  if(Object.keys(qpScores).length===qpData.length){
+    const total = Object.values(qpScores).filter(Boolean).length;
+    document.getElementById('qp-score-num').textContent = total;
+    document.getElementById('qp-score').classList.add('show');
+  }
+}
+
+/* ─── TOGGLE STRUCTURE CARD ─── */
+function toggleCard(head) {
+  const body = head.nextElementSibling;
+  const open = body.classList.contains('open');
+  head.classList.toggle('open', !open);
+  body.classList.toggle('open', !open);
+}
+
+/* ─── PHASE SWITCH ─── */
+function switchPhase(event, id) {
+  document.querySelectorAll('.phase-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(event&&event.currentTarget) event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+renderFlip();
+renderQP();
+</script>
+</body>
+</html>
