@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concorso AB24 — Lesson Plan Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: white; color: #333; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 36px 20px 28px; text-align: center; margin-bottom: 10px; border-radius: 8px; }
+        header h1 { font-size: 1.9em; margin-bottom: 6px; }
+        header p { font-size: 1em; opacity: 0.92; }
+        .score-bar { display: flex; gap: 8px; justify-content: center; margin: 12px 0 0; flex-wrap: wrap; }
+        .score-chip { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 4px 14px; font-size: 0.82em; font-weight: 600; color: white; }
+        .tabs { display: flex; gap: 8px; margin: 20px 0 24px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 10px 18px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s ease; }
+        .tab-button:hover { background: #f0f2ff; }
+        .tab-button.active { background: #f0f2ff; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .section { background: #f8f9fa; padding: 22px 24px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #667eea; }
+        .section h2 { color: #764ba2; font-size: 1.3em; margin-bottom: 14px; }
+        .section h3 { color: #667eea; font-size: 1em; margin: 16px 0 8px; font-weight: 700; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+        .field label { font-size: 0.8em; font-weight: 700; color: #764ba2; text-transform: uppercase; letter-spacing: 0.5px; }
+        .field input, .field select, .field textarea { padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-family: "Segoe UI", sans-serif; font-size: 0.95em; color: #333; transition: border-color 0.2s; resize: vertical; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: #667eea; outline: none; }
+        .field textarea { min-height: 80px; }
+        .field textarea.tall { min-height: 130px; }
+        .stage-block { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; margin-bottom: 14px; }
+        .stage-block .stage-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .stage-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stage-title { font-weight: 700; color: #764ba2; font-size: 1em; }
+        .stage-hint { font-size: 0.8em; color: #888; margin-left: auto; font-style: italic; }
+        .phrase-bank { background: #e8eaf6; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+        .phrase-bank h3 { color: #667eea; font-size: 0.9em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .phrase { background: white; border-left: 3px solid #667eea; padding: 8px 12px; margin-bottom: 8px; border-radius: 0 4px 4px 0; font-size: 0.9em; cursor: pointer; transition: background 0.2s; }
+        .phrase:hover { background: #f0f2ff; }
+        .phrase em { color: #764ba2; font-style: normal; font-weight: 600; }
+        .qa-block { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+        .qa-q { font-weight: 700; color: #764ba2; margin-bottom: 8px; font-size: 0.95em; }
+        .qa-hint { font-size: 0.85em; color: #555; font-style: italic; margin-bottom: 8px; }
+        .score-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .score-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; text-align: center; }
+        .score-card .pts { font-size: 2em; font-weight: 700; color: #667eea; }
+        .score-card .pts-label { font-size: 0.8em; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+        .score-card .pts-desc { font-size: 0.85em; color: #555; margin-top: 6px; line-height: 1.4; }
+        .full-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 13px 28px; border-radius: 6px; font-size: 1em; font-weight: 700; cursor: pointer; margin-top: 10px; display: block; width: 100%; transition: opacity 0.2s; }
+        .full-btn:hover { opacity: 0.9; }
+        .output-box { background: #1e1e2e; color: #cdd6f4; font-family: monospace; font-size: 0.88em; padding: 20px; border-radius: 8px; white-space: pre-wrap; min-height: 200px; margin-top: 12px; line-height: 1.7; }
+        .tip-box { background: #fff3cd; border-left: 5px solid #f0c040; padding: 14px 18px; border-radius: 4px; margin-bottom: 14px; font-size: 0.9em; }
+        .tip-box strong { color: #856404; }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.95em; }
+        .checklist li input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: #667eea; cursor: pointer; }
+        .divider { height: 2px; background: linear-gradient(to right, #667eea, #764ba2); border: none; margin: 20px 0; border-radius: 2px; }
+        @media (max-width: 700px) {
+            .field-row, .field-row.three, .score-section { grid-template-columns: 1fr; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { border-left: 5px solid transparent; border-bottom: none; text-align: left; }
+            .tab-button.active { border-left-color: #667eea; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Concorso AB24 — Lesson Plan Builder</h1>
+        <p>Add your topic, fill in the stages, then generate your presentation script.</p>
+        <div class="score-bar">
+            <span class="score-chip">40 pts — Pedagogical Design</span>
+            <span class="score-chip">30 pts — Topic Knowledge + Methodology</span>
+            <span class="score-chip">30 pts — English Language</span>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">📋 The Traccia</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">🎯 Aims</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">📐 Procedure</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">🗣️ Methodology</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">✅ Assessment</button>
+        <button class="tab-button" onclick="openTab(event,'tab6')">❓ Panel Q&amp;A</button>
+        <button class="tab-button" onclick="openTab(event,'tab7')">📄 Full Script</button>
+    </div>
+
+    <!-- TAB 1: THE TRACCIA -->
+    <div id="tab1" class="tab-content active">
+        <div class="tip-box">
+            <strong>Drop the traccia in here.</strong> Fill in exactly what the slip says — topic, level, class details. Everything else builds from this.
+        </div>
+        <div class="section">
+            <h2>The Topic</h2>
+            <div class="field">
+                <label>Traccia — exact wording</label>
+                <textarea id="traccia" class="tall" placeholder="e.g. 'Prepare a lesson on the present perfect for a B1 class of 20 students in Year 9 (3rd year secondary)'"></textarea>
+            </div>
+            <div class="field-row" style="margin-top:14px;">
+                <div class="field">
+                    <label>Topic (in your own words)</label>
+                    <input type="text" id="topic" placeholder="e.g. The Present Perfect">
+                </div>
+                <div class="field">
+                    <label>Topic type</label>
+                    <select id="topicType">
+                        <option value="">— choose —</option>
+                        <option>Grammar point</option>
+                        <option>Literature text / author</option>
+                        <option>Anglo-American history / culture</option>
+                        <option>Language skill (reading / writing / speaking / listening)</option>
+                        <option>ESP / EAP topic</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Class Profile</h2>
+            <div class="field-row three">
+                <div class="field">
+                    <label>CEFR Level</label>
+                    <select id="level">
+                        <option value="">— choose —</option>
+                        <option>A1</option><option>A2</option><option>B1</option>
+                        <option>B2</option><option>C1</option><option>C2</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Year group (anno)</label>
+                    <input type="text" id="year" placeholder="e.g. Year 9 / 3rd year">
+                </div>
+                <div class="field">
+                    <label>School type</label>
+                    <select id="schoolType">
+                        <option value="">— choose —</option>
+                        <option>Liceo linguistico</option>
+                        <option>Liceo classico</option>
+                        <option>Liceo scientifico</option>
+                        <option>Istituto tecnico</option>
+                        <option>Istituto professionale</option>
+                        <option>Scuola media (I grado)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Number of students</label>
+                    <input type="text" id="numStudents" placeholder="e.g. 22">
+                </div>
+                <div class="field">
+                    <label>Lesson length</label>
+                    <input type="text" id="duration" placeholder="e.g. 60 minutes">
+                </div>
+            </div>
+            <div class="field">
+                <label>SEN / inclusion notes (if given)</label>
+                <input type="text" id="sen" placeholder="e.g. 2 students with DSA / dyslexia, 1 EAL student">
+            </div>
+        </div>
+        <div class="section">
+            <h2>Prior Knowledge</h2>
+            <div class="field">
+                <label>What students already know that this lesson builds on</label>
+                <textarea id="prior" placeholder="e.g. Students can use the past simple. They are familiar with regular past tense verbs and some common irregular forms."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: AIMS -->
+    <div id="tab2" class="tab-content">
+        <div class="section">
+            <h2>Language Aims</h2>
+            <div class="field">
+                <label>By the end of this lesson, students will be able to…</label>
+                <textarea id="aim1" placeholder="e.g. use the present perfect to talk about life experiences using 'ever/never'"></textarea>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label>Secondary language aim (optional)</label>
+                <textarea id="aim2" placeholder="e.g. distinguish between present perfect and past simple in spoken and written English"></textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Skills Aims</h2>
+            <div class="field-row">
+                <div class="field">
+                    <label>Receptive skills focus</label>
+                    <input type="text" id="skillsR" placeholder="e.g. reading for gist + specific information">
+                </div>
+                <div class="field">
+                    <label>Productive skills focus</label>
+                    <input type="text" id="skillsP" placeholder="e.g. speaking — asking and answering about experiences">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>CEFR Can-Do Descriptor</h2>
+            <div class="field">
+                <label>Relevant CEFR descriptor this lesson addresses</label>
+                <textarea id="cefr" placeholder="e.g. B1 Spoken Interaction — 'Can ask and answer questions about habits and activities in the past and express personal opinions.'"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PROCEDURE -->
+    <div id="tab3" class="tab-content">
+        <div class="tip-box">
+            <strong>Choose your approach:</strong> PPP (Presentation–Practice–Production) is safest for grammar. Task-Based Learning works well for literature or skills. Note your choice — the panel will ask why.
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+            <label>Teaching Approach</label>
+            <select id="approach">
+                <option value="PPP">PPP — Presentation, Practice, Production</option>
+                <option value="TBL">TBL — Task-Based Learning</option>
+                <option value="CLT">CLT — Communicative Language Teaching</option>
+                <option value="TTT">TTT — Test, Teach, Test</option>
+                <option value="text-based">Text-Based / Genre Approach (for literature)</option>
+            </select>
+        </div>
+
+        <!-- STAGE 1 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">1</div>
+                <div class="stage-title">Warmer / Lead-in</div>
+                <div class="stage-hint">5–8 min · activate prior knowledge, engage interest</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s1act" placeholder="e.g. Show students a photo of someone at different life stages. Ask: 'What has this person done in their life?'"></textarea>
+                </div>
+                <div class="field">
+                    <label>Purpose / why this warmer</label>
+                    <textarea id="s1why" placeholder="e.g. Activates vocabulary related to life experiences. Creates natural context for the target language."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">2</div>
+                <div class="stage-title">Presentation / Text Input</div>
+                <div class="stage-hint">10–12 min · introduce the topic in context</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s2act" placeholder="e.g. Ss read a short authentic text (bucket list / interview). Teacher highlights target forms in context."></textarea>
+                </div>
+                <div class="field">
+                    <label>Material / text type</label>
+                    <textarea id="s2mat" placeholder="e.g. Short adapted magazine interview. ICT: projected on board. Students have printed copy."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">3</div>
+                <div class="stage-title">Controlled Practice</div>
+                <div class="stage-hint">10–12 min · accuracy focus, guided production</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s3act" placeholder="e.g. Gap-fill exercise using present perfect. Ss complete sentences using the correct form. Peer-check then whole class feedback."></textarea>
+                </div>
+                <div class="field">
+                    <label>Differentiation for SEN / weaker students</label>
+                    <textarea id="s3diff" placeholder="e.g. DSA students given word bank. Extension: students write 3 additional sentences without support."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">4</div>
+                <div class="stage-title">Free / Communicative Practice</div>
+                <div class="stage-hint">12–15 min · fluency focus, personalised output</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s4act" placeholder="e.g. 'Find someone who has…' mingling activity. Students interview each other using present perfect questions. Report findings to class."></textarea>
+                </div>
+                <div class="field">
+                    <label>Why this develops communicative competence</label>
+                    <textarea id="s4why" placeholder="e.g. Moves from accuracy to fluency. Personalised context increases motivation. Mirrors real-world use of the language."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">5</div>
+                <div class="stage-title">Consolidation / Wrap-up</div>
+                <div class="stage-hint">5 min · review, connect to learning aims</div>
+            </div>
+            <div class="field">
+                <label>Activity</label>
+                <textarea id="s5act" placeholder="e.g. Teacher elicits key form rules on board. Ss write 2 true sentences about themselves as exit task. Homework: written paragraph."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: METHODOLOGY -->
+    <div id="tab4" class="tab-content">
+        <div class="tip-box">
+            <strong>This is where the panel goes deepest.</strong> Know WHY you chose your approach. These phrases help you sound fluent and confident.
+        </div>
+
+        <div class="section">
+            <h2>My methodology choices — notes</h2>
+            <div class="field">
+                <label>Why did you choose this approach for this topic?</label>
+                <textarea id="methJust" class="tall" placeholder="e.g. I chose PPP because this is a new grammar structure at B1 level. The clear sequence — exposure → analysis → production — scaffolds learning and reduces cognitive load, which aligns with Krashen's comprehensible input hypothesis and Swain's output hypothesis."></textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>ICT integration (at least one tool or resource)</label>
+                <textarea id="ict" placeholder="e.g. Interactive whiteboard for text display. Google Forms quiz for quick exit assessment. Optional: short YouTube clip for authentic input."></textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>Inclusion / UDL notes</label>
+                <textarea id="inclusion" placeholder="e.g. Multiple representations: visual + written + spoken input. DSA students: extra processing time, simplified handout. EAL students paired with bilingual buddy for activities."></textarea>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="phrase-bank">
+            <h3>Presenting your methodology — key phrases</h3>
+            <div class="phrase">I chose <em>PPP</em> because it provides a clear scaffold from form-focused input to communicative output, which is particularly effective for introducing <em>new grammar structures</em> at this level.</div>
+            <div class="phrase">This approach aligns with <em>Krashen's Input Hypothesis</em> — students are exposed to language slightly beyond their current competence (i+1) before being asked to produce it.</div>
+            <div class="phrase">The controlled practice stage follows <em>Swain's Output Hypothesis</em> — producing language forces students to notice gaps in their knowledge.</div>
+            <div class="phrase">The communicative stage reflects <em>CLT principles</em> — meaning-focused interaction in a personalised context that mirrors authentic language use.</div>
+            <div class="phrase">To address the needs of students with <em>DSA</em>, I have provided a graphic organiser / word bank / extended processing time during the practice activity.</div>
+            <div class="phrase">The lesson follows the <em>CEFR action-oriented approach</em>, treating students as social agents performing communicative tasks rather than passive recipients of grammar instruction.</div>
+            <div class="phrase">ICT is integrated through <em>[tool]</em>, which enhances engagement, provides authentic input, and allows for immediate formative feedback.</div>
+        </div>
+    </div>
+
+    <!-- TAB 5: ASSESSMENT -->
+    <div id="tab5" class="tab-content">
+        <div class="section">
+            <h2>Formative Assessment</h2>
+            <div class="field">
+                <label>How will you check understanding during the lesson?</label>
+                <textarea id="formative" placeholder="e.g. CCQs (concept-checking questions) after presentation. Observation during pair work. Peer-checking of gap fill. Exit task: 2 sentences using target form."></textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Summative / Follow-up</h2>
+            <div class="field">
+                <label>Homework or next lesson assessment</label>
+                <textarea id="summative" placeholder="e.g. Written paragraph (80–100 words) about a memorable experience using at least 4 examples of the present perfect."></textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Self-Assessment</h2>
+            <div class="field">
+                <label>How will students reflect on their own learning?</label>
+                <textarea id="selfAssess" placeholder="e.g. Students complete a 'can-do' checklist at the end of the lesson aligned to the CEFR B1 descriptor covered."></textarea>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="section">
+            <h2>Pre-submission checklist</h2>
+            <ul class="checklist">
+                <li><input type="checkbox"><span>Clear language aims stated in observable terms (SWBAT…)</span></li>
+                <li><input type="checkbox"><span>CEFR descriptor identified and addressed</span></li>
+                <li><input type="checkbox"><span>Every stage has a purpose and time allocation</span></li>
+                <li><input type="checkbox"><span>At least one ICT tool named and justified</span></li>
+                <li><input type="checkbox"><span>Differentiation / SEN provision specified</span></li>
+                <li><input type="checkbox"><span>Both controlled AND communicative practice included</span></li>
+                <li><input type="checkbox"><span>Formative assessment strategy named</span></li>
+                <li><input type="checkbox"><span>Methodology choice can be justified with theory (SLA / CLT / CEFR)</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 6: PANEL Q&A -->
+    <div id="tab6" class="tab-content">
+        <div class="tip-box">
+            <strong>The panel will probe your choices.</strong> These are the most common questions — have your answers ready before you walk in.
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why did you choose this particular approach?</div>
+            <div class="qa-hint">Name the method (PPP/TBL/CLT), then link it to the topic, level, and learners.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How does this lesson reflect the CEFR action-oriented approach?</div>
+            <div class="qa-hint">Students as social agents, can-do descriptors, tasks that mirror real communication.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How have you catered for students with DSA or learning differences?</div>
+            <div class="qa-hint">Name specific strategies: graphic organisers, extra time, simplified handouts, multisensory input, UDL framework.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How would you assess whether the lesson aims were achieved?</div>
+            <div class="qa-hint">Both during the lesson (CCQs, observation, exit task) and after (homework, next lesson review).</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How does your lesson link to the national curriculum (Indicazioni Nazionali)?</div>
+            <div class="qa-hint">Reference to competenze chiave europee, development of autonomous learners, cross-curricular links.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why did you choose this particular text / material?</div>
+            <div class="qa-hint">Authentic input, level-appropriate, engaging, culturally relevant, supports the target language in context.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How would you handle errors during the speaking activity?</div>
+            <div class="qa-hint">Distinguish fluency tasks (delayed/selective correction) from accuracy tasks (immediate). Recast vs. explicit correction.</div>
+            <div class="field"><textarea placeholder="Your answer..."></textarea></div>
+        </div>
+    </div>
+
+    <!-- TAB 7: FULL SCRIPT -->
+    <div id="tab7" class="tab-content">
+        <div class="tip-box">
+            <strong>Click the button below</strong> to generate your full presentation script from everything you have filled in. Read it aloud — it should take 4–6 minutes to deliver.
+        </div>
+        <button class="full-btn" onclick="generateScript()">Generate Full Presentation Script</button>
+        <div id="scriptOutput" class="output-box" style="display:none;"></div>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, name) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(name).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function val(id) {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+    }
+
+    function generateScript() {
+        const topic    = val("topic") || "[TOPIC]";
+        const level    = val("level") || "[LEVEL]";
+        const year     = val("year") || "[YEAR GROUP]";
+        const school   = val("schoolType") || "[SCHOOL TYPE]";
+        const n        = val("numStudents") || "[N]";
+        const dur      = val("duration") || "[DURATION]";
+        const sen      = val("sen");
+        const prior    = val("prior");
+        const aim1     = val("aim1") || "[LANGUAGE AIM]";
+        const aim2     = val("aim2");
+        const skillsR  = val("skillsR");
+        const skillsP  = val("skillsP");
+        const cefr     = val("cefr");
+        const approach = val("approach") || "PPP";
+        const s1       = val("s1act");
+        const s2       = val("s2act");
+        const s2m      = val("s2mat");
+        const s3       = val("s3act");
+        const s3d      = val("s3diff");
+        const s4       = val("s4act");
+        const s5       = val("s5act");
+        const methJust = val("methJust");
+        const ict      = val("ict");
+        const inclusion= val("inclusion");
+        const formative= val("formative");
+
+        let script = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  CONCORSO AB24 — LESSON PRESENTATION SCRIPT\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+        script += `INTRODUCTION\n────────────\n`;
+        script += `"Good morning. I have been asked to prepare a lesson on ${topic} for a ${level} class. `;
+        script += `The class is in ${year} at a ${school}, with ${n} students and a lesson duration of ${dur}.\n`;
+        if (sen) script += `I have been informed that the class includes students with the following needs: ${sen}.\n`;
+        if (prior) script += `In terms of prior knowledge, ${prior}\n`;
+        script += `\n`;
+
+        script += `LEARNING AIMS\n─────────────\n`;
+        script += `"By the end of this lesson, students will be able to ${aim1}."\n`;
+        if (aim2) script += `"A secondary aim is that students will ${aim2}."\n`;
+        if (skillsR) script += `"In terms of receptive skills, the focus will be on ${skillsR}."\n`;
+        if (skillsP) script += `"For productive skills, students will practise ${skillsP}."\n`;
+        if (cefr) script += `"This lesson addresses the following CEFR descriptor: ${cefr}"\n`;
+        script += `\n`;
+
+        script += `LESSON STRUCTURE (${approach})\n${"─".repeat(24)}\n`;
+        if (s1) script += `Stage 1 — Warmer/Lead-in:\n"${s1}"\n\n`;
+        if (s2) script += `Stage 2 — Presentation:\n"${s2}"\n`;
+        if (s2m) script += `Materials: ${s2m}\n\n`;
+        if (s3) script += `Stage 3 — Controlled Practice:\n"${s3}"\n`;
+        if (s3d) script += `Differentiation: ${s3d}\n\n`;
+        if (s4) script += `Stage 4 — Free Practice:\n"${s4}"\n\n`;
+        if (s5) script += `Stage 5 — Consolidation:\n"${s5}"\n\n`;
+
+        script += `METHODOLOGY JUSTIFICATION\n─────────────────────────\n`;
+        if (methJust) script += `"${methJust}"\n`;
+        if (ict) script += `\nICT integration: "${ict}"\n`;
+        if (inclusion) script += `\nInclusion/UDL: "${inclusion}"\n`;
+        script += `\n`;
+
+        script += `ASSESSMENT\n──────────\n`;
+        if (formative) script += `"During the lesson, I will assess student progress through: ${formative}"\n`;
+        script += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+        const box = document.getElementById("scriptOutput");
+        box.style.display = "block";
+        box.textContent = script;
+    }
+</script>
+</body>
+</html>
