@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mask We Wear</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.9em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .grammar-example { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; margin-bottom: 12px; }
+        .grammar-example .label { color: #764ba2; font-weight: 700; font-size: 0.85em; text-transform: uppercase; margin-bottom: 6px; }
+        .grammar-example .example { font-style: italic; color: #333; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 120px; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .vocab-grid { grid-template-columns: 1fr; }
+            .timer { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>The Mask We Wear</h1>
+        <p>C1 Level &middot; Identity, Persona &amp; Expressive Grammar</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Questions</button>
+        <button class="tab-button" onclick="openTab(event, 'tab2')">Mask Idioms</button>
+        <button class="tab-button" onclick="openTab(event, 'tab3')">Grammar: "What I..."</button>
+        <button class="tab-button" onclick="openTab(event, 'tab4')">Fluency Task</button>
+        <button class="tab-button" onclick="openTab(event, 'tab5')">Personal Stories</button>
+    </div>
+
+    <!-- TAB 1: Opening Questions -->
+    <div id="tab1" class="tab-content active">
+        <div class="content-block">
+            <h2>"Be yourself; everyone else is already taken."</h2>
+            <p style="color: #667eea; font-style: italic; margin-bottom: 15px;">— Oscar Wilde</p>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Do you agree with this idea? Or is it more complicated than it sounds?</p>
+            <p>Is it ever necessary — or even wise — to not be yourself?</p>
+            <p>Do you feel more authentic in your first language or in English? Why?</p>
+        </div>
+        <div class="question-block">
+            <h4>💬 Further questions:</h4>
+            <p style="margin-bottom: 8px;">When do you feel like your most authentic self?</p>
+            <p style="margin-bottom: 8px;">Do you behave differently depending on who you're with?</p>
+            <p style="margin-bottom: 8px;">Have you ever "played a role" — at work, in a relationship, or in public?</p>
+            <p style="margin-bottom: 8px;">What's the difference between being polite and being fake?</p>
+            <p>Can you think of a time when someone surprised you by showing a completely different side?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Mask Idioms -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Idioms of Identity and Emotion</h2>
+            <p>Click each card to reveal the meaning. Then choose one expression that connects to your own experience and tell a short story.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">put on a brave face</span>
+                <span class="definition">Try to appear calm or confident even when you're not — hiding fear, sadness, or stress behind a composed exterior.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">wear your heart on your sleeve</span>
+                <span class="definition">Show your emotions openly and easily — you don't hide how you're feeling; others can always tell.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">keep up appearances</span>
+                <span class="definition">Behave as though everything is fine in public, even when it isn't — maintaining a facade for the sake of others' perception.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">let your guard down</span>
+                <span class="definition">Allow others to see your real emotions or vulnerability — stop protecting yourself from being truly known.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">play a role</span>
+                <span class="definition">Act according to what people expect rather than how you really feel — performing a persona that isn't fully you.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">two-faced</span>
+                <span class="definition">Behave differently in front of different people — pretending to be friendly while having very different private opinions. (Usually negative.)</span>
+            </div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Your turn:</strong></p>
+            <p>Choose one expression that connects to a real experience of yours. Tell a short story — what happened, how you felt, and what you did.</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Grammar: Emphatic Clauses -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Emphatic Emotional Clauses: "What I..."</h2>
+            <p>We use these structures to focus on what stands out — a feeling, a reaction, a realisation. They're powerful for storytelling and reflective conversation.</p>
+        </div>
+        <div class="grammar-example">
+            <div class="label">Pattern</div>
+            <div class="example">What + subject + verb + was/is + [the thing you want to emphasise]</div>
+        </div>
+        <div class="grammar-example">
+            <div class="label">Examples</div>
+            <div class="example">"What struck me was how silent the room became."</div>
+            <div class="example" style="margin-top:6px;">"What I noticed was how different I looked from how I felt."</div>
+            <div class="example" style="margin-top:6px;">"What stayed with me was the way he avoided eye contact."</div>
+        </div>
+        <div class="content-block">
+            <h3>Transform these simple sentences:</h3>
+            <p style="margin-bottom: 15px;">Try rewriting each one using the "What I..." pattern:</p>
+        </div>
+        <div class="question-block">
+            <h4>1. "I felt nervous in the meeting."</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Example' : 'Show Example';">Show Example</button>
+            <div class="answer-text">"What I felt most in that meeting was a kind of quiet, creeping nervousness."</div>
+        </div>
+        <div class="question-block">
+            <h4>2. "She didn't react at all."</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Example' : 'Show Example';">Show Example</button>
+            <div class="answer-text">"What surprised me most was that she didn't react at all."</div>
+        </div>
+        <div class="question-block">
+            <h4>3. "I was pretending to be confident."</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Example' : 'Show Example';">Show Example</button>
+            <div class="answer-text">"What no one could see was that I was performing confidence I didn't actually feel."</div>
+        </div>
+        <div class="content-block">
+            <h3>Contrastive Discourse Markers</h3>
+            <p style="margin-bottom: 10px;">Combine an emphatic clause with a contrastive marker to create depth and nuance:</p>
+            <div class="grammar-example"><div class="example">"On the surface, I looked calm. But what I remember most is the panic underneath."</div></div>
+            <p style="margin-top: 10px; margin-bottom: 8px;">Useful phrases: <em>On the surface... / In reality... / Despite the impression that... / While it may have seemed... / What people didn't realise was...</em></p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Fluency Task -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>The Public Voice and the Inner Voice</h2>
+            <p>Choose a scenario from the list below. You're going to speak in two voices: what you say out loud (the public voice) and what you're actually thinking (the inner voice).</p>
+        </div>
+        <div class="question-block">
+            <h4>Choose your scenario:</h4>
+            <p style="margin-bottom: 8px;">1. You're in a job interview for a role you really want — but you're terrified.</p>
+            <p style="margin-bottom: 8px;">2. You're giving a speech at a wedding and you're extremely nervous.</p>
+            <p style="margin-bottom: 8px;">3. You're meeting your partner's family for the first time.</p>
+            <p>4. You're presenting to senior management and you've just spotted a mistake in your slides.</p>
+        </div>
+        <div class="content-block">
+            <h3>As you speak, try to include:</h3>
+            <p>• At least one idiom from the Mask Idioms tab</p>
+            <p>• One emphatic "What I..." clause</p>
+            <p>• One contrastive phrase (On the surface... / In reality...)</p>
+        </div>
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">10:00</span></strong></span>
+            <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+        </div>
+        <textarea class="textarea-box" placeholder="Plan your public voice and inner voice here before you speak..."></textarea>
+    </div>
+
+    <!-- TAB 5: Personal Stories -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Real Moments</h2>
+            <p>Stories about identity and authenticity are often the most powerful — because they're personal. Share a real moment from your own life.</p>
+        </div>
+        <div class="question-block">
+            <h4>💬 Choose one to explore:</h4>
+            <p style="margin-bottom: 8px;">1. A time when you behaved very differently from how you actually felt.</p>
+            <p style="margin-bottom: 8px;">2. A moment when you unexpectedly revealed your true self — perhaps in a way that surprised even you.</p>
+            <p>3. A time when you realised someone else was wearing a mask — and what that felt like.</p>
+        </div>
+        <div class="discussion-box">
+            <p><strong>As you think about it, consider:</strong></p>
+            <p>What were the circumstances? Who was there?</p>
+            <p>What were you thinking vs. what were you showing?</p>
+            <p>What did you learn from it?</p>
+        </div>
+        <div class="content-block">
+            <h3>Optional Writing Task</h3>
+            <p>Write 150–200 words on the theme: <strong>"The Moment I Took Off the Mask."</strong></p>
+            <p style="margin-top: 8px;">Try to include one idiom, one contrastive marker, and one "What I..." emphatic clause.</p>
+        </div>
+        <textarea class="textarea-box" placeholder="Write your response here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) {
+        el.classList.toggle("flipped");
+    }
+    let timerInterval = null;
+    let timeRemaining = 600;
+    function startTimer() {
+        if (timerInterval) return;
+        timerInterval = setInterval(function() {
+            timeRemaining--;
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById("timer-display").textContent =
+                minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+            const timerEl = document.querySelector(".timer");
+            if (timeRemaining <= 10) {
+                timerEl.classList.add("danger");
+                timerEl.classList.remove("warning");
+            } else if (timeRemaining <= 60) {
+                timerEl.classList.add("warning");
+                timerEl.classList.remove("danger");
+            } else {
+                timerEl.classList.remove("warning", "danger");
+            }
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                document.getElementById("timer-display").textContent = "Time's up!";
+            }
+        }, 1000);
+    }
+</script>
+</body>
+</html>
