@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB Lesson 4 — The PACER Framework</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-1: #1a1f3a; --bg-2: #2a1f4a;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.12);
+            --text-primary: #f5f5fa; --text-secondary: #d8d8e8;
+            --text-muted: #a8a8c0;
+            --accent-1: #8b9eff; --accent-2: #b794f6;
+            --accent-warm: #ffd479;
+            --weak: #ff8a8a; --strong: #7ee787;
+            --weak-bg: rgba(255, 138, 138, 0.12);
+            --strong-bg: rgba(126, 231, 135, 0.12);
+            --p-color: #8b9eff;
+            --a-color: #b794f6;
+            --c-color: #ffd479;
+            --e-color: #7ee787;
+            --r-color: #ff9ecf;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            min-height: 100vh; color: var(--text-primary);
+            line-height: 1.6; padding: 20px;
+        }
+        .container { max-width: 940px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0 20px; }
+        .lesson-tag {
+            display: inline-block; padding: 6px 16px;
+            background: rgba(139, 158, 255, 0.18);
+            border: 1px solid rgba(139, 158, 255, 0.3);
+            border-radius: 20px; color: var(--accent-1);
+            font-size: 0.82rem; font-weight: 600;
+            margin-bottom: 14px; letter-spacing: 0.5px;
+        }
+        header h1 {
+            font-size: 2.3rem; margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1.2;
+        }
+        header .subtitle { color: var(--text-secondary); font-size: 1.05rem; }
+
+        .tab-nav {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin: 28px 0 30px;
+        }
+        .tab-btn {
+            padding: 11px 20px; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.04); color: var(--text-secondary);
+            border-radius: 24px; cursor: pointer; transition: all 0.25s;
+            font-size: 0.92rem; font-weight: 500;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.10); color: var(--text-primary); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; font-weight: 600; border-color: transparent;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.35s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 14px; padding: 26px 28px; margin-bottom: 20px;
+        }
+        .card h2 { color: var(--accent-1); margin-bottom: 16px; font-size: 1.5rem; line-height: 1.3; }
+        .card h3 { color: var(--accent-2); margin: 22px 0 12px 0; font-size: 1.15rem; }
+        .card p { color: var(--text-secondary); margin-bottom: 12px; }
+        .card ul, .card ol { color: var(--text-secondary); padding-left: 22px; margin-bottom: 14px; }
+        .card li { margin-bottom: 8px; }
+        strong { color: var(--text-primary); }
+        em { color: var(--accent-warm); font-style: italic; }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(139, 158, 255, 0.15) 0%, rgba(183, 148, 246, 0.15) 100%);
+            border-left: 4px solid var(--accent-1);
+            padding: 18px 22px; border-radius: 0 10px 10px 0;
+            margin: 18px 0; color: var(--text-primary);
+        }
+        .highlight strong { color: var(--accent-warm); }
+
+        .quote-box {
+            background: rgba(0,0,0,0.25); border-left: 4px solid var(--accent-2);
+            padding: 18px 22px; border-radius: 0 10px 10px 0;
+            margin: 18px 0; font-family: Georgia, serif;
+            font-size: 1.05rem; color: var(--text-primary); font-style: italic;
+        }
+
+        /* PACER slots visual */
+        .pacer-map {
+            display: grid; grid-template-columns: repeat(5, 1fr);
+            gap: 8px; margin: 20px 0;
+        }
+        @media (max-width: 640px) { .pacer-map { grid-template-columns: repeat(2, 1fr); } }
+        .slot-block {
+            text-align: center; padding: 18px 10px;
+            border-radius: 10px; border: 2px solid;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .slot-block:hover { transform: translateY(-3px); }
+        .slot-block .letter {
+            display: block; font-size: 2rem; font-weight: 800;
+            line-height: 1; margin-bottom: 6px;
+        }
+        .slot-block .name {
+            font-size: 0.78rem; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.8px;
+        }
+        .slot-p { border-color: var(--p-color); background: rgba(139,158,255,0.12); }
+        .slot-p .letter { color: var(--p-color); }
+        .slot-a { border-color: var(--a-color); background: rgba(183,148,246,0.12); }
+        .slot-a .letter { color: var(--a-color); }
+        .slot-c { border-color: var(--c-color); background: rgba(255,212,121,0.12); }
+        .slot-c .letter { color: var(--c-color); }
+        .slot-e { border-color: var(--e-color); background: rgba(126,231,135,0.12); }
+        .slot-e .letter { color: var(--e-color); }
+        .slot-r { border-color: var(--r-color); background: rgba(255,158,207,0.12); }
+        .slot-r .letter { color: var(--r-color); }
+
+        /* Slot detail cards */
+        .detail-card {
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--accent-1);
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            padding: 18px 20px; margin-bottom: 14px;
+        }
+        .detail-card.d-p { border-left-color: var(--p-color); }
+        .detail-card.d-a { border-left-color: var(--a-color); }
+        .detail-card.d-c { border-left-color: var(--c-color); }
+        .detail-card.d-e { border-left-color: var(--e-color); }
+        .detail-card.d-r { border-left-color: var(--r-color); }
+        .detail-card .slot-title {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 10px;
+        }
+        .detail-card .slot-title .big-letter {
+            font-size: 1.6rem; font-weight: 800; line-height: 1;
+        }
+        .d-p .big-letter { color: var(--p-color); }
+        .d-a .big-letter { color: var(--a-color); }
+        .d-c .big-letter { color: var(--c-color); }
+        .d-e .big-letter { color: var(--e-color); }
+        .d-r .big-letter { color: var(--r-color); }
+        .detail-card .slot-title h4 {
+            color: var(--text-primary); font-size: 1.1rem; margin: 0;
+        }
+        .detail-card .job {
+            font-size: 0.85rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .detail-card .example {
+            background: rgba(0,0,0,0.22); border-radius: 6px;
+            padding: 10px 14px; margin-top: 10px;
+            font-family: Georgia, serif; font-size: 0.96rem;
+            color: var(--text-primary);
+        }
+
+        /* Compare weak vs PACER */
+        .compare-grid {
+            display: grid; grid-template-columns: 1fr; gap: 16px;
+            margin: 18px 0;
+        }
+        @media (min-width: 740px) { .compare-grid { grid-template-columns: 1fr 1fr; } }
+        .compare-box {
+            border-radius: 12px; padding: 18px 20px;
+            border: 1px solid var(--card-border);
+        }
+        .compare-box.weak { background: var(--weak-bg); border-color: rgba(255,138,138,0.3); }
+        .compare-box.strong { background: var(--strong-bg); border-color: rgba(126,231,135,0.3); }
+        .compare-box h4 {
+            font-size: 0.95rem; margin-bottom: 10px;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .compare-box.weak h4 { color: var(--weak); }
+        .compare-box.strong h4 { color: var(--strong); }
+        .compare-box p { color: var(--text-primary); margin-bottom: 8px; font-size: 0.96rem; }
+
+        /* PACER annotated paragraph */
+        .annotated {
+            font-family: Georgia, serif; font-size: 1.02rem;
+            line-height: 1.8; color: var(--text-primary);
+            padding: 20px 22px; background: rgba(0,0,0,0.22);
+            border-radius: 10px; margin: 14px 0;
+        }
+        .tag {
+            display: inline-block; font-family: 'Segoe UI', sans-serif;
+            font-size: 0.72rem; font-weight: 700;
+            padding: 2px 8px; border-radius: 4px;
+            margin-right: 6px; letter-spacing: 0.5px;
+            vertical-align: middle;
+        }
+        .tag-p { background: var(--p-color); color: #1a1a2e; }
+        .tag-a { background: var(--a-color); color: #1a1a2e; }
+        .tag-c { background: var(--c-color); color: #1a1a2e; }
+        .tag-e { background: var(--e-color); color: #1a1a2e; }
+        .tag-r { background: var(--r-color); color: #1a1a2e; }
+
+        .seg {
+            padding: 2px 4px; border-radius: 3px;
+        }
+        .seg-p { background: rgba(139,158,255,0.18); }
+        .seg-a { background: rgba(183,148,246,0.18); }
+        .seg-c { background: rgba(255,212,121,0.18); }
+        .seg-e { background: rgba(126,231,135,0.18); }
+        .seg-r { background: rgba(255,158,207,0.18); }
+
+        /* Scaffold builder */
+        .scaffold {
+            background: rgba(0,0,0,0.22);
+            border: 1px dashed rgba(139,158,255,0.4);
+            border-radius: 10px;
+            padding: 18px 20px; margin: 14px 0;
+        }
+        .scaffold .slot-head {
+            display: flex; align-items: center; gap: 8px;
+            margin: 16px 0 6px;
+        }
+        .scaffold .slot-head:first-child { margin-top: 0; }
+        .scaffold .slot-head .mini-letter {
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.92rem;
+            color: #1a1a2e;
+        }
+        .mini-p { background: var(--p-color); }
+        .mini-a { background: var(--a-color); }
+        .mini-c { background: var(--c-color); }
+        .mini-e { background: var(--e-color); }
+        .mini-r { background: var(--r-color); }
+        .scaffold .slot-head h5 {
+            color: var(--text-primary); font-size: 0.98rem; margin: 0;
+        }
+        .scaffold .prompt {
+            color: var(--text-muted); font-size: 0.86rem;
+            font-style: italic; margin-bottom: 6px;
+        }
+        .write-area {
+            width: 100%; min-height: 70px;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: Georgia, serif; font-size: 0.98rem;
+            line-height: 1.6; resize: vertical;
+        }
+        .write-area:focus {
+            outline: none; border-color: var(--accent-1);
+            background: rgba(0,0,0,0.35);
+        }
+
+        .reveal-btn {
+            padding: 9px 18px; font-size: 0.88rem; font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; border: none; border-radius: 20px;
+            cursor: pointer; transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        .reveal-btn:hover { transform: translateY(-1px); }
+
+        .reveal-content {
+            display: none; margin-top: 14px;
+            padding: 14px 16px; background: rgba(126,231,135,0.07);
+            border-left: 3px solid var(--strong); border-radius: 0 8px 8px 0;
+        }
+        .reveal-content.show { display: block; }
+        .reveal-content h5 { color: var(--strong); margin-bottom: 8px; font-size: 0.95rem; }
+        .reveal-content p { color: var(--text-primary); margin-bottom: 8px; font-size: 0.93rem; }
+
+        /* Cheat table */
+        .cheat-table {
+            width: 100%; border-collapse: collapse;
+            margin: 14px 0; background: rgba(0,0,0,0.18);
+            border-radius: 10px; overflow: hidden;
+        }
+        .cheat-table th, .cheat-table td {
+            padding: 12px 14px; text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .cheat-table th {
+            background: rgba(139,158,255,0.15);
+            color: var(--accent-warm);
+            font-size: 0.92rem; letter-spacing: 0.3px;
+        }
+        .cheat-table td { color: var(--text-secondary); font-size: 0.92rem; }
+        .cheat-table tr:last-child td { border-bottom: none; }
+        .cheat-table .letter-cell {
+            font-weight: 800; font-size: 1.1rem;
+            text-align: center; width: 50px;
+        }
+
+        .nav-row {
+            display: flex; justify-content: space-between; gap: 10px;
+            margin-top: 24px; flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 18px; font-size: 0.92rem; font-weight: 600;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 22px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+        .nav-btn.primary {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; border-color: transparent;
+        }
+
+        footer {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; margin: 30px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="lesson-tag">IB LESSON 4 · STRUCTURE & ORGANISATION</span>
+            <h1>The PACER Framework</h1>
+            <p class="subtitle">Five slots that turn a paragraph into an argument</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(0)">Why You Need a Shape</button>
+            <button class="tab-btn" onclick="showTab(1)">The 5 Slots</button>
+            <button class="tab-btn" onclick="showTab(2)">Model Paragraph</button>
+            <button class="tab-btn" onclick="showTab(3)">Build Your Own</button>
+            <button class="tab-btn" onclick="showTab(4)">Cheat Card</button>
+        </nav>
+
+        <!-- TAB 0: WHY SHAPE MATTERS -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>Why your paragraph needs a shape</h2>
+                <p>The IB Criterion B descriptor rewards essays that are <em>"coherent, organized, and well-developed"</em>. Most student paragraphs start strong, list evidence, and then fade. They never make a <strong>point</strong>. PACER fixes that — it gives every paragraph a beginning, a middle, and a pay-off.</p>
+
+                <div class="pacer-map">
+                    <div class="slot-block slot-p"><span class="letter">P</span><span class="name">Position</span></div>
+                    <div class="slot-block slot-a"><span class="letter">A</span><span class="name">Apply</span></div>
+                    <div class="slot-block slot-c"><span class="letter">C</span><span class="name">Connect</span></div>
+                    <div class="slot-block slot-e"><span class="letter">E</span><span class="name">Evaluate</span></div>
+                    <div class="slot-block slot-r"><span class="letter">R</span><span class="name">Reader</span></div>
+                </div>
+
+                <p>Five slots. Each slot does one specific job. When a reader (or examiner) reaches the end of your paragraph, they know exactly what you argued.</p>
+
+                <h3>Weak paragraph vs PACER paragraph</h3>
+
+                <div class="compare-grid">
+                    <div class="compare-box weak">
+                        <h4>Without PACER</h4>
+                        <p>"The writer uses a map metaphor. They also say the seam was stitched 'with different thread'. This shows the city is divided. The reader can see that cities are important."</p>
+                        <p style="margin-top:10px;opacity:0.8;"><em>Problems:</em> no thesis, two pieces of evidence that never talk to each other, "shows" and "important" do no work, no reader take-away.</p>
+                    </div>
+                    <div class="compare-box strong">
+                        <h4>With PACER</h4>
+                        <p><strong>P:</strong> The writer reframes the city as a wound that never closed. <strong>A:</strong> Their extended map-metaphor makes the division concrete — something torn and physically visible. <strong>C:</strong> The phrase "stitched back together with different thread" extends that image into repair that is also evidence of damage. <strong>E:</strong> Together, tearing and mismatched stitching convert an abstract social divide into an object the reader could, in theory, trace with their finger. <strong>R:</strong> The reader is positioned as a passer-by who can now see the seam in every silence between strangers.</p>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>The big shift:</strong> In PACER, the <em>Position</em> (P) is not a summary of the text. It is <strong>your argument about the text</strong>. The rest of the paragraph exists to prove it.
+                </div>
+
+                <div class="nav-row">
+                    <span></span>
+                    <button class="nav-btn primary" onclick="showTab(1)">Next: The 5 Slots →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: THE 5 SLOTS -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>What each letter asks you to do</h2>
+
+                <div class="detail-card d-p">
+                    <div class="slot-title">
+                        <span class="big-letter">P</span>
+                        <h4>Position — your argument for this paragraph</h4>
+                    </div>
+                    <p class="job">Job: state the point you will prove.</p>
+                    <p>Not a summary. Not "the writer talks about the city." Your <em>interpretation</em> of what the author is doing — a claim that could be argued against.</p>
+                    <div class="example">The writer presents the divided city not as a geography but as a wound — something stitched but never healed.</div>
+                </div>
+
+                <div class="detail-card d-a">
+                    <div class="slot-title">
+                        <span class="big-letter">A</span>
+                        <h4>Apply — your first piece of evidence</h4>
+                    </div>
+                    <p class="job">Job: name one authorial choice + quote + one effect verb.</p>
+                    <p>This is where Lesson 3 goes to work. Do not just quote — tell us what the choice <em>does</em>.</p>
+                    <div class="example">The extended metaphor of a torn map <em>reframes</em> social division as something material: visible, stitched, but never fully mended.</div>
+                </div>
+
+                <div class="detail-card d-c">
+                    <div class="slot-title">
+                        <span class="big-letter">C</span>
+                        <h4>Connect — a second piece of evidence that extends or complicates the first</h4>
+                    </div>
+                    <p class="job">Job: layer a second choice on top of the first. Do NOT start a new point.</p>
+                    <p>This is the slot students skip. Without it, the paragraph is a one-note observation. With it, the paragraph has <em>depth</em>.</p>
+                    <div class="example">This visual metaphor is then deepened by the detail "stitched back together with different thread", <em>extending</em> the image from tearing to an uneasy repair that advertises its own failure.</div>
+                </div>
+
+                <div class="detail-card d-e">
+                    <div class="slot-title">
+                        <span class="big-letter">E</span>
+                        <h4>Evaluate — zoom out, judge the combined effect</h4>
+                    </div>
+                    <p class="job">Job: name the bigger pattern the two pieces of evidence create together.</p>
+                    <p>This is where Band 7 lives. Without E, you have described; with E, you have evaluated. Ask: <em>"Why is this combination more powerful than either piece alone?"</em></p>
+                    <div class="example">Together, the tearing and the visible stitching convert an abstract social idea (division) into a physical object the reader could trace, <em>exposing</em> the cost of pretending the seam is not there.</div>
+                </div>
+
+                <div class="detail-card d-r">
+                    <div class="slot-title">
+                        <span class="big-letter">R</span>
+                        <h4>Reader — close with what the reader now feels or understands</h4>
+                    </div>
+                    <p class="job">Job: one sentence that names the reader's new position.</p>
+                    <p>This links back to the Position (P) but now with the weight of evidence behind it. It is the paragraph's pay-off.</p>
+                    <div class="example">The reader is left as a passer-by — now unable to cross the city without noticing the seam in every silence between strangers.</div>
+                </div>
+
+                <div class="highlight">
+                    <strong>Sentence count:</strong> a PACER paragraph is usually 5–7 sentences. P = 1, A = 1–2, C = 1–2, E = 1, R = 1. If you are at 10+, you are probably making two points in one paragraph. Split it.
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(0)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(2)">Next: Model Paragraph →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: MODEL PARAGRAPH -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>A Band-7 PACER paragraph, colour-coded</h2>
+                <p>The same paragraph from Tab 0, now annotated. Hover on each colour band to see which slot it is.</p>
+
+                <div class="quote-box">
+                    <strong>Prompt:</strong> Analyse how the writer shapes the reader's view of the divided city in the opening of the passage.
+                </div>
+
+                <div class="annotated">
+                    <span class="tag tag-p">P</span><span class="seg seg-p">The writer presents the divided city not as a geography but as a wound — stitched, but never fully healed.</span>
+                    <span class="tag tag-a">A</span><span class="seg seg-a">Their extended metaphor of a map "torn in half" <em>reframes</em> social division as a material object: visible, handleable, and marked by its own damage.</span>
+                    <span class="tag tag-c">C</span><span class="seg seg-c">This image is then deepened by the phrase "stitched back together with different thread", which <em>extends</em> the metaphor into a repair that advertises its own failure.</span>
+                    <span class="tag tag-e">E</span><span class="seg seg-e">Together, the tearing and the mismatched stitching convert an abstract civic idea — division — into an object the reader could trace, <em>exposing</em> the cost of pretending the seam is not there.</span>
+                    <span class="tag tag-r">R</span><span class="seg seg-r">The reader is left as a passer-by — now unable to cross the city without noticing the seam in every silence between strangers.</span>
+                </div>
+
+                <h3>What this paragraph does that a weaker one does not</h3>
+                <ol>
+                    <li><strong>Position is a claim, not a summary.</strong> "Not as a story but as an inheritance" is arguable — that is why it works.</li>
+                    <li><strong>A and C are linked.</strong> C does not start a new idea; it <em>extends</em> A. Notice the connective verb "stretched across time".</li>
+                    <li><strong>E names a pattern.</strong> "Together, the two choices..." is the zoom-out move. Most students skip this.</li>
+                    <li><strong>R gives the reader a new role.</strong> Not "the reader can see" — the reader is <em>positioned as an heir</em>.</li>
+                </ol>
+
+                <h3>A second model — on Orwell</h3>
+                <div class="quote-box">
+                    <strong>Prompt:</strong> Analyse how Orwell's final chapter of <em>Animal Farm</em> positions the reader.
+                </div>
+
+                <div class="annotated">
+                    <span class="tag tag-p">P</span><span class="seg seg-p">Orwell's closing scene refuses to end with a verdict — instead, it strands the reader in the moment of perception itself.</span>
+                    <span class="tag tag-a">A</span><span class="seg seg-a">His chiastic phrasing "from pig to man, and from man to pig" <em>mimics</em> the animals' futile scanning, <em>implicating</em> the reader in the same failed act of telling one from the other.</span>
+                    <span class="tag tag-c">C</span><span class="seg seg-c">This visual collapse is then confirmed by the blunt clause "already it was impossible to say which was which", which <em>withholds</em> the resolution the narrative arc has primed us to expect.</span>
+                    <span class="tag tag-e">E</span><span class="seg seg-e">Together, sentence shape and final clause convert the novel's political argument into a sensory experience, <em>critiquing</em> not only the pigs but the reader's own desire for clean moral distinctions.</span>
+                    <span class="tag tag-r">R</span><span class="seg seg-r">The reader is left complicit in the blur — unable to unsee the equivalence the chapter has engineered.</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>Notice:</strong> both models use <em>two</em> effect verbs minimum (Lesson 3) and <em>both</em> pieces of evidence are connected, not stacked.
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(1)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(3)">Next: Build Your Own →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BUILD YOUR OWN -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Build a PACER paragraph — slot by slot</h2>
+                <p>Use the extract below. Fill in each slot, then reveal the model answer to compare.</p>
+
+                <div class="quote-box">
+                    From an unseen extract: "The factory hummed on through the night as it had hummed for thirty years — a sound you stopped hearing the way you stop hearing your own breathing. When the siren finally failed, the town woke, but not to silence: to the absence of something they had forgotten was there."
+                </div>
+
+                <p><strong>Your prompt:</strong> How does the writer shape the reader's response to the factory's closure?</p>
+
+                <div class="scaffold">
+                    <div class="slot-head">
+                        <span class="mini-letter mini-p">P</span>
+                        <h5>POSITION — state your argument about what the writer is doing</h5>
+                    </div>
+                    <p class="prompt">Not "the writer talks about a factory." Something arguable: what is the closure being reframed as, and to what end?</p>
+                    <textarea class="write-area" placeholder="The writer reframes the factory's end by..."></textarea>
+
+                    <div class="slot-head">
+                        <span class="mini-letter mini-a">A</span>
+                        <h5>APPLY — one authorial choice + quote + effect verb</h5>
+                    </div>
+                    <p class="prompt">Look at a single technique (e.g. the simile "the way you stop hearing your own breathing", the paradox "woke... to the absence", the verb "failed").</p>
+                    <textarea class="write-area" placeholder="Their choice of..."></textarea>
+
+                    <div class="slot-head">
+                        <span class="mini-letter mini-c">C</span>
+                        <h5>CONNECT — a second choice that extends the first</h5>
+                    </div>
+                    <p class="prompt">Use a connecting verb: extends, deepens, reinforces, complicates. Do NOT start a new point.</p>
+                    <textarea class="write-area" placeholder="This is extended by..."></textarea>
+
+                    <div class="slot-head">
+                        <span class="mini-letter mini-e">E</span>
+                        <h5>EVALUATE — zoom out, name the combined effect</h5>
+                    </div>
+                    <p class="prompt">"Together, these two choices..." — what bigger pattern do they create?</p>
+                    <textarea class="write-area" placeholder="Together, these choices..."></textarea>
+
+                    <div class="slot-head">
+                        <span class="mini-letter mini-r">R</span>
+                        <h5>READER — close with the reader's new position</h5>
+                    </div>
+                    <p class="prompt">One sentence. What is the reader left with?</p>
+                    <textarea class="write-area" placeholder="The reader is left..."></textarea>
+                </div>
+
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show model PACER paragraph</button>
+                <div class="reveal-content">
+                    <h5>Model answer</h5>
+                    <p><strong>P:</strong> The writer reframes the factory's closure not as industrial change but as a quiet bereavement the town cannot name.</p>
+                    <p><strong>A:</strong> The simile "the way you stop hearing your own breathing" <em>reframes</em> thirty years of industrial noise as bodily and unconscious — something woven into the town's own nervous system.</p>
+                    <p><strong>C:</strong> This embodied image is then deepened by the paradoxical clause "woke... to the absence", which <em>withholds</em> the expected silence and replaces it with a sensory negation the inhabitants had forgotten to notice.</p>
+                    <p><strong>E:</strong> Together, the two images convert economic decline into a physiological event, <em>exposing</em> how communities metabolise loss long before they recognise it.</p>
+                    <p><strong>R:</strong> The reader is left listening for the hum themselves — complicit in the slow forgetting the paragraph names.</p>
+                </div>
+
+                <div class="highlight">
+                    <strong>Self-check:</strong> in your paragraph, highlight each slot in a different colour. If any slot is missing or doing the wrong job, you know where to rewrite.
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(2)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(4)">Next: Cheat Card →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: CHEAT CARD -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>PACER Cheat Card</h2>
+                <p>Keep this visible while you plan and draft.</p>
+
+                <table class="cheat-table">
+                    <thead>
+                        <tr><th></th><th>Slot</th><th>Sentence starter</th><th>What it earns</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="letter-cell" style="color:var(--p-color)">P</td>
+                            <td><strong>Position</strong></td>
+                            <td><em>"The author reframes / refuses / exposes / presents X as…"</em></td>
+                            <td>Criterion A: interpretation</td>
+                        </tr>
+                        <tr>
+                            <td class="letter-cell" style="color:var(--a-color)">A</td>
+                            <td><strong>Apply</strong></td>
+                            <td><em>"Their choice of [technique] — 'quote' — positions / reframes / unsettles…"</em></td>
+                            <td>Criterion A: evidence + effect</td>
+                        </tr>
+                        <tr>
+                            <td class="letter-cell" style="color:var(--c-color)">C</td>
+                            <td><strong>Connect</strong></td>
+                            <td><em>"This is extended / complicated / reinforced by 'quote 2', which…"</em></td>
+                            <td>Criterion B: coherent development</td>
+                        </tr>
+                        <tr>
+                            <td class="letter-cell" style="color:var(--e-color)">E</td>
+                            <td><strong>Evaluate</strong></td>
+                            <td><em>"Together, these choices [bigger pattern / shift / critique]…"</em></td>
+                            <td>Criterion A: evaluation (Band 7)</td>
+                        </tr>
+                        <tr>
+                            <td class="letter-cell" style="color:var(--r-color)">R</td>
+                            <td><strong>Reader</strong></td>
+                            <td><em>"The reader is left [positioned / implicated / unsettled / complicit]…"</em></td>
+                            <td>Criterion A: reader response</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>The 60-second plan before you write</h3>
+                <ol>
+                    <li>Read the prompt. Highlight the verb (<em>analyse / discuss / compare</em>).</li>
+                    <li>Mark 3 moments in the text. Label each with a technique name from Lesson 2.</li>
+                    <li>Group the 3 moments into 2 PACER paragraphs. Each pair (A + C) must <em>talk to each other</em>.</li>
+                    <li>Write one-line P for each paragraph BEFORE drafting.</li>
+                    <li>Write. Then check every paragraph has all 5 slots.</li>
+                </ol>
+
+                <div class="highlight">
+                    <strong>Warning signs your paragraph is broken:</strong><br>
+                    • Your A and C are two different ideas, not one idea deepened.<br>
+                    • You have no E — the paragraph ends with the evidence.<br>
+                    • Your R repeats your P word-for-word instead of adding weight.<br>
+                    • Your P is a summary of the text, not a claim about it.
+                </div>
+
+                <div class="highlight">
+                    <strong>For Lesson 5:</strong> bring one full PACER paragraph you have written on any literary extract. We will rework it to <em>compare</em> two moments rather than <em>stack</em> them — the last piece before the timed essay.
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(3)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(0)">Back to start</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>IB Lesson 4 of 6 · Structure &amp; Organisation · PACER Framework</footer>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const tabs = document.querySelectorAll(".tab-content");
+            const btns = document.querySelectorAll(".tab-btn");
+            tabs.forEach((t, i) => t.classList.toggle("active", i === index));
+            btns.forEach((b, i) => b.classList.toggle("active", i === index));
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        function toggleReveal(btn) {
+            const content = btn.nextElementSibling;
+            const isShown = content.classList.toggle("show");
+            btn.textContent = isShown ? "Hide model answer" : "Show model answer";
+        }
+    </script>
+</body>
+</html>

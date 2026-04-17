@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concorso AB24 — The British Empire</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: white; color: #333; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 36px 20px 28px; text-align: center; margin-bottom: 10px; border-radius: 8px; }
+        header h1 { font-size: 1.9em; margin-bottom: 6px; }
+        header p { font-size: 1em; opacity: 0.92; }
+        .score-bar { display: flex; gap: 8px; justify-content: center; margin: 12px 0 0; flex-wrap: wrap; }
+        .score-chip { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 4px 14px; font-size: 0.82em; font-weight: 600; color: white; }
+        .tabs { display: flex; gap: 8px; margin: 20px 0 24px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 10px 18px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s ease; }
+        .tab-button:hover { background: #f0f2ff; }
+        .tab-button.active { background: #f0f2ff; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .section { background: #f8f9fa; padding: 22px 24px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #667eea; }
+        .section h2 { color: #764ba2; font-size: 1.3em; margin-bottom: 14px; }
+        .section h3 { color: #667eea; font-size: 1em; margin: 16px 0 8px; font-weight: 700; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+        .field label { font-size: 0.8em; font-weight: 700; color: #764ba2; text-transform: uppercase; letter-spacing: 0.5px; }
+        .field input, .field select, .field textarea { padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-family: "Segoe UI", sans-serif; font-size: 0.95em; color: #333; transition: border-color 0.2s; resize: vertical; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: #667eea; outline: none; }
+        .field textarea { min-height: 80px; }
+        .field textarea.tall { min-height: 130px; }
+        .stage-block { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; margin-bottom: 14px; }
+        .stage-block .stage-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .stage-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stage-title { font-weight: 700; color: #764ba2; font-size: 1em; }
+        .stage-hint { font-size: 0.8em; color: #888; margin-left: auto; font-style: italic; }
+        .phrase-bank { background: #e8eaf6; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+        .phrase-bank h3 { color: #667eea; font-size: 0.9em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .phrase { background: white; border-left: 3px solid #667eea; padding: 8px 12px; margin-bottom: 8px; border-radius: 0 4px 4px 0; font-size: 0.9em; cursor: pointer; transition: background 0.2s; }
+        .phrase:hover { background: #f0f2ff; }
+        .phrase em { color: #764ba2; font-style: normal; font-weight: 600; }
+        .qa-block { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+        .qa-q { font-weight: 700; color: #764ba2; margin-bottom: 8px; font-size: 0.95em; }
+        .qa-hint { font-size: 0.85em; color: #555; font-style: italic; margin-bottom: 8px; }
+        .score-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .full-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 13px 28px; border-radius: 6px; font-size: 1em; font-weight: 700; cursor: pointer; margin-top: 10px; display: block; width: 100%; transition: opacity 0.2s; }
+        .full-btn:hover { opacity: 0.9; }
+        .output-box { background: #1e1e2e; color: #cdd6f4; font-family: monospace; font-size: 0.88em; padding: 20px; border-radius: 8px; white-space: pre-wrap; min-height: 200px; margin-top: 12px; line-height: 1.7; }
+        .tip-box { background: #fff3cd; border-left: 5px solid #f0c040; padding: 14px 18px; border-radius: 4px; margin-bottom: 14px; font-size: 0.9em; }
+        .tip-box strong { color: #856404; }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.95em; }
+        .checklist li input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: #667eea; cursor: pointer; }
+        .divider { height: 2px; background: linear-gradient(to right, #667eea, #764ba2); border: none; margin: 20px 0; border-radius: 2px; }
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+        .card-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px; }
+        .card-box .card-label { font-size: 0.75em; font-weight: 700; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px; }
+        .card-box ul { padding-left: 18px; }
+        .card-box ul li { font-size: 0.9em; margin-bottom: 5px; color: #444; }
+        .card-box .card-title { font-weight: 700; color: #764ba2; margin-bottom: 8px; font-size: 1em; }
+        @media (max-width: 700px) {
+            .field-row, .field-row.three, .score-section, .card-grid { grid-template-columns: 1fr; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { border-left: 5px solid transparent; border-bottom: none; text-align: left; }
+            .tab-button.active { border-left-color: #667eea; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Concorso AB24 — The British Empire</h1>
+        <p>Liceo Linguistico &middot; Classe IV &middot; B2 &middot; 22 minutes &middot; 25 students</p>
+        <div class="score-bar">
+            <span class="score-chip">40 pts — Pedagogical Design</span>
+            <span class="score-chip">30 pts — Topic Knowledge + Methodology</span>
+            <span class="score-chip">30 pts — English Language</span>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">📋 The Traccia</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">🎯 Aims</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">📐 Procedure</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">🗣️ Methodology</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">✅ Assessment</button>
+        <button class="tab-button" onclick="openTab(event,'tab6')">❓ Panel Q&amp;A</button>
+        <button class="tab-button" onclick="openTab(event,'tab7')">📄 Full Script</button>
+    </div>
+
+    <!-- TAB 1: THE TRACCIA -->
+    <div id="tab1" class="tab-content active">
+        <div class="tip-box">
+            <strong>This is a framework traccia</strong> — no topic is assigned by the panel. The candidate chooses the topic. She has chosen: <strong>The British Empire</strong>.
+        </div>
+        <div class="section">
+            <h2>The Topic</h2>
+            <div class="field">
+                <label>Traccia — exact wording</label>
+                <textarea id="traccia" class="tall">The candidate should illustrate the content choices, as well as the didactic and methodological approaches adopted, with reference to the organization of spaces, time, and materials. Furthermore, they should describe the strategies used in managing groups, any differentiated learning paths, and the teaching tools employed, including the educational use of technologies and multimedia electronic devices.
+
+The design should take into account the following context: a class to be specified by the candidate, consisting of 25 students, within a school context to be defined by the candidate. The presence of two students with Special educational needs (SEN) must also be considered, ONE IS DYSLEXIC AND ONE IS DISRUPTIVE.
+
+The duration of the lesson must not exceed 22 minutes.</textarea>
+            </div>
+            <div class="field-row" style="margin-top:14px;">
+                <div class="field">
+                    <label>Topic (in your own words)</label>
+                    <input type="text" id="topic" value="The British Empire">
+                </div>
+                <div class="field">
+                    <label>Topic type</label>
+                    <select id="topicType">
+                        <option value="">— choose —</option>
+                        <option>Grammar point</option>
+                        <option>Literature text / author</option>
+                        <option selected>Anglo-American history / culture</option>
+                        <option>Language skill (reading / writing / speaking / listening)</option>
+                        <option>ESP / EAP topic</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Class Profile</h2>
+            <div class="field-row three">
+                <div class="field">
+                    <label>CEFR Level</label>
+                    <select id="level">
+                        <option value="">— choose —</option>
+                        <option>A1</option><option>A2</option><option>B1</option>
+                        <option selected>B2</option><option>C1</option><option>C2</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Year group (anno)</label>
+                    <input type="text" id="year" value="Year 4 / Classe IV">
+                </div>
+                <div class="field">
+                    <label>School type</label>
+                    <select id="schoolType">
+                        <option value="">— choose —</option>
+                        <option selected>Liceo linguistico</option>
+                        <option>Liceo classico</option>
+                        <option>Liceo scientifico</option>
+                        <option>Istituto tecnico</option>
+                        <option>Istituto professionale</option>
+                        <option>Scuola media (I grado)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Number of students</label>
+                    <input type="text" id="numStudents" value="25">
+                </div>
+                <div class="field">
+                    <label>Lesson length</label>
+                    <input type="text" id="duration" value="22 minutes">
+                </div>
+            </div>
+            <div class="field">
+                <label>SEN / inclusion notes</label>
+                <input type="text" id="sen" value="1 student with dyslexia (DSA); 1 student with disruptive behaviour">
+            </div>
+        </div>
+        <div class="section">
+            <h2>Prior Knowledge</h2>
+            <div class="field">
+                <label>What students already know that this lesson builds on</label>
+                <textarea id="prior">Students are familiar with key periods of British history covered in previous years. They have basic knowledge of colonialism and the Industrial Revolution, and can use vocabulary such as: trade, independence, culture, empire. They are comfortable reading short texts at B2 level and can express opinions in English.</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: AIMS -->
+    <div id="tab2" class="tab-content">
+        <div class="section">
+            <h2>Language Aims</h2>
+            <div class="field">
+                <label>By the end of this lesson, students will be able to…</label>
+                <textarea id="aim1">discuss the causes and legacy of the British Empire using key historical vocabulary: colonialism, imperialism, Commonwealth, legacy, abolition, trade routes</textarea>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label>Secondary language aim</label>
+                <textarea id="aim2">express and justify opinions on the British Empire using hedged academic language: "I would argue that…", "The evidence suggests…", "On the other hand…"</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Skills Aims</h2>
+            <div class="field-row">
+                <div class="field">
+                    <label>Receptive skills focus</label>
+                    <input type="text" id="skillsR" value="Reading for specific information (group expert cards)">
+                </div>
+                <div class="field">
+                    <label>Productive skills focus</label>
+                    <input type="text" id="skillsP" value="Speaking — presenting information and expressing justified opinions">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>CEFR Can-Do Descriptor</h2>
+            <div class="field">
+                <label>Relevant CEFR descriptor this lesson addresses</label>
+                <textarea id="cefr">B2 Spoken Interaction — "Can take an active part in discussion in familiar contexts, accounting for and sustaining views clearly by providing relevant explanations and arguments." (CEFR B2, Spoken Interaction)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PROCEDURE -->
+    <div id="tab3" class="tab-content active" style="display:none;">
+        <div class="tip-box">
+            <strong>Approach: PPP + CLIL.</strong> PPP provides clear scaffold from input to output. CLIL integrates content (history) and language simultaneously — ideal for liceo linguistico. Note: the group expert activity is a <em>cooperative information-sharing task</em>, not a jigsaw — name it correctly to the panel.
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+            <label>Teaching Approach</label>
+            <select id="approach">
+                <option value="PPP" selected>PPP — Presentation, Practice, Production</option>
+                <option value="TBL">TBL — Task-Based Learning</option>
+                <option value="CLT">CLT — Communicative Language Teaching</option>
+                <option value="TTT">TTT — Test, Teach, Test</option>
+                <option value="text-based">Text-Based / Genre Approach (for literature)</option>
+            </select>
+        </div>
+
+        <!-- STAGE 1 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">1</div>
+                <div class="stage-title">Lead-in</div>
+                <div class="stage-hint">3 min · activate prior knowledge, hook interest</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s1act">Project a world map showing the British Empire at its peak (1920s). The caption: "The sun never sets on the British Empire." Ask students: "What do you see? What do you already know about this?" — open elicitation, no pressure, no cold-calling.</textarea>
+                </div>
+                <div class="field">
+                    <label>Purpose</label>
+                    <textarea id="s1why">Activates existing historical knowledge. The visual hook creates curiosity without requiring advanced vocabulary. Sets the geographic and historical scale of the topic immediately.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">2</div>
+                <div class="stage-title">Presentation</div>
+                <div class="stage-hint">5 min · introduce key vocabulary in context</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s2act">Teacher reads aloud a short adapted text (~150 words) on the British Empire. Key vocabulary is highlighted on the board with visual support: colonialism, imperialism, Commonwealth, legacy, abolition, trade routes. Students follow in their printed copy.</textarea>
+                </div>
+                <div class="field">
+                    <label>Material / differentiation</label>
+                    <textarea id="s2mat">Text projected on IWB. All students receive printed copy. Dyslexic student: colour-coded version, minimum 14pt font, word bank on desk, no obligation to read aloud. Teacher reads the text — removes decoding pressure.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">3</div>
+                <div class="stage-title">Group Expert Activity</div>
+                <div class="stage-hint">7 min · cooperative reading + information sharing</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s3act">5 groups of 5 (mixed ability). Each group receives one card on a different aspect of the British Empire: A=Political Impact, B=Economic Impact, C=Cultural Impact, D=Commonwealth Today, E=Resistance &amp; Legacy. Groups read their card, identify 3 key points, and choose a Reporter. Each Reporter then shares with the whole class (1 min each). Teacher writes one keyword per group on the board as they speak.</textarea>
+                </div>
+                <div class="field">
+                    <label>Differentiation for SEN</label>
+                    <textarea id="s3diff">Dyslexic student: image + bullet-point card (no dense text), colour coding, word bank. Pre-assigned to a supportive mixed group. No cold-calling — student contributes when ready.
+
+Disruptive student: pre-assigned as Reporter before the lesson starts — structured role channels energy and gives a sense of responsibility. Seated near teacher. Clear, short task instructions. Regular positive check-ins.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">4</div>
+                <div class="stage-title">Discussion / Production</div>
+                <div class="stage-hint">5 min · fluency, opinion, hedged language</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s4act">After Reporters have shared, teacher asks: "Was the British Empire ultimately a force for good or harm for the world?" Students express and justify opinions using hedging phrases displayed on board: "I would argue that…" / "The evidence suggests…" / "On the other hand…" / "It could be argued that…"</textarea>
+                </div>
+                <div class="field">
+                    <label>Why this develops communicative competence</label>
+                    <textarea id="s4why">The information-sharing creates a genuine communicative purpose — students have different knowledge and need each other to build the full picture. The discussion task moves from accuracy to fluency and personalises the content. Aligned with CEFR action-oriented approach: students are social agents, not passive recipients.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">5</div>
+                <div class="stage-title">Wrap-up &amp; Assessment</div>
+                <div class="stage-hint">2 min · consolidate, exit task</div>
+            </div>
+            <div class="field">
+                <label>Activity</label>
+                <textarea id="s5act">Exit ticket: each student writes ONE sentence — "The British Empire's most significant legacy was…" — collected by teacher for formative review. Then: quick finger self-assessment (1 = not sure, 2 = getting there, 3 = I could explain this to someone). Visual, low-pressure, instant metacognitive data.</textarea>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- GROUP CARDS -->
+        <div class="section">
+            <h2>Group Expert Cards — content</h2>
+            <p style="font-size:0.9em;color:#555;margin-bottom:14px;">One card per group. Print before lesson. Dyslexic student's card: images + bullets, colour-coded, 14pt font minimum.</p>
+            <div class="card-grid">
+                <div class="card-box">
+                    <span class="card-label">Card A</span>
+                    <div class="card-title">Political Impact</div>
+                    <ul>
+                        <li>India gained independence in 1947 after 200 years of British rule</li>
+                        <li>Over 50 countries became independent between 1945–1980 (decolonisation)</li>
+                        <li>Many countries kept British-style parliaments and legal systems</li>
+                        <li>Key figure: Mahatma Gandhi — non-violent resistance movement</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <span class="card-label">Card B</span>
+                    <div class="card-title">Economic Impact</div>
+                    <ul>
+                        <li>Britain extracted raw materials from colonies: cotton, rubber, spices, gold</li>
+                        <li>The transatlantic slave trade was central to British wealth (abolished 1833)</li>
+                        <li>Colonies were forced to buy British manufactured goods</li>
+                        <li>The Industrial Revolution was partly funded by colonial profits</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <span class="card-label">Card C</span>
+                    <div class="card-title">Cultural Impact</div>
+                    <ul>
+                        <li>English is now spoken by 1.5 billion people — partly due to empire</li>
+                        <li>British culture spread globally: cricket, legal systems, education models</li>
+                        <li>Post-colonial literature challenges the empire's narrative (e.g. Chinua Achebe)</li>
+                        <li>Many place names, currencies, and institutions still reflect British influence</li>
+                    </ul>
+                </div>
+                <div class="card-box">
+                    <span class="card-label">Card D</span>
+                    <div class="card-title">The Commonwealth Today</div>
+                    <ul>
+                        <li>56 countries voluntarily remain in the Commonwealth of Nations</li>
+                        <li>Members share trade agreements, educational exchanges, and diplomatic ties</li>
+                        <li>The British monarch is the symbolic head</li>
+                        <li>Debated: genuine partnership, or echo of imperial power?</li>
+                    </ul>
+                </div>
+                <div class="card-box" style="grid-column: 1 / -1;">
+                    <span class="card-label">Card E</span>
+                    <div class="card-title">Resistance &amp; Legacy</div>
+                    <ul>
+                        <li>Colonised people resisted throughout: Mau Mau uprising (Kenya), Indian National Congress, ANC (South Africa)</li>
+                        <li>The reparations debate: should Britain pay compensation for slavery and colonialism?</li>
+                        <li>Rhodes Must Fall / BLM movements have reignited this debate</li>
+                        <li>The empire's legacy is deeply contested — development vs. exploitation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: METHODOLOGY -->
+    <div id="tab4" class="tab-content">
+        <div class="tip-box">
+            <strong>This is where the panel goes deepest.</strong> Know WHY you chose your approach. Use the phrases below to sound fluent and confident.
+        </div>
+
+        <div class="section">
+            <h2>My methodology choices</h2>
+            <div class="field">
+                <label>Why did you choose this approach for this topic?</label>
+                <textarea id="methJust" class="tall">I adopted a PPP framework combined with CLIL methodology, as this topic requires simultaneous development of historical content knowledge and linguistic competence — ideal for a Liceo linguistico context. The group expert activity promotes cooperative learning aligned with Vygotsky's Zone of Proximal Development: students construct meaning together rather than receiving information passively. The information-sharing stage creates a genuine communicative purpose, reflecting the CEFR action-oriented approach in which students are social agents completing meaningful tasks. The production stage applies Swain's Output Hypothesis — students must produce language to express and justify opinions, which forces them to notice gaps in their own knowledge and pushes acquisition forward.</textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>ICT integration</label>
+                <textarea id="ict">Interactive Whiteboard (IWB): map display for lead-in, vocabulary presentation during input stage. Optional Padlet for digital exit tickets (allows dyslexic student to type rather than handwrite). BBC Learning resources / short documentary clip as extension for fast finishers.</textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>Inclusion / UDL notes</label>
+                <textarea id="inclusion">Multiple representations of content throughout: visual (map), written (text + cards), and oral (teacher read-aloud, peer sharing). Dyslexic student: colour-coded materials, min 14pt font, image-supported card, word bank on desk, no cold-calling, extra processing time — removes decoding barriers without reducing content challenge. Disruptive student: structured Reporter role with defined responsibility, strategic front-centre seating, short chunked task instructions, movement built into activity, regular positive reinforcement — channels energy constructively.</textarea>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="phrase-bank">
+            <h3>Presenting your methodology — key phrases (click to copy)</h3>
+            <div class="phrase" onclick="copyPhrase(this)">I chose <em>PPP combined with CLIL</em> because this topic requires students to develop both historical content knowledge and the English language skills to discuss it — the two are inseparable at this level.</div>
+            <div class="phrase" onclick="copyPhrase(this)">This approach aligns with <em>Krashen's Input Hypothesis</em> — the adapted text provides comprehensible input at i+1, slightly above current competence but supported by visual vocabulary.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The production stage reflects <em>Swain's Output Hypothesis</em> — students must produce language to teach their peers and express opinions, which forces them to notice gaps in their knowledge.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The cooperative activity reflects <em>Vygotsky's ZPD</em> — students support each other's understanding within their zone of proximal development.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The lesson follows the <em>CEFR action-oriented approach</em> — students are social agents performing a real communicative task: they hold unique information that the group needs.</div>
+            <div class="phrase" onclick="copyPhrase(this)">To address the needs of the <em>dyslexic student</em>, I have provided colour-coded materials, a word bank, and an image-supported card — reducing decoding load without reducing cognitive challenge.</div>
+            <div class="phrase" onclick="copyPhrase(this)">ICT is integrated through <em>the IWB and optional Padlet</em>, which enhances engagement, provides authentic visual input, and offers a digital alternative for written output.</div>
+        </div>
+    </div>
+
+    <!-- TAB 5: ASSESSMENT -->
+    <div id="tab5" class="tab-content">
+        <div class="section">
+            <h2>Formative Assessment</h2>
+            <div class="field">
+                <label>How will you check understanding during the lesson?</label>
+                <textarea id="formative">Observational assessment during the group expert activity — monitoring vocabulary use, content accuracy, and peer interaction. Reformulation (recast) rather than explicit correction to maintain communicative confidence. Monitoring Reporter sharing for accuracy and fluency. Exit ticket (written sentence) collected at end — reviewed before next lesson to inform consolidation.</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Summative / Follow-up</h2>
+            <div class="field">
+                <label>Homework or next lesson assessment</label>
+                <textarea id="summative">Exit ticket reviewed before next lesson. Follow-up written task (homework): a short paragraph (80–100 words) responding to "Was the British Empire ultimately a force for good or harm?" — students use hedging language and at least 3 vocabulary items from the lesson. This provides written evidence of productive competence.</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Self-Assessment</h2>
+            <div class="field">
+                <label>How will students reflect on their own learning?</label>
+                <textarea id="selfAssess">Finger scale at the end of the lesson: 1 = not sure, 2 = getting there, 3 = I could explain this to someone else. Quick, visual, low-pressure — no writing required. Promotes metacognitive awareness. Dyslexic student benefits particularly: no literacy demand. Disruptive student benefits: physical gesture keeps them engaged in the final 30 seconds.</textarea>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="section">
+            <h2>Pre-submission checklist</h2>
+            <ul class="checklist">
+                <li><input type="checkbox" checked><span>Clear language aims stated in observable terms (SWBAT…)</span></li>
+                <li><input type="checkbox" checked><span>CEFR descriptor identified and addressed (B2 Spoken Interaction)</span></li>
+                <li><input type="checkbox" checked><span>Every stage has a purpose and time allocation (totals 22 min)</span></li>
+                <li><input type="checkbox" checked><span>ICT tool named and justified (IWB + optional Padlet)</span></li>
+                <li><input type="checkbox" checked><span>Differentiation specified for BOTH SEN students</span></li>
+                <li><input type="checkbox" checked><span>Both controlled (group expert) AND communicative (discussion) practice included</span></li>
+                <li><input type="checkbox" checked><span>Formative assessment strategy named (observation + exit ticket)</span></li>
+                <li><input type="checkbox" checked><span>Methodology justified with theory (Vygotsky ZPD, Swain, CEFR action-oriented)</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 6: PANEL Q&A -->
+    <div id="tab6" class="tab-content">
+        <div class="tip-box">
+            <strong>Practise these out loud.</strong> The panel will probe your choices — fluency and confidence matter (30 pts for English language quality).
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why did you choose PPP for this topic?</div>
+            <div class="qa-hint">Name the method, link to topic, level, and learners. Mention CLIL.</div>
+            <div class="field"><textarea>I chose PPP combined with CLIL because the British Empire requires students to develop historical content knowledge and linguistic competence simultaneously — which is the essence of CLIL. PPP provides a clear scaffold: comprehensible input in the presentation stage, structured practice in the group activity, and free production in the discussion. This progression reduces cognitive load while moving students toward autonomous language use.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How does this lesson reflect the CEFR action-oriented approach?</div>
+            <div class="qa-hint">Students as social agents, genuine information gap, can-do descriptors.</div>
+            <div class="field"><textarea>The group expert activity creates a genuine information gap — each student holds knowledge that the others don't have. They must communicate to complete the task. This is the CEFR action-oriented approach in practice: students are social agents with a real communicative purpose, not just practising language forms in a controlled drill. The discussion stage extends this: expressing and justifying a position on the empire is a real-world communicative act.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How have you catered for the two SEN students?</div>
+            <div class="qa-hint">Be specific — name each student's need and the exact strategy used.</div>
+            <div class="field"><textarea>For the dyslexic student, I applied UDL principles: multiple representations of content — visual map, teacher read-aloud, and a colour-coded image-supported card with a word bank. I eliminated cold-calling to reduce anxiety. The decoding load is removed without reducing the cognitive challenge. For the student with disruptive behaviour, I pre-assigned the Reporter role before the lesson — a structured responsibility that channels energy constructively. Strategic seating near the teacher, short chunked instructions, and regular positive reinforcement all support on-task behaviour.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How would you assess whether the lesson aims were achieved?</div>
+            <div class="qa-hint">Formative during lesson, summative after, self-assessment.</div>
+            <div class="field"><textarea>During the lesson I used observational assessment — monitoring vocabulary use and content accuracy during the group activity, and applying recasting to correct errors without interrupting communication. The exit ticket provides written evidence of both content comprehension and language production. The finger self-assessment gives me instant metacognitive data. After the lesson, the written homework paragraph will serve as a summative check of productive competence.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How does this lesson link to the national curriculum (Indicazioni Nazionali)?</div>
+            <div class="qa-hint">Competenze chiave europee, autonomous learners, cross-curricular (storia).</div>
+            <div class="field"><textarea>The lesson aligns with the Indicazioni Nazionali for Liceo linguistico, which emphasises plurilingual competence, critical thinking, and intercultural awareness. The British Empire topic creates a natural cross-curricular connection with history — a CLIL approach that the national curriculum explicitly supports. It also develops two of the competenze chiave europee: communication in foreign languages, and social and civic competence — students must engage critically with contested historical narratives.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why did you choose this particular text and materials?</div>
+            <div class="qa-hint">Authentic input, level-appropriate, engaging, culturally relevant.</div>
+            <div class="field"><textarea>The adapted text provides comprehensible input at i+1 — the language is slightly above current independent level, but supported by visual vocabulary on the board and the word bank. The group cards are authentic in feel — each covers a real, contested aspect of the empire — which generates genuine interest and motivates the discussion. The topic itself is culturally relevant: English is a global language in part because of the empire, so there is a direct connection to why students are learning it.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How would you handle errors during the speaking activity?</div>
+            <div class="qa-hint">Distinguish fluency tasks from accuracy tasks. Recast vs. explicit correction.</div>
+            <div class="field"><textarea>During the group expert activity and discussion — both fluency-focused tasks — I would use recasting: I reformulate the student's utterance correctly without stopping the communication. For example, if a student says "The empire was very damage for Africa," I respond naturally: "Yes, it was very damaging for Africa — good point." I note systematic errors for post-task feedback in a subsequent lesson, rather than interrupting the flow. Explicit correction is reserved for the controlled writing stage, where accuracy is the focus.</textarea></div>
+        </div>
+    </div>
+
+    <!-- TAB 7: FULL SCRIPT -->
+    <div id="tab7" class="tab-content">
+        <div class="tip-box">
+            <strong>Click the button below</strong> to generate the full presentation script. Read it aloud — it should take 4–6 minutes. Practise until it sounds natural, not read.
+        </div>
+        <button class="full-btn" onclick="generateScript()">Generate Full Presentation Script</button>
+        <div id="scriptOutput" class="output-box" style="display:none;"></div>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, name) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(name).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function val(id) {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+    }
+
+    function copyPhrase(el) {
+        const text = el.innerText;
+        navigator.clipboard.writeText(text).catch(() => {});
+        el.style.background = "#d4edda";
+        setTimeout(() => { el.style.background = ""; }, 800);
+    }
+
+    function generateScript() {
+        const topic    = val("topic") || "[TOPIC]";
+        const level    = val("level") || "[LEVEL]";
+        const year     = val("year") || "[YEAR GROUP]";
+        const school   = val("schoolType") || "[SCHOOL TYPE]";
+        const n        = val("numStudents") || "[N]";
+        const dur      = val("duration") || "[DURATION]";
+        const sen      = val("sen");
+        const prior    = val("prior");
+        const aim1     = val("aim1") || "[LANGUAGE AIM]";
+        const aim2     = val("aim2");
+        const skillsR  = val("skillsR");
+        const skillsP  = val("skillsP");
+        const cefr     = val("cefr");
+        const approach = val("approach") || "PPP";
+        const s1       = val("s1act");
+        const s2       = val("s2act");
+        const s2m      = val("s2mat");
+        const s3       = val("s3act");
+        const s3d      = val("s3diff");
+        const s4       = val("s4act");
+        const s4w      = val("s4why");
+        const s5       = val("s5act");
+        const methJust = val("methJust");
+        const ict      = val("ict");
+        const inclusion= val("inclusion");
+        const formative= val("formative");
+        const summative= val("summative");
+        const selfA    = val("selfAssess");
+
+        let script = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  CONCORSO AB24 — PRESENTATION SCRIPT\n  Topic: " + topic + "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+        script += "INTRODUCTION\n────────────\n";
+        script += "\"Good morning. I have prepared a lesson on " + topic + " for a " + level + " class.\n";
+        script += "The class is " + year + " at a " + school + ", with " + n + " students.\n";
+        script += "The lesson duration is " + dur + ".\n";
+        if (sen) script += "The class includes two students with special educational needs: " + sen + ".\n";
+        if (prior) script += "\nIn terms of prior knowledge: " + prior + "\"\n";
+        script += "\n";
+
+        script += "LEARNING AIMS\n─────────────\n";
+        script += "\"By the end of this lesson, students will be able to " + aim1 + ".\"\n";
+        if (aim2) script += "\"A secondary aim is that students will " + aim2 + ".\"\n";
+        if (skillsR) script += "\"Receptive skills focus: " + skillsR + ".\"\n";
+        if (skillsP) script += "\"Productive skills focus: " + skillsP + ".\"\n";
+        if (cefr) script += "\"This lesson addresses the CEFR descriptor: " + cefr + "\"\n";
+        script += "\n";
+
+        script += "LESSON STRUCTURE — " + approach + " + CLIL\n" + "─".repeat(38) + "\n";
+        if (s1) script += "Stage 1 — Lead-in (3 min):\n\"" + s1 + "\"\n\n";
+        if (s2) script += "Stage 2 — Presentation (5 min):\n\"" + s2 + "\"\n";
+        if (s2m) script += "Materials: " + s2m + "\n\n";
+        if (s3) script += "Stage 3 — Group Expert Activity (7 min):\n\"" + s3 + "\"\n";
+        if (s3d) script += "SEN differentiation: " + s3d + "\n\n";
+        if (s4) script += "Stage 4 — Discussion / Production (5 min):\n\"" + s4 + "\"\n";
+        if (s4w) script += "Rationale: " + s4w + "\n\n";
+        if (s5) script += "Stage 5 — Wrap-up (2 min):\n\"" + s5 + "\"\n\n";
+
+        script += "METHODOLOGY JUSTIFICATION\n─────────────────────────\n";
+        if (methJust) script += "\"" + methJust + "\"\n";
+        if (ict) script += "\nICT: \"" + ict + "\"\n";
+        if (inclusion) script += "\nInclusion/UDL: \"" + inclusion + "\"\n";
+        script += "\n";
+
+        script += "ASSESSMENT\n──────────\n";
+        if (formative) script += "Formative: \"" + formative + "\"\n\n";
+        if (summative) script += "Summative: \"" + summative + "\"\n\n";
+        if (selfA) script += "Self-assessment: \"" + selfA + "\"\n\n";
+
+        script += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  END OF PRESENTATION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+        const box = document.getElementById("scriptOutput");
+        box.style.display = "block";
+        box.textContent = script;
+    }
+</script>
+</body>
+</html>

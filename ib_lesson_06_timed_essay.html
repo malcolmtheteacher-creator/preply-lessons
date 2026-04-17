@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB Lesson 6 — Timed Essay &amp; Self-Marking</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-1: #1a1f3a; --bg-2: #2a1f4a;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.12);
+            --text-primary: #f5f5fa; --text-secondary: #d8d8e8;
+            --text-muted: #a8a8c0;
+            --accent-1: #8b9eff; --accent-2: #b794f6;
+            --accent-warm: #ffd479;
+            --weak: #ff8a8a; --strong: #7ee787;
+            --weak-bg: rgba(255, 138, 138, 0.12);
+            --strong-bg: rgba(126, 231, 135, 0.12);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            min-height: 100vh; color: var(--text-primary);
+            line-height: 1.6; padding: 20px;
+        }
+        .container { max-width: 940px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0 20px; }
+        .lesson-tag {
+            display: inline-block; padding: 6px 16px;
+            background: rgba(139, 158, 255, 0.18);
+            border: 1px solid rgba(139, 158, 255, 0.3);
+            border-radius: 20px; color: var(--accent-1);
+            font-size: 0.82rem; font-weight: 600;
+            margin-bottom: 14px; letter-spacing: 0.5px;
+        }
+        header h1 {
+            font-size: 2.3rem; margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1.2;
+        }
+        header .subtitle { color: var(--text-secondary); font-size: 1.05rem; }
+
+        .tab-nav {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin: 28px 0 30px;
+        }
+        .tab-btn {
+            padding: 11px 20px; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.04); color: var(--text-secondary);
+            border-radius: 24px; cursor: pointer; transition: all 0.25s;
+            font-size: 0.92rem; font-weight: 500;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.10); color: var(--text-primary); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; font-weight: 600; border-color: transparent;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.35s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 14px; padding: 26px 28px; margin-bottom: 20px;
+        }
+        .card h2 { color: var(--accent-1); margin-bottom: 16px; font-size: 1.5rem; line-height: 1.3; }
+        .card h3 { color: var(--accent-2); margin: 22px 0 12px 0; font-size: 1.15rem; }
+        .card p { color: var(--text-secondary); margin-bottom: 12px; }
+        .card ul, .card ol { color: var(--text-secondary); padding-left: 22px; margin-bottom: 14px; }
+        .card li { margin-bottom: 8px; }
+        strong { color: var(--text-primary); }
+        em { color: var(--accent-warm); font-style: italic; }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(139, 158, 255, 0.15) 0%, rgba(183, 148, 246, 0.15) 100%);
+            border-left: 4px solid var(--accent-1);
+            padding: 18px 22px; border-radius: 0 10px 10px 0;
+            margin: 18px 0; color: var(--text-primary);
+        }
+        .highlight strong { color: var(--accent-warm); }
+
+        /* Prompt passage */
+        .source-block {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,212,121,0.3);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 18px 0;
+            font-family: Georgia, serif;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            line-height: 1.85;
+        }
+        .source-block .source-head {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--accent-warm); letter-spacing: 0.5px;
+            margin-bottom: 14px; text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,212,121,0.2);
+        }
+        .source-block p { color: var(--text-primary); margin-bottom: 14px; font-size: 1.05rem; }
+        .source-block p:last-child { margin-bottom: 0; }
+        .source-block .attribution {
+            display: block; margin-top: 14px; font-size: 0.9rem;
+            color: var(--text-muted); font-style: normal;
+            text-align: right;
+        }
+
+        .prompt-box {
+            background: rgba(139, 158, 255, 0.12);
+            border: 1px solid rgba(139, 158, 255, 0.4);
+            border-radius: 12px; padding: 18px 22px;
+            margin: 18px 0;
+        }
+        .prompt-box h3 {
+            color: var(--accent-warm); margin-top: 0;
+            font-size: 1.05rem; letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .prompt-box p {
+            color: var(--text-primary); font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        /* Plan scaffold */
+        .scaffold {
+            background: rgba(0,0,0,0.22);
+            border: 1px dashed rgba(139,158,255,0.4);
+            border-radius: 10px;
+            padding: 18px 20px; margin: 14px 0;
+        }
+        .scaffold h5 {
+            color: var(--text-primary); font-size: 0.98rem;
+            margin: 14px 0 4px;
+        }
+        .scaffold h5:first-child { margin-top: 0; }
+        .scaffold .prompt {
+            color: var(--text-muted); font-size: 0.86rem;
+            font-style: italic; margin-bottom: 6px;
+        }
+
+        .write-area {
+            width: 100%; min-height: 80px;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: Georgia, serif; font-size: 0.98rem;
+            line-height: 1.6; resize: vertical;
+        }
+        .write-area:focus {
+            outline: none; border-color: var(--accent-1);
+            background: rgba(0,0,0,0.35);
+        }
+
+        .essay-area {
+            width: 100%; min-height: 420px;
+            padding: 20px 24px;
+            background: rgba(0,0,0,0.28);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: Georgia, serif; font-size: 1.02rem;
+            line-height: 1.8; resize: vertical;
+        }
+        .essay-area:focus {
+            outline: none; border-color: var(--accent-1);
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* Timer */
+        .timer-panel {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 22px 26px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .timer-display {
+            font-family: 'Courier New', monospace;
+            font-size: 3.4rem; font-weight: 700;
+            color: var(--accent-warm);
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+        .timer-display.warning { color: var(--weak); }
+        .timer-display.finished { color: var(--strong); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-label {
+            font-size: 0.86rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+        .timer-controls {
+            display: flex; justify-content: center; gap: 10px;
+            flex-wrap: wrap; margin-top: 12px;
+        }
+        .timer-btn {
+            padding: 10px 22px; font-size: 0.92rem; font-weight: 600;
+            border: none; border-radius: 22px;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .timer-btn:hover { transform: translateY(-1px); }
+        .timer-btn.start {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e;
+        }
+        .timer-btn.reset {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+            border: 1px solid var(--card-border);
+        }
+        .duration-picker {
+            display: flex; justify-content: center; gap: 8px;
+            margin: 10px 0 4px; flex-wrap: wrap;
+        }
+        .dur-btn {
+            padding: 6px 14px; font-size: 0.84rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 16px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dur-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        .dur-btn.selected {
+            background: rgba(139,158,255,0.25);
+            color: var(--text-primary);
+            border-color: var(--accent-1);
+        }
+
+        .word-counter {
+            display: inline-block; padding: 6px 14px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            color: var(--text-secondary); font-size: 0.88rem;
+            margin-top: 10px;
+        }
+        .word-counter .count { color: var(--accent-warm); font-weight: 700; }
+
+        /* Rubric */
+        .rubric-row {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+        }
+        .rubric-row h4 {
+            color: var(--accent-2); font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .rubric-row .descriptor {
+            color: var(--text-secondary); font-size: 0.92rem;
+            margin-bottom: 10px; font-style: italic;
+        }
+        .check-list {
+            list-style: none; padding: 0; margin: 10px 0;
+        }
+        .check-list li {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 6px 0; color: var(--text-secondary);
+            font-size: 0.92rem; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .check-list li:hover { color: var(--text-primary); }
+        .check-list input[type="checkbox"] {
+            width: 18px; height: 18px; flex-shrink: 0;
+            margin-top: 2px; cursor: pointer;
+            accent-color: var(--accent-1);
+        }
+        .check-list li.done {
+            color: var(--strong);
+            text-decoration: line-through;
+            text-decoration-color: rgba(126,231,135,0.4);
+        }
+
+        .band-picker {
+            display: flex; gap: 6px; flex-wrap: wrap;
+            margin: 10px 0 6px;
+        }
+        .band-btn {
+            width: 42px; height: 42px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 8px; cursor: pointer;
+            font-weight: 700; font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .band-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+        .band-btn.selected {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; border-color: transparent;
+        }
+        .band-label {
+            font-size: 0.82rem; color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .score-summary {
+            background: rgba(139,158,255,0.12);
+            border: 1px solid rgba(139,158,255,0.3);
+            border-radius: 10px;
+            padding: 18px 22px; margin: 18px 0;
+            text-align: center;
+        }
+        .score-summary .label {
+            font-size: 0.85rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .score-summary .value {
+            font-size: 2.6rem; font-weight: 800;
+            color: var(--accent-warm); margin: 6px 0;
+        }
+
+        .reveal-btn {
+            padding: 9px 18px; font-size: 0.88rem; font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; border: none; border-radius: 20px;
+            cursor: pointer; transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        .reveal-btn:hover { transform: translateY(-1px); }
+
+        .reveal-content {
+            display: none; margin-top: 14px;
+            padding: 14px 16px; background: rgba(126,231,135,0.07);
+            border-left: 3px solid var(--strong); border-radius: 0 8px 8px 0;
+        }
+        .reveal-content.show { display: block; }
+        .reveal-content h5 { color: var(--strong); margin-bottom: 8px; font-size: 0.95rem; }
+        .reveal-content p { color: var(--text-primary); margin-bottom: 8px; font-size: 0.93rem; }
+
+        .nav-row {
+            display: flex; justify-content: space-between; gap: 10px;
+            margin-top: 24px; flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 18px; font-size: 0.92rem; font-weight: 600;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 22px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+        .nav-btn.primary {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; border-color: transparent;
+        }
+
+        footer {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; margin: 30px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="lesson-tag">IB LESSON 6 · TIMED ASSESSMENT</span>
+            <h1>Timed Essay &amp; Self-Marking</h1>
+            <p class="subtitle">Everything you have learned — against the clock</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(0)">The Prompt</button>
+            <button class="tab-btn" onclick="showTab(1)">10-min Plan</button>
+            <button class="tab-btn" onclick="showTab(2)">Timed Write</button>
+            <button class="tab-btn" onclick="showTab(3)">Self-Mark</button>
+            <button class="tab-btn" onclick="showTab(4)">Next Steps</button>
+        </nav>
+
+        <!-- TAB 0: THE PROMPT -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>Read the passage. Then read the prompt.</h2>
+                <p>This is an unseen passage in the style of the IB Paper 1 analysis. Read it twice — once for sense, once with a pen in hand. You will have 10 minutes to plan, 30 minutes to write, and 10 minutes to self-mark.</p>
+
+                <div class="source-block">
+                    <div class="source-head">Virginia Woolf · "The Death of the Moth" (1942)</div>
+                    <p>Moths that fly by day are not properly to be called moths; they do not excite that pleasant sense of dark autumn nights and ivy-blossom which the commonest yellow-underwing asleep in the shadow of the curtain never fails to rouse in us. They are hybrid creatures, neither gay like butterflies nor sombre like their own species.</p>
+                    <p>The present specimen, with his narrow hay-coloured wings, fringed with a tassel of the same colour, seemed to be content with life. It was a pleasant morning, mid-September, mild, benignant, yet with a keener breath than that of the summer months. The plough was already scoring the field opposite the window, and where the share had been, the earth was pressed flat and gleamed with moisture.</p>
+                    <p>Watching him, it seemed as if a fibre, very thin but pure, of the enormous energy of the world had been thrust into his frail and diminutive body. As often as he crossed the pane, I could fancy that a thread of vital light became visible. He was little or nothing but life.</p>
+                    <span class="attribution">— Adapted from the opening of Woolf's essay.</span>
+                </div>
+
+                <div class="prompt-box">
+                    <h3>Your question</h3>
+                    <p><strong>Analyse how Woolf shapes the reader's relationship to the moth in the opening of the essay.</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Write one well-developed PACER paragraph (or two if time allows). Consider: what techniques does Woolf use, and what effect do they have on the reader?</p>
+                </div>
+
+                <div class="highlight">
+                    <strong>Before you plan, look for:</strong> one metaphor or image you can unpack, one piece of diction that surprises you (word choice), and one structural move (e.g. the shift from general moths to "the present specimen"). These are the spine of a PACER paragraph.
+                </div>
+
+                <div class="nav-row">
+                    <span></span>
+                    <button class="nav-btn primary" onclick="showTab(1)">Next: Plan (10 min) →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: PLAN -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>10-minute plan</h2>
+                <p>Do not skip this. A planned paragraph beats a perfect first sentence every time. Click "Start 10-min planning timer" when you are ready.</p>
+
+                <div class="timer-panel">
+                    <div class="timer-label">Planning Timer</div>
+                    <div class="timer-display" id="planTimer">10:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn start" onclick="startTimer('plan', 10)">Start 10-min planning timer</button>
+                        <button class="timer-btn reset" onclick="resetTimer('plan', 10)">Reset</button>
+                    </div>
+                </div>
+
+                <div class="scaffold">
+                    <h5>Step 1 — pick 3 quotes from the passage</h5>
+                    <p class="prompt">Short quotes (2–8 words). Each must show a different authorial choice.</p>
+                    <textarea class="write-area" placeholder="Quote 1: ..."></textarea>
+
+                    <h5>Step 2 — name each technique (Lesson 2)</h5>
+                    <p class="prompt">e.g. metaphor, shift in scale, personification, diction, contrast, pacing, enumeration, colon/dash structure.</p>
+                    <textarea class="write-area" placeholder="Quote 1 = ... / Quote 2 = ... / Quote 3 = ..."></textarea>
+
+                    <h5>Step 3 — write your Position (P) in one line</h5>
+                    <p class="prompt">What is Woolf doing overall? Not "Woolf describes a moth". Something arguable.</p>
+                    <textarea class="write-area" placeholder="Woolf reframes..."></textarea>
+
+                    <h5>Step 4 — pick your A and C quotes</h5>
+                    <p class="prompt">Which two of your three quotes will sit inside this paragraph? They must extend, not duplicate, each other.</p>
+                    <textarea class="write-area" placeholder="A = ... / C = ..."></textarea>
+
+                    <h5>Step 5 — draft your E line now (one sentence)</h5>
+                    <p class="prompt">"Together, these two choices…" — what pattern do they create? Do this before you start writing the paragraph.</p>
+                    <textarea class="write-area" placeholder="Together, these choices..."></textarea>
+                </div>
+
+                <button class="reveal-btn" onclick="toggleReveal(this)">Need a planning nudge? Show examiner's suggested angles</button>
+                <div class="reveal-content">
+                    <h5>Three angles an examiner would reward</h5>
+                    <p><strong>Angle 1 — scale and attention.</strong> Woolf opens with a general taxonomy ("Moths that fly by day…") then zooms to "the present specimen". The <em>shift in scale</em> positions the reader to see the moth as both specimen and individual.</p>
+                    <p><strong>Angle 2 — the fibre metaphor.</strong> "A fibre, very thin but pure, of the enormous energy of the world had been thrust into his frail and diminutive body." Metaphor + the aggressive verb "thrust" + the contrast of "enormous" vs "frail and diminutive" — all in one sentence. A goldmine.</p>
+                    <p><strong>Angle 3 — diction that elevates.</strong> "Hay-coloured", "benignant", "little or nothing but life" — a register that refuses to treat the moth as insignificant. The <em>vocabulary</em> itself is doing ethical work.</p>
+                    <p>You only need <em>one</em> of these angles. Pick the one you have most evidence for.</p>
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(0)">← Back to prompt</button>
+                    <button class="nav-btn primary" onclick="showTab(2)">Next: Timed Write (30 min) →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: TIMED WRITE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>30-minute timed write</h2>
+                <p>Phones down. One PACER paragraph minimum. Click "Start 30-min writing timer" when you are ready. The timer does <strong>not</strong> start automatically.</p>
+
+                <div class="timer-panel">
+                    <div class="timer-label">Writing Timer</div>
+                    <div class="timer-display" id="writeTimer">30:00</div>
+                    <div class="duration-picker" id="durationPicker">
+                        <button class="dur-btn" onclick="setDuration(20)">20 min</button>
+                        <button class="dur-btn selected" onclick="setDuration(30)">30 min</button>
+                        <button class="dur-btn" onclick="setDuration(40)">40 min</button>
+                        <button class="dur-btn" onclick="setDuration(45)">45 min</button>
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-btn start" onclick="startWriteTimer()">Start writing timer</button>
+                        <button class="timer-btn reset" onclick="resetWriteTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <h3>The passage (for reference)</h3>
+                <div class="source-block">
+                    <div class="source-head">Woolf · "The Death of the Moth"</div>
+                    <p>Moths that fly by day are not properly to be called moths; they do not excite that pleasant sense of dark autumn nights and ivy-blossom which the commonest yellow-underwing asleep in the shadow of the curtain never fails to rouse in us. They are hybrid creatures, neither gay like butterflies nor sombre like their own species.</p>
+                    <p>The present specimen, with his narrow hay-coloured wings, fringed with a tassel of the same colour, seemed to be content with life... Watching him, it seemed as if a fibre, very thin but pure, of the enormous energy of the world had been thrust into his frail and diminutive body. As often as he crossed the pane, I could fancy that a thread of vital light became visible. He was little or nothing but life.</p>
+                </div>
+
+                <div class="prompt-box">
+                    <h3>Prompt</h3>
+                    <p><strong>Analyse how Woolf shapes the reader's relationship to the moth in the opening of the essay.</strong></p>
+                </div>
+
+                <h3>Your essay</h3>
+                <textarea class="essay-area" id="essayBox" placeholder="Woolf..." oninput="updateWordCount()"></textarea>
+                <span class="word-counter">Words: <span class="count" id="wordCount">0</span></span>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(1)">← Back to plan</button>
+                    <button class="nav-btn primary" onclick="showTab(3)">Next: Self-Mark →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: SELF-MARK -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Self-Mark against IB Criterion A</h2>
+                <p>Read your essay against each row below. Tick the box if the statement is true of <strong>your</strong> writing — be honest. At the end, pick your band.</p>
+
+                <div class="rubric-row">
+                    <h4>1. Interpretation — did I make a claim?</h4>
+                    <p class="descriptor">Band 7 descriptor: <em>"Excellent understanding and evaluation of the text."</em></p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>My P sentence states an arguable interpretation (not a summary).</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>My R sentence returns to the claim with the evidence's weight behind it.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>Someone could disagree with my P — it is not obvious.</span></li>
+                    </ul>
+                </div>
+
+                <div class="rubric-row">
+                    <h4>2. Authorial choices — did I name them correctly?</h4>
+                    <p class="descriptor">Band 7 descriptor: <em>"Perceptive analysis of how authorial choices shape meaning."</em></p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I named at least 2 specific techniques using the Lesson 2 library.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>Each technique is attached to a short, embedded quote.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I did not just say "the writer uses language" or "imagery" in general.</span></li>
+                    </ul>
+                </div>
+
+                <div class="rubric-row">
+                    <h4>3. Effect on the reader — is it <em>explicit</em>?</h4>
+                    <p class="descriptor">Band 6+ requires every analysis sentence to name an effect on the reader.</p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>Every analysis sentence contains an effect verb (positions, unsettles, reframes, etc.).</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I used at least 3 different effect verbs.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I did not write "this shows that…" anywhere.</span></li>
+                    </ul>
+                </div>
+
+                <div class="rubric-row">
+                    <h4>4. Structure — did PACER hold?</h4>
+                    <p class="descriptor">Criterion B: <em>"Organization is coherent and well-developed."</em></p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I can point to a P, A, C, E, and R in my paragraph.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>My C extends or complicates A — it does not start a new idea.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>My E names a pattern, not just another example.</span></li>
+                    </ul>
+                </div>
+
+                <div class="rubric-row">
+                    <h4>5. Integration (if comparing two moments or two texts)</h4>
+                    <p class="descriptor">Lesson 5 requirement for comparative tasks.</p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>At least 3 of my sentences contain <em>both</em> moments / texts.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I used at least 2 different connector phrases ("where… / by contrast / together…").</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I did not staple one paragraph per text.</span></li>
+                    </ul>
+                </div>
+
+                <div class="rubric-row">
+                    <h4>6. Language — is my own prose precise?</h4>
+                    <p class="descriptor">Criterion D: <em>"Language is clear, appropriate, and accurate."</em></p>
+                    <ul class="check-list">
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I avoided filler words ("really", "very", "a lot", "interesting").</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>My quotes are short, embedded, and punctuated correctly.</span></li>
+                        <li onclick="toggleCheck(this)"><input type="checkbox"><span>I re-read the essay once and fixed any obvious slips.</span></li>
+                    </ul>
+                </div>
+
+                <h3>Give yourself a band (1–7 for Criterion A)</h3>
+                <p>Based on the ticks above, pick the single band that fits your paragraph best.</p>
+
+                <div class="band-picker" id="bandPicker">
+                    <button class="band-btn" onclick="pickBand(1)">1</button>
+                    <button class="band-btn" onclick="pickBand(2)">2</button>
+                    <button class="band-btn" onclick="pickBand(3)">3</button>
+                    <button class="band-btn" onclick="pickBand(4)">4</button>
+                    <button class="band-btn" onclick="pickBand(5)">5</button>
+                    <button class="band-btn" onclick="pickBand(6)">6</button>
+                    <button class="band-btn" onclick="pickBand(7)">7</button>
+                </div>
+                <p class="band-label">1–2 limited · 3–4 some understanding · 5 clear analysis · 6 perceptive · 7 insightful &amp; evaluative</p>
+
+                <div class="score-summary" id="scoreSummary" style="display:none;">
+                    <div class="label">Self-Assessed Criterion A Band</div>
+                    <div class="value" id="scoreValue">—</div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;" id="scoreMessage"></div>
+                </div>
+
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show model Band-7 paragraph for comparison</button>
+                <div class="reveal-content">
+                    <h5>Model Band-7 paragraph (Woolf)</h5>
+                    <p><strong>P:</strong> Woolf opens her essay by refusing to let the reader encounter the moth as a mere specimen — she stages it, instead, as a small vessel of a much larger force.</p>
+                    <p><strong>A:</strong> Her shift from the general ("Moths that fly by day…") to the singular ("the present specimen") <em>foregrounds</em> an individual creature and <em>invites</em> the reader to attend to it as Woolf herself is attending.</p>
+                    <p><strong>C:</strong> This individuation is then amplified by the extended metaphor of "a fibre, very thin but pure, of the enormous energy of the world… thrust into his frail and diminutive body" — where the violent verb "thrust" and the scale-contrast between "enormous" and "diminutive" <em>reframe</em> the moth as the point at which a universal current becomes visible.</p>
+                    <p><strong>E:</strong> Together, the move from category to specimen and the metaphor of inserted energy <em>elevate</em> the moth's scale without losing its frailty, <em>positioning</em> the reader to feel that smallness and significance are not opposites but conditions of one another.</p>
+                    <p><strong>R:</strong> The reader is left unable to dismiss the moth: Woolf has converted a trivial creature into a concentration of "life" itself — and placed the reader in the position of her own observant, reverent gaze.</p>
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(2)">← Back to essay</button>
+                    <button class="nav-btn primary" onclick="showTab(4)">Next: Next Steps →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: NEXT STEPS -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Where you are — and what comes next</h2>
+
+                <h3>What this lesson series has given you</h3>
+                <ul>
+                    <li><strong>Lesson 1:</strong> Three levels of analysis (identification → description → analysis) — the ladder you now climb on every paragraph.</li>
+                    <li><strong>Lesson 2:</strong> A library of 15 named techniques — so you never write "the writer uses language" again.</li>
+                    <li><strong>Lesson 3:</strong> The effect-verb toolkit — the half of the sentence that earns Band 6+ marks.</li>
+                    <li><strong>Lesson 4:</strong> The PACER framework — a 5-slot paragraph shape that examiners recognise instantly.</li>
+                    <li><strong>Lesson 5:</strong> Integration, not stapling — how to make two pieces of evidence argue with each other.</li>
+                    <li><strong>Lesson 6:</strong> A timed write + self-mark protocol you can repeat every week.</li>
+                </ul>
+
+                <h3>Your weekly training plan</h3>
+                <ol>
+                    <li><strong>Monday:</strong> Find one new unseen passage (novel, essay, speech). Write 3 PACER bullets only — no full paragraph.</li>
+                    <li><strong>Wednesday:</strong> Pick one of Monday's passages. Write one full PACER paragraph — 20 minutes, no timer pressure.</li>
+                    <li><strong>Friday:</strong> Time yourself (30 mins). Write. Self-mark with the Lesson 6 rubric.</li>
+                    <li><strong>Saturday:</strong> Rewrite Friday's paragraph with every weak effect verb replaced.</li>
+                </ol>
+                <p>Four short sessions. 90 minutes a week. This is how band 5 becomes band 7.</p>
+
+                <h3>The red flags to watch for in your own writing</h3>
+                <ul>
+                    <li>Any paragraph where you cannot point to a P, A, C, E, and R.</li>
+                    <li>Any sentence that contains the word "shows" — rewrite with an effect verb.</li>
+                    <li>Any comparison paragraph where Text A and Text B never appear in the same sentence.</li>
+                    <li>Any "the reader can see" — replace with "positions", "foregrounds", or "implicates".</li>
+                    <li>Any quote longer than 10 words — shorten, embed, integrate.</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>What to bring to the next session:</strong> your timed paragraph from this lesson, your self-mark score, and one question about the slot that was hardest for you. We will rebuild that specific slot together.
+                </div>
+
+                <h3>The one sentence to memorise</h3>
+                <div class="prompt-box">
+                    <p style="font-family: Georgia, serif; font-size: 1.1rem; font-style: italic;">"A strong IB paragraph names an authorial choice, attaches an effect on the reader, connects a second choice that extends the first, zooms out to name the pattern, and leaves the reader in a specific new position."</p>
+                </div>
+
+                <p>If you can write that as an instruction to yourself above every essay, you will not drop below Band 6 again.</p>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(3)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(0)">Back to start</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>IB Lesson 6 of 6 · Timed Essay &amp; Self-Marking · Criterion A Assessment</footer>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const tabs = document.querySelectorAll(".tab-content");
+            const btns = document.querySelectorAll(".tab-btn");
+            tabs.forEach((t, i) => t.classList.toggle("active", i === index));
+            btns.forEach((b, i) => b.classList.toggle("active", i === index));
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function toggleReveal(btn) {
+            const content = btn.nextElementSibling;
+            const isShown = content.classList.toggle("show");
+            if (btn.textContent.includes("angles")) {
+                btn.textContent = isShown ? "Hide planning nudge" : "Need a planning nudge? Show examiner's suggested angles";
+            } else if (btn.textContent.includes("Band-7")) {
+                btn.textContent = isShown ? "Hide model paragraph" : "Show model Band-7 paragraph for comparison";
+            } else {
+                btn.textContent = isShown ? "Hide" : "Show";
+            }
+        }
+
+        // Word counter
+        function updateWordCount() {
+            const text = document.getElementById("essayBox").value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            document.getElementById("wordCount").textContent = words;
+        }
+
+        // Plan timer (fixed 10 min)
+        let planInterval = null;
+        let planSeconds = 600;
+        function startTimer(which, minutes) {
+            if (which === "plan") {
+                if (planInterval) return;
+                planSeconds = minutes * 60;
+                const el = document.getElementById("planTimer");
+                el.classList.remove("warning", "finished");
+                planInterval = setInterval(() => {
+                    planSeconds--;
+                    el.textContent = formatTime(planSeconds);
+                    if (planSeconds <= 60) el.classList.add("warning");
+                    if (planSeconds <= 0) {
+                        clearInterval(planInterval);
+                        planInterval = null;
+                        el.classList.remove("warning");
+                        el.classList.add("finished");
+                        el.textContent = "Time up";
+                    }
+                }, 1000);
+            }
+        }
+        function resetTimer(which, minutes) {
+            if (which === "plan") {
+                if (planInterval) { clearInterval(planInterval); planInterval = null; }
+                planSeconds = minutes * 60;
+                const el = document.getElementById("planTimer");
+                el.textContent = formatTime(planSeconds);
+                el.classList.remove("warning", "finished");
+            }
+        }
+
+        // Write timer (duration selectable)
+        let writeInterval = null;
+        let writeSeconds = 1800;
+        let writeDuration = 30;
+        function setDuration(mins) {
+            if (writeInterval) return;
+            writeDuration = mins;
+            writeSeconds = mins * 60;
+            document.getElementById("writeTimer").textContent = formatTime(writeSeconds);
+            document.querySelectorAll("#durationPicker .dur-btn").forEach(b => {
+                b.classList.toggle("selected", b.textContent.startsWith(String(mins)));
+            });
+        }
+        function startWriteTimer() {
+            if (writeInterval) return;
+            const el = document.getElementById("writeTimer");
+            el.classList.remove("warning", "finished");
+            writeInterval = setInterval(() => {
+                writeSeconds--;
+                el.textContent = formatTime(writeSeconds);
+                if (writeSeconds <= 300) el.classList.add("warning");
+                if (writeSeconds <= 0) {
+                    clearInterval(writeInterval);
+                    writeInterval = null;
+                    el.classList.remove("warning");
+                    el.classList.add("finished");
+                    el.textContent = "Time up";
+                }
+            }, 1000);
+        }
+        function resetWriteTimer() {
+            if (writeInterval) { clearInterval(writeInterval); writeInterval = null; }
+            writeSeconds = writeDuration * 60;
+            const el = document.getElementById("writeTimer");
+            el.textContent = formatTime(writeSeconds);
+            el.classList.remove("warning", "finished");
+        }
+        function formatTime(s) {
+            if (s < 0) s = 0;
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            return String(m).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+        }
+
+        // Checklist
+        function toggleCheck(li) {
+            const box = li.querySelector("input[type=checkbox]");
+            box.checked = !box.checked;
+            li.classList.toggle("done", box.checked);
+        }
+
+        // Band picker
+        function pickBand(n) {
+            document.querySelectorAll("#bandPicker .band-btn").forEach(b => b.classList.remove("selected"));
+            const buttons = document.querySelectorAll("#bandPicker .band-btn");
+            buttons[n-1].classList.add("selected");
+            const summary = document.getElementById("scoreSummary");
+            const val = document.getElementById("scoreValue");
+            const msg = document.getElementById("scoreMessage");
+            summary.style.display = "block";
+            val.textContent = n + " / 7";
+            const messages = {
+                1: "Start with the PACER skeleton — use Lesson 4 slot-by-slot.",
+                2: "Focus on adding effect verbs from Lesson 3 to every analysis sentence.",
+                3: "You have identification. Next, attach an effect verb to every technique.",
+                4: "Solid ground. Push for the E slot — the zoom-out is where 5 becomes 6.",
+                5: "Clear analysis. To reach 6, make your C extend A rather than sit beside it.",
+                6: "Perceptive. For 7, sharpen your P into something arguable and add a second effect verb per sentence.",
+                7: "Insightful and evaluative. Now make this repeatable under pressure — run the weekly plan from Tab 4."
+            };
+            msg.textContent = messages[n] || "";
+        }
+    </script>
+</body>
+</html>

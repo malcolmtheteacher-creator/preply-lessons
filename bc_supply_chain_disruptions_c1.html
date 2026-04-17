@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1 — Communicating Supply Chain Disruptions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; color: #333;
+            line-height: 1.6; padding: 20px;
+        }
+        .container { max-width: 940px; margin: 0 auto; }
+        header {
+            text-align: center; padding: 30px 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px; margin-bottom: 20px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+        }
+        .level-tag {
+            display: inline-block; padding: 6px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600;
+            margin-bottom: 14px; letter-spacing: 0.5px;
+        }
+        header h1 {
+            font-size: 2.2rem; margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1.2;
+        }
+        header .subtitle { color: #666; font-size: 1.05rem; }
+
+        .tab-nav {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin: 0 0 22px;
+        }
+        .tab-btn {
+            padding: 11px 20px; border: none;
+            background: rgba(255,255,255,0.8); color: #555;
+            border-radius: 24px; cursor: pointer;
+            transition: all 0.25s;
+            font-size: 0.92rem; font-weight: 500;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .tab-btn:hover { background: white; color: #333; transform: translateY(-1px); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; font-weight: 600;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.35s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: rgba(255,255,255,0.96);
+            border-radius: 14px;
+            padding: 28px 30px; margin-bottom: 20px;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 14px; font-size: 1.55rem; line-height: 1.3;
+        }
+        .card h3 { color: #764ba2; margin: 22px 0 12px 0; font-size: 1.18rem; }
+        .card p { color: #444; margin-bottom: 12px; }
+        .card ul, .card ol { color: #444; padding-left: 22px; margin-bottom: 14px; }
+        .card li { margin-bottom: 8px; }
+
+        .discussion {
+            background: linear-gradient(135deg, #f5f2ff 0%, #faf7ff 100%);
+            border-left: 4px solid #764ba2;
+            padding: 18px 22px; border-radius: 0 10px 10px 0;
+            margin: 18px 0;
+        }
+        .discussion ol { margin: 8px 0 0; color: #333; }
+        .discussion li { margin-bottom: 8px; }
+
+        .scenario {
+            background: #fff8ef;
+            border: 1px solid #f4d9b0;
+            border-radius: 10px;
+            padding: 18px 22px; margin: 16px 0;
+        }
+        .scenario strong { color: #b46f1e; }
+
+        /* Vocab flip cards */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .vocab-card {
+            perspective: 1000px;
+            height: 150px;
+            cursor: pointer;
+        }
+        .vocab-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .vocab-card.flipped .vocab-inner { transform: rotateY(180deg); }
+        .vocab-front, .vocab-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+        }
+        .vocab-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .vocab-front .term {
+            font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 6px; line-height: 1.2;
+        }
+        .vocab-front .pos {
+            font-size: 0.78rem; opacity: 0.85;
+            font-style: italic;
+        }
+        .vocab-back {
+            background: white;
+            border: 2px solid #764ba2;
+            transform: rotateY(180deg);
+            color: #333;
+        }
+        .vocab-back .def {
+            font-size: 0.86rem; line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        .vocab-back .example {
+            font-size: 0.78rem; color: #764ba2;
+            font-style: italic; line-height: 1.3;
+        }
+
+        /* Reveal */
+        .reveal-btn {
+            padding: 9px 20px; font-size: 0.9rem; font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 22px;
+            cursor: pointer; transition: transform 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 3px 10px rgba(118,75,162,0.3);
+        }
+        .reveal-btn:hover { transform: translateY(-1px); }
+
+        .reveal-content {
+            display: none; margin-top: 14px;
+            padding: 14px 18px;
+            background: #f4fff4;
+            border-left: 3px solid #5cb85c;
+            border-radius: 0 8px 8px 0;
+        }
+        .reveal-content.show { display: block; }
+        .reveal-content strong { color: #3a8a3a; }
+
+        /* Register table */
+        .register-table {
+            width: 100%; border-collapse: collapse;
+            margin: 14px 0; background: white;
+            border-radius: 10px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .register-table th, .register-table td {
+            padding: 12px 14px; text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 0.93rem;
+        }
+        .register-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .register-table tr:last-child td { border-bottom: none; }
+        .register-table tr:nth-child(even) { background: #fafaff; }
+        .register-table .direct { color: #c0392b; }
+        .register-table .diplomatic { color: #2c7c4a; font-weight: 500; }
+
+        /* Phrase chips */
+        .phrase-group {
+            margin: 20px 0 10px;
+        }
+        .phrase-group h4 {
+            color: #764ba2;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .phrase-chip {
+            display: inline-block;
+            background: white;
+            border: 1px solid #d9d4f0;
+            padding: 8px 14px;
+            border-radius: 20px;
+            margin: 4px 6px 4px 0;
+            font-size: 0.88rem;
+            color: #444;
+        }
+
+        /* Role-play box */
+        .roleplay-box {
+            background: linear-gradient(135deg, #fff8ef 0%, #fef0e0 100%);
+            border: 1px solid #f4d9b0;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 16px 0;
+        }
+        .roleplay-box h4 {
+            color: #b46f1e;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+        .roleplay-box .role {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+        }
+        .roleplay-box .role strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* Timer */
+        .timer-panel {
+            background: white;
+            border: 1px solid #e0dbf0;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 18px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .timer-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2.6rem; font-weight: 700;
+            color: #764ba2;
+            margin: 6px 0; letter-spacing: 2px;
+        }
+        .timer-display.warning { color: #c0392b; }
+        .timer-display.finished { color: #5cb85c; }
+        .timer-label {
+            font-size: 0.82rem; color: #888;
+            text-transform: uppercase; letter-spacing: 0.8px;
+        }
+        .timer-btn {
+            padding: 9px 20px; font-size: 0.9rem; font-weight: 600;
+            border: none; border-radius: 22px;
+            cursor: pointer; margin: 4px;
+        }
+        .timer-btn.start {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .timer-btn.reset {
+            background: #eee; color: #555;
+        }
+
+        /* Nav buttons */
+        .nav-row {
+            display: flex; justify-content: space-between; gap: 10px;
+            margin-top: 24px; flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 20px; font-size: 0.92rem; font-weight: 600;
+            background: white; color: #555;
+            border: 1px solid #d9d4f0;
+            border-radius: 22px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: #f5f2ff; color: #333; }
+        .nav-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border-color: transparent;
+        }
+
+        footer {
+            text-align: center; color: rgba(255,255,255,0.85);
+            font-size: 0.85rem; margin: 30px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="level-tag">C1 BUSINESS ENGLISH · LOGISTICS &amp; OPERATIONS</span>
+            <h1>Communicating Supply Chain Disruptions</h1>
+            <p class="subtitle">The language managers use when things do not go to plan</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(0)">Opening</button>
+            <button class="tab-btn" onclick="showTab(1)">Key Vocabulary</button>
+            <button class="tab-btn" onclick="showTab(2)">The Scenario</button>
+            <button class="tab-btn" onclick="showTab(3)">Register &amp; Tone</button>
+            <button class="tab-btn" onclick="showTab(4)">Role Play</button>
+            <button class="tab-btn" onclick="showTab(5)">Reflection</button>
+        </nav>
+
+        <!-- TAB 0: OPENING -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>Before we start — a few questions</h2>
+                <p>Supply chain disruption has become a permanent feature of operations management: port closures, strikes, shortages, geopolitical pressure, energy price shocks, weather events. The hard part is rarely the problem itself — it is communicating it.</p>
+
+                <div class="discussion">
+                    <ol>
+                        <li>When something goes wrong in the supply chain, who are the <em>first three people</em> you need to communicate with, and in what order?</li>
+                        <li>What is harder — telling a client that a delivery will be late, or telling your own leadership that a target will be missed? Why?</li>
+                        <li>Is it better to send a disruption notice <em>early</em> (when details are incomplete) or <em>later</em> (when you have a clear plan)? What is the trade-off?</li>
+                        <li>What is the biggest communication mistake you have seen a manager make during a disruption?</li>
+                        <li>In your experience, do clients care more about <em>what went wrong</em> or <em>what you are doing about it</em>?</li>
+                    </ol>
+                </div>
+
+                <p>We are going to build the language you need to handle all of this — from the first internal escalation to the final client update. Every phrase today is one you could use in an email tomorrow.</p>
+
+                <div class="nav-row">
+                    <span></span>
+                    <button class="nav-btn primary" onclick="showTab(1)">Next: Key Vocabulary →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: VOCABULARY -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Core vocabulary — click each card to flip</h2>
+                <p>These are C1-level terms you will hear in any operational conversation. They appear again in the scenario and role-play.</p>
+
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Bottleneck</span><span class="pos">(noun)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">A point in a process where flow slows or stops, limiting overall throughput.</span>
+                                <span class="example">"Customs clearance has become our main bottleneck."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Lead time</span><span class="pos">(noun phrase)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">The total time from placing an order to receiving the goods.</span>
+                                <span class="example">"Lead times have doubled since the strike began."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">To escalate</span><span class="pos">(verb)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">To raise an issue to a more senior level for decision or awareness.</span>
+                                <span class="example">"I need to escalate this before the end of the day."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Contingency</span><span class="pos">(noun)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">A plan designed to cope with an event that may or may not happen.</span>
+                                <span class="example">"We need a contingency for a second delay."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">To mitigate</span><span class="pos">(verb)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">To reduce the severity or impact of something negative.</span>
+                                <span class="example">"We are doing everything we can to mitigate the delay."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Downstream</span><span class="pos">(adjective / adverb)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">Referring to the later stages of a supply chain (closer to the end customer).</span>
+                                <span class="example">"The impact will be felt downstream within 48 hours."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Knock-on effect</span><span class="pos">(noun phrase)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">A secondary consequence triggered by an earlier event.</span>
+                                <span class="example">"The port closure had a knock-on effect on our entire schedule."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Root cause</span><span class="pos">(noun phrase)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">The fundamental reason behind a problem — not its visible symptoms.</span>
+                                <span class="example">"The root cause turned out to be a systems integration error."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Workaround</span><span class="pos">(noun)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">A temporary solution that bypasses a problem without fixing it fully.</span>
+                                <span class="example">"We have a workaround in place until Friday."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">To revert</span><span class="pos">(verb)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">To get back to someone with more information (common in Asian and European business English).</span>
+                                <span class="example">"I will revert by close of play tomorrow."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Buffer stock</span><span class="pos">(noun phrase)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">Extra inventory held to absorb unexpected demand or supply shocks.</span>
+                                <span class="example">"We are running down our buffer stock faster than expected."</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vocab-card" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-inner">
+                            <div class="vocab-front"><span class="term">Force majeure</span><span class="pos">(noun phrase)</span></div>
+                            <div class="vocab-back">
+                                <span class="def">A contract clause excusing non-performance due to extraordinary events beyond anyone's control.</span>
+                                <span class="example">"The carrier has invoked force majeure."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>Quick check:</strong> Without looking at the cards, can you explain the difference between a <em>root cause</em> and a <em>bottleneck</em>? Between a <em>workaround</em> and a <em>contingency</em>?</p>
+
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show distinctions</button>
+                <div class="reveal-content">
+                    <p><strong>Root cause vs bottleneck:</strong> a root cause is <em>why</em> a problem happens; a bottleneck is <em>where</em> flow slows. A bottleneck can be a symptom of a deeper root cause.</p>
+                    <p><strong>Workaround vs contingency:</strong> a workaround is a temporary fix used <em>during</em> a current problem; a contingency is a plan prepared <em>in advance</em> in case a problem occurs.</p>
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(0)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(2)">Next: The Scenario →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: SCENARIO -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Read the scenario</h2>
+                <p>Read once for the facts. Then read again, noticing where you would need to make a decision.</p>
+
+                <div class="scenario">
+                    <p><strong>Scenario:</strong> You are the operations manager at a mid-sized European distribution centre. Your warehouse handles inbound shipments from three overseas manufacturing sites and fulfils orders to roughly 40 industrial clients across the region.</p>
+                    <p>This morning, you learn that <strong>a strike at a major port has stopped all container movements for at least five days</strong>. Three of your highest-value shipments are on vessels either currently at the port or due to arrive there within 48 hours. Two of these shipments are committed to clients with contractual delivery windows that will now be missed.</p>
+                    <p>Your buffer stock will cover domestic orders for roughly four days. Your Managing Director wants a briefing within the hour. Your two affected clients will need formal notification today. Procurement is asking whether they should activate the alternative routing contingency, which costs approximately 40% more.</p>
+                </div>
+
+                <h3>Quick comprehension</h3>
+                <ol>
+                    <li>How many parties need to be communicated with in the next 24 hours?</li>
+                    <li>What is the estimated duration of the disruption — and how confident should you be in that estimate?</li>
+                    <li>What trade-off is procurement asking you to authorise?</li>
+                    <li>At what point will the disruption begin to affect your own clients (not just inbound shipments)?</li>
+                </ol>
+
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show answers</button>
+                <div class="reveal-content">
+                    <p><strong>1.</strong> At least four: the MD (internal escalation), the two affected clients (external notification), and procurement (a routing decision). Depending on your structure, you may also need to brief sales and customer service.</p>
+                    <p><strong>2.</strong> "At least five days" — which should be treated as optimistic. Strikes rarely end exactly when first announced. Your communications should use language that allows for further extension ("at this stage", "subject to further updates").</p>
+                    <p><strong>3.</strong> Alternative routing — higher cost (40% more) in exchange for meeting the contractual window. A classic cost-vs-service trade-off that must go to the MD.</p>
+                    <p><strong>4.</strong> After approximately four days, once buffer stock is exhausted — meaning if the strike runs the full five days, you have a one-day gap minimum for domestic orders.</p>
+                </div>
+
+                <h3>Discussion</h3>
+                <div class="discussion">
+                    <ol>
+                        <li>If you were the MD, what would you want in the first briefing — data, recommendations, or reassurance? Why?</li>
+                        <li>Which client would you contact first: the one you will almost certainly disappoint, or the one where there is still a chance of meeting the window?</li>
+                        <li>What information should you <em>not</em> share externally, even if a client asks directly?</li>
+                    </ol>
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(1)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(3)">Next: Register &amp; Tone →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: REGISTER -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Register — saying the hard thing, diplomatically</h2>
+                <p>At C1 you already know the grammar. What separates a senior communicator from a mid-level one is <em>register</em>: the same information can come across as panicked, defensive, or measured — depending entirely on the phrasing.</p>
+
+                <h3>Direct vs diplomatic — same message, different weight</h3>
+                <table class="register-table">
+                    <thead>
+                        <tr><th style="width:48%">Direct (avoid with clients)</th><th style="width:52%">Diplomatic (professional register)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="direct">"Your shipment is late."</td>
+                            <td class="diplomatic">"We are currently anticipating a delay to your shipment."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"It is not our fault."</td>
+                            <td class="diplomatic">"The cause lies outside our direct operational control."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"We cannot deliver on time."</td>
+                            <td class="diplomatic">"We are unlikely to be able to meet the original delivery window."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"I do not know when it will arrive."</td>
+                            <td class="diplomatic">"We are not yet in a position to confirm a revised arrival date, but we expect to have clarity within 24 hours."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"You will have to wait."</td>
+                            <td class="diplomatic">"We appreciate your patience while we work through the available options."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"I will tell you later."</td>
+                            <td class="diplomatic">"I will revert with a full update by the end of the working day."</td>
+                        </tr>
+                        <tr>
+                            <td class="direct">"This is going to cost more."</td>
+                            <td class="diplomatic">"The alternative routing carries a cost implication, which we will need to discuss."</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Phrase banks for specific moves</h3>
+
+                <div class="phrase-group">
+                    <h4>1. Opening a bad-news communication</h4>
+                    <span class="phrase-chip">I am writing to flag…</span>
+                    <span class="phrase-chip">I wanted to bring to your attention…</span>
+                    <span class="phrase-chip">We have become aware of a developing situation regarding…</span>
+                    <span class="phrase-chip">I am reaching out proactively to…</span>
+                </div>
+
+                <div class="phrase-group">
+                    <h4>2. Softening the impact</h4>
+                    <span class="phrase-chip">There is a likelihood that…</span>
+                    <span class="phrase-chip">At this stage, we are anticipating…</span>
+                    <span class="phrase-chip">Subject to further updates…</span>
+                    <span class="phrase-chip">We are currently assessing the potential impact on…</span>
+                </div>
+
+                <div class="phrase-group">
+                    <h4>3. Showing you are in control</h4>
+                    <span class="phrase-chip">We have already initiated…</span>
+                    <span class="phrase-chip">Our immediate priority is…</span>
+                    <span class="phrase-chip">We are actively exploring alternative options, including…</span>
+                    <span class="phrase-chip">The mitigation plan we are putting in place involves…</span>
+                </div>
+
+                <div class="phrase-group">
+                    <h4>4. Committing to follow-up</h4>
+                    <span class="phrase-chip">I will revert with a full update by…</span>
+                    <span class="phrase-chip">I will keep you informed as the situation develops.</span>
+                    <span class="phrase-chip">Please consider this an interim update — a more detailed picture will follow.</span>
+                    <span class="phrase-chip">I remain available should you wish to discuss further.</span>
+                </div>
+
+                <div class="phrase-group">
+                    <h4>5. Escalating internally (less softening needed)</h4>
+                    <span class="phrase-chip">I need to flag an emerging risk.</span>
+                    <span class="phrase-chip">This warrants your attention before the end of the day.</span>
+                    <span class="phrase-chip">I would welcome your steer on…</span>
+                    <span class="phrase-chip">There are two options on the table; I am recommending…</span>
+                </div>
+
+                <h3>Practice — upgrade these sentences</h3>
+                <p>Rewrite each direct sentence in a more diplomatic register. Try before revealing the model answer.</p>
+
+                <p><strong>1.</strong> "The strike will probably ruin our whole month."</p>
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show upgrade</button>
+                <div class="reveal-content">
+                    <p>"The disruption is likely to have a material impact on our performance for the remainder of the month, which we are now modelling."</p>
+                </div>
+
+                <p><strong>2.</strong> "Procurement messed up the backup plan."</p>
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show upgrade</button>
+                <div class="reveal-content">
+                    <p>"The contingency that procurement had pre-arranged has not activated as expected, and we are reviewing the reasons before deciding on next steps."</p>
+                </div>
+
+                <p><strong>3.</strong> "I can't give you an answer right now."</p>
+                <button class="reveal-btn" onclick="toggleReveal(this)">Show upgrade</button>
+                <div class="reveal-content">
+                    <p>"We are not yet in a position to confirm, but I will revert with a definitive response within the next few hours."</p>
+                </div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(2)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(4)">Next: Role Play →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ROLE PLAY -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Role Play — three conversations, back to back</h2>
+                <p>Use the vocabulary and phrases from the previous tabs. Aim to sound measured and in-control in every conversation, regardless of how the other side behaves.</p>
+
+                <div class="timer-panel">
+                    <div class="timer-label">Role-play timer (optional)</div>
+                    <div class="timer-display" id="rpTimer">05:00</div>
+                    <div>
+                        <button class="timer-btn start" onclick="startTimer()">Start 5-min timer</button>
+                        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="roleplay-box">
+                    <h4>Scene 1 · Internal escalation to the MD (3 minutes)</h4>
+                    <div class="role">
+                        <strong>Your role</strong>
+                        Operations manager. You have 3 minutes to brief the MD. Deliver: (a) what has happened, (b) immediate impact, (c) two options with a clear recommendation, (d) what you need from them.
+                    </div>
+                    <div class="role">
+                        <strong>Teacher plays</strong>
+                        The MD. Pressed for time. Wants decisions, not narrative. Will interrupt if you give too much background.
+                    </div>
+                    <div class="role">
+                        <strong>Target language</strong>
+                        "I need to flag…" / "Our immediate priority is…" / "There are two options on the table; I would recommend…" / "I would welcome your steer on…"
+                    </div>
+                </div>
+
+                <div class="roleplay-box">
+                    <h4>Scene 2 · External client call — first notification (4 minutes)</h4>
+                    <div class="role">
+                        <strong>Your role</strong>
+                        Calling the client proactively, before they hear from someone else. You have a delay but not yet a revised date. The goal: deliver the news, protect the relationship, commit to a follow-up.
+                    </div>
+                    <div class="role">
+                        <strong>Teacher plays</strong>
+                        A demanding but fair long-term client. Will push for a guaranteed arrival date. Will express frustration. Expects a concrete next step before the call ends.
+                    </div>
+                    <div class="role">
+                        <strong>Target language</strong>
+                        "I am reaching out proactively…" / "We are currently anticipating…" / "We are actively exploring…" / "I will revert with a full update by…"
+                    </div>
+                </div>
+
+                <div class="roleplay-box">
+                    <h4>Scene 3 · Internal team stand-up (3 minutes)</h4>
+                    <div class="role">
+                        <strong>Your role</strong>
+                        Lead a 3-minute stand-up with your warehouse and procurement team. Set the immediate priorities for the day. Assign actions. End with a clear check-in time.
+                    </div>
+                    <div class="role">
+                        <strong>Teacher plays</strong>
+                        A team member who raises a practical concern mid-briefing (e.g. "the back-up carrier has not confirmed"). You must respond without losing control of the meeting.
+                    </div>
+                    <div class="role">
+                        <strong>Target language</strong>
+                        "Our focus today is…" / "I need each of you to…" / "Let us reconvene at…" / "That is a valid point — can we park it and come back to it at…"
+                    </div>
+                </div>
+
+                <h3>After the role-play — quick self-review</h3>
+                <ol>
+                    <li>Did you use at least 5 phrases from Tab 3?</li>
+                    <li>Did you over-apologise? (Once is professional; three times is defensive.)</li>
+                    <li>Did you commit to a specific follow-up time in every conversation?</li>
+                    <li>Did you stay in the passive / diplomatic register with the client, and the more direct register internally?</li>
+                </ol>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(3)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(5)">Next: Reflection →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: REFLECTION -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Reflection &amp; take-aways</h2>
+
+                <div class="discussion">
+                    <ol>
+                        <li>Which of today's phrases could you start using in your working day tomorrow?</li>
+                        <li>Which register shift was most useful: escalating upwards, or explaining to clients? Why?</li>
+                        <li>Think of a real disruption you have dealt with — how would you phrase it differently in English now?</li>
+                        <li>Is diplomatic English culturally natural for you, or does it feel over-cautious compared to how people communicate in your first language?</li>
+                        <li>Name one situation where being <em>too</em> diplomatic would actually cause a problem.</li>
+                    </ol>
+                </div>
+
+                <h3>Your five-phrase take-away</h3>
+                <p>Choose five phrases from today that you will add to your working vocabulary. Write them down. In your next real email or call, use at least two.</p>
+
+                <h3>For next session — optional homework</h3>
+                <ul>
+                    <li>Draft a 150-word external client notification about a hypothetical 3-day disruption to their order. Send it to me before our next lesson.</li>
+                    <li>Record yourself giving the 3-minute MD briefing from Scene 1, this time without reading. Listen back once. Notice your hesitations.</li>
+                    <li>Find one real business news article this week about a supply chain disruption. Note three pieces of language from the article you could borrow.</li>
+                </ul>
+
+                <h3>Language to retire</h3>
+                <p>If any of these are still in your writing, replace them this week:</p>
+                <ul>
+                    <li><strong>"Very bad / very late / very difficult"</strong> — C1 writers quantify or specify: <em>"materially delayed"</em>, <em>"significant operational impact"</em>.</li>
+                    <li><strong>"I will tell you"</strong> — replace with <em>"I will revert"</em>, <em>"I will keep you informed"</em>, or <em>"I will follow up"</em>.</li>
+                    <li><strong>"It is not possible"</strong> — replace with <em>"it is not currently feasible"</em>, or reframe: <em>"the more workable option is…"</em>.</li>
+                </ul>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="showTab(4)">← Back</button>
+                    <button class="nav-btn primary" onclick="showTab(0)">Back to start</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>C1 Business English · Logistics &amp; Operations · Communicating Disruptions</footer>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const tabs = document.querySelectorAll(".tab-content");
+            const btns = document.querySelectorAll(".tab-btn");
+            tabs.forEach((t, i) => t.classList.toggle("active", i === index));
+            btns.forEach((b, i) => b.classList.toggle("active", i === index));
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        function toggleReveal(btn) {
+            const content = btn.nextElementSibling;
+            const isShown = content.classList.toggle("show");
+            btn.textContent = isShown ? "Hide" : btn.textContent.replace("Hide", "Show");
+            if (isShown && !btn.textContent.startsWith("Hide")) {
+                btn.textContent = "Hide " + btn.textContent.replace("Show ", "").toLowerCase();
+            } else if (!isShown) {
+                btn.textContent = btn.textContent.replace("Hide ", "Show ");
+            }
+        }
+
+        let rpInterval = null;
+        let rpSeconds = 300;
+        function startTimer() {
+            if (rpInterval) return;
+            const el = document.getElementById("rpTimer");
+            el.classList.remove("warning", "finished");
+            rpInterval = setInterval(() => {
+                rpSeconds--;
+                el.textContent = formatTime(rpSeconds);
+                if (rpSeconds <= 60) el.classList.add("warning");
+                if (rpSeconds <= 0) {
+                    clearInterval(rpInterval);
+                    rpInterval = null;
+                    el.classList.remove("warning");
+                    el.classList.add("finished");
+                    el.textContent = "Time up";
+                }
+            }, 1000);
+        }
+        function resetTimer() {
+            if (rpInterval) { clearInterval(rpInterval); rpInterval = null; }
+            rpSeconds = 300;
+            const el = document.getElementById("rpTimer");
+            el.textContent = formatTime(rpSeconds);
+            el.classList.remove("warning", "finished");
+        }
+        function formatTime(s) {
+            if (s < 0) s = 0;
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            return String(m).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+        }
+    </script>
+</body>
+</html>

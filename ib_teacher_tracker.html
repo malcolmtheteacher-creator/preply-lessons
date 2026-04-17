@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB Comparative Analysis — Teacher Tracker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-1: #1a1f3a;
+            --bg-2: #2a1f4a;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.12);
+            --text-primary: #f5f5fa;
+            --text-secondary: #d8d8e8;
+            --text-muted: #a8a8c0;
+            --accent-1: #8b9eff;
+            --accent-2: #b794f6;
+            --accent-warm: #ffd479;
+            --weak: #ff8a8a;
+            --strong: #7ee787;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.55;
+            padding: 20px;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        header {
+            padding: 20px 0 14px;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 24px;
+        }
+
+        .private-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(255, 138, 138, 0.15);
+            border: 1px solid rgba(255, 138, 138, 0.35);
+            border-radius: 16px;
+            color: var(--weak);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: var(--accent-1);
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(139, 158, 255, 0.22);
+        }
+
+        .card h3 {
+            color: var(--accent-2);
+            font-size: 1.05rem;
+            margin: 18px 0 8px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Student info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .info-field label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .info-field input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.3);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: var(--accent-1);
+        }
+
+        /* Rubric table */
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.92rem;
+        }
+
+        .rubric-table th,
+        .rubric-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            vertical-align: top;
+        }
+
+        .rubric-table th {
+            background: rgba(139, 158, 255, 0.18);
+            color: var(--accent-1);
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rubric-table td { color: var(--text-secondary); }
+        .rubric-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+        .band-cell {
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            width: 80px;
+        }
+
+        .band-bar {
+            display: inline-block;
+            width: 50px;
+            height: 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .band-1 { background: linear-gradient(90deg, #ff8a8a 0%, #ff8a8a 20%, rgba(255,138,138,0.1) 20%); }
+        .band-2 { background: linear-gradient(90deg, #ff8a8a 0%, #ff8a8a 40%, rgba(255,138,138,0.1) 40%); }
+        .band-3 { background: linear-gradient(90deg, #ffaa6b 0%, #ffaa6b 50%, rgba(255,212,121,0.1) 50%); }
+        .band-4 { background: linear-gradient(90deg, #ffaa6b 0%, #ffaa6b 60%, rgba(255,212,121,0.1) 60%); }
+        .band-5 { background: linear-gradient(90deg, #ffd479 0%, #ffd479 75%, rgba(255,212,121,0.1) 75%); }
+        .band-6 { background: linear-gradient(90deg, #7ee787 0%, #7ee787 85%, rgba(126,231,135,0.1) 85%); }
+        .band-7 { background: linear-gradient(90deg, #7ee787 0%, #7ee787 100%); }
+
+        /* Skill tracker grid */
+        .skills-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        .skills-grid th {
+            background: rgba(139, 158, 255, 0.18);
+            color: var(--accent-1);
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .skills-grid th.skill-col {
+            text-align: left;
+            width: 35%;
+        }
+
+        .skills-grid td {
+            padding: 11px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .skills-grid td.skill-name {
+            text-align: left;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .skills-grid td.skill-name small {
+            display: block;
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.82rem;
+            margin-top: 2px;
+        }
+
+        .check {
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .check:hover { border-color: var(--accent-1); }
+
+        .check.done {
+            background: var(--strong);
+            border-color: var(--strong);
+        }
+
+        .check.done::after {
+            content: "✓";
+            color: #1a1a2e;
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.9rem;
+        }
+
+        .check.partial {
+            background: var(--accent-warm);
+            border-color: var(--accent-warm);
+        }
+
+        .check.partial::after {
+            content: "~";
+            color: #1a1a2e;
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.95rem;
+        }
+
+        /* Lesson notes */
+        .lesson-note {
+            margin: 12px 0;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.2);
+            border-left: 3px solid var(--accent-1);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .lesson-note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .lesson-note h4 {
+            color: var(--accent-2);
+            font-size: 0.98rem;
+        }
+
+        .lesson-note .date-field {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .lesson-note .date-field input {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-primary);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            margin-left: 6px;
+        }
+
+        .lesson-note textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(0,0,0,0.25);
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            min-height: 60px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .lesson-note textarea:focus {
+            outline: none;
+            border-color: var(--accent-1);
+        }
+
+        .lesson-note .band-select {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .lesson-note .band-select span.label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-right: 4px;
+        }
+
+        .band-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.25);
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .band-btn:hover {
+            border-color: var(--accent-1);
+            color: var(--text-primary);
+        }
+
+        .band-btn.selected {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e;
+            border-color: transparent;
+        }
+
+        /* Trajectory chart */
+        .trajectory {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 4px;
+            margin: 16px 0 8px;
+            align-items: end;
+            height: 140px;
+        }
+
+        .trajectory-bar {
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 25px;
+        }
+
+        .trajectory-fill {
+            background: linear-gradient(180deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            border-radius: 6px 6px 0 0;
+            min-height: 6px;
+            transition: height 0.4s ease;
+        }
+
+        .trajectory-label {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .trajectory-number {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .trajectory-target {
+            position: absolute;
+            top: 14.3%;
+            left: 0;
+            right: 0;
+            border-top: 2px dashed var(--strong);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 18px;
+            margin: 8px 0 4px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 0;
+            }
+            .card {
+                background: white;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+            .card h2, header h1 { color: #333 !important; -webkit-text-fill-color: #333 !important; }
+            .card h3, .lesson-note h4 { color: #555 !important; }
+            .card p, .skills-grid td, .rubric-table td { color: #333 !important; }
+            .lesson-note { background: #f7f7f7; }
+            .private-tag { background: #ffe5e5; color: #900; border-color: #f99; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="private-tag">TEACHER-ONLY · NOT FOR STUDENT VIEW</span>
+            <h1>IB Comparative Analysis — Progress Tracker</h1>
+            <p>A working document for tracking skill acquisition across the 6-lesson course, against IB DP Criterion A descriptors.</p>
+        </header>
+
+        <!-- Student info -->
+        <div class="card">
+            <h2>Student</h2>
+            <div class="info-grid">
+                <div class="info-field">
+                    <label>Name / handle</label>
+                    <input type="text" placeholder="e.g. Anastasia">
+                </div>
+                <div class="info-field">
+                    <label>Programme (MYP / DP)</label>
+                    <input type="text" placeholder="Confirm with student">
+                </div>
+                <div class="info-field">
+                    <label>Year / Grade</label>
+                    <input type="text" placeholder="e.g. DP1 / MYP5">
+                </div>
+                <div class="info-field">
+                    <label>Current Criterion A band (estimate)</label>
+                    <input type="text" placeholder="e.g. 5/8">
+                </div>
+                <div class="info-field">
+                    <label>Target band</label>
+                    <input type="text" value="7/8">
+                </div>
+                <div class="info-field">
+                    <label>Texts studied</label>
+                    <input type="text" placeholder="Animal Farm, Kindred, etc.">
+                </div>
+            </div>
+        </div>
+
+        <!-- IB Criterion A descriptors -->
+        <div class="card">
+            <h2>IB DP Criterion A — Analysis &amp; Evaluation (what each band requires)</h2>
+            <p>Use this as the anchor when scoring her work. MYP wording is near-identical; if she turns out to be MYP, read "authorial" as "the creator's" and "reader" as "audience".</p>
+            <table class="rubric-table">
+                <tr>
+                    <th>Band</th>
+                    <th>Descriptor — what the response demonstrates</th>
+                </tr>
+                <tr>
+                    <td class="band-cell">7–8 <span class="band-bar band-7"></span></td>
+                    <td><strong>Insightful and convincing</strong> analysis and evaluation of the ways in which authorial choices shape meaning. Evaluation is nuanced, demonstrates critical awareness, and is fully supported by well-chosen references.</td>
+                </tr>
+                <tr>
+                    <td class="band-cell">5–6 <span class="band-bar band-6"></span></td>
+                    <td><strong>Appropriate and relevant</strong> analysis and evaluation of authorial choices. References support the evaluation. Effects on the reader are identified but may lack depth or range.</td>
+                </tr>
+                <tr>
+                    <td class="band-cell">3–4 <span class="band-bar band-4"></span></td>
+                    <td><strong>Some analysis</strong> with limited evaluation of authorial choices. The response describes choices and effects rather than analysing them. References are present but not always purposeful.</td>
+                </tr>
+                <tr>
+                    <td class="band-cell">1–2 <span class="band-bar band-2"></span></td>
+                    <td><strong>Mostly descriptive</strong>. Little or no analysis of authorial choices. Effects on the reader are not addressed or are asserted without evidence.</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Skill × Lesson grid -->
+        <div class="card">
+            <h2>Skills &times; Lessons — coverage grid</h2>
+            <p>Each skill is introduced / reinforced / mastered across the course. Tick cells as she demonstrates each skill. Click a cell to cycle through: empty → partial (~) → complete (✓).</p>
+
+            <div class="legend">
+                <span class="legend-item"><span class="check"></span> Not yet demonstrated</span>
+                <span class="legend-item"><span class="check partial" style="cursor: default;"></span> Emerging / partial</span>
+                <span class="legend-item"><span class="check done" style="cursor: default;"></span> Demonstrated consistently</span>
+            </div>
+
+            <table class="skills-grid">
+                <thead>
+                    <tr>
+                        <th class="skill-col">Skill</th>
+                        <th>L1</th>
+                        <th>L2</th>
+                        <th>L3</th>
+                        <th>L4</th>
+                        <th>L5</th>
+                        <th>L6</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="skill-name">Distinguishes identification / description / analysis<small>Knows which rung a sentence is on</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Names a specific authorial technique<small>Diction, irony, symbolism, allegory, voice, etc.</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Quotes / references evidence precisely<small>Accurate use of textual evidence</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Articulates the effect on the reader<small>Uses "positions", "invites", "unsettles" etc.</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Links effect to bigger meaning<small>Connects micro-choice to theme / argument</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Takes a clear position on a prompt<small>PACER slot P — no hedging or absence</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Uses the PACER paragraph structure<small>Position → Apply T1 → Connect T2 → Evaluate → Reader takeaway</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Integrates two texts with comparison connectors<small>"Similarly", "whereas", "in contrast"</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Self-marks against Criterion A<small>Can identify her own band and what is missing</small></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                        <td><span class="check" onclick="cycleCheck(this)"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Trajectory -->
+        <div class="card">
+            <h2>Band trajectory</h2>
+            <p>Click a bar to set her estimated band after each lesson. Dashed line marks the Band 7 target.</p>
+            <div style="position: relative;">
+                <div class="trajectory" id="trajectory">
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                    <div class="trajectory-bar" onclick="cycleBar(this)" data-band="0"><div class="trajectory-fill" style="height: 0%"></div></div>
+                </div>
+                <div class="trajectory-target"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px;">
+                <div class="trajectory-label">Start</div>
+                <div class="trajectory-label">L1</div>
+                <div class="trajectory-label">L2</div>
+                <div class="trajectory-label">L3</div>
+                <div class="trajectory-label">L4</div>
+                <div class="trajectory-label">L5</div>
+                <div class="trajectory-label">L6</div>
+                <div class="trajectory-label">Final</div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px;">
+                <div class="trajectory-number" id="num-0">—</div>
+                <div class="trajectory-number" id="num-1">—</div>
+                <div class="trajectory-number" id="num-2">—</div>
+                <div class="trajectory-number" id="num-3">—</div>
+                <div class="trajectory-number" id="num-4">—</div>
+                <div class="trajectory-number" id="num-5">—</div>
+                <div class="trajectory-number" id="num-6">—</div>
+                <div class="trajectory-number" id="num-7">—</div>
+            </div>
+        </div>
+
+        <!-- Lesson-by-lesson notes -->
+        <div class="card">
+            <h2>Lesson-by-lesson notes</h2>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 1 — The Three Levels of Analysis</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="What landed? What did not? What to reinforce next lesson?"></textarea>
+            </div>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 2 — Naming the Technique</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="Which techniques stuck? Which are still fuzzy?"></textarea>
+            </div>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 3 — Effect on the Reader</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="Can she produce the effect-verb move unprompted?"></textarea>
+            </div>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 4 — The PACER Framework</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="Did she hit all 5 PACER slots? Which slot was weakest?"></textarea>
+            </div>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 5 — Comparing, Not Stapling</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="Is the second text woven in or stapled on?"></textarea>
+            </div>
+
+            <div class="lesson-note">
+                <div class="lesson-note-header">
+                    <h4>Lesson 6 — Full Essay + Self-Marking</h4>
+                    <div class="date-field">Date: <input type="text" placeholder="dd/mm/yyyy"></div>
+                </div>
+                <div class="band-select">
+                    <span class="label">Band after:</span>
+                    <button class="band-btn" onclick="selectBand(this)">1</button>
+                    <button class="band-btn" onclick="selectBand(this)">2</button>
+                    <button class="band-btn" onclick="selectBand(this)">3</button>
+                    <button class="band-btn" onclick="selectBand(this)">4</button>
+                    <button class="band-btn" onclick="selectBand(this)">5</button>
+                    <button class="band-btn" onclick="selectBand(this)">6</button>
+                    <button class="band-btn" onclick="selectBand(this)">7</button>
+                    <button class="band-btn" onclick="selectBand(this)">8</button>
+                </div>
+                <textarea placeholder="Compare her final essay to her Pandora Q5 starting point. Where is the leap?"></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What to reinforce next</h2>
+            <textarea style="width: 100%; min-height: 100px; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.25); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; line-height: 1.5;" placeholder="Running list of habits to keep hammering, misconceptions to unpick, books to recommend, etc."></textarea>
+        </div>
+    </div>
+
+    <script>
+        function cycleCheck(el) {
+            if (el.classList.contains("done")) {
+                el.classList.remove("done");
+            } else if (el.classList.contains("partial")) {
+                el.classList.remove("partial");
+                el.classList.add("done");
+            } else {
+                el.classList.add("partial");
+            }
+        }
+
+        function selectBand(btn) {
+            const siblings = btn.parentElement.querySelectorAll(".band-btn");
+            siblings.forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+        }
+
+        function cycleBar(bar) {
+            let band = parseInt(bar.getAttribute("data-band")) || 0;
+            band = band >= 8 ? 0 : band + 1;
+            bar.setAttribute("data-band", band);
+            const fill = bar.querySelector(".trajectory-fill");
+            fill.style.height = (band / 8 * 100) + "%";
+            const bars = document.querySelectorAll(".trajectory-bar");
+            const index = Array.from(bars).indexOf(bar);
+            const numEl = document.getElementById("num-" + index);
+            numEl.textContent = band === 0 ? "—" : band + "/8";
+        }
+    </script>
+</body>
+</html>

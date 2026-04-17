@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB Course Dashboard — 6-Lesson Analysis Programme</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-1: #1a1f3a; --bg-2: #2a1f4a;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.12);
+            --text-primary: #f5f5fa; --text-secondary: #d8d8e8;
+            --text-muted: #a8a8c0;
+            --accent-1: #8b9eff; --accent-2: #b794f6;
+            --accent-warm: #ffd479;
+            --strong: #7ee787;
+            --teacher: #ff9ecf;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            min-height: 100vh; color: var(--text-primary);
+            line-height: 1.6; padding: 20px;
+        }
+        .container { max-width: 1080px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0 20px; }
+        .lesson-tag {
+            display: inline-block; padding: 6px 16px;
+            background: rgba(139, 158, 255, 0.18);
+            border: 1px solid rgba(139, 158, 255, 0.3);
+            border-radius: 20px; color: var(--accent-1);
+            font-size: 0.82rem; font-weight: 600;
+            margin-bottom: 14px; letter-spacing: 0.5px;
+        }
+        header h1 {
+            font-size: 2.4rem; margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1.2;
+        }
+        header .subtitle { color: var(--text-secondary); font-size: 1.05rem; }
+
+        .tab-nav {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin: 28px 0 30px;
+        }
+        .tab-btn {
+            padding: 11px 20px; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.04); color: var(--text-secondary);
+            border-radius: 24px; cursor: pointer; transition: all 0.25s;
+            font-size: 0.92rem; font-weight: 500;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.10); color: var(--text-primary); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #1a1a2e; font-weight: 600; border-color: transparent;
+        }
+        .tab-content { display: none; animation: fadeIn 0.35s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 14px; padding: 26px 28px; margin-bottom: 20px;
+        }
+        .card h2 { color: var(--accent-1); margin-bottom: 16px; font-size: 1.5rem; line-height: 1.3; }
+        .card h3 { color: var(--accent-2); margin: 22px 0 12px 0; font-size: 1.15rem; }
+        .card p { color: var(--text-secondary); margin-bottom: 12px; }
+        .card ul, .card ol { color: var(--text-secondary); padding-left: 22px; margin-bottom: 14px; }
+        .card li { margin-bottom: 8px; }
+        strong { color: var(--text-primary); }
+        em { color: var(--accent-warm); font-style: italic; }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(139, 158, 255, 0.15) 0%, rgba(183, 148, 246, 0.15) 100%);
+            border-left: 4px solid var(--accent-1);
+            padding: 18px 22px; border-radius: 0 10px 10px 0;
+            margin: 18px 0; color: var(--text-primary);
+        }
+        .highlight strong { color: var(--accent-warm); }
+
+        /* Lesson grid */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 18px;
+            margin: 22px 0;
+        }
+        .lesson-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 22px 22px 18px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s;
+            display: flex; flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .lesson-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+        }
+        .lesson-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(139, 158, 255, 0.5);
+            background: rgba(255,255,255,0.07);
+        }
+        .lesson-card .lesson-num {
+            display: inline-block;
+            font-size: 0.78rem; font-weight: 700;
+            color: var(--accent-warm);
+            letter-spacing: 1px; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .lesson-card h4 {
+            color: var(--text-primary); font-size: 1.15rem;
+            margin-bottom: 10px; line-height: 1.3;
+        }
+        .lesson-card .lesson-focus {
+            color: var(--text-secondary); font-size: 0.9rem;
+            margin-bottom: 14px; flex-grow: 1;
+        }
+        .lesson-meta {
+            display: flex; gap: 8px; flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .meta-chip {
+            font-size: 0.74rem; padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(139, 158, 255, 0.15);
+            color: var(--accent-1);
+        }
+        .meta-chip.green {
+            background: rgba(126, 231, 135, 0.15);
+            color: var(--strong);
+        }
+
+        .teacher-card::before {
+            background: linear-gradient(90deg, var(--teacher), var(--accent-warm));
+        }
+        .teacher-card .lesson-num { color: var(--teacher); }
+        .meta-chip.teacher {
+            background: rgba(255, 158, 207, 0.18);
+            color: var(--teacher);
+        }
+
+        /* Pathway tabs in pathway view */
+        .pathway-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 18px 0;
+        }
+        @media (min-width: 720px) { .pathway-grid { grid-template-columns: 1fr 1fr; } }
+        .path-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px 22px;
+            border-left: 4px solid var(--accent-1);
+        }
+        .path-card.dp { border-left-color: var(--accent-2); }
+        .path-card.myp { border-left-color: var(--accent-warm); }
+        .path-card h4 {
+            color: var(--text-primary); font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .path-card .badge {
+            display: inline-block; font-size: 0.74rem;
+            padding: 3px 10px; border-radius: 12px;
+            margin-bottom: 8px; font-weight: 600;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .path-card.dp .badge { background: rgba(183,148,246,0.2); color: var(--accent-2); }
+        .path-card.myp .badge { background: rgba(255,212,121,0.2); color: var(--accent-warm); }
+
+        /* Criteria table */
+        .crit-table {
+            width: 100%; border-collapse: collapse;
+            margin: 14px 0; background: rgba(0,0,0,0.18);
+            border-radius: 10px; overflow: hidden;
+            font-size: 0.92rem;
+        }
+        .crit-table th, .crit-table td {
+            padding: 11px 14px; text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+        }
+        .crit-table th {
+            background: rgba(139,158,255,0.15);
+            color: var(--accent-warm);
+            letter-spacing: 0.3px;
+        }
+        .crit-table tr:last-child td { border-bottom: none; }
+        .crit-table .crit-letter {
+            font-weight: 800; color: var(--accent-1);
+            font-size: 1.1rem; text-align: center; width: 50px;
+        }
+
+        /* Sequence visual */
+        .sequence {
+            display: flex; align-items: center;
+            gap: 8px; margin: 22px 0;
+            overflow-x: auto; padding-bottom: 10px;
+        }
+        .seq-step {
+            min-width: 130px;
+            text-align: center;
+            padding: 14px 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+        }
+        .seq-step .step-num {
+            display: block; font-size: 1.4rem;
+            font-weight: 800; color: var(--accent-warm);
+            line-height: 1;
+        }
+        .seq-step .step-label {
+            font-size: 0.82rem; color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .seq-arrow {
+            color: var(--accent-1); font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        footer {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; margin: 30px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="lesson-tag">IB ENGLISH · ANALYSIS PROGRAMME</span>
+            <h1>6-Lesson Course Dashboard</h1>
+            <p class="subtitle">From Band 5 to Band 7 — a structured pathway with self-marking</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(0)">Lessons</button>
+            <button class="tab-btn" onclick="showTab(1)">IB Pathway Overview</button>
+            <button class="tab-btn" onclick="showTab(2)">Skills Map</button>
+            <button class="tab-btn" onclick="showTab(3)">How to Use This</button>
+        </nav>
+
+        <!-- TAB 0: LESSONS -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>The 6-lesson sequence</h2>
+                <p>Each lesson is 50 minutes. Open in order — every lesson builds on the previous one. The Reference materials are teacher-facing and should not be opened on the student's screen.</p>
+
+                <h3>Student-facing lessons</h3>
+                <div class="lesson-grid">
+                    <a href="ib_lesson_01_three_levels.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 1 · 50 min</span>
+                        <h4>Three Levels of Analysis</h4>
+                        <p class="lesson-focus">The ladder from identification → description → analysis. Diagnoses what is missing in current writing using the student's own Pandora essay.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Diagnostic</span>
+                            <span class="meta-chip">Criterion A</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_02_naming_techniques.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 2 · 50 min</span>
+                        <h4>Naming the Technique</h4>
+                        <p class="lesson-focus">A library of 15 named techniques in 3 categories. Spotting game, Baldwin close-read, Orwell annotation practice.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Vocabulary</span>
+                            <span class="meta-chip">Criterion A</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_03_effect_on_reader.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 3 · 50 min</span>
+                        <h4>Effect on the Reader</h4>
+                        <p class="lesson-focus">The verb toolkit — positions, unsettles, reframes. The half of the sentence that earns Band 6+ marks. Animal Farm practice.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Effect verbs</span>
+                            <span class="meta-chip">Band 6+</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_04_pacer_framework.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 4 · 50 min</span>
+                        <h4>The PACER Framework</h4>
+                        <p class="lesson-focus">5 paragraph slots: Position, Apply, Connect, Evaluate, Reader. Annotated models on Baldwin and Orwell. Build-your-own scaffold.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Structure</span>
+                            <span class="meta-chip">Criterion B</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_05_comparing_not_stapling.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 5 · 50 min</span>
+                        <h4>Comparing, Not Stapling</h4>
+                        <p class="lesson-focus">Connector toolkit for integrated comparison. Where… / by contrast / together… Rebuild a stapled paragraph into an integrated one.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Comparison</span>
+                            <span class="meta-chip">Paper 1 &amp; 2</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_06_timed_essay.html" class="lesson-card">
+                        <span class="lesson-num">Lesson 6 · 50 min</span>
+                        <h4>Timed Essay &amp; Self-Marking</h4>
+                        <p class="lesson-focus">Unseen Woolf passage. 10-min plan, 30-min write, 10-min self-mark with the Criterion A rubric. Click-to-start timers.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip">Assessment</span>
+                            <span class="meta-chip green">Capstone</span>
+                        </div>
+                    </a>
+                </div>
+
+                <h3>Teacher-only references</h3>
+                <p>Open these on your own screen, not the student's.</p>
+                <div class="lesson-grid">
+                    <a href="ib_teacher_tracker.html" class="lesson-card teacher-card">
+                        <span class="lesson-num">Reference</span>
+                        <h4>IB Teacher Tracker</h4>
+                        <p class="lesson-focus">Private tracking dashboard. Student info, Criterion A descriptors, 9-skill × 6-lesson coverage grid, band trajectory chart, lesson-by-lesson notes. Print-friendly.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip teacher">Teacher only</span>
+                        </div>
+                    </a>
+
+                    <a href="ib_lesson_01_answer_key.html" class="lesson-card teacher-card">
+                        <span class="lesson-num">Reference</span>
+                        <h4>Lesson 1 — Answer Key</h4>
+                        <p class="lesson-focus">50-minute teaching flow for Lesson 1. All "Your Turn" sentences with diagnosis, coach prompts, model upgrades, anticipated misreads, reserve practice passage.</p>
+                        <div class="lesson-meta">
+                            <span class="meta-chip teacher">Teacher only</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="highlight">
+                    <strong>Note:</strong> Lessons 2–6 use answer-reveal buttons inside the student-facing pages, so a separate answer key is not strictly required for them. If you want a printable teacher version of any lesson, ask and one will be generated.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: IB PATHWAY OVERVIEW -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>The IB pathway — what programme is she on?</h2>
+                <p>The IB has two relevant programmes. Her worksheet — with its hybrid of MCQ comprehension and essay analysis — fits both, but the <em>essay register</em> ("authorial choices", "effects on the reader") is firmly in the <strong>Diploma Programme (DP)</strong> register. Most likely she is in DP1 (Year 12) preparing for the May 2027 exams.</p>
+
+                <div class="pathway-grid">
+                    <div class="path-card myp">
+                        <span class="badge">MYP English Language &amp; Literature</span>
+                        <h4>Years 7–11 (Ages 11–16)</h4>
+                        <p>Four criteria, each marked out of 8:</p>
+                        <ul>
+                            <li><strong>A:</strong> Analysing</li>
+                            <li><strong>B:</strong> Organising</li>
+                            <li><strong>C:</strong> Producing text</li>
+                            <li><strong>D:</strong> Using language</li>
+                        </ul>
+                        <p style="margin-top:8px;font-size:0.88rem;color:var(--text-muted);">Final assessment in Year 11 (eAssessment). Worksheets in this programme tend to use simpler register — "techniques and their effects" rather than "authorial choices".</p>
+                    </div>
+
+                    <div class="path-card dp">
+                        <span class="badge">DP English Language &amp; Literature (more likely)</span>
+                        <h4>Years 12–13 (Ages 16–18)</h4>
+                        <p>Three external assessments:</p>
+                        <ul>
+                            <li><strong>Paper 1:</strong> Guided textual analysis of an unseen non-literary text (1.25 hrs SL / 2.25 hrs HL)</li>
+                            <li><strong>Paper 2:</strong> Comparative essay on two studied literary works (1.75 hrs)</li>
+                            <li><strong>HL Essay / IO:</strong> Coursework + Individual Oral (10 mins recorded analysis)</li>
+                        </ul>
+                        <p style="margin-top:8px;font-size:0.88rem;color:var(--text-muted);">The Pandora worksheet — "authorial choices" + reader effect — is straight DP Criterion A territory. This is the most likely match.</p>
+                    </div>
+                </div>
+
+                <h3>The 4 DP assessment criteria (out of 10 each, except Crit D which is out of 5)</h3>
+                <table class="crit-table">
+                    <thead>
+                        <tr><th></th><th>Criterion</th><th>What it measures</th><th>Where this course targets it</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="crit-letter">A</td>
+                            <td><strong>Analysis &amp; Evaluation</strong></td>
+                            <td>Understanding of the text + interpretation of authorial choices and their effects.</td>
+                            <td>Lessons 1, 2, 3, 6 — the spine of the course.</td>
+                        </tr>
+                        <tr>
+                            <td class="crit-letter">B</td>
+                            <td><strong>Focus &amp; Organisation</strong></td>
+                            <td>Coherent structure, paragraph development, logical sequencing.</td>
+                            <td>Lessons 4 (PACER) + 5 (integration).</td>
+                        </tr>
+                        <tr>
+                            <td class="crit-letter">C</td>
+                            <td><strong>Knowledge &amp; Understanding</strong> <em>(Paper 2)</em></td>
+                            <td>Grasp of the studied literary works and their context.</td>
+                            <td>Targeted in separate literature lessons (not in this course).</td>
+                        </tr>
+                        <tr>
+                            <td class="crit-letter">D</td>
+                            <td><strong>Language</strong></td>
+                            <td>Clarity, accuracy, register, style of the student's own prose.</td>
+                            <td>Light-touch coverage in Lesson 6 self-mark; a separate "register" lesson would deepen this if needed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Where she sits right now (best estimate from the Pandora essay)</h3>
+                <ul>
+                    <li><strong>Criterion A:</strong> Band 4–5 of 10. Identifies techniques but rarely names them precisely; rarely articulates the effect on the reader.</li>
+                    <li><strong>Criterion B:</strong> Band 4–5 of 10. Paragraphs exist but lack a 5-slot shape; ideas are listed rather than argued.</li>
+                    <li><strong>Criterion D:</strong> Band 3 of 5. Clear prose with some imprecise vocabulary ("shows", "tells us").</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>Realistic target after the 6 lessons:</strong> Criterion A → Band 6/7 of 10; Criterion B → Band 6 of 10; Criterion D → Band 4 of 5. Translates to an overall grade jump of roughly one IB level (e.g. 4 → 5, or 5 → 6) by next mock.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: SKILLS MAP -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>The 9 sub-skills, mapped across the 6 lessons</h2>
+                <p>Each lesson trains specific sub-skills. The grid below shows where each is introduced (●) and where it is reinforced (◐).</p>
+
+                <table class="crit-table">
+                    <thead>
+                        <tr>
+                            <th>Sub-skill</th>
+                            <th>L1</th><th>L2</th><th>L3</th><th>L4</th><th>L5</th><th>L6</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Move beyond identification → analysis</td><td>●</td><td>◐</td><td>◐</td><td>◐</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Name techniques precisely</td><td>◐</td><td>●</td><td>◐</td><td>◐</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Articulate effect on the reader</td><td>◐</td><td>◐</td><td>●</td><td>◐</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Build a paragraph with a thesis</td><td></td><td></td><td>◐</td><td>●</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Connect two pieces of evidence</td><td></td><td></td><td>◐</td><td>●</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Evaluate (zoom out from evidence)</td><td></td><td></td><td>◐</td><td>●</td><td>◐</td><td>◐</td></tr>
+                        <tr><td>Compare two texts / two moments</td><td></td><td></td><td></td><td>◐</td><td>●</td><td>◐</td></tr>
+                        <tr><td>Use precise academic register</td><td>◐</td><td>●</td><td>●</td><td>◐</td><td>●</td><td>◐</td></tr>
+                        <tr><td>Self-assess against a rubric</td><td>◐</td><td></td><td></td><td>◐</td><td>◐</td><td>●</td></tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top:14px;font-size:0.88rem;color:var(--text-muted);">● = primary focus &nbsp; ◐ = practised / reinforced</p>
+
+                <h3>Visualised sequence</h3>
+                <div class="sequence">
+                    <div class="seq-step">
+                        <span class="step-num">1</span>
+                        <span class="step-label">Diagnose<br>the gap</span>
+                    </div>
+                    <span class="seq-arrow">→</span>
+                    <div class="seq-step">
+                        <span class="step-num">2</span>
+                        <span class="step-label">Name<br>techniques</span>
+                    </div>
+                    <span class="seq-arrow">→</span>
+                    <div class="seq-step">
+                        <span class="step-num">3</span>
+                        <span class="step-label">Add the<br>effect</span>
+                    </div>
+                    <span class="seq-arrow">→</span>
+                    <div class="seq-step">
+                        <span class="step-num">4</span>
+                        <span class="step-label">Shape the<br>paragraph</span>
+                    </div>
+                    <span class="seq-arrow">→</span>
+                    <div class="seq-step">
+                        <span class="step-num">5</span>
+                        <span class="step-label">Integrate<br>evidence</span>
+                    </div>
+                    <span class="seq-arrow">→</span>
+                    <div class="seq-step">
+                        <span class="step-num">6</span>
+                        <span class="step-label">Time<br>&amp; self-mark</span>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>Why this order matters:</strong> students who jump straight to PACER (L4) without effect verbs (L3) end up with elegantly structured paragraphs that still sit at Band 4. The verbs come <em>before</em> the structure.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: HOW TO USE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>How to run the course</h2>
+
+                <h3>Per-lesson rhythm (50 minutes)</h3>
+                <ol>
+                    <li><strong>0–5 min — Recall.</strong> One question from last week's lesson (e.g. "Name three effect verbs from Lesson 3"). Use the Cheat Card from the previous lesson if needed.</li>
+                    <li><strong>5–15 min — Tab 1 of the lesson.</strong> The hook / weak-vs-strong comparison. Keep it conversational.</li>
+                    <li><strong>15–35 min — Tabs 2–3.</strong> The new vocabulary / framework + worked examples. Reveal answers <em>after</em> the student attempts.</li>
+                    <li><strong>35–47 min — Tab 4 ("Your Turn").</strong> Student writes; you coach. Use the Answer Key (Lesson 1) or the embedded reveal buttons.</li>
+                    <li><strong>47–50 min — Cheat Card &amp; assignment.</strong> Quick review + the homework note inside that lesson.</li>
+                </ol>
+
+                <h3>Between lessons</h3>
+                <ul>
+                    <li>Open the <a href="ib_teacher_tracker.html" style="color:var(--accent-1);">IB Teacher Tracker</a> and update the coverage grid + lesson notes.</li>
+                    <li>Tick the band you would award her work this week. The trajectory chart will fill in over the 6 weeks.</li>
+                </ul>
+
+                <h3>Adapting for a single 50-minute slot</h3>
+                <p>If you only get one slot rather than six, run a <strong>diagnostic-and-toolkit lesson:</strong></p>
+                <ul>
+                    <li>10 min — Lesson 1 Tab 2 ("The Ladder")</li>
+                    <li>10 min — Lesson 2 Cheat Card (technique vocabulary)</li>
+                    <li>15 min — Lesson 3 Tab 1 + Tab 4 (effect verbs in context)</li>
+                    <li>15 min — Lesson 4 Tab 2 (PACER slots) + one written paragraph</li>
+                </ul>
+
+                <h3>If the student gets stuck on a specific slot</h3>
+                <ul>
+                    <li><strong>Cannot write a P (thesis):</strong> ask "what is the writer doing that they did not have to do?" Force an arguable claim.</li>
+                    <li><strong>Cannot write a C (connection):</strong> insist she use one connector phrase from Lesson 5 Tab 1 — e.g. "this is extended by…", "by contrast…".</li>
+                    <li><strong>Cannot write an E (evaluate):</strong> prompt with "Together, these two choices…" — make her finish the sentence.</li>
+                    <li><strong>Writes "this shows that…":</strong> stop, point to Lesson 3 Cheat Card, replace with an effect verb on the spot.</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>Programme philosophy:</strong> the goal is not to teach her every IB technique. It is to give her <em>repeatable moves</em> she can run on any unseen text in any pressure situation. Six lessons. One paragraph shape. One verb toolkit. One self-mark protocol.
+                </div>
+
+                <h3>File quick-reference</h3>
+                <table class="crit-table">
+                    <thead><tr><th>File</th><th>Audience</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td>ib_lesson_01_three_levels.html</td><td>Student</td><td>Lesson 1 (50 min)</td></tr>
+                        <tr><td>ib_lesson_02_naming_techniques.html</td><td>Student</td><td>Lesson 2 (50 min)</td></tr>
+                        <tr><td>ib_lesson_03_effect_on_reader.html</td><td>Student</td><td>Lesson 3 (50 min)</td></tr>
+                        <tr><td>ib_lesson_04_pacer_framework.html</td><td>Student</td><td>Lesson 4 (50 min)</td></tr>
+                        <tr><td>ib_lesson_05_comparing_not_stapling.html</td><td>Student</td><td>Lesson 5 (50 min)</td></tr>
+                        <tr><td>ib_lesson_06_timed_essay.html</td><td>Student</td><td>Lesson 6 (50 min) — assessment</td></tr>
+                        <tr><td>ib_lesson_01_answer_key.html</td><td>Teacher only</td><td>L1 worked answers + 50-min flow</td></tr>
+                        <tr><td>ib_teacher_tracker.html</td><td>Teacher only</td><td>Private progress dashboard</td></tr>
+                        <tr><td>ib_course_dashboard.html</td><td>Both</td><td>This page — programme overview</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>IB Analysis Programme · 6 student lessons + teacher reference materials</footer>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const tabs = document.querySelectorAll(".tab-content");
+            const btns = document.querySelectorAll(".tab-btn");
+            tabs.forEach((t, i) => t.classList.toggle("active", i === index));
+            btns.forEach((b, i) => b.classList.toggle("active", i === index));
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>
