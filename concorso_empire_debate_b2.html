@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concorso AB24 — Lesson 2: Empire: Force for Good or Bad?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: white; color: #333; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 36px 20px 28px; text-align: center; margin-bottom: 10px; border-radius: 8px; }
+        header h1 { font-size: 1.9em; margin-bottom: 6px; }
+        header p { font-size: 1em; opacity: 0.92; }
+        .score-bar { display: flex; gap: 8px; justify-content: center; margin: 12px 0 0; flex-wrap: wrap; }
+        .score-chip { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 4px 14px; font-size: 0.82em; font-weight: 600; color: white; }
+        .seq-bar { display: flex; gap: 6px; justify-content: center; margin: 10px 0 0; flex-wrap: wrap; }
+        .seq-chip { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 3px 12px; font-size: 0.8em; color: white; }
+        .seq-chip.active { background: rgba(255,255,255,0.35); font-weight: 700; }
+        .tabs { display: flex; gap: 8px; margin: 20px 0 24px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 10px 18px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s ease; }
+        .tab-button:hover { background: #f0f2ff; }
+        .tab-button.active { background: #f0f2ff; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .section { background: #f8f9fa; padding: 22px 24px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #667eea; }
+        .section h2 { color: #764ba2; font-size: 1.3em; margin-bottom: 14px; }
+        .section h3 { color: #667eea; font-size: 1em; margin: 16px 0 8px; font-weight: 700; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+        .field label { font-size: 0.8em; font-weight: 700; color: #764ba2; text-transform: uppercase; letter-spacing: 0.5px; }
+        .field input, .field select, .field textarea { padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-family: "Segoe UI", sans-serif; font-size: 0.95em; color: #333; transition: border-color 0.2s; resize: vertical; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: #667eea; outline: none; }
+        .field textarea { min-height: 80px; }
+        .field textarea.tall { min-height: 130px; }
+        .stage-block { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; margin-bottom: 14px; }
+        .stage-block .stage-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .stage-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stage-title { font-weight: 700; color: #764ba2; font-size: 1em; }
+        .stage-hint { font-size: 0.8em; color: #888; margin-left: auto; font-style: italic; }
+        .phrase-bank { background: #e8eaf6; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+        .phrase-bank h3 { color: #667eea; font-size: 0.9em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .phrase { background: white; border-left: 3px solid #667eea; padding: 8px 12px; margin-bottom: 8px; border-radius: 0 4px 4px 0; font-size: 0.9em; cursor: pointer; transition: background 0.2s; }
+        .phrase:hover { background: #f0f2ff; }
+        .phrase em { color: #764ba2; font-style: normal; font-weight: 600; }
+        .qa-block { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+        .qa-q { font-weight: 700; color: #764ba2; margin-bottom: 8px; font-size: 0.95em; }
+        .qa-hint { font-size: 0.85em; color: #555; font-style: italic; margin-bottom: 8px; }
+        .full-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 13px 28px; border-radius: 6px; font-size: 1em; font-weight: 700; cursor: pointer; margin-top: 10px; display: block; width: 100%; transition: opacity 0.2s; }
+        .full-btn:hover { opacity: 0.9; }
+        .output-box { background: #1e1e2e; color: #cdd6f4; font-family: monospace; font-size: 0.88em; padding: 20px; border-radius: 8px; white-space: pre-wrap; min-height: 200px; margin-top: 12px; line-height: 1.7; }
+        .tip-box { background: #fff3cd; border-left: 5px solid #f0c040; padding: 14px 18px; border-radius: 4px; margin-bottom: 14px; font-size: 0.9em; }
+        .tip-box strong { color: #856404; }
+        .link-box { background: #e8f5e9; border-left: 5px solid #4caf50; padding: 14px 18px; border-radius: 4px; margin-bottom: 14px; font-size: 0.9em; }
+        .link-box strong { color: #2e7d32; }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.95em; }
+        .checklist li input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: #667eea; cursor: pointer; }
+        .divider { height: 2px; background: linear-gradient(to right, #667eea, #764ba2); border: none; margin: 20px 0; border-radius: 2px; }
+        .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+        .debate-side { background: white; border-radius: 8px; padding: 16px; }
+        .debate-side.for { border: 2px solid #4caf50; }
+        .debate-side.against { border: 2px solid #e53935; }
+        .debate-side .side-label { font-size: 0.75em; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px; color: white; }
+        .debate-side.for .side-label { background: #4caf50; }
+        .debate-side.against .side-label { background: #e53935; }
+        .debate-side ul { padding-left: 18px; }
+        .debate-side ul li { font-size: 0.9em; margin-bottom: 6px; color: #444; }
+        .phrase-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+        .phrase-card h3 { color: #764ba2; font-size: 1em; margin-bottom: 12px; }
+        .phrase-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .phrase-col h4 { font-size: 0.8em; font-weight: 700; color: #667eea; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .phrase-item { background: #f8f9fa; border-left: 3px solid #667eea; padding: 6px 10px; margin-bottom: 6px; border-radius: 0 4px 4px 0; font-size: 0.88em; font-style: italic; color: #444; }
+        @media (max-width: 700px) {
+            .field-row, .field-row.three, .debate-grid, .phrase-two-col { grid-template-columns: 1fr; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { border-left: 5px solid transparent; border-bottom: none; text-align: left; }
+            .tab-button.active { border-left-color: #667eea; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Concorso AB24 — Lesson 2</h1>
+        <p>The British Empire: Force for Good or Bad? &middot; CLT &middot; Debate</p>
+        <div class="score-bar">
+            <span class="score-chip">40 pts — Pedagogical Design</span>
+            <span class="score-chip">30 pts — Topic Knowledge + Methodology</span>
+            <span class="score-chip">30 pts — English Language</span>
+        </div>
+        <div class="seq-bar">
+            <span class="seq-chip">Lesson 1: The British Empire — jigsaw (PPP+CLIL)</span>
+            <span class="seq-chip active">▶ Lesson 2: Force for Good or Bad? — debate (CLT)</span>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">📋 The Traccia</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">🎯 Aims</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">📐 Procedure</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">🗣️ Methodology</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">✅ Assessment</button>
+        <button class="tab-button" onclick="openTab(event,'tab6')">❓ Panel Q&amp;A</button>
+        <button class="tab-button" onclick="openTab(event,'tab7')">📄 Full Script</button>
+    </div>
+
+    <!-- TAB 1 -->
+    <div id="tab1" class="tab-content active">
+        <div class="link-box">
+            <strong>Lesson 2 of 2.</strong> Students bring their jigsaw knowledge from Lesson 1 directly into this debate. The five expert cards (political, economic, cultural, Commonwealth, resistance) become the evidence base. This lesson moves from <em>knowing</em> to <em>evaluating</em>.
+        </div>
+        <div class="section">
+            <h2>The Topic</h2>
+            <div class="field">
+                <label>Traccia — exact wording</label>
+                <textarea id="traccia" class="tall">The candidate should illustrate the content choices, as well as the didactic and methodological approaches adopted, with reference to the organization of spaces, time, and materials. Furthermore, they should describe the strategies used in managing groups, any differentiated learning paths, and the teaching tools employed, including the educational use of technologies and multimedia electronic devices.
+
+The design should take into account the following context: a class to be specified by the candidate, consisting of 25 students, within a school context to be defined by the candidate. The presence of two students with Special educational needs (SEN) must also be considered, ONE IS DYSLEXIC AND ONE IS DISRUPTIVE.
+
+The duration of the lesson must not exceed 22 minutes.</textarea>
+            </div>
+            <div class="field-row" style="margin-top:14px;">
+                <div class="field">
+                    <label>Topic</label>
+                    <input type="text" id="topic" value="The British Empire: Force for Good or Bad?">
+                </div>
+                <div class="field">
+                    <label>Debate motion</label>
+                    <input type="text" id="motion" value="This house believes that the British Empire was, on balance, a force for good.">
+                </div>
+            </div>
+            <div class="field-row" style="margin-top:8px;">
+                <div class="field">
+                    <label>Topic type</label>
+                    <select id="topicType">
+                        <option selected>Anglo-American history / culture</option>
+                        <option>Grammar point</option>
+                        <option>Literature text / author</option>
+                        <option>Language skill (reading / writing / speaking / listening)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Visual hook</label>
+                    <input type="text" id="visual" value="The Great Exhibition 1851 (Crystal Palace) vs Oliver Twist workhouse scene — same year, same city">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Class Profile</h2>
+            <div class="field-row three">
+                <div class="field">
+                    <label>CEFR Level</label>
+                    <select id="level">
+                        <option>A1</option><option>A2</option><option>B1</option>
+                        <option selected>B2</option><option>C1</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Year group</label>
+                    <input type="text" id="year" value="Year 4 / Classe IV">
+                </div>
+                <div class="field">
+                    <label>School type</label>
+                    <select id="schoolType">
+                        <option selected>Liceo linguistico</option>
+                        <option>Liceo classico</option>
+                        <option>Liceo scientifico</option>
+                        <option>Istituto tecnico</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Number of students</label>
+                    <input type="text" id="numStudents" value="25">
+                </div>
+                <div class="field">
+                    <label>Lesson length</label>
+                    <input type="text" id="duration" value="60 minutes">
+                </div>
+            </div>
+            <div class="field">
+                <label>SEN / inclusion notes</label>
+                <input type="text" id="sen" value="1 student with dyslexia (DSA); 1 student with disruptive behaviour">
+            </div>
+        </div>
+        <div class="section">
+            <h2>Prior Knowledge (from Lesson 1)</h2>
+            <div class="field">
+                <label>What students bring into this lesson</label>
+                <textarea id="prior">Students have already studied the British Empire in Lesson 1 using a jigsaw. Each student is an "expert" on one aspect: political impact, economic impact, cultural impact, the Commonwealth today, or resistance and legacy. They have key vocabulary: colonialism, imperialism, Commonwealth, legacy, abolition, trade routes. This lesson asks them to use that knowledge to argue, evaluate, and take a position.</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div id="tab2" class="tab-content">
+        <div class="section">
+            <h2>Language Aims</h2>
+            <div class="field">
+                <label>By the end of this lesson, students will be able to…</label>
+                <textarea id="aim1">argue for and against a position on the British Empire using structured debate language: "I would argue that…", "The evidence suggests…", "While it is true that… however…", "On balance…"</textarea>
+            </div>
+            <div class="field" style="margin-top:10px;">
+                <label>Secondary language aim</label>
+                <textarea id="aim2">use language of concession and rebuttal to respond to opposing arguments: "I accept that… however…", "That may be the case, but…", "I'd like to challenge that point…"</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Skills Aims</h2>
+            <div class="field-row">
+                <div class="field">
+                    <label>Receptive skills focus</label>
+                    <input type="text" id="skillsR" value="Listening for main argument and supporting evidence during the debate">
+                </div>
+                <div class="field">
+                    <label>Productive skills focus</label>
+                    <input type="text" id="skillsP" value="Speaking — presenting, justifying and defending a position in a structured debate">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>CEFR Can-Do Descriptor</h2>
+            <div class="field">
+                <label>Relevant CEFR descriptor</label>
+                <textarea id="cefr">B2 Spoken Interaction — "Can take an active part in discussion in familiar contexts, accounting for and sustaining views clearly by providing relevant explanations and arguments." Also: B2 Spoken Production — "Can develop a clear argument, expanding and supporting points of view with subsidiary points and relevant examples."</textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 -->
+    <div id="tab3" class="tab-content">
+        <div class="tip-box">
+            <strong>Methodology: CLT (Communicative Language Teaching).</strong> The debate IS the lesson — everything else feeds it. Contrast with Lesson 1 (PPP+CLIL) to show the panel methodological range across the unit.
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+            <label>Teaching Approach</label>
+            <select id="approach">
+                <option value="PPP">PPP — Presentation, Practice, Production</option>
+                <option value="TBL">TBL — Task-Based Learning</option>
+                <option value="CLT" selected>CLT — Communicative Language Teaching</option>
+                <option value="TTT">TTT — Test, Teach, Test</option>
+            </select>
+        </div>
+
+        <!-- STAGE 1 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">1</div>
+                <div class="stage-title">Lead-in — The Visual Hook</div>
+                <div class="stage-hint">5 min · provoke, activate prior knowledge</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s1act">Project two images side by side on IWB: the Crystal Palace at the Great Exhibition (1851) and an Oliver Twist workhouse scene (same era, same city). No text, no explanation. Ask: "What do you see? What do these two images have in common? What is the difference?" Take 4–5 responses. Then reveal the question driving the lesson: "Same year. Same city. Same empire. Was it a force for good — or a force for harm?"</textarea>
+                </div>
+                <div class="field">
+                    <label>Purpose</label>
+                    <textarea id="s1why">The juxtaposition IS the lesson — the visual contradiction embodies the debate motion. The Great Exhibition represents Victorian confidence, progress, and imperial achievement. Oliver Twist represents exploitation, poverty, and the human cost of that same empire. Students feel the tension before they articulate it. No comprehension questions needed — the image does the work.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">2</div>
+                <div class="stage-title">Activating Expert Knowledge</div>
+                <div class="stage-hint">8 min · recall Lesson 1 jigsaw, build the evidence bank</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s2act">Return to the Lesson 1 jigsaw groups. Each group has 2 minutes to recall their expert card and answer: "Does your topic support the idea that the empire was a force for good, a force for harm, or both?" Each group shares one sentence. Teacher maps responses onto the board in two columns: FOR / AGAINST the motion. This becomes the class evidence bank for the debate.</textarea>
+                </div>
+                <div class="field">
+                    <label>Material / ICT</label>
+                    <textarea id="s2mat">IWB: two-column FOR/AGAINST table built live as groups share. Students may refer back to their Lesson 1 cards if needed. This stage requires no new materials — prior learning does the work. Shows the panel how Lesson 1 feeds directly into Lesson 2.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">3</div>
+                <div class="stage-title">Debate Language Focus</div>
+                <div class="stage-hint">10 min · pre-teach the tools students need to debate</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s3act">Distribute the debate phrase card (printed). Teacher models each category with one example: arguing ("I would argue that the empire spread infrastructure to developing nations"), conceding ("While it is true that railways were built, they served British interests first"), rebutting ("I'd like to challenge that — the evidence from Card B shows the economic model was extractive"). Students practise in pairs: one makes a claim using the card, the other responds. 3 rounds, 1 minute each.</textarea>
+                </div>
+                <div class="field">
+                    <label>Differentiation for SEN</label>
+                    <textarea id="s3diff">Dyslexic student: phrase card remains on desk for all subsequent stages — a permanent scaffold. No obligation to produce phrases unprompted; support from printed card throughout. Teacher does not cold-call during drilling.
+
+Disruptive student: given the role of "opening speaker for the FOR side" at this stage — they know their role before the debate begins, which directs energy toward preparation rather than disruption. Pair practice with a supportive partner.</textarea>
+                </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid #eee;margin:14px 0;">
+
+            <!-- PHRASE CARD PREVIEW -->
+            <div class="phrase-card">
+                <h3>Debate Phrase Card — print one per student</h3>
+                <div class="phrase-two-col">
+                    <div class="phrase-col">
+                        <h4>Arguing your point</h4>
+                        <div class="phrase-item">"I would argue that…"</div>
+                        <div class="phrase-item">"The evidence clearly shows…"</div>
+                        <div class="phrase-item">"Surely the fact that… demonstrates…"</div>
+                        <div class="phrase-item">"It cannot be denied that…"</div>
+                        <h4 style="margin-top:10px;">Conceding &amp; rebutting</h4>
+                        <div class="phrase-item">"While it is true that… however…"</div>
+                        <div class="phrase-item">"I accept that… but…"</div>
+                        <div class="phrase-item">"Granted… nevertheless…"</div>
+                        <div class="phrase-item">"I'd like to challenge that…"</div>
+                    </div>
+                    <div class="phrase-col">
+                        <h4>Responding to others</h4>
+                        <div class="phrase-item">"That may be the case, but…"</div>
+                        <div class="phrase-item">"I'd like to build on that point…"</div>
+                        <div class="phrase-item">"The counter-argument would be…"</div>
+                        <div class="phrase-item">"With respect, I disagree because…"</div>
+                        <h4 style="margin-top:10px;">Evaluating / closing</h4>
+                        <div class="phrase-item">"On balance, I believe…"</div>
+                        <div class="phrase-item">"Taking everything into account…"</div>
+                        <div class="phrase-item">"The weight of evidence suggests…"</div>
+                        <div class="phrase-item">"Ultimately, the question is…"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">4</div>
+                <div class="stage-title">Debate Preparation</div>
+                <div class="stage-hint">12 min · groups build 3 arguments + anticipated rebuttals</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Activity</label>
+                    <textarea id="s4act">Divide class into two sides: FOR the motion (empire was a force for good) and AGAINST (empire was harmful on balance). Mixed ability groups within each side. Each group prepares: 3 main arguments with evidence, at least one anticipated counter-argument and rebuttal, and an opening statement (2 sentences). Teacher circulates, prompts: "Think about your jigsaw card — which evidence supports your side? What will the other side say about that?" Disruptive student prepares their opening statement with teacher support.</textarea>
+                </div>
+                <div class="field">
+                    <label>FOR vs AGAINST — argument starters</label>
+                    <textarea id="s4why">FOR (empire was a force for good):
+— Infrastructure: railways, roads, hospitals, schools built in colonies
+— Language: English as a global lingua franca — economic and educational benefit today
+— Commonwealth: 56 nations voluntarily remain — ongoing partnership
+— Legal systems: parliamentary democracy, rule of law spread globally
+
+AGAINST (empire caused more harm than good):
+— Slavery: transatlantic slave trade — estimated 12 million enslaved people
+— Extraction: raw materials taken, colonies kept deliberately underdeveloped
+— Cultural destruction: indigenous languages, religions, traditions suppressed
+— Violence: Mau Mau, Amritsar massacre, Bengal famine — direct colonial harm</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">5</div>
+                <div class="stage-title">The Debate</div>
+                <div class="stage-hint">20 min · Oxford-style structured debate</div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Structure</label>
+                    <textarea id="s5act">Motion: "This house believes that the British Empire was, on balance, a force for good."
+
+FOR opens — 2 min (disruptive student leads: high-status, structured role)
+AGAINST opens — 2 min
+FOR: second argument — 90 sec
+AGAINST: second argument — 90 sec
+Open floor — 10 min (hands up, teacher facilitates, notes errors silently)
+AGAINST closing statement — 1 min
+FOR closing statement — 1 min
+Class vote — hands up FOR / AGAINST / ABSTAIN
+
+Teacher does NOT interrupt during the debate. Error notes taken on paper for post-task feedback.</textarea>
+                </div>
+                <div class="field">
+                    <label>Teacher role during the debate</label>
+                    <textarea id="s5role">Facilitator only — not participant. Chair the debate formally: "I now invite the FOR side to open." Keep time visibly. During open floor, manage turn-taking: "Thank you — the AGAINST side?" Note good language use AND errors on paper (not on board — students should not see this yet). Dyslexic student: invite to contribute during open floor rather than formal speaking slot — lower stakes, self-selected timing.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 6 -->
+        <div class="stage-block">
+            <div class="stage-header">
+                <div class="stage-num">6</div>
+                <div class="stage-title">Feedback &amp; Wrap-up</div>
+                <div class="stage-hint">5 min · language feedback, exit task</div>
+            </div>
+            <div class="field">
+                <label>Activity</label>
+                <textarea id="s6act">1. Class votes: FOR / AGAINST / ABSTAIN — hands up. Brief discussion: "Did anyone change their mind? Why?"
+
+2. Language feedback on board (2–3 min): write 3 excellent phrases used in the debate (with student initials as praise). Then 2–3 reformulations — write the error and the corrected version side by side, without naming the student. Students copy corrections into notebooks.
+
+3. Exit ticket (written, 1 min): "The British Empire's greatest achievement was… / The British Empire's greatest harm was…" — collected for formative review before next lesson.</textarea>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ARGUMENT BANK VISUAL -->
+        <div class="section">
+            <h2>FOR vs AGAINST — visual argument map</h2>
+            <p style="font-size:0.9em;color:#555;margin-bottom:14px;">Project this during preparation stage or print for groups.</p>
+            <div class="debate-grid">
+                <div class="debate-side for">
+                    <span class="side-label">FOR the motion</span>
+                    <ul>
+                        <li>Railways, roads, hospitals and schools built in colonies</li>
+                        <li>English became a global lingua franca — economic opportunity today</li>
+                        <li>56 Commonwealth nations voluntarily remain — ongoing partnership</li>
+                        <li>Parliamentary democracy and rule of law spread globally</li>
+                        <li>The Great Exhibition (1851) — Britain led global industrial progress</li>
+                    </ul>
+                </div>
+                <div class="debate-side against">
+                    <span class="side-label">AGAINST the motion</span>
+                    <ul>
+                        <li>Transatlantic slave trade — estimated 12 million people enslaved</li>
+                        <li>Colonies kept deliberately underdeveloped to serve British extraction</li>
+                        <li>Indigenous languages, religions and cultures systematically suppressed</li>
+                        <li>Amritsar massacre, Bengal famine, Mau Mau — direct colonial violence</li>
+                        <li>Oliver Twist's world: poverty and exploitation at home AND in the empire</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4 -->
+    <div id="tab4" class="tab-content">
+        <div class="tip-box">
+            <strong>Key panel point:</strong> Lesson 1 used PPP + CLIL. Lesson 2 uses CLT. This shows the panel she can select and justify different methodologies for different learning objectives within the same unit.
+        </div>
+        <div class="section">
+            <h2>My methodology choices</h2>
+            <div class="field">
+                <label>Why CLT for this lesson?</label>
+                <textarea id="methJust" class="tall">I chose Communicative Language Teaching for Lesson 2 because the learning objective is communicative competence — specifically, the ability to argue, concede and rebut in spoken English. In CLT, the communicative task drives the lesson; language input serves the task rather than preceding it. The debate creates a genuine communicative purpose: students actually want to persuade the room. This is in contrast to Lesson 1, which used PPP to build content knowledge — demonstrating that I select methodology based on the specific objective, not habit. The lesson also reflects the CEFR action-oriented approach: students are social agents engaged in a real act of persuasion, not a simulated drill. By building on Lesson 1's jigsaw knowledge, the unit as a whole demonstrates progression from comprehension to production, and from knowledge to critical evaluation — a key principle of both the Indicazioni Nazionali and communicative language pedagogy.</textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>ICT integration</label>
+                <textarea id="ict">IWB: two-image visual hook (Great Exhibition + workhouse) projected at lesson opening. Live two-column FOR/AGAINST table built on IWB during Stage 2. Optional: Mentimeter or Padlet for anonymous exit ticket responses (allows dyslexic student to type rather than handwrite). Timer displayed on IWB during the debate.</textarea>
+            </div>
+            <div class="field" style="margin-top:12px;">
+                <label>Inclusion / UDL notes</label>
+                <textarea id="inclusion">Dyslexic student: debate phrase card on desk throughout all stages — permanent scaffold, not a crutch. No cold-calling. Invited to contribute during open floor (self-selected timing). Exit ticket can be typed on phone or typed rather than handwritten. Visual argument map reduces reading load during preparation.
+
+Disruptive student: assigned the FOR opening speaker role before the lesson — a high-status, structured responsibility. Clear task, clear timing, clear audience. Energy is channelled into preparation and performance from the start. Movement between stages (returning to jigsaw groups in Stage 2) provides legitimate physical activity. Positive reinforcement immediately after opening speech.</textarea>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="phrase-bank">
+            <h3>Presenting Lesson 2 to the panel — key phrases</h3>
+            <div class="phrase" onclick="copyPhrase(this)">In Lesson 1 I used <em>PPP + CLIL</em> to build content knowledge. In Lesson 2 I shifted to <em>CLT</em> because the objective had changed — from knowing about the empire to evaluating it. Methodology should serve the objective, not the reverse.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The debate creates a genuine <em>information gap</em> in the sense that neither side knows what the other will argue — students must listen, process, and respond in real time. This is authentic communicative pressure.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The two images — the <em>Great Exhibition and the workhouse</em> — embody the debate motion visually. Students feel the contradiction before they articulate it. This activates critical thinking before any language input.</div>
+            <div class="phrase" onclick="copyPhrase(this)">The progression across the two lessons reflects <em>Bloom's Taxonomy</em>: Lesson 1 builds knowledge and comprehension; Lesson 2 requires analysis, evaluation and synthesis — the higher-order thinking skills.</div>
+            <div class="phrase" onclick="copyPhrase(this)">I used <em>delayed, selective error correction</em> during the debate — noting errors silently and feeding back after the task. This maintains fluency and communicative confidence, consistent with CLT principles.</div>
+            <div class="phrase" onclick="copyPhrase(this)">Assigning the disruptive student the <em>opening speaker</em> role applies a <em>positive behaviour support</em> approach — the student is given status and responsibility rather than restriction, which research shows is more effective for engagement.</div>
+        </div>
+    </div>
+
+    <!-- TAB 5 -->
+    <div id="tab5" class="tab-content">
+        <div class="section">
+            <h2>Formative Assessment</h2>
+            <div class="field">
+                <label>How will you check understanding during the lesson?</label>
+                <textarea id="formative">During debate preparation: teacher circulates and checks quality of arguments — are students drawing on Lesson 1 evidence? Are they using target language from the phrase card? Prompt questions used to extend thinking. During the debate: silent observational assessment — teacher notes strong language use AND systematic errors on paper. Post-debate language feedback on board: reformulations (correct version next to error, no student named).</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Summative / Follow-up</h2>
+            <div class="field">
+                <label>Homework or next lesson assessment</label>
+                <textarea id="summative">Written task: a structured paragraph (100–120 words) responding to the debate motion — "Was the British Empire a force for good or bad?" Students must include: a clear position, two pieces of evidence, one concession to the opposing view, and a conclusion using "On balance…" This assesses both content knowledge (Lesson 1) and debate language (Lesson 2) in written form.</textarea>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Self-Assessment</h2>
+            <div class="field">
+                <label>How will students reflect on their own learning?</label>
+                <textarea id="selfAssess">After the class vote, teacher asks: "Did anyone change their mind during the debate? Raise your hand." Brief open question: "What argument was most persuasive — and why?" This prompts metacognitive reflection on the quality of argumentation, not just the content. Students assess whose language was most effective, which models the target register for their own future use.</textarea>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="section">
+            <h2>Pre-submission checklist — Lesson 2</h2>
+            <ul class="checklist">
+                <li><input type="checkbox" checked><span>Clear communicative aim (SWBAT argue, concede and rebut in spoken English)</span></li>
+                <li><input type="checkbox" checked><span>CEFR B2 descriptor addressed (spoken interaction + spoken production)</span></li>
+                <li><input type="checkbox" checked><span>Every stage timed and purposeful (totals 60 min)</span></li>
+                <li><input type="checkbox" checked><span>CLT methodology justified — contrast with Lesson 1 shows range</span></li>
+                <li><input type="checkbox" checked><span>ICT integrated (IWB, optional Mentimeter/Padlet)</span></li>
+                <li><input type="checkbox" checked><span>Both SEN students accommodated with specific, named strategies</span></li>
+                <li><input type="checkbox" checked><span>Error correction approach justified (delayed, selective — CLT principle)</span></li>
+                <li><input type="checkbox" checked><span>Unit progression explained: Lesson 1 (knowledge) → Lesson 2 (evaluation)</span></li>
+                <li><input type="checkbox" checked><span>Bloom's Taxonomy referenced for unit-level progression</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 6 -->
+    <div id="tab6" class="tab-content">
+        <div class="tip-box">
+            <strong>The panel may ask about the unit as a whole</strong> — not just this lesson. Be ready to explain the progression from Lesson 1 to Lesson 2 and why you chose different methodologies.
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why did you choose CLT for this lesson when Lesson 1 used PPP?</div>
+            <div class="qa-hint">Show methodological awareness — you chose based on objective, not habit.</div>
+            <div class="field"><textarea>Lesson 1 aimed to build content knowledge about the British Empire — PPP was appropriate because students needed new vocabulary and concepts before they could use them. Lesson 2 aims to develop communicative competence — specifically, the ability to argue and evaluate. CLT is the right methodology here because the communicative task — the debate — is the point. Everything else serves it. Selecting different methodologies for different objectives demonstrates that I understand pedagogy as purposeful, not formulaic.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How do the two lessons form a coherent unit?</div>
+            <div class="qa-hint">Bloom's Taxonomy — knowledge → evaluation. Lesson 1 feeds Lesson 2.</div>
+            <div class="field"><textarea>The unit follows the progression of Bloom's Taxonomy. Lesson 1 operates at the knowledge and comprehension levels — students learn what the British Empire was through the jigsaw. Lesson 2 operates at the analysis and evaluation levels — students use that knowledge to argue a position. The jigsaw expert knowledge becomes the evidence base for the debate. Students walk into Lesson 2 already armed — the second lesson builds directly on the first, rather than starting from scratch.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why a debate specifically — why not a discussion or a written task?</div>
+            <div class="qa-hint">Authentic communicative pressure, CEFR B2 spoken interaction, student motivation.</div>
+            <div class="field"><textarea>A debate creates genuine communicative pressure that a discussion does not — students must listen to the opposing side and respond in real time, which is authentic language use. It also addresses the CEFR B2 spoken interaction descriptor directly: sustaining and defending a position with evidence. And practically, a debate is highly motivating — students are competitive, they want to win, which raises engagement and the quality of language output far above a controlled exercise.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How did you handle error correction in the debate?</div>
+            <div class="qa-hint">Delayed, selective correction — CLT principle. Distinguish fluency from accuracy tasks.</div>
+            <div class="field"><textarea>During the debate I used delayed, selective error correction — consistent with CLT principles. Interrupting during a fluency task undermines communicative confidence and stops the flow of genuine language use. I noted errors silently and addressed them after the task in the feedback stage, writing reformulations on the board without naming students. I selected only systematic or shared errors — not every mistake. This keeps the focus on meaning during the task and shifts to form only when communication is complete.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How does this lesson reflect the CEFR action-oriented approach?</div>
+            <div class="qa-hint">Students as social agents, real communicative purpose, not a simulated drill.</div>
+            <div class="field"><textarea>The debate is not a simulation — it is a real act of persuasion. Students genuinely try to convince the room. They don't know what the other side will argue, so they must process, evaluate and respond in real time. This is exactly the CEFR action-oriented approach: students as social agents performing a communicative task with a real purpose and outcome. The class vote at the end makes the purpose tangible — someone wins.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">Why use the Great Exhibition and Oliver Twist as your visual hook?</div>
+            <div class="qa-hint">Visual contradiction embodies the debate motion. Prior knowledge activated. No explanation needed.</div>
+            <div class="field"><textarea>The two images — the Crystal Palace and a workhouse scene — represent the two sides of the debate motion visually, without any explanation needed. Students feel the contradiction before they articulate it. Both images are from the same era and the same city, which makes the juxtaposition striking and immediate. Oliver Twist also connects to prior knowledge — students have watched the film — so the image activates personal, emotional engagement with the material, not just factual recall.</textarea></div>
+        </div>
+        <div class="qa-block">
+            <div class="qa-q">How do you assess the two SEN students in a debate format?</div>
+            <div class="qa-hint">Alternative pathways — oral contribution assessed, not just formal speaking slots.</div>
+            <div class="field"><textarea>For the dyslexic student, the debate format is actually more accessible than a written task — it removes the literacy barrier entirely. I assess their oral contributions during the open floor phase, where they can choose when to speak. The phrase card on their desk supports production without reducing the cognitive challenge. For the disruptive student, the formal opening speaker role is itself an assessment opportunity — a structured, timed, purposeful contribution that demonstrates both content knowledge and language ability. Both students have an alternative pathway to demonstrate achievement.</textarea></div>
+        </div>
+    </div>
+
+    <!-- TAB 7 -->
+    <div id="tab7" class="tab-content">
+        <div class="tip-box">
+            <strong>Generate your full presentation script.</strong> This covers both lessons — introduce the unit, then walk through Lesson 2. Read it aloud until it sounds natural, not read.
+        </div>
+        <button class="full-btn" onclick="generateScript()">Generate Full Presentation Script</button>
+        <div id="scriptOutput" class="output-box" style="display:none;"></div>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, name) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(name).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function val(id) {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+    }
+
+    function copyPhrase(el) {
+        const text = el.innerText;
+        navigator.clipboard.writeText(text).catch(() => {});
+        el.style.background = "#d4edda";
+        setTimeout(() => { el.style.background = ""; }, 800);
+    }
+
+    function generateScript() {
+        const topic    = val("topic") || "The British Empire: Force for Good or Bad?";
+        const motion   = val("motion") || "[DEBATE MOTION]";
+        const level    = val("level") || "B2";
+        const year     = val("year") || "Year 4";
+        const school   = val("schoolType") || "Liceo linguistico";
+        const n        = val("numStudents") || "25";
+        const dur      = val("duration") || "60 minutes";
+        const sen      = val("sen") || "";
+        const prior    = val("prior") || "";
+        const aim1     = val("aim1") || "";
+        const aim2     = val("aim2") || "";
+        const skillsP  = val("skillsP") || "";
+        const cefr     = val("cefr") || "";
+        const s1       = val("s1act") || "";
+        const s2       = val("s2act") || "";
+        const s3       = val("s3act") || "";
+        const s4       = val("s4act") || "";
+        const s5       = val("s5act") || "";
+        const s6       = val("s6act") || "";
+        const methJust = val("methJust") || "";
+        const ict      = val("ict") || "";
+        const inclusion= val("inclusion") || "";
+        const formative= val("formative") || "";
+        const summative= val("summative") || "";
+
+        let s = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+        s += "  CONCORSO AB24 — LESSON 2 PRESENTATION SCRIPT\n";
+        s += "  " + topic + "\n";
+        s += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+        s += "UNIT CONTEXT\n────────────\n";
+        s += "\"I am presenting a two-lesson unit on the British Empire for a " + level + " class, ";
+        s += year + " at a " + school + ", with " + n + " students.\n";
+        if (sen) s += "The class includes: " + sen + ".\n";
+        s += "\nLesson 1 used PPP combined with CLIL and a jigsaw activity to build content knowledge ";
+        s += "— students became experts on different aspects of the empire: political impact, economic impact, ";
+        s += "cultural impact, the Commonwealth, and resistance and legacy.\n";
+        s += "\nLesson 2 — which I will now present — moves from knowledge to evaluation. ";
+        s += "The question driving this lesson is: " + motion + "\"\n\n";
+
+        s += "LEARNING AIMS — LESSON 2\n────────────────────────\n";
+        if (aim1) s += "\"By the end of this lesson, students will be able to " + aim1 + ".\"\n";
+        if (aim2) s += "\"Secondary aim: students will " + aim2 + ".\"\n";
+        if (skillsP) s += "\"Productive skills focus: " + skillsP + ".\"\n";
+        if (cefr) s += "\"CEFR descriptor: " + cefr + "\"\n";
+        s += "\n";
+
+        s += "LESSON STRUCTURE — CLT\n──────────────────────\n";
+        if (s1) s += "Stage 1 — Lead-in (5 min):\n\"" + s1 + "\"\n\n";
+        if (s2) s += "Stage 2 — Activating Expert Knowledge (8 min):\n\"" + s2 + "\"\n\n";
+        if (s3) s += "Stage 3 — Debate Language Focus (10 min):\n\"" + s3 + "\"\n\n";
+        if (s4) s += "Stage 4 — Debate Preparation (12 min):\n\"" + s4 + "\"\n\n";
+        if (s5) s += "Stage 5 — The Debate (20 min):\n\"" + s5 + "\"\n\n";
+        if (s6) s += "Stage 6 — Feedback and Wrap-up (5 min):\n\"" + s6 + "\"\n\n";
+
+        s += "METHODOLOGY JUSTIFICATION\n─────────────────────────\n";
+        if (methJust) s += "\"" + methJust + "\"\n";
+        if (ict) s += "\nICT: \"" + ict + "\"\n";
+        if (inclusion) s += "\nInclusion/UDL: \"" + inclusion + "\"\n";
+        s += "\n";
+
+        s += "ASSESSMENT\n──────────\n";
+        if (formative) s += "Formative: \"" + formative + "\"\n\n";
+        if (summative) s += "Summative: \"" + summative + "\"\n\n";
+
+        s += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+        s += "  END OF PRESENTATION\n";
+        s += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+        const box = document.getElementById("scriptOutput");
+        box.style.display = "block";
+        box.textContent = s;
+    }
+</script>
+</body>
+</html>
