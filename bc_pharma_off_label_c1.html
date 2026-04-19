@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handling an Off-Label Question From a Physician &middot; C1 Lesson</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+header .dewey { display: inline-block; background: rgba(255,255,255,0.18); padding: 4px 14px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; letter-spacing: 0.05em; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.scenario-frame { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.scenario-frame p { margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+.discussion-box ul { margin-left: 22px; margin-top: 8px; }
+.discussion-box ul li { margin-bottom: 8px; font-style: normal; color: #333; }
+.phrase-bank { background: white; border: 2px dashed #667eea; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.phrase-bank h4 { color: #764ba2; margin-bottom: 10px; }
+.phrase-bank ul { margin-left: 22px; }
+.phrase-bank ul li { margin-bottom: 8px; font-style: italic; color: #555; }
+.task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+.task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+.checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 8px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Handling an Off-Label Question From a Physician</h1>
+    <p>C1 Level &middot; Pharmaceutical Sales &middot; Compliant Communication</p>
+    <span class="dewey">Pharma &middot; Dewey 615.1</span>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">First Thoughts</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Key Language</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">The Scenario</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Reflection</button>
+</div>
+
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>First Thoughts</h2>
+        <div class="scenario-frame"><p>You are a medical science liaison sitting across from a senior oncologist. She has just asked, half-casually, whether your drug &mdash; licensed for one indication &mdash; is being used &lsquo;with any success&rsquo; for a different indication.</p><p>She is a busy, intelligent clinician who has given you her time. Promoting the drug off-label is not just poor practice; it is a regulatory breach that can end your career. But a clumsy refusal will close the door on a relationship that took eighteen months to build.</p></div>
+        <p style="margin-bottom: 15px;">Take a moment with each question below. Share as much detail as you like &mdash; specific examples, what you would actually say, what tripped you up last time.</p>
+        <div class="question-block"><h4>1. What is the real risk of answering an off-label question casually &mdash; to you, to your company, and to the patient?</h4></div>
+    <div class="question-block"><h4>2. Where is the line between <em>informing</em> a clinician and <em>promoting</em> a product? Who decides where that line sits?</h4></div>
+    <div class="question-block"><h4>3. Why do experienced MSLs sometimes say &ldquo;the refusal is the relationship&rdquo;? What do they mean by that?</h4></div>
+    <div class="question-block"><h4>4. How does a good clinician read your answer to this question? What are they actually testing?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Quick opener &mdash; pick whichever you prefer:</strong></p>
+            <ul><li>In twenty seconds, give me a refusal that protects compliance <em>and</em> keeps the conversation alive.</li><li>A compliance lead once said: &ldquo;The best MSLs make the boundary feel like a professional courtesy, not a door slammed shut.&rdquo; What do they do differently?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Key Vocabulary</h2>
+        <p>Eight words and phrases you will actually use in this conversation. Click each card to reveal the meaning, then say the word aloud and try to use it in a sentence from your own experience.</p>
+        <div class="vocab-grid">
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">off-label</span><span class="definition">A use of a drug that falls outside the indications for which it is officially licensed by the regulator.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">the label / licence</span><span class="definition">The regulator-approved document that defines how a drug may be prescribed and promoted.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">an indication</span><span class="definition">A specific medical condition that a drug is approved to treat.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to promote</span><span class="definition">To actively encourage the use of a product. Tightly regulated in pharma &mdash; promotion must match the label exactly.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">an unsolicited medical enquiry</span><span class="definition">A question from a clinician that <em>they</em> initiated, not you. Triggers specific response rules.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">medical information</span><span class="definition">A separate, non-promotional function that answers clinical questions using company-approved scientific content.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">compliance</span><span class="definition">The set of internal and external rules a company and its people must follow &mdash; especially under ABPI, FDA, EMA.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to route (a question)</span><span class="definition">To formally pass an enquiry to the team or function best placed &mdash; and legally permitted &mdash; to answer it.</span></div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Use the vocabulary &mdash; speak in full sentences:</strong></p>
+            <ul>
+                <li>Pick <strong>three</strong> words from the cards. Use each one in a sentence about your own work.</li>
+                <li>Which two are the most useful to you right now? Which one is the hardest to remember? Why?</li>
+                <li>Which one of these words would you <em>never</em> say out loud to a client? Which would you use with a colleague but not a client?</li>
+            </ul>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 1</h4>
+            <p style="margin: 10px 0;">&ldquo;That&rsquo;s an ____ medical enquiry, and the right place for me to route it is our Medical Information team.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>unsolicited</strong> &mdash; The exact regulatory term. Using the phrase correctly signals you know where the line is.</div>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 2</h4>
+            <p style="margin: 10px 0;">&ldquo;I&rsquo;m not able to ____ the product outside its licensed indication, but I can make sure your question gets a full scientific answer.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>promote</strong> &mdash; Compliance-correct verb. &lsquo;Discuss&rsquo; is too soft; &lsquo;promote&rsquo; is the regulated action.</div>
+        </div>
+    </div>
+</div>
+
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>Key Language</h2>
+        <p>Useful chunks of language for this conversation. Read each phrase aloud and think about when you would actually reach for it.</p>
+        <div class="phrase-bank"><h4>Catching the question &mdash; respectfully</h4><ul><li>&ldquo;That&rsquo;s a really important question, and it&rsquo;s one I want to make sure you get a properly answered rather than a half answer from me.&rdquo;</li><li>&ldquo;I appreciate you raising that directly &mdash; let me be transparent about where I can and can&rsquo;t help.&rdquo;</li><li>&ldquo;Before I go any further, can I just check &mdash; are you asking me in a promotional sense, or as an unsolicited clinical question?&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Naming the boundary without drama</h4><ul><li>&ldquo;What you&rsquo;re asking about is an off-label use, which I&rsquo;m not able to discuss in a promotional context.&rdquo;</li><li>&ldquo;My remit is the licensed indication; anything outside that needs to go through our Medical Information team.&rdquo;</li><li>&ldquo;I want to be straight with you: if I answered this question here, I would be acting outside my licence to speak on behalf of the company.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Keeping the door open</h4><ul><li>&ldquo;What I can do &mdash; and what I&rsquo;d love to do &mdash; is submit your question to Medical Information today, and you&rsquo;ll have a written response, with references, within forty-eight hours.&rdquo;</li><li>&ldquo;If it&rsquo;s helpful, I can also send you the published peer-reviewed literature on the area, without commentary from me.&rdquo;</li><li>&ldquo;This doesn&rsquo;t need to slow us down &mdash; I just need to route it to the right place so we both stay on safe ground.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Preserving the relationship</h4><ul><li>&ldquo;I hope you take the fact that I&rsquo;m being careful here as a sign of how seriously we take the relationship, not the opposite.&rdquo;</li><li>&ldquo;I&rsquo;d rather have this slightly awkward moment now than put either of us in a difficult position later.&rdquo;</li><li>&ldquo;If anything, the fact that I can&rsquo;t answer tells you something useful about how our team operates.&rdquo;</li></ul></div>
+        
+        <h3>Try these out</h3>
+        <p>Use at least one phrase from each group above in your answers to the mini-tasks below.</p>
+        <div class="question-block"><h4>1. Give me your opening ten seconds &mdash; the clinician has just asked the off-label question.</h4></div><div class="question-block"><h4>2. The clinician pushes back: &ldquo;Come on, off the record, what are you seeing in the field?&rdquo; How do you respond?</h4></div><div class="question-block"><h4>3. Route the enquiry formally, in one clean sentence &mdash; as if you were speaking it, not writing it.</h4></div>
+    </div>
+</div>
+
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>The Scenario</h2>
+        <div class="scenario-frame"><p><strong>The situation:</strong> You are a Medical Science Liaison for a specialty oncology drug, licensed for indication X. You have just finished a scheduled meeting with a senior oncologist at a teaching hospital. As you&rsquo;re gathering your things, she says: &ldquo;Out of interest &mdash; are any of your colleagues seeing this used for indication Y? I&rsquo;ve got a patient I&rsquo;m thinking about.&rdquo;</p><p><strong>Your task:</strong> Hold the compliance line firmly. Route the enquiry through the correct channel. Keep the relationship warm enough that she will still take your next meeting. End with her <em>better informed</em> about how to get her answer, not embarrassed about having asked.</p></div>
+        <div class="task-checklist">
+            <h3>Your response should include:</h3>
+            <div class="checklist-item"><input type="checkbox" id="c1"><label for="c1">A response that <strong>acknowledges the legitimacy</strong> of her question before the refusal</label></div><div class="checklist-item"><input type="checkbox" id="c2"><label for="c2">An explicit naming of &lsquo;off-label&rsquo; and of the compliance boundary &mdash; no vagueness</label></div><div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">A formal offer to <strong>route the enquiry</strong> through Medical Information</label></div><div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">At least two <strong>relationship-preserving phrases</strong> from Tab 3</label></div><div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">A concrete next step with <em>timing</em> &mdash; not a vague &lsquo;I&rsquo;ll get back to you&rsquo;</label></div><div class="checklist-item"><input type="checkbox" id="c6"><label for="c6">A closing line that invites her to ask again in future without worry</label></div>
+        </div>
+        <h3>Step 1 &middot; Plan your response</h3>
+        <p>Use the timer. Make notes &mdash; do not write full sentences. Think about <strong>what you will say first</strong>.</p>
+        <div class="timer">
+            <span>Strategy time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+        <textarea class="textarea-box" placeholder="Jot down your opening line, your key points, and any phrases from Tab 3 you want to use..."></textarea>
+        <h3 style="margin-top: 25px;">Step 2 &middot; Deliver</h3>
+        <p>When you are ready, role-play the conversation out loud. Be ready to handle the follow-up questions below.</p>
+        <div class="discussion-box">
+            <p><strong>Follow-up questions to handle:</strong></p>
+            <ul><li>Come on &mdash; off the record, what are you seeing in the field?</li><li>If I submit it formally, how do I know I&rsquo;ll get a real answer and not corporate boilerplate?</li><li>Can you at least point me to a paper? That can&rsquo;t be off-limits.</li><li>I have to decide on this patient this week &mdash; does your process understand that?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Reflection</h2>
+        <p>The most important part. What did you notice, what surprised you, what will you try differently next week?</p>
+        <div class="question-block"><h4>1. Which follow-up was hardest to hold the line on? Why that one?</h4></div>
+    <div class="question-block"><h4>2. Where is the difference between <em>firm</em> and <em>rigid</em> in this conversation?</h4></div>
+    <div class="question-block"><h4>3. What does an experienced MSL do in the silence right after the refusal? What would a junior one do wrong?</h4></div>
+    <div class="question-block"><h4>4. If you had to teach a new hire one rule about handling off-label questions, what would it be?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Looking back at today:</strong></p>
+            <ul><li>Two compliance-correct phrases you will have ready for the next meeting.</li><li>One change in how you <em>open</em> the refusal &mdash; so it doesn&rsquo;t sound like a wall.</li><li>One thing you will do afterwards to make sure the relationship stays warm.</li></ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipCard(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval); timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up!";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval); timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+
+</body>
+</html>

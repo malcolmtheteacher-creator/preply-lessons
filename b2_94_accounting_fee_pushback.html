@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handling Pushback on Fees &middot; B2 Lesson</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+header .dewey { display: inline-block; background: rgba(255,255,255,0.18); padding: 4px 14px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; letter-spacing: 0.05em; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.scenario-frame { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.scenario-frame p { margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+.discussion-box ul { margin-left: 22px; margin-top: 8px; }
+.discussion-box ul li { margin-bottom: 8px; font-style: normal; color: #333; }
+.phrase-bank { background: white; border: 2px dashed #667eea; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.phrase-bank h4 { color: #764ba2; margin-bottom: 10px; }
+.phrase-bank ul { margin-left: 22px; }
+.phrase-bank ul li { margin-bottom: 8px; font-style: italic; color: #555; }
+.task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+.task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+.checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 8px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Handling Pushback on Fees</h1>
+    <p>B2 Level &middot; Accounting &middot; Client Negotiation</p>
+    <span class="dewey">Accounting & Audit &middot; Dewey 657</span>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">First Thoughts</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Key Language</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">The Scenario</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Reflection</button>
+</div>
+
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>First Thoughts</h2>
+        <div class="scenario-frame"><p>A client you have worked with for years has pushed back on this year&rsquo;s fees. The relationship matters. So does the price. How do you hold the line without losing the client?</p><p>Fee conversations feel personal, but the best ones are structured. In this lesson, you practise defending the fee with calm, specific language &mdash; not apology.</p></div>
+        <p style="margin-bottom: 15px;">Take a moment with each question below. Share as much detail as you like &mdash; specific examples, what you would actually say, what tripped you up last time.</p>
+        <div class="question-block"><h4>1. When was the last time a client complained about your fees? What did they actually say?</h4></div>
+    <div class="question-block"><h4>2. What is the difference between a client who wants a discount and a client who wants to feel listened to?</h4></div>
+    <div class="question-block"><h4>3. Do you think long-standing clients deserve a special fee? Why or why not?</h4></div>
+    <div class="question-block"><h4>4. How do you feel when <em>you</em> get a bill you think is too high? What do you want the other person to say?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Quick opener &mdash; pick whichever you prefer:</strong></p>
+            <ul><li>Someone tells you: &ldquo;Your fees are higher than last year.&rdquo; What is the first thing you want to know before you respond?</li><li>A partner once said: &ldquo;Never negotiate a fee in the same email the client complained.&rdquo; Do you agree?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Key Vocabulary</h2>
+        <p>Eight words and phrases you will actually use in this conversation. Click each card to reveal the meaning, then say the word aloud and try to use it in a sentence from your own experience.</p>
+        <div class="vocab-grid">
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to justify (a fee)</span><span class="definition">To explain clearly why the amount is fair, based on scope, complexity, or time.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">scope</span><span class="definition">The amount and type of work agreed for the fee. Often shown as a list of deliverables.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a fee estimate / a quote</span><span class="definition">The price given at the start of the work &mdash; usually a prediction, not a fixed contract.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to push back (on something)</span><span class="definition">To disagree politely and ask for a change. Common in business English.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">value for money</span><span class="definition">The feeling that what you paid is worth what you got.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">line item</span><span class="definition">A single entry on an invoice &mdash; one specific task or cost.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">goodwill</span><span class="definition">The positive feeling built between client and firm over time. Can be spent, damaged, or earned.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to stand behind (a fee / a decision)</span><span class="definition">To defend it confidently because you believe it is fair.</span></div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Use the vocabulary &mdash; speak in full sentences:</strong></p>
+            <ul>
+                <li>Pick <strong>three</strong> words from the cards. Use each one in a sentence about your own work.</li>
+                <li>Which two are the most useful to you right now? Which one is the hardest to remember? Why?</li>
+                <li>Which one of these words would you <em>never</em> say out loud to a client? Which would you use with a colleague but not a client?</li>
+            </ul>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 1</h4>
+            <p style="margin: 10px 0;">&ldquo;I can see the number looks higher than last year. Let me walk you through each ____ so you can see what changed.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>line item</strong> &mdash; Turning a vague complaint into a specific conversation by going line-by-line.</div>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 2</h4>
+            <p style="margin: 10px 0;">&ldquo;I hear you, and I ____ this fee &mdash; but I want to understand what changed on your side this year.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>stand behind</strong> &mdash; Confident, calm defence. Not defensive, not apologetic.</div>
+        </div>
+    </div>
+</div>
+
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>Key Language</h2>
+        <p>Useful chunks of language for this conversation. Read each phrase aloud and think about when you would actually reach for it.</p>
+        <div class="phrase-bank"><h4>Listening first</h4><ul><li>&ldquo;Thanks for being direct with me &mdash; I would rather hear this now than at the end of the year.&rdquo;</li><li>&ldquo;Before I respond, can I ask you what specifically feels high to you?&rdquo;</li><li>&ldquo;Help me understand what has changed for you this year.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Defending the fee calmly</h4><ul><li>&ldquo;The fee reflects the additional complexity we took on in Q2 &mdash; let me show you where.&rdquo;</li><li>&ldquo;I stand behind this number. Let me walk you through the line items.&rdquo;</li><li>&ldquo;The scope this year was about fifteen per cent larger than last year &mdash; the fee is in line with that.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Offering flexibility without folding</h4><ul><li>&ldquo;I cannot move on the fee itself, but I can look at the payment terms.&rdquo;</li><li>&ldquo;What I can do is agree a fixed fee for next year, so you are not surprised again.&rdquo;</li><li>&ldquo;I would rather talk about scope than price. If you need me to take something out, that is a different conversation.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Closing calmly</h4><ul><li>&ldquo;I value this relationship &mdash; that is exactly why I want us to be clear now, not at year-end.&rdquo;</li><li>&ldquo;Let me send you a written summary of what we discussed, and we pick this up Friday.&rdquo;</li><li>&ldquo;Thank you for being honest. I would rather work through this than have it sitting between us.&rdquo;</li></ul></div>
+        
+        <h3>Try these out</h3>
+        <p>Use at least one phrase from each group above in your answers to the mini-tasks below.</p>
+        <div class="question-block"><h4>1. The client says the fee is &ldquo;shockingly high.&rdquo; Respond in three sentences without apologising or dropping the price.</h4></div><div class="question-block"><h4>2. The client says: &ldquo;Firm X would do this for twenty per cent less.&rdquo; How do you respond?</h4></div><div class="question-block"><h4>3. Offer <strong>flexibility</strong> (payment terms, timing, scope) without actually reducing the fee.</h4></div>
+    </div>
+</div>
+
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>The Scenario</h2>
+        <div class="scenario-frame"><p><strong>The situation:</strong> You have audited this client for six years. The invoice for this year&rsquo;s audit is about eleven per cent higher than last year. The CFO &mdash; who you get on with personally &mdash; has emailed: &ldquo;I need to talk to you about your fees. I am not happy.&rdquo;</p><p><strong>Your task:</strong> Call the CFO back. By the end of a ten-minute conversation the CFO should feel (a) listened to, (b) that the fee is defensible, and (c) that the relationship is still strong &mdash; whether or not anything changes.</p></div>
+        <div class="task-checklist">
+            <h3>Your response should include:</h3>
+            <div class="checklist-item"><input type="checkbox" id="c1"><label for="c1">You <strong>listen first</strong> before defending anything</label></div><div class="checklist-item"><input type="checkbox" id="c2"><label for="c2">You go <strong>line-by-line</strong> rather than defending the total in the abstract</label></div><div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">You use <strong>at least two</strong> phrases from Tab 3</label></div><div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">You offer flexibility on <strong>terms or scope</strong>, not on fee</label></div><div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">You do not apologise for the fee itself</label></div><div class="checklist-item"><input type="checkbox" id="c6"><label for="c6">You end with a clear next step (email, follow-up call, revised scope note)</label></div>
+        </div>
+        <h3>Step 1 &middot; Plan your response</h3>
+        <p>Use the timer. Make notes &mdash; do not write full sentences. Think about <strong>what you will say first</strong>.</p>
+        <div class="timer">
+            <span>Planning time: <strong><span id="timer-display">5:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+        <textarea class="textarea-box" placeholder="Jot down your opening line, your key points, and any phrases from Tab 3 you want to use..."></textarea>
+        <h3 style="margin-top: 25px;">Step 2 &middot; Deliver</h3>
+        <p>When you are ready, role-play the conversation out loud. Be ready to handle the follow-up questions below.</p>
+        <div class="discussion-box">
+            <p><strong>Follow-up questions to handle:</strong></p>
+            <ul><li>Firm X quoted me twenty per cent less. Why are you so much more expensive?</li><li>You never told me the fee was going up this year.</li><li>Can you do me a one-off goodwill discount of ten per cent?</li><li>What will the fee look like next year? I cannot keep having this conversation.</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Reflection</h2>
+        <p>The most important part. What did you notice, what surprised you, what will you try differently next week?</p>
+        <div class="question-block"><h4>1. Which was hardest &mdash; staying calm, or staying specific? Why?</h4></div>
+    <div class="question-block"><h4>2. When you defended the fee, did your voice sound certain? Try it again.</h4></div>
+    <div class="question-block"><h4>3. What is the difference between &ldquo;I am sorry the fee is high&rdquo; and &ldquo;I understand this feels high&rdquo;? Which is better, and why?</h4></div>
+    <div class="question-block"><h4>4. If you had to say <strong>yes</strong> to a small concession to save the relationship, what would you give up first?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Looking back at today:</strong></p>
+            <ul><li>Two phrases you will use the next time a client complains about money.</li><li>One thing you will do <em>before</em> replying in writing to a fee complaint.</li><li>One habit you will build to avoid fee shocks in the first place.</li></ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipCard(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 300;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval); timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up!";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval); timerInterval = null;
+    timeRemaining = 300;
+    document.getElementById("timer-display").textContent = "5:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+
+</body>
+</html>

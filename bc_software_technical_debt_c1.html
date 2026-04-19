@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communicating Technical Debt to the Business &middot; C1 Lesson</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+header .dewey { display: inline-block; background: rgba(255,255,255,0.18); padding: 4px 14px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; letter-spacing: 0.05em; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.scenario-frame { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.scenario-frame p { margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+.discussion-box ul { margin-left: 22px; margin-top: 8px; }
+.discussion-box ul li { margin-bottom: 8px; font-style: normal; color: #333; }
+.phrase-bank { background: white; border: 2px dashed #667eea; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.phrase-bank h4 { color: #764ba2; margin-bottom: 10px; }
+.phrase-bank ul { margin-left: 22px; }
+.phrase-bank ul li { margin-bottom: 8px; font-style: italic; color: #555; }
+.task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+.task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+.checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 8px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Communicating Technical Debt to the Business</h1>
+    <p>C1 Level &middot; Software Development &middot; Cross-Functional Communication</p>
+    <span class="dewey">Software Development &middot; Dewey 005</span>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">First Thoughts</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Key Language</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">The Scenario</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Reflection</button>
+</div>
+
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>First Thoughts</h2>
+        <div class="scenario-frame"><p>Your team needs two sprints to pay down technical debt. The product director wants those sprints to ship features. She is not wrong &mdash; but she is not seeing what you are seeing.</p><p>The challenge is that <em>technical debt</em> is an engineering metaphor that rarely survives the journey into a boardroom. Today, you practise translating.</p></div>
+        <p style="margin-bottom: 15px;">Take a moment with each question below. Share as much detail as you like &mdash; specific examples, what you would actually say, what tripped you up last time.</p>
+        <div class="question-block"><h4>1. How do you currently explain technical debt to non-engineers? What analogy, if any, do you reach for?</h4></div>
+    <div class="question-block"><h4>2. Why do business stakeholders so often say yes to features and no to debt paydown, even when they logically accept the argument?</h4></div>
+    <div class="question-block"><h4>3. When, in your experience, does technical debt finally &lsquo;get heard&rsquo; &mdash; and what usually changes?</h4></div>
+    <div class="question-block"><h4>4. Is there debt your team <em>chose</em> deliberately? How did you communicate that at the time?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Quick opener &mdash; pick whichever you prefer:</strong></p>
+            <ul><li>Someone once said: &ldquo;Technical debt is a loan the business doesn&rsquo;t remember taking out.&rdquo; What is good about that metaphor &mdash; and what does it miss?</li><li>Your product director says: &ldquo;We shipped fine last year &mdash; why is this suddenly an emergency?&rdquo; What is your opening sentence?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Key Vocabulary</h2>
+        <p>Eight words and phrases you will actually use in this conversation. Click each card to reveal the meaning, then say the word aloud and try to use it in a sentence from your own experience.</p>
+        <div class="vocab-grid">
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">technical debt</span><span class="definition">Work that was deliberately or accidentally left incomplete, which adds friction to every future change.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to pay down (debt)</span><span class="definition">To do the cleanup work that removes the friction &mdash; usually by rewriting, refactoring, or retiring old code.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a bottleneck</span><span class="definition">A point in the system where progress is slowed because too much depends on too few components &mdash; or too few people.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">velocity</span><span class="definition">The rate at which a team ships value. Technical debt usually drags velocity down invisibly.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">brittle</span><span class="definition">Describing code or systems that work, but break easily when touched. The opposite of <em>robust</em>.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a workaround</span><span class="definition">A temporary fix that avoids the real problem but leaves it in place for later.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">scope creep</span><span class="definition">The slow growth of a piece of work beyond what was originally agreed &mdash; often invisible until it hurts.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a proof of concept (PoC)</span><span class="definition">A small, cheap test of whether an approach works &mdash; before committing to building it fully.</span></div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Use the vocabulary &mdash; speak in full sentences:</strong></p>
+            <ul>
+                <li>Pick <strong>three</strong> words from the cards. Use each one in a sentence about your own work.</li>
+                <li>Which two are the most useful to you right now? Which one is the hardest to remember? Why?</li>
+                <li>Which one of these words would you <em>never</em> say out loud to a client? Which would you use with a colleague but not a client?</li>
+            </ul>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 1</h4>
+            <p style="margin: 10px 0;">&ldquo;Every new feature now takes twenty per cent longer because our deployment pipeline is ____ &mdash; one small change can knock everything over.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>brittle</strong> &mdash; Precise engineering word for fragile systems that the business can actually visualise.</div>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 2</h4>
+            <p style="margin: 10px 0;">&ldquo;We are not asking for a rewrite &mdash; we are asking for two sprints to ____ the debt that is slowing every team down.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>pay down</strong> &mdash; The financial metaphor works in business conversations because everyone understands debt repayment.</div>
+        </div>
+    </div>
+</div>
+
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>Key Language</h2>
+        <p>Useful chunks of language for this conversation. Read each phrase aloud and think about when you would actually reach for it.</p>
+        <div class="phrase-bank"><h4>Translating the metaphor</h4><ul><li>&ldquo;Think of this like interest on a loan &mdash; we took it on deliberately, but we are now paying it every single sprint.&rdquo;</li><li>&ldquo;Every feature we ship is about twenty per cent slower than it should be, and the cost is compounding.&rdquo;</li><li>&ldquo;We have reached the point where we spend more energy keeping the system upright than we do building on it.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Making it measurable</h4><ul><li>&ldquo;Last quarter we lost the equivalent of fourteen engineering days to one brittle deployment path.&rdquo;</li><li>&ldquo;If we invest two sprints now, we estimate velocity improves by about twenty-five per cent for the rest of the year.&rdquo;</li><li>&ldquo;The cost of <em>not</em> doing this is not zero &mdash; it just does not show up in a single line on a roadmap.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Asking for the right thing</h4><ul><li>&ldquo;I am not asking you to choose debt paydown over features &mdash; I am asking you to let us protect fifteen per cent of every sprint for it.&rdquo;</li><li>&ldquo;Give me two sprints and I will give you back a team that ships a feature a week for the rest of the year.&rdquo;</li><li>&ldquo;What I need from you today is permission, not sympathy.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Handling pushback</h4><ul><li>&ldquo;I understand. Let me tell you what happens if we defer it again.&rdquo;</li><li>&ldquo;You are right that we shipped fine last year. The point is that we are spending more to ship the same thing this year.&rdquo;</li><li>&ldquo;I would rather do this visibly, with your agreement, than quietly &mdash; which is what happens if I do not raise it.&rdquo;</li></ul></div>
+        
+        <h3>Try these out</h3>
+        <p>Use at least one phrase from each group above in your answers to the mini-tasks below.</p>
+        <div class="question-block"><h4>1. Explain <em>technical debt</em> to a non-technical stakeholder in thirty seconds &mdash; using an analogy but <strong>without</strong> using the phrase &ldquo;technical debt&rdquo;.</h4></div><div class="question-block"><h4>2. The product director says: &ldquo;Every engineering team asks for this. Why is yours special?&rdquo; How do you respond?</h4></div><div class="question-block"><h4>3. Make the <strong>business case</strong> for two sprints of paydown in three sentences &mdash; with at least one number.</h4></div>
+    </div>
+</div>
+
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>The Scenario</h2>
+        <div class="scenario-frame"><p><strong>The situation:</strong> You are tech lead on a platform team. Deployment now takes forty minutes (up from eight a year ago). Three of your six engineers quietly flagged in the last retro that they are tired of working around the same five issues. Your product director has a roadmap of feature commitments signed off with the CEO. She has just said in standup: &ldquo;We do not have time for an engineering holiday.&rdquo;</p><p><strong>Your task:</strong> Book a 45-minute meeting with her. Leave with her explicit agreement for <strong>either</strong> two dedicated paydown sprints, <strong>or</strong> a permanent fifteen per cent capacity reservation for debt work, justified in business terms.</p></div>
+        <div class="task-checklist">
+            <h3>Your response should include:</h3>
+            <div class="checklist-item"><input type="checkbox" id="c1"><label for="c1">An opening that <strong>translates the metaphor</strong> away from engineering jargon</label></div><div class="checklist-item"><input type="checkbox" id="c2"><label for="c2">At least <strong>one specific number</strong> showing the current cost (days lost, percent of velocity, incident count)</label></div><div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">A clear ask &mdash; <strong>not</strong> &lsquo;let us do the right thing&rsquo;</label></div><div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">Acknowledgement that she is under her own pressure</label></div><div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">A concrete <strong>alternative</strong> if she cannot give you two sprints</label></div><div class="checklist-item"><input type="checkbox" id="c6"><label for="c6">An agreed follow-up moment to measure whether it worked</label></div>
+        </div>
+        <h3>Step 1 &middot; Plan your response</h3>
+        <p>Use the timer. Make notes &mdash; do not write full sentences. Think about <strong>what you will say first</strong>.</p>
+        <div class="timer">
+            <span>Strategy time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+        <textarea class="textarea-box" placeholder="Jot down your opening line, your key points, and any phrases from Tab 3 you want to use..."></textarea>
+        <h3 style="margin-top: 25px;">Step 2 &middot; Deliver</h3>
+        <p>When you are ready, role-play the conversation out loud. Be ready to handle the follow-up questions below.</p>
+        <div class="discussion-box">
+            <p><strong>Follow-up questions to handle:</strong></p>
+            <ul><li>The CEO signed off this roadmap. What am I supposed to take out?</li><li>Every engineering team says this. How do I know you are not asking for a holiday?</li><li>If I give you two sprints, what can I hold you to at the end of it?</li><li>If we do nothing, when does it actually break?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Reflection</h2>
+        <p>The most important part. What did you notice, what surprised you, what will you try differently next week?</p>
+        <div class="question-block"><h4>1. Which analogy worked best for you &mdash; debt, interest, friction, tax, drag? Why?</h4></div>
+    <div class="question-block"><h4>2. When you gave a number, did you feel more credible? Did you feel exposed?</h4></div>
+    <div class="question-block"><h4>3. How would you change your approach if the stakeholder was the CEO, not the product director?</h4></div>
+    <div class="question-block"><h4>4. What habit will you build so this conversation is easier <em>next</em> time &mdash; so it does not become an emergency?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Looking back at today:</strong></p>
+            <ul><li>One number you will track from now on to make this case in advance.</li><li>One phrase you will use the next time you translate engineering to business.</li><li>One thing you will do differently in the <em>opening line</em>.</li></ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipCard(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval); timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up!";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval); timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+
+</body>
+</html>

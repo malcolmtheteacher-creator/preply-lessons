@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explaining a Service Outage to the Business &middot; B2 Lesson</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+header .dewey { display: inline-block; background: rgba(255,255,255,0.18); padding: 4px 14px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; letter-spacing: 0.05em; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.scenario-frame { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.scenario-frame p { margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+.discussion-box ul { margin-left: 22px; margin-top: 8px; }
+.discussion-box ul li { margin-bottom: 8px; font-style: normal; color: #333; }
+.phrase-bank { background: white; border: 2px dashed #667eea; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.phrase-bank h4 { color: #764ba2; margin-bottom: 10px; }
+.phrase-bank ul { margin-left: 22px; }
+.phrase-bank ul li { margin-bottom: 8px; font-style: italic; color: #555; }
+.task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+.task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+.checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 8px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Explaining a Service Outage to the Business</h1>
+    <p>B2 Level &middot; IT & Systems &middot; Crisis Communication</p>
+    <span class="dewey">IT & Systems &middot; Dewey 004</span>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">First Thoughts</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Key Language</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">The Scenario</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Reflection</button>
+</div>
+
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>First Thoughts</h2>
+        <div class="scenario-frame"><p>It is 9:42am on Tuesday. Something has gone wrong with your core system. Business users cannot log in. The phones are ringing. Your engineers are investigating &mdash; but the business does not want your engineers. They want <em>you</em>, and they want to know what is happening.</p><p>Today is about explaining outages in plain English &mdash; honest, calm, and without jargon &mdash; so that the people who rely on your systems feel informed, not panicked.</p></div>
+        <p style="margin-bottom: 15px;">Take a moment with each question below. Share as much detail as you like &mdash; specific examples, what you would actually say, what tripped you up last time.</p>
+        <div class="question-block"><h4>1. When a system goes down in your organisation, who is the first non-technical person who has to be told? How soon do they hear?</h4></div>
+    <div class="question-block"><h4>2. What is the difference between a good outage message and a bad one? Can you give a real example of each?</h4></div>
+    <div class="question-block"><h4>3. Why do so many outage emails use phrases like &ldquo;intermittent issues&rdquo; or &ldquo;service degradation&rdquo;? Do you think they help or hurt?</h4></div>
+    <div class="question-block"><h4>4. If you have no update to give, what should you say?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Quick opener &mdash; pick whichever you prefer:</strong></p>
+            <ul><li>Someone once said: &ldquo;Users will forgive the outage. They will not forgive the silence.&rdquo; Do you agree?</li><li>Have you ever sent an update that said less than you actually knew? Why?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Key Vocabulary</h2>
+        <p>Eight words and phrases you will actually use in this conversation. Click each card to reveal the meaning, then say the word aloud and try to use it in a sentence from your own experience.</p>
+        <div class="vocab-grid">
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">an outage</span><span class="definition">A period when a system is not working or available.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">downtime</span><span class="definition">The total time a system is not usable.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to be affected</span><span class="definition">To feel the impact of the problem. &ldquo;Users in Europe are affected.&rdquo;</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">root cause</span><span class="definition">The underlying reason for a problem &mdash; not just the symptom.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a workaround</span><span class="definition">A temporary way to keep working while the real fix is in progress.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">to restore (a service)</span><span class="definition">To bring the system back to normal working order.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">an ETA (estimated time to resolution)</span><span class="definition">The time by which you expect the problem to be fixed.</span></div>
+        <div class="vocab-card" onclick="flipCard(this)"><span class="word">a post-mortem / incident report</span><span class="definition">A written review, after the fact, of what went wrong and what you learned.</span></div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Use the vocabulary &mdash; speak in full sentences:</strong></p>
+            <ul>
+                <li>Pick <strong>three</strong> words from the cards. Use each one in a sentence about your own work.</li>
+                <li>Which two are the most useful to you right now? Which one is the hardest to remember? Why?</li>
+                <li>Which one of these words would you <em>never</em> say out loud to a client? Which would you use with a colleague but not a client?</li>
+            </ul>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 1</h4>
+            <p style="margin: 10px 0;">&ldquo;We have identified the ____ cause and expect the service to be back within the hour.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>root</strong> &mdash; &lsquo;Root cause&rsquo; is a fixed phrase &mdash; do not say &lsquo;main cause&rsquo; or &lsquo;deep cause&rsquo;.</div>
+        </div>
+        <div class="question-block">
+            <h4>Gap-fill 2</h4>
+            <p style="margin: 10px 0;">&ldquo;In the meantime, there is a ____ &mdash; users can still access the system by going directly to the backup URL.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>workaround</strong> &mdash; A temporary solution that keeps people working. Very common in IT communications.</div>
+        </div>
+    </div>
+</div>
+
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>Key Language</h2>
+        <p>Useful chunks of language for this conversation. Read each phrase aloud and think about when you would actually reach for it.</p>
+        <div class="phrase-bank"><h4>First message &mdash; we know something is wrong</h4><ul><li>&ldquo;We are aware of an issue affecting [system] and we are investigating.&rdquo;</li><li>&ldquo;Some users are currently unable to log in. Our engineers are on it.&rdquo;</li><li>&ldquo;We will send the next update within fifteen minutes, even if we do not have new information yet.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Saying what you know &mdash; and what you don&rsquo;t</h4><ul><li>&ldquo;Here is what we know right now. Here is what we do not yet know.&rdquo;</li><li>&ldquo;We do not yet have a root cause. We expect to know more in the next thirty minutes.&rdquo;</li><li>&ldquo;I would rather tell you less, accurately, than more, inaccurately.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>Giving an ETA safely</h4><ul><li>&ldquo;Our current best estimate for full restoration is 11:30.&rdquo;</li><li>&ldquo;I want to be clear that this is an estimate, not a commitment &mdash; I will update you if anything changes.&rdquo;</li><li>&ldquo;If we are not back up by 11:30, expect another update from me at that time.&rdquo;</li></ul></div>
+        <div class="phrase-bank"><h4>After the fix &mdash; closing calmly</h4><ul><li>&ldquo;Service was fully restored at 11:17 and has been stable since.&rdquo;</li><li>&ldquo;We will share a short incident report tomorrow with the root cause and the steps we are taking.&rdquo;</li><li>&ldquo;Thank you for your patience &mdash; and for the constructive way you reported the issue.&rdquo;</li></ul></div>
+        
+        <h3>Try these out</h3>
+        <p>Use at least one phrase from each group above in your answers to the mini-tasks below.</p>
+        <div class="question-block"><h4>1. Write the <strong>first message</strong> to the business &mdash; you have been told &ldquo;something is wrong with the CRM&rdquo; and nothing more. Three sentences.</h4></div><div class="question-block"><h4>2. Write an <strong>update 30 minutes later</strong>. You still do not have the root cause. How do you write this <em>without</em> losing trust?</h4></div><div class="question-block"><h4>3. Write the <strong>&lsquo;service restored&rsquo; message</strong>. Keep it short, calm, and useful.</h4></div>
+    </div>
+</div>
+
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>The Scenario</h2>
+        <div class="scenario-frame"><p><strong>The situation:</strong> Your company&rsquo;s main sales CRM went down at 9:42 this morning. Around two hundred sales people cannot log in. You manage the IT team. Your engineers are investigating but do not yet know the cause. The Head of Sales has messaged you: &ldquo;Are we losing deals?&rdquo; The CEO has messaged: &ldquo;What is going on?&rdquo;</p><p><strong>Your task:</strong> Handle the next hour. Write (or role-play) three messages: the <strong>first alert</strong>, a <strong>30-minute update</strong>, and the <strong>all-clear</strong>. Each message should be short, honest, and in plain English.</p></div>
+        <div class="task-checklist">
+            <h3>Your response should include:</h3>
+            <div class="checklist-item"><input type="checkbox" id="c1"><label for="c1">Plain English &mdash; <strong>no</strong> unexplained acronyms</label></div><div class="checklist-item"><input type="checkbox" id="c2"><label for="c2">You say what you <strong>do not</strong> know, not only what you do</label></div><div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">You give a <strong>time for the next update</strong> &mdash; even if you have no new info</label></div><div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">You name the <strong>workaround</strong> (if any) clearly</label></div><div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">The tone is calm, not panicked and not casual</label></div><div class="checklist-item"><input type="checkbox" id="c6"><label for="c6">The final message promises an <strong>incident report</strong></label></div>
+        </div>
+        <h3>Step 1 &middot; Plan your response</h3>
+        <p>Use the timer. Make notes &mdash; do not write full sentences. Think about <strong>what you will say first</strong>.</p>
+        <div class="timer">
+            <span>Planning time: <strong><span id="timer-display">5:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+        <textarea class="textarea-box" placeholder="Jot down your opening line, your key points, and any phrases from Tab 3 you want to use..."></textarea>
+        <h3 style="margin-top: 25px;">Step 2 &middot; Deliver</h3>
+        <p>When you are ready, role-play the conversation out loud. Be ready to handle the follow-up questions below.</p>
+        <div class="discussion-box">
+            <p><strong>Follow-up questions to handle:</strong></p>
+            <ul><li>Are we losing deals right now?</li><li>Why did this happen? I thought we fixed this six months ago.</li><li>How do I tell my team when this will be back?</li><li>When will you send the incident report and who will it go to?</li></ul>
+        </div>
+    </div>
+</div>
+
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Reflection</h2>
+        <p>The most important part. What did you notice, what surprised you, what will you try differently next week?</p>
+        <div class="question-block"><h4>1. Which of the three messages was hardest to write? Why?</h4></div>
+    <div class="question-block"><h4>2. Did you feel pressure to say more than you knew? Where did that pressure come from?</h4></div>
+    <div class="question-block"><h4>3. What is the difference between being <em>reassuring</em> and being <em>honest</em>? Which mattered more?</h4></div>
+    <div class="question-block"><h4>4. What is one bad habit you want to drop in outage communications?</h4></div>
+        <div class="discussion-box">
+            <p><strong>Looking back at today:</strong></p>
+            <ul><li>One phrase you will use the next time you have no new information to share.</li><li>One rule about how <em>often</em> you will communicate during an incident.</li><li>One habit you will build for <em>closing out</em> an outage cleanly.</li></ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipCard(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 300;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval); timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up!";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval); timerInterval = null;
+    timeRemaining = 300;
+    document.getElementById("timer-display").textContent = "5:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+
+</body>
+</html>
