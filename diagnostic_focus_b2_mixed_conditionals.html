@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Time Scrambler — B2 Focus Diagnostic: Mixed Conditionals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px 20px; text-align: center;
+            border-radius: 8px; margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .score-banner {
+            background: #7c3aed; color: white; padding: 15px 25px;
+            border-radius: 6px; margin-bottom: 30px; text-align: center;
+            font-size: 1.2em; font-weight: 600; display: none;
+        }
+        .score-banner.active { display: block; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-button {
+            padding: 12px 24px; background: white; border: 2px solid #667eea;
+            color: #667eea; border-radius: 6px; cursor: pointer;
+            font-size: 1em; font-weight: 600; transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            background: #667eea; color: white; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-button.active {
+            background: #667eea; color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block {
+            background: #f8f9fa; padding: 25px; border-radius: 8px;
+            margin-bottom: 25px; border-left: 5px solid #667eea; line-height: 1.8;
+        }
+        .intro-text { font-size: 1.1em; margin-bottom: 20px; }
+        .pattern-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+            margin: 20px 0;
+        }
+        .pattern-card {
+            background: white; padding: 18px; border-radius: 8px;
+            border: 2px solid #e0e7ff;
+        }
+        .pattern-label {
+            font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.5px;
+            color: #7c3aed; font-weight: 700; margin-bottom: 8px;
+        }
+        .pattern-formula {
+            font-size: 0.95em; line-height: 1.6; margin-bottom: 10px;
+        }
+        .pattern-formula .past { background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; }
+        .pattern-formula .present { background: #d1fae5; color: #065f46; padding: 2px 6px; border-radius: 4px; }
+        .pattern-formula .past-result { background: #ede9fe; color: #5b21b6; padding: 2px 6px; border-radius: 4px; }
+        .pattern-example {
+            font-size: 0.9em; color: #555; font-style: italic;
+            background: #f8fafc; padding: 10px; border-radius: 4px;
+        }
+        .question-card {
+            background: white; padding: 25px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #ccc;
+            transition: all 0.3s ease;
+        }
+        .question-card.answered { border-left: 4px solid #7c3aed; }
+        .question-label {
+            font-size: 0.9em; color: #666; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .context-note {
+            font-size: 0.9em; color: #7c3aed; background: #ede9fe;
+            padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
+            display: inline-block;
+        }
+        .question-prompt {
+            background: #f9f9f9; padding: 18px; border-radius: 6px;
+            margin-bottom: 18px; font-size: 1.08em; color: #333;
+            border-left: 3px solid #7c3aed; line-height: 1.7;
+        }
+        .question-prompt .blank {
+            display: inline-block; min-width: 100px; border-bottom: 2px dashed #7c3aed;
+            padding: 2px 8px; color: #5b21b6; font-weight: 600;
+        }
+        .options-grid { display: grid; gap: 10px; margin-bottom: 15px; }
+        .btn-option {
+            padding: 14px 20px; border: 2px solid #ddd; background: white;
+            border-radius: 6px; cursor: pointer; font-size: 0.98em;
+            font-weight: 500; transition: all 0.3s ease; color: #333;
+            text-align: left; line-height: 1.5;
+        }
+        .btn-option:hover:not(.disabled) {
+            border-color: #7c3aed; background: #f5f3ff;
+            transform: translateX(4px);
+        }
+        .btn-option.disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-option.chosen-correct {
+            background: #d1fae5; border-color: #10b981; color: #065f46;
+        }
+        .btn-option.chosen-wrong {
+            background: #fee2e2; border-color: #ef4444; color: #7f1d1d;
+        }
+        .btn-option.revealed-correct {
+            background: #f0fdf4; border-color: #10b981; color: #065f46;
+        }
+        .feedback {
+            display: none; padding: 15px; border-radius: 6px; margin-top: 15px;
+            font-weight: 500; animation: slideIn 0.3s ease; line-height: 1.6;
+        }
+        .feedback.show { display: block; }
+        .feedback.correct {
+            background: #d1fae5; border-left: 4px solid #10b981; color: #065f46;
+        }
+        .feedback.incorrect {
+            background: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d;
+        }
+        .feedback-icon { margin-right: 8px; font-weight: 700; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar {
+            background: #ede9fe; height: 8px; border-radius: 4px;
+            overflow: hidden; margin-bottom: 25px;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #7c3aed, #6d28d9);
+            height: 100%; width: 0%; transition: width 0.4s ease;
+        }
+        .progress-text {
+            font-size: 0.9em; color: #666; text-align: center; margin-bottom: 15px;
+        }
+        .button-group-main {
+            display: flex; gap: 12px; justify-content: center; margin-top: 40px;
+        }
+        .btn-primary {
+            padding: 14px 40px; background: #7c3aed; color: white; border: none;
+            border-radius: 6px; cursor: pointer; font-size: 1.05em;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #6d28d9; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        .evidence-item {
+            background: white; padding: 20px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #7c3aed;
+        }
+        .evidence-fragment {
+            background: #f9f9f9; padding: 12px; border-radius: 6px;
+            margin: 10px 0; font-style: italic; color: #555;
+            border-left: 3px solid #7c3aed;
+        }
+        .evidence-answer {
+            background: #d1fae5; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #065f46; border-left: 3px solid #10b981;
+            font-weight: 600;
+        }
+        .evidence-rule {
+            background: #f5f3ff; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #5b21b6; border-left: 3px solid #7c3aed;
+            font-size: 0.95em;
+        }
+        .evidence-category { color: #7c3aed; font-weight: 600; margin-top: 10px; }
+        .result-card {
+            background: white; padding: 30px; border-radius: 8px;
+            border-left: 4px solid #7c3aed; margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-score-large {
+            font-size: 3.5em; font-weight: 700; color: #7c3aed; margin-bottom: 10px;
+        }
+        .result-label { font-size: 1.1em; color: #666; margin-bottom: 20px; }
+        .breakdown-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px;
+        }
+        .breakdown-card {
+            background: white; padding: 20px; border-radius: 8px;
+            border-left: 4px solid #7c3aed;
+        }
+        .breakdown-category {
+            font-size: 1.05em; font-weight: 700; color: #7c3aed; margin-bottom: 15px;
+        }
+        .breakdown-score {
+            font-size: 1.8em; font-weight: 700; color: #7c3aed; margin-bottom: 10px;
+        }
+        .breakdown-percentage { font-size: 0.9em; color: #666; margin-bottom: 15px; }
+        .lesson-links { display: flex; flex-direction: column; gap: 8px; }
+        .lesson-link {
+            display: inline-block; padding: 8px 12px; background: #ede9fe;
+            color: #7c3aed; border-radius: 6px; text-decoration: none;
+            font-size: 0.9em; transition: all 0.3s ease; text-align: left;
+        }
+        .lesson-link:hover { background: #7c3aed; color: white; }
+        .full-score { color: #10b981; }
+        .partial-score { color: #f59e0b; }
+        .zero-score { color: #ef4444; }
+        .completion-message {
+            background: #d1fae5; border: 2px solid #10b981; padding: 20px;
+            border-radius: 8px; text-align: center; margin-bottom: 30px;
+            color: #065f46; font-weight: 600; font-size: 1.1em;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; }
+            .pattern-grid { grid-template-columns: 1fr; }
+            .breakdown-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Time Scrambler</h1>
+            <p>B2 Focus Diagnostic — Mixed Conditionals</p>
+        </header>
+
+        <div class="score-banner" id="scoreBanner"></div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tab-getting-started">Getting Started</button>
+            <button class="tab-button" data-tab="tab-scramble">The Scramble</button>
+            <button class="tab-button" data-tab="tab-review">Review</button>
+            <button class="tab-button" data-tab="tab-results">Your Results</button>
+        </div>
+
+        <!-- Getting Started Tab -->
+        <div id="tab-getting-started" class="tab-content active">
+            <div class="content-block">
+                <p class="intro-text"><strong>Welcome to The Time Scrambler.</strong> Standard conditionals live in one time zone — but real regret and real consequence often cross time zones. That's where mixed conditionals come in.</p>
+
+                <p class="intro-text">There are two patterns to master:</p>
+
+                <div class="pattern-grid">
+                    <div class="pattern-card">
+                        <div class="pattern-label">Pattern A: Past → Present</div>
+                        <div class="pattern-formula">If + <span class="past">past perfect</span>, <span class="present">would + base verb</span></div>
+                        <div class="pattern-example">"If I had studied medicine, I would be a doctor now."<br><em>(past action → present result)</em></div>
+                    </div>
+                    <div class="pattern-card">
+                        <div class="pattern-label">Pattern B: Present → Past</div>
+                        <div class="pattern-formula">If + <span class="present">past simple</span>, <span class="past-result">would have + past participle</span></div>
+                        <div class="pattern-example">"If she were more careful, she wouldn't have crashed the car."<br><em>(ongoing trait → past outcome)</em></div>
+                    </div>
+                </div>
+
+                <p class="intro-text">Use Pattern A when a <strong>past choice</strong> still affects <strong>now</strong>. Use Pattern B when a <strong>present trait or state</strong> explains something that <strong>already happened</strong>. For each item below, pick the completion that matches the time logic.</p>
+            </div>
+
+            <div id="practice-container"></div>
+
+            <button class="btn-primary" onclick="nextSection()" id="practice-next-btn" style="display: none; width: 100%; margin-top: 20px;">Ready for The Scramble →</button>
+        </div>
+
+        <!-- The Scramble Tab -->
+        <div id="tab-scramble" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Ten items. Read each scenario carefully — the time signals tell you which pattern fits.</p>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text" id="progressText">0 of 10 answered</div>
+            </div>
+
+            <div id="scramble-container"></div>
+
+            <div class="button-group-main">
+                <button class="btn-primary" onclick="finishScramble()" id="finish-btn" style="display: none;">See the Review →</button>
+            </div>
+        </div>
+
+        <!-- Review Tab -->
+        <div id="tab-review" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Here is every item with the right answer and the rule behind it. Mixed conditionals are mostly about reading the time signals correctly — the patterns themselves are fixed.</p>
+            </div>
+            <div id="review-container"></div>
+        </div>
+
+        <!-- Your Results Tab -->
+        <div id="tab-results" class="tab-content">
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const practice = [
+            {
+                id: "p1",
+                context: "You regret not learning an instrument as a child. The missed past action is still affecting you now.",
+                prompt: "If I had learned the guitar when I was younger, I ___ in a band today.",
+                options: [
+                    "would have played",
+                    "would play",
+                    "will play",
+                    "played"
+                ],
+                correctIndex: 1,
+                rule: "Past choice (had learned) + present consequence (today) → Pattern A: past perfect + would + base verb."
+            },
+            {
+                id: "p2",
+                context: "Describing how a permanent personality trait explains a past mistake.",
+                prompt: "If he weren't so impulsive, he ___ that contract without reading it.",
+                options: [
+                    "would not sign",
+                    "will not sign",
+                    "would not have signed",
+                    "had not signed"
+                ],
+                correctIndex: 2,
+                rule: "Present trait (weren't impulsive) + past outcome (the signing happened) → Pattern B: past simple + would have + past participle."
+            }
+        ];
+
+        const questions = [
+            {
+                id: "q1",
+                context: "A missed past opportunity affecting the present moment.",
+                prompt: "If we had bought that flat in 2015, we ___ mortgage-free right now.",
+                options: [
+                    "would have been",
+                    "would be",
+                    "will be",
+                    "are"
+                ],
+                correctIndex: 1,
+                rule: "Past decision (bought in 2015) → present state (right now). Pattern A: had bought + would be.",
+                category: "Past cause → Present result"
+            },
+            {
+                id: "q2",
+                context: "A lasting personality trait explaining a past failure.",
+                prompt: "If she ___ such a perfectionist, she would have finished the project on time.",
+                options: [
+                    "wasn't",
+                    "weren't",
+                    "hadn't been",
+                    "isn't"
+                ],
+                correctIndex: 1,
+                rule: "Present/ongoing trait + past outcome = Pattern B. 'Weren't' is the standard subjunctive form. (Casual speech accepts 'wasn't', but B2 writing prefers 'weren't'.)",
+                category: "Present trait → Past result"
+            },
+            {
+                id: "q3",
+                context: "Ongoing language ability affecting a past moment.",
+                prompt: "If Pedro spoke French fluently, he ___ that job in Paris last year.",
+                options: [
+                    "would get",
+                    "will get",
+                    "would have got",
+                    "had got"
+                ],
+                correctIndex: 2,
+                rule: "Ongoing ability (spoke French — still true) + past event (last year) → Pattern B. The ability is general, the consequence is specific and past.",
+                category: "Present trait → Past result"
+            },
+            {
+                id: "q4",
+                context: "Past event that continues to shape the present.",
+                prompt: "If my grandparents ___ to this country, I wouldn't be growing up bilingual.",
+                options: [
+                    "didn't emigrate",
+                    "hadn't emigrated",
+                    "wouldn't emigrate",
+                    "hadn't been emigrating"
+                ],
+                correctIndex: 1,
+                rule: "The if-clause needs past perfect because the emigration happened long before now. The result clause uses 'wouldn't be' because the consequence is ongoing.",
+                category: "Past cause → Present result"
+            },
+            {
+                id: "q5",
+                context: "Choosing between a standard third conditional and a mixed one.",
+                prompt: "If you had taken the earlier train, you ___ here already.",
+                options: [
+                    "would be",
+                    "would have been",
+                    "will be",
+                    "are"
+                ],
+                correctIndex: 0,
+                rule: "'Already' points to the present moment. Past action (had taken) → present consequence (here already) = Pattern A. A pure third conditional would end '...would have been here an hour ago.'",
+                category: "Reading time signals"
+            },
+            {
+                id: "q6",
+                context: "A general habit explaining a specific past event.",
+                prompt: "If he didn't drink so much coffee, he ___ so badly last night.",
+                options: [
+                    "wouldn't sleep",
+                    "won't sleep",
+                    "wouldn't have slept",
+                    "hadn't slept"
+                ],
+                correctIndex: 2,
+                rule: "General habit (didn't drink coffee — ongoing) + past event (last night). Pattern B: would have slept.",
+                category: "Present trait → Past result"
+            },
+            {
+                id: "q7",
+                context: "Standard third conditional — both clauses in the past.",
+                prompt: "If I had known about the meeting yesterday, I ___ earlier.",
+                options: [
+                    "would leave",
+                    "would have left",
+                    "will leave",
+                    "had left"
+                ],
+                correctIndex: 1,
+                rule: "Both clauses point to yesterday — there is no present consequence. This is a pure third conditional (Pattern: had + past participle → would have + past participle), not a mixed one. Recognising when NOT to mix is half the skill.",
+                category: "Reading time signals"
+            },
+            {
+                id: "q8",
+                context: "A permanent fact about a person and a past event.",
+                prompt: "If Jan were a morning person, she ___ the flight at 6am.",
+                options: [
+                    "wouldn't miss",
+                    "won't miss",
+                    "wouldn't have missed",
+                    "didn't miss"
+                ],
+                correctIndex: 2,
+                rule: "Permanent trait (were a morning person) + past event (missed the flight at 6am). Pattern B.",
+                category: "Present trait → Past result"
+            },
+            {
+                id: "q9",
+                context: "A past life decision with a present emotional consequence.",
+                prompt: "If I hadn't chosen this career, I ___ so exhausted all the time.",
+                options: [
+                    "wouldn't feel",
+                    "wouldn't have felt",
+                    "don't feel",
+                    "won't feel"
+                ],
+                correctIndex: 0,
+                rule: "Past decision (hadn't chosen) + present ongoing feeling (all the time) = Pattern A. The consequence is in the now, not the past.",
+                category: "Past cause → Present result"
+            },
+            {
+                id: "q10",
+                context: "Decide which half of the sentence sets the time frame.",
+                prompt: "If they were more organised, they ___ the deadline last week.",
+                options: [
+                    "wouldn't miss",
+                    "wouldn't have missed",
+                    "won't miss",
+                    "don't miss"
+                ],
+                correctIndex: 1,
+                rule: "'Last week' fixes the result in the past. The trait ('were more organised') is ongoing. Pattern B: past simple + would have + past participle.",
+                category: "Reading time signals"
+            }
+        ];
+
+        const lessonLinks = {
+            "Past cause → Present result": [
+                { name: "Third & Mixed Conditionals (B2)", url: "grammar_b2_05_third_mixed_conditionals.html" },
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" }
+            ],
+            "Present trait → Past result": [
+                { name: "Third & Mixed Conditionals (B2)", url: "grammar_b2_05_third_mixed_conditionals.html" }
+            ],
+            "Reading time signals": [
+                { name: "Third & Mixed Conditionals (B2)", url: "grammar_b2_05_third_mixed_conditionals.html" },
+                { name: "Narrative Tenses (B2)", url: "grammar_b2_01_past_perfect_continuous_narrative.html" }
+            ]
+        };
+
+        let practiceAnswers = {};
+        let questionAnswers = {};
+
+        function renderPractice() {
+            const container = document.getElementById("practice-container");
+            container.innerHTML = practice.map(item => `
+                <div class="question-card" id="card-${item.id}">
+                    <div class="question-label">Practice</div>
+                    <div class="context-note">${item.context}</div>
+                    <div class="question-prompt">${item.prompt.replace("___", "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" onclick="answerPractice('${item.id}', ${i})">${String.fromCharCode(65 + i)}. ${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="fb-${item.id}"></div>
+                </div>
+            `).join("");
+        }
+
+        function answerPractice(id, index) {
+            if (practiceAnswers[id] !== undefined) return;
+            const item = practice.find(p => p.id === id);
+            practiceAnswers[id] = index;
+            const card = document.getElementById(`card-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`fb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct. ${item.rule}`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            if (Object.keys(practiceAnswers).length === practice.length) {
+                document.getElementById("practice-next-btn").style.display = "block";
+            }
+        }
+
+        function renderScramble() {
+            const container = document.getElementById("scramble-container");
+            container.innerHTML = questions.map((item, idx) => `
+                <div class="question-card" id="qcard-${item.id}">
+                    <div class="question-label">Item ${idx + 1} of ${questions.length}</div>
+                    <div class="context-note">${item.context}</div>
+                    <div class="question-prompt">${item.prompt.replace(/___/g, "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" onclick="answerQuestion('${item.id}', ${i})">${String.fromCharCode(65 + i)}. ${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="qfb-${item.id}"></div>
+                </div>
+            `).join("");
+            updateProgress();
+        }
+
+        function answerQuestion(id, index) {
+            if (questionAnswers[id] !== undefined) return;
+            const item = questions.find(q => q.id === id);
+            questionAnswers[id] = index;
+            const card = document.getElementById(`qcard-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`qfb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct — <strong>${item.options[item.correctIndex]}</strong>.`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            updateProgress();
+            if (Object.keys(questionAnswers).length === questions.length) {
+                document.getElementById("finish-btn").style.display = "inline-block";
+            }
+        }
+
+        function updateProgress() {
+            const done = Object.keys(questionAnswers).length;
+            const total = questions.length;
+            document.getElementById("progressFill").style.width = `${(done / total) * 100}%`;
+            document.getElementById("progressText").textContent = `${done} of ${total} answered`;
+        }
+
+        function nextSection() {
+            document.querySelector(".tab-button[data-tab=\"tab-scramble\"]").click();
+        }
+
+        function finishScramble() {
+            renderReview();
+            renderResults();
+            document.querySelector(".tab-button[data-tab=\"tab-review\"]").click();
+        }
+
+        function renderReview() {
+            const container = document.getElementById("review-container");
+            container.innerHTML = questions.map((item, idx) => {
+                const user = questionAnswers[item.id];
+                const wasCorrect = user === item.correctIndex;
+                const completed = item.prompt.replace(/___/g, `<strong>${item.options[item.correctIndex]}</strong>`);
+                return `
+                <div class="evidence-item">
+                    <strong>Item ${idx + 1}</strong> — ${wasCorrect ? "<span style=\"color:#10b981\">✓ Correct</span>" : "<span style=\"color:#ef4444\">✗ You picked " + item.options[user] + "</span>"}
+                    <div class="evidence-fragment">${completed}</div>
+                    <div class="evidence-answer">Correct completion: <strong>${item.options[item.correctIndex]}</strong></div>
+                    <div class="evidence-rule"><strong>Why:</strong> ${item.rule}</div>
+                    <div class="evidence-category">Category: ${item.category}</div>
+                </div>`;
+            }).join("");
+        }
+
+        function renderResults() {
+            const total = questions.length;
+            const correct = questions.filter(q => questionAnswers[q.id] === q.correctIndex).length;
+            const percent = Math.round((correct / total) * 100);
+
+            const categories = {};
+            questions.forEach(q => {
+                if (!categories[q.category]) categories[q.category] = { correct: 0, total: 0 };
+                categories[q.category].total++;
+                if (questionAnswers[q.id] === q.correctIndex) categories[q.category].correct++;
+            });
+
+            let scoreClass = "partial-score";
+            let message = "Solid progress — the categories below show where to focus.";
+            if (percent === 100) { scoreClass = "full-score"; message = "Exceptional — full command of mixed conditionals."; }
+            else if (percent >= 80) { scoreClass = "full-score"; message = "Strong grasp. One or two fine-tuning points below."; }
+            else if (percent >= 50) { scoreClass = "partial-score"; message = "The patterns are starting to click — the review will sharpen the time-signal reading."; }
+            else { scoreClass = "zero-score"; message = "This is the classic B2 breakthrough moment. Working through the linked lessons will unlock it quickly."; }
+
+            const container = document.getElementById("results-container");
+            container.innerHTML = `
+                <div class="completion-message">Diagnostic complete — here is your profile.</div>
+                <div class="result-card">
+                    <div class="result-score-large ${scoreClass}">${correct} / ${total}</div>
+                    <div class="result-label">${percent}% — ${message}</div>
+                </div>
+                <h2 style="margin: 30px 0 20px; font-size: 1.5em; color: #1a1a2e;">Breakdown by Category</h2>
+                <div class="breakdown-grid">
+                    ${Object.entries(categories).map(([cat, data]) => {
+                        const pct = Math.round((data.correct / data.total) * 100);
+                        let cls = "partial-score";
+                        if (pct === 100) cls = "full-score";
+                        else if (pct === 0) cls = "zero-score";
+                        const links = lessonLinks[cat] || [];
+                        return `
+                        <div class="breakdown-card">
+                            <div class="breakdown-category">${cat}</div>
+                            <div class="breakdown-score ${cls}">${data.correct} / ${data.total}</div>
+                            <div class="breakdown-percentage">${pct}% correct</div>
+                            <div class="lesson-links">
+                                ${links.map(l => `<a href="${l.url}" class="lesson-link">→ ${l.name}</a>`).join("")}
+                            </div>
+                        </div>`;
+                    }).join("")}
+                </div>
+                <div style="text-align:center;margin-top:40px">
+                    <a href="diagnostic_hub.html" class="btn-primary" style="text-decoration:none;display:inline-block">← Back to Diagnostic Hub</a>
+                </div>`;
+
+            document.getElementById("scoreBanner").classList.add("active");
+            document.getElementById("scoreBanner").textContent = `Your score: ${correct} / ${total} (${percent}%)`;
+        }
+
+        document.querySelectorAll(".tab-button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+
+        renderPractice();
+        renderScramble();
+    </script>
+</body>
+</html>

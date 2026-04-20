@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wish Engine — B1 Focus Diagnostic: Second Conditional</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px 20px; text-align: center;
+            border-radius: 8px; margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .score-banner {
+            background: #2563eb; color: white; padding: 15px 25px;
+            border-radius: 6px; margin-bottom: 30px; text-align: center;
+            font-size: 1.2em; font-weight: 600; display: none;
+        }
+        .score-banner.active { display: block; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-button {
+            padding: 12px 24px; background: white; border: 2px solid #667eea;
+            color: #667eea; border-radius: 6px; cursor: pointer;
+            font-size: 1em; font-weight: 600; transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            background: #667eea; color: white; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-button.active {
+            background: #667eea; color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block {
+            background: #f8f9fa; padding: 25px; border-radius: 8px;
+            margin-bottom: 25px; border-left: 5px solid #667eea; line-height: 1.8;
+        }
+        .intro-text { font-size: 1.1em; margin-bottom: 20px; }
+        .formula-box {
+            background: white; border: 2px solid #e0e7ff;
+            border-radius: 8px; padding: 20px; margin: 20px 0;
+            text-align: center; font-size: 1.1em;
+        }
+        .formula-box .clause {
+            display: inline-block; padding: 6px 14px; margin: 4px;
+            border-radius: 6px; font-weight: 600;
+        }
+        .formula-box .if-clause { background: #fef3c7; color: #92400e; }
+        .formula-box .result-clause { background: #d1fae5; color: #065f46; }
+        .formula-box .plus { color: #667eea; font-weight: 700; margin: 0 8px; }
+        .question-card {
+            background: white; padding: 25px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #ccc;
+            transition: all 0.3s ease;
+        }
+        .question-card.answered { border-left: 4px solid #2563eb; }
+        .question-label {
+            font-size: 0.9em; color: #666; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .question-prompt {
+            background: #f9f9f9; padding: 18px; border-radius: 6px;
+            margin-bottom: 18px; font-size: 1.1em; color: #333;
+            border-left: 3px solid #2563eb; line-height: 1.7;
+        }
+        .question-prompt .blank {
+            display: inline-block; min-width: 120px; border-bottom: 2px dashed #667eea;
+            padding: 2px 8px; color: #4338ca; font-weight: 600;
+        }
+        .options-grid {
+            display: grid; gap: 10px; margin-bottom: 15px;
+        }
+        .btn-option {
+            padding: 14px 20px; border: 2px solid #ddd;
+            background: white; border-radius: 6px; cursor: pointer;
+            font-size: 0.98em; font-weight: 500;
+            transition: all 0.3s ease; color: #333; text-align: left;
+            line-height: 1.5;
+        }
+        .btn-option:hover:not(.disabled) {
+            border-color: #2563eb; background: #f0f7ff;
+            transform: translateX(4px);
+        }
+        .btn-option.disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-option.chosen-correct {
+            background: #d1fae5; border-color: #10b981; color: #065f46;
+        }
+        .btn-option.chosen-wrong {
+            background: #fee2e2; border-color: #ef4444; color: #7f1d1d;
+        }
+        .btn-option.revealed-correct {
+            background: #f0fdf4; border-color: #10b981; color: #065f46;
+        }
+        .feedback {
+            display: none; padding: 15px; border-radius: 6px;
+            margin-top: 15px; font-weight: 500;
+            animation: slideIn 0.3s ease; line-height: 1.6;
+        }
+        .feedback.show { display: block; }
+        .feedback.correct {
+            background: #d1fae5; border-left: 4px solid #10b981; color: #065f46;
+        }
+        .feedback.incorrect {
+            background: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d;
+        }
+        .feedback-icon { margin-right: 8px; font-weight: 700; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar {
+            background: #e0e7ff; height: 8px; border-radius: 4px;
+            overflow: hidden; margin-bottom: 25px;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%; width: 0%; transition: width 0.4s ease;
+        }
+        .progress-text {
+            font-size: 0.9em; color: #666; text-align: center; margin-bottom: 15px;
+        }
+        .button-group-main {
+            display: flex; gap: 12px; justify-content: center; margin-top: 40px;
+        }
+        .btn-primary {
+            padding: 14px 40px; background: #2563eb; color: white;
+            border: none; border-radius: 6px; cursor: pointer;
+            font-size: 1.05em; font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .evidence-item {
+            background: white; padding: 20px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #2563eb;
+        }
+        .evidence-fragment {
+            background: #f9f9f9; padding: 12px; border-radius: 6px;
+            margin: 10px 0; font-style: italic; color: #555;
+            border-left: 3px solid #2563eb;
+        }
+        .evidence-answer {
+            background: #d1fae5; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #065f46; border-left: 3px solid #10b981;
+            font-weight: 600;
+        }
+        .evidence-rule {
+            background: #f0f7ff; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #1e40af; border-left: 3px solid #2563eb;
+            font-size: 0.95em;
+        }
+        .evidence-category { color: #2563eb; font-weight: 600; margin-top: 10px; }
+        .result-card {
+            background: white; padding: 30px; border-radius: 8px;
+            border-left: 4px solid #2563eb; margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-score-large {
+            font-size: 3.5em; font-weight: 700; color: #2563eb; margin-bottom: 10px;
+        }
+        .result-label { font-size: 1.1em; color: #666; margin-bottom: 20px; }
+        .breakdown-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px;
+        }
+        .breakdown-card {
+            background: white; padding: 20px; border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+        .breakdown-category {
+            font-size: 1.05em; font-weight: 700; color: #2563eb; margin-bottom: 15px;
+        }
+        .breakdown-score {
+            font-size: 1.8em; font-weight: 700; color: #2563eb; margin-bottom: 10px;
+        }
+        .breakdown-percentage { font-size: 0.9em; color: #666; margin-bottom: 15px; }
+        .lesson-links { display: flex; flex-direction: column; gap: 8px; }
+        .lesson-link {
+            display: inline-block; padding: 8px 12px; background: #e0e7ff;
+            color: #2563eb; border-radius: 6px; text-decoration: none;
+            font-size: 0.9em; transition: all 0.3s ease; text-align: left;
+        }
+        .lesson-link:hover { background: #2563eb; color: white; }
+        .full-score { color: #10b981; }
+        .partial-score { color: #f59e0b; }
+        .zero-score { color: #ef4444; }
+        .completion-message {
+            background: #d1fae5; border: 2px solid #10b981; padding: 20px;
+            border-radius: 8px; text-align: center; margin-bottom: 30px;
+            color: #065f46; font-weight: 600; font-size: 1.1em;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; }
+            .breakdown-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Wish Engine</h1>
+            <p>B1 Focus Diagnostic — Second Conditional</p>
+        </header>
+
+        <div class="score-banner" id="scoreBanner"></div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tab-getting-started">Getting Started</button>
+            <button class="tab-button" data-tab="tab-engine">The Engine</button>
+            <button class="tab-button" data-tab="tab-review">Review</button>
+            <button class="tab-button" data-tab="tab-results">Your Results</button>
+        </div>
+
+        <!-- Getting Started Tab -->
+        <div id="tab-getting-started" class="tab-content active">
+            <div class="content-block">
+                <p class="intro-text"><strong>Welcome to The Wish Engine.</strong> You will build second conditional sentences — the grammar of imaginary worlds, regrets, and advice.</p>
+
+                <p class="intro-text">The second conditional talks about <em>imaginary</em> or <em>unlikely</em> situations in the present or future. The shape never changes:</p>
+
+                <div class="formula-box">
+                    <span class="clause if-clause">If + past simple</span>
+                    <span class="plus">+</span>
+                    <span class="clause result-clause">would / could / might + infinitive</span>
+                </div>
+
+                <p class="intro-text">Notice two classic traps: we <strong>never</strong> say <em>"If I would..."</em>, and with the verb <em>be</em>, careful writing uses <strong>"if I <em>were</em>"</strong> — not "if I was".</p>
+
+                <p class="intro-text">For each item, you'll see the start of a sentence and pick the correct completion. Let's warm up with two examples.</p>
+            </div>
+
+            <div id="practice-container"></div>
+
+            <button class="btn-primary" onclick="nextSection()" id="practice-next-btn" style="display: none; width: 100%; margin-top: 20px;">Ready for The Engine →</button>
+        </div>
+
+        <!-- The Engine Tab -->
+        <div id="tab-engine" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Ten items. For each one, pick the completion that uses the second conditional correctly.</p>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text" id="progressText">0 of 10 answered</div>
+            </div>
+
+            <div id="engine-container"></div>
+
+            <div class="button-group-main">
+                <button class="btn-primary" onclick="finishEngine()" id="finish-btn" style="display: none;">See the Review →</button>
+            </div>
+        </div>
+
+        <!-- Review Tab -->
+        <div id="tab-review" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Here is every item with the correct answer and the rule behind it. Focus on the patterns you missed — they'll keep coming back.</p>
+            </div>
+            <div id="review-container"></div>
+        </div>
+
+        <!-- Your Results Tab -->
+        <div id="tab-results" class="tab-content">
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const practice = [
+            {
+                id: "p1",
+                prompt: "If I had more time, I ___ to learn piano.",
+                options: [
+                    "would like",
+                    "will like",
+                    "would liked"
+                ],
+                correctIndex: 0,
+                rule: "Second conditional result clause = would + base verb. Never 'will' (that's first conditional), never 'would + past'."
+            },
+            {
+                id: "p2",
+                prompt: "If she ___ you, she would be honest with him.",
+                options: [
+                    "was",
+                    "were",
+                    "would be"
+                ],
+                correctIndex: 1,
+                rule: "With 'be' in imaginary situations, careful English uses 'were' for all subjects. 'Was' is common in casual speech, but 'were' is the safe choice — especially in 'If I were you'."
+            }
+        ];
+
+        const questions = [
+            {
+                id: "q1",
+                prompt: "If I ___ richer, I would buy a small house in the mountains.",
+                options: [
+                    "would be",
+                    "was being",
+                    "were",
+                    "am"
+                ],
+                correctIndex: 2,
+                rule: "The if-clause takes past simple. With 'be', 'were' is the standard conditional form (for all persons). 'Would' never goes in the if-clause.",
+                category: "If-clause form"
+            },
+            {
+                id: "q2",
+                prompt: "If you studied harder, you ___ pass the exam easily.",
+                options: [
+                    "will",
+                    "would",
+                    "are going to",
+                    "would have"
+                ],
+                correctIndex: 1,
+                rule: "Result clause: would + base verb. 'Will' signals first conditional (real future). 'Would have' signals third conditional (past unreal).",
+                category: "Result clause form"
+            },
+            {
+                id: "q3",
+                prompt: "If I were you, I ___ accept that offer immediately.",
+                options: [
+                    "will",
+                    "would",
+                    "am going to",
+                    "would have"
+                ],
+                correctIndex: 1,
+                rule: "'If I were you, I would...' is the standard advice formula. This is the most common use of the second conditional in everyday English.",
+                category: "Advice (If I were you)"
+            },
+            {
+                id: "q4",
+                prompt: "She ___ more confident if she didn't compare herself to everyone.",
+                options: [
+                    "will feel",
+                    "would feel",
+                    "would have felt",
+                    "feels"
+                ],
+                correctIndex: 1,
+                rule: "The result clause uses would + base verb. 'Would have felt' is for a past unreal situation (third conditional).",
+                category: "Result clause form"
+            },
+            {
+                id: "q5",
+                prompt: "If my parents ___ nearby, I'd visit them every weekend.",
+                options: [
+                    "would live",
+                    "lived",
+                    "live",
+                    "are living"
+                ],
+                correctIndex: 1,
+                rule: "If-clause = past simple. Never 'would' in the if-clause. 'Live' (present) would signal first conditional.",
+                category: "If-clause form"
+            },
+            {
+                id: "q6",
+                prompt: "We ___ the train if we left now.",
+                options: [
+                    "will catch",
+                    "might catch",
+                    "catch",
+                    "would have caught"
+                ],
+                correctIndex: 1,
+                rule: "'Would' is the default, but 'could' and 'might' also work in the result clause — they just change the certainty. 'Might catch' = possible but not sure.",
+                category: "Modals in result (could / might)"
+            },
+            {
+                id: "q7",
+                prompt: "If she ___ a bit more patience, she would be a great teacher.",
+                options: [
+                    "will have",
+                    "would have",
+                    "had",
+                    "has"
+                ],
+                correctIndex: 2,
+                rule: "If-clause takes past simple of the main verb. 'Had' is the past simple of 'have'. Never 'would have' in the if-clause of second conditional.",
+                category: "If-clause form"
+            },
+            {
+                id: "q8",
+                prompt: "If I ___ that job, I'd have to move to Berlin.",
+                options: [
+                    "get",
+                    "got",
+                    "would get",
+                    "am getting"
+                ],
+                correctIndex: 1,
+                rule: "Second conditional if-clause = past simple. Note this is imaginary/unlikely — if it were a likely future event, we'd use first conditional (If I get / I'll have to).",
+                category: "First vs second choice"
+            },
+            {
+                id: "q9",
+                prompt: "Imagine you won the lottery tomorrow — what ___ first?",
+                options: [
+                    "will you do",
+                    "would you do",
+                    "do you do",
+                    "would you have done"
+                ],
+                correctIndex: 1,
+                rule: "'Imagine you won' sets up an imaginary situation → second conditional. Question form: would + subject + base verb.",
+                category: "Questions with second conditional"
+            },
+            {
+                id: "q10",
+                prompt: "If my flight ___ cancelled, I could still take the train.",
+                options: [
+                    "is",
+                    "were",
+                    "would be",
+                    "had been"
+                ],
+                correctIndex: 1,
+                rule: "Imaginary/hypothetical situation about the near future → second conditional. 'Were' with 'be' (passive construction). 'Had been' would be third conditional.",
+                category: "First vs second choice"
+            }
+        ];
+
+        const lessonLinks = {
+            "If-clause form": [
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" }
+            ],
+            "Result clause form": [
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" }
+            ],
+            "Advice (If I were you)": [
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" },
+                { name: "Possibility & Hypothetical (B1)", url: "grammar_b1_05_possibility_hypothetical.html" }
+            ],
+            "Modals in result (could / might)": [
+                { name: "Possibility & Hypothetical (B1)", url: "grammar_b1_05_possibility_hypothetical.html" },
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" }
+            ],
+            "First vs second choice": [
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" },
+                { name: "Future Tenses Nuanced (B1)", url: "grammar_b1_03_future_tenses_nuanced.html" }
+            ],
+            "Questions with second conditional": [
+                { name: "Conditionals (B1)", url: "grammar_b1_06_conditionals.html" }
+            ]
+        };
+
+        let practiceAnswers = {};
+        let questionAnswers = {};
+
+        function renderPractice() {
+            const container = document.getElementById("practice-container");
+            container.innerHTML = practice.map(item => `
+                <div class="question-card" id="card-${item.id}">
+                    <div class="question-label">Practice</div>
+                    <div class="question-prompt">${item.prompt.replace("___", "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" data-id="${item.id}" data-index="${i}" onclick="answerPractice('${item.id}', ${i})">${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="fb-${item.id}"></div>
+                </div>
+            `).join("");
+        }
+
+        function answerPractice(id, index) {
+            if (practiceAnswers[id] !== undefined) return;
+            const item = practice.find(p => p.id === id);
+            practiceAnswers[id] = index;
+            const card = document.getElementById(`card-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`fb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct. ${item.rule}`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            if (Object.keys(practiceAnswers).length === practice.length) {
+                document.getElementById("practice-next-btn").style.display = "block";
+            }
+        }
+
+        function renderEngine() {
+            const container = document.getElementById("engine-container");
+            container.innerHTML = questions.map((item, idx) => `
+                <div class="question-card" id="qcard-${item.id}">
+                    <div class="question-label">Item ${idx + 1} of ${questions.length}</div>
+                    <div class="question-prompt">${item.prompt.replace(/___/g, "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" onclick="answerQuestion('${item.id}', ${i})">${String.fromCharCode(65 + i)}. ${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="qfb-${item.id}"></div>
+                </div>
+            `).join("");
+            updateProgress();
+        }
+
+        function answerQuestion(id, index) {
+            if (questionAnswers[id] !== undefined) return;
+            const item = questions.find(q => q.id === id);
+            questionAnswers[id] = index;
+            const card = document.getElementById(`qcard-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`qfb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct — <strong>${item.options[item.correctIndex]}</strong>.`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            updateProgress();
+            if (Object.keys(questionAnswers).length === questions.length) {
+                document.getElementById("finish-btn").style.display = "inline-block";
+            }
+        }
+
+        function updateProgress() {
+            const done = Object.keys(questionAnswers).length;
+            const total = questions.length;
+            document.getElementById("progressFill").style.width = `${(done / total) * 100}%`;
+            document.getElementById("progressText").textContent = `${done} of ${total} answered`;
+        }
+
+        function nextSection() {
+            document.querySelector(".tab-button[data-tab=\"tab-engine\"]").click();
+        }
+
+        function finishEngine() {
+            renderReview();
+            renderResults();
+            document.querySelector(".tab-button[data-tab=\"tab-review\"]").click();
+        }
+
+        function renderReview() {
+            const container = document.getElementById("review-container");
+            container.innerHTML = questions.map((item, idx) => {
+                const user = questionAnswers[item.id];
+                const wasCorrect = user === item.correctIndex;
+                const completed = item.prompt.replace(/___/g, `<strong>${item.options[item.correctIndex]}</strong>`);
+                return `
+                <div class="evidence-item">
+                    <strong>Item ${idx + 1}</strong> — ${wasCorrect ? "<span style=\"color:#10b981\">✓ Correct</span>" : "<span style=\"color:#ef4444\">✗ You picked " + item.options[user] + "</span>"}
+                    <div class="evidence-fragment">${completed}</div>
+                    <div class="evidence-answer">Correct completion: <strong>${item.options[item.correctIndex]}</strong></div>
+                    <div class="evidence-rule"><strong>Why:</strong> ${item.rule}</div>
+                    <div class="evidence-category">Category: ${item.category}</div>
+                </div>`;
+            }).join("");
+        }
+
+        function renderResults() {
+            const total = questions.length;
+            const correct = questions.filter(q => questionAnswers[q.id] === q.correctIndex).length;
+            const percent = Math.round((correct / total) * 100);
+
+            const categories = {};
+            questions.forEach(q => {
+                if (!categories[q.category]) categories[q.category] = { correct: 0, total: 0 };
+                categories[q.category].total++;
+                if (questionAnswers[q.id] === q.correctIndex) categories[q.category].correct++;
+            });
+
+            let scoreClass = "partial-score";
+            let message = "Solid progress — focus on the categories below.";
+            if (percent === 100) { scoreClass = "full-score"; message = "Exceptional — full control of the second conditional."; }
+            else if (percent >= 80) { scoreClass = "full-score"; message = "Strong grasp. Small gaps worth polishing."; }
+            else if (percent >= 50) { scoreClass = "partial-score"; message = "The shape is there — the rules below will tighten it up."; }
+            else { scoreClass = "zero-score"; message = "This is a high-leverage structure. Working through the linked lessons will pay off quickly."; }
+
+            const container = document.getElementById("results-container");
+            container.innerHTML = `
+                <div class="completion-message">Diagnostic complete — here is your profile.</div>
+                <div class="result-card">
+                    <div class="result-score-large ${scoreClass}">${correct} / ${total}</div>
+                    <div class="result-label">${percent}% — ${message}</div>
+                </div>
+                <h2 style="margin: 30px 0 20px; font-size: 1.5em; color: #1a1a2e;">Breakdown by Category</h2>
+                <div class="breakdown-grid">
+                    ${Object.entries(categories).map(([cat, data]) => {
+                        const pct = Math.round((data.correct / data.total) * 100);
+                        let cls = "partial-score";
+                        if (pct === 100) cls = "full-score";
+                        else if (pct === 0) cls = "zero-score";
+                        const links = lessonLinks[cat] || [];
+                        return `
+                        <div class="breakdown-card">
+                            <div class="breakdown-category">${cat}</div>
+                            <div class="breakdown-score ${cls}">${data.correct} / ${data.total}</div>
+                            <div class="breakdown-percentage">${pct}% correct</div>
+                            <div class="lesson-links">
+                                ${links.map(l => `<a href="${l.url}" class="lesson-link">→ ${l.name}</a>`).join("")}
+                            </div>
+                        </div>`;
+                    }).join("")}
+                </div>
+                <div style="text-align:center;margin-top:40px">
+                    <a href="diagnostic_hub.html" class="btn-primary" style="text-decoration:none;display:inline-block">← Back to Diagnostic Hub</a>
+                </div>`;
+
+            document.getElementById("scoreBanner").classList.add("active");
+            document.getElementById("scoreBanner").textContent = `Your score: ${correct} / ${total} (${percent}%)`;
+        }
+
+        document.querySelectorAll(".tab-button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+
+        renderPractice();
+        renderEngine();
+    </script>
+</body>
+</html>

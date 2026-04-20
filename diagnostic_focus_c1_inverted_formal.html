@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Formal Flip — C1 Focus Diagnostic: Inverted Conditionals & Formal Structures</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px 20px; text-align: center;
+            border-radius: 8px; margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .score-banner {
+            background: #db2777; color: white; padding: 15px 25px;
+            border-radius: 6px; margin-bottom: 30px; text-align: center;
+            font-size: 1.2em; font-weight: 600; display: none;
+        }
+        .score-banner.active { display: block; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-button {
+            padding: 12px 24px; background: white; border: 2px solid #667eea;
+            color: #667eea; border-radius: 6px; cursor: pointer;
+            font-size: 1em; font-weight: 600; transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            background: #667eea; color: white; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-button.active {
+            background: #667eea; color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block {
+            background: #f8f9fa; padding: 25px; border-radius: 8px;
+            margin-bottom: 25px; border-left: 5px solid #667eea; line-height: 1.8;
+        }
+        .intro-text { font-size: 1.05em; margin-bottom: 20px; }
+        .transform-box {
+            background: white; border: 2px solid #fce7f3;
+            border-radius: 8px; padding: 20px; margin: 16px 0;
+        }
+        .transform-label {
+            font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.6px;
+            color: #db2777; font-weight: 700; margin-bottom: 10px;
+        }
+        .transform-plain {
+            background: #fef7ff; padding: 10px 14px; border-radius: 6px;
+            margin-bottom: 8px; color: #701a75; font-size: 0.95em;
+        }
+        .transform-arrow {
+            text-align: center; color: #db2777;
+            font-weight: 700; margin: 6px 0;
+        }
+        .transform-inverted {
+            background: #fce7f3; padding: 10px 14px; border-radius: 6px;
+            color: #831843; font-size: 0.95em; font-weight: 500;
+        }
+        .question-card {
+            background: white; padding: 25px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #ccc;
+            transition: all 0.3s ease;
+        }
+        .question-card.answered { border-left: 4px solid #db2777; }
+        .question-label {
+            font-size: 0.9em; color: #666; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .context-note {
+            font-size: 0.9em; color: #831843; background: #fce7f3;
+            padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
+            display: inline-block;
+        }
+        .question-prompt {
+            background: #f9f9f9; padding: 18px; border-radius: 6px;
+            margin-bottom: 18px; font-size: 1.05em; color: #333;
+            border-left: 3px solid #db2777; line-height: 1.7;
+        }
+        .question-prompt .blank {
+            display: inline-block; min-width: 120px; border-bottom: 2px dashed #db2777;
+            padding: 2px 8px; color: #9f1239; font-weight: 600;
+        }
+        .question-prompt .baseline {
+            display: block; margin-bottom: 12px; font-style: italic;
+            color: #555; font-size: 0.95em;
+            padding-bottom: 10px; border-bottom: 1px dashed #e0e7ff;
+        }
+        .question-prompt .baseline-label {
+            font-size: 0.75em; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #999; margin-right: 6px;
+        }
+        .options-grid { display: grid; gap: 10px; margin-bottom: 15px; }
+        .btn-option {
+            padding: 14px 20px; border: 2px solid #ddd; background: white;
+            border-radius: 6px; cursor: pointer; font-size: 0.98em;
+            font-weight: 500; transition: all 0.3s ease; color: #333;
+            text-align: left; line-height: 1.5;
+        }
+        .btn-option:hover:not(.disabled) {
+            border-color: #db2777; background: #fdf2f8;
+            transform: translateX(4px);
+        }
+        .btn-option.disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-option.chosen-correct {
+            background: #d1fae5; border-color: #10b981; color: #065f46;
+        }
+        .btn-option.chosen-wrong {
+            background: #fee2e2; border-color: #ef4444; color: #7f1d1d;
+        }
+        .btn-option.revealed-correct {
+            background: #f0fdf4; border-color: #10b981; color: #065f46;
+        }
+        .feedback {
+            display: none; padding: 15px; border-radius: 6px; margin-top: 15px;
+            font-weight: 500; animation: slideIn 0.3s ease; line-height: 1.6;
+        }
+        .feedback.show { display: block; }
+        .feedback.correct {
+            background: #d1fae5; border-left: 4px solid #10b981; color: #065f46;
+        }
+        .feedback.incorrect {
+            background: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d;
+        }
+        .feedback-icon { margin-right: 8px; font-weight: 700; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar {
+            background: #fce7f3; height: 8px; border-radius: 4px;
+            overflow: hidden; margin-bottom: 25px;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #db2777, #be185d);
+            height: 100%; width: 0%; transition: width 0.4s ease;
+        }
+        .progress-text {
+            font-size: 0.9em; color: #666; text-align: center; margin-bottom: 15px;
+        }
+        .button-group-main {
+            display: flex; gap: 12px; justify-content: center; margin-top: 40px;
+        }
+        .btn-primary {
+            padding: 14px 40px; background: #db2777; color: white; border: none;
+            border-radius: 6px; cursor: pointer; font-size: 1.05em;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #be185d; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
+        }
+        .evidence-item {
+            background: white; padding: 20px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid #db2777;
+        }
+        .evidence-fragment {
+            background: #f9f9f9; padding: 12px; border-radius: 6px;
+            margin: 10px 0; font-style: italic; color: #555;
+            border-left: 3px solid #db2777;
+        }
+        .evidence-answer {
+            background: #d1fae5; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #065f46; border-left: 3px solid #10b981;
+            font-weight: 600;
+        }
+        .evidence-rule {
+            background: #fdf2f8; padding: 12px; border-radius: 6px;
+            margin: 10px 0; color: #831843; border-left: 3px solid #db2777;
+            font-size: 0.95em;
+        }
+        .evidence-category { color: #db2777; font-weight: 600; margin-top: 10px; }
+        .result-card {
+            background: white; padding: 30px; border-radius: 8px;
+            border-left: 4px solid #db2777; margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-score-large {
+            font-size: 3.5em; font-weight: 700; color: #db2777; margin-bottom: 10px;
+        }
+        .result-label { font-size: 1.1em; color: #666; margin-bottom: 20px; }
+        .breakdown-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-bottom: 30px;
+        }
+        .breakdown-card {
+            background: white; padding: 20px; border-radius: 8px;
+            border-left: 4px solid #db2777;
+        }
+        .breakdown-category {
+            font-size: 1.05em; font-weight: 700; color: #db2777; margin-bottom: 15px;
+        }
+        .breakdown-score {
+            font-size: 1.8em; font-weight: 700; color: #db2777; margin-bottom: 10px;
+        }
+        .breakdown-percentage { font-size: 0.9em; color: #666; margin-bottom: 15px; }
+        .lesson-links { display: flex; flex-direction: column; gap: 8px; }
+        .lesson-link {
+            display: inline-block; padding: 8px 12px; background: #fce7f3;
+            color: #db2777; border-radius: 6px; text-decoration: none;
+            font-size: 0.9em; transition: all 0.3s ease; text-align: left;
+        }
+        .lesson-link:hover { background: #db2777; color: white; }
+        .full-score { color: #10b981; }
+        .partial-score { color: #f59e0b; }
+        .zero-score { color: #ef4444; }
+        .completion-message {
+            background: #d1fae5; border: 2px solid #10b981; padding: 20px;
+            border-radius: 8px; text-align: center; margin-bottom: 30px;
+            color: #065f46; font-weight: 600; font-size: 1.1em;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; }
+            .breakdown-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Formal Flip</h1>
+            <p>C1 Focus Diagnostic — Inverted Conditionals &amp; Formal Emphasis</p>
+        </header>
+
+        <div class="score-banner" id="scoreBanner"></div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tab-getting-started">Getting Started</button>
+            <button class="tab-button" data-tab="tab-flip">The Flip</button>
+            <button class="tab-button" data-tab="tab-review">Review</button>
+            <button class="tab-button" data-tab="tab-results">Your Results</button>
+        </div>
+
+        <!-- Getting Started Tab -->
+        <div id="tab-getting-started" class="tab-content active">
+            <div class="content-block">
+                <p class="intro-text"><strong>Welcome to The Formal Flip.</strong> At C1, you step beyond the everyday <em>"if"</em> and into the formal register: the inverted conditional, the fronted negative, the emphatic <em>"were"</em>. These structures don't change the meaning — they change the <strong>tone</strong>. They signal deliberation, precision, even a touch of ceremony.</p>
+
+                <p class="intro-text">You are unlikely to use these when ordering a coffee. You are very likely to meet them in contracts, legal letters, formal emails, academic writing, and polished speech. Here are the three patterns you'll be tested on:</p>
+
+                <div class="transform-box">
+                    <div class="transform-label">Pattern 1 — Inverted second conditional</div>
+                    <div class="transform-plain">If I were in your position, I would reconsider.</div>
+                    <div class="transform-arrow">↓</div>
+                    <div class="transform-inverted">Were I in your position, I would reconsider.</div>
+                </div>
+
+                <div class="transform-box">
+                    <div class="transform-label">Pattern 2 — Inverted third conditional</div>
+                    <div class="transform-plain">If she had known the risks, she would never have agreed.</div>
+                    <div class="transform-arrow">↓</div>
+                    <div class="transform-inverted">Had she known the risks, she would never have agreed.</div>
+                </div>
+
+                <div class="transform-box">
+                    <div class="transform-label">Pattern 3 — Inverted first conditional (polite/formal)</div>
+                    <div class="transform-plain">If you need any assistance, please contact reception.</div>
+                    <div class="transform-arrow">↓</div>
+                    <div class="transform-inverted">Should you need any assistance, please contact reception.</div>
+                </div>
+
+                <p class="intro-text">You'll also meet a few related formal moves: <em>were it not for</em>, <em>but for</em>, and negative-adverbial inversions such as <em>"Not only did we…"</em>. Let's warm up with two practice items.</p>
+            </div>
+
+            <div id="practice-container"></div>
+
+            <button class="btn-primary" onclick="nextSection()" id="practice-next-btn" style="display: none; width: 100%; margin-top: 20px;">Ready for The Flip →</button>
+        </div>
+
+        <!-- The Flip Tab -->
+        <div id="tab-flip" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Twelve items. Each shows a plain baseline sentence, then asks you to complete or match the formal/inverted version.</p>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text" id="progressText">0 of 12 answered</div>
+            </div>
+
+            <div id="flip-container"></div>
+
+            <div class="button-group-main">
+                <button class="btn-primary" onclick="finishFlip()" id="finish-btn" style="display: none;">See the Review →</button>
+            </div>
+        </div>
+
+        <!-- Review Tab -->
+        <div id="tab-review" class="tab-content">
+            <div class="content-block">
+                <p class="intro-text">Here is every item with the correct formal version and the rule that produces it. At C1, these patterns are about register-matching — pick them up, and your writing will immediately sound more deliberate.</p>
+            </div>
+            <div id="review-container"></div>
+        </div>
+
+        <!-- Your Results Tab -->
+        <div id="tab-results" class="tab-content">
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const practice = [
+            {
+                id: "p1",
+                context: "Transform an 'if' clause into its formal inverted equivalent.",
+                baseline: "If I had known about the delay, I would have rescheduled.",
+                prompt: "Formal version: ___ about the delay, I would have rescheduled.",
+                options: [
+                    "Were I known",
+                    "Had I known",
+                    "Should I know",
+                    "Would I have known"
+                ],
+                correctIndex: 1,
+                rule: "Third conditional inverts as 'Had + subject + past participle'. Drop 'if', front the 'had'."
+            },
+            {
+                id: "p2",
+                context: "Polite formal register in a hotel notice.",
+                baseline: "If you need anything during your stay, please call reception.",
+                prompt: "Formal version: ___ anything during your stay, please call reception.",
+                options: [
+                    "Were you to need",
+                    "Had you needed",
+                    "Should you need",
+                    "Would you need"
+                ],
+                correctIndex: 2,
+                rule: "Formal first conditional inverts as 'Should + subject + base verb'. This is the classic politeness move in service and legal writing."
+            }
+        ];
+
+        const questions = [
+            {
+                id: "q1",
+                context: "Inverted second conditional — advice in a business register.",
+                baseline: "If I were you, I would decline the offer.",
+                prompt: "Formal version: ___ you, I would decline the offer.",
+                options: [
+                    "If I was",
+                    "Were I",
+                    "Had I been",
+                    "Should I be"
+                ],
+                correctIndex: 1,
+                rule: "Second conditional with 'be' inverts as 'Were + subject'. Works for all persons (Were I, Were she, Were they).",
+                category: "Inverted second conditional"
+            },
+            {
+                id: "q2",
+                context: "Inverted third conditional — looking back on a missed outcome.",
+                baseline: "If they had addressed the risks earlier, the project would not have failed.",
+                prompt: "Formal version: ___ the risks earlier, the project would not have failed.",
+                options: [
+                    "Had they addressed",
+                    "Were they to address",
+                    "Should they address",
+                    "If only they addressed"
+                ],
+                correctIndex: 0,
+                rule: "Third conditional inverts as 'Had + subject + past participle'. The 'if' is dropped, and 'had' is fronted.",
+                category: "Inverted third conditional"
+            },
+            {
+                id: "q3",
+                context: "Polite formal first conditional in a contract clause.",
+                baseline: "If the client wishes to cancel, written notice must be provided.",
+                prompt: "Formal version: ___ to cancel, written notice must be provided.",
+                options: [
+                    "Were the client",
+                    "Had the client wished",
+                    "Should the client wish",
+                    "Would the client wish"
+                ],
+                correctIndex: 2,
+                rule: "'Should + subject + base verb' is the formal first conditional inversion. Common in contracts, notices, and polite instructions.",
+                category: "Inverted first conditional"
+            },
+            {
+                id: "q4",
+                context: "Expressing gratitude for someone's contribution using a formal structure.",
+                baseline: "If it hadn't been for her intervention, the deal would have collapsed.",
+                prompt: "Formal version: ___ her intervention, the deal would have collapsed.",
+                options: [
+                    "Had not it been for",
+                    "Were it not for",
+                    "Had it not been for",
+                    "Should it not have been for"
+                ],
+                correctIndex: 2,
+                rule: "Past-time formal: 'Had it not been for + noun'. Present-time formal: 'Were it not for + noun'. The past-form fits because 'would have collapsed' points backwards.",
+                category: "Were it not for / Had it not been for"
+            },
+            {
+                id: "q5",
+                context: "Present-time version of the same formal structure.",
+                baseline: "If it weren't for his patience, this team wouldn't function.",
+                prompt: "Formal version: ___ his patience, this team wouldn't function.",
+                options: [
+                    "Had it not been for",
+                    "Were it not for",
+                    "Should it not be for",
+                    "But for were"
+                ],
+                correctIndex: 1,
+                rule: "For ongoing/present conditions, use 'Were it not for'. For past conditions, use 'Had it not been for'.",
+                category: "Were it not for / Had it not been for"
+            },
+            {
+                id: "q6",
+                context: "Negative-adverbial inversion — emphasising a rare event.",
+                baseline: "I have never seen such a well-prepared proposal.",
+                prompt: "Formal version: ___ such a well-prepared proposal.",
+                options: [
+                    "Never I have seen",
+                    "Never have I seen",
+                    "Never did I see",
+                    "Never have I been seeing"
+                ],
+                correctIndex: 1,
+                rule: "When a negative adverbial ('never', 'rarely', 'seldom') is fronted, the subject and auxiliary invert: Never + auxiliary + subject.",
+                category: "Negative adverbial inversion"
+            },
+            {
+                id: "q7",
+                context: "Formal emphasis on sequence and significance.",
+                baseline: "The minister not only denied the allegation but also threatened legal action.",
+                prompt: "Formal emphatic version: ___ the allegation but also threatened legal action.",
+                options: [
+                    "Not only the minister denied",
+                    "Not only did the minister deny",
+                    "Not only has the minister denied",
+                    "The minister did not only deny"
+                ],
+                correctIndex: 1,
+                rule: "After fronted 'Not only', the auxiliary comes before the subject. Past simple → 'did + subject + base verb'. Present perfect would be 'has + subject + past participle'.",
+                category: "Negative adverbial inversion"
+            },
+            {
+                id: "q8",
+                context: "Hypothetical future event in a formal policy document.",
+                baseline: "If the department were to request additional funding, approval would be required.",
+                prompt: "Formal inverted version: ___ additional funding, approval would be required.",
+                options: [
+                    "Should the department request",
+                    "Were the department to request",
+                    "Had the department requested",
+                    "Would the department request"
+                ],
+                correctIndex: 1,
+                rule: "'Were + subject + to + base verb' is the formal inversion for hypothetical future events. Slightly more hypothetical / literary than 'Should + subject + base verb'.",
+                category: "Were + subject + to"
+            },
+            {
+                id: "q9",
+                context: "Attributing a past success to a specific factor.",
+                baseline: "If it weren't for the funding grant, the research would never have begun.",
+                prompt: "A more concise formal alternative: ___ the funding grant, the research would never have begun.",
+                options: [
+                    "But for",
+                    "Owing for",
+                    "Should there be",
+                    "Were there not"
+                ],
+                correctIndex: 0,
+                rule: "'But for + noun' is a compact formal alternative to 'Were it not for / Had it not been for'. It works for both present and past contexts.",
+                category: "But for"
+            },
+            {
+                id: "q10",
+                context: "Fronted 'Under no circumstances' in a policy register.",
+                baseline: "Passengers must not open the emergency exit under any circumstances.",
+                prompt: "Formal version: ___ the emergency exit be opened.",
+                options: [
+                    "Under no circumstances passengers should",
+                    "Under no circumstances should passengers open",
+                    "Under no circumstances passengers open",
+                    "Under no circumstances do open passengers"
+                ],
+                correctIndex: 1,
+                rule: "After fronted 'Under no circumstances', invert the modal and subject: 'should + subject + base verb'. The passive variant ('should the emergency exit be opened') is also acceptable.",
+                category: "Negative adverbial inversion"
+            },
+            {
+                id: "q11",
+                context: "Combining 'only' with a time expression at the start of a sentence.",
+                baseline: "We realised the mistake only after the report was published.",
+                prompt: "Formal version: ___ the mistake.",
+                options: [
+                    "Only after the report was published we realised",
+                    "Only after the report was published did we realise",
+                    "Only after the report was published have we realised",
+                    "Only after the report did publish we realised"
+                ],
+                correctIndex: 1,
+                rule: "Fronted 'Only after/when/if' triggers inversion in the main clause, not the time clause. Past simple main verb → 'did + subject + base verb'.",
+                category: "Negative adverbial inversion"
+            },
+            {
+                id: "q12",
+                context: "Matching the right formal structure to a past-time regret.",
+                baseline: "If I had seen the warning, I would have taken a different route.",
+                prompt: "Which formal version is grammatical?",
+                options: [
+                    "Were I to see the warning, I would have taken a different route.",
+                    "Should I have seen the warning, I would have taken a different route.",
+                    "Had I seen the warning, I would have taken a different route.",
+                    "Had I been seeing the warning, I would have taken a different route."
+                ],
+                correctIndex: 2,
+                rule: "Past-time hypothetical → inverted third conditional: 'Had + subject + past participle'. 'Were to' is for hypothetical future; 'Should have seen' is non-standard in this frame.",
+                category: "Inverted third conditional"
+            }
+        ];
+
+        const lessonLinks = {
+            "Inverted second conditional": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" }
+            ],
+            "Inverted third conditional": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" }
+            ],
+            "Inverted first conditional": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" },
+                { name: "Advanced Modals (C1)", url: "grammar_c1_03_advanced_modals.html" }
+            ],
+            "Were it not for / Had it not been for": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" }
+            ],
+            "But for": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" }
+            ],
+            "Negative adverbial inversion": [
+                { name: "Sentence Architecture (C1)", url: "grammar_c1_14_sentence_architecture.html" },
+                { name: "Negative Adverbials + Inversion (B2)", url: "grammar_b2_09_negative_adverbials_inversion.html" }
+            ],
+            "Were + subject + to": [
+                { name: "Inverted / Formal Conditionals (C1)", url: "grammar_c1_04_inverted_formal_conditionals.html" }
+            ]
+        };
+
+        let practiceAnswers = {};
+        let questionAnswers = {};
+
+        function renderBaseline(item) {
+            return item.baseline ? `<span class="baseline"><span class="baseline-label">Plain:</span>${item.baseline}</span>` : "";
+        }
+
+        function renderPractice() {
+            const container = document.getElementById("practice-container");
+            container.innerHTML = practice.map(item => `
+                <div class="question-card" id="card-${item.id}">
+                    <div class="question-label">Practice</div>
+                    <div class="context-note">${item.context}</div>
+                    <div class="question-prompt">${renderBaseline(item)}${item.prompt.replace("___", "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" onclick="answerPractice('${item.id}', ${i})">${String.fromCharCode(65 + i)}. ${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="fb-${item.id}"></div>
+                </div>
+            `).join("");
+        }
+
+        function answerPractice(id, index) {
+            if (practiceAnswers[id] !== undefined) return;
+            const item = practice.find(p => p.id === id);
+            practiceAnswers[id] = index;
+            const card = document.getElementById(`card-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`fb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct. ${item.rule}`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            if (Object.keys(practiceAnswers).length === practice.length) {
+                document.getElementById("practice-next-btn").style.display = "block";
+            }
+        }
+
+        function renderFlip() {
+            const container = document.getElementById("flip-container");
+            container.innerHTML = questions.map((item, idx) => `
+                <div class="question-card" id="qcard-${item.id}">
+                    <div class="question-label">Item ${idx + 1} of ${questions.length}</div>
+                    <div class="context-note">${item.context}</div>
+                    <div class="question-prompt">${renderBaseline(item)}${item.prompt.replace(/___/g, "<span class=\"blank\">?</span>")}</div>
+                    <div class="options-grid">
+                        ${item.options.map((opt, i) => `
+                            <button class="btn-option" onclick="answerQuestion('${item.id}', ${i})">${String.fromCharCode(65 + i)}. ${opt}</button>
+                        `).join("")}
+                    </div>
+                    <div class="feedback" id="qfb-${item.id}"></div>
+                </div>
+            `).join("");
+            updateProgress();
+        }
+
+        function answerQuestion(id, index) {
+            if (questionAnswers[id] !== undefined) return;
+            const item = questions.find(q => q.id === id);
+            questionAnswers[id] = index;
+            const card = document.getElementById(`qcard-${id}`);
+            card.classList.add("answered");
+            const buttons = card.querySelectorAll(".btn-option");
+            buttons.forEach((b, i) => {
+                b.classList.add("disabled");
+                if (i === item.correctIndex) b.classList.add("revealed-correct");
+                if (i === index) b.classList.add(i === item.correctIndex ? "chosen-correct" : "chosen-wrong");
+            });
+            const fb = document.getElementById(`qfb-${id}`);
+            if (index === item.correctIndex) {
+                fb.className = "feedback correct show";
+                fb.innerHTML = `<span class="feedback-icon">✓</span> Correct — <strong>${item.options[item.correctIndex]}</strong>.`;
+            } else {
+                fb.className = "feedback incorrect show";
+                fb.innerHTML = `<span class="feedback-icon">✗</span> The right answer was <strong>${item.options[item.correctIndex]}</strong>. ${item.rule}`;
+            }
+            updateProgress();
+            if (Object.keys(questionAnswers).length === questions.length) {
+                document.getElementById("finish-btn").style.display = "inline-block";
+            }
+        }
+
+        function updateProgress() {
+            const done = Object.keys(questionAnswers).length;
+            const total = questions.length;
+            document.getElementById("progressFill").style.width = `${(done / total) * 100}%`;
+            document.getElementById("progressText").textContent = `${done} of ${total} answered`;
+        }
+
+        function nextSection() {
+            document.querySelector(".tab-button[data-tab=\"tab-flip\"]").click();
+        }
+
+        function finishFlip() {
+            renderReview();
+            renderResults();
+            document.querySelector(".tab-button[data-tab=\"tab-review\"]").click();
+        }
+
+        function renderReview() {
+            const container = document.getElementById("review-container");
+            container.innerHTML = questions.map((item, idx) => {
+                const user = questionAnswers[item.id];
+                const wasCorrect = user === item.correctIndex;
+                return `
+                <div class="evidence-item">
+                    <strong>Item ${idx + 1}</strong> — ${wasCorrect ? "<span style=\"color:#10b981\">✓ Correct</span>" : "<span style=\"color:#ef4444\">✗ You picked " + item.options[user] + "</span>"}
+                    <div class="evidence-fragment">Plain: ${item.baseline}</div>
+                    <div class="evidence-answer">Formal: <strong>${item.options[item.correctIndex]}</strong></div>
+                    <div class="evidence-rule"><strong>Why:</strong> ${item.rule}</div>
+                    <div class="evidence-category">Category: ${item.category}</div>
+                </div>`;
+            }).join("");
+        }
+
+        function renderResults() {
+            const total = questions.length;
+            const correct = questions.filter(q => questionAnswers[q.id] === q.correctIndex).length;
+            const percent = Math.round((correct / total) * 100);
+
+            const categories = {};
+            questions.forEach(q => {
+                if (!categories[q.category]) categories[q.category] = { correct: 0, total: 0 };
+                categories[q.category].total++;
+                if (questionAnswers[q.id] === q.correctIndex) categories[q.category].correct++;
+            });
+
+            let scoreClass = "partial-score";
+            let message = "A strong starting point. Focus on the categories below.";
+            if (percent === 100) { scoreClass = "full-score"; message = "Exceptional — full command of the formal register."; }
+            else if (percent >= 80) { scoreClass = "full-score"; message = "Excellent. A couple of structures left to consolidate."; }
+            else if (percent >= 50) { scoreClass = "partial-score"; message = "The patterns are recognisable — the review will sharpen production."; }
+            else { scoreClass = "zero-score"; message = "These structures are worth the investment. Working through the linked lessons will lift your register visibly."; }
+
+            const container = document.getElementById("results-container");
+            container.innerHTML = `
+                <div class="completion-message">Diagnostic complete — here is your profile.</div>
+                <div class="result-card">
+                    <div class="result-score-large ${scoreClass}">${correct} / ${total}</div>
+                    <div class="result-label">${percent}% — ${message}</div>
+                </div>
+                <h2 style="margin: 30px 0 20px; font-size: 1.5em; color: #1a1a2e;">Breakdown by Category</h2>
+                <div class="breakdown-grid">
+                    ${Object.entries(categories).map(([cat, data]) => {
+                        const pct = Math.round((data.correct / data.total) * 100);
+                        let cls = "partial-score";
+                        if (pct === 100) cls = "full-score";
+                        else if (pct === 0) cls = "zero-score";
+                        const links = lessonLinks[cat] || [];
+                        return `
+                        <div class="breakdown-card">
+                            <div class="breakdown-category">${cat}</div>
+                            <div class="breakdown-score ${cls}">${data.correct} / ${data.total}</div>
+                            <div class="breakdown-percentage">${pct}% correct</div>
+                            <div class="lesson-links">
+                                ${links.map(l => `<a href="${l.url}" class="lesson-link">→ ${l.name}</a>`).join("")}
+                            </div>
+                        </div>`;
+                    }).join("")}
+                </div>
+                <div style="text-align:center;margin-top:40px">
+                    <a href="diagnostic_hub.html" class="btn-primary" style="text-decoration:none;display:inline-block">← Back to Diagnostic Hub</a>
+                </div>`;
+
+            document.getElementById("scoreBanner").classList.add("active");
+            document.getElementById("scoreBanner").textContent = `Your score: ${correct} / ${total} (${percent}%)`;
+        }
+
+        document.querySelectorAll(".tab-button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+
+        renderPractice();
+        renderFlip();
+    </script>
+</body>
+</html>
