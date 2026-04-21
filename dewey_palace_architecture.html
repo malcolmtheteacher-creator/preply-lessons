@@ -76,6 +76,18 @@ body { font-family: 'Inter', sans-serif; background: #f8f5f0; color: #1a1a2e; li
 .item-content .memory-cue { font-size: 0.8em; color: #2d1b4e; background: #ede7f6; padding: 4px 10px; border-radius: 4px; display: inline-block; }
 .item-content .date-tag { font-size: 0.75em; color: #fff; background: #7c4dff; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-right: 5px; }
 
+/* Discussion questions panel */
+.discussion { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.discussion .level { border-radius: 6px; padding: 10px 14px; font-size: 0.82em; }
+.discussion .level.b2 { background: #eef6ff; border-left: 3px solid #3b82f6; }
+.discussion .level.c1 { background: #fdf3ec; border-left: 3px solid #c2410c; }
+.discussion .level .level-label { font-family: 'Crimson Text', serif; font-weight: 700; font-size: 0.95em; margin-bottom: 6px; letter-spacing: 0.04em; }
+.discussion .level.b2 .level-label { color: #1d4ed8; }
+.discussion .level.c1 .level-label { color: #9a3412; }
+.discussion .level ol { margin: 0; padding-left: 18px; }
+.discussion .level ol li { margin-bottom: 4px; line-height: 1.5; color: #333; }
+@media (max-width: 768px) { .discussion { grid-template-columns: 1fr; } }
+
 /* Stats bar */
 .stats-bar { background: #fff; border-top: 2px solid #e8e0d4; padding: 20px 30px; margin-top: 40px; }
 .stats-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 20px; }
@@ -173,6 +185,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f5f0; color: #1a1a2e; li
 <!-- Classes will be inserted here -->
 </div>
 
+<script src="dewey_palace_questions.js"></script>
 <script>
 // ─── DATA ───
 const classes = [
@@ -5981,6 +5994,20 @@ const classes = [
 }
 ];
 
+// ─── MERGE IN EXTERNAL QUESTIONS (if available) ───
+if (typeof window !== 'undefined' && window.DEWEY_QUESTIONS) {
+  classes.forEach(cls => {
+    cls.divisions.forEach(div => {
+      div.items.forEach((item, i) => {
+        const key = cls.id + '.' + div.ddc + '.' + (i + 1);
+        if (window.DEWEY_QUESTIONS[key]) {
+          item.questions = window.DEWEY_QUESTIONS[key];
+        }
+      });
+    });
+  });
+}
+
 // ─── RENDER ───
 const container = document.getElementById('classes-container');
 
@@ -5996,16 +6023,29 @@ classes.forEach(cls => {
   cls.divisions.forEach(div => {
     let itemsHTML = '';
     if (div.items.length > 0) {
-      itemsHTML = '<div class="items-grid">' + div.items.map((item, i) => `
+      itemsHTML = '<div class="items-grid">' + div.items.map((item, i) => {
+        const q = item.questions;
+        let qHTML = '';
+        if (q && ((q.b2 && q.b2.length) || (q.c1 && q.c1.length))) {
+          const b2list = (q.b2 || []).map(x => `<li>${x}</li>`).join('');
+          const c1list = (q.c1 || []).map(x => `<li>${x}</li>`).join('');
+          qHTML = `
+            <div class="discussion">
+              ${b2list ? `<div class="level b2"><div class="level-label">B2 Discussion</div><ol>${b2list}</ol></div>` : ''}
+              ${c1list ? `<div class="level c1"><div class="level-label">C1 Discussion</div><ol>${c1list}</ol></div>` : ''}
+            </div>`;
+        }
+        return `
         <div class="item-card">
           <div class="item-number">${i + 1}</div>
           <div class="item-content">
             <h4>${item.date ? '<span class="date-tag">' + item.date + '</span>' : ''}${item.title}</h4>
             <div class="hook">${item.hook}</div>
             <div class="memory-cue">&#x1F3E0; ${item.cue}</div>
+            ${qHTML}
           </div>
         </div>
-      `).join('') + '</div>';
+      `;}).join('') + '</div>';
     } else {
       itemsHTML = '<p style="color:#aaa;font-style:italic;padding:10px 0;">Items to be curated &mdash; click to expand when populated.</p>';
     }
