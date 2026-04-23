@@ -223,6 +223,131 @@ header p { font-size: 1.1em; opacity: 0.95; }
     min-height: 150px;
 }
 
+/* === WARM-UP GAME === */
+.game-panel {
+    background: white;
+    border: 3px dashed #764ba2;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    text-align: center;
+}
+.spinner-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+.spinner {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 20px 15px;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.spinner-label {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #667eea;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+.spinner-result {
+    font-size: 1.05em;
+    font-weight: 600;
+    color: #764ba2;
+    line-height: 1.4;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spinner.spinning .spinner-result {
+    animation: blur 0.1s infinite alternate;
+    color: #667eea;
+}
+@keyframes blur {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0.4; transform: translateY(-3px); }
+}
+.spin-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #764ba2 100%);
+    color: white;
+    font-size: 1.3em;
+    font-weight: 800;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.2s ease;
+    letter-spacing: 2px;
+}
+.spin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+}
+.spin-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+.challenge-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 20px 0;
+    animation: pop 0.5s ease;
+}
+.challenge-box h3 { color: white; margin-bottom: 12px; }
+.challenge-box p { margin-bottom: 15px; font-size: 1.1em; line-height: 1.5; }
+@keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+.game-timer {
+    background: white;
+    color: #764ba2;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.game-timer.warning { background: #fff3cd; }
+.game-timer.danger { background: #ff6b6b; color: white; animation: pulse 0.5s infinite alternate; }
+.score-display {
+    background: rgba(255,255,255,0.15);
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.1em;
+}
+.score-display strong { font-size: 1.4em; color: #ffd700; }
+.starter-list {
+    list-style: none;
+    padding: 0;
+}
+.starter-list li {
+    background: white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-left: 4px solid #764ba2;
+    border-radius: 4px;
+    font-style: italic;
+    color: #555;
+}
+
 @media (max-width: 768px) {
     .container { padding: 15px; }
     header h1 { font-size: 1.8em; }
@@ -253,15 +378,64 @@ header p { font-size: 1.1em; opacity: 0.95; }
 </header>
 
 <div class="tabs">
-    <button class="tab-button active" onclick="openTab(event, 'tab1')">City Life Today</button>
+    <button class="tab-button active" onclick="openTab(event, 'tabgame')">🎡 Fix My City!</button>
+    <button class="tab-button" onclick="openTab(event, 'tab1')">City Life Today</button>
     <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
     <button class="tab-button" onclick="openTab(event, 'tab3')">The Big Problems</button>
     <button class="tab-button" onclick="openTab(event, 'tab4')">Language for Solutions</button>
     <button class="tab-button" onclick="openTab(event, 'tab5')">Your City Action Plan</button>
 </div>
 
+<!-- TAB GAME: FIX MY CITY! (Warm-up) -->
+<div id="tabgame" class="tab-content active">
+    <div class="content-block">
+        <h2>Fix My City!</h2>
+        <p>Two wheels. One challenge. Spin to get a random city with a random problem &mdash; then you have <strong>30 seconds</strong> to pitch one solution out loud. Each completed pitch adds to your score. How high can you go?</p>
+
+        <div class="game-panel">
+            <div class="spinner-row">
+                <div class="spinner" id="city-spinner">
+                    <div class="spinner-label">YOUR CITY</div>
+                    <div class="spinner-result" id="city-result">Press SPIN to begin</div>
+                </div>
+                <div class="spinner" id="problem-spinner">
+                    <div class="spinner-label">YOUR PROBLEM</div>
+                    <div class="spinner-result" id="problem-result">&mdash;</div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spin-btn" onclick="spinWheels()">🎡 SPIN!</button>
+        </div>
+
+        <div class="challenge-box" id="challenge-box" style="display:none;">
+            <h3>Your Mission</h3>
+            <p id="challenge-text"></p>
+            <div class="game-timer">
+                <span>⏱️ Time: <strong><span id="game-timer-display">0:30</span></strong></span>
+                <button class="timer-btn" onclick="startGameTimer()">Start My 30 Seconds</button>
+                <button class="timer-btn" onclick="resetGameTimer()">Reset</button>
+            </div>
+            <div class="score-display">🏆 Solutions pitched: <strong id="score-count">0</strong></div>
+        </div>
+
+        <h3>🎯 Sentence Starters &mdash; Grab These While You Think</h3>
+        <ul class="starter-list">
+            <li>"What really needs to happen is..."</li>
+            <li>"The first thing I would do is..."</li>
+            <li>"A good starting point would be to..."</li>
+            <li>"One option would be to..."</li>
+            <li>"The problem could be tackled by + -ing..."</li>
+            <li>"[Something] should be banned / subsidised / encouraged..."</li>
+        </ul>
+
+        <div class="discussion-box">
+            <p><strong>Goal:</strong> Reach <strong>5 pitches</strong> in this warm-up. Don't worry about perfect grammar &mdash; the challenge is to keep talking for the full 30 seconds.</p>
+        </div>
+    </div>
+</div>
+
 <!-- TAB 1: CITY LIFE TODAY -->
-<div id="tab1" class="tab-content active">
+<div id="tab1" class="tab-content">
     <div class="content-block">
         <h2>Opening Questions</h2>
         <p>Think about the city you live in or a city you know well. Answer out loud &mdash; try to give full sentences and examples.</p>
@@ -603,6 +777,122 @@ function resetTimer() {
     timeRemaining = 300;
     document.getElementById("timer-display").textContent = "5:00";
     document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+// === WARM-UP GAME: FIX MY CITY! ===
+const gameCities = [
+    "🏖️ a coastal tourist city flooded with summer visitors",
+    "🏭 a post-industrial town recovering from factory closures",
+    "🏛️ the historic capital of a small European country",
+    "💻 a fast-growing tech hub that has doubled in 10 years",
+    "🚗 a car-dependent sprawl where nobody walks anywhere",
+    "🌴 a tropical megacity of 15 million people",
+    "❄️ a cold northern city with freezing, dark winters",
+    "⛏️ a mining town reinventing itself after the mine closed",
+    "🏜️ a desert city that is running out of water",
+    "🌉 an old port city with a polluted river in the middle",
+    "🏔️ a mountain city where cars struggle on steep streets",
+    "🎓 a university city where half the population are students"
+];
+
+const gameProblems = [
+    "☁️ the air quality is so bad that children are getting asthma",
+    "🚦 traffic is gridlocked &mdash; the average commute is two hours",
+    "🗑️ there is nowhere left to put the rubbish &mdash; the landfill is full",
+    "🌳 green spaces keep disappearing, replaced by parking lots",
+    "🔥 summers are now dangerously hot &mdash; over 40°C",
+    "💧 the river is filthy and nobody can swim in it anymore",
+    "🏚️ old buildings leak heat and energy bills are crushing families",
+    "🚲 there is almost nowhere safe to cycle, so everyone drives",
+    "🦠 single-use plastic is everywhere &mdash; in the streets, the sea, the parks",
+    "🏢 the new glass skyscrapers are turning the centre into a heat island",
+    "🚇 public transport is expensive and unreliable, so nobody uses it",
+    "🌲 the last patch of woodland outside the city is about to be sold to developers"
+];
+
+let gameTimerInterval = null;
+let gameTimeRemaining = 30;
+let gameScored = false;
+
+function spinWheels() {
+    const btn = document.getElementById("spin-btn");
+    const citySpinner = document.getElementById("city-spinner");
+    const problemSpinner = document.getElementById("problem-spinner");
+    const cityEl = document.getElementById("city-result");
+    const problemEl = document.getElementById("problem-result");
+
+    btn.disabled = true;
+    btn.textContent = "🎡 Spinning...";
+    citySpinner.classList.add("spinning");
+    problemSpinner.classList.add("spinning");
+    document.getElementById("challenge-box").style.display = "none";
+
+    let ticks = 0;
+    const maxTicks = 18;
+    const spinLoop = setInterval(function() {
+        cityEl.innerHTML = gameCities[Math.floor(Math.random() * gameCities.length)];
+        problemEl.innerHTML = gameProblems[Math.floor(Math.random() * gameProblems.length)];
+        ticks++;
+        if (ticks >= maxTicks) {
+            clearInterval(spinLoop);
+            const finalCity = gameCities[Math.floor(Math.random() * gameCities.length)];
+            const finalProblem = gameProblems[Math.floor(Math.random() * gameProblems.length)];
+            cityEl.innerHTML = finalCity;
+            problemEl.innerHTML = finalProblem;
+            citySpinner.classList.remove("spinning");
+            problemSpinner.classList.remove("spinning");
+            btn.disabled = false;
+            btn.textContent = "🎡 SPIN AGAIN!";
+
+            const cityText = finalCity.replace(/^\S+\s/, "");
+            const problemText = finalProblem.replace(/^\S+\s/, "");
+            document.getElementById("challenge-text").innerHTML =
+                "You are the mayor of " + cityText + ". The biggest issue you face: " + problemText + ". You have 30 seconds &mdash; what is your plan? Use full sentences and at least one passive modal (\"should be...\", \"could be...\", \"needs to be...\").";
+            document.getElementById("challenge-box").style.display = "block";
+            resetGameTimer();
+            gameScored = false;
+        }
+    }, 90);
+}
+
+function startGameTimer() {
+    if (gameTimerInterval) return;
+    gameTimerInterval = setInterval(function() {
+        gameTimeRemaining--;
+        const minutes = Math.floor(gameTimeRemaining / 60);
+        const seconds = gameTimeRemaining % 60;
+        document.getElementById("game-timer-display").textContent =
+            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+        const t = document.querySelector(".game-timer");
+        if (gameTimeRemaining <= 5) {
+            t.classList.add("danger");
+            t.classList.remove("warning");
+        } else if (gameTimeRemaining <= 10) {
+            t.classList.add("warning");
+            t.classList.remove("danger");
+        }
+
+        if (gameTimeRemaining <= 0) {
+            clearInterval(gameTimerInterval);
+            gameTimerInterval = null;
+            document.getElementById("game-timer-display").textContent = "Done!";
+            if (!gameScored) {
+                const score = parseInt(document.getElementById("score-count").textContent, 10);
+                document.getElementById("score-count").textContent = score + 1;
+                gameScored = true;
+            }
+        }
+    }, 1000);
+}
+
+function resetGameTimer() {
+    clearInterval(gameTimerInterval);
+    gameTimerInterval = null;
+    gameTimeRemaining = 30;
+    document.getElementById("game-timer-display").textContent = "0:30";
+    const t = document.querySelector(".game-timer");
+    if (t) t.classList.remove("warning", "danger");
 }
 </script>
 
