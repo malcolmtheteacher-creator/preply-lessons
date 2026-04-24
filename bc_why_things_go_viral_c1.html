@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Things Go Viral — C1 Reading</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f3ff;
+    color: #1f2937;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
+    color: white;
+    padding: 2.25rem 2rem 1.75rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
+  }
+  .header h1 { font-size: 2.15rem; margin-bottom: 0.35rem; font-weight: 700; letter-spacing: -0.01em; }
+  .header .subtitle { opacity: 0.92; font-size: 1.05rem; font-weight: 300; }
+  .header .meta { margin-top: 0.75rem; font-size: 0.85rem; opacity: 0.8; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 1.5rem; }
+
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    min-width: 110px;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #6b7280;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f3f4f6; color: #4c1d95; }
+  .tab-btn.active {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: white;
+    box-shadow: 0 3px 12px rgba(124,58,237,0.3);
+  }
+
+  .tab-content { display: none; animation: fadeIn 0.3s; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: white;
+    padding: 1.75rem;
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    color: #4c1d95;
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+  .card h3 {
+    color: #6d28d9;
+    margin: 1.25rem 0 0.6rem;
+    font-size: 1.05rem;
+  }
+  .card p { margin-bottom: 0.85rem; }
+
+  .prompt {
+    background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+    border-left: 4px solid #a855f7;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin: 0.85rem 0;
+    font-weight: 500;
+    color: #4c1d95;
+  }
+
+  /* Vocab flip cards */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .flip-card {
+    perspective: 1000px;
+    height: 165px;
+    cursor: pointer;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(124,58,237,0.15);
+  }
+  .flip-front {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: white;
+  }
+  .flip-front .word { font-size: 1.25rem; font-weight: 700; }
+  .flip-front .pos { font-size: 0.8rem; opacity: 0.85; margin-top: 0.3rem; font-style: italic; }
+  .flip-front .hint { font-size: 0.75rem; opacity: 0.7; margin-top: 0.6rem; letter-spacing: 0.05em; }
+  .flip-back {
+    background: white;
+    color: #1f2937;
+    transform: rotateY(180deg);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Reading passage */
+  .reading {
+    background: #fefefe;
+    border: 1px solid #e9d5ff;
+    border-radius: 12px;
+    padding: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  .reading h3 {
+    color: #4c1d95;
+    border-bottom: 2px solid #e9d5ff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .reading p { margin-bottom: 1rem; text-align: justify; }
+  .reading p:first-of-type::first-letter {
+    font-size: 3rem;
+    float: left;
+    line-height: 0.9;
+    padding-right: 0.4rem;
+    color: #7c3aed;
+    font-weight: 700;
+  }
+
+  /* Answer reveal */
+  .question {
+    background: #faf5ff;
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .question .q {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.6rem;
+  }
+  .question .q-type {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: #a855f7;
+    color: white;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+  .reveal-btn {
+    background: #ede9fe;
+    color: #6d28d9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reveal-btn:hover { background: #ddd6fe; }
+  .answer {
+    display: none;
+    margin-top: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: white;
+    border-left: 3px solid #22c55e;
+    border-radius: 6px;
+    color: #166534;
+    font-size: 0.95rem;
+  }
+  .answer.visible { display: block; }
+
+  /* Timer */
+  .timer-box {
+    background: linear-gradient(135deg, #4c1d95, #6d28d9);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 1.25rem 0;
+  }
+  .timer-display {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+  .timer-btn {
+    background: white;
+    color: #4c1d95;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0.25rem;
+  }
+  .timer-btn:hover { background: #f5f3ff; }
+  .timer-task { font-size: 0.95rem; opacity: 0.92; margin-bottom: 0.5rem; }
+
+  .discussion-item {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+    border-left: 4px solid #a855f7;
+    border-radius: 8px;
+    margin-bottom: 0.85rem;
+    font-size: 1rem;
+    color: #1f2937;
+  }
+  .discussion-item .num {
+    color: #7c3aed;
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+
+  ul.inline { margin: 0.5rem 0 1rem 1.25rem; }
+  ul.inline li { margin-bottom: 0.35rem; }
+
+  .footer {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.8rem;
+    padding: 1.5rem 1rem 2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Why Things Go Viral</h1>
+  <div class="subtitle">The hidden science behind what spreads — and why</div>
+  <div class="meta">C1 · Reading · 50 minutes</div>
+</div>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="t1">First Thoughts</button>
+    <button class="tab-btn" data-tab="t2">Key Vocabulary</button>
+    <button class="tab-btn" data-tab="t3">The Reading</button>
+    <button class="tab-btn" data-tab="t4">Comprehension</button>
+    <button class="tab-btn" data-tab="t5">Your Take</button>
+  </div>
+
+  <!-- TAB 1: Warm-up -->
+  <div class="tab-content active" id="t1">
+    <div class="card">
+      <h2>Before we read</h2>
+      <p>Think of the last video you saw that you really wanted to share — or the last thing you saw that "everyone" was talking about.</p>
+
+      <div class="prompt">What was it? Why did it work? What made you want to pass it on?</div>
+
+      <h3>Predict the text</h3>
+      <p>The reading we are about to do is called <strong>"Why Things Go Viral"</strong>. Before reading, predict:</p>
+      <ul class="inline">
+        <li>What do you think are the top 3 reasons a video goes viral?</li>
+        <li>Whose job do you think it is to decide what goes viral — the creator, the audience, or the platform?</li>
+        <li>What percentage of videos posted online do you think ever reach 1 million views?</li>
+      </ul>
+
+      <div class="prompt">Write your three predictions down. We will come back to them after the reading.</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: Vocab flip cards -->
+  <div class="tab-content" id="t2">
+    <div class="card">
+      <h2>Key vocabulary — tap a card to flip it</h2>
+      <p>Eight words and phrases you will meet in the reading. Try to guess the meaning before flipping.</p>
+
+      <div class="vocab-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">algorithm</div>
+              <div class="pos">noun</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">A set of rules a computer follows to make decisions — such as which video to show you next.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">virality</div>
+              <div class="pos">noun</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">The quality of spreading rapidly online; the tendency of content to be shared at an enormous scale.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">emotional contagion</div>
+              <div class="pos">phrase</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">When feelings spread from person to person almost automatically — like yawning, but with anger, fear or joy.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">the attention economy</div>
+              <div class="pos">phrase</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">The idea that in a world of infinite content, human attention is the rarest and most valuable resource.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">dopamine</div>
+              <div class="pos">noun</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">A brain chemical released during pleasurable experiences. Heavily involved in habit formation and reward-seeking behaviour.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">cognitive bias</div>
+              <div class="pos">phrase</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">A systematic error in thinking that affects the judgements and decisions people make, often without realising it.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">to amplify</div>
+              <div class="pos">verb</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">To make something louder, stronger or more noticeable. Online, to boost a post so that many more people see it.</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="word">cultural touchstone</div>
+              <div class="pos">phrase</div>
+              <div class="hint">tap to flip</div>
+            </div>
+            <div class="flip-back">A reference point — a song, meme, film, joke — that a whole group of people recognises and connects with.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: Reading -->
+  <div class="tab-content" id="t3">
+    <div class="card">
+      <h2>Reading</h2>
+      <p>Read the text carefully. While you read, keep two questions in your head:</p>
+      <ul class="inline">
+        <li>Who or what really decides which videos go viral?</li>
+        <li>Which part of the article surprises you the most?</li>
+      </ul>
+
+      <div class="reading">
+        <h3>Why Things Go Viral</h3>
+
+        <p>Every day, roughly 95 million photos and videos are posted to Instagram, another 34 million TikToks hit the platform, and over half a billion tweets arrive on X. Almost all of them vanish without a trace. A tiny fraction — perhaps one in a hundred thousand — go viral, racking up millions of views in a matter of hours. What separates the clips that disappear from the ones that ricochet around the planet? It turns out the answer is far less about luck than most people assume.</p>
+
+        <p>The first thing to understand is that "going viral" is not really about the video itself. It is about the invisible machinery working underneath it. Every major platform — TikTok, Instagram, YouTube, X — is run by <strong>algorithms</strong> that decide, second by second, who sees what. These algorithms are optimised for one thing above all: keeping you scrolling. If a post holds your attention, the algorithm <strong>amplifies</strong> it to more people. If those people also linger, it amplifies it further. Within hours, a clip that started in a teenager's bedroom can be in front of ten million strangers. The video didn't "catch fire" — the algorithm caught it and threw fuel on it.</p>
+
+        <p>But algorithms do not work in a vacuum. They respond to what humans respond to, and humans are not the rational decision-makers we like to imagine. Researchers at Yale studied half a million tweets and found that posts containing words such as "attack", "blame" or "bad" spread roughly 20% faster than neutral ones. Anger is unusually contagious online — one of the purest examples of what psychologists call <strong>emotional contagion</strong>, the tendency for feelings to leap between people without anyone noticing. A post that sparks outrage is not just read; it is reacted to, quoted, argued about. Every argument is more engagement, and more engagement is more amplification.</p>
+
+        <p>Not all viral content is angry, though. The second great driver of <strong>virality</strong> is surprise. The neuroscientist Wolfram Schultz showed decades ago that the human brain releases <strong>dopamine</strong> not when a reward arrives, but when a reward arrives <em>unexpectedly</em>. Unexpected content — a cat doing something impossible, a stranger performing an act of unexpected kindness, a twist ending — hits the brain's prediction system in a way that ordinary content cannot. We feel compelled to share it, as if passing along a small gift.</p>
+
+        <p>A third ingredient is identity. People share what signals something about who they are. A well-timed meme functions as a <strong>cultural touchstone</strong> — a shorthand that tells your followers which group you belong to, what you find funny, what you care about. In a sense, sharing is not really about the content at all; it is about the sharer. That is why the same joke can feel mandatory to share on a Tuesday evening and completely stale by Thursday morning. The signal is only valuable while it is fresh.</p>
+
+        <p>All of this plays out inside what economists now call <strong>the attention economy</strong>. The phrase, coined in 1997 by the scholar Michael Goldhaber, rests on a simple argument: as information becomes effectively infinite, the one thing that remains scarce is human attention. Every platform is therefore locked in a battle for seconds of your focus. This is why your feed feels engineered to be impossible to put down — because it is. The designers are not accidentally addictive; they have teams of engineers and psychologists whose literal job is to maximise time on site.</p>
+
+        <p>The implications are uncomfortable. <strong>Cognitive biases</strong> that once operated at a village scale now operate at the scale of billions. A rumour that would have died at a dinner table can circle the earth before breakfast. Content that triggers outrage, surprise or belonging is systematically amplified over content that does not — even when the outraging content is false and the quiet content is true. Studies from MIT have shown that false news stories on X spread, on average, six times faster than accurate ones.</p>
+
+        <p>Understanding virality is not the same as being able to produce it on demand — the people claiming to have "cracked the code" are usually selling a course. But it does change how you read your own feed. The video you saw today wasn't neutral. Something put it in front of you. That something was probably designed by people who know exactly which of your psychological buttons they were pressing. Scrolling is never just scrolling.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: Comprehension -->
+  <div class="tab-content" id="t4">
+    <div class="card">
+      <h2>Comprehension check</h2>
+      <p>Answer each question in your own words, then reveal the suggested answer.</p>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Recall</span>According to the article, roughly how many videos go viral out of those posted?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">About one in a hundred thousand. The huge majority of posts vanish without a trace.</div>
+      </div>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Inference</span>What does the author mean by saying "the algorithm caught it and threw fuel on it"?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">They mean the video didn't spread by itself — the platform's algorithm detected that people were watching it and deliberately pushed it to far more users, feeding its growth the way fuel feeds a fire.</div>
+      </div>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Vocab in context</span>In the sentence "Anger is unusually contagious online", what does <em>contagious</em> suggest about anger?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">It suggests that anger spreads from person to person, like a disease. The word links emotion to infection — you "catch" it from someone else's post.</div>
+      </div>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Recall</span>What three drivers of virality does the article identify?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">(1) Emotion — especially anger and outrage; (2) Surprise — content that breaks the brain's prediction; (3) Identity — content that signals who the sharer is.</div>
+      </div>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Author's purpose</span>Why does the author say "Scrolling is never just scrolling"? What effect is this final line designed to have?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">The line is a warning. The author wants the reader to leave the text feeling alert, even slightly uncomfortable — aware that every video they see has been selected by a system designed to press their psychological buttons. It reframes a casual habit as something engineered.</div>
+      </div>
+
+      <div class="question">
+        <div class="q"><span class="q-type">Inference</span>Why are false news stories said to spread faster than true ones?</div>
+        <button class="reveal-btn" onclick="toggleAnswer(this)">Reveal answer</button>
+        <div class="answer">Because false stories are more likely to be surprising, emotional or outrage-inducing, they trigger more engagement. The algorithm rewards engagement, so it amplifies them — regardless of whether they are accurate.</div>
+      </div>
+
+      <div class="timer-box">
+        <div class="timer-task">Short writing task — summarise the article in about 80 words, using at least three of today's vocabulary items.</div>
+        <div class="timer-display" id="timer">10:00</div>
+        <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: Discussion -->
+  <div class="tab-content" id="t5">
+    <div class="card">
+      <h2>Your take</h2>
+      <p>Three questions to talk through. There are no right answers — use today's vocabulary where you can.</p>
+
+      <div class="discussion-item"><span class="num">1.</span>The article suggests that viral success is mostly about algorithms and psychology, not luck or talent. Do you agree? Can you think of a video where talent was clearly the main reason?</div>
+
+      <div class="discussion-item"><span class="num">2.</span>If you ran a social media platform, would you design your algorithm to amplify content that makes people angry? Why or why not? What would you use instead?</div>
+
+      <div class="discussion-item"><span class="num">3.</span>The author ends with "Scrolling is never just scrolling". After reading this, will you change how you use your feed? What, specifically, would you do differently — if anything?</div>
+
+      <div class="prompt">Look back at the three predictions you made at the start. How close were you?</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">C1 Reading · Why Things Go Viral</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  // Answer reveal
+  function toggleAnswer(btn) {
+    const ans = btn.nextElementSibling;
+    const isVisible = ans.classList.toggle('visible');
+    btn.textContent = isVisible ? "Hide answer" : "Reveal answer";
+  }
+
+  // Timer — click-to-start ONLY
+  let timerSeconds = 600;
+  let timerInterval = null;
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ":" + (sec < 10 ? "0" : "") + sec;
+  }
+  function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      document.getElementById("timer").textContent = formatTime(timerSeconds);
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.getElementById("timer").textContent = "Time is up";
+      }
+    }, 1000);
+  }
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerSeconds = 600;
+    document.getElementById("timer").textContent = "10:00";
+  }
+</script>
+
+</body>
+</html>
