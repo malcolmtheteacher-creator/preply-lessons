@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Takes: Reductio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container { max-width: 760px; margin: 0 auto; }
+        header {
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            padding: 30px 25px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(72, 219, 251, 0.2);
+        }
+        h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .tagline { font-size: 0.95em; opacity: 0.95; font-weight: 300; letter-spacing: 0.5px; }
+        .game-area {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(72,219,251,0.2);
+            border-radius: 0 0 12px 12px;
+            padding: 30px 28px 40px;
+        }
+        .intro {
+            background: rgba(72,219,251,0.06);
+            border-left: 4px solid #48dbfb;
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 26px;
+        }
+        .intro h3 { color: #48dbfb; font-size: 1em; margin-bottom: 6px; }
+        .intro p { font-size: 0.95em; color: rgba(255,255,255,0.85); }
+        .intro em { color: #feca57; font-style: normal; font-weight: 600; }
+        .round {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(72,219,251,0.2);
+            border-radius: 12px;
+            padding: 22px 22px 18px;
+            margin-bottom: 26px;
+        }
+        .round-label { font-size: 0.75em; color: #48dbfb; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+        .surface {
+            font-size: 1.2em;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #fff;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+            border-bottom: 1px dashed rgba(72,219,251,0.3);
+            text-align: center;
+        }
+        .step {
+            background: rgba(255,255,255,0.04);
+            border-left: 3px solid #ff9ff3;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+        .step-head { font-size: 0.78em; color: #ff9ff3; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+        .step .reveal {
+            background: transparent;
+            border: 2px dashed rgba(255,159,243,0.5);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: rgba(255,159,243,0.85);
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+        .step .reveal:hover { border-color: #ff9ff3; color: #ff9ff3; }
+        .step .reveal.shown {
+            background: rgba(255,159,243,0.08);
+            border-style: solid;
+            cursor: default;
+            text-align: left;
+            color: rgba(255,255,255,0.92);
+        }
+        .step .reveal .label { display: block; }
+        .step .reveal.shown .label { display: none; }
+        .step .reveal .body { display: none; font-size: 0.95em; line-height: 1.5; }
+        .step .reveal.shown .body { display: block; }
+        .step .reveal .body em { color: #feca57; font-style: normal; font-weight: 600; }
+        .timer-row { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+        .timer-display {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #48dbfb;
+            font-variant-numeric: tabular-nums;
+            min-width: 48px;
+            text-align: center;
+        }
+        .start-btn {
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            color: #0f0c29;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.85em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(72,219,251,0.3);
+        }
+        .start-btn:hover:not(:disabled) { transform: translateY(-2px); }
+        .start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .verdict {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: rgba(254,202,87,0.08);
+            border-left: 3px solid #feca57;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.85);
+        }
+        .verdict h4 { color: #feca57; font-size: 0.82em; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8em; }
+            .surface { font-size: 1.05em; }
+            .game-area { padding: 22px 18px 28px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Hot Takes: Reductio</h1>
+        <p class="tagline">Push every take to its breaking point.</p>
+    </header>
+
+    <div class="game-area">
+        <div class="intro">
+            <h3>The reductio move</h3>
+            <p>If a principle is really true, it has to hold even when you push it hard. <em>Reductio ad absurdum</em> means: take the rule, follow it as far as it goes, and see whether it still makes sense at the edges. If it doesn't — the rule needs more nuance.</p>
+            <p style="margin-top:8px;">For each take below, click each step to reveal a harder version. Defend it for 30 seconds. If you can't — that's the breaking point. Find it.</p>
+        </div>
+
+        <div class="round">
+            <div class="round-label">Round 1</div>
+            <div class="surface">"Anyone offended by something should have the right to have it removed."</div>
+
+            <div class="step">
+                <div class="step-head">Push 1</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it</span>
+                    <div class="body">If the right is real, then <em>one</em> offended person is enough. Defend that. (One angry email gets a book pulled. Yes or no?)</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't1a', 30)">Start 30s</button>
+                    <div class="timer-display" id="t1a">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 2</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it harder</span>
+                    <div class="body">It also has to apply to <em>things you like</em>. Defend the principle when applied to a film, song, or comedian you personally love being removed because someone is offended.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't1b', 30)">Start 30s</button>
+                    <div class="timer-display" id="t1b">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 3 — The breaking point</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to find the breaking point</span>
+                    <div class="body">Now apply the principle <em>against itself</em>. If <em>you</em> are offended by people who want to remove things, do <em>they</em> have to be removed? Where does the take break?</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't1c', 60)">Start 60s</button>
+                    <div class="timer-display" id="t1c">1:00</div>
+                </div>
+            </div>
+
+            <div class="verdict">
+                <h4>The repair</h4>
+                Rewrite the take with the nuance that survives the pressure. Speak it aloud. ("The take is right when ___, and wrong when ___.")
+            </div>
+        </div>
+
+        <div class="round">
+            <div class="round-label">Round 2</div>
+            <div class="surface">"Wealthy countries should accept every refugee who wants to come."</div>
+
+            <div class="step">
+                <div class="step-head">Push 1</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it</span>
+                    <div class="body">"Every" means <em>every</em>. There is no upper limit. Defend the take with no cap on numbers, no skill filter, no security check.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't2a', 30)">Start 30s</button>
+                    <div class="timer-display" id="t2a">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 2</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it harder</span>
+                    <div class="body">If wealthier countries <em>must</em> take refugees, then a country that becomes poorer (say, a major recession) is automatically allowed to stop. Defend that consequence.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't2b', 30)">Start 30s</button>
+                    <div class="timer-display" id="t2b">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 3 — The breaking point</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to find the breaking point</span>
+                    <div class="body">If "wanting to come" is the only criterion, then anyone — including people whose values harm the country they're entering — is owed entry. Does the take survive that?</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't2c', 60)">Start 60s</button>
+                    <div class="timer-display" id="t2c">1:00</div>
+                </div>
+            </div>
+
+            <div class="verdict">
+                <h4>The repair</h4>
+                Rewrite the take so the moral force survives but the absurd edge cases don't. Speak it.
+            </div>
+        </div>
+
+        <div class="round">
+            <div class="round-label">Round 3</div>
+            <div class="surface">"Children should make their own decisions as soon as they can speak."</div>
+
+            <div class="step">
+                <div class="step-head">Push 1</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it</span>
+                    <div class="body">A four-year-old who can speak refuses to brush their teeth. Or to wear a coat in winter. Or to attend school. Defend the take in all three.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't3a', 30)">Start 30s</button>
+                    <div class="timer-display" id="t3a">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 2</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it harder</span>
+                    <div class="body">If "speak" is the threshold, then an articulate eight-year-old can choose to leave home, refuse a vaccine, or take a job. Defend at least one.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't3b', 30)">Start 30s</button>
+                    <div class="timer-display" id="t3b">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 3 — The breaking point</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to find the breaking point</span>
+                    <div class="body">Where exactly is the line? If "can speak" is too low and "eighteen" is too high — what's the actual rule? Build it.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't3c', 60)">Start 60s</button>
+                    <div class="timer-display" id="t3c">1:00</div>
+                </div>
+            </div>
+
+            <div class="verdict">
+                <h4>The repair</h4>
+                Speak the more careful version. ("Children should make their own decisions about ___, but not yet about ___.")
+            </div>
+        </div>
+
+        <div class="round">
+            <div class="round-label">Round 4</div>
+            <div class="surface">"Athletes who can perform at the top should be allowed to compete — including with doping."</div>
+
+            <div class="step">
+                <div class="step-head">Push 1</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it</span>
+                    <div class="body">If doping is fine, then so is doping in junior leagues — fifteen-year-olds taking professional substances to make the team. Defend it.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't4a', 30)">Start 30s</button>
+                    <div class="timer-display" id="t4a">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 2</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it harder</span>
+                    <div class="body">"Performance enhancement" doesn't stop at drugs. Genetic editing for athletes. Mechanical limbs. Defend at least one.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't4b', 30)">Start 30s</button>
+                    <div class="timer-display" id="t4b">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 3 — The breaking point</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to find the breaking point</span>
+                    <div class="body">Sport is meaningful because it's a fair test of <em>something</em>. If everything is allowed, what's the test? What is sport actually <em>for</em>?</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't4c', 60)">Start 60s</button>
+                    <div class="timer-display" id="t4c">1:00</div>
+                </div>
+            </div>
+
+            <div class="verdict">
+                <h4>The repair</h4>
+                Rebuild the principle with a clear answer to "what is sport testing?" Speak it.
+            </div>
+        </div>
+
+        <div class="round">
+            <div class="round-label">Round 5</div>
+            <div class="surface">"Every meeting between officials should be public, in the name of transparency."</div>
+
+            <div class="step">
+                <div class="step-head">Push 1</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it</span>
+                    <div class="body">"Every" means peace negotiations between hostile countries are streamed live. Defend that.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't5a', 30)">Start 30s</button>
+                    <div class="timer-display" id="t5a">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 2</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to push it harder</span>
+                    <div class="body">It also means a minister speaking to a victim of abuse — or a doctor briefing the prime minister on sensitive medical issues — has to be public. Defend it.</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't5b', 30)">Start 30s</button>
+                    <div class="timer-display" id="t5b">0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-head">Push 3 — The breaking point</div>
+                <div class="reveal" onclick="this.classList.add('shown')">
+                    <span class="label">↓ Click to find the breaking point</span>
+                    <div class="body">If everything is public, the real conversations move somewhere else — bathrooms, encrypted apps, private dinners. Transparency may produce <em>more</em> secrecy. Does the take survive its own consequence?</div>
+                </div>
+                <div class="timer-row">
+                    <button class="start-btn" onclick="startTimer(this, 't5c', 60)">Start 60s</button>
+                    <div class="timer-display" id="t5c">1:00</div>
+                </div>
+            </div>
+
+            <div class="verdict">
+                <h4>The repair</h4>
+                Rewrite the take so transparency does the job it's meant to. ("Public when ___, confidential when ___.")
+            </div>
+        </div>
+
+        <div class="intro" style="margin-top:30px;">
+            <h3>Reflection</h3>
+            <p>Which take broke fastest? Which one survived all three pushes? When you spotted a breaking point, did your final repaired version still feel like a "hot take" — or did it become something more careful, less spicy? What's the trade-off between strong opinions and accurate ones?</p>
+        </div>
+    </div>
+</div>
+
+<script>
+const intervals = {};
+function startTimer(btn, id, secs) {
+    if (intervals[id]) return;
+    btn.disabled = true;
+    let t = secs;
+    const display = document.getElementById(id);
+    const fmt = (s) => {
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return m + ":" + (r < 10 ? "0" : "") + r;
+    };
+    display.textContent = fmt(t);
+    display.style.color = "#48dbfb";
+    intervals[id] = setInterval(() => {
+        t--;
+        display.textContent = fmt(t);
+        if (t <= 10 && t > 5) display.style.color = "#feca57";
+        else if (t <= 5 && t > 0) display.style.color = "#ff6b6b";
+        if (t <= 0) {
+            clearInterval(intervals[id]);
+            delete intervals[id];
+            display.textContent = "Time!";
+            btn.disabled = false;
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>

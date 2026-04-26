@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Takes: The Apology Tour</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header {
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            padding: 30px 25px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(72, 219, 251, 0.2);
+        }
+        h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .tagline { font-size: 0.95em; opacity: 0.95; font-weight: 300; letter-spacing: 0.5px; }
+        .tabs {
+            display: flex; gap: 6px; flex-wrap: wrap;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(72,219,251,0.2);
+            border-bottom: none;
+            padding: 10px 14px;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 8px 14px;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(72,219,251,0.3);
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { background: rgba(72,219,251,0.1); color: #fff; }
+        .tab-btn.active { background: #48dbfb; color: #0f0c29; border-color: #48dbfb; }
+        .content {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(72,219,251,0.2);
+            border-radius: 0 0 12px 12px;
+            padding: 30px 28px 40px;
+        }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .scenario {
+            background: rgba(255,107,107,0.08);
+            border: 2px solid rgba(255,107,107,0.4);
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin-bottom: 22px;
+        }
+        .scenario h3 { color: #ff6b6b; font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .scenario p { font-size: 1.05em; color: rgba(255,255,255,0.92); line-height: 1.55; }
+        .opening {
+            background: rgba(72,219,251,0.06);
+            border-left: 4px solid #48dbfb;
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 22px;
+        }
+        .opening h4 { color: #48dbfb; font-size: 0.95em; margin-bottom: 6px; }
+        .opening p { font-size: 0.95em; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+        .timer-row { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .timer-display {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #48dbfb;
+            font-variant-numeric: tabular-nums;
+            min-width: 56px;
+            text-align: center;
+        }
+        .start-btn {
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            color: #0f0c29;
+            border: none;
+            padding: 9px 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(72,219,251,0.3);
+        }
+        .start-btn:hover:not(:disabled) { transform: translateY(-2px); }
+        .start-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .q {
+            background: rgba(255,255,255,0.04);
+            border: 2px dashed rgba(255,159,243,0.4);
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q:hover { border-color: #ff9ff3; }
+        .q.shown { border-style: solid; border-color: #ff9ff3; cursor: default; background: rgba(255,159,243,0.06); }
+        .q-counter { font-size: 0.72em; color: #ff9ff3; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
+        .q-prompt { color: rgba(255,159,243,0.85); text-align: center; font-size: 0.9em; }
+        .q.shown .q-prompt { display: none; }
+        .q-text { display: none; font-size: 1em; color: #fff; line-height: 1.5; margin-bottom: 12px; font-weight: 500; }
+        .q.shown .q-text { display: block; }
+        .q-timer-row { display: none; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .q.shown .q-timer-row { display: flex; }
+        .toolkit {
+            background: rgba(254,202,87,0.06);
+            border-left: 4px solid #feca57;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 14px;
+        }
+        .toolkit h4 { color: #feca57; font-size: 0.9em; margin-bottom: 6px; }
+        .toolkit p { font-size: 0.9em; color: rgba(255,255,255,0.85); }
+        .toolkit em { color: #ff9ff3; font-style: normal; font-weight: 600; }
+        .reflect {
+            background: rgba(255,159,243,0.06);
+            border-left: 4px solid #ff9ff3;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 18px;
+        }
+        .reflect h4 { color: #ff9ff3; font-size: 0.95em; margin-bottom: 6px; }
+        .reflect p { font-size: 0.92em; color: rgba(255,255,255,0.85); }
+        ul { padding-left: 22px; margin-top: 6px; }
+        ul li { margin-bottom: 4px; font-size: 0.9em; color: rgba(255,255,255,0.85); }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8em; }
+            .content { padding: 22px 18px 28px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Hot Takes: The Apology Tour</h1>
+        <p class="tagline">You're in trouble. Time to face the press.</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(0)">The Toolkit</button>
+        <button class="tab-btn" onclick="showTab(1)">The Athlete</button>
+        <button class="tab-btn" onclick="showTab(2)">The CEO</button>
+        <button class="tab-btn" onclick="showTab(3)">The Author</button>
+        <button class="tab-btn" onclick="showTab(4)">The Minister</button>
+        <button class="tab-btn" onclick="showTab(5)">Reflect</button>
+    </div>
+
+    <div class="content">
+
+    <div class="panel active" id="panel0">
+        <div class="opening">
+            <h4>The set-up</h4>
+            <p>You've taken a hot take in real life — or someone has dug one up — and now you're paying for it. In each scenario, you'll deliver a short opening statement, then face four sharp questions. You don't know the questions in advance.</p>
+        </div>
+
+        <div class="toolkit">
+            <h4>1. The non-apology apology</h4>
+            <p>"I'm sorry <em>if anyone was offended</em>." This shifts the blame onto the offended. Modern audiences hate it. Avoid it — but recognise when it slips out.</p>
+        </div>
+        <div class="toolkit">
+            <h4>2. The full apology</h4>
+            <p>Three ingredients: <em>name what you did</em>, <em>name who was hurt</em>, <em>say what you'll do differently</em>. Skip any one and it sounds hollow.</p>
+        </div>
+        <div class="toolkit">
+            <h4>3. The bridge</h4>
+            <p>"Yes, that happened. <em>And</em> here is the wider context that doesn't excuse it but does explain it." Acknowledge first, then add. Never lead with the "but".</p>
+        </div>
+        <div class="toolkit">
+            <h4>4. The hedge</h4>
+            <p>"At the time, given what was known…" / "I'm not in a position to comment on that ongoing matter, but…" / "We are actively reviewing…" Buys time without lying.</p>
+        </div>
+        <div class="toolkit">
+            <h4>5. Owning it</h4>
+            <p>Sometimes the strongest move is the simplest: "I was wrong. There is no good defence. Here is what I'm going to do." Used well, it disarms even hostile rooms.</p>
+        </div>
+    </div>
+
+    <div class="panel" id="panel1">
+        <div class="scenario">
+            <h3>Scenario 1</h3>
+            <p>You are a national-team athlete. After last week's gold-medal performance, your urine sample tested positive for a banned substance. You say it was a contaminated supplement. Sponsors are watching. The room is hostile.</p>
+        </div>
+
+        <div class="opening">
+            <h4>Your opening statement</h4>
+            <p>You have 60 seconds. Decide first: are you apologising, denying, or something in between? Be specific.</p>
+            <div class="timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'a-open', 60)">Start 60s</button>
+                <div class="timer-display" id="a-open">1:00</div>
+            </div>
+        </div>
+
+        <h4 style="color:#ff9ff3; font-size:0.95em; margin: 20px 0 12px; letter-spacing:1px; text-transform:uppercase;">The Questions</h4>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 1 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"You were tested every month for two years and never failed once. Why now? Did this 'contaminated supplement' arrive last Tuesday?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'a-q1', 30)">Start 30s</button>
+                <div class="timer-display" id="a-q1">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 2 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Will you give back the gold medal voluntarily, or wait until they take it from you?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'a-q2', 30)">Start 30s</button>
+                <div class="timer-display" id="a-q2">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 3 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"What do you say to the runner-up — the woman who ran a clean race and now has no chance to stand on top of that podium?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'a-q3', 30)">Start 30s</button>
+                <div class="timer-display" id="a-q3">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 4 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Be honest with us, just once: have you ever, at any point in your career, knowingly taken anything you shouldn't have?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'a-q4', 30)">Start 30s</button>
+                <div class="timer-display" id="a-q4">0:30</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel2">
+        <div class="scenario">
+            <h3>Scenario 2</h3>
+            <p>You are the CEO of a clothing company. A documentary has revealed that your products are made by twelve-year-olds in a Bangladeshi factory, working sixty-hour weeks. Your stock has dropped 18% overnight. The journalists in front of you have the receipts.</p>
+        </div>
+
+        <div class="opening">
+            <h4>Your opening statement</h4>
+            <p>You have 60 seconds. Apologise, defend, or restructure — but be specific about <em>what</em> you'll do.</p>
+            <div class="timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'c-open', 60)">Start 60s</button>
+                <div class="timer-display" id="c-open">1:00</div>
+            </div>
+        </div>
+
+        <h4 style="color:#ff9ff3; font-size:0.95em; margin: 20px 0 12px; letter-spacing:1px; text-transform:uppercase;">The Questions</h4>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 1 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Did you know? Yes or no — and don't say 'we're investigating'. Did you know children were making your clothes?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'c-q1', 30)">Start 30s</button>
+                <div class="timer-display" id="c-q1">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 2 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Your last three press releases said you had 'rigorous ethical sourcing'. Were you lying then or are you lying now?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'c-q2', 30)">Start 30s</button>
+                <div class="timer-display" id="c-q2">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 3 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"You've earned 14 million pounds in bonuses over five years. Will you give any of it back to the children who made you that money?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'c-q3', 30)">Start 30s</button>
+                <div class="timer-display" id="c-q3">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 4 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"If you raise wages and prices go up, customers will go elsewhere. Are you saying the system is impossible — or are you just unwilling to be the first to break it?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'c-q4', 30)">Start 30s</button>
+                <div class="timer-display" id="c-q4">0:30</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel3">
+        <div class="scenario">
+            <h3>Scenario 3</h3>
+            <p>You are a bestselling novelist. A journalist has just published twelve of your social media posts from 2014 — eight years before your first book — including one mocking a now-protected community. Your publisher has cancelled the European tour. You have 24 hours to respond.</p>
+        </div>
+
+        <div class="opening">
+            <h4>Your opening statement</h4>
+            <p>You have 60 seconds. Old you, current you — what's the relationship? Be honest.</p>
+            <div class="timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'au-open', 60)">Start 60s</button>
+                <div class="timer-display" id="au-open">1:00</div>
+            </div>
+        </div>
+
+        <h4 style="color:#ff9ff3; font-size:0.95em; margin: 20px 0 12px; letter-spacing:1px; text-transform:uppercase;">The Questions</h4>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 1 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"You were 27 when you wrote those posts. Not 17. Not a child. How does 'I've grown since then' apply to a fully grown adult?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'au-q1', 30)">Start 30s</button>
+                <div class="timer-display" id="au-q1">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 2 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Some readers will never come back. Do you accept that, as a creative consequence of what you wrote — or do you believe you're being unfairly treated?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'au-q2', 30)">Start 30s</button>
+                <div class="timer-display" id="au-q2">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 3 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"You've said before that 'cancel culture' has gone too far. Are <em>you</em> being cancelled now? Or is this just a normal consequence?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'au-q3', 30)">Start 30s</button>
+                <div class="timer-display" id="au-q3">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 4 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"What would you say directly, right now, to the people you mocked in those posts — knowing many of them are reading this transcript tomorrow?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'au-q4', 30)">Start 30s</button>
+                <div class="timer-display" id="au-q4">0:30</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel4">
+        <div class="scenario">
+            <h3>Scenario 4</h3>
+            <p>You are a government minister. A newspaper has revealed that the Oxford degree on your official biography was never completed — you left after one year. You've referred to it in interviews for six years. The opposition is calling for your resignation.</p>
+        </div>
+
+        <div class="opening">
+            <h4>Your opening statement</h4>
+            <p>You have 60 seconds. Resign, fight, or reframe — your call.</p>
+            <div class="timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'm-open', 60)">Start 60s</button>
+                <div class="timer-display" id="m-open">1:00</div>
+            </div>
+        </div>
+
+        <h4 style="color:#ff9ff3; font-size:0.95em; margin: 20px 0 12px; letter-spacing:1px; text-transform:uppercase;">The Questions</h4>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 1 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Your biography has read 'Oxford-educated' for six years. That's not an honest mistake. That's a sustained lie. Do you accept that word?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'm-q1', 30)">Start 30s</button>
+                <div class="timer-display" id="m-q1">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 2 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Last year, your government tightened the rules on benefit fraud. You said 'honesty must run through public life'. How do those rules apply to you?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'm-q2', 30)">Start 30s</button>
+                <div class="timer-display" id="m-q2">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 3 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Your office was asked about your degree in 2021, 2022 and 2023. Each time, your team confirmed it. Were they lying for you, or were you lying to them?"</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'm-q3', 30)">Start 30s</button>
+                <div class="timer-display" id="m-q3">0:30</div>
+            </div>
+        </div>
+
+        <div class="q" onclick="this.classList.add('shown')">
+            <div class="q-counter">Question 4 of 4</div>
+            <div class="q-prompt">↓ Tap to reveal</div>
+            <div class="q-text">"Will you resign by the end of this week? Yes, no, or 'I won't answer that' — but pick one."</div>
+            <div class="q-timer-row">
+                <button class="start-btn" onclick="startTimer(this, 'm-q4', 30)">Start 30s</button>
+                <div class="timer-display" id="m-q4">0:30</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel5">
+        <div class="reflect">
+            <h4>Which scenario was hardest?</h4>
+            <p>Was it the personal lie, the corporate one, the moral one, or the criminal-adjacent one? What made it hardest? Was it the question or the role?</p>
+        </div>
+        <div class="reflect">
+            <h4>Which moves did you actually use?</h4>
+            <p>Did you use the bridge, the hedge, or the full apology most often? Did you slip into a non-apology apology by accident? When?</p>
+        </div>
+        <div class="reflect">
+            <h4>Have you seen this in real life?</h4>
+            <p>Pick a real public figure who handled an apology well — and one who handled it badly. What did each do differently? Try to be specific about the language they used.</p>
+        </div>
+        <div class="opening">
+            <h4>I can…</h4>
+            <ul>
+                <li>deliver a full apology with the three ingredients</li>
+                <li>use the bridge to acknowledge before pivoting</li>
+                <li>hedge legitimately without sounding evasive</li>
+                <li>spot a non-apology apology in someone else's response</li>
+                <li>stay composed when the question itself is hostile</li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll(".tab-btn").forEach((b, idx) => b.classList.toggle("active", idx === i));
+    document.querySelectorAll(".panel").forEach((p, idx) => p.classList.toggle("active", idx === i));
+    window.scrollTo(0, 0);
+}
+
+const intervals = {};
+function startTimer(btn, id, secs) {
+    if (intervals[id]) return;
+    if (event) event.stopPropagation();
+    btn.disabled = true;
+    let t = secs;
+    const display = document.getElementById(id);
+    const fmt = (s) => {
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return m + ":" + (r < 10 ? "0" : "") + r;
+    };
+    display.textContent = fmt(t);
+    display.style.color = "#48dbfb";
+    intervals[id] = setInterval(() => {
+        t--;
+        display.textContent = fmt(t);
+        if (t <= 10 && t > 5) display.style.color = "#feca57";
+        else if (t <= 5 && t > 0) display.style.color = "#ff6b6b";
+        if (t <= 0) {
+            clearInterval(intervals[id]);
+            delete intervals[id];
+            display.textContent = "Time!";
+            btn.disabled = false;
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
