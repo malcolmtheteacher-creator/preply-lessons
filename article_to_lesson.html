@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article → Lesson Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container { max-width: 820px; margin: 0 auto; }
+        header {
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            padding: 30px 25px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(72, 219, 251, 0.2);
+        }
+        h1 { font-size: 2.2em; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .tagline { font-size: 0.95em; opacity: 0.95; font-weight: 300; letter-spacing: 0.3px; }
+        .game-area {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(72,219,251,0.2);
+            border-radius: 0 0 12px 12px;
+            padding: 30px 28px 40px;
+        }
+        .step {
+            margin-bottom: 22px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.04);
+            border-left: 3px solid #48dbfb;
+            border-radius: 0 10px 10px 0;
+        }
+        .step-label {
+            font-size: 0.72em;
+            color: #48dbfb;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .step-title { font-size: 1em; font-weight: 600; color: #fff; margin-bottom: 10px; }
+        .levels { display: flex; gap: 8px; flex-wrap: wrap; }
+        .lvl-btn {
+            padding: 7px 16px;
+            background: transparent;
+            color: rgba(255,255,255,0.75);
+            border: 1.5px solid rgba(72,219,251,0.4);
+            border-radius: 18px;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .lvl-btn:hover { background: rgba(72,219,251,0.12); color: #fff; }
+        .lvl-btn.active { background: #48dbfb; color: #0f0c29; border-color: #48dbfb; }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1.5px solid rgba(72,219,251,0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+            font-family: inherit;
+        }
+        input[type="text"]:focus { outline: none; border-color: #48dbfb; background: rgba(255,255,255,0.1); }
+        input[type="text"]::placeholder { color: rgba(255,255,255,0.4); }
+        textarea {
+            width: 100%;
+            min-height: 240px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.06);
+            border: 1.5px solid rgba(72,219,251,0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95em;
+            font-family: inherit;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: #48dbfb; background: rgba(255,255,255,0.1); }
+        textarea::placeholder { color: rgba(255,255,255,0.4); }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+        .action-btn {
+            padding: 11px 22px;
+            background: linear-gradient(90deg, #48dbfb 0%, #0abde3 100%);
+            color: #0f0c29;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 14px rgba(72,219,251,0.3);
+            transition: all 0.2s;
+        }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(72,219,251,0.4); }
+        .action-btn.alt {
+            background: linear-gradient(90deg, #ff9ff3 0%, #c976d6 100%);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(255,159,243,0.3);
+        }
+        .action-btn.alt:hover { box-shadow: 0 6px 20px rgba(255,159,243,0.4); }
+        .action-btn.ghost {
+            background: transparent;
+            color: rgba(255,255,255,0.85);
+            border: 1.5px solid rgba(255,255,255,0.35);
+            box-shadow: none;
+        }
+        .action-btn.ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); box-shadow: none; }
+        .status {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.92em;
+            font-weight: 500;
+            min-height: 18px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .status.ok { background: rgba(120, 220, 140, 0.15); border-left: 3px solid #78dc8c; color: #b6efbf; text-align: left; }
+        .status.err { background: rgba(255, 120, 130, 0.15); border-left: 3px solid #ff7882; color: #ffb8be; text-align: left; }
+        .info {
+            background: rgba(254,202,87,0.06);
+            border-left: 4px solid #feca57;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 16px;
+        }
+        .info h3 { color: #feca57; font-size: 0.95em; margin-bottom: 8px; letter-spacing: 0.3px; }
+        .info ul { padding-left: 22px; }
+        .info li { font-size: 0.9em; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
+        .info em { color: #feca57; font-style: normal; font-weight: 600; }
+        .quick-tip {
+            margin-top: 8px;
+            padding: 10px 14px;
+            background: rgba(72,219,251,0.06);
+            border-left: 3px solid #48dbfb;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.78);
+        }
+        .quick-tip strong { color: #48dbfb; }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.7em; }
+            .game-area { padding: 22px 16px 28px; }
+            textarea { min-height: 180px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Article → Lesson Builder</h1>
+        <p class="tagline">Paste any article. Get vocabulary, questions and a hot take in seconds.</p>
+    </header>
+
+    <div class="game-area">
+        <div class="step">
+            <div class="step-label">Step 1</div>
+            <div class="step-title">Choose the student's level</div>
+            <div class="levels">
+                <button type="button" class="lvl-btn" onclick="setLevel(this, 'A2')">A2 Elementary</button>
+                <button type="button" class="lvl-btn" onclick="setLevel(this, 'B1')">B1 Intermediate</button>
+                <button type="button" class="lvl-btn active" onclick="setLevel(this, 'B2')">B2 Upper Int.</button>
+                <button type="button" class="lvl-btn" onclick="setLevel(this, 'C1')">C1 Advanced</button>
+                <button type="button" class="lvl-btn" onclick="setLevel(this, 'C2')">C2 Proficient</button>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-label">Step 2 (optional)</div>
+            <div class="step-title">Topic context</div>
+            <input type="text" id="topic" placeholder="e.g., climate, AI, parenting — leave blank if mixed">
+            <div class="quick-tip">
+                <strong>Tip:</strong> if you came from a hot take, this is already pre-filled. Helps Claude pick more useful vocab.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-label">Step 3</div>
+            <div class="step-title">Paste the article</div>
+            <textarea id="article" placeholder="Paste the full article text here. Headline + body. The longer the better, up to about 2,000 words."></textarea>
+        </div>
+
+        <div class="step">
+            <div class="step-label">Step 4</div>
+            <div class="step-title">Open in your AI of choice</div>
+            <div class="actions">
+                <button type="button" class="action-btn" onclick="processWith('claude')">🤖 Open in Claude</button>
+                <button type="button" class="action-btn alt" onclick="processWith('chatgpt')">💬 Open in ChatGPT</button>
+                <button type="button" class="action-btn ghost" onclick="copyOnly()">📋 Just copy prompt</button>
+            </div>
+            <div class="quick-tip">
+                <strong>How it works:</strong> we copy the full prompt + article to your clipboard, then open the AI in a new tab. Just paste (Cmd-V) and hit send.
+            </div>
+            <div class="status" id="status">&nbsp;</div>
+        </div>
+
+        <div class="info">
+            <h3>What you'll get back</h3>
+            <ul>
+                <li><em>8 vocabulary items</em> at the level you chose, each with a definition and a fresh example sentence</li>
+                <li><em>5 reading comprehension questions</em> — a mix of factual and inferential</li>
+                <li><em>5 discussion / debate questions</em> — open-ended, opinion-based, ideally provocative</li>
+                <li><em>3 grammar / language focus points</em> spotted in the article (passives, hedging, conditionals, etc.)</li>
+                <li><em>1 "hot take" sentence</em> — a single provocative claim drawn from the article that the student can argue for, then flip and argue against</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentLevel = "B2";
+
+function setLevel(btn, lvl) {
+    currentLevel = lvl;
+    document.querySelectorAll(".lvl-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+}
+
+// Pre-fill from URL parameters
+const params = new URLSearchParams(location.search);
+const lvlParam = params.get("level");
+if (lvlParam) {
+    const upper = lvlParam.toUpperCase();
+    const target = Array.from(document.querySelectorAll(".lvl-btn")).find(b => b.textContent.startsWith(upper));
+    if (target) {
+        document.querySelectorAll(".lvl-btn").forEach(b => b.classList.remove("active"));
+        target.classList.add("active");
+        currentLevel = upper;
+    }
+}
+const topicParam = params.get("topic");
+if (topicParam) {
+    document.getElementById("topic").value = topicParam;
+}
+
+function buildPrompt(article, topic) {
+    const level = currentLevel;
+    const topicLine = topic ? `\nTopic context: ${topic}` : "";
+    return `You are an experienced English teacher preparing a 1-to-1 lesson for a ${level} student. We are going to read the article below together. Please extract the following teaching materials from it, formatted with clear Markdown headings so I can share-screen the result.${topicLine}
+
+## 1. Key vocabulary (8 items, ${level} level)
+For each item give: word or phrase, part of speech, a simple ${level}-level definition, and a fresh example sentence (not from the article).
+
+## 2. Reading comprehension questions (5 questions)
+Test understanding of what the article actually says. Mix factual ("according to the article…") and inferential ("why do you think the writer…"). Provide a brief ideal answer for each, marked "Suggested answer:".
+
+## 3. Discussion / debate questions (5 questions)
+Open-ended, opinion-based questions that force the student to take a position and justify it. At least two should be provocative or invite genuine disagreement. Do NOT provide answers — these are for the student.
+
+## 4. Grammar / language focus (3 points)
+Pick three notable grammar patterns or language features used in the article (e.g., passive voice, conditionals, reporting verbs, hedging language, complex noun phrases). For each: name the feature, quote a sentence from the article that uses it, and briefly explain how/why it is used.
+
+## 5. The Hot Take
+Write ONE provocative single-sentence claim derived from the article that the student can argue for, then flip and argue against. Make it strong, clear, and debatable.
+
+---
+
+ARTICLE:
+"""
+${article}
+"""
+
+Please format your full response with the five Markdown headings above, in order. Do not skip any section. Do not use disclaimers — the student is an adult and the teacher will moderate.`;
+}
+
+async function processWith(platform) {
+    const article = document.getElementById("article").value.trim();
+    const topic = document.getElementById("topic").value.trim();
+    const status = document.getElementById("status");
+    if (!article) {
+        status.className = "status err";
+        status.textContent = "Please paste an article first.";
+        return;
+    }
+    const prompt = buildPrompt(article, topic);
+    let copied = false;
+    try {
+        await navigator.clipboard.writeText(prompt);
+        copied = true;
+    } catch (e) {
+        copied = false;
+    }
+    if (copied) {
+        status.className = "status ok";
+        const platformName = platform === "claude" ? "Claude" : "ChatGPT";
+        status.innerHTML = "✓ Prompt copied to your clipboard. Opening " + platformName + " — just paste (Cmd-V) and hit send.";
+    } else {
+        status.className = "status err";
+        status.innerHTML = "Could not copy automatically. Click <strong>Just copy prompt</strong> and paste manually.";
+        return;
+    }
+    setTimeout(() => {
+        const url = platform === "claude" ? "https://claude.ai/new" : "https://chatgpt.com/";
+        window.open(url, "_blank", "noopener");
+    }, 350);
+}
+
+async function copyOnly() {
+    const article = document.getElementById("article").value.trim();
+    const topic = document.getElementById("topic").value.trim();
+    const status = document.getElementById("status");
+    if (!article) {
+        status.className = "status err";
+        status.textContent = "Please paste an article first.";
+        return;
+    }
+    const prompt = buildPrompt(article, topic);
+    try {
+        await navigator.clipboard.writeText(prompt);
+        status.className = "status ok";
+        status.textContent = "✓ Prompt copied to your clipboard. Paste it into any AI chat.";
+    } catch (e) {
+        status.className = "status err";
+        status.textContent = "Could not copy. Your browser may need a permissions grant — try again.";
+    }
+}
+</script>
+</body>
+</html>
