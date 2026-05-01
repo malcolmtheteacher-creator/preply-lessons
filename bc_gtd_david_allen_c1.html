@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting Things Done — David Allen</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid #667eea;
+}
+.tab-button {
+    padding: 12px 20px;
+    border: none;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active {
+    background: #f8f9fa;
+    border-bottom-color: #667eea;
+    color: #764ba2;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.content-block {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 5px solid #667eea;
+}
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.vocab-card {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.vocab-card:hover {
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transform: translateY(-5px);
+}
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+
+.answer-btn {
+    background: #667eea;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    border: none;
+    font-size: 1em;
+}
+.answer-btn:hover { background: #764ba2; }
+.answer-text {
+    display: none;
+    background: #f8f9fa;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #667eea;
+    color: #333;
+}
+.answer-text.show { display: block; }
+
+.question-block {
+    background: white;
+    padding: 20px;
+    border-left: 5px solid #764ba2;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+
+.reading-passage {
+    background: white;
+    padding: 20px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+.reading-passage p { margin-bottom: 15px; }
+.reading-passage h3 { color: #764ba2; margin-top: 18px; margin-bottom: 8px; }
+
+.discussion-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 5px solid #764ba2;
+}
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.timer.warning {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #333;
+}
+.timer.danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    animation: pulse 0.5s infinite alternate;
+}
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+.timer-btn {
+    padding: 8px 15px;
+    background: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.textarea-box {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #667eea;
+    border-radius: 4px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 150px;
+}
+
+.inbox-list {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.inbox-list h3 { color: #764ba2; margin-bottom: 12px; }
+.inbox-list ol { margin-left: 22px; }
+.inbox-list li { margin-bottom: 8px; }
+
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button {
+        width: 100%;
+        text-align: left;
+        border-bottom: 3px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    .tab-button.active {
+        border-bottom: none;
+        border-left-color: #667eea;
+        background: #f8f9fa;
+    }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Getting Things Done</h1>
+    <p>C1 Level &middot; David Allen&rsquo;s Productivity Method</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Questions</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">The Five Stages</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Your Inbox</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Critique &amp; Discussion</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>Opening Questions</h2>
+        <p>David Allen&rsquo;s book <em>Getting Things Done</em> (often shortened to GTD) was first published in 2001. More than two decades later it is still treated as the standard reference for personal productivity. Before we look at why, a few questions about your own situation.</p>
+
+        <div class="discussion-box">
+            <p><strong>Think and answer:</strong></p>
+            <p>How would you describe your current relationship with your inbox &mdash; not just email, but everything that arrives demanding your attention?</p>
+            <p>When you wake up at three in the morning thinking about something you forgot to do, where is that thought stored during the day?</p>
+            <p>Do you keep most of your to-do list in your head, on paper, or in some kind of app? What do you think that choice says about you?</p>
+            <p>Allen claims that &ldquo;your mind is for having ideas, not holding them.&rdquo; Do you agree?</p>
+        </div>
+
+        <h3>The premise in one paragraph</h3>
+        <p>Allen argues that most modern stress is not caused by having too much to do, but by carrying unfinished commitments around in your head. Every promise you have made to yourself &mdash; a phone call to return, a birthday to remember, a project to finish &mdash; sits there as what he calls an <em>open loop</em>. The cure, he says, is not to work harder; it is to get those loops out of your head and into a trusted external system.</p>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Key Vocabulary</h2>
+        <p>Click each card to reveal the meaning. These are the terms you will need for the rest of the lesson.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">an open loop</span>
+                <span class="definition">An unfinished commitment that occupies your attention until it is dealt with or properly recorded.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to capture</span>
+                <span class="definition">To get every task, idea or worry out of your head and into a reliable place outside it.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to externalise</span>
+                <span class="definition">To move information from your mind into a written or digital system you trust.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a next action</span>
+                <span class="definition">The very next physical, visible step you would take to move something forward &mdash; not the project itself.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to defer</span>
+                <span class="definition">To postpone something deliberately to a chosen later time, rather than letting it nag you in the meantime.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to delegate</span>
+                <span class="definition">To pass a task to someone else who is better placed to do it, while still keeping track of it.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a tickler file</span>
+                <span class="definition">A dated reminder system &mdash; physical or digital &mdash; that surfaces an item on the day it becomes relevant.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">someday / maybe</span>
+                <span class="definition">A list of things you might want to do one day but are not committing to now &mdash; the place ideas go to wait without being lost.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a weekly review</span>
+                <span class="definition">A regular session &mdash; usually one hour a week &mdash; where you empty your inboxes, review your lists and decide what really matters next.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">mind like water</span>
+                <span class="definition">Allen&rsquo;s borrowed martial-arts image: the mind reacts to whatever lands on it with exactly the right force, and then returns to stillness.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>The Five Stages of Mastering Workflow</h2>
+        <p>Allen breaks the whole system down into a five-stage process. Read the passage carefully &mdash; the questions afterwards check both your understanding and the language used to describe each stage.</p>
+
+        <div class="reading-passage">
+            <h3>1. Capture</h3>
+            <p>The first move is to gather absolutely everything that has your attention &mdash; tasks, ideas, half-formed worries &mdash; into trusted &ldquo;in&rdquo; trays. The point here is comprehensiveness, not organisation. Until your head is empty, the rest of the system cannot be trusted.</p>
+
+            <h3>2. Clarify</h3>
+            <p>Next, you process what you have captured, item by item. For each one, you ask: what is it, and is it actionable? If it is not actionable, it goes to the bin, into reference, or onto a someday/maybe list. If it is actionable, you identify the very next physical action &mdash; the smallest concrete step you could take.</p>
+
+            <h3>3. Organise</h3>
+            <p>Each clarified item is then placed into the right list: a calendar entry if it must happen on a specific day, a next-actions list grouped by context (at the computer, on the phone, on errands), a waiting-for list if you are tracking someone else&rsquo;s response, or a project list if the outcome will take more than one step.</p>
+
+            <h3>4. Reflect</h3>
+            <p>Once a week you sit down for the weekly review. You glance at your calendar, refresh your lists, look ahead to the coming week, and check that nothing has slipped through the cracks. Allen calls this the critical success factor of the whole method &mdash; without it, the system silently goes stale.</p>
+
+            <h3>5. Engage</h3>
+            <p>Finally, you do the work. With everything captured and clarified, choosing what to do becomes much simpler. You scan your context-based lists, weigh time available, energy and priority, and pick the most appropriate next action. The aim is not heroic productivity but appropriate engagement &mdash; the right thing, at the right moment, with a clear head.</p>
+        </div>
+
+        <h3>Comprehension &amp; language</h3>
+
+        <div class="question-block">
+            <h4>1. Why does Allen insist that capture must be comprehensive before anything else happens?</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">Because the mind cannot trust a partial system. As long as some commitments are still floating around in your head, it will keep reminding you of them &mdash; and the rest of the system feels unsafe by association.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. What is the difference between a project and a next action in GTD?</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">A project is any outcome that needs more than one step (e.g. &ldquo;organise birthday party&rdquo;). A next action is the single physical thing you would do next to move it forward (e.g. &ldquo;email the venue to ask about availability&rdquo;).</div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. What does Allen mean by &ldquo;context&rdquo;, and why is it useful?</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">Context is the situation or tool an action requires &mdash; at the computer, on the phone, in town. Grouping next actions by context means that whenever you find yourself in one, you can see at a glance everything that could be done from there.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Allen calls the weekly review &ldquo;the critical success factor&rdquo;. What goes wrong without it?</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">Lists drift out of date, items quietly slip through the cracks, and the system loses your trust. Once you stop trusting it, you start carrying things in your head again &mdash; and the open loops return.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. What is meant by the phrase &ldquo;slipped through the cracks&rdquo;?</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">Things that should have been dealt with but were quietly forgotten or overlooked &mdash; not because of bad intent, but because they fell between systems.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Rephrase &ldquo;the system silently goes stale&rdquo; in your own words.</h4>
+            <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</button>
+            <div class="answer-text">Without you noticing, the system stops being accurate or useful. The lists are still there, but they no longer reflect what is actually happening or what really needs doing.</div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Your Inbox</h2>
+        <p>Now you try the method on a real inbox. Below are ten items that have just &ldquo;landed&rdquo; in your head. Your task is to walk through them out loud, applying the GTD process to each one.</p>
+
+        <div class="inbox-list">
+            <h3>The ten items</h3>
+            <ol>
+                <li>You have not replied to a friend&rsquo;s WhatsApp message from last Tuesday.</li>
+                <li>The car is making a strange noise when you brake.</li>
+                <li>You should probably learn Italian one day.</li>
+                <li>Your mother&rsquo;s birthday is in three weeks.</li>
+                <li>Your laptop battery only lasts about two hours now.</li>
+                <li>You promised your boss a draft of the quarterly report by Friday.</li>
+                <li>The kitchen tap is dripping.</li>
+                <li>You meant to read that book a colleague recommended six months ago.</li>
+                <li>You owe your brother &pound;40 from the weekend.</li>
+                <li>You want to start running again before the summer.</li>
+            </ol>
+        </div>
+
+        <h3>How to process each item</h3>
+        <p>For every item, decide and say aloud:</p>
+        <ul style="margin-left: 22px; margin-bottom: 20px;">
+            <li><strong>Is it actionable?</strong> If no &mdash; bin, reference, or someday/maybe?</li>
+            <li><strong>If yes &mdash; what is the very next physical action?</strong> Try to phrase it as a verb plus an object (e.g. &ldquo;ring the garage&rdquo;, not &ldquo;sort out the car&rdquo;).</li>
+            <li><strong>Will it take less than two minutes?</strong> If so, do it now. If not &mdash; defer it (which list?), delegate it (to whom?), or schedule it (when?).</li>
+            <li><strong>Is it part of a bigger project?</strong> If so, what is the project called?</li>
+        </ul>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">10:00</span></strong></span>
+            <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <h3>Notes</h3>
+        <p>Use the box below to jot down any next actions, project names or someday/maybe items as you work through the list.</p>
+        <textarea class="textarea-box" placeholder="Next actions, projects, someday/maybe..."></textarea>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Critique &amp; Discussion</h2>
+        <p>GTD has admirers and critics. The most common complaint is that it is too reactive &mdash; that it processes whatever lands on you efficiently, but does not, on its own, tell you whether you are working on the right things. Cal Newport, for instance, argues that without &ldquo;deep work&rdquo; on a small number of important projects, even a perfect inbox is just a beautifully organised distraction.</p>
+
+        <div class="discussion-box">
+            <p><strong>For discussion:</strong></p>
+            <p>Which part of the GTD method do you think would help you most right now &mdash; capture, clarify, organise, reflect, or engage? Why that one?</p>
+            <p>Which part do you think you would resist or quietly skip? What does that resistance tell you?</p>
+            <p>Is &ldquo;mind like water&rdquo; a realistic goal, or does it sound a bit too tidy &mdash; the kind of calm that only people without small children or chaotic jobs can afford?</p>
+            <p>Allen built GTD before smartphones existed. Has the constant ping of notifications made the method more necessary, or impossible?</p>
+            <p>If you had to choose between Allen&rsquo;s gentle, comprehensive system and Newport&rsquo;s ruthless &ldquo;say no to almost everything&rdquo; approach, which would suit your temperament better &mdash; and why?</p>
+        </div>
+
+        <h3>One sentence to take away</h3>
+        <p>Try to finish this sentence in a way you actually believe:</p>
+        <p style="font-style: italic; color: #555; margin: 10px 0;">&ldquo;The first open loop I am going to close this week is&hellip;&rdquo;</p>
+        <textarea class="textarea-box" placeholder="The first open loop I am going to close this week is..."></textarea>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 600;
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent =
+            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>
