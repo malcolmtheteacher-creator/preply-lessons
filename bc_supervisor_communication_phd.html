@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervisor Communication — PhD English</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #fafbff; color: #333; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 36px 20px; text-align: center; margin-bottom: 24px; border-radius: 10px; }
+header h1 { font-size: 1.9em; margin-bottom: 8px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 11px 18px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.2s; }
+.tab-button:hover { background: #f0f2ff; }
+.tab-button.active { background: #f0f2ff; border-bottom-color: #764ba2; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadein 0.25s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.frame { background: white; padding: 22px 24px; border-radius: 8px; margin-bottom: 16px; border-left: 5px solid #667eea; box-shadow: 0 1px 4px rgba(102,126,234,0.08); }
+.frame h2 { color: #764ba2; margin-bottom: 10px; font-size: 1.3em; }
+.frame h3 { color: #667eea; margin: 12px 0 8px; font-size: 1.05em; }
+.frame p { margin-bottom: 10px; }
+.frame ol, .frame ul { margin: 8px 0 8px 22px; }
+.frame li { margin: 4px 0; }
+.discuss { background: #e8f0fe; border-left: 5px solid #4285f4; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.discuss .label { font-weight: 700; color: #1a56db; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.discuss p { color: #1e293b; font-size: 1.03em; margin-bottom: 6px; }
+.discuss .hint { font-size: 0.92em; color: #475569; font-style: italic; margin-top: 6px; }
+.try { background: #ecfdf5; border-left: 5px solid #10b981; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.try .label { font-weight: 700; color: #047857; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.try p { color: #064e3b; margin-bottom: 8px; }
+.try textarea { width: 100%; min-height: 90px; padding: 10px; border: 2px solid #10b981; border-radius: 4px; font-family: inherit; font-size: 0.96em; resize: vertical; }
+.email-card { background: white; border: 2px solid #c4b5fd; border-radius: 8px; padding: 16px 20px; margin: 14px 0; font-family: "SF Mono", Consolas, monospace; font-size: 0.92em; }
+.email-card .header { color: #764ba2; font-weight: 700; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #e9d5ff; }
+.email-card .body { color: #334155; white-space: pre-wrap; line-height: 1.7; font-family: "Segoe UI", sans-serif; }
+.reveal-btn { background: #764ba2; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.92em; margin: 10px 0; }
+.reveal-btn:hover { background: #5a3a82; }
+.reveal { display: none; background: #faf5ff; border: 2px dashed #764ba2; padding: 14px 18px; border-radius: 6px; margin-top: 8px; }
+.reveal.show { display: block; animation: fadein 0.3s; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+@media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
+.compare-card { background: white; padding: 16px 18px; border-radius: 8px; border: 2px solid #e2e8f0; }
+.compare-card.weak { border-color: #ef4444; }
+.compare-card.strong { border-color: #10b981; }
+.compare-card .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.78em; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+.compare-card.weak .tag { background: #fef2f2; color: #b91c1c; }
+.compare-card.strong .tag { background: #ecfdf5; color: #047857; }
+.compare-card p { font-size: 0.93em; color: #475569; margin-bottom: 6px; }
+.compare-card .quote { font-family: "SF Mono", Consolas, monospace; background: #f8fafc; padding: 8px 10px; border-radius: 4px; font-size: 0.87em; color: #1e293b; }
+.principle { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 22px; border-radius: 8px; margin: 14px 0; }
+.principle .label { font-weight: 700; font-size: 0.82em; text-transform: uppercase; letter-spacing: 1.2px; opacity: 0.9; margin-bottom: 6px; }
+.principle p { font-size: 1.02em; }
+.phrase-bank { background: white; padding: 16px 20px; border-radius: 8px; border-left: 4px solid #667eea; margin: 14px 0; }
+.phrase-bank h3 { color: #764ba2; margin-bottom: 8px; }
+.phrase-bank ul { list-style: none; padding-left: 0; }
+.phrase-bank li { padding: 6px 0; border-bottom: 1px dashed #e2e8f0; font-size: 0.95em; color: #475569; }
+.phrase-bank li:last-child { border-bottom: none; }
+.phrase-bank li strong { color: #1e293b; }
+.danger { background: #fef2f2; border-left: 5px solid #ef4444; padding: 14px 18px; border-radius: 8px; margin: 14px 0; }
+.danger .label { font-weight: 700; color: #b91c1c; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
+.danger p { color: #7f1d1d; font-size: 0.97em; }
+.checklist { background: white; padding: 16px 22px; border-radius: 8px; border: 2px solid #667eea; margin: 14px 0; }
+.checklist h3 { color: #764ba2; margin-bottom: 10px; }
+.check-item { display: flex; align-items: flex-start; margin: 8px 0; }
+.check-item input { margin: 4px 10px 0 0; width: 18px; height: 18px; cursor: pointer; accent-color: #667eea; }
+.check-item label { cursor: pointer; flex: 1; font-size: 0.96em; }
+.nav-bottom { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 2px solid #e2e8f0; }
+.nav-btn { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
+.nav-btn:hover { background: #5a6ed8; }
+.nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Supervisor Communication</h1>
+  <p>The emails, updates, and conversations that keep the relationship working — without burning your time or theirs</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-button active" onclick="showTab(0)">1. The Relationship</button>
+  <button class="tab-button" onclick="showTab(1)">2. The Update Email</button>
+  <button class="tab-button" onclick="showTab(2)">3. Asking for Feedback</button>
+  <button class="tab-button" onclick="showTab(3)">4. Disagreement &amp; Pushback</button>
+  <button class="tab-button" onclick="showTab(4)">5. Difficult Situations</button>
+</div>
+
+<!-- TAB 1 -->
+<div class="tab-content active">
+  <div class="frame">
+    <h2>The supervisor relationship is professional, not personal</h2>
+    <p>Most early-stage PhDs treat their supervisor either as a teacher (asks too much, defers too easily) or as a friend (over-shares, takes critique personally). Neither works. The supervisor relationship is a <strong>professional collaboration with asymmetric expertise</strong>.</p>
+    <p>Your job: communicate so they can do their job efficiently. Their job: signpost without rewriting your thesis for you.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Honest reflection</span>
+    <p>Right now, do you tend to <strong>under-communicate</strong> with your supervisor (avoid them, only contact when you need something) or <strong>over-communicate</strong> (long emails, frequent updates, every small worry)?</p>
+    <p class="hint">Both extremes are common. The right cadence is somewhere between: a regular, structured update + targeted asks.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Three principles that govern every supervisor email</h3>
+
+  <div class="frame" style="border-left-color: #10b981; background: #f0fdf4;">
+    <ol style="line-height: 2;">
+      <li><strong>Be specific.</strong> "I'm stuck on Chapter 2" is not actionable. "I can't find a methodological precedent for combining ethnographic data with archival sources in case-comparative work" is.</li>
+      <li><strong>Show you've tried.</strong> Supervisors respond faster to "I've tried X and Y, here's why neither works" than to "what should I do?"</li>
+      <li><strong>Make their reply easy.</strong> One question at a time. Yes/no when possible. Clear deadlines for their response.</li>
+    </ol>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Quick test</span>
+    <p>Of the three, which one do you find HARDEST to do? Most PhDs struggle with #2 — showing they've tried — because they're worried it'll look like they should have figured it out themselves.</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Show why this fear is wrong</button>
+  <div class="reveal">
+    <p>Showing your work is not weakness — it's <strong>professional courtesy</strong>. It tells the supervisor: "I respect your time enough that I'm not going to ask you to start from zero." It also tells them where your thinking actually is, so they can intervene at the right level. The PhDs who hide their attempts get worse feedback because their supervisors are guessing.</p>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Now you try</span>
+    <p>Take an issue you're currently dealing with in your research. Write ONE sentence that describes it specifically (Principle 1). Then write ONE sentence saying what you've already tried (Principle 2).</p>
+    <textarea placeholder="Specific issue: ...&#10;&#10;What I've already tried: ..."></textarea>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The shift</div>
+    <p>Your supervisor wants to help. Your job is to make helping you efficient.</p>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>The structured update email</h2>
+    <p>Send one of these every 2-4 weeks, even when there's nothing urgent. It builds trust, surfaces problems early, and gives the supervisor a record of your progress without long meetings.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">The four-section template</h3>
+
+  <div class="email-card">
+    <div class="header">📧 To: supervisor@university.edu &nbsp;·&nbsp; Subject: PhD update — week 14</div>
+    <div class="body">Dear Professor [Surname],
+
+Brief update on progress over the past two weeks.
+
+<strong>1. Done</strong>
+• Drafted §2.3 on theoretical framing (≈3,200 words)
+• Completed coding for case-study A interviews (n=12)
+• Read and notebooked Mac Ginty (2010), Richmond (2014)
+
+<strong>2. In progress</strong>
+• Refining the comparison frame between cases A and B — currently struggling to align the temporal scope.
+
+<strong>3. Stuck</strong>
+• I can't find a methodological precedent for combining the ethnographic and archival material at the analytical level. I've checked Burawoy's extended case method and Yin's case-study framework — neither quite fits. Any pointers welcome.
+
+<strong>4. Next two weeks</strong>
+• Complete first full draft of §2.4
+• Begin coding case-study B interviews
+• Send §2.3 for your review by [date] if helpful
+
+Best,
+[Name]</div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Read the email above</span>
+    <p>What does the supervisor know after reading this? What do they NOT need to ask you?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p>They know: you're on track, you're reading, you're aware of what you don't know, and there's one specific thing you want help with. They don't need to ask: how's it going, are you reading enough, is anything blocking you. <strong>One short email replaces a 30-minute meeting</strong> — and the supervisor will reply faster precisely because the ask is specific.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Why the four sections</h3>
+
+  <div class="frame">
+    <p><strong>Done</strong> shows you've used the time well — but resist listing every small thing. Three or four meaningful items.</p>
+    <p><strong>In progress</strong> tells them where you currently are and lets them intervene early if the direction is wrong.</p>
+    <p><strong>Stuck</strong> is the heart of the email. Frame the stuck specifically. Show what you've tried.</p>
+    <p><strong>Next two weeks</strong> commits you publicly. It also gives the supervisor a chance to redirect before you spend two weeks on the wrong thing.</p>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Draft your own update email</span>
+    <p>Use the four-section structure. Write the email you would send today.</p>
+    <textarea placeholder="Subject: PhD update — week ___&#10;&#10;Dear Professor [Surname],&#10;&#10;1. Done:&#10;•&#10;•&#10;•&#10;&#10;2. In progress:&#10;•&#10;&#10;3. Stuck:&#10;•&#10;&#10;4. Next two weeks:&#10;•&#10;•&#10;&#10;Best,&#10;[Name]" style="min-height: 280px;"></textarea>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Read it back</span>
+    <p>Look at your "Stuck" section. Is it specific enough that your supervisor could give you a useful pointer in a single sentence? If not, rewrite it until it is.</p>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ Cadence</div>
+    <p>Every 2-4 weeks. Same structure every time. Predictability is a feature, not a limitation — your supervisor scans these in 90 seconds.</p>
+  </div>
+</div>
+
+<!-- TAB 3 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>Asking for feedback on a draft</h2>
+    <p>The most common supervisor email — and the one PhDs get wrong most often. The error is asking for feedback on too much, with too little direction, and no deadline.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Weak vs strong feedback request</h3>
+
+  <div class="compare">
+    <div class="compare-card weak">
+      <span class="tag">⚠ Weak</span>
+      <div class="quote">"Hi — please find attached the latest draft of Chapter 2. Any thoughts welcome. No rush."</div>
+      <p style="margin-top:8px;">Three problems: no scope (the whole chapter), no specific concerns flagged, no deadline. The supervisor will defer it indefinitely — and probably skim when they finally read it.</p>
+    </div>
+    <div class="compare-card strong">
+      <span class="tag">✓ Strong</span>
+      <div class="quote">"Attached: §2.3 on theoretical framing (≈3,200 words). Two specific things I'd value your view on: (1) does the framing of the legitimacy debate hold, given the literature you flagged in our last meeting? (2) is §2.3.2 doing too much — should I split it? Happy with structural feedback only at this stage; line-level edits aren't useful yet. If a 20-minute read by [date 2 weeks ahead] is feasible, that would help me lock the section. If that timing doesn't work, please suggest an alternative."</div>
+      <p style="margin-top:8px;">Scope is bounded (one section). Two specific questions. Type of feedback specified. Deadline proposed but flexibly.</p>
+    </div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Why "type of feedback specified"?</span>
+    <p>What's the difference between asking for "structural feedback" and asking for "line-level edits" — and why does it matter?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p>Supervisors waste enormous time correcting commas in chapters that will be restructured. If you tell them what kind of feedback you want, they give you better feedback faster. Structural early, line-level late. Saying "structural only at this stage" tells them you know what you're doing.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Three feedback types — name the one you want</h3>
+
+  <div class="phrase-bank">
+    <ul>
+      <li><strong>Structural:</strong> "Does the argument flow? Is the section doing what it claims to do? Is anything missing?"</li>
+      <li><strong>Conceptual:</strong> "Is the theoretical framing defensible? Have I represented the debate accurately? Are my assumptions visible?"</li>
+      <li><strong>Line-level:</strong> "Is the prose clear? Are claims qualified appropriately? Are the citations formatted correctly?"</li>
+    </ul>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Draft a feedback request</span>
+    <p>Pick a piece of writing you have or are about to send. Draft the email. Specify scope, two questions, the type of feedback, and a flexible deadline.</p>
+    <textarea placeholder="Dear Professor [Surname],&#10;&#10;Attached: [section name and approx word count]&#10;&#10;Two questions I'd value your view on:&#10;1. ...&#10;2. ...&#10;&#10;Type of feedback most helpful at this stage: [structural / conceptual / line-level]&#10;&#10;Timing: ..." style="min-height: 200px;"></textarea>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The unwritten rule</div>
+    <p>The more bounded your ask, the better the feedback. A four-page chapter with one specific question gets better feedback than a forty-page chapter with no question at all.</p>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>When you disagree with your supervisor</h2>
+    <p>It will happen. They will recommend something you think is wrong, or push back on a position you're confident in. The instinct is either to capitulate (accept everything to keep the peace) or to argue defensively. Neither serves the thesis.</p>
+    <p>The professional move is to <strong>disagree in writing</strong>, with reasons, and offer them an easy way out.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 The capitulation trap</span>
+    <p>If you accept every supervisor suggestion uncritically, what happens to your thesis by viva day?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p>You can't defend it. The viva panel will ask you why you made certain choices — and the answer "my supervisor told me to" is fatal. The thesis has to be defensibly YOURS. Disagreement, handled properly, is part of the apprenticeship.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">The diplomatic-disagreement template</h3>
+
+  <div class="email-card">
+    <div class="header">📧 Reply to supervisor on a methodological recommendation</div>
+    <div class="body">Dear Professor [Surname],
+
+Thank you for the suggestion of [their recommendation] — I've been thinking through it carefully.
+
+I've taken it seriously and worked through the implications. My current view is that [your alternative position], for three reasons:
+
+(1) [evidence-based reason — cite literature or data]
+(2) [methodological reason — what their suggestion would compromise]
+(3) [thesis-coherence reason — how their suggestion would unsettle other parts of the thesis]
+
+That said, I'm aware I may be missing something — particularly around [the area where their expertise outweighs yours]. Could we test the disagreement in our next meeting? I've drafted a one-page note setting out both positions; I'll bring it.
+
+Best,
+[Name]</div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Notice three moves</span>
+    <p>What three moves does this email make that turn disagreement from confrontation into collaboration?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <ol style="margin-left: 22px; line-height: 1.9;">
+      <li><strong>Acknowledges the suggestion seriously</strong> ("thinking through it carefully" — not dismissive)</li>
+      <li><strong>Gives reasons, not feelings</strong> (three structured reasons grounded in evidence, method, and thesis coherence)</li>
+      <li><strong>Names the limit of your own expertise</strong> ("I may be missing something around X") — this is the diplomatic move that lets the supervisor enter the conversation without having to overturn your position to be useful</li>
+    </ol>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Useful phrases for written disagreement</h3>
+
+  <div class="phrase-bank">
+    <ul>
+      <li><strong>"I've taken it seriously and worked through the implications"</strong> — signals respect</li>
+      <li><strong>"My current view is..."</strong> — softens the position; leaves room to update</li>
+      <li><strong>"On reflection, I'm not yet persuaded that..."</strong> — disagrees without confrontation</li>
+      <li><strong>"That said, I'm aware I may be missing..."</strong> — opens the door to their expertise</li>
+      <li><strong>"Could we test the disagreement in our next meeting?"</strong> — turns disagreement into agenda</li>
+    </ul>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Draft a disagreement email</span>
+    <p>Imagine your supervisor recommended a methodological change you don't agree with. Write the reply — using the structure above.</p>
+    <textarea placeholder="Dear Professor [Surname],&#10;&#10;Thank you for the suggestion of [their recommendation] — I've been thinking through it carefully.&#10;&#10;I've taken it seriously and worked through the implications. My current view is that [your position], for three reasons:&#10;&#10;(1) ...&#10;(2) ...&#10;(3) ...&#10;&#10;That said, I'm aware I may be missing something — particularly around [...].&#10;&#10;Could we test the disagreement in our next meeting?&#10;&#10;Best,&#10;[Name]" style="min-height: 250px;"></textarea>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The principle</div>
+    <p>You can disagree and stay collaborative. The signal is reason + humility + invitation to talk. Avoid sarcasm, avoid victimhood, avoid the passive voice. Be direct and warm at the same time.</p>
+  </div>
+</div>
+
+<!-- TAB 5 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>Difficult situations</h2>
+    <p>Some supervisor situations need careful handling. Here are the four you're most likely to face — and the language for each.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">1. They've gone silent</h3>
+
+  <div class="discuss">
+    <span class="label">💬 Quick check</span>
+    <p>You sent a chapter draft three weeks ago. No reply. Email three? Or wait?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p>Send a polite, low-pressure follow-up. The trick is to NOT make them feel guilty (which makes them avoid replying further) and to give them an easy way out.</p>
+  </div>
+
+  <div class="email-card">
+    <div class="header">📧 Following up on silence</div>
+    <div class="body">Dear Professor [Surname],
+
+Just a brief follow-up on the §2.3 draft I sent on [date] — no urgency, just flagging in case it has slipped down the inbox.
+
+If a 20-minute read isn't feasible in the next two weeks, please let me know — I can move the section to a later review cycle and prioritise [other work] in the meantime.
+
+Best,
+[Name]</div>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">2. The feedback was harsh</h3>
+
+  <div class="discuss">
+    <span class="label">💬 Honest moment</span>
+    <p>You receive feedback that feels brutal. Your instinct is to write back defending the work. Should you?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p><strong>No. Wait 24 hours.</strong> Then read the feedback again. Then write a calm, professional response that thanks them, asks for clarification on one or two specific points, and proposes next steps. Defending in heat damages the relationship and obscures whether the feedback was right.</p>
+  </div>
+
+  <div class="phrase-bank">
+    <h3>Useful phrases after harsh feedback (after 24 hours)</h3>
+    <ul>
+      <li><strong>"Thank you for the detailed feedback — it's clearly identified some structural problems I hadn't seen."</strong></li>
+      <li><strong>"Could I check my understanding of one point? On [issue X], are you suggesting [interpretation A] or [interpretation B]?"</strong></li>
+      <li><strong>"I'd like to revise the section along the lines you've suggested. May I send the revised version by [date] for a quicker second look?"</strong></li>
+    </ul>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">3. Two supervisors disagree</h3>
+
+  <div class="frame">
+    <p>If you have co-supervisors and they give you contradictory advice, do not pick a side privately. The professional move is to <strong>name the contradiction in writing</strong>, copy both supervisors, and ask them to agree a position.</p>
+  </div>
+
+  <div class="email-card">
+    <div class="header">📧 To both supervisors</div>
+    <div class="body">Dear Professor X and Professor Y,
+
+I want to flag a difference in the feedback I've received that I'd value your help resolving.
+
+Professor X (in our meeting on [date]) suggested [position A], specifically because [reason].
+
+Professor Y (in feedback on the draft, [date]) suggested [position B], specifically because [reason].
+
+These are not necessarily incompatible, but I'd benefit from a shared steer before I commit further effort. Could we agree a brief joint conversation — or, if that's hard to schedule, could one of you take the lead on the methodological direction so I have a single point of reference for this section?
+
+Best,
+[Name]</div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Why this works</span>
+    <p>What is the email NOT doing? What is it carefully avoiding?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p>It's not taking sides. It's not implying either supervisor was wrong. It's framing the contradiction as a coordination problem (their problem) rather than a judgment problem (yours). It also offers them an out — "one of you take the lead" — which they may accept.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">4. You're behind schedule</h3>
+
+  <div class="discuss">
+    <span class="label">💬 The instinct</span>
+    <p>You're three weeks behind on a milestone. Do you (a) work harder and try to catch up silently, or (b) email your supervisor to flag it?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal</button>
+  <div class="reveal">
+    <p><strong>(b), every time.</strong> Supervisors hate being surprised by missed milestones at month 18. They are fine with delays they've been informed about — and often have practical solutions you don't have access to (extension funding, rescheduled meetings, etc.). Silence is the worst option.</p>
+  </div>
+
+  <div class="email-card">
+    <div class="header">📧 Flagging a delay</div>
+    <div class="body">Dear Professor [Surname],
+
+Brief update: I'm currently around three weeks behind on [milestone], primarily because [specific reason — illness, methodological pivot, data access delay, etc.].
+
+I've revised the timeline as follows: [revised milestone date]. I'm confident I can hit the revised date because [specific plan].
+
+If this delay creates downstream problems (with funding, with the upgrade panel, with your other commitments), please let me know — I'd rather adjust now than later.
+
+Best,
+[Name]</div>
+  </div>
+
+  <div class="checklist">
+    <h3>Take this lesson away with</h3>
+    <div class="check-item"><input type="checkbox" id="sc1"><label for="sc1">A draft of your next 2-week update email, ready to send</label></div>
+    <div class="check-item"><input type="checkbox" id="sc2"><label for="sc2">One feedback request you've been putting off — now drafted properly with scope and questions</label></div>
+    <div class="check-item"><input type="checkbox" id="sc3"><label for="sc3">A clearer sense of one disagreement you've been avoiding raising</label></div>
+    <div class="check-item"><input type="checkbox" id="sc4"><label for="sc4">Permission to email when you're stuck — sooner, not later</label></div>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The hidden lesson</div>
+    <p>The supervisor relationship works best when you treat your supervisor as a busy, intelligent collaborator — not as a teacher, friend, or judge. Brief, structured, specific, professional. Same as any working relationship that needs to last three or four years.</p>
+  </div>
+
+  <div class="frame" style="border-left-color: #10b981;">
+    <h2>Take this away</h2>
+    <p>Three actions before next lesson:</p>
+    <ol style="margin-left: 22px; line-height: 1.9;">
+      <li>Send a structured update email this week — even if you don't think you need to.</li>
+      <li>Pick one feedback request you've been holding back on. Draft it with the scope + two questions + type of feedback structure.</li>
+      <li>Identify one disagreement or concern you've been avoiding raising. Draft the disagreement email — even if you don't send it yet.</li>
+    </ol>
+    <p style="margin-top:14px;">Bring all three to next lesson. We'll pressure-test the wording.</p>
+  </div>
+</div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtnSC" onclick="navTab(-1)" disabled>← Previous</button>
+  <button class="nav-btn" id="nextBtnSC" onclick="navTab(1)">Next →</button>
+</div>
+
+</div>
+
+<script>
+let currentTab = 0;
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+
+function showTab(idx) {
+  tabButtons.forEach(b => b.classList.remove('active'));
+  tabContents.forEach(c => c.classList.remove('active'));
+  tabButtons[idx].classList.add('active');
+  tabContents[idx].classList.add('active');
+  currentTab = idx;
+  document.getElementById('prevBtnSC').disabled = idx === 0;
+  document.getElementById('nextBtnSC').disabled = idx === tabContents.length - 1;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function navTab(direction) {
+  const next = currentTab + direction;
+  if (next >= 0 && next < tabContents.length) showTab(next);
+}
+
+function toggleReveal(btn) {
+  const reveal = btn.nextElementSibling;
+  reveal.classList.toggle('show');
+  btn.textContent = reveal.classList.contains('show')
+    ? btn.textContent.replace('Show', 'Hide').replace('Reveal', 'Hide')
+    : btn.textContent.replace('Hide', 'Show');
+}
+</script>
+</body>
+</html>
