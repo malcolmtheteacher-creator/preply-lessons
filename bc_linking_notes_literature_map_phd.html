@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linking Notes &amp; Building a Literature Map</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #fafbff; color: #333; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 36px 20px; text-align: center; margin-bottom: 24px; border-radius: 10px; }
+header h1 { font-size: 1.9em; margin-bottom: 8px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 11px 18px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.2s; }
+.tab-button:hover { background: #f0f2ff; }
+.tab-button.active { background: #f0f2ff; border-bottom-color: #764ba2; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadein 0.25s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.frame { background: white; padding: 22px 24px; border-radius: 8px; margin-bottom: 16px; border-left: 5px solid #667eea; box-shadow: 0 1px 4px rgba(102,126,234,0.08); }
+.frame h2 { color: #764ba2; margin-bottom: 10px; font-size: 1.3em; }
+.frame h3 { color: #667eea; margin: 12px 0 8px; font-size: 1.05em; }
+.frame p { margin-bottom: 10px; }
+.frame ul { margin: 8px 0 8px 22px; }
+.frame li { margin: 4px 0; }
+.discuss { background: #e8f0fe; border-left: 5px solid #4285f4; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.discuss .label { font-weight: 700; color: #1a56db; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.discuss p { color: #1e293b; font-size: 1.03em; margin-bottom: 6px; }
+.discuss .hint { font-size: 0.92em; color: #475569; font-style: italic; margin-top: 6px; }
+.try { background: #ecfdf5; border-left: 5px solid #10b981; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.try .label { font-weight: 700; color: #047857; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.try p { color: #064e3b; margin-bottom: 8px; }
+.try textarea { width: 100%; min-height: 70px; padding: 10px; border: 2px solid #10b981; border-radius: 4px; font-family: inherit; font-size: 0.96em; resize: vertical; }
+.example { background: #fef3c7; border-left: 5px solid #f59e0b; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.example .label { font-weight: 700; color: #b45309; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.example p { color: #78350f; }
+.reveal-btn { background: #764ba2; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.92em; margin: 10px 0; }
+.reveal-btn:hover { background: #5a3a82; }
+.reveal { display: none; background: #faf5ff; border: 2px dashed #764ba2; padding: 14px 18px; border-radius: 6px; margin-top: 8px; }
+.reveal.show { display: block; animation: fadein 0.3s; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+@media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
+.compare-card { background: white; padding: 16px 18px; border-radius: 8px; border: 2px solid #e2e8f0; }
+.compare-card.bad { border-color: #ef4444; }
+.compare-card.good { border-color: #10b981; }
+.compare-card .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.78em; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+.compare-card.bad .tag { background: #fef2f2; color: #b91c1c; }
+.compare-card.good .tag { background: #ecfdf5; color: #047857; }
+.compare-card p { font-size: 0.93em; color: #475569; }
+.note-card { background: white; border: 2px solid #c4b5fd; border-radius: 8px; padding: 14px 18px; margin: 10px 0; font-size: 0.95em; }
+.note-card .id { font-family: "SF Mono", Consolas, monospace; font-size: 0.78em; color: #764ba2; font-weight: 700; }
+.note-card .title { font-weight: 700; color: #1e293b; margin: 4px 0 6px; }
+.note-card .body { color: #475569; }
+.note-card .links { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #c4b5fd; font-size: 0.85em; color: #7c3aed; font-style: italic; }
+.link-types { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+@media (max-width: 700px) { .link-types { grid-template-columns: 1fr; } }
+.link-type { background: white; padding: 12px 16px; border-radius: 6px; border-left: 4px solid #667eea; }
+.link-type strong { color: #764ba2; display: block; margin-bottom: 3px; font-size: 0.95em; }
+.link-type span { color: #475569; font-size: 0.88em; }
+.principle { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 22px; border-radius: 8px; margin: 14px 0; }
+.principle .label { font-weight: 700; font-size: 0.82em; text-transform: uppercase; letter-spacing: 1.2px; opacity: 0.9; margin-bottom: 6px; }
+.principle p { font-size: 1.02em; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 22px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin: 14px 0; }
+.timer .display { font-size: 1.4em; font-weight: 700; font-family: "SF Mono", Consolas, monospace; }
+.timer-btn { padding: 7px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+.viva-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left: 5px solid #f97316; padding: 18px 22px; border-radius: 8px; margin: 14px 0; }
+.viva-card .label { font-weight: 700; color: #9a3412; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+.viva-card p { color: #7c2d12; font-size: 1.02em; }
+.checklist { background: white; padding: 16px 22px; border-radius: 8px; border: 2px solid #667eea; margin: 14px 0; }
+.checklist h3 { color: #764ba2; margin-bottom: 10px; }
+.check-item { display: flex; align-items: flex-start; margin: 8px 0; }
+.check-item input { margin: 4px 10px 0 0; width: 18px; height: 18px; cursor: pointer; accent-color: #667eea; }
+.check-item label { cursor: pointer; flex: 1; font-size: 0.96em; }
+.map-svg { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 12px; margin: 14px 0; }
+.nav-bottom { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 2px solid #e2e8f0; }
+.nav-btn { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
+.nav-btn:hover { background: #5a6ed8; }
+.nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Linking Notes &amp; Building a Literature Map</h1>
+  <p>From atomic notes to a networked thesis — the move that makes year 3 easier than year 1</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-button active" onclick="showTab(0)">1. The Problem</button>
+  <button class="tab-button" onclick="showTab(1)">2. Four Types of Link</button>
+  <button class="tab-button" onclick="showTab(2)">3. The Literature Map</button>
+  <button class="tab-button" onclick="showTab(3)">4. Apply to Your Thesis</button>
+  <button class="tab-button" onclick="showTab(4)">5. The Viva Test</button>
+</div>
+
+<!-- TAB 1 -->
+<div class="tab-content active">
+  <div class="frame">
+    <h2>The problem with atomic notes alone</h2>
+    <p>The Cornell + Zettelkasten lesson taught you to write <strong>one idea, one note</strong>. That's the foundation. But atomic notes alone don't make a thesis. They make a pile.</p>
+    <p>The move that makes year 3 of a PhD easier than year 1 is <strong>linking</strong>: every new note hooks into existing notes. The pile becomes a network.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Discuss before we go further</span>
+    <p>Right now, when you read a paper, do your notes <em>connect</em> to what you read last week — or do they sit in their own folder, never to be seen again?</p>
+    <p class="hint">Be honest. Most PhD researchers describe their notes as "graveyards." We're going to change that.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">A demonstration: two notes from different papers</h3>
+
+  <div class="note-card">
+    <div class="id">202403-15-A</div>
+    <div class="title">Diaspora identity: Anderson on imagined communities</div>
+    <div class="body">Anderson argues national identity is "imagined" — sustained by print capitalism and shared symbols rather than face-to-face contact (1983).</div>
+  </div>
+
+  <div class="note-card">
+    <div class="id">202404-22-B</div>
+    <div class="title">Post-conflict legitimacy: Mac Ginty critique</div>
+    <div class="body">Mac Ginty (2010) challenges the "liberal peace" model — argues imposed institutional templates fail to capture local legitimacy.</div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Question for you</span>
+    <p>These two notes look unrelated. But for a researcher working on identity in post-conflict contexts, they are deeply linked. <strong>How?</strong></p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Show one possible link</button>
+  <div class="reveal">
+    <p><strong>Both critique top-down models of legitimacy</strong> — Anderson by showing identity is constructed (not given by states), Mac Ginty by showing peace can't be imposed (it has to be locally legitimate). Together they suggest your literature gap: <em>nobody has yet examined how diaspora-imagined identities interact with the local-legitimacy critique in post-conflict reconstruction.</em></p>
+    <p style="margin-top:8px;"><strong>That sentence is the seed of a research question.</strong> It came from linking, not from either note alone.</p>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The core principle</div>
+    <p>A single note has information. <strong>Linked notes have argument.</strong> Your thesis lives in the links.</p>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Now you try</span>
+    <p>Pick two papers you've read this month from different angles of your topic. <strong>Write one sentence</strong> that names what they have in common — even if it's a tension, not an agreement.</p>
+    <textarea placeholder="Both X and Y argue/show/critique...&#10;OR&#10;X claims A, but Y suggests A is incomplete because..."></textarea>
+    <p class="hint" style="margin-top:8px; color:#047857;">If you can't write that sentence yet, you haven't read the papers as a researcher — you've read them as a student. The link makes the difference.</p>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>Four types of link — pick the right one</h2>
+    <p>Not all links are equal. There are four useful types in academic linking. The discipline is to <strong>name the type</strong> when you make the link, not just connect notes invisibly.</p>
+  </div>
+
+  <div class="link-types">
+    <div class="link-type">
+      <strong>1. Agreement</strong>
+      <span>Two sources converge on the same claim. Strengthens the consensus argument.</span>
+    </div>
+    <div class="link-type">
+      <strong>2. Tension</strong>
+      <span>Two sources disagree. Surfaces a debate you can position yourself in.</span>
+    </div>
+    <div class="link-type">
+      <strong>3. Consequence</strong>
+      <span>Note B is what happens IF note A is true. Builds the chain of reasoning.</span>
+    </div>
+    <div class="link-type">
+      <strong>4. Method</strong>
+      <span>Note A is the question; note B is a methodological approach to answer it.</span>
+    </div>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Quick check</span>
+    <p>Which of the four would you expect to appear MOST in a strong thesis literature review — and why?</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Reveal answer</button>
+  <div class="reveal">
+    <p><strong>Tension links.</strong> A literature review that only shows agreement is a textbook. A literature review that surfaces tensions — that names the debate — is where YOUR contribution becomes visible. The gap you fill is almost always sitting between two tensions.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Worked example — building each type</h3>
+
+  <div class="example">
+    <span class="label">📄 Two source notes</span>
+    <p><strong>Note A (Castells, 1996):</strong> network society is replacing hierarchical structures of power.</p>
+    <p style="margin-top:6px;"><strong>Note B (Mann, 2013):</strong> states retain unprecedented infrastructural reach in the digital age — networks have not flattened power.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 You name the link</span>
+    <p>What TYPE of link is this — agreement, tension, consequence, or method? Say it out loud.</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Show the answer + the link sentence</button>
+  <div class="reveal">
+    <p><strong>Tension.</strong> Castells says power is flattening; Mann says it's not. The link sentence:</p>
+    <p style="margin-top:8px; font-style: italic; color:#1e293b;">"Castells (1996) frames the network society as displacing state hierarchies, yet Mann's (2013) infrastructural-power thesis directly challenges this — suggesting digital infrastructures have entrenched, rather than dissolved, state reach."</p>
+    <p style="margin-top:8px;">That sentence belongs in your literature review. <strong>It exists nowhere in either source — you wrote it by linking.</strong></p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">Bad link vs good link</h3>
+
+  <div class="compare">
+    <div class="compare-card bad">
+      <span class="tag">⚠ Bad link</span>
+      <p><strong>"See also: 202404-22-B"</strong></p>
+      <p style="margin-top:6px;">No type named. No reason given. In six months you'll see this and have no idea why you connected them.</p>
+    </div>
+    <div class="compare-card good">
+      <span class="tag">✓ Good link</span>
+      <p><strong>"Tension with 202404-22-B: Mac Ginty's local-legitimacy critique cuts against this note's assumption of institutional transferability."</strong></p>
+      <p style="margin-top:6px;">Type named. Direction of the tension stated. Reusable two years later.</p>
+    </div>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Now you try</span>
+    <p>Take two notes from your own reading this week. Pick the type (agreement / tension / consequence / method) and write the link sentence as if it had to land in your literature review unchanged.</p>
+    <textarea placeholder="Type: tension / agreement / consequence / method&#10;&#10;Link sentence: ..."></textarea>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The discipline</div>
+    <p>Every link names its type and includes a sentence you could lift straight into your thesis. If a link is too short to do that, it's not finished.</p>
+  </div>
+</div>
+
+<!-- TAB 3 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>The literature map — making the field visible</h2>
+    <p>Once you have linked notes, you can draw the map. The map is not the literature — it's <strong>your reading of the literature</strong>. It will change as you read more, and that's the point.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 First, name the camps</span>
+    <p>In your field, who are the major <strong>camps</strong> — the schools of thought or methodological positions your work has to engage with? Name three.</p>
+    <p class="hint">If you can't name three, you haven't read enough breadth yet — and that's useful information.</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">A simple visual structure</h3>
+
+  <div class="map-svg">
+    <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+      <!-- Center: your gap -->
+      <ellipse cx="440" cy="190" rx="90" ry="40" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="440" y="186" text-anchor="middle" font-size="14" font-weight="700" fill="#b45309">YOUR GAP</text>
+      <text x="440" y="204" text-anchor="middle" font-size="11" fill="#78350f">(your contribution)</text>
+
+      <!-- Camp 1: top left -->
+      <rect x="50" y="40" width="220" height="80" rx="8" fill="#e0e7ff" stroke="#667eea" stroke-width="2"/>
+      <text x="160" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#3730a3">CAMP 1</text>
+      <text x="160" y="84" text-anchor="middle" font-size="11" fill="#1e293b">Theoretical position A</text>
+      <text x="160" y="100" text-anchor="middle" font-size="10" fill="#475569" font-style="italic">(e.g. constructivist)</text>
+
+      <!-- Camp 2: top right -->
+      <rect x="610" y="40" width="220" height="80" rx="8" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+      <text x="720" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#9d174d">CAMP 2</text>
+      <text x="720" y="84" text-anchor="middle" font-size="11" fill="#1e293b">Theoretical position B</text>
+      <text x="720" y="100" text-anchor="middle" font-size="10" fill="#475569" font-style="italic">(e.g. structuralist)</text>
+
+      <!-- Camp 3: bottom left -->
+      <rect x="50" y="270" width="220" height="80" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="160" y="294" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">CAMP 3</text>
+      <text x="160" y="314" text-anchor="middle" font-size="11" fill="#1e293b">Methodological tradition</text>
+      <text x="160" y="330" text-anchor="middle" font-size="10" fill="#475569" font-style="italic">(e.g. ethnographic)</text>
+
+      <!-- Empirical body: bottom right -->
+      <rect x="610" y="270" width="220" height="80" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="2"/>
+      <text x="720" y="294" text-anchor="middle" font-size="13" font-weight="700" fill="#854d0e">EMPIRICAL CASE LITERATURE</text>
+      <text x="720" y="314" text-anchor="middle" font-size="11" fill="#1e293b">Specific case studies</text>
+      <text x="720" y="330" text-anchor="middle" font-size="10" fill="#475569" font-style="italic">(your domain)</text>
+
+      <!-- Lines from each to gap -->
+      <line x1="270" y1="100" x2="370" y2="170" stroke="#667eea" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="610" y1="100" x2="510" y2="170" stroke="#ec4899" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="270" y1="290" x2="370" y2="220" stroke="#10b981" stroke-width="2" stroke-dasharray="4,3"/>
+      <line x1="610" y1="290" x2="510" y2="220" stroke="#eab308" stroke-width="2" stroke-dasharray="4,3"/>
+
+      <!-- Tension arrow between camps 1 and 2 -->
+      <line x1="270" y1="80" x2="610" y2="80" stroke="#dc2626" stroke-width="2"/>
+      <text x="440" y="74" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">⚡ tension</text>
+    </svg>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Read the map</span>
+    <p>The gap sits in the middle. The camps surround it. The dashed lines are <strong>links you can already make</strong>. The red line is the <strong>tension you're going to exploit</strong> to argue for your contribution.</p>
+    <p>Where on this map does your most recent paper sit? Which camp? Which empirical territory?</p>
+  </div>
+
+  <h3 style="color:#764ba2; margin: 20px 0 8px;">How to draw your own (right now)</h3>
+
+  <div class="frame" style="border-left-color: #10b981; background: #f0fdf4;">
+    <ol style="margin-left: 22px; line-height: 2;">
+      <li><strong>Name 2-3 theoretical camps</strong> your field is split between</li>
+      <li><strong>Name 1 methodological tradition</strong> you're drawing from</li>
+      <li><strong>Name the empirical case literature</strong> on your specific topic</li>
+      <li><strong>Mark the tensions</strong> between camps with red lines</li>
+      <li><strong>Find the empty space</strong> — that's where your contribution sits</li>
+    </ol>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Sketch yours now (just words, no drawing yet)</span>
+    <textarea placeholder="Camp 1: ...&#10;Camp 2: ...&#10;Camp 3 / methodological tradition: ...&#10;Empirical case literature: ...&#10;&#10;Main tension: ... vs ...&#10;&#10;My gap (one sentence): ..."></textarea>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ Why the map matters</div>
+    <p>The map is what your supervisor will ask to see in month 6. The viva panel will ask the same in year 4. Build it now, update it every month, and you'll never write the literature review from scratch — you'll just transcribe the map.</p>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>Apply to your thesis — live</h2>
+    <p>Everything we've covered is theory until you apply it to your own work. We're going to do that now, with one paper you've read recently.</p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Pick one paper</span>
+    <p>Name a paper or chapter you've read in the last 7 days. Tell me <strong>the author, the year, and the central claim in one sentence</strong>.</p>
+    <p class="hint">If you can't summarise it in one sentence, that's the first finding — the note isn't done yet.</p>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Step 1 — Write the atomic note</span>
+    <p>One claim, one note. Author + year + central claim. No quotes — paraphrase in your own words.</p>
+    <textarea placeholder="ID: 2026MM-DD-X&#10;Title: ...&#10;Body: [Author] (year) argues/shows/critiques..."></textarea>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Step 2 — Find one note to link to</span>
+    <p>Which existing note in your system does this connect to? Name it. Then name the link TYPE and write the link sentence.</p>
+    <textarea placeholder="Linked to: [existing note ID and title]&#10;Type: tension / agreement / consequence / method&#10;Link sentence: ..."></textarea>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Read it back</span>
+    <p>Read your link sentence aloud. Could it land in your literature review unchanged? If not — refine it now. The discipline is to write notes that are thesis-ready the first time.</p>
+  </div>
+
+  <div class="try">
+    <span class="label">✍ Step 3 — Place it on the map</span>
+    <p>Looking back at your sketched map (Tab 3): which camp does this paper belong to? Which tension does it speak to?</p>
+    <textarea placeholder="Camp: ...&#10;Speaks to the tension between: ... and ...&#10;What it adds to my gap: ..."></textarea>
+  </div>
+
+  <div class="checklist">
+    <h3>Before you close this lesson — checklist</h3>
+    <div class="check-item"><input type="checkbox" id="c1"><label for="c1">I have written one new atomic note from this week's reading</label></div>
+    <div class="check-item"><input type="checkbox" id="c2"><label for="c2">I have linked it to at least one existing note, with a named type</label></div>
+    <div class="check-item"><input type="checkbox" id="c3"><label for="c3">My link sentence is one I could put in my thesis unchanged</label></div>
+    <div class="check-item"><input type="checkbox" id="c4"><label for="c4">I have placed the new note on my literature map</label></div>
+    <div class="check-item"><input type="checkbox" id="c5"><label for="c5">I know which camps my new note speaks to and which tensions it sharpens</label></div>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The compound effect</div>
+    <p>One linked note per paper. 30 papers a week. 1,560 linked notes a year. By month 18, your map shows you the argument of your thesis before you've written it.</p>
+  </div>
+</div>
+
+<!-- TAB 5 -->
+<div class="tab-content">
+  <div class="frame">
+    <h2>The viva test — does the system work?</h2>
+    <p>You'll know your linking system is working when you can answer viva-style questions instantly, from memory, by walking through your map. Let's test it.</p>
+  </div>
+
+  <div class="timer">
+    <div>
+      <div style="font-size:0.85em; opacity:0.9;">Speaking time</div>
+      <div class="display" id="timer1">2:00</div>
+    </div>
+    <button class="timer-btn" onclick="startTimer('timer1', 120)">▶ Start 2-minute timer</button>
+  </div>
+
+  <div class="viva-card">
+    <span class="label">🎓 Viva question 1</span>
+    <p><em>"Walk me through how the literature on your topic is split. Who are the main camps, and where does your work sit?"</em></p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Speak it out</span>
+    <p>Use your map as the structure. Camp 1 says X. Camp 2 says Y. The tension is Z. My contribution sits HERE because [link sentence].</p>
+    <p class="hint">If you stumble, the map needs more work — not your speaking. Keep going.</p>
+  </div>
+
+  <div class="viva-card">
+    <span class="label">🎓 Viva question 2</span>
+    <p><em>"What is one paper that, if it didn't exist, would change your argument?"</em></p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 The hidden test</span>
+    <p>This question tests whether you've identified your <strong>load-bearing sources</strong> — the ones your literature map depends on. If your linking is good, you'll name one in three seconds.</p>
+  </div>
+
+  <button class="reveal-btn" onclick="toggleReveal(this)">Show what a strong answer sounds like</button>
+  <div class="reveal">
+    <p style="font-style: italic;">"If Mann's 2013 infrastructural-power thesis didn't exist, my argument that digital infrastructures entrench rather than dissolve state authority would lose its principal counterweight to Castells. I'd be left arguing against a position with no representative — the tension would collapse, and with it the gap I'm filling."</p>
+    <p style="margin-top:8px;"><strong>Notice:</strong> the answer names the source, the link type (tension), and the consequence for the thesis. That's three years of linking talking through one minute of viva answer.</p>
+  </div>
+
+  <div class="viva-card">
+    <span class="label">🎓 Viva question 3</span>
+    <p><em>"Where would you locate yourself methodologically — and why have you chosen that camp over the alternatives?"</em></p>
+  </div>
+
+  <div class="discuss">
+    <span class="label">💬 Final speak-out</span>
+    <p>This is Tab 3 of the dashboard's <strong>Defending Methodology</strong> lesson — the rationale and alternative-considered structure. If you've linked your methodological notes properly, the answer should already be on your map.</p>
+  </div>
+
+  <div class="principle">
+    <div class="label">⚡ The proof</div>
+    <p>If you can answer all three viva questions in two minutes each from your map alone — no notes, no slides — your linking system is working. If you can't, the next session of reading needs to be slower, more linked, more deliberate.</p>
+  </div>
+
+  <div class="frame" style="border-left-color: #10b981;">
+    <h2>Take this away</h2>
+    <p>Three things to do before next lesson:</p>
+    <ol style="margin-left: 22px; line-height: 1.9;">
+      <li>Convert <strong>five</strong> of your existing notes into linked notes — name the type, write the sentence.</li>
+      <li>Sketch your literature map on paper or in a tool (Obsidian, Roam, even pen and paper). Mark the tensions.</li>
+      <li>Identify your <strong>load-bearing source</strong> — the one paper your argument can't lose.</li>
+    </ol>
+    <p style="margin-top:14px;">Bring all three to next lesson. We'll pressure-test them.</p>
+  </div>
+</div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" onclick="navTab(-1)" disabled>← Previous</button>
+  <button class="nav-btn" id="nextBtn" onclick="navTab(1)">Next →</button>
+</div>
+
+</div>
+
+<script>
+let currentTab = 0;
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+
+function showTab(idx) {
+  tabButtons.forEach(b => b.classList.remove('active'));
+  tabContents.forEach(c => c.classList.remove('active'));
+  tabButtons[idx].classList.add('active');
+  tabContents[idx].classList.add('active');
+  currentTab = idx;
+  document.getElementById('prevBtn').disabled = idx === 0;
+  document.getElementById('nextBtn').disabled = idx === tabContents.length - 1;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function navTab(direction) {
+  const next = currentTab + direction;
+  if (next >= 0 && next < tabContents.length) showTab(next);
+}
+
+function toggleReveal(btn) {
+  const reveal = btn.nextElementSibling;
+  reveal.classList.toggle('show');
+  btn.textContent = reveal.classList.contains('show')
+    ? btn.textContent.replace('Show', 'Hide').replace('Reveal', 'Hide')
+    : btn.textContent.replace('Hide', 'Show');
+}
+
+let timers = {};
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id]);
+  let remaining = seconds;
+  const display = document.getElementById(id);
+  display.textContent = formatTime(remaining);
+  timers[id] = setInterval(() => {
+    remaining--;
+    display.textContent = formatTime(remaining);
+    if (remaining <= 0) {
+      clearInterval(timers[id]);
+      display.textContent = "Time's up!";
+    }
+  }, 1000);
+}
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+}
+</script>
+</body>
+</html>
