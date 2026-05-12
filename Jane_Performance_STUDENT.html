@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Slam Poetry Workshop — The Performance Pass</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #f4f5f9; color: #222; line-height: 1.55; padding-bottom: 60px; }
+  header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
+    padding: 28px 36px 24px; }
+  header h1 { font-size: 1.7em; font-weight: 700; }
+  header .sub { opacity: 0.85; margin-top: 4px; font-size: 0.95em; }
+
+  .poem-display { background: white; padding: 18px 36px 24px;
+    border-bottom: 1px solid #e2e3eb; }
+  .poem-display h2 { font-size: 0.85em; color: #4a2d6f; font-weight: 600;
+    margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .poem-display pre { white-space: pre-wrap; font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.95em; line-height: 1.55; color: #333; background: #fafbfd;
+    border: 1px solid #e2e3eb; border-radius: 8px; padding: 14px 18px; }
+  .poem-display .placeholder { color: #c87aff; font-weight: 600; }
+
+  .tabs { display: flex; flex-wrap: wrap; background: white; padding: 10px 30px 0;
+    border-bottom: 1px solid #e2e3eb;
+    position: sticky; top: 0; z-index: 50;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .tab { padding: 9px 14px; background: #ebecf3; margin: 0 4px 8px 0;
+    border-radius: 6px 6px 0 0; font-size: 0.83em; cursor: pointer; color: #555;
+    border: 1px solid transparent; border-bottom: none; transition: all 0.15s; }
+  .tab:hover { background: #dcdde8; }
+  .tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; font-weight: 600; }
+
+  main { padding: 32px 36px 60px; max-width: 880px; margin: 0 auto; }
+  .step { display: none; }
+  .step.active { display: block; animation: fadein 0.25s; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .step h2 { color: #4a2d6f; font-size: 1.5em; margin-bottom: 4px; }
+  .step .step-num { font-size: 0.8em; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .step p { margin: 12px 0; }
+
+  .prompt { background: #fff; border-left: 4px solid #667eea; padding: 16px 20px;
+    margin: 18px 0; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .prompt-label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 1px;
+    color: #667eea; font-weight: 700; margin-bottom: 4px; }
+  .prompt-body { font-size: 1.05em; color: #222; }
+  .prompt-body em { color: #4a2d6f; }
+
+  .reveal { background: #f1f0fa; border: 1px solid #d8d6ec; padding: 10px 14px;
+    border-radius: 8px; margin: 8px 0; cursor: pointer; font-size: 0.92em; color: #4a2d6f; }
+  .reveal-content { display: none; margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid #d8d6ec; color: #333; }
+  .reveal.open .reveal-content { display: block; }
+  .reveal:before { content: "▸ "; margin-right: 4px; display: inline-block; }
+  .reveal.open:before { content: "▾ "; }
+  .reveal ul { margin: 6px 0 0 22px; }
+
+  .notes-box { width: 100%; min-height: 70px; border: 1px solid #d4d5dd;
+    border-radius: 8px; padding: 10px 14px; font-family: inherit; font-size: 0.95em;
+    background: #fafbfd; margin-top: 8px; resize: vertical; }
+  .notes-box:focus { outline: none; border-color: #667eea; background: white; }
+
+  .nav-row { display: flex; justify-content: space-between; margin-top: 28px;
+    padding-top: 18px; border-top: 1px solid #e2e3eb; }
+  .nav-row button { background: #667eea; color: white; border: none;
+    padding: 8px 18px; border-radius: 6px; font-size: 0.9em; cursor: pointer; font-weight: 500; }
+  .nav-row button:disabled { opacity: 0.3; cursor: default; }
+  .nav-row button:hover:not(:disabled) { background: #5a4eb8; }
+  .term { color: #667eea; font-weight: 600; }
+
+  .map-row { display: flex; gap: 12px; margin: 8px 0; padding: 8px 0;
+    border-bottom: 1px dashed #d8d6ec; align-items: baseline; }
+  .map-marker { min-width: 80px; font-size: 0.78em; font-weight: 700;
+    color: #fff; padding: 4px 8px; border-radius: 4px; text-align: center; }
+  .quiet { background: #4a90c2; }
+  .build { background: #6b8e23; }
+  .loud { background: #c4503e; }
+  .hush { background: #6b46a8; }
+  .pause { background: #2a2a2a; }
+  .restrained { background: #8a7556; }
+  .map-text { font-family: Georgia, serif; font-style: italic; color: #444; font-size: 0.93em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Slam Poetry Workshop — The Performance Pass</h1>
+  <div class="sub">From Page to Stage — Bringing Your Poem to Life</div>
+</header>
+
+<div class="poem-display">
+  <h2>Your Final Poem — With Lift Moves Marked</h2>
+  <pre>We grew up inside a birdcage.
+A birdcage built from paper crowns and origami dreams.
+The bars seemed like protection,
+And they felt like love,
+Just for the reason of being gold.
+
+My childhood was wrapped.
+Wrapped in report cards and ribboned expectations
+Glass cases filled with plastic medals and borrowed victories,
+<span class="placeholder">[YOUR FILL — Gap 1]</span>
+
+Because we learned how to compete
+before we were taught to care.
+Run faster,
+Study harder,
+Smile wider.
+Be better — but I was running out of breath from the burdens I can't bear.
+
+Home is a mix of … and …, where I'm told to
+"Don't embarrass the family."
+"Ga bakal ada orang yang mau anak kayak kamu" (Indonesian)
+"우리가 너 위해 얼마나 희생했는데" — we sacrificed so much for you (Korean)
+"为什么你不能像他们一样？" — why can't you be like them (Chinese)
+
+<span class="placeholder">[YOUR DIRECT ADDRESS — Lift Move 1]</span>
+
+Somewhere between four languages,
+encouragement became expectation,
+And love began sounding like pressure.
+
+<span class="placeholder">[YOUR VOLTA LINE — Lift Move 2]</span>
+
+The walls of this birdcage kept me trapped. These walls.
+I'm trapped in a mirage of my own fears
+As I struggle to hold back my tears.
+My pride threatens to fall from its pedestal <span class="placeholder">[YOUR FILL — Gap 2]</span>
+I've got <span class="placeholder">[YOUR FILL — Gap 3]</span> threatening to overflow with all my past mistakes.
+
+<span class="placeholder">[YOUR ENDING — three lines returning to the birdcage]</span>
+
+<span class="placeholder">[ pause ]</span>
+
+<span class="placeholder">[YOUR CLOSING BEAT — Lift Move 3]</span></pre>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="goto(0)">1. Performance Read</div>
+  <div class="tab" onclick="goto(1)">2. Volume Map</div>
+  <div class="tab" onclick="goto(2)">3. Pace + Pauses</div>
+  <div class="tab" onclick="goto(3)">4. The One Gesture</div>
+  <div class="tab" onclick="goto(4)">5. Voice Characters</div>
+  <div class="tab" onclick="goto(5)">6. Duo Coordination</div>
+  <div class="tab" onclick="goto(6)">7. The Breath Before</div>
+  <div class="tab" onclick="goto(7)">8. Memorisation</div>
+  <div class="tab" onclick="goto(8)">9. Final Run</div>
+</div>
+
+<main>
+
+<!-- STEP 1 -->
+<div class="step active">
+  <div class="step-num">Step 1 of 9</div>
+  <h2>The Performance Read</h2>
+  <p>Before we change anything about how you deliver, let's hear where you are right now. This is your baseline.</p>
+  <div class="prompt">
+    <div class="prompt-label">What to do</div>
+    <div class="prompt-body">Stand up. Read the whole poem aloud at performance pace — including your lift moves and your ending. Don't try to "act." Just speak the words. Record it on your phone if you can.</div>
+  </div>
+  <p>After the read, write down: how long did it take? Where did you feel strong? Where did you feel like you were just reading?</p>
+  <textarea class="notes-box" placeholder="Time taken, strong moments, flat moments..."></textarea>
+  <div class="nav-row"><button disabled>← Previous</button><button onclick="goto(1)">Next →</button></div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-num">Step 2 of 9</div>
+  <h2>The Volume Map</h2>
+  <p>Every slam performer maps the volume of their poem in advance. Whisper, normal, loud, sudden-hush — these are CHOICES, not accidents. A poem read at one steady volume is a poem that loses the audience.</p>
+  <div class="prompt">
+    <div class="prompt-label">Suggested volume map for your poem</div>
+    <div class="prompt-body">Mark these on your printed copy. The colour code helps you find your place at a glance.</div>
+  </div>
+
+  <div class="map-row"><span class="map-marker quiet">QUIET</span><span class="map-text">"We grew up inside a birdcage…" — confide, draw the audience in close</span></div>
+  <div class="map-row"><span class="map-marker build">BUILD</span><span class="map-text">"My childhood was wrapped… Wrapped in report cards…" — energy rising</span></div>
+  <div class="map-row"><span class="map-marker loud">LOUD</span><span class="map-text">"Run faster / Study harder / Smile wider / Be better" — the climax, push it</span></div>
+  <div class="map-row"><span class="map-marker hush">HUSH</span><span class="map-text">The multilingual stanza — sudden drop in volume, almost a whisper. The most personal moment</span></div>
+  <div class="map-row"><span class="map-marker build">BUILD</span><span class="map-text">"Somewhere between four languages…" — emerging from the hush, restrained but growing</span></div>
+  <div class="map-row"><span class="map-marker loud">STRONG</span><span class="map-text">Your volta line — declarative, the turn lands here</span></div>
+  <div class="map-row"><span class="map-marker quiet">INTIMATE</span><span class="map-text">"I'm trapped in a mirage of my own fears…" — vulnerable, close</span></div>
+  <div class="map-row"><span class="map-marker restrained">RESTRAINED</span><span class="map-text">The three-line return to the birdcage — controlled, deliberate</span></div>
+  <div class="map-row"><span class="map-marker pause">SILENCE</span><span class="map-text">The pause before the closing beat — count one Mississippi in your head</span></div>
+  <div class="map-row"><span class="map-marker loud">FINAL</span><span class="map-text">Your closing beat — full voice if "Watch me", quiet-strong if "Still"</span></div>
+
+  <textarea class="notes-box" placeholder="Which moments will you change? Anything you want to mark differently?"></textarea>
+  <div class="nav-row"><button onclick="goto(0)">← Previous</button><button onclick="goto(2)">Next →</button></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-num">Step 3 of 9</div>
+  <h2>Pace + Pauses</h2>
+  <p>Pace is how fast you go. Pauses are where you stop. Both are weapons — most school performers use neither.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Pace map</div>
+    <div class="prompt-body">
+    <strong>Slow</strong> — opening stanza. Let the audience settle.<br>
+    <strong>Moderate</strong> — the "wrapped" section.<br>
+    <strong>Accelerate</strong> — the "Run faster / Study harder…" climax. Push the speed.<br>
+    <strong>Slow down sharply</strong> — the multilingual stanza. Let each language land.<br>
+    <strong>Moderate</strong> — the volta and the trapped section.<br>
+    <strong>Slow</strong> — the final three-line ending.<br>
+    <strong>Dead stop</strong> — before the closing beat.
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">The four pauses that matter most</div>
+    <div class="prompt-body">
+    <strong>1.</strong> After <em>"Don't embarrass the family."</em> — one beat. Let it sit.<br>
+    <strong>2.</strong> After EACH multilingual phrase — one beat each. Don't run them together.<br>
+    <strong>3.</strong> Before your volta line — half a beat. The turn needs space.<br>
+    <strong>4.</strong> Before your closing beat — the BIG one. A full second of silence. This is the most important silence in the whole poem.
+    </div>
+  </div>
+
+  <div class="reveal" onclick="this.classList.toggle('open')">
+    Why the closing-beat pause matters so much
+    <div class="reveal-content">
+      <p>After your three-line ending lands, the audience THINKS the poem is over. They start to applaud or to shift in their seats. The silence you hold then is what makes them lean back in — and the final beat (Watch me / Still) becomes the thing they erupt over.</p>
+      <p>If you rush this pause, the closing beat is just another line. If you HOLD it, it's the moment of the whole performance.</p>
+    </div>
+  </div>
+
+  <textarea class="notes-box" placeholder="Practice the closing-beat pause. How long can you hold it?"></textarea>
+  <div class="nav-row"><button onclick="goto(1)">← Previous</button><button onclick="goto(3)">Next →</button></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-num">Step 4 of 9</div>
+  <h2>The One Gesture</h2>
+  <p>One deliberate physical movement, tied to ONE specific line. Not five gestures. <strong>One.</strong> The principle: economy of motion. Most school performers either stand stiff or wave their hands around the whole way through. One deliberate gesture, in one chosen place, makes you look trained.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Try this</div>
+    <div class="prompt-body">Pick ONE line for your one gesture. The best choices tie to the birdcage — the central image. Practise the gesture in the mirror until it feels natural and unhurried.</div>
+  </div>
+
+  <div class="reveal" onclick="this.classList.toggle('open')">
+    Options that work for your poem
+    <div class="reveal-content">
+      <ul>
+        <li><strong>Hands closing into fists</strong> on <em>"kept me trapped"</em> — the cage closing</li>
+        <li><strong>Open palms turning upward</strong> on <em>"Watch me"</em> — the bird ready to fly (if you chose the hopeful ending)</li>
+        <li><strong>Hands by your sides, palms down</strong> on <em>"Still."</em> — surrender (if you chose the resigned ending)</li>
+        <li><strong>One hand to your chest</strong> on the volta line — locating the change inside you</li>
+      </ul>
+      <p>If in doubt: open palms outward on the closing beat. It's the highest-impact moment and the gesture there carries the lift.</p>
+    </div>
+  </div>
+
+  <p><strong>Rules:</strong></p>
+  <ul style="margin-left: 22px;">
+    <li>Slow movement, not fast. Trained looks slow.</li>
+    <li>One time only. Don't repeat.</li>
+    <li>Don't add extras when you get excited.</li>
+  </ul>
+
+  <textarea class="notes-box" placeholder="Your chosen gesture + the line it goes with..."></textarea>
+  <div class="nav-row"><button onclick="goto(2)">← Previous</button><button onclick="goto(4)">Next →</button></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-num">Step 5 of 9</div>
+  <h2>Voice Characters</h2>
+  <p>The "Don't embarrass the family" stanza and the multilingual lines are the most personal moment in your poem. They can each carry a different <em>speaker</em> — the family member who actually said something like it. Your voice will shift slightly without you trying. The audience feels that shift.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Try this</div>
+    <div class="prompt-body">For each foreign-language line, decide whose voice it is. Don't imitate — no accents, no caricature. Just <strong>think</strong> of that person as you speak the line. Your tone changes naturally.</div>
+  </div>
+
+  <div class="reveal" onclick="this.classList.toggle('open')">
+    How to assign the voices
+    <div class="reveal-content">
+      <ul>
+        <li><em>"Don't embarrass the family"</em> — whoever in your real family says it most. A mother? An auntie? Picture them.</li>
+        <li><em>The Indonesian line</em> — your mother? Your grandmother on that side?</li>
+        <li><em>The Korean line</em> — a different family member. A relative who said something like that to you.</li>
+        <li><em>The Chinese line</em> — yet another voice. A neighbour? A school friend's mother? A teacher?</li>
+      </ul>
+      <p>You don't have to tell the audience who each voice is. They feel the difference. That's enough.</p>
+    </div>
+  </div>
+
+  <textarea class="notes-box" placeholder="Voice assignments for each line..."></textarea>
+  <div class="nav-row"><button onclick="goto(3)">← Previous</button><button onclick="goto(5)">Next →</button></div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="step-num">Step 6 of 9</div>
+  <h2>Duo Coordination — Working with Jesslyn</h2>
+  <p>You have two voices. Most school duos either talk OVER each other or leave gaps between the handovers. Strong duos rehearse the choreography until the two voices move like one performer.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Three things to drill</div>
+    <div class="prompt-body">
+    <strong>1. Together-lines in unison.</strong> The opening, the climax, the ending — when you both speak, it must be CLEAN unison. Practice with a metronome if needed. Aim for 0ms gap.<br><br>
+    <strong>2. Handovers without a gap.</strong> When one of you finishes a section and the other starts, the second voice begins BEFORE the first voice has fully landed — like passing a baton in a relay. Drill it.<br><br>
+    <strong>3. Stage positioning.</strong> Stand side by side, slightly angled toward each other. Not directly facing each other (that excludes the audience). Not standing far apart (that breaks the connection).
+    </div>
+  </div>
+
+  <div class="reveal" onclick="this.classList.toggle('open')">
+    When to face the audience vs each other
+    <div class="reveal-content">
+      <p><strong>Face the audience</strong> for: the opening stanza, the climax ("Run faster…"), the ending, the closing beat. Always for the moments meant for them.</p>
+      <p><strong>Face each other</strong> for: the most intimate moments. The multilingual stanza could work as you facing each other, sharing the family memory. "Encouragement became expectation" could be exchanged eyes-to-eyes.</p>
+      <p><strong>Switch back</strong> on the volta. The turn pulls you out of your private exchange and back to the audience.</p>
+    </div>
+  </div>
+
+  <textarea class="notes-box" placeholder="Coordination decisions..."></textarea>
+  <div class="nav-row"><button onclick="goto(4)">← Previous</button><button onclick="goto(6)">Next →</button></div>
+</div>
+
+<!-- STEP 7 -->
+<div class="step">
+  <div class="step-num">Step 7 of 9</div>
+  <h2>The Breath Before</h2>
+  <p>How you START is half the performance. Most school performers either bolt out of the gate or hesitate. Slam poets have a small ritual that calms the nerves and signals to the audience: <em>watch me, this is going to matter.</em></p>
+
+  <div class="prompt">
+    <div class="prompt-label">The opening ritual — five seconds</div>
+    <div class="prompt-body">
+    <strong>1.</strong> Stand still. Feet shoulder-width.<br>
+    <strong>2.</strong> Slow deep breath in through your nose.<br>
+    <strong>3.</strong> Find ONE person in the front row. Lock eyes briefly.<br>
+    <strong>4.</strong> Slow exhale.<br>
+    <strong>5.</strong> Begin on your next breath.
+    </div>
+  </div>
+
+  <p>Do it with Jesslyn — you breathe together, you start together. Synchronizes you. The audience feels you're in control before you've spoken a single word.</p>
+
+  <textarea class="notes-box" placeholder="Practice the breath sequence. How does it feel?"></textarea>
+  <div class="nav-row"><button onclick="goto(5)">← Previous</button><button onclick="goto(7)">Next →</button></div>
+</div>
+
+<!-- STEP 8 -->
+<div class="step">
+  <div class="step-num">Step 8 of 9</div>
+  <h2>Memorisation — The Named Chunks Method</h2>
+  <p>Memorising 40 lines is hard. Memorising 9 named chunks is easy. Break the poem into chunks with names — when you blank, you remember the NAME, and the lines come back.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Your nine chunks</div>
+    <div class="prompt-body">Memorise the labels in order. Then attach each label to its lines.</div>
+  </div>
+
+  <div class="reveal" onclick="this.classList.toggle('open')">
+    Click to see the named chunks
+    <div class="reveal-content">
+      <ol style="margin-left: 22px;">
+        <li><strong>THE CAGE</strong> — "We grew up inside a birdcage…" (the opening 5 lines)</li>
+        <li><strong>WRAPPED</strong> — "My childhood was wrapped…" through Gap 1</li>
+        <li><strong>COMPETE</strong> — "Because we learned how to compete… burdens I can't bear"</li>
+        <li><strong>FOUR LANGUAGES</strong> — the multilingual stanza</li>
+        <li><strong>DIRECT ADDRESS</strong> — your lift move 1 line</li>
+        <li><strong>THE LESSON</strong> — "Somewhere between four languages… sounding like pressure"</li>
+        <li><strong>THE VOLTA</strong> — your lift move 2 line</li>
+        <li><strong>TRAPPED</strong> — "The walls of this birdcage… overflow with mistakes" (with Gaps 2 & 3)</li>
+        <li><strong>THE RETURN + BEAT</strong> — your three-line ending + the closing beat</li>
+      </ol>
+      <p>Practise saying the chunk names aloud in order. Then drill each chunk on its own. Only after you can do each chunk fluently do you stitch them together.</p>
+    </div>
+  </div>
+
+  <textarea class="notes-box" placeholder="Mark any chunks that feel shaky..."></textarea>
+  <div class="nav-row"><button onclick="goto(6)">← Previous</button><button onclick="goto(8)">Next →</button></div>
+</div>
+
+<!-- STEP 9 -->
+<div class="step">
+  <div class="step-num">Step 9 of 9</div>
+  <h2>The Final Run-Through</h2>
+  <p>Now everything together. Volume map, pace, pauses, your one gesture, voice characters, the breath before, and the chunks in order. Time it. Record it.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Self-review questions after you record</div>
+    <div class="prompt-body">
+    1. Where did your volume choices land? Did the QUIET feel actually quiet?<br>
+    2. Did you hold the closing-beat pause for a full second?<br>
+    3. Did your one gesture land naturally — or did it look forced?<br>
+    4. Did the multilingual lines feel like different people, or one continuous voice?<br>
+    5. Was the time inside the slam window (2–3 minutes)?
+    </div>
+  </div>
+
+  <p>Anything that didn't land — drill that one chunk separately, then run the whole thing again.</p>
+
+  <textarea class="notes-box" placeholder="What's still rough? What's working?"></textarea>
+  <div class="nav-row"><button onclick="goto(7)">← Previous</button><button disabled>End</button></div>
+</div>
+
+</main>
+
+<script>
+  function goto(i) {
+    document.querySelectorAll('.tab').forEach((t, k) => t.classList.toggle('active', k === i));
+    document.querySelectorAll('.step').forEach((s, k) => s.classList.toggle('active', k === i));
+    document.querySelector('.tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>
