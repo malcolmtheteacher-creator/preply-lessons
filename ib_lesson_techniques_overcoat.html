@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques in Action: The Overcoat</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid #667eea;
+}
+.tab-button {
+    padding: 12px 20px;
+    border: none;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active {
+    background: #f8f9fa;
+    border-bottom-color: #667eea;
+    color: #764ba2;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.content-block {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 5px solid #667eea;
+}
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+.technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+}
+.technique-card {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.technique-card:hover {
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transform: translateY(-3px);
+}
+.technique-card .num {
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #764ba2;
+    display: block;
+}
+.technique-card .name {
+    display: none;
+    font-weight: 700;
+    color: #333;
+    margin-top: 4px;
+}
+.technique-card.flipped {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+.technique-card.flipped .num { color: white; font-size: 1.1em; }
+.technique-card.flipped .name { display: block; color: white; font-size: 1.05em; }
+
+.answer-btn {
+    background: #667eea;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    border: none;
+    font-size: 0.95em;
+}
+.answer-btn:hover { background: #764ba2; }
+.answer-text {
+    display: none;
+    background: #f8f9fa;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #667eea;
+    color: #333;
+}
+.answer-text.show { display: block; }
+.answer-text .tag {
+    display: inline-block;
+    background: #764ba2;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85em;
+    margin-right: 6px;
+}
+
+.question-block {
+    background: white;
+    padding: 18px 20px;
+    border-left: 5px solid #764ba2;
+    margin-bottom: 18px;
+    border-radius: 4px;
+}
+.question-block h4 { color: #764ba2; margin-bottom: 8px; }
+.question-block .quote {
+    font-style: italic;
+    color: #444;
+    margin: 8px 0 10px 0;
+    padding-left: 12px;
+    border-left: 3px solid #ddd;
+}
+
+.reading-passage {
+    background: white;
+    padding: 24px 26px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    line-height: 1.85;
+    font-size: 1.02em;
+}
+.reading-passage p { margin-bottom: 14px; }
+
+.discussion-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 18px 0;
+    border-left: 5px solid #764ba2;
+}
+.discussion-box h4 { color: #764ba2; margin-bottom: 10px; font-size: 1.05em; }
+.discussion-box ol, .discussion-box ul { margin-left: 22px; }
+.discussion-box li { margin-bottom: 8px; color: #444; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.timer.warning {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #333;
+}
+.timer.danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    animation: pulse 0.5s infinite alternate;
+}
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+.timer-btn {
+    padding: 8px 15px;
+    background: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #667eea;
+    margin-left: 6px;
+}
+
+.textarea-box {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #667eea;
+    border-radius: 4px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 150px;
+}
+
+.tally-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+}
+.tally-card {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 14px;
+}
+.tally-card h4 { color: #764ba2; margin-bottom: 6px; }
+.tally-card p { font-size: 0.92em; color: #555; font-style: italic; }
+
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.6em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button {
+        width: 100%;
+        text-align: left;
+        border-bottom: 3px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    .tab-button.active {
+        border-bottom: none;
+        border-left-color: #667eea;
+        background: #f8f9fa;
+    }
+    .technique-grid { grid-template-columns: repeat(2, 1fr); }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Techniques in Action: The Overcoat</h1>
+    <p>Nikolai Gogol &middot; 1842 &middot; A hunt for the techniques you already know</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">2. The Clerk</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">3. The Theft</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">4. The Ghost</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">5. Tally &amp; Write</button>
+</div>
+
+<!-- =================== TAB 1: WARM-UP =================== -->
+<div id="tab1" class="tab-content active">
+
+    <div class="content-block">
+        <h2>The Ten Techniques &mdash; from memory</h2>
+        <p>Click each number. Before you do &mdash; what was the shape, and what was the technique?</p>
+
+        <div class="technique-grid">
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">1</span><span class="name">Diction</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">2</span><span class="name">Metaphor</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">3</span><span class="name">Simile</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">4</span><span class="name">Imagery</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">5</span><span class="name">Symbolism</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">6</span><span class="name">Personification</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">7</span><span class="name">Hyperbole</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">8</span><span class="name">Irony</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">9</span><span class="name">Foreshadowing</span>
+            </div>
+            <div class="technique-card" onclick="flipTech(this)">
+                <span class="num">10</span><span class="name">Repetition</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>The story you are about to read</h2>
+        <p><strong>&ldquo;The Overcoat&rdquo;</strong> was written by Nikolai Gogol in 1842. Gogol was born in what is now Ukraine, and he wrote in Russian about the cold, bureaucratic city of St Petersburg. Dostoevsky later said of all Russian writers: &ldquo;We all came out of Gogol&rsquo;s Overcoat.&rdquo;</p>
+        <p>The story is about a small, almost invisible government clerk who works copying documents, and who saves for months to replace his threadbare coat. The new coat is the proudest event of his life. It does not stay his for long. And the story does not end with his death.</p>
+        <p>The narrator&rsquo;s voice is the secret of this story. He sounds like a polite official making a report &mdash; even when he is breaking your heart, even when he is laughing at the powerful. Listen for him.</p>
+
+        <div class="discussion-box">
+            <h4>Before we start &mdash; talk it through</h4>
+            <ol>
+                <li>A story where the &ldquo;hero&rdquo; is the least important person in the city. What kind of story is that going to be?</li>
+                <li>An overcoat is just a thing. What can a coat <em>stand for</em> in a person&rsquo;s life?</li>
+                <li>Think of a narrator who pretends to be neutral and polite, but who is actually furious underneath. What technique is that?</li>
+                <li>The story takes place in winter, in one of the coldest cities on earth. Which of your ten techniques would a writer reach for first? Which would they probably not bother with?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<!-- =================== TAB 2: THE CLERK =================== -->
+<div id="tab2" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 1 &mdash; The Clerk</h2>
+        <p>Read this section aloud, together. Stop wherever a prompt appears.</p>
+
+        <div class="reading-passage">
+            <p>In the department of &mdash; but it is better not to name the department. There is nothing more touchy than departments, regiments, government offices, and, in general, every kind of official body. Suffice it to say, then, that in a certain department there worked a clerk; a clerk whom no one could call very remarkable. He was short, somewhat pock-marked, somewhat red-haired, even somewhat short-sighted, with a small bald patch on the top of his head, with wrinkles on both sides of his cheeks, and a complexion of the kind known as haemorrhoidal. There is no help for it: the climate of Petersburg is to blame. As for his rank &mdash; for with us the rank must be announced before anything else &mdash; he was what is called an eternal titular councillor; over whom, as is well known, every kind of writer has made jokes, having the unbecoming habit of attacking those who cannot bite back.</p>
+
+            <p>The clerk&rsquo;s surname was Bashmachkin. From the very word one may see that it was once derived from <em>bashmak</em> &mdash; a shoe. But when, how, and on what occasion this happened, no one knows. His father, and his grandfather, and even his brother-in-law, and all the Bashmachkins, wore boots, having them re-soled only three times a year. His name was Akaky Akakievich.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the opening</h4>
+            <ol>
+                <li>The narrator refuses to name the department, then explains why for half a paragraph. What is that doing?</li>
+                <li>&ldquo;Somewhat pock-marked, somewhat red-haired, even somewhat short-sighted.&rdquo; Read it aloud. What is the cumulative effect of all those <em>somewhat</em>s?</li>
+                <li>&ldquo;An <em>eternal</em> titular councillor.&rdquo; Titular councillor was a low rank. What does the word <em>eternal</em> do to it?</li>
+                <li>&ldquo;Attacking those who cannot bite back.&rdquo; Whose side is the narrator on? How do you know?</li>
+                <li>The surname comes from <em>shoe</em>, but his family all wear boots. Why include that detail?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Somewhat pock-marked, somewhat red-haired, even somewhat short-sighted&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; specifically <em>anaphora</em>, the same word starting each item in a list. <span class="tag">1</span> <strong>Diction</strong> &mdash; the choice of <em>somewhat</em> is the joke. Not one strong feature; a long list of small, sad, half-things.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;An eternal titular councillor&hellip; over whom every kind of writer has made jokes.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">7</span> <strong>Hyperbole</strong> &mdash; <em>eternal</em> is a cosmic word attached to a tiny office rank. And <span class="tag">8</span> <strong>Irony</strong> &mdash; the narrator is one of those writers, and is doing precisely the opposite of making fun.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>In the department Akaky Akakievich was treated with not the slightest respect. The porters not only did not rise from their seats when he passed by, but did not even look at him, as though a common fly had flown across the reception-room. The young clerks chuckled and made jokes at his expense, so far as their wit allowed; told stories at his elbow of his landlady, an old woman of seventy; declared that she beat him; inquired when his wedding-day might be; sprinkled torn pieces of paper over his head, calling them snow. But Akaky Akakievich answered not a syllable, as though there had been no one before him. It did not even affect his work: in the midst of all these annoyances he made not a single error in his copying. Only when the joke became insupportable, when they jolted his arm and prevented him from going on with his work, did he say, &ldquo;Let me alone! Why do you insult me?&rdquo; And there was something strange in the words and in the voice in which they were uttered. There was in it something so moving, so prone to pity, that one young man, newly entered, who, following the example of the others, had allowed himself to make sport of him, suddenly stopped short, as though something had pierced him through; and from that time forward something seemed to change within him. He saw his colleagues with new eyes, and many times afterwards, in the midst of the most cheerful moments, there rose before him the little clerk with the bald patch, with his moving words, &ldquo;Let me alone! Why do you insult me?&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the office paragraph</h4>
+            <ol>
+                <li>&ldquo;As though a common fly had flown across the reception-room.&rdquo; Why a fly, and why a <em>common</em> one?</li>
+                <li>The clerks sprinkle paper over his head and call it snow. In a story set in Petersburg, why is this image especially cruel?</li>
+                <li>&ldquo;Let me alone! Why do you insult me?&rdquo; Five plain words. Why does Gogol resist giving him anything more eloquent?</li>
+                <li>The young clerk feels &ldquo;something pierced him through.&rdquo; The line is short, but it&rsquo;s doing a lot of work. What kind of work?</li>
+                <li>Whose moral position is the narrator quietly asking us to take?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;As though a common fly had flown across the reception-room.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> (&ldquo;as though&hellip;&rdquo;). And cruel <span class="tag">1</span> <strong>diction</strong> &mdash; he doesn&rsquo;t disturb the air. Keep an eye on this fly &mdash; Gogol will bring it back later.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Sprinkled torn pieces of paper over his head, calling them snow.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> and <span class="tag">9</span> <strong>foreshadowing</strong>. The real Petersburg snow is about to come for him in the next part of the story. The clerks are rehearsing his fate as a game.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Let me alone! Why do you insult me?&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction.</strong> The whole story is full of long official sentences. Then suddenly: five plain words, twice. The simplicity is the technique. Gogol is choosing not to be eloquent here.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>It would be hard to find a man who lived in his work as did Akaky Akakievich. To say that he was zealous in his work is to say nothing: he loved his copying. In that copying he saw a kind of varied and pleasant world all his own. Enjoyment was written on his face: some letters were favourites with him, and when he encountered one of them, he was beside himself; he smiled, winked, helped it on with his lips, so that one could read on his face every letter that his pen was tracing. If rewards had been given according to the measure of zeal, he would, to his own surprise, have found himself made a State Councillor; but he had earned, as his fellow clerks put it, a buckle in his buttonhole and piles in his behind.</p>
+
+            <p>Even outside the office Akaky Akakievich could not pass without remarking on certain pages where the handwriting was particularly fine; and he was happy. He took some copying home with him. After eating his supper he sat down at the table and copied papers brought from his office, and if there were none, he made copies expressly for his own pleasure &mdash; especially if the document was a remarkable one: remarkable not for the beauty of its style, but only for the fact that it was addressed to some new and important person.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the copying paragraph</h4>
+            <ol>
+                <li>&ldquo;He loved his copying.&rdquo; Three flat words on their own. Why does Gogol let them stand alone?</li>
+                <li>&ldquo;Some letters were favourites with him&hellip; he helped it on with his lips.&rdquo; Letters &mdash; the small marks &mdash; have personalities for him. What technique?</li>
+                <li>&ldquo;A buckle in his buttonhole and piles in his behind.&rdquo; The narrator slides from formal to vulgar in one sentence. What is he doing to the &ldquo;dignity&rdquo; of office work?</li>
+                <li>Is this a pathetic life, a beautiful one, or both? Which of the two is the narrator more interested in?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Some letters were favourites with him; and when he encountered one of them, he was beside himself; he smiled, winked, helped it on with his lips.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">6</span> <strong>Personification</strong> &mdash; the letters are friends he greets. Bonus: <span class="tag">4</span> <strong>imagery</strong> &mdash; the lips moving with the pen is unforgettable.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A buckle in his buttonhole and piles in his behind.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; an abrupt drop from official register (<em>buttonhole</em>) to bodily register (<em>piles</em>) in a single line. <span class="tag">8</span> <strong>Irony</strong> &mdash; the narrator pretends to be the world&rsquo;s polite reporter, then puts that in. He&rsquo;s on Akaky&rsquo;s side and laughing at the system that uses him.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 3: THE THEFT =================== -->
+<div id="tab3" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 2 &mdash; The Coat, and Its Loss</h2>
+        <p>Akaky discovers that his old coat &mdash; held together with patches &mdash; can no longer be repaired. After months of saving, eating less, walking on tiptoe to spare the soles of his boots, he commissions a new one from Petrovich the tailor. Tonight, for the first time, he is walking home in it. Read on.</p>
+
+        <div class="reading-passage">
+            <p>There is in Petersburg a powerful foe of all who receive a salary of four hundred roubles a year, or thereabouts. This foe is no other than the cold of the north, although it is said to be very wholesome. Between eight and nine in the morning, just when the streets are full of clerks going to their offices, the cold gives all noses such violent and sharp tweaks, without distinction, that the poor fellows do not know what to do with them. At such a time, when even the foreheads of those in important posts ache with the cold and tears come to their eyes, the titular councillors are sometimes quite without defence. Their only salvation lies in racing as fast as possible, in their thin little overcoats, through five or six streets, and then stamping their feet in the porter&rsquo;s room until all the faculties and gifts for office work, frozen on the way, may thaw out.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the &ldquo;foe&rdquo; paragraph</h4>
+            <ol>
+                <li>&ldquo;A powerful foe of all who receive a salary of four hundred roubles a year.&rdquo; What kind of opponent is being described, and how?</li>
+                <li>&ldquo;The cold gives all noses such violent and sharp tweaks.&rdquo; What is the cold being made to <em>do</em>? Which technique?</li>
+                <li>&ldquo;Their only salvation&rdquo; &mdash; <em>salvation</em> is a religious word. Why is the narrator using it for running through the snow?</li>
+                <li>This whole paragraph is supposed to be about temperature. What is it actually about?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A powerful foe&hellip; the cold of the north&hellip; gives all noses such violent and sharp tweaks.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">6</span> <strong>Personification</strong> &mdash; the cold is an enemy with a hand for tweaking. <span class="tag">7</span> <strong>Hyperbole</strong> &mdash; offices full of <em>all noses</em>, <em>without distinction</em>. <span class="tag">9</span> <strong>Foreshadowing</strong> &mdash; this foe is being introduced because it is about to win.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>That same evening, after the celebration in the assistant chief&rsquo;s flat, Akaky Akakievich went on his way in the most cheerful frame of mind he had ever known. He even ran for a moment after some lady or other who had passed by him like a flash of lightning, every part of her body in motion; but he checked himself at once, and went on again very gently as before, even wondering himself where this sudden tendency to break into a run had come from.</p>
+
+            <p>Soon the deserted streets, which are not particularly bright even by day, became, after his cheerful evening, even drearier and more lonely; the lamps gleamed only at intervals, less and less frequently; oil was running short. Then came the wooden houses and the fences; not a soul anywhere; only the snow gleamed on the streets, and the boarded-up huts, with their closed shutters, made sad black blotches. He approached the place where the street was crossed by an endless square, the houses on the other side of which were scarcely visible &mdash; a frightful desert.</p>
+
+            <p>Far off, God knows where, twinkled a tiny light in some sentry-box, which seemed to stand on the very edge of the world. Akaky Akakievich&rsquo;s cheerfulness diminished. He stepped into the square not without a kind of involuntary apprehension, as though his heart had warned him of some misfortune. He looked back, and to either side: it was a sea all round him. &ldquo;No, better not look,&rdquo; he thought, and went on with his eyes closed.</p>
+
+            <p>When he opened them to see whether the square was almost at an end, he suddenly saw, standing before him almost at his very nose, men with moustaches, of what sort he could not even distinguish. A mist filled his eyes, and his chest began to throb.</p>
+
+            <p>&ldquo;Why, that overcoat is mine!&rdquo; said one of them in a thunderous voice, seizing him by the collar. Akaky Akakievich was about to shout &ldquo;Help!&rdquo; when another applied to his mouth a fist as big as a clerk&rsquo;s head, with the words, &ldquo;Just you shout!&rdquo; Akaky Akakievich felt them take off his overcoat and give him a kick with the knee; he fell back into the snow, and felt nothing more.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>&ldquo;Passed by him like a flash of lightning, every part of her body in motion.&rdquo; What kind of energy is in that simile? What does it tell us about Akaky <em>just here</em>, and where the next paragraphs are taking him?</li>
+                <li>Track the light through these paragraphs: assistant chief&rsquo;s flat &rarr; street lamps &rarr; oil running short &rarr; a single tiny light &ldquo;on the edge of the world.&rdquo; What is Gogol doing with the lighting?</li>
+                <li>&ldquo;It was a sea all round him.&rdquo; &ldquo;A frightful desert.&rdquo; Two opposite metaphors in two paragraphs. How do they work together?</li>
+                <li>&ldquo;As though his heart had warned him of some misfortune.&rdquo; Which technique &mdash; and which technique <em>twice over</em>?</li>
+                <li>&ldquo;A fist as big as a clerk&rsquo;s head.&rdquo; Of all the things to compare it to, why specifically a clerk&rsquo;s head?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Passed by him like a flash of lightning, every part of her body in motion.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> &mdash; an unusually energetic one for a man like Akaky. <span class="tag">8</span> <strong>Irony</strong> &mdash; this is the one moment of life and speed in his entire life, and it comes ten paragraphs before he loses everything.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;It was a sea all round him&hellip; a frightful desert.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">2</span> <strong>Metaphor.</strong> Two of them, contradicting each other on purpose &mdash; a sea, and a desert. Both are about emptiness and distance from help. <span class="tag">4</span> <strong>Imagery</strong> &mdash; pure spatial.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;As though his heart had warned him of some misfortune.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">6</span> <strong>Personification</strong> &mdash; a heart that gives warnings. <span class="tag">9</span> <strong>Foreshadowing</strong> &mdash; the misfortune is literally on the next line.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A fist as big as a clerk&rsquo;s head.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> + <span class="tag">7</span> <strong>hyperbole</strong>. Plus a quiet, vicious joke in the <span class="tag">1</span> <strong>diction</strong>: of all the things to choose for the comparison, a clerk&rsquo;s head &mdash; the smallest object in the city Gogol can think of.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>The next day Akaky Akakievich appeared at the office in his old <em>dressing-gown</em>, which had become still more wretched. The story of the robbery, in spite of certain clerks not letting pass even this occasion for ridicule, touched many. They decided at once to take up a subscription for him &mdash; but they collected only a very small sum, for the officers had spent enough already on a subscription for the portrait of the director, and on some volume or other proposed by the head of the department, in friendship with the author; and so the sum proved very trifling.</p>
+
+            <p>One of them, moved by sympathy, advised Akaky Akakievich, at the very least, to go to a <em>very important person</em>. The very important person had recently been promoted into the rank, having lately been an unimportant person. Moreover, his position was now compounded by his relations with the lesser ranks: with these he had decided to be severe. His usual conversation with subordinates resounded with severity, and consisted, for the most part, of three sentences: &ldquo;How dare you?&rdquo; &ldquo;Do you know to whom you are speaking?&rdquo; and &ldquo;Do you know who stands before you?&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>The clerks who used to mock him try to help &mdash; but raise &ldquo;a very trifling&rdquo; sum, because most of the office money was spent on the director&rsquo;s portrait. What is the narrator quietly saying?</li>
+                <li>&ldquo;A very important person&rdquo; &mdash; with no name, repeated like a name. What technique? Why no proper name?</li>
+                <li>The very important person &ldquo;had decided to be severe.&rdquo; Look at that phrasing. Severity as a <em>decision</em>. What does it tell us about him?</li>
+                <li>His whole conversation is reduced to three sentences. Read them aloud. What kind of person communicates entirely in questions like these?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A very important person&hellip; recently been promoted into the rank, having lately been an unimportant person.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; he is &ldquo;important&rdquo; only by promotion, not by nature. <span class="tag">10</span> <strong>Repetition</strong> of the title-without-a-name turns it into a label, almost a brand. <span class="tag">1</span> <strong>Diction</strong> &mdash; deliberately bureaucratic, drained of personality.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;How dare you? Do you know to whom you are speaking? Do you know who stands before you?&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; three rhetorical questions that ask for no answer. <span class="tag">9</span> <strong>Foreshadowing</strong> &mdash; <em>Do you know who stands before you?</em> Hold that line in your memory. Akaky&rsquo;s ghost will throw it back at the speaker before the story ends.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 4: THE GHOST =================== -->
+<div id="tab4" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 3 &mdash; The Ghost</h2>
+        <p>Akaky tries to plead his case. The very important person sees the request as an impertinence and dresses him down. Read on.</p>
+
+        <div class="reading-passage">
+            <p>&ldquo;Do you know to whom you are speaking? Do you know who stands before you?&rdquo;</p>
+
+            <p>He stamped his foot, raising his voice to so loud a note that even a man other than Akaky Akakievich would have been frightened. Akaky Akakievich grew faint, staggered, trembled in all his body, and could no longer stand; if the porters had not come running to support him, he would have fallen to the floor. He was carried out almost senseless.</p>
+
+            <p>The snow caught him on the way home; the wind, in Petersburg fashion, blew on him from all four sides at once. In one moment his throat was swollen, and he reached home unable to utter a single word. The next day a violent fever showed itself. Thanks to the generous assistance of the Petersburg climate, the disease developed faster than could be expected; and when the doctor came, he, after feeling the pulse, could find nothing better to do than to order a poultice &mdash; merely that the patient might not be without the beneficent aid of medicine.</p>
+
+            <p>Akaky Akakievich was buried. Petersburg was left without Akaky Akakievich, as though he had never been in it. A creature vanished and was gone whose cause no one had ever espoused, who was dear to no one, interesting to no one, who had not even attracted the notice of the naturalist who never misses a chance of impaling even the commonest fly upon a pin and examining it through a microscope &mdash; a creature who patiently endured the office jeers and went to his grave without having performed one extraordinary deed; though, towards the end of his life, the flashing apparition of an overcoat had stirred his life into a moment of brightness, as the apparition of an overcoat stirs the lives of the mighty of this world.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>&ldquo;Thanks to the generous assistance of the Petersburg climate&hellip;&rdquo; Read that sentence aloud. The climate has just killed him. What is the narrator <em>doing</em> with that word <em>generous</em>?</li>
+                <li>&ldquo;Merely that the patient might not be without the beneficent aid of medicine.&rdquo; Where is the technique &mdash; in <em>what</em> is said, or in <em>how</em> it is said?</li>
+                <li>&ldquo;As though he had never been in it.&rdquo; Now look back: when did this exact phrase first appear in the story? What happens when Gogol brings it back?</li>
+                <li>&ldquo;The naturalist who never misses a chance of impaling even the commonest fly upon a pin.&rdquo; A fly. Where else has a fly appeared in this story? What is Gogol doing across the whole piece?</li>
+                <li>&ldquo;The flashing apparition of an overcoat had stirred his life into a moment of brightness, as the apparition of an overcoat stirs the lives of the mighty of this world.&rdquo; Read it twice. Whose lives is the narrator quietly comparing here, and on whose behalf?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Thanks to the generous assistance of the Petersburg climate, the disease developed faster than could be expected.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; <em>generous</em> when describing the thing that has just killed a man. <span class="tag">6</span> <strong>Personification</strong> &mdash; the climate as a giver. The polite voice and the brutal fact, set side by side, are the technique.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A creature who&hellip; had not even attracted the notice of the naturalist who never misses a chance of impaling even the commonest fly upon a pin.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> and a deliberate <span class="tag">9</span> <strong>callback</strong> (a form of <strong>foreshadowing</strong> earning its repayment). The fly that the porters didn&rsquo;t notice in Part 1 comes back here as a fly nobody studies even when it&rsquo;s dead. Gogol is building one image across an entire story.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>But yet Petersburg was left without Akaky Akakievich, as though he had never been in it. Yet from that day a strange phenomenon began to occur in Petersburg. Near the Kalinkin Bridge, and far beyond it, a ghost showed itself in the form of a clerk, looking for some stolen overcoat; and, on pretext of this lost overcoat, snatching from the shoulders, without regard for rank or title, every kind of overcoat: lined with cat, beaver, fox; bear-skin, wadded &mdash; in a word, every kind of fur and skin which men have devised for the covering of their own. One of the office officials, with his own eyes, saw the ghost, and recognised in it none other than Akaky Akakievich.</p>
+
+            <p>The very important person, since the day he had given the dressing-down to poor Akaky Akakievich, had felt within him a kind of unaccountable disquiet. This sensation increased on hearing that the unfortunate clerk was no more. After visiting a friend that evening, he was returning home in his sledge through the wide streets. Suddenly he felt that something had seized him forcibly by the collar. Looking round, he saw a man of short stature, in an old worn-out uniform, and recognised, not without horror, that this was Akaky Akakievich. The clerk&rsquo;s face was white as snow, and looked exactly like a corpse&rsquo;s. But the horror of the very important person mounted higher when he saw the lips of the corpse move and, with the chill of the grave on his breath, utter the following words:</p>
+
+            <p>&ldquo;Ah! here you are at last! At last I have you, so to speak, by the collar! It&rsquo;s your overcoat that I need! You took no trouble about mine &mdash; you even gave me a dressing-down. So now give up your own!&rdquo;</p>
+
+            <p>The poor very important person almost died. Brave as he was in the office and before subordinates, and although, at the sight of his manly figure and bearing, every one said, &ldquo;Ugh, what a character!&rdquo; &mdash; at this critical moment he, like many men of heroic appearance, felt such terror that he began, not without reason, to fear an attack of some kind upon his nerves. He himself even threw off his overcoat as quickly as possible, and shouted to the coachman, in a voice that did not sound his own, &ldquo;Drive home as fast as possible!&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the ending</h4>
+            <ol>
+                <li>The ghost takes coats &ldquo;without regard for rank or title.&rdquo; What kind of justice is this &mdash; the kind that exists in the city, or a different kind?</li>
+                <li>The very important person used to ask, &ldquo;Do you know who stands before you?&rdquo; Now Akaky stands before him &mdash; speaking. What has been turned upside down?</li>
+                <li>&ldquo;Like many men of heroic appearance, felt such terror.&rdquo; Where is the technique? Whose general statement is hidden inside one specific man?</li>
+                <li>Could the story have ended any other way? Could Akaky have got his overcoat back from a living thief?</li>
+                <li>Look back at the very first paragraph &mdash; &ldquo;an eternal titular councillor.&rdquo; Now look at this ghost. What did the word <em>eternal</em> turn out to mean?</li>
+                <li>Why is the story called &ldquo;The Overcoat,&rdquo; and not &ldquo;Akaky Akakievich&rdquo;?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Snatching from the shoulders, without regard for rank or title, every kind of overcoat: lined with cat, beaver, fox; bear-skin, wadded &mdash; in a word, every kind of fur and skin which men have devised for the covering of their own.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> + <span class="tag">10</span> <strong>repetition</strong> (the list piling up). <span class="tag">5</span> <strong>Symbolism</strong> &mdash; an overcoat is no longer a coat; it&rsquo;s a man&rsquo;s rank, his dignity, his place. Stripped from the powerful by the ghost of the least powerful.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;The clerk&rsquo;s face was white as snow, and looked exactly like a corpse&rsquo;s.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> &mdash; doubled. He is white &ldquo;as snow&rdquo; (the snow that killed him) and looks &ldquo;like a corpse&rdquo; (which he is). <span class="tag">8</span> <strong>Irony</strong> &mdash; comparing him to what he literally is.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Like many men of heroic appearance, felt such terror.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; the narrator pretends to make a polite general remark about brave-looking men, when he is in fact stripping this one of his bravery completely. <span class="tag">1</span> <strong>Diction</strong> &mdash; the calm, sociable phrasing makes the cut deeper.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">The ghost itself &mdash; clerk-shaped, taking coats from the shoulders of the powerful.</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism</strong> at full strength. The coat = dignity, identity, social being. The ghost = everything the living city refused to see. Gogol does not give us a moral; he gives us the symbol and trusts us. <span class="tag">8</span> <strong>Irony</strong> &mdash; the only way a clerk can get justice in this Petersburg is by being dead.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 5: TALLY + WRITE =================== -->
+<div id="tab5" class="tab-content">
+
+    <div class="content-block">
+        <h2>Technique Tally</h2>
+        <p>Which of the ten did Gogol use? All of them &mdash; the way he uses them is the difference between this story and a thousand forgotten ones. Click each card to see one example you met.</p>
+
+        <div class="tally-grid">
+            <div class="tally-card">
+                <h4>1. Diction</h4>
+                <p>&ldquo;A buckle in his buttonhole and piles in his behind&rdquo; &middot; bureaucratic register slipping into bodily register.</p>
+            </div>
+            <div class="tally-card">
+                <h4>2. Metaphor</h4>
+                <p>&ldquo;It was a sea all round him&rdquo; &middot; &ldquo;a frightful desert&rdquo; &middot; the overcoat as life-companion.</p>
+            </div>
+            <div class="tally-card">
+                <h4>3. Simile</h4>
+                <p>&ldquo;Like a flash of lightning&rdquo; &middot; &ldquo;as though a fly had flown across the room&rdquo; &middot; &ldquo;a fist as big as a clerk&rsquo;s head&rdquo; &middot; &ldquo;white as snow.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>4. Imagery</h4>
+                <p>The torn paper called snow &middot; the single sentry-light on the edge of the world &middot; coats of cat, beaver, fox, bear.</p>
+            </div>
+            <div class="tally-card">
+                <h4>5. Symbolism</h4>
+                <p>The overcoat. Dignity, identity, social being. The ghost taking coats from the powerful is the symbol completing itself.</p>
+            </div>
+            <div class="tally-card">
+                <h4>6. Personification</h4>
+                <p>The cold as a foe that tweaks noses &middot; the heart that warns him &middot; letters as favourites.</p>
+            </div>
+            <div class="tally-card">
+                <h4>7. Hyperbole</h4>
+                <p>&ldquo;Eternal titular councillor&rdquo; &middot; the climate that does in a day what nature would take a year over.</p>
+            </div>
+            <div class="tally-card">
+                <h4>8. Irony</h4>
+                <p>&ldquo;Thanks to the generous assistance of the Petersburg climate&rdquo; &middot; the narrator who pretends to be polite while gutting the powerful.</p>
+            </div>
+            <div class="tally-card">
+                <h4>9. Foreshadowing</h4>
+                <p>Paper-snow in Part 1 &rarr; real snow in Part 2. The fly in Part 1 &rarr; the fly on the pin in Part 3. The cold introduced as &ldquo;foe&rdquo; long before it wins.</p>
+            </div>
+            <div class="tally-card">
+                <h4>10. Repetition</h4>
+                <p>&ldquo;Akaky Akakievich&rdquo; &middot; &ldquo;somewhat&hellip; somewhat&hellip; somewhat&rdquo; &middot; &ldquo;as though he had never been in it&rdquo; &middot; &ldquo;a very important person.&rdquo;</p>
+            </div>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Final discussion &mdash; pick any two</h4>
+            <ol>
+                <li>Gogol&rsquo;s narrator never raises his voice. Poe&rsquo;s narrator never lowers his. Which approach is more frightening, and why?</li>
+                <li>The whole story is essentially one extended &mdash; what technique? Choose your answer and defend it.</li>
+                <li>If the ghost is a symbol, what is the moment in the story when the symbol becomes the title?</li>
+                <li>Dostoevsky said: &ldquo;We all came out of Gogol&rsquo;s Overcoat.&rdquo; What did he mean &mdash; in plain English, in two sentences?</li>
+                <li>If you were a writer wanting to expose a system that crushes small people, which two of Gogol&rsquo;s techniques would you steal first?</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>Your turn &mdash; write in Gogol&rsquo;s voice</h2>
+        <p>Pick a small, ordinary thing that someone has worked towards: a coat, a pen, a notebook, a bicycle, a place at a table. Write one paragraph (around 100&ndash;120 words) in the voice of Gogol&rsquo;s narrator &mdash; polite, officially-phrased, never raising his voice &mdash; describing a small act of injustice done by a more powerful person to a less powerful one. Use <strong>at least three</strong> of the ten techniques. Mark them as you go: <em>(8 irony)</em>, <em>(6 personification)</em>, and so on. Try especially to land the Gogol move: a sentence so polite that it makes the cruelty worse.</p>
+
+        <div class="timer">
+            <span>Writing time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your Gogol-style paragraph here. Mark the techniques in brackets as you use them."></textarea>
+
+        <div class="discussion-box">
+            <h4>When you&rsquo;ve finished</h4>
+            <ol>
+                <li>Read it aloud. Where does the narrator sound most polite? Is that where the cruelty is loudest?</li>
+                <li>Which technique was hardest to land? Why?</li>
+                <li>Is there a place where you could change a single word from a strong one to a softer one &mdash; and make the sentence colder? Try it.</li>
+                <li>Where could a quiet repetition (a phrase from earlier brought back here) sharpen the ending?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipTech(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 600;
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent =
+            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>
