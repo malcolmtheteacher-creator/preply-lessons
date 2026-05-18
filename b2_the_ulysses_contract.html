@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ulysses Contract</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 24px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+.reading-passage p { margin-bottom: 15px; }
+.reading-passage p.pron-cue { font-size: 0.82em; font-style: italic; color: #6b5b8a; margin: -8px 0 6px 0; padding: 4px 0 4px 12px; border-left: 2px solid #764ba2; line-height: 1.5; }
+.reading-passage p.pron-cue strong { font-style: normal; color: #764ba2; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.92em; font-weight: 700; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 20px; border-radius: 6px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #764ba2; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.speak-prompt ol, .speak-prompt ul { margin-left: 22px; margin-bottom: 0; }
+.speak-prompt ol li, .speak-prompt ul li { margin-bottom: 6px; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-controls { display: flex; gap: 8px; }
+.timer-btn { padding: 8px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; font-size: 0.9em; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85em; }
+.duration-btn.active { background: white; color: #667eea; }
+.condition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin: 20px 0; }
+.condition-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; }
+.condition-card h4 { color: #764ba2; margin-bottom: 8px; }
+.form-box { background: #fef9e7; border: 1px dashed #b8902f; padding: 10px 14px; border-radius: 4px; margin: 8px 0; font-size: 0.92em; }
+.form-box strong { color: #b8902f; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.7em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>The Ulysses Contract</h1>
+    <p>B2 Level &middot; Why it's smart to make rules for yourself in advance</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Questions</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">A Short Reading</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Grammar Live</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Speaking Tasks</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>Rules you set for yourself</h2>
+        <p>Two and a half thousand years ago, the Greek hero Ulysses had himself tied to the mast of his ship so that he could hear the famous song of the Sirens without jumping into the sea. He didn't trust his future self to resist that song. Today, most of us do the same thing, on a smaller scale &mdash; we delete apps that waste our time, we set a rule about no phone during deep work, we lock our savings away, we promise people we'll do something so that we can't easily back out. Each of these is what philosophers now call a <em>Ulysses contract</em>. The interesting question is no longer whether to use them. It's <em>which ones</em>, and <em>against what</em>.</p>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first reactions</span>
+            <p>Answer each in two or three full sentences. Take your time.</p>
+            <ol>
+                <li>What is one rule you have already set for yourself &mdash; about work, about your phone, about food, about sleep? Why did you set it?</li>
+                <li>Have you ever made a rule and broken it the same week? What happened?</li>
+                <li>Modern apps and websites are designed to be hard to put down. Is willpower still enough to handle them &mdash; or do we need rules?</li>
+                <li>Some people think that setting rules for yourself shows weakness. Others think it shows that you know yourself well. What do you think?</li>
+            </ol>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; pick a side</span>
+            <p>Below are four claims. Pick the one you most want to <strong>defend</strong>, and defend it for two minutes. Then pick the one you find most uncomfortable, and try to defend it anyway.</p>
+            <ul>
+                <li>(a) "The smartest people don't fight temptation. They remove the option."</li>
+                <li>(b) "If you really wanted to change, you would just change. Rules are an excuse."</li>
+                <li>(c) "A team without clear rules is a team that argues about everything, every week."</li>
+                <li>(d) "In the modern world, willpower is not enough &mdash; we need structure."</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Eight chunks to put to work</h2>
+        <p>Click each card. Read it; close it; move on. You'll meet all eight again in the reading, and you'll need them in the speaking tasks.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a Ulysses contract</span>
+                <span class="definition">A rule or decision you make in advance, to stop your future self from doing something you know you shouldn't.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to commit yourself in advance</span>
+                <span class="definition">To decide now, while you're thinking clearly, what you will (or won't) do later.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">decision fatigue</span>
+                <span class="definition">When the quality of your decisions drops later in the day, after you've made a lot of small ones.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to lock something in</span>
+                <span class="definition">To make a plan, decision or rule firm and difficult to change later.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a hard rule</span>
+                <span class="definition">A clear rule you have decided not to negotiate, no matter how you feel in the moment.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">willpower</span>
+                <span class="definition">The strength to make yourself do something difficult &mdash; useful but limited, and easy to run out of.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to stick to (a rule / a plan)</span>
+                <span class="definition">To follow it consistently, even when it's tempting to break it.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to second-guess yourself</span>
+                <span class="definition">To start doubting a decision after you've made it &mdash; often a sign the rule is working, not failing.</span>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; rapid-fire drill</span>
+            <p>Your teacher reads each prompt aloud. Reply in one full sentence, using at least one of the chunks. Don't write. If you stall, move on.</p>
+            <ol>
+                <li>"Describe the last time you felt real decision fatigue at work."</li>
+                <li>"Tell me about a rule you've stuck to that's made your life better."</li>
+                <li>"What's something you'd like to lock in for next week, but probably won't?"</li>
+                <li>"Give me a hard rule you've set for yourself that other people sometimes don't understand."</li>
+                <li>"When was the last time you second-guessed yourself &mdash; and then realised the rule was right?"</li>
+                <li>"Finish this: the problem with relying on willpower is&hellip;"</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>One paragraph. Then we talk.</h2>
+        <p>Read this aloud, slowly. It's here to set up the conversation &mdash; not to be studied to death.</p>
+
+        <div class="reading-passage">
+            <p>The Norwegian philosopher Jon Elster, writing in 1979, called these arrangements <strong>Ulysses contracts</strong> &mdash; after the Greek hero who had himself tied to the mast of his ship so that he could safely hear the dangerous song of the Sirens. The basic idea is simple: instead of relying on <strong>willpower</strong> at the moment of temptation, you <strong>commit yourself in advance</strong>, while you are still thinking clearly. Today, this matters more than ever. We work inside conditions Elster could only partly imagine &mdash; apps designed to compete for our attention, calendars filled up by other people, and important decisions that arrive at the end of long, tiring days. <strong>Decision fatigue</strong> is real, and it is unfair to expect a tired late-afternoon version of you to make the same quality of choices as your fresh morning self. The smarter move is not to try harder; it is to <strong>lock</strong> things <strong>in</strong> earlier &mdash; a <strong>hard rule</strong> about no meetings before 10am, a clear rule about no email after dinner, a deliberate plan to <strong>stick to</strong>. A well-designed <strong>Ulysses contract</strong> takes the pressure off your future self, and the moment you start <strong>second-guessing yourself</strong> is usually a sign that the contract is doing its job &mdash; not a sign that it was wrong.</p>
+            <p class="pron-cue"><strong>Phrasing &middot;</strong> read aloud, with a small pause at every comma. The sentences are long; chunk them.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Two quick questions before we open it out:</h4>
+            <p><strong>1.</strong> In one sentence: what is the main argument the writer is making?</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">In modern conditions, with constant distractions and decision fatigue, it is smarter to make rules in advance than to rely on willpower in the moment.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Why does the writer say that second-guessing yourself is "a sign that the contract is doing its job"?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because the whole point of a Ulysses contract is to hold you when your future self wants to give in. The discomfort of doubting yourself is the moment the rule is actually being tested &mdash; and being useful. If you never felt that, the rule probably wasn't needed.</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; open it out</span>
+            <p>No writing. Pick the question that pulls you most, and run with it.</p>
+            <ol>
+                <li>Which one rule, that you don't yet have, would change the most about your week if you locked it in tomorrow?</li>
+                <li>The writer talks about apps designed to compete for our attention. Which apps win that competition with you most often, and what would a good rule against them look like?</li>
+                <li>Is there a Ulysses contract you've seen work brilliantly for someone you respect &mdash; and what was it?</li>
+                <li>Most teams have at least one unwritten rule that everyone follows but nobody ever wrote down. Is that a strength or a weakness? Give a real example.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Modal + perfect infinitive (talking about the past)</h2>
+        <p>When we talk about Ulysses contracts &mdash; rules we made, rules we didn't make &mdash; we often look back at decisions. English uses a very useful pattern for this: <strong>modal verb + have + past participle</strong>. Get this clean, and your past-talk will sound twice as fluent.</p>
+
+        <div class="form-box">
+            <strong>The form:</strong> <em>modal</em> + <strong>have</strong> + <em>past participle</em>. Always <strong>have</strong>, never <em>has</em>. Not <em>"could done"</em>, not <em>"should did"</em> &mdash; always <em>could have done</em>, <em>should have done</em>. The auxiliary <em>have</em> is what carries the past.
+        </div>
+
+        <div class="condition-grid">
+            <div class="condition-card">
+                <h4><em>should have</em> / <em>shouldn't have</em></h4>
+                <p>Looking back at a decision with regret or mild criticism.</p>
+                <p style="margin-top:6px;"><em>I <strong>should have set</strong> that rule a year ago.</em></p>
+                <p><em>We <strong>shouldn't have made</strong> the decision so late in the day.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>could have</em> / <em>couldn't have</em></h4>
+                <p>Something was possible (or impossible) in the past &mdash; but didn't happen.</p>
+                <p style="margin-top:6px;"><em>I <strong>could have locked</strong> the plan in last week. I didn't.</em></p>
+                <p><em>You <strong>couldn't have known</strong> at the time.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>might have</em> / <em>must have</em></h4>
+                <p>Guessing about the past. <em>Might have</em> = maybe. <em>Must have</em> = I'm sure.</p>
+                <p style="margin-top:6px;"><em>She <strong>might have stuck to</strong> the rule that day &mdash; I'm not sure.</em></p>
+                <p><em>He <strong>must have been</strong> exhausted by 6pm.</em></p>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; oral transformation drill</span>
+            <p>Your teacher reads a flat sentence. You reformulate it on the spot, aloud, using the modal indicated. <strong>Listen for the rhythm: modal + have + past participle.</strong> Don't write. Each item has a model below.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Flat: "I didn't set a clear rule about meetings. Now I'm regretting it." &nbsp; &rarr; &nbsp; use <em>should have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>I should have set a clear rule about meetings.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Flat: "We had the chance to lock the schedule in last month. We didn't." &nbsp; &rarr; &nbsp; use <em>could have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>We could have locked the schedule in last month.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Flat: "Maybe she stuck to her own rule yesterday &mdash; I'm not sure." &nbsp; &rarr; &nbsp; use <em>might have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>She might have stuck to her own rule yesterday.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Flat: "He was very disciplined yesterday &mdash; I'm sure he kept to the plan." &nbsp; &rarr; &nbsp; use <em>must have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>He must have kept to the plan.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. Flat: "I made the rule too strict, and now I regret it." &nbsp; &rarr; &nbsp; use <em>shouldn't have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>I shouldn't have made the rule too strict.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Flat: "If we hadn't made the rule, we wouldn't have finished on time." &nbsp; &rarr; &nbsp; rebuild with the second half first: "Without that rule, we &hellip;"</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>Without that rule, we wouldn't have finished on time.</strong></div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; small task</span>
+            <p>Think of one decision in your own past week that didn't go quite as planned. In thirty seconds, describe it using at least <strong>two</strong> modal-perfect forms (<em>I should have&hellip; / I could have&hellip; / We shouldn't have&hellip;</em>). Speak. Don't write.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Three speaking tasks</h2>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">3:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 2)">2 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task A &middot; a rule you set (3 minutes)</span>
+            <p>Tell the story of one rule you set for yourself &mdash; about work, sleep, phone, food, anything. Cover:</p>
+            <ol>
+                <li>What was the rule, exactly?</li>
+                <li>Why did you set it? What was failing without it?</li>
+                <li>How did you make sure you stuck to it &mdash; what was the mechanism?</li>
+                <li>Would you set the same rule again, or change it?</li>
+            </ol>
+            <p>Use at least <strong>three</strong> vocabulary chunks from Tab 2 and at least <strong>two</strong> modal-perfect forms (<em>should have / could have / would have</em>) from Tab 4.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task B &middot; argue back (3 minutes)</span>
+            <p>A friend says to you:</p>
+            <p style="font-style:italic; padding-left: 14px; border-left: 3px solid #764ba2;">"All these rules and apps and plans &mdash; it's a bit weak, isn't it? If you really wanted to focus, you'd just focus. You shouldn't need a rule to stop you doing what you already know you shouldn't do."</p>
+            <p>Argue against this for three minutes. Be concrete about modern conditions &mdash; phones, notifications, decision fatigue. Use at least two modal-perfect forms (<em>"He could have said the same thing twenty years ago, but&hellip;"</em>).</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task C &middot; looking back (3 minutes)</span>
+            <p>Think of a project, a piece of work, or a decision in your own life where you wish you had set a clear rule earlier. Describe it using mostly modal-perfect forms:</p>
+            <ol>
+                <li>What happened?</li>
+                <li>What rule should you have set, and when?</li>
+                <li>If you had set it, what could have gone differently?</li>
+                <li>What rule have you set <em>since</em> &mdash; or what rule are you about to set, because of that experience?</li>
+            </ol>
+            <p>Aim to use <em>should have</em>, <em>could have</em>, and <em>would have</em> at least once each.</p>
+        </div>
+
+        <div class="content-block" style="background: white; border-left-color: #764ba2;">
+            <h3>Final open discussion</h3>
+            <ol style="margin-left: 20px; line-height: 1.9;">
+                <li>What's a rule almost everyone you know <em>should</em> have, but doesn't?</li>
+                <li>Some companies have very strict rules; others almost none. From your experience, which kind works better, and why?</li>
+                <li>How would you teach a younger person &mdash; a teenager, a new colleague &mdash; to think in terms of rules they set for themselves, without sounding boring or strict?</li>
+                <li>If you imagine yourself five years from now, which rule do you most hope present-you will have set this year?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 180;
+let currentDuration = 180;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById("timer-display").textContent =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function resetTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        updateDisplay();
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
