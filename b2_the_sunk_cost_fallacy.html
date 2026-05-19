@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sunk Cost Fallacy</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 24px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+.reading-passage p { margin-bottom: 15px; }
+.reading-passage p.pron-cue { font-size: 0.82em; font-style: italic; color: #6b5b8a; margin: -8px 0 6px 0; padding: 4px 0 4px 12px; border-left: 2px solid #764ba2; line-height: 1.5; }
+.reading-passage p.pron-cue strong { font-style: normal; color: #764ba2; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.92em; font-weight: 700; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 20px; border-radius: 6px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #764ba2; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.speak-prompt ol, .speak-prompt ul { margin-left: 22px; margin-bottom: 0; }
+.speak-prompt ol li, .speak-prompt ul li { margin-bottom: 6px; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-controls { display: flex; gap: 8px; }
+.timer-btn { padding: 8px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; font-size: 0.9em; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85em; }
+.duration-btn.active { background: white; color: #667eea; }
+.condition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin: 20px 0; }
+.condition-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; }
+.condition-card h4 { color: #764ba2; margin-bottom: 8px; }
+.form-box { background: #fef9e7; border: 1px dashed #b8902f; padding: 10px 14px; border-radius: 4px; margin: 8px 0; font-size: 0.92em; }
+.form-box strong { color: #b8902f; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.7em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>The Sunk Cost Fallacy</h1>
+    <p>B2 Level &middot; Why we keep doing what we should have stopped</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Questions</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">A Short Reading</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Grammar Live</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Speaking Tasks</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>The trap of "I've already&hellip;"</h2>
+        <p>You're forty minutes into a film you no longer enjoy. You've eaten half a meal at a restaurant that turned out to be terrible. You've been working for two years on a project that, deep down, you suspect isn't going anywhere. In each of these cases, the rational move is to stop &mdash; but most of us keep going. Economists have a name for the trap, and the name itself explains why we fall into it: the <em>sunk cost fallacy</em>. We confuse what we've already spent &mdash; money, time, energy &mdash; with what we should do next.</p>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first reactions</span>
+            <p>Two or three full sentences per answer. Take your time.</p>
+            <ol>
+                <li>When was the last time you carried on with something you should have stopped &mdash; a film, a meal, a meeting? What kept you going?</li>
+                <li>We say "I've already paid for this" or "I've been working on this for ages." Both are facts. But are they reasons to continue, or are they just facts?</li>
+                <li>Some people seem to walk away from things easily; others can't. Is one of these a strength?</li>
+                <li>Most projects, businesses, even relationships hit a moment when "we've already invested too much" becomes the loudest argument in the room. What does it cost to listen to that argument when it isn't true?</li>
+            </ol>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; pick a side</span>
+            <p>Pick the claim you most want to <strong>defend</strong>, and defend it for two minutes. Then pick the one you find most uncomfortable and shore it up anyway.</p>
+            <ul>
+                <li>(a) "The smartest people are the ones who can walk away from their own work without flinching."</li>
+                <li>(b) "Anyone who finishes a bad book just because they started it has misunderstood what reading is for."</li>
+                <li>(c) "Past investment should weigh zero in the decision about what to do next. The fact that it almost never does is a flaw in human reasoning."</li>
+                <li>(d) "Walking away is a skill. It can be taught. It is rarely praised."</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Eight chunks to put to work</h2>
+        <p>Click each card; read it; close it; move on. You'll meet all eight again in the reading, and you'll need them in the speaking work.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a sunk cost</span>
+                <span class="definition">Money, time or effort already spent that you cannot get back &mdash; and that, logically, should not affect what you do next.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to throw good money after bad</span>
+                <span class="definition">To keep investing in something that has already failed, hoping the next push will save it. Almost never does.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to cut one's losses</span>
+                <span class="definition">To stop a failing project or activity now, and accept the loss, rather than make it bigger by continuing.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">the point of no return</span>
+                <span class="definition">The moment when stopping feels almost as costly as continuing. Often passed long before we notice.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to be heavily invested in</span>
+                <span class="definition">To have put a lot of time, money or energy into something already &mdash; and to feel the weight of that investment in every decision about it.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">the rational move</span>
+                <span class="definition">What the logic says you should do &mdash; often different from what feels right in the moment.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to walk away (from)</span>
+                <span class="definition">To stop and leave a project, decision or relationship behind &mdash; cleanly, without dragging it on.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to dig in</span>
+                <span class="definition">To commit harder to a position even when the evidence says you shouldn't. The opposite of cutting your losses.</span>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; rapid-fire drill</span>
+            <p>Your teacher reads each prompt aloud. Reply in one full sentence using at least one of the chunks. Don't write. If you stall, move on.</p>
+            <ol>
+                <li>"Describe a sunk cost you can clearly see now &mdash; in your work or your private life."</li>
+                <li>"Tell me about a time when you (or someone you know) was heavily invested in something and couldn't walk away."</li>
+                <li>"Give me a one-sentence rule for when it's time to cut your losses."</li>
+                <li>"When was the last time you saw someone digging in on a position that wasn't worth defending?"</li>
+                <li>"Finish this: the hardest moment to make the rational move is when&hellip;"</li>
+                <li>"Tell me about a moment when the point of no return had been passed but nobody admitted it."</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>One paragraph. Then we talk.</h2>
+        <p>Read this aloud, slowly. It's here to give us shared ground &mdash; not to be studied to death.</p>
+
+        <div class="reading-passage">
+            <p>The American economist Richard Thaler &mdash; who later won a Nobel Prize &mdash; built much of his career on a strange observation about how human beings handle money. We say, perfectly often, "I've already paid for the ticket, so I have to go." We say "We've been working on this for two years, we can't stop now." Both of those sentences are facts. Neither of them is a reason. Once money or time has been spent, it is gone &mdash; it is <strong>a sunk cost</strong> &mdash; and it has no logical bearing on whether to continue. <strong>The rational move</strong> is always to ask <em>"what's best from here?"</em>, not <em>"what have I already spent?"</em> And yet most of us, most of the time, can't quite do this. We keep watching the bad film because we've paid for the ticket. We keep working on the failing project because we're <strong>heavily invested in</strong> it. Sometimes we even <strong>dig in</strong> harder, <strong>throwing good money after bad</strong>, convinced that one more push will finally turn things around. We refuse to <strong>walk away</strong> from something we should have walked away from months ago, because walking away feels like admitting the past was a waste. Thaler called this <em>the sunk cost fallacy</em>. The trap is universal; the cost is real; and the cure &mdash; recognising the trap in yourself in real time, and being willing to <strong>cut your losses</strong> when <strong>the point of no return</strong> has long since passed &mdash; is one of the more useful pieces of mental discipline a working adult can develop.</p>
+            <p class="pron-cue"><strong>Phrasing &middot;</strong> read aloud, with a small pause at each comma and dash. The sentences are long; chunk them so they breathe.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Two quick orientations before we open it out:</h4>
+            <p><strong>1.</strong> Thaler distinguishes between a <em>fact</em> and a <em>reason</em>. In one sentence, what is the difference, and why does it matter for sunk costs?</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>A fact tells you what is true; a reason tells you what to do.</strong> "I have already paid for the ticket" is a fact. It is not a reason to go to a bad film, because the money is gone whether you go or not &mdash; so it should not weigh in the decision about what's best from here.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Why does walking away feel so difficult, even when it's the right thing to do?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because walking away feels like admitting that the past was a waste. The investment is emotional as well as financial: stopping forces you to accept that the time and money you have already spent will not produce anything. That admission is more painful than the alternative &mdash; carrying on for a bit longer &mdash; and so most people quietly choose the alternative, even when they know it's wrong.</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; open it out</span>
+            <p>Pick the question that catches you and run with it.</p>
+            <ol>
+                <li>Pick one current situation in your own life where you might be falling for the sunk cost fallacy. Don't be defensive &mdash; just describe it honestly.</li>
+                <li>The text says "what's best from here?" is always the right question. Why do you think more people don't ask it &mdash; at the dinner table, at the board meeting, at the long Tuesday planning session?</li>
+                <li>Is there a meaningful difference between perseverance (often a good thing) and stubbornness (often a bad one)? Where does the line go &mdash; in practice, in your own life?</li>
+                <li>We tell children to "finish what you started." Is that always wise advice, or do they need a more honest version of it?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Present perfect &amp; present perfect continuous</h2>
+        <p>Sunk-cost talk is built on two tenses. <em>"I have already invested&hellip;"</em>, <em>"We have been working on this for two years&hellip;"</em>, <em>"He has never managed to walk away from a failing project&hellip;"</em>. Get these clean and you can describe any past-into-present situation precisely &mdash; which is much of business and personal English right there.</p>
+
+        <div class="form-box">
+            <strong>The forms:</strong> <em>have / has</em> + <strong>past participle</strong> (present perfect) &mdash; <em>I <strong>have spent</strong> two years on this.</em> &nbsp; And <em>have / has been</em> + <strong>-ing</strong> (present perfect continuous) &mdash; <em>I <strong>have been working</strong> on this for two years.</em> &nbsp; In both, the auxiliary <em>have</em> is what carries the past meaning. Never drop it under speed.
+        </div>
+
+        <div class="condition-grid">
+            <div class="condition-card">
+                <h4>Present perfect simple</h4>
+                <p>An action completed in the past, with present relevance. Often used with <em>already, just, yet, ever, never</em>.</p>
+                <p style="margin-top:6px;"><em>We <strong>have already paid</strong> for the ticket.</em></p>
+                <p><em>He <strong>has never managed</strong> to walk away from a bad project.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4>Present perfect continuous</h4>
+                <p>An action that started in the past and is still going (or has only just stopped). Often used with <em>for</em> + duration or <em>since</em> + point in time.</p>
+                <p style="margin-top:6px;"><em>I <strong>have been working</strong> on this <strong>for</strong> two years.</em></p>
+                <p><em>We <strong>have been trying</strong> different solutions <strong>since</strong> January.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4>Which one when?</h4>
+                <p>Use <strong>simple</strong> for completed action + present result. Use <strong>continuous</strong> for ongoing action emphasised over time.</p>
+                <p style="margin-top:6px;"><em>I <strong>'ve sent</strong> the proposal.</em> (done)</p>
+                <p><em>I <strong>'ve been writing</strong> this proposal all morning.</em> (in progress)</p>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; oral transformation drill</span>
+            <p>Your teacher reads a flat sentence. You reformulate it on the spot, aloud, using the form indicated. <strong>Listen for the rhythm: have/has + past participle, or have/has been + -ing.</strong> Don't write. Each item has a model below.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Flat: "I started this project two years ago. I am still working on it." &nbsp; &rarr; &nbsp; use present perfect continuous</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>I have been working on this project for two years.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Flat: "I paid for the ticket already. The money is gone." &nbsp; &rarr; &nbsp; use present perfect with <em>already</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>I have already paid for the ticket.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Flat: "He started looking for a solution last week. He still hasn't found one." &nbsp; &rarr; &nbsp; use present perfect continuous with <em>since</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>He has been looking for a solution since last week, but he hasn't found one yet.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Flat: "We invested too much money in this. We can't stop now &mdash; that's how we feel." &nbsp; &rarr; &nbsp; use present perfect with <em>too much</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>We have invested too much money in this to stop now &mdash; or so it feels.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. Flat: "I'm exhausted. I worked on this all morning." &nbsp; &rarr; &nbsp; use present perfect continuous to explain why</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>I'm exhausted because I have been working on this all morning.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Flat: "We started throwing money at the problem six months ago, and we are still doing it." &nbsp; &rarr; &nbsp; use present perfect continuous</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>We have been throwing money at the problem for six months.</strong> (or: <em>since six months ago</em>)</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; small task</span>
+            <p>Think of one project, habit or commitment in your own life that you have kept going for a long time. In thirty seconds, describe it using:</p>
+            <ul>
+                <li>at least <strong>one</strong> present perfect (e.g. <em>"I've invested&hellip;"</em>)</li>
+                <li>at least <strong>one</strong> present perfect continuous (e.g. <em>"I've been working&hellip;"</em>)</li>
+                <li>at least <strong>one</strong> modal-perfect form from last lesson (e.g. <em>"I should have stopped&hellip;"</em>)</li>
+            </ul>
+            <p>Speak. Don't write.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Three speaking tasks</h2>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">3:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 2)">2 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task A &middot; a sunk cost you're carrying right now (3 minutes)</span>
+            <p>Pick one specific thing in your own life &mdash; a project, a habit, a subscription, a piece of work &mdash; where you suspect the only real reason you're continuing is past investment. Be honest. Cover:</p>
+            <ol>
+                <li>What did you invest, and how long ago?</li>
+                <li>What signal told you it was time to walk away &mdash; and how did you ignore it?</li>
+                <li>What would change if you cut your losses today?</li>
+                <li>If you don't cut your losses, what's the most honest reason?</li>
+            </ol>
+            <p>Use at least <strong>three</strong> chunks from Tab 2 and at least <strong>two</strong> present-perfect forms.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task B &middot; argue back (3 minutes)</span>
+            <p>A friend says to you:</p>
+            <p style="font-style:italic; padding-left: 14px; border-left: 3px solid #764ba2;">"You've been working on this for two years. You can't just stop now. You've put too much in. One more push and it'll come good."</p>
+            <p>Argue against this for three minutes. Be specific about why past investment is not a reason. Use at least <strong>two</strong> present-perfect forms and at least <strong>two</strong> modal-perfect forms (<em>should have / could have / would have</em>) from the last lesson.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task C &middot; the walking-away role-play (3 minutes)</span>
+            <p>Your teacher plays a partner, a colleague or a friend who wants to keep going with something that is clearly failing. They argue from sunk cost: "we've come too far, we've already paid, we've been at it for so long." You make the case for cutting losses &mdash; gently, professionally, but clearly. Use the language from Tabs 2 and 4. Then swap, and try to argue the sunk-cost side honestly.</p>
+        </div>
+
+        <div class="content-block" style="background: white; border-left-color: #764ba2;">
+            <h3>Final open discussion</h3>
+            <ol style="margin-left: 20px; line-height: 1.9;">
+                <li>"We've already invested too much" is one of the most persuasive sentences in any language &mdash; even when it isn't a real reason. Why is it so persuasive?</li>
+                <li>Some people walk away from things too quickly. Is there such a thing as too little stubbornness?</li>
+                <li>If <em>"what's best from here?"</em> is the right question, why is it almost never the first one asked in a long meeting, a hard conversation, a difficult relationship?</li>
+                <li>If you imagine yourself one year from now, which sunk cost in your current life would five-years-from-now-you most want present-you to cut today?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 180;
+let currentDuration = 180;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById("timer-display").textContent =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function resetTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        updateDisplay();
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
