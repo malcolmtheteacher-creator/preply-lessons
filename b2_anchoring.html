@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchoring</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 24px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+.reading-passage p { margin-bottom: 15px; }
+.reading-passage p.pron-cue { font-size: 0.82em; font-style: italic; color: #6b5b8a; margin: -8px 0 6px 0; padding: 4px 0 4px 12px; border-left: 2px solid #764ba2; line-height: 1.5; }
+.reading-passage p.pron-cue strong { font-style: normal; color: #764ba2; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.92em; font-weight: 700; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 20px; border-radius: 6px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #764ba2; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.speak-prompt ol, .speak-prompt ul { margin-left: 22px; margin-bottom: 0; }
+.speak-prompt ol li, .speak-prompt ul li { margin-bottom: 6px; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-controls { display: flex; gap: 8px; }
+.timer-btn { padding: 8px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; font-size: 0.9em; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85em; }
+.duration-btn.active { background: white; color: #667eea; }
+.condition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin: 20px 0; }
+.condition-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; }
+.condition-card h4 { color: #764ba2; margin-bottom: 8px; }
+.form-box { background: #fef9e7; border: 1px dashed #b8902f; padding: 10px 14px; border-radius: 4px; margin: 8px 0; font-size: 0.92em; }
+.form-box strong { color: #b8902f; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.7em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>Anchoring</h1>
+    <p>B2 Level &middot; Why the first number you hear shapes everything that follows</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Questions</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Key Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">A Short Reading</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Grammar Live</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Speaking Tasks</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>The first number does all the work</h2>
+        <p>A car salesman starts at &euro;40,000. You negotiate hard, get him down to &euro;34,000, and walk away pleased. The same car, in the next showroom, is openly listed at &euro;31,000 &mdash; and you stroll past it thinking the price looks high. Nothing about the car has changed; the first number you heard did all the work. Psychologists have spent fifty years studying this strange effect, and they've given it a name: <em>anchoring</em>. It shapes more of our daily decisions than almost any other mental trap.</p>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first reactions</span>
+            <p>Two or three full sentences per answer. Take your time.</p>
+            <ol>
+                <li>Think of the most recent thing you bought that cost more than &euro;100. What was the first price you saw before you decided? How did that number shape what you felt was reasonable?</li>
+                <li>In your country, how often is the "first price" the real price &mdash; and how often is it just an opening move?</li>
+                <li>Salary conversations are full of anchoring. Have you ever been in one where the first number changed everything that came after? What happened?</li>
+                <li>If you knew, with certainty, that every important price in your life was an anchor designed to manipulate you, would you behave differently &mdash; or would you carry on as before?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Eight chunks to put to work</h2>
+        <p>Click each card; read it; close it; move on. You'll meet all eight again in the reading.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">an anchor</span>
+                <span class="definition">The first number you see or hear in a situation, which quietly shapes your sense of what's reasonable from that moment on.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to set the anchor</span>
+                <span class="definition">To deliberately introduce the first number in a conversation &mdash; a price, a salary, an offer &mdash; in order to shape the rest.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a reference point</span>
+                <span class="definition">The mental baseline you compare new information against &mdash; almost always shaped by the first number you encountered.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to adjust away from (an anchor)</span>
+                <span class="definition">To move your estimate up or down from the starting figure. People typically don't adjust far enough.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a starting offer</span>
+                <span class="definition">The first price proposed in a negotiation. Once it's on the table, it shapes everything that follows.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to lowball / to highball</span>
+                <span class="definition">To open a negotiation with a deliberately low (or high) number, in order to anchor the other side.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">gut feeling</span>
+                <span class="definition">What "feels right" in the moment &mdash; almost always shaped by anchors you didn't consciously notice.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to recalibrate</span>
+                <span class="definition">To deliberately reset your sense of what's reasonable, by asking what the number would feel like if you'd never heard the anchor.</span>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; rapid-fire drill</span>
+            <p>Your teacher reads each prompt aloud. Reply in one full sentence using at least one of the chunks. Don't write.</p>
+            <ol>
+                <li>"Tell me about the last time you negotiated something. Who set the anchor?"</li>
+                <li>"Describe an anchor you've seen used in advertising recently &mdash; even one that worked on you."</li>
+                <li>"When did your gut feeling about a fair price turn out to be completely shaped by the first number you saw?"</li>
+                <li>"Tell me about a starting offer you've made that worked well &mdash; or one that didn't."</li>
+                <li>"Give me a one-sentence rule for how to recalibrate after seeing a price that feels too high."</li>
+                <li>"Finish this: the most expensive anchor in my life right now is&hellip;"</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>One short reading. Then we talk.</h2>
+        <p>Read this aloud, slowly. Two paragraphs &mdash; the first explains what the effect is; the second explains how to live with it.</p>
+
+        <div class="reading-passage">
+            <p>The Israeli-American psychologist Daniel Kahneman, who won a Nobel Prize for his work on human decision-making, demonstrated something quite uncomfortable about how the brain handles numbers. In a famous experiment, he spun a roulette wheel that was secretly rigged to land on either 10 or 65. He then asked his subjects to estimate, in percentage terms, the proportion of African countries in the United Nations. The group that had just seen 10 on the wheel guessed, on average, 25%. The group that had just seen 65 guessed 45%. The wheel was obviously random &mdash; yet the random number had quietly become <strong>an anchor</strong>: <strong>a reference point</strong> that the brain used as a starting place and <strong>adjusted away from</strong>, never far enough.</p>
+
+            <p>The same effect runs through almost every negotiation, every price tag, every salary conversation. A skilled negotiator <strong>sets the anchor</strong> with their <strong>starting offer</strong> &mdash; deliberately <strong>lowballing</strong> or <strong>highballing</strong> to bias the entire exchange. Even people who know the trick fall for it, because <strong>gut feeling</strong> is shaped by whatever number landed first. The cure is not to ignore prices, but to <strong>recalibrate</strong> &mdash; to pause, before responding, and ask "what would this be worth if I had never heard the first number?" That single habit, practised over time, is one of the most useful pieces of mental hygiene a working adult can develop.</p>
+            <p class="pron-cue"><strong>Phrasing &middot;</strong> read aloud, with a small pause at each comma and dash. Chunk the long sentences so they breathe.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Two quick questions before we open it out:</h4>
+            <p><strong>1.</strong> What did the roulette-wheel experiment show about how random numbers can affect serious judgement?</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">It showed that even an obviously random number can shape people's estimates of a completely unrelated question. The group that saw "10" guessed 25%; the group that saw "65" guessed 45%. The number had become an anchor and biased the answer, even though the participants knew the wheel was random.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Why does the text say that even knowing about anchoring doesn't fully protect you?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because gut feeling is shaped automatically, before conscious thought catches up. Even when you know an anchor has been set deliberately, the first number still shifts what feels reasonable. The defence isn't to ignore prices but to deliberately recalibrate &mdash; pause and ask what the number would feel like without the anchor.</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; open it out</span>
+            <ol>
+                <li>The text says we adjust away from an anchor "never far enough." Where in your own working life have you seen this play out? Be specific.</li>
+                <li>Some shops always show a high "original price" crossed out, with a lower "sale price" beside it. What is the original price actually doing &mdash; and does knowing this make any difference to how you react?</li>
+                <li>When you set a starting offer in a real conversation &mdash; pricing, a salary expectation, a contract &mdash; what factors actually decide the number you choose?</li>
+                <li>If you had to teach someone &mdash; a younger colleague, a child &mdash; one habit to defend against anchoring in adult life, what would you teach them, and how?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Comparatives &amp; "than" structures</h2>
+        <p>Anchoring is fundamentally about comparison &mdash; this number against that one, the new price against the first one, what they offered against what you expected. The grammar of comparison is the natural language of anchor talk. Three structures do most of the work.</p>
+
+        <div class="form-box">
+            <strong>The forms:</strong> <em>-er than</em> for short adjectives (<em>higher / lower / cheaper than</em>), <em>more / less&hellip; than</em> for longer ones (<em>more expensive than / less reasonable than</em>), and <em>(not) as&hellip; as</em> for equality (<em>twice as much as / not as cheap as</em>). The auxiliary <em>than</em> is what carries the comparison &mdash; don't skip it.
+        </div>
+
+        <div class="condition-grid">
+            <div class="condition-card">
+                <h4>Standard comparatives</h4>
+                <p><em>-er than &nbsp; / &nbsp; more X than &nbsp; / &nbsp; less X than</em></p>
+                <p style="margin-top:6px;"><em>The second offer was <strong>higher than</strong> the first.</em></p>
+                <p><em>It was <strong>much less reasonable than</strong> I had expected.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>(not) as &hellip; as</em></h4>
+                <p>Equality, or the lack of it.</p>
+                <p style="margin-top:6px;"><em>The price wasn't <strong>as low as</strong> she'd hoped.</em></p>
+                <p><em>It felt <strong>twice as expensive as</strong> last year.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4>Multipliers</h4>
+                <p><em>twice / three times / half as much as &hellip;</em></p>
+                <p style="margin-top:6px;"><em>The starting offer was <strong>three times as much as</strong> the real value.</em></p>
+                <p><em>We countered with <strong>half as much as</strong> they asked.</em></p>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; oral transformation drill</span>
+            <p>Your teacher reads a flat sentence. You reformulate it on the spot, aloud, using the comparative form indicated. Don't write. Listen for the rhythm: <em>X is &hellip;-er than Y</em>, or <em>X is twice as &hellip; as Y</em>.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Flat: "I usually pay 20 euros for this. This time it was 50." &nbsp; &rarr; &nbsp; use <em>more than twice as much as</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>This time it was more than twice as much as I usually pay.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Flat: "Their first offer was 1,000. We answered with 500." &nbsp; &rarr; &nbsp; use <em>half as much as</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>We answered with half as much as their first offer.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Flat: "She expected to pay 200,000. The actual price was 280,000." &nbsp; &rarr; &nbsp; use <em>much higher than</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>The actual price was much higher than she had expected.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Flat: "I'd hoped for 60,000. They offered 70,000." &nbsp; &rarr; &nbsp; use <em>higher than I had hoped</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>The offer was higher than I had hoped.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. Flat: "He thought the watch cost 200. It actually cost 1,000." &nbsp; &rarr; &nbsp; use <em>five times as much as</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>The watch cost five times as much as he had thought.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Flat: "The second showroom listed the same car at 31,000. The first was at 40,000. The second wasn't a bad price." &nbsp; &rarr; &nbsp; use <em>far less than</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>The second showroom's price was far less than the first &mdash; not a bad price at all.</strong></div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; small task</span>
+            <p>Think of two real prices from your own recent life &mdash; one that felt expensive, one that felt cheap. In thirty seconds, describe both, using at least three comparative forms (<em>higher than, less than, twice as much as, much more expensive than</em>&hellip;). Speak. Don't write.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Three speaking tasks</h2>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">3:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 2)">2 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task A &middot; an anchor in your own life (3 minutes)</span>
+            <p>Pick one recent decision in your own working life where you can clearly see, looking back, that the first number did most of the work &mdash; a price, a salary, an offer, a budget. Cover:</p>
+            <ol>
+                <li>What was the first number you saw, and where did it come from?</li>
+                <li>What did you end up agreeing to, and how far did it sit from the anchor?</li>
+                <li>If the first number had been half as low or twice as high, would you have decided differently?</li>
+                <li>Was the anchor set <em>at</em> you by someone, or did you set it on yourself?</li>
+            </ol>
+            <p>Use at least <strong>three</strong> chunks from Tab 2 and at least <strong>two</strong> comparative forms from Tab 4.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task B &middot; the negotiation role-play (3 minutes)</span>
+            <p>Your teacher is selling something &mdash; a service, a product, a piece of work &mdash; with a deliberately high starting offer. You are the buyer. Negotiate. The point isn't to "win"; the point is to <em>notice the anchor</em> in real time, and to name it out loud at least once during the conversation ("that's higher than I would expect because&hellip;"). After three minutes, debrief: where was the anchor doing the work? Then swap roles.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task C &middot; set the anchor (3 minutes)</span>
+            <p>Imagine you are presenting to an important counterparty &mdash; an investor, a client, a senior buyer &mdash; and you need to set the starting figure. Talk through:</p>
+            <ol>
+                <li>What number will you anchor with &mdash; and why that number, not a different one?</li>
+                <li>How will you frame it so it doesn't sound like an opening trick?</li>
+                <li>What's your walk-away &mdash; the lowest you'd accept, knowing the anchor you set?</li>
+                <li>If they counter with a deliberate lowball, how do you avoid getting pulled toward their anchor instead of holding yours?</li>
+            </ol>
+        </div>
+
+        <div class="content-block" style="background: white; border-left-color: #764ba2;">
+            <h3>Final open discussion</h3>
+            <ol style="margin-left: 20px; line-height: 1.9;">
+                <li>Anchoring works even on people who know about it. What does that mean for how we should design important decisions &mdash; salary structures, board negotiations, hiring offers?</li>
+                <li>Should it be illegal to anchor in advertising or pricing &mdash; the "original price" crossed out, the "limited offer" sticker &mdash; or is that just commerce?</li>
+                <li>Are there any decisions in life where you can actually escape anchoring &mdash; or is judgement always relative?</li>
+                <li>If you imagine your own next significant negotiation, what anchor will you try to set &mdash; and what will you do if the other side has set one before you arrive?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 180;
+let currentDuration = 180;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById("timer-display").textContent =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function resetTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        updateDisplay();
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
