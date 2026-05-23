@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques in Action: The Open Window</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.technique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 15px 0; }
+.technique-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.technique-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-3px); }
+.technique-card .num { font-size: 1.6em; font-weight: 800; color: #764ba2; display: block; }
+.technique-card .name { display: none; font-weight: 700; color: #333; margin-top: 4px; }
+.technique-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.technique-card.flipped .num { color: white; font-size: 1.1em; }
+.technique-card.flipped .name { display: block; color: white; font-size: 1.05em; }
+.answer-btn { background: #667eea; color: white; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 0.95em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.answer-text .tag { display: inline-block; background: #764ba2; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85em; margin-right: 6px; }
+.answer-text .effect-tag { display: inline-block; background: #28a745; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85em; margin-right: 6px; margin-top: 6px; }
+.question-block { background: white; padding: 18px 20px; border-left: 5px solid #764ba2; margin-bottom: 18px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 8px; }
+.question-block .quote { font-style: italic; color: #444; margin: 8px 0 10px 0; padding-left: 12px; border-left: 3px solid #ddd; }
+.reading-passage { background: white; padding: 24px 26px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.85; font-size: 1.02em; }
+.reading-passage p { margin-bottom: 14px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 18px 0; border-left: 5px solid #764ba2; }
+.discussion-box h4 { color: #764ba2; margin-bottom: 10px; font-size: 1.05em; }
+.discussion-box ol, .discussion-box ul { margin-left: 22px; }
+.discussion-box li { margin-bottom: 8px; color: #444; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 6px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+.tally-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 18px 0; }
+.tally-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; text-align: center; }
+.tally-card .tech { font-weight: 700; color: #764ba2; display: block; margin-bottom: 6px; }
+.tally-card .count { font-size: 1.6em; font-weight: 800; color: #667eea; }
+.eor-callout { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 5px solid #ff9800; padding: 18px 22px; border-radius: 6px; margin: 18px 0; }
+.eor-callout strong { color: #e65100; }
+.verb-cat { margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #d0d0e0; }
+.verb-cat h4 { color: #764ba2; font-size: 1.05em; margin-bottom: 4px; }
+.verb-cat .cat-note { color: #666; font-size: 0.9em; }
+.verb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; margin: 10px 0 18px; }
+.verb-chip { background: white; border: 1.5px solid #667eea; border-radius: 8px; padding: 10px 12px; font-size: 0.92em; }
+.verb-chip .verb { font-weight: 700; color: #764ba2; display: block; }
+.verb-chip .ex { color: #555; font-style: italic; font-size: 0.86em; margin-top: 2px; }
+.match-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
+.match-card .tech-label { color: #764ba2; font-weight: 700; margin-bottom: 6px; }
+.match-card .extract { font-style: italic; padding: 10px 14px; background: #f8f9fa; border-left: 3px solid #764ba2; margin: 10px 0; border-radius: 4px; }
+.opt-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.opt-btn { padding: 8px 14px; background: white; border: 1.5px solid #667eea; color: #667eea; border-radius: 18px; cursor: pointer; font-size: 0.88em; font-weight: 600; transition: all 0.2s; }
+.opt-btn:hover { background: #f0f3ff; }
+.opt-btn.selected { background: #667eea; color: white; }
+.model-reveal { display: none; background: #e8f5e9; padding: 14px 16px; margin-top: 10px; border-left: 4px solid #28a745; border-radius: 4px; }
+.model-reveal.show { display: block; }
+.model-reveal h5 { color: #1b5e20; margin-bottom: 6px; font-size: 0.95em; }
+.model-reveal p { color: #333; font-size: 0.92em; margin-bottom: 6px; }
+.model-reveal em { color: #c2410c; font-style: italic; font-weight: 600; }
+.formula-box { background: white; border: 2px dashed #764ba2; padding: 16px; border-radius: 8px; margin: 14px 0; font-family: "Courier New", monospace; line-height: 1.8; }
+.formula-box .slot { background: #f0f3ff; padding: 2px 8px; border-radius: 4px; color: #764ba2; font-weight: 600; }
+@media (max-width: 768px) { .tabs { flex-direction: column; } .tab-button { width: 100%; text-align: left; } header h1 { font-size: 1.5em; } }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Techniques in Action: The Open Window</h1>
+<p>Saki (H. H. Munro), 1914 — and what every choice does to <em>you</em>, the reader</p>
+</header>
+
+<div class="tabs">
+<button class="tab-button active" onclick="showTab(0, this)">1. Warm-up</button>
+<button class="tab-button" onclick="showTab(1, this)">2. The Caller</button>
+<button class="tab-button" onclick="showTab(2, this)">3. The Story</button>
+<button class="tab-button" onclick="showTab(3, this)">4. The Window</button>
+<button class="tab-button" onclick="showTab(4, this)">5. Tally</button>
+<button class="tab-button" onclick="showTab(5, this)">6. Effect on Reader</button>
+</div>
+

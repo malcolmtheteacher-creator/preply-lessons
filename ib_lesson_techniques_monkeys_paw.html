@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques in Action: The Monkey's Paw</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.technique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 15px 0; }
+.technique-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.technique-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-3px); }
+.technique-card .num { font-size: 1.6em; font-weight: 800; color: #764ba2; display: block; }
+.technique-card .name { display: none; font-weight: 700; color: #333; margin-top: 4px; }
+.technique-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.technique-card.flipped .num { color: white; font-size: 1.1em; }
+.technique-card.flipped .name { display: block; color: white; font-size: 1.05em; }
+.answer-btn { background: #667eea; color: white; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 0.95em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.answer-text .tag { display: inline-block; background: #764ba2; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85em; margin-right: 6px; }
+.question-block { background: white; padding: 18px 20px; border-left: 5px solid #764ba2; margin-bottom: 18px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 8px; }
+.question-block .quote { font-style: italic; color: #444; margin: 8px 0 10px 0; padding-left: 12px; border-left: 3px solid #ddd; }
+.reading-passage { background: white; padding: 24px 26px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.85; font-size: 1.02em; }
+.reading-passage p { margin-bottom: 14px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 18px 0; border-left: 5px solid #764ba2; }
+.discussion-box h4 { color: #764ba2; margin-bottom: 10px; font-size: 1.05em; }
+.discussion-box ol, .discussion-box ul { margin-left: 22px; }
+.discussion-box li { margin-bottom: 8px; color: #444; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 6px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+.tally-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 15px 0; }
+.tally-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; }
+.tally-card h4 { color: #764ba2; margin-bottom: 6px; }
+.tally-card p { font-size: 0.92em; color: #555; font-style: italic; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.6em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .technique-grid { grid-template-columns: repeat(2, 1fr); }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Techniques in Action: The Monkey&rsquo;s Paw</h1>
+    <p>W. W. Jacobs &middot; 1902 &middot; A hunt for the techniques you already know</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">2. The Visitor</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">3. The Wish</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">4. The Knock</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">5. Tally &amp; Write</button>
+</div>
+
+<!-- =================== TAB 1: WARM-UP =================== -->
+<div id="tab1" class="tab-content active">
+
+    <div class="content-block">
+        <h2>The Ten Techniques &mdash; from memory</h2>
+        <p>Click each number. Before you do &mdash; what was the shape, and what was the technique?</p>
+
+        <div class="technique-grid">
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">1</span><span class="name">Diction</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">2</span><span class="name">Metaphor</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">3</span><span class="name">Simile</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">4</span><span class="name">Imagery</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">5</span><span class="name">Symbolism</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">6</span><span class="name">Personification</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">7</span><span class="name">Hyperbole</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">8</span><span class="name">Irony</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">9</span><span class="name">Foreshadowing</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">10</span><span class="name">Repetition</span></div>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>The story you are about to read</h2>
+        <p><strong>&ldquo;The Monkey&rsquo;s Paw&rdquo;</strong> was written by W. W. Jacobs in 1902. It became, almost overnight, one of the most copied stories in the English language &mdash; you have seen its shape in every story about a wish that goes terribly wrong, every story about three wishes, every story about getting what you ask for.</p>
+        <p>A retired soldier, Sergeant-Major Morris, brings home from India a small dried monkey&rsquo;s paw. He tells the White family that the paw will grant three wishes to three men &mdash; and that the man who made the original spell on it did so to prove that &ldquo;fate ruled people&rsquo;s lives, and those who interfered with it did so to their sorrow.&rdquo;</p>
+        <p>The family will not take this seriously. Then they will.</p>
+
+        <div class="discussion-box">
+            <h4>Before we start &mdash; talk it through</h4>
+            <ol>
+                <li>The story is built on the rule of <em>three</em> &mdash; three wishes, three men. Which of your ten techniques does the number three serve naturally?</li>
+                <li>Most horror writers go straight for blood. Jacobs goes for a knock at a door. Why might a knock be more frightening than a description?</li>
+                <li>An ordinary little family, an ordinary evening at home. Why begin a horror story with cosiness? Which technique is set up by the choice?</li>
+                <li>A small object &mdash; a dried paw &mdash; can stand for a much bigger idea. What is that called, and what bigger idea might a paw stand for in this story?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<!-- =================== TAB 2: THE VISITOR =================== -->
+<div id="tab2" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 1 &mdash; The Visitor</h2>
+        <p>Read aloud, together. Stop wherever a prompt appears.</p>
+
+        <div class="reading-passage">
+            <p>Without, the night was cold and wet, but in the small parlour of Laburnum Villa the blinds were drawn and the fire burned brightly. Father and son were at chess, the former, who possessed ideas about the game involving radical changes, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.</p>
+
+            <p>&ldquo;Hark at the wind,&rdquo; said Mr. White, who, having seen a fatal mistake after it was too late, was amiably desirous of preventing his son from seeing it.</p>
+
+            <p>&ldquo;I&rsquo;m listening,&rdquo; said the latter, grimly surveying the board as he stretched out his hand. &ldquo;Check.&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The opening</h4>
+            <ol>
+                <li>&ldquo;Without, the night was cold and wet, but in the small parlour&hellip; the fire burned brightly.&rdquo; What is Jacobs doing with <em>outside</em> and <em>inside</em>? What is the technique?</li>
+                <li>Mr. White is losing at chess by &ldquo;putting his king into such sharp and unnecessary perils.&rdquo; This is the very first thing we learn about him as a character. What does it tell us &mdash; and which technique announces it quietly?</li>
+                <li>&ldquo;Check.&rdquo; A single word ending a paragraph. What technique &mdash; in placement and in meaning?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Without, the night was cold and wet, but in the small parlour&hellip; the fire burned brightly.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; cold and wet outside, fire inside. The whole story will be a war between these two: the safe house and the thing that wants in. Bonus: <span class="tag">5</span> <strong>symbolism</strong> &mdash; the door, the fire, the wind, all already standing for something.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;putting his king into such sharp and unnecessary perils&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">9</span> <strong>Foreshadowing</strong> &mdash; the very first description of Mr. White tells us he likes risk and ignores warnings. Bonus: <span class="tag">5</span> <strong>symbolism</strong> &mdash; the chess king is about to walk into a much bigger trap.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>The door was opened by Mr. White, who&hellip; found himself receiving the first hand-shake from a tall, burly man, beady of eye and rubicund of visage. &ldquo;Sergeant-Major Morris,&rdquo; he said, introducing him.</p>
+
+            <p>The sergeant-major shook hands, and taking the proffered seat by the fire, watched contentedly while his host got out whisky and tumblers and stood a small copper kettle on the fire.</p>
+
+            <p>At the third glass his eyes got brighter, and he began to talk, the little family circle regarding with eager interest this visitor from distant parts, as he squared his broad shoulders in the chair and spoke of wild scenes and doughty deeds; of wars and plagues and strange peoples.</p>
+
+            <p>&ldquo;Twenty-one years of it,&rdquo; said Mr. White, nodding at his wife and son. &ldquo;When he went away he was a slip of a youth in the warehouse. Now look at him.&rdquo;</p>
+
+            <p>&ldquo;He don&rsquo;t look to have taken much harm,&rdquo; said Mrs. White, politely.</p>
+
+            <p>&ldquo;I&rsquo;d like to go to India myself,&rdquo; said the old man, &ldquo;just to look round a bit, you know.&rdquo;</p>
+
+            <p>&ldquo;Better where you are,&rdquo; said the sergeant-major, shaking his head. He put down the empty glass and, sighing softly, shook it again.</p>
+
+            <p>&ldquo;I should like to see those old temples and fakirs and jugglers,&rdquo; said the old man. &ldquo;What was that you started telling me the other day about a monkey&rsquo;s paw or something, Morris?&rdquo;</p>
+
+            <p>&ldquo;Nothing,&rdquo; said the soldier hastily. &ldquo;Leastways nothing worth hearing.&rdquo;</p>
+
+            <p>&ldquo;Monkey&rsquo;s paw?&rdquo; said Mrs. White, curiously.</p>
+
+            <p>&ldquo;Well, it&rsquo;s just a bit of what you might call magic, perhaps,&rdquo; said the sergeant-major, off-handedly.</p>
+
+            <p>His three listeners leaned forward eagerly. The visitor absent-mindedly put his empty glass to his lips and then set it down again. His host filled it for him.</p>
+
+            <p>&ldquo;To look at,&rdquo; said the sergeant-major, fumbling in his pocket, &ldquo;it&rsquo;s just an ordinary little paw, dried to a mummy.&rdquo;</p>
+
+            <p>He took something out of his pocket and proffered it. Mrs. White drew back with a grimace, but her son, taking it, examined it curiously.</p>
+
+            <p>&ldquo;And what is there special about it?&rdquo; inquired Mr. White as he took it from his son, and having examined it, placed it upon the table.</p>
+
+            <p>&ldquo;It had a spell put on it by an old fakir,&rdquo; said the sergeant-major, &ldquo;a very holy man. He wanted to show that fate ruled people&rsquo;s lives, and that those who interfered with it did so to their sorrow. He put a spell on it so that three separate men could each have three wishes from it.&rdquo;</p>
+
+            <p>His manner was so impressive that his hearers were conscious that their light laughter jarred somewhat.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>The soldier puts his empty glass to his lips and then sets it down again. He does not want to tell this story. What is Jacobs doing with this little movement? What is the technique?</li>
+                <li>&ldquo;Better where you are.&rdquo; A short, almost rude sentence in a polite conversation. What technique &mdash; and what is the soldier really saying?</li>
+                <li>The paw is &ldquo;just an ordinary little paw, dried to a mummy.&rdquo; What technique? Why is the smallness of the description important?</li>
+                <li>&ldquo;Fate ruled people&rsquo;s lives, and those who interfered with it did so to their sorrow.&rdquo; A whole horror story in one sentence. Why does Jacobs put this thesis statement in the mouth of a sceptic-sounding soldier?</li>
+                <li>&ldquo;Their light laughter jarred somewhat.&rdquo; What does it mean that the laughter <em>jars</em>? Which technique is this?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;just an ordinary little paw, dried to a mummy&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; we can see it: shrivelled, brown, small. And <span class="tag">5</span> <strong>symbolism</strong> &mdash; the paw is about to stand for greed, for hubris, for the human itch to interfere with fate.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Fate ruled people&rsquo;s lives, and those who interfered with it did so to their sorrow.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">9</span> <strong>Foreshadowing</strong> at full strength &mdash; this is the moral of the whole story stated in the first scene. The Whites will hear it, laugh, and then live it. Bonus: <span class="tag">1</span> <strong>diction</strong> &mdash; the formal, almost biblical phrasing.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>&ldquo;Well, why don&rsquo;t you have three, sir?&rdquo; said Herbert White, cleverly.</p>
+
+            <p>The soldier regarded him in the way that middle age is wont to regard presumptuous youth. &ldquo;I have,&rdquo; he said, quietly, and his blotchy face whitened.</p>
+
+            <p>&ldquo;And did you really have the three wishes granted?&rdquo; asked Mrs. White.</p>
+
+            <p>&ldquo;I did,&rdquo; said the sergeant-major, and his glass tapped against his strong teeth.</p>
+
+            <p>&ldquo;And has anybody else wished?&rdquo; persisted the old lady.</p>
+
+            <p>&ldquo;The first man had his three wishes. Yes,&rdquo; was the reply; &ldquo;I don&rsquo;t know what the first two were, but the third was for death. That&rsquo;s how I got the paw.&rdquo;</p>
+
+            <p>His tones were so grave that a hush fell upon the group.</p>
+
+            <p>&ldquo;If you&rsquo;ve had your three wishes, it&rsquo;s no good to you now, then, Morris,&rdquo; said the old man, at last. &ldquo;What do you keep it for?&rdquo;</p>
+
+            <p>The soldier shook his head. &ldquo;Fancy, I suppose,&rdquo; he said, slowly. &ldquo;I did have some idea of selling it, but I don&rsquo;t think I will. It has caused enough mischief already.&rdquo;</p>
+
+            <p>&ldquo;If you could have another three wishes,&rdquo; said the old man, eyeing him keenly, &ldquo;would you have them?&rdquo;</p>
+
+            <p>&ldquo;I don&rsquo;t know,&rdquo; said the other. &ldquo;I don&rsquo;t know.&rdquo;</p>
+
+            <p>He took the paw, and dangling it between his forefinger and thumb, suddenly threw it upon the fire. White, with a slight cry, stooped down and snatched it off.</p>
+
+            <p>&ldquo;Better let it burn,&rdquo; said the soldier, solemnly.</p>
+
+            <p>&ldquo;If you don&rsquo;t want it, Morris,&rdquo; said the old man, &ldquo;give it to me.&rdquo;</p>
+
+            <p>&ldquo;I won&rsquo;t,&rdquo; said his friend, doggedly. &ldquo;I threw it on the fire. If you keep it, don&rsquo;t blame me for what happens. Pitch it on the fire again, like a sensible man.&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>&ldquo;His blotchy face whitened.&rdquo; What is the technique &mdash; and what does it tell us, without telling us, about the soldier&rsquo;s wishes?</li>
+                <li>&ldquo;The third was for death.&rdquo; Whose death? Jacobs does not specify. Why is the ambiguity scarier than a clear answer?</li>
+                <li>The soldier <em>throws the paw on the fire</em>. Mr. White <em>snatches it back</em>. What is the technique in the moment &mdash; and what does it tell us about both men?</li>
+                <li>&ldquo;Don&rsquo;t blame me for what happens.&rdquo; Which technique is at work?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;I did,&rdquo; said the sergeant-major, and his glass tapped against his strong teeth.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; auditory: a small ringing tap. And <span class="tag">1</span> <strong>diction</strong> &mdash; &ldquo;strong teeth&rdquo;, a soldier&rsquo;s body, made suddenly shaky by a piece of dried skin. The detail is the fear.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">Mr. White snatches the paw out of the fire.</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">9</span> <strong>Foreshadowing</strong> &mdash; the warning is given physically (throw it away!) and rejected physically (snatch it back!). The story has, in effect, already happened. Bonus: <span class="tag">8</span> <strong>irony</strong>: he saves the thing that will destroy him.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 3: THE WISH =================== -->
+<div id="tab3" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 2 &mdash; Two Hundred Pounds</h2>
+        <p>The soldier is gone. The Whites have the paw, and one wish in mind.</p>
+
+        <div class="reading-passage">
+            <p>&ldquo;If the tale about the monkey&rsquo;s paw is not more truthful than those he has been telling us,&rdquo; said Herbert, as the door closed behind their guest, just in time for him to catch the last train, &ldquo;we shan&rsquo;t make much out of it.&rdquo;</p>
+
+            <p>&ldquo;Did you give him anything for it, father?&rdquo; inquired Mrs. White, regarding her husband closely.</p>
+
+            <p>&ldquo;A trifle,&rdquo; said he, colouring slightly. &ldquo;He didn&rsquo;t want it, but I made him take it. And he pressed me again to throw it away.&rdquo;</p>
+
+            <p>&ldquo;Likely,&rdquo; said Herbert, with pretended horror. &ldquo;Why, we&rsquo;re going to be rich, and famous, and happy. Wish to be an emperor, father, to begin with; then you can&rsquo;t be henpecked.&rdquo;</p>
+
+            <p>He darted round the table, pursued by the maligned Mrs. White armed with an antimacassar.</p>
+
+            <p>Mr. White took the paw from his pocket and eyed it dubiously. &ldquo;I don&rsquo;t know what to wish for, and that&rsquo;s a fact,&rdquo; he said, slowly. &ldquo;It seems to me I&rsquo;ve got all I want.&rdquo;</p>
+
+            <p>&ldquo;If you only cleared the house, you&rsquo;d be quite happy, wouldn&rsquo;t you?&rdquo; said Herbert, with his hand on his shoulder. &ldquo;Well, wish for two hundred pounds, then; that&rsquo;ll just do it.&rdquo;</p>
+
+            <p>His father, smiling shamefacedly at his own credulity, held up the talisman, as his son, with a solemn face, somewhat marred by a wink at his mother, sat down at the piano and struck a few impressive chords.</p>
+
+            <p>&ldquo;I wish for two hundred pounds,&rdquo; said the old man distinctly.</p>
+
+            <p>A fine crash from the piano greeted the words, interrupted by a shuddering cry from the old man. His wife and son ran toward him.</p>
+
+            <p>&ldquo;It moved!&rdquo; he cried, with a glance of disgust at the object as it lay on the floor. &ldquo;As I wished, it twisted in my hand like a snake.&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The first wish</h4>
+            <ol>
+                <li>&ldquo;It seems to me I&rsquo;ve got all I want.&rdquo; Read that aloud. What is Jacobs doing &mdash; and what is the technique?</li>
+                <li>The son makes the wish a joke. He plays piano chords; he winks at his mother. What is the technique &mdash; and how does Jacobs use comedy <em>against</em> the audience?</li>
+                <li>&ldquo;Two hundred pounds&rdquo; is exactly the amount needed to clear the mortgage. Why such a small wish? What does the smallness do?</li>
+                <li>&ldquo;It twisted in my hand like a snake.&rdquo; Spot the technique &mdash; and ask why a snake, of all images.</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;It seems to me I&rsquo;ve got all I want.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; dramatic. The man who already has all he wants is about to wish, and lose, the one thing that mattered. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong>.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;As I wished, it twisted in my hand like a snake.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> (&ldquo;like a snake&rdquo;). The snake is Eden, temptation, betrayal, evil &mdash; <span class="tag">5</span> <strong>symbolism</strong> in one image. The paw has come alive in the moment of the bargain.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>The next morning, the bright winter sun streaming over the breakfast table, Herbert laughed at his fears.</p>
+
+            <p>&ldquo;Well, I shouldn&rsquo;t go showing it about, if I were you,&rdquo; he said, as he rose from the table. &ldquo;You&rsquo;ll have the neighbours climbing in here to know what it&rsquo;s all about.&rdquo;</p>
+
+            <p>He kissed his mother, and hurried off to business. His father watched him out of the gate, and turned to his breakfast with a smile.</p>
+
+            <p>In the afternoon she hurried to the door at the postman&rsquo;s knock, only to find, when she opened it, that he had merely brought a tailor&rsquo;s bill. Twice more during the day, she returned to the matter, by way of teasing her husband. &ldquo;Herbert will have some more of his funny remarks, I expect, when he comes home,&rdquo; she said, as they sat at dinner.</p>
+
+            <p>&ldquo;I dare say,&rdquo; said Mr. White, pouring himself out some beer. &ldquo;But for all that, the thing moved in my hand; that I&rsquo;ll swear to.&rdquo;</p>
+
+            <p>&ldquo;You thought it did,&rdquo; said the old lady, soothingly.</p>
+
+            <p>&ldquo;I say it did,&rdquo; replied the other. &ldquo;There was no thought about it; I had just &mdash;. What&rsquo;s the matter?&rdquo;</p>
+
+            <p>His wife made no reply. She was watching the mysterious movements of a man outside, who, peering in an undecided fashion at the house, appeared to be trying to make up his mind to enter. In mental connection with the two hundred pounds, she noticed that the stranger was well dressed, and wore a silk hat of glossy newness.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The day after</h4>
+            <ol>
+                <li>&ldquo;The bright winter sun streaming over the breakfast table.&rdquo; Why does Jacobs put a sunny morning between the wish and what is coming?</li>
+                <li>Mrs. White goes to the door at every knock that day. What is the technique &mdash; and what is it doing to the reader&rsquo;s ear?</li>
+                <li>The stranger in the silk hat &mdash; we know, before the family knows, what he is about to say. What is this technique called?</li>
+            </ol>
+        </div>
+
+        <div class="reading-passage">
+            <p>The stranger seemed ill at ease. &ldquo;I &mdash; was asked to call,&rdquo; he said at last, and stooped and picked a piece of cotton from his trousers. &ldquo;I come from &lsquo;Maw and Meggins.&rsquo;&rdquo;</p>
+
+            <p>The old lady started. &ldquo;Is anything the matter?&rdquo; she asked, breathlessly. &ldquo;Has anything happened to Herbert? What is it? What is it?&rdquo;</p>
+
+            <p>Her husband interposed. &ldquo;There, there, mother,&rdquo; he said, hastily. &ldquo;Sit down, and don&rsquo;t jump to conclusions. You&rsquo;ve not brought bad news, I&rsquo;m sure, sir;&rdquo; and he eyed the other wistfully.</p>
+
+            <p>&ldquo;I&rsquo;m sorry &mdash;&rdquo; began the visitor.</p>
+
+            <p>&ldquo;Is he hurt?&rdquo; demanded the mother, wildly.</p>
+
+            <p>The visitor bowed in assent. &ldquo;Badly hurt,&rdquo; he said, quietly, &ldquo;but he is not in any pain.&rdquo;</p>
+
+            <p>&ldquo;Oh, thank God!&rdquo; said the old woman, clasping her hands. &ldquo;Thank God for that! Thank &mdash;&rdquo;</p>
+
+            <p>She broke off, as the sinister meaning of the assurance dawned upon her, and she saw the awful confirmation of her fears in the other&rsquo;s averted face. She caught her breath, and turning to her slower-witted husband, laid her trembling old hand upon his. There was a long silence.</p>
+
+            <p>&ldquo;He was caught in the machinery,&rdquo; said the visitor at length, in a low voice.</p>
+
+            <p>&ldquo;Caught in the machinery,&rdquo; repeated Mr. White, in a dazed fashion, &ldquo;yes.&rdquo;</p>
+
+            <p>He sat staring blankly out at the window, and taking his wife&rsquo;s hand between his own, pressed it as he had been wont to do in their old courting days nearly forty years before.</p>
+
+            <p>&ldquo;He was the only one left to us,&rdquo; he said, turning gently to the visitor. &ldquo;It is hard.&rdquo;</p>
+
+            <p>The other coughed, and rising, walked slowly to the window. &ldquo;The firm wished me to convey their sincere sympathy with you in your great loss,&rdquo; he said, without looking round. &ldquo;I beg that you will understand I am only their servant and merely obeying orders.&rdquo;</p>
+
+            <p>There was no reply; the old woman&rsquo;s face was white, her eyes staring, and her breath inaudible; on the husband&rsquo;s face was a look such as his friend the sergeant might have carried into his first action.</p>
+
+            <p>&ldquo;I was to say that Maw and Meggins disclaim all responsibility,&rdquo; continued the other. &ldquo;They admit no liability at all, but in consideration of your son&rsquo;s services, they wish to present you with a certain sum as compensation.&rdquo;</p>
+
+            <p>Mr. White dropped his wife&rsquo;s hand, and rising to his feet, gazed with a look of horror at his visitor. His dry lips shaped the words, &ldquo;How much?&rdquo;</p>
+
+            <p>&ldquo;Two hundred pounds,&rdquo; was the answer.</p>
+
+            <p>Unconscious of his wife&rsquo;s shriek, the old man smiled faintly, put out his hands like a sightless man, and dropped, a senseless heap, to the floor.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The amount</h4>
+            <ol>
+                <li>&ldquo;Badly hurt, but he is not in any pain.&rdquo; What is the technique &mdash; and why is the comma after &ldquo;hurt&rdquo; so devastating?</li>
+                <li>&ldquo;Caught in the machinery.&rdquo; What is Jacobs doing with the literal industrial detail? What does the machinery <em>stand for</em>, in a story about wishes and fate?</li>
+                <li>&ldquo;Two hundred pounds.&rdquo; Compare with Mr. White&rsquo;s wish the night before. What is the technique &mdash; and where does the chill come from?</li>
+                <li>&ldquo;Like a sightless man.&rdquo; Spot the technique. Why &ldquo;sightless&rdquo; and not &ldquo;blind&rdquo;?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Two hundred pounds&rdquo; (said twice in the story: as a wish, then as a payment)</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; the exact same phrase, in two completely different scenes. The repetition is the wound. Bonus: <span class="tag">8</span> <strong>irony</strong> &mdash; the answer to the wish, given in the same words as the wish.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Caught in the machinery.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism</strong> &mdash; the machinery is the literal cause of Herbert&rsquo;s death AND the larger machinery of fate that the soldier warned about. Bonus: <span class="tag">2</span> <strong>metaphor</strong>: their lives, caught.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Put out his hands like a sightless man.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong>. &ldquo;Sightless&rdquo; is more formal, gentler, more pitying than &ldquo;blind&rdquo; &mdash; that is <span class="tag">1</span> <strong>diction</strong>. He cannot see the world he has just remade.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 4: THE KNOCK =================== -->
+<div id="tab4" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 3 &mdash; The Knock</h2>
+        <p>A week later. The house is quiet. Read.</p>
+
+        <div class="reading-passage">
+            <p>In the huge new cemetery, some two miles distant, the old people buried their dead, and came back to a house steeped in shadow and silence. It was all over so quickly that at first they could hardly realize it, and remained in a state of expectation as though of something else to happen &mdash; something else which was to lighten this load, too heavy for old hearts to bear.</p>
+
+            <p>But the days passed, and expectation gave place to resignation &mdash; the hopeless resignation of the old, sometimes miscalled, apathy. Sometimes they hardly exchanged a word, for now they had nothing to talk about, and their days were long to weariness.</p>
+
+            <p>It was about a week after that the old man, waking suddenly in the night, stretched out his hand and found himself alone. The room was in darkness, and the sound of subdued weeping came from the window. He raised himself in bed and listened.</p>
+
+            <p>&ldquo;Come back,&rdquo; he said, tenderly. &ldquo;You will be cold.&rdquo;</p>
+
+            <p>&ldquo;It is colder for my son,&rdquo; said the old woman, and wept afresh.</p>
+
+            <p>The sound of her sobs died away on his ears. The bed was warm, and his eyes heavy with sleep. He dozed fitfully, and then slept until a sudden wild cry from his wife awoke him with a start.</p>
+
+            <p>&ldquo;THE PAW!&rdquo; she cried wildly. &ldquo;THE MONKEY&rsquo;S PAW!&rdquo;</p>
+
+            <p>He started up in alarm. &ldquo;Where? Where is it? What&rsquo;s the matter?&rdquo;</p>
+
+            <p>She came stumbling across the room toward him. &ldquo;I want it,&rdquo; she said, quietly. &ldquo;You&rsquo;ve not destroyed it?&rdquo;</p>
+
+            <p>&ldquo;It&rsquo;s in the parlour, on the bracket,&rdquo; he replied, marvelling. &ldquo;Why?&rdquo;</p>
+
+            <p>She cried and laughed together, and bending over, kissed his cheek.</p>
+
+            <p>&ldquo;I only just thought of it,&rdquo; she said, hysterically. &ldquo;Why didn&rsquo;t I think of it before? Why didn&rsquo;t <em>you</em> think of it?&rdquo;</p>
+
+            <p>&ldquo;Think of what?&rdquo; he questioned.</p>
+
+            <p>&ldquo;The other two wishes,&rdquo; she replied, rapidly. &ldquo;We&rsquo;ve only had one.&rdquo;</p>
+
+            <p>&ldquo;Was not that enough?&rdquo; he demanded, fiercely.</p>
+
+            <p>&ldquo;No,&rdquo; she cried, triumphantly; &ldquo;we&rsquo;ll have one more. Go down and get it quickly, and wish our boy alive again.&rdquo;</p>
+
+            <p>The man sat up in bed and flung the bedclothes from his quaking limbs. &ldquo;Good God, you are mad!&rdquo; he cried, aghast.</p>
+
+            <p>&ldquo;Get it,&rdquo; she panted; &ldquo;get it quickly, and wish &mdash; Oh, my boy, my boy!&rdquo;</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The second wish</h4>
+            <ol>
+                <li>&ldquo;Steeped in shadow and silence.&rdquo; What is the technique &mdash; and what other moment in the story does the silence answer back to?</li>
+                <li>&ldquo;It is colder for my son.&rdquo; A whole grief in six words. Where is the technique?</li>
+                <li>The mother has thought of the paw. The father is horrified. Why does Jacobs make their grief pull them in opposite directions?</li>
+                <li>&ldquo;Wish our boy alive again.&rdquo; The reader knows the body has been buried a week and was caught in machinery. What is the technique?</li>
+            </ol>
+        </div>
+
+        <div class="reading-passage">
+            <p>Her husband struck a match and lit the candle. &ldquo;Get back to bed,&rdquo; he said, unsteadily. &ldquo;You don&rsquo;t know what you are saying.&rdquo;</p>
+
+            <p>&ldquo;We had the first wish granted,&rdquo; said the old woman, feverishly; &ldquo;why not the second?&rdquo;</p>
+
+            <p>&ldquo;A coincidence,&rdquo; stammered the old man.</p>
+
+            <p>&ldquo;Go and get it and wish,&rdquo; cried the old woman, quivering with excitement.</p>
+
+            <p>The old man turned and regarded her, and his voice shook. &ldquo;He has been dead ten days, and besides he &mdash; I would not tell you else, but &mdash; I could only recognize him by his clothing. If he was too terrible for you to see then, how now?&rdquo;</p>
+
+            <p>&ldquo;Bring him back,&rdquo; cried the old woman, and dragged him toward the door. &ldquo;Do you think I fear the child I have nursed?&rdquo;</p>
+
+            <p>He went down in the darkness, and felt his way to the parlour, and then to the mantelpiece. The talisman was in its place, and a horrible fear that the unspoken wish might bring his mutilated son before him ere he could escape from the room seized upon him, and he caught his breath as he found that he had lost the direction of the door. His brow cold with sweat, he felt his way round the table, and groped along the wall until he found himself in the small passage with the unwholesome thing in his hand.</p>
+
+            <p>Even his wife&rsquo;s face seemed changed as he entered the room. It was white and expectant, and to his fears seemed to have an unnatural look upon it. He was afraid of her.</p>
+
+            <p>&ldquo;WISH!&rdquo; she cried, in a strong voice.</p>
+
+            <p>&ldquo;It is foolish and wicked,&rdquo; he faltered.</p>
+
+            <p>&ldquo;WISH!&rdquo; repeated his wife.</p>
+
+            <p>He raised his hand. &ldquo;I wish my son alive again.&rdquo;</p>
+
+            <p>The talisman fell to the floor, and he regarded it fearfully. Then he sank trembling into a chair as the old woman, with burning eyes, walked to the window and raised the blind.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>&ldquo;I could only recognize him by his clothing.&rdquo; What is Jacobs doing with what he <em>doesn&rsquo;t</em> describe? What is the technique?</li>
+                <li>&ldquo;The unwholesome thing.&rdquo; Why has Jacobs stopped calling it a paw?</li>
+                <li>&ldquo;WISH!&rdquo; in capital letters, twice. Spot the technique &mdash; and the reason for the doubling.</li>
+                <li>She walks to the window and raises the blind. What is she looking for &mdash; and what is the technique in the small action?</li>
+            </ol>
+        </div>
+
+        <div class="reading-passage">
+            <p>He sat until he was chilled with the cold, glancing occasionally at the figure of the old woman peering through the window. The candle-end, which had burnt below the rim of the china candlestick, was throwing pulsating shadows on the ceiling and walls, until, with a flicker larger than the rest, it expired. The old man, with an indescribable sense of relief at the failure of the talisman, crept back to his bed, and a minute or two afterwards the old woman came silently and apathetically beside him.</p>
+
+            <p>Neither spoke, but lay silently listening to the ticking of the clock. A stair creaked, and a squeaky mouse scurried noisily through the wall. The darkness was oppressive, and after lying for some time screwing up his courage, he took the box of matches, and striking one, went downstairs for a candle.</p>
+
+            <p>At the foot of the stairs the match went out, and he paused to strike another; and at the same moment a knock, so quiet and stealthy as to be scarcely audible, sounded on the front door.</p>
+
+            <p>The matches fell from his hand and spilled in the passage. He stood motionless, his breath suspended until the knock was repeated. Then he turned and fled swiftly back to his room, and closed the door behind him. A third knock sounded through the house.</p>
+
+            <p>&ldquo;WHAT&rsquo;S THAT?&rdquo; cried the old woman, starting up.</p>
+
+            <p>&ldquo;A rat,&rdquo; said the old man in shaking tones &mdash; &ldquo;a rat. It passed me on the stairs.&rdquo;</p>
+
+            <p>His wife sat up in bed listening. A loud knock resounded through the house.</p>
+
+            <p>&ldquo;It&rsquo;s Herbert!&rdquo; she screamed. &ldquo;It&rsquo;s Herbert!&rdquo;</p>
+
+            <p>She ran to the door, but her husband was before her, and catching her by the arm, held her tightly.</p>
+
+            <p>&ldquo;What are you going to do?&rdquo; he whispered hoarsely.</p>
+
+            <p>&ldquo;It&rsquo;s my boy; it&rsquo;s Herbert!&rdquo; she cried, struggling mechanically. &ldquo;I forgot it was two miles away. What are you holding me for? Let go. I must open the door.&rdquo;</p>
+
+            <p>&ldquo;For God&rsquo;s sake, don&rsquo;t let it in,&rdquo; cried the old man, trembling.</p>
+
+            <p>&ldquo;You&rsquo;re afraid of your own son,&rdquo; she cried, struggling. &ldquo;Let me go. I&rsquo;m coming, Herbert; I&rsquo;m coming.&rdquo;</p>
+
+            <p>There was another knock, and another. The old woman with a sudden wrench broke free and ran from the room. Her husband followed to the landing, and called after her appealingly as she hurried downstairs. He heard the chain rattle back and the bottom bolt drawn slowly and stiffly from the socket. Then the old woman&rsquo;s voice, strained and panting.</p>
+
+            <p>&ldquo;The bolt,&rdquo; she cried, loudly. &ldquo;Come down. I can&rsquo;t reach it.&rdquo;</p>
+
+            <p>But her husband was on his hands and knees groping wildly on the floor in search of the paw. If he could only find it before the thing outside got in. A perfect fusillade of knocks reverberated through the house, and he heard the scraping of a chair as his wife put it down in the passage against the door. He heard the creaking of the bolt as it came slowly back, and at the same moment he found the monkey&rsquo;s paw, and frantically breathed his third and last wish.</p>
+
+            <p>The knocking ceased suddenly, although the echoes of it were still in the house. He heard the chair drawn back, and the door opened. A cold wind rushed up the staircase, and a long loud wail of disappointment and misery from his wife gave him courage to run down to her side, and then to the gate beyond. The street lamp flickering opposite shone on a quiet and deserted road.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The ending</h4>
+            <ol>
+                <li>Count the knocks. How many are there? What is the technique &mdash; and why count?</li>
+                <li>&ldquo;A rat,&rdquo; says the old man. We know it is not a rat. What is the technique &mdash; and what is the old man telling us about his own fear?</li>
+                <li>&ldquo;For God&rsquo;s sake, don&rsquo;t let it in.&rdquo; What word has the husband used &mdash; not his son&rsquo;s name?</li>
+                <li>Jacobs never shows us what is at the door. Why? Which technique is at work in what is <em>missing</em>?</li>
+                <li>&ldquo;A quiet and deserted road.&rdquo; The very last image. Why? Compare with the &ldquo;cold and wet&rdquo; night at the start.</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">A first knock, a second knock, a third knock, then a fusillade.</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; and rising in volume. The same trick as Poe&rsquo;s heartbeat in the Tell-Tale Heart: a sound that grows by being repeated. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> &mdash; the rule of three carries the rhythm of the wishes themselves.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Don&rsquo;t let <em>it</em> in.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; the small word &ldquo;it.&rdquo; The father knows what he wished for and what came. Calling his son &ldquo;it&rdquo; is the horror admitting itself. Bonus: <span class="tag">8</span> <strong>irony</strong> &mdash; the wish was answered.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A quiet and deserted road.&rdquo; (the last line)</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; emptiness, lamp light, no one. And <span class="tag">5</span> <strong>symbolism</strong> &mdash; the wish granted, the wish unwished, the boy never coming home. The story ends in a silence that began as a cold and wet night.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 5: TALLY + WRITE =================== -->
+<div id="tab5" class="tab-content">
+
+    <div class="content-block">
+        <h2>Technique Tally</h2>
+        <p>All ten of them. Click each card to see one example you found.</p>
+
+        <div class="tally-grid">
+            <div class="tally-card">
+                <h4>1. Diction</h4>
+                <p>&ldquo;the unwholesome thing&rdquo; &middot; &ldquo;don&rsquo;t let <em>it</em> in&rdquo; &middot; &ldquo;dried to a mummy.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>2. Metaphor</h4>
+                <p>&ldquo;Caught in the machinery&rdquo; &mdash; the literal machine and the machinery of fate.</p>
+            </div>
+            <div class="tally-card">
+                <h4>3. Simile</h4>
+                <p>&ldquo;It twisted in my hand like a snake&rdquo; &middot; &ldquo;like a sightless man.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>4. Imagery</h4>
+                <p>Cold and wet outside, fire inside &middot; the candle&rsquo;s pulsating shadows &middot; the deserted road.</p>
+            </div>
+            <div class="tally-card">
+                <h4>5. Symbolism</h4>
+                <p>The paw &mdash; greed, hubris. The machinery &mdash; fate. The door &mdash; the threshold.</p>
+            </div>
+            <div class="tally-card">
+                <h4>6. Personification</h4>
+                <p>The paw &ldquo;twisted in my hand&rdquo; &middot; the candle that &ldquo;expired&rdquo; &middot; the wind that &ldquo;rushed up the staircase.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>7. Hyperbole</h4>
+                <p>&ldquo;A perfect fusillade of knocks reverberated through the house.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>8. Irony</h4>
+                <p>&ldquo;Two hundred pounds&rdquo; wished &mdash; &ldquo;two hundred pounds&rdquo; paid. &ldquo;I&rsquo;ve got all I want.&rdquo; The wish granted.</p>
+            </div>
+            <div class="tally-card">
+                <h4>9. Foreshadowing</h4>
+                <p>&ldquo;Fate ruled people&rsquo;s lives, and those who interfered with it did so to their sorrow.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>10. Repetition</h4>
+                <p>&ldquo;Two hundred pounds&rdquo; twice &middot; three knocks &middot; three wishes &middot; &ldquo;WISH! WISH!&rdquo;</p>
+            </div>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Final discussion &mdash; pick any two</h4>
+            <ol>
+                <li>Why does Jacobs never describe what is on the other side of the door? Is the choice cowardly, or brilliant?</li>
+                <li>The story is built on the number three. Where else does Jacobs use threes &mdash; and which technique do they serve?</li>
+                <li>Compare with the Tell-Tale Heart. Both stories use knocks and beats that build. What does each writer do with that sound that the other does not?</li>
+                <li>If you had a real monkey&rsquo;s paw and one wish only, what would you wish for &mdash; and how would Jacobs make it go wrong?</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>Your turn &mdash; write in Jacobs&rsquo;s style</h2>
+        <p>Write one paragraph (around 80&ndash;100 words) in which a character makes a wish or a small careless choice, and within the same paragraph the consequences arrive. You must use <strong>at least three</strong> of the ten techniques. Mark them as you go: <em>(9 foreshadowing)</em>, <em>(8 irony)</em>, and so on.</p>
+
+        <div class="timer">
+            <span>Writing time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your Jacobs-style paragraph here. Mark the techniques in brackets as you use them."></textarea>
+
+        <div class="discussion-box">
+            <h4>When you&rsquo;ve finished</h4>
+            <ol>
+                <li>Read it aloud. Where does it sound most like Jacobs? Where does it sound most like you?</li>
+                <li>Did the consequence arrive in the same words as the wish? Could you rewrite to make the echo louder?</li>
+                <li>What technique would you steal from Jacobs first for your own writing &mdash; and why?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipTech(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>

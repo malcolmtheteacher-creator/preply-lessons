@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques in Action: The Story of an Hour</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.technique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 15px 0; }
+.technique-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.technique-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-3px); }
+.technique-card .num { font-size: 1.6em; font-weight: 800; color: #764ba2; display: block; }
+.technique-card .name { display: none; font-weight: 700; color: #333; margin-top: 4px; }
+.technique-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.technique-card.flipped .num { color: white; font-size: 1.1em; }
+.technique-card.flipped .name { display: block; color: white; font-size: 1.05em; }
+.answer-btn { background: #667eea; color: white; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 0.95em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.answer-text .tag { display: inline-block; background: #764ba2; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85em; margin-right: 6px; }
+.question-block { background: white; padding: 18px 20px; border-left: 5px solid #764ba2; margin-bottom: 18px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 8px; }
+.question-block .quote { font-style: italic; color: #444; margin: 8px 0 10px 0; padding-left: 12px; border-left: 3px solid #ddd; }
+.reading-passage { background: white; padding: 24px 26px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.85; font-size: 1.02em; }
+.reading-passage p { margin-bottom: 14px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 18px 0; border-left: 5px solid #764ba2; }
+.discussion-box h4 { color: #764ba2; margin-bottom: 10px; font-size: 1.05em; }
+.discussion-box ol, .discussion-box ul { margin-left: 22px; }
+.discussion-box li { margin-bottom: 8px; color: #444; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 6px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+.tally-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 15px 0; }
+.tally-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; }
+.tally-card h4 { color: #764ba2; margin-bottom: 6px; }
+.tally-card p { font-size: 0.92em; color: #555; font-style: italic; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.6em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .technique-grid { grid-template-columns: repeat(2, 1fr); }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Techniques in Action: The Story of an Hour</h1>
+    <p>Kate Chopin &middot; 1894 &middot; A hunt for the techniques you already know</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">2. The News</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">3. Free</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">4. Joy That Kills</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">5. Tally &amp; Write</button>
+</div>
+
+<!-- =================== TAB 1: WARM-UP =================== -->
+<div id="tab1" class="tab-content active">
+
+    <div class="content-block">
+        <h2>The Ten Techniques &mdash; from memory</h2>
+        <p>Click each number. Before you do &mdash; what was the shape, and what was the technique?</p>
+
+        <div class="technique-grid">
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">1</span><span class="name">Diction</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">2</span><span class="name">Metaphor</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">3</span><span class="name">Simile</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">4</span><span class="name">Imagery</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">5</span><span class="name">Symbolism</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">6</span><span class="name">Personification</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">7</span><span class="name">Hyperbole</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">8</span><span class="name">Irony</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">9</span><span class="name">Foreshadowing</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">10</span><span class="name">Repetition</span></div>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>The story you are about to read</h2>
+        <p><strong>&ldquo;The Story of an Hour&rdquo;</strong> was written by Kate Chopin in 1894. It is one of the shortest stories in the English canon &mdash; barely a thousand words &mdash; and one of the most savage. Chopin lived in Louisiana, was widowed young, and wrote about women&rsquo;s inner lives at a time when many critics thought women did not have them.</p>
+        <p>The whole story takes place in an hour. A woman is told her husband has died in a train accident. She goes to her room alone. What she feels there is not what we &mdash; or her family &mdash; expect. And then the front door opens.</p>
+        <p>The first line of the story tells us something quietly important. Watch for it.</p>
+
+        <div class="discussion-box">
+            <h4>Before we start &mdash; talk it through</h4>
+            <ol>
+                <li>In 1894, a woman&rsquo;s social and legal life depended almost entirely on her husband. Keep that in mind as you read.</li>
+                <li>What feeling do you expect from a story called &ldquo;The Story of an Hour&rdquo;? Why such a small, calm title?</li>
+                <li>If a writer wants to make the reader feel two opposite things at once &mdash; grief and relief, say &mdash; which of your ten techniques would help most?</li>
+                <li>The story will be told by a narrator who knows the woman&rsquo;s thoughts. What technique runs through every line a writer like that produces?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<!-- =================== TAB 2: THE NEWS =================== -->
+<div id="tab2" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 1 &mdash; The News</h2>
+        <p>Read aloud, together. Stop wherever a prompt appears.</p>
+
+        <div class="reading-passage">
+            <p>Knowing that Mrs. Mallard was afflicted with a heart trouble, great care was taken to break to her as gently as possible the news of her husband&rsquo;s death.</p>
+
+            <p>It was her sister Josephine who told her, in broken sentences; veiled hints that revealed in half concealing. Her husband&rsquo;s friend Richards was there, too, near her. It was he who had been in the newspaper office when intelligence of the railroad disaster was received, with Brently Mallard&rsquo;s name leading the list of &ldquo;killed.&rdquo; He had only taken the time to assure himself of its truth by a second telegram, and had hastened to forestall any less careful, less tender friend in bearing the sad message.</p>
+
+            <p>She did not hear the story as many women have heard the same, with a paralyzed inability to accept its significance. She wept at once, with sudden, wild abandonment, in her sister&rsquo;s arms. When the storm of grief had spent itself she went away to her room alone. She would have no one follow her.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the opening</h4>
+            <ol>
+                <li>Read the first sentence again. Why does Chopin tell us about the heart trouble <em>first</em>, before anything else? What is the technique?</li>
+                <li>&ldquo;Veiled hints that revealed in half concealing.&rdquo; What is happening in the sentence itself? Is that one technique, or two?</li>
+                <li>Most other women in such stories react with shock and disbelief. Mrs. Mallard does not. What does Chopin make a point of saying about her instead?</li>
+                <li>She wants to be alone. Why? And which of the ten techniques is the act of going alone to a room <em>setting up</em>?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Knowing that Mrs. Mallard was afflicted with a heart trouble&hellip;&rdquo; (the very first words)</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">9</span> <strong>Foreshadowing.</strong> Chopin loads the gun in line one. Every reader who finishes the story comes back to this sentence and feels the trap snap shut. Bonus: <span class="tag">5</span> <strong>symbolism</strong> &mdash; &ldquo;heart trouble&rdquo; is going to mean something much larger than a medical condition.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Veiled hints that revealed in half concealing.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; the careful, paired vocabulary (<em>veiled / revealed</em>, <em>revealed / concealing</em>) makes the sentence sound like a riddle. And <span class="tag">8</span> <strong>irony</strong> at the level of the phrase itself &mdash; the words mean opposite things and sit beside each other.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;She wept at once, with sudden, wild abandonment.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; the word &ldquo;storm&rdquo; that arrives in the next sentence (&ldquo;the storm of grief had spent itself&rdquo;) is a weather metaphor for emotion. And <span class="tag">2</span> <strong>metaphor</strong> &mdash; grief is a storm; storms pass. A clue, very early, that the grief itself will pass quickly.</div>
+        </div>
+    </div>
+</div>
+
+<!-- =================== TAB 3: FREE =================== -->
+<div id="tab3" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 2 &mdash; The Open Window</h2>
+        <p>This is the heart of the story. Read slowly. Almost every line has a technique in it.</p>
+
+        <div class="reading-passage">
+            <p>There stood, facing the open window, a comfortable, roomy armchair. Into this she sank, pressed down by a physical exhaustion that haunted her body and seemed to reach into her soul.</p>
+
+            <p>She could see in the open square before her house the tops of trees that were all aquiver with the new spring life. The delicious breath of rain was in the air. In the street below a peddler was crying his wares. The notes of a distant song which some one was singing reached her faintly, and countless sparrows were twittering in the eaves.</p>
+
+            <p>There were patches of blue sky showing here and there through the clouds that had met and piled one above the other in the west facing her window.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>The room she chooses faces an <em>open window</em>. What might that window stand for? What is the technique?</li>
+                <li>It is spring. There is rain in the air. Sparrows are twittering. A man is selling things in the street. Someone, somewhere, is singing. What is Chopin doing with all that life pouring in through the window?</li>
+                <li>&ldquo;Patches of blue sky&hellip; through the clouds.&rdquo; The blue showing through. What technique? What does it foreshadow?</li>
+                <li>Two paragraphs ago she was weeping like a storm. Now she is hearing sparrows. What has Chopin done with the <em>weather</em> of the story?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;facing the open window&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism.</strong> The window is the central symbol of the story. It looks <em>out</em>: at trees, sky, the rest of her life. The window is freedom &mdash; and it is the window she will turn away from, in the end, at her own cost.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;tops of trees that were all aquiver with the new spring life&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; we can <em>see</em> the leaves trembling. And <span class="tag">6</span> <strong>personification</strong> &mdash; trees do not literally &ldquo;quiver with life&rdquo; the way a person might. Bonus: <span class="tag">5</span> <strong>symbolism</strong> &mdash; spring inside a death-scene.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;patches of blue sky showing here and there through the clouds&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism</strong> and <span class="tag">9</span> <strong>foreshadowing</strong>. Light breaking through. We are about to see exactly the same thing happen to her face.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>She sat with her head thrown back upon the cushion of the chair, quite motionless, except when a sob came up into her throat and shook her, as a child who has cried itself to sleep continues to sob in its dreams.</p>
+
+            <p>She was young, with a fair, calm face, whose lines bespoke repression and even a certain strength. But now there was a dull stare in her eyes, whose gaze was fixed away off yonder on one of those patches of blue sky. It was not a glance of reflection, but rather indicated a suspension of intelligent thought.</p>
+
+            <p>There was something coming to her and she was waiting for it, fearfully. What was it? She did not know; it was too subtle and elusive to name. But she felt it, creeping out of the sky, reaching toward her through the sounds, the scents, the color that filled the air.</p>
+
+            <p>Now her bosom rose and fell tumultuously. She was beginning to recognize this thing that was approaching to possess her, and she was striving to beat it back with her will &mdash; as powerless as her two white slender hands would have been.</p>
+
+            <p>When she abandoned herself a little whispered word escaped her slightly parted lips. She said it over and over under her breath: &ldquo;free, free, free!&rdquo; The vacant stare and the look of terror that had followed it went from her eyes. They stayed keen and bright. Her pulses beat fast, and the coursing blood warmed and relaxed every inch of her body.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The revelation</h4>
+            <ol>
+                <li>&ldquo;As a child who has cried itself to sleep continues to sob in its dreams.&rdquo; What technique &mdash; and why a <em>child</em>, in this scene?</li>
+                <li>&ldquo;Whose lines bespoke repression.&rdquo; That single word &ldquo;repression&rdquo; carries a lot of weight. What is the technique?</li>
+                <li>&ldquo;Something coming to her&hellip; creeping out of the sky, reaching toward her.&rdquo; What is &ldquo;it&rdquo;? Why doesn&rsquo;t Chopin name it?</li>
+                <li>She tries to <em>beat it back</em>. What does that tell us about how much her culture has trained her to expect of herself?</li>
+                <li>The word she finally whispers is &ldquo;free.&rdquo; Three times. Why three? What is the technique?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;as a child who has cried itself to sleep continues to sob in its dreams&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> (&ldquo;as a child&hellip;&rdquo;). The image of a child is gentle, helpless, half-asleep &mdash; it makes Mrs. Mallard a creature being remade. The grief is still in her body but her mind has already begun to move.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;whose lines bespoke repression and even a certain strength&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction.</strong> The word &ldquo;repression&rdquo; in 1894, applied to a young wife, is an electric word. Chopin chooses it deliberately, in a calm sentence, where it lands like a small bomb.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;creeping out of the sky, reaching toward her&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">6</span> <strong>Personification</strong> &mdash; an abstract feeling has a body, it <em>creeps</em>, it <em>reaches</em>. And <span class="tag">5</span> <strong>symbolism</strong> &mdash; the feeling is freedom, but Chopin will not let her name it yet. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> of the word that is two paragraphs away.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;free, free, free!&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; the central, naked word of the story, spoken three times under her breath. Compare with Poe&rsquo;s &ldquo;very, very, very nervous&rdquo; in the Tell-Tale Heart: same trick, opposite meaning.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>She did not stop to ask if it were or were not a monstrous joy that held her. A clear and exalted perception enabled her to dismiss the suggestion as trivial.</p>
+
+            <p>She knew that she would weep again when she saw the kind, tender hands folded in death; the face that had never looked save with love upon her, fixed and gray and dead. But she saw beyond that bitter moment a long procession of years to come that would belong to her absolutely. And she opened and spread her arms out to them in welcome.</p>
+
+            <p>There would be no one to live for during those coming years; she would live for herself. There would be no powerful will bending hers in that blind persistence with which men and women believe they have a right to impose a private will upon a fellow-creature.</p>
+
+            <p>And yet she had loved him &mdash; sometimes. Often she had not. What did it matter! What could love, the unsolved mystery, count for in face of this possession of self-assertion which she suddenly recognized as the strongest impulse of her being!</p>
+
+            <p>&ldquo;Free! Body and soul free!&rdquo; she kept whispering.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the revelation</h4>
+            <ol>
+                <li>&ldquo;Monstrous joy.&rdquo; Read those two words together. What technique? And what is Chopin daring to say about her heroine?</li>
+                <li>The famous sentence: &ldquo;She had loved him &mdash; sometimes. Often she had not.&rdquo; Read it aloud. Where is the technique? Where is the courage?</li>
+                <li>&ldquo;A long procession of years to come.&rdquo; What technique? What does she see?</li>
+                <li>&ldquo;No powerful will bending hers.&rdquo; What kind of word is &ldquo;bending&rdquo;? Why not &ldquo;controlling&rdquo;?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;a monstrous joy&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> (an <em>oxymoron</em>, a pair of words that don&rsquo;t belong together). And <span class="tag">8</span> <strong>irony</strong>: she names her own feeling correctly, by the standards of her time, and then refuses to apologise for it.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;a long procession of years to come that would belong to her absolutely&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">2</span> <strong>Metaphor</strong> &mdash; years as a procession, marching toward her. And <span class="tag">5</span> <strong>symbolism</strong>: the years are an army of freedom. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> &mdash; we know she will not get them.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Free! Body and soul free!&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">10</span> <strong>Repetition</strong> &mdash; the word &ldquo;free&rdquo; comes back, this time louder, with possession of body <em>and</em> soul. The next paragraph will take both away.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 4: JOY THAT KILLS =================== -->
+<div id="tab4" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part 3 &mdash; The Door</h2>
+        <p>The ending takes less than a page. Read slowly. Almost every sentence will turn.</p>
+
+        <div class="reading-passage">
+            <p>Josephine was kneeling before the closed door with her lips to the keyhole, imploring for admission. &ldquo;Louise, open the door! I beg; open the door &mdash; you will make yourself ill. What are you doing, Louise? For heaven&rsquo;s sake open the door.&rdquo;</p>
+
+            <p>&ldquo;Go away. I am not making myself ill.&rdquo; No; she was drinking in a very elixir of life through that open window.</p>
+
+            <p>Her fancy was running riot along those days ahead of her. Spring days, and summer days, and all sorts of days that would be her own. She breathed a quick prayer that life might be long. It was only yesterday she had thought with a shudder that life might be long.</p>
+
+            <p>She arose at length and opened the door to her sister&rsquo;s importunities. There was a feverish triumph in her eyes, and she carried herself unwittingly like a goddess of Victory. She clasped her sister&rsquo;s waist, and together they descended the stairs. Richards stood waiting for them at the bottom.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>&ldquo;She was drinking in a very elixir of life through that open window.&rdquo; What technique? What did she drink yesterday, before the news?</li>
+                <li>&ldquo;Spring days, and summer days, and all sorts of days that would be her own.&rdquo; What is the technique &mdash; in the rhythm and in the word &ldquo;own&rdquo;?</li>
+                <li>&ldquo;Life might be long.&rdquo; Read both occurrences side by side. What has changed in twelve hours?</li>
+                <li>&ldquo;Like a goddess of Victory.&rdquo; What technique &mdash; and what is Chopin doing by raising a small private woman to a Greek goddess?</li>
+                <li>Predict: what will be at the bottom of the stairs?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;She was drinking in a very elixir of life through that open window.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">2</span> <strong>Metaphor</strong> &mdash; air becomes a drink, an elixir, a magical potion that gives life. And <span class="tag">5</span> <strong>symbolism</strong>: the window again, life pouring in. Bonus: <span class="tag">8</span> <strong>irony</strong> &mdash; in two minutes, the same window will offer her nothing.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;like a goddess of Victory&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> and <span class="tag">7</span> <strong>hyperbole</strong> &mdash; a Greek goddess for a woman opening a bedroom door. Chopin&rsquo;s narrator believes the comparison is exactly right. The reader, knowing what is at the foot of the stairs, sees that the Victory is fragile.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>Some one was opening the front door with a latchkey. It was Brently Mallard who entered, a little travel-stained, composedly carrying his grip-sack and umbrella. He had been far from the scene of accident, and did not even know there had been one. He stood amazed at Josephine&rsquo;s piercing cry; at Richards&rsquo; quick motion to screen him from the view of his wife.</p>
+
+            <p>But Richards was too late.</p>
+
+            <p>When the doctors came they said she had died of heart disease &mdash; of joy that kills.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The ending</h4>
+            <ol>
+                <li>&ldquo;Some one was opening the front door with a latchkey.&rdquo; Why is the sentence so quiet? What is Chopin doing with the pacing?</li>
+                <li>Brently Mallard is &ldquo;composedly carrying his grip-sack and umbrella.&rdquo; Read it aloud. What is the technique &mdash; in the smallness of the detail?</li>
+                <li>&ldquo;But Richards was too late.&rdquo; A whole paragraph &mdash; one line. Why does Chopin set it on its own?</li>
+                <li>&ldquo;Of joy that kills.&rdquo; Whose interpretation is that? Is it correct? What is the technique?</li>
+                <li>Read the first line of the story again. Now read the last line. What has the whole story done in between?</li>
+                <li>Was she killed by her husband&rsquo;s return, or by being asked, in that moment, to give the freedom back? What is the most honest reading?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;a little travel-stained, composedly carrying his grip-sack and umbrella&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; we can <em>see</em> him exactly: the bag, the umbrella, the small dust on his coat. The ordinariness is the horror. And <span class="tag">8</span> <strong>irony</strong>: he carries the most ordinary objects in literature into the most extraordinary moment.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;But Richards was too late.&rdquo; (a paragraph of one sentence)</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; specifically <em>syntax</em>. The short, isolated sentence is a door slamming. We hear it before we know what has happened.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Of joy that kills.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; the deepest in the story. The doctors are wrong about <em>which</em> joy. The reader knows it was the joy of being free, killed by being asked to be a wife again. Bonus: the title itself, &ldquo;<em>The Story of an Hour</em>,&rdquo; is now ironic too &mdash; in one hour she lived a whole second life.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 5: TALLY + WRITE =================== -->
+<div id="tab5" class="tab-content">
+
+    <div class="content-block">
+        <h2>Technique Tally</h2>
+        <p>All ten in barely a thousand words. Click each card to see one example you found.</p>
+
+        <div class="tally-grid">
+            <div class="tally-card">
+                <h4>1. Diction</h4>
+                <p>&ldquo;repression&rdquo; &middot; &ldquo;monstrous joy&rdquo; &middot; &ldquo;a very elixir of life.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>2. Metaphor</h4>
+                <p>&ldquo;the storm of grief&rdquo; &middot; &ldquo;a long procession of years&rdquo; &middot; air as elixir.</p>
+            </div>
+            <div class="tally-card">
+                <h4>3. Simile</h4>
+                <p>&ldquo;as a child who has cried itself to sleep&rdquo; &middot; &ldquo;like a goddess of Victory.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>4. Imagery</h4>
+                <p>Spring trees, rain, sparrows, patches of blue sky &middot; the grip-sack and umbrella.</p>
+            </div>
+            <div class="tally-card">
+                <h4>5. Symbolism</h4>
+                <p>The open window &mdash; freedom. &ldquo;Heart trouble&rdquo; &mdash; the inner one and the medical one.</p>
+            </div>
+            <div class="tally-card">
+                <h4>6. Personification</h4>
+                <p>Freedom &ldquo;creeping out of the sky, reaching toward her&rdquo; &middot; trees &ldquo;aquiver with life.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>7. Hyperbole</h4>
+                <p>&ldquo;Like a goddess of Victory&rdquo; for a small private woman opening a bedroom door.</p>
+            </div>
+            <div class="tally-card">
+                <h4>8. Irony</h4>
+                <p>The whole story. &ldquo;Of joy that kills&rdquo; &mdash; the doctors are wrong about which joy.</p>
+            </div>
+            <div class="tally-card">
+                <h4>9. Foreshadowing</h4>
+                <p>The first sentence: &ldquo;Mrs. Mallard was afflicted with a heart trouble.&rdquo; The gun is on the table.</p>
+            </div>
+            <div class="tally-card">
+                <h4>10. Repetition</h4>
+                <p>&ldquo;free, free, free!&rdquo; &middot; &ldquo;Body and soul free!&rdquo; &middot; &ldquo;life might be long&rdquo; (twice, with opposite feeling).</p>
+            </div>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Final discussion &mdash; pick any two</h4>
+            <ol>
+                <li>Compare the first line of the story with the last line. Which technique connects them?</li>
+                <li>Why does Chopin never name &ldquo;freedom&rdquo; until Mrs. Mallard whispers it herself? What is gained by waiting?</li>
+                <li>Is this a story about a marriage, or about something larger? Which technique most carries the larger reading?</li>
+                <li>Compare Mrs. Mallard with Poe&rsquo;s narrator in the Tell-Tale Heart. Both are alone in a room, watched by no one, having a feeling no one expects. Whose feeling is more <em>honest</em>?</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>Your turn &mdash; write in Chopin&rsquo;s style</h2>
+        <p>Pick a moment when a character receives news that <em>everyone</em> expects them to feel one way about, but they secretly feel the opposite. Write one paragraph (around 80&ndash;100 words) showing the inner feeling, while a window or door or weather quietly does the symbolic work. You must use <strong>at least three</strong> of the ten techniques. Mark them as you go: <em>(5 symbolism)</em>, <em>(9 foreshadowing)</em>, and so on.</p>
+
+        <div class="timer">
+            <span>Writing time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your Chopin-style paragraph here. Mark the techniques in brackets as you use them."></textarea>
+
+        <div class="discussion-box">
+            <h4>When you&rsquo;ve finished</h4>
+            <ol>
+                <li>Read it aloud. Where does it sound most like Chopin? Where does it sound most like you?</li>
+                <li>Did you let the symbolic object (window, door, weather) do the work, or did you over-explain? Could you cut a sentence?</li>
+                <li>Where could you add a single small word &mdash; like &ldquo;repression&rdquo; or &ldquo;monstrous&rdquo; &mdash; that would change the whole paragraph?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipTech(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>

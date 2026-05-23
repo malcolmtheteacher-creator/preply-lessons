@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques in Action: An Occurrence at Owl Creek Bridge</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.technique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 15px 0; }
+.technique-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.technique-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-3px); }
+.technique-card .num { font-size: 1.6em; font-weight: 800; color: #764ba2; display: block; }
+.technique-card .name { display: none; font-weight: 700; color: #333; margin-top: 4px; }
+.technique-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.technique-card.flipped .num { color: white; font-size: 1.1em; }
+.technique-card.flipped .name { display: block; color: white; font-size: 1.05em; }
+.answer-btn { background: #667eea; color: white; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 0.95em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.answer-text .tag { display: inline-block; background: #764ba2; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85em; margin-right: 6px; }
+.question-block { background: white; padding: 18px 20px; border-left: 5px solid #764ba2; margin-bottom: 18px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 8px; }
+.question-block .quote { font-style: italic; color: #444; margin: 8px 0 10px 0; padding-left: 12px; border-left: 3px solid #ddd; }
+.reading-passage { background: white; padding: 24px 26px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.85; font-size: 1.02em; }
+.reading-passage p { margin-bottom: 14px; }
+.discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 18px 0; border-left: 5px solid #764ba2; }
+.discussion-box h4 { color: #764ba2; margin-bottom: 10px; font-size: 1.05em; }
+.discussion-box ol, .discussion-box ul { margin-left: 22px; }
+.discussion-box li { margin-bottom: 8px; color: #444; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; margin-left: 6px; }
+.textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+.tally-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 15px 0; }
+.tally-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; }
+.tally-card h4 { color: #764ba2; margin-bottom: 6px; }
+.tally-card p { font-size: 0.92em; color: #555; font-style: italic; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.6em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .technique-grid { grid-template-columns: repeat(2, 1fr); }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Techniques in Action: An Occurrence at Owl Creek Bridge</h1>
+    <p>Ambrose Bierce &middot; 1890 &middot; A hunt for the techniques you already know</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">2. The Bridge</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">3. The Plan</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">4. The Escape</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">5. Tally &amp; Write</button>
+</div>
+
+<!-- =================== TAB 1: WARM-UP =================== -->
+<div id="tab1" class="tab-content active">
+
+    <div class="content-block">
+        <h2>The Ten Techniques &mdash; from memory</h2>
+        <p>Click each number. Before you do &mdash; what was the shape, and what was the technique?</p>
+
+        <div class="technique-grid">
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">1</span><span class="name">Diction</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">2</span><span class="name">Metaphor</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">3</span><span class="name">Simile</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">4</span><span class="name">Imagery</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">5</span><span class="name">Symbolism</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">6</span><span class="name">Personification</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">7</span><span class="name">Hyperbole</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">8</span><span class="name">Irony</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">9</span><span class="name">Foreshadowing</span></div>
+            <div class="technique-card" onclick="flipTech(this)"><span class="num">10</span><span class="name">Repetition</span></div>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>The story you are about to read</h2>
+        <p><strong>&ldquo;An Occurrence at Owl Creek Bridge&rdquo;</strong> was written by Ambrose Bierce in 1890. Bierce had fought as a young officer in the American Civil War, and he never quite came home from it. His war stories are some of the harshest in the English language &mdash; and the most precise.</p>
+        <p>A man named Peyton Farquhar is about to be hanged from a railway bridge in Alabama. He is a civilian. He has tried, secretly, to sabotage the bridge. He is standing on a wooden plank balanced over the river, with a noose around his neck, waiting for the sergeant to step off the other end.</p>
+        <p>The story is told in three numbered sections. Part I shows the hanging. Part II flashes back to how he came to be there. Part III is what happens when the plank gives way and he falls. Read carefully. The story will lie to you. It will lie beautifully.</p>
+
+        <div class="discussion-box">
+            <h4>Before we start &mdash; talk it through</h4>
+            <ol>
+                <li>A story with a hanging in the first scene cannot, surely, end happily. What does that tell us about the technique Bierce is going to need most?</li>
+                <li>If a writer wants to slow time down &mdash; to make a few seconds feel like ten minutes &mdash; which technique would help most?</li>
+                <li>A river can stand for a lot of things in a story. List three. Which one feels right for a man falling from a bridge?</li>
+                <li>The title is &ldquo;An Occurrence.&rdquo; A very small, polite word for an execution. What technique is that?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<!-- =================== TAB 2: THE BRIDGE =================== -->
+<div id="tab2" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part I &mdash; The Bridge</h2>
+        <p>Read aloud, together. Stop wherever a prompt appears.</p>
+
+        <div class="reading-passage">
+            <p>A man stood upon a railroad bridge in northern Alabama, looking down into the swift water twenty feet below. The man&rsquo;s hands were behind his back, the wrists bound with a cord. A rope closely encircled his neck. It was attached to a stout cross-timber above his head, and the slack fell to the level of his knees. Some loose boards laid upon the sleepers supporting the rails of the railway supplied a footing for him and his executioners &mdash; two private soldiers of the Federal army, directed by a sergeant who in civil life may have been a deputy sheriff.</p>
+
+            <p>At a short remove upon the same temporary platform was an officer in the uniform of his rank, armed. He was a captain. A sentinel at each end of the bridge stood with his rifle in the position known as &ldquo;support,&rdquo; that is to say, vertical in front of the left shoulder, the hammer resting on the forearm thrown straight across the chest &mdash; a formal and unnatural position, enforcing an erect carriage of the body. It did not appear to be the duty of these two men to know what was occurring at the centre of the bridge; they merely blockaded the two ends of the foot planking that traversed it.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>After the opening</h4>
+            <ol>
+                <li>&ldquo;A man stood upon a railroad bridge in northern Alabama.&rdquo; Notice what Bierce does <em>not</em> tell us in the first line. Why no name? What is the technique?</li>
+                <li>Read the description of the sentinels. It is extraordinarily detailed: rifle, position, hammer, forearm. What is Bierce doing with the precision? What feeling does it create?</li>
+                <li>&ldquo;A formal and unnatural position.&rdquo; Read this phrase aloud. Whose body, in the next paragraph, is also &ldquo;formal and unnatural&rdquo;?</li>
+                <li>&ldquo;They merely blockaded the two ends of the foot planking.&rdquo; Why &ldquo;merely&rdquo;? What is the technique?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A man stood upon a railroad bridge&hellip; The man&rsquo;s hands were behind his back, the wrists bound with a cord.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">4</span> <strong>Imagery</strong> &mdash; the picture builds piece by piece, like a painter laying down brushstrokes: bridge, hands, cord, rope, cross-timber. And <span class="tag">1</span> <strong>diction</strong>: every word is short, plain, almost military. The cold precision is the technique.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A formal and unnatural position.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism</strong> &mdash; the body of the sentinel and the body of the hanged man are both held in &ldquo;formal and unnatural&rdquo; positions. War makes every body unnatural. And <span class="tag">8</span> <strong>irony</strong> &mdash; the description belongs to a parade, not an execution.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>The man who was engaged in being hanged was apparently about thirty-five years of age. He was a civilian, if one might judge from his habit, which was that of a planter. His features were good &mdash; a straight nose, firm mouth, broad forehead, from which his long, dark hair was combed straight back, falling behind his ears to the collar of his well-fitting frock-coat. He wore a moustache and pointed beard, but no whiskers; his eyes were large and dark grey, and had a kindly expression which one would hardly have expected in one whose neck was in the hemp. Evidently this was no vulgar assassin. The liberal military code makes provision for hanging many kinds of persons, and gentlemen are not excluded.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The man</h4>
+            <ol>
+                <li>&ldquo;The man who was engaged in being hanged.&rdquo; What is the technique &mdash; and what does Bierce&rsquo;s diction do to a death?</li>
+                <li>&ldquo;A kindly expression which one would hardly have expected in one whose neck was in the hemp.&rdquo; Spot the technique. Where is the joke &mdash; and where is the horror?</li>
+                <li>&ldquo;The liberal military code makes provision for hanging many kinds of persons, and gentlemen are not excluded.&rdquo; Read aloud. Who is speaking? Whose voice is this?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;The man who was engaged in being hanged.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong>. &ldquo;Engaged in&rdquo; is a phrase for business meetings, not executions. Bierce is using the language of polite society to describe state murder. And <span class="tag">8</span> <strong>irony</strong> &mdash; verbal, mocking the formality of the men running the hanging.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;gentlemen are not excluded&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; deeply verbal. The sentence sounds like a polite invitation to a club. War has no manners; the language pretends it does.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>He closed his eyes in order to fix his last thoughts upon his wife and children. The water, touched to gold by the early sun, the brooding mists under the banks at some distance down the stream, the fort, the soldiers, the piece of drift &mdash; all had distracted him. And now he became conscious of a new disturbance. Striking through the thought of his dear ones was a sound which he could neither ignore nor understand, a sharp, distinct, metallic percussion like the stroke of a blacksmith&rsquo;s hammer upon the anvil; it had the same ringing quality. He wondered what it was, and whether immeasurably distant or near by &mdash; it seemed both. Its recurrence was regular, but as slow as the tolling of a death knell. He awaited each stroke with impatience and &mdash; he knew not why &mdash; apprehension. The intervals of silence grew progressively longer; the delays became maddening. With their greater infrequency the sounds increased in strength and sharpness. They hurt his ear like the thrust of a knife; he feared he would shriek. What he heard was the ticking of his watch.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The watch</h4>
+            <ol>
+                <li>&ldquo;A sharp, distinct, metallic percussion like the stroke of a blacksmith&rsquo;s hammer upon the anvil.&rdquo; What technique &mdash; and what is happening to time as Farquhar listens?</li>
+                <li>&ldquo;As slow as the tolling of a death knell.&rdquo; Spot the technique. Why a death knell, of all comparisons?</li>
+                <li>&ldquo;What he heard was the ticking of his watch.&rdquo; A final sentence on its own. What has Bierce just shown us &mdash; about the inside of the condemned man&rsquo;s ear?</li>
+                <li>Why does Bierce spend a whole paragraph on a sound, instead of on his thoughts of his wife?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Like the stroke of a blacksmith&rsquo;s hammer upon the anvil&hellip; as slow as the tolling of a death knell.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> &mdash; twice in one paragraph. The hammer image is industrial, the death knell is religious. Bierce binds the two together. Bonus: <span class="tag">7</span> <strong>hyperbole</strong> &mdash; a watch ticking is being heard as a hammer; time itself has slowed because he is about to die.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;What he heard was the ticking of his watch.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">5</span> <strong>Symbolism</strong> and <span class="tag">9</span> <strong>foreshadowing</strong>. A watch &mdash; time &mdash; counting down. The story Farquhar is about to imagine will all be measured in seconds. Bierce has placed the clock in the first scene so we will recognise it later.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>He unclosed his eyes and saw again the water below him. &ldquo;If I could free my hands,&rdquo; he thought, &ldquo;I might throw off the noose and spring into the stream. By diving I could evade the bullets and, swimming vigorously, reach the bank, take to the woods and get away home. My home, thank God, is as yet outside their lines; my wife and little ones are still beyond the invader&rsquo;s farthest advance.&rdquo;</p>
+
+            <p>As these thoughts, which have here to be set down in words, were flashed into the doomed man&rsquo;s brain rather than evolved from it the captain nodded to the sergeant. The sergeant stepped aside.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>End of Part I</h4>
+            <ol>
+                <li>&ldquo;If I could free my hands&hellip;&rdquo; Whose technique is this &mdash; Farquhar&rsquo;s, or Bierce&rsquo;s? What is the writer setting up?</li>
+                <li>&ldquo;As these thoughts&hellip; were flashed into the doomed man&rsquo;s brain rather than evolved from it.&rdquo; What is Bierce reminding us about the speed of thinking? Why does it matter for the story to come?</li>
+                <li>&ldquo;The sergeant stepped aside.&rdquo; A sentence of four words. What has happened? What technique?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;The sergeant stepped aside.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; syntax. The short flat sentence is the trapdoor opening. Bierce shows us a small physical action and lets us picture the bigger one falling away from us.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 3: THE PLAN =================== -->
+<div id="tab3" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part II &mdash; The Plantation</h2>
+        <p>The story stops. Bierce takes us back, days or weeks earlier, to how Farquhar came to be on that bridge.</p>
+
+        <div class="reading-passage">
+            <p>Peyton Farquhar was a well-to-do planter, of an old and highly respected Alabama family. Being a slave owner and like other slave owners a politician he was naturally an original secessionist and ardently devoted to the Southern cause. Circumstances of an imperious nature, which it is unnecessary to relate here, had prevented him from taking service with the gallant army that had fought the disastrous campaigns ending with the fall of Corinth, and he chafed under the inglorious restraint, longing for the release of his energies, the larger life of the soldier, the opportunity for distinction. That opportunity, he felt, would come, as it comes to all in war time. Meanwhile he did what he could. No service was too humble for him to perform in aid of the South, no adventure too perilous for him to undertake if consistent with the character of a civilian who was at heart a soldier, and who in good faith and without too much qualification assented to at least a part of the frankly villainous dictum that all is fair in love and war.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Stop here</h4>
+            <ol>
+                <li>Bierce calls Farquhar &ldquo;a slave owner&rdquo; in the first sentence after his name. What is the technique &mdash; and what is Bierce doing to our sympathy?</li>
+                <li>&ldquo;Longing for the release of his energies, the larger life of the soldier, the opportunity for distinction.&rdquo; What is the technique &mdash; in the way the phrases stack?</li>
+                <li>&ldquo;The frankly villainous dictum that all is fair in love and war.&rdquo; Whose voice is &ldquo;frankly villainous&rdquo;? What is Bierce telling us about the narrator?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Being a slave owner and like other slave owners a politician he was naturally an original secessionist.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; the word &ldquo;naturally&rdquo; is doing brutal work. Bierce&rsquo;s narrator is pretending to be neutral, while quietly placing Farquhar inside a list. And <span class="tag">1</span> <strong>diction</strong> &mdash; the legal-sounding chain of nouns lets the irony sit unspoken.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>One evening while Farquhar and his wife were sitting on a rustic bench near the entrance to his grounds, a grey-clad soldier rode up to the gate and asked for a drink of water. Mrs. Farquhar was only too happy to serve him with her own white hands. While she was fetching the water her husband approached the dusty horseman and inquired eagerly for news from the front.</p>
+
+            <p>&ldquo;The Yanks are repairing the railroads,&rdquo; said the man, &ldquo;and are getting ready for another advance. They have reached the Owl Creek bridge, put it in order and built a stockade on the north bank. The commandant has issued an order, which is posted everywhere, declaring that any civilian caught interfering with the railroad, its bridges, tunnels or trains will be summarily hanged. I saw the order.&rdquo;</p>
+
+            <p>&ldquo;How far is it to the Owl Creek bridge?&rdquo; Farquhar asked.</p>
+
+            <p>&ldquo;About thirty miles.&rdquo;</p>
+
+            <p>&ldquo;Is there no force on this side the creek?&rdquo;</p>
+
+            <p>&ldquo;Only a picket post half a mile out, on the railroad, and a single sentinel at this end of the bridge.&rdquo;</p>
+
+            <p>&ldquo;Suppose a man &mdash; a civilian and student of hanging &mdash; should elude the picket post and perhaps get the better of the sentinel,&rdquo; said Farquhar, smiling, &ldquo;what could he accomplish?&rdquo;</p>
+
+            <p>The soldier reflected. &ldquo;I was there a month ago,&rdquo; he replied. &ldquo;I observed that the flood of last winter had lodged a great quantity of driftwood against the wooden pier at this end of the bridge. It is now dry and would burn like tow.&rdquo;</p>
+
+            <p>The lady had now brought the water, which the soldier drank. He thanked her ceremoniously, bowed to her husband and rode away. An hour later, after nightfall, he repassed the plantation, going northward in the direction from which he had come. He was a Federal scout.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The end of Part II</h4>
+            <ol>
+                <li>&ldquo;Her own white hands.&rdquo; Three small words. What are they doing? What is the technique?</li>
+                <li>&ldquo;A civilian and student of hanging.&rdquo; Read aloud. Whose phrase is this? What technique runs through it?</li>
+                <li>&ldquo;It is now dry and would burn like tow.&rdquo; Spot the technique &mdash; and ask why the scout offers this useful piece of information.</li>
+                <li>&ldquo;He was a Federal scout.&rdquo; A four-word paragraph at the end of Part II. What technique &mdash; and where is the trap?</li>
+                <li>Look back at Part I now. Whose hanging is this? Has the story already told us, before we knew?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A civilian and student of hanging.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">8</span> <strong>Irony</strong> &mdash; cosmic, the cruellest kind. Farquhar is being a fool. He smiles while he uses the word that will name his death. And <span class="tag">9</span> <strong>foreshadowing</strong> &mdash; the word &ldquo;hanging&rdquo; sits in the middle of a sentence about himself.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Would burn like tow.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong>. Tow is the loose fibre that catches fire instantly. The scout is dangling exactly the lure Farquhar wants. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> &mdash; the spark that will become his hanging.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;He was a Federal scout.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; a single short sentence at the end of a long, ornate passage. The hammer-blow comes after the lullaby. And <span class="tag">8</span> <strong>irony</strong>: the Southern soldier in grey was the enemy.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 4: THE ESCAPE =================== -->
+<div id="tab4" class="tab-content">
+
+    <div class="content-block">
+        <h2>Part III &mdash; The Plunge</h2>
+        <p>Back to the bridge. The sergeant has stepped aside. Read carefully &mdash; very carefully &mdash; from here.</p>
+
+        <div class="reading-passage">
+            <p>As Peyton Farquhar fell straight downward through the bridge he lost consciousness and was as one already dead. From this state he was awakened &mdash; ages later, it seemed to him &mdash; by the pain of a sharp pressure upon his throat, followed by a sense of suffocation. Keen, poignant agonies seemed to shoot from his neck downward through every fibre of his body and limbs. These pains appeared to flash along well-defined lines of ramification and to beat with an inconceivably rapid periodicity. They seemed like streams of pulsating fire heating him to an intolerable temperature.</p>
+
+            <p>As to his head, he was conscious of nothing but a feeling of fullness &mdash; of congestion. These sensations were unaccompanied by thought. The intellectual part of his nature was already effaced; he had power only to feel, and feeling was torment. He was conscious of motion. Encompassed in a luminous cloud, of which he was now merely the fiery heart, without material substance, he swung through unthinkable arcs of oscillation, like a vast pendulum.</p>
+
+            <p>Then all at once, with terrible suddenness, the light about him shot upward with the noise of a loud plash; a frightful roaring was in his ears, and all was cold and dark. The power of thought was restored; he knew that the rope had broken and he had fallen into the stream. There was no additional strangulation; the noose about his neck was already suffocating him and kept the water from his lungs. To die of hanging at the bottom of a river! &mdash; the idea seemed to him ludicrous.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The fall</h4>
+            <ol>
+                <li>&ldquo;Streams of pulsating fire heating him to an intolerable temperature.&rdquo; What technique? What is happening to Farquhar&rsquo;s body &mdash; or to his perception of his body?</li>
+                <li>&ldquo;Like a vast pendulum.&rdquo; Spot the technique. Where else in the story has Bierce written about ticking?</li>
+                <li>&ldquo;The rope had broken and he had fallen into the stream.&rdquo; Read this sentence very slowly. Has it? Look at the watch in Part I. How long has the story been going on, in the world outside Farquhar&rsquo;s head?</li>
+                <li>&ldquo;To die of hanging at the bottom of a river! &mdash; the idea seemed to him ludicrous.&rdquo; Whose voice is this? Whose joke?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;like a vast pendulum&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong>. A pendulum is a clock&rsquo;s heart &mdash; the same clock that ticked in Part I. Bierce is telling us, gently, what we are really watching. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> made retrospective &mdash; the ending will reveal the meaning of every clock image.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>He opened his eyes in the darkness and saw above him a gleam of light, but how distant, how inaccessible! He was still sinking, for the light became fainter and fainter until it was a mere glimmer. Then it began to grow and brighten, and he knew that he was rising toward the surface &mdash; knew it with reluctance, for he was now very comfortable. &ldquo;To be hanged and drowned,&rdquo; he thought, &ldquo;that is not so bad; but I do not wish to be shot. No; I will not be shot; that is not fair.&rdquo;</p>
+
+            <p>He was not conscious of an effort, but a sharp pain in his wrist apprised him that he was trying to free his hands. He gave the struggle his attention, as an idler might observe the feat of a juggler, without interest in the outcome. What splendid effort! &mdash; what magnificent, what superhuman strength! Ah, that was a fine endeavour! Bravo! The cord fell away; his arms parted and floated upward, the hands dimly seen on each side in the growing light. He watched them with a new interest as first one and then the other pounced upon the noose at his neck. They tore it away and thrust it fiercely aside, its undulations resembling those of a water snake. &ldquo;Put it back, put it back!&rdquo; He thought he shouted these words to his hands, for the undoing of the noose had been succeeded by the direst pang that he had yet experienced. His neck ached horribly; his brain was on fire; his heart, which had been fluttering faintly, gave a great leap, trying to force itself out at his mouth. His whole body was racked and wrenched with an insupportable anguish! But his disobedient hands gave no heed to the command.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The escape</h4>
+            <ol>
+                <li>&ldquo;What splendid effort! &mdash; what magnificent, what superhuman strength! Ah, that was a fine endeavour! Bravo!&rdquo; Whose voice? What is the technique &mdash; and what should it be making us suspicious of?</li>
+                <li>The hands act on their own. They &ldquo;pounced upon the noose.&rdquo; What technique? What is happening to Farquhar&rsquo;s mind?</li>
+                <li>&ldquo;Its undulations resembling those of a water snake.&rdquo; Spot the technique. Compare this snake with the snake in The Monkey&rsquo;s Paw.</li>
+                <li>&ldquo;Put it back, put it back!&rdquo; What is the technique? And why would he wish to be hanged again?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;What splendid effort! &mdash; what magnificent, what superhuman strength!&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">7</span> <strong>Hyperbole</strong> &mdash; and Bierce is not joking, but neither is he being sincere. The voice belongs to a man whose brain is dying. Everything is now <em>magnificent</em>. Bonus: <span class="tag">8</span> <strong>irony</strong> &mdash; the escape is a fantasy.</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>He felt his head emerge; his eyes were blinded by the sunlight; his chest expanded convulsively, and with a supreme and crowning agony his lungs engulfed a great draught of air, which instantly he expelled in a shriek! He was now in full possession of his physical senses. They were, indeed, preternaturally keen and alert. Something in the awful disturbance of his organic system had so exalted and refined them that they made record of things never before perceived. He felt the ripples upon his face and heard their separate sounds as they struck. He looked at the forest on the bank of the stream, saw the individual trees, the leaves and the veining of each leaf &mdash; he saw the very insects upon them: the locusts, the brilliant-bodied flies, the gray spiders stretching their webs from twig to twig. He noted the prismatic colours in all the dew-drops upon a million blades of grass. The humming of the gnats that danced above the eddies of the stream, the beating of the dragon-flies&rsquo; wings, the strokes of the water-spiders&rsquo; legs, like oars which had lifted their boat &mdash; all these made audible music. A fish slid along beneath his eyes and he heard the rush of its body parting the water.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The world</h4>
+            <ol>
+                <li>Count the things Farquhar sees and hears in this paragraph. Could a human eye actually see &ldquo;the veining of each leaf&rdquo; from a river? What technique?</li>
+                <li>&ldquo;Made audible music.&rdquo; What technique &mdash; and why does Bierce push the senses into impossibility?</li>
+                <li>If a person&rsquo;s senses become &ldquo;preternaturally keen and alert,&rdquo; whose mind have we already met in this course who also claimed that?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;He saw the individual trees, the leaves and the veining of each leaf &mdash; he saw the very insects upon them.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">7</span> <strong>Hyperbole</strong> and <span class="tag">4</span> <strong>imagery</strong> at the same time. The eye cannot see the veining of a leaf from a river. Bierce is signalling, gently, that what we are reading is not the real world. Bonus: a callback to Poe&rsquo;s madman who could &ldquo;hear all things in the heaven and in the earth.&rdquo;</div>
+        </div>
+
+        <div class="reading-passage">
+            <p>(Farquhar, in the imagined escape, swims down the stream, evades the soldiers&rsquo; gunfire, crawls onto the bank, walks all day and night through the forest, and reaches his own gate at dawn.)</p>
+
+            <p>He stands at the gate of his own home. All is as he left it, and all bright and beautiful in the morning sunshine. He must have travelled the entire night. As he pushes open the gate and passes up the wide white walk, he sees a flutter of female garments; his wife, looking fresh and cool and sweet, steps down from the veranda to meet him. At the bottom of the steps she stands waiting, with a smile of ineffable joy, an attitude of matchless grace and dignity. Ah, how beautiful she is! He springs forwards with extended arms. As he is about to clasp her he feels a stunning blow upon the back of the neck; a blinding white light blazes all about him with a sound like the shock of a cannon &mdash; then all is darkness and silence!</p>
+
+            <p>Peyton Farquhar was dead; his body, with a broken neck, swung gently from side to side beneath the timbers of the Owl Creek bridge.</p>
+        </div>
+
+        <div class="discussion-box">
+            <h4>The ending</h4>
+            <ol>
+                <li>&ldquo;Ah, how beautiful she is!&rdquo; Whose voice? Whose feeling? Compare with the &ldquo;Bravo!&rdquo; voice from a few paragraphs back.</li>
+                <li>&ldquo;A stunning blow upon the back of the neck; a blinding white light blazes all about him with a sound like the shock of a cannon &mdash; then all is darkness and silence!&rdquo; Spot the technique &mdash; and ask what these sensations <em>really</em> are.</li>
+                <li>Read the final sentence aloud. Three short clauses. What is the technique &mdash; and what has Bierce just done to every paragraph of the story since the sergeant stepped aside?</li>
+                <li>Go back to Part I. Look at the watch ticking. How long has Farquhar been falling, in the real world, while Part III has been happening in his head?</li>
+                <li>The story is built on a lie. Whose lie is it &mdash; Bierce&rsquo;s, or Farquhar&rsquo;s? Is it the same kind of lie as Poe&rsquo;s narrator? Or different?</li>
+            </ol>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;A blinding white light blazes all about him with a sound like the shock of a cannon.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">3</span> <strong>Simile</strong> (&ldquo;like the shock of a cannon&rdquo;) and <span class="tag">4</span> <strong>imagery</strong>. The light, the sound, the blow at the back of the neck &mdash; these are the real sensations of being hanged, breaking through the fantasy. Bonus: <span class="tag">5</span> <strong>symbolism</strong> &mdash; the &ldquo;blinding light&rdquo; is the rope going taut.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>Spot the technique</h4>
+            <p class="quote">&ldquo;Peyton Farquhar was dead; his body, with a broken neck, swung gently from side to side beneath the timbers of the Owl Creek bridge.&rdquo;</p>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal';">Reveal</div>
+            <div class="answer-text"><span class="tag">1</span> <strong>Diction</strong> &mdash; the cool, almost newspaper voice returns. And <span class="tag">8</span> <strong>irony</strong> &mdash; the gentle swinging is the pendulum from Part III made real. Bonus: <span class="tag">9</span> <strong>foreshadowing</strong> revealed: every ticking image was Bierce telling us the rope was already taut.</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== TAB 5: TALLY + WRITE =================== -->
+<div id="tab5" class="tab-content">
+
+    <div class="content-block">
+        <h2>Technique Tally</h2>
+        <p>Bierce uses all ten &mdash; but what makes the story famous is how he uses irony and foreshadowing. Click each card.</p>
+
+        <div class="tally-grid">
+            <div class="tally-card">
+                <h4>1. Diction</h4>
+                <p>&ldquo;Engaged in being hanged&rdquo; &middot; &ldquo;a civilian and student of hanging&rdquo; &middot; the cool, military voice.</p>
+            </div>
+            <div class="tally-card">
+                <h4>2. Metaphor</h4>
+                <p>&ldquo;Streams of pulsating fire&rdquo; &middot; the river as the rope, time as a clock.</p>
+            </div>
+            <div class="tally-card">
+                <h4>3. Simile</h4>
+                <p>&ldquo;Like the tolling of a death knell&rdquo; &middot; &ldquo;like a vast pendulum&rdquo; &middot; &ldquo;like the shock of a cannon.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>4. Imagery</h4>
+                <p>The military precision of Part I &middot; the dew-drops, the veining of leaves in Part III.</p>
+            </div>
+            <div class="tally-card">
+                <h4>5. Symbolism</h4>
+                <p>The watch &mdash; time running out. The river &mdash; the line between life and death.</p>
+            </div>
+            <div class="tally-card">
+                <h4>6. Personification</h4>
+                <p>His &ldquo;disobedient hands&rdquo; that act without him &middot; the &ldquo;leaping&rdquo; heart.</p>
+            </div>
+            <div class="tally-card">
+                <h4>7. Hyperbole</h4>
+                <p>&ldquo;The veining of each leaf&rdquo; from the river &middot; &ldquo;superhuman strength&rdquo; &middot; senses &ldquo;preternaturally keen.&rdquo;</p>
+            </div>
+            <div class="tally-card">
+                <h4>8. Irony</h4>
+                <p>The whole story. &ldquo;Student of hanging.&rdquo; The grey-clad soldier who was a Federal scout.</p>
+            </div>
+            <div class="tally-card">
+                <h4>9. Foreshadowing</h4>
+                <p>The watch in Part I &middot; &ldquo;civilian and student of hanging&rdquo; &middot; the pendulum.</p>
+            </div>
+            <div class="tally-card">
+                <h4>10. Repetition</h4>
+                <p>&ldquo;Put it back, put it back!&rdquo; &middot; the pendulum image returns as the body &ldquo;swung gently from side to side.&rdquo;</p>
+            </div>
+        </div>
+
+        <div class="discussion-box">
+            <h4>Final discussion &mdash; pick any two</h4>
+            <ol>
+                <li>How much time, in the real world, does the whole story cover? Where in the text do you find the proof?</li>
+                <li>Compare Bierce&rsquo;s narrator with Poe&rsquo;s in the Tell-Tale Heart. One is cold and the other is hot. Which is more frightening, and why?</li>
+                <li>Bierce begins with a hanging and ends with a hanging. What has changed between line one and the last line?</li>
+                <li>If you were going to write a story where the reader is fooled all the way through, which two techniques would you steal from Bierce first?</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>Your turn &mdash; write in Bierce&rsquo;s style</h2>
+        <p>Write one paragraph (around 80&ndash;100 words) in which a character experiences a moment of great speed or panic, but the writing slows down to take in every detail of the world around them. You must use <strong>at least three</strong> of the ten techniques. Mark them as you go: <em>(7 hyperbole)</em>, <em>(4 imagery)</em>, and so on.</p>
+
+        <div class="timer">
+            <span>Writing time: <strong><span id="timer-display">10:00</span></strong></span>
+            <span>
+                <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </span>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your Bierce-style paragraph here. Mark the techniques in brackets as you use them."></textarea>
+
+        <div class="discussion-box">
+            <h4>When you&rsquo;ve finished</h4>
+            <ol>
+                <li>Read it aloud. Does the writing slow time, or just describe it slowing?</li>
+                <li>Did you let your character see something they could not really have seen? That is Bierce&rsquo;s trick.</li>
+                <li>What is the smallest detail in your paragraph &mdash; and could it carry symbolism if pressed?</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+function flipTech(el) { el.classList.toggle("flipped"); }
+let timerInterval = null;
+let timeRemaining = 600;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+        else if (timeRemaining <= 30) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+        else { timerEl.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 600;
+    document.getElementById("timer-display").textContent = "10:00";
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>
