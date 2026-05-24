@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Before the Mast</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 130px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 24px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.8; }
+.reading-passage p { margin-bottom: 15px; }
+.reading-passage p.pron-cue { font-size: 0.82em; font-style: italic; color: #6b5b8a; margin: -8px 0 6px 0; padding: 4px 0 4px 12px; border-left: 2px solid #764ba2; line-height: 1.5; }
+.reading-passage p.pron-cue strong { font-style: normal; color: #764ba2; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.92em; font-weight: 700; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 20px; border-radius: 6px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #764ba2; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.speak-prompt ol, .speak-prompt ul { margin-left: 22px; margin-bottom: 0; }
+.speak-prompt ol li, .speak-prompt ul li { margin-bottom: 6px; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-controls { display: flex; gap: 8px; }
+.timer-btn { padding: 8px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; font-size: 0.9em; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85em; }
+.duration-btn.active { background: white; color: #667eea; }
+.condition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin: 20px 0; }
+.condition-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; }
+.condition-card h4 { color: #764ba2; margin-bottom: 8px; }
+.myth-card { background: white; border: 2px solid #764ba2; border-radius: 8px; padding: 18px; margin: 12px 0; }
+.myth-card h4 { color: #764ba2; margin-bottom: 8px; font-size: 1.05em; }
+.myth-card p { font-size: 0.95em; }
+.myth-card .figure { font-size: 0.78em; letter-spacing: 0.14em; text-transform: uppercase; color: #667eea; font-weight: 700; margin-bottom: 4px; }
+.form-box { background: #fef9e7; border: 1px dashed #b8902f; padding: 10px 14px; border-radius: 4px; margin: 8px 0; font-size: 0.92em; }
+.form-box strong { color: #b8902f; }
+.hot-take { background: white; border-left: 5px solid #764ba2; padding: 16px 18px; margin-bottom: 12px; border-radius: 4px; font-style: italic; color: #333; }
+.hot-take strong { font-style: normal; color: #764ba2; margin-right: 6px; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.7em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>Dream Before the Mast</h1>
+    <p>Why the Ulysses Contract starts in the wrong place &mdash; and what has to come first</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Opening Provocations</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Working Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">A Short Reading</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Grammar Live</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Speaking Tasks</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>Before we tie ourselves to anything</h2>
+        <p>You may already know the famous image: Ulysses, lashed to the mast of his ship, so that he could safely hear the song of the Sirens. We've built a whole modern idea around that scene &mdash; the <em>Ulysses contract</em>: bind your future self in advance; make rules; remove options. Useful. Smart, even. But notice what the picture quietly leaves out. Ulysses wasn't tied to a mast in the middle of nowhere. He was sailing <strong>home</strong>. He was sailing to Ithaca, to his wife, to his son. The rope only made sense because the destination did. Take Ithaca away and the rope is no longer discipline &mdash; it's just a man tied to a piece of wood, going nowhere on purpose. This lesson is a friendly argument with the standard story. The claim is simple: <em>the contract is fine, but it can't come first.</em> The dream comes first. Then &mdash; almost on its own &mdash; the framework follows.</p>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first reactions</span>
+            <p>Two or three full sentences per answer. Take your time; we're warming up an argument, not racing through a list.</p>
+            <ol>
+                <li>Think about a rule you've set for yourself recently &mdash; about work, sleep, your phone, anything. If you ask the honest question, was that rule built on top of a dream you were sailing towards, or built underneath a fear you were running from? What's the difference, in your own life, between the two?</li>
+                <li>Have you ever set yourself an impressive set of rules and watched them quietly fall apart within a few weeks? Looking back, what was actually missing &mdash; better discipline, or a clearer reason?</li>
+                <li>A lot of corporate "frameworks" promise to fix performance. Have you ever sat inside one and felt that the framework had outlived the original reason for its existence? What did it feel like to operate inside it?</li>
+                <li>If a colleague told you they had no dream &mdash; nothing they were actively sailing towards &mdash; but had a brilliantly organised system of rules, what would your instinct tell you about their year ahead?</li>
+            </ol>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; hot takes</span>
+            <p>Each of these is a single sentence. Pick the one that bites you the most and respond to it &mdash; agree, push back, complicate, refine. Then pick the one you find easiest to dismiss and try to take it seriously for sixty seconds.</p>
+            <div class="hot-take"><strong>1.</strong> Rules without a dream are walls without a house &mdash; they're just standing there, looking strict.</div>
+            <div class="hot-take"><strong>2.</strong> Most people don't fail at discipline. They fail at imagining what their life is actually for.</div>
+            <div class="hot-take"><strong>3.</strong> You can't tie yourself to the mast of a ship that has no destination &mdash; you can only tie yourself to a piece of furniture.</div>
+            <div class="hot-take"><strong>4.</strong> Discipline that doesn't serve a vision turns into self-punishment dressed up as virtue.</div>
+            <div class="hot-take"><strong>5.</strong> The Ulysses contract is a wonderful instrument and a terrible starting point.</div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Eight chunks to put to work</h2>
+        <p>Click each card. Read it; close it; move on. Every one of these turns up in the reading on the next tab &mdash; and you'll need them in the speaking tasks at the end.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">your own Ithaca</span>
+                <span class="definition">The long-term destination that gives a journey its meaning. The thing you're sailing towards &mdash; not the rules you sail under.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to chart a course</span>
+                <span class="definition">To deliberately set the direction of a journey, before you start tying yourself down. The first move, not the last.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">an inner compass</span>
+                <span class="definition">A sense of direction that comes from inside you &mdash; from what you actually want &mdash; rather than from rules imposed by anyone else.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">intrinsic motivation</span>
+                <span class="definition">The pull from within that needs no enforcement: you do the thing because you genuinely want where it leads, not because someone is checking.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to put the cart before the horse</span>
+                <span class="definition">To do things in exactly the wrong order &mdash; building the framework before you've named the dream that the framework is meant to serve.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a fear-based posture</span>
+                <span class="definition">Standing in a defensive crouch. Starting from "what if I fail?" rather than "what am I sailing towards?" &mdash; and dressing that fear up as discipline.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a hollow ritual</span>
+                <span class="definition">A practice that's lost the meaning it once had. The actions still happen; the reason has quietly left the room.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a scaffolding</span>
+                <span class="definition">A supporting framework that goes up around something that's already growing &mdash; rules that emerge to hold the dream, not to replace it.</span>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; rapid-fire drill</span>
+            <p>Your teacher reads each prompt aloud. Answer in one full sentence using at least one of the chunks above. Don't write. If you stall on one, move on &mdash; the rhythm matters more than the perfect answer.</p>
+            <ol>
+                <li>"In one sentence: name your own Ithaca for this year."</li>
+                <li>"Describe a moment when you realised your inner compass had been pointing somewhere your rules weren't."</li>
+                <li>"Tell me about a rule you set that turned out to be a hollow ritual within a month."</li>
+                <li>"Give me an example, from work or life, of putting the cart before the horse."</li>
+                <li>"When was the last time you noticed yourself operating from a fear-based posture and dressing it up as discipline?"</li>
+                <li>"Finish this: the scaffolding only works when&hellip;"</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>One paragraph. Then we open the argument.</h2>
+        <p>Read this aloud, slowly. It's here to sharpen a position, not to be studied to death. The conversation underneath it is the point of the lesson.</p>
+
+        <div class="reading-passage">
+            <p>There's a particular conversation that keeps happening in corporate rooms, and it tends to go in the wrong order. Someone produces a framework, a set of rules, a binding policy &mdash; the modern descendants of Ulysses lashed to the mast &mdash; and the room nods, and the document is signed, and within a quarter the whole thing is already a <strong>hollow ritual</strong> that nobody really believes in. The honest diagnosis is rarely a failure of discipline. It is that the rules have been built from a <strong>fear-based posture</strong> &mdash; "what if we lose money? what if we fail? what if someone makes the wrong call?" &mdash; rather than from anything resembling a dream. The Greeks, oddly, were clearer about this than we are. Ulysses was tied to the mast, yes &mdash; but he was sailing to <strong>his own Ithaca</strong>, to Penelope, to his son. Take Ithaca away and the rope means nothing; the man is simply tied to wood. Jason went to the ends of the earth for the Golden Fleece because he wanted a kingdom back, not because he had drawn up a binding policy on monster-management. The order of operations was the same in every case: first the <strong>inner compass</strong>, then the destination it pointed at, then &mdash; only then &mdash; the discipline that the journey actually required. Do it the other way round and you have <strong>put the cart before the horse</strong>: you have built a framework with nothing inside it, and you will spend the next year wondering why nobody has the <strong>intrinsic motivation</strong> to honour it. The reframing is small but it changes the room. Don't begin by asking what rules we need. Begin by asking what we are actually sailing towards. <strong>Chart a course</strong> first. The <strong>scaffolding</strong> then goes up almost on its own, because the people inside the building know what's being built and, more importantly, why.</p>
+            <p class="pron-cue"><strong>Phrasing &middot;</strong> read aloud with a small pause at every comma and dash. The sentences are long on purpose; chunk them at the joints.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. In one sentence: what is the writer's central objection to the Ulysses contract as it's usually taught?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Not that it's wrong &mdash; that it's in the wrong order. It starts from fear of failure rather than from a dream worth pursuing, and so the resulting rules end up hollow because there's no destination to anchor them to.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Why does the writer keep returning to the image of Ithaca?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because Ithaca is the part of the Ulysses story that modern retellings quietly forget. The mast and the rope are useless without a destination. Ithaca is what the discipline is in service of &mdash; and once you remove the destination, the rope is no longer discipline, just self-imprisonment.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. The writer says scaffolding "goes up almost on its own". What does that mean, in plain language, for how a leader should design a team's rules?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">That you don't start by writing rules. You start by naming &mdash; out loud, clearly, with conviction &mdash; what the team is actually trying to build. Once the destination is shared, most of the necessary rules become obvious: people propose them themselves, because they can see what the rule is for. The leader's job shifts from imposing structure to articulating purpose.</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; into the argument</span>
+            <p>No writing. Pick the question that pulls you most and run with it. Two or three minutes per answer.</p>
+            <ol>
+                <li>Where in your own life or work have you watched a framework die a quiet death because it had no Ithaca behind it? What would have had to come first?</li>
+                <li>The writer claims the Greeks were "clearer about this than we are". Fair, or romantic nonsense? Defend a position.</li>
+                <li>Take one binding policy in your own organisation. Reverse-engineer it: what dream is it supposed to be in service of? Can you actually name that dream, or has it gone missing?</li>
+                <li>If "dream first, framework second" is right, then a great deal of leadership coaching has the order wrong. What would change about the way you led, or were led, if every team began with a named Ithaca instead of a list of rules?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Cleft sentences &mdash; saying which thing comes first</h2>
+        <p>Cleft sentences are the grammar of <em>shifting emphasis</em>. They let you take a flat statement and pull one part of it forward, signalling: <em>this, specifically, is what matters</em>. That's exactly what the whole argument of this lesson is about &mdash; getting the order right. So the grammar and the content do the same job. Get this clean, and your spoken English instantly sounds more deliberate.</p>
+
+        <div class="form-box">
+            <strong>The two main shapes:</strong> &nbsp;
+            (1) <em>It is&nbsp;<strong>X</strong>&nbsp;that &hellip;</em> &nbsp; &mdash; pulls a noun, phrase or person forward.
+            &nbsp;&nbsp; (2) <em>What &hellip; is&nbsp;<strong>Y</strong>.</em> &nbsp; &mdash; pulls a whole idea forward and lands it at the end.
+        </div>
+
+        <div class="condition-grid">
+            <div class="condition-card">
+                <h4><em>It is &hellip; that</em> &mdash; isolating the key thing</h4>
+                <p>Pulls one element out for emphasis.</p>
+                <p style="margin-top:6px;"><em>Flat: "The dream matters first."</em></p>
+                <p><em>Cleft: <strong>It is the dream that</strong> matters first &mdash; not the framework.</em></p>
+                <p style="margin-top:6px;"><em>Cleft: <strong>It was Ithaca that</strong> made the rope meaningful, not the other way round.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>What &hellip; is &hellip;</em> &mdash; landing the idea at the end</h4>
+                <p>Holds the listener; releases the point on the final word.</p>
+                <p style="margin-top:6px;"><em>Flat: "We need a clear destination."</em></p>
+                <p><em>Cleft: <strong>What we need first is a clear destination.</strong></em></p>
+                <p style="margin-top:6px;"><em>Cleft: <strong>What this framework is missing is a dream.</strong></em></p>
+            </div>
+            <div class="condition-card">
+                <h4>Useful variations</h4>
+                <p style="margin-top:0;"><em><strong>The thing that</strong> matters first is the destination.</em></p>
+                <p><em><strong>All that</strong> changes is the order of operations.</em></p>
+                <p><em><strong>The reason</strong> the rules collapse <strong>is that</strong> nobody can name the Ithaca.</em></p>
+                <p><em><strong>What's missing</strong>, almost always, <strong>is</strong> the dream behind the discipline.</em></p>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; oral transformation drill</span>
+            <p>Your teacher reads a flat sentence. You reformulate it on the spot, aloud, using the cleft pattern indicated. Don't write. Each item has a model hidden below.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Flat: "The dream comes first, not the rules." &nbsp; &rarr; &nbsp; use <em>It is &hellip; that &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>It is the dream that comes first, not the rules.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Flat: "We need a clear destination before anything else." &nbsp; &rarr; &nbsp; use <em>What &hellip; is &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>What we need before anything else is a clear destination.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Flat: "Ithaca made the rope meaningful." &nbsp; &rarr; &nbsp; use <em>It was &hellip; that &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>It was Ithaca that made the rope meaningful.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Flat: "This framework is missing a real dream." &nbsp; &rarr; &nbsp; use <em>What &hellip; is &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>What this framework is missing is a real dream.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. Flat: "The rules collapse because nobody can name the destination." &nbsp; &rarr; &nbsp; use <em>The reason &hellip; is that &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>The reason the rules collapse is that nobody can name the destination.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Flat: "He didn't fail because of discipline. He failed because he had no vision." &nbsp; &rarr; &nbsp; use <em>It wasn't &hellip; that &hellip; It was &hellip;</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>It wasn't a lack of discipline that made him fail. It was a lack of vision.</strong></div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; live micro-task</span>
+            <p>Pick a rule, framework or binding policy you've lived under recently &mdash; at work, in a team, in your own life. In sixty seconds, defend or attack it using at least <strong>three</strong> cleft sentences (mix the patterns). Speak; don't write. Let the grammar do the work of putting the most important word last.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Three speaking tasks &mdash; do all three</h2>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task A &middot; name your Ithaca (4 minutes)</span>
+            <p>Pick one area of your life &mdash; your career, your health, a project, a relationship, a year &mdash; and tell the story of the Ithaca that sits behind it. This is not a wish list and it is not a CV; it is the specific destination that, if you reached it, would make most of your current rules and habits feel like obvious supports rather than effortful constraints. Cover:</p>
+            <ol>
+                <li>What, precisely, is the Ithaca? Where are you sailing? Be specific &mdash; not "be more successful", but the actual scene.</li>
+                <li>What is your inner compass already telling you about that destination, regardless of whether you've named it before?</li>
+                <li>Which of your current rules and routines suddenly make obvious sense once you put that destination behind them &mdash; and which look like a fear-based posture pretending to be discipline?</li>
+                <li>What scaffolding does that journey actually need, now that the destination is named? What can quietly come down?</li>
+            </ol>
+            <p>Weave in at least <strong>three</strong> vocabulary chunks from Tab 2 and at least <strong>two</strong> cleft sentences from Tab 4.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task B &middot; the rules-first speech (3 minutes)</span>
+            <p>A confident colleague stands up in a meeting and says:</p>
+            <p style="font-style:italic; padding-left: 14px; border-left: 3px solid #764ba2;">"Look, we don't need more vision sessions. What we need is discipline. We need clear rules, hard lines, binding policies. Tie the team to the mast and the results will follow. Dreams are for weekends; what gets us through Monday morning is structure."</p>
+            <p>Push back. Concede what should be conceded &mdash; rules genuinely matter &mdash; but argue that this is exactly the speech of someone who has put the cart before the horse. Use at least <strong>two</strong> cleft sentences and at least <strong>two</strong> vocabulary chunks. Be concrete about what goes wrong, in a real team, when the framework arrives before the dream.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task C &middot; coaching the disciplined colleague (4 minutes)</span>
+            <p>Your teacher plays a hard-working colleague who has every system in place &mdash; calendar blocked to the minute, hard rules about food, sleep, phone, screens, weekends &mdash; and who is, in their own private opinion, tired, joyless and quietly stuck. They are doing everything "right" and nothing is moving. They ask you, half-seriously, what you'd change.</p>
+            <p>You do not begin by suggesting more rules or fewer rules. You ask, gently, about the Ithaca &mdash; and you keep asking until something honest is named. Stay with the conversation. Resist the urge to give advice. Let the destination do the work the rules have been failing to do.</p>
+            <p>Then swap. You're the disciplined-but-stuck one. Your teacher coaches you. Notice, in your own mouth, how hard it is to name an Ithaca out loud.</p>
+        </div>
+
+        <div class="content-block" style="background: white; border-left-color: #764ba2;">
+            <h3>Final open discussion</h3>
+            <ol style="margin-left: 20px; line-height: 1.9;">
+                <li>If "dream first, framework second" is the right order, what does that say about most New Year's resolutions? What would a dream-first resolution actually sound like &mdash; in your own voice, this year?</li>
+                <li>There are people whose Ithaca was once vivid and is now quietly missing &mdash; they're still rowing, but they've forgotten where. How can you spot one? How can you spot it in yourself?</li>
+                <li>Imagine the version of you sitting in the same chair five years from now. What's the Ithaca they would most want present-you to name out loud, today &mdash; not write down, not plan, just name?</li>
+                <li>If you had to give one piece of advice to someone who is about to design a binding policy, a strict routine or a new framework for themselves, what would you tell them to do first &mdash; before they reach for the rope?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById("timer-display").textContent =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function resetTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        updateDisplay();
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
