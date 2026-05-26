@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lady, or the Tiger?</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.05em; opacity: 0.95; }
+header .attribution { display: block; margin-top: 8px; font-size: 0.88em; opacity: 0.85; font-style: italic; }
+.tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+.tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 130px; display: flex; align-items: center; justify-content: center; }
+.vocab-card:hover { box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); transform: translateY(-5px); }
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.05em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+.answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+.answer-btn:hover { background: #764ba2; }
+.answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+.answer-text.show { display: block; }
+.question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+.reading-passage { background: white; padding: 24px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; line-height: 1.85; }
+.reading-passage p { margin-bottom: 16px; }
+.reading-passage p:last-child { margin-bottom: 0; }
+.reading-passage p.pron-cue { font-size: 0.82em; font-style: italic; color: #6b5b8a; margin: -4px 0 6px 0; padding: 4px 0 4px 12px; border-left: 2px solid #764ba2; line-height: 1.5; }
+.reading-passage p.pron-cue strong { font-style: normal; color: #764ba2; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.92em; font-weight: 700; }
+.reading-passage .attribution-line { font-size: 0.85em; color: #6b5b8a; text-align: right; font-style: italic; margin-top: 8px; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 20px; border-radius: 6px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #764ba2; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.speak-prompt ol, .speak-prompt ul { margin-left: 22px; margin-bottom: 0; }
+.speak-prompt ol li, .speak-prompt ul li { margin-bottom: 6px; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { padding: 8px 14px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; font-size: 0.9em; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85em; }
+.duration-btn.active { background: white; color: #667eea; }
+.condition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin: 20px 0; }
+.condition-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; }
+.condition-card h4 { color: #764ba2; margin-bottom: 8px; }
+.form-box { background: #fef9e7; border: 1px dashed #b8902f; padding: 10px 14px; border-radius: 4px; margin: 12px 0; font-size: 0.92em; }
+.form-box strong { color: #b8902f; }
+.hot-take { background: white; border-left: 5px solid #764ba2; padding: 16px 18px; margin-bottom: 12px; border-radius: 4px; font-style: italic; color: #333; }
+.hot-take strong { font-style: normal; color: #764ba2; margin-right: 6px; }
+.door-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0; }
+.door-card { background: white; border: 3px solid #667eea; border-radius: 8px; padding: 22px; text-align: center; }
+.door-card h3 { color: #764ba2; margin-bottom: 8px; }
+.door-card p { font-size: 0.95em; color: #555; }
+.door-card .door-label { font-size: 0.78em; letter-spacing: 0.18em; text-transform: uppercase; color: #667eea; font-weight: 700; margin-bottom: 6px; display: block; }
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.7em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+    .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .door-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>The Lady, or the Tiger?</h1>
+    <p>A 140-year-old story with no ending &mdash; and the grammar that lets you argue for one</p>
+    <span class="attribution">Adapted from the short story by Frank R. Stockton (1882)</span>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">The Setup</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Working Vocabulary</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">The Story</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Grammar Live</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">The Verdict</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>Before we open any doors</h2>
+        <p>In a moment, you'll read a story that's almost a hundred and forty years old, by an American writer called Frank Stockton. It runs to about four hundred words and it has no ending. None. The author deliberately stops at the moment of the decision and turns the question back to the reader. People have been arguing about it ever since &mdash; in classrooms, in newspapers, at dinner tables &mdash; and there is, genuinely, no right answer. Before we start, let's warm up the part of you that does the arguing.</p>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first questions</span>
+            <p>Two or three full sentences each. We're priming the muscle, not racing.</p>
+            <ol>
+                <li>Imagine you discovered that the person you love has been glancing &mdash; just glancing &mdash; at someone else, and that other person has been glancing back. Nothing has happened. What does your reaction look like, honestly, in the first three days?</li>
+                <li>Is it possible to genuinely love someone and, at the same time, want them not to exist in the same room as a rival? Or does jealousy automatically mean the love is failing?</li>
+                <li>Some legal systems put the accused person in front of a jury of strangers. Some used to put them in front of a fight, a trial of fire, a duel. Has the human instinct behind those old systems actually disappeared, or has it just changed clothes?</li>
+                <li>If someone you loved was about to make a life-changing decision and you alone knew which choice would destroy them &mdash; would you tell them? Always? Even if telling them would also destroy you?</li>
+            </ol>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; hot takes</span>
+            <p>Each of these is a single sentence. Pick the one that bites you most and respond &mdash; agree, push back, complicate. Then pick the one you find easiest to dismiss and try to take it seriously for sixty seconds.</p>
+            <div class="hot-take"><strong>1.</strong> A king who calls this "justice" is calling it "entertainment" and hoping nobody notices.</div>
+            <div class="hot-take"><strong>2.</strong> Whether she sent him to the lady or to the tiger, she made the decision for him &mdash; that's the real cruelty of the story.</div>
+            <div class="hot-take"><strong>3.</strong> The story isn't really about the princess at all; it's about what every reader instantly assumes about love.</div>
+            <div class="hot-take"><strong>4.</strong> A door that hides a tiger and a door that hides a wife are not as different as the king pretends.</div>
+            <div class="hot-take"><strong>5.</strong> If you can't decide which she chose, that says more about you than it does about her.</div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Eight chunks to put to work</h2>
+        <p>Click each card. Read it; close it; move on. Every one of these turns up in the story on the next tab, and you'll need them in the verdict at the end &mdash; you can't argue the ending without them.</p>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">semi-barbaric</span>
+                <span class="definition">Half-civilised and half-savage at the same time. Used of people, customs or systems where there's a thin layer of refinement over something genuinely brutal.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to seal someone's fate</span>
+                <span class="definition">To finally decide what will happen to someone &mdash; usually something serious, often irreversible. The word <em>fate</em> alone means: what is destined to happen.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to be smitten with someone</span>
+                <span class="definition">To be suddenly and helplessly in love. Stronger and more literary than "to fall for someone" &mdash; it sounds like the feeling has hit you like a blow.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a rival</span>
+                <span class="definition">Someone competing with you for the same thing &mdash; a job, a prize, a person's love. The word always implies a contest that someone will eventually lose.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a well-placed bribe</span>
+                <span class="definition">Money or a favour given to exactly the right person at exactly the right moment, to make them do something they shouldn't. "Well-placed" is the give-away word: it implies skill, not desperation.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a flicker of jealousy</span>
+                <span class="definition">A brief, almost involuntary appearance of the feeling. <em>A flicker of</em> works with any sudden small emotion &mdash; <em>a flicker of doubt, of recognition, of fear</em>.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">to give the slightest signal</span>
+                <span class="definition">To communicate something silently with a tiny gesture &mdash; a glance, the smallest movement of a hand &mdash; that almost nobody else would notice.</span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">unflinching</span>
+                <span class="definition">Showing no hesitation, fear or doubt in a moment when most people would. Often used approvingly &mdash; but it can also be a cold word, depending on context.</span>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; rapid-fire drill</span>
+            <p>Your teacher reads each prompt aloud. Answer in one full sentence, using at least one of the chunks above. Don't write. Move quickly; rhythm matters more than the perfect answer.</p>
+            <ol>
+                <li>"Tell me about a custom in your own country that an outsider might call semi-barbaric."</li>
+                <li>"Describe a moment from your life when you felt smitten with something &mdash; a person, a place, an idea."</li>
+                <li>"Give me an example of a well-placed bribe &mdash; from history, from fiction, or from anything you've heard."</li>
+                <li>"Describe a moment when you noticed a flicker of jealousy in yourself and were surprised by it."</li>
+                <li>"Tell me about someone you've watched make an unflinching decision &mdash; and whether you admired them or were quietly disturbed."</li>
+                <li>"Finish this: the most expensive signal I ever gave someone was&hellip;"</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>The story &mdash; read it aloud, slowly</h2>
+        <p>About four hundred words. Read it as if you were reading it to someone who would only hear it once. Pause at every comma. Let the last line sit in the air before you move on.</p>
+
+        <div class="reading-passage">
+            <p>In the very olden time, there lived a king whose ideas were <strong>semi-barbaric</strong> &mdash; partly civilised, partly savage. When one of his subjects was accused of a serious crime, the man's <strong>fate</strong> was sealed in the king's arena. The accused was led in, alone, and made to stand before two identical doors. Behind one waited a fierce tiger, the most savage that could be found. If the man opened that door, the tiger leapt out and tore him to pieces. Behind the other stood a beautiful young woman, the best the court could find. If he opened <em>that</em> door, she was given to him in marriage on the spot &mdash; whether he was already married or not. This was the king's idea of perfect justice, and he thought it magnificent.</p>
+
+            <p>This king had a daughter &mdash; beloved, beautiful, and as headstrong as her father. She had become <strong>smitten with</strong> a young man at court: handsome, brave, and far below her station. He returned her love. When the king discovered the affair, he was furious, and immediately sent the young man to the arena. The whole kingdom turned out to watch.</p>
+
+            <p>The princess had not been idle. By force of will and by a series of <strong>well-placed bribes</strong>, she had discovered which of the two doors hid the lady, and which the tiger. More than that &mdash; she knew the lady. She knew her to be the most beautiful woman of the court, and she had once seen her young man glance at this <strong>rival</strong>, and the rival glance back. Even now, remembering it, the briefest <strong>flicker of jealousy</strong> passed across her face.</p>
+
+            <p>The young man stepped into the arena and turned, as everyone always did, towards the princess in the gallery. Their eyes met. With <strong>the slightest signal</strong> of her hand, almost too small for the watching crowd to see, she pointed to the door on the right. He went to it, <strong>unflinching</strong>, and laid his hand upon the latch.</p>
+
+            <p>And here is the point of the story. Did the tiger come out of that door &mdash; or did the lady? The princess had thought about it for many days and many nights. To send him to his death was unbearable. But to watch him married to her rival, in front of the cheering crowd &mdash; that was unbearable too. Some have called her the most loving daughter of her time; others, the most jealous woman who ever lived. Which would you, in her place, have chosen &mdash; the lady, or the tiger?</p>
+
+            <p class="attribution-line">&mdash; adapted from Frank R. Stockton, <em>The Lady, or the Tiger?</em> (1882)</p>
+            <p class="pron-cue"><strong>Phrasing &middot;</strong> read aloud at funeral pace. The story works on rhythm; rush it and the ending lands flat.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. What does the king's idea of "perfect justice" tell us about him as a ruler?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">He is powerful, theatrical and a little lazy all at once &mdash; he lets fate decide instead of judging, and he treats trials as public entertainment. The word "semi-barbaric" at the start is the writer's quiet warning: this is a man who dresses brutality up in fine language. Everything he does later in the story should be read through that lens, including how he treats his own daughter.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Why does the writer tell us, twice, that the princess "knew the lady"?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because everything depends on this detail. If the lady were a stranger, the princess might more easily choose the door of the lady &mdash; survival above all. But she's not a stranger. She's the most beautiful woman of the court. She has been glanced at, and has glanced back. The princess is being asked to choose between her lover's death and her lover's life in someone else's arms. The repetition forces us to feel the weight of that.</div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. The young man goes "unflinching" to the door. Why does the writer choose that word, rather than "obedient" or "trusting"?</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text">Because "unflinching" cuts both ways. It can mean total faith in the princess (he doesn't hesitate because he trusts her completely). But it can also mean something colder &mdash; that he had already decided to walk through whichever door she pointed at, lady or tiger, because the alternative was unbearable to him too. The single word holds both readings; it's part of why the ending stays open.</div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; first reactions to the ending</span>
+            <p>No writing. Two or three minutes per question. Don't commit to your final answer yet &mdash; we'll do that properly after the grammar tab.</p>
+            <ol>
+                <li>Your gut says: tiger or lady? Just your instinct, before you think. Say it out loud.</li>
+                <li>What single line in the story made up your mind &mdash; or hardened a feeling you already had?</li>
+                <li>If the writer had chosen <em>any</em> ending, the story would be far less famous than it is. Why is the silence at the end so much more powerful than a written conclusion?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 4 -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Two grammars &mdash; the only honest tools for arguing this story</h2>
+        <p>You're about to defend a verdict in a story whose answer no one knows. That puts you in a very specific grammatical position. You are <em>speculating about a past event you cannot verify</em>, and you are <em>imagining alternative pasts that would have led to different presents</em>. English has two purpose-built tools for exactly this work. Get them clean and your argument will sound like a barrister's. Get them sloppy and it'll sound like a guess in the dark.</p>
+
+        <h3>Tool 1 &mdash; Speculation modals (past)</h3>
+        <p>Use these when you are guessing about something that already happened. The auxiliary <strong>have</strong> is what carries the past.</p>
+
+        <div class="form-box">
+            <strong>The form:</strong> &nbsp; <em>modal</em> &nbsp;+&nbsp; <strong>have</strong> &nbsp;+&nbsp; <em>past participle</em>. &nbsp; Always <em>have</em>, never <em>has</em>. &nbsp; Not <em>"must known"</em>, not <em>"might did"</em> &mdash; always <em>must have known</em>, <em>might have done</em>.
+        </div>
+
+        <div class="condition-grid">
+            <div class="condition-card">
+                <h4><em>must have</em> &mdash; I'm sure (positive)</h4>
+                <p style="margin-top:6px;"><em>She <strong>must have hated</strong> the lady &mdash; that's why we get the flicker of jealousy.</em></p>
+                <p><em>He <strong>must have trusted</strong> her completely to walk to that door without hesitating.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>can't have</em> / <em>couldn't have</em> &mdash; I'm sure (negative)</h4>
+                <p style="margin-top:6px;"><em>She <strong>can't have signalled</strong> the lady's door &mdash; her jealousy was too strong.</em></p>
+                <p><em>He <strong>couldn't have known</strong> for certain what was behind it.</em></p>
+            </div>
+            <div class="condition-card">
+                <h4><em>might / may / could have</em> &mdash; possible, not sure</h4>
+                <p style="margin-top:6px;"><em>She <strong>might have chosen</strong> the tiger and then regretted it her whole life.</em></p>
+                <p><em>He <strong>could have suspected</strong> the truth and decided he'd rather die than be married off.</em></p>
+            </div>
+        </div>
+
+        <h3>Tool 2 &mdash; Third and mixed conditionals</h3>
+        <p>Use these when you want to imagine an alternative past &mdash; either a past that would have led to a different past, or a past that would have led to a different present, or a different present-self who would have acted differently in the past.</p>
+
+        <div class="form-box">
+            <strong>Third conditional &mdash; past condition, past result:</strong> &nbsp; <em>If she <strong>had chosen</strong> the lady, he <strong>would have lived</strong>.</em><br>
+            <strong>Mixed (A) &mdash; past condition, present result:</strong> &nbsp; <em>If she <strong>had chosen</strong> the lady, he <strong>would be</strong> someone else's husband right now.</em><br>
+            <strong>Mixed (B) &mdash; present condition, past result:</strong> &nbsp; <em>If she <strong>were</strong> truly heartless, she <strong>would have signalled</strong> the tiger without thinking.</em>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; oral transformation drill</span>
+            <p>Your teacher reads each flat sentence. You reformulate it on the spot, aloud, using the structure indicated. Don't write &mdash; the answers are hidden below. Listen for the rhythm.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Flat: "I'm sure she chose the lady, because she loved him too much." &nbsp; &rarr; &nbsp; use <em>must have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>She must have chosen the lady, because she loved him too much.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>2. Flat: "I'm sure she didn't choose at random &mdash; she'd thought about it for weeks." &nbsp; &rarr; &nbsp; use <em>can't have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>She can't have chosen at random &mdash; she'd thought about it for weeks.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>3. Flat: "Maybe she signalled the tiger and then immediately regretted it." &nbsp; &rarr; &nbsp; use <em>might have</em></h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>She might have signalled the tiger and then immediately regretted it.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>4. Flat: "She didn't tell him the truth about the doors. That's why he walked unflinchingly to the right." &nbsp; &rarr; &nbsp; rebuild as a third conditional (past condition, past result)</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>If she had told him the truth, he wouldn't have walked unflinchingly to the right.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>5. Flat: "She isn't completely heartless &mdash; that's why she didn't simply send him to the tiger." &nbsp; &rarr; &nbsp; rebuild as a mixed conditional (present condition, past result)</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>If she were completely heartless, she would have simply sent him to the tiger.</strong></div>
+        </div>
+
+        <div class="question-block">
+            <h4>6. Flat: "He didn't escape. That's why people are still talking about him today." &nbsp; &rarr; &nbsp; rebuild as a mixed conditional (past condition, present result)</h4>
+            <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+            <div class="answer-text"><strong>If he had escaped, people wouldn't still be talking about him today.</strong></div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Speak &middot; live micro-task</span>
+            <p>Take whichever ending feels right to you &mdash; lady or tiger &mdash; and defend it for sixty seconds, out loud, using at least <strong>two speculation modals</strong> and <strong>one mixed conditional</strong>. Don't write. The grammar is the rope you climb.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TAB 5 -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>The Verdict &mdash; three speaking tasks</h2>
+
+        <div class="door-grid">
+            <div class="door-card">
+                <span class="door-label">Door on the right</span>
+                <h3>The Lady</h3>
+                <p>He lives. He marries her in front of the cheering crowd. The princess watches.</p>
+            </div>
+            <div class="door-card">
+                <span class="door-label">Door on the right</span>
+                <h3>The Tiger</h3>
+                <p>He dies in front of the cheering crowd. The princess watches.</p>
+            </div>
+        </div>
+
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task A &middot; first verdict (4 minutes)</span>
+            <p>Choose your verdict &mdash; lady or tiger &mdash; and defend it for four minutes without interruption. You must build your argument out of the text, not out of general opinions about love and jealousy. Anchor every claim in something the story actually shows us (the flicker of jealousy, the bribes, the way the lady glanced back, the word <em>unflinching</em>, the king's character, the princess's character).</p>
+            <p>Required grammar &mdash; this is the rope you climb. Use at least:</p>
+            <ol>
+                <li><strong>three</strong> speculation modals in the past (<em>must have, can't have, might have, could have</em>);</li>
+                <li><strong>two</strong> mixed conditionals (one in each direction);</li>
+                <li><strong>four</strong> vocabulary chunks from Tab 2.</li>
+            </ol>
+            <p>Pace yourself. You have four minutes &mdash; you should run out of time, not out of arguments.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task B &middot; second verdict, opposite side (4 minutes)</span>
+            <p>Now defend the opposite ending. Same rules &mdash; same grammar quota, same vocabulary quota, same instruction to anchor in the text. The discomfort of arguing against yourself is the point. Most students discover that their second argument is, in fact, slightly stronger than their first &mdash; because they've been forced to listen to what the story is actually doing, instead of what they wanted it to be doing.</p>
+            <p>End by saying which of the two arguments you yourself find harder to refute &mdash; and why.</p>
+        </div>
+
+        <div class="speak-prompt">
+            <span class="speak-label">Task C &middot; switch chairs (3 minutes)</span>
+            <p>You are now the young man, walking towards the door. The princess has just given you the signal. You have a few seconds before you reach the latch. Speak your thoughts aloud, in the first person, in those few seconds. What do you suspect? What do you hope? What have you already decided, regardless of what's behind the door?</p>
+            <p>Use mixed conditionals at least <strong>twice</strong> (<em>if she really loved me, she would have&hellip;</em> &nbsp;/&nbsp; <em>if I weren't already half-resigned to death, I wouldn't be walking this calmly&hellip;</em>) and speculation modals at least <strong>twice</strong> (<em>she must have wanted&hellip;</em>).</p>
+        </div>
+
+        <div class="content-block" style="background: white; border-left-color: #764ba2;">
+            <h3>Final open discussion</h3>
+            <ol style="margin-left: 20px; line-height: 1.9;">
+                <li>If you had to teach this story to a teenager who had never met it before, what would you make sure they noticed &mdash; and what would you deliberately not tell them?</li>
+                <li>Stockton wrote this in 1882 and people have been arguing about it ever since. What is it about the human mind that finds an unfinished story more satisfying, in the long run, than a finished one?</li>
+                <li>Imagine a sequel &mdash; just one sentence long &mdash; that closes the story. Write it in your head. Then explain why writing that sentence would, in fact, ruin the story.</li>
+                <li>Which character in the story do you find yourself thinking about for longest after the lesson ends &mdash; the king, the princess, the young man, the lady? Why that one, and not the others?</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById("timer-display").textContent =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function resetTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        updateDisplay();
+
+        const timerEl = document.querySelector(".timer");
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
