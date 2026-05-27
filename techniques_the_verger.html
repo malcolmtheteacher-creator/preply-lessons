@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Techniques in Action">
+<title>Techniques in Action: The Verger (Maugham) · B2/C1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafe;
+    color: #2a2a3a;
+    line-height: 1.6;
+}
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 26px;
+    text-align: center;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102,126,234,0.18);
+}
+header .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+
+.tab-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 22px;
+}
+.tab-btn {
+    padding: 10px 18px;
+    border: 1px solid #d0d0e0;
+    background: white;
+    color: #555;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.tab-btn:hover { background: #f0f0fa; color: #333; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white; border-color: transparent;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+    background: white;
+    border: 1px solid #e0e0ee;
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 { color: #5a3aa0; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #764ba2; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+
+.story-chunk {
+    background: #f6f4fc;
+    border-left: 4px solid #764ba2;
+    padding: 18px 22px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.story-chunk em.dialogue {
+    display: block;
+    padding: 10px 16px;
+    margin: 10px 0;
+    background: #ede8f9;
+    border-radius: 8px;
+    font-style: italic;
+    color: #4a3380;
+}
+
+.discuss {
+    background: #fff8e8;
+    border: 1px dashed #d4a843;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+.vocab-card {
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 110px;
+}
+.vocab-card:hover { background: #ede8f9; transform: translateY(-2px); }
+.vocab-card .word {
+    color: #5a3aa0; font-weight: 700;
+    font-size: 1.08rem; margin-bottom: 6px;
+}
+.vocab-card .pos { color: #888; font-size: 0.82rem; font-style: italic; margin-bottom: 8px; }
+.vocab-card .def { color: #444; font-size: 0.94rem; display: none; }
+.vocab-card .ex { color: #666; font-size: 0.88rem; font-style: italic; margin-top: 6px; display: none; }
+.vocab-card.revealed .def, .vocab-card.revealed .ex { display: block; }
+
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input {
+    border: none;
+    border-bottom: 2px solid #b8a8d8;
+    background: transparent;
+    padding: 2px 6px;
+    font: inherit;
+    color: #5a3aa0;
+    font-weight: 600;
+    width: 150px;
+    outline: none;
+}
+.gap-fill input:focus { border-bottom-color: #764ba2; }
+.gap-fill .reveal-btn {
+    background: #ede8f9;
+    border: 1px solid #c8bce8;
+    color: #5a3aa0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+.gap-fill .reveal-btn:hover { background: #ddd1ed; }
+.answers { display: none; margin-top: 10px; padding: 12px 16px; background: #f0f8f0; border-radius: 8px; }
+.answers.show { display: block; }
+.answers p { margin-bottom: 6px; }
+.answers strong { color: #4a7c4a; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    margin: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-weight: 700;
+}
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn {
+    background: white; color: #5a3aa0;
+    border: none; padding: 8px 14px;
+    border-radius: 6px; cursor: pointer;
+    font-weight: 700; font-size: 0.9rem;
+}
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.duration-btn.active { background: white; color: #5a3aa0; }
+.speak-prompt {
+    background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%);
+    padding: 18px 22px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+    margin: 18px 0;
+}
+.speak-prompt .speak-label {
+    font-size: 0.78rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #5a3aa0;
+    font-weight: 700; margin-bottom: 10px; display: block;
+}
+.speak-prompt p { margin-bottom: 10px; color: #3a2a5a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion {
+    background: white;
+    border: 1px solid #d8d2ea;
+    border-left: 4px solid #764ba2;
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin: 22px 0 0;
+}
+.final-discussion h3 { color: #5a3aa0; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+
+.mcq { margin: 14px 0; }
+.mcq .q { font-weight: 600; color: #2a2a3a; margin-bottom: 10px; }
+.mcq label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.mcq label:hover { background: #ede8f9; }
+.mcq input[type="radio"] { margin-right: 10px; }
+.mcq label.correct { background: #e6f4e6; border-color: #7ac47a; }
+.mcq label.incorrect { background: #f8e6e6; border-color: #d68a8a; }
+
+.effect-verbs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+}
+.effect-verbs span {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    background: #f9f7fd;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.94rem;
+}
+.register-table th, .register-table td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0d8ee;
+}
+.register-table th {
+    background: #ede8f9;
+    color: #5a3aa0;
+    font-weight: 600;
+}
+.register-table tr:last-child td { border-bottom: none; }
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.86rem;
+    margin: 30px 0 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">TECHNIQUES IN ACTION · B2/C1 · 50 min</span>
+        <h1>The Verger</h1>
+        <p>W. Somerset Maugham (1929) — a man is fired for a weakness, and discovers it was his strength all along</p>
+    </header>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">The Story</button>
+        <button class="tab-btn" onclick="showTab(1)">Vocabulary</button>
+        <button class="tab-btn" onclick="showTab(2)">Grammar — Conditionals &amp; Reported Speech</button>
+        <button class="tab-btn" onclick="showTab(3)">Technique</button>
+        <button class="tab-btn" onclick="showTab(4)">Three Speaking Tasks</button>
+    </nav>
+
+    <!-- TAB 0: THE STORY -->
+    <div class="tab-content active">
+        <div class="card">
+            <h2>Read in three parts</h2>
+            <p>Maugham gives us the whole story in about three thousand words. Read each part, pause for the discussion box, then continue. The ending arrives in a single sentence — do not skip ahead.</p>
+
+            <h3>Part 1 — The new vicar</h3>
+            <div class="story-chunk">
+                <p>There had been a christening that afternoon at St Peter's, Neville Square, and Albert Edward Foreman still wore his verger's gown. For sixteen years he had been verger of this church, and he discharged his duties with quiet dignity. He was a tall, spare man with dignified features, and his face was clean-shaven. In his long black gown he might have been mistaken for a bishop, or at the very least an archdeacon. He took a pride in his work.</p>
+                <p>But that afternoon the new vicar had asked him to remain behind. The vicar was a red-faced energetic man in the early forties, and Albert Edward still resented the change. He had served three previous vicars and had buried each one with the dignity due to his cloth. This new one was different.</p>
+                <p>The vicar entered the vestry with two churchwardens and closed the door.</p>
+                <p><em class="dialogue">"Foreman, we have something rather painful to say to you. You have been here a great many years and I think his lordship and the wardens will agree with me that you have fulfilled the duties of your office to the satisfaction of everybody concerned."</em></p>
+                <p>Albert Edward's heart began to beat a little quicker. There was clearly something wrong.</p>
+                <p><em class="dialogue">"But a most extraordinary thing came to my knowledge the other day. I discovered to my astonishment that you could neither read nor write."</em></p>
+                <p>The verger's face betrayed no sign of embarrassment.</p>
+                <p><em class="dialogue">"The last vicar knew that, sir," he replied. "He said it didn't make no difference. He always said there was a great deal too much education in the world for 'is taste."</em></p>
+                <p>The vicar and the wardens exchanged a glance.</p>
+                <p><em class="dialogue">"It is the most amazing thing I ever heard. Do you mean to say that you have been verger of this church for sixteen years and never learned to read or write?"</em></p>
+                <p><em class="dialogue">"I went into service when I was twelve, sir. The cook tried to teach me once, but I didn't seem to 'ave the knack for it. And then what with one thing and another I never seemed to 'ave the time."</em></p>
+                <p>The vicar drew himself up.</p>
+                <p><em class="dialogue">"I cannot allow it. I must ask you to make up your mind to learn. I will give you three months. If at the end of that time you cannot read and write I am sorry, but I shall have to let you go."</em></p>
+                <p>Albert Edward had never liked the new vicar. He had said from the beginning that they had made a mistake when they appointed him. He was not the kind of man one wanted at St Peter's, Neville Square.</p>
+                <p><em class="dialogue">"I'm very sorry, sir, I'm afraid it's no good. I'm too old a dog to learn new tricks. I've lived a good many years without knowin' 'ow to read and write, and without wishin' to praise myself, self-praise is no recommendation, I don't think I've done my duty in this position any the worse for it. If I could learn now I don't 'ardly think I would."</em></p>
+                <p><em class="dialogue">"In that case, Foreman, I'm afraid you must go."</em></p>
+                <p><em class="dialogue">"Yes, sir, I quite understand. I shall be 'appy to 'and in my resignation as soon as you 'ave found somebody to take my place."</em></p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>The vicar gives Albert three months to learn. Is this fair? Is it kind? Is it competent management?</li>
+                    <li>Albert refuses without arguing. What does that tell us about him?</li>
+                    <li>Notice how Albert drops his "h"s ("'ave", "'appy", "'ardly"). What is Maugham telling us through this?</li>
+                </ul>
+            </div>
+
+            <h3>Part 2 — The walk home, and the idea</h3>
+            <div class="story-chunk">
+                <p>When Albert Edward had locked the church door behind him he walked slowly down the steps with a heavy heart. He did not know what he was going to do. It was true that he had saved a small sum of money, but to live on it he would have to be very careful. He sighed deeply.</p>
+                <p>Albert Edward was not a smoker. He did not drink beer. But he liked a cigarette with his evening cup of tea, and now he felt the need of one badly. It occurred to him that he had not bought any that morning, and as he had no tobacco in the house he thought he would go out and get some. As he passed shop after shop in search of a tobacconist, he noticed with surprise that there was not one on the whole length of this long street.</p>
+                <p>"That's strange," said Albert Edward, to put an end to the matter, "I can't be the only man as walks along this street and wants a fag. I shouldn't wonder but what a fellow might do very well with a little shop here. Tobacco and sweets, you know."</p>
+                <p>He gave a sudden start. The thought struck him like a thunderbolt. He turned, walked home, and had his tea.</p>
+                <p><em class="dialogue">"You're very silent this afternoon, Albert," his wife remarked.</em></p>
+                <p><em class="dialogue">"I'm thinkin'," he said.</em></p>
+                <p>He considered the matter from every point of view, and next day he went down the street and by good luck found a little shop to let that looked as if it would exactly suit him. Twenty-four hours later he had taken it. A month after that he resigned his post as verger. He set up in business as a tobacconist and news-agent.</p>
+                <p>The undertaking proved a success. In a year or so he thought he might venture on another shop, and he looked about for a long street that had no tobacconist in it. He started a second shop, then a third. In ten years he had acquired no fewer than ten shops, and he was making money hand over fist. He went round to all of them himself every Monday morning, collected the week's takings, and took them to the bank.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>What did Albert see that no one else had seen? Why did <em>he</em> see it?</li>
+                    <li>Maugham compresses ten years of business-building into one paragraph. Why? What does that compression <em>do</em>?</li>
+                    <li>At this point in the story — Albert with ten shops, the vicar still at St Peter's — who has had the better ten years?</li>
+                </ul>
+            </div>
+
+            <h3>Part 3 — The bank manager</h3>
+            <div class="story-chunk">
+                <p>One morning when he was at the bank, the cashier told him that the manager would like to see him. Albert Edward was shown into the office. The manager shook hands with him.</p>
+                <p><em class="dialogue">"Mr Foreman, I wanted to have a talk to you about the money you've got on deposit with us. D'you know exactly how much it is? Just over thirty thousand pounds. It's a large sum to have on deposit, and I should have thought you'd do better to invest it."</em></p>
+                <p><em class="dialogue">"I wouldn't want to take no risk, sir. I know it's safe in the bank."</em></p>
+                <p><em class="dialogue">"You needn't have the least anxiety. We'll make you out a list of absolutely gilt-edged securities. They'll bring you in a better rate of interest than we can possibly afford to give you."</em></p>
+                <p>A troubled look settled on Mr Foreman's distinguished face.</p>
+                <p><em class="dialogue">"I've never 'ad anythin' to do with stocks and shares and I'd 'ave to leave it all in your 'ands," he said.</em></p>
+                <p>The manager smiled. "We'll do everything. All you'll have to do next time you come in is just to sign the transfers."</p>
+                <p><em class="dialogue">"I could do that all right," said Albert uncertainly. "But 'ow should I know what I was signin'?"</em></p>
+                <p><em class="dialogue">"I suppose you can read," said the manager a trifle sharply.</em></p>
+                <p>Mr Foreman gave him a disarming smile.</p>
+                <p><em class="dialogue">"Well, sir, that's just it. I can't. I know it sounds funny-like, but there it is. I can't read or write, only me name, an' I only learnt to do that when I went into business."</em></p>
+                <p>The manager was so surprised that he jumped up from his chair.</p>
+                <p><em class="dialogue">"That's the most extraordinary thing I ever heard."</em></p>
+                <p><em class="dialogue">"You see, it's like this, sir. I never 'ad the opportunity until it was too late, and then somehow I wouldn't. I got obstinate-like."</em></p>
+                <p>The manager stared at him as though he were a prehistoric monster.</p>
+                <p><em class="dialogue">"And do you mean to say that you've built up this important business and amassed a fortune of thirty thousand pounds without being able to read or write? Good God, man, what would you be now if you had been able to?"</em></p>
+                <p><em class="dialogue">"I can tell you that, sir," said Mr Foreman, a little smile on his still aristocratic features. "I'd be verger of St Peter's, Neville Square."</em></p>
+            </div>
+
+            <div class="discuss">
+                <strong>The final discussion — the ending lands:</strong>
+                <ul>
+                    <li>Read the last line again. What did it just do to the whole story?</li>
+                    <li>The bank manager assumes literacy is the foundation of success. What is Maugham saying it actually is?</li>
+                    <li>Maugham doesn't give us the manager's reaction. We don't see his face. Why not?</li>
+                    <li><strong>Your turn:</strong> Tell me about your <em>verger moment</em> — the setback that turned out to be the door.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: VOCABULARY -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Vocabulary — click each card to reveal</h2>
+            <p>Ten words from the story that work just as well in your Monday morning meeting. Tap to reveal meaning and a usable business example.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">discharge (one's duties)</div>
+                    <div class="pos">verb (formal)</div>
+                    <div class="def">To carry out or perform a duty, responsibility or obligation.</div>
+                    <div class="ex">"She has discharged her responsibilities as Country Manager exceptionally well."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">resent</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To feel bitter or angry about something — especially something you think is unfair.</div>
+                    <div class="ex">"The team resented the new reporting structure imposed from London."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">resignation</div>
+                    <div class="pos">noun</div>
+                    <div class="def">A formal statement that you are leaving your job.</div>
+                    <div class="ex">"He handed in his resignation the same morning."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">venture (on something)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To dare to do something risky, often a business move.</div>
+                    <div class="ex">"After two successful launches he ventured on a third market."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">acquire</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To get or obtain something — assets, companies, skills.</div>
+                    <div class="ex">"In ten years he acquired ten shops." / "We acquired the competitor last quarter."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">amass</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To gather a large amount of something gradually — usually money, power, evidence.</div>
+                    <div class="ex">"He amassed a fortune of thirty thousand pounds."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">deposit</div>
+                    <div class="pos">noun (banking)</div>
+                    <div class="def">Money placed in a bank account, especially money left there to earn interest.</div>
+                    <div class="ex">"She has substantial cash on deposit."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">gilt-edged</div>
+                    <div class="pos">adjective (finance)</div>
+                    <div class="def">Of the highest quality and lowest risk — used especially of government bonds.</div>
+                    <div class="ex">"He invested only in gilt-edged securities."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">obstinate</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Stubbornly refusing to change one's mind or course of action.</div>
+                    <div class="ex">"He was obstinate about not learning to read — and that obstinacy made him rich."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">extraordinary</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Very unusual or remarkable — far beyond what is normal.</div>
+                    <div class="ex">"It is the most extraordinary thing I ever heard."</div>
+                </div>
+            </div>
+
+            <h3>Register contrast — how Maugham gives each character a voice</h3>
+            <p>The whole story is built on three voices colliding. Notice how Maugham uses spelling, contractions and word choice to mark each one.</p>
+            <table class="register-table">
+                <thead>
+                    <tr><th>Character</th><th>Register</th><th>Marker</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>The Vicar</td><td>High-Anglican formal</td><td>"I think his lordship and the wardens will agree…"</td></tr>
+                    <tr><td>The Bank Manager</td><td>Professional / measured</td><td>"You needn't have the least anxiety."</td></tr>
+                    <tr><td>Albert Foreman</td><td>Working-class London</td><td>"I'm too old a dog to learn new tricks." / dropped 'h's: 'ave, 'ad, 'appy</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: GRAMMAR -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The grammar this story <em>teaches itself</em></h2>
+            <p>Three structures Maugham puts on a plate for us: the third conditional (the ending), reported speech (the firing and the bank scenes), and past perfect (the sixteen years before the story begins).</p>
+
+            <h3>1. Third conditional — the form behind the punchline</h3>
+            <p>The ending hangs on a third conditional. The manager says: <em>"What would you be now if you had been able to read?"</em></p>
+            <p><strong>Pattern:</strong> If + past perfect, would have + past participle. (Counterfactual past — talking about something that did <em>not</em> happen.)</p>
+
+            <div class="gap-fill">
+                <p>1. If Albert <input type="text" placeholder="..."> (learn) to read at twelve, he <input type="text" placeholder="..."> (stay) a verger.</p>
+                <p>2. If the new vicar <input type="text" placeholder="..."> (not be) so concerned about literacy, Albert <input type="text" placeholder="..."> (never open) a shop.</p>
+                <p>3. If Albert <input type="text" placeholder="..."> (find) a tobacconist on that street, he <input type="text" placeholder="..."> (not have) the idea.</p>
+                <p>4. The manager thinks: "If only you <input type="text" placeholder="..."> (know) how to read!"</p>
+                <p>5. If I <input type="text" placeholder="..."> (be) the vicar, I <input type="text" placeholder="..."> (keep) Albert on.</p>
+                <button class="reveal-btn" onclick="document.getElementById('condAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="condAnswers">
+                    <p><strong>1.</strong> had learned / would have stayed</p>
+                    <p><strong>2.</strong> had not been / would never have opened</p>
+                    <p><strong>3.</strong> had found / would not have had</p>
+                    <p><strong>4.</strong> had known <em>(wish / regret — "if only" + past perfect)</em></p>
+                    <p><strong>5.</strong> had been / would have kept</p>
+                </div>
+            </div>
+
+            <h3>2. Reported speech — the firing scene without quotation marks</h3>
+            <p>Convert Albert's direct speech to reported speech. Watch the tense shift back one step, and the pronoun and time-reference changes.</p>
+
+            <div class="gap-fill">
+                <p><strong>Direct:</strong> The vicar said, "I will give you three months."<br>
+                <strong>Reported:</strong> The vicar said he <input type="text" placeholder="..."> Albert three months.</p>
+
+                <p><strong>Direct:</strong> Albert replied, "I cannot learn now."<br>
+                <strong>Reported:</strong> Albert replied that he <input type="text" placeholder="..."> learn then.</p>
+
+                <p><strong>Direct:</strong> The manager said, "I have never heard anything so extraordinary."<br>
+                <strong>Reported:</strong> The manager said he <input type="text" placeholder="..."> anything so extraordinary.</p>
+
+                <p><strong>Direct:</strong> Albert said, "I went into service when I was twelve."<br>
+                <strong>Reported:</strong> Albert said he <input type="text" placeholder="..."> into service when he <input type="text" placeholder="..."> twelve.</p>
+
+                <p><strong>Direct:</strong> The manager asked, "What would you be now if you had been able to read?"<br>
+                <strong>Reported:</strong> The manager asked what Albert <input type="text" placeholder="..."> be then if he <input type="text" placeholder="..."> able to read.</p>
+
+                <button class="reveal-btn" onclick="document.getElementById('repAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="repAnswers">
+                    <p><strong>1.</strong> would give <em>(will → would)</em></p>
+                    <p><strong>2.</strong> could not <em>(cannot → could not)</em></p>
+                    <p><strong>3.</strong> had never heard <em>(present perfect → past perfect)</em></p>
+                    <p><strong>4.</strong> had gone … was <em>(past simple → past perfect; "I was" stays past simple in many natural uses, but past perfect is also acceptable here)</em></p>
+                    <p><strong>5.</strong> would … had been <em>(third conditional stays unchanged in reported speech — already maximally back-shifted)</em></p>
+                </div>
+            </div>
+
+            <h3>3. Past perfect — describing the backstory</h3>
+            <p>The story opens with "<em>For sixteen years he had been verger of this church.</em>" That past perfect signals: <strong>this is the situation that existed before our story begins.</strong></p>
+
+            <div class="gap-fill">
+                <p>1. By the time the new vicar arrived, Albert <input type="text" placeholder="..."> (serve) three previous vicars.</p>
+                <p>2. Before he opened his first shop, he <input type="text" placeholder="..."> (save) a small sum of money.</p>
+                <p>3. When the bank manager called him in, Albert <input type="text" placeholder="..."> (build) his business up to ten shops.</p>
+                <p>4. The cook <input type="text" placeholder="..."> (try) to teach him to read once, but he never picked it up.</p>
+                <button class="reveal-btn" onclick="document.getElementById('ppAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="ppAnswers">
+                    <p><strong>1.</strong> had served</p>
+                    <p><strong>2.</strong> had saved</p>
+                    <p><strong>3.</strong> had built</p>
+                    <p><strong>4.</strong> had tried</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: TECHNIQUE & DISCUSSION -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>What Maugham does — and the verbs to describe it</h2>
+            <p>Four moves to spot. They are the reason this story still works in 2026.</p>
+
+            <h3>1. Dramatic irony — we know what the vicar discovers</h3>
+            <p>From paragraph one, Maugham lets us see Albert's dignity, his sixteen years of service, the bishop-like presence. <em>Then</em> the vicar discovers he's illiterate. The discovery <strong>destabilises</strong> the vicar's assumptions — but not ours. We were already in on it.</p>
+
+            <h3>2. Compression — ten years in one paragraph</h3>
+            <p>Maugham gives us the firing in a thousand words and the next ten years of business growth in about one hundred. He <strong>compresses</strong> and <strong>distils</strong> time around the events that matter.</p>
+
+            <h3>3. Register contrast — three voices in one room</h3>
+            <p>The vicar speaks in high-Anglican formal English. The bank manager speaks in measured professional English. Albert drops his 'h's and speaks in working-class London. Maugham <strong>juxtaposes</strong> these registers to do the characterisation for him — we don't need to be told who has the power; we hear it.</p>
+
+            <h3>4. The closing line — the reframe</h3>
+            <p>The last sentence — <em>"I'd be verger of St Peter's, Neville Square"</em> — <strong>reframes</strong> the entire story. Up to that point we have read a rags-to-riches tale. After it, we read a story about how literacy can be a cage, how setbacks are doors, how dignity travels with the man rather than the post. The whole text rotates around one sentence.</p>
+
+            <h3>Effect verbs to use in your analysis</h3>
+            <div class="effect-verbs">
+                <span>reframes</span>
+                <span>recontextualises</span>
+                <span>destabilises</span>
+                <span>compresses</span>
+                <span>distils</span>
+                <span>juxtaposes</span>
+                <span>elevates</span>
+                <span>ironises</span>
+                <span>pivots</span>
+                <span>recasts</span>
+            </div>
+
+            <h3>Spot-the-technique — quick MCQ</h3>
+            <div class="mcq">
+                <div class="q">Maugham introduces Albert as a man who "<em>might have been mistaken for a bishop, or at the very least an archdeacon.</em>" Then we learn he can't read. What technique is at work?</div>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Symbolism</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Foreshadowing of the firing</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, true)"> Ironic contrast between appearance and the fact about to be revealed</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Free indirect discourse</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">The bank manager asks "<em>what would you be now if you had been able to read?</em>" and Albert replies with the title sentence. What does this exchange <em>do</em> to the reader?</div>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> Confirms the manager's view of the world</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, true)"> Reframes the entire story in one line</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> Provides closure by tying up loose ends</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> Adds comic relief after a tense scene</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">Maugham gives us Albert's ten years of business expansion in a single paragraph. Why?</div>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> Because business is boring and not worth describing</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, true)"> Because the <em>idea</em> mattered; the execution was inevitable once the idea arrived</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> Because Maugham was running out of words</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> To create suspense about whether Albert will succeed</label>
+            </div>
+
+            <p style="margin-top: 18px; color: #666; font-style: italic;">Now move to the next tab. The technique work above feeds directly into the three speaking tasks.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: THREE SPEAKING TASKS -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Three speaking tasks</h2>
+            <p>Do all three. Each one builds on the last. The timer is for your benefit — it forces you to fill the time rather than escape it. Use effect verbs and structures from the previous tabs.</p>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task A · The Verger Reframe (4 minutes)</span>
+                <p>Pick a setback from your career — a project that failed, a promotion missed, a deal that fell through, a role you left under pressure. Tell the story in three movements:</p>
+                <ol style="margin-left: 22px; color: #3a2a5a;">
+                    <li>What the institution saw, and what it decided.</li>
+                    <li>The long street you walked down afterwards — what you noticed when no one was watching.</li>
+                    <li>The gap, the door, the unexpected thing that opened.</li>
+                </ol>
+                <p>Use at least <strong>one third conditional</strong> ("If they had…") and at least <strong>three effect verbs</strong> from Tab 3 (reframes, recasts, pivots, distils…).</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task B · The Bank-Manager Scene (3 minutes)</span>
+                <p>The story's pivot is the bank manager asking: <em>"What would you be now if you had been able to read?"</em></p>
+                <p>Imagine yourself in the same scene — but the manager is a colleague, a board member, or a head-hunter. They ask you a counterfactual about your career path that quietly assumes one route would have been better. Answer in Albert's spirit: clearly, without bitterness, with one closing sentence that reframes the question itself.</p>
+                <p>Set the scene using <strong>reported speech</strong> ("She asked me whether…"), then deliver your reframe in direct speech.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task C · The Long Street (4 minutes)</span>
+                <p>Albert succeeded because he walked down a street and noticed something. In your industry — pharma in Israel, pharma globally, or your specific commercial patch — what is the long street with no tobacconist? What gap is everyone walking past?</p>
+                <p>Argue for two minutes that this gap is real. Then for two more, sketch what the equivalent of his "small shop" might look like — and who has the obstinacy to open it.</p>
+                <p>Use <strong>cleft sentences</strong> ("What no one is doing is…" / "It's the X that nobody is solving…") and at least one <strong>modal of obligation or prediction</strong> ("the industry will have to…" / "someone ought to…").</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>Final open discussion — if time allows</h3>
+                <ol>
+                    <li>The vicar saw an illiterate verger. The bank manager saw an illiterate entrepreneur. Both missed something. In your professional life, what do people miss when they look at you?</li>
+                    <li>If you could write Albert a letter on the morning after his firing, what would it say?</li>
+                    <li>Is there a credential in your industry that has become the thing the vicar cared about — a credential that filters out the very people the work needs?</li>
+                    <li>Albert refuses to learn to read at sixty. Is there something the institution wanted of you that you refused? Did your refusal cost you, free you, or both?</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Techniques in Action · The Verger (Maugham, 1929) · B2/C1 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function markMCQ(el, correct) {
+    const label = el.parentElement;
+    const group = label.parentElement.querySelectorAll('label');
+    group.forEach(l => l.classList.remove('correct', 'incorrect'));
+    label.classList.add(correct ? 'correct' : 'incorrect');
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
