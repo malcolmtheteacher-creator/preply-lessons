@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Status Game</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+/* === HEADER === */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+header h1 { font-size: 2em; margin-bottom: 10px; }
+header p { font-size: 1.1em; opacity: 0.95; }
+
+/* === TABS === */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid #667eea;
+}
+.tab-button {
+    padding: 12px 20px;
+    border: none;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-button:hover { background: #f8f9fa; }
+.tab-button.active {
+    background: #f8f9fa;
+    border-bottom-color: #667eea;
+    color: #764ba2;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* === CONTENT BLOCKS === */
+.content-block {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 5px solid #667eea;
+}
+.content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+.content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+
+/* === VOCAB CARDS === */
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.vocab-card {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.vocab-card:hover {
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transform: translateY(-5px);
+}
+.vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+.vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+.vocab-card.flipped {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+.vocab-card.flipped .word { display: none; }
+.vocab-card.flipped .definition { display: block; color: white; }
+
+/* === ANSWER BUTTONS === */
+.answer-btn {
+    background: #667eea;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    border: none;
+    font-size: 1em;
+}
+.answer-btn:hover { background: #764ba2; }
+.answer-text {
+    display: none;
+    background: #f8f9fa;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #667eea;
+    color: #333;
+}
+.answer-text.show { display: block; }
+
+/* === QUESTION BLOCKS === */
+.question-block {
+    background: white;
+    padding: 20px;
+    border-left: 5px solid #764ba2;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+.question-block h4 { color: #764ba2; margin-bottom: 10px; }
+
+/* === READING PASSAGES === */
+.reading-passage {
+    background: white;
+    padding: 20px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+.reading-passage p { margin-bottom: 15px; }
+
+/* === DISCUSSION BOX === */
+.discussion-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 5px solid #764ba2;
+}
+.discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+
+/* === GAME CARDS === */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+.game-card {
+    background: white;
+    border: 2px solid #667eea;
+    border-top: 6px solid #764ba2;
+    border-radius: 8px;
+    padding: 20px;
+}
+.game-card h3 { color: #764ba2; margin-bottom: 8px; }
+.game-card .tagline { font-style: italic; color: #667eea; margin-bottom: 10px; }
+
+/* === TASK CHECKLIST === */
+.task-checklist {
+    background: white;
+    padding: 20px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+.checklist-item input {
+    width: 20px; height: 20px; margin-right: 10px; margin-top: 3px;
+    cursor: pointer; accent-color: #667eea;
+}
+
+/* === TIMER === */
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.timer.warning {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #333;
+}
+.timer.danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    animation: pulse 0.5s infinite alternate;
+}
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+
+.timer-btn {
+    padding: 8px 15px;
+    background: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #667eea;
+    margin-left: 8px;
+}
+
+/* === TEXT AREAS === */
+.textarea-box {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #667eea;
+    border-radius: 4px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    header h1 { font-size: 1.8em; }
+    .tabs { flex-direction: column; border-bottom: none; }
+    .tab-button {
+        width: 100%;
+        text-align: left;
+        border-bottom: 3px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    .tab-button.active {
+        border-bottom: none;
+        border-left-color: #667eea;
+        background: #f8f9fa;
+    }
+    .vocab-grid { grid-template-columns: 1fr; }
+    .game-grid { grid-template-columns: 1fr; }
+    .timer { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>The Status Game</h1>
+    <p>B2&ndash;C1 Level &middot; Speaking &amp; Discussion Focus</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">First Thoughts</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">The Three Games</button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">Status Language</button>
+    <button class="tab-button" onclick="openTab(event, 'tab4')">Spot the Game</button>
+    <button class="tab-button" onclick="openTab(event, 'tab5')">Can You Leave?</button>
+</div>
+
+<!-- ============ TAB 1 ============ -->
+<div id="tab1" class="tab-content active">
+    <div class="content-block">
+        <h2>Before we start</h2>
+        <p>Some people say that, under the surface, almost everything humans do is a quiet competition for <strong>status</strong> &mdash; for respect, rank, and the good opinion of others. Today we test that idea, and you do most of the talking.</p>
+    </div>
+
+    <div class="question-block">
+        <h4>Warm-up &mdash; answer honestly</h4>
+        <p>1. When was the last time you felt a small glow of pride because someone admired or praised you?</p>
+        <p>2. When did you last feel quietly stung by being ignored, talked over, or looked down on?</p>
+        <p>3. Who is the highest-status person you know in real life? What gives them that status &mdash; money, skill, kindness, power, something else?</p>
+    </div>
+
+    <div class="discussion-box">
+        <p><strong>A claim to argue with:</strong></p>
+        <p>&ldquo;The desire for status is as basic as hunger or thirst. We never really switch it off &mdash; we just hide it, even from ourselves.&rdquo;</p>
+        <p>Do you agree? Can you think of a moment in your own life that this explains &mdash; or one it cannot explain?</p>
+    </div>
+</div>
+
+<!-- ============ TAB 2 ============ -->
+<div id="tab2" class="tab-content">
+    <div class="content-block">
+        <h2>Three ways to win</h2>
+        <p>The writer Will Storr argues that we chase status in three main ways. Most situations mix them, but one usually dominates. Read each one, then we will talk.</p>
+    </div>
+
+    <div class="game-grid">
+        <div class="game-card">
+            <h3>1. Dominance</h3>
+            <p class="tagline">&ldquo;Respect me, or else.&rdquo;</p>
+            <p>Status taken by force, fear, or intimidation. The bully, the tyrant, the loud boss who talks over everyone. The oldest and ugliest game.</p>
+        </div>
+        <div class="game-card">
+            <h3>2. Virtue</h3>
+            <p class="tagline">&ldquo;Respect me, I&rsquo;m good.&rdquo;</p>
+            <p>Status earned by being seen as moral, loyal, generous, or pure. The saint, the volunteer &mdash; but also the person loudly announcing how kind they are.</p>
+        </div>
+        <div class="game-card">
+            <h3>3. Success</h3>
+            <p class="tagline">&ldquo;Respect me, I&rsquo;m good <em>at this</em>.&rdquo;</p>
+            <p>Status earned through skill, talent, or achievement. The expert, the athlete, the brilliant cook. We tend to admire this game the most.</p>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <h4>Talk it through</h4>
+        <p>1. Which game does your own workplace (or your studies) run on most? Give an example.</p>
+        <p>2. Which game do you find most attractive in other people? Which do you find hardest to respect?</p>
+        <p>3. Can you think of a single person who plays all three at once?</p>
+    </div>
+
+    <div class="question-block">
+        <h4>Check your understanding</h4>
+        <p>A football coach who wins by terrifying his players, a charity worker admired for her sacrifice, and a surgeon famous for her skill &mdash; which game is each one playing?</p>
+        <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+        <div class="answer-text">The coach &rarr; <strong>dominance</strong> (fear). The charity worker &rarr; <strong>virtue</strong> (seen as good). The surgeon &rarr; <strong>success</strong> (skill). In real life they often overlap &mdash; the surgeon&rsquo;s skill may also earn her a kind of dominance in the operating theatre.</div>
+    </div>
+</div>
+
+<!-- ============ TAB 3 ============ -->
+<div id="tab3" class="tab-content">
+    <div class="content-block">
+        <h2>Status language</h2>
+        <p>Click each card to reveal the meaning. These are the words you will use in the discussion &mdash; try to work three of them into your next answer.</p>
+    </div>
+
+    <div class="vocab-grid">
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">a snub</span>
+            <span class="definition">A deliberate insult by ignoring or rejecting someone. <em>&ldquo;Not being invited felt like a snub.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">prestige</span>
+            <span class="definition">Widespread respect and admiration earned by reputation or achievement. <em>&ldquo;a job with real prestige&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">to signal (something)</span>
+            <span class="definition">To show others a quality about yourself, often indirectly. <em>&ldquo;The watch signals wealth.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">a humblebrag</span>
+            <span class="definition">A boast disguised as a complaint or modest remark. <em>&ldquo;I&rsquo;m so tired from my holiday in the Maldives.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">conspicuous</span>
+            <span class="definition">Clearly visible; designed to be noticed. <em>&ldquo;conspicuous spending&rdquo;</em> = buying things mainly so others see your wealth.</span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">the pecking order</span>
+            <span class="definition">The informal ranking of who is more or less important in a group. <em>&ldquo;She&rsquo;s near the top of the pecking order.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">one-upmanship</span>
+            <span class="definition">The art of making yourself look better than others, point by point. <em>&ldquo;Their chat turned into pure one-upmanship.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">to look down on</span>
+            <span class="definition">To regard someone as inferior. Opposite: <em>to look up to</em> (to admire). <em>&ldquo;He looks down on people who didn&rsquo;t go to university.&rdquo;</em></span>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)">
+            <span class="word">to opt out (of)</span>
+            <span class="definition">To choose not to take part. <em>&ldquo;Can you really opt out of the status game?&rdquo;</em></span>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <h4>Use it</h4>
+        <p>Finish each sentence about your own life, out loud, using the word in bold:</p>
+        <p>&bull; &ldquo;Something people often buy mainly to <strong>signal</strong> success is&hellip;&rdquo;</p>
+        <p>&bull; &ldquo;A job that has a lot of <strong>prestige</strong> in my country is&hellip;&rdquo;</p>
+        <p>&bull; &ldquo;The last <strong>humblebrag</strong> I heard (or made!) was&hellip;&rdquo;</p>
+        <p>&bull; &ldquo;A group where I can clearly feel the <strong>pecking order</strong> is&hellip;&rdquo;</p>
+    </div>
+</div>
+
+<!-- ============ TAB 4 ============ -->
+<div id="tab4" class="tab-content">
+    <div class="content-block">
+        <h2>Spot the game</h2>
+        <p>For each situation, decide which game is being played &mdash; dominance, virtue, or success &mdash; and say <em>how you know</em>. Several answers are defensible; the reasoning matters more than the label.</p>
+    </div>
+
+    <div class="question-block">
+        <h4>1.</h4>
+        <p>A man posts a photo of himself handing money to a homeless person, with a long caption about compassion.</p>
+        <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+        <div class="answer-text">Mostly <strong>virtue</strong> &mdash; the kindness is real, but posting it converts goodness into status. The discussion question: does the audience cancel out the good deed, or not?</div>
+    </div>
+
+    <div class="question-block">
+        <h4>2.</h4>
+        <p>A teenager spends a month&rsquo;s wages on trainers that everyone at school will recognise.</p>
+        <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+        <div class="answer-text">A <strong>success / belonging</strong> signal through <em>conspicuous</em> spending &mdash; the trainers say &ldquo;I have taste and money, I belong here.&rdquo; Note how the brand only works if others recognise it.</div>
+    </div>
+
+    <div class="question-block">
+        <h4>3.</h4>
+        <p>In a meeting, a manager interrupts a junior colleague, finishes her sentences, and never lets her present her own idea.</p>
+        <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+        <div class="answer-text">Classic <strong>dominance</strong> &mdash; status taken by control and intimidation rather than earned by skill.</div>
+    </div>
+
+    <div class="question-block">
+        <h4>4.</h4>
+        <p>A famous chef quietly mentors young cooks for free and refuses all interviews.</p>
+        <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+        <div class="answer-text">Tricky. Looks like pure <strong>virtue</strong> with the status switched off &mdash; but the refusal of fame can itself become a kind of prestige (&ldquo;the chef who doesn&rsquo;t need fame&rdquo;). This is the trap we return to in the last tab.</div>
+    </div>
+
+    <div class="discussion-box">
+        <p><strong>Now your turn &mdash; speaking task:</strong></p>
+        <p>Describe one real person you know (no names needed) and the status game they play. Convince me which game it is and how you can tell. Start the timer and aim to speak for the full time without stopping.</p>
+    </div>
+
+    <div class="timer">
+        <span>Time remaining: <strong><span id="timer-display">3:00</span></strong></span>
+        <span>
+            <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+            <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </span>
+    </div>
+</div>
+
+<!-- ============ TAB 5 ============ -->
+<div id="tab5" class="tab-content">
+    <div class="content-block">
+        <h2>Can you leave the game?</h2>
+        <p>Here is where the idea gets genuinely difficult. Read the short passage, then we debate it.</p>
+    </div>
+
+    <div class="reading-passage">
+        <p>The most seductive version of the theory says that status explains <em>everything</em> &mdash; even generosity, even humility, even the hermit who walks away from society. But that is also its weakness. If every act of kindness can be re-described as a hidden move for status, then the theory can never be proved wrong. And a theory that explains everything may, in the end, explain nothing.</p>
+        <p>There is a deeper trap. Imagine someone who says, &ldquo;I refuse to play these silly status games.&rdquo; Doesn&rsquo;t that refusal make them seem wise, above it all &mdash; in other words, <em>higher status</em>? Opting out can be the highest move of all: the status of the person who is too good for status.</p>
+    </div>
+
+    <div class="question-block">
+        <h4>Debate &mdash; take a side and defend it</h4>
+        <p>1. Is the desire for status the <strong>single</strong> engine behind human behaviour, or just one drive among many (alongside love, curiosity, fear, duty)?</p>
+        <p>2. Can a person <em>genuinely</em> opt out of the status game &mdash; or is &ldquo;opting out&rdquo; just another way to win it?</p>
+        <p>3. Is wanting status a bad thing? Or is it the same hunger that drives people to become excellent, generous, and brave?</p>
+    </div>
+
+    <div class="question-block">
+        <h4>Useful phrases for disagreeing well</h4>
+        <p>&bull; &ldquo;I see your point, but I&rsquo;d push back on&hellip;&rdquo;</p>
+        <p>&bull; &ldquo;That holds for X, but it can&rsquo;t explain Y.&rdquo;</p>
+        <p>&bull; &ldquo;Isn&rsquo;t that just another way of saying&hellip;?&rdquo;</p>
+        <p>&bull; &ldquo;I&rsquo;d go further than you, actually &mdash; I think&hellip;&rdquo;</p>
+    </div>
+
+    <div class="discussion-box">
+        <p><strong>Final speaking task:</strong></p>
+        <p>Take the strongest case you can <em>against</em> your own real opinion. If you think we can&rsquo;t escape the game, argue that we can. If you think we can, argue that we can&rsquo;t. Start the timer.</p>
+    </div>
+
+    <div class="timer">
+        <span>Time remaining: <strong><span id="timer-display-2">5:00</span></strong></span>
+        <span>
+            <button class="timer-btn" onclick="startTimer2()">Start Timer</button>
+            <button class="timer-btn" onclick="resetTimer2()">Reset</button>
+        </span>
+    </div>
+
+    <div class="content-block">
+        <h3>One line to take away</h3>
+        <p>Once you have the phrase &ldquo;status game,&rdquo; you start seeing it everywhere &mdash; which is exactly the thing to be careful about. A lens that shows you everything can also stop you seeing anything else.</p>
+    </div>
+
+    <textarea class="textarea-box" placeholder="Optional: write the one example from your own life that the status-game theory explains best &mdash; and one it can't explain at all."></textarea>
+</div>
+
+</div>
+
+<script>
+// === TAB SWITCHING ===
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+// === VOCAB CARD FLIP ===
+function flipCard(el) {
+    el.classList.toggle("flipped");
+}
+
+// === TIMER 1 (Tab 4) click-to-start only ===
+let timerInterval = null;
+let timeRemaining = 180;
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(function() {
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById("timer-display").textContent =
+            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelectorAll(".timer")[0];
+        if (timeRemaining <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time's up!";
+        }
+    }, 1000);
+}
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timeRemaining = 180;
+    document.getElementById("timer-display").textContent = "3:00";
+    document.querySelectorAll(".timer")[0].classList.remove("warning", "danger");
+}
+
+// === TIMER 2 (Tab 5) click-to-start only ===
+let timerInterval2 = null;
+let timeRemaining2 = 300;
+function startTimer2() {
+    if (timerInterval2) return;
+    timerInterval2 = setInterval(function() {
+        timeRemaining2--;
+        const minutes = Math.floor(timeRemaining2 / 60);
+        const seconds = timeRemaining2 % 60;
+        document.getElementById("timer-display-2").textContent =
+            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const timerEl = document.querySelectorAll(".timer")[1];
+        if (timeRemaining2 <= 10) {
+            timerEl.classList.add("danger");
+            timerEl.classList.remove("warning");
+        } else if (timeRemaining2 <= 30) {
+            timerEl.classList.add("warning");
+            timerEl.classList.remove("danger");
+        } else {
+            timerEl.classList.remove("warning", "danger");
+        }
+        if (timeRemaining2 <= 0) {
+            clearInterval(timerInterval2);
+            timerInterval2 = null;
+            document.getElementById("timer-display-2").textContent = "Time's up!";
+        }
+    }, 1000);
+}
+function resetTimer2() {
+    clearInterval(timerInterval2);
+    timerInterval2 = null;
+    timeRemaining2 = 300;
+    document.getElementById("timer-display-2").textContent = "5:00";
+    document.querySelectorAll(".timer")[1].classList.remove("warning", "danger");
+}
+</script>
+</body>
+</html>
