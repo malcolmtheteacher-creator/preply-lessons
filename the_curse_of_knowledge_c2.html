@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Advanced Communication">
+<title>The Curse of Knowledge · C2 · Advanced Communication</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafe;
+    color: #2a2a3a;
+    line-height: 1.6;
+}
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 26px;
+    text-align: center;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102,126,234,0.18);
+}
+header .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+
+.tab-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 22px;
+}
+.tab-btn {
+    padding: 10px 18px;
+    border: 1px solid #d0d0e0;
+    background: white;
+    color: #555;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.tab-btn:hover { background: #f0f0fa; color: #333; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white; border-color: transparent;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+    background: white;
+    border: 1px solid #e0e0ee;
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 { color: #5a3aa0; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #764ba2; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+
+.story-chunk {
+    background: #f6f4fc;
+    border-left: 4px solid #764ba2;
+    padding: 18px 22px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.story-chunk em.dialogue {
+    display: block;
+    padding: 10px 16px;
+    margin: 10px 0;
+    background: #ede8f9;
+    border-radius: 8px;
+    font-style: italic;
+    color: #4a3380;
+}
+
+.discuss {
+    background: #fff8e8;
+    border: 1px dashed #d4a843;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+.vocab-card {
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 110px;
+}
+.vocab-card:hover { background: #ede8f9; transform: translateY(-2px); }
+.vocab-card .word {
+    color: #5a3aa0; font-weight: 700;
+    font-size: 1.08rem; margin-bottom: 6px;
+}
+.vocab-card .pos { color: #888; font-size: 0.82rem; font-style: italic; margin-bottom: 8px; }
+.vocab-card .def { color: #444; font-size: 0.94rem; display: none; }
+.vocab-card .ex { color: #666; font-size: 0.88rem; font-style: italic; margin-top: 6px; display: none; }
+.vocab-card.revealed .def, .vocab-card.revealed .ex { display: block; }
+
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input {
+    border: none;
+    border-bottom: 2px solid #b8a8d8;
+    background: transparent;
+    padding: 2px 6px;
+    font: inherit;
+    color: #5a3aa0;
+    font-weight: 600;
+    width: 150px;
+    outline: none;
+}
+.gap-fill input:focus { border-bottom-color: #764ba2; }
+.gap-fill .reveal-btn {
+    background: #ede8f9;
+    border: 1px solid #c8bce8;
+    color: #5a3aa0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+.gap-fill .reveal-btn:hover { background: #ddd1ed; }
+.answers { display: none; margin-top: 10px; padding: 12px 16px; background: #f0f8f0; border-radius: 8px; }
+.answers.show { display: block; }
+.answers p { margin-bottom: 8px; }
+.answers strong { color: #4a7c4a; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    margin: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-weight: 700;
+}
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn {
+    background: white; color: #5a3aa0;
+    border: none; padding: 8px 14px;
+    border-radius: 6px; cursor: pointer;
+    font-weight: 700; font-size: 0.9rem;
+}
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.duration-btn.active { background: white; color: #5a3aa0; }
+.speak-prompt {
+    background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%);
+    padding: 18px 22px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+    margin: 18px 0;
+}
+.speak-prompt .speak-label {
+    font-size: 0.78rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #5a3aa0;
+    font-weight: 700; margin-bottom: 10px; display: block;
+}
+.speak-prompt p { margin-bottom: 10px; color: #3a2a5a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion {
+    background: white;
+    border: 1px solid #d8d2ea;
+    border-left: 4px solid #764ba2;
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin: 22px 0 0;
+}
+.final-discussion h3 { color: #5a3aa0; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+
+.mcq { margin: 14px 0; }
+.mcq .q { font-weight: 600; color: #2a2a3a; margin-bottom: 10px; }
+.mcq label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.mcq label:hover { background: #ede8f9; }
+.mcq input[type="radio"] { margin-right: 10px; }
+.mcq label.correct { background: #e6f4e6; border-color: #7ac47a; }
+.mcq label.incorrect { background: #f8e6e6; border-color: #d68a8a; }
+
+.effect-verbs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+}
+.effect-verbs span {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    background: #f9f7fd;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.94rem;
+}
+.register-table th, .register-table td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0d8ee;
+    vertical-align: top;
+}
+.register-table th {
+    background: #ede8f9;
+    color: #5a3aa0;
+    font-weight: 600;
+}
+.register-table tr:last-child td { border-bottom: none; }
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.86rem;
+    margin: 30px 0 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">ADVANCED COMMUNICATION · C2 · 50 min</span>
+        <h1>The Curse of Knowledge</h1>
+        <p>Why the more you know, the harder you are to understand — and the language that breaks the spell.</p>
+    </header>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">The Idea</button>
+        <button class="tab-btn" onclick="showTab(1)">Key Language</button>
+        <button class="tab-btn" onclick="showTab(2)">The Toolkit</button>
+        <button class="tab-btn" onclick="showTab(3)">In Action</button>
+        <button class="tab-btn" onclick="showTab(4)">Speaking Tasks</button>
+    </nav>
+
+    <!-- TAB 0: THE IDEA -->
+    <div class="tab-content active">
+        <div class="card">
+            <h2>An experiment with a table and a song</h2>
+            <p>Read each part, then pause for the questions. The whole idea turns on one number.</p>
+
+            <h3>Part 1 — The tappers and the listeners</h3>
+            <div class="story-chunk">
+                <p>In 1990, a graduate student at Stanford named Elizabeth Newton ran a deceptively simple game. She divided people into two roles: "tappers" and "listeners". Each tapper was given a list of twenty-five famously recognisable songs — "Happy Birthday", a national anthem — and asked to tap out the rhythm of one of them on a table with their fingers. The listener's job was simply to name the tune.</p>
+                <p>Before the listener guessed, the tapper was asked to predict the odds: out of every hundred listeners, how many would get it right? Tappers were confident. On average they expected a success rate of around <strong>fifty per cent</strong>.</p>
+                <p>The listeners identified the songs correctly <strong>two and a half per cent</strong> of the time — three out of a hundred and twenty.</p>
+                <p>The reason is almost physical. As the tapper taps, they cannot help hearing the full song — the melody, the words, the orchestration — playing in their head. The listener hears none of that. They hear a sequence of disconnected knocks on wood. And here is the cruel part: the tapper cannot switch the music off, and so cannot imagine what it is like not to hear it. To them, the listener who cannot name "Happy Birthday" seems almost wilfully obtuse.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>The tappers overestimated by a factor of twenty. What, precisely, is the thing they cannot switch off — and why does it distort their prediction so badly?</li>
+                    <li>The tapper feels the listener is being slow or unhelpful. Where else does that exact feeling show up — in workplaces, classrooms, instruction manuals?</li>
+                    <li>Notice that the tappers were not arrogant or careless. They were simply unable to un-know the tune. Why does that make the problem so hard to fix?</li>
+                </ul>
+            </div>
+
+            <h3>Part 2 — The curse, named</h3>
+            <div class="story-chunk">
+                <p>What the tappers suffered from has a name. Economists Colin Camerer, George Loewenstein and Martin Weber called it, in 1989, the <strong>curse of knowledge</strong>: once you know something, you can no longer reconstruct what it was like not to know it. Your own expertise becomes a kind of blindness. You cannot see the gap between you and the person you are talking to, because the knowledge that would let you see it is the very thing they lack.</p>
+                <p>Every expert is a tapper. The specialist hears the full structure of an idea — the assumptions beneath it, the steps that connect it, the examples that anchor it. The audience hears jargon-knocks on a table. And the curse has a vicious arithmetic: <strong>the more expert you become, the wider the gap grows, and the less visible it is to you.</strong> Deep knowledge does not announce that it is being lost on people. It quietly assumes it is being understood.</p>
+                <p>This is not a problem of intelligence or effort. It is a problem of <em>language</em> — of the specific, learnable moves that translate what an expert knows into what a non-expert can follow. The curse cannot be cured. But, sentence by sentence, it can be broken.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>"The more expert you become, the wider the gap grows, and the less visible it is to you." Why is the <em>invisibility</em> the dangerous half of that sentence?</li>
+                    <li>The text insists this is a language problem, not an intelligence problem. Do you agree — or is some of it about empathy, or about effort?</li>
+                    <li>Think of the clearest explainer you have ever encountered, and the most opaque. What did the clear one do differently — in words, not in attitude? (Use any example: a teacher, a writer, a video, a colleague.)</li>
+                </ul>
+            </div>
+
+            <h3>Part 3 — The four symptoms</h3>
+            <div class="story-chunk">
+                <p>The curse shows up in language in four recurring ways. Learn to spot them and you are halfway to breaking them.</p>
+                <p><strong>1. Unglossed jargon.</strong> A technical term is used as if its meaning were obvious — because, to the expert, it is. <strong>2. Compression.</strong> Steps that feel trivial to the expert are skipped entirely, so the logic jumps. <strong>3. Assumed schema.</strong> The speaker takes for granted a whole background of prior knowledge the listener does not have. <strong>4. Unanchored abstraction.</strong> Big abstract nouns pile up with no concrete example to hold on to — and the listener, with nothing to picture, quietly drifts away.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>Of the four symptoms — unglossed jargon, compression, assumed schema, unanchored abstraction — which do you think is the most common? Which is the hardest to notice in your own speech?</li>
+                    <li>Could any of these four ever be a <em>virtue</em> rather than a fault? With which audience?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: KEY LANGUAGE -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Key language — click each card to reveal</h2>
+            <p>The vocabulary of explaining well. These are the words you need to <em>talk about</em> clarity — the metalanguage of the expert communicator. Tap each card for a precise definition and a usable example.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">the curse of knowledge</div>
+                    <div class="pos">noun phrase</div>
+                    <div class="def">The cognitive bias by which, once you know something, you can no longer imagine not knowing it — making experts poor at gauging what others understand.</div>
+                    <div class="ex">"Half of bad teaching is just the curse of knowledge wearing a lab coat."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">jargon</div>
+                    <div class="pos">noun (often pejorative)</div>
+                    <div class="def">Specialised vocabulary used within a field — efficient among insiders, a wall to everyone else.</div>
+                    <div class="ex">"Strip out the jargon and you often find the idea underneath is perfectly simple."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">nominalisation</div>
+                    <div class="pos">noun (grammar)</div>
+                    <div class="def">Turning a verb or adjective into an abstract noun — "to decide" becomes "the decision", "able" becomes "ability". Dense, formal, and the engine of unreadable prose.</div>
+                    <div class="ex">"Academic writing runs on nominalisation; clear writing un-does it."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">schema</div>
+                    <div class="pos">noun (plural: schemas / schemata)</div>
+                    <div class="def">A mental framework of prior knowledge into which new information is fitted. If the listener lacks the schema, the new idea has nowhere to land.</div>
+                    <div class="ex">"You can't add a detail to a schema the listener doesn't have yet — build the frame first."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to gloss (a term)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To explain or define a word briefly, in passing, as you use it ("entropy — roughly, disorder — tends to increase").</div>
+                    <div class="ex">"Gloss every technical term the first time, even if it feels obvious to you."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to hedge</div>
+                    <div class="pos">verb / noun (a hedge)</div>
+                    <div class="def">To soften a claim to match your actual certainty — "the data suggest", "it may be that", "tends to". The opposite of overstating.</div>
+                    <div class="ex">"Good hedging isn't weakness; it's calibrating your confidence to the evidence."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">metadiscourse / signposting</div>
+                    <div class="pos">noun</div>
+                    <div class="def">Language that talks about the talk — guiding the listener through it: "the key point is…", "to put it another way…", "this matters because…".</div>
+                    <div class="ex">"Signposting is the handrail; without it people fall off the argument."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">analogy</div>
+                    <div class="pos">noun</div>
+                    <div class="def">An explanatory comparison that maps an unfamiliar idea onto a familiar one ("a neuron fires like a row of dominoes").</div>
+                    <div class="ex">"A single good analogy can do the work of three paragraphs."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to unpack</div>
+                    <div class="pos">verb (figurative)</div>
+                    <div class="def">To take a compressed or complex idea and open it out into its parts, step by step.</div>
+                    <div class="ex">"Let me unpack that — there are really three separate claims in one sentence."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">opaque ↔ accessible</div>
+                    <div class="pos">adjectives (antonyms)</div>
+                    <div class="def">Opaque = impossible to see through, hard to understand. Accessible = able to be reached and understood by a non-specialist.</div>
+                    <div class="ex">"The same finding can be written opaquely for a journal or accessibly for a lecture — the content needn't change."</div>
+                </div>
+            </div>
+
+            <h3>How the curse sounds — three registers of the same idea</h3>
+            <p>One claim, told three ways. Notice that only the register changes; the content is identical.</p>
+            <table class="register-table">
+                <thead>
+                    <tr><th>Register</th><th>The same idea</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Cursed</strong> (expert-to-expert)</td><td>"Retrieval-induced facilitation is contingent upon the spacing of encoding episodes."</td></tr>
+                    <tr><td><strong>Hedged academic</strong></td><td>"The evidence suggests that we remember things better when we space our study sessions out over time."</td></tr>
+                    <tr><td><strong>Accessible</strong> (with an anchor)</td><td>"Cram for one night and it's gone by Friday. Study a little each day and it sticks. Spreading it out is what makes it last."</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOLKIT -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The toolkit — five moves that break the curse</h2>
+            <p>These are not beginner's tricks. They are the precision tools of a C2 communicator: the difference between English that is <em>correct</em> and English that <em>lands</em>. Try each before you reveal the model answers.</p>
+
+            <h3>1. De-nominalise — give the noun its verb back</h3>
+            <p>The single biggest cause of opaque English is the abstract noun. "The facilitation of recall" hides a perfectly clear verb: "helps you remember". Find the buried verb and let it act. Rewrite each sentence so a person <em>does</em> something.</p>
+
+            <div class="gap-fill">
+                <p>1. <em>"The implementation of the intervention resulted in a reduction in participant anxiety."</em></p>
+                <p>2. <em>"There is a dependence of memory consolidation upon the attainment of sufficient sleep."</em></p>
+                <p>3. <em>"Our expectation is that the provision of concrete examples will lead to an improvement in comprehension."</em></p>
+                <p>4. <em>"The avoidance of jargon is a contributor to the accessibility of an explanation."</em></p>
+                <button class="reveal-btn" onclick="document.getElementById('nomAnswers').classList.toggle('show')">Reveal model rewrites</button>
+                <div class="answers" id="nomAnswers">
+                    <p><strong>1.</strong> "When we ran the intervention, participants felt less anxious." <em>(implementation → ran; reduction → less)</em></p>
+                    <p><strong>2.</strong> "Your memory only settles if you sleep enough." <em>(consolidation → settles; attainment → get)</em></p>
+                    <p><strong>3.</strong> "We expect that giving concrete examples will help people understand." <em>(provision → giving; improvement → help understand)</em></p>
+                    <p><strong>4.</strong> "If you avoid jargon, more people can follow you." <em>(avoidance → avoid; accessibility → can follow)</em></p>
+                    <p><strong>The move:</strong> ask "who does what?" of every abstract noun, and rebuild the sentence around that.</p>
+                </div>
+            </div>
+
+            <h3>2. Ladder the register — climb down, rung by rung</h3>
+            <p>Take a term and walk it down a ladder: technical → plain → vivid. The skill is knowing how far down to go for <em>this</em> audience. Ladder each term in two more rungs.</p>
+
+            <div class="gap-fill">
+                <p>1. <strong>cognitive load</strong> &rarr; the mental effort a task demands &rarr; <input type="text" placeholder="rung 3..."></p>
+                <p>2. <strong>confirmation bias</strong> &rarr; <input type="text" placeholder="rung 2..."> &rarr; <input type="text" placeholder="rung 3..."></p>
+                <p>3. <strong>statistically significant</strong> &rarr; <input type="text" placeholder="rung 2..."> &rarr; <input type="text" placeholder="rung 3..."></p>
+                <button class="reveal-btn" onclick="document.getElementById('ladderAnswers').classList.toggle('show')">Reveal sample ladders</button>
+                <div class="answers" id="ladderAnswers">
+                    <p><strong>1.</strong> cognitive load → the mental effort a task demands → "how hard your brain is having to work right now".</p>
+                    <p><strong>2.</strong> confirmation bias → our tendency to notice evidence that fits what we already believe → "we hear the 'yes' and somehow miss the 'no'".</p>
+                    <p><strong>3.</strong> statistically significant → unlikely to be just chance → "if it were a fluke, we'd be very surprised to see a result this big". <em>(Note: a classic false friend — "significant" here means 'probably not random', NOT 'important'.)</em></p>
+                    <p><strong>The move:</strong> never assume the bottom rung is "dumbing down". It's translation.</p>
+                </div>
+            </div>
+
+            <h3>3. Anchor the abstract — one example, early</h3>
+            <p>An abstraction with no example is a knock on a table. Drop a concrete instance the moment you introduce an idea: "for instance…", "think of…", "it's the difference between X and Y". Anchor each abstract idea below with a single concrete example or analogy.</p>
+
+            <div class="gap-fill">
+                <p>1. Anchor <strong>"diminishing returns"</strong> in one everyday example: <input type="text" placeholder="for instance..." style="width:280px"></p>
+                <p>2. Build an <strong>analogy</strong> for <strong>"working memory has a limited capacity"</strong>: <input type="text" placeholder="it's like..." style="width:280px"></p>
+                <button class="reveal-btn" onclick="document.getElementById('anchorAnswers').classList.toggle('show')">Reveal sample anchors</button>
+                <div class="answers" id="anchorAnswers">
+                    <p><strong>1.</strong> "The first coffee of the morning transforms you; the fourth does almost nothing." / "The first hour of study teaches you loads; the fifth, barely anything."</p>
+                    <p><strong>2.</strong> "Working memory is like a tiny desk: you can only spread out three or four papers at once — pile on a fifth and one slides off." / "…like a juggler who can keep four balls up, but throw in a fifth and they all drop."</p>
+                    <p><strong>The move:</strong> the best anchor is one the listener has lived. Reach for the kitchen, the commute, the body — not another abstraction.</p>
+                </div>
+            </div>
+
+            <h3>4. Calibrate your certainty — the hedge that fits the evidence</h3>
+            <p>At C2, precision is partly about saying exactly how sure you are — no more, no less. Overstating ("this proves") destroys trust as surely as understating. Choose the phrasing that matches the strength of the claim.</p>
+
+            <div class="gap-fill">
+                <p>1. A single small study, not yet replicated: "This <input type="text" placeholder="..."> that…"</p>
+                <p>2. Decades of converging evidence: "We <input type="text" placeholder="..."> that…"</p>
+                <p>3. A plausible mechanism, untested: "It <input type="text" placeholder="..."> be that…"</p>
+                <button class="reveal-btn" onclick="document.getElementById('hedgeAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="hedgeAnswers">
+                    <p><strong>1.</strong> "This <strong>hints / tentatively suggests</strong> that…" <em>(weak claim, weak hedge)</em></p>
+                    <p><strong>2.</strong> "We <strong>now know / can be confident</strong> that…" <em>(strong evidence earns a strong verb)</em></p>
+                    <p><strong>3.</strong> "It <strong>may / might well</strong> be that…" <em>(a possibility, flagged as such)</em></p>
+                    <p><strong>The move:</strong> match the verb to the evidence. "Suggests", "indicates", "shows", "proves" are a ladder of certainty — choose the right rung honestly.</p>
+                </div>
+            </div>
+
+            <h3>5. Signpost — give them a handrail</h3>
+            <p>Metadiscourse guides the listener through the structure so they never have to ask "wait, where are we?". Keep a bank of these ready and reach for them out loud.</p>
+            <div class="effect-verbs">
+                <span>The key point is…</span>
+                <span>To put it another way…</span>
+                <span>This matters because…</span>
+                <span>Let me unpack that…</span>
+                <span>Here's the surprising part…</span>
+                <span>So what follows is…</span>
+                <span>Step back for a second…</span>
+                <span>The upshot is…</span>
+                <span>Concretely…</span>
+                <span>If you remember one thing…</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: IN ACTION -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The curse, broken — a worked example</h2>
+            <p>Here is one explanation, twice. Read the cursed version, then watch the five moves dismantle it.</p>
+
+            <h3>Cursed</h3>
+            <div class="story-chunk">
+                <p>"The phenomenon of spaced repetition leverages the spacing effect, whereby the distribution of retrieval practice across temporally separated intervals optimises the durability of long-term retention relative to massed presentation, as a function of the reconsolidation dynamics of the engram."</p>
+            </div>
+
+            <h3>De-cursed</h3>
+            <div class="story-chunk">
+                <p>"Here's a useful trick for remembering things. <em>(signpost)</em> Imagine you've got five hours to learn something. <em>(anchor)</em> You could do all five in one go the night before — cramming. <em>(plain)</em> Or you could do one hour a day for five days. <em>(plain)</em> The surprising part is that the second way wins, every time. <em>(signpost)</em> Each time you come back and pull the memory up again after a gap, it settles a little deeper — like a path through grass that gets clearer the more often you walk it. <em>(analogy)</em> The science is solid on this. <em>(calibrated)</em> So: don't cram — space it out."</p>
+            </div>
+
+            <p style="margin-top:14px;color:#666;font-style:italic;">Same finding. The content was never the problem.</p>
+
+            <h3>Spot the move — quick check</h3>
+            <div class="mcq">
+                <div class="q">"The implementation of a reward schedule produced an elevation in task persistence." Which move would most improve this sentence?</div>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, true)"> De-nominalise: "When we rewarded them, they kept going longer."</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Add more hedging</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Add a technical synonym for "persistence"</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> Make it longer for precision</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">A finding comes from one small, unreplicated study. Which phrasing is the most honest?</div>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "This proves that…"</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "It is now established that…"</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, true)"> "An early study hints that…"</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "Obviously…"</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">Which of these is doing the work of <em>anchoring an abstraction</em>?</div>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "This optimises retention durability."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, true)"> "It's like a path through grass that gets clearer the more you walk it."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "The reconsolidation dynamics are non-trivial."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "As is well known in the literature…"</label>
+            </div>
+
+            <p style="margin-top: 18px; color: #666; font-style: italic;">Now move to the last tab. Everything above is about to be tested out loud.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAKING TASKS -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speaking tasks</h2>
+            <p>Do all four, in order. The first warms up the idea; the rest put the toolkit under pressure. The timer is there to stop you escaping into vagueness — fill the time with precision instead.</p>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">6:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 6)">6 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 10)">10 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task A · Explain the idea back (4 minutes)</span>
+                <p>Before anything else, explain the curse of knowledge in your own words, as if to an intelligent colleague who missed today's session. Cover the tappers experiment, what the curse actually is, and why expertise makes it worse.</p>
+                <p>Use at least <strong>five of the Key Language terms</strong> (jargon, schema, to gloss, to hedge, signposting, nominalisation…) — and notice, as you do, whether you can resist becoming a tapper yourself.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task B · Cursed, then de-cursed (6 minutes)</span>
+                <p>Choose a genuinely difficult idea from a field you know well. Explain it to a smart non-specialist <strong>twice</strong>:</p>
+                <p>First, deliberately <strong>cursed</strong> — dense, nominalised, jargon-heavy, no examples. Then the same idea <strong>de-cursed</strong>, running it through the five moves: de-nominalise, ladder the register, anchor with an example or analogy, calibrate your certainty, signpost throughout.</p>
+                <p>The goal is to <em>feel</em> the difference in your own mouth — and to prove the content never had to change.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task C · Ladder a term, live (4 minutes)</span>
+                <p>Take any one abstract or technical term and walk it down the ladder out loud — three rungs: technical definition &rarr; plain paraphrase &rarr; a vivid, lived example or analogy. Then do a second term, faster.</p>
+                <p>Push the bottom rung as far as it will go without losing the meaning. That bottom rung is where most explanations never reach.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>Final discussion — if time allows</h3>
+                <ol>
+                    <li>Some jargon is genuinely irreplaceable — it carries precision no paraphrase can. Where is the line between necessary precision and needless exclusion?</li>
+                    <li>Can an explanation be <em>too</em> accessible? Is there a point at which simplifying becomes distorting — and how would you know you'd crossed it?</li>
+                    <li>Which is harder to convey to a newcomer: a single fact, or a whole way of thinking? Why?</li>
+                    <li>Whose responsibility is understanding — does it sit with the expert to translate, or with the audience to work? Does the answer change with the setting?</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Advanced Communication · The Curse of Knowledge · C2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function markMCQ(el, correct) {
+    const label = el.parentElement;
+    const group = label.parentElement.querySelectorAll('label');
+    group.forEach(l => l.classList.remove('correct', 'incorrect'));
+    label.classList.add(correct ? 'correct' : 'incorrect');
+}
+let timerInterval = null;
+let timeRemaining = 360;
+let currentDuration = 360;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 15) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 45) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
