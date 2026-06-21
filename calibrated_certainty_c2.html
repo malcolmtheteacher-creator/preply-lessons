@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Advanced Communication">
+<title>Calibrated Certainty · C2 · Advanced Communication</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafe;
+    color: #2a2a3a;
+    line-height: 1.6;
+}
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 26px;
+    text-align: center;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102,126,234,0.18);
+}
+header .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+
+.tab-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 22px;
+}
+.tab-btn {
+    padding: 10px 18px;
+    border: 1px solid #d0d0e0;
+    background: white;
+    color: #555;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.tab-btn:hover { background: #f0f0fa; color: #333; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white; border-color: transparent;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+    background: white;
+    border: 1px solid #e0e0ee;
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 { color: #5a3aa0; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #764ba2; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+
+.story-chunk {
+    background: #f6f4fc;
+    border-left: 4px solid #764ba2;
+    padding: 18px 22px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.story-chunk em.dialogue {
+    display: block;
+    padding: 10px 16px;
+    margin: 10px 0;
+    background: #ede8f9;
+    border-radius: 8px;
+    font-style: italic;
+    color: #4a3380;
+}
+
+.discuss {
+    background: #fff8e8;
+    border: 1px dashed #d4a843;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+.vocab-card {
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 110px;
+}
+.vocab-card:hover { background: #ede8f9; transform: translateY(-2px); }
+.vocab-card .word {
+    color: #5a3aa0; font-weight: 700;
+    font-size: 1.08rem; margin-bottom: 6px;
+}
+.vocab-card .pos { color: #888; font-size: 0.82rem; font-style: italic; margin-bottom: 8px; }
+.vocab-card .def { color: #444; font-size: 0.94rem; display: none; }
+.vocab-card .ex { color: #666; font-size: 0.88rem; font-style: italic; margin-top: 6px; display: none; }
+.vocab-card.revealed .def, .vocab-card.revealed .ex { display: block; }
+
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input {
+    border: none;
+    border-bottom: 2px solid #b8a8d8;
+    background: transparent;
+    padding: 2px 6px;
+    font: inherit;
+    color: #5a3aa0;
+    font-weight: 600;
+    width: 150px;
+    outline: none;
+}
+.gap-fill input:focus { border-bottom-color: #764ba2; }
+.gap-fill .reveal-btn {
+    background: #ede8f9;
+    border: 1px solid #c8bce8;
+    color: #5a3aa0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+.gap-fill .reveal-btn:hover { background: #ddd1ed; }
+.answers { display: none; margin-top: 10px; padding: 12px 16px; background: #f0f8f0; border-radius: 8px; }
+.answers.show { display: block; }
+.answers p { margin-bottom: 8px; }
+.answers strong { color: #4a7c4a; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    margin: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-weight: 700;
+}
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn {
+    background: white; color: #5a3aa0;
+    border: none; padding: 8px 14px;
+    border-radius: 6px; cursor: pointer;
+    font-weight: 700; font-size: 0.9rem;
+}
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.duration-btn.active { background: white; color: #5a3aa0; }
+.speak-prompt {
+    background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%);
+    padding: 18px 22px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+    margin: 18px 0;
+}
+.speak-prompt .speak-label {
+    font-size: 0.78rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #5a3aa0;
+    font-weight: 700; margin-bottom: 10px; display: block;
+}
+.speak-prompt p { margin-bottom: 10px; color: #3a2a5a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion {
+    background: white;
+    border: 1px solid #d8d2ea;
+    border-left: 4px solid #764ba2;
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin: 22px 0 0;
+}
+.final-discussion h3 { color: #5a3aa0; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+
+.mcq { margin: 14px 0; }
+.mcq .q { font-weight: 600; color: #2a2a3a; margin-bottom: 10px; }
+.mcq label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.mcq label:hover { background: #ede8f9; }
+.mcq input[type="radio"] { margin-right: 10px; }
+.mcq label.correct { background: #e6f4e6; border-color: #7ac47a; }
+.mcq label.incorrect { background: #f8e6e6; border-color: #d68a8a; }
+
+.effect-verbs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+}
+.effect-verbs span {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    background: #f9f7fd;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.94rem;
+}
+.register-table th, .register-table td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0d8ee;
+    vertical-align: top;
+}
+.register-table th {
+    background: #ede8f9;
+    color: #5a3aa0;
+    font-weight: 600;
+}
+.register-table tr:last-child td { border-bottom: none; }
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.86rem;
+    margin: 30px 0 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">ADVANCED COMMUNICATION · C2 · 50 min</span>
+        <h1>Calibrated Certainty</h1>
+        <p>Saying exactly how sure you are — the language that makes an expert trustworthy.</p>
+    </header>
+
+    <p style="text-align:center; margin:-8px 0 20px; font-size:0.9rem; color:#5a3aa0;">
+        Lesson 3 of <strong>The Art of Being Understood</strong> · <a href="advanced_communication_dashboard.html" style="color:#764ba2; font-weight:600;">see all five lessons →</a>
+    </p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">The Idea</button>
+        <button class="tab-btn" onclick="showTab(1)">Key Language</button>
+        <button class="tab-btn" onclick="showTab(2)">The Toolkit</button>
+        <button class="tab-btn" onclick="showTab(3)">In Action</button>
+        <button class="tab-btn" onclick="showTab(4)">Speaking Tasks</button>
+    </nav>
+
+    <!-- TAB 0: THE IDEA -->
+    <div class="tab-content active">
+        <div class="card">
+            <h2>The dictionary that measures doubt</h2>
+            <p>Read each part, then pause for the questions. The whole idea turns on a single discipline: matching your words to your evidence.</p>
+
+            <h3>Part 1 — A vocabulary with numbers attached</h3>
+            <div class="story-chunk">
+                <p>When the Intergovernmental Panel on Climate Change sits down to summarise the work of thousands of scientists, it faces a peculiar problem. The science is uncertain — usefully, honestly uncertain — and ordinary English is hopeless at conveying degrees of uncertainty. One reader's "likely" is another reader's coin-toss; one person's "very probably" is another's near-certainty. So the Panel did something quietly radical: it built a calibrated vocabulary in which words carry exact numbers.</p>
+                <p>In its guidance, "likely" does not mean "I have a hunch". It means a probability of <strong>at least 66 per cent</strong>. "Very likely" means at least 90 per cent. "Virtually certain" is reserved for the rarefied band of <strong>99 to 100 per cent</strong>. The terms are defined in a published table, and every author is meant to reach for the rung that the evidence actually supports — no higher, no lower.</p>
+                <p>The point was never to sound more confident. It was the opposite: to state uncertainty with such precision that a careful reader could tell exactly how much weight a sentence was asking them to bear. The doubt is not hidden. It is measured, labelled, and handed over honestly.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>The Panel decided that everyday words like "likely" were too vague to be trusted. What does it gain — and what might it lose — by nailing each word to a number?</li>
+                    <li>Most fields do not have a published table of probabilities. How do experts in, say, medicine or law signal "66 per cent sure" versus "99 per cent sure" without one?</li>
+                    <li>The aim was to convey doubt <em>precisely</em>, not to sound impressive. Why might precise doubt actually be more persuasive than blanket confidence?</li>
+                </ul>
+            </div>
+
+            <h3>Part 2 — One verb, a different journey</h3>
+            <div class="story-chunk">
+                <p>Now watch what a single word does to a finding as it travels. A research team publishes a study; their paper says the data "suggest" a link between two things. By the time the result reaches a headline, "suggest" has quietly become "proves". Nobody lied, exactly. A reporting verb was simply swapped — and the claim's whole standing changed with it.</p>
+                <p>Reporting verbs sit on a ladder of strength. To say a study "hints at" something is to make a small, hedged claim. To say it "suggests" or "indicates" is to climb a rung. "Shows" and "demonstrates" climb higher still. "Proves" sits at the very top — and in most empirical work it is a rung that almost nothing genuinely reaches. Choose a verb above your evidence and you commit <strong>certainty-laundering</strong>: a single, tentative study is passed off as settled fact, and the doubt that was honestly there at the start is quietly washed out.</p>
+                <p>This is why credibility, at expert level, lives in <strong>calibration</strong> — in matching the strength of your language to the strength of your evidence. Overclaiming destroys trust faster than admitting doubt ever could, because the day the overclaim is exposed, every other thing you have said is re-priced downward. The expert who says "proves" once too often is not believed more; they are believed less, about everything.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>"Suggests" became "proves" with nobody quite lying. Where does the responsibility for that drift sit — with the original author, the reporter, or the reader?</li>
+                    <li>The text claims overclaiming destroys trust faster than admitting doubt. Can you think of a case where the opposite seemed true — where confidence was rewarded and honesty punished?</li>
+                    <li>If one exposed overclaim re-prices everything else you have said, what does that imply about how an expert should budget their strong words?</li>
+                </ul>
+            </div>
+
+            <h3>Part 3 — The two failures, and the instruments</h3>
+            <div class="story-chunk">
+                <p>There are two ways to miscalibrate, and they are mirror images. The first is the overclaim — the false "proves", the certainty-laundered headline, the flat assertion that outruns its evidence. The second is subtler and is committed mostly by the cautious: the <strong>limp over-hedge</strong>, the answer so wrapped in "it may possibly perhaps to some extent appear that" that it commits to nothing at all. The over-hedger imagines they are being rigorous. In fact they are being cowardly — declining to say anything a listener could actually use or hold them to.</p>
+                <p>So calibration is a tightrope, and you can fall off either side. The instruments that keep you balanced are two opposed families of words. <strong>Hedges</strong> — downtoners — lower the temperature of a claim: <em>tends to, broadly, it appears that, to some extent, arguably</em>. <strong>Boosters</strong> — intensifiers — raise it: <em>clearly, undeniably, the evidence is overwhelming</em>. The skilled communicator reaches for whichever the evidence demands, and is equally willing to do both. Neither family is virtuous in itself. Used to match the truth, they are precision instruments. Used to flee it, they are how you lie while sounding careful.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>The text calls the over-hedger "cowardly" rather than careful. Is that fair — or is saying too little safer, and therefore wiser, than saying too much?</li>
+                    <li>Hedges and boosters are described as neither good nor bad in themselves. What, then, is the single thing that decides whether a hedge is rigour or evasion?</li>
+                    <li>Of the two failures — the overclaim and the limp over-hedge — which do you think you are personally more prone to, and in which situations?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: KEY LANGUAGE -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Key language — click each card to reveal</h2>
+            <p>The vocabulary of saying exactly how sure you are. This is the metalanguage of calibration — the words you need to <em>talk about</em> the strength of a claim. Tap each card for a precise definition and a usable example.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to hedge</div>
+                    <div class="pos">verb / noun (a hedge)</div>
+                    <div class="def">To soften or qualify a claim so that it matches your actual certainty — "tends to", "it appears that", "broadly". A hedge is a downtoner.</div>
+                    <div class="ex">"She hedged the finding carefully: 'this may indicate', not 'this proves'."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">a booster</div>
+                    <div class="pos">noun (an intensifier)</div>
+                    <div class="def">A word or phrase that raises the strength of a claim — "clearly", "undeniably", "the evidence is overwhelming". The opposite of a hedge.</div>
+                    <div class="ex">"Reach for a booster only when the evidence can carry its weight."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">epistemic (modality)</div>
+                    <div class="pos">adjective (grammar)</div>
+                    <div class="def">Relating to how certain a speaker is. Epistemic modals — may, might, must, should — encode the strength of a claim rather than a permission or an obligation.</div>
+                    <div class="ex">"'It must be the wiring' is epistemic: it signals near-certainty, not a command."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to overstate / understate</div>
+                    <div class="pos">verbs</div>
+                    <div class="def">To overstate is to claim more certainty or scale than the evidence warrants; to understate is to claim less. Both are forms of miscalibration.</div>
+                    <div class="ex">"He overstated the result to win the room, then spent a year living it down."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">tentative</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Provisional, offered without full confidence and open to revision. A tentative claim signals that the evidence is early or partial.</div>
+                    <div class="ex">"These are tentative findings — promising, but a long way from settled."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">categorical</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Unqualified and absolute, admitting no doubt or exception. A categorical statement leaves no room to manoeuvre — which is its power and its danger.</div>
+                    <div class="ex">"A categorical denial is impressive until one counter-example brings the whole thing down."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">a caveat</div>
+                    <div class="pos">noun</div>
+                    <div class="def">A warning or qualification attached to a claim, flagging a limit or condition under which it might not hold ("with one caveat…").</div>
+                    <div class="ex">"The strategy is sound, with one caveat: it assumes the supplier holds firm."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to qualify (a claim)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To add a limit, condition or nuance that narrows a claim so it states only what you can actually defend.</div>
+                    <div class="ex">"Let me qualify that: it holds for adults, but we haven't tested it in children."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">stance</div>
+                    <div class="pos">noun</div>
+                    <div class="def">The attitude a speaker takes towards a claim — how committed, how certain, how detached. Hedges and boosters are the chief means of marking stance.</div>
+                    <div class="ex">"Notice his stance shift from 'arguably' to 'undeniably' as the evidence firmed up."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">plausible</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Credible and worth taking seriously, but not established — a notch above mere possibility, well below proof.</div>
+                    <div class="ex">"It's a plausible mechanism; whether it's the real one is another question entirely."</div>
+                </div>
+            </div>
+
+            <h3>One claim, three calibrations</h3>
+            <p>The same finding, told three ways. Notice that only the calibration changes; the underlying evidence is identical — and only the middle row is honest about it.</p>
+            <table class="register-table">
+                <thead>
+                    <tr><th>Calibration</th><th>The same finding (a single, promising study)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Overstated</strong></td><td>"This proves that the new method works — the case is closed."</td></tr>
+                    <tr><td><strong>Properly calibrated</strong></td><td>"An early study indicates that the method may help, though it needs replication before we rely on it."</td></tr>
+                    <tr><td><strong>Over-hedged</strong></td><td>"It could perhaps be argued that there might, to some limited extent, possibly be some kind of effect of some sort."</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOLKIT -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The toolkit — five moves for calibrated certainty</h2>
+            <p>These are the precision instruments of a C2 communicator: the means of saying exactly how sure you are, no more and no less. Try each before you reveal the model answers.</p>
+
+            <h3>1. Climb the right rung — reporting verbs as a ladder</h3>
+            <p>Reporting verbs form a ladder of certainty: <strong>hints → suggests → indicates → shows → demonstrates → proves</strong>. Each rung commits you to more. The skill is choosing the rung your evidence can actually carry — and "proves" is almost always too high. Match each situation to an honest verb.</p>
+
+            <div class="gap-fill">
+                <p>1. One small study, not yet replicated: "This <input type="text" placeholder="verb..."> a possible link."</p>
+                <p>2. A large, repeatedly replicated body of work: "Decades of research <input type="text" placeholder="verb..."> that…"</p>
+                <p>3. A consistent pattern across several solid studies, but mechanism unclear: "The data <input type="text" placeholder="verb..."> that…"</p>
+                <p>4. A formal, closed mathematical argument: "The theorem <input type="text" placeholder="verb..."> that…"</p>
+                <button class="reveal-btn" onclick="document.getElementById('verbAnswers').classList.toggle('show')">Reveal model answers</button>
+                <div class="answers" id="verbAnswers">
+                    <p><strong>1.</strong> "This <strong>hints at</strong> / <strong>suggests</strong> a possible link." <em>(weak, single-study evidence → bottom rungs)</em></p>
+                    <p><strong>2.</strong> "Decades of research <strong>show</strong> / <strong>demonstrate</strong> that…" <em>(converging replication earns a high rung)</em></p>
+                    <p><strong>3.</strong> "The data <strong>indicate</strong> that…" <em>(solid but incomplete — the honest middle)</em></p>
+                    <p><strong>4.</strong> "The theorem <strong>proves</strong> that…" <em>(the only place "proves" truly belongs — a closed deductive system)</em></p>
+                    <p><strong>The move:</strong> before you choose the verb, ask what your evidence could survive being cross-examined on — and climb no higher than that.</p>
+                </div>
+            </div>
+
+            <h3>2. Tune the modal — likelihood in a single word</h3>
+            <p>Epistemic modals encode certainty: <strong>may / might / could</strong> flag a genuine possibility; <strong>should</strong> flags a confident expectation; <strong>must</strong> flags near-certain inference. Swapping one for another quietly changes how sure you sound. Choose the modal that fits the certainty described.</p>
+
+            <div class="gap-fill">
+                <p>1. A 50-50 possibility, no more: "It <input type="text" placeholder="modal..."> be the cache." </p>
+                <p>2. A reasonable expectation, all going well: "The fix <input type="text" placeholder="modal..."> hold until Friday."</p>
+                <p>3. An inference so strong it's almost forced: "The lights are off, so they <input type="text" placeholder="modal..."> have left."</p>
+                <button class="reveal-btn" onclick="document.getElementById('modalAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="modalAnswers">
+                    <p><strong>1.</strong> "It <strong>may / might / could</strong> be the cache." <em>(open possibility, low commitment)</em></p>
+                    <p><strong>2.</strong> "The fix <strong>should</strong> hold until Friday." <em>(confident but not guaranteed — note the built-in escape hatch)</em></p>
+                    <p><strong>3.</strong> "…so they <strong>must</strong> have left." <em>(epistemic "must": near-certain inference from evidence, not an order)</em></p>
+                    <p><strong>The move:</strong> "should" is the most useful and most misread of these — it promises a likelihood, not a certainty. Use it when you mean "I expect, but I'm not staking my life on it".</p>
+                </div>
+            </div>
+
+            <h3>3. Hedge with intent — the honest downtoner</h3>
+            <p>Hedging devices lower the temperature of a claim to match weaker or partial evidence: <em>it appears that, tends to, broadly, on the whole, to some extent, arguably</em>. Used once and deliberately, a hedge is rigour. Stacked three-deep, it becomes the limp over-hedge. Rewrite each overclaim into a single, well-placed hedge — without burying it.</p>
+
+            <div class="gap-fill">
+                <p>1. <em>"Remote workers are more productive."</em> &rarr; <input type="text" placeholder="one hedge..." style="width:300px"></p>
+                <p>2. <em>"This policy will fix the housing crisis."</em> &rarr; <input type="text" placeholder="one hedge..." style="width:300px"></p>
+                <button class="reveal-btn" onclick="document.getElementById('hedgeAnswers').classList.toggle('show')">Reveal sample rewrites</button>
+                <div class="answers" id="hedgeAnswers">
+                    <p><strong>1.</strong> "Remote workers <strong>tend to be</strong> more productive, <strong>at least</strong> for focused tasks." <em>(one downtoner + one scope limit — not five)</em></p>
+                    <p><strong>2.</strong> "This policy <strong>could go some way towards</strong> easing the housing crisis." <em>(commits to a direction, not a cure)</em></p>
+                    <p><strong>The move:</strong> a good hedge narrows the claim to exactly what you can defend, then stops. If a listener can't tell what you're actually claiming, you've over-hedged.</p>
+                </div>
+            </div>
+
+            <h3>4. Boost with care — the intensifier and its danger</h3>
+            <p>Boosting devices raise a claim: <em>clearly, undeniably, the evidence is overwhelming, beyond serious doubt</em>. Used where the evidence is genuinely strong, they are honest and bracing. Used to bully a weak claim past scrutiny, they are the overclaim — and the first one exposed re-prices everything else you've said. Decide whether each booster is earned or reckless.</p>
+
+            <div class="gap-fill">
+                <p>1. Smoking and lung cancer, after seventy years of evidence: "<strong>clearly</strong> linked." &rarr; <input type="text" placeholder="earned or reckless?"></p>
+                <p>2. A single preliminary trial of a new drug: "the evidence is <strong>overwhelming</strong>." &rarr; <input type="text" placeholder="earned or reckless?"></p>
+                <button class="reveal-btn" onclick="document.getElementById('boostAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="boostAnswers">
+                    <p><strong>1.</strong> <strong>Earned.</strong> Decades of converging, replicated evidence can carry "clearly". The booster matches the weight.</p>
+                    <p><strong>2.</strong> <strong>Reckless.</strong> One preliminary trial cannot bear "overwhelming". This is certainty-laundering — and when it fails to replicate, the speaker's every other claim is quietly downgraded too.</p>
+                    <p><strong>The move:</strong> spend boosters like rare currency. Each one you can't back draws down your credibility on everything else.</p>
+                </div>
+            </div>
+
+            <h3>5. Concede on purpose — the strategic caveat</h3>
+            <p>Concessive honesty is counter-intuitively persuasive: by openly naming a claim's limit, you signal that you have one eye on the weaknesses, which makes the strength you do assert more believable. The phrasings — <em>"with one important caveat…", "that said…", "to be fair…", "the one thing that gives me pause…"</em> — let you defend a claim and concede its limit in the same breath. Keep a bank of these ready and reach for them out loud.</p>
+            <div class="effect-verbs">
+                <span>The evidence is strong, with one caveat…</span>
+                <span>That said…</span>
+                <span>To be fair to the other view…</span>
+                <span>The one thing that gives me pause…</span>
+                <span>I'd put it at roughly…</span>
+                <span>I'm confident about X, less so about Y…</span>
+                <span>Broadly, though not universally…</span>
+                <span>On the evidence we have so far…</span>
+                <span>It indicates rather than proves…</span>
+                <span>I may be wrong, but…</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: IN ACTION -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>One finding, three calibrations — a worked example</h2>
+            <p>Here is a single finding — a new teaching method tested in one promising study — stated at three levels of certainty. Read the overstated version, then watch calibration earn back the trust the overclaim spent.</p>
+
+            <h3>Overstated</h3>
+            <div class="story-chunk">
+                <p>"We've proven that this method works. The evidence is overwhelming and the debate is over: any school still teaching the old way is simply failing its students. There is no longer any serious question about this."</p>
+                <p style="margin-top:8px;color:#7a4a4a;font-style:italic;">Every verb outruns the evidence. "Proven", "overwhelming", "the debate is over" — from a single study. The day a replication fails, none of it can be walked back, and the speaker's next claim starts from a deficit.</p>
+            </div>
+
+            <h3>Calibrated</h3>
+            <div class="story-chunk">
+                <p>"An early study indicates that this method may help, and the effect looks meaningful — with one important caveat: it's a single trial, and we won't know how far it generalises until it's been replicated. That said, the result is promising enough to be worth a careful pilot."</p>
+                <p style="margin-top:8px;color:#4a6a4a;font-style:italic;">"Indicates", "may", "the effect looks" — each rung matched to the evidence. The caveat is named openly, and the closing "that said" still commits to a real, defensible recommendation. It hedges without going limp.</p>
+            </div>
+
+            <p style="margin-top:14px;color:#666;font-style:italic;">Same finding. Only the calibration changed — and only the second version could survive a hard question.</p>
+
+            <h3>Calibrate it yourself — quick check</h3>
+            <div class="mcq">
+                <div class="q">A claim rests on a single small study that has not been replicated. Which reporting verb is the most honest?</div>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "This proves that…"</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "This demonstrates that…"</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, true)"> "This suggests that…"</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "This establishes beyond doubt that…"</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">Which sentence is committing the overclaim — saying more than its evidence can carry?</div>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "An early trial indicates the drug may help."</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, true)"> "This one trial proves the drug works — the evidence is overwhelming."</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "The data point in a promising direction, with caveats."</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "It appears to help, though we'd want replication."</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">Which of these has fallen into the limp over-hedge — committing to nothing a listener could use?</div>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "The method tends to help with focused tasks."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "We're confident about the effect, less so about why."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, true)"> "It could perhaps possibly, to some limited extent, maybe have some sort of effect."</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "On the evidence so far, it's worth a pilot."</label>
+            </div>
+
+            <p style="margin-top: 18px; color: #666; font-style: italic;">Now move to the last tab. Everything above is about to be tested out loud.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAKING TASKS -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speaking tasks</h2>
+            <p>Do all four, in order. The first warms up the idea; the rest put the toolkit under pressure. The timer is there to stop you escaping into vagueness — fill the time with precisely calibrated claims instead.</p>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">6:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 6)">6 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 10)">10 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task A · Explain the idea back (4 minutes)</span>
+                <p>Explain calibration in your own words, as if to an intelligent colleague who missed today's session. Cover what calibrated certainty is, why <strong>both</strong> overclaiming and over-hedging fail, and how the two failures mirror each other.</p>
+                <p>Use at least <strong>five of the Key Language terms</strong> (to hedge, a booster, epistemic, to overstate, tentative, categorical, a caveat, to qualify, stance, plausible…) — and notice whether your own claims about the idea are themselves well calibrated.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task B · The same finding, three ways (6 minutes)</span>
+                <p>Choose a finding or claim you genuinely know well — from your field, the news, your own experience. State it <strong>three times</strong>:</p>
+                <p>First <strong>overstated</strong> — "proves", "overwhelming", debate closed. Then <strong>properly calibrated</strong> — the right reporting verb, the right modal, one honest caveat. Then deliberately <strong>over-hedged</strong> — wrapped in so many downtoners it says nothing at all.</p>
+                <p>The goal is to <em>feel</em> the difference in your own mouth — and to notice which version you'd actually believe coming from someone else.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task C · Defend, and concede (4 minutes)</span>
+                <p>Take a claim you actually hold and defend it out loud — while openly conceding its limit. Build the whole thing around concessive honesty: "the evidence is strong, with one caveat…", "that said…", "the one thing that gives me pause…".</p>
+                <p>Make the concession real, not decorative. The aim is to sound <em>more</em> credible for having named the weakness, not less.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>Final discussion — if time allows</h3>
+                <ol>
+                    <li>Is hedging a sign of weakness or of rigour? Does the answer depend on who is listening — a boardroom, a jury, a classroom?</li>
+                    <li>At what point does confidence tip over into dishonesty? Is there a clear line, or only a gradient?</li>
+                    <li>The IPCC pinned its words to exact numbers. Would more fields be better off doing the same — or does that precision cost something worth keeping?</li>
+                    <li>If overclaiming and over-hedging both fail, why do you think overclaiming is so much more common — and so much more rewarded, at least in the short term?</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Advanced Communication · Calibrated Certainty · C2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll(".tab-btn").forEach((b, j) => b.classList.toggle("active", i === j));
+    document.querySelectorAll(".tab-content").forEach((c, j) => c.classList.toggle("active", i === j));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function markMCQ(el, correct) {
+    const label = el.parentElement;
+    const group = label.parentElement.querySelectorAll("label");
+    group.forEach(l => l.classList.remove("correct", "incorrect"));
+    label.classList.add(correct ? "correct" : "incorrect");
+}
+let timerInterval = null;
+let timeRemaining = 360;
+let currentDuration = 360;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById("timer-display").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector(".timer");
+        if (timeRemaining <= 15) { t.classList.add("danger"); t.classList.remove("warning"); }
+        else if (timeRemaining <= 45) { t.classList.add("warning"); t.classList.remove("danger"); }
+        else { t.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>

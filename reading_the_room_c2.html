@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Advanced Communication">
+<title>Reading the Room · C2 · Advanced Communication</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafe;
+    color: #2a2a3a;
+    line-height: 1.6;
+}
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 26px;
+    text-align: center;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102,126,234,0.18);
+}
+header .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+
+.tab-nav {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-bottom: 22px;
+}
+.tab-btn {
+    padding: 10px 18px;
+    border: 1px solid #d0d0e0;
+    background: white;
+    color: #555;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.tab-btn:hover { background: #f0f0fa; color: #333; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white; border-color: transparent;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+    background: white;
+    border: 1px solid #e0e0ee;
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 { color: #5a3aa0; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #764ba2; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+
+.story-chunk {
+    background: #f6f4fc;
+    border-left: 4px solid #764ba2;
+    padding: 18px 22px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.story-chunk em.dialogue {
+    display: block;
+    padding: 10px 16px;
+    margin: 10px 0;
+    background: #ede8f9;
+    border-radius: 8px;
+    font-style: italic;
+    color: #4a3380;
+}
+
+.discuss {
+    background: #fff8e8;
+    border: 1px dashed #d4a843;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+.vocab-card {
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 110px;
+}
+.vocab-card:hover { background: #ede8f9; transform: translateY(-2px); }
+.vocab-card .word {
+    color: #5a3aa0; font-weight: 700;
+    font-size: 1.08rem; margin-bottom: 6px;
+}
+.vocab-card .pos { color: #888; font-size: 0.82rem; font-style: italic; margin-bottom: 8px; }
+.vocab-card .def { color: #444; font-size: 0.94rem; display: none; }
+.vocab-card .ex { color: #666; font-size: 0.88rem; font-style: italic; margin-top: 6px; display: none; }
+.vocab-card.revealed .def, .vocab-card.revealed .ex { display: block; }
+
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input {
+    border: none;
+    border-bottom: 2px solid #b8a8d8;
+    background: transparent;
+    padding: 2px 6px;
+    font: inherit;
+    color: #5a3aa0;
+    font-weight: 600;
+    width: 150px;
+    outline: none;
+}
+.gap-fill input:focus { border-bottom-color: #764ba2; }
+.gap-fill .reveal-btn {
+    background: #ede8f9;
+    border: 1px solid #c8bce8;
+    color: #5a3aa0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+.gap-fill .reveal-btn:hover { background: #ddd1ed; }
+.answers { display: none; margin-top: 10px; padding: 12px 16px; background: #f0f8f0; border-radius: 8px; }
+.answers.show { display: block; }
+.answers p { margin-bottom: 8px; }
+.answers strong { color: #4a7c4a; }
+
+.timer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    margin: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-weight: 700;
+}
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn {
+    background: white; color: #5a3aa0;
+    border: none; padding: 8px 14px;
+    border-radius: 6px; cursor: pointer;
+    font-weight: 700; font-size: 0.9rem;
+}
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.duration-btn.active { background: white; color: #5a3aa0; }
+.speak-prompt {
+    background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%);
+    padding: 18px 22px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+    margin: 18px 0;
+}
+.speak-prompt .speak-label {
+    font-size: 0.78rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #5a3aa0;
+    font-weight: 700; margin-bottom: 10px; display: block;
+}
+.speak-prompt p { margin-bottom: 10px; color: #3a2a5a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion {
+    background: white;
+    border: 1px solid #d8d2ea;
+    border-left: 4px solid #764ba2;
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin: 22px 0 0;
+}
+.final-discussion h3 { color: #5a3aa0; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+
+.mcq { margin: 14px 0; }
+.mcq .q { font-weight: 600; color: #2a2a3a; margin-bottom: 10px; }
+.mcq label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #f6f4fc;
+    border: 1px solid #d8d2ea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.mcq label:hover { background: #ede8f9; }
+.mcq input[type="radio"] { margin-right: 10px; }
+.mcq label.correct { background: #e6f4e6; border-color: #7ac47a; }
+.mcq label.incorrect { background: #f8e6e6; border-color: #d68a8a; }
+
+.effect-verbs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+}
+.effect-verbs span {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    background: #f9f7fd;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.94rem;
+}
+.register-table th, .register-table td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0d8ee;
+    vertical-align: top;
+}
+.register-table th {
+    background: #ede8f9;
+    color: #5a3aa0;
+    font-weight: 600;
+}
+.register-table tr:last-child td { border-bottom: none; }
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.86rem;
+    margin: 30px 0 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">ADVANCED COMMUNICATION · C2 · 50 min</span>
+        <h1>Reading the Room</h1>
+        <p>Adapting in real time — shifting register, fielding the hard question, and disagreeing without rupture.</p>
+    </header>
+
+    <p style="text-align:center; margin:-8px 0 20px; font-size:0.9rem; color:#5a3aa0;">
+        Lesson 5 of <strong>The Art of Being Understood</strong> · <a href="advanced_communication_dashboard.html" style="color:#764ba2; font-weight:600;">see all five lessons →</a>
+    </p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">The Idea</button>
+        <button class="tab-btn" onclick="showTab(1)">Key Language</button>
+        <button class="tab-btn" onclick="showTab(2)">The Toolkit</button>
+        <button class="tab-btn" onclick="showTab(3)">In Action</button>
+        <button class="tab-btn" onclick="showTab(4)">Speaking Tasks</button>
+    </nav>
+
+    <!-- TAB 0: THE IDEA -->
+    <div class="tab-content active">
+        <div class="card">
+            <h2>One idea, three rooms</h2>
+            <p>Everything in this series so far has been about preparing the message in advance. This final lesson is about what happens when the message meets a live audience — and refuses to stay on script.</p>
+
+            <h3>Part 1 — The same idea, three speeches</h3>
+            <div class="story-chunk">
+                <p>Suppose you understand something deeply — climate modelling, say, or compound interest, or how a vaccine teaches the immune system. Now picture explaining it three times in one afternoon.</p>
+                <p>First, to a curious ten-year-old who keeps asking "but <em>why</em>?". You reach for pictures and stories; you abandon every technical word; you let your voice rise and slow. Second, to a sceptical board who have ninety seconds and a budget to protect. You lead with the conclusion, you cite the number, you pre-empt their objection before they can voice it. Third, to a peer in your own field over coffee. Now you can use the shorthand, gesture at the controversies, assume the whole shared scaffolding — and say in one clause what took the child a paragraph.</p>
+                <p>Three speeches. The content was <strong>identical</strong>. What changed was the register — the level, the vocabulary, the speed, the amount you left unsaid. And here is the quiet truth most fluent speakers never name: the skill was not knowing the idea. It was reading each room and re-tuning the same idea to fit it, live, without a script.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>The content stayed the same; only the register moved. What, precisely, changes between the child's version and the peer's — vocabulary, pace, what you assume, what you leave out?</li>
+                    <li>Most people have one register they default to under pressure. What is yours — and which room does it fit worst?</li>
+                    <li>Is re-tuning the same idea for three audiences a kind of honesty, or a kind of performance? Could it be both?</li>
+                </ul>
+            </div>
+
+            <h3>Part 2 — The question you cannot answer</h3>
+            <div class="story-chunk">
+                <p>Every expert dreads the same moment. You are mid-flow, in command of your material, and then a hand goes up and asks the one thing you genuinely do not know. The room turns to you. Three or four seconds of silence will feel like a minute.</p>
+                <p>Watch what the most assured people do here, because it is counter-intuitive. They do not bluff. They do not bluster, or retreat into jargon to sound as though they have answered. Instead they <strong>acknowledge it honestly</strong> — "that's exactly the right question, and I don't have a clean answer" — then <strong>bridge to what they do know</strong> — "but here's how I'd think about it" — and offer that, openly flagged as reasoning rather than fact.</p>
+                <p>The paradox is that admitting the gap raises their standing rather than lowering it. The bluffer is eventually caught and never quite trusted again. The person who says "I don't know, but —" and then thinks aloud, generously, looks more expert, not less. Composure under a hard question is itself a signal of mastery.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>Why does honestly admitting a gap so often <em>raise</em> the speaker's standing rather than lower it?</li>
+                    <li>"Acknowledge, bridge, offer." Which of the three would you find hardest to do live, and why?</li>
+                    <li>Is there ever a room in which bluffing is the right move — or does it always cost more than it saves?</li>
+                </ul>
+            </div>
+
+            <h3>Part 3 — Adaptation, and its four failures</h3>
+            <div class="story-chunk">
+                <p>These two moments — the three speeches and the unanswerable question — point at the same underlying skill, and it is the last one this series will teach. Call it <strong>adaptation in real time</strong>: reading the feedback the room is giving you, shifting register on demand, fielding questions you did not script, disagreeing without causing a rupture, and repairing a misunderstanding the instant you notice it.</p>
+                <p>It fails in four recognisable ways. <strong>1. One register fits all.</strong> The speaker has a single setting and uses it on the child, the board and the peer alike — patronising one, baffling another. <strong>2. Bluffing.</strong> Faced with a gap, they fake an answer rather than name the gap. <strong>3. Defensiveness.</strong> Met with disagreement, they harden and counter-attack instead of conceding the fair point and building on it. <strong>4. The failure to repair.</strong> They see the blank look — the listener has lost the thread — and they plough on regardless, when a single "let me put that better" would have saved the whole exchange.</p>
+                <p>The good news is that adaptation is not a personality trait you either have or lack. It is a set of specific, audible moves. Learn the moves, and you can read almost any room.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Pause and discuss:</strong>
+                <ul>
+                    <li>Of the four failures — one register fits all, bluffing, defensiveness, failure to repair — which do you witness most often in others? Which do you suspect is yours?</li>
+                    <li>"Repair" means noticing the blank look in time. Why is the noticing harder than the fixing?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: KEY LANGUAGE -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Key language — click each card to reveal</h2>
+            <p>The vocabulary of adapting in real time — the words you need to <em>talk about</em> reading a room, shifting register and handling the live exchange. Tap each card for a precise definition and a usable example.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">register</div>
+                    <div class="pos">noun</div>
+                    <div class="def">The level of formality, vocabulary and tone a speaker selects to suit a particular audience or situation. The same idea can be delivered in many registers.</div>
+                    <div class="ex">"She switched register effortlessly — chatty with the students, crisp with the trustees."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to pitch (at a level)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To aim the difficulty, tone or detail of what you say at a particular audience — neither over their heads nor beneath them.</div>
+                    <div class="ex">"Pitch it too high and they tune out; too low and they feel patronised."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to field (a question)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To receive and respond to a question, especially a difficult or unexpected one, calmly and competently.</div>
+                    <div class="ex">"He fielded the hostile question without a flicker, even the part he couldn't fully answer."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to bridge</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To move smoothly from a difficult or unanswerable point to firmer ground — "I can't answer that directly, but what I <em>can</em> tell you is…".</div>
+                    <div class="ex">"When she didn't know, she bridged to what she did know rather than guessing."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">diplomatic</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Handling people and disagreements with tact, so that hard things can be said without giving offence.</div>
+                    <div class="ex">"A diplomatic 'I see it slightly differently' opens a door that 'you're wrong' slams shut."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to defer (to someone)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To yield gracefully to another person's authority, expertise or judgement on a point — a sign of confidence, not weakness.</div>
+                    <div class="ex">"On the legal detail I'd defer to you — that's genuinely your field, not mine."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to save face</div>
+                    <div class="pos">verb phrase</div>
+                    <div class="def">To preserve someone's dignity or reputation, especially when they have been mistaken — letting them retreat without humiliation.</div>
+                    <div class="ex">"Phrase your correction so the other person can save face, and they'll concede the point."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">rapport</div>
+                    <div class="pos">noun</div>
+                    <div class="def">A relationship of mutual understanding and ease that makes communication flow — built quickly through attention, warmth and matching the other's tone.</div>
+                    <div class="ex">"Once there's rapport, you can disagree hard and the room stays warm."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">to repair (a misunderstanding)</div>
+                    <div class="pos">verb</div>
+                    <div class="def">To notice that a message has been misread or lost, and to fix it on the spot — "let me put that better" — rather than ploughing on.</div>
+                    <div class="ex">"The moment he saw the frown, he repaired it: 'sorry — what I should have said is…'."</div>
+                </div>
+                <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+                    <div class="word">tactful</div>
+                    <div class="pos">adjective</div>
+                    <div class="def">Showing a careful sense of what to say, and how, to avoid hurting or embarrassing someone while still being honest.</div>
+                    <div class="ex">"A tactful speaker can tell you you're wrong and leave you feeling respected."</div>
+                </div>
+            </div>
+
+            <h3>One point, three rooms — the same idea re-pitched</h3>
+            <p>A single claim, delivered to three audiences. Notice that only the register changes; the underlying point is identical.</p>
+            <table class="register-table">
+                <thead>
+                    <tr><th>Audience</th><th>The same point — "interest compounds"</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>A curious ten-year-old</strong></td><td>"Imagine your money has babies — and then those babies have babies too. Leave it alone and the pile grows by itself, faster and faster."</td></tr>
+                    <tr><td><strong>A sceptical board</strong></td><td>"Reinvested returns are the single biggest driver here. Over ten years, compounding roughly doubles the outcome versus simple interest — that's the case for leaving it untouched."</td></tr>
+                    <tr><td><strong>A peer in the field</strong></td><td>"It's just compounding — the usual exponential, so the back half of the horizon does most of the work. Nothing exotic."</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOLKIT -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The toolkit — five moves for reading the room</h2>
+            <p>These are the live, real-time tools — the ones you reach for while the conversation is still moving. They are the difference between a speaker who delivers a script and one who can <em>steer</em>. Try each before you reveal the model answers.</p>
+
+            <h3>1. Shift register on demand — move the same sentence up and down</h3>
+            <p>The core skill: take one sentence and re-pitch it formal&harr;plain at will. Climbing up adds distance and authority; climbing down adds warmth and reach. Rewrite each sentence in the register asked for.</p>
+
+            <div class="gap-fill">
+                <p>1. Make plainer: <em>"We are obliged to postpone the deployment pending further validation."</em></p>
+                <p>2. Make more formal: <em>"We tried it and it just didn't work, so we binned it."</em></p>
+                <p>3. Make plainer: <em>"The proposal lacks sufficient empirical substantiation at this juncture."</em></p>
+                <p>4. Make warmer / more human: <em>"Your application has been declined."</em></p>
+                <button class="reveal-btn" onclick="document.getElementById('regAnswers').classList.toggle('show')">Reveal model rewrites</button>
+                <div class="answers" id="regAnswers">
+                    <p><strong>1.</strong> "We're going to have to hold off on launching until we've checked it works." <em>(obliged → have to; deployment → launching)</em></p>
+                    <p><strong>2.</strong> "Having trialled the approach without success, we elected to discontinue it." <em>(binned → discontinue)</em></p>
+                    <p><strong>3.</strong> "There just isn't enough evidence for it yet." <em>(substantiation → evidence; at this juncture → yet)</em></p>
+                    <p><strong>4.</strong> "I'm sorry — on this occasion we weren't able to say yes, and I'd be glad to explain why." <em>(adds a person, a reason, a door left open)</em></p>
+                    <p><strong>The move:</strong> ask "who is in the room?" first, then choose the rung — and be able to move either way mid-sentence.</p>
+                </div>
+            </div>
+
+            <h3>2. Field the unknown question — acknowledge, bridge, offer</h3>
+            <p>The three-step shape that turns a feared question into a moment of credibility. Acknowledge the gap honestly, bridge to firmer ground, then offer your best reasoning, flagged as reasoning. Complete each one.</p>
+
+            <div class="gap-fill">
+                <p>1. Acknowledge: "That's <input type="text" placeholder="..." style="width:220px"> the right question, and I don't have a clean answer."</p>
+                <p>2. Bridge: "What I <input type="text" placeholder="..."> tell you is the part we've tested directly…"</p>
+                <p>3. Offer: "Here's <input type="text" placeholder="..." style="width:200px"> I'd think about it, though — treat this as reasoning, not fact."</p>
+                <button class="reveal-btn" onclick="document.getElementById('fieldAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="fieldAnswers">
+                    <p><strong>1.</strong> "That's <strong>exactly</strong> the right question, and I don't have a clean answer." <em>(naming the gap openly)</em></p>
+                    <p><strong>2.</strong> "What I <strong>can</strong> tell you is the part we've tested directly…" <em>(the bridge to solid ground)</em></p>
+                    <p><strong>3.</strong> "Here's <strong>how</strong> I'd think about it, though…" <em>(the offer, flagged as reasoning)</em></p>
+                    <p><strong>The move:</strong> never bluff. Acknowledge &rarr; bridge &rarr; offer turns "I don't know" into a display of judgement.</p>
+                </div>
+            </div>
+
+            <h3>3. Disagree without rupture — the diplomatic counter</h3>
+            <p>Disagreement need not be a collision. The skill is to register the dissent while keeping the relationship intact — concede something true, then add your view. Choose a phrasing that softens without surrendering.</p>
+
+            <div class="gap-fill">
+                <p>1. Mild, open dissent: "I see it <input type="text" placeholder="..."> differently…"</p>
+                <p>2. Concede, then add: "That's <input type="text" placeholder="...">, though I'd add that…"</p>
+                <p>3. Build on, don't block: "<input type="text" placeholder="..."> — and on top of that…"</p>
+                <button class="reveal-btn" onclick="document.getElementById('disagreeAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="disagreeAnswers">
+                    <p><strong>1.</strong> "I see it <strong>slightly</strong> differently…" <em>(flags dissent as small, not total)</em></p>
+                    <p><strong>2.</strong> "That's <strong>fair</strong>, though I'd add that…" <em>(concede first, then extend)</em></p>
+                    <p><strong>3.</strong> "<strong>Yes, and</strong> — on top of that…" <em>(builds on their point rather than blocking it with "yes, but")</em></p>
+                    <p><strong>The move:</strong> concede something genuine before you push back. "Yes, and" keeps the door open; "no, but" shuts it.</p>
+                </div>
+            </div>
+
+            <h3>4. Repair on the spot — take the blame, recast the point</h3>
+            <p>When you see the message hasn't landed, the fastest fix is to own it and try again — never to repeat the same words louder. A good repair puts the fault on your phrasing, not their understanding. Complete each repair.</p>
+
+            <div class="gap-fill">
+                <p>1. "Let me <input type="text" placeholder="..."> that better…"</p>
+                <p>2. "What I <input type="text" placeholder="..."> have said is…"</p>
+                <p>3. "Sorry, that came out tangled — let me <input type="text" placeholder="..."> it more simply…"</p>
+                <button class="reveal-btn" onclick="document.getElementById('repairAnswers').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="repairAnswers">
+                    <p><strong>1.</strong> "Let me <strong>put</strong> that better…" <em>(owns the phrasing, not their failure to follow)</em></p>
+                    <p><strong>2.</strong> "What I <strong>should</strong> have said is…" <em>(takes the blame cleanly)</em></p>
+                    <p><strong>3.</strong> "…let me <strong>put / say</strong> it more simply…" <em>(recast, don't just repeat louder)</em></p>
+                    <p><strong>The move:</strong> the repair always blames your words, never their wits. That single courtesy keeps the room with you.</p>
+                </div>
+            </div>
+
+            <h3>5. Read and answer the feedback signals</h3>
+            <p>Before you can adapt, you have to notice. The room is constantly telling you whether it is with you — and each signal calls for a different live response.</p>
+            <div class="gap-fill">
+                <p>1. <strong>The blank look</strong> &rarr; the point hasn't landed &rarr; your move: <input type="text" placeholder="do what?" style="width:240px"></p>
+                <p>2. <strong>The frown</strong> &rarr; they disagree or are unconvinced &rarr; your move: <input type="text" placeholder="do what?" style="width:240px"></p>
+                <p>3. <strong>The nod</strong> &rarr; they're with you &rarr; your move: <input type="text" placeholder="do what?" style="width:240px"></p>
+                <button class="reveal-btn" onclick="document.getElementById('signalAnswers').classList.toggle('show')">Reveal sample reads</button>
+                <div class="answers" id="signalAnswers">
+                    <p><strong>1. Blank look</strong> &rarr; repair: "let me put that another way…" and drop in a concrete example.</p>
+                    <p><strong>2. Frown</strong> &rarr; surface it: "you look unconvinced — what's the objection?" Better to invite the dissent than let it fester.</p>
+                    <p><strong>3. Nod</strong> &rarr; press on, and you can climb the register a rung — they're ready for more.</p>
+                    <p><strong>The move:</strong> the signals are data. The skilled speaker is always half-watching the room and adjusting before being told.</p>
+                </div>
+            </div>
+
+            <h3>A bank of ready phrases — diplomatic, bridging, repair</h3>
+            <p>Keep these on the tip of your tongue and reach for them out loud when the room shifts.</p>
+            <div class="effect-verbs">
+                <span>I see it slightly differently…</span>
+                <span>That's fair, though I'd add…</span>
+                <span>Yes, and…</span>
+                <span>What I can tell you is…</span>
+                <span>Here's how I'd think about it…</span>
+                <span>That's exactly the right question…</span>
+                <span>Let me put that better…</span>
+                <span>What I should have said is…</span>
+                <span>You look unconvinced — say more?</span>
+                <span>On that, I'd defer to you…</span>
+                <span>Let me bring this back to…</span>
+                <span>To put it more simply…</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: IN ACTION -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Reading the room — a worked example</h2>
+            <p>Picture a hard question from the floor: "Isn't the whole project just running over budget with nothing to show for it?" Here is the same speaker answering it twice.</p>
+
+            <h3>Defensive</h3>
+            <div class="story-chunk">
+                <p>"No, that's not accurate at all. With respect, I think you're misunderstanding how these timelines work. The figures you're quoting are taken out of context, and frankly anyone who's actually read the report would know that the overrun was entirely anticipated. I'd rather not get drawn into the budget question — it's more complicated than you're making it sound, and we can take it offline."</p>
+            </div>
+
+            <h3>Graceful</h3>
+            <div class="story-chunk">
+                <p>"That's a fair thing to ask — the spend <em>is</em> over the original line, and I won't pretend otherwise. <em>(acknowledge)</em> What I can tell you is where the money's gone: two thirds of the overrun is the safety re-work we chose to do after the audit. <em>(bridge to firm ground)</em> Now, whether that was worth it is a genuinely open question, and I'd put it this way — we've traded three months of delay for a result that won't have to be redone. <em>(offer, flagged as judgement)</em> I see the timeline differently from how the headline number makes it look, but I take the concern seriously, and I'm happy to walk through the figures line by line."</p>
+            </div>
+
+            <p style="margin-top:14px;color:#666;font-style:italic;">Same facts, same speaker. One hardens the room; the other keeps it.</p>
+
+            <h3>Spot the move — quick check</h3>
+            <div class="mcq">
+                <div class="q">A colleague proposes something you think is mistaken. Which response disagrees <em>without</em> causing a rupture?</div>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "No, that won't work — you've not thought it through."</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, true)"> "That's fair, and I'd add one thing — I see the risk slightly differently."</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "Obviously that's wrong, but let's move on."</label>
+                <label><input type="radio" name="q1" onclick="markMCQ(this, false)"> "I'd rather not get into it."</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">You notice your listener has lost the thread. Which sentence is a clean <em>repair</em> move?</div>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "As I already said…"</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> (Repeat the same sentence, louder.)</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, true)"> "Sorry — let me put that better. What I should have said is…"</label>
+                <label><input type="radio" name="q2" onclick="markMCQ(this, false)"> "It's quite a technical point, so don't worry about it."</label>
+            </div>
+
+            <div class="mcq">
+                <div class="q">You're asked something you genuinely cannot answer. Which response best <em>fields</em> it?</div>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> Improvise a confident-sounding answer and hope it holds.</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> "That's outside my area, so I can't comment." (and stop)</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, true)"> "Great question — I don't have a clean answer, but here's how I'd think about it…"</label>
+                <label><input type="radio" name="q3" onclick="markMCQ(this, false)"> Retreat into jargon until the questioner gives up.</label>
+            </div>
+
+            <p style="margin-top: 18px; color: #666; font-style: italic;">Now move to the last tab. Everything above is about to be tested out loud.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAKING TASKS -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speaking tasks</h2>
+            <p>Do all four, in order. The first warms up the idea; the rest put the toolkit under live pressure. The timer is there to keep you adapting in real time rather than retreating to a safe script.</p>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">6:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 6)">6 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 10)">10 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task A · Explain the idea back (4 minutes)</span>
+                <p>Before anything else, explain in your own words what "reading the room" means, and the moves that make adaptation possible — shifting register, fielding the hard question, disagreeing without rupture, and repairing on the spot.</p>
+                <p>Use at least <strong>five of the Key Language terms</strong> (register, to pitch, to field, to bridge, diplomatic, to defer, to save face, rapport, to repair, tactful) — and notice, as you go, whether you are reading your own listener.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task B · One idea, three rooms (6 minutes)</span>
+                <p>Choose a single idea you know well. Now pitch it <strong>three times</strong>, in turn, re-tuning the register each time without changing the content:</p>
+                <p>First to a <strong>curious ten-year-old</strong> — pictures, stories, no jargon. Then to a <strong>sceptical board</strong> — conclusion first, the number, the pre-empted objection. Finally to a <strong>peer in your field</strong> — shorthand, shared scaffolding, one clause for what took the child a paragraph.</p>
+                <p>The goal is to feel the register move in your own mouth while the idea underneath stays still.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task C · Field three hard questions (4 minutes)</span>
+                <p>Have three hard or hostile questions put to you — about a project, a claim, or a field you know. Field each one gracefully: <strong>acknowledge</strong> the difficulty honestly, <strong>bridge</strong> to what you genuinely do know, and <strong>offer</strong> your reasoning flagged as reasoning.</p>
+                <p>The one rule: never bluff. If you don't know, say so — then think aloud, generously, and watch your standing rise rather than fall.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>Final discussion — if time allows</h3>
+                <ol>
+                    <li>Where is the line between diplomacy and evasion? When does "I see it slightly differently" stop being tactful and start being a dodge?</li>
+                    <li>Is it dishonest to soften a disagreement — to say "that's fair, though…" when you actually think the other person is simply wrong?</li>
+                    <li>Reading a room well can be used to manipulate as easily as to clarify. What separates adaptation in good faith from working the room?</li>
+                    <li>This series has been about being understood. Of all five lessons, which skill do you think you'll actually reach for tomorrow — and which is hardest to keep up under pressure?</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Advanced Communication · Reading the Room · C2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll(".tab-btn").forEach((b, j) => b.classList.toggle("active", i === j));
+    document.querySelectorAll(".tab-content").forEach((c, j) => c.classList.toggle("active", i === j));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function markMCQ(el, correct) {
+    const label = el.parentElement;
+    const group = label.parentElement.querySelectorAll("label");
+    group.forEach(l => l.classList.remove("correct", "incorrect"));
+    label.classList.add(correct ? "correct" : "incorrect");
+}
+let timerInterval = null;
+let timeRemaining = 360;
+let currentDuration = 360;
+
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll(".duration-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById("timer-display").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector(".timer").classList.remove("warning", "danger");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector(".timer");
+        if (timeRemaining <= 15) { t.classList.add("danger"); t.classList.remove("warning"); }
+        else if (timeRemaining <= 45) { t.classList.add("warning"); t.classList.remove("danger"); }
+        else { t.classList.remove("warning", "danger"); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("timer-display").textContent = "Time is up";
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
