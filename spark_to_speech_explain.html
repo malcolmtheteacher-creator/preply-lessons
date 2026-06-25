@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explain how or why · Spark to Speech</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:#fafafe; color:#2a2a3a; line-height:1.6; }
+.wrap { max-width:720px; margin:0 auto; padding:20px 20px 80px; }
+header { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:#fff; padding:46px 28px 40px; text-align:center; border-radius:16px; box-shadow:0 10px 30px rgba(102,126,234,0.22); margin-bottom:26px; }
+header .tag { display:inline-block; padding:5px 15px; background:rgba(255,255,255,0.18); border-radius:14px; font-size:0.76rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; }
+header h1 { font-size:2.5rem; line-height:1.1; margin-bottom:12px; letter-spacing:-0.5px; }
+header p { font-size:1.08rem; opacity:0.95; max-width:520px; margin:0 auto; }
+
+.step { background:#fff; border:1px solid #e6e3f2; border-radius:16px; padding:28px 30px; margin-bottom:18px; box-shadow:0 3px 12px rgba(0,0,0,0.04); }
+.step.locked { display:none; }
+.step { animation:rise 0.35s ease; }
+@keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.rung { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.rung .n { flex:0 0 34px; height:34px; border-radius:50%; background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:0.95rem; }
+.rung h2 { font-size:1.4rem; color:#4a3aa0; line-height:1.2; }
+.lead { color:#5a5a6a; margin:4px 0 18px 46px; font-size:1rem; }
+@media (max-width:560px){ .lead { margin-left:0; } }
+
+.spark { color:#764ba2; font-weight:700; border-bottom:2px solid #c9bdec; padding:0 2px; }
+
+/* spark input */
+.spark-input { width:100%; font-size:1.5rem; font-weight:600; color:#4a3aa0; text-align:center; border:none; border-bottom:3px solid #d8cff0; background:transparent; padding:14px 6px; outline:none; transition:border-color .2s; }
+.spark-input::placeholder { color:#b6aed2; font-weight:400; font-size:1.15rem; }
+.spark-input:focus { border-bottom-color:#764ba2; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0 6px; }
+.chip { padding:7px 14px; background:#f1eefb; border:1px solid #ddd3f3; border-radius:18px; color:#5a3aa0; font-size:0.9rem; cursor:pointer; transition:all .15s; }
+.chip:hover { background:#764ba2; color:#fff; border-color:#764ba2; transform:translateY(-1px); }
+.chips-label { text-align:center; color:#9a93ad; font-size:0.85rem; margin-top:14px; }
+
+/* lenses */
+.lens { background:#f7f5fd; border-left:4px solid #b9a9e6; border-radius:0 10px 10px 0; padding:13px 18px; margin:10px 0; }
+.lens .q { font-size:1.05rem; color:#3a3a4a; margin-bottom:8px; }
+.lens input { width:100%; border:none; border-bottom:1px dashed #c9bdec; background:transparent; padding:5px 2px; font:inherit; font-size:0.98rem; color:#5a3aa0; outline:none; }
+.lens input::placeholder { color:#c2bad6; font-style:italic; }
+
+/* frames */
+.frame { background:#f7f5fd; border-radius:10px; padding:14px 18px; margin:10px 0; font-size:1.12rem; color:#3a2a5a; }
+.frame .blank { color:#a89bd0; }
+
+/* turn skeleton */
+.turn-line { display:flex; gap:10px; align-items:baseline; margin:11px 0; }
+.turn-line .start { flex:0 0 auto; font-weight:700; color:#764ba2; font-size:1.02rem; }
+.turn-line .dots { flex:1; border-bottom:1px dashed #cfc4ec; align-self:flex-end; height:1.3em; }
+
+/* timer */
+.timer { background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:16px 22px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-weight:700; margin:6px 0 18px; }
+.timer.warn { background:linear-gradient(135deg,#f6d365,#fda085); color:#333; }
+.timer.go { background:linear-gradient(135deg,#ff6b6b,#ee5a6f); animation:pulse .6s infinite alternate; }
+@keyframes pulse { from{opacity:1;} to{opacity:0.75;} }
+.t-display { font-variant-numeric:tabular-nums; font-size:1.5rem; }
+.t-controls { display:flex; gap:8px; flex-wrap:wrap; }
+.dur { padding:6px 12px; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.4); border-radius:7px; color:#fff; font-weight:600; cursor:pointer; font-size:0.85rem; }
+.dur.on { background:#fff; color:#5a3aa0; }
+.t-btn { background:#fff; color:#5a3aa0; border:none; padding:8px 16px; border-radius:7px; font-weight:700; cursor:pointer; }
+
+.btn { display:inline-block; background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; border:none; padding:13px 28px; border-radius:24px; font-size:1.02rem; font-weight:700; cursor:pointer; margin-top:20px; transition:transform .15s, box-shadow .15s; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(118,75,162,0.3); }
+.btn.ghost { background:#fff; color:#764ba2; border:2px solid #d8cff0; }
+.row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.mini { font-size:0.9rem; color:#8a82a0; background:none; border:none; cursor:pointer; text-decoration:underline; padding:0; margin-top:14px; }
+
+.followups { margin-top:14px; }
+.followups .q { background:#fff; border:1px solid #e6e3f2; border-radius:10px; padding:11px 16px; margin:8px 0; color:#4a3a6a; }
+.collapsed { display:none !important; }
+/* word bank */
+.bank { background:#fff; border:1px solid #e6e3f2; border-radius:16px; margin-bottom:18px; box-shadow:0 3px 12px rgba(0,0,0,0.04); overflow:hidden; }
+.bank.locked { display:none; }
+.bank-head { padding:18px 24px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; background:linear-gradient(135deg,#f3f0fc,#efeafb); }
+.bank-head .t { font-size:1.12rem; font-weight:700; color:#4a3aa0; }
+.bank-head .sub { font-size:0.86rem; color:#8a82a0; margin-top:3px; font-weight:400; }
+.bank-head .toggle { font-size:1.7rem; color:#764ba2; line-height:1; transition:transform .2s; }
+.bank.open .bank-head .toggle { transform:rotate(45deg); }
+.bank-body { display:none; padding:6px 18px 20px; }
+.bank.open .bank-body { display:block; }
+.legend { display:flex; flex-wrap:wrap; gap:6px; margin:14px 4px 8px; align-items:center; }
+.legend .lab { font-size:0.82rem; color:#9a93ad; margin-right:4px; }
+.lv { font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:10px; letter-spacing:0.5px; }
+.lv.a2{ background:#e3f5e8; color:#2e8b57; } .lv.b1{ background:#dcf0f4; color:#1c8aa0; }
+.lv.b2{ background:#e7e0fb; color:#6b46c1; } .lv.c1{ background:#ddd3f3; color:#5a3aa0; }
+.lv.c2{ background:#2a2540; color:#e8d5a3; }
+.lv.pill { cursor:pointer; }
+.lv.pill.off { opacity:0.35; }
+.fn { border-top:1px solid #efecf8; }
+.fn-head { padding:13px 6px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:600; color:#3a3a4a; }
+.fn-head:hover { color:#5a3aa0; }
+.fn-head .arr { color:#c0b8da; transition:transform .2s; }
+.fn.open .fn-head .arr { transform:rotate(90deg); }
+.ladder { display:none; padding:0 4px 12px; }
+.fn.open .ladder { display:block; }
+.step-row { display:flex; gap:10px; align-items:baseline; padding:8px 0; border-bottom:1px dashed #f0edf8; }
+.step-row.dim { opacity:0.28; }
+.step-row .lv { flex:0 0 auto; margin-top:2px; }
+.step-row .ex { color:#3a2a5a; font-size:1.02rem; }
+footer { text-align:center; color:#aaa; font-size:0.82rem; margin-top:30px; }
+.hint { color:#9a93ad; font-size:0.92rem; margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <span class="tag">Spark to Speech · Explain</span>
+        <h1>Explain how or why</h1>
+        <p>Pick something you know — and make it clear to someone else, from a single idea to a confident two minutes.</p>
+    </header>
+
+    <!-- STEP 1 · SPARK -->
+    <div class="step" id="s1">
+        <div class="rung"><span class="n">1</span><h2>Your spark</h2></div>
+        <p class="lead">What could you explain to someone? How something works, or why you love it.</p>
+        <input type="text" id="sparkInput" class="spark-input" placeholder="type your topic here…" autocomplete="off">
+        <p class="chips-label">…or grab one of these to get going:</p>
+        <div class="chips" id="exampleChips">
+            <span class="chip">how to make my favourite dish</span>
+            <span class="chip">how my job works</span>
+            <span class="chip">why I love my hobby</span>
+            <span class="chip">how a phone knows where you are</span>
+            <span class="chip">the rules of a game I like</span>
+            <span class="chip">why I started learning English</span>
+            <span class="chip">how I get to work</span>
+            <span class="chip">a tradition from my country</span>
+            <span class="chip">how to stay calm</span>
+            <span class="chip">why I prefer mornings</span>
+        </div>
+        <button class="btn" onclick="begin()">Let's build it →</button>
+        <p class="hint" id="s1hint" style="display:none;">Type a word above (or tap one) first. 🙂</p>
+    </div>
+
+    <!-- WORD BANK -->
+    <div class="bank locked" id="bank">
+        <div class="bank-head" onclick="toggleBank()">
+            <div><span class="t">📚 Your word bank</span><div class="sub">Stuck for words — or want to sound sharper? Find your level, then steal the rung above.</div></div>
+            <span class="toggle">+</span>
+        </div>
+        <div class="bank-body">
+            <div class="legend"><span class="lab">Focus a level:</span>
+                <span class="lv a2 pill" data-lv="a2" onclick="setLevel('a2')">A2</span>
+                <span class="lv b1 pill" data-lv="b1" onclick="setLevel('b1')">B1</span>
+                <span class="lv b2 pill" data-lv="b2" onclick="setLevel('b2')">B2</span>
+                <span class="lv c1 pill" data-lv="c1" onclick="setLevel('c1')">C1</span>
+                <span class="lv c2 pill" data-lv="c2" onclick="setLevel('c2')">C2</span>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span>Say you <b>like</b> it</span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">I like it. / I really like it.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">I'm really into it. / I'm a big fan.</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">I've got a soft spot for it. / I'm rather partial to it.</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">It's right up my street. / I find it genuinely captivating.</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">There's something about it I find quietly irresistible.</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span>Say you <b>don't</b></span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">I don't like it. / I'm not a fan.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">It's not really my thing. / I'm not into it.</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">I'm not particularly keen on it. / I can take it or leave it.</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">It leaves me cold. / It does nothing for me.</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">It's never quite won me over.</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span>Give your <b>reason</b></span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">because it's good. / because I like it.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">the main reason is that…</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">what does it for me is… / what makes it special is…</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">it comes down to… / it's largely a question of…</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">if I had to put my finger on it,…</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span>Say how it makes you <b>feel</b></span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">It makes me happy. / It makes me feel good.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">It really cheers me up. / It puts me in a good mood.</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">There's something comforting about it. / It gives me a real sense of calm.</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">It never fails to lift my spirits. / It stirs something in me.</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">It fills me with a quiet sort of contentment.</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span><b>Compare</b> it</span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">It's better than X. / It's nicer than X.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">It's far better than X. / There's no comparison.</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">It's in a different league from X. / X isn't a patch on it.</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">X doesn't hold a candle to it. / It leaves X standing.</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">To compare it with X is to do it a disservice.</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span><b>Emphasise</b> it</span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">It's very ___. / It's really ___.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">It's incredibly ___. / It's so ___.</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">It's remarkably ___. / It's ___ beyond words.</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">It's strikingly ___. / It's hard to overstate how ___ it is.</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">There's a ___ to it that almost defies description.</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span>Say "<b>that said…</b>" (the other side)</span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">but… / but it's not perfect.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">that said,… / on the other hand,…</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">admittedly,… / to be fair,…</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">granted,… / I'll happily concede that…</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">for all its faults,…</span></div>
+              </div>
+            </div>
+
+            <div class="fn">
+              <div class="fn-head" onclick="toggleFn(this)"><span><b>Sum up</b></span><span class="arr">▸</span></div>
+              <div class="ladder">
+                <div class="step-row" data-lv="a2"><span class="lv a2">A2</span><span class="ex">So, I like it. / In the end, it's great.</span></div>
+                <div class="step-row" data-lv="b1"><span class="lv b1">B1</span><span class="ex">All in all,… / Overall,…</span></div>
+                <div class="step-row" data-lv="b2"><span class="lv b2">B2</span><span class="ex">On balance,… / When it comes down to it,…</span></div>
+                <div class="step-row" data-lv="c1"><span class="lv c1">C1</span><span class="ex">When all's said and done,… / If nothing else,…</span></div>
+                <div class="step-row" data-lv="c2"><span class="lv c2">C2</span><span class="ex">If it comes down to a single thought, it's this:…</span></div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 2 · GROW -->
+    <div class="step locked" id="s2">
+        <div class="rung"><span class="n">2</span><h2>Grow <span class="spark">your topic</span></h2></div>
+        <p class="lead">One word holds a lot. Answer these out loud — jot a word or two only if it helps. Don't write sentences yet.</p>
+        <div class="lens"><div class="q">In simple terms, what <em>is</em> <span class="spark">it</span>?</div><input type="text" placeholder="a word or two…"></div>
+        <div class="lens"><div class="q">What is the first thing to understand?</div><input type="text" placeholder="a word or two…"></div>
+        <div class="lens"><div class="q">Then what happens — what comes next?</div><input type="text" placeholder="a word or two…"></div>
+        <div class="lens"><div class="q">Why does that matter?</div><input type="text" placeholder="a word or two…"></div>
+        <div class="lens"><div class="q">What is the result in the end?</div><input type="text" placeholder="a word or two…"></div>
+        <div class="lens"><div class="q">What do people usually get <em>wrong</em> about <span class="spark">it</span>?</div><input type="text" placeholder="a word or two…"></div>
+        <button class="btn" onclick="reveal('s3')">Next → turn it into sentences</button>
+    </div>
+
+    <!-- STEP 3 · SAY -->
+    <div class="step locked" id="s3">
+        <div class="rung"><span class="n">3</span><h2>Say it</h2></div>
+        <p class="lead">Now pour those ideas into ready-made sentences. Read each one aloud and finish it your way.</p>
+        <div class="frame">Basically, <span class="spark">it</span> works like this: <span class="blank">…</span></div>
+        <div class="frame">The first thing to know is <span class="blank">…</span></div>
+        <div class="frame">After that, <span class="blank">…</span>, which means <span class="blank">…</span></div>
+        <div class="frame">The reason this matters is <span class="blank">…</span></div>
+        <div class="frame">So, in the end, <span class="blank">…</span></div>
+        <button class="mini" onclick="openBank()">📚 stuck for words? open the word bank</button><br>
+        <button class="btn" onclick="reveal('s4')">Next → join them up</button>
+    </div>
+
+    <!-- STEP 4 · JOIN -->
+    <div class="step locked" id="s4">
+        <div class="rung"><span class="n">4</span><h2>Join it into a flow</h2></div>
+        <p class="lead">Five lines and you have a whole turn. Start each line with the words in purple and keep going about <span class="spark">your topic</span>.</p>
+        <div class="turn-line"><span class="start">Let me explain how it works.</span><span class="dots"></span></div>
+        <div class="turn-line"><span class="start">The first thing to understand is</span><span class="dots"></span></div>
+        <div class="turn-line"><span class="start">After that,</span><span class="dots"></span></div>
+        <div class="turn-line"><span class="start">The reason this matters is</span><span class="dots"></span></div>
+        <div class="turn-line"><span class="start">So, in the end,</span><span class="dots"></span></div>
+        <button class="mini" onclick="openBank()">📚 reach for a sharper phrase — open the word bank</button><br>
+        <button class="btn" onclick="reveal('s5')">I'm ready → speak</button>
+    </div>
+
+    <!-- STEP 5 · SPEAK -->
+    <div class="step locked" id="s5">
+        <div class="rung"><span class="n">5</span><h2>Talk about <span class="spark">your topic</span></h2></div>
+        <p class="lead">Use everything you built. Start the timer and keep going until it ends — fill the time with detail rather than escaping it.</p>
+        <div class="timer" id="timer">
+            <span>Time left: <span class="t-display" id="tdisp">2:00</span></span>
+            <div class="t-controls">
+                <span class="dur" onclick="setDur(this,1)">1 min</span>
+                <span class="dur on" onclick="setDur(this,2)">2 min</span>
+                <span class="dur" onclick="setDur(this,3)">3 min</span>
+                <button class="t-btn" onclick="startT()">Start</button>
+                <button class="t-btn" onclick="resetT()">Reset</button>
+            </div>
+        </div>
+        <button class="btn ghost" onclick="hideNotes()" id="hideBtn">Now hide my notes and say it again →</button>
+
+        <div id="levelup" class="collapsed">
+            <div class="rung" style="margin-top:26px;"><span class="n">★</span><h2>Push it further</h2></div>
+            <p class="lead">Done it once? Go again — but harder. Pick one:</p>
+            <div class="followups">
+                <div class="q">Swap one plain word you used for a more interesting one.</div>
+                <div class="q">Answer this, off the top of your head: <strong>"How did that start?"</strong></div>
+                <div class="q">Answer this: <strong>"What would someone who completely disagrees with you say?"</strong></div>
+                <div class="q">Finish in one sentence: <strong>"If I had to sum up <span class="spark">it</span> in a single word, it would be…"</strong></div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="mini" onclick="newSpark()">← start again with a new spark</button>
+        </div>
+    </div>
+
+    <footer>Say Anything · talk about whatever you like, with a little help getting there.</footer>
+</div>
+
+<script>
+var spark = "";
+
+document.getElementById('exampleChips').addEventListener('click', function(e){
+    if (e.target.classList.contains('chip')) {
+        document.getElementById('sparkInput').value = e.target.textContent;
+        document.getElementById('sparkInput').focus();
+    }
+});
+document.getElementById('sparkInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') begin();
+});
+
+function begin(){
+    var v = document.getElementById('sparkInput').value.trim();
+    if (!v){ document.getElementById('s1hint').style.display='block'; return; }
+    spark = v;
+    var spans = document.querySelectorAll('.spark');
+    for (var i=0;i<spans.length;i++){ spans[i].textContent = spark; }
+    document.getElementById('bank').classList.remove('locked');
+    reveal('s2');
+}
+function toggleBank(){ document.getElementById('bank').classList.toggle('open'); }
+function openBank(){ var b=document.getElementById('bank'); b.classList.remove('locked'); b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
+function toggleFn(el){ el.parentElement.classList.toggle('open'); }
+var curLv='all';
+function setLevel(lvl){
+    curLv = (curLv===lvl)?'all':lvl;
+    var pills=document.querySelectorAll('.lv.pill');
+    for (var i=0;i<pills.length;i++){ pills[i].classList.toggle('off', curLv!=='all' && pills[i].getAttribute('data-lv')!==curLv); }
+    var rows=document.querySelectorAll('.step-row');
+    for (var j=0;j<rows.length;j++){ rows[j].classList.toggle('dim', curLv!=='all' && rows[j].getAttribute('data-lv')!==curLv); }
+}
+function reveal(id){
+    var el = document.getElementById(id);
+    el.classList.remove('locked');
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function hideNotes(){
+    ['s2','s3','s4'].forEach(function(id){ document.getElementById(id).classList.add('collapsed'); });
+    document.getElementById('hideBtn').textContent = 'Notes hidden — speaking from memory ✓';
+    document.getElementById('hideBtn').disabled = true;
+    document.getElementById('levelup').classList.remove('collapsed');
+    document.getElementById('s5').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function newSpark(){
+    spark = "";
+    document.getElementById('sparkInput').value = "";
+    ['s2','s3','s4'].forEach(function(id){ var e=document.getElementById(id); e.classList.add('locked'); e.classList.remove('collapsed'); });
+    document.getElementById('s5').classList.add('locked');
+    document.getElementById('levelup').classList.add('collapsed');
+    var hb=document.getElementById('hideBtn'); hb.disabled=false; hb.textContent='Now hide my notes and say it again →';
+    var bk=document.getElementById('bank'); bk.classList.add('locked'); bk.classList.remove('open');
+    document.querySelectorAll('.fn').forEach(function(f){ f.classList.remove('open'); });
+    curLv='all';
+    document.querySelectorAll('.lv.pill').forEach(function(p){ p.classList.remove('off'); });
+    document.querySelectorAll('.step-row').forEach(function(r){ r.classList.remove('dim'); });
+    resetT();
+    document.getElementById('s1').scrollIntoView({behavior:'smooth', block:'start'});
+    document.getElementById('sparkInput').focus();
+}
+
+/* timer */
+var dur=120, left=120, tick=null;
+function fmt(s){ var m=Math.floor(s/60), x=s%60; return m+':'+(x<10?'0':'')+x; }
+function render(){ document.getElementById('tdisp').textContent=fmt(left);
+    var t=document.getElementById('timer'); t.classList.remove('warn','go');
+    if(left<=10) t.classList.add('go'); else if(left<=30) t.classList.add('warn');
+}
+function setDur(el,m){ document.querySelectorAll('.dur').forEach(function(d){d.classList.remove('on');}); el.classList.add('on'); dur=m*60; resetT(); }
+function startT(){ if(tick) return; tick=setInterval(function(){ if(left>0){ left--; render(); } else { clearInterval(tick); tick=null; } },1000); }
+function resetT(){ clearInterval(tick); tick=null; left=dur; render(); }
+render();
+</script>
+</body>
+</html>
