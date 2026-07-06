@@ -23,7 +23,7 @@ Keep the `<style>` block and the `<script>` (tab switching + timer) **identical*
 
 **Tab 2 — Grammar — <POINT>:** clear explanation in `.note` boxes; **3 gap-fill exercises**. Inputs MUST be empty (no `value=`, no answer shown in the prompt/hint). Answers live ONLY in the hidden `.answers` reveal.
 
-**Tab 3 — Listen:** use the Houdini `.podcast-box` pattern. Name the real episode **"Short History Of… <Topic>"**, link to `https://www.noiser.com/short-history-of`, and add "or search 'Short History Of <Topic>' on Spotify". Do NOT invent a specific episode URL. Then a `.discuss` "listen out for" block (2–3 prompts).
+**Tab 3 — Listen:** use the Houdini `.podcast-box` pattern. Name the real episode **"Short History Of… <Topic>"**, link to the real **Spotify show** page `https://open.spotify.com/show/2mcJ0sFMn4TdKCQrxoLPgO`, and add "search 'Short History Of <Topic>' to open the episode". Do NOT invent a specific episode URL (never guess a `/episode/...` link). Then a `.discuss` "listen out for" block (2–3 prompts).
 
 **Tab 4 — Speak:** keep the Houdini **timer** JS identical; 3 `.speak-prompt` tasks — A: retell the whole story using the grammar + 5 key words; B: an opinion/debate; C: a broader task WITH safe non-personal alternatives; then a `.final-discussion` (3–4 bigger questions + a from-memory grammar recall).
 
