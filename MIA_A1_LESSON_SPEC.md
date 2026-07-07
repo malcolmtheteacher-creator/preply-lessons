@@ -3,9 +3,11 @@
 You build ONE lesson in Malcolm's "Mia's English" A1 story journey. Work in `/Users/malcolmtheteacher/Documents/01_Work/gitsite/`.
 
 ## 1. Clone the template EXACTLY
-READ `a1s_03_where.html`. **Copy its entire `<style>` block verbatim** (do not change one character). **Copy its `<script>` verbatim too — with ONE exception: the `LESSON` array**, which you replace with this lesson's 8 items.
+READ `a1s_03_where.html`. **Copy its entire `<style>` block verbatim** (do not change one character). **Copy its `<script>` verbatim too — with exactly TWO exceptions:**
+1. **the `LESSON` array** — replace with this lesson's 8 items;
+2. **`var LESSON_NAME="Lesson 3 · Where is it?";`** — change to THIS lesson (e.g. `var LESSON_NAME="Lesson 5 · A morning at the café";`). This is what makes the review show "📘 from Lesson N" for each word, so it MUST be this lesson's own name — if you leave the template's, every word gets mislabelled as Lesson 3.
 
-**CRITICAL — the shared review engine:** keep `SR_KEY='miaSR_v1'`, `INTERVALS`, and every function (`loadDeck, saveDeck, addCard, dueCards, grade, refreshStats, showTab, buildCards, addAllAndReview, startReview, renderWarmUp, reviewToday`) **byte-for-byte identical** to the template. All lessons must share the same localStorage deck, so review carries across the whole course. Do NOT rename or "improve" anything in the engine.
+**CRITICAL — the shared review engine:** keep `SR_KEY='miaSR_v1'`, `INTERVALS`, and every function (`loadDeck, saveDeck, addCard, dueCards, grade, refreshStats, showTab, buildCards, addAllAndReview, startReview, renderWarmUp, reviewToday`) **byte-for-byte identical** to the template — including the `lesson` param on `addCard` and the "📘 from" line in `startReview`. All lessons must share the same localStorage deck, so review carries across the whole course. Do NOT rename or "improve" anything in the engine.
 
 ## 2. The 5 tabs (identical structure, new content)
 🔁 **Warm-up** → 📖 **The Story** → 🗂️ **Words** → 🧩 **The Pattern** → 🗣️ **Your Turn**. Keep the header block, the two stat cards, the tab buttons, and all the container IDs exactly as the template (`p0…p4`, `warmArea`, `cardGrid`, `wordsReview`, `turnReview`, etc.).
@@ -33,4 +35,4 @@ Front = the English. Back = a simple meaning or example a beginner understands (
 - Keep it gentle and A1: short sentences, common words, warm tone, big wins.
 
 ## 5. Verify before reporting
-Confirm: 5 `.panel`, 5 `.tab-btn`, 0 prefilled inputs, `SR_KEY='miaSR_v1'` present, engine functions unchanged, the two `.morelink` targets exist. Report: filename + one-line summary + the 8 words + the two image filenames used.
+Confirm: 5 `.panel`, 5 `.tab-btn`, 0 prefilled inputs, `SR_KEY='miaSR_v1'` present, `LESSON_NAME` set to THIS lesson (not "Lesson 3"), engine functions unchanged, the two `.morelink` targets exist. Report: filename + one-line summary + the 8 words + the two image filenames used.
