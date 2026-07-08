@@ -17,7 +17,23 @@ Keep the `<style>` block and the `<script>` (tab switching + timer) **identical*
 
 **Header:** tag `SHORT HISTORY, LONG ECHOES · B2/C1 · 50 min` (twin: `A2/B1 · 50 min`); `<meta name="series" content="Short History, Long Echoes">`; `<h1>` = topic + a one-line subtitle. Crosslink under the header — base: `Need an easier version? <a href="short_history_<SLUG>_a2b1.html">Read this lesson at A2/B1 level →</a>`; twin: `Want more detail? <a href="short_history_<SLUG>.html">Read this lesson at B2/C1 level →</a>`.
 
-**Tab 0 — Key Words:** an `.intention` line ("Today: you'll tell the story of… and master <grammar>…"); a short **warm-up = 2–3 discussion questions** that activate what the student already knows (do NOT link to other lessons — avoids broken links); then **10 key words**, each hidden in a natural context sentence with a Reveal button + clear definition (use the `.guess-item`/`.reveal-btn`/`.meaning` pattern); end with a short "use them out loud" `.discuss`.
+**Tab 0 — Key Words:** an `.intention` line ("Today: you'll tell the story of… and master <grammar>…"); a short **warm-up = 2–3 discussion questions** that activate what the student already knows (do NOT link to other lessons — avoids broken links); then pre-teach the **10 key words** the student will meet in the Story — see **§3a** for HOW (varied techniques, no inline gloss); end with a short "use them out loud" `.discuss`.
+
+### 3a. Unblocking the key words — VARIETY, and NEVER gloss the answer
+Every vocab item reuses the proven mechanic — a stimulus in `.sent`, a `.reveal-btn` (`onclick="this.nextElementSibling.classList.toggle('show')"`), and the answer in the `.meaning` div, which appears **only on Reveal**. But do **NOT** present all ten words as one identical "sentence → Reveal → definition" list. That is the mistake to avoid.
+
+**Group the 10 words into 3–4 small activities, each with a bold mini-heading, each using a DIFFERENT technique** from this menu (spread them; cover all 10 words between the activities; at least 3 distinct techniques, ideally 4):
+- **Infer from context** — a natural sentence using the word in **bold** where the *situation* hints at meaning. Prompt: "What does **X** mean here?" → Reveal the definition.
+- **Meaning → word** — give the definition (optionally the first letter); student recalls the word. "Which word means '…'?" → Reveal the word + an example.
+- **Synonym / antonym** — "**X** is close in meaning to …? / the opposite of …?" → Reveal.
+- **Collocation / chunk** — "Complete the phrase: to **lay ___ to** a city." → Reveal the word + why it pairs.
+- **Odd one out / grouping** — "Three belong together, one doesn't: …" or "Sort these into war / peace." → Reveal.
+- **Multiple choice in context** — one sentence, three meaning options (a/b/c). → Reveal the letter + why.
+- **Word building** — "You know **besiege**. What noun comes from it?" → Reveal the family.
+
+**HARD RULE — no inline gloss.** Never write the definition, a synonym, or a dash-appositive of the target word inside its own context sentence. The student must do the thinking; Reveal only confirms.
+- ✗ "The army began a *siege* — surrounding the city to starve it out." (hands it over)
+- ✓ "For eleven days the army sat outside the walls; nothing got in or out. This was a *siege*." → Reveal: "a siege (n) — surrounding a place to force it to surrender."
 
 **Tab 1 — The Story:** 3 parts (`.story-chunk`), genuine history, tightly abridged, vivid. After each part: a from-memory **Quick check** (2 questions + a hidden Reveal-answers block), then one `.discuss` question.
 
@@ -30,7 +46,7 @@ Keep the `<style>` block and the `<script>` (tab switching + timer) **identical*
 **Footer:** `Short History, Long Echoes · <Topic> · B2/C1` (twin `· A2/B1`). No byline.
 
 ## 4. The twin (A2/B1)
-Same topic, **simpler retold story** (short sentences, common words), 10 easier key words, and a **simpler grammar point** tied to the topic — NOT the B2/C1 point (e.g. past simple, comparatives, there was/were, prepositions).
+Same topic, **simpler retold story** (short sentences, common words), 10 easier key words, and a **simpler grammar point** tied to the topic — NOT the B2/C1 point (e.g. past simple, comparatives, there was/were, prepositions). Unblock the words with the **same variety** (§3a) in gentler forms (context clue, picture/emoji link, simple synonym, matching) and the **same no-inline-gloss rule**.
 
 ## 5. HARD RULES
 - 4th-wall clean: no teacher notes, no pedagogy labels ("TEEP", "retrieval", "I Do/We Do"), no mode labels, no "Malcolm".
@@ -39,4 +55,4 @@ Same topic, **simpler retold story** (short sentences, common words), 10 easier 
 - Any violence/tragedy: handle it soberly and historically, never graphically.
 
 ## 6. Verify before reporting
-grep to confirm, for BOTH files: `0` inputs with `value=`; `5` `tab-content` divs; crosslink present. Report: filenames + a one-line summary + "0 prefilled inputs".
+grep to confirm, for BOTH files: `0` inputs with `value=`; `5` `tab-content` divs; crosslink present. **Check Tab 0 by eye: at least 3 different vocab techniques (labelled mini-activities), and NO key-word context sentence contains its own definition/synonym (no dash-gloss).** Report: filenames + a one-line summary + "0 prefilled inputs" + the vocab techniques you used.
