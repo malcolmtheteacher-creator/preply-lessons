@@ -31,6 +31,8 @@ Every vocab item reuses the proven mechanic — a stimulus in `.sent`, a `.revea
 - **Multiple choice in context** — one sentence, three meaning options (a/b/c). → Reveal the letter + why.
 - **Word building** — "You know **besiege**. What noun comes from it?" → Reveal the family.
 
+**B2/C1 REGISTER — teach words worth teaching.** The 10 key words must be genuinely B2/C1: lower-frequency, abstract, figurative, or precise topic-specific/academic terms an advanced learner would actually want to gain — e.g. *garrison, capitulate, patronage, fabricated, decisive, ruthless, besiege, annexation, notorious, entangled, coup, dynasty*. Do NOT pre-teach everyday A2/B1 words the student already knows (*army, gun, mission, king, ship, rich, plot, blast, win, fight, wall*). Where the natural word for a thing is basic, teach the more precise or formal term the story can use instead: *cannon → artillery/ordnance · ban → prohibition · fight → engagement/skirmish · a fort → a garrison/bastion · money → finance/capital · fame → notoriety.* (The A2/B1 twin does the opposite — keep its words simple.)
+
 **HARD RULE — no inline gloss.** Never write the definition, a synonym, or a dash-appositive of the target word inside its own context sentence. The student must do the thinking; Reveal only confirms.
 - ✗ "The army began a *siege* — surrounding the city to starve it out." (hands it over)
 - ✓ "For eleven days the army sat outside the walls; nothing got in or out. This was a *siege*." → Reveal: "a siege (n) — surrounding a place to force it to surrender."
