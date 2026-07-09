@@ -40,6 +40,7 @@ Every vocab item reuses the proven mechanic — a stimulus in `.sent`, a `.revea
 **Tab 1 — The Story:** 3 parts (`.story-chunk`), genuine history, tightly abridged, vivid. After each part: a from-memory **Quick check** (2 questions + a hidden Reveal-answers block), then one `.discuss` question.
 
 **Tab 2 — Grammar — <POINT>:** clear explanation in `.note` boxes; **3 gap-fill exercises**. Inputs MUST be empty (no `value=`, no answer shown in the prompt/hint). Answers live ONLY in the hidden `.answers` reveal.
+- **CRITICAL — never give the answer away in the example.** The model sentences in the `.note` explanation must use **different sentences** from the ones you test in the gap-fill. If you illustrate "until" with *"The fire burned **until** the wind dropped"* and then the exercise asks *"The fire burned ___ the wind dropped"*, the student just copies the word from above — the exercise tests nothing. Teach the word with one scenario, test it with a **different** one. No exercise sentence may appear (in whole or blanked) anywhere in the explanation above it.
 
 **Tab 3 — Listen:** use the Houdini `.podcast-box` pattern. Name the real episode **"Short History Of… <Topic>"**, link to the real **Spotify show** page `https://open.spotify.com/show/2mcJ0sFMn4TdKCQrxoLPgO`, and add "search 'Short History Of <Topic>' to open the episode". Do NOT invent a specific episode URL (never guess a `/episode/...` link). Then a `.discuss` "listen out for" block (2–3 prompts).
 
