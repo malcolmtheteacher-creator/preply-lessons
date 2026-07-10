@@ -1,117 +1,164 @@
 # Mia's English — Project File
 
-**Read this first. Everything you need to keep building the Mia course.**
-
-A story-led beginner course: a recurring character, a few words each lesson, and a shared spaced-repetition engine so the words stay. **Level A1 (heading towards A2). One level — no twins.**
-
-Status: **lessons 1–50 built and live.** The story arc through lesson 50 is already written. **77 of 100 illustrations are still missing** (see §5) — lessons work fine without them; they fall back to a drawn placeholder.
+**Read this first. It is self-contained: everything needed to keep building the course, with paths, so nothing has to be rediscovered.**
 
 ---
 
-## 1. Where everything is
+## 1. What this actually is
 
-| What | Path |
-|---|---|
-| Working dir (repo `preply-lessons`) | `/Users/malcolmtheteacher/Documents/01_Work/gitsite/` |
-| **Template — clone this** | `a1s_03_where.html` |
-| **Lesson spec** | `MIA_A1_LESSON_SPEC.md` |
-| **Story arc, lessons 7–50** | `MIA_SERIES_PLAN.md` |
-| The 50 lessons | `a1s_01_hello.html` … `a1s_50_home.html` |
-| Series dashboard (50 cards) | `mia_english_dashboard.html` |
-| Image prompts, in order | `mia_image_prompts.html` (open in a browser, copy card by card) |
-| Image style briefs | `MIA_ENGLISH_IMAGE_BRIEF.md`, `MIA_ENGLISH_CHATGPT_PROJECT_BRIEF.md` |
-| Bulk lesson generator | `_build/gen_mia.py` |
-| Image-prompt generator | `_build/gen_prompts.py` |
-| Homepage repo | `/Users/malcolmtheteacher/Documents/01_Work/malcolmtheteacher-creator.github.io/index.html` |
+A **story-led English course that carries one learner from A1 all the way to C1**, built around a recurring character.
 
-Live at `https://malcolmtheteacher-creator.github.io/preply-lessons/<file>.html`
+Mia arrives in a new city, knowing almost no English, and builds a life there. **Every lesson is a chapter of her story.** By the end she is arguing, joking, persuading and reflecting in English — and the learner has come with her.
 
----
+Two principles, and they are the whole project:
 
-## 2. The story
+1. **The story is always the heart.** Grammar, vocabulary and links to existing site material are woven *around* the story. The story is never a wrapper on a grammar lesson; the grammar is what Mia happens to need in that chapter.
+2. **The vocabulary follows the learner.** One shared spaced-repetition deck runs through *every lesson at every level*. A word met in lesson 4 at A1 can resurface for review at B1, two years later. This is why the engine must never be forked (see §5).
 
-**Cast:** Mia (our learner-hero), Tom (her friend), Rosa (café owner), **Ana** (Mia's sister, arrives lesson 15), and the café's ginger cat (from lesson 9).
+**Five stages, one continuous story:**
 
-The arc runs from Mia arriving in a new city (L1) to a street party where she gives a short speech in English (L50). Every lesson advances the story *and* teaches exactly one grammar point. **The full beat-by-beat plan for lessons 7–50 is in `MIA_SERIES_PLAN.md`** — pipe-delimited rows: `N || slug || title || grammar || story beat || image1::scene || image2::scene`.
+| Stage | File prefix | Status |
+|---|---|---|
+| **A1** | `a1s_NN_slug.html` | **50 lessons — built, carded, live** |
+| A2 | `a2s_NN_slug.html` | not started |
+| B1 | `b1s_NN_slug.html` | not started |
+| B2 | `b2s_NN_slug.html` | not started |
+| C1 | `c1s_NN_slug.html` | not started |
+
+**Current status:** the **A1 stage is complete**. Its arc ends at a street party where Mia gives a short speech in English. That is the end of *A1*, not the end of the course. Mia's journey continues into A2 and beyond.
 
 ---
 
-## 3. The lesson shape — five tabs
+## 2. Where everything is
+
+Working directory (repo `preply-lessons`): `/Users/malcolmtheteacher/Documents/01_Work/gitsite/`
+Served live at `https://malcolmtheteacher-creator.github.io/preply-lessons/<file>.html`
+
+| What | Path | Scope |
+|---|---|---|
+| **Template — clone this** | `a1s_03_where.html` | A1 |
+| **Lesson build rules** | `MIA_A1_LESSON_SPEC.md` | **A1 only** |
+| **Story arc, lessons 7–50** | `MIA_SERIES_PLAN.md` | **A1 only** |
+| The 50 A1 lessons | `a1s_01_hello.html` … `a1s_50_home.html` | A1 |
+| Course dashboard | `mia_english_dashboard.html` | all stages |
+| Image prompts, in order | `mia_image_prompts.html` | A1 |
+| Image style brief | `MIA_ENGLISH_IMAGE_BRIEF.md` | all stages |
+| ChatGPT project brief | `MIA_ENGLISH_CHATGPT_PROJECT_BRIEF.md` | all stages |
+| Bulk lesson generator | `_build/gen_mia.py` | A1 (adaptable) |
+| Image-prompt generator | `_build/gen_prompts.py` | all stages |
+| Homepage (separate repo) | `/Users/malcolmtheteacher/Documents/01_Work/malcolmtheteacher-creator.github.io/index.html` | — |
+
+**Note the scope column.** `MIA_A1_LESSON_SPEC.md` and `MIA_SERIES_PLAN.md` describe the A1 stage. A2 and above each need their own arc plan and their own spec before building (§8).
+
+---
+
+## 3. The story
+
+**Cast (locked — all fictional, no photos needed):**
+- **Mia** — our learner-hero. Arrives knowing almost nothing.
+- **Tom** — kind neighbour, becomes her closest friend.
+- **Rosa** — owner of the café that becomes Mia's second home.
+- **Ana** — Mia's sister. Arrives at A1 lesson 15.
+- **The ginger café cat** — from A1 lesson 9. Never named. This is deliberate.
+
+The A1 arc runs from Mia arriving in a new city (L1) to the street party where she gives her speech (L50). Each lesson advances the story **and** teaches exactly one grammar point.
+
+`MIA_SERIES_PLAN.md` holds the beat-by-beat A1 plan as pipe-delimited rows:
+`N || slug || title || grammar || story beat || image1::scene || image2::scene`
+
+**Writing the arc for a new stage:** same cast, same city, Mia's life getting more complicated as her English does. The grammar of the stage should fall out of what her life now demands of her — at A2 she needs the past to tell people what happened; at B1 she needs conditionals because she has decisions to make; at B2 she needs to argue; at C1 she needs to be subtle. Write the story first, then see what grammar it asks for.
+
+---
+
+## 4. The lesson shape — five tabs
 
 🔁 **Warm-up** → 📖 **The Story** → 🗂️ **Words** → 🧩 **The Pattern** → 🗣️ **Your Turn**
 
-- **🔁 Warm-up** — spaced review of words from earlier lessons (auto-generated by the shared engine).
-- **📖 The Story** — this lesson's beat, in very simple English, with **two illustrations** woven in.
-- **🗂️ Words** — flip cards, auto-rendered from the `LESSON` array. You do not hand-write these cards.
-- **🧩 The Pattern** — the one grammar point, shown then practised.
-- **🗣️ Your Turn** — the student produces language. Inputs **empty**.
+- **🔁 Warm-up** — spaced review of whatever is *due* from the shared deck. Auto-generated by the engine; you write nothing here.
+- **📖 The Story** — this lesson's chapter, with **two illustrations** woven into it.
+- **🗂️ Words** — flip cards. **Auto-rendered from the `LESSON` array.** Never hand-write these cards.
+- **🧩 The Pattern** — the one grammar point, shown then practised. Links out to existing site material as "more practice" (`a1p_*`, `a1_*` pathway lessons, `CEFR_Grammar_Dashboard.html`).
+- **🗣️ Your Turn** — the student produces language, re-testing this lesson's new words. Inputs **empty**.
+
+Structure that must survive any clone: 5 `.panel` divs (one `class="panel active"`), 5 `.tab-btn` (one `.active`).
+
+As the course climbs, the tabs stay but their weight shifts — more text, less scaffolding, longer production. The **shape** is the constant, not the quantity of handholding.
 
 ---
 
-## 4. The engine — what you must and must not touch
+## 5. The engine — the one thing you must not break
 
-The `<script>` block below `var LESSON=[...]` is **identical in every lesson**. Copy it verbatim.
+The `<script>` block below `var LESSON=[...]` is **byte-identical in every lesson**, and must stay so **across every level**. Copy it verbatim.
 
 ```js
-function ph(img){ ... }                                   // draws the placeholder when a .png is missing
-var SR_KEY='miaSR_v1', DAY=86400000;                      // one shared deck across the whole course
+function ph(img){ ... }                                   // draws a placeholder when a .png is missing
+var SR_KEY='miaSR_v1', DAY=86400000;                      // ONE shared deck, whole course, all levels
 var INTERVALS={1:0, 2:1*DAY, 3:3*DAY, 4:7*DAY, 5:16*DAY}; // Leitner boxes 1–5
-var LESSON_NAME="Lesson 3 · Where is it?";                // ⚠️ MUST be changed per lesson
-var LESSON=[ ... ];                                       // ⚠️ MUST be changed per lesson
+var LESSON_NAME="Lesson 3 · Where is it?";                // ⚠️ MUST change per lesson
+var LESSON=[ ... ];                                       // ⚠️ MUST change per lesson
 function buildCards(){ ... }                              // renders the Words tab from LESSON
 ```
 
-**Exactly two things change in the JS: `LESSON_NAME` and the `LESSON` array.** Forgetting `LESSON_NAME` is the classic bug — the lesson then mislabels its own words in the shared review deck.
+**Exactly two things change in the JS: `LESSON_NAME` and the `LESSON` array.** Forgetting `LESSON_NAME` is the classic bug — every word then reports itself as belonging to whichever lesson you cloned, and the shared deck mislabels the learner's whole history.
 
-**Content regions** are marked by HTML comments in the template — a generator can block-replace between them:
+`SR_KEY` stays `'miaSR_v1'` at **every level**. Same origin, same key, one deck. Changing it per stage would throw away everything the learner has learned.
+
+**Content regions** are marked by HTML comments so a generator can block-replace between them:
 `<!-- STORY -->` · `<!-- WORDS -->` · `<!-- PATTERN -->` · `<!-- YOUR TURN -->`
-Plus `<title>`, the meta description, `<header>` (step / h1 / p), and `<footer>`.
-
-**Panels/tabs:** 5 `.panel` divs (one `class="panel active"`), 5 `.tab-btn` (one `.active`).
+Plus `<title>`, the meta description, `<header>` (step / h1 / p) and `<footer>`.
 
 ---
 
-## 5. Images
+## 6. Images
 
 Every lesson has **two** slots:
 ```html
 <img class="scene" src="a1s_NN_slug.png" alt="A plain description of the scene." onerror="ph(this)">
 ```
-`onerror="ph(this)"` draws a neat placeholder, so **a missing image never breaks a lesson**.
+`onerror="ph(this)"` draws a neat placeholder, so **a missing image never breaks a lesson.**
 
-- **100 slots referenced · 23 present · 77 missing.**
-- `mia_image_prompts.html` holds all the prompts in order, in bite-size copiable cards — including a character sheet for **Ana** before lesson 15.
-- Malcolm generates these in ChatGPT and drops the `.png` files into `gitsite/`. Nothing else is needed; the filenames already match.
-- Style rules live in `MIA_ENGLISH_IMAGE_BRIEF.md`.
+Style: warm flat vector; cream, teal and amber; big friendly shapes. Character reference sheets lock the cast so every lesson matches. Rules in `MIA_ENGLISH_IMAGE_BRIEF.md`.
 
-To check what's still missing:
+**A1 status: 100 slots referenced · 23 present · 77 missing.** Prompts for all of them sit in `mia_image_prompts.html` — open it in a browser and copy them card by card. Malcolm generates them in ChatGPT and drops the `.png` files into `gitsite/`. Filenames already match; nothing else is needed.
+
+List what's still missing:
 ```bash
 cd /Users/malcolmtheteacher/Documents/01_Work/gitsite
 grep -oh 'src="a1s_[a-z0-9_]*\.png"' a1s_*.html | sed 's/src="//;s/"//' | sort -u \
   | while read p; do [ -f "$p" ] || echo "$p"; done
 ```
+(Swap the prefix for `a2s_` etc. at later stages.)
 
 ---
 
-## 6. HARD RULES — non-negotiable
+## 7. HARD RULES — non-negotiable
 
-1. **4th wall.** The student sees the HTML. No teacher notes, no pedagogy labels ("I Do", "Retrieval", TEEP phases), no "Malcolm", never the word "Simplified".
-2. **All inputs empty.** No `value=`. Answers live only in hidden reveals.
-3. **Never give the answer away in the example above the exercise.** An example must never reuse an exercise sentence.
-4. **Exercises must actually test.** Ask of every task: *can the student get it right without knowing the answer?* If yes, it's broken.
-5. **Change `LESSON_NAME`.** Every single time.
+1. **The 4th wall.** The student sees the HTML. No teacher notes, no pedagogy labels ("I Do", "We Do", "Retrieval", TEEP phase names), no reference to Malcolm, never the word "Simplified".
+2. **All inputs empty.** No `value=` anywhere. Answers live only in hidden reveals.
+3. **Never give the answer away in the example above the exercise.** A teaching example must never reuse an exercise sentence.
+4. **Exercises must actually test.** Ask of every task: *could the student get the marked answer without the knowledge it claims to test* — by copying from above, or because several answers fit? If yes, it is broken.
+5. **Never introduce anything new in an answer key.** A reveal box is where a student goes to feel certain. No untaught idiom, no fresh vocabulary.
+6. **Change `LESSON_NAME`.** Every single time.
 
 ---
 
-## 7. Building more (lessons 51+, or rebuilding any of 1–50)
+## 8. Building
 
-For near-identical lessons, **use a generator, not one agent per lesson** — far faster and cheaper. `_build/gen_mia.py` is the working example that produced lessons 21–50: it reads the template, then does targeted regex block-replacement between the HTML comment markers, driven by an inline data table (grammar point, story text, words, pattern, your-turn, image filenames).
+### A new stage (A2, B1, B2, C1)
+1. **Write the arc first.** A plan file in the shape of `MIA_SERIES_PLAN.md`, for that stage. Story beats first; let the grammar fall out of them.
+2. **Write the stage spec** — a sibling to `MIA_A1_LESSON_SPEC.md` describing how the template grows up at this level (text length, scaffolding, production demand).
+3. **Evolve the template**, keeping the 5 tabs and the engine untouched. Save it as the stage's own template, e.g. `a2s_03_*.html`.
+4. Build, card, deploy.
 
-Gotcha baked into that script: inside Python double-quoted story strings, write `class=say` **unquoted** — `class="say"` breaks the string. Unquoted HTML attributes are valid and the CSS still matches.
+### More lessons within a stage
+For near-identical lessons, **use a generator, not one agent per lesson** — far faster and far cheaper. `_build/gen_mia.py` is the working example that produced A1 lessons 21–50: it reads the template and does targeted regex block-replacement between the HTML comment markers, driven by an inline data table (grammar point, story text, words, pattern, your-turn, image filenames).
 
-For genuinely bespoke lessons, clone `a1s_03_where.html` by hand and follow `MIA_A1_LESSON_SPEC.md`.
+> Gotcha baked into that script: inside Python double-quoted story strings write `class=say` **unquoted** — `class="say"` breaks the string. Unquoted HTML attributes are valid and the CSS still matches.
 
-Then add a card to `mia_english_dashboard.html`:
+For genuinely bespoke lessons, clone the stage template by hand and follow that stage's spec.
+
+### Then card it
+Add to `mia_english_dashboard.html`:
 ```html
 <a class="lcard" href="a1s_NN_slug.html">
   <div class="lnum">N</div>
@@ -119,35 +166,38 @@ Then add a card to `mia_english_dashboard.html`:
   <div class="lgo">→</div>
 </a>
 ```
+The dashboard will need stage sections once A2 begins.
 
 ---
 
-## 8. Where it's wired into the site
+## 9. Where it's wired into the site
 
-- `mia_english_dashboard.html` — 50 cards.
-- Homepage `index.html` — a "🌱 Mia's English" card (A1 · story-led · 50 lessons) in the beginner grid.
+- `mia_english_dashboard.html` — currently 50 A1 cards.
+- Homepage `index.html` — a "🌱 Mia's English" card in the beginner grid.
 
 ---
 
-## 9. Deploying
+## 10. Deploying
 
 ```bash
 cd /Users/malcolmtheteacher/Documents/01_Work/gitsite
 git add <files> && git commit -m "..." && git push origin main
 ```
-GitHub Pages rebuilds in a minute or two. The homepage is a **separate repo** — push it separately.
+GitHub Pages rebuilds in a minute or two. The **homepage is a separate repo** — push it separately.
 
-⚠️ The stored token can **push** but **cannot open pull requests** (403), and `gh` is not installed. Push straight to `main`; don't try to open a PR.
-
----
-
-## 10. Open items
-
-- **77 missing illustrations** — waiting on Malcolm to generate them from `mia_image_prompts.html`.
-- Lessons 51+ if the course is extended beyond the street party.
+⚠️ The stored token can **push** but **cannot open pull requests** (403), and `gh` is not installed. Push straight to `main`; don't waste time trying to open a PR.
 
 ---
 
-## 11. Working with Malcolm
+## 11. Open items
 
-He is an English teacher of 30 years, **not a coder**. Talk about the student-facing content in plain English; keep the tooling invisible. Don't over-engineer. When he flags a problem, **open the file and look** before theorising — and if he says you've misdiagnosed it, you probably have.
+- **77 missing A1 illustrations** — waiting on Malcolm, prompts ready in `mia_image_prompts.html`.
+- **The A2 stage has not been started.** It needs an arc plan and a spec before any lesson is built (§8).
+
+---
+
+## 12. Working with Malcolm
+
+He is an English teacher of thirty years, **not a coder**. Talk about the student-facing content in plain English and keep the tooling invisible. Don't over-engineer.
+
+When he flags a problem, **open the file and look at it** before theorising — and if he tells you you've misdiagnosed it, you have. He catches real pedagogical faults that automated checks miss: answers sitting visible above the exercise, gap-fills with several right answers, untaught idioms dropped into answer keys. Take those seriously and fix the class of problem, not just the instance.
