@@ -1,3 +1,5 @@
+> **⚠️ Superseded — read `ROLE_PLAYS_PROJECT.md` first.** That is now the master handoff for the whole role-play world (Everyday Echoes + Modern Life + English at Work, both levels). This file covers only Everyday Echoes and predates the A2/B1 twin track; keep it for the Everyday Echoes detail but the master file is authoritative.
+
 # Everyday Echoes — Project File
 
 **Read this first. It is self-contained: everything needed to keep building the role-play series, with paths, so nothing has to be rediscovered.**
