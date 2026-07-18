@@ -109,6 +109,8 @@ def regroup(path, plan):
     start = html.index('    <div class="pathhead">')
     last_card_end = html.rindex("</a>\n") + len("</a>\n")
     html = html[:start] + "".join(out) + html[last_card_end:]
+    # collapse any run of blank lines so re-running doesn't slowly grow the file
+    html = re.sub(r"\n{3,}", "\n\n", html)
     (HERE / path).write_text(html, encoding="utf-8")
 
     n_cards = html.count('class="lcard"')
