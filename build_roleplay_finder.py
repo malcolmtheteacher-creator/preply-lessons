@@ -19,7 +19,6 @@ DASHBOARDS = [
     ("everyday_echoes_dashboard.html", "Everyday Echoes", "🎭"),
     ("modern_life_dashboard.html", "Modern Life", "💡"),
     ("english_at_work_dashboard.html", "English at Work", "💼"),
-    ("life_in_english_dashboard.html", "Life in English", "🌍"),
 ]
 
 CARD_RE = re.compile(
