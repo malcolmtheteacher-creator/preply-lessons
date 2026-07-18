@@ -1,0 +1,262 @@
+# -*- coding: utf-8 -*-
+FILE = "lf_45_the_late_friend.html"
+SERIES = "Life in English"
+TITLE = "The Late Friend"
+SUMMARY = "tell a friend their lateness hurts"
+INTRO = ("Forty minutes. A pot of tea you've drunk on your own, a table the waiter keeps looking at, "
+         "and twelve years of this. Tonight you're going to say something — and it has to come out as "
+         "a friendship being repaired, not a friend being told off.")
+
+PANELS = [
+# ── 🎬 THE SCENE ──────────────────────────────────────────────────────────
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">You said half seven. It is now ten past eight. This is not a surprise.</p>
+
+        <p>Priya has been your friend for twelve years, and in twelve years she has never once been on time. Not late in a dramatic way — late in a small, warm, hopeless way, arriving pink-faced and full of a story about a bus, and so genuinely sorry that you always end up saying it's fine. It has always been fine.</p>
+
+        <p>It stopped being fine about a year ago and you never mentioned it, which is your half of the problem. What's actually worn you down isn't the waiting. It's that you've started planning around it — leaving the house late on purpose, expecting nothing, sitting in restaurants on your own working out whether tonight is a forty-minute night or a she's-not-coming night.</p>
+
+        <p>Tonight you're going to say it. The difficulty is that Priya is not a villain, she has no idea, and she is about to apologise so beautifully that you'll be tempted to let it go for another twelve years.</p>
+
+        <ol class="bigq">
+            <li>Is there someone in your life who is always late? What have you actually done about it — and if the answer is nothing, why not?</li>
+            <li>In your country, how late is late? Is arriving twenty minutes after the time rude, normal, or expected?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who">
+                <b>You</b>
+                <span>You've been sitting here forty minutes. You're not angry — you're tired of a thing you've never once mentioned, which makes it partly yours.</span>
+            </div>
+            <div class="who">
+                <b>Priya</b>
+                <span>Your friend of twelve years. Warm, funny, hopeless with time, and world-class at apologising. She genuinely doesn't know this has become a problem.</span>
+            </div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation in the next tab, and watch one thing in particular — how quickly Priya reaches for an apology, and what You do instead of accepting it. Letting someone apologise is the easy way out of this conversation, and it's the reason nothing has changed in twelve years.</div>""",
+
+# ── 💬 THE CONVERSATION ───────────────────────────────────────────────────
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">A restaurant, ten past eight. She arrives, coat half off, already talking.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Priya</span>I know. I know, I know, I know — don't. The Northern line was — honestly, you'd think after all these years I'd factor in that the Northern line is just <em>a lie</em>. Have you been here ages? You've been here ages.</div>
+            <div class="say say-b"><span class="who-label">You</span>Forty minutes.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Oh God. Forty. Right. I'm so sorry, I'm properly sorry, I'll get this, honestly, the whole — what have you had, have you eaten? Let me—</div>
+            <div class="say say-b"><span class="who-label">You</span>Priya. Sit down a sec. I've been sat here forty minutes, and I'm not cross, I'm just — can we talk about it?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>…Talk about it. Okay. Yeah. God, that sounds ominous.</div>
+            <div class="say say-b"><span class="who-label">You</span>It's not ominous. It's just — it's not tonight. It's that it's every time.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Right. No, I know I'm — I mean I know I'm bad, I'm always— everyone says. My sister says. It's a running thing, isn't it, it's sort of my—</div>
+            <div class="say say-b"><span class="who-label">You</span>It is, and that's the bit I want to say something about, because I've been laughing along with it for about twelve years. Here's what it's actually like from my side. I never really know whether to leave the house at eight or not.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>…Oh.</div>
+            <div class="say say-b"><span class="who-label">You</span>Half the time I'm just sat somewhere on my own wondering if you're even coming. And then you arrive and you're lovely and I forget about it, and then it happens again.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>I'm so— no. Sorry. I was about to do the thing. I'm doing the thing, aren't I.</div>
+            <div class="say say-b"><span class="who-label">You</span>You are, a bit. Don't apologise again — you're brilliant at apologising, that's sort of the problem. I'd honestly rather you said half seven and meant it.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>That's — yeah. That's fair. That's really fair, actually. I do think I sort of — I think I've always thought that being sorry <em>counted</em> for something. Like it balanced it out.</div>
+            <div class="say say-b"><span class="who-label">You</span>I know it's not deliberate. That's not quite the point, though. And look — I'm not asking you to turn into a different person. Could we do a thing where you text me if you're going to be more than ten minutes? That's genuinely all. Then I can have a coffee somewhere instead of sitting here doing sums.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Yeah. Yes. I can do that. That's — that's nothing, that's easy. Why has nobody ever just asked me to do that.</div>
+            <div class="say say-b"><span class="who-label">You</span>Because you're very charming and we're all cowards. Anyway. Said now. Sit down — I've already ordered.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>Priya twice starts to do something that You stop her doing. What is it, and why does You stop her?</li>
+                <li>What does Priya say she has always believed about being sorry?</li>
+                <li>What exactly is the one thing You asks for — and what does You say it will let you do instead?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> Apologise. She apologises at the start and starts again in the middle ("I'm so— no. Sorry. I was about to do the thing."). You stops her because the apology is what ends the conversation every time — twelve years of accepted apologies is exactly why nothing has changed.<br><br>
+                <b>2.</b> That being sorry <em>counted for something</em> — that it balanced the lateness out. That's the belief the whole conversation quietly dismantles.<br><br>
+                <b>3.</b> A text if she's going to be more than ten minutes. It would let You go and have a coffee somewhere instead of sitting at the table "doing sums" — working out whether she's coming at all.
+            </div>
+        </div>""",
+
+# ── 🧰 USEFUL PHRASES ─────────────────────────────────────────────────────
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for telling a friend that something they do keeps hurting you — without it becoming a row, and without letting them apologise their way out of it. Say each one out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> This whole conversation lives or dies on sounding tired rather than angry. Angry gives them something to defend against; tired gives them something to fix. Keep your voice low and a bit flat, take the speed out of it, and let the pauses sit there. If you find yourself talking fast, you've slipped into telling them off — stop, and start the sentence again slower.</div>
+
+        <h3>🎯 Opening it without an ambush</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p>She's arrived mid-apology and is offering to pay for everything. You want to stop the performance and start the actual conversation — while making clear you're not about to shout. Put the pieces in order:</p>
+            <div class="jumble"><span>and I'm not cross,</span><span>I've been sat here</span><span>can we talk about it?</span><span>forty minutes,</span><span>I'm just —</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I've been sat here forty minutes, and I'm not cross, I'm just — can we talk about it?"</b><br>Three jobs in one sentence. The fact first, flatly, with a number — numbers are hard to argue with in a way that "ages" isn't. Then "I'm not cross", which tells her what kind of conversation this is going to be before she's had time to brace for the other kind. Then the unfinished "I'm just —", which is honest: you don't have a tidy word for it. Ending on a question rather than a statement makes it something you're doing together instead of something you're doing to her.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p>She's braced for a row about <em>tonight</em> — the Northern line, the forty minutes. But tonight isn't really what this is about, and if you let her defend tonight you'll lose. One word turns a single evening into a pattern. Complete it:<br><br>"It's not tonight. It's that it's ___ time."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"It's not tonight. It's that it's every time."</b><br>The most important word in the lesson. A single late evening has an excuse attached to it, and the excuse is usually true — the Northern line really is a lie. But a <em>pattern</em> has no excuse, because no run of bad luck lasts twelve years. Saying "it's not tonight" hands her back the defence she was about to use, which is oddly disarming: you've agreed with her before she's argued. What's left is the only thing worth discussing.</div>
+        </div>
+
+        <h3>🪞 Showing them your side of it</h3>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p>Now the useful move: stop describing what she does, and describe what it's like being on the other end. Which of these actually gets through to a person who doesn't think of themselves as unkind?</p>
+            <div class="choice">
+                <div><b>A.</b> "It's really rude, though, isn't it, when you think about it."</div>
+                <div><b>B.</b> "I never really know whether to leave the house at eight or not."</div>
+                <div><b>C.</b> "Everybody says it about you, you know. Not just me."</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "I never really know whether to leave the house at eight or not."</b><br>A puts a label on her — <em>rude</em> — and nobody accepts a label; she'll spend the next ten minutes proving she isn't rude instead of hearing you. C is worse: it turns a private thing between two friends into a report from a committee, and she'll feel ganged up on. B does something neither of them does — it shows her a small, specific, slightly sad picture of you standing in your hallway at eight o'clock not knowing what to do. There's nothing in it to argue with, because it isn't an accusation. It's just what her lateness looks like from where you're standing.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p>Here's the picture that does the real damage — and it's the truest thing in the conversation. Describe, out loud and in one sentence, what you're actually doing during those forty minutes. Not the waiting. The <em>thought</em>. Then write it.</p>
+            <textarea class="blank" placeholder="Where you are, what you're doing, and what you're wondering…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "Half the time I'm just sat somewhere on my own wondering if you're even coming."</b><br>Notice what makes it land: it isn't about time at all. "On my own" and "wondering if you're even coming" describe a feeling — small, embarrassing, quite lonely — and that's a far heavier thing to have caused than forty wasted minutes. This is the sentence that actually changes Priya's face in the conversation, and it contains no criticism whatsoever.</div>
+        </div>
+
+        <h3>🚫 Refusing the apology</h3>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p>She's apologising again, and she's very good at it. This is the moment the conversation usually dies — you accept, she's forgiven, nothing changes. You need to stop it while making clear you're not being cruel. Put the pieces in order:</p>
+            <div class="jumble"><span>you're brilliant at apologising,</span><span>Don't apologise again —</span><span>that's sort of the problem.</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Don't apologise again — you're brilliant at apologising, that's sort of the problem."</b><br>A compliment and a criticism folded into the same clause, which is why it doesn't wound. You're not saying her apologies are insincere — you're saying they <em>work</em>, and that's exactly what's wrong: a good enough apology closes the subject before anything gets fixed. "Sort of" keeps it light. Said warmly, this line usually makes people laugh, and the laugh is what lets the point land.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p>Instead of another apology, name what you'd actually prefer — the plain, slightly blunt alternative. One word is missing, and it's the word that makes the sentence honest rather than passive-aggressive:<br><br>"I'd honestly rather you said half seven and ___ it."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I'd honestly rather you said half seven and meant it."</b><br>"Meant it" is doing something quite precise. You're not asking her to be punctual — you're asking her to stop saying a time she has no intention of keeping. That's a much smaller and much fairer request, and it reframes the problem as one of honesty rather than of character. "I'd honestly rather" is a preference, not a demand, which is far harder to push back against.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p>She'll reach for the strongest defence there is, and it's completely true: she isn't doing it on purpose. You need to grant it and keep going in the same breath. Which reply does that?</p>
+            <div class="choice">
+                <div><b>A.</b> "Well, you say that, but at some point it becomes a choice, doesn't it?"</div>
+                <div><b>B.</b> "I know it's not deliberate. That's not quite the point, though."</div>
+                <div><b>C.</b> "It doesn't really matter whether you meant it or not, does it."</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "I know it's not deliberate. That's not quite the point, though."</b><br>A calls her a liar about her own intentions, and she'll fight you on it for the rest of the evening. C is dismissive — "it doesn't matter" tells her that her feelings are irrelevant, which is cold. B gives her the thing she needs (you know she's not doing it on purpose) and then quietly refuses to let it end the conversation. "Not quite the point" is beautifully mild — it doesn't say she's wrong, only that she's answering a question you didn't ask.</div>
+        </div>
+
+        <h3>🤝 Asking for one small thing</h3>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p>Big requests get big resistance. Ask for something so small it would be strange to refuse — and make it a question, not a rule. Complete the missing word:<br><br>"Could we do a thing where you ___ me if you're going to be more than ten minutes?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could we do a thing where you text me if you're going to be more than ten minutes?"</b><br>Look at how modest this is. It doesn't ask her to be on time. It asks her to press about six buttons on a phone she is already holding. That's the trick with a long-standing habit: don't ask for the habit to change, ask for the <em>consequence</em> to be managed. "Could we do a thing where…" is casual and shared — it sounds like an arrangement rather than a condition, and people keep arrangements they helped make.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p>The fear underneath all of this, for her, is that you're asking her to become somebody else — organised, punctual, different. Say the sentence that puts that fear down. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="Reassure her that this isn't about who she is…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "I'm not asking you to turn into a different person."</b><br>Worth saying out loud even though it seems obvious, because it's exactly what someone hears when you criticise a lifelong habit. Naming the fear is how you dissolve it — she can stop defending her whole personality and start thinking about one text message. Notice it's the smallness of the ask in phrase 8 that makes this sentence believable; on its own it would just be a nice thing to say.</div>
+        </div>
+
+        <h3>🍽️ Putting the evening back</h3>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p>It's said. She's agreed. Now close it properly — because a conversation like this can leave an evening flattened if you don't actively pick it back up. Which ending gets you your friend back fastest?</p>
+            <div class="choice">
+                <div><b>A.</b> "Right, well. Hopefully that's the end of it."</div>
+                <div><b>B.</b> "Anyway. Said now. Sit down — I've already ordered."</div>
+                <div><b>C.</b> "Sorry, I didn't mean to make it awkward. Ignore me."</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "Anyway. Said now. Sit down — I've already ordered."</b><br>A is sour — "hopefully" leaves a threat hanging over the table. C undoes everything you just did; taking it back tells her it wasn't real, and next time you'll have to start from nothing. B closes the subject cleanly and moves straight into the ordinary business of dinner. "Said now" is a lovely two-word full stop: the thing has been said, it doesn't need saying again, and we're back to being friends who are about to eat.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These phrases work for any long-running habit you've never mentioned — the friend who never texts back, the relative who always comments on your weight, the colleague who always volunteers you for things. Pin three of them to your own life. Say each answer out loud before you type it.</p>
+            <p class="cue">"It's not tonight. It's that it's every time." — what pattern have you been laughing along with for years?</p>
+            <textarea class="blank" placeholder="The person, the habit, and how long you've said nothing…"></textarea>
+            <p class="cue">"I never really know whether to…" — describe what their habit is like from your side. A small, specific picture, not a criticism.</p>
+            <textarea class="blank" placeholder="What you actually do, or think, because of it…"></textarea>
+            <p class="cue">"Could we do a thing where…?" — what is the smallest possible change that would fix it for you?</p>
+            <textarea class="blank" placeholder="Something so small it would be odd to say no to…"></textarea>
+        </div>
+
+        <a class="morelink" href="life_in_english_phrase_bank.html">🧰 <span>Every phrase from every Life in English lesson, grouped by the part of life it belongs to.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> run the whole conversation out loud using all ten, in order — open it → name the pattern → show them your side → the lonely picture → block the apology → say what you'd prefer → grant that it's not deliberate → ask for the one small thing → put down the fear → close it and eat. If your voice sped up anywhere, that's where you slipped from tired into cross. Run it again slower.</div>""",
+
+# ── 🎭 YOUR TURN ──────────────────────────────────────────────────────────
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now you say it. Twice — once from each side of the table.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're the one who's been waiting</h3>
+        <p>Your own version, with your own friend in mind. She's just sat down, still apologising, still holding her coat.</p>
+
+        <p class="cue">Open it — the fact, the reassurance, and the question.</p>
+        <textarea class="blank" placeholder="I've been sat here…"></textarea>
+
+        <p class="cue">She defends tonight — the traffic, the boss who wouldn't stop talking. Move it from tonight to the pattern.</p>
+        <textarea class="blank" placeholder="It's not tonight…"></textarea>
+
+        <p class="cue">Show her your side. What do you actually do, or think, because of it?</p>
+        <textarea class="blank" placeholder="I never really know whether…"></textarea>
+
+        <p class="cue">She apologises — warmly, completely, again. Stop her without being unkind.</p>
+        <textarea class="blank" placeholder="Don't apologise again…"></textarea>
+
+        <p class="cue">She says she doesn't mean to. Grant it, and keep going.</p>
+        <textarea class="blank" placeholder="I know it's not deliberate…"></textarea>
+
+        <p class="cue">Ask for your one small thing, and close the evening.</p>
+        <textarea class="blank" placeholder="Could we do a thing where…"></textarea>
+
+        <h3>Round 2 — now you're Priya</h3>
+        <p>Swap sides. You're the late one, and you've just been told — kindly, but properly — that something you've laughed about for twelve years has been quietly wearing your friend down. This is the harder half. Being told is a skill.</p>
+
+        <p class="cue">Your first instinct is to apologise beautifully. Don't. Say something else instead.</p>
+        <textarea class="blank" placeholder="Not sorry — something that shows you've actually heard it…"></textarea>
+
+        <p class="cue">Be honest about what you've always told yourself about your own lateness.</p>
+        <textarea class="blank" placeholder="I think I've always thought…"></textarea>
+
+        <p class="cue">Agree to the thing — and say one true sentence about why nobody has ever asked you before.</p>
+        <textarea class="blank" placeholder="Yes, and honestly…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Priya listens, agrees, and then says something you weren't ready for: that she's late to everything because getting out of the house has become genuinely hard for her lately, and she hasn't told anybody why. She's not making an excuse — she's embarrassed, and she changes the subject immediately.</p>
+            <p>Everything you prepared is now the wrong conversation. You still have a real thing you need, and she has just handed you something much bigger. What do you say next — and do you go back to the ten-minute text at all?</p>
+            <textarea class="blank" placeholder="What you say in the ten seconds after she says it…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Can you open it with a fact, a reassurance and a question — in one breath?</li>
+                <li>Can you move it from tonight to the pattern without sounding like you've been keeping a list?</li>
+                <li>Can you describe your side of it as a picture rather than an accusation?</li>
+                <li>Can you stop an apology without being cold about it?</li>
+                <li>Can you ask for something small enough that saying no would be strange?</li>
+            </ul>
+        </div>""",
+
+# ── 🔭 THE BIGGER PICTURE ─────────────────────────────────────────────────
+"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+
+        <div class="echo-card">
+            <p>Almost every long friendship has one of these in it — a small thing that stopped being fine years ago and never got mentioned, because mentioning it would have been a bigger deal than the thing itself. So it gets turned into a joke instead. She's always late. He never texts back. That's just what they're like.</p>
+            <p>The joke is a kindness at first. It lets everyone carry on. But it also quietly closes the door on the thing ever changing, and it means the person is never given the chance to be better, because nobody has told them there's anything to be better about.</p>
+            <p>What's strange is how small the actual repair usually is. Twelve years of low-level resentment, solved by a text message. The hard part was never the fix. It was the sentence.</p>
+        </div>
+
+        <ol class="bigq">
+            <li>Is there a difference between a habit and a character trait? Priya says "it's sort of my thing" — at what point does a habit stop being something a person does and start being who they are?</li>
+            <li>Some people would say that if you've said nothing for twelve years, you've lost the right to complain about it now. Are they right? Whose fault is a problem nobody has ever named?</li>
+        </ol>""",
+]
