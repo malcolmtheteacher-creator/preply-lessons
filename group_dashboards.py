@@ -62,6 +62,8 @@ PLANS = {
           "Promoted Over a Friend"]),
         ("🛑", "Protecting your own time", "Saying no, pricing the extra, chasing what you're owed.",
          ["Saying No to Your Boss", "The Changing Brief", "The Unpaid Invoice"]),
+        ("🩺", "In the consulting room", "Doing your own clinical job in English.",
+         ["The Consultation", "Breaking the News"]),
         ("⚠️", "When it goes wrong", "Mistakes, anger, and people who aren't coping.",
          ["The Mistake", "The Client Who Shouts", "Not Coping at Work",
           "The Colleague Who Cries"]),

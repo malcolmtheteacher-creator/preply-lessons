@@ -13,11 +13,19 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-SHELL = HERE / "_shell_head.html"
+SHELLS = {"wk": "_shell_wk", "ml": "_shell_ml"}   # per-series: Work has a 3rd-speaker style
+
+
+def shell_for(mod, out_name):
+    """Work and Modern Life templates differ (.say-c). Pick by filename prefix."""
+    prefix = out_name[:2]
+    base = SHELLS.get(prefix, "_shell")
+    return HERE / (base + "_head.html"), HERE / (base + "_tail.html")
 
 
 def build(mod, out_path):
-    head = SHELL.read_text(encoding="utf-8")
+    head_path, tail_path = shell_for(mod, Path(out_path).name)
+    head = head_path.read_text(encoding="utf-8")
     series = getattr(mod, "SERIES", "Life in English")
 
     head = re.sub(r"<title>.*?</title>", f"<title>{series} · {mod.TITLE}</title>", head, count=1)
@@ -39,7 +47,7 @@ def build(mod, out_path):
         f'    <div class="panel{" active" if i == 0 else ""}" id="{ids[i]}">\n{p}\n    </div>'
         for i, p in enumerate(mod.PANELS)
     )
-    html = head + body + (HERE / "_shell_tail.html").read_text(encoding="utf-8")
+    html = head + body + tail_path.read_text(encoding="utf-8")
     Path(out_path).write_text(html, encoding="utf-8")
     return html
 

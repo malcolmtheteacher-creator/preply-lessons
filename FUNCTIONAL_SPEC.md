@@ -81,6 +81,21 @@ These already work with real students. Read them before writing anything:
 - `rp_17_haggling_at_a_market.html` — "Is there any movement on the price?"
 - `ml_01_the_group_chat.html` — "I'd hate for this to become a thing."
 
+## Two people in the room. Always.
+
+These are 1-to-1 Preply lessons: **one student, one teacher.** That governs the
+whole design.
+
+- **Your Turn is always two-handed.** Round 1 the student plays one side, the
+  teacher the other. Round 2 they swap. Never ask a student to voice two
+  characters at once — it is unplayable and it kills the fluency work stone
+  dead.
+- **A third voice may appear in the model dialogue only**, briefly, for realism
+  — the way Petra gets two turns in *Speaking Up in the Meeting*. It is
+  something the student *reads*, never something either person has to *play*.
+- If a situation genuinely needs three active participants, it is the wrong
+  situation. Rewrite it for two.
+
 ## Structure of a lesson
 
 Unchanged and still right: 🎬 The Scene · 💬 The Conversation · 🧰 Useful
