@@ -230,16 +230,19 @@ PANELS = [
             </ul>
         </div>""",
 
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>"Yes" is the most expensive word at work, and it's expensive precisely because it's free to say. Nobody notices the cost at five past five on a Thursday; they notice it three weeks later when something quietly didn't happen.</p>
-            <p>What's really going on is that most requests arrive without arithmetic attached. Dele hasn't calculated anything — he's passing on something he was handed. Saying yes lets both of you avoid the sum; making the trade visible forces it, once, in ten seconds.</p>
-            <p>And there's a quiet unfairness underneath it. In most teams the people who say yes get more work, not more credit — the reward for absorbing pressure is more pressure, until the only person who knows what you're carrying is you.</p>
+            <p>Fletcher Christian did not set out to seize a ship. For months he absorbed what Captain Bligh handed down — more sail, more speed, more work, and a running commentary on his failings — and each time he said nothing, because saying something to Bligh was not an available move.</p>
+            <p>On 28 April 1789 he stopped absorbing it, all at once, with a cutlass. Bligh and eighteen loyal men were put into a seven-metre open boat with a sextant and no charts, and sailed six and a half thousand kilometres to Timor.</p>
+            <p>Nobody in your office is going over the side. But the pattern is worth noticing: yes, yes, yes, and then something that isn't a no so much as an explosion. The trade said out loud on a Thursday is what prevents it.</p>
         </div>
 
+        <a class="morelink" href="short_history_mutiny_on_the_bounty.html">⛵ <span>Want the full story? The breadfruit, the long voyage, and the morning it broke…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Whose job is it to know what you're carrying — yours or your manager's? What happens in teams where nobody does?</li>
-            <li>Is saying yes to everything a kindness, a habit, or a way of avoiding a difficult conversation?</li>
+            <li>Is a mutiny a failure of the crew, or of a captain who left them no smaller way of objecting?</li>
+            <li>What happens in a team where nobody can say that something has to give?</li>
         </ol>""",
 ]

@@ -256,16 +256,19 @@ PANELS = [
         </div>""",
 
 # ── 🔭 THE BIGGER PICTURE ─────────────────────────────────────────────────
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Almost every freelancer is quietly financing the companies they work for. Thirty-day terms become sixty, sixty become ninety, and the person carrying the gap is the one who can least afford to — while the business that owes it books the delay as working capital.</p>
-            <p>What keeps it going is politeness. Chasing feels like begging for something you've already earned, so people send apologetic emails instead of making a phone call, and an email is easy to not answer.</p>
-            <p>And the thing that actually unsticks it is almost never anger. It's a question about the process — because most late payments aren't a decision to withhold money. They're a form sitting in the wrong inbox while somebody was on leave.</p>
+            <p>The Medici did not become the most powerful family in Europe by owning things. They became powerful by keeping accounts — two columns, debit and credit, every branch from Bruges to Rome reconciled against every other.</p>
+            <p>It sounds like bookkeeping and it was closer to a weapon. Knowing precisely who owed what, and for how long, is what let a family of merchants fund popes and finance wars. The ledger was the power.</p>
+            <p>Ninety-one days is a number in a column. Almost every freelancer knows the feeling of not quite wanting to look at it — and the Medici would tell you that the looking is the whole job.</p>
         </div>
 
+        <a class="morelink" href="short_history_the_medici.html">📒 <span>Want the full story? The bank, the ledgers, and the family who ran Europe on credit…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Should late payment to small suppliers be treated as a form of borrowing? What would change if companies had to pay interest on it automatically?</li>
-            <li>Why do we find it so much harder to ask for money we've earned than to do the work that earned it?</li>
+            <li>Late payment to small suppliers is effectively an interest-free loan. Should it be treated as borrowing?</li>
+            <li>Why is it so much easier to do the work than to ask to be paid for it?</li>
         </ol>""",
 ]

@@ -234,16 +234,19 @@ PANELS = [
             </ul>
         </div>""",
 
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Most unhappy customers say nothing at all. They don't complain and they don't come back, and the business never learns what happened — which is why Aggie thanks someone for telling her that her food was cold.</p>
-            <p>The online review changed the shape of this without improving it. It's easier to write three furious paragraphs at midnight than to say one sentence to a face, and the sentence is worth far more: it can be answered, corrected, and acted on that night.</p>
-            <p>What makes the face-to-face version hard isn't courage exactly. It's that you have to be proportionate in real time, in front of someone whose livelihood it is — and proportion is much harder than anger.</p>
+            <p>Two swindlers tell an emperor they can weave a cloth invisible to anyone unfit for their post. There is no cloth. The emperor cannot see it and says nothing. His ministers cannot see it and praise it extravagantly. The whole court agrees, loudly, about a fabric that does not exist.</p>
+            <p>The procession goes ahead. Everyone lining the street sees a naked man and everyone cheers — until a child, who has not yet learned what it costs to be the one who says it, points out the obvious.</p>
+            <p>Aggie has been walking down that street for weeks. Everyone who had a bad meal smiled and said lovely, thank you, and never came back. Somebody has to be the child.</p>
         </div>
 
+        <a class="morelink" href="techniques_the_emperors_new_clothes.html">👑 <span>Want the full story? The weavers, the procession, and the one voice in the crowd…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Are online reviews good for small businesses, or have they replaced something better?</li>
-            <li>Is it kinder to say nothing and simply not go back? Who is that kindness actually for?</li>
+            <li>Why is it so much easier to say nothing? What does the crowd actually gain by agreeing?</li>
+            <li>Is the child brave, or just too young to know better? Which one do you want to be?</li>
         </ol>""",
 ]

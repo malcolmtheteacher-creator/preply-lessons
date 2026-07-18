@@ -231,16 +231,19 @@ PANELS = [
             </ul>
         </div>""",
 
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Most friendships don't end. They lapse — and the lapse is nobody's decision, which is exactly why it's so hard to reverse. There's no argument to resolve and no apology to make, just a silence that gets more conspicuous the longer it runs.</p>
-            <p>What keeps people from ringing isn't indifference. It's that after a certain point the call itself feels like it needs justifying, as though you'd be turning up somewhere uninvited.</p>
-            <p>And "we must catch up" is one of the kindest lies in English. Both people mean it and both know, as they say it, that a sentiment without a date attached is a way of ending the conversation rather than continuing the friendship.</p>
+            <p>Marco Polo left Venice as a teenager and came back twenty-four years later. The story goes that his own family didn't recognise him at the door — a middle-aged man in foreign clothes, speaking Venetian with something odd in it, claiming to be someone they had stopped expecting.</p>
+            <p>He had to prove it. He unpicked the seams of his travelling coat and let the rubies and emeralds fall out onto the table, and that was the moment the room understood who had just walked in.</p>
+            <p>Two years is not twenty-four and you don't need jewels. But the first thirty seconds of that phone call are the same thirty seconds — a person at a door that used to be theirs, hoping to be recognised.</p>
         </div>
 
+        <a class="morelink" href="short_history_marco_polo.html">🧭 <span>Want the full story? The road east, the twenty-four years, and the homecoming nobody believed…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Is it possible to pick up a friendship after years, or does it become a different, smaller thing?</li>
-            <li>Whose job is it to ring — the one who moved away, or the one who stayed?</li>
+            <li>Can you pick a friendship up after years, or does it become a different, smaller thing?</li>
+            <li>Marco Polo had to prove who he was. What proves it, between old friends?</li>
         </ol>""",
 ]

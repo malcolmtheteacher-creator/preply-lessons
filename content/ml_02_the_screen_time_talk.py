@@ -231,16 +231,19 @@ PANELS = [
             </ul>
         </div>""",
 
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Nobody decided to spend their evenings this way. There was no conversation, no agreement — a device simply arrived and the habit assembled itself around it, in millions of kitchens at once.</p>
-            <p>What makes it hard to raise isn't the phone. It's that there's no incident: nothing happened, nobody was unkind, and so there's no obvious moment at which to say anything. Things with no incident attached can go on for years.</p>
-            <p>And the four months matter more than the phones do. The habit is easy to change for a week. The habit of not mentioning things is the one that quietly decides what a relationship is like.</p>
+            <p>On Christmas Eve 1914 the shooting stopped along parts of the Western Front. Men who had spent months trying to kill each other put down what they were holding, climbed out, and met in the middle of the mud.</p>
+            <p>They swapped cigarettes and buttons and names. Somewhere near Ypres they played football. It lasted a day or two, no general ordered it, and afterwards the high command made sure it never happened again.</p>
+            <p>What made it possible was absurdly small: both sides put down the thing in their hands at the same time. That's all a phone at dinner is. Two people agreeing to be unarmed for an hour.</p>
         </div>
 
+        <a class="morelink" href="short_history_the_christmas_truce.html">🎄 <span>Want the full story? The trenches, the carols, and the football nobody ordered…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Is a phone at the table different from a newspaper at the table, or is every generation's distraction the same argument?</li>
-            <li>Why is it so much harder to raise something when nobody has actually done anything wrong?</li>
+            <li>Why did the truce need both sides to move at once? What's the equivalent at your kitchen table?</li>
+            <li>The generals made sure it never happened again. What stops the small good habits in your own life from lasting?</li>
         </ol>""",
 ]

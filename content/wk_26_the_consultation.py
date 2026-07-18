@@ -248,16 +248,19 @@ PANELS = [
         </div>""",
 
 # ── 🔭 THE BIGGER PICTURE ─────────────────────────────────────────────────
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Most of what a doctor does in ten minutes is language. The examination and the tests come later; the consultation itself is a piece of skilled interviewing, and the difference between a good history and a poor one is almost entirely which questions were asked and in what order.</p>
-            <p>Working in a second language makes that visible in a way it isn't for native speakers, who acquire the phrases by imitation and never notice they're using a technique. "When you say dizzy, do you mean…" isn't English, exactly. It's clinical method that happens to be made of words.</p>
-            <p>And the thing patients came in about is very often not the thing they say first. Marta's real question was about her mother.</p>
+            <p>In 1918 a flu swept the world and killed more people than the war that preceded it. Doctors had no vaccine, no antivirals and no reliable test. What they had was the ability to ask a patient questions and to listen to the answers.</p>
+            <p>So they asked. When did it start? Is it steady, or does it come in waves? What makes it worse? The histories taken in those wards became the pattern that eventually showed how the disease moved — years before anyone could see the virus itself.</p>
+            <p>You have a scanner and a laboratory behind you, and they change nothing about the first ten minutes. Those are still one person asking careful questions, and another one deciding whether to tell the truth.</p>
         </div>
 
+        <a class="morelink" href="short_history_the_spanish_flu.html">🩺 <span>Want the full story? 1918, the ward, and the doctors who had almost nothing but questions…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Should medical training teach consultation language explicitly — the actual phrases — rather than leaving doctors to pick them up? What's lost by not doing it?</li>
-            <li>Is a doctor working in a second language at a disadvantage, or does having to think about every question make them a better interviewer?</li>
+            <li>What can a good history tell a doctor that a test can't?</li>
+            <li>Is a patient who downplays their symptoms being brave, polite, or frightened? Does it matter which?</li>
         </ol>""",
 ]

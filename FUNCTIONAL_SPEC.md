@@ -96,10 +96,25 @@ whole design.
 - If a situation genuinely needs three active participants, it is the wrong
   situation. Rewrite it for two.
 
+## Every lesson ends with an Echo
+
+The fifth tab is **🕰️ The Echo** — never "The Bigger Picture". Every role play,
+in every series, ties to a real history or story lesson already on the site.
+
+- Three short paragraphs in an `.echo-card`: the event, what happened, and the
+  turn back to the student's situation.
+- Then a `.morelink` to the tied lesson. **Verify the file exists before
+  linking.** There are 104 `short_history_*.html` and 41 `techniques_*.html`.
+- Then `<h3>Two bigger questions</h3>` and an `<ol class="bigq">`.
+
+The tie should be clever rather than obvious — Chernobyl for owning a mistake
+late, Marco Polo for ringing a friend after two years, the Emperor's New
+Clothes for being the one who says the food was cold.
+
 ## Structure of a lesson
 
-Unchanged and still right: 🎬 The Scene · 💬 The Conversation · 🧰 Useful
-Phrases · 🎭 Your Turn · 🔭 The Bigger Picture. Two rounds with the roles
+🎬 The Scene · 💬 The Conversation · 🧰 Useful Phrases · 🎭 Your Turn ·
+🕰️ The Echo. Two rounds with the roles
 swapped. Guess-first teaching. All the hard rules from before still bind —
 the 4th wall, empty inputs, never showing an answer above its own exercise,
 exercises that actually test, nothing untaught in an answer key.

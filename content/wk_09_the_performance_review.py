@@ -233,16 +233,19 @@ PANELS = [
             </ul>
         </div>""",
 
-"""        <h2>The Bigger Picture <span class="em">🔭</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
-            <p>Very few people will ever tell you the truth about how you're doing. Colleagues won't, because they have to sit next to you; friends won't, because they only see the version you report. A manager once a year is often the only source, and most people spend that hour defending themselves against it.</p>
-            <p>Being able to be told something is a skill, not a temperament — it's made of a pause, a concession, and a specific question. The people who improve fastest are the ones who make it safe to be criticised, because they get told more.</p>
-            <p>And the other half of the hour is yours. Nobody hands you the moment to ask for what you want; you take it, after you've demonstrated you can hear the hard part.</p>
+            <p>Joan of Arc was examined for months by men who wanted her to contradict herself. Seventy charges, then twelve, put by trained theologians to a nineteen-year-old who could not read.</p>
+            <p>The transcripts survive, and what's startling is how well she does. Asked whether she was in God's grace — a trap either way — she answered: if I am not, may God put me there; if I am, may God keep me there. She conceded what she could, held what she could not, and refused to be drawn onto the wrong argument.</p>
+            <p>Your review is not a trial and your manager is not the Inquisition. But that particular skill — giving ground on the specific, holding it on the substance — is the same one, and it is learnable.</p>
         </div>
 
+        <a class="morelink" href="short_history_joan_of_arc.html">⚖️ <span>Want the full story? The visions, the siege, and the trial that could not break her…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
         <ol class="bigq">
-            <li>Is an annual review a sensible way to tell someone the truth about their work? What would be better?</li>
-            <li>You conceded the pattern and corrected the example. Was that the right balance — or should you have accepted the whole thing and moved on?</li>
+            <li>Joan gave ground on details and held the main point. Is that honesty or tactics — and is there a difference?</li>
+            <li>Who in your life is allowed to tell you the truth about yourself? Should it be more people, or fewer?</li>
         </ol>""",
 ]
