@@ -71,6 +71,11 @@ def check(html, path):
     for fn in ("function showTab", "function toggleRev", "function startTimer"):
         if fn not in html:
             problems.append(f"missing JS: {fn}")
+    for m in re.finditer(r'<div class="say say-[abc]">(.{0,60})', html, re.S):
+        if not m.group(1).startswith('<span class="who-label">'):
+            problems.append("malformed speaker tag: " + m.group(1)[:40])
+    if re.search(r'<span class="who-(?!label)', html):
+        problems.append("bad who- span class")
     if html.count("<textarea") != html.count("</textarea>"):
         problems.append("unbalanced textarea tags")
     return problems
