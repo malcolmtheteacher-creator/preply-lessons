@@ -1,0 +1,248 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "rp_31_at_the_post_office.html"
+SERIES = "Everyday Echoes"
+TITLE = "At the Post Office"
+SUMMARY = "send a parcel abroad — and rescue the one they tried to deliver while you were out"
+INTRO = ("A birthday parcel that has to reach Canada by Friday, a customs form with boxes you don't understand, "
+         "and a soggy card on your doormat saying you missed a delivery. One counter, one queue, ten minutes.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">Everyone in the queue knows exactly what they want. You have a parcel, a form, and three questions.</p>
+
+        <p>Your sister's birthday is Friday, and she lives in Toronto. The present is wrapped, boxed, and — you suspect — heavier than it looks. You have no idea what the options cost, and you'd rather not pay for Tuesday delivery if Thursday is half the price.</p>
+
+        <p>There's also the other thing. This morning there was a red-and-white card on your doormat: <i>Sorry we missed you.</i> Something you ordered got driven to your door and driven away again while you were at the gym — and the card doesn't quite say where it is now.</p>
+
+        <p>Behind the counter is Priya, who has done this job for eleven years and answered every question you're about to ask roughly forty thousand times. That's good news: nothing you say will surprise her, so you can stop rehearsing and just ask.</p>
+
+        <ol class="bigq">
+            <li>Post offices, banks, ticket counters — what's the hardest part of a counter conversation in another language: understanding, or asking again when you don't?</li>
+            <li>Is "whatever's cheapest" a confession or a perfectly good answer?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>One parcel to Canada by Friday, one mystery card from this morning, and a mild fear of official forms.</span></div>
+            <div class="who"><b>Priya</b><span>Eleven years behind this counter. Brisk, kind, and faster than the queue deserves. She will help you — if you ask clearly.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and notice that You never pretends to understand. Every time something's unclear — a price, a box on the form — there's a plain question within one line. That's the whole skill.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">Tuesday, 9:40am. The queue has finally delivered you to the counter.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Priya</span>Morning. What can I do for you?</div>
+            <div class="say say-b"><span class="who-label">You</span>Morning. I'd like to send this to Canada, whatever's cheapest, really.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Let's get it on the scales… right. Cheapest is standard international — that's eight forty.</div>
+            <div class="say say-b"><span class="who-label">You</span>How long would that take to get there, roughly?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Six to eight working days, no promises.</div>
+            <div class="say say-b"><span class="who-label">You</span>Hm. It's a birthday present, and the birthday's Friday.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Then you want express. Guaranteed three days, and you can follow it online.</div>
+            <div class="say say-b"><span class="who-label">You</span>What would tracked cost me on top?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Express comes with tracking included — it's nineteen sixty all in.</div>
+            <div class="say say-b"><span class="who-label">You</span>Ouch. But fine — her birthday's worth more than eleven pounds. Express it is.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>You'll need the customs form. Green one, there on the side.</div>
+            <div class="say say-b"><span class="who-label">You</span>Right — what am I supposed to put where it says "detailed description of contents"?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Just what's in it, plainly. Not "gift" — they hate "gift". What is actually in there?</div>
+            <div class="say say-b"><span class="who-label">You</span>Nothing valuable — just clothes and a couple of books. Well, and a small teapot.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>"Clothing, books, one teapot." Value, roughly, and sign at the bottom. Lovely. Anything else?</div>
+            <div class="say say-b"><span class="who-label">You</span>Yes, actually — I had a card through the door this morning saying you'd tried to deliver.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Let's see the card… ah, that's this morning's round. It won't be back at the depot yet.</div>
+            <div class="say say-b"><span class="who-label">You</span>Could it still be out with the driver?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Until about two, yes. He may well re-try you on his way back through.</div>
+            <div class="say say-b"><span class="who-label">You</span>I'm out all afternoon, that's the trouble. If I miss it again, what happens then?</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Then it comes here, and you collect it with ID any time within eighteen days.</div>
+            <div class="say say-b"><span class="who-label">You</span>Could you redeliver it Thursday instead? I'm home all day Thursday.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Not me personally — but on the card, that QR code, you can book exactly that. Thursday, no charge.</div>
+            <div class="say say-b"><span class="who-label">You</span>That's saved me a trip — thanks ever so much. And the teapot's in bubble wrap, before you ask.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>It always is, love. It always is.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>Why does You end up paying nineteen sixty instead of eight forty?</li>
+                <li>What does Priya say customs officers hate seeing on the form?</li>
+                <li>The missed parcel: what are You's two options if the Thursday booking didn't exist?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> Standard would take six to eight working days with no promises, and the birthday is Friday — so You pays for express: guaranteed three days, tracking included.<br><br>
+                <b>2.</b> The word "gift". They want the actual contents, plainly: clothing, books, one teapot.<br><br>
+                <b>3.</b> Catch the driver before about two — or let the parcel come back to the post office and collect it there with ID, within eighteen days.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for any counter in the world — post office, ticket office, town hall, bank. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> Counter conversations reward the direct and punish the vague — not because staff are unkind, but because there's a queue. State the errand in your first sentence, ask prices and times as plain questions, and never nod at a form you don't understand.</div>
+
+        <h3>📦 Stating the errand</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> your whole errand, plus your one real preference, in a single opening line. Which works best?</p>
+            <div class="choice">
+                <div><b>A.</b> "Hello. So, I have a somewhat complicated situation involving Canada."</div>
+                <div><b>B.</b> "I'd like to send this to Canada, whatever's cheapest, really."</div>
+                <div><b>C.</b> "Do you send things to Canada?"</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "I'd like to send this to Canada, whatever's cheapest, really."</b><br>A announces a saga and makes the queue sigh. C asks a question whose answer is obviously yes and wastes a turn. B hands over everything useful at once — the what, the where, and the priority — so the reply can already be an answer. The little "really" softens it from an order into a preference.<br><br><b>Take it anywhere:</b> "I'd like to ___, whatever's cheapest, really." Swap in <i>quickest</i> or <i>simplest</i> as your priority changes.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> asking for a timescale without demanding a promise. Complete it:<br><br>"How long would that take to get there, ___?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"How long would that take to get there, roughly?"</b><br>"Roughly" is doing generous work: it tells her an estimate is fine, which gets you an honest answer instead of a careful official one. Note the conditional "would" — you haven't bought anything yet, you're still comparing.<br><br><b>Take it anywhere:</b> "How long would that take, roughly?" Works for deliveries, repairs, applications, queues.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> finding out what the upgrade costs — as a difference, not a total. Complete it:<br><br>"What would tracked cost me ___ ___?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"What would tracked cost me on top?"</b><br><b>On top</b> = in addition to what we've already discussed. This is the comparison-shopper's question: you're not asking the price of tracked post, you're asking the gap between it and the option on the table — which is the only number that matters for the decision.<br><br><b>Take it anywhere:</b> "What would ___ cost me on top?" — insurance, a bigger room, the express option, extra baggage.</div>
+        </div>
+
+        <h3>📋 The form</h3>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> admitting a form has defeated you, without apologising for existing. Put the pieces in order:</p>
+            <div class="jumble"><span>where it says</span><span>What am I supposed</span><span>"detailed description of contents"?</span><span>to put</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"What am I supposed to put where it says 'detailed description of contents'?"</b><br>The honest question, asked plainly — and notice it quotes the form's own words rather than paraphrasing them, so she knows exactly which box you mean. People lose real money nodding at forms. Nobody ever lost anything asking this.<br><br><b>Take it anywhere:</b> "What am I supposed to put where it says ___?" Any form, any country, any language.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> declaring the contents — reassuring first, specific second. Complete it:<br><br>"___ valuable — just clothes and a couple of books."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Nothing valuable — just clothes and a couple of books."</b><br>The shape to remember: the reassurance up front ("nothing valuable"), then the plain list. It answers the question behind the question — is this going to be complicated? — before answering the question itself. And "a couple of" keeps it honest without an inventory.<br><br><b>Take it anywhere:</b> "Nothing ___ — just ___ and ___." At customs, at security, at a border: reassure, then list.</div>
+        </div>
+
+        <h3>🚪 The missed delivery</h3>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> raising the second errand with the evidence in your hand. Complete it:<br><br>"I had a ___ through the ___ saying you'd tried to deliver."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I had a card through the door saying you'd tried to deliver."</b><br><b>Through the door</b> — the British way of saying it arrived by letterbox. One sentence carries the whole story: what happened, when-ish, and what you're holding. No blame in it either — "you'd tried" credits the attempt, which keeps her on your side.<br><br><b>Take it anywhere:</b> "I had a ___ through the door saying ___." Letters, cards, notes from the neighbours.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> the hopeful question — is it still rescuable today? Complete it:<br><br>"Could it still be ___ with the ___?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could it still be out with the driver?"</b><br><b>Out with the driver</b> = still on the van, still moving, not yet back at the depot. The question costs nothing and regularly saves a day's wait. "Could it still be…" is the polite shape of hope — you're inviting a yes without insisting on one.<br><br><b>Take it anywhere:</b> "Could it still be ___?" — on the shelf, in the stockroom, with the kitchen. Ask before you accept the no.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> finding out the fallback before you need it. Which version?</p>
+            <div class="choice">
+                <div><b>A.</b> "If I miss it again, what happens then?"</div>
+                <div><b>B.</b> "I really hope I don't miss it again."</div>
+                <div><b>C.</b> "You're not going to make me come back again, are you?"</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>A — "If I miss it again, what happens then?"</b><br>B is a feeling, not a question — it gets you sympathy and no information. C picks a fight with the one person helping you. A asks for the rule, which is the thing you actually need: now you know about the depot, the ID, and the eighteen days <i>before</i> Thursday goes wrong, not after.<br><br><b>Take it anywhere:</b> "If ___ happens, what happens then?" The fallback question — ask it while everything's still fine.</div>
+        </div>
+
+        <h3>🙏 Fixing it, and leaving well</h3>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> proposing the specific arrangement that suits you. Complete it:<br><br>"Could you ___ it Thursday instead? I'm home all day Thursday."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could you redeliver it Thursday instead? I'm home all day Thursday."</b><br>Don't just report the problem — propose the fix. Naming your day and backing it with a reason ("I'm home all day") turns a complaint into a plan someone can say yes to. Even when the answer is "not me, but here's how", you've moved things forward.<br><br><b>Take it anywhere:</b> "Could you ___ it ___ instead?" — reschedule, redeliver, rebook. Always arrive with a proposal.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> the exit line — gratitude with the reason attached. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="How you thank someone who's just spared you a wasted journey…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "That's saved me a trip — thanks ever so much."</b><br>Not just "thanks" — thanks <i>plus what it was for</i>. Naming the favour ("saved me a trip") is what makes gratitude land as real rather than automatic, and "ever so much" is the warm British intensifier that costs nothing and leaves the counter smiling at the next customer.<br><br><b>Take it anywhere:</b> "That's saved me a ___ — thanks ever so much." A trip, a fortune, a headache.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten work at any counter on earth. Say each answer out loud before you type it.</p>
+            <p class="cue">"Whatever's cheapest, really." — what's your real priority when you post something: price, speed, or certainty?</p>
+            <textarea class="blank" placeholder="Your usual answer, and when it changes…"></textarea>
+            <p class="cue">"What am I supposed to put where it says ___?" — which form, in any language, last defeated you?</p>
+            <textarea class="blank" placeholder="The form, the box, and what you did…"></textarea>
+            <p class="cue">"If I miss it again, what happens then?" — where in your life right now should you ask the fallback question?</p>
+            <textarea class="blank" placeholder="The situation, and the question…"></textarea>
+        </div>
+
+        <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> run the errand out loud using all ten — send this, how long roughly, what on top, what do I put, nothing valuable, card through the door, still out with the driver, what happens then, redeliver Thursday, saved me a trip. Under ninety seconds is counter-ready.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now it's your parcel, your form, your missed delivery. Two rounds — customer, then counter.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're at the counter</h3>
+        <p>Pick a real person abroad you'd genuinely send something to, and a real date it needs to arrive by. Your teacher is behind the counter.</p>
+
+        <p class="cue">Open: the errand, the destination, and your priority in one line.</p>
+        <textarea class="blank" placeholder="I'd like to send this to…"></textarea>
+
+        <p class="cue">The cheap option is slow. Find out the timing, then the cost of the faster one — as a difference.</p>
+        <textarea class="blank" placeholder="How long would… and what would… on top?"></textarea>
+
+        <p class="cue">The customs form. Ask about the box you don't understand, then declare what's really inside.</p>
+        <textarea class="blank" placeholder="What am I supposed to put… Nothing valuable, just…"></textarea>
+
+        <p class="cue">Now the card through the door. Raise it, and ask the hopeful question.</p>
+        <textarea class="blank" placeholder="I had a card… Could it still be…"></textarea>
+
+        <p class="cue">Get the fallback rule, propose your day, and leave well.</p>
+        <textarea class="blank" placeholder="If I miss it again… Could you… That's saved me…"></textarea>
+
+        <h3>Round 2 — now you're Priya</h3>
+        <p>Swap. Your teacher arrives with a parcel for Australia that has to be there in four days, a form they've filled in wrong, and a missed-delivery card that's three weeks old. Be brisk, kind, and honest about the bad news.</p>
+
+        <p class="cue">Their form says "gift, value: ?". Get the real contents out of them without making them feel stupid.</p>
+        <textarea class="blank" placeholder="What you ask, and how…"></textarea>
+
+        <p class="cue">The card is past the eighteen days. Break it to them — and offer whatever's genuinely left to offer.</p>
+        <textarea class="blank" placeholder="The bad news, kindly, and the next step…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Back to Round 1 — and at the last moment Priya asks, routinely: "Any liquids, batteries or perfume in there?" There is. The little bottle of your sister's favourite perfume, wrapped inside the teapot. Sending it by air is against the rules; taking it out means unwrapping everything, here, with the queue behind you.</p>
+            <p>What do you say — and what do you do?</p>
+            <textarea class="blank" placeholder="Your answer, out loud, with the queue listening…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Can you state an errand, a destination, and a priority in one sentence?</li>
+                <li>Can you ask what an upgrade costs on top, rather than in total?</li>
+                <li>Can you ask what a form means instead of guessing?</li>
+                <li>Can you ask the fallback question before things go wrong?</li>
+                <li>Can you leave a counter with the person behind it glad you came?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>In 1799, near the Egyptian town of Rosetta, French soldiers digging a fort foundation pulled out a broken slab of grey stone covered in three kinds of writing. It was, in a sense, a parcel — a message sent two thousand years earlier, to whoever could read it.</p>
+            <p>Nobody could. The same short text sat there in hieroglyphs, in Egyptian script, and in Greek, and it still took the best minds in Europe twenty-three years to make the delivery — until Champollion cracked the code in 1822 and four thousand years of Egyptian writing arrived, all at once, like post held at the depot for forty centuries.</p>
+            <p>Every parcel is a bet that the other end will understand what you meant by it. Address it clearly. Say what's inside.</p>
+        </div>
+
+        <a class="morelink" href="short_history_the_rosetta_stone.html">🗿 <span>Want the full story? The stone, the race to read it, and the man who cracked it…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>The Rosetta Stone was only readable because the same message was written three ways. When you're not understood, do you repeat yourself — or say it a different way?</li>
+            <li>What's the best thing that's ever arrived for you in the post — and does anything sent by app ever match it?</li>
+        </ol>""",
+]

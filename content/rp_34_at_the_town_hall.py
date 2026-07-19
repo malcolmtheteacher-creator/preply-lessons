@@ -1,0 +1,237 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "rp_34_at_the_town_hall.html"
+SERIES = "Everyday Echoes"
+TITLE = "At the Town Hall"
+SUMMARY = "register in a new town — wrong queue, missing document, and the officials who can make or save your morning"
+INTRO = ("A new town, a legal deadline, and a building full of numbered rooms that all close at different times. "
+         "Somewhere in here is a stamp with your name on it. Between you and it: one form, one queue, and one document you don't have.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">Nobody's first month in a new country is complete without one morning like this.</p>
+
+        <p>You moved here three weeks ago, and the rule says new residents must register at the town hall within thirty days. Today is day twenty-two. You've brought your passport, your rental contract, two printed photos and a folder of hope.</p>
+
+        <p>Behind the desk is Mrs Adeyemi, who has worked in this building for nineteen years and knows things no website says: which rooms actually handle what, which of the listed documents are really required, and the difference between a problem and a Tuesday. Officials like her run on a simple economy — clear questions in, clear answers out. Vague hoping gets you nothing; blaming gets you less.</p>
+
+        <p>The skill of this morning isn't paperwork. It's extraction: getting the process, the requirements and the fallback rules out of the one person who knows them — and writing them down, because the second visit is where unwritten answers go to die.</p>
+
+        <ol class="bigq">
+            <li>What's the worst queue-and-counter morning you've ever had, in any country? What went wrong — the rules, or the information?</li>
+            <li>Why do we walk out of official buildings without asking the one question that would save the next trip?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>Day twenty-two of thirty. Organised, mostly. Missing exactly one document, which you don't yet know.</span></div>
+            <div class="who"><b>Mrs Adeyemi</b><span>Nineteen years at this desk. Unhurried, precise, allergic to drama — and quietly generous to anyone who asks proper questions.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and count how many facts You walks out with — the real document list, the fallback rule, a name, a room number, and tomorrow's trap avoided. Every one of them was fetched by a question.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">Ground floor, desk 3, a ticket that took forty minutes to be called.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Number eighty-four?</div>
+            <div class="say say-b"><span class="who-label">You</span>That's me. Good morning. I was told I need to register as a new resident — is this the right desk?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Registration, yes — you're in the right place, which puts you ahead of half of this queue. New to the town?</div>
+            <div class="say say-b"><span class="who-label">You</span>Three weeks. And this is all quite new to me — what happens first?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>First I check your documents, then you fill in the residence form, then I enter you in the system and you get your certificate. Ten minutes, if the folder's in order.</div>
+            <div class="say say-b"><span class="who-label">You</span>Let's find out. Which documents do you actually need from me?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Passport. Rental contract. And the landlord confirmation — the signed one-page form saying you genuinely live there.</div>
+            <div class="say say-b"><span class="who-label">You</span>Ah. I've got everything except the landlord confirmation — is that a problem today?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Hm. It's the one I'm not allowed to wave through. The contract shows you rented it; the confirmation shows you actually moved in. Different things, in the eyes of this building.</div>
+            <div class="say say-b"><span class="who-label">You</span>I see. Could I bring that one in later, or do I have to start again from the ticket machine?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>You're in luck — I can open your file today, mark it incomplete, and you bring the confirmation within two weeks. No new ticket: incomplete files come straight to this desk.</div>
+            <div class="say say-b"><span class="who-label">You</span>That's a relief. Just so I've understood: you open the file now, I get the landlord's signature, then come straight back to you — within two weeks?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Exactly so. Blank confirmation forms are in Room 11, first floor — take two, landlords spoil them. And your certificate needs the fee paid at the cash office, Room 6, before I can print it.</div>
+            <div class="say say-b"><span class="who-label">You</span>That's three rooms and a fortnight — could you jot that down for me? Names and room numbers, so I don't invent my own version on the stairs.</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>*writing* Room 11, forms. Room 6, fee — eighteen euros, card is fine. Then desk 3. There.</div>
+            <div class="say say-b"><span class="who-label">You</span>Perfect. And who should I ask for when I come back?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Adeyemi. Mornings, not Wednesdays. If it's a Wednesday you'll get Mr Brandt, and you'll want your folder in alphabetical order for Mr Brandt.</div>
+            <div class="say say-b"><span class="who-label">You</span>Noted, and slightly feared. Last thing — is there anything else that'll trip me up next time? Anything people usually get wrong?</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Two things. The landlord must sign in ink — we reject photos of signatures. And check your name matches your passport exactly on every form. Accents included. That one costs people a third visit.</div>
+            <div class="say say-b"><span class="who-label">You</span>Ink signature, exact name, accents included. You've made this much less painful than I expected — thank you.</div>
+            <div class="say say-a"><span class="who-label">Mrs Adeyemi</span>Bring me a complete folder and I'll make it painless. Next — eighty-five?</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>Which document is missing, and why isn't the rental contract enough on its own?</li>
+                <li>What's the fallback You negotiates — and how long does it last?</li>
+                <li>What are the two traps Mrs Adeyemi warns about at the end?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> The landlord confirmation. The contract proves you rented the flat; the confirmation proves you actually live there — different facts, in the building's eyes.<br><br>
+                <b>2.</b> The file is opened today and marked incomplete; You brings the confirmation within two weeks, straight to desk 3, no new ticket.<br><br>
+                <b>3.</b> The landlord's signature must be in ink — no photos; and the name must match the passport exactly on every form, accents included.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for every official building on earth — town halls, tax offices, embassies, registries. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> Bureaucracy rewards the specific. Every question in this lesson fetches a fact you can act on: the right desk, the real list, the fallback, the name. Ask them all, write the answers down — and never leave a desk without asking what will go wrong next time.</div>
+
+        <h3>🚪 Getting into the process</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> confirming you're in the right place before investing an hour in the wrong queue. Complete it:<br><br>"I was told I need to register here — is this the right ___?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I was told I need to register here — is this the right desk?"</b><br>Ten seconds that regularly save an hour. "I was told" does quiet work too — it says someone sent you, you didn't wander in guessing, and if it's the wrong desk the answer will usually come with directions to the right one. Ask it <i>before</i> the folder comes out.<br><br><b>Take it anywhere:</b> "I was told I need to ___ here — is this the right desk/queue/office?"</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> admitting inexperience and asking for the map. Which version?</p>
+            <div class="choice">
+                <div><b>A.</b> "Sorry, I don't understand anything about how this works."</div>
+                <div><b>B.</b> "This is all quite new to me — what happens first?"</div>
+                <div><b>C.</b> "What do I do?"</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "This is all quite new to me — what happens first?"</b><br>A announces helplessness, and helplessness gets you pity, not process. C is so bare the answer could start anywhere. B pairs a dignified admission with a precise request: not <i>everything</i>, just the first step. Officials answer "what happens first?" beautifully — it's the shape their own training manual is written in.<br><br><b>Take it anywhere:</b> "This is all quite new to me — what happens first?" New job, new gym, new country, new hospital.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> getting the real requirements, not the website's version. Complete it:<br><br>"Which documents do you ___ need from me?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Which documents do you actually need from me?"</b><br><b>Actually</b> is the working word: it invites the desk's real list — the one refined by nineteen years of Tuesdays — rather than the official maximum published online. Notice "from me": you're asking about your case, not the general rules, which is the question she can answer precisely.<br><br><b>Take it anywhere:</b> "What do you actually need from me?" Banks, landlords, visa offices — the real list is always shorter or stranger than the published one.</div>
+        </div>
+
+        <h3>🕳️ The missing piece</h3>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> declaring the gap yourself, before it's discovered. Complete it:<br><br>"I've got everything ___ the landlord confirmation — is that a problem ___?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I've got everything except the landlord confirmation — is that a problem today?"</b><br>Confessing the gap up front flips the whole scene: instead of an official <i>catching</i> a hole in your folder, you've got two people looking at a known problem together. And "today" is quietly clever — it asks not <i>is this fatal?</i> but <i>can we still do something this morning?</i> Usually, something can be done.<br><br><b>Take it anywhere:</b> "I've got everything except ___ — is that a problem today?" Declare the gap; keep the morning.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> asking for the fallback instead of assuming the worst. Put the pieces in order:</p>
+            <div class="jumble"><span>or do I have to</span><span>bring that one in later,</span><span>start again?</span><span>Could I</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could I bring that one in later, or do I have to start again?"</b><br>The question that saved this whole morning. Most systems have a partial-progress option — the incomplete file, the provisional stamp, the two-week grace — but almost none advertise it. Offering the desk two options ("later, or start again?") makes it easy to give you the kind one.<br><br><b>Take it anywhere:</b> "Could I ___ later, or do I have to start again?" Applications, returns, bookings — always ask before abandoning the queue.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> playing the plan back before betting a fortnight on it. Complete it:<br><br>"Just so I've ___: you open the file now, I get the signature, then come straight back to you?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Just so I've understood: you open the file now, I get the signature, then come straight back to you?"</b><br>Saying the plan back in your own words is the cheapest insurance in bureaucracy. If you've got it right, you've lost ten seconds. If you've got it wrong, you find out <i>now</i>, at the desk — not in two weeks, at the ticket machine, with an expired file. Officials never resent this question; they dream of citizens who ask it.<br><br><b>Take it anywhere:</b> "Just so I've understood: ___ first, then ___?" Any instructions you'll be executing alone later.</div>
+        </div>
+
+        <h3>📝 Leaving with more than you came for</h3>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> getting the plan in writing — their writing. Complete it:<br><br>"Could you ___ that ___ for me — names and room numbers?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could you jot that down for me — names and room numbers?"</b><br><b>To jot down</b> = to write quickly and informally — the word itself promises you're asking for thirty seconds, not an essay. Three rooms, a fee and a fortnight is exactly the kind of plan that dissolves on the stairs. Her note is better than your memory <i>and</i> better than your note: it's in the building's own language.<br><br><b>Take it anywhere:</b> "Could you jot that down for me?" Directions, dosages, deadlines — whenever the answer has more than two parts.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> turning "the office" into a person. Complete it:<br><br>"Who should I ___ ___ when I come back?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Who should I ask for when I come back?"</b><br>A file with a name attached moves differently through a building than a file without one. Next visit you're not a stranger restarting from zero — you're "the registration Mrs Adeyemi opened", which is a real thing in the system with a real person who remembers it. Bonus intelligence included free: mornings, not Wednesdays.<br><br><b>Take it anywhere:</b> "Who should I ask for?" Garages, clinics, banks — turn every follow-up into a reunion.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> asking for tomorrow's problems today. Complete it:<br><br>"Is there anything else that'll ___ me ___ next time?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Is there anything else that'll trip me up next time?"</b><br><b>To trip someone up</b> — to make them stumble; here, the small unwritten rules that wreck second visits. This is the expert-mining question: she has watched a decade of people fail at desk 3 and knows the two classic mistakes by heart — but the knowledge only moves when someone asks for it. The ink signature and the accents were free. You just had to want them.<br><br><b>Take it anywhere:</b> "What usually trips people up?" Ask it at every desk, in every new job, before every exam.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> thanking an official so the goodwill survives until your next visit. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="She's saved your morning and armed you for the next one. Close well…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "You've made this much less painful than I expected — thank you."</b><br>Officials spend their days being treated as obstacles. Naming what she actually did — took a feared morning and made it manageable — lands as real gratitude, not counter-politeness. And notice her reply: bring a complete folder, and next time is painless. That's the goodwill talking. You'll want it on the Wednesday you accidentally get Mr Brandt.<br><br><b>Take it anywhere:</b> "You've made this much less ___ than I expected." Painful, complicated, scary — name the fear they removed.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten work in any building with numbered rooms and rubber stamps. Say each answer out loud before you type it.</p>
+            <p class="cue">"Which documents do you actually need from me?" — what's the next official process in your life? What do you <i>think</i> the list is?</p>
+            <textarea class="blank" placeholder="The process, and your guess at the real list…"></textarea>
+            <p class="cue">"Could I bring that one in later, or do I have to start again?" — when did missing one piece cost you the whole process? Would this question have saved it?</p>
+            <textarea class="blank" placeholder="What was missing, and what you did…"></textarea>
+            <p class="cue">"Is there anything else that'll trip me up next time?" — which expert in your life right now should you be asking this?</p>
+            <textarea class="blank" placeholder="The person, and the process they know…"></textarea>
+        </div>
+
+        <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> run the morning out loud — right desk? what happens first? what do you actually need? everything except… later or start again? just so I've understood… jot it down… who do I ask for… what trips people up… thank you. Ten questions, one certificate.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now the folder is yours — first in front of the desk, then behind it.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're registering</h3>
+        <p>Use your real situation: a registration, visa, licence or permit you've actually done or will do. Your teacher is the official — helpful, but only to those who ask. One of your documents is missing; you'll find out which when they tell you.</p>
+
+        <p class="cue">Open: right desk, and ask for the map.</p>
+        <textarea class="blank" placeholder="I was told… This is all quite new to me…"></textarea>
+
+        <p class="cue">Get the real document list — then declare your gap before they find it.</p>
+        <textarea class="blank" placeholder="Which documents do you actually… I've got everything except…"></textarea>
+
+        <p class="cue">Negotiate the fallback, and play the plan back before you leave with it.</p>
+        <textarea class="blank" placeholder="Could I bring that in later… Just so I've understood…"></textarea>
+
+        <p class="cue">Get it in writing, get a name, and mine for next time's traps.</p>
+        <textarea class="blank" placeholder="Could you jot that down… Who should I ask for… Anything that'll trip me up…"></textarea>
+
+        <p class="cue">Close so the goodwill survives until your second visit.</p>
+        <textarea class="blank" placeholder="You've made this…"></textarea>
+
+        <h3>Round 2 — now you're Mrs Adeyemi</h3>
+        <p>Swap. Your teacher is a new arrival with a beautiful folder, huge hope, and completely the wrong idea of the process. Your job: be precise, be kind, refuse what you must refuse — and offer the fallback they don't know exists. Being the reasonable official is harder than it looks.</p>
+
+        <p class="cue">Their central document is a photo of a signature. Refuse it — and immediately show the path forward.</p>
+        <textarea class="blank" placeholder="The refusal, and the fallback, in the same breath…"></textarea>
+
+        <p class="cue">They're starting to panic about the deadline. Give them the honest picture — what's at risk, and what isn't.</p>
+        <textarea class="blank" placeholder="Calm, exact, no false promises…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Round 1 again — you're back within the fortnight, ink signature triumphantly in hand. But it's a Wednesday. Mr Brandt looks at the folder, then at you, and says: "This file was opened incomplete. That's not the procedure. It should never have been accepted without the confirmation. We'll need to begin again properly."</p>
+            <p>Mrs Adeyemi's arrangement was real — but she isn't here, and Mr Brandt is. Argue your case: calmly, using what's written in the file, without throwing her under the bus.</p>
+            <textarea class="blank" placeholder="Your case, in three sentences, no drama…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Can you confirm the desk before investing in the queue?</li>
+                <li>Can you get the real requirements, not the website's version?</li>
+                <li>Can you declare a gap up front and negotiate the fallback?</li>
+                <li>Can you play a multi-step plan back before betting two weeks on it?</li>
+                <li>Do you ever leave a desk without asking what trips people up?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>In the middle of Beijing stands a palace of nine thousand rooms where, for five centuries, the world's most elaborate bureaucracy decided who could enter, stand where, wear what, and say which words to whom. They called it the Forbidden City, and the name was administration, not poetry: gate after gate, permit after permit, each courtyard forbidden to all but the correctly stamped.</p>
+            <p>An empire of over a million officials ran on its paperwork — examinations to enter, ranks and robes and seals, forms in triplicate five hundred years before the photocopier. It worked, mostly, because the system outlived every individual in it. And it baffled visitors then for the same reason town halls baffle new arrivals now: the building knows its rules, and doesn't explain them at the gate.</p>
+            <p>Every town hall is a very small Forbidden City. The difference is that you're allowed to ask — and one desk clerk who's worked the gates for nineteen years will tell you more than the architecture ever will.</p>
+        </div>
+
+        <a class="morelink" href="short_history_the_forbidden_city.html">🏯 <span>Want the full story? Nine thousand rooms, a million officials, and the last emperor…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>The Forbidden City's rules outlived every emperor who made them. Why do institutions keep rules nobody remembers the reason for — and who should be allowed to delete them?</li>
+            <li>What's the strangest official rule you've met in any country? Did you ever learn what it was protecting?</li>
+        </ol>""",
+]

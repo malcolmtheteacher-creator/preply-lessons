@@ -1,0 +1,234 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "wk_29_the_front_desk.html"
+SERIES = "English at Work"
+TITLE = "The Front Desk"
+SUMMARY = "you're the receptionist, it's 11pm, and the guest is furious — absorb the anger without absorbing the blame"
+INTRO = ("Room 412 booked a quiet double and got a stag party through the wall, a broken key card, and forty minutes "
+         "of nobody answering the phone. Now he's at your desk, loud, and right. You didn't cause any of it. You get to fix all of it.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">Every service job has this moment: the anger arrives at whoever's wearing the name badge.</p>
+
+        <p>It's 11pm and you're alone on the desk of a decent city hotel. Mr Osei checked into 412 this afternoon: a quiet double, requested months ago, confirmed in writing. Since then: a stag party has colonised the fourth floor, his key card has died twice, and when he rang down to complain, the phone rang out — because you were carrying bags, because the night porter called in sick, because Tuesday.</p>
+
+        <p>Here is the skill this lesson teaches, and it's one of the most transferable in working English: <b>absorbing anger without absorbing blame</b>. The amateur has two settings — defending ("that's not my department") and grovelling ("I'm so terribly sorry, I feel awful"). Both make it worse. The professional does something else: validates the anger, owns the <i>experience</i>, takes charge of the next ten minutes, and offers what's actually in their power — including, sometimes, a clean honest no.</p>
+
+        <p>Mr Osei doesn't need you to feel terrible. He needs to sleep. Everything you say should move him closer to sleeping.</p>
+
+        <ol class="bigq">
+            <li>Think of the best complaint-handling you've ever received. What exactly did the person do?</li>
+            <li>Why does "it's not my fault" make angry people angrier — even when it's true?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>Alone on nights, none of it your doing, all of it your desk. Has: two empty rooms on six, a comp-breakfast button, and authority up to fifty pounds.</span></div>
+            <div class="who"><b>Mr Osei</b><span>Tired, loud, and — awkwardly — completely right. Big meeting at eight. Doesn't want vouchers. Wants silence and a bed.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and mark the one sentence where You takes blame, and the several where You takes <i>charge</i>. They're different sentences doing different jobs — and only one thing in this mess was actually the hotel's fault.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">He crosses the lobby fast, key card already out, and puts it on the desk like evidence.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mr Osei</span>Third time. Third time this card has died. And don't ask if I kept it next to my phone — your colleague asked me that at seven and it was insulting then. There is a PARTY on my floor. I rang this desk for forty minutes. Forty. Minutes.</div>
+            <div class="say say-b"><span class="who-label">You</span>You're right to be annoyed — card, noise, and no answer when you rang. Let me see what's happened. Two minutes, and I won't leave you standing here while I do it.</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>Two minutes. Fine. Count them.</div>
+            <div class="say say-b"><span class="who-label">You</span>So that I get this right: quiet double, booked well ahead — and the fourth floor's got the stag party in. Card's failed three times, and the desk didn't pick up between roughly ten and quarter to eleven?</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>That's it. That's exactly it. And I've a presentation at eight that I am now too angry to sleep before.</div>
+            <div class="say say-b"><span class="who-label">You</span>Then the phone first, because that one's ours with no excuses: I was alone covering bags and the desk tonight, and your calls rang out. That was our mistake, and I'll flag it to the manager tonight — in writing, not a mention.</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>…Right. Well. At least someone's saying it.</div>
+            <div class="say say-b"><span class="who-label">You</span>Here's what I can do for you right now. Six is our quietest floor — I've got a double free at the far end, away from the lift. I'll walk up with you, new cards cut for it, and I'll move the stag party's breakfast to the late sitting so you won't meet them at seven either.</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>And my bags? I'm not repacking at eleven at night, I've been travelling since—</div>
+            <div class="say say-b"><span class="who-label">You</span>You won't touch a bag. If you're happy for me to enter 412, I'll bring everything up to six myself, hanging things on hangers, and knock when it's done. You could be sitting down in the new room in five minutes.</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>…Fine. Yes. Good. And look — I want tonight taken off the bill. The whole night. This has been a shambles.</div>
+            <div class="say say-b"><span class="who-label">You</span>I can't take the full night off — that's above what I'm allowed on nights, and I won't promise you something the morning manager would have to unwind. But I can do this: breakfast on us, the room-move to the quiet floor, and fifty pounds off tonight, which is my actual limit. And I'll leave the full-refund request flagged for the manager with my note supporting it — she's in at seven.</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>Supporting it. You'll actually write that you think I should get it?</div>
+            <div class="say say-b"><span class="who-label">You</span>Word for word. You booked quiet in writing and we didn't deliver it — that's the whole note. So: shall I cut the cards for six and start on the bags?</div>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>…Yes. Do that. And — thank you. You've been straighter with me in five minutes than the phone was in forty.</div>
+            <div class="say say-b"><span class="who-label">You</span>Thanks for giving me the chance to fix it. My name's Dana — I'm on until seven, so if anything else comes up, ask for me. And Mr Osei — good luck at eight. I'll make sure the wake-up call actually happens.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>Three things went wrong for Mr Osei. Which ONE does Dana take actual blame for — and why that one?</li>
+                <li>Mr Osei demands the full night refunded. What exactly does Dana say no to, and what does the no come wrapped in?</li>
+                <li>What does Dana do about the bags — and why does that offer change the temperature of the whole conversation?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> The unanswered phone — "that was our mistake, and I'll flag it tonight." The card and the noise are problems to fix, but the forty minutes of ringing is the one thing that was squarely the hotel's failure, so it gets the clean ownership. Blame is taken precisely, not sprayed everywhere.<br><br>
+                <b>2.</b> The full night off the bill — "that's above what I'm allowed, and I won't promise something the morning manager would have to unwind." The no comes wrapped in what she CAN do: breakfast, the quiet floor, fifty pounds — her real limit — plus a written note supporting his full-refund request.<br><br>
+                <b>3.</b> She offers to move everything herself, hangers and all, so he "won't touch a bag" — turning the move from a chore into a service. It's the moment his answers shift from fighting to accepting.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for the receiving end of anger — hotels, clinics, help desks, any counter with your name on it. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> Angry people scan for two things: is this person against me, and can this person actually do anything? Every phrase here answers those two questions — with you, and yes. Keep your voice low and your verbs concrete; calm is caught, not requested.</div>
+
+        <h3>🧲 Meeting the anger</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> the first sentence after the explosion. Which one?</p>
+            <div class="choice">
+                <div><b>A.</b> "Please calm down, sir — shouting won't help anyone."</div>
+                <div><b>B.</b> "You're right to be annoyed — let me see what's happened."</div>
+                <div><b>C.</b> "I do apologise, but the key card system isn't my department."</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "You're right to be annoyed — let me see what's happened."</b><br>A is a red rag — no one in history has calmed down because they were told to. C picks which part isn't your fault, which tells him he's shouting at the wrong desk and should go find the right one, louder. B does the two urgent jobs at once: validates the anger as reasonable (which instantly lowers it — angry people escalate to prove they're entitled to be angry) and moves straight to action. Note it validates the <i>feeling</i>, not yet any version of the facts.<br><br><b>Take it anywhere:</b> "You're right to be annoyed — let me see what's happened." The universal first response to legitimate fury.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> sympathy for the experience — with no confession in it. Complete it:<br><br>"I'm sorry you've had this after a long ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I'm sorry you've had this after a long day."</b><br>The professional's apology: sorry for what the person has <i>experienced</i>, which you can say honestly before you know whose fault anything is. It isn't "I'm sorry we ruined your evening" (a confession you may not be entitled to make) and it isn't the weaselly "I'm sorry you feel that way" (which blames his feelings). Experience-sympathy first; fault comes later, precisely, if it's real.<br><br><b>Take it anywhere:</b> "I'm sorry you've had this." Complaints, delays, bad news — the apology that's always true and never a liability.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> capturing the complaint accurately — so he hears himself heard. Complete it:<br><br>"So that I get this ___: quiet double, the party on your floor, and the desk didn't pick up?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"So that I get this right: quiet double, the party on your floor, and the desk didn't pick up?"</b><br>Playing the complaint back does three things: proves you listened (half of what angry people want), converts a shouted story into an ordered list you can actually work through, and — watch for it — produces the first agreement of the conversation: "That's it. That's exactly it." Once he's said yes to your summary, you're on the same side of the desk.<br><br><b>Take it anywhere:</b> "So that I get this right: ___, ___, and ___?" Complaints, briefs, arguments at home.</div>
+        </div>
+
+        <h3>🛠️ Taking charge</h3>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> buying two minutes without abandoning him. Complete it:<br><br>"Bear with me two minutes — I won't leave you ___ here."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Bear with me two minutes — I won't leave you standing here."</b><br><b>Bear with me</b> — wait, and stay patient, while I work. The dangerous moments at a desk are the silent ones: the typing, the frowning at screens, the disappearing "to check something". Name the wait, cap it, and promise presence — because the last time he waited, it was forty minutes of ringing phone. This sentence is the antidote to that memory.<br><br><b>Take it anywhere:</b> "Bear with me two minutes — I won't leave you hanging." Calls, counters, emails: cap every wait you ask for.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> owning the one thing that was truly yours. Put the pieces in order:</p>
+            <div class="jumble"><span>and I'll flag it</span><span>That was our mistake,</span><span>tonight.</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"That was our mistake, and I'll flag it tonight."</b><br>Precision-blame. Dana doesn't own the stag party (bookings took it), or the key card (chips fail) — she owns the unanswered phone, cleanly, with a consequence attached ("flag it tonight — in writing"). One honest, specific admission buys more trust than ten fuzzy apologies, and notice the effect: "at least someone's saying it." Own your piece exactly; it's what makes your no's believable later.<br><br><b>Take it anywhere:</b> "That was our mistake, and here's what I'm doing about it." The admission with a verb in it.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> the pivot from past to action. Complete it:<br><br>"Here's what I can do for you ___ ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Here's what I can do for you right now."</b><br>The hinge of every complaint conversation — the sentence that ends the inquest and starts the rescue. What follows must be concrete and immediate: a room number, a floor, an action with your own hands in it ("I'll walk up with you"). "Right now" is the power: not policies, not tomorrow, not someone else — this desk, this minute.<br><br><b>Take it anywhere:</b> "Here's what I can do for you right now." Then do it, visibly, at once.</div>
+        </div>
+
+        <h3>🚧 The empowered no</h3>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> refusing the full demand without closing the conversation. Complete it:<br><br>"I can't give you ___, but I can ___ ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I can't give you the full night, but I can offer this."</b><br>The empowered no: the refusal and the alternative arrive in the same breath, so he's never left holding a bare "no". Dana's version adds the two things that make a no respectable — a reason ("above what I'm allowed on nights") and honesty about limits ("fifty pounds, which is my actual limit"). Naming your real limit is strangely powerful: it proves the negotiation is over because there's visibly nothing left.<br><br><b>Take it anywhere:</b> "I can't give you ___, but I can offer ___." The shape of every professional no, at every level of every organisation.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> passing the demand upward — as an ally, not a wall. Complete it:<br><br>"I'll leave the request flagged for the manager, with my note ___ it."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I'll leave the request flagged for the manager, with my note supporting it."</b><br>The upgrade on "you'll have to speak to the manager" — which angry people correctly hear as "go away". This version keeps you on his side of the argument even while the decision moves above you: his case travels upward <i>with your evidence attached</i> ("you booked quiet in writing and we didn't deliver — that's the whole note"). His astonished "you'll actually write that?" is the sound of a complaint becoming an alliance.<br><br><b>Take it anywhere:</b> "I'll pass it up with my note supporting it." Escalate as an advocate, never as an exit.</div>
+        </div>
+
+        <h3>🤝 Closing the loop</h3>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> thanking the man who shouted at you — honestly. Complete it:<br><br>"Thanks for giving me the ___ to fix it."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Thanks for giving me the chance to fix it."</b><br>Strange but true: the complainer did you a favour — the guests who say nothing just leave, review, and never return. This sentence reframes the whole encounter as something he did <i>with</i> you rather than <i>to</i> you, and it lets both of you end the night as people who handled something well. It only works after real fixing; said too early it's grease.<br><br><b>Take it anywhere:</b> "Thanks for giving me the chance to fix it." Complaints, corrections, hard feedback — thank the messenger, keep the messages coming.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> personal accountability for whatever comes next. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="The problem's fixed for now — but the night is long. How do you close?"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "My name's Dana — I'm on until seven, so if anything else comes up, ask for me."</b><br>The name is the guarantee. Anonymous service is what failed him all evening — a system that rang out, a card that died, a colleague who insulted him and vanished. A name plus a timeframe converts the hotel from a machine back into a person who has now taken responsibility for his night. Cheap to give, remembered forever, and the single biggest difference between adequate service and the kind people write good reviews about.<br><br><b>Take it anywhere:</b> "My name's ___ — ask for me if anything else comes up." Sign your work, especially the repairs.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten work wherever anger arrives at your name badge — and most of them work at home, too. Say each answer out loud before you type it.</p>
+            <p class="cue">"That was our mistake." — think of a real complaint you've received at work. Which piece was genuinely yours to own — and which pieces weren't?</p>
+            <textarea class="blank" placeholder="The complaint, your piece, the rest…"></textarea>
+            <p class="cue">"I can't give you ___, but I can offer ___." — build the empowered no for the demand you most dread hearing in your job.</p>
+            <textarea class="blank" placeholder="The dreaded ask, your real limit, your offer…"></textarea>
+            <p class="cue">"So that I get this right: ___" — practise playing back the last complaint you heard, in one ordered sentence.</p>
+            <textarea class="blank" placeholder="The playback…"></textarea>
+        </div>
+
+        <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> the arc, out loud — right to be annoyed → sorry you've had this → so that I get this right → bear with me two minutes → that was our mistake → here's what I can do right now → can't give you that, can offer this → flagged with my note supporting it → thanks for the chance to fix it → my name's ___, ask for me. Ten moves between explosion and a good night's sleep.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now the badge is on your shirt and the lobby is echoing. Two rounds — the desk, then the fury.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're on the desk</h3>
+        <p>Use your own workplace if you can — your product, your service, your worst realistic complaint. You know your real limits: what you can give, what needs a manager. Your teacher arrives angry, and right.</p>
+
+        <p class="cue">The explosion lands. Meet it — validation, then motion.</p>
+        <textarea class="blank" placeholder="You're right to be… let me…"></textarea>
+
+        <p class="cue">Play the complaint back until you get a "that's exactly it".</p>
+        <textarea class="blank" placeholder="So that I get this right…"></textarea>
+
+        <p class="cue">Own the piece that's truly yours — precisely, with a consequence attached.</p>
+        <textarea class="blank" placeholder="That was our mistake, and…"></textarea>
+
+        <p class="cue">Take charge: what can you do right now, with your own hands?</p>
+        <textarea class="blank" placeholder="Here's what I can do for you right now…"></textarea>
+
+        <p class="cue">They demand more than you're allowed to give. The empowered no — then escalate as an ally, and close with your name.</p>
+        <textarea class="blank" placeholder="I can't… but I can… with my note supporting it… My name's…"></textarea>
+
+        <h3>Round 2 — now you're Mr Osei</h3>
+        <p>Swap. Your teacher is on the desk; you're the guest, and everything really did go wrong. Your job is to be angry <i>well</i> — loud enough to be real, fair enough to be fixable — and to notice, from the inside, which of their sentences actually lower your temperature and which raise it.</p>
+
+        <p class="cue">Deliver the complaint — all three problems, hot but honest.</p>
+        <textarea class="blank" placeholder="Your opening salvo…"></textarea>
+
+        <p class="cue">They offer something real. What makes you accept it — and what would have made you refuse?</p>
+        <textarea class="blank" placeholder="What lands, what wouldn't…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Round 1 again — and while Mr Osei is mid-sentence, a second guest arrives at the desk: a woman from the stag party's floor, equally furious, phone in hand, filming. "Don't bother with him — I've been waiting LONGER, and this is going straight online."</p>
+            <p>Two angry guests, one of you, a camera running. You can't fix both at once — but you can lose both at once. Handle the next sixty seconds: who gets what promise, in what order, and what do you say to the phone?</p>
+            <textarea class="blank" placeholder="Your sixty seconds — both guests, and the camera…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Can you validate anger without confessing to everything?</li>
+                <li>Can you play a complaint back until you earn a "that's exactly it"?</li>
+                <li>Can you own your piece precisely — and only your piece?</li>
+                <li>Can you say no with your real limit and a real alternative in the same breath?</li>
+                <li>Do you sign your repairs with your name?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>The men on the sand of the Colosseum had one job description: stand calm while fifty thousand people scream at you. Gladiators were the professionals of hostile crowds — trained not just to fight but to <i>perform composure</i>, because the crowd could smell panic, and panic turned the mood, and the mood decided everything.</p>
+            <p>The best of them understood something modern service work rediscovered: the crowd's fury was rarely about them. Rome was hot, the queues were long, the emperor was raising taxes — and all of it arrived at whoever stood in the arena, because he was the one standing there. The gladiators who survived longest weren't the strongest; they were the ones who could read a hostile crowd, work with its anger instead of against it, and turn fifty thousand thumbs.</p>
+            <p>Your lobby is smaller and nobody's armed. But the principle holds at every desk where anger arrives by job description: it isn't about you, it lands on you, and composure — real, working composure — is a professional skill you can train. The crowd can be turned.</p>
+        </div>
+
+        <a class="morelink" href="short_history_the_gladiators.html">🏟️ <span>Want the full story? The arena, the training, and the men who turned the crowd…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>Gladiators trained composure like a muscle. Can calm under fire really be learned — and what's your training ground?</li>
+            <li>"The anger isn't about you — it just lands on you." Where in your life is that sentence doing heavy lifting right now?</li>
+        </ol>""",
+]
