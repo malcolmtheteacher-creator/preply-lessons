@@ -68,7 +68,7 @@ PLANS = {
         ("🩺", "In the consulting room", "Doing your own clinical job in English.",
          ["The Consultation", "Breaking the News"]),
         ("🌐", "Facing the public", "Selling, serving and teaching — when your job is other people.",
-         ["The First Sales Call", "The Sceptical Client", "The Front Desk", "Parents' Evening"]),
+         ["The First Sales Call", "The Sceptical Client", "The Front Desk", "The Repair Counter", "Parents' Evening"]),
         ("⚠️", "When it goes wrong", "Mistakes, anger, and people who aren't coping.",
          ["The Mistake", "The Client Who Shouts", "Not Coping at Work",
           "The Colleague Who Cries"]),
