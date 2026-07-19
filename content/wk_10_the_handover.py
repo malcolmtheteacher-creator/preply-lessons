@@ -1,126 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="series" content="English at Work">
-<meta name="description" content="English at Work — The Handover: hand over four years in forty minutes">
-<title>English at Work · The Handover</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root{ --cream:#fbf7f0; --ink:#2b2b33; --teal:#2f8f9d; --teal-d:#237884; --amber:#f2a65a; --amber-d:#e08c3a; --soft:#e8f4f3; --line:#e8e0d3; --warm:#fdeede; }
-body{ font-family:"Segoe UI",system-ui,sans-serif; background:var(--cream); color:var(--ink); line-height:1.6; font-size:17px; }
-.wrap{ max-width:760px; margin:0 auto; padding:16px; }
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "wk_10_the_handover.html"
+SERIES = "English at Work"
+TITLE = "The Handover"
+SUMMARY = "hand over four years in forty minutes"
+INTRO = ("You leave on Friday. Priya is taking your work and Priya is already full. Being thorough is "
+         "the trap — she cannot absorb four years, and a document she'll never read is a way of making "
+         "yourself feel better.")
 
-header{ background:linear-gradient(135deg,var(--teal),var(--teal-d)); color:#fff; border-radius:20px; padding:24px 26px; box-shadow:0 10px 26px rgba(47,143,157,0.28); margin-bottom:14px; }
-header .tag{ font-size:0.78rem; letter-spacing:1.5px; text-transform:uppercase; opacity:0.9; font-weight:700; }
-header h1{ font-size:2rem; margin:6px 0 4px; }
-header p{ opacity:0.95; }
-
-.tabs{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
-.tab-btn{ flex:1; min-width:110px; border:none; border-radius:12px; padding:12px 8px; background:#fff; border:1px solid var(--line); color:var(--teal-d); font-weight:700; font-size:0.92rem; cursor:pointer; transition:.15s; }
-.tab-btn:hover{ background:var(--soft); }
-.tab-btn.active{ background:linear-gradient(135deg,var(--teal),var(--teal-d)); color:#fff; border-color:transparent; }
-.panel{ display:none; background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:0 3px 12px rgba(0,0,0,0.04); }
-.panel.active{ display:block; animation:fade .25s; }
-@keyframes fade{ from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
-h2{ color:var(--teal-d); font-size:1.4rem; margin-bottom:10px; }
-h2 .em{ font-size:1.6rem; }
-h3{ color:var(--teal-d); font-size:1.1rem; margin:20px 0 8px; }
-.lead{ color:#6f685d; margin-bottom:16px; }
-
-.tip{ background:var(--soft); border-radius:12px; padding:14px 18px; margin:14px 0; }
-.tip b{ color:var(--teal-d); }
-
-.whos{ display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; }
-.who{ flex:1; min-width:200px; background:var(--warm); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
-.who .role{ font-size:0.78rem; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; color:var(--amber-d); }
-.who .name{ font-size:1.15rem; font-weight:700; margin:4px 0; }
-.who p{ font-size:0.95rem; color:#6f685d; }
-
-.convo{ margin:14px 0; }
-.say{ border-radius:16px; padding:12px 16px; margin:10px 0; max-width:88%; position:relative; }
-.say .who-label{ display:block; font-size:0.72rem; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; margin-bottom:2px; }
-.say-a{ background:var(--soft); margin-right:auto; border-bottom-left-radius:4px; }
-.say-a .who-label{ color:var(--teal-d); }
-.say-b{ background:var(--warm); margin-left:auto; border-bottom-right-radius:4px; }
-.say-b .who-label{ color:var(--amber-d); }
-.say-c{ background:#efe9df; margin-right:auto; border-bottom-left-radius:4px; }
-.say-c .who-label{ color:#9a7b3e; }
-
-.q{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:12px 0; }
-.q .move{ font-size:0.74rem; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; color:var(--amber-d); margin-bottom:4px; }
-.q p{ margin-bottom:4px; }
-.jumble{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
-.jumble span{ background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:6px 12px; font-weight:700; color:var(--teal-d); }
-.choice{ margin:8px 0 4px; }
-.choice div{ background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:8px 14px; margin:6px 0; }
-
-.rev-btn{ display:inline-block; border:none; border-radius:12px; padding:10px 18px; font-weight:700; font-size:0.95rem; cursor:pointer; background:linear-gradient(135deg,var(--amber),var(--amber-d)); color:#fff; box-shadow:0 4px 12px rgba(224,140,58,0.35); margin-top:8px; }
-.rev-btn:hover{ opacity:.93; }
-.rev{ display:none; background:var(--soft); border-radius:12px; padding:12px 16px; margin-top:10px; }
-.rev.open{ display:block; }
-.rev b{ color:var(--teal-d); }
-
-textarea.blank, input.blank{ width:100%; border:1px solid #d8ccbb; border-radius:12px; padding:12px 14px; font-family:inherit; font-size:1.02rem; background:#fffdf9; margin:6px 0 4px; }
-textarea.blank{ resize:vertical; min-height:56px; }
-textarea.blank:focus, input.blank:focus{ outline:2px solid var(--teal); border-color:transparent; }
-
-.twist{ background:linear-gradient(135deg,var(--warm),#fbe3cf); border:1px solid #f0d4b4; border-radius:16px; padding:18px 20px; margin:18px 0; }
-.twist .t-label{ font-size:0.78rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; color:var(--amber-d); }
-.twist h3{ margin-top:4px; color:var(--amber-d); }
-
-.timer{ background:linear-gradient(135deg,var(--teal),var(--teal-d)); color:#fff; padding:14px 20px; border-radius:14px; margin:16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-weight:700; }
-.timer.warning{ background:linear-gradient(135deg,var(--amber),var(--amber-d)); }
-.timer.danger{ background:linear-gradient(135deg,#e2695a,#c9503f); animation:pulse 0.5s infinite alternate; }
-@keyframes pulse{ from{opacity:1;} to{opacity:0.82;} }
-.timer-display{ font-variant-numeric:tabular-nums; font-size:1.15rem; }
-.timer-controls{ display:flex; gap:8px; flex-wrap:wrap; }
-.timer-btn{ background:#fff; color:var(--teal-d); border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.88rem; }
-.timer-btn.secondary{ background:rgba(255,255,255,0.18); color:#fff; border:1px solid #fff; }
-.duration-btn{ background:rgba(255,255,255,0.18); color:#fff; border:1px solid rgba(255,255,255,0.6); padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.88rem; }
-.duration-btn.active{ background:#fff; color:var(--teal-d); }
-
-.echo-card{ background:var(--warm); border:1px solid var(--line); border-radius:16px; padding:20px 22px; margin:16px 0; font-size:1.08rem; }
-.morelink{ display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--ink); margin-top:12px; font-weight:600; }
-.morelink:hover{ background:var(--soft); }
-.morelink .go{ margin-left:auto; color:var(--teal-d); font-weight:700; white-space:nowrap; }
-
-.deliver{ background:#eef6f5; border-left:4px solid var(--teal); border-radius:8px; padding:11px 15px; margin:12px 0; font-size:0.96rem; }
-.deliver b{ color:var(--teal-d); }
-.keep{ background:var(--warm); border:1px dashed var(--amber-d); border-radius:14px; padding:18px 20px; margin:20px 0; }
-.keep h3{ margin-top:0; }
-.keep p{ color:#6f685d; }
-.keep .cue{ font-size:0.9rem; color:var(--amber-d); font-weight:700; margin:12px 0 2px; }
-.check{ background:var(--soft); border-radius:14px; padding:16px 20px; margin:18px 0; }
-.check h3{ margin-top:0; }
-.check ul{ list-style:none; margin:8px 0 0; }
-.check li{ padding:5px 0 5px 30px; position:relative; }
-.check li:before{ content:"☐"; position:absolute; left:0; top:4px; font-size:1.15rem; color:var(--teal-d); }
-ol.bigq{ margin:10px 0 0 22px; }
-ol.bigq li{ margin-bottom:10px; }
-footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
-</style>
-</head>
-<body>
-<div class="wrap">
-    <header>
-        <div class="tag">English at Work · Role Play · B2/C1 · 50 min</div>
-        <h1>The Handover</h1>
-        <p>You leave on Friday. Priya is taking your work and Priya is already full. Being thorough is the trap — she cannot absorb four years, and a document she'll never read is a way of making yourself feel better.</p>
-    </header>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="showTab(0)">🎬 The Scene</button>
-        <button class="tab-btn" onclick="showTab(1)">💬 The Conversation</button>
-        <button class="tab-btn" onclick="showTab(2)">🧰 Useful Phrases</button>
-        <button class="tab-btn" onclick="showTab(3)">🎭 Your Turn</button>
-        <button class="tab-btn" onclick="showTab(4)">🔭 The Bigger Picture</button>
-    </div>
-
-    <!-- 🎬 THE SCENE -->
-        <div class="panel active" id="p0">
-        <h2>The Scene <span class="em">🎬</span></h2>
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
         <p class="lead">Forty minutes. Four years. You are going to have to leave most of it out.</p>
 
         <p>Everything you know about this job lives in your head and nowhere else — which supplier answers the phone, which report nobody actually reads, what to do when the reconciliation comes back green and shouldn't.</p>
@@ -139,11 +28,9 @@ footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
             <div class="who"><b>Priya</b><span>Taking it on. Sharp, already full, and being professional about a workload nobody asked her whether she wanted.</span></div>
         </div>
 
-        <div class="tip"><b>First:</b> read the conversation and watch everything You chooses <em>not</em> to say. The handover works because of what gets left out — and Priya interrupts twice to steer you back to what she actually needs.</div>
-    </div>
+        <div class="tip"><b>First:</b> read the conversation and watch everything You chooses <em>not</em> to say. The handover works because of what gets left out — and Priya interrupts twice to steer you back to what she actually needs.</div>""",
 
-    <div class="panel" id="p1">
-        <h2>The Conversation <span class="em">💬</span></h2>
+"""        <h2>The Conversation <span class="em">💬</span></h2>
         <p class="lead">A meeting room, Wednesday. She's brought a notebook and no laptop.</p>
 
         <div class="dialogue">
@@ -181,11 +68,9 @@ footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
                 <b>2.</b> The reconciliation that's been green for two years and shouldn't be trusted; the quarter-end upload that always fails on a Thursday; and Ferran in logistics, who isn't on any org chart and decides whether things take a week or a month.<br><br>
                 <b>3.</b> Because she'll be better at it than him by then, and an open-ended offer keeps her dependent — and gets abused by both of them.
             </div>
-        </div>
-    </div>
+        </div>""",
 
-    <div class="panel" id="p2">
-        <h2>Useful Phrases <span class="em">🧰</span></h2>
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
         <p class="lead">Ten phrases for handing your work to someone else — being useful about what you know and honest about what you didn't do. They work for any handover, briefing or leaving. Say each out loud BEFORE you reveal it.</p>
 
         <div class="deliver"><b>Say it like you mean it.</b> Brisk. The enemy here is fondness — you like this job and you want to explain it properly, and that impulse will fill forty minutes with things she cannot use. Every time you feel a tangent starting, stop mid-sentence and move on. Cutting yourself off out loud is more useful than finishing the thought.</div>
@@ -287,11 +172,9 @@ footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> run it out loud using all ten — stop me, what do you need → three things → looks fine and isn't → where and when it breaks → it all runs on → officially it isn't → never got to it → forget that bit → don't inherit my way → ring me for a month. Time it. Under ten minutes means you've triaged; twenty means you gave the tour.</div>
-    </div>
+        <div class="tip"><b>Quick test:</b> run it out loud using all ten — stop me, what do you need → three things → looks fine and isn't → where and when it breaks → it all runs on → officially it isn't → never got to it → forget that bit → don't inherit my way → ring me for a month. Time it. Under ten minutes means you've triaged; twenty means you gave the tour.</div>""",
 
-    <div class="panel" id="p3">
-        <h2>Your Turn <span class="em">🎭</span></h2>
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now you hand it over. Twice — once giving, once receiving.</p>
 
         <div class="timer">
@@ -350,11 +233,9 @@ footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
                 <li>Can you admit what you never got round to, without explaining it away?</li>
                 <li>Can you offer help with an end date on it?</li>
             </ul>
-        </div>
-    </div>
+        </div>""",
 
-    <div class="panel" id="p4">
-        <h2>The Echo <span class="em">🕰️</span></h2>
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
 
         <div class="echo-card">
             <p>The Library of Alexandria did not burn down in a single night, whatever the story says. It declined — funding withdrawn, scholars dispersed, one fire, then neglect, then centuries. Nobody decided to lose it.</p>
@@ -368,63 +249,5 @@ footer{ text-align:center; color:#a79c8c; font-size:0.85rem; margin:18px 0; }
         <ol class="bigq">
             <li>How much of what any organisation knows is actually written down? What happens to the rest?</li>
             <li>Is it a failure of management that so much lives in one person's head — or is that simply what expertise is?</li>
-        </ol>
-    </div>
-</div>
-
-<script>
-function showTab(i){
-    document.querySelectorAll('.tab-btn').forEach(function(b,n){ b.classList.toggle('active', n===i); });
-    document.querySelectorAll('.panel').forEach(function(p,n){ p.classList.toggle('active', n===i); });
-    window.scrollTo({ top:0, behavior:'smooth' });
-}
-function toggleRev(btn){
-    var rev = btn.nextElementSibling;
-    var open = rev.classList.toggle('open');
-    btn.textContent = open ? 'Hide' : btn.getAttribute('data-label') || 'Reveal';
-    if(!btn.getAttribute('data-init')){ btn.setAttribute('data-label', 'Show again'); btn.setAttribute('data-init','1'); }
-}
-
-/* click-to-start role-play timer */
-var timerInterval = null;
-var timeRemaining = 240;
-var currentDuration = 240;
-function setDuration(btn, minutes){
-    if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
-    document.querySelectorAll('.duration-btn').forEach(function(b){ b.classList.remove('active'); });
-    btn.classList.add('active');
-    currentDuration = minutes * 60;
-    timeRemaining = currentDuration;
-    updateDisplay();
-    document.querySelector('.timer').classList.remove('warning','danger');
-}
-function updateDisplay(){
-    var m = Math.floor(timeRemaining / 60);
-    var s = timeRemaining % 60;
-    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
-}
-function resetTimer(){
-    if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
-    timeRemaining = currentDuration;
-    updateDisplay();
-    document.querySelector('.timer').classList.remove('warning','danger');
-}
-function startTimer(){
-    if(timerInterval) return;
-    timerInterval = setInterval(function(){
-        timeRemaining--;
-        updateDisplay();
-        var t = document.querySelector('.timer');
-        if(timeRemaining <= 10){ t.classList.add('danger'); t.classList.remove('warning'); }
-        else if(timeRemaining <= 30){ t.classList.add('warning'); t.classList.remove('danger'); }
-        else { t.classList.remove('warning','danger'); }
-        if(timeRemaining <= 0){
-            clearInterval(timerInterval);
-            timerInterval = null;
-            document.getElementById('timer-display').textContent = "Time's up!";
-        }
-    }, 1000);
-}
-</script>
-</body>
-</html>
+        </ol>""",
+]
