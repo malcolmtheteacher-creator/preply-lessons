@@ -9,8 +9,8 @@ READ `a1s_03_where.html`. **Copy its entire `<style>` block verbatim** (do not c
 
 **CRITICAL — the shared review engine:** keep `SR_KEY='miaSR_v1'`, `INTERVALS`, and every function (`loadDeck, saveDeck, addCard, dueCards, grade, refreshStats, showTab, buildCards, addAllAndReview, startReview, renderWarmUp, reviewToday`) **byte-for-byte identical** to the template — including the `lesson` param on `addCard` and the "📘 from" line in `startReview`. All lessons must share the same localStorage deck, so review carries across the whole course. Do NOT rename or "improve" anything in the engine.
 
-## 2. The 5 tabs (identical structure, new content)
-🔁 **Warm-up** → 📖 **The Story** → 🗂️ **Words** → 🧩 **The Pattern** → 🗣️ **Your Turn**. Keep the header block, the two stat cards, the tab buttons, and all the container IDs exactly as the template (`p0…p4`, `warmArea`, `cardGrid`, `wordsReview`, `turnReview`, etc.).
+## 2. The 6 tabs (identical structure, new content)
+🔁 **Warm-up** → 📖 **The Story** → 🗂️ **Words** → 🧩 **The Pattern** → 🗣️ **Your Turn** → 🎭 **Role Play**. Keep the header block, the two stat cards, the tab buttons, and all the container IDs exactly as the template (`p0…p5`, `warmArea`, `cardGrid`, `wordsReview`, `turnReview`, etc.).
 
 - **Header:** `.step` = "Mia's English · Lesson N"; `h1` = the lesson title; one-line subtitle. Footer = "Mia's English · A1 Story Journey · Lesson N".
 - **Warm-up:** leave the panel as the template (it auto-shows due cards from earlier lessons). Its lead may mention "your words from the lessons before".
@@ -18,6 +18,7 @@ READ `a1s_03_where.html`. **Copy its entire `<style>` block verbatim** (do not c
 - **Words:** the 8 new items live ONLY in the `LESSON` array (below). Keep the grid + "Add these to my reviews" exactly as template.
 - **The Pattern:** ONE tiny grammar point in `.build` boxes, plus a `.tip`, then TWO `.morelink` links to existing lessons (given per lesson) — verify each file exists in the folder before linking.
 - **Your Turn:** production task with **empty** `input.blank` fields (placeholders only), the `reviewToday()` button, a `.checklist`, and a closing `.tip`.
+- **Role Play (`p5`):** the student acts out THIS chapter with the teacher. Scene box (`.build`), then **Round 1** — a 6–8 line dialogue where the teacher's lines are written (`.say`) and the student's lines are **cues in italics** (*ask where the café is*) that force this lesson's words + pattern; then **Round 2 — swap!** with one stated change of detail so it can't be parroted. No inputs, no images, no new CSS classes. The cue must never contain the sentence itself.
 
 ## 3. The LESSON array format
 ```
@@ -35,4 +36,4 @@ Front = the English. Back = a simple meaning or example a beginner understands (
 - Keep it gentle and A1: short sentences, common words, warm tone, big wins.
 
 ## 5. Verify before reporting
-Confirm: 5 `.panel`, 5 `.tab-btn`, 0 prefilled inputs, `SR_KEY='miaSR_v1'` present, `LESSON_NAME` set to THIS lesson (not "Lesson 3"), engine functions unchanged, the two `.morelink` targets exist. Report: filename + one-line summary + the 8 words + the two image filenames used.
+Confirm: 6 `.panel`, 6 `.tab-btn`, 0 prefilled inputs, `SR_KEY='miaSR_v1'` present, `LESSON_NAME` set to THIS lesson (not "Lesson 3"), engine functions unchanged, the two `.morelink` targets exist, Role Play cues never contain the answer sentence. Report: filename + one-line summary + the 8 words + the two image filenames used.
