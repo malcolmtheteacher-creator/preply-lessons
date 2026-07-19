@@ -1,0 +1,233 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "wk_36_letting_someone_go.html"
+SERIES = "English at Work"
+TITLE = "Letting Someone Go"
+SUMMARY = "the hardest conversation a manager owns — end someone's job with clarity first and kindness throughout"
+INTRO = ("The restructure was decided above you, but the conversation is yours: at ten o'clock, Karim — three years "
+         "on your team, decent man, father of two — walks into the meeting room, and you end his job. There's no "
+         "version of this that doesn't hurt. There is a version that doesn't add cruelty to it.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">Everyone remembers how they were let go — forever, word for word. You're about to write that memory for someone.</p>
+
+        <p>The company is cutting eight roles, and Karim's is one of them. It isn't performance — his work has been solid — it's a restructure: his function is being merged away. You've known for a week; he doesn't know at all. HR has given you the packet, the legal lines, and thirty minutes.</p>
+
+        <p>Managers get this wrong in two opposite ways. The first is brutality dressed as efficiency: a script read at a person, ten minutes, next meeting. The second — more common among kind people — is cowardice dressed as kindness: so much cushioning, small talk and "how's the family" that the person doesn't understand they've been dismissed until minute twenty, and then feels ambushed twice. The kind version is the clear version: the news in the first minute, the reasons honestly, the practicalities in writing, and space for the human reaction — whatever it is.</p>
+
+        <p>And one more truth managers forget in their own dread: this conversation is not about your discomfort. You'll have a bad morning. He's losing his job. Keep the weights in that order, and most of the right sentences follow.</p>
+
+        <ol class="bigq">
+            <li>If it were you in Karim's chair — what would you want said in the first sixty seconds? What would you never forgive?</li>
+            <li>Why do kind people cushion bad news until it becomes cruel? What is the cushioning actually protecting?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>His manager. Fought the decision, lost, and owns the conversation anyway. Slept badly. Determined to do this one thing right.</span></div>
+            <div class="who"><b>Karim</b><span>Three years, solid work, no idea. Mortgage, two kids, and — like anyone — a right to hear it straight.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and time the headline: it lands inside the first three sentences. Then watch what You does with each of Karim's reactions — the shock, the anger, the "was it me?" — and notice none of them is argued with.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">Ten o'clock. The small meeting room. You close the door yourself.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Karim</span>Morning! This about the Deyton handover? I've got the file—</div>
+            <div class="say say-b"><span class="who-label">You</span>It's not, Karim — sit down with me. This is a hard conversation, and I'm not going to stretch it out: the company is cutting eight roles in the restructure, and yours is one of them. Your job is ending. I'm so sorry.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>…What? Mine? *silence* You're serious. You're actually serious.</div>
+            <div class="say say-b"><span class="who-label">You</span>I am. And before anything else, the thing you most need to hear: this is about the role, not your work. Your function's being merged into the Hamburg team — it would be ending whoever was sitting in your chair. Your work has been good, and I'll put that in writing, because you'll want it in writing and you deserve it there.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>The role, not the work. That's what they told Deyton's guy too. It's what everyone says.</div>
+            <div class="say say-b"><span class="who-label">You</span>It is what everyone says — and in this room it also happens to be true, and the reference letter will prove I mean it. You can hear the full reasons now — the whole restructure logic — or later this week when it's less loud in your head, or both. Your call.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>…Later. I can't — later. God. I need a minute.</div>
+            <div class="say say-b"><span class="who-label">You</span>Take it. There's no rush on this part — the next meeting on this room is mine and I've cancelled it. *a long silence* </div>
+            <div class="say say-a"><span class="who-label">Karim</span>Two kids, you know. And the mortgage renewal is in March. *quiet* Was it me? Be honest. Was there a list, and was I on the bottom of something?</div>
+            <div class="say say-b"><span class="who-label">You</span>Honest answer: there was a list of functions, not people, and yours is moving to Hamburg — that's the whole mechanism. What you're feeling right now is fair, Karim. All of it. I'd feel exactly the same, and I'm not going to sit here telling you it's an opportunity.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>*a short, rough laugh* Thank you for not saying "opportunity". Or "journey". If you'd said journey I'd have thrown the file. …So what happens now? Practically. I can't think, so just — tell me slowly.</div>
+            <div class="say say-b"><span class="who-label">You</span>Slowly, and it's all in this folder in writing, so nothing depends on you remembering today. Three things: you're paid until the end of March, plus the severance — the numbers are on page one. Your notice period — you don't have to work it; most people don't, and nobody will read anything into it either way. And the support: the outplacement service, and me. Which brings me to the part that isn't in the folder: I'll be a reference, and a good one — and that's not politeness. Any employer who calls me hears about the Deyton account and the person who ran it properly for three years.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>…Alright. Alright. Do I — what do I tell people? The team. My wife. Is there a script I'm supposed to follow?</div>
+            <div class="say say-b"><span class="who-label">You</span>What you tell people is yours to choose — there's no company line you have to say, and I'll follow your lead: if you want to tell the team yourself, the room is yours; if you want me to do it, I will, and I'll say exactly what we agree and nothing more. And Karim — don't decide anything big today. Not the notice period, not what you tell anyone, not the severance signature — the folder says you have until Friday week, and you should use it. Today is not a deciding day.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>Not a deciding day. *standing, unsteady, then stopping at the door* Three years. You could have sent this in an email, you know. Deyton's guy got an email.</div>
+            <div class="say say-b"><span class="who-label">You</span>I know he did. I decided you'd get a person. It was the one part of this that was actually my decision — so it was the one part I could get right.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>Where does the headline land, and what does You do the moment after it?</li>
+                <li>Karim asks "was it me?" — what makes the answer believable rather than boilerplate?</li>
+                <li>What decisions does You explicitly take OFF today's table, and why?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> Inside the first three sentences — "your job is ending" — with no small-talk runway. Immediately after: the separation of role from work ("it would be ending whoever was in your chair"), backed by a concrete commitment — the good reference in writing.<br><br>
+                <b>2.</b> It's specific and checkable: a list of functions, not people; the mechanism named (merged to Hamburg); and the promise carries evidence — "any employer who calls me hears about the Deyton account." Boilerplate reassures; this one has receipts. Karim's test ("it's what everyone says") is met head-on, not dodged.<br><br>
+                <b>3.</b> Everything: the notice-period choice, what to tell people, the severance signature — "today is not a deciding day", with the real deadline (Friday week) named from the folder. Shock makes terrible decisions; the kindness is removing the need for any.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for ending someone's job — and for every other conversation where you must deliver a loss you can't soften away. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> Slow, level, and warm — but the warmth lives in the care of the delivery, never in blurring the message. Rehearse the first three sentences out loud until they come out steady, because they are the ones he'll replay for years. After the headline, your main job is to stop talking and hold the silence.</div>
+
+        <h3>⚡ The first minute</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> opening — no runway, no ambush. Which version?</p>
+            <div class="choice">
+                <div><b>A.</b> "So! How's the family? Sit down, sit down. Coffee? Right. So. How are you finding things generally?"</div>
+                <div><b>B.</b> "This is a hard conversation, and I'm not going to stretch it out."</div>
+                <div><b>C.</b> "As you know, the market environment has necessitated a strategic review of our operating model…"</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "This is a hard conversation, and I'm not going to stretch it out."</b><br>A is the cruellest kindness there is: small talk he'll replay later as deception. C hides a man's livelihood inside corporate weather. B is the honest bell — it tells him to sit down inside, gives him two seconds to brace, and promises the one mercy you can actually deliver: no stretching. Then keep the promise: the news follows in the same breath.<br><br><b>Take it anywhere:</b> "This is a hard conversation, and I'm not going to stretch it out." Diagnoses, break-ups, firings — the sentence before the sentence.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> the news itself — unmistakable, unhedged. Complete it:<br><br>"The company is cutting eight roles, and yours is ___ of them. Your job is ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"…and yours is one of them. Your job is ending."</b><br>The words must be impossible to misunderstand — because under shock, people grab any ambiguity and hope on it. "We're restructuring your area" leaves a door; "your role is affected" leaves a door; "your job is ending" closes it, which is the kindness, because every false door costs him a second devastation later. Say it, then stop. The silence that follows belongs to him, not to your nerves.<br><br><b>Take it anywhere:</b> the unhedged sentence — "the treatment isn't working", "I'm ending the relationship", "the answer is no." Clarity is the respect.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> separating the person from the decision — believably. Complete it:<br><br>"This is about the ___, not your ___ — and I'll put that in writing."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"This is about the role, not your work — and I'll put that in writing."</b><br>Karim's own objection is the phrase's whole problem: "it's what everyone says." So it only works when it's true AND evidenced — the mechanism named (the function moves to Hamburg; the chair empties whoever sits in it), and the commitment made concrete: a written reference, promised now, unprompted. If it ISN'T true — if performance was the reason — then this phrase is a lie that steals his chance to learn anything, and you owe him the harder, honest version instead.<br><br><b>Take it anywhere:</b> "This is about ___, not about you — and here's how you'll know I mean it." Only when true; always with evidence.</div>
+        </div>
+
+        <h3>🕳️ Holding the reaction</h3>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> handling the flood — or the silence. Complete it:<br><br>"Take it. There's no ___ on this part."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Take it. There's no rush on this part."</b><br>Shock needs minutes, and most managers — desperate to escape their own discomfort — fill those minutes with talking. This phrase does the opposite: it gives the silence a licence, and the detail sells it ("the next meeting on this room is mine, and I've cancelled it" — you planned for his reaction to matter). The hardest discipline in the whole conversation is saying this and then actually sitting in the quiet. Sit in it.<br><br><b>Take it anywhere:</b> "Take your time — there's no rush on this part." After every piece of heavy news you ever deliver.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> validating without a single false promise. Put the pieces in order:</p>
+            <div class="jumble"><span>is fair. All of it.</span><span>What you're feeling</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"What you're feeling is fair. All of it."</b><br>The shock, the anger, the "two kids and the mortgage" — none of it needs fixing, arguing with, or brightening. This phrase receives all of it as legitimate, which is the only comfort that doesn't insult him. Paired with its brave twin — "I'm not going to sit here telling you it's an opportunity" — it's why Karim laughed instead of shouting. The banned list is long and worth memorising: opportunity, journey, doors opening, blessing in disguise. He'll find his own silver linings, later, if there are any. Today they're yours to withhold.<br><br><b>Take it anywhere:</b> "What you're feeling is fair — all of it." Grief, redundancy, failure. Validation without varnish.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> giving the reasons at THEIR pace, not yours. Complete it:<br><br>"You can hear the full reasons now, or later this week when it's less ___ in your head — or both. Your ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"You can hear the full reasons now, or later this week — or both. Your call."</b><br>Managers rehearse the justification for days and then pour it out in minute two — for their own absolution, not the listener's benefit. But a person in shock retains almost nothing; the restructure logic delivered now is just noise over grief. Offering the choice returns a scrap of control to a man who's just lost a great deal of it — and "or both" acknowledges what's true: he may need to hear it twice, and asking twice is allowed.<br><br><b>Take it anywhere:</b> "Now, later, or both — your call." For every explanation attached to every hard announcement.</div>
+        </div>
+
+        <h3>📋 The practical mercies</h3>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> the logistics — slow, written, survivable. Complete it:<br><br>"It's all in this folder in ___, so nothing depends on you ___ today."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"It's all in the folder in writing, so nothing depends on you remembering today."</b><br>He asked for it himself — "I can't think, so tell me slowly" — and that's every person in this chair. The money, the dates, the notice terms: delivered in threes, out loud AND on paper, because shock deletes conversations wholesale. "Nothing depends on you remembering" is the practical mercy: it removes the terror of missing something while the room is spinning. One page, numbers on top, handed over — the kindest document you'll produce all year.<br><br><b>Take it anywhere:</b> "It's in writing — nothing depends on you remembering today." Medical news, funerals, any administration of grief.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> the reference — promised with proof. Complete it:<br><br>"I'll be a reference, and a ___ one — and that's not ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I'll be a reference, and a good one — and that's not politeness."</b><br>The single most valuable practical thing a manager can offer at this table — his next job may hang on it — and also the easiest to say emptily, which is why it needs the receipt: "any employer who calls me hears about the Deyton account." Specific evidence converts a courtesy into an asset he can actually plan around. Then honour it, promptly and warmly, every time the phone rings — including two years from now.<br><br><b>Take it anywhere:</b> "I'll vouch for you, and here's what I'll say." A promise with its contents shown.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> protecting him from today's decisions. Complete it:<br><br>"Don't decide anything ___ today. Today is not a ___ day."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Don't decide anything big today. Today is not a deciding day."</b><br>Shock produces terrible decisions with total confidence — storming out of the notice period, signing the severance unread, announcing things to the team in the worst possible words. This phrase takes every decision off the table and names the real deadline from the folder (Friday week — use it). It's the same protection you'd want lawyered around yourself on your worst day: time, granted formally, by someone with the standing to grant it.<br><br><b>Take it anywhere:</b> "Today is not a deciding day." After every shock — redundancy, diagnosis, bereavement, betrayal. Decisions keep; grief won't be hurried.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> giving him back the story. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="He asks: 'What do I tell people?' Hand the narrative back to him…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "What you tell people is yours to choose — and I'll follow your lead, word for word."</b><br>The job is gone; the story of the job is still his property, and guarding it is the last dignity you can protect. No forced company line, no announcement over his head, the team told by him or by you saying exactly what he approves — "and nothing more." People rebuild from redundancy at the speed their dignity survived it. This phrase is where it survives.<br><br><b>Take it anywhere:</b> "What you tell people is yours to choose." Illness, divorce, dismissal — the story belongs to the person it happened to.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten carry every conversation where you must hand someone a loss. Say each answer out loud before you type it.</p>
+            <p class="cue">"I'm not going to stretch it out." — think of hard news you once delivered (or received) with too much runway. What did the stretching cost?</p>
+            <textarea class="blank" placeholder="The conversation, and the cost of the cushioning…"></textarea>
+            <p class="cue">"What you're feeling is fair." — what's YOUR banned-words list — the false comforts you reach for under pressure?</p>
+            <textarea class="blank" placeholder="Your 'opportunity' and 'journey' equivalents…"></textarea>
+            <p class="cue">"Today is not a deciding day." — when did shock make a decision for you? What would this sentence have saved?</p>
+            <textarea class="blank" placeholder="The decision shock made, and its price…"></textarea>
+        </div>
+
+        <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> the conversation, out loud, slowly — hard conversation, won't stretch it → your job is ending → the role, not your work, in writing → take it, no rush → what you're feeling is fair, all of it → reasons now or later, your call → folder, in writing, nothing to remember → a reference, and a good one → not a deciding day → the story is yours to choose. Ten sentences he'll replay for years — make them the ones you'd want replayed about you.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now the door closes behind you. Two rounds — the manager, then the chair that hurts.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're the manager</h3>
+        <p>Invent the person from your real work world — role, years of service, a detail that makes it human. Decide first: is it truly the role, or the performance? (It changes phrase three entirely.) Your teacher is the employee, arriving cheerful about a different meeting.</p>
+
+        <p class="cue">The first minute: the bell, the headline, unhedged.</p>
+        <textarea class="blank" placeholder="This is a hard conversation… your job is ending."></textarea>
+
+        <p class="cue">Separate person from decision — with the evidence that makes it believable.</p>
+        <textarea class="blank" placeholder="This is about… and I'll put that in writing."></textarea>
+
+        <p class="cue">The reaction comes — shock, then anger, then "was it me?". Hold it without arguing or brightening.</p>
+        <textarea class="blank" placeholder="Take it, there's no rush… what you're feeling is fair…"></textarea>
+
+        <p class="cue">The practicalities: slow, in threes, in writing — and the reference with its receipt.</p>
+        <textarea class="blank" placeholder="It's all in the folder… I'll be a reference, and a good one…"></textarea>
+
+        <p class="cue">Close by protecting him from today: no deciding, and the story handed back.</p>
+        <textarea class="blank" placeholder="Don't decide anything big today… what you tell people is yours…"></textarea>
+
+        <h3>Round 2 — now you're Karim</h3>
+        <p>Swap. Your teacher lets YOU go — and you respond as a real person would: the disbelief, the mortgage arithmetic out loud, the "was it me?", maybe the anger. Notice from inside the chair which of their sentences actually help, which are noise — and what you find yourself needing that they haven't offered.</p>
+
+        <p class="cue">The headline lands on you. Your first thirty seconds — honestly.</p>
+        <textarea class="blank" placeholder="What actually comes out of you…"></textarea>
+
+        <p class="cue">Ask the question underneath: "was it me?" — and listen hard to whether the answer has receipts.</p>
+        <textarea class="blank" placeholder="Your question, and what would convince you…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Round 1 again — and when you say "this is about the role, not your work," Karim goes very still, then says: "Don't. Just — don't. Bauer told me on Friday. The role isn't disappearing — it's going to Hamburg and STAYING a role, and Weber's moving with it. Same function, same title. They kept Weber and cut me. So say the true version, whatever it is — because I'd rather hear it from you than figure it out on the train home."</p>
+            <p>He's right, and you knew: given one seat, the company kept Weber. It WAS, in the end, a comparison — and he's just asked you for the truth with more courage than the folder ever required of you. What do you say — honest about the comparison, without demolishing him, and without hiding behind Hamburg again?</p>
+            <textarea class="blank" placeholder="The true version, said with care — and what you offer him with it…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Does your headline land in the first minute, unhedged?</li>
+                <li>Is "the role, not you" true when you say it — and evidenced?</li>
+                <li>Can you hold the silence and the anger without filling either?</li>
+                <li>Are the practicalities written down, so memory isn't required?</li>
+                <li>Does the person leave owning their own story — and their deciding days?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>For a decade, everyone at the Russian court knew Rasputin had to go. The rasping mystic held the empress through her son's illness and, through her, held ministries, appointments, the war itself — and Tsar Nicholas, who complained of him privately for years, could never bring himself to have the conversation. Too painful for his wife, too awkward for the court, always a worse week to do it in. The dismissal that never came.</p>
+            <p>So the job was done, in December 1916, in the worst way possible: not with clarity but with murder — poison, pistols and a frozen river, by desperate aristocrats who'd concluded that if the Tsar wouldn't say the hard sentence, they would write it themselves. It changed nothing and stained everything; within weeks the dynasty itself was falling, dragged down partly by every hard conversation Nicholas had spent a reign avoiding. History rarely offers a cleaner lesson: the unsaid dismissal doesn't stay unsaid — it comes out later, larger, and in somebody else's brutal words.</p>
+            <p>No one in your meeting room is Rasputin, and the stakes on your Tuesday are mercifully smaller. But the mechanism is in every workplace: the conversation avoided for kindness's sake curdles into something crueller than the conversation ever was. Say the hard sentence yourself, early, with care — because the alternative isn't the sentence unsaid. It's the sentence said badly, by events.</p>
+        </div>
+
+        <a class="morelink" href="short_history_rasputin.html">🕯️ <span>Want the full story? The mystic, the empress, and the dismissal nobody would say…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>Nicholas avoided one conversation for a decade and lost an empire having it avoided for him. What's the workplace version of this law — and have you watched it happen?</li>
+            <li>"The kind version is the clear version." Is that always true? When has clarity been used as an excuse for cruelty?</li>
+        </ol>""",
+]

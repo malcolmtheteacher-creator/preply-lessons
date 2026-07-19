@@ -1,0 +1,235 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "wk_34_showing_the_ropes.html"
+SERIES = "English at Work"
+TITLE = "Showing the Ropes"
+SUMMARY = "the new person starts Monday and you're the one training them — teach your job without doing it for them"
+INTRO = ("After six years, you could do your job asleep — which is exactly the problem. Monday brings Priya: smart, "
+         "nervous, and new. Your boss said 'show her the ropes' as if that were an instruction. Teaching what you "
+         "know is a different skill from knowing it, and this week you find out if you have it.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">The day you train someone is the day you discover how much of your job lives in your hands and not in any manual.</p>
+
+        <p>You've run the dispatch desk — or the front office, the lab bench, the kitchen section; the trade doesn't change a word of this — for six years. Monday, Priya starts. She's sharp, qualified on paper, and visibly terrified of touching anything. Your boss's entire training plan was the sentence "you'll sort her out."</p>
+
+        <p>Here's the trap every experienced person falls into: doing the job while the trainee watches, forever — because you're faster, because mistakes cost, because explaining takes longer than doing. Three weeks later you have an audience, not a colleague, and a new person whose confidence has quietly died. The teacher's real work is the opposite of showing off: shrinking yourself until there's room for her to try, fail safely, and try again.</p>
+
+        <p>The craft in this lesson: making questions free, handing over the thinking (not just the tasks), correcting without crushing, and the hardest one — the moment you step back and let her run it while your hands itch. Every expert was once the new one. The good ones remember; the great ones build the week they wish they'd been given.</p>
+
+        <ol class="bigq">
+            <li>Who trained you best, ever — in anything? What did they do that the bad ones didn't?</li>
+            <li>Why do experts make poor teachers by default? What exactly has their expertise deleted?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>Six years in, does the job by reflex, has never trained anyone — and remembers, dimly, being terrified once too.</span></div>
+            <div class="who"><b>Priya</b><span>New. Quick brain, empty map, and one dread: being the person who breaks something in week one.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and track the handover of control: watch → together → alone-with-cover. Then find the moment Priya makes a real mistake, and read the correction twice. That correction is the whole lesson.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">Monday, 8:55am. Priya stands at the desk holding a notebook like a shield.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Priya</span>Hi — I'm Priya. I'm the new… well, you know. They said you'd be training me. I should say up front, I read the handbook twice but I still don't really know how anything works.</div>
+            <div class="say say-b"><span class="who-label">You</span>Nobody does from the handbook — I wrote half of it and I still couldn't learn the job from it. Ground rule one, before anything else: there are no stupid questions this month. Use them up. I mean it — the people who struggle here are the ones who ration their questions.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>You may regret that by Thursday.</div>
+            <div class="say say-b"><span class="who-label">You</span>I'm counting on it. Here's how the week works: see one, do one, teach one. Today you watch me and interrupt constantly. Tomorrow we do it together. By Friday you're doing it and explaining it back to me — because you don't really know a thing until you've taught it. And one more rule: stop me the second I stop making sense. I've done this so long I skip steps without noticing — you're actually doing me a favour when you catch it.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Okay… then can I stop you already? You just did something with that order screen — three clicks — and I have no idea what any of them were.</div>
+            <div class="say say-b"><span class="who-label">You</span>See? Six years of skipped steps, caught in the first ten minutes. Slower this time: priority check, stock check, release. The order screen won't let you release without the checks anyway — which brings me to the thing you most need to hear: nothing you can do this week will break anything that matters. The system stops the big mistakes, and I'm checking everything behind you until Friday. The worst case is we redo twenty minutes of work. That's the actual worst case.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>You have no idea how much better that makes this. Right — priority, stock, release. Can I try one?</div>
+            <div class="say say-b"><span class="who-label">You</span>*Tuesday* This one's yours, I'll watch. …Okay, it's flagged urgent AND the stock's showing short. What would you do next? Talk me through it — out loud, wrong answers welcome.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Um — split the order? Send what we have now, back-order the rest… no wait, it's urgent, so — call the customer first and ask which they'd rather?</div>
+            <div class="say say-b"><span class="who-label">You</span>That's the right answer, and you got there in eight seconds. Go on then — real phone, real customer. I'm right here.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>*Wednesday, quietly* I think I've done something bad. The Hendersons order — I released it to the old address. It's the one from the header, but apparently there's a note—</div>
+            <div class="say say-b"><span class="who-label">You</span>Okay — first: everyone makes that exact mistake, and I mean everyone; ask Marco about his first month some time. It's recoverable — we can redirect until it hits the depot, which is hours away. But walk me through why you chose the header address, so we fix the real thing.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>Because it's… at the top? It looks official. I didn't know the notes field could overrule it.</div>
+            <div class="say say-b"><span class="who-label">You</span>Which is completely reasonable and completely wrong, and that's the trap: the screen LOOKS trustworthy exactly where it isn't. Here's the trick that stops it — notes first, always, before you look at anything else on the order. Say it back to me… good. Now you fix the Henderson thing — you dial, I'll sit here. You'll remember it better if the fix is yours too.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>*Friday* …and that's the last of the morning queue. Released, notes checked, two customers called. Go on, ask me something — I know you're dying to.</div>
+            <div class="say say-b"><span class="who-label">You</span>Just one thing, and then I'll say the Friday speech. You don't have to remember everything I said this week — you have to know where it's written down. Cheat sheet's in the top drawer; I rewrote it Wednesday night after your questions showed me what was missing from it. Honestly, your questions improved a six-year-old document in a week.</div>
+            <div class="say say-a"><span class="who-label">Priya</span>And the Friday speech?</div>
+            <div class="say say-b"><span class="who-label">You</span>From Monday the desk is yours and I'm at the far bench — shout if you need me, and I mean shout, not suffer quietly. And Priya — that Henderson recovery on Wednesday? You handled that better than I did in my first month. I'm not just saying it: I released to a wrong address in week two and hid it for a day. You told me in four minutes. You're going to be good at this.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>What are the two ground rules set before any work happens — and what fear does each one kill?</li>
+                <li>Walk through the Henderson correction: what comes first, what comes second, and who fixes it?</li>
+                <li>What changes on Friday — and what does You confess, and why?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> "No stupid questions this month — use them up" kills the fear of looking slow (rationed questions are how new people quietly drown). "Nothing you can do this week will break anything that matters" — with the honest worst case named — kills the fear of touching things.<br><br>
+                <b>2.</b> First: normalise it ("everyone makes that exact mistake") and size it (recoverable, hours of margin). Second: diagnose the thinking, not the person — "walk me through why you chose it" — which surfaces the real trap (the screen looks trustworthy where it isn't) and produces the rule: notes first, always. Then Priya makes the fixing call herself, because owned fixes are remembered.<br><br>
+                <b>3.</b> The desk becomes hers, with cover ("shout, don't suffer quietly"). You confesses the week-two hidden mistake — which makes the praise credible and teaches the last lesson by example: mistakes told fast are cheap.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for training anyone in anything — new colleagues, juniors, apprentices, your dad and his new phone. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> A trainee reads your tone before your content: any flicker of impatience teaches them to stop asking, and then you're training a person who hides things. Every phrase here buys the same commodity — a learner who tries, tells, and asks. Protect that above speed, above tidiness, above everything.</div>
+
+        <h3>🚪 Making it safe to learn</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> opening the question economy. Complete it:<br><br>"There are no stupid questions this month — ___ them ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"There are no stupid questions this month — use them up."</b><br>Everyone SAYS "no stupid questions"; nobody believes it, because it's a platitude. "Use them up" is what converts it into policy — it makes asking the expected behaviour, with a time limit that creates urgency: this is the cheap month, spend it. The warning it carries is real: the trainees who fail are almost never the slow ones; they're the ones who rationed their questions to look capable.<br><br><b>Take it anywhere:</b> "No stupid questions this month — use them up." Day one, every new starter, every new tool, every new team.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> the week's structure, in six words. Complete it:<br><br>"See one, ___ one, ___ one."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"See one, do one, teach one."</b><br>Borrowed from the way surgeons have trained for a century, and it fits any skilled work: watch it done, do it with cover, then explain it back — because you don't fully know a thing until you've taught it. What it quietly promises the trainee matters as much as the method: this doesn't end with you watching me forever. There's a plan, it has stages, and the last stage is you, competent.<br><br><b>Take it anywhere:</b> "See one, do one, teach one." The universal apprenticeship, in six words.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> licensing interruptions — because experts skip steps. Complete it:<br><br>"Stop me the second I stop making ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Stop me the second I stop making sense."</b><br>Six years of practice compresses your job into reflexes — three clicks you no longer see yourself doing. You literally cannot teach what you've automated until someone interrupts you mid-blur, so the interruptions aren't a courtesy to her; they're your only instrument. Adding "you're doing me a favour when you catch it" makes it true enough that she'll actually do it — and she caught the blur inside ten minutes.<br><br><b>Take it anywhere:</b> "Stop me the second I stop making sense." Teaching, presenting, explaining anything you're too good at.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> killing the fear of breaking things — honestly. Which version?</p>
+            <div class="choice">
+                <div><b>A.</b> "Just be really careful — mistakes here are expensive."</div>
+                <div><b>B.</b> "Nothing you can do this week will break anything that matters. Worst case, we redo twenty minutes."</div>
+                <div><b>C.</b> "Don't worry! Honestly, just click around, you can't break it, probably."</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "Nothing you can do this week will break anything that matters. Worst case, we redo twenty minutes."</b><br>A produces a trainee who touches nothing and learns nothing — fear is the most expensive training cost there is. C is a lie waiting to detonate the first time something DOES go wrong. B works because it's engineered to be true: the system blocks the big errors, you're checking behind her, and the worst case has been genuinely calculated and NAMED. A named worst case is survivable; an unnamed one is infinite. "You have no idea how much better that makes this" — that's the sound of learning becoming possible.<br><br><b>Take it anywhere:</b> "Nothing you can do here will break anything that matters — worst case is ___." Build the safety first, then announce it.</div>
+        </div>
+
+        <h3>🧠 Handing over the thinking</h3>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> the question that transfers judgement, not just tasks. Complete it:<br><br>"What would you do next? ___ me through it — wrong answers welcome."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"What would you do next? Talk me through it — wrong answers welcome."</b><br>The difference between training hands and training a colleague: hands copy your actions; a colleague inherits your judgement — and judgement only transfers when THEY do the reasoning out loud while it's still cheap to be wrong. "Wrong answers welcome" is load-bearing: it converts the question from a test into a rehearsal. Priya reasoned her way to the right call in eight seconds — and now owns the reasoning, not just the answer.<br><br><b>Take it anywhere:</b> "What would you do next? Talk me through it." At every decision point, from week one, forever.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> the first move when they confess a mistake. Put the pieces in order:</p>
+            <div class="jumble"><span>and it's recoverable.</span><span>Everyone makes that exact mistake —</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Everyone makes that exact mistake — and it's recoverable."</b><br>The confession moment is the most important thirty seconds of the whole apprenticeship, because your reaction sets the price of telling you things — forever. First aid comes before diagnosis: normalise ("everyone — ask Marco about his first month") and size it (recoverable, hours of margin) BEFORE any question about how it happened. Get this backwards — interrogation first — and you've trained a person who hides the next one. And hidden mistakes are the only truly expensive kind.<br><br><b>Take it anywhere:</b> "Everyone makes that mistake — and it's recoverable." The first response to every confession, at work and at home.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> correcting the thinking without flattening the person. Complete it:<br><br>"Walk me through ___ you chose that — so we fix the real thing."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Walk me through why you chose that — so we fix the real thing."</b><br>The mistake on the screen is a symptom; the cause is a belief — here, "the header looks official" — and only the trainee can show you which belief misfired. Note the verdict when it surfaced: "completely reasonable and completely wrong", which honours the logic while correcting it. Then the fix gets a handle ("notes first, always") and gets said BACK to you, and the fixing call is hers to make — because owned corrections stick and imposed ones evaporate.<br><br><b>Take it anywhere:</b> "Walk me through why you chose that." Replaces "why on earth would you—" in every correction you'll ever give.</div>
+        </div>
+
+        <h3>🕊️ Letting go</h3>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> replacing memory with a map. Complete it:<br><br>"You don't have to remember it — you have to know where it's ___ ___."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"You don't have to remember it — you have to know where it's written down."</b><br>A week of training pours out more than any human retains, and trainees quietly panic about the leakage. This sentence relieves the wrong burden: the job isn't memory, it's navigation. The professional detail underneath: the cheat sheet got REWRITTEN mid-week, because her questions showed what six years of expertise could no longer see was missing. Every trainee is an audit of your documentation. Bill it as one.<br><br><b>Take it anywhere:</b> "You don't have to remember it — you have to know where it lives." End of every training week, every onboarding, every handover.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> the handover — stepping back with cover. Complete it:<br><br>"From Monday the desk is ___ and I'm at the far bench — ___ if you need me."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"From Monday the desk is yours and I'm at the far bench — shout if you need me."</b><br>The sentence your itching hands don't want to say — and the whole apprenticeship is wasted without it. Every element is calibrated: real ownership ("the desk is YOURS", not "you can have a go"), real proximity (the far bench, not another building), and permission to call for help framed as an instruction: "shout, and I mean shout — not suffer quietly." Trainees don't drown from lack of skill; they drown from believing that shouting counts as failure.<br><br><b>Take it anywhere:</b> "It's yours from Monday — I'm nearby, and shouting is allowed." The handover with a safety rope, for every skill you ever pass on.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> praise that will still be doing its work next year. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="End of week one. She recovered her own mistake on Wednesday. Send her into Monday…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "That Henderson recovery? You handled it better than I did in my first month — and I'm not just saying it: I hid mine for a day. You told me in four minutes."</b><br>Three parts make it land where generic praise bounces. It's specific — a named moment, not "you did great". It's comparative in the only safe direction — against your own worse past, which costs you something to admit. And the confession does double duty: it proves the praise is real AND teaches the culture's deepest rule by example — mistakes told fast are cheap, and even the trainer was once the terrified new one.<br><br><b>Take it anywhere:</b> "You handled ___ better than I did at your stage — and here's the story that proves I mean it." Praise with a receipt attached.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten pass any skill to any human. Say each answer out loud before you type it.</p>
+            <p class="cue">"Stop me the second I stop making sense." — what part of YOUR job has gone invisible to you? What are your three unconscious clicks?</p>
+            <textarea class="blank" placeholder="The automated part a trainee would need unpacked…"></textarea>
+            <p class="cue">"Nothing you can do will break anything that matters." — could you honestly say this to a trainee in your work? What safety would you have to build first?</p>
+            <textarea class="blank" placeholder="The real worst case, and the rope you'd rig…"></textarea>
+            <p class="cue">"Everyone makes that exact mistake." — what's YOUR week-two story, the one that would make a new person's confession cheap?</p>
+            <textarea class="blank" placeholder="The mistake you'd finally tell…"></textarea>
+        </div>
+
+        <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> the week, out loud — no stupid questions, use them up → see one, do one, teach one → stop me when I stop making sense → nothing you can break, worst case named → what would you do next → everyone makes that mistake → walk me through why → know where it's written down → the desk is yours, shout → better than I did, and here's proof. Ten sentences; one colleague where there was an audience.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now the notebook-shield is pointed at you. Two rounds — trainer, then trainee.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you're the trainer</h3>
+        <p>Use your real job — the thing you could genuinely train someone in. Your teacher is the new person: keen, scared of breaking things, rationing their questions. Notice your own hands itching to just do it.</p>
+
+        <p class="cue">Day one, minute one: open the question economy and set the week's shape.</p>
+        <textarea class="blank" placeholder="No stupid questions… see one, do one…"></textarea>
+
+        <p class="cue">License the interruptions, and kill the fear with an honest worst case from YOUR job.</p>
+        <textarea class="blank" placeholder="Stop me the second… worst case is…"></textarea>
+
+        <p class="cue">A real decision comes up. Hand over the thinking, not the answer.</p>
+        <textarea class="blank" placeholder="What would you do next? Talk me through…"></textarea>
+
+        <p class="cue">They confess a mistake, scared. First aid first, then find the belief that misfired.</p>
+        <textarea class="blank" placeholder="Everyone makes… walk me through why…"></textarea>
+
+        <p class="cue">Friday: the map, the handover with a rope, and praise with a receipt.</p>
+        <textarea class="blank" placeholder="You don't have to remember… it's yours from Monday… better than I did…"></textarea>
+
+        <h3>Round 2 — now you're Priya</h3>
+        <p>Swap. Your teacher trains you in THEIR real job — and you play the honest new person: interrupt when they blur through steps, ask the questions you're embarrassed by, and confess a mistake mid-week. Feel which of their sentences make asking cheap, and which make you go quiet.</p>
+
+        <p class="cue">They just did something in three fast clicks. Interrupt — as invited.</p>
+        <textarea class="blank" placeholder="Can I stop you already…"></textarea>
+
+        <p class="cue">You've made the mistake. Practise confessing it fast — the skill of week one.</p>
+        <textarea class="blank" placeholder="I think I've done something… here's what I did…"></textarea>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Week three. Priya is good — genuinely good — and this morning your boss pulls you aside: "Great job on the training. By the way, the new structure: Priya will be running the desk permanently, and we're moving you to the depot role. Smaller desk, same pay. You've made yourself replaceable — that was rather the point."</p>
+            <p>The oldest fear about training people, standing in your office being true. Except — is it a demotion, or did you just prove the one skill they can't automate? Talk to your boss: about what training Priya actually demonstrated, and what you want next. Argue your own case — using the week you just taught.</p>
+            <textarea class="blank" placeholder="What you say to the boss — the case for the trainer…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Do your trainees spend questions freely, or ration them?</li>
+                <li>Can you name the honest worst case before they touch anything?</li>
+                <li>Do you hand over thinking at decision points, or just tasks?</li>
+                <li>Is confession cheap around you? What's the evidence?</li>
+                <li>Can you say "it's yours from Monday" while your hands itch?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>The pyramids at Giza were not built by crowds of the unskilled — the archaeology killed that myth decades ago. The workers' village tells the real story: professional crews with names like "Friends of Khufu", organised in gangs and phyles, fed on bread and beer and the best medical care of the age. And running through it all, the oldest training system on record: master masons, and beside every one of them, the apprentice hands learning the trade.</p>
+            <p>Here's what makes Giza the trainer's monument: it took roughly twenty years, and no single generation of masters could finish it. The skill HAD to move — from hands that would retire to hands that were new, mid-project, without the tolerances slipping. Every course of stone laid true is evidence that some forgotten foreman got the handover right: made the questions free, let the new hand cut a block that mattered, stepped back while his fingers itched. The pyramid is what "see one, do one, teach one" looks like at four and a half thousand years and six million tonnes.</p>
+            <p>Your desk is smaller. The physics is identical: nothing you've mastered outlives you unless you can hand it over — and the handover, not the mastery, is what builds things bigger than one career.</p>
+        </div>
+
+        <a class="morelink" href="short_history_the_pyramids.html">🔺 <span>Want the full story? The crews, the village, and the machine of ten thousand hands…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>The pyramid builders' names survive; their trainers' don't. Why does teaching get so little glory — and would you trade glory for what it builds?</li>
+            <li>"Nothing you've mastered outlives you unless you hand it over." What skill of yours currently has no apprentice?</li>
+        </ol>""",
+]
