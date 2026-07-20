@@ -43,7 +43,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Mr Farooq</span>It's the BEST answer when it's true — "the same" means we're close. One more: better with three… or four?</div>
             <div class="say say-b"><span class="who-label">You</span>Three — no, wait. Could we do that one again? I answered too fast.</div>
             <div class="say say-a"><span class="who-label">Mr Farooq</span>Always allowed. Take your time… three… or four?</div>
-            <div class="say say-b"><span class="who-label">You</span>Four. Definitely four — the edges sharpened. So what's the verdict — and what does it mean for everyday life? Screens, driving, small print?</div>
+            <div class="say say-b"><span class="who-label">You</span>Four. Definitely four — the edges sharpened. So what's the verdict — and what does that mean for me, in practice? Screens, driving, reading?</div>
             <div class="say say-a"><span class="who-label">Mr Farooq</span>Mild short-sight, plus your arms have officially become too short for your age — reading glasses territory. Driving's legal without, screens are where you'll feel the difference. Nothing dramatic; four years of drift.</div>
             <div class="say say-b"><span class="who-label">You</span>That's a relief, mostly. Do I need them all the time, or just for reading?</div>
             <div class="say say-a"><span class="who-label">Mr Farooq</span>Reading and screens — take them off for the world. If you'd rather not juggle two behaviours, varifocals do both, but they cost more and take a fortnight of your brain complaining. Chloe outside will talk you through the options. *meaningfully* All of the options.</div>
@@ -104,9 +104,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 4</span>
-            <p><b>The job:</b> turning the diagnosis into practical daily advice. Complete it:<br><br>"What does that ___ for everyday ___ — screens, driving, small print?"</p>
+            <p><b>The job:</b> turning the diagnosis into practical advice. Complete it:<br><br>"What does that mean for me, in ___?"</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"What does it mean for everyday life — screens, driving, small print?"</b><br>"Mild myopia with presbyopia" is a fact about your eyes; "screens are where you'll feel it, driving's legal without" is a fact about your LIFE — and only the second one tells you what to do. Naming your big three (screens, driving, print) hands the expert the translation targets. Every diagnosis in every field deserves this question before you leave the room.<br><br><b>Take it anywhere:</b> "What does that mean for everyday life?" Medical results, legal advice, survey reports — demand the lived translation.</div>
+            <div class="rev"><b>"What does that mean for me, in practice?"</b><br>"Mild myopia with presbyopia" is a fact about your eyes; "screens are where you'll feel it, driving's legal without" is a fact about your LIFE — and only the second one tells you what to do. This is the question that forces the translation, and it works word-for-word on doctors, lawyers, accountants and mechanics. Add your specifics if you like ("screens? driving?") — but the phrase itself is those seven words.<br><br><b>Take it anywhere:</b> "What does that mean for me, in practice?" Medical results, legal advice, survey reports — demand the lived translation.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 5</span>
@@ -154,7 +154,7 @@ PANELS = [
             <p>These ten work in the dark room, the bright room, and everywhere honesty is the best measurement. Say each answer out loud before you type it.</p>
             <p class="cue">"They look the same, honestly." — where in your life are you guessing confidently to please the person asking?</p>
             <textarea class="blank" placeholder="The question you've been performing for…"></textarea>
-            <p class="cue">"What does that mean for everyday life?" — what diagnosis, report or result are you holding that never got translated into your actual days?</p>
+            <p class="cue">"What does that mean for me, in practice?" — what diagnosis, report or result are you holding that never got translated?</p>
             <textarea class="blank" placeholder="The untranslated verdict…"></textarea>
             <p class="cue">"Do I actually need ___, or is that for ___?" — audit one extra you're currently paying for, against your real case.</p>
             <textarea class="blank" placeholder="The extra, and the honest verdict…"></textarea>
@@ -162,7 +162,7 @@ PANELS = [
 
         <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> both rooms, out loud — my eyes have changed → guessing from there down → they look the same → do that one again → what does it mean for everyday life → all the time or just reading → what's included, what's extra → do I actually need → start basic, see how I get on → if they don't feel right, can I come back. Two rooms, zero performances.</div>""",
+        <div class="tip"><b>Quick test:</b> both rooms, out loud — my eyes have changed → guessing from there down → they look the same → do that one again → what does that mean for me, in practice → all the time or just reading → what's included, what's extra → do I actually need → start basic, see how I get on → if they don't feel right, can I come back. Two rooms, zero performances.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the chin-rest is yours. Two rounds — the patient-then-customer, then the other side of both rooms.</p>
@@ -184,7 +184,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Mr Farooq</span>Good. And… better with three, or four?</div>
             <textarea class="blank" placeholder="You blurted an answer to end the question — rewind it…"></textarea>
             <div class="say say-a"><span class="who-label">Mr Farooq</span>Mild short-sight, plus reading glasses territory. Nothing dramatic — four years of drift. Any questions before Chloe gets you?</div>
-            <textarea class="blank" placeholder="Translate it into your days — screens, driving, print — and settle the usage question…"></textarea>
+            <textarea class="blank" placeholder="Ask what it means for you in practice — then settle the usage question…"></textarea>
             <div class="say say-a"><span class="who-label">Chloe</span>*the bright room* Right! Let's find you something GORGEOUS. These new-season frames would absolutely sing on you—</div>
             <textarea class="blank" placeholder="Before the wall tour: what's included, what's extra — then test one extra against YOUR case…"></textarea>
             <div class="say say-a"><span class="who-label">Chloe</span>Honestly, with your mild prescription the standard lenses are fine. The anti-glare I'd genuinely keep if you're on screens. So — the gorgeous ones, or…?</div>
