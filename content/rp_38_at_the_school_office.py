@@ -1,0 +1,238 @@
+# -*- coding: utf-8 -*-
+# Phrases-first per FUNCTIONAL_SPEC.md.
+FILE = "rp_38_at_the_school_office.html"
+SERIES = "Everyday Echoes"
+TITLE = "At the School Office"
+SUMMARY = "enrol your child at a school in a new country — get the real picture, the right support, and a first day she can survive"
+INTRO = ("You moved for work; she moved because you did. Now you're in a school office that smells of floor polish "
+         "and poster paint, enrolling a nine-year-old who currently speaks about forty words of English. This "
+         "conversation decides how her first Monday goes. Ask everything.")
+
+PANELS = [
+"""        <h2>The Scene <span class="em">🎬</span></h2>
+        <p class="lead">Of all the counters an immigrant family faces, this is the one where the stakes are a person.</p>
+
+        <p>The school looked fine online. The reviews were decent. But websites don't answer the questions that keep you up at night: what happens to a child who can't yet follow the lesson? Who notices if she eats lunch alone? What do the other kids do to the new girl who says everything wrong?</p>
+
+        <p>Behind the office desk is Mrs Callahan, the school secretary — the person who, in every school on earth, actually knows how things work. Deputy heads come and go; the secretary has seen four hundred new families arrive, including plenty who arrived with no English at all. She is your single best source of truth, and she responds — like all busy institutional people — to clear questions, honestly asked.</p>
+
+        <p>Your jobs this morning: the paperwork (the easy part), the real picture of a normal day (so you can rehearse it with her at home), the language support (what actually exists, not what the brochure implies), and the human channel — the name you call when week two goes wrong. And one more thing, hardest of all: saying out loud, without shame, that your daughter will need help. That sentence is where all the help starts.</p>
+
+        <ol class="bigq">
+            <li>Think of your own first day somewhere you didn't speak the language — or imagine it. What would have made it survivable?</li>
+            <li>Why do parents find it hard to say "my child will need help"? What are we afraid the school will hear?</li>
+        </ol>
+
+        <div class="whos">
+            <div class="who"><b>You</b><span>New to the country, folder of documents, one daughter, one long list of worries you've turned into questions.</span></div>
+            <div class="who"><b>Mrs Callahan</b><span>School secretary, twenty-two years. Has enrolled children from thirty countries. Brisk with paperwork, endlessly practical about children.</span></div>
+        </div>
+
+        <div class="tip"><b>First:</b> read the conversation and notice that every worry becomes a QUESTION — never a speech about how worried you are. Worries get sympathy; questions get answers. Then find the one sentence where You tells the school something about her they couldn't know.</div>""",
+
+"""        <h2>The Conversation <span class="em">💬</span></h2>
+        <p class="lead">Tuesday, 9:30am, the school office. A bell rings somewhere; a wave of small footsteps passes.</p>
+
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Morning! You must be the new family — the little one starting in Year 5?</div>
+            <div class="say say-b"><span class="who-label">You</span>That's us. We've just moved to the area, and I'd like to enrol my daughter — Alma, she's nine. Which documents do you need from us?</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Proof of address, her birth certificate, immunisation record, and her last school report if you have one — any language is fine, we get them translated.</div>
+            <div class="say say-b"><span class="who-label">You</span>All here — the report's in Portuguese, as promised. Now, the bigger thing, and I'd rather say it plainly: her English is still small. About forty words, and half of them are from a cartoon. What support is there while it grows?</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Thank you for just saying it — you'd be amazed how many parents hope we won't notice. Right: she'd have EAL support — English as an Additional Language — three mornings a week in a small group with Miss Okonkwo, and she stays in her normal class the rest of the time, because that's honestly where the English comes fastest.</div>
+            <div class="say say-b"><span class="who-label">You</span>Three mornings. And in the normal lessons — what happens when she simply can't follow? I'm not expecting miracles; I want to know what a Tuesday actually looks like for her.</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Honest answer? The first month is tiring and she'll come home with a full head. Her teacher will pair her with a buddy — we usually pick a kind one, not a loud one — visual timetables, and nobody makes her speak in front of the class until she wants to. It's a system we've run many times. It works. Slowly.</div>
+            <div class="say say-b"><span class="who-label">You</span>Slowly I can work with. One thing about Alma that's worth knowing: she's shy in English but she's not a shy child — in Portuguese she runs the playground. If she goes quiet here, it's the language, not the girl.</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>*writing it down* "Quiet is the language, not the girl." That goes in her file, exactly like that — teachers genuinely use these notes. Anything else about her? Food, health, what she loves?</div>
+            <div class="say say-b"><span class="who-label">You</span>Football and drawing — if there's a club for either, she'll find her feet twice as fast. Now — what happens between today and her first day? Walk me through it, so we can prepare her at home.</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>I process this today; you'll get a start date by Friday — likely a week Monday. Uniform list in this pack. She starts on a Monday because that's when the week's timetable is explained fresh.</div>
+            <div class="say say-b"><span class="who-label">You</span>Could we visit together before she starts? Ten minutes — see her classroom, meet her teacher, so Monday isn't a building full of strangers.</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>We insist on it, actually. Thursday at four, when the school's quiet — she can sit at her actual desk and meet Miss Rivers without thirty children watching.</div>
+            <div class="say say-b"><span class="who-label">You</span>She'll like that. And afterwards — how do parents hear about things here? An app, letters in the bag, a noticeboard I should be reading?</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>The app, mostly — I'll set you up before you leave. Newsletters on Fridays. And a word of advice: the class parents' group chat is where the real information lives. I'll ask one of the Year 5 mums to add you.</div>
+            <div class="say say-b"><span class="who-label">You</span>That might be the most useful sentence of the morning. Last thing: when I'm worried in week two — because I will be — who do I ask for? You, Miss Rivers, or someone else?</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Week-two worries come to me — I'm quicker than email and kinder than the app. Big things, Miss Rivers, and she'll call you before you call her, I'd put money on it. Your Alma will be fine, you know. The football ones always are — the pitch doesn't need grammar.</div>
+            <div class="say say-b"><span class="who-label">You</span>The pitch doesn't need grammar — I'm going to tell her that tonight, in Portuguese, and watch her face. Thank you, Mrs Callahan. Thursday at four.</div>
+        </div>
+
+        <div class="q">
+            <p><b>From memory — don't scroll back up.</b></p>
+            <ol class="bigq">
+                <li>What support will Alma actually get, and what does a hard Tuesday look like in her normal class?</li>
+                <li>What does You tell the school about Alma that no document could — and what happens to that sentence?</li>
+                <li>What's arranged for before the first day, and who handles week-two worries?</li>
+            </ol>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
+            <div class="rev">
+                <b>1.</b> EAL small-group support three mornings a week with Miss Okonkwo; the rest in her normal class with a kind buddy, visual timetables, and no forced speaking — tiring at first, working slowly.<br><br>
+                <b>2.</b> "She's shy in English but not a shy child — if she goes quiet, it's the language, not the girl." Mrs Callahan writes it into her file word for word, where teachers will actually read it.<br><br>
+                <b>3.</b> A quiet Thursday-afternoon visit — her desk, her teacher, no crowd — plus the app set up and an introduction to the parents' group chat. Week-two worries go to Mrs Callahan directly.
+            </div>
+        </div>""",
+
+"""        <h2>Useful Phrases <span class="em">🧰</span></h2>
+        <p class="lead">Ten phrases for enrolling a child anywhere — schools, nurseries, clubs, new doctors — and for being the parent the institution actually helps. Say each out loud BEFORE you reveal it.</p>
+
+        <div class="deliver"><b>Say it like you mean it.</b> The tone is organised warmth: every worry converted into a question, every fact about your child offered plainly, no apology anywhere. Schools help fastest the families who say clearly what's needed — shame slows everyone down, starting with the child.</div>
+
+        <h3>📋 Opening the file</h3>
+        <div class="q">
+            <span class="move">Phrase 1</span>
+            <p><b>The job:</b> the errand, stated whole. Complete it:<br><br>"We've just moved to the area, and I'd like to ___ my daughter."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"We've just moved to the area, and I'd like to enrol my daughter."</b><br><b>To enrol</b> — to register someone as a member of a school or course; the exact word unlocks the exact process. Name, age, and situation in one breath gives the secretary everything she needs to reach for the right forms. Then the practical follow-up: "which documents do you need from us?" — asked before she has to ask you.<br><br><b>Take it anywhere:</b> "We've just moved — I'd like to enrol/register ___." Schools, doctors' surgeries, sports clubs, libraries.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 2</span>
+            <p><b>The job:</b> the sentence all the help flows from. Which version?</p>
+            <div class="choice">
+                <div><b>A.</b> "Her English is… coming along. She understands a lot. Mostly. It's fine."</div>
+                <div><b>B.</b> "Her English is still small — about forty words. What support is there while it grows?"</div>
+                <div><b>C.</b> "I'm extremely worried about how she'll cope, I haven't slept, honestly this whole move—"</div>
+            </div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
+            <div class="rev"><b>B — "Her English is still small — what support is there while it grows?"</b><br>A hides the fact the school most needs, and buys your daughter a terrible first week while everyone works it out the hard way. C makes the meeting about your feelings when it needs to be about her plan. B states the fact without shame ("still small… while it grows" — growth built into the sentence) and pivots instantly to the practical question. Note the secretary's reaction: gratitude. Schools can only support what parents say out loud.<br><br><b>Take it anywhere:</b> "___ is still small — what support is there while it grows?" Any honest need, any institution.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 3</span>
+            <p><b>The job:</b> getting the real picture, not the brochure. Complete it:<br><br>"I want to know what a ___ actually looks like for her."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"I want to know what a Tuesday actually looks like for her."</b><br>"We have excellent support systems" is the brochure; "the first month is tiring and she'll come home with a full head" is the truth — and you only get the second by asking for the ordinary day, not the policy. "A Tuesday" does the work: it forces the answer down from principles to lunch queues and buddies. Add "I'm not expecting miracles" and you've licensed the honesty you're asking for.<br><br><b>Take it anywhere:</b> "What does a normal Tuesday actually look like?" Schools, care homes, new jobs, hospitals — the anti-brochure question.</div>
+        </div>
+
+        <h3>👧 Telling them who she is</h3>
+        <div class="q">
+            <span class="move">Phrase 4</span>
+            <p><b>The job:</b> the fact about your child no document carries. Put the pieces in order:</p>
+            <div class="jumble"><span>it's the language,</span><span>If she goes quiet here,</span><span>not the girl.</span></div>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"If she goes quiet here, it's the language, not the girl."</b><br>The most important sentence of the meeting, and only a parent can say it. Teachers meet the quiet, wrong-footed version of your child and — reasonably — assume that's the child. One plain sentence pre-corrects the record: in her own language she runs the playground. Watch what happened to it: written in the file, word for word. Give every institution one true sentence about who your person really is.<br><br><b>Take it anywhere:</b> "If ___ seems ___, it's the ___, not the person." For children, parents in care, anyone the system will meet at their worst.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 5</span>
+            <p><b>The job:</b> handing the school her fastest way in. Complete it:<br><br>"Football and drawing — if there's a ___ for either, she'll find her feet twice as fast."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Football and drawing — if there's a club for either, she'll find her feet twice as fast."</b><br><b>To find your feet</b> — to become confident in a new situation. Language grows fastest where it matters least: on the pitch, over a drawing, anywhere the activity carries the friendship before the words can. Naming her loves gives the school a plan it can actually use — and note the secretary's closing wisdom, free of charge: "the pitch doesn't need grammar."<br><br><b>Take it anywhere:</b> "___ loves ___ — that's the fastest way in." New schools, new jobs, new countries: lead with the loves.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 6</span>
+            <p><b>The job:</b> the map from today to the first morning. Complete it:<br><br>"What happens between ___ and her first ___? Walk me through it."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"What happens between today and her first day? Walk me through it."</b><br>The process question, asked so you can do your real job: preparing her at home. Every step you know — the Friday letter, the Monday start, the uniform — is a step you can rehearse with her in her own language, until the strange building is a story she's already heard. Children survive first days on exactly this: no surprises left.<br><br><b>Take it anywhere:</b> "What happens between now and ___? Walk me through it." Operations, moves, first days of anything.</div>
+        </div>
+
+        <h3>🗝️ Building the channels</h3>
+        <div class="q">
+            <span class="move">Phrase 7</span>
+            <p><b>The job:</b> shrinking the first day before it happens. Complete it:<br><br>"Could we ___ together before she starts? Ten minutes — her classroom, her teacher."</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"Could we visit together before she starts?"</b><br>The ask that turns Monday from a building full of strangers into a room she's sat in, with a teacher whose face she knows. Most schools will say yes; the good ones — listen to Mrs Callahan — insist on it. Ask for the quiet version: after hours, her actual desk, no thirty watching children. Ten minutes of Thursday buys the whole of Monday.<br><br><b>Take it anywhere:</b> "Could we visit before we start?" Schools, hospitals, care homes, new offices — walk the ground early, always.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 8</span>
+            <p><b>The job:</b> finding where the information actually lives. Complete it:<br><br>"How do parents ___ about things here — an app, letters, a noticeboard?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"How do parents hear about things here?"</b><br>Every school has an official channel and a real one, and the families who miss the mufti days, the bake sales and the "bring a costume TOMORROW" notes are always the new ones who never asked. Offering the options ("app, letters, noticeboard?") makes it easy to answer — and unlocked the true gold: the parents' group chat, "where the real information lives", with an introduction thrown in.<br><br><b>Take it anywhere:</b> "How do people hear about things here?" New jobs, new buildings, new towns — find the real channel in week one.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 9</span>
+            <p><b>The job:</b> arranging the worry-channel before the worry. Complete it:<br><br>"When I'm worried in week two — because I ___ be — who do I ask for?"</p>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
+            <div class="rev"><b>"When I'm worried in week two — because I will be — who do I ask for?"</b><br>Not IF but WHEN — the honesty is the charm, and every school office has watched a thousand week-twos. Asking now gets you a name and a route ("come to me — I'm quicker than email") while everyone's friendly and nothing's wrong. The alternative is composing a 11pm email to a generic address in week two, worried and channel-less.<br><br><b>Take it anywhere:</b> "When something comes up — who do I ask for?" The pre-arranged worry channel, for every institution that holds someone you love.</div>
+        </div>
+        <div class="q">
+            <span class="move">Phrase 10</span>
+            <p><b>The job:</b> closing so the office remembers you kindly. Say it out loud, then write it.</p>
+            <textarea class="blank" placeholder="She's answered everything and written Alma's sentence in the file. Close the morning…"></textarea>
+            <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
+            <div class="rev"><b>e.g. "'The pitch doesn't need grammar' — I'm going to tell her that tonight and watch her face. Thank you. Thursday at four."</b><br>Take their best sentence home with you, out loud — it tells the secretary she didn't just process a form, she helped a family, which is the version of her job she likes. Confirm the concrete next step (Thursday at four) so the plan has a handshake on it. This office is going to matter to your family for years; leave it warmer every time.<br><br><b>Take it anywhere:</b> repeat back the best thing they said, then confirm the next step. The close that makes institutions love you.</div>
+        </div>
+
+        <div class="keep">
+            <h3>🔑 Make them yours</h3>
+            <p>These ten work for any person you're settling into any institution. Say each answer out loud before you type it.</p>
+            <p class="cue">"___ is still small — what support is there while it grows?" — build the honest sentence you've been avoiding saying to some institution.</p>
+            <textarea class="blank" placeholder="The need, said without shame…"></textarea>
+            <p class="cue">"It's the language, not the girl." — write the one true sentence about someone you love that their institution needs in the file.</p>
+            <textarea class="blank" placeholder="The sentence for the file…"></textarea>
+            <p class="cue">"Who do I ask for when I'm worried?" — which institution in your life right now has no worry-channel arranged? Fix it this week.</p>
+            <textarea class="blank" placeholder="The place, and the name you'll get…"></textarea>
+        </div>
+
+        <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
+
+        <div class="tip"><b>Quick test:</b> the office, out loud — I'd like to enrol… which documents… her English is still small, what support… what does a Tuesday look like… it's the language, not the girl… football and drawing… walk me through to day one… could we visit… how do parents hear… who do I ask for in week two. Ten questions; one survivable Monday.</div>""",
+
+"""        <h2>Your Turn <span class="em">🎭</span></h2>
+        <p class="lead">Now the folder is under your arm and the bell has just rung. Two rounds — the parent, then the desk.</p>
+
+        <div class="timer">
+            <div class="t-face" id="tface">02:00</div>
+            <button class="t-btn" onclick="startTimer(120)">▶ Two minutes</button>
+            <button class="t-btn" onclick="startTimer(180)">▶ Three minutes</button>
+            <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+
+        <h3>Round 1 — you are the parent 👨‍👧</h3>
+        <p class="lead">Your child, your folder, your list of worries turned into questions. Mrs Callahan speaks — you answer. No looking back at the phrases.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Morning! You must be the new family — starting in Year 5, is it?</div>
+            <textarea class="blank" placeholder="The errand whole: enrol her, and ask which documents they need…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Proof of address, birth certificate, immunisations, last school report — any language, we translate. All straightforward. Anything else I should know?</div>
+            <textarea class="blank" placeholder="The honest sentence — her English is still small — and the support question…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Thank you for just saying it. EAL support three mornings a week, normal class the rest — that's where the English comes fastest, honestly.</div>
+            <textarea class="blank" placeholder="Get past the brochure — what does a hard Tuesday actually look like for her?"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>First month's tiring, full head every evening. Buddy system, visual timetables, nobody makes her speak till she wants to. Slow, but it works. Tell me about her — what should the file say?</div>
+            <textarea class="blank" placeholder="The sentence no document carries — and her fastest way in…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>*writing* That goes in her file word for word. Right — I process this today, start date by Friday, probably a week Monday. Uniform list in the pack.</div>
+            <textarea class="blank" placeholder="The visit before day one — quiet, her desk, her teacher…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>Thursday at four, when it's quiet — we insist on it, actually. Anything else before I set you up on the app?</div>
+            <textarea class="blank" placeholder="Where the real information lives — and who gets your week-two worries…"></textarea>
+        </div>
+
+        <h3>Round 2 — now YOU are Mrs Callahan 🏫</h3>
+        <p class="lead">Swap chairs. Twenty-two years behind this desk. A different parent arrives — anxious, apologetic, hiding the one fact you most need.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Parent</span>Hello, sorry, we — sorry. We want to register our son? He's seven. Sorry, my English is not so good.</div>
+            <textarea class="blank" placeholder="Warm them up — no sorries needed here — and start the simple list…"></textarea>
+            <div class="say say-b"><span class="who-label">Parent</span>Documents, yes, we have. And he is… he is fine. His English is fine. Good, even. Mostly good.</div>
+            <textarea class="blank" placeholder="'Mostly good' is hiding something — make honesty safe, and ask the kind direct question…"></textarea>
+            <div class="say say-b"><span class="who-label">Parent</span>…Okay. He has maybe twenty words. We were afraid you would say no, or put him in a lower class. In our country that happens.</div>
+            <textarea class="blank" placeholder="Name the fear and retire it — what actually happens here, step by step…"></textarea>
+            <div class="say say-b"><span class="who-label">Parent</span>He stays with his age group… and there is help three mornings… *visibly lighter* What do you need to know about him? Nobody has ever asked us that.</div>
+            <textarea class="blank" placeholder="Ask for the sentence for the file — who is this boy really? — and close with the visit…"></textarea>
+        </div>
+
+        <div class="twist">
+            <b>⚡ The twist</b>
+            <p>Week two, Thursday, 3:15pm. Your phone rings — the school. Mrs Callahan, kind but direct: "No emergency, everyone's safe. But Alma's had a hard day — another child laughed at her English in the lunch queue, and she's been crying in the book corner and won't tell Miss Rivers what happened. She's asking for you. And — this is the bit that needs a decision — we can put her on the phone now, or you can collect her early, or Miss Rivers can sit with her till home time and you talk tonight. What would you like to do?"</p>
+            <p>Three options, thirty seconds, and a nine-year-old by a bookshelf who needs the right call more than the fast one. Decide — and then say what you want the school to do about the laughing child, without becoming the parent every office dreads.</p>
+            <textarea class="blank" placeholder="Your decision, your reasons — and the laughing-child conversation…"></textarea>
+        </div>
+
+        <div class="check">
+            <b>Before you close the tab…</b>
+            <ul>
+                <li>Can you say "her English is still small" without a gram of shame?</li>
+                <li>Do your worries arrive as questions?</li>
+                <li>Did the school get one true sentence about who she really is?</li>
+                <li>Is the first day pre-shrunk — visit done, day rehearsed at home?</li>
+                <li>Is the worry-channel arranged before the worry?</li>
+            </ul>
+        </div>""",
+
+"""        <h2>The Echo <span class="em">🕰️</span></h2>
+
+        <div class="echo-card">
+            <p>In 1943, a twenty-four-year-old arrived in Johannesburg — a country boy from the Eastern Cape, in a city that despised him, enrolling at a university where the law itself said he didn't fully belong. Nelson Mandela studied by candlelight after work, failed exams, kept enrolling. Decades later, from a prison cell, he did it again: finishing a law degree by post, tutoring fellow prisoners on Robben Island until the warders started calling it "the University".</p>
+            <p>The sentence he left about all of it is the one on the posters: education is the most powerful weapon which you can use to change the world. But the life behind the sentence says something more precise — that the enrolment itself is the act of power. Every form filled in against the odds, every child walked into a school that doesn't yet speak her language, is a family betting on a future the present can't see.</p>
+            <p>Your daughter's forty words will become four thousand by summer — that's simply what happens to nine-year-olds with a buddy and a football. But the morning you stood in that office and said "her English is still small — what support is there while it grows?" — that's the morning the bet was placed. It's the oldest move families have: walk in, enrol, and change the future's language.</p>
+        </div>
+
+        <a class="morelink" href="short_history_nelson_mandela.html">✊ <span>Want the full story? The candlelight, the island, and the University in the prison…</span><span class="go">Open →</span></a>
+
+        <h3>Two bigger questions</h3>
+        <ol class="bigq">
+            <li>Mandela called education a weapon. For an immigrant family, what exactly is it a weapon against?</li>
+            <li>Who enrolled you — in anything — against the odds? What did it cost them, and did they see the result?</li>
+        </ol>""",
+]
