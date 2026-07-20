@@ -1,81 +1,71 @@
 # Role plays — where we are
 
-**Last updated: 18 July 2026.** Read this first when picking the work back up.
+**Last updated: 20 July 2026, end of the big audit session.** Read this first when picking the work back up.
 
 ---
 
-## The short version
+## BUILDING NEW ROLE PLAYS — the current checklist (follow exactly)
 
-The role-play library was rebuilt from the wrong end. Lessons were written as
-*situations*, and the "Useful Phrases" were then scraped out of the invented
-dialogue — which produced set dressing (*"Mum mentioned the wing mirror."*)
-rather than functional English. Malcolm caught it. Everything built that way
-has been taken off the site and is being rebuilt **functions-first**.
+When Malcolm says "build N new role plays", this is the whole process:
 
-The rule is written in **`FUNCTIONAL_SPEC.md`**. Read that before writing
-anything.
+1. **Read first:** `FUNCTIONAL_SPEC.md` (the build rule) and `ATTESTED_PHRASES.md` (the phrase bank).
+2. **Check for duplicates** before proposing anything: the three dashboards
+   (`everyday_echoes_dashboard.html`, `modern_life_dashboard.html`,
+   `english_at_work_dashboard.html` — 40 + 15 + 30 live situations) AND
+   `BUILD_QUEUE.json` (the ~60 off-site situations awaiting rebuild — their
+   situations are reserved).
+3. **Propose situations + phrase lists to Malcolm BEFORE building** — his rule.
+   Phrases come from `ATTESTED_PHRASES.md` or new research (2–3 sources, added
+   to the bank first). NEVER invent phrases: COLLECT, don't COMPOSE. If he says
+   "go" without wanting the approval round, build — but the phrases still come
+   from the bank.
+4. **Numbering — next free:** `rp_41`, `ml_35`, `wk_41`.
+5. **Build by hand, one at a time** (never agent fan-outs), via
+   `content/<name>.py` → `python3 make_lesson.py content/<name>.py`.
+   Five panels: Scene · Conversation · Useful Phrases · Your Turn · Echo.
+   - Your Turn: BOTH rounds scripted — partner lines as bubbles, cued gaps,
+     chairs swapped with changed details in Round 2. Never "use your own
+     situation".
+   - Echo: tie to a real `short_history_*.html` (104) or `techniques_*.html`
+     (41) — VERIFY the file exists. Check the echo isn't already used by
+     another lesson if a fresh one is available.
+6. **Wire up:** add cards to the right dashboard (short plain descriptions,
+   ≤8 words, what the student will DO). New EE lessons have no A2/B1 twin →
+   card gets `data-nolevel="1"` placed AFTER the href (the finder's regex
+   requires href immediately after class). Add titles to the PLANS dict in
+   `group_dashboards.py`, then run `python3 group_dashboards.py` and
+   `python3 build_roleplay_finder.py`.
+7. **Fix the counts:** EE dashboard header/footer text (currently "forty
+   conversations"), and the homepage repo
+   (`../malcolmtheteacher-creator.github.io/index.html`) cards — currently
+   40 / 15 / 30. The homepage is a separate repo with its own push.
+8. **Commit and push** (straight to main; the token can't open PRs), then
+   confirm live with curl against `malcolmhyndman.com/preply-lessons/…`.
 
----
+## Current state (20 July)
 
-## What is LIVE and sound
+- **Live and phrase-audited: 98 role-play situations** — Everyday Echoes 40
+  (30 with A2/B1 twins), Modern Life 15, English at Work 30. All 1,231 taught
+  lines audited against the attested bank; Malcolm's five flagged fixes in the
+  originals applied.
+- `ATTESTED_PHRASES.md` — the phrase bank (British Council B2 + B1 speaking
+  units, plus three ESL collections). Grows one researched function at a time.
+- `EXISTING_COVERAGE.md` is STALE (lists 60) — use the dashboards + queue for
+  dupe-checking instead.
 
-| Series | Count | Status |
-|---|---|---|
-| **Everyday Echoes** | 30 situations × 2 levels | Original. The model. Zero duplicate phrases across all 30. Grouped into 6 sections. |
-| **Modern Life** | 6 | All sound — 5 rebuilt functions-first, `ml_01` Group Chat had 2 faults fixed. |
-| **English at Work** | 12 | 6 original (2 small patches) + 6 rebuilt functions-first. |
+## Open items
 
-Live at `https://malcolmhyndman.com/preply-lessons/`
-
-### Rebuilt functions-first (11 so far)
-- `wk_22` The Unpaid Invoice — chasing a client who hasn't paid
-- `wk_26` The Consultation — taking a patient's history in English *(new: clinical)*
-- `wk_27` Breaking the News — giving a diagnosis, checking it landed *(new: clinical)*
-- `wk_13` The Mistake — telling your boss you've broken something
-- `wk_11` Saying No to Your Boss — making the trade visible
-- `wk_09` The Performance Review — taking criticism, still asking
-- `ml_02` The Screen-Time Talk · `ml_03` The Honest Review · `ml_04` Back in Touch
-- `ml_05` A Photo of You · `ml_06` The Collab
-
-### Patched, not rebuilt
-- `wk_05` Negotiating — removed a duplicated phrase
-- `wk_06` The Interview — replaced an instruction masquerading as a phrase
-- `ml_01` The Group Chat — removed duplicate phrase 6, made phrase 8 portable
-
----
-
-## What is OFF the site, waiting
-
-**61 lesson files** sit on disk with their dashboard cards removed, so no
-student can reach them. They get **overwritten in place** — same filename, so
-links, the finder and the phrase banks all just work again when each one
-returns.
-
-- `lf_*` (27) — the whole "Life in English" series. Dashboard and phrase bank
-  deleted; the series is currently not on the site at all.
-- `ml_07`–`ml_25` (19)
-- `wk_07`–`wk_25` minus the rebuilt ones
-
-Their situations and original phrase spines are in **`BUILD_QUEUE.json`**.
-The situations are worth keeping — the phrases are not.
-
----
-
-## How to build one
-
-1. Pick a situation.
-2. Write the **phrase list first** — functions named, exponents chosen.
-   Show Malcolm. **Do not write HTML until he's passed it.**
-3. Write the content file in `content/<name>.py` (title, intro, 5 panels).
-4. `python3 make_lesson.py content/<name>.py` — assembles it using the
-   verbatim CSS/JS shell and checks the hard rules.
-5. Add the card to the dashboard, then `python3 group_dashboards.py`.
-6. `python3 build_roleplay_finder.py`, commit, push.
-
-Or just run **① Update Lesson Index.command**, which now does steps 5–6 and
-pushes both repos.
-
----
+1. **The 30 EE A2/B1 twins have never been phrase-checked** — the one
+   remaining audit gap.
+2. New EE lessons rp_31–40 have no A2/B1 twins (toggle skips them safely).
+3. The off-site rebuild queue (~60 lessons in `BUILD_QUEUE.json`): remaining
+   wk (Your Younger Boss, The Reference, Promoted Over a Friend, The Colleague
+   Who Cries, The Truce, Not Coping at Work, The Joke, Chairing the Meeting,
+   Asking to Work From Home, The Changing Brief — some may since be done),
+   then ml_07–25, then the Life in English (lf_) series decision.
+4. **Mia's English images: 73 of 100 missing** — copy-paste prompt list live at
+   `mia_missing_prompts.html`; generation method (ChatGPT via Chrome) in
+   Malcolm's memory notes.
 
 ## What Malcolm has said, that must not be forgotten
 
