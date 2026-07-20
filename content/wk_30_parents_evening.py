@@ -168,32 +168,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the teacher</h3>
-        <p>Invent your student, or borrow a real person you must give mixed news about — a pupil, a trainee, a team member. Know your evidence before you start: two real strengths with examples, one problem with numbers. Your teacher plays the parent — loving, braced, quick to defend.</p>
+        <h3>Round 1 — you are the teacher 🏫</h3>
+        <p class="lead">7:40pm, two small chairs, ten minutes. Mrs Novak sits down with her coat still on. She speaks — you deliver the mixed news honestly.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>Lena Novak — I'm her mum. Go on then. Is she behaving?</div>
+            <textarea class="blank" placeholder="Open warm, then draw the map: a lot going well, one thing to work on together…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>…One thing. Right. Give me the good first, then.</div>
+            <textarea class="blank" placeholder="The good, because it's real — with the two pieces of evidence…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>She never tells me any of this. She never tells me anything lately. …So what's the one thing?</div>
+            <textarea class="blank" placeholder="The problem — pattern, numbers, dates. Plainly…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>Four of six MISSING? She tells me it's done! She sits in her room every night and TELLS me it's done. So she's lying to me now, is that what you're saying?</div>
+            <textarea class="blank" placeholder="Decline the word — protect the child from the problem, and hand the mother the expert's chair…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>…She HAS been quieter. Since around then, actually. I thought it was just — twelve. So what do we do? Because I feel like the last person to know my own daughter.</div>
+            <textarea class="blank" placeholder="Size it honestly — nothing we can't turn around — then the two-sided plan: your half first, her half specific…"></textarea>
+            <div class="say say-a"><span class="who-label">Mrs Novak</span>The essay on the kitchen table… you think that'll do more than me asking?</div>
+            <textarea class="blank" placeholder="Why admiration beats interrogation for this child — then the checkpoint, and the sentence she takes home…"></textarea>
+        </div>
 
-        <p class="cue">She sits down braced. Open warm, then give the map.</p>
-        <textarea class="blank" placeholder="Thanks for coming in… There's a lot going well, and…"></textarea>
-
-        <p class="cue">The good — with evidence that proves it's not packaging.</p>
-        <textarea class="blank" placeholder="I'll start with the good, because it's real…"></textarea>
-
-        <p class="cue">The problem — pattern, numbers, dates. Then protect the child from it.</p>
-        <textarea class="blank" placeholder="What I'm seeing is… This isn't about ability…"></textarea>
-
-        <p class="cue">She bristles — "so she's lying to me?" Decline the word, and hand her the expert's chair.</p>
-        <textarea class="blank" placeholder="I don't think that's the most useful word… You know her better than I do…"></textarea>
-
-        <p class="cue">The plan — your half, her half, the checkpoint — and the sentence she takes home.</p>
-        <textarea class="blank" placeholder="Here's what I'll do… Let's speak again in… She's a good kid…"></textarea>
-
-        <h3>Round 2 — now you're the parent</h3>
-        <p>Swap. Your teacher delivers mixed news about YOUR twelve-year-old. Feel it from the parent's chair: the bracing, the urge to defend, the relief when praise turns out to be real. Push back at least once — and notice which of their sentences makes you stop pushing.</p>
-
-        <p class="cue">The problem lands. Your first, defensive response — make it honest.</p>
-        <textarea class="blank" placeholder="What you say when it stings…"></textarea>
-
-        <p class="cue">They ask what you're seeing at home. Decide what you share — and what you hold back.</p>
-        <textarea class="blank" placeholder="What rings true, what you're not ready to say…"></textarea>
+        <h3>Round 2 — now YOU are Mrs Novak 👩‍👧</h3>
+        <p class="lead">Swap chairs. Straight from a shift, third teacher tonight, braced for judgement — and this teacher has mixed news about YOUR twelve-year-old.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Teacher</span>Thanks for coming in — I've been looking forward to this one. Let me say where we are: there's a lot going well, and one thing I want us to work on together.</div>
+            <textarea class="blank" placeholder="You're braced — respond honestly, and ask for the good first…"></textarea>
+            <div class="say say-b"><span class="who-label">Teacher</span>The good is real: he's one of two genuine mathematicians I have this year — this is his October test, take it home. The one thing: homework has stopped coming in. Five of the last seven, missing — quite sharply, since half term.</div>
+            <textarea class="blank" placeholder="It stings — push back the way a loving parent does…"></textarea>
+            <div class="say say-b"><span class="who-label">Teacher</span>I don't think "lazy" is the useful word — the October test says it's not ability. Something's in the way. You know him better than I do: does any of this ring true at home?</div>
+            <textarea class="blank" placeholder="Handed the expert's chair — decide what you share, and what you hold back…"></textarea>
+            <div class="say say-b"><span class="who-label">Teacher</span>That's useful — thank you. Here's what I'll do at school, and here's where you can help at home… and let's speak again in three weeks. He's a good kid having a hard patch — those are different things.</div>
+            <textarea class="blank" placeholder="The sentence lands — take your half of the plan, and leave with your coat finally off your shoulders…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

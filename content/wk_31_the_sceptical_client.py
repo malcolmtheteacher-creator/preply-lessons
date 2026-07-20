@@ -171,32 +171,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the consultant</h3>
-        <p>Use your real programme — the system, process or change you're actually leading. Your teacher is the operations director, and their first line is: "Convince me this is different, or let's save an hour."</p>
+        <h3>Round 1 — you are the consultant 🤖</h3>
+        <p class="lead">The steering meeting. Ms Roca's notebook is closed and her arms are folded. She speaks — you win the room, honestly.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Ms Roca</span>Before you start — I've sat through this presentation, or its cousins, three times in ten years. Convince me this one's different, or let's all save an hour.</div>
+            <textarea class="blank" placeholder="Agree with the scepticism — and prove you know their history…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Roca</span>…You've read the file, at least. Go on. And let's not dance around it — my team is already asking what this means for their jobs.</div>
+            <textarea class="blank" placeholder="Honest about what changes — and the promise that counts: nothing over their heads…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Roca</span>Every consultant says something like that. Then the plan arrives ready-made. So — what are you actually proposing? In language I'd repeat in this room.</div>
+            <textarea class="blank" placeholder="First ask about the last project — where did it fall down? Then listen…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Roca</span>Officially? "Adoption challenges." Actually — it couldn't handle our exceptions, the team never trusted it, and by month six everyone had quietly gone back to the old way.</div>
+            <textarea class="blank" placeholder="Turn her failure story into your checklist — then the programme in plain terms, limits volunteered…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Roca</span>You're the first person in that chair to tell me what one of these won't do. So what's the ask? If the next slide says "company-wide", we're done here.</div>
+            <textarea class="blank" placeholder="Walk before you run — one team, a few weeks, and HER numbers as the measure…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Roca</span>My numbers. And who runs this pilot — my keen ones, presumably? The believers?</div>
+            <textarea class="blank" placeholder="The opposite — ask for her biggest sceptic, and stake your name on the stop…"></textarea>
+        </div>
 
-        <p class="cue">Meet the scepticism by agreeing with it — and prove you know their history.</p>
-        <textarea class="blank" placeholder="You've every right to be…"></textarea>
-
-        <p class="cue">The people question. Be honest about what changes, and make the promise that counts.</p>
-        <textarea class="blank" placeholder="I'm not going to pretend… but nothing gets decided…"></textarea>
-
-        <p class="cue">Ask about the last failure — and turn the real answer into your checklist.</p>
-        <textarea class="blank" placeholder="Where did it fall down? …Then that's the first thing we…"></textarea>
-
-        <p class="cue">Your programme in plain terms — then its limits, volunteered.</p>
-        <textarea class="blank" placeholder="In plain terms… There are things it won't do…"></textarea>
-
-        <p class="cue">Shrink the bet: small start, their measures, their sceptic — and your stop promise.</p>
-        <textarea class="blank" placeholder="Let's walk before we run… you tell me what success looks like… if it isn't working…"></textarea>
-
-        <h3>Round 2 — now you're Ms Roca</h3>
-        <p>Swap. Your teacher pitches you a change programme, and you're the director with three dead projects behind you. Push on the real weak points — the people, the last failure, who holds the ruler — and notice which of their answers actually move you, and which are just better-dressed promises.</p>
-
-        <p class="cue">Your opening challenge — make them earn the hour.</p>
-        <textarea class="blank" placeholder="Convince me, or…"></textarea>
-
-        <p class="cue">They promise something too smooth. Catch it, and demand the version with limits.</p>
-        <textarea class="blank" placeholder="What won't it do? Because last time…"></textarea>
+        <h3>Round 2 — now YOU are Ms Roca 📓</h3>
+        <p class="lead">Swap chairs. Twenty years in the building, three dead transformations behind you — and a new consultant across the table with a forty-page deck.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Consultant</span>Thank you all for coming! I'm delighted to present our transformation roadmap — a best-in-class, future-proofed journey that will revolutionise your operating model—</div>
+            <textarea class="blank" placeholder="Stop the buzzwords — make them earn the hour, your way…"></textarea>
+            <div class="say say-b"><span class="who-label">Consultant</span>Fair. Plainly then: your reporting takes four days a month of manual work; the system does it in one. And I'd rather start with one team and prove it than promise you the world.</div>
+            <textarea class="blank" placeholder="Better — now probe the soft spot: what happens to the people, and what won't it do?"></textarea>
+            <div class="say say-b"><span class="who-label">Consultant</span>Honestly? The re-typing work goes. The judgement calls stay. And it won't handle your strange cases — those stay human, or this fails like the last one did.</div>
+            <textarea class="blank" placeholder="An honest answer — reward it: open the notebook, but set YOUR terms for the pilot…"></textarea>
+            <div class="say say-b"><span class="who-label">Consultant</span>Your numbers, your sceptic on the team, and if it isn't working, I'll recommend the stop myself — in writing. Deal?</div>
+            <textarea class="blank" placeholder="Close it — with the one warning every consultant should hear from you…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

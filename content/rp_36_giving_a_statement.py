@@ -175,32 +175,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the witness</h3>
-        <p>Invent your accident from streets you actually know — or use something you've really seen. Decide privately, before you start: what did you actually SEE, and what will you catch yourself assuming? Your teacher is the officer.</p>
+        <h3>Round 1 — you are the witness 📝</h3>
+        <p class="lead">The bike is on the tarmac, the officer's notebook is open. PC Webb speaks — you answer. Slow and boring wins.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">PC Webb</span>Were you here when it happened?</div>
+            <textarea class="blank" placeholder="Offer yourself as a witness — claiming only what's true…"></textarea>
+            <div class="say say-a"><span class="who-label">PC Webb</span>Please — take your time. Talk me through what you saw.</div>
+            <textarea class="blank" placeholder="Start from the beginning: where you stood, your distance, your view — then the sequence in order…"></textarea>
+            <div class="say say-a"><span class="who-label">PC Webb</span>Did the van actually strike the bike, or did the rider come off braking?</div>
+            <textarea class="blank" placeholder="This is the part you didn't quite see — draw your boundary honestly…"></textarea>
+            <div class="say say-a"><span class="who-label">PC Webb</span>That's fine — better you say so. What about the cyclist's speed? And did he have right of way?</div>
+            <textarea class="blank" placeholder="An estimate wearing its uncertainty — and catch your own assumption about the lights, out loud…"></textarea>
+            <div class="say say-a"><span class="who-label">PC Webb</span>Noted. *writing* So: cyclist proceeding at speed, van turning across—</div>
+            <textarea class="blank" placeholder="'At speed' isn't what you said — correct the record before it hardens…"></textarea>
+            <div class="say say-a"><span class="who-label">PC Webb</span>Fair — amended. That's everything, then. Sign at the bottom.</div>
+            <textarea class="blank" placeholder="The read-back before you sign — and arrange who to call if something comes back to you tonight…"></textarea>
+        </div>
 
-        <p class="cue">Offer yourself, then set the scene: position, distance, view.</p>
-        <textarea class="blank" placeholder="I saw it happen… I was standing about…"></textarea>
-
-        <p class="cue">The sequence, from the beginning, in order.</p>
-        <textarea class="blank" placeholder="Let me start from the beginning…"></textarea>
-
-        <p class="cue">The officer asks about the part you didn't quite see. Draw your boundary.</p>
-        <textarea class="blank" placeholder="Honestly — that's the bit I…"></textarea>
-
-        <p class="cue">Catch your own brain: report one assumption AS an assumption, and give one estimate wearing its uncertainty.</p>
-        <textarea class="blank" placeholder="I assumed… but I didn't see it. Roughly…"></textarea>
-
-        <p class="cue">The officer's summary hardens your words. Correct it, get the read-back, arrange the channel back in.</p>
-        <textarea class="blank" placeholder="That's not quite what I said… read it back… who do I call…"></textarea>
-
-        <h3>Round 2 — now you're PC Webb</h3>
-        <p>Swap. Your teacher witnessed something, and you're taking the statement — but they're a BAD witness: confident about everything, story before sequence, guesses stamped as facts. Your job is the officer's craft: slow them down, separate what they saw from what they concluded, and read it back so they hear their own account.</p>
-
-        <p class="cue">They open with "it was completely the van's fault". Your first question.</p>
-        <textarea class="blank" placeholder="How you take them back to the beginning…"></textarea>
-
-        <p class="cue">They claim an exact speed. Test whether it's a sighting or a story.</p>
-        <textarea class="blank" placeholder="How could you tell? Where were you standing when…"></textarea>
+        <h3>Round 2 — now YOU are PC Webb 👮</h3>
+        <p class="lead">Swap chairs. Your notebook, your patience. A new witness hurries over — confident about absolutely everything.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Witness</span>Officer! I saw the whole thing — completely the van's fault. Completely. The man drives like a maniac, you can tell just looking at him.</div>
+            <textarea class="blank" placeholder="Take them back to the beginning — where were they standing, what could they actually see?"></textarea>
+            <div class="say say-b"><span class="who-label">Witness</span>By the postbox there. Well — coming out of the bakery. The van was doing fifty, easily. Fifty-five.</div>
+            <textarea class="blank" placeholder="Test the number — how could they tell? Turn the guess into an honest estimate…"></textarea>
+            <div class="say say-b"><span class="who-label">Witness</span>…Okay, fast. It SOUNDED fast. And the cyclist definitely had a green light — he must have, he was going straight on.</div>
+            <textarea class="blank" placeholder="'Must have' is an assumption — separate what they saw from what they concluded, kindly…"></textarea>
+            <div class="say say-b"><span class="who-label">Witness</span>Huh. When you put it that way — I saw him moving, not the light itself. That feels like it matters.</div>
+            <textarea class="blank" placeholder="It does — tell them why the honest version is the useful one, read their statement back, and thank them properly…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

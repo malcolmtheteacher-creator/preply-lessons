@@ -172,32 +172,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the guest</h3>
-        <p>Invent your gap from a real trip: what was promised, what was actually there. Your teacher is the host — friendly, wriggly, and hoping you'll say "it's fine".</p>
+        <h3>Round 1 — you are the guest 🏝️</h3>
+        <p class="lead">9pm, bags down, phone out. Marco answers on the fourth ring — you speak the call that saves the week. No looking back at the phrases.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Marco</span>Hey! You found the key box okay? Everything good?</div>
+            <textarea class="blank" placeholder="Warm, immediate, unmistakable — it's not quite what you booked…"></textarea>
+            <div class="say say-a"><span class="who-label">Marco</span>Oh? In what way?</div>
+            <textarea class="blank" placeholder="The gap: what the listing says, what you've actually got — no adjectives. Then offer the photos…"></textarea>
+            <div class="say say-a"><span class="who-label">Marco</span>Well — technically the sofa bed IS in the listing photos, if you look closely at the third picture—</div>
+            <textarea class="blank" placeholder="Decline the 'technically' — declare what kind of caller you are, and hand him tonight's problem…"></textarea>
+            <div class="say say-a"><span class="who-label">Marco</span>…Okay. The AC I hold my hands up on — it broke last week. I've got two portable units at my other place. Forty minutes?</div>
+            <textarea class="blank" placeholder="Accept with a bolt through it — then raise the bedroom that can't be fixed, and the money…"></textarea>
+            <div class="say say-a"><span class="who-label">Marco</span>There's no second bedroom to give you, that's true… what do you think is fair?</div>
+            <textarea class="blank" placeholder="Name your number with its logic — and mention the platform as a preference, not a threat…"></textarea>
+            <div class="say say-a"><span class="who-label">Marco</span>Twenty across the week, through the app tonight. Deal. And honestly — thanks for calling instead of just reviewing.</div>
+            <textarea class="blank" placeholder="Seal it out loud — both parts, both deadlines — and close warm…"></textarea>
+        </div>
 
-        <p class="cue">Open the call: warm, immediate, unmistakable.</p>
-        <textarea class="blank" placeholder="We've just got in, and…"></textarea>
-
-        <p class="cue">The gap — promise and reality, side by side, no adjectives. Then offer the photos.</p>
-        <textarea class="blank" placeholder="The listing says… what we've actually got is…"></textarea>
-
-        <p class="cue">The host starts explaining why it's technically fine. Declare what kind of caller you are, and hand them tonight's problem.</p>
-        <textarea class="blank" placeholder="I'm not trying to… What can you do…"></textarea>
-
-        <p class="cue">They make a half-decent offer. Accept it with a bolt through it — then raise the money for what can't be fixed.</p>
-        <textarea class="blank" placeholder="That would work, if… If it can't be fixed…"></textarea>
-
-        <p class="cue">Mention the platform as a preference, seal the deal out loud, and close warm.</p>
-        <textarea class="blank" placeholder="I'd rather sort this… So we've agreed… Thanks for…"></textarea>
-
-        <h3>Round 2 — now you're the host</h3>
-        <p>Swap. Your teacher is the guest, and their complaint is half-fair: the pool <i>is</i> closed (the listing should have said), but "miles from the beach" is fifteen minutes' walk and they knew it when they booked. Fix what's yours to fix; hold the line, kindly, on what isn't.</p>
-
-        <p class="cue">Own the pool honestly — apology, reason, and something real to offer.</p>
-        <textarea class="blank" placeholder="What you concede, and what you offer…"></textarea>
-
-        <p class="cue">Decline the beach complaint without calling them unreasonable.</p>
-        <textarea class="blank" placeholder="The kind no…"></textarea>
+        <h3>Round 2 — now YOU are the host 🔑</h3>
+        <p class="lead">Swap chairs. Your listing, your phone buzzing at 9pm. This guest's complaint is only half fair: the pool IS closed (your listing should have said), but "miles from the beach" is a fifteen-minute walk they knew about when they booked.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Guest</span>We've just arrived and honestly? Not impressed. The pool's CLOSED. And it's miles from the beach — miles!</div>
+            <textarea class="blank" placeholder="Own the pool honestly — apology, reason, something real to offer…"></textarea>
+            <div class="say say-b"><span class="who-label">Guest</span>Hmph. And the beach? The listing made it sound like it was right there.</div>
+            <textarea class="blank" placeholder="Hold the line kindly — the listing says fifteen minutes' walk, and it does. No refund for geography…"></textarea>
+            <div class="say say-b"><span class="who-label">Guest</span>…Fine, I suppose it does say that. But the pool thing is genuinely annoying — we chose this place FOR the pool.</div>
+            <textarea class="blank" placeholder="They're right about that part — make the pool compensation concrete and generous…"></textarea>
+            <div class="say say-b"><span class="who-label">Guest</span>Ten percent back and the beach club passes… alright, that's fair. Thanks for picking up, at least.</div>
+            <textarea class="blank" placeholder="Seal it, fix the listing out loud, and leave them set up for a good week…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

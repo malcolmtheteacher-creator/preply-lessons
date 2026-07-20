@@ -177,32 +177,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the buyer</h3>
-        <p>Pick a real place — the home you'd actually love to view, in the city you actually live in. Your teacher is the agent, armed with euphemisms and two phantom couples.</p>
+        <h3>Round 1 — you are the buyer 🏡</h3>
+        <p class="lead">The keys jangle, the tour begins. Julian speaks — you answer. No looking back at the phrases; decide nothing indoors.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Julian</span>Come in! Isn't it charming? This is the reception room — cosy, wonderful light in the mornings.</div>
+            <textarea class="blank" placeholder="Translate the euphemism — with a smile…"></textarea>
+            <div class="say say-a"><span class="who-label">Julian</span>Compact, then! Intimate. Now, through here we have—</div>
+            <textarea class="blank" placeholder="Before the tour rolls on: how long on the market? Chase the fog until it's a number…"></textarea>
+            <div class="say say-a"><span class="who-label">Julian</span>…Thirteen weeks. Which is nothing for a property of this character. The owners are relocating — family reasons, all very amicable.</div>
+            <textarea class="blank" placeholder="Why are they selling — and gently test what 'amicable' means…"></textarea>
+            <div class="say say-a"><span class="who-label">Julian</span>*lowering his voice* You didn't hear it from me — but they'd both like it done quickly. Now, the asking price reflects the location, of course—</div>
+            <textarea class="blank" placeholder="What's it actually going for, realistically? Attach your homework about the house down the road…"></textarea>
+            <div class="say say-a"><span class="who-label">Julian</span>You HAVE done your homework. Realistically… nearer that money, yes. Shall we see the garden?</div>
+            <textarea class="blank" placeholder="First: ask what 'scope for updating' means when you're standing in it — then ask for a proper look round on your own…"></textarea>
+            <div class="say say-a"><span class="who-label">Julian</span>*ten minutes later, in the garden* So! Lovely, isn't it? I should mention — two other couples are viewing this weekend, so if you're keen…</div>
+            <textarea class="blank" placeholder="The phantom couples, the survey condition, the sleep-on-it exit — and one door left ajar on price…"></textarea>
+        </div>
 
-        <p class="cue">The tour starts with "cosy" and "characterful". Translate as you go — with a smile.</p>
-        <textarea class="blank" placeholder="And 'cosy' means…"></textarea>
-
-        <p class="cue">Get the two facts that shape everything: time on the market, and why they're selling. Chase the fog.</p>
-        <textarea class="blank" placeholder="How long… how long is a little while… and why are they…"></textarea>
-
-        <p class="cue">The price — realistically, with your homework attached.</p>
-        <textarea class="blank" placeholder="What's it actually going for…? The one down the road went for…"></textarea>
-
-        <p class="cue">Escape the tour, then come back with what you found and the neighbours question.</p>
-        <textarea class="blank" placeholder="Would you mind if… What are the neighbours…"></textarea>
-
-        <p class="cue">The phantom couples appear. Handle them, set your survey condition, and leave with the door ajar.</p>
-        <textarea class="blank" placeholder="There are always… I'd want a survey… We'll sleep on it… If the price moved…"></textarea>
-
-        <h3>Round 2 — now you're the agent</h3>
-        <p>Swap. Your teacher views your property, and you're the agent — but play it honest-under-pressure: the vendors want too much, the boiler is old, and you need this sale. Feel which buyer questions corner you, and practise conceding facts gracefully when cornered.</p>
-
-        <p class="cue">Open the tour — sell the place without lying about it.</p>
-        <textarea class="blank" placeholder="Your honest polish…"></textarea>
-
-        <p class="cue">They ask why the sellers are selling — and the truth is awkward. Decide what you say.</p>
-        <textarea class="blank" placeholder="The line you walk…"></textarea>
+        <h3>Round 2 — now YOU are the agent 🔑</h3>
+        <p class="lead">Swap chairs. Your listing, your commission, your awkward truths: the boiler is old and the vendors want too much. A sharp buyer arrives. Play it honest-under-pressure.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Buyer</span>Before we start — how long has this been on the market? And please don't say "a little while".</div>
+            <textarea class="blank" placeholder="Give the real number — and sell the house anyway, honestly…"></textarea>
+            <div class="say say-b"><span class="who-label">Buyer</span>Sixteen weeks. Right. And why are the owners selling?</div>
+            <textarea class="blank" placeholder="The truth is awkward — decide what you say, without lying…"></textarea>
+            <div class="say say-b"><span class="who-label">Buyer</span>Hm. The listing says "characterful period features". I'm standing next to a boiler older than I am. What else should I know before I fall in love?</div>
+            <textarea class="blank" placeholder="Concede the boiler, name what's genuinely good, and keep your credibility…"></textarea>
+            <div class="say say-b"><span class="who-label">Buyer</span>Fair enough — that's the most honest answer I've had all month. We'll sleep on it and call you tomorrow either way.</div>
+            <textarea class="blank" placeholder="Close warmly, no pressure — and leave them one true reason to call back…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

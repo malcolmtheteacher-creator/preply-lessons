@@ -172,32 +172,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the caller</h3>
-        <p>Pick one of your real bills — broadband, phone, insurance, gym — and invent (or better, actually look up) a competitor's price. Your teacher is retentions, working a discount ladder with three steps.</p>
+        <h3>Round 1 — you are the caller 📉</h3>
+        <p class="lead">Twenty-two minutes of hold music, and then Darren. The competitor's price is on the laptop in front of you. No looking back at the phrases.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Darren</span>You're through to retentions, you're speaking with Darren. How can I help today?</div>
+            <textarea class="blank" placeholder="Your standing, the trigger, and the tone: negotiation, not complaint…"></textarea>
+            <div class="say say-a"><span class="who-label">Darren</span>Let me pull that up… yes, the April adjustment. That's across all packages, I'm afraid — in line with inflation.</div>
+            <textarea class="blank" placeholder="Deploy the competitor's number — with proof attached…"></textarea>
+            <div class="say say-a"><span class="who-label">Darren</span>That'll be a new-customer price, of course. But let's see… I can take you down to forty-two.</div>
+            <textarea class="blank" placeholder="Bank it and refuse it — it's still more than next door…"></textarea>
+            <div class="say say-a"><span class="who-label">Darren</span>With us you've got the reliability, and your package includes the TV app and the mobile SIM as well—</div>
+            <textarea class="blank" placeholder="You've never used the extras — trade them away for a lower number…"></textarea>
+            <div class="say say-a"><span class="who-label">Darren</span>Stripping it back to broadband only… thirty-five. That's a strong price.</div>
+            <textarea class="blank" placeholder="The ladder has stalled — say the sentence. Calm, conditional, real…"></textarea>
+            <div class="say say-a"><span class="who-label">Darren</span>…One second. There's a retention offer for accounts over five years: thirty-three, plus a twenty-pound credit. That is genuinely the bottom of my screen.</div>
+            <textarea class="blank" placeholder="Find the trapdoor, make him read the deal back, get the email before you hang up — then close warm…"></textarea>
+        </div>
 
-        <p class="cue">Open: standing, trigger, and tone — negotiation, not complaint.</p>
-        <textarea class="blank" placeholder="I've been with you… and I'm not ringing to…"></textarea>
-
-        <p class="cue">Deploy the competitor's number, with proof attached.</p>
-        <textarea class="blank" placeholder="…are offering… I've got it in front of me."></textarea>
-
-        <p class="cue">First offer arrives. Bank it and refuse it; when they defend with the bundle, trade the extras away.</p>
-        <textarea class="blank" placeholder="That's better, but… I don't need the extras…"></textarea>
-
-        <p class="cue">The ladder stalls. Say the sentence — calm, conditional, real.</p>
-        <textarea class="blank" placeholder="If that's really…"></textarea>
-
-        <p class="cue">The final offer lands. Find the trapdoor, make them read it back, get the email, close warm.</p>
-        <textarea class="blank" placeholder="Is that for good… read that back… before we hang up… you've made that…"></textarea>
-
-        <h3>Round 2 — now you're on the headset</h3>
-        <p>Swap. Your teacher calls to cancel, and you're the retention agent: three discounts you may release one at a time, one target to hit, and a strict rule — never offer the next step until they push. Feel how the ladder works from the inside, and notice exactly which caller sentences force your hand.</p>
-
-        <p class="cue">They open angry, no numbers. Hold the line with the first scripted response.</p>
-        <textarea class="blank" placeholder="Polite, warm, giving nothing yet…"></textarea>
-
-        <p class="cue">They produce a competitor's price. What does that change on your screen — and what do you say?</p>
-        <textarea class="blank" placeholder="The first real concession…"></textarea>
+        <h3>Round 2 — now YOU are Darren 🎧</h3>
+        <p class="lead">Swap chairs. Your headset, your discount ladder — three steps, released one at a time, never before they push. A caller comes through angry.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Caller</span>Right, I've been on hold FOREVER and I've had enough. Your prices are a joke and I want to know what you're going to do about it.</div>
+            <textarea class="blank" placeholder="Polite, warm, giving nothing yet — they've brought no numbers…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>What I WANT is to pay less! Everyone pays less than me! Probably!</div>
+            <textarea class="blank" placeholder="'Probably' isn't a competitor's quote — hold the line kindly, invite them to bring one…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>…Fine. Hold on. *typing* Vodafone. Twenty-eight a month, same speed. It's on my screen right now. There.</div>
+            <textarea class="blank" placeholder="THAT changes your screen — release the first real step of the ladder…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>Better. But if that's really your best, honestly, I'd like to cancel.</div>
+            <textarea class="blank" placeholder="The magic words — release the bottom of the screen, read it back, offer the email…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

@@ -170,32 +170,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the manager</h3>
-        <p>Invent the person from your real work world — role, years of service, a detail that makes it human. Decide first: is it truly the role, or the performance? (It changes phrase three entirely.) Your teacher is the employee, arriving cheerful about a different meeting.</p>
+        <h3>Round 1 — you are the manager 🚪</h3>
+        <p class="lead">Ten o'clock, the small meeting room, the folder in front of you. Karim walks in cheerful about a different meeting. You do the one thing right that's yours to do.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Karim</span>Morning! This about the Deyton handover? I've got the file—</div>
+            <textarea class="blank" placeholder="The bell, then the headline — first minute, unhedged…"></textarea>
+            <div class="say say-a"><span class="who-label">Karim</span>…What? Mine? You're serious. You're actually serious.</div>
+            <textarea class="blank" placeholder="Separate person from decision — with the evidence that makes it believable…"></textarea>
+            <div class="say say-a"><span class="who-label">Karim</span>The role, not the work. That's what they told Deyton's guy too. It's what everyone says. …God. I need a minute.</div>
+            <textarea class="blank" placeholder="Meet his test honestly — then give the silence its licence…"></textarea>
+            <div class="say say-a"><span class="who-label">Karim</span>*after a long pause* Two kids, you know. Mortgage renewal in March. Was it me? Be honest — was there a list, and was I at the bottom of something?</div>
+            <textarea class="blank" placeholder="The honest mechanism — and validate what he's feeling without one false comfort…"></textarea>
+            <div class="say say-a"><span class="who-label">Karim</span>Thank you for not saying "opportunity". So what happens now? Practically. I can't think — tell me slowly.</div>
+            <textarea class="blank" placeholder="The practicalities in threes, in writing — and the reference with its receipt…"></textarea>
+            <div class="say say-a"><span class="who-label">Karim</span>…Alright. What do I tell people? The team. My wife. Is there a script I'm supposed to follow?</div>
+            <textarea class="blank" placeholder="Hand the story back — and take today's decisions off the table…"></textarea>
+        </div>
 
-        <p class="cue">The first minute: the bell, the headline, unhedged.</p>
-        <textarea class="blank" placeholder="This is a hard conversation… your job is ending."></textarea>
-
-        <p class="cue">Separate person from decision — with the evidence that makes it believable.</p>
-        <textarea class="blank" placeholder="This is about… and I'll put that in writing."></textarea>
-
-        <p class="cue">The reaction comes — shock, then anger, then "was it me?". Hold it without arguing or brightening.</p>
-        <textarea class="blank" placeholder="Take it, there's no rush… what you're feeling is fair…"></textarea>
-
-        <p class="cue">The practicalities: slow, in threes, in writing — and the reference with its receipt.</p>
-        <textarea class="blank" placeholder="It's all in the folder… I'll be a reference, and a good one…"></textarea>
-
-        <p class="cue">Close by protecting him from today: no deciding, and the story handed back.</p>
-        <textarea class="blank" placeholder="Don't decide anything big today… what you tell people is yours…"></textarea>
-
-        <h3>Round 2 — now you're Karim</h3>
-        <p>Swap. Your teacher lets YOU go — and you respond as a real person would: the disbelief, the mortgage arithmetic out loud, the "was it me?", maybe the anger. Notice from inside the chair which of their sentences actually help, which are noise — and what you find yourself needing that they haven't offered.</p>
-
-        <p class="cue">The headline lands on you. Your first thirty seconds — honestly.</p>
-        <textarea class="blank" placeholder="What actually comes out of you…"></textarea>
-
-        <p class="cue">Ask the question underneath: "was it me?" — and listen hard to whether the answer has receipts.</p>
-        <textarea class="blank" placeholder="Your question, and what would convince you…"></textarea>
+        <h3>Round 2 — now YOU are Karim 💼</h3>
+        <p class="lead">Swap chairs. Three years, solid work, no idea it's coming — and your teacher, as the manager, closes the door. Respond as a real person; notice which of their sentences actually help.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Manager</span>Sit down with me — this is a hard conversation, and I'm not going to stretch it out. The company is cutting eight roles, and yours is one of them. Your job is ending. I'm so sorry.</div>
+            <textarea class="blank" placeholder="The first thirty seconds — what actually comes out of you…"></textarea>
+            <div class="say say-b"><span class="who-label">Manager</span>Before anything else: this is about the role, not your work — your function's merging to Hamburg. It would be ending whoever sat in your chair. And I'll put that in writing.</div>
+            <textarea class="blank" placeholder="Ask the question underneath — was it me? — and listen for whether the answer has receipts…"></textarea>
+            <div class="say say-b"><span class="who-label">Manager</span>There was a list of functions, not people. What you're feeling is fair — all of it. And I'm not going to sit here calling it an opportunity.</div>
+            <textarea class="blank" placeholder="The practical panic arrives — money, notice, what to tell your wife. Ask for it slowly…"></textarea>
+            <div class="say say-b"><span class="who-label">Manager</span>It's all in this folder, in writing — nothing depends on you remembering today. Paid to end of March plus severance, the notice period is your choice, and I'll be a reference — a good one. Don't decide anything big today.</div>
+            <textarea class="blank" placeholder="Take what helps, say what you need that they haven't offered — and leave the room on your own terms…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

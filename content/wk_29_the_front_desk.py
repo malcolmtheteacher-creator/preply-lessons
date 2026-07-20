@@ -171,32 +171,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're on the desk</h3>
-        <p>Use your own workplace if you can — your product, your service, your worst realistic complaint. You know your real limits: what you can give, what needs a manager. Your teacher arrives angry, and right.</p>
+        <h3>Round 1 — you are on the desk 🛎️</h3>
+        <p class="lead">11pm, alone in the lobby, and Mr Osei is crossing it fast with a dead key card in his hand. He speaks — you absorb the anger, not the blame.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mr Osei</span>THIRD time this card has died. There is a PARTY on my floor. I rang this desk for forty minutes. Forty. Minutes.</div>
+            <textarea class="blank" placeholder="Meet the explosion — validation first, then motion…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>Two minutes. Fine. Count them.</div>
+            <textarea class="blank" placeholder="Play the complaint back until you earn a 'that's exactly it'…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>That's it. Exactly it. And I have a presentation at eight that I am now too angry to sleep before.</div>
+            <textarea class="blank" placeholder="Own the one piece that's truly yours — the phone — precisely, with a consequence…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>…Well. At least someone's saying it. So what happens now?</div>
+            <textarea class="blank" placeholder="Take charge: what you can do right now, with your own hands — room, cards, the stag party's breakfast…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>Fine. Yes. And I want tonight off the bill. The whole night. This has been a shambles.</div>
+            <textarea class="blank" placeholder="The empowered no — your real limit, the alternative, and the escalation as an ally…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Osei</span>You'll actually write that you support the refund? …Fine. Do the room. And — thank you. You've been straighter with me in five minutes than the phone was in forty.</div>
+            <textarea class="blank" placeholder="Close the loop — thank him for the chance, give your name, sign the night…"></textarea>
+        </div>
 
-        <p class="cue">The explosion lands. Meet it — validation, then motion.</p>
-        <textarea class="blank" placeholder="You're right to be… let me…"></textarea>
-
-        <p class="cue">Play the complaint back until you get a "that's exactly it".</p>
-        <textarea class="blank" placeholder="So that I get this right…"></textarea>
-
-        <p class="cue">Own the piece that's truly yours — precisely, with a consequence attached.</p>
-        <textarea class="blank" placeholder="That was our mistake, and…"></textarea>
-
-        <p class="cue">Take charge: what can you do right now, with your own hands?</p>
-        <textarea class="blank" placeholder="Here's what I can do for you right now…"></textarea>
-
-        <p class="cue">They demand more than you're allowed to give. The empowered no — then escalate as an ally, and close with your name.</p>
-        <textarea class="blank" placeholder="I can't… but I can… with my note supporting it… My name's…"></textarea>
-
-        <h3>Round 2 — now you're Mr Osei</h3>
-        <p>Swap. Your teacher is on the desk; you're the guest, and everything really did go wrong. Your job is to be angry <i>well</i> — loud enough to be real, fair enough to be fixable — and to notice, from the inside, which of their sentences actually lower your temperature and which raise it.</p>
-
-        <p class="cue">Deliver the complaint — all three problems, hot but honest.</p>
-        <textarea class="blank" placeholder="Your opening salvo…"></textarea>
-
-        <p class="cue">They offer something real. What makes you accept it — and what would have made you refuse?</p>
-        <textarea class="blank" placeholder="What lands, what wouldn't…"></textarea>
+        <h3>Round 2 — now YOU are the guest 😤</h3>
+        <p class="lead">Swap chairs. Everything really did go wrong for you tonight — and the person on the desk had nothing to do with any of it. Be angry well: loud enough to be real, fair enough to be fixable.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Receptionist</span>Good evening — how can I help?</div>
+            <textarea class="blank" placeholder="Deliver the complaint — all three problems, hot but honest…"></textarea>
+            <div class="say say-b"><span class="who-label">Receptionist</span>You're right to be annoyed — card, noise, and no answer when you rang. Let me see what's happened. Two minutes, and I won't leave you standing here.</div>
+            <textarea class="blank" placeholder="Notice what that sentence does to your temperature — respond as it deserves…"></textarea>
+            <div class="say say-b"><span class="who-label">Receptionist</span>Here's what I can do right now: quiet floor, new cards, and I'll move your bags myself. I can't take the whole night off the bill — but breakfast is on us, fifty off, and my written note supporting a full refund with the manager at seven.</div>
+            <textarea class="blank" placeholder="A real offer with a real limit — push once more, then decide like a tired adult…"></textarea>
+            <div class="say say-b"><span class="who-label">Receptionist</span>My name's Dana — I'm on until seven. Ask for me if anything else comes up. Good luck at eight.</div>
+            <textarea class="blank" placeholder="End the night — say what actually turned it around…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

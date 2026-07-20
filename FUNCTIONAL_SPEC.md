@@ -90,6 +90,13 @@ whole design.
   teacher the other. Round 2 they swap. Never ask a student to voice two
   characters at once — it is unplayable and it kills the fluency work stone
   dead.
+- **Both rounds are SCRIPTED role plays of the lesson's own scenario.** The
+  partner's lines are printed as speech bubbles; the student answers into a
+  gap after each one, guided by a cue that names the job (never the words).
+  Round 2 swaps the chairs with the details changed. NEVER replace the role
+  play with "use your own situation" — bare prompts with no interlocutor
+  confuse students and break the play. Personalisation lives in the "Make
+  them yours" box on the Phrases tab, nowhere else.
 - **A third voice may appear in the model dialogue only**, briefly, for realism
   — the way Petra gets two turns in *Speaking Up in the Meeting*. It is
   something the student *reads*, never something either person has to *play*.

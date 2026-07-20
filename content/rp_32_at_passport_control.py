@@ -183,32 +183,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're the traveller</h3>
-        <p>Use your real life: a trip you've actually taken or are planning. Your teacher is the officer, and will ask fast.</p>
+        <h3>Round 1 — you are the traveller 🛂</h3>
+        <p class="lead">Nine hours in the air, and the desk is finally yours. The officer speaks — you answer, one breath at a time. No looking back at the phrases.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Officer</span>Where've you flown in from today?</div>
+            <textarea class="blank" placeholder="The flight and the city — short and done…"></textarea>
+            <div class="say say-a"><span class="who-label">Officer</span>Purpose of your visit?</div>
+            <textarea class="blank" placeholder="Duration plus purpose, one breath — the complete answer shape…"></textarea>
+            <div class="say say-a"><span class="who-label">Officer</span>Whereabouts will you be staying while you're here?</div>
+            <textarea class="blank" placeholder="Answer — with your evidence ready rather than recited…"></textarea>
+            <div class="say say-a"><span class="who-label">Officer</span>And are you in employment back home? What line of work are you in?</div>
+            <textarea class="blank" placeholder="You caught the start, lost the end — slow him down, then answer…"></textarea>
+            <div class="say say-a"><span class="who-label">Officer</span>Do you have means of support for the stay?</div>
+            <textarea class="blank" placeholder="Two possible meanings — check which he means before you answer…"></textarea>
+            <div class="say say-a"><span class="who-label">Officer</span>…One moment. *typing, frowning, silence*</div>
+            <textarea class="blank" placeholder="Handle the silence gracefully, then ask your one calm question…"></textarea>
+        </div>
 
-        <p class="cue">Purpose and duration — one breath.</p>
-        <textarea class="blank" placeholder="I'm here for…"></textarea>
-
-        <p class="cue">Where you're staying — with your evidence ready.</p>
-        <textarea class="blank" placeholder="I'll be staying…"></textarea>
-
-        <p class="cue">He asks something you half-catch. Slow him down, then answer.</p>
-        <textarea class="blank" placeholder="Sorry — could you…"></textarea>
-
-        <p class="cue">He asks something with two possible meanings. Check which, then answer.</p>
-        <textarea class="blank" placeholder="Do you mean…"></textarea>
-
-        <p class="cue">He goes quiet and types. Handle the silence, then ask your one calm question.</p>
-        <textarea class="blank" placeholder="Of course — … Is there…"></textarea>
-
-        <h3>Round 2 — now you're the officer</h3>
-        <p>Swap. Your teacher is a traveller who answers every question with a nervous life story. Your job: stay brisk but kind, and ask the next question before the story finishes. Feel it from the other side of the desk.</p>
-
-        <p class="cue">They've talked for thirty seconds about their cousin's wedding. Your next question, firmly and kindly.</p>
-        <textarea class="blank" placeholder="What you ask, and how you cut in…"></textarea>
-
-        <p class="cue">Their answers don't quite add up — two weeks' holiday but no return ticket. Probe it without accusing.</p>
-        <textarea class="blank" placeholder="The follow-up question…"></textarea>
+        <h3>Round 2 — now YOU are the officer 🎖️</h3>
+        <p class="lead">Swap chairs. Your desk, your queue, hour six of shift eight. A nervous traveller approaches — friendly, honest, and answering every question with a life story.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Traveller</span>Hello! Sorry, I'm so nervous, I always get nervous at these desks, my cousin says I look guilty even when—</div>
+            <textarea class="blank" placeholder="Kindly, briskly: your first question — and keep it to one fact…"></textarea>
+            <div class="say say-b"><span class="who-label">Traveller</span>Right, sorry! Visiting. My cousin's wedding — well, second wedding, the first one was a disaster, that was in 2019 when—</div>
+            <textarea class="blank" placeholder="Cut in before the saga — next question: how long, and where staying…"></textarea>
+            <div class="say say-b"><span class="who-label">Traveller</span>Two weeks! At my cousin's. I don't have the address written down though… it's got a tree in front? Near a big supermarket?</div>
+            <textarea class="blank" placeholder="A tree is not an address — tell them what you need, and how they can get it right now…"></textarea>
+            <div class="say say-b"><span class="who-label">Traveller</span>Found it — she just texted it to me, look. And here's my return flight, the 29th. Am I in trouble?</div>
+            <textarea class="blank" placeholder="They're fine and always were — stamp, reassure, and send them to the right exit…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

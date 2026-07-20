@@ -169,32 +169,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you make the call</h3>
-        <p>Use your real work: a real kind of proposal, a real kind of client. Your teacher plays the warm, stuck client — with a secret blocker they'll only reveal to the right question.</p>
+        <h3>Round 1 — you make the call ⏳</h3>
+        <p class="lead">Thursday, 10am, call five. The proposal is six weeks old. Mr Marek answers with his usual warmth — and today you get a decision.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Mr Marek</span>Ah! I know why you're calling. Look — crazy few weeks, the proposal's right here on my desk, top of the pile—</div>
+            <textarea class="blank" placeholder="The reframe: you're not chasing — and the honest deadline that's dying…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Marek</span>No, I appreciate that. It's just — you know how it is. Timing, moving parts…</div>
+            <textarea class="blank" placeholder="The direct question — there's usually one thing, not five. Then wait…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Marek</span>…Honestly? My brother-in-law had the same work done last year — different firm. It ran forty percent over the quote. My wife brings it up every time I mention starting.</div>
+            <textarea class="blank" placeholder="There it is — receive the fear, then find which option he's leaning towards…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Marek</span>The full one, if I'm honest. The phased one is just me negotiating with Tomas's forty percent.</div>
+            <textarea class="blank" placeholder="Answer the fear with structure from your trade — fixed price, written approvals — then offer an owned recommendation…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Marek</span>The number is the number, anything extra I approve first… that's the thing Tomas didn't have. Look — I want to say yes. Let me just — leave it with me over the weekend?</div>
+            <textarea class="blank" placeholder="Grant the weekend, put a date on it — and make no genuinely safe to say…"></textarea>
+            <div class="say say-a"><span class="who-label">Mr Marek</span>It's not a no — if it were I'd have said so weeks ago. Monday, noon. Bring the fixed-price letter.</div>
+            <textarea class="blank" placeholder="The letter tonight, the missing decision-maker onto the call — build the Monday scaffold…"></textarea>
+        </div>
 
-        <p class="cue">Open the fifth call differently from the fourth: the reframe, and the honest deadline.</p>
-        <textarea class="blank" placeholder="I'm not chasing you… still possible today, in two weeks it isn't…"></textarea>
-
-        <p class="cue">Ask the direct question — and wait through the pause that follows.</p>
-        <textarea class="blank" placeholder="What's actually holding this up…"></textarea>
-
-        <p class="cue">The real fear surfaces. Answer it with structure from YOUR trade, not reassurance.</p>
-        <textarea class="blank" placeholder="Here's what I can put in writing…"></textarea>
-
-        <p class="cue">Find the lean, offer an owned recommendation, and convert "leave it with me" into a date.</p>
-        <textarea class="blank" placeholder="Which way are you leaning… would it help if… can I put a date on that?"></textarea>
-
-        <p class="cue">Make no safe, find the missing person, and build the Monday scaffold.</p>
-        <textarea class="blank" placeholder="Is the real answer no… who else needs to be in the room… whichever way it lands…"></textarea>
-
-        <h3>Round 2 — now you're Mr Marek</h3>
-        <p>Swap. Your teacher calls YOU about a decision you've been sitting on — and you play it real: warm, apologetic, evasive, with a genuine hidden fear you only surface if their question earns it. Feel which sentences make the fear sayable, and which make you reach for "crazy week" again.</p>
-
-        <p class="cue">They open with the reframe. Your first deflection — make it convincingly warm.</p>
-        <textarea class="blank" placeholder="Your 'crazy week' variation…"></textarea>
-
-        <p class="cue">The direct question lands. Decide: does it earn the truth? What tips you over?</p>
-        <textarea class="blank" placeholder="The pause, and what finally comes out…"></textarea>
+        <h3>Round 2 — now YOU are Mr Marek ☕</h3>
+        <p class="lead">Swap chairs. You want the work done — you have for six weeks — and you have a real fear you haven't said out loud. Their questions have to earn it.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Caller</span>Mr Marek — I'm not chasing you, I'm protecting the date. Finished before your busy season is still possible today. In two weeks it genuinely isn't.</div>
+            <textarea class="blank" placeholder="Deflect warmly — your best 'crazy week' variation…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>Can I ask directly — what's actually holding this up? In my experience there's usually one thing. One.</div>
+            <textarea class="blank" placeholder="The pause. Does the question earn the truth? Decide what finally comes out…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>That's a completely fair fear — and it's the kind I can do something about. The number you sign is the number you pay, in writing. Anything beyond it, you approve before a cent is spent.</div>
+            <textarea class="blank" placeholder="Test the structure — what would Tomas's disaster have looked like under these rules?"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>Exactly — his overrun came from open day rates; this is the opposite shape. So: Monday noon, the letter in your inbox tonight, and is the real answer maybe no? Because no is fine.</div>
+            <textarea class="blank" placeholder="It was never a no — say what it actually was, and set the Monday call…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

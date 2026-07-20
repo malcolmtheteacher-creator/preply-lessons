@@ -171,32 +171,35 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you're calling</h3>
-        <p>Sell something you actually know — your company's product, your own services, even an idea you'd pitch internally. Your teacher answers with one word and a raised eyebrow. You have their name and one researched fact.</p>
+        <h3>Round 1 — you are the caller 📞</h3>
+        <p class="lead">Tuesday, 9:50am, headset on, one researched fact in front of you. Ms Ferreira answers with one word — and the twenty seconds begin.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>Ferreira.</div>
+            <textarea class="blank" placeholder="Name, honest label, and the permission question — all in the first breath…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>…Points for honesty. You've got until my coffee's poured. Go.</div>
+            <textarea class="blank" placeholder="Why her specifically — then qualify before you pitch a word…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>That's mine, yes — it sits painfully on my desk. But we've got a supplier. Years with them.</div>
+            <textarea class="blank" placeholder="Don't attack the supplier — map what they're using, and listen for the gap…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>…Site-level only. The machine-level quote was absurd. And before you get excited — I'm not switching suppliers because of one phone call. The audit alone would eat any saving.</div>
+            <textarea class="blank" placeholder="Collapse the threat she's actually resisting — you're not asking her to change anything today…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>…Alongside what we have. You didn't lead with that. So what do you want from me, exactly? If you say "a quick demo call with our team", we're done.</div>
+            <textarea class="blank" placeholder="The tiny ask — one page, and the exit built in…"></textarea>
+            <div class="say say-a"><span class="who-label">Ms Ferreira</span>One page. Not a deck — if a deck arrives, I delete it on principle. And this week is terrible for me.</div>
+            <textarea class="blank" placeholder="Get the better week from her — then leave the door warm, whatever she's decided…"></textarea>
+        </div>
 
-        <p class="cue">The first ten seconds: name, honest label, and the permission question.</p>
-        <textarea class="blank" placeholder="My name's… this is a sales call. Have I…"></textarea>
-
-        <p class="cue">Why them specifically — then qualify before you pitch a word.</p>
-        <textarea class="blank" placeholder="The reason I'm calling you specifically… Before I say anything else…"></textarea>
-
-        <p class="cue">"We already have a supplier." Map what they're using, and find the gap.</p>
-        <textarea class="blank" placeholder="Can I ask what you're using…"></textarea>
-
-        <p class="cue">They fear the switch. Collapse the threat, then close small.</p>
-        <textarea class="blank" placeholder="I'm not asking you to… How about I send one page…"></textarea>
-
-        <p class="cue">It ends in "not now" — or just no. Get the week, or take the no with grace, and leave the door warm.</p>
-        <textarea class="blank" placeholder="When's a better week… Fair enough… you've got my number."></textarea>
-
-        <h3>Round 2 — now you're Ms Ferreira</h3>
-        <p>Swap. Your teacher cold-calls you, and you're the operations director: six minutes to your meeting, a supplier you're mostly happy with, and a rule about decks. Give them exactly the resistance the world gives — no more, no less — and drop your one real problem only if they ask a question that deserves it.</p>
-
-        <p class="cue">They open with fake friendship. Your response — and what would have worked instead?</p>
-        <textarea class="blank" placeholder="How you answer, and what you're listening for…"></textarea>
-
-        <p class="cue">They ask a genuinely good question. Reward it honestly — reveal the gap.</p>
-        <textarea class="blank" placeholder="The problem you admit to…"></textarea>
+        <h3>Round 2 — now YOU are Ms Ferreira 🏭</h3>
+        <p class="lead">Swap chairs. Your plant, your six minutes, your rule about decks. A cold caller gets through — and this one opens badly.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Caller</span>Ms Ferreira! Great to finally reach you! How ARE you today? Lovely weather we're having, isn't it?</div>
+            <textarea class="blank" placeholder="The fake-friend opening — answer it the way it deserves, briskly but fairly…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>Right, sorry — straight to it. We make energy monitoring, and honestly, I'm calling because your plant runs three shifts, and three-shift plants are where the payback is fastest. Is energy cost something you deal with at all?</div>
+            <textarea class="blank" placeholder="A real question deserves a real answer — reveal the gap, guardedly…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>A quote that absurd usually means per-point pricing. Ours is per line — compared to that quote, about a third. But I'm not asking you to change anything today. How about one page, and if it's not relevant, you bin it?</div>
+            <textarea class="blank" placeholder="Decide what a good ask earns — set your terms and your timing…"></textarea>
+            <div class="say say-b"><span class="who-label">Caller</span>After the twentieth, one page, no deck. Understood. Thanks for hearing me out, Ms Ferreira.</div>
+            <textarea class="blank" placeholder="End it — and tell them, in one line, what got them past hello…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>

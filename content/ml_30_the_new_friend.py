@@ -171,32 +171,33 @@ PANELS = [
             <button class="t-btn" onclick="resetTimer()">↺ Reset</button>
         </div>
 
-        <h3>Round 1 — you go first</h3>
-        <p>Use a real person if you dare — the one from your gym, office, building, kids' school. Your teacher plays them: friendly, surprised, and with one genuine complication in their week.</p>
+        <h3>Round 1 — you go first ☕</h3>
+        <p class="lead">Tuesday night, boots in bags, the chat at its usual high point. Sam speaks — and this week, you open the door. No looking back at the phrases.</p>
+        <div class="dialogue">
+            <div class="say say-a"><span class="who-label">Sam</span>—honestly, the coach's "system" is astrology with cones. Anyway. Same time next week?</div>
+            <textarea class="blank" placeholder="Same time next week — and then name the pattern: this, but properly, not in passing…"></textarea>
+            <div class="say say-a"><span class="who-label">Sam</span>…What, like — outside football?</div>
+            <textarea class="blank" placeholder="Risk the honest admission — how long you've been here, how few people you know…"></textarea>
+            <div class="say say-a"><span class="who-label">Sam</span>Mate — same, honestly. I kept thinking you'd have a full diary. So what were you thinking?</div>
+            <textarea class="blank" placeholder="The invitation: specific day, small shape, exit included…"></textarea>
+            <div class="say say-a"><span class="who-label">Sam</span>Ah — Saturday I've got the kids. It's my weekend with them.</div>
+            <textarea class="blank" placeholder="Release the pressure instantly — then fold the kids in…"></textarea>
+            <div class="say say-a"><span class="who-label">Sam</span>They'd lose their MINDS at the dinosaur thing. You sure? Two kids under eight is a lot of coffee.</div>
+            <textarea class="blank" placeholder="You're sure — set the time, and capture the number before another two months of waving…"></textarea>
+            <div class="say say-a"><span class="who-label">Sam</span>*Thursday, by message* Mate, I'm so sorry — their mum's swapped weekends on me. Work thing Saturday now. Feel bad. Rain check?</div>
+            <textarea class="blank" placeholder="Forgive it completely AND refuse to let it float — downsize to something guaranteed…"></textarea>
+        </div>
 
-        <p class="cue">The chat hits its usual high point. Open the door.</p>
-        <textarea class="blank" placeholder="We should do this properly…"></textarea>
-
-        <p class="cue">They hesitate, surprised. Risk the honest admission.</p>
-        <textarea class="blank" placeholder="I'll be honest…"></textarea>
-
-        <p class="cue">The invitation: specific day, small shape, exit included.</p>
-        <textarea class="blank" placeholder="Are you around… no big plan…"></textarea>
-
-        <p class="cue">The complication appears. Release the pressure, then fold their life in.</p>
-        <textarea class="blank" placeholder="No pressure at all… or bring…"></textarea>
-
-        <p class="cue">Capture the number, and — days later — they cancel. Respond so the plan shrinks instead of dying.</p>
-        <textarea class="blank" placeholder="Let me take your number… No worries, but let's…"></textarea>
-
-        <h3>Round 2 — now you're Sam</h3>
-        <p>Swap. Your teacher makes the move on YOU — and you're pleased, flustered, and busy: kids, shifts, a life. Notice from the inside which of their sentences make yes easy, then practise the hardest skill on this side: declining one plan while proving you want another.</p>
-
-        <p class="cue">They've just said "we should do this properly". Your honest, slightly surprised reply.</p>
-        <textarea class="blank" placeholder="What you say — and what you admit…"></textarea>
-
-        <p class="cue">You genuinely can't do the day they name. Decline with a counter-offer that proves it's not a brush-off.</p>
-        <textarea class="blank" placeholder="I can't do… but what about…"></textarea>
+        <h3>Round 2 — now YOU are Sam 🥅</h3>
+        <p class="lead">Swap chairs. You're the one with the kids, the shifts, the full life — and tonight, after football, the quiet one from Tuesdays makes the move on YOU.</p>
+        <div class="dialogue">
+            <div class="say say-b"><span class="who-label">Teammate</span>You know what — we should do this properly some time. Not just ten minutes in a car park.</div>
+            <textarea class="blank" placeholder="You're pleased and surprised — answer honestly, including what you'd been assuming about them…"></textarea>
+            <div class="say say-b"><span class="who-label">Teammate</span>Are you around Sunday morning? No big plan — there's a decent café by the park. An hour, done.</div>
+            <textarea class="blank" placeholder="You genuinely can't do Sunday — decline WITH a counter-offer that proves it's not a brush-off…"></textarea>
+            <div class="say say-b"><span class="who-label">Teammate</span>Wednesday evening works! Right — let me take your number before one of us disappears.</div>
+            <textarea class="blank" placeholder="Hand it over, lock the plan — and admit how long you'd been meaning to say something…"></textarea>
+        </div>
 
         <div class="twist">
             <b>⚡ The twist</b>
