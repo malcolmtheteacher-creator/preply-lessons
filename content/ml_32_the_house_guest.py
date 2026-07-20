@@ -49,7 +49,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Tomas</span>A room first. I keep forgetting rooms exist — I had a whole FLAT, you know? With her. It feels like going backwards.</div>
             <div class="say say-b"><span class="who-label">You</span>It's not backwards, it's sideways — and this isn't about last night's dishes or any dishes: it's about an ending. The stay needs one, that's all. You and me don't. Nothing changes between us on the 20th — that's the entire point of saying all this out loud now, before I turn into someone who's angry about parmesan.</div>
             <div class="say say-a"><span class="who-label">Tomas</span>You'd never be angry about parmesan. …You've been angry about the dishwasher though. I've SEEN you re-stack it.</div>
-            <div class="say say-b"><span class="who-label">You</span>The dishwasher was becoming a symbol. It's been handled. So: Saturday we open the room listings, you take the 20th, and I get my sofa back in time to miss you on it. And Tomas — how can I actually help you land? Deposit maths, viewings, boxes — name the jobs.</div>
+            <div class="say say-b"><span class="who-label">You</span>The dishwasher was becoming a symbol. It's been handled. So: Saturday we open the room listings, you take the 20th, and I get my sofa back in time to miss you on it. And Tomas — how can I actually help you get sorted? Deposit maths, viewings, boxes — name the jobs.</div>
             <div class="say say-a"><span class="who-label">Tomas</span>Viewings. Come to the viewings — I can't tell feet-smell from fine anymore, I've lost all judgement. And… thank you. For the date, weirdly, most of all. "Soon" was eating me alive too.</div>
         </div>
 
@@ -128,9 +128,9 @@ PANELS = [
         <h3>💛 Protecting the friendship from the boundary</h3>
         <div class="q">
             <span class="move">Phrase 8</span>
-            <p><b>The job:</b> separating the arrangement's ending from the relationship. Complete it:<br><br>"The stay needs an ending. ___ and ___ don't."</p>
+            <p><b>The job:</b> separating the arrangement's ending from the relationship. Complete it:<br><br>"The stay has to ___. Nothing else ___."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"The stay needs an ending. You and me don't."</b><br>The guest's deepest fear, answered before it's asked: that the date on the stay is secretly a date on the friendship. Say it explicitly — "nothing changes between us on the 20th; that's the entire point of saying this now" — and add the honest stake: you're doing this BEFORE you become "someone who's angry about parmesan". Boundaries drawn early protect the love; boundaries drawn late arrive pre-poisoned.<br><br><b>Take it anywhere:</b> "The arrangement needs an ending — we don't." Flatshares, business partnerships, favours between family.</div>
+            <div class="rev"><b>"The stay has to end. Nothing else does."</b><br>The guest's deepest fear, answered before it's asked: that the date on the stay is secretly a date on the friendship. Say it explicitly — "nothing changes between us on the 20th; that's the entire point of saying this now" — and add the honest stake: you're doing this BEFORE you become "someone who's angry about parmesan". Boundaries drawn early protect the love; boundaries drawn late arrive pre-poisoned.<br><br><b>Take it anywhere:</b> "The arrangement has to end — nothing else does." Flatshares, business partnerships, favours between family.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 9</span>
@@ -143,7 +143,7 @@ PANELS = [
             <p><b>The job:</b> ending on the help, not the boundary. Say it out loud, then write it.</p>
             <textarea class="blank" placeholder="Date set, blockage found, friendship intact. Close the evening…"></textarea>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
-            <div class="rev"><b>e.g. "How can I actually help you land? Deposit maths, viewings, boxes — name the jobs."</b><br>The conversation's last note decides its flavour in memory — end on the date and it tastes like eviction; end on "name the jobs" and it tastes like a plan two friends made. Concrete job categories beat "let me know if you need anything", which is the sentence help goes to die in. And take the job he names — the viewings, the feet-smell judgement — seriously. That's the friendship, continuing by other means.<br><br><b>Take it anywhere:</b> "How can I help you land? Name the jobs." After every boundary, so the last word is the love.</div>
+            <div class="rev"><b>e.g. "How can I actually help you get sorted? Deposit maths, viewings, boxes — name the jobs."</b><br>The conversation's last note decides its flavour in memory — end on the date and it tastes like eviction; end on "name the jobs" and it tastes like a plan two friends made. Concrete job categories beat "let me know if you need anything", which is the sentence help goes to die in. And take the job he names — the viewings, the feet-smell judgement — seriously. That's the friendship, continuing by other means.<br><br><b>Take it anywhere:</b> "How can I help you get sorted? Name the jobs." After every boundary, so the last word is the love.</div>
         </div>
 
         <div class="keep">
@@ -159,7 +159,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the evening, out loud — how long, properly, with dates → I love having you AND I need my flat back → not a complaint, a calendar question → a real date, kinder than soon → what actually stopped the hunt → help you look, not host instead → smaller first step → the stay ends, we don't → not about the dishes → name the jobs. Ten sentences; one friendship that survives its own generosity.</div>""",
+        <div class="tip"><b>Quick test:</b> the evening, out loud — how long, properly, with dates → I love having you AND I need my flat back → not a complaint, a calendar question → a real date, kinder than soon → what actually stopped the hunt → help you look, not host instead → smaller first step → the stay ends, nothing else does → not about the dishes → name the jobs. Ten sentences; one friendship that survives its own generosity.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now it's your sofa, your friend, your rehearsed-in-the-shower sentence. Two rounds — host, then guest.</p>

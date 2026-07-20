@@ -41,7 +41,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Mr Osei</span>Three reports… yes, I see them. They were logged as "non-urgent". Standard for heating between May and September.</div>
             <div class="say say-b"><span class="who-label">You</span>Give me a second to tell her what you said. *a quiet exchange — her answer comes fast and sharp* She's asking: is it also standard for a woman of sixty-eight with arthritis to wash in cold water for three weeks in May?</div>
             <div class="say say-a"><span class="who-label">Mr Osei</span>…When you put it like that. Look, the category is the issue — if there's a medical condition, it should have been logged as vulnerable-resident, which is a different queue entirely.</div>
-            <div class="say say-b"><span class="who-label">You</span>Could you say that more simply? I have to carry it across, and "vulnerable-resident categorisation" won't survive the journey.</div>
+            <div class="say say-b"><span class="who-label">You</span>Could you say that more simply? I have to translate it for her, and "vulnerable-resident categorisation" won't survive the trip.</div>
             <div class="say say-a"><span class="who-label">Mr Osei</span>Fair enough. Tell her: because of her health, her case should be in the fast queue. It's in the slow one. I can move it today.</div>
             <div class="say say-b"><span class="who-label">You</span>*translating; her face changes; she speaks quickly* She understands more than she speaks, by the way — she caught "fast queue" before I translated it. She's asking: how fast is the fast queue?</div>
             <div class="say say-a"><span class="who-label">Mr Osei</span>*smiling, to her now* Five working days, with a phone call the day before the engineer comes. …She's nodding before you translate again. I see what you mean about understanding.</div>
@@ -110,9 +110,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 6</span>
-            <p><b>The job:</b> making the official translatable. Complete it:<br><br>"Could you say that more ___? I have to carry it ___."</p>
+            <p><b>The job:</b> making the official translatable. Complete it:<br><br>"Could you say that more ___? I have to ___ it for her."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"Could you say that more simply? I have to carry it across."</b><br>Officials speak in categories — "vulnerable-resident categorisation" — and jargon that barely survives ONE language dies completely in transit through two. This request isn't a confession of weak English; it's professional: you're telling him the sentence has a journey ahead and needs packing properly. Watch the effect — he immediately produced the human version ("fast queue, slow queue"), which was clearer for everyone, including him.<br><br><b>Take it anywhere:</b> "Could you say that more simply? I have to carry it across." Also glorious in meetings with no second language at all.</div>
+            <div class="rev"><b>"Could you say that more simply? I have to translate it for her."</b><br>Officials speak in categories — "vulnerable-resident categorisation" — and jargon that barely survives ONE language dies completely in transit through two. This request isn't a confession of weak English; it's professional: you're telling him the sentence has a journey ahead and needs packing properly. Watch the effect — he immediately produced the human version ("fast queue, slow queue"), which was clearer for everyone, including him.<br><br><b>Take it anywhere:</b> "Could you say that more simply? I have to pass it on." Also glorious in meetings with no second language at all.</div>
         </div>
 
         <h3>🛡️ Guarding the person and the decisions</h3>
@@ -155,7 +155,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the appointment, out loud — I'll be doing the English for both of us → talk to her, not to me → give me a second to tell her → she's asking: → not quite what she means, let me try again → say that more simply, I have to carry it across → she understands more than she speaks → don't decide anything yet → in writing, for home → patient with the two of us. Ten phrases; one meeting that stayed hers.</div>""",
+        <div class="tip"><b>Quick test:</b> the appointment, out loud — I'll be doing the English for both of us → talk to her, not to me → give me a second to tell her → she's asking: → not quite what she means, let me try again → say that more simply, I have to translate it → she understands more than she speaks → don't decide anything yet → in writing, for home → patient with the two of us. Ten phrases; one meeting that stayed hers.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now you're the bridge. Two rounds — the interpreter, then the official who needs training.</p>
@@ -175,7 +175,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Mr Osei</span>Of course — my apologies. *turning to her* When did the heating stop working?</div>
             <textarea class="blank" placeholder="Claim the translation pause, then deliver her answer AS hers — with the reference numbers…"></textarea>
             <div class="say say-a"><span class="who-label">Mr Osei</span>Three reports, logged as "non-urgent" — standard for heating between May and September, under the vulnerable-resident categorisation exemption framework.</div>
-            <textarea class="blank" placeholder="Make him translatable — simpler, so it survives the journey across…"></textarea>
+            <textarea class="blank" placeholder="Make him translatable — simpler, so it survives the translation…"></textarea>
             <div class="say say-a"><span class="who-label">Mr Osei</span>Fair enough. Tell her: because of her health, her case belongs in the fast queue. It's in the slow one. I can move it today.</div>
             <textarea class="blank" placeholder="Carry it across — and when she reacts before you finish, tell him what he's just seen: how much she understands…"></textarea>
             <div class="say say-a"><span class="who-label">Mr Osei</span>*to her now, directly* Five working days, with a call before the engineer comes. …Is there anything else about the flat I should know?</div>

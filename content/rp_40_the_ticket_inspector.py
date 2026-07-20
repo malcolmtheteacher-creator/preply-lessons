@@ -45,7 +45,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>The rules say a sixty-euro penalty fare, is what the rules say.</div>
             <div class="say say-b"><span class="who-label">You</span>Then I have to ask, honestly: what are my options here? Is there a version of this that isn't the full fine — for a wrong-zone ticket with five months of correct ones behind it? You'd know better than me.</div>
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>…There's a reduced penalty for zone errors — twelve euros plus the fare difference — at my discretion. Discretion, you understand. Not policy. It exists for exactly one kind of passenger.</div>
-            <div class="say say-b"><span class="who-label">You</span>Then I'd be grateful to be that kind of passenger, and I'll take the lesson with the twelve euros. Can I pay you directly — card?</div>
+            <div class="say say-b"><span class="who-label">You</span>Then I'd be grateful to be that kind of passenger. Fair enough — lesson learned, and cheap at twelve euros. Can I pay you directly — card?</div>
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>Card on the machine here. *processing* Twelve plus one-eighty. And fix the app before tomorrow, yes? Set the default zone. Settings, then travel profile — everyone misses it.</div>
             <div class="say say-b"><span class="who-label">You</span>Doing it right now while you watch — there. Default zone B, saved. And if this had gone the other way — where would I have appealed, just so I know the system?</div>
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>Back of the penalty notice, fourteen days, include your purchase history — which, for future reference, is exactly what you just showed me. You'd have won, probably. But this was quicker for both of us.</div>
@@ -120,9 +120,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 7</span>
-            <p><b>The job:</b> accepting the outcome with the lesson attached. Complete it:<br><br>"I'll take the ___ with the twelve euros."</p>
+            <p><b>The job:</b> accepting the outcome with the lesson attached. Complete it:<br><br>"Fair enough — ___ learned."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"I'll take the lesson with the twelve euros."</b><br>Graceful acceptance, with the learning named — which tells the official his discretion landed on the right person. No relitigating, no "but really the app should…", no sourness. He bent a rule for you; the repayment is making him feel right about it, instantly. That feeling is what keeps discretion alive for the next honest passenger.<br><br><b>Take it anywhere:</b> "I'll take the lesson with the ___." Fines, dressing-downs, hard feedback — accept both halves together.</div>
+            <div class="rev"><b>"Fair enough — lesson learned."</b><br>Graceful acceptance, with the learning named — which tells the official his discretion landed on the right person. No relitigating, no "but really the app should…", no sourness. He bent a rule for you; the repayment is making him feel right about it, instantly. That feeling is what keeps discretion alive for the next honest passenger.<br><br><b>Take it anywhere:</b> "Fair enough — lesson learned." Fines, dressing-downs, hard feedback — accept the outcome and the learning together.</div>
         </div>
 
         <h3>🗺️ Leaving smarter than you boarded</h3>
@@ -159,7 +159,7 @@ PANELS = [
 
         <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the ninety seconds, out loud — before you scan it, something's wrong → my mistake, not the machine's → explanation, not excuse → here's the history, you can scroll → not dodging, I'll pay the difference → what are my options → the lesson with the twelve euros → fixing it while you watch → where would I have appealed → thanks for hearing me out. Sixty euros of fine; ten sentences between you and twelve.</div>""",
+        <div class="tip"><b>Quick test:</b> the ninety seconds, out loud — before you scan it, something's wrong → my mistake, not the machine's → explanation, not excuse → here's the history, you can scroll → not dodging, I'll pay the difference → what are my options → fair enough, lesson learned → fixing it while you watch → where would I have appealed → thanks for hearing me out. Sixty euros of fine; ten sentences between you and twelve.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the doors close and the voice says "tickets, please." Two rounds — the passenger, then the uniform.</p>
@@ -183,7 +183,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>*scrolling* Correct zones every day since March. Hm. The rules still say sixty euros, is the thing.</div>
             <textarea class="blank" placeholder="Ask for the menu — what are my options? Is there a version that isn't the full fine?"></textarea>
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>…There's a reduced penalty for zone errors. Twelve plus the difference. Discretion — not policy. It exists for one kind of passenger.</div>
-            <textarea class="blank" placeholder="Accept with the lesson attached, pay — and fix the app's default zone while he watches…"></textarea>
+            <textarea class="blank" placeholder="Accept it gracefully — lesson learned — pay — and fix the app's default zone while he watches…"></textarea>
             <div class="say say-a"><span class="who-label">Inspector Brandt</span>Settings, travel profile — there. Sorted. Anything else, or can I go and ruin someone else's morning?</div>
             <textarea class="blank" placeholder="The appeal route, just to know the system — and the human close…"></textarea>
         </div>

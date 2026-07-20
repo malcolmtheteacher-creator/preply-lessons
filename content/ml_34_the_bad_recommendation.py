@@ -45,11 +45,11 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Rosa</span>Work: the units are in but nothing's connected — no water, no power to the sockets, no worktops. Money: I've paid for the worktops and they've never appeared. That's the bit that keeps me up — two thousand, for stone I've never seen.</div>
             <div class="say say-b"><span class="who-label">You</span>Right. Then here's what I can actually do, and it's the useful thing: I'll call him myself, today. He'll answer me faster than you — that's not fair, but it's true, so let's use it. And the ask will be specific: dates in writing for finishing, and proof the worktops are ordered — an invoice from the stone place, not a promise.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>He WILL answer you. He thinks you're his best advert. …God, that's probably why I got the "brilliant" version for seven weeks, isn't it — he was performing for your recommendation.</div>
-            <div class="say say-b"><span class="who-label">You</span>Then the performance is about to get a review. And Rosa — hear this part properly: my recommendation doesn't expire when it gets hard. I'm in this until your taps run. If he makes it right in the next two weeks, fine. If he doesn't — I'll help you take it further: the trade association, the letter-before-action, whatever it needs. You won't be doing any of it alone.</div>
+            <div class="say say-b"><span class="who-label">You</span>Then the performance is about to get a review. And Rosa — hear this part properly: I'm not disappearing now it's gone wrong. I'm in this until your taps run. If he makes it right in the next two weeks, fine. If he doesn't — I'll help you take it further: the trade association, the letter-before-action, whatever it needs. You won't be doing any of it alone.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>*quiet for a moment* Three weeks I've been dreading telling you, in case it broke something. Between us, I mean.</div>
             <div class="say say-b"><span class="who-label">You</span>Has it? Genuine question — I'd rather know.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>…No. Weirdly it's the opposite, as of about four minutes ago. Turns out the recommendation mattered less than what you did when it went wrong.</div>
-            <div class="say say-b"><span class="who-label">You</span>Then let's go and earn that. Phone's out — I'm calling him from your kitchen, next to the hanging wires, for atmosphere. And next time I recommend anyone, for anything: caveats attached, guarantee included. I've learned the terms of my own recommendations this month.</div>
+            <div class="say say-b"><span class="who-label">You</span>Then let's go and earn that. Phone's out — I'm calling him from your kitchen, next to the hanging wires, for atmosphere. And next time I recommend anyone, for anything, I'll say what I actually know — and I'll stand behind it. I've learned that this month.</div>
         </div>
 
         <div class="q">
@@ -100,7 +100,7 @@ PANELS = [
             <span class="move">Phrase 4</span>
             <p><b>The job:</b> the caveat you skipped, delivered late but delivered. Complete it:<br><br>"I should have said: he was great for ___ job — which was ___. That caveat was mine to give."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"He was great for MY job — which was small. That caveat was mine to give, and I didn't give it."</b><br>The honest anatomy of most failed recommendations: not a lie, but an over-extension — one bathroom's worth of evidence stretched across a kitchen-sized claim. Naming the gap does two things: it explains the disaster without excusing anyone, and — hear Rosa — "that actually helps," because it converts "my friend misjudged him" into "my friend's data was smaller than my project." It also writes your future policy: caveats attached, always.<br><br><b>Take it anywhere:</b> "It was great for MY ___, which was ___ — I should have said so." The late caveat, for every recommendation you ever oversold.</div>
+            <div class="rev"><b>"He was great for MY job — which was small. That caveat was mine to give, and I didn't give it."</b><br>The honest anatomy of most failed recommendations: not a lie, but an over-extension — one bathroom's worth of evidence stretched across a kitchen-sized claim. Naming the gap does two things: it explains the disaster without excusing anyone, and — hear Rosa — "that actually helps," because it converts "my friend misjudged him" into "my friend's data was smaller than my project." It also writes your future policy: say what you actually know, always.<br><br><b>Take it anywhere:</b> "It was great for MY ___, which was ___ — I should have said so." The late caveat, for every recommendation you ever oversold.</div>
         </div>
 
         <h3>🔧 Becoming useful</h3>
@@ -127,9 +127,9 @@ PANELS = [
         <h3>🤝 Guaranteeing the friendship</h3>
         <div class="q">
             <span class="move">Phrase 8</span>
-            <p><b>The job:</b> the warranty on your vouching. Complete it:<br><br>"My recommendation doesn't ___ when it gets hard. I'm in this until your taps run."</p>
+            <p><b>The job:</b> the warranty on your vouching. Complete it:<br><br>"I'm not ___ now it's gone wrong. I'm in this until your taps run."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"My recommendation doesn't expire when it gets hard."</b><br>The sentence that defines what your word is worth. Most recommendations are fair-weather instruments — warmly given, quietly abandoned at the first invoice dispute. Declaring the warranty ("until your taps run") converts yours into something rarer, and it's what Rosa actually needed more than apology: not a sorry friend, an enlisted one. Note the escalation clause attached: two weeks, then the trade association together. A guarantee with no teeth is a greeting card.<br><br><b>Take it anywhere:</b> "My recommendation doesn't expire when it gets hard." Say it, then be findable in week fifteen.</div>
+            <div class="rev"><b>"I'm not disappearing now it's gone wrong — I'm in this until it's fixed."</b><br>The sentence that defines what your word is worth. Most recommendations are fair-weather instruments — warmly given, quietly abandoned at the first invoice dispute. Declaring the warranty ("until your taps run") converts yours into something rarer, and it's what Rosa actually needed more than apology: not a sorry friend, an enlisted one. Note the escalation clause attached: two weeks, then the trade association together. A guarantee with no teeth is a greeting card.<br><br><b>Take it anywhere:</b> "I'm not disappearing now it's gone wrong." Say it, then be findable in week fifteen.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 9</span>
@@ -142,7 +142,7 @@ PANELS = [
             <p><b>The job:</b> the policy you take away. Say it out loud, then write it.</p>
             <textarea class="blank" placeholder="The mess is in hand, the friendship checked. What's your recommendation policy from now on?"></textarea>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
-            <div class="rev"><b>e.g. "Next time I recommend anyone: caveats attached, guarantee included."</b><br>The whole lesson, packed for travel. Caveats attached: the size of your evidence stated with the praise — "great for my small job; never seen him do a big one." Guarantee included: your willingness to stand in the mess if it comes. If a recommendation isn't worth guaranteeing, soften it to what it really is — "I liked him, but my sample size is one bathroom" — which is honest, useful, and keeps your word at full value for the times you spend it whole.<br><br><b>Take it anywhere:</b> "Caveats attached, guarantee included." The terms of trade for everything you'll ever vouch for.</div>
+            <div class="rev"><b>e.g. "Next time I'll say what I actually know — and I'll stand behind it."</b><br>The whole lesson, packed for travel. Caveats attached: the size of your evidence stated with the praise — "great for my small job; never seen him do a big one." Guarantee included: your willingness to stand in the mess if it comes. If a recommendation isn't worth guaranteeing, soften it to what it really is — "I liked him, but my sample size is one bathroom" — which is honest, useful, and keeps your word at full value for the times you spend it whole.<br><br><b>Take it anywhere:</b> "I'll say what I know, and stand behind it." The terms for everything you'll ever vouch for.</div>
         </div>
 
         <div class="keep">
@@ -158,7 +158,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the front step, out loud — sorry it was my guy → don't soften it → good faith doesn't fix kitchens → great for MY job, caveat was mine → what's outstanding, money or work → I'll call him today, let's use it → invoice, not a promise → doesn't expire when it gets hard → has this damaged us → caveats attached, guarantee included. Ten sentences; one friendship worth more after the disaster than before it.</div>""",
+        <div class="tip"><b>Quick test:</b> the front step, out loud — sorry it was my guy → don't soften it → good faith doesn't fix kitchens → great for MY job, caveat was mine → what's outstanding, money or work → I'll call him today, let's use it → invoice, not a promise → not disappearing now it's gone wrong → has this damaged us → say what I know and stand behind it. Ten sentences; one friendship worth more after the disaster than before it.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now it's your guy, your friend, your front step. Two rounds — the recommender, then the friend with the wrecked kitchen.</p>
@@ -184,7 +184,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Rosa</span>Units in, nothing connected. And two thousand paid for worktops I've never seen. That's the bit that keeps me up at night.</div>
             <textarea class="blank" placeholder="Spend your leverage — the call today, the checkable asks: dates in writing, the invoice…"></textarea>
             <div class="say say-a"><span class="who-label">Rosa</span>He WILL answer you — he thinks you're his best advert. …I've been dreading telling you all this, you know. In case it broke something. Between us.</div>
-            <textarea class="blank" placeholder="The warranty on your word, the if-not plan — and the brave direct question about us…"></textarea>
+            <textarea class="blank" placeholder="You're not disappearing — the if-not plan — and the brave direct question about us…"></textarea>
         </div>
 
         <h3>Round 2 — now YOU are Rosa 🍳</h3>
@@ -196,7 +196,7 @@ PANELS = [
             <textarea class="blank" placeholder="The dam breaks — all of it, including the ugly thought about your friend…"></textarea>
             <div class="say say-b"><span class="who-label">Friend</span>Think it — it's fair. I recommended him in good faith, and good faith doesn't fix your kitchen. He was great for MY job, which was small. That caveat was mine to give. So: what's outstanding — money, work, or both?</div>
             <textarea class="blank" placeholder="Give the shape of it — and say what Ben's 'contracts are contracts' has felt like…"></textarea>
-            <div class="say say-b"><span class="who-label">Friend</span>Then I'm calling him today — he answers me faster, let's use that. Dates in writing, invoice for the worktops. And my recommendation doesn't expire when it gets hard: I'm in until your taps run. Has this damaged us? I'd rather know.</div>
+            <div class="say say-b"><span class="who-label">Friend</span>Then I'm calling him today — he answers me faster, let's use that. Dates in writing, invoice for the worktops. And I'm not disappearing now it's gone wrong: I'm in until your taps run. Has this damaged us? I'd rather know.</div>
             <textarea class="blank" placeholder="Answer the brave question honestly — including what just changed in the last four minutes…"></textarea>
         </div>
 
@@ -214,7 +214,7 @@ PANELS = [
                 <li>Can you own the vouching without owning the plastering — or defending either?</li>
                 <li>Does your sympathy convert into an inventory and a phone call?</li>
                 <li>Are your rescue asks checkable — invoices, not promises?</li>
-                <li>Does your word come with caveats attached and a guarantee included?</li>
+                <li>When you recommend someone, do you say what you actually know — and stand behind it?</li>
             </ul>
         </div>""",
 
