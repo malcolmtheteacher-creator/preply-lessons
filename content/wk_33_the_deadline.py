@@ -35,7 +35,7 @@ PANELS = [
 
         <div class="dialogue">
             <div class="say say-a"><span class="who-label">Ms Rothman</span>Rothman. Ah — I was going to call you, actually. All set for Friday?</div>
-            <div class="say say-b"><span class="who-label">You</span>That's why I'm calling — and I'd rather tell you now than on Friday. The honest position is: we're not going to make it. The delivery won't be ready until Wednesday next week.</div>
+            <div class="say say-b"><span class="who-label">You</span>That's why I'm calling — and I'd rather tell you now than on Friday. The honest answer is: we're not going to make it. The delivery won't be ready until Wednesday next week.</div>
             <div class="say say-a"><span class="who-label">Ms Rothman</span>…Wednesday. That's five days late. What happened?</div>
             <div class="say say-b"><span class="who-label">You</span>I'll spare you the long version — the one thing that matters is that our supplier delivered the wrong components and the replacements landed yesterday. But I want to be clear: the supplier is my problem, not your excuse to absorb. The promise was mine.</div>
             <div class="say say-a"><span class="who-label">Ms Rothman</span>Well. At least you're not reading me a saga. But Friday isn't decorative — I present this to my board Monday morning. That was the whole point of the date.</div>
@@ -88,7 +88,7 @@ PANELS = [
             <span class="move">Phrase 2</span>
             <p><b>The job:</b> the news itself, unpadded. Complete it:<br><br>"The honest ___ is: we're not going to make the fifteenth."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"The honest position is: we're not going to make the fifteenth."</b><br>Say the actual sentence. Not "we may be looking at some slippage", not "the timeline's under pressure" — the plain fact, with the date in it. "The honest position is" earns its place: it signals you've stopped negotiating with reality and are reporting it, which is what lets the listener stop wondering what you're softening. Then attach the new date in the same breath — bad news without a new date is just panic, shared.<br><br><b>Take it anywhere:</b> "The honest position is: ___." For every status update tempted to blur itself.</div>
+            <div class="rev"><b>"The honest answer is: we're not going to make the fifteenth."</b><br>Say the actual sentence. Not "we may be looking at some slippage", not "the timeline's under pressure" — the plain fact, with the date in it. "The honest answer is" earns its place: it signals you've stopped negotiating with reality and are reporting it, which is what lets the listener stop wondering what you're softening. Then attach the new date in the same breath — bad news without a new date is just panic, shared.<br><br><b>Take it anywhere:</b> "The honest answer is: ___." For every status update tempted to blur itself.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 3</span>
@@ -158,7 +158,7 @@ PANELS = [
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the call, out loud — rather tell you now than Friday → the honest position is → spare you the long version, the promise was mine → what does this break at your end → which part do you need first → a date I can stand behind → rather lose a week than half-done → updates without asking → on us, on the invoice → anything moves, same morning. Ten sentences; one client who trusts you MORE than before you slipped.</div>""",
+        <div class="tip"><b>Quick test:</b> the call, out loud — rather tell you now than Friday → the honest answer is → spare you the long version, the promise was mine → what does this break at your end → which part do you need first → a date I can stand behind → rather lose a week than half-done → updates without asking → on us, on the invoice → anything moves, same morning. Ten sentences; one client who trusts you MORE than before you slipped.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now it's your Tuesday, your Friday, your phone. Two rounds — the caller, then the client.</p>
@@ -190,7 +190,7 @@ PANELS = [
         <h3>Round 2 — now YOU are Ms Rothman 📋</h3>
         <p class="lead">Swap chairs. Your board, your Monday, your promise resting on their Friday. A supplier calls on Tuesday morning with that tone in their voice.</p>
         <div class="dialogue">
-            <div class="say say-b"><span class="who-label">Supplier</span>I'd rather tell you now than on Friday: the honest position is we're not going to make it. Wednesday next week — that's the real date.</div>
+            <div class="say say-b"><span class="who-label">Supplier</span>I'd rather tell you now than on Friday: the honest answer is we're not going to make it. Wednesday next week — that's the real date.</div>
             <textarea class="blank" placeholder="The damage from your side — what Friday was actually for…"></textarea>
             <div class="say say-b"><span class="who-label">Supplier</span>Then let me ask properly: what does the board actually need to see on Monday? Because we may not need everything to fix this.</div>
             <textarea class="blank" placeholder="A good question — answer it honestly, and see what it unlocks…"></textarea>

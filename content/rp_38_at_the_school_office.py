@@ -41,8 +41,8 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Mrs Callahan</span>Thank you for just saying it — you'd be amazed how many parents hope we won't notice. Right: she'd have EAL support — English as an Additional Language — three mornings a week in a small group with Miss Okonkwo, and she stays in her normal class the rest of the time, because that's honestly where the English comes fastest.</div>
             <div class="say say-b"><span class="who-label">You</span>Three mornings. And in the normal lessons — what happens when she simply can't follow? I'm not expecting miracles; I want to know what a Tuesday actually looks like for her.</div>
             <div class="say say-a"><span class="who-label">Mrs Callahan</span>Honest answer? The first month is tiring and she'll come home with a full head. Her teacher will pair her with a buddy — we usually pick a kind one, not a loud one — visual timetables, and nobody makes her speak in front of the class until she wants to. It's a system we've run many times. It works. Slowly.</div>
-            <div class="say say-b"><span class="who-label">You</span>Slowly I can work with. One thing about Alma that's worth knowing: she's shy in English but she's not a shy child — in Portuguese she runs the playground. If she goes quiet here, it's the language, not the girl.</div>
-            <div class="say say-a"><span class="who-label">Mrs Callahan</span>*writing it down* "Quiet is the language, not the girl." That goes in her file, exactly like that — teachers genuinely use these notes. Anything else about her? Food, health, what she loves?</div>
+            <div class="say say-b"><span class="who-label">You</span>Slowly I can work with. One thing about Alma that's worth knowing: she's shy in English but she's not a shy child — in Portuguese she runs the playground. If she goes quiet here, it's not shyness — she just doesn't have the words yet.</div>
+            <div class="say say-a"><span class="who-label">Mrs Callahan</span>*writing it down* "Not shy — just doesn't have the words yet." That goes in her file, exactly like that — teachers genuinely use these notes. Anything else about her? Food, health, what she loves?</div>
             <div class="say say-b"><span class="who-label">You</span>Football and drawing — if there's a club for either, she'll find her feet twice as fast. Now — what happens between today and her first day? Walk me through it, so we can prepare her at home.</div>
             <div class="say say-a"><span class="who-label">Mrs Callahan</span>I process this today; you'll get a start date by Friday — likely a week Monday. Uniform list in this pack. She starts on a Monday because that's when the week's timetable is explained fresh.</div>
             <div class="say say-b"><span class="who-label">You</span>Could we visit together before she starts? Ten minutes — see her classroom, meet her teacher, so Monday isn't a building full of strangers.</div>
@@ -64,7 +64,7 @@ PANELS = [
             <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
             <div class="rev">
                 <b>1.</b> EAL small-group support three mornings a week with Miss Okonkwo; the rest in her normal class with a kind buddy, visual timetables, and no forced speaking — tiring at first, working slowly.<br><br>
-                <b>2.</b> "She's shy in English but not a shy child — if she goes quiet, it's the language, not the girl." Mrs Callahan writes it into her file word for word, where teachers will actually read it.<br><br>
+                <b>2.</b> "She's not shy — she just doesn't have the words yet." Mrs Callahan writes it into her file word for word, where teachers will actually read it.<br><br>
                 <b>3.</b> A quiet Thursday-afternoon visit — her desk, her teacher, no crowd — plus the app set up and an introduction to the parents' group chat. Week-two worries go to Mrs Callahan directly.
             </div>
         </div>""",
@@ -105,7 +105,7 @@ PANELS = [
             <p><b>The job:</b> the fact about your child no document carries. Put the pieces in order:</p>
             <div class="jumble"><span>it's the language,</span><span>If she goes quiet here,</span><span>not the girl.</span></div>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"If she goes quiet here, it's the language, not the girl."</b><br>The most important sentence of the meeting, and only a parent can say it. Teachers meet the quiet, wrong-footed version of your child and — reasonably — assume that's the child. One plain sentence pre-corrects the record: in her own language she runs the playground. Watch what happened to it: written in the file, word for word. Give every institution one true sentence about who your person really is.<br><br><b>Take it anywhere:</b> "If ___ seems ___, it's the ___, not the person." For children, parents in care, anyone the system will meet at their worst.</div>
+            <div class="rev"><b>"If she goes quiet here, it's not shyness — she just doesn't have the words yet."</b><br>The most important sentence of the meeting, and only a parent can say it. Teachers meet the quiet, wrong-footed version of your child and — reasonably — assume that's the child. One plain sentence pre-corrects the record: in her own language she runs the playground — she doesn't lack confidence, she lacks vocabulary, and those look identical from the front of a classroom. Watch what happened to it: written in the file, word for word. Give every institution one true sentence about who your person really is.<br><br><b>Take it anywhere:</b> "It's not ___ — they just don't have the words yet." For children, parents in care, anyone the system will meet at their worst.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 5</span>
@@ -152,7 +152,7 @@ PANELS = [
             <p>These ten work for any person you're settling into any institution. Say each answer out loud before you type it.</p>
             <p class="cue">"___ is still small — what support is there while it grows?" — build the honest sentence you've been avoiding saying to some institution.</p>
             <textarea class="blank" placeholder="The need, said without shame…"></textarea>
-            <p class="cue">"It's the language, not the girl." — write the one true sentence about someone you love that their institution needs in the file.</p>
+            <p class="cue">"She just doesn't have the words yet." — write the one true sentence about someone you love that their institution needs in the file.</p>
             <textarea class="blank" placeholder="The sentence for the file…"></textarea>
             <p class="cue">"Who do I ask for when I'm worried?" — which institution in your life right now has no worry-channel arranged? Fix it this week.</p>
             <textarea class="blank" placeholder="The place, and the name you'll get…"></textarea>
@@ -160,7 +160,7 @@ PANELS = [
 
         <a class="morelink" href="everyday_echoes_phrase_bank.html">🧰 <span>Every phrase from every Everyday Echoes lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the office, out loud — I'd like to enrol… which documents… her English is still small, what support… what does a Tuesday look like… it's the language, not the girl… football and drawing… walk me through to day one… could we visit… how do parents hear… who do I ask for in week two. Ten questions; one survivable Monday.</div>""",
+        <div class="tip"><b>Quick test:</b> the office, out loud — I'd like to enrol… which documents… her English is still small, what support… what does a Tuesday look like… not shyness — she just doesn't have the words yet… football and drawing… walk me through to day one… could we visit… how do parents hear… who do I ask for in week two. Ten questions; one survivable Monday.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the folder is under your arm and the bell has just rung. Two rounds — the parent, then the desk.</p>

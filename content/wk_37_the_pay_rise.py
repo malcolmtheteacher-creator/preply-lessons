@@ -42,14 +42,14 @@ PANELS = [
             <div class="say say-b"><span class="who-label">You</span>Some growth is careers, I agree. Absorbing an entire departed colleague's job is headcount. And I want to be clear about what this isn't: I'm not comparing myself to anyone in the team — I'm comparing my pay to my job. Just those two things.</div>
             <div class="say say-a"><span class="who-label">Ingrid</span>Fair. So what are you asking for? And please don't say "whatever you think is appropriate" — I've had three of those this year and they all left unhappy.</div>
             <div class="say say-b"><span class="who-label">You</span>I'm asking for fifty-four. The market for this role, with the reporting responsibility, is running fifty-two to fifty-eight — that's from the industry survey and three live postings I can send you, not from a friend in a pub. Fifty-four is right in the middle of that range.</div>
-            <div class="say say-a"><span class="who-label">Ingrid</span>*writing it down* A number and sources. You've no idea how rare that is. Right — my honest position: I don't have fifty-four in this year's budget. I might have some of it. And before you deflate: might is not a brush-off, it's a budget cycle.</div>
+            <div class="say say-a"><span class="who-label">Ingrid</span>*writing it down* A number and sources. You've no idea how rare that is. Right — my honest answer: I don't have fifty-four in this year's budget. I might have some of it. And before you deflate: might is not a brush-off, it's a budget cycle.</div>
             <div class="say say-b"><span class="who-label">You</span>Then let me ask the useful question: what would need to be true for the answer to be yes? Not for "some of it" — for fifty-four.</div>
             <div class="say say-a"><span class="who-label">Ingrid</span>…Two things, honestly. The Keller growth holding through Q4 — and me getting it past Bergmann, who'll ask why now. You've just given me the ammunition for the second one, so mostly the first.</div>
             <div class="say say-b"><span class="who-label">You</span>Keller will hold — and I'll make sure the Q4 numbers land on your desk before you see Bergmann, not after. So: if it can't be now, when? And can we put that in writing — not a contract, just an email between us: the number, the conditions, the date we decide.</div>
             <div class="say say-a"><span class="who-label">Ingrid</span>January budget round. And yes to the email — honestly, it protects me too; Bergmann respects a paper trail. You'll have it by Friday: fifty-four, conditional on Keller holding, decided in January. …You realise most people leave this room with "we'll see" and a good feeling that evaporates by Thursday.</div>
             <div class="say say-b"><span class="who-label">You</span>That's exactly what I came in determined not to leave with. One more thing, because I'd rather hear it from you than guess: which part of my case is weakest? If Bergmann pushes back, I want to know where the soft spot is.</div>
             <div class="say say-a"><span class="who-label">Ingrid</span>*a slow smile* The training. Everyone claims training. If I were you, I'd get Priya and Marc's numbers — time-to-independence, error rates, something Bergmann can't wave away. Do that, and your case has no soft spot at all.</div>
-            <div class="say say-b"><span class="who-label">You</span>You'll have it with the Keller numbers. Thank you, Ingrid — for the straight answers most of all. And to say it plainly: I'm not threatening to leave. I like it here. I'm asking to stay well.</div>
+            <div class="say say-b"><span class="who-label">You</span>You'll have it with the Keller numbers. Thank you, Ingrid — for the straight answers most of all. And to say it plainly: I'm not threatening to leave. I like it here — I want to stay. That's why I'm asking.</div>
             <div class="say say-a"><span class="who-label">Ingrid</span>I know. That's why this was easy. It's the ones who hint at other offers who make it hard — and they never have the number written down either.</div>
         </div>
 
@@ -134,9 +134,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 9</span>
-            <p><b>The job:</b> defusing the threat nobody said. Complete it:<br><br>"I'm not threatening to ___ — I'm asking to ___ well."</p>
+            <p><b>The job:</b> defusing the threat nobody said. Complete it:<br><br>"I'm not threatening to leave — I ___ to stay. That's why I'm asking."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"I'm not threatening to leave — I'm asking to stay well."</b><br>Every pay conversation has a ghost at the table: the other offer, the resignation, the counter-bid. Naming and dismissing it relaxes the whole room — Ingrid can advocate for someone who wants to stay far more easily than she can negotiate with someone holding a hidden door handle. And "asking to stay well" is simply the truest description of what a raise request is: the terms on which good stays good. (If you ARE leaving without the raise — different conversation, different lesson, and don't bluff this one; bluffs get called.)<br><br><b>Take it anywhere:</b> "I'm not threatening ___ — I'm asking to ___ well." Stay well, continue well, renew well. The de-escalation that strengthens the ask.</div>
+            <div class="rev"><b>"I'm not threatening to leave — I want to stay. That's why I'm asking."</b><br>Every pay conversation has a ghost at the table: the other offer, the resignation, the counter-bid. Naming and dismissing it relaxes the whole room — Ingrid can advocate for someone who wants to stay far more easily than she can negotiate with someone holding a hidden door handle. And it reframes the ask truthfully: you're negotiating the terms of staying, not the terms of leaving. (If you ARE leaving without the raise — different conversation, different lesson, and don't bluff this one; bluffs get called.)<br><br><b>Take it anywhere:</b> "I'm not threatening to go — I want to stay. That's why I'm asking." The de-escalation that strengthens the ask.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 10</span>
@@ -159,7 +159,7 @@ PANELS = [
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the meeting, out loud — role and pay, no ambush → fallen behind my actual job → three things changed since my number was set → comparing my pay to my job → I'm asking for fifty-four → what would need to be true for yes → if not now, when, in writing → which part is weakest → not threatening to leave, asking to stay well → straight answers, thank you. Ten sentences; one number that finally moves.</div>""",
+        <div class="tip"><b>Quick test:</b> the meeting, out loud — role and pay, no ambush → fallen behind my actual job → three things changed since my number was set → comparing my pay to my job → I'm asking for fifty-four → what would need to be true for yes → if not now, when, in writing → which part is weakest → not threatening to leave, I want to stay → straight answers, thank you. Ten sentences; one number that finally moves.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the meeting room is booked and the number is yours to say. Two rounds — the asker, then the budget.</p>
@@ -185,7 +185,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Ingrid</span>A number and sources — rare. Honest position: I don't have that in this year's budget. I might have some of it. And might is a budget cycle, not a brush-off.</div>
             <textarea class="blank" placeholder="Don't take some-of-it yet — what would need to be true for the full yes?"></textarea>
             <div class="say say-a"><span class="who-label">Ingrid</span>Two things: your big account holding through Q4, and me getting it past MY boss, who'll ask "why now". You've armed me for the second. So — mostly the first.</div>
-            <textarea class="blank" placeholder="Your deliverables, the when, the email in writing — then the weakest-part question and the no-threat close…"></textarea>
+            <textarea class="blank" placeholder="Your deliverables, the when, the email in writing — then the weakest-part question and the I-want-to-stay close…"></textarea>
         </div>
 
         <h3>Round 2 — now YOU are Ingrid 📊</h3>

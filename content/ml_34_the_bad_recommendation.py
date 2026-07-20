@@ -39,7 +39,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Rosa</span>…It's fine. It's — you know. Builders. It's what they're like, isn't it. It'll sort itself—</div>
             <div class="say say-b"><span class="who-label">You</span>Rosa. You've been saying "it's fine" for three weeks and your kitchen has wires hanging out of the wall. I'm not here for the polite version. All of it. Please.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>*a long breath — then the dam goes* Seven weeks, he said. It's been FIFTEEN. He hasn't been here since the 3rd. He answers maybe one message in four, always "next week, promise". I've paid sixty percent — SIXTY — and I'm washing plates in the BATH, and every time I walk past the kitchen I think: my friend said he was brilliant. And then I feel awful for thinking it. There. That's all of it.</div>
-            <div class="say say-b"><span class="who-label">You</span>Thank you — and don't feel awful; think it, it's fair. I recommended him in good faith, and good faith doesn't fix your kitchen. What I should have said back then, and didn't: he was great for MY job — which was a bathroom, small, three weeks. I had no idea how he handles a big one. That caveat was my job to give, and I didn't give it.</div>
+            <div class="say say-b"><span class="who-label">You</span>Thank you — and don't feel awful; think it, it's fair. I recommended him in good faith — but that doesn't fix your kitchen. What I should have said back then, and didn't: he was great for MY job — which was a bathroom, small, three weeks. I had no idea how he handles a big one. That caveat was my job to give, and I didn't give it.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>…You know, that actually helps. Ben keeps saying "it's not her fault, contracts are contracts" — which is TRUE, but it kept feeling like everyone was tidying themselves away from the mess. You just walked into it. So — what now? Because I'm past knowing what to even do.</div>
             <div class="say say-b"><span class="who-label">You</span>First, let's get precise: what's still outstanding — money, work, or both? Walk me through where it actually stands.</div>
             <div class="say say-a"><span class="who-label">Rosa</span>Work: the units are in but nothing's connected — no water, no power to the sockets, no worktops. Money: I've paid for the worktops and they've never appeared. That's the bit that keeps me up — two thousand, for stone I've never seen.</div>
@@ -90,11 +90,11 @@ PANELS = [
             <p><b>The job:</b> owning your share — precisely, not theatrically. Which version?</p>
             <div class="choice">
                 <div><b>A.</b> "This is all my fault. I feel terrible. I basically wrecked your kitchen."</div>
-                <div><b>B.</b> "I recommended him in good faith — and good faith doesn't fix your kitchen."</div>
+                <div><b>B.</b> "I recommended him in good faith — but that doesn't fix your kitchen."</div>
                 <div><b>C.</b> "Well, to be fair, he was fantastic for us. Maybe your job spooked him?"</div>
             </div>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the answer</button>
-            <div class="rev"><b>B — "I recommended him in good faith — and good faith doesn't fix your kitchen."</b><br>C is the fatal defence: true, irrelevant, and heard as "you're the problem". A drowns her disaster in your feelings and forces her to comfort YOU — the mess's second insult. B holds both facts without flinching: the recommendation was honest, and honesty is not a plumbing service. Own the vouching, not the plastering. The boundary is what makes the ownership credible.<br><br><b>Take it anywhere:</b> "I did ___ in good faith — and good faith doesn't fix ___." The precise apology for every honest mistake with consequences.</div>
+            <div class="rev"><b>B — "I recommended him in good faith — but that doesn't fix your kitchen."</b><br>C is the fatal defence: true, irrelevant, and heard as "you're the problem". A drowns her disaster in your feelings and forces her to comfort YOU — the mess's second insult. B holds both facts without flinching: the recommendation was honest, and honesty is not a plumbing service. Own the vouching, not the plastering. The boundary is what makes the ownership credible.<br><br><b>Take it anywhere:</b> "I did ___ in good faith — but that doesn't fix ___." The precise apology for every honest mistake with consequences.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 4</span>
@@ -158,7 +158,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the front step, out loud — sorry it was my guy → don't soften it → good faith doesn't fix kitchens → great for MY job, caveat was mine → what's outstanding, money or work → I'll call him today, let's use it → invoice, not a promise → not disappearing now it's gone wrong → has this damaged us → say what I know and stand behind it. Ten sentences; one friendship worth more after the disaster than before it.</div>""",
+        <div class="tip"><b>Quick test:</b> the front step, out loud — sorry it was my guy → don't soften it → in good faith, but that doesn't fix your kitchen → great for MY job, caveat was mine → what's outstanding, money or work → I'll call him today, let's use it → invoice, not a promise → not disappearing now it's gone wrong → has this damaged us → say what I know and stand behind it. Ten sentences; one friendship worth more after the disaster than before it.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now it's your guy, your friend, your front step. Two rounds — the recommender, then the friend with the wrecked kitchen.</p>
@@ -194,7 +194,7 @@ PANELS = [
             <textarea class="blank" placeholder="Three weeks of editing wants to hold — let the first honest crack show…"></textarea>
             <div class="say say-b"><span class="who-label">Friend</span>Rosa. Wires are hanging out of your wall. I'm not here for the polite version. All of it. Please.</div>
             <textarea class="blank" placeholder="The dam breaks — all of it, including the ugly thought about your friend…"></textarea>
-            <div class="say say-b"><span class="who-label">Friend</span>Think it — it's fair. I recommended him in good faith, and good faith doesn't fix your kitchen. He was great for MY job, which was small. That caveat was mine to give. So: what's outstanding — money, work, or both?</div>
+            <div class="say say-b"><span class="who-label">Friend</span>Think it — it's fair. I recommended him in good faith — but that doesn't fix your kitchen. He was great for MY job, which was small. That caveat was mine to give. So: what's outstanding — money, work, or both?</div>
             <textarea class="blank" placeholder="Give the shape of it — and say what Ben's 'contracts are contracts' has felt like…"></textarea>
             <div class="say say-b"><span class="who-label">Friend</span>Then I'm calling him today — he answers me faster, let's use that. Dates in writing, invoice for the worktops. And I'm not disappearing now it's gone wrong: I'm in until your taps run. Has this damaged us? I'd rather know.</div>
             <textarea class="blank" placeholder="Answer the brave question honestly — including what just changed in the last four minutes…"></textarea>

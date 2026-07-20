@@ -93,6 +93,36 @@ Sources so far:
 - Could you tell me…, please?
 - Softened refusals: "Well, I'm not sure." / "Tomorrow night's a bit difficult."
 
+## Agreeing and disagreeing [BC, B1]
+- I'm not so sure.
+- I think I disagree.
+- Don't get me wrong, I like it, but…
+- I see what you mean, but…
+- True. / That's true.
+- How about taking ___ away? / How about ___?
+- Maybe you've got a point there.
+- I think you're right.
+- Yes, definitely.
+
+## Asking a favour / refusing one [BC, B1]
+- I'm really sorry about this, but…
+- Would you be able to…?
+- Is there any chance you could…?
+- I'm not really sure if I can.
+- I would if I could, but I can't.
+- It's been planned for ages.
+- I'll make it up to you.
+- Name your price.
+
+## Responding to news [BC, B1 — full recap list]
+- Oh wow! Congratulations!
+- I can't believe it.
+- That's wonderful! / Well done. I'm really pleased for you.
+- Oh dear. What's happened?
+- Oh no, that's awful.
+- I'm so sorry. / What a shame.
+- Can I do anything to help?
+
 ---
 
 *Growth rule: one function at a time, 2–3 sources, phrases verbatim, source-tagged. Candidate

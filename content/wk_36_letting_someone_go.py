@@ -47,8 +47,8 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Karim</span>*a short, rough laugh* Thank you for not saying "opportunity". Or "journey". If you'd said journey I'd have thrown the file. …So what happens now? Practically. I can't think, so just — tell me slowly.</div>
             <div class="say say-b"><span class="who-label">You</span>Slowly, and it's all in this folder in writing, so nothing depends on you remembering today. Three things: you're paid until the end of March, plus the severance — the numbers are on page one. Your notice period — you don't have to work it; most people don't, and nobody will read anything into it either way. And the support: the outplacement service, and me. Which brings me to the part that isn't in the folder: I'll be a reference, and a good one — and that's not politeness. Any employer who calls me hears about the Deyton account and the person who ran it properly for three years.</div>
             <div class="say say-a"><span class="who-label">Karim</span>…Alright. Alright. Do I — what do I tell people? The team. My wife. Is there a script I'm supposed to follow?</div>
-            <div class="say say-b"><span class="who-label">You</span>What you tell people is yours to choose — there's no company line you have to say, and I'll follow your lead: if you want to tell the team yourself, the room is yours; if you want me to do it, I will, and I'll say exactly what we agree and nothing more. And Karim — don't decide anything big today. Not the notice period, not what you tell anyone, not the severance signature — the folder says you have until Friday week, and you should use it. Today is not a deciding day.</div>
-            <div class="say say-a"><span class="who-label">Karim</span>Not a deciding day. *standing, unsteady, then stopping at the door* Three years. You could have sent this in an email, you know. Deyton's guy got an email.</div>
+            <div class="say say-b"><span class="who-label">You</span>What you tell people is yours to choose — there's no company line you have to say, and I'll follow your lead: if you want to tell the team yourself, the room is yours; if you want me to do it, I will, and I'll say exactly what we agree and nothing more. And Karim — don't decide anything big today. Not the notice period, not what you tell anyone, not the severance signature — the folder says you have until Friday week, and you should use it.</div>
+            <div class="say say-a"><span class="who-label">Karim</span>*standing, unsteady, then stopping at the door* Three years. You could have sent this in an email, you know. Deyton's guy got an email.</div>
             <div class="say say-b"><span class="who-label">You</span>I know he did. I decided you'd get a person. It was the one part of this that was actually my decision — so it was the one part I could get right.</div>
         </div>
 
@@ -63,7 +63,7 @@ PANELS = [
             <div class="rev">
                 <b>1.</b> Inside the first three sentences — "your job is ending" — with no small-talk runway. Immediately after: the separation of role from work ("it would be ending whoever was in your chair"), backed by a concrete commitment — the good reference in writing.<br><br>
                 <b>2.</b> It's specific and checkable: a list of functions, not people; the mechanism named (merged to Hamburg); and the promise carries evidence — "any employer who calls me hears about the Deyton account." Boilerplate reassures; this one has receipts. Karim's test ("it's what everyone says") is met head-on, not dodged.<br><br>
-                <b>3.</b> Everything: the notice-period choice, what to tell people, the severance signature — "today is not a deciding day", with the real deadline (Friday week) named from the folder. Shock makes terrible decisions; the kindness is removing the need for any.
+                <b>3.</b> Everything: the notice-period choice, what to tell people, the severance signature — "don't decide anything big today", with the real deadline (Friday week) named from the folder. Shock makes terrible decisions; the kindness is removing the need for any.
             </div>
         </div>""",
 
@@ -133,9 +133,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 9</span>
-            <p><b>The job:</b> protecting him from today's decisions. Complete it:<br><br>"Don't decide anything ___ today. Today is not a ___ day."</p>
+            <p><b>The job:</b> protecting him from today's decisions. Complete it:<br><br>"Don't decide anything ___ today."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"Don't decide anything big today. Today is not a deciding day."</b><br>Shock produces terrible decisions with total confidence — storming out of the notice period, signing the severance unread, announcing things to the team in the worst possible words. This phrase takes every decision off the table and names the real deadline from the folder (Friday week — use it). It's the same protection you'd want lawyered around yourself on your worst day: time, granted formally, by someone with the standing to grant it.<br><br><b>Take it anywhere:</b> "Today is not a deciding day." After every shock — redundancy, diagnosis, bereavement, betrayal. Decisions keep; grief won't be hurried.</div>
+            <div class="rev"><b>"Don't decide anything big today."</b><br>Shock produces terrible decisions with total confidence — storming out of the notice period, signing the severance unread, announcing things to the team in the worst possible words. This phrase takes every decision off the table and names the real deadline from the folder (Friday week — use it). Plain, kind, and easy to obey. It's the same protection you'd want lawyered around yourself on your worst day: time, granted formally, by someone with the standing to grant it.<br><br><b>Take it anywhere:</b> "Don't decide anything big today." After every shock — redundancy, diagnosis, bereavement, betrayal. Decisions keep; grief won't be hurried.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 10</span>
@@ -152,13 +152,13 @@ PANELS = [
             <textarea class="blank" placeholder="The conversation, and the cost of the cushioning…"></textarea>
             <p class="cue">"What you're feeling is fair." — what's YOUR banned-words list — the false comforts you reach for under pressure?</p>
             <textarea class="blank" placeholder="Your 'opportunity' and 'journey' equivalents…"></textarea>
-            <p class="cue">"Today is not a deciding day." — when did shock make a decision for you? What would this sentence have saved?</p>
+            <p class="cue">"Don't decide anything big today." — when did shock make a decision for you? What would this sentence have saved?</p>
             <textarea class="blank" placeholder="The decision shock made, and its price…"></textarea>
         </div>
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the conversation, out loud, slowly — hard conversation, won't stretch it → your job is ending → the role, not your work, in writing → take it, no rush → what you're feeling is fair, all of it → reasons now or later, your call → folder, in writing, nothing to remember → a reference, and a good one → not a deciding day → the story is yours to choose. Ten sentences he'll replay for years — make them the ones you'd want replayed about you.</div>""",
+        <div class="tip"><b>Quick test:</b> the conversation, out loud, slowly — hard conversation, won't stretch it → your job is ending → the role, not your work, in writing → take it, no rush → what you're feeling is fair, all of it → reasons now or later, your call → folder, in writing, nothing to remember → a reference, and a good one → don't decide anything big today → the story is yours to choose. Ten sentences he'll replay for years — make them the ones you'd want replayed about you.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the door closes behind you. Two rounds — the manager, then the chair that hurts.</p>
@@ -214,7 +214,7 @@ PANELS = [
                 <li>Is "the role, not you" true when you say it — and evidenced?</li>
                 <li>Can you hold the silence and the anger without filling either?</li>
                 <li>Are the practicalities written down, so memory isn't required?</li>
-                <li>Does the person leave owning their own story — and their deciding days?</li>
+                <li>Does the person leave owning their own story — and free of same-day decisions?</li>
             </ul>
         </div>""",
 

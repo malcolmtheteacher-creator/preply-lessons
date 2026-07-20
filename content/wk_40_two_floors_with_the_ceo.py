@@ -47,7 +47,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Ms Adeyola</span>Two weeks bundled into a big project. Of course it is. *she takes out her phone — typing* I'm writing "Meyer invoices — ask why it's bundled" and the name Ana from floor four. Fair warning: someone from my office may email you, and your manager may briefly panic. Tell him it was a good panic.</div>
             <div class="say say-b"><span class="who-label">You</span>He'll survive it — he's actually the one who taught me to unbundle things; the bundling happened above him. That's worth knowing too: the fix has friends on floor four. It just needed a lift ride.</div>
             <div class="say say-a"><span class="who-label">Ms Adeyola</span>"The fix has friends on floor four." You're very quotable for eight-fifty in the morning, Ana. *releasing the doors* Last thing — you've had me for four floors' worth of time on a two-floor ride, so fair's fair: anything you want to ask me? Most people ask about strategy. It's always disappointing for everyone.</div>
-            <div class="say say-b"><span class="who-label">You</span>Then not strategy: what's the view from up there — what should we on four actually be worried about this year? Genuinely useful to know, and nobody ever tells us. We get the town-hall version, which is the weather forecast, not the weather.</div>
+            <div class="say say-b"><span class="who-label">You</span>Then not strategy: what's the view from up there — what should we on four actually be worried about this year? Genuinely useful to know, and nobody ever tells us. We get the town-hall version — and the town-hall version never says what to actually worry about.</div>
             <div class="say say-a"><span class="who-label">Ms Adeyola</span>*a pause, then plainly* Watch the Keller renewal in March. If it lands, we grow; if it wobbles, everything discretionary freezes — including nice little unbundled projects. That's the real weather. You didn't hear it in a lift.</div>
             <div class="say say-b"><span class="who-label">You</span>Heard nothing, know nothing — and we'll have the Meyer fix done before March either way, then. Thank you for the two floors, Ms Adeyola. This is me.</div>
             <div class="say say-a"><span class="who-label">Ms Adeyola</span>Ana from invoicing. The quiet bit that works. *doors closing* I'll remember.</div>
@@ -108,9 +108,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 5</span>
-            <p><b>The job:</b> the phrase that names a whole category. Complete it:<br><br>"The dashboards measure what fails loudly — and this fails ___."</p>
+            <p><b>The job:</b> naming the invisible cost, plainly. Complete it:<br><br>"It works, so nobody ever ___ about it."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"This fails politely."</b><br>Two words that did more than the whole preceding paragraph — because they gave the CEO a NAME for a pattern she'll now see everywhere ("how many other things in this company fail politely?"). Executives collect exactly this: compact language for diffuse problems. Give power a good phrase and you travel with it — that phrase will be in a board deck within a month, and its origin story is "someone on floor four". Coin carefully; coins circulate.<br><br><b>Take it anywhere:</b> find the two-word name for the pattern you see daily. "Fails politely", "works by heroics", "quiet retyping" — the phrase IS the influence.</div>
+            <div class="rev"><b>"It works, so nobody ever hears about it."</b><br>The plainest sentence in the whole exchange, and the one that landed hardest — because it names the blind spot in her instruments: dashboards catch what breaks loudly, never what three people quietly absorb. Executives can act on exactly this kind of sentence: concrete, unpolished, checkable by lunchtime. No jargon, no coinage — just the thing, said straight.<br><br><b>Take it anywhere:</b> "It works, so nobody ever hears about it." For every quiet cost your workplace has stopped noticing.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 6</span>
@@ -130,7 +130,7 @@ PANELS = [
             <span class="move">Phrase 8</span>
             <p><b>The job:</b> your one question — the weather, not the forecast. Complete it:<br><br>"What should we on four actually be ___ about this year? We get the town-hall version, which is the weather ___, not the weather."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"What should we actually be worried about this year? We get the forecast, not the weather."</b><br>Offered a free question, most people ask about strategy — "it's always disappointing for everyone", because the answer is the town-hall script. This question is different in kind: it asks power to point its telescope DOWN — what should my level brace for? — which executives can answer plainly and almost never get asked. The return was gold: the Keller renewal, March, the freeze condition. One question, one genuine piece of the real map.<br><br><b>Take it anywhere:</b> "What should people at my level actually be worried about?" The question that gets weather instead of forecasts, at every altitude.</div>
+            <div class="rev"><b>"What should we actually be worried about this year?"</b><br>Offered a free question, most people ask about strategy — "it's always disappointing for everyone", because the answer is the town-hall script. This question is different in kind: it asks power to point its telescope DOWN — what should my level brace for? — which executives can answer plainly and almost never get asked. The return was gold: the Keller renewal, March, the freeze condition. One question, one genuine piece of the real map.<br><br><b>Take it anywhere:</b> "What should people at my level actually be worried about?" The question that gets the real answer instead of the town-hall version, at every altitude.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 9</span>
@@ -159,7 +159,7 @@ PANELS = [
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> ninety seconds, out loud, doors closing — name, floor, the quiet bit that works → mostly Denise, honestly → one true thing, no complaint attached → works, so it never becomes a project → fails politely → unbundled, two weeks → the fix has friends on four → the weather, not the forecast → heard nothing, done before March → thanks for the two floors, this is me. Two floors; one name that now exists upstairs.</div>""",
+        <div class="tip"><b>Quick test:</b> ninety seconds, out loud, doors closing — name, floor, the quiet bit that works → mostly Denise, honestly → one true thing, no complaint attached → works, so it never becomes a project → works, so nobody hears about it → unbundled, two weeks → the fix has friends on four → the weather, not the forecast → heard nothing, done before March → thanks for the two floors, this is me. Two floors; one name that now exists upstairs.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the hand stops the doors and it's her. Two rounds — floor four, then floor six.</p>

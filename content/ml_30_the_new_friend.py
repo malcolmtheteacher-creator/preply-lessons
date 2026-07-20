@@ -43,7 +43,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Sam</span>Saturday… ah. Saturday I've got the kids, it's my weekend with them.</div>
             <div class="say say-b"><span class="who-label">You</span>No pressure at all — another time works too. Or bring them, honestly, if that's easier? The market's got the dinosaur thing on, I saw them setting up.</div>
             <div class="say say-a"><span class="who-label">Sam</span>…They would lose their MINDS at the dinosaur thing. You sure? Two kids under eight is a lot of coffee companionship.</div>
-            <div class="say say-b"><span class="who-label">You</span>I've got a niece — I speak fluent dinosaur. Ten o'clock? Let me take your number before one of us disappears — we've been doing this two months on a wave across a car park.</div>
+            <div class="say say-b"><span class="who-label">You</span>I've got a niece — I speak fluent dinosaur. Ten o'clock? Let me grab your number before I lose you — we've been doing this two months on a wave across a car park.</div>
             <div class="say say-a"><span class="who-label">Sam</span>*typing it in* Two months! Right — Saturday, ten, dinosaurs. If the kids are feral I apologise in advance.</div>
             <div class="say say-b"><span class="who-label">You</span>*Thursday, by message* Still on for Saturday? No drama if the weekend's got complicated.</div>
             <div class="say say-a"><span class="who-label">Sam</span>*message* Ah mate — I'm really sorry, their mum's swapped weekends on me, I've got a work thing Saturday now. Feel bad. Rain check?</div>
@@ -116,7 +116,7 @@ PANELS = [
             <p><b>The job:</b> capturing the contact before another two months of waving. Put the pieces in order:</p>
             <div class="jumble"><span>before one of us</span><span>Let me take your number</span><span>disappears.</span></div>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"Let me take your number before one of us disappears."</b><br>The unglamorous move the whole thing depends on: a plan without a contact channel is a rumour. "Before one of us disappears" makes it light — and it's true; gym schedules change, jobs move, and car-park friendships evaporate without a trace. Do it in the warm moment, on the spot, phone out. The number isn't forward; it's infrastructure.<br><br><b>Take it anywhere:</b> "Let me take your number before one of us disappears." The end of every good conversation with someone you'd like another one with.</div>
+            <div class="rev"><b>"Let me grab your number before I lose you."</b><br>The unglamorous move the whole thing depends on: a plan without a contact channel is a rumour. "Before one of us disappears" makes it light — and it's true; gym schedules change, jobs move, and car-park friendships evaporate without a trace. Do it in the warm moment, on the spot, phone out. The number isn't forward; it's infrastructure.<br><br><b>Take it anywhere:</b> "Let me grab your number before I lose you." The end of every good conversation with someone you'd like another one with.</div>
         </div>
 
         <h3>🛟 Surviving the wobbles</h3>
@@ -159,7 +159,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the whole arc, out loud — we should do this properly → I'll be honest, I don't know many people → are you around Saturday, no big plan → no pressure at all → bring them if it's easier → let me take your number → still on for Saturday? → no worries, but another day, I mean it → same again next month → can't do Saturday, what about the one after. Ten sentences between waving across a car park and a friend.</div>""",
+        <div class="tip"><b>Quick test:</b> the whole arc, out loud — we should do this properly → I'll be honest, I don't know many people → are you around Saturday, no big plan → no pressure at all → bring them if it's easier → grab your number before I lose you → still on for Saturday? → no worries, but another day, I mean it → same again next month → can't do Saturday, what about the one after. Ten sentences between waving across a car park and a friend.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the car park is yours and someone has to go first. Two rounds — the brave one, then the surprised one.</p>
@@ -195,7 +195,7 @@ PANELS = [
             <textarea class="blank" placeholder="You're pleased and surprised — answer honestly, including what you'd been assuming about them…"></textarea>
             <div class="say say-b"><span class="who-label">Teammate</span>Are you around Sunday morning? No big plan — there's a decent café by the park. An hour, done.</div>
             <textarea class="blank" placeholder="You genuinely can't do Sunday — decline WITH a counter-offer that proves it's not a brush-off…"></textarea>
-            <div class="say say-b"><span class="who-label">Teammate</span>Wednesday evening works! Right — let me take your number before one of us disappears.</div>
+            <div class="say say-b"><span class="who-label">Teammate</span>Wednesday evening works! Right — grab my number before you lose me.</div>
             <textarea class="blank" placeholder="Hand it over, lock the plan — and admit how long you'd been meaning to say something…"></textarea>
         </div>
 
