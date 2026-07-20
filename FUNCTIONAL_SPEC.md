@@ -27,6 +27,13 @@ Every candidate must pass all four:
 If you can't say what job it does in three words — *prefacing bad news*,
 *asking for a discount*, *checking understanding* — it isn't a phrase.
 
+**1b. The taught chunk is the BARE core — nothing bolted on.**
+The quotation marks contain only the functional unit, usually under ten words:
+"What does that mean for me, in practice?" — not "…for everyday life — screens,
+driving, small print?" Scene examples live in the dialogue and the reveal's
+commentary, never inside the phrase itself. If the chunk needs the scene's
+nouns to make sense, it isn't the phrase yet — keep trimming.
+
 **2. Swap the nouns and it still works.**
 "Is there any movement on the price?" works at a market, a garage, a supplier.
 "Mum mentioned the wing mirror" works nowhere else. That's the test.
