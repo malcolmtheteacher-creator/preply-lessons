@@ -40,7 +40,11 @@ repeated.
 
 **4. It has to be something people actually say.**
 Not plausible-sounding. Not written-to-land. If you can't hear a real person
-saying it on a real Tuesday, cut it.
+saying it on a real Tuesday, cut it. **And don't trust your ear alone: COLLECT,
+don't COMPOSE.** Exponents come from `ATTESTED_PHRASES.md` — the bank of
+phrases harvested from the British Council and other real sources — or from
+Malcolm. If the bank doesn't cover the function, research it first (2–3
+sources) and add to the bank BEFORE writing the lesson.
 
 ## Functions expand — they are not a fixed list
 
