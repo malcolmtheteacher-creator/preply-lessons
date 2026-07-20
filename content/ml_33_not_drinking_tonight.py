@@ -37,7 +37,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Dario</span>Right, glasses up, I'm pouring! Red or white? Actually don't answer, you're getting red, it's Rioja, it's GORGEOUS—</div>
             <div class="say say-b"><span class="who-label">You</span>Not for me tonight, thanks — what I WILL take is a lime and soda when you're near the bar. In a wine glass if it makes the photos better.</div>
             <div class="say say-a"><span class="who-label">Dario</span>A lime and — it's Marta's BIRTHDAY. One glass! One! It's practically a toast, it doesn't even count—</div>
-            <div class="say say-b"><span class="who-label">You</span>I'll join every toast, promise — lime and soda raised higher than anyone's Rioja. I'm good with this, honestly. Go pour Priya's before she starts on the bread.</div>
+            <div class="say say-b"><span class="who-label">You</span>Very tempting — but I'm fine with this, honestly. And I'll raise it for every toast, promise. Go pour Priya's before she starts on the bread.</div>
             <div class="say say-a"><span class="who-label">Priya</span>*leaning in, eyes narrowing* Hang on. Hang on hang on. Since when? Are you on antibiotics? Training for something? Oh my god — are you PREGNANT?</div>
             <div class="say say-b"><span class="who-label">You</span>*laughing* No story, Priya — I'm just not drinking at the moment. Genuinely nothing to detect. Put the magnifying glass away and tell me about the new flat.</div>
             <div class="say say-a"><span class="who-label">Priya</span>"At the moment." AT THE MOMENT. That's doing a lot of work in that sentence. Is it a month thing? A forever thing? Is it a THERAPY thing, because honestly I'd support—</div>
@@ -45,7 +45,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Priya</span>…We got the one with the ridiculous bathroom. Okay, fine, I'll drop it. But if there's ever a story, I get it first.</div>
             <div class="say say-b"><span class="who-label">You</span>Contractually agreed. *an hour later — Big Tom arrives at your end of the table, two beers deep, philosophical*</div>
             <div class="say say-a"><span class="who-label">Big Tom</span>You know what it is? No offence — but the not-drinking thing, it's like a mirror, isn't it. Makes everyone think about their OWN drinking. Bit of a downer on a birthday, that's all I'm saying. No offence.</div>
-            <div class="say say-b"><span class="who-label">You</span>None taken, Tom — and honestly, my not drinking isn't a comment on your drinking. Nothing in this glass is about you.</div>
+            <div class="say say-b"><span class="who-label">You</span>None taken, Tom — but honestly, don't worry about me. You carry on. Nothing in my glass is about your pint.</div>
             <div class="say say-a"><span class="who-label">Big Tom</span>Ha! Fair. FAIR. But seriously — one whisky with me. The good stuff, I'm buying. You used to LOVE the good stuff. Don't make me drink it alone like a sad man.</div>
             <div class="say say-b"><span class="who-label">You</span>You'll be drinking it next to me while I destroy you at darts, which is the opposite of alone. Ask me again in an hour if you like — the answer's the same, but I'll be three legs up by then.</div>
             <div class="say say-a"><span class="who-label">Big Tom</span>*narrowing his eyes* …You're serious about the darts.</div>
@@ -65,7 +65,7 @@ PANELS = [
             </ol>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
             <div class="rev">
-                <b>1.</b> Dario pushes occasion ("it's a birthday, it doesn't count") — stopped by the cheerful counter-order and a louder toast. Priya investigates ("antibiotics? pregnant? therapy?") — stopped by "no story, genuinely nothing to detect" plus a hard subject change to her flat. Tom philosophises ("your glass is a mirror") — stopped by naming the fear kindly ("my not drinking isn't a comment on your drinking"), the standing answer ("ask me in an hour — same answer"), and darts.<br><br>
+                <b>1.</b> Dario pushes occasion ("it's a birthday, it doesn't count") — stopped by the cheerful counter-order and a louder toast. Priya investigates ("antibiotics? pregnant? therapy?") — stopped by "no story, genuinely nothing to detect" plus a hard subject change to her flat. Tom philosophises ("your glass is a mirror") — stopped by the kind reassurance ("don't worry about me — you carry on"), the standing answer ("ask me in an hour — same answer"), and darts.<br><br>
                 <b>2.</b> "I'm just not drinking at the moment" — the fact, with no reasons attached. Refused: the why, the timeline ("a month thing? a forever thing?"), and any story for Priya's collection.<br><br>
                 <b>3.</b> A louder toast than anyone; the driving ("everyone wins — the cake survives"); the entertainment (sober darts, taking Tom's money); and full presence — "both of us are staying till the end." The glass changes; the friend doesn't.
             </div>
@@ -96,9 +96,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 3</span>
-            <p><b>The job:</b> the birthday/occasion pressure — "it doesn't even count!". Complete it:<br><br>"I'll ___ every toast — just with the lime and soda."</p>
+            <p><b>The job:</b> the birthday/occasion pressure — "it doesn't even count!". Complete it:<br><br>"It's very ___, but I'm fine with this, thanks."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"I'll join every toast — just with the lime and soda."</b><br>Occasion-pushers aren't really offering wine; they're checking you're IN — that the birthday matters to you, that you're not above the moment. So answer the real question: full-volume participation, glass contents irrelevant. Once Dario hears the toast is safe, the Rioja stops mattering. Join harder, drink nothing: it defuses almost every ceremony objection ever mounted.<br><br><b>Take it anywhere:</b> "I'm all in — just with a different glass." Weddings, leaving dos, championship nights: separate the joining from the substance.</div>
+            <div class="rev"><b>"It's very tempting, but I'm fine with this, thanks."</b><br>The classic two-part refusal: "it's very tempting" compliments the offer — it tells Dario the wine is good and the invitation was kind — and "I'm fine with this, thanks" closes the matter without a reason attached. Occasion-pushers are really checking you're IN, so add the joining separately: "and I'll raise it for every toast." Other real versions for the same moment: <i>"I really shouldn't."</i> · <i>"Not today, thanks."</i> · <i>"No, but thanks for asking."</i><br><br><b>Take it anywhere:</b> "It's very tempting, but…" — the refusal that flatters the offer. Wine, dessert, one more episode, one more round.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 4</span>
@@ -117,9 +117,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 6</span>
-            <p><b>The job:</b> answering "your empty glass judges us all". Complete it:<br><br>"My not drinking isn't a ___ on your drinking."</p>
+            <p><b>The job:</b> answering "your empty glass judges us all". Complete it:<br><br>"Don't ___ about me — you carry on."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"My not drinking isn't a comment on your drinking."</b><br>Big Tom said the honest thing drunk people say: the sober glass feels like a mirror. The rescue is naming the fear and retiring it with a joke — no sermon (which would prove his point), no defensiveness (ditto), just: my choice isn't a comment on yours. The laugh does the diplomatic work; the sentence underneath does the real work. Most glass-hostility is exactly this fear, and it dissolves the moment it's kindly named.<br><br><b>Take it anywhere:</b> "My ___ isn't a comment on yours." Diets at dinner parties, budgets among spenders, early nights among owls.</div>
+            <div class="rev"><b>"Don't worry about me — you carry on."</b><br>Big Tom said the honest thing drunk people say: the sober glass feels like a mirror, a silent comment on his pint. The rescue is the most ordinary reassurance in English: don't worry about me, you carry on. No sermon (which would prove his point), no defensiveness (ditto) — just permission for his evening to continue exactly as it was. Most glass-hostility is that mirror-fear, and it dissolves the moment the fear is kindly waved away.<br><br><b>Take it anywhere:</b> "Don't worry about me — you carry on." Diets at dinner parties, early nights, leaving the party first — the all-purpose release.</div>
         </div>
         <div class="q">
             <span class="move">Phrase 7</span>
@@ -154,7 +154,7 @@ PANELS = [
             <p>These ten hold any private choice against any loving, pushy table. Say each answer out loud before you type it.</p>
             <p class="cue">"Not for me tonight, thanks." — say it five times in a row, same warmth each time. Where does YOUR tone start to crack?</p>
             <textarea class="blank" placeholder="Your decline, and the round where it wobbles…"></textarea>
-            <p class="cue">"My ___ isn't a comment on yours." — which of your quiet choices do others read as judgement? Build the disarming sentence.</p>
+            <p class="cue">"Don't worry about me — you carry on." — which of your quiet choices do others read as judgement? Practise the release.</p>
             <textarea class="blank" placeholder="The choice, and the fear it triggers in others…"></textarea>
             <p class="cue">"I'll ___, then — everyone wins." — turn one of your differences into the group's gain.</p>
             <textarea class="blank" placeholder="Your difference, converted to infrastructure…"></textarea>
@@ -162,7 +162,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> the gauntlet, out loud, one warm tone throughout — not for me tonight → what I WILL take is → toast louder than anyone → no story → not about the one glass, I've decided → my glass isn't a comment on yours → ask me in an hour, same answer → don't make it a thing → I'll drive, everyone wins → staying till the end. Nine declined drinks; zero lost friends.</div>""",
+        <div class="tip"><b>Quick test:</b> the gauntlet, out loud, one warm tone throughout — not for me tonight → what I WILL take is → very tempting, but I'm fine with this → no story → not about the one glass, I've decided → don't worry about me, you carry on → ask me in an hour, same answer → don't make it a thing → I'll drive, everyone wins → staying till the end. Nine declined drinks; zero lost friends.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now the bottle is hovering over your glass. Two rounds — the decliner, then the pusher who learns.</p>
@@ -180,13 +180,13 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Dario</span>Glasses up, I'm pouring! You're getting the Rioja, it's GORGEOUS, don't argue—</div>
             <textarea class="blank" placeholder="The warm no — with your counter-order riding beside it…"></textarea>
             <div class="say say-a"><span class="who-label">Dario</span>But it's Marta's BIRTHDAY! One glass is basically a toast! It doesn't even COUNT—</div>
-            <textarea class="blank" placeholder="Answer the real question — the joining is safe, only the glass changes…"></textarea>
+            <textarea class="blank" placeholder="Very tempting, but you're fine with this — and the toast is safe, promise…"></textarea>
             <div class="say say-a"><span class="who-label">Priya</span>*leaning in* Hang on. Since WHEN? Antibiotics? Training? Oh my god, are you—</div>
             <textarea class="blank" placeholder="No story, nothing to detect — one fact, zero reasons, hard pivot to her news…"></textarea>
             <div class="say say-a"><span class="who-label">Priya</span>"At the moment," they say! Casually! Is it a month thing? A forever thing? I need a category!</div>
             <textarea class="blank" placeholder="Refuse the timeline debate — it's decided and you're happy — and close her case…"></textarea>
             <div class="say say-a"><span class="who-label">Big Tom</span>*two beers in* No offence — but the sober thing's a bit of a mirror, isn't it. Makes everyone think about their own pint. Bit of a downer. No offence.</div>
-            <textarea class="blank" placeholder="Name his fear kindly and retire it with a joke — your glass isn't a comment on his…"></textarea>
+            <textarea class="blank" placeholder="Wave the mirror-fear away kindly — don't worry about me, you carry on…"></textarea>
             <div class="say say-a"><span class="who-label">Big Tom</span>Fine, FAIR — but one whisky with me later. The GOOD stuff. Don't make me drink it alone like a sad man.</div>
             <textarea class="blank" placeholder="The standing answer, the everyone-wins trade — and your staying-till-the-end declaration…"></textarea>
         </div>
@@ -200,7 +200,7 @@ PANELS = [
             <textarea class="blank" placeholder="As Priya: investigate. Since when? What's the story? There's ALWAYS a story…"></textarea>
             <div class="say say-b"><span class="who-label">Friend</span>No story, genuinely — just a thing I'm doing at the moment. It's decided, and I'm happy. NOW — tell me about the thing YOU'VE been dying to talk about.</div>
             <textarea class="blank" placeholder="The pivot is working on you — feel it — but make one last push as Tom, mirror theory and all…"></textarea>
-            <div class="say say-b"><span class="who-label">Friend</span>Tom. My not drinking isn't a comment on your drinking — nothing in this glass is about you. Ask me again in an hour if you like; same answer, but I'll be beating you at darts by then. Don't make it a thing and it won't be a thing.</div>
+            <div class="say say-b"><span class="who-label">Friend</span>Tom. Don't worry about me — you carry on. Nothing in my glass is about your pint. Ask me again in an hour if you like; same answer, but I'll be beating you at darts by then. Don't make it a thing and it won't be a thing.</div>
             <textarea class="blank" placeholder="The campaign is dead — surrender gracefully, and say what actually convinced you…"></textarea>
         </div>
 
