@@ -51,7 +51,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Gilberto</span>I'd noticed, if I'm honest. I thought it was something at home.</div>
             <div class="say say-b"><span class="who-label">You</span>It wasn't. And can I say the actual thing before I lose my nerve — you backed me when I hadn't earned it, and I've never said thank you properly. …God. That came out like something off a card.</div>
             <div class="say say-a"><span class="who-label">Gilberto</span>It didn't.</div>
-            <div class="say say-b"><span class="who-label">You</span>It did. What I mean is — I'm not leaving because of you. I'm leaving despite you, which is worse for both of us.</div>
+            <div class="say say-b"><span class="who-label">You</span>It did. What I mean is — I'm not leaving because of you. If anything, you're the reason I stayed this long.</div>
             <div class="say say-a"><span class="who-label">Gilberto</span>…Right. Yeah. Okay. Right. What do you need from me?</div>
             <div class="say say-b"><span class="who-label">You</span>Ask me for anything on the way out. Except staying.</div>
         </div>
@@ -134,9 +134,9 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 8</span>
-            <p><b>The job:</b> the hardest sentence — distinguishing leaving <em>because of</em> from leaving <em>despite</em>. Complete it:<br><br>"I'm not leaving because of you. I'm leaving ___ you, which is worse for both of us."</p>
+            <p><b>The job:</b> the hardest sentence — making clear the leaving is not his fault, without reopening the decision. Complete it:<br><br>"I'm not leaving because of you. If anything, you're the reason I ___ this long."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"I'm not leaving because of you. I'm leaving despite you, which is worse for both of us."</b><br>A genuinely unusual thing to say and it's the sentence he'll remember. "Because of you" would let him fix something; "despite you" means he did everything right and you're going anyway — which is harder to hear and much more respectful, because it's true. The last clause acknowledges the cost to you both rather than pretending it's clean.<br><br><b>Take it anywhere:</b> "I'm not leaving because of you — I'm leaving despite you."</div>
+            <div class="rev"><b>"I'm not leaving because of you. If anything, you're the reason I stayed this long."</b><br>The sentence he'll remember. "Because of you" would let him fix something; this version tells him the truth instead — he did everything right, and it kept you two extra years. It closes the door on the negotiation while paying the debt in full, and every word of it is something people actually say.<br><br><b>Take it anywhere:</b> "I'm not leaving because of you — if anything, you're the reason I stayed this long." For every good boss, landlord and team you ever leave anyway.</div>
         </div>
 
         <h3>🤝 Handling the counter-offer and the sting</h3>
@@ -171,7 +171,7 @@ PANELS = [
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> run it out loud using all ten — quick because you deserve it → I'm resigning → not a negotiation → it's signed → not about the money → I'd stopped being any use → you backed me → despite you → a year ago it would have worked → anything except staying. Time how long before you say "resigning". Over thirty seconds and you've built a preamble.</div>""",
+        <div class="tip"><b>Quick test:</b> run it out loud using all ten — quick because you deserve it → I'm resigning → not a negotiation → it's signed → not about the money → I'd stopped being any use → you backed me → the reason I stayed this long → a year ago it would have worked → anything except staying. Time how long before you say "resigning". Over thirty seconds and you've built a preamble.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now you resign. Twice — once leaving, once being left.</p>

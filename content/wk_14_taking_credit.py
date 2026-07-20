@@ -49,7 +49,7 @@ PANELS = [
             <div class="say say-a"><span class="who-label">Ana</span>…Yeah. No, that's — God. I would have been livid. If you'd done that to me I'd have been livid.</div>
             <div class="say say-b"><span class="who-label">You</span>I'd want you to tell me if I'd done it to you. That's genuinely all this is.</div>
             <div class="say say-a"><span class="who-label">Ana</span>I'll say it to him tomorrow. And — next time, do you want to present it? Because honestly, I've been doing your presenting for about a year.</div>
-            <div class="say say-b"><span class="who-label">You</span>Next time, I'd rather be in the room than in the footnotes. So yes.</div>
+            <div class="say say-b"><span class="who-label">You</span>Next time, I'd rather present it with you. So yes.</div>
             <div class="say say-a"><span class="who-label">Ana</span>Right. Good. …Are we alright?</div>
             <div class="say say-b"><span class="who-label">You</span>That's it. That's the whole thing. We're fine.</div>
         </div>
@@ -139,7 +139,7 @@ PANELS = [
             <span class="move">Phrase 8</span>
             <p><b>The job:</b> setting up the future rather than relitigating the past. Complete it:<br><br>"Next time, I'd rather be in the ___ than in the ___."</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
-            <div class="rev"><b>"Next time, I'd rather be in the room than in the footnotes."</b><br>To be <b>in the footnotes</b> is to be mentioned but not present — acknowledged in small print while somebody else does the talking. This turns a complaint into a request about how you'll work together, which is much easier to say yes to than an apology. It's also the sentence that produces Ana's offer.<br><br><b>Take it anywhere:</b> "I'd rather be in the room than in the footnotes."</div>
+            <div class="rev"><b>"Next time, I'd rather present it with you."</b><br>The forward-looking request: instead of relitigating what happened, you name how you want it to work from now on — which is much easier to say yes to than an apology. It's also the sentence that produces Ana's offer.<br><br><b>Take it anywhere:</b> "Next time, I'd rather ___ with you." Present it, be in the meeting, sign it jointly — the request that fixes the future instead of the past.</div>
         </div>
 
         <h3>🤝 Landing it as colleagues</h3>
@@ -171,7 +171,7 @@ PANELS = [
 
         <a class="morelink" href="english_at_work_phrase_bank.html">🧰 <span>Every phrase from every English at Work lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> run it out loud using all ten — slightly awkward → not making a thing → that was mine → I counted → they don't, though → not on purpose but you did it → say my name → in the room not the footnotes → I'd want you to tell me → that's the whole thing. Under two minutes. If it ran longer, you've built a case, and a case invites a defence.</div>""",
+        <div class="tip"><b>Quick test:</b> run it out loud using all ten — slightly awkward → not making a thing → that was mine → I counted → they don't, though → not on purpose but you did it → say my name → next time, present it with me → I'd want you to tell me → that's the whole thing. Under two minutes. If it ran longer, you've built a case, and a case invites a defence.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now you raise it. Twice — once claiming, once being corrected.</p>

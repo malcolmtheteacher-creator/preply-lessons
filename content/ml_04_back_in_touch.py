@@ -43,8 +43,8 @@ PANELS = [
             <div class="say say-b"><span class="who-label">You</span>I'm alright. I know I'm ringing a bit out of the blue.</div>
             <div class="say say-a"><span class="who-label">Ronan</span>You are, a bit. In a good way. God, how long's it been?</div>
             <div class="say say-b"><span class="who-label">You</span>Two years, I think. Which is ridiculous, and that's on me as much as anyone.</div>
-            <div class="say say-a"><span class="who-label">Ronan</span>No — no, it's both of us, isn't it. It's not like I've been ringing you either. It just sort of… closed over, didn't it.</div>
-            <div class="say say-b"><span class="who-label">You</span>That's exactly it. Nothing happened, it just closed over. Anyway — you've genuinely been on my mind, and I got fed up of thinking about ringing and not doing it.</div>
+            <div class="say say-a"><span class="who-label">Ronan</span>No — no, it's both of us, isn't it. It's not like I've been ringing you either. We just sort of… drifted, didn't we.</div>
+            <div class="say say-b"><span class="who-label">You</span>That's exactly it. Nothing happened, we just drifted. Anyway — you've genuinely been on my mind, and I got fed up of thinking about ringing and not doing it.</div>
             <div class="say say-a"><span class="who-label">Ronan</span>Well I'm glad you did. Honestly. How's — is everything alright? You're not ringing to tell me something awful?</div>
             <div class="say say-b"><span class="who-label">You</span>Nothing awful, no. Everyone's fine. It's genuinely just this.</div>
             <div class="say say-a"><span class="who-label">Ronan</span>Right. Good. …That's nice, actually. Nobody rings for nothing any more.</div>
@@ -66,7 +66,7 @@ PANELS = [
             <button class="rev-btn" onclick="toggleRev(this)">Reveal answers</button>
             <div class="rev">
                 <b>1.</b> Whether everything's alright — whether You is ringing with bad news. After a long silence, an unexpected call reads as an announcement, so saying early that it's "genuinely just this" is a kindness.<br><br>
-                <b>2.</b> It "closed over" — nothing happened, the gap simply healed shut. Ronan says it first and You agrees, which is what makes it nobody's fault.<br><br>
+                <b>2.</b> They "just drifted" — nothing happened, nobody chose it. Ronan says it first and You agrees, which is what makes it nobody's fault.<br><br>
                 <b>3.</b> Names a specific date, tells him to put it in the diary there and then, and offers to travel. Each one removes a reason for it not to happen.
             </div>
         </div>""",
@@ -107,7 +107,7 @@ PANELS = [
             <p><b>The job:</b> describing how the friendship lapsed in a way that blames nobody. Say it out loud, then write it.</p>
             <textarea class="blank" placeholder="How does a friendship stop without anyone deciding to…"></textarea>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal a strong version</button>
-            <div class="rev"><b>e.g. "Nothing happened — it just closed over."</b><br>The image does the work: something closing over is nobody's action. It's the accurate description of most lost friendships, and saying it out loud is a relief to both people, because each has privately wondered whether they did something. Get this said early and the rest of the call is free.<br><br><b>Take it anywhere:</b> "Nothing happened — it just closed over." / "Life sort of closed over the gap."</div>
+            <div class="rev"><b>e.g. "Nothing happened — we just drifted."</b><br>"Drifting apart" is nobody's action — that's why the phrase exists. It's the accurate description of most lost friendships, and saying it out loud is a relief to both people, because each has privately wondered whether they did something. Get this said early and the rest of the call is free.<br><br><b>Take it anywhere:</b> "Nothing happened — we just drifted." / "We just drifted apart, didn't we."</div>
         </div>
         <div class="q">
             <span class="move">Phrase 5</span>
@@ -168,7 +168,7 @@ PANELS = [
 
         <a class="morelink" href="modern_life_phrase_bank.html">🧰 <span>Every phrase from every Modern Life lesson, sorted by what it does.</span><span class="go">Open →</span></a>
 
-        <div class="tip"><b>Quick test:</b> run the call out loud using all ten — deleted my number → out of the blue → on me as much as anyone → it just closed over → been on my mind → nothing's wrong → not the we-must-catch-up thing → put it in now → I'll come to you → missed this more than I realised. Then check: did you come off the phone with a date? If not, the call failed.</div>""",
+        <div class="tip"><b>Quick test:</b> run the call out loud using all ten — deleted my number → out of the blue → on me as much as anyone → we just drifted → been on my mind → nothing's wrong → not the we-must-catch-up thing → put it in now → I'll come to you → missed this more than I realised. Then check: did you come off the phone with a date? If not, the call failed.</div>""",
 
 """        <h2>Your Turn <span class="em">🎭</span></h2>
         <p class="lead">Now you ring. Twice — once ringing, once being rung.</p>
