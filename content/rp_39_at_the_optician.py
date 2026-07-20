@@ -104,7 +104,7 @@ PANELS = [
         </div>
         <div class="q">
             <span class="move">Phrase 4</span>
-            <p><b>The job:</b> translating the diagnosis into your actual days. Complete it:<br><br>"What does that mean for everyday life — ___, ___, small print?"</p>
+            <p><b>The job:</b> turning the diagnosis into practical daily advice. Complete it:<br><br>"What does that ___ for everyday ___ — screens, driving, small print?"</p>
             <button class="rev-btn" onclick="toggleRev(this)">Reveal the phrase</button>
             <div class="rev"><b>"What does it mean for everyday life — screens, driving, small print?"</b><br>"Mild myopia with presbyopia" is a fact about your eyes; "screens are where you'll feel it, driving's legal without" is a fact about your LIFE — and only the second one tells you what to do. Naming your big three (screens, driving, print) hands the expert the translation targets. Every diagnosis in every field deserves this question before you leave the room.<br><br><b>Take it anywhere:</b> "What does that mean for everyday life?" Medical results, legal advice, survey reports — demand the lived translation.</div>
         </div>
