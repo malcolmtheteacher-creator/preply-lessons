@@ -140,6 +140,7 @@
             <div class="toolbar">
                 <label>Sort:
                     <select id="sortSelect" onchange="applyFilters()">
+                        <option value="rel">Best match</option>
                         <option value="az">Title A–Z</option>
                         <option value="level">Level (A1 → C2)</option>
                         <option value="series">Series</option>
@@ -500,22 +501,61 @@
             applyFilters();
         }
 
+        function scoreLesson(l, q, words) {
+            // Per-field text, cheapest first; full-text bag only consulted when needed
+            const title = (l.title||'').toLowerCase().replace(/[-_]/g,' ');
+            const grammar = (l.grammar||'').toLowerCase().replace(/[-_]/g,' ');
+            const kw = (l.keywords||'').toLowerCase().replace(/[-_]/g,' ');
+            const fname = (l.filename||'').toLowerCase().replace(/[-_]/g,' ');
+            const meta = (l.level+' '+l.series).toLowerCase();
+            let bag = null;
+            let score = 0;
+            for (const w of words) {
+                let s = 0;
+                if (title.includes(w)) s += 50;
+                if (grammar.includes(w)) s += 30;
+                if (fname.includes(w)) s += 20;
+                if (kw.includes(w)) s += 15;
+                if (meta.includes(w)) s += 10;
+                if (s === 0) {
+                    if (bag === null) bag = ((window.lessonSearch&&window.lessonSearch[l.filename])||'').toLowerCase();
+                    if (bag.includes(w)) s = 3;
+                }
+                if (s === 0) return 0;   // every query word must match somewhere
+                score += s;
+            }
+            // Whole-phrase bonuses put the lesson that is ABOUT the query on top
+            if (words.length > 1) {
+                if (title.includes(q)) score += 120;
+                else if (grammar.includes(q)) score += 70;
+                else if (kw.includes(q)) score += 30;
+            }
+            return score;
+        }
+
         function applyFilters() {
-            const q = document.getElementById('searchInput').value.toLowerCase().replace(/[-_]/g,' ').trim();
+            const q = document.getElementById('searchInput').value.toLowerCase().replace(/[-_]/g,' ').replace(/\s+/g,' ').trim();
+            const words = q ? q.split(' ') : [];
             const hideHubs = document.getElementById('hideHubs').checked;
             const sort = document.getElementById('sortSelect').value;
             const lvls = [...selLevels];
+            const scores = {};
             let out = lessons.filter(l => {
                 if (hideHubs && l.hub) return false;
                 if (lvls.length) { const lv = (l.level||'').toUpperCase(); if (!lvls.some(x => lv.includes(x))) return false; }
                 if (selSeries.size && !selSeries.has(l.series)) return false;
                 if (q) {
-                    const text = (l.title+' '+l.level+' '+l.series+' '+l.grammar+' '+l.keywords+' '+l.filename+' '+((window.lessonSearch&&window.lessonSearch[l.filename])||'')).toLowerCase().replace(/[-_]/g,' ');
-                    if (!text.includes(q)) return false;
+                    const s = scoreLesson(l, q, words);
+                    if (!s) return false;
+                    scores[l.filename] = s;
                 }
                 return true;
             });
-            if (sort === 'az') out.sort((a,b) => a.title.localeCompare(b.title));
+            if (sort === 'rel') {
+                if (q) out.sort((a,b) => (scores[b.filename]-scores[a.filename]) || a.title.localeCompare(b.title));
+                else out.sort((a,b) => a.title.localeCompare(b.title));
+            }
+            else if (sort === 'az') out.sort((a,b) => a.title.localeCompare(b.title));
             else if (sort === 'level') out.sort((a,b) => ((LEVEL_ORDER[(a.level||'').slice(0,2).toUpperCase()]||9) - (LEVEL_ORDER[(b.level||'').slice(0,2).toUpperCase()]||9)) || a.title.localeCompare(b.title));
             else if (sort === 'series') out.sort((a,b) => (a.series||'~~').localeCompare(b.series||'~~') || a.title.localeCompare(b.title));
             renderCards(out);
@@ -3402,7 +3442,7 @@
     { filename: 'bestiary_memory_lesson.html', title: 'You Have a Superpower', level: '', series: '', grammar: '', duration: '', hub: false, keywords: 'scenes, memory, them, just, creature, chain, brain, name, bestiary, connected, picture, remember, challenge, build, test, let\'s, right, into, person, scene, creatures, secret' },
     { filename: 'b2_89_you_have_to_apply_for_that.html', title: 'You Have to Apply for THAT? — B2/C1 English Lesson', level: 'B2/C1', series: 'Topic Explorer', grammar: '', duration: '', hub: false, keywords: 'application, pitch, proving, yourself, life, ridiculous, everyday, interview, like, credentials, process, something, track, record, real, book, club, gym, challenge, experience, apply, welcome' },
     { filename: 'acad_b1_07_basic_presentations.html', title: 'Your First Presentation in English', level: 'B1', series: '', grammar: '', duration: '', hub: false, keywords: 'presentation, points, conclusion, audience, point, introduction, structure, signposting, main, confidence, guide, key, name, topic, body, presenting, nerves, plan, language, between, summarise, thank' },
-    { filename: 'pathway_builder.html', title: 'Your Learning Pathway', level: 'A1/A2', series: '', grammar: 'Comparative Language","lv":"b1","cat":"grammar","d":"","sk":"grammar",', duration: '50 min', hub: true, keywords: 'topics, html, cat, life, history, communication, law, culture, short, ielts, work, skills, echoes, medicine, presentations, education, management, professional, business, technology, academic, prep' },
+    { filename: 'pathway_builder.html', title: 'Your Learning Pathway', level: 'A1/A2', series: '', grammar: 'Comparative Language","lv":"b1","cat":"grammar","d":"","sk":"grammar",', duration: '50 min', hub: true, keywords: 'topics, html, cat, life, history, communication, law, culture, short, ielts, work, skills, echoes, medicine, presentations, education, professional, management, business, technology, academic, prep' },
     { filename: 'bl_01_memory_liar.html', title: 'Your Memory is a Liar', level: '', series: '', grammar: '', duration: '', hub: false, keywords: 'memory, evidence, try, memories, into, calls, whether, it\'s, suggests, rather, widely, assumed, reliable, them, reality, trust, lies, doubt, questioning, confidence, click, brain' },
     { filename: 'speaking_naturally_mental_toolkit.html', title: 'Your Mental Toolkit: 5 Ideas That Change Everything', level: 'B2', series: 'Speaking Naturally', grammar: '', duration: '50 min', hub: false, keywords: 'expressions, it\'s, mental, just, tend, challenge, control, stressed, try, works, distracted, models, quick, sharing, topics, phone, minute, rule, click, remember, don\'t, assume' },
     { filename: 'rs_y11_aut1_25_05.html', title: 'Zakah: Obligatory Charitable Giving - Year 11 Religious Studies', level: '', series: '', grammar: '', duration: '', hub: false, keywords: 'zakah, wealth, khums, obligatory, sadaqah, shi\'a, islam, poor, fasting, sawm, mark, eight, categories, allah, charitable, giving, nisab, right, pillar, qur\'an, surah, muslims' },
