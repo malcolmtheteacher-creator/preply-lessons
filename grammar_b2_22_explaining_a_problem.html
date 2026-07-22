@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It's Been Making a Noise: Explaining a Problem | B2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --warning: #f4a261;
+    --warning-bg: #fdebd0;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  .tab-content {
+    display: none;
+    padding: 30px 20px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .tab-content.active { display: block; animation: fadeIn 0.3s; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  h1 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 600; }
+  h2 { font-size: 1.4rem; margin: 24px 0 14px; font-weight: 600; }
+  h3 { font-size: 1rem; margin: 18px 0 10px; font-weight: 600; }
+  p { margin: 12px 0; }
+
+  .intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .dialogue {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+  }
+  .dialogue p { margin: 8px 0; }
+  .dialogue .who { font-weight: 600; color: var(--accent); margin-right: 8px; }
+
+  .structure-box {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  .highlight-box {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .example-list { margin: 12px 0; padding: 0 0 0 20px; }
+  .example-list li { margin: 8px 0; font-size: 0.95rem; }
+
+  .reveal-container { margin: 12px 0; }
+
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+  }
+
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .reveal-prompt .click-hint {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 8px;
+    animation: slideDown 0.3s;
+    font-size: 0.95rem;
+  }
+
+  .reveal-answer.visible { display: block; }
+
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .gap-line { font-size: 1rem; margin: 10px 0 4px; line-height: 2.2; }
+
+  .gap-input {
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    min-width: 220px;
+    color: var(--text);
+  }
+  .gap-input:focus { outline: none; border-color: #4a5fd0; background: var(--accent-light); }
+
+  .text-area {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .text-area:focus { outline: none; border-color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 10px 6px 4px 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+
+  .feedback {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: 10px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .mcq-btn {
+    text-align: left;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .mcq-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .speak-box {
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+  }
+  .speak-chip {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .speak-box ol { margin: 8px 0 4px 20px; }
+  .speak-box li { margin: 7px 0; font-size: 0.95rem; }
+
+  .timer-container { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 76px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .timer-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-timer { background: var(--accent-light); color: var(--accent); }
+  .btn-timer:hover { opacity: 0.8; }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+
+  .ican { list-style: none; padding: 0; margin: 12px 0; }
+  .ican li { margin: 10px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; }
+  .ican input[type="checkbox"] { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--accent); cursor: pointer; }
+
+  @media (max-width: 768px) {
+    .gap-input { min-width: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab2')">2. How Long Has This Been Happening?</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab3')">3. What's Been Done About It?</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab4')">4. Could You Tell Me...?</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab5')">5. At the Counter</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab6')">6. Mix It Up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab7')">7. What Do You Remember?</button>
+</div>
+
+<!-- Tab 1: Warm-up -->
+<div id="tab1" class="tab-content active">
+  <h1>Warm-up</h1>
+
+  <p>Out loud, before anything else — don't worry about mistakes, just talk.</p>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Think of something in your home that's broken, or stopped working properly, at some point in the last year. Say one sentence about it — what was wrong with it?</p>
+  </div>
+
+  <h2>Listen in at the counter</h2>
+
+  <div class="dialogue">
+    <p><span class="who">Customer:</span> Hi — I brought my laptop in last week. It's been overheating and shutting down without warning.</p>
+    <p><span class="who">Assistant:</span> Let's see... yes, here it is. It's being checked over today, actually.</p>
+    <p><span class="who">Customer:</span> Oh, good. Do you know roughly when it'll be ready?</p>
+    <p><span class="who">Assistant:</span> I can't promise a time, but I'll call you the second it's done.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>Look at what's happening in this short exchange.</strong> Three completely different jobs, done by three different structures. Can you spot all three? Say them before you check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check your answer</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>1.</strong> "it's been overheating" — the problem's history, still going or only just stopped.<br>
+        <strong>2.</strong> "it's being checked over" — what's happening to it right now, without naming who's doing it.<br>
+        <strong>3.</strong> "Do you know roughly when it'll be ready?" — a real question, wrapped up to sound polite.<br><br>
+        Master these three and you can explain almost anything that's gone wrong — and actually find out what happens next.
+      </div>
+    </div>
+  </div>
+
+  <div class="intention">
+    Today: telling the story of a problem (<strong>it's been doing this...</strong>), explaining what's happening to it (<strong>it's being looked at / it got knocked / it needs...</strong>), and asking politely what happens next (<strong>Could you tell me... / Do you know if...</strong>) — so you can explain something broken and get a real answer, not just "give it here".
+  </div>
+</div>
+
+<!-- Tab 2: Present perfect continuous -->
+<div id="tab2" class="tab-content">
+  <h1>How Long Has This Been Happening?</h1>
+  <p style="color: var(--text-light);">The tense for telling the story of a problem — when it started, and whether it's still going on.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <ul class="example-list">
+      <li>"My phone<strong>'s been switching</strong> itself off all week."</li>
+      <li>"The washing machine<strong>'s been making</strong> a strange clunking noise since Saturday."</li>
+      <li>"It<strong>'s been getting</strong> louder every time I use it."</li>
+    </ul>
+    <p>What's the shared machinery, and when would you reach for it? Say it, then check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>have / has + been + -ing.</strong> Use it for a problem that stretches from a starting point up to now — still happening, or only just stopped. It usually comes with <em>for, since, lately,</em> or <em>all week</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    have / has + been + verb-ing &nbsp;(+ for / since / lately / all week)
+  </div>
+
+  <div class="highlight-box">
+    Notice the shift between two tenses: "it's been overheating for days" tells the story so far (still going). "This morning it finally died" is the single moment it happened (simple past). Explaining a problem properly usually needs both.
+  </div>
+
+  <h2>Quick check</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> Your headphones have had a crackling sound in the left ear for about ten days, and it's not stopping. Use the continuous form of <em>crackle</em>:</p>
+    <p class="gap-line">"My headphones <input type="text" class="gap-input" id="ppc1" autocomplete="off"> in the left ear for about ten days."</p>
+    <button class="btn-primary" onclick="checkEx('ppc1')">Check</button>
+    <div class="feedback" id="ppc1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> The boiler has cut out every evening since the cold snap started, and it's still doing it. Use the continuous form of <em>cut out</em>:</p>
+    <p class="gap-line">"The boiler <input type="text" class="gap-input" id="ppc2" autocomplete="off"> every evening since the cold snap started."</p>
+    <button class="btn-primary" onclick="checkEx('ppc2')">Check</button>
+    <div class="feedback" id="ppc2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> The dishwasher's door catch has jammed shut on and off for the last fortnight, and it's not getting any better. Use the continuous form of <em>jam</em>:</p>
+    <p class="gap-line">"The dishwasher's door catch <input type="text" class="gap-input" id="ppc3" autocomplete="off"> for the last fortnight."</p>
+    <button class="btn-primary" onclick="checkEx('ppc3')">Check</button>
+    <div class="feedback" id="ppc3-fb"></div>
+  </div>
+
+  <h2>Now say it — three problems, out loud</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Tell me about three things that have been going wrong lately — a household item, something you own personally, and something in your neighbourhood. Use <strong>have been + -ing</strong> every time:</p>
+    <ol>
+      <li>Something at home that's been playing up...</li>
+      <li>Something of yours that's been behaving strangely...</li>
+      <li>Something nearby that's been annoying everyone for a while...</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Tab 3: Passives for status and process -->
+<div id="tab3" class="tab-content">
+  <h1>What's Been Done About It?</h1>
+  <p style="color: var(--text-light);">Once you've explained the problem, this is how you explain what's happened to it — without saying who did what.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <ul class="example-list">
+      <li>"It<strong>'s being looked at</strong> right now — should be ready by five."</li>
+      <li>"It <strong>got knocked</strong> off the shelf and the screen cracked."</li>
+      <li>"Apparently it <strong>needs oiling</strong> — that's what's causing the squeak."</li>
+    </ul>
+    <p>Three different flavours of the same idea. What do they share, and what's different? Say it, then check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        All three put the <strong>thing</strong> first, because who did it doesn't matter.<br>
+        <strong>is/are being + past participle</strong> — happening right now, in progress.<br>
+        <strong>got + past participle</strong> — the spoken favourite for a past event, often an accident.<br>
+        <strong>needs + -ing</strong> — looks active (it's an -ing form!) but means passive: "it needs oiling" = "it needs to be oiled".
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    is / are being + past participle &nbsp;(happening now)<br>
+    got + past participle &nbsp;(spoken, a past event)<br>
+    needs + verb-ing &nbsp;=&nbsp; needs to be + past participle
+  </div>
+
+  <div class="highlight-box">
+    The trap: "it needs oiling", never "it needs oil it" or "it needs to oil". The thing doesn't do the action — the action happens TO it.
+  </div>
+
+  <h2>Quick check</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> Right now, someone's actually repairing your printer downstairs — it's in pieces on the desk. Use the continuous passive of <em>repair</em>:</p>
+    <p class="gap-line">"It <input type="text" class="gap-input" id="pv1" autocomplete="off"> downstairs at the moment — try not to worry."</p>
+    <button class="btn-primary" onclick="checkEx('pv1')">Check</button>
+    <div class="feedback" id="pv1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> Your jacket zip jammed halfway up yesterday, right when you were rushing out the door. Tell a friend what happened, using <em>get</em> + <em>stick</em>:</p>
+    <p class="gap-line">"The zip <input type="text" class="gap-input" id="pv2" autocomplete="off"> halfway up yesterday, of all days."</p>
+    <button class="btn-primary" onclick="checkEx('pv2')">Check</button>
+    <div class="feedback" id="pv2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> Your bike's back light won't turn on any more, and the shop says the battery inside is corroded beyond saving. Explain it to a friend, using <em>need</em> + <em>change</em>:</p>
+    <p class="gap-line">"Apparently the battery <input type="text" class="gap-input" id="pv3" autocomplete="off"> — it's beyond saving."</p>
+    <button class="btn-primary" onclick="checkEx('pv3')">Check</button>
+    <div class="feedback" id="pv3-fb"></div>
+  </div>
+
+  <h2>Now say it — the news round</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Give me three pieces of news about something broken, lost, or being fixed — real or invented. Use at least one of each:</p>
+    <ol>
+      <li>Something that's <strong>being</strong> looked at or worked on right now...</li>
+      <li>Something that <strong>got</strong> broken, lost, or damaged...</li>
+      <li>Something that <strong>needs</strong> doing before it'll work properly again...</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Tab 4: Indirect questions -->
+<div id="tab4" class="tab-content">
+  <h1>Could You Tell Me...?</h1>
+  <p style="color: var(--text-light);">Turning a direct question into a polite, indirect one — useful the moment you need something from someone.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <ul class="example-list">
+      <li>"Could you tell me when it'll be ready?"</li>
+      <li>"Do you know if it's still under guarantee?"</li>
+      <li>"I was wondering whether you could take a look at it today."</li>
+    </ul>
+    <p>Each one wraps a real question inside a softer frame. What happens to the word order inside the frame? Say it, then check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        Inside the frame, the word order goes back to normal <strong>statement</strong> order — subject before verb — and <strong>do / does / did</strong> disappear completely. For a yes/no question, <strong>if</strong> or <strong>whether</strong> steps in where a question word would normally go.
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    Could you tell me + question word + subject + verb...?<br>
+    Do you know + if / whether + subject + verb...?<br>
+    I was wondering + whether/if + subject + could / would...
+  </div>
+
+  <div class="highlight-box">
+    The trap: <strong>"Could you tell me when will it be ready?"</strong> is wrong — the direct question order has leaked into the frame. It should be <strong>"Could you tell me when it will be ready?"</strong> Same for do-support: not "Do you know does it come with a warranty?" but "Do you know if it comes with a warranty?"
+  </div>
+
+  <h2>Quick check</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> The shop hasn't said anything about timing, and you want to know when the phone will be ready. Ask politely, starting with "Could you tell me":</p>
+    <p class="gap-line">"Could you tell me <input type="text" class="gap-input" id="iq1" autocomplete="off" style="min-width:280px;"> ?"</p>
+    <button class="btn-primary" onclick="checkEx('iq1')">Check</button>
+    <div class="feedback" id="iq1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> You want to know if this kind of screen damage is covered by the warranty, but you don't want to sound too direct. Start with "Do you know":</p>
+    <p class="gap-line">"Do you know <input type="text" class="gap-input" id="iq2" autocomplete="off" style="min-width:300px;"> ?"</p>
+    <button class="btn-primary" onclick="checkEx('iq2')">Check</button>
+    <div class="feedback" id="iq2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> Ask, as gently as possible, whether the shop could look at your bike gears today. Start with "I was wondering":</p>
+    <p class="gap-line">"I was wondering <input type="text" class="gap-input" id="iq3" autocomplete="off" style="min-width:300px;"> ?"</p>
+    <button class="btn-primary" onclick="checkEx('iq3')">Check</button>
+    <div class="feedback" id="iq3-fb"></div>
+  </div>
+
+  <h2>Now say it — soften it</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Turn these three blunt questions into polite, indirect ones, out loud:</p>
+    <ol>
+      <li>"What's wrong with it?"</li>
+      <li>"Can you fix it today?"</li>
+      <li>"Is it going to cost much?"</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Tab 5: At the Counter -->
+<div id="tab5" class="tab-content">
+  <h1>At the Counter</h1>
+  <p style="color: var(--text-light);">Everything together, out loud, from both sides of the conversation.</p>
+
+  <h2>Round 1 — you explain</h2>
+
+  <div class="card">
+    <p>Something of yours has stopped working properly — pick anything: a phone, a washing machine, a laptop, a boiler, headphones, a jacket zip. Real or invented.</p>
+    <p><strong>Talk for two full minutes.</strong> Cover all three:</p>
+    <ul class="example-list">
+      <li>its history — when it started, how it's changed, whether it's still happening</li>
+      <li>its symptoms — exactly what it does, or doesn't do</li>
+      <li>what's already been tried, or what's happening to it right now</li>
+    </ul>
+  </div>
+
+  <div class="timer-container">
+    <div class="timer-display" id="timerDisplay">02:00</div>
+    <button class="timer-btn btn-timer" onclick="startTimer(120)">Start 2 min</button>
+    <button class="timer-btn btn-timer" onclick="startTimer(180)">Start 3 min</button>
+    <button class="timer-btn btn-reset" onclick="resetTimer()">Reset</button>
+  </div>
+
+  <h2>Round 2 — flip it, you're the helper</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Now swap. I'll describe something broken. You're the person behind the counter — ask me at least three diagnostic questions, all in indirect form:</p>
+    <ol>
+      <li>"Could you tell me...?" — about the history</li>
+      <li>"Do you know if / whether...?" — a yes/no check</li>
+      <li>"I was wondering whether...?" — something softer, near the end</li>
+    </ol>
+  </div>
+
+  <h2>Round 3 — swap again, different object</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>One more time, a completely different object this time. You describe it; I'll ask the polite questions back to you.</p>
+  </div>
+
+  <h2>Round 4 — pin it down in writing</h2>
+
+  <div class="card">
+    <p>Write the 3–5 sentence message you'd actually send — a text to a landlord, an email to a shop, a note to a repair service. Explain the problem's history, what's been done about it, and ask politely what happens next. The checker will tell you which forms it finds.</p>
+    <textarea class="text-area" id="message1" placeholder="Hi — sorry to bother you again, but..."></textarea>
+    <button class="btn-primary" onclick="checkMessage()">Check my message</button>
+    <div class="feedback" id="message1-fb"></div>
+  </div>
+</div>
+
+<!-- Tab 6: Mix It Up -->
+<div id="tab6" class="tab-content">
+  <h1>Mix It Up</h1>
+  <p style="color: var(--text-light);">Real conversation never tells you which structure to use. Here everything's shuffled.</p>
+
+  <h2>Which form fits?</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> Your colleague looks exhausted. "Rough few days?" — "Yeah, the building's fire alarm <span style="color: var(--accent); font-weight:700;">___</span> randomly all week — nobody's sleeping properly."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','a')">a) has been going off</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','b')">b) is going off</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','c')">c) will be going off</button>
+    </div>
+    <div class="feedback" id="mcq1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> You walk past the old library and notice scaffolding covering the windows. "Ah — it <span style="color: var(--accent); font-weight:700;">___</span> at last."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','a')">a) renovates</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','b')">b) is being renovated</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','c')">c) needs renovate</button>
+    </div>
+    <div class="feedback" id="mcq2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> Which is the polite, correctly-ordered question?</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','a')">a) Could you tell me when will the parcel arrive?</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','b')">b) Could you tell me when the parcel will arrive?</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','c')">c) Could you tell me when does the parcel arrive?</button>
+    </div>
+    <div class="feedback" id="mcq3-fb"></div>
+  </div>
+
+  <h2>Fix the mistakes</h2>
+  <p>Each one has a single grammar slip. Say the correct version out loud first, then type the whole sentence.</p>
+
+  <div class="card">
+    <p><strong>4.</strong> "Could you tell me when will it be ready?"</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err1" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err1')">Check</button>
+    <div class="feedback" id="err1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>5.</strong> "It makes a noise since last week."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err2" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err2')">Check</button>
+    <div class="feedback" id="err2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>6.</strong> "It's being worked."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err3" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err3')">Check</button>
+    <div class="feedback" id="err3-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>7.</strong> "It needs replace."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err4" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err4')">Check</button>
+    <div class="feedback" id="err4-fb"></div>
+  </div>
+
+  <h2>Say it better</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Each sentence below is <em>correct but flat</em>. Say a more natural version out loud using today's grammar, then compare:</p>
+  </div>
+
+  <div class="card">
+    <p><strong>8.</strong> "Somebody fixed my phone screen yesterday." <em>(you didn't do it yourself — but who cares who did?)</em></p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Compare with a natural version</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">"I got my phone screen fixed yesterday." — the everyday way to talk about services someone did for you: got it fixed, got it delivered, got it cleaned.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p><strong>9.</strong> "It started on Monday. It hasn't stopped. Today is Thursday."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Compare with a natural version</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">"It's been doing this since Monday." — three flat sentences collapse into one, and "since Monday" carries the whole timeline by itself.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab 7: What Do You Remember? -->
+<div id="tab7" class="tab-content">
+  <h1>What Do You Remember?</h1>
+
+  <h2>First, two basics from before</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> The plain simple past, for one finished moment — no story, just what happened. Fill the gap with subject + verb:</p>
+    <p class="gap-line">Yesterday, <input type="text" class="gap-input" id="rec1" autocomplete="off" style="min-width:220px;"> working completely. <em>(the kettle / stop)</em></p>
+    <button class="btn-primary" onclick="checkEx('rec1')">Check</button>
+    <div class="feedback" id="rec1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> The plain passive, without any of today's extra flavours — just finished, in the past:</p>
+    <p class="gap-line">My car <input type="text" class="gap-input" id="rec2" autocomplete="off"> (fix) last week.</p>
+    <button class="btn-primary" onclick="checkEx('rec2')">Check</button>
+    <div class="feedback" id="rec2-fb"></div>
+  </div>
+
+  <h2>Say first, then check — fresh situations, no looking back</h2>
+
+  <div class="card">
+    <p><strong>3.</strong> Your tablet has been running painfully slowly since the last software update, and it isn't improving. Use the continuous form of <em>slow down</em>:</p>
+    <p class="gap-line">"My tablet <input type="text" class="gap-input" id="fin1" autocomplete="off"> since the last update."</p>
+    <button class="btn-primary" onclick="checkEx('fin1')">Check</button>
+    <div class="feedback" id="fin1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>4.</strong> You dropped your heater last month and now the switch doesn't click properly. Explain what happened, using <em>get</em> + <em>damage</em>:</p>
+    <p class="gap-line">"The switch <input type="text" class="gap-input" id="fin2" autocomplete="off"> when I dropped it."</p>
+    <button class="btn-primary" onclick="checkEx('fin2')">Check</button>
+    <div class="feedback" id="fin2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>5.</strong> Ask politely whether the wifi router is still covered by its guarantee. Start with "I was wondering":</p>
+    <p class="gap-line">"I was wondering <input type="text" class="gap-input" id="fin3" autocomplete="off" style="min-width:280px;"> ?"</p>
+    <button class="btn-primary" onclick="checkEx('fin3')">Check</button>
+    <div class="feedback" id="fin3-fb"></div>
+  </div>
+
+  <h2>One last minute of talk</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Close the loop: in about a minute, tell me — which of today's three tools felt most natural already, which one still needs thinking time, and what have you noticed about how you've been using them while we talked?</p>
+  </div>
+
+  <h2>Can you now...?</h2>
+  <p>We said: tell the story, explain what's happened, and ask politely what happens next. Tick what's true:</p>
+
+  <ul class="ican">
+    <li><input type="checkbox" id="ican1"><label for="ican1">I can tell the story of a problem using <strong>have / has been + -ing</strong>.</label></li>
+    <li><input type="checkbox" id="ican2"><label for="ican2">I can explain what's happening to something with <strong>is being done</strong>, <strong>got done</strong>, or <strong>needs doing</strong> — and choose between them.</label></li>
+    <li><input type="checkbox" id="ican3"><label for="ican3">I can ask politely what happens next with <strong>Could you tell me... / Do you know if... / I was wondering whether...</strong> — without the word order slipping back to direct.</label></li>
+  </ul>
+
+  <div class="highlight-box">
+    Anything unticked — go back to that tab and run its speaking round again. The checkers will still be there.
+  </div>
+</div>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function toggleReveal(el) {
+  el.nextElementSibling.classList.toggle('visible');
+}
+
+/* ---------- answer checking ---------- */
+
+function normalize(s) {
+  s = s.toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/'s been\b/g, ' has been')
+    .replace(/'ve been\b/g, ' have been')
+    .replace(/\b(it|that|there|what|who|he|she|this|here)'s\b/g, '$1 is')
+    .replace(/'ll\b/g, ' will')
+    .replace(/'m\b/g, ' am')
+    .replace(/'re\b/g, ' are')
+    .replace(/won't\b/g, 'will not')
+    .replace(/can't\b/g, 'can not')
+    .replace(/\bcannot\b/g, 'can not')
+    .replace(/n't\b/g, ' not')
+    .replace(/[.,!?;:"]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return s;
+}
+
+const EX = {
+  ppc1: {
+    accept: ['have been crackling'],
+    good: 'Exactly — have been crackling. Ten days and still going: the activity itself is the news.',
+    errors: [
+      [/have crackled/, 'That sounds finished — but it\'s still going on. You need been + -ing: have been crackling.'],
+      [/are crackling/, '"For ten days" needs the perfect to link then to now: HAVE been crackling.'],
+      [/has been/, '"Headphones" is plural — have, not has.'],
+      [/been crackl($| )/, 'Nearly — the -ing form: crackling.']
+    ],
+    hint: 'Structure: have + been + crackling.'
+  },
+  ppc2: {
+    accept: ['has been cutting out'],
+    good: 'Right — has been cutting out. Since the cold snap, still happening: has + been + -ing.',
+    errors: [
+      [/has cut out/, 'That sounds complete — but it\'s still doing it every evening. been + -ing: has been cutting out.'],
+      [/is cutting out/, '"Since the cold snap" needs the perfect: HAS been cutting out.'],
+      [/have been/, '"The boiler" is singular — has, not have.'],
+      [/been cut out ing/, 'Nearly — the phrasal stays as one piece: cutting out.']
+    ],
+    hint: 'Structure: has + been + cutting out.'
+  },
+  ppc3: {
+    accept: ['has been jamming'],
+    good: 'Yes — has been jamming. A fortnight of it, still not fixed: has + been + -ing.',
+    errors: [
+      [/has jammed/, 'That sounds like one finished event — but it\'s been happening on and off. has been jamming.'],
+      [/is jamming/, '"For the last fortnight" needs the perfect: HAS been jamming.'],
+      [/have been/, '"The door catch" is singular — has, not have.'],
+      [/been jam($| )/, 'Nearly — the -ing form: jamming.']
+    ],
+    hint: 'Structure: has + been + jamming.'
+  },
+  pv1: {
+    accept: ['is being repaired'],
+    good: 'Yes — is being repaired. Happening right now, and the repairer doesn\'t need naming.',
+    errors: [
+      [/is repaired/, 'That sounds like a routine fact, not something happening right now: is BEING repaired.'],
+      [/has been repaired/, 'That would mean it\'s finished — but it\'s still in pieces. Ongoing: is being repaired.'],
+      [/is being repair($| )/, 'Nearly — past participle: repaired.'],
+      [/are being/, '"It" is singular — is, not are.']
+    ],
+    hint: 'Happening now: is + being + repaired.'
+  },
+  pv2: {
+    accept: ['got stuck'],
+    good: 'Exactly — got stuck. The spoken passive for a small everyday accident.',
+    errors: [
+      [/was stuck/, 'Grammatically fine! But the task asked for the spoken "get" version: got stuck.'],
+      [/is stuck/, 'That describes now — but it happened yesterday. Past event: got stuck.'],
+      [/got stick/, 'Nearly — past participle: stuck.'],
+      [/gets stuck/, '"Yesterday" needs the past, not the present: got stuck.']
+    ],
+    hint: 'Spoken passive: got + stuck.'
+  },
+  pv3: {
+    accept: ['needs changing', 'needs to be changed'],
+    good: 'Right — needs changing (or needs to be changed). Looks active, means passive.',
+    errors: [
+      [/needs change($| )/, 'Not quite — either the -ing form or "to be + participle": needs changing.'],
+      [/need changing/, '"The battery" is singular — needs, not need.'],
+      [/needs to change/, 'That would mean the battery changes something else! You mean it needs to BE changed (or needs changing).']
+    ],
+    hint: 'needs + verb-ing, or needs to be + past participle.'
+  },
+  iq1: {
+    accept: ['when the phone will be ready', 'when it will be ready', 'when the phone is going to be ready', 'when it is going to be ready'],
+    good: 'Right — could you tell me when it will be ready. Statement word order inside the frame, no do/does.',
+    errors: [
+      [/when (will|does|do|did|is|can|could) (the phone|it)/, 'That\'s the direct question order leaking in — inside "could you tell me", swap back to statement order: when it WILL BE ready.'],
+      [/when the phone ready/, 'You still need a full verb inside the question: when it WILL BE ready.']
+    ],
+    hint: 'Could you tell me + when + subject + verb (statement order, no do/does).'
+  },
+  iq2: {
+    accept: ['if this kind of screen damage is covered by the warranty', 'whether this kind of screen damage is covered by the warranty', 'if it is covered by the warranty', 'whether it is covered by the warranty'],
+    good: 'Right — do you know if it\'s covered by the warranty. If/whether replaces the missing question word for a yes/no question.',
+    errors: [
+      [/do you know (does|is) (it|this)/, 'The auxiliary is still before the subject — that\'s direct order leaking through. Inside "do you know" it needs if/whether + subject + verb: do you know if it is covered...'],
+      [/do you know that/, '"That" doesn\'t introduce a yes/no question here — you need if or whether.']
+    ],
+    hint: 'Do you know + if/whether + subject + verb.'
+  },
+  iq3: {
+    accept: ['whether you could look at my bike gears today', 'if you could look at my bike gears today', 'whether you could take a look at my bike gears today', 'if you could take a look at my bike gears today'],
+    good: 'Perfect — I was wondering whether you could look at my bike gears today. Statement order, softened with whether.',
+    errors: [
+      [/i was wondering can you/, 'That snaps back to a direct question — keep statement order: I was wondering whether you COULD look at...'],
+      [/i was wondering that/, '"That" doesn\'t work for a yes/no request here — whether or if.']
+    ],
+    hint: 'I was wondering whether/if + subject + could + verb.'
+  },
+  err1: {
+    accept: ['could you tell me when it will be ready'],
+    good: 'Correct — could you tell me when it will be ready. Statement order returns inside the embedded question.',
+    errors: [
+      [/when (will|is|does|do|did|can|could) it\b/, 'Still inverted — swap back to statement order after "when": when it will be ready.']
+    ],
+    hint: 'Statement word order inside the embedded clause: when + subject + verb.'
+  },
+  err2: {
+    accept: ['it has been making a noise since last week'],
+    good: 'Right — it\'s been making a noise since last week. The perfect continuous links last week to now.',
+    errors: [
+      [/it makes a noise since/, '"Since last week" needs the perfect continuous, not the simple present: it\'s been making a noise since last week.'],
+      [/it made a noise since/, 'Simple past doesn\'t fit with "since" reaching up to now: it\'s been making a noise since last week.'],
+      [/it is making a noise since/, '"Since" needs the perfect: it\'s BEEN making a noise since last week.']
+    ],
+    hint: 'has/have been + verb-ing + since...'
+  },
+  err3: {
+    accept: ['it is being worked on'],
+    good: 'Exactly — it\'s being worked on. The particle "on" can\'t be dropped from this phrasal passive.',
+    errors: [
+      [/^it is being worked$/, '"Worked" alone doesn\'t say what\'s happening to it — you need the particle: it\'s being worked ON.'],
+      [/it has been worked on/, 'That suggests it\'s finished — for right now, in progress: it\'s BEING worked on.'],
+      [/it is working on/, 'That would mean IT is doing the working! Passive: it\'s being worked on.']
+    ],
+    hint: 'is/are being + worked + on.'
+  },
+  err4: {
+    accept: ['it needs replacing', 'it needs to be replaced'],
+    good: 'Right — it needs replacing (or it needs to be replaced). Looks active, means passive.',
+    errors: [
+      [/^it needs replace$/, '"Needs" wants either the -ing form or "to be + participle": it needs replacing.'],
+      [/it need replacing/, '"It" is singular — needs, not need.'],
+      [/it needs to replace\b/, 'That would mean IT replaces something else — you mean it needs to BE replaced (or needs replacing).']
+    ],
+    hint: 'needs + verb-ing, or needs to be + past participle.'
+  },
+  rec1: {
+    accept: ['the kettle stopped'],
+    good: 'Right — the kettle stopped. One finished moment, plain simple past.',
+    errors: [
+      [/^stopped$/, 'Nearly — the full answer needs the subject too: the kettle stopped.'],
+      [/the kettle stops/, 'That\'s the present form — for yesterday, you need the simple past: the kettle stopped.'],
+      [/the kettle stopping/, 'That\'s the -ing form — for a finished moment, plain past: the kettle stopped.'],
+      [/the kettle has stopped/, '"Yesterday" is a finished, specific time — plain past, not the present perfect: the kettle stopped.']
+    ],
+    hint: 'Subject + simple past: the kettle stopped.'
+  },
+  rec2: {
+    accept: ['was fixed'],
+    good: 'Right — was fixed. The plain classic passive, finished and specific.',
+    errors: [
+      [/is fixed/, '"Last week" is finished and specific — past passive: was fixed.'],
+      [/^fixed$/, 'Missing the passive auxiliary — the car didn\'t fix itself! was fixed.'],
+      [/got fixed/, 'That\'s the spoken alternative from today\'s lesson — this one asks for the plain classic passive: was fixed.'],
+      [/has been fixed/, '"Last week" wants the simple past passive, not the present perfect: was fixed.']
+    ],
+    hint: 'was/were + past participle: was fixed.'
+  },
+  fin1: {
+    accept: ['has been slowing down'],
+    good: 'Yes — has been slowing down. Since the update, still getting worse: has + been + -ing.',
+    errors: [
+      [/has slowed down/, 'That sounds finished — but it\'s still getting worse. has been slowing down.'],
+      [/is slowing down/, '"Since the last update" needs the perfect: HAS been slowing down.'],
+      [/have been/, '"Tablet" is singular — has, not have.']
+    ],
+    hint: 'has + been + slowing down.'
+  },
+  fin2: {
+    accept: ['got damaged'],
+    good: 'Right — got damaged. The spoken passive for a one-off accident in the past.',
+    errors: [
+      [/was damaged/, 'Grammatically fine! But the task asked for the spoken "get" version: got damaged.'],
+      [/gets damaged/, 'This happened once, in the past — got damaged.'],
+      [/got damage($| )/, 'Nearly — past participle: damaged.']
+    ],
+    hint: 'Spoken passive: got + damaged.'
+  },
+  fin3: {
+    accept: ['whether it is still covered by its guarantee', 'if it is still covered by its guarantee', 'whether the router is still covered by its guarantee', 'if the router is still covered by its guarantee'],
+    good: 'Right — I was wondering whether it\'s still covered by its guarantee. Statement order, softened politely.',
+    errors: [
+      [/i was wondering is it/, 'That\'s the direct order again — statement order: I was wondering whether it IS still covered.'],
+      [/i was wondering that/, '"That" doesn\'t work for a yes/no question — whether or if.']
+    ],
+    hint: 'I was wondering whether/if + subject + verb.'
+  }
+};
+
+function showFb(el, type, msg) {
+  el.className = 'feedback ' + type;
+  el.innerHTML = msg;
+}
+
+function checkEx(id) {
+  const ex = EX[id];
+  const raw = document.getElementById(id).value;
+  const fb = document.getElementById(id + '-fb');
+  if (!raw.trim()) {
+    showFb(fb, 'error', 'Say it out loud first, then type it — an attempt teaches more than an empty box.');
+    return;
+  }
+  const n = normalize(raw);
+  if (ex.accept.some(a => n === normalize(a) || n.includes(normalize(a)))) {
+    showFb(fb, 'success', ex.good);
+    return;
+  }
+  for (const [re, msg] of ex.errors) {
+    if (re.test(n)) { showFb(fb, 'error', msg); return; }
+  }
+  showFb(fb, 'error', 'Not quite. ' + ex.hint);
+}
+
+const MCQ = {
+  mcq1: { correct: 'a', fb: {
+    a: 'Yes — has been going off: a whole week of it, still going, and the tiredness is the proof.',
+    b: '"Is going off" is only about right now — but "all week" reaches back, so you need the perfect: has been going off.',
+    c: '"Will be going off" is the future — but this has already been happening all week.'
+  }},
+  mcq2: { correct: 'b', fb: {
+    a: '"It renovates" would mean the library renovates something else! It\'s having work done TO it: is being renovated.',
+    b: 'Yes — is being renovated: work in progress, workers unnamed, scaffolding as the evidence.',
+    c: '"Needs renovate" isn\'t a real form — either needs renovating, or needs to be renovated.'
+  }},
+  mcq3: { correct: 'b', fb: {
+    a: 'Direct word order leaking through — inside "could you tell me", it goes back to statement order: when the parcel will arrive.',
+    b: 'Yes — statement order inside the embedded question, no inversion.',
+    c: 'No do-support inside an indirect question — could you tell me when the parcel will arrive.'
+  }}
+};
+
+function checkMCQ(id, choice) {
+  const q = MCQ[id];
+  const fb = document.getElementById(id + '-fb');
+  showFb(fb, choice === q.correct ? 'success' : 'error', q.fb[choice]);
+}
+
+function checkMessage() {
+  const raw = document.getElementById('message1').value;
+  const fb = document.getElementById('message1-fb');
+  if (raw.trim().split(/\s+/).length < 15) {
+    showFb(fb, 'error', 'Keep going — 3–5 full sentences gives all three forms room to appear.');
+    return;
+  }
+  const n = normalize(raw);
+  const found = [];
+  const missing = [];
+  (/\b(have|has) been \w+ing\b/.test(n) ? found : missing).push('<strong>have/has been doing</strong> (the problem\'s history)');
+  (/\b(is|are) being \w+(ed|en|own|ilt|ung|one|old|ut|ost|aid|ept|uck|oken)\b|\bgot \w+(ed|en|own|ilt|ung|one|old|ut|ost|aid|ept|uck|oken)\b|\bneeds? \w+ing\b|\bneeds? to be \w+(ed|en)\b/.test(n) ? found : missing).push('<strong>is being done / got done / needs doing</strong> (what\'s happened to it)');
+  (/\bcould you tell me\b|\bdo you know (if|whether)\b|\bi was wondering (if|whether)\b/.test(n) ? found : missing).push('<strong>an indirect question</strong> (asking politely)');
+  if (missing.length === 0) {
+    showFb(fb, 'success', 'All three found: ' + found.join(', ') + '. Now read it aloud — does it sound like something you\'d really send?');
+  } else {
+    let msg = '';
+    if (found.length) msg += 'Found: ' + found.join(', ') + '. ';
+    msg += 'Still missing: ' + missing.join(', ') + '. Add a sentence and check again.';
+    showFb(fb, 'error', msg);
+  }
+}
+
+/* ---------- timer ---------- */
+
+let timerInterval = null;
+let timerRemaining = 120;
+let timerStartVal = 120;
+
+function renderTimer() {
+  const d = document.getElementById('timerDisplay');
+  const m = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+  const s = String(timerRemaining % 60).padStart(2, '0');
+  d.textContent = m + ':' + s;
+  d.className = 'timer-display' + (timerRemaining <= 10 ? ' danger' : timerRemaining <= 30 ? ' warning' : '');
+}
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  timerStartVal = seconds;
+  timerRemaining = seconds;
+  renderTimer();
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    if (timerRemaining <= 0) {
+      timerRemaining = 0;
+      clearInterval(timerInterval);
+    }
+    renderTimer();
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRemaining = timerStartVal;
+  renderTimer();
+}
+</script>
+
+</body>
+</html>
