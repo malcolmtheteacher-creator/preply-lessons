@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work, Worker, Working: Building Words | A2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --warning: #f4a261;
+    --warning-bg: #fdebd0;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  .tab-content {
+    display: none;
+    padding: 30px 20px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .tab-content.active { display: block; animation: fadeIn 0.3s; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  h1 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 600; }
+  h2 { font-size: 1.4rem; margin: 24px 0 14px; font-weight: 600; }
+  h3 { font-size: 1rem; margin: 18px 0 10px; font-weight: 600; }
+  p { margin: 12px 0; }
+
+  .intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .dialogue {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+  }
+  .dialogue p { margin: 8px 0; }
+  .dialogue .who { font-weight: 600; color: var(--accent); }
+
+  .structure-box {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  .highlight-box {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .transformation {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    flex-wrap: wrap;
+  }
+
+  .transform-box {
+    flex: 1;
+    min-width: 180px;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .transform-arrow { font-size: 1.6rem; color: var(--accent); font-weight: 700; }
+
+  .example-list { margin: 12px 0; padding: 0 0 0 20px; }
+  .example-list li { margin: 8px 0; font-size: 0.95rem; }
+
+  .reveal-container { margin: 12px 0; }
+
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+  }
+
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .reveal-prompt .click-hint {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 8px;
+    animation: slideDown 0.3s;
+    font-size: 0.95rem;
+  }
+
+  .reveal-answer.visible { display: block; }
+
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .gap-line {
+    font-size: 1rem;
+    margin: 10px 0 4px;
+    line-height: 2.2;
+  }
+
+  .gap-input {
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    min-width: 220px;
+    color: var(--text);
+  }
+  .gap-input:focus { outline: none; border-color: #4a5fd0; background: var(--accent-light); }
+
+  .full-input {
+    width: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    margin: 6px 0;
+  }
+  .full-input:focus { outline: none; background: var(--accent-light); }
+
+  .text-area {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .text-area:focus { outline: none; border-color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 10px 6px 4px 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+
+  .feedback {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: 10px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .mcq-btn {
+    text-align: left;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .mcq-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .speak-box {
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+  }
+  .speak-chip {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  .timer-container { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 76px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .timer-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-timer { background: var(--accent-light); color: var(--accent); }
+  .btn-timer:hover { opacity: 0.8; }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+
+  .ican { list-style: none; padding: 0; margin: 12px 0; }
+  .ican li { margin: 10px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; }
+  .ican input[type="checkbox"] { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--accent); cursor: pointer; }
+
+  @media (max-width: 768px) {
+    .transformation { flex-direction: column; }
+    .gap-input { min-width: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab2')">2. Job Words</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab3')">3. Opposites</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab4')">4. Feelings</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab5')">5. Your Turn to Talk</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab6')">6. Mix It Up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab7')">7. What Do You Remember?</button>
+</div>
+
+<!-- Tab 1: Warm-up -->
+<div id="tab1" class="tab-content active">
+  <h1>Warm-up</h1>
+
+  <p>Let's see what comes to mind — no notes, and don't worry about mistakes.</p>
+
+  <div class="card">
+    <p><strong>You already know one job word.</strong></p>
+    <p class="gap-line">My uncle drives a taxi every day. He's a taxi <input type="text" class="gap-input" id="warm1" autocomplete="off">.</p>
+    <button class="btn-primary" onclick="checkEx('warm1')">Check</button>
+    <div class="feedback" id="warm1-fb"></div>
+  </div>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Say two jobs of people in your family or your friends — use the person word, not just the verb: "My sister is a ..." not "My sister teach."</p>
+  </div>
+
+  <h2>Listen in on this conversation</h2>
+
+  <div class="dialogue">
+    <p><span class="who">Friend A:</span> How was the film last night?</p>
+    <p><span class="who">Friend B:</span> Honestly? Really boring. I was so bored I nearly fell asleep.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>Look at "boring" and "bored."</strong> They look similar, but they're not the same word. What's different about them, do you think? Say your idea out loud before you check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check your idea</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        "Boring" describes the <strong>film</strong> — it's the thing that causes the feeling. "Bored" describes <strong>Friend B</strong> — how they feel. Today you'll learn exactly when to use each one, plus two other ways English builds new words from ones you already know.
+      </div>
+    </div>
+  </div>
+
+  <div class="intention">
+    Today: three ways English builds new words — job words with <strong>-er/-or</strong> (teach → teacher), opposites with <strong>un-</strong> (happy → unhappy), and feeling words with <strong>-ed/-ing</strong> (bored/boring) — so you can talk about jobs, opposites and feelings in everyday conversation.
+  </div>
+</div>
+
+<!-- Tab 2: Job Words -->
+<div id="tab2" class="tab-content">
+  <h1>Job Words: Teacher, Driver, Actor</h1>
+  <p style="color: var(--text-light);">Turn an action into the person who does it — for jobs and everyday roles.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <p>Three people and what they do:</p>
+    <ul class="example-list">
+      <li>"My aunt teaches at the primary school. She's a <strong>teacher</strong>."</li>
+      <li>"My cousin sings in a wedding band. She's a <strong>singer</strong>."</li>
+      <li>"My brother-in-law directs adverts for TV. He's a <strong>director</strong>."</li>
+    </ul>
+    <p>Before you check: what do you add to the verb to name the person?</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        Most of the time, add <strong>-er</strong>: teach → teach<strong>er</strong>, sing → sing<strong>er</strong>. A smaller group adds <strong>-or</strong> instead: direct → direct<strong>or</strong>, act → act<strong>or</strong>. There's no rule for which one — you just learn them as you meet them.
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    verb + -er → the person who does it (most jobs)<br>
+    verb + -or → the person who does it (a smaller group of jobs)
+  </div>
+
+  <div class="transformation">
+    <div class="transform-box">
+      "She acts in films."
+    </div>
+    <div class="transform-arrow">→</div>
+    <div class="transform-box">
+      "She's an <strong>actor</strong>."
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    Watch out: a person who cooks is a <strong>cook</strong> — no ending at all! A "cooker" is the machine in the kitchen, not a person.
+  </div>
+
+  <h2>Your turn</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> My neighbour builds houses for a living.</p>
+    <p class="gap-line">He's a <input type="text" class="gap-input" id="je1" autocomplete="off">.</p>
+    <button class="btn-primary" onclick="checkEx('je1')">Check</button>
+    <div class="feedback" id="je1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> My cousin dances in a ballet company.</p>
+    <p class="gap-line">She's a <input type="text" class="gap-input" id="je2" autocomplete="off">.</p>
+    <button class="btn-primary" onclick="checkEx('je2')">Check</button>
+    <div class="feedback" id="je2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> A stranger knocked on our door today, just to see our garden — people do that sometimes in our village.</p>
+    <p class="gap-line">That kind of person is called a <input type="text" class="gap-input" id="je3" autocomplete="off">.</p>
+    <button class="btn-primary" onclick="checkEx('je3')">Check</button>
+    <div class="feedback" id="je3-fb"></div>
+  </div>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Say three jobs of people in your family or your friends — use the person word, not just the verb.</p>
+  </div>
+</div>
+
+<!-- Tab 3: Opposites -->
+<div id="tab3" class="tab-content">
+  <h1>Opposites: Happy → Unhappy</h1>
+  <p style="color: var(--text-light);">Add a small piece to the front of an adjective to get its opposite.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <p>Three everyday complaints:</p>
+    <ul class="example-list">
+      <li>"It rained all week on our holiday — so <strong>unlucky</strong>!"</li>
+      <li>"He never says thank you — quite <strong>unkind</strong>, really."</li>
+      <li>"I felt really <strong>unhappy</strong> when the trip was cancelled."</li>
+    </ul>
+    <p>What do all three bold words have in common? Say your idea before you check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>un-</strong> + adjective = the opposite meaning. lucky → <strong>un</strong>lucky, kind → <strong>un</strong>kind, happy → <strong>un</strong>happy. It's one of the most common ways to make an opposite in English.
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    un- + adjective → the opposite meaning (most adjectives)
+  </div>
+
+  <div class="highlight-box">
+    Careful: not every adjective uses <strong>un-</strong>. "Possible" is irregular — the opposite is <strong>impossible</strong> (im-, not un-). There's no way to guess this one; you just have to learn it.
+  </div>
+
+  <h2>Your turn</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> These shoes hurt my feet after an hour of walking.</p>
+    <p class="gap-line">They're really <input type="text" class="gap-input" id="op1" autocomplete="off"> (comfortable).</p>
+    <button class="btn-primary" onclick="checkEx('op1')">Check</button>
+    <div class="feedback" id="op1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> The new neighbour never says hello, even when you smile at him.</p>
+    <p class="gap-line">He seems quite <input type="text" class="gap-input" id="op2" autocomplete="off"> (friendly).</p>
+    <button class="btn-primary" onclick="checkEx('op2')">Check</button>
+    <div class="feedback" id="op2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> My boss gave the best shifts to his favourite worker again this month.</p>
+    <p class="gap-line">That's really <input type="text" class="gap-input" id="op3" autocomplete="off"> (fair) on everyone else.</p>
+    <button class="btn-primary" onclick="checkEx('op3')">Check</button>
+    <div class="feedback" id="op3-fb"></div>
+  </div>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Say two things that are unfair or unlucky about your week so far.</p>
+  </div>
+</div>
+
+<!-- Tab 4: Feelings -->
+<div id="tab4" class="tab-content">
+  <h1>Feelings: Bored or Boring?</h1>
+  <p style="color: var(--text-light);">Two words from the same verb — one for how you feel, one for the thing that causes it.</p>
+
+  <h2>Spot the pattern</h2>
+
+  <div class="card">
+    <p>Three everyday comments:</p>
+    <ul class="example-list">
+      <li>"That meeting was so <strong>boring</strong> — I nearly fell asleep."</li>
+      <li>"I felt really <strong>bored</strong> in that meeting — nothing happened."</li>
+      <li>"The news last night was <strong>surprising</strong> — nobody expected it."</li>
+    </ul>
+    <p>Which word describes the THING, and which describes the PERSON? Say your idea before you check.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check the pattern</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>-ing</strong> describes the thing or situation that causes the feeling: a <strong>boring</strong> meeting, <strong>surprising</strong> news. <strong>-ed</strong> describes the person who feels it: I was <strong>bored</strong>, we were <strong>surprised</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="structure-box">
+    the thing/situation that causes the feeling → adjective + -ing<br>
+    the person who feels it → adjective + -ed
+  </div>
+
+  <div class="transformation">
+    <div class="transform-box">
+      "This job bores me."
+    </div>
+    <div class="transform-arrow">→</div>
+    <div class="transform-box">
+      "I'm <strong>bored</strong>. The job is <strong>boring</strong>."
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    Big trap: "I am boring" does NOT mean you feel no interest — it means you make other people feel that way! If you mean YOU feel no interest, say "I am <strong>bored</strong>." And remember: you're interested <strong>in</strong> something, never "interesting in" it.
+  </div>
+
+  <h2>Your turn</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> I ran ten kilometres this morning without stopping.</p>
+    <p class="gap-line">Now I feel really <input type="text" class="gap-input" id="fe1" autocomplete="off"> (tire).</p>
+    <button class="btn-primary" onclick="checkEx('fe1')">Check</button>
+    <div class="feedback" id="fe1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> We had three long meetings today, one after another.</p>
+    <p class="gap-line">It was so <input type="text" class="gap-input" id="fe2" autocomplete="off"> (tire)!</p>
+    <button class="btn-primary" onclick="checkEx('fe2')">Check</button>
+    <div class="feedback" id="fe2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> My grandmother tried to use the new self-service checkout at the supermarket.</p>
+    <p class="gap-line">She looked completely <input type="text" class="gap-input" id="fe3" autocomplete="off"> (confuse).</p>
+    <button class="btn-primary" onclick="checkEx('fe3')">Check</button>
+    <div class="feedback" id="fe3-fb"></div>
+  </div>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Say three things that are boring or exciting for you — then say how they make you feel: "Long flights are boring, so I feel bored."</p>
+  </div>
+</div>
+
+<!-- Tab 5: Your Turn to Talk -->
+<div id="tab5" class="tab-content">
+  <h1>Your Turn to Talk</h1>
+  <p style="color: var(--text-light);">Time to use all three word-building tools in one real story — now it's your turn to talk it through.</p>
+
+  <h2>The situation</h2>
+
+  <div class="card">
+    <p>Think of someone you know well — a family member, a friend, a neighbour. (If nobody comes to mind, invent someone.)</p>
+    <p><strong>Talk about them out loud for one minute.</strong> Try to answer:</p>
+    <ul class="example-list">
+      <li>What's their job? (Use the person word: teacher, driver, painter...)</li>
+      <li>Is there anything unfair or unlucky about their life or work?</li>
+      <li>What do they find boring, and what do they find interesting?</li>
+    </ul>
+  </div>
+
+  <div class="timer-container">
+    <div class="timer-display" id="timerDisplay">01:00</div>
+    <button class="timer-btn btn-timer" onclick="startTimer(60)">Start 1 min</button>
+    <button class="timer-btn btn-timer" onclick="startTimer(180)">Start 3 min</button>
+    <button class="timer-btn btn-reset" onclick="resetTimer()">Reset</button>
+  </div>
+
+  <h2>Now put it in writing</h2>
+
+  <div class="card">
+    <p>Write a short message (3–5 sentences) describing the same person to a friend. Use <strong>all three</strong> word types from today — the checker will tell you which ones it finds.</p>
+    <textarea class="text-area" id="message1" placeholder="Let me tell you about..."></textarea>
+    <button class="btn-primary" onclick="checkMessage()">Check my message</button>
+    <div class="feedback" id="message1-fb"></div>
+  </div>
+</div>
+
+<!-- Tab 6: Mix It Up -->
+<div id="tab6" class="tab-content">
+  <h1>Mix It Up</h1>
+  <p style="color: var(--text-light);">Real life doesn't tell you which word-building rule to use. Here everything is mixed — you decide.</p>
+
+  <h2>Fix the mistakes</h2>
+  <p>Each sentence has one word-building mistake. Rewrite the whole sentence correctly.</p>
+
+  <div class="card">
+    <p><strong>1.</strong> "She is a cooker at a small restaurant in town."</p>
+    <input type="text" class="full-input" id="err1" autocomplete="off" placeholder="Rewrite the sentence...">
+    <button class="btn-primary" onclick="checkEx('err1')">Check</button>
+    <div class="feedback" id="err1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> "I'm boring today, there's nothing to do."</p>
+    <input type="text" class="full-input" id="err2" autocomplete="off" placeholder="Rewrite the sentence...">
+    <button class="btn-primary" onclick="checkEx('err2')">Check</button>
+    <div class="feedback" id="err2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> "It's unpossible to finish this report by Friday."</p>
+    <input type="text" class="full-input" id="err3" autocomplete="off" placeholder="Rewrite the sentence...">
+    <button class="btn-primary" onclick="checkEx('err3')">Check</button>
+    <div class="feedback" id="err3-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>4.</strong> "I'm interesting in learning Spanish next year."</p>
+    <input type="text" class="full-input" id="err4" autocomplete="off" placeholder="Rewrite the sentence...">
+    <button class="btn-primary" onclick="checkEx('err4')">Check</button>
+    <div class="feedback" id="err4-fb"></div>
+  </div>
+
+  <h2>Which word fits?</h2>
+
+  <div class="card">
+    <p><strong>5.</strong> My brother teaches guitar lessons every weekend. "He's a guitar <span style="color: var(--accent); font-weight:700;">___</span>."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','a')">a) teacher</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','b')">b) teachor</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','c')">c) teaching</button>
+    </div>
+    <div class="feedback" id="mcq1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>6.</strong> I lost my passport the day before my flight. "This is so <span style="color: var(--accent); font-weight:700;">___</span>!"</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','a')">a) unlucky</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','b')">b) inlucky</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','c')">c) dislucky</button>
+    </div>
+    <div class="feedback" id="mcq2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>7.</strong> The football match went to a penalty shootout. "It was so <span style="color: var(--accent); font-weight:700;">___</span> to watch!"</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','a')">a) excited</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','b')">b) exciting</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','c')">c) excite</button>
+    </div>
+    <div class="feedback" id="mcq3-fb"></div>
+  </div>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>One-minute challenge: describe your ideal weekend. Use at least one job word, one un- opposite, and one -ed/-ing feeling word. Use the timer above if you like the pressure.</p>
+  </div>
+</div>
+
+<!-- Tab 7: What Do You Remember? -->
+<div id="tab7" class="tab-content">
+  <h1>What Do You Remember?</h1>
+
+  <h2>First, from earlier lessons</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> A different job for "-er" — comparing two things. Complete it:</p>
+    <p class="gap-line">My car is fast, but your car is even <input type="text" class="gap-input" id="rz1" autocomplete="off"> (fast).</p>
+    <button class="btn-primary" onclick="checkEx('rz1')">Check</button>
+    <div class="feedback" id="rz1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> Say it out loud: how do you usually make an adjective negative in English? Give one example.</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Compare with a possible answer</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        One possible answer: add <strong>un-</strong> to the front — happy → unhappy. That's the most common way, but a few adjectives use a different piece instead, like possible → impossible.
+      </div>
+    </div>
+  </div>
+
+  <h2>Now, today's grammar — fresh sentences, no looking back</h2>
+
+  <div class="card">
+    <p><strong>3.</strong> My neighbour designs buildings for a living.</p>
+    <p class="gap-line">She's a <input type="text" class="gap-input" id="rc1" autocomplete="off">.</p>
+    <button class="btn-primary" onclick="checkEx('rc1')">Check</button>
+    <div class="feedback" id="rc1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>4.</strong> That old wooden bridge has cracks all over it.</p>
+    <p class="gap-line">It looks really <input type="text" class="gap-input" id="rc2" autocomplete="off"> (safe) to me.</p>
+    <button class="btn-primary" onclick="checkEx('rc2')">Check</button>
+    <div class="feedback" id="rc2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>5.</strong> I watched a scary film alone last night.</p>
+    <p class="gap-line">Now I feel <input type="text" class="gap-input" id="rc3" autocomplete="off"> (frighten).</p>
+    <button class="btn-primary" onclick="checkEx('rc3')">Check</button>
+    <div class="feedback" id="rc3-fb"></div>
+  </div>
+
+  <h2>Think back</h2>
+
+  <div class="card">
+    <p>Which practice helped you most today — fixing the mistakes, choosing the right word, or the speaking tasks? Say why you think that one worked for you.</p>
+  </div>
+
+  <h2>Can you now...?</h2>
+  <p>At the start we said: three ways to build new words so you can talk about jobs, opposites and feelings. Tick what's true:</p>
+
+  <ul class="ican">
+    <li><input type="checkbox" id="ican1"><label for="ican1">I can name a person's job with <strong>-er/-or</strong> — "She's a teacher", "He's an actor".</label></li>
+    <li><input type="checkbox" id="ican2"><label for="ican2">I can make an opposite with <strong>un-</strong> — "That's so unlucky!"</label></li>
+    <li><input type="checkbox" id="ican3"><label for="ican3">I can tell the difference between <strong>-ed</strong> and <strong>-ing</strong> feelings — "I'm bored" vs "It's boring".</label></li>
+  </ul>
+
+  <div class="highlight-box">
+    Anything you didn't tick — go back to that tab and try the exercises once more. They'll still check your answers.
+  </div>
+</div>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function toggleReveal(el) {
+  el.nextElementSibling.classList.toggle('visible');
+}
+
+/* ---------- answer checking ---------- */
+
+function normalize(s) {
+  s = s.toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/'s been\b/g, ' has been')
+    .replace(/'ve been\b/g, ' have been')
+    .replace(/'ll\b/g, ' will')
+    .replace(/won't\b/g, 'will not')
+    .replace(/n't\b/g, ' not')
+    .replace(/[.,!?;:"]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return s;
+}
+
+const EX = {
+  warm1: {
+    accept: ['driver'],
+    good: 'Yes — driver. Verb + -er names the person who does it. Today we build on exactly this.',
+    errors: [
+      [/^drive$/, 'You need the person word — add -er: drive + r = driver.'],
+      [/^driving$/, '"Driving" is the activity. The person who does it is a driver.'],
+      [/^drivor$/, 'This job word uses -er, not -or: driver.']
+    ],
+    hint: 'Structure: verb + -er, the person who does the action.'
+  },
+  je1: {
+    accept: ['builder'],
+    good: 'Exactly — builder. Add -er to the verb to name the person who does it.',
+    errors: [
+      [/^build$/, 'You need to add an ending to name the person — build + er.'],
+      [/^building$/, '"Building" is the thing he makes, not the person who makes it. Add -er to the verb: builder.'],
+      [/^buildor$/, 'Close! This one uses -er, not -or: builder.']
+    ],
+    hint: 'Structure: build + -er.'
+  },
+  je2: {
+    accept: ['dancer'],
+    good: 'Right — dancer. Verb + -er, just like builder and teacher.',
+    errors: [
+      [/^dance$/, 'You need the person word — add -er: dance + r = dancer.'],
+      [/^dancing$/, '"Dancing" is the activity. The person who does it is a dancer.'],
+      [/^dancor$/, 'This one uses -er, not -or: dancer.']
+    ],
+    hint: 'Structure: dance + -er.'
+  },
+  je3: {
+    accept: ['visitor'],
+    good: 'Yes — visitor. This is one of the jobs that uses -or instead of -er.',
+    errors: [
+      [/^visiter$/, 'Good try, but this word uses -or, not -er: visitor.'],
+      [/^visit$/, 'You need to add an ending to name the person — visit + or.'],
+      [/^visiting$/, '"Visiting" is the activity. The person who does it is a visitor.']
+    ],
+    hint: 'Structure: visit + -or (this word is in the smaller -or group).'
+  },
+  op1: {
+    accept: ['uncomfortable'],
+    good: 'Correct — uncomfortable. un- + comfortable.',
+    errors: [
+      [/^incomfortable$/, 'Good idea, but "comfortable" doesn\'t use in- — it uses un-: uncomfortable.'],
+      [/^discomfortable$/, 'Not quite — "comfortable" doesn\'t use dis- either. The opposite is uncomfortable.'],
+      [/^comfortable$/, 'You need the opposite prefix at the front: un- + comfortable.']
+    ],
+    hint: 'Structure: un- + comfortable.'
+  },
+  op2: {
+    accept: ['unfriendly'],
+    good: 'Yes — unfriendly. un- + friendly.',
+    errors: [
+      [/^infriendly$/, 'Not this one — "friendly" uses un-, not in-: unfriendly.'],
+      [/^disfriendly$/, 'Not this one — "friendly" uses un-, not dis-: unfriendly.'],
+      [/^friendly$/, 'You need the opposite prefix at the front: un- + friendly.']
+    ],
+    hint: 'Structure: un- + friendly.'
+  },
+  op3: {
+    accept: ['unfair'],
+    good: 'Right — unfair. un- + fair.',
+    errors: [
+      [/^infair$/, 'Not this one — "fair" uses un-, not in-: unfair.'],
+      [/^disfair$/, 'Not this one — "fair" uses un-, not dis-: unfair.'],
+      [/^fair$/, 'You need the opposite prefix at the front: un- + fair.']
+    ],
+    hint: 'Structure: un- + fair.'
+  },
+  fe1: {
+    accept: ['tired'],
+    good: 'Right — tired. -ed describes how the person feels.',
+    errors: [
+      [/^tiring$/, '"Tiring" describes the run itself, not how you feel. For your own feeling, use -ed: tired.'],
+      [/^tire$/, 'You need the feeling ending: tire + d.']
+    ],
+    hint: 'Structure: the person\'s feeling → adjective + -ed.'
+  },
+  fe2: {
+    accept: ['tiring'],
+    good: 'Yes — tiring. -ing describes the situation that causes the feeling.',
+    errors: [
+      [/^tired$/, '"Tired" is how a person feels. Here you\'re describing the meetings themselves — use -ing: tiring.'],
+      [/^tire$/, 'You need the ending that describes the situation: tire + ing.']
+    ],
+    hint: 'Structure: the situation that causes the feeling → adjective + -ing.'
+  },
+  fe3: {
+    accept: ['confused'],
+    good: 'Correct — confused. -ed describes how your grandmother felt.',
+    errors: [
+      [/^confusing$/, '"Confusing" would describe the checkout machine itself. Here you\'re describing how your grandmother felt — use -ed: confused.'],
+      [/^confuse$/, 'You need the feeling ending: confuse + d.']
+    ],
+    hint: 'Structure: the person\'s feeling → adjective + -ed.'
+  },
+  err1: {
+    accept: ['she is a cook at a small restaurant in town'],
+    good: 'Correct — "cook", no ending at all. A cooker is the appliance, not the person.',
+    errors: [
+      [/cooker/, '"Cooker" is the kitchen appliance, not the person. The word for the person is simply "cook" — no ending.'],
+      [/she is a cooking/, '"Cooking" is the activity. The person who does it is a cook.']
+    ],
+    hint: 'The mistake is "cooker". The person word for this job has no ending: cook.'
+  },
+  err2: {
+    accept: ["i'm bored today, there's nothing to do", "im bored today theres nothing to do", "i am bored today there's nothing to do", "i am bored today theres nothing to do"],
+    good: 'Correct — bored. -ed describes how you feel; -ing would mean you make others feel that way.',
+    errors: [
+      [/\bboring\b/, '"Boring" would mean YOU make other people feel that way. To say you feel no interest, use "bored".'],
+      [/^i bored\b/, 'Almost — you\'re missing the verb: I\'m bored (I am bored).']
+    ],
+    hint: 'The mistake is "boring". For your own feeling, use -ed: bored.'
+  },
+  err3: {
+    accept: ["it's impossible to finish this report by friday", "its impossible to finish this report by friday", "it is impossible to finish this report by friday"],
+    good: 'Correct — impossible. "Possible" is one of the irregular ones: im-, not un-.',
+    errors: [
+      [/unpossible/, '"Possible" is irregular — its opposite uses im-, not un-: impossible.'],
+      [/inpossible/, 'Close — before "p", "in-" becomes "im-": impossible.']
+    ],
+    hint: 'The mistake is "unpossible". This adjective is irregular: im- + possible.'
+  },
+  err4: {
+    accept: ["i'm interested in learning spanish next year", "im interested in learning spanish next year", "i am interested in learning spanish next year"],
+    good: 'Correct — interested in. -ed for your own feeling, followed by "in".',
+    errors: [
+      [/interesting in/, '"Interesting" describes the subject, not your feeling. For your own feeling, say "interested in".'],
+      [/interested to/, 'Close on the feeling word — but after "interested" we use "in", not "to": interested in learning...']
+    ],
+    hint: 'The mistake is "interesting in". For your own feeling, use -ed: interested in.'
+  },
+  rz1: {
+    accept: ['faster'],
+    good: 'Yes — faster. Short adjectives add -er to compare two things — the same ending, a different job.',
+    errors: [
+      [/^more fast$/, 'Short adjectives like "fast" just add -er — they don\'t use "more": faster.'],
+      [/^fastest$/, 'That\'s for comparing three or more things. For comparing two cars, use the -er form: faster.'],
+      [/^fast$/, 'You need the comparing ending: fast + er.']
+    ],
+    hint: 'One word: fast + -er, for comparing two things.'
+  },
+  rc1: {
+    accept: ['designer'],
+    good: 'Exactly — designer. Verb + -er, fresh example, same pattern as teacher and builder.',
+    errors: [
+      [/^design$/, 'You need to add the ending that names the person: design + er.'],
+      [/^designor$/, 'This one uses -er, not -or: designer.'],
+      [/^designing$/, '"Designing" is the activity. The person who does it is a designer.']
+    ],
+    hint: 'Structure: design + -er.'
+  },
+  rc2: {
+    accept: ['unsafe'],
+    good: 'Right — unsafe. un- + safe, fresh example of the same pattern.',
+    errors: [
+      [/^insafe$/, 'Not this one — "safe" uses un-, not in-: unsafe.'],
+      [/^disafe$/, 'Not this one — "safe" uses un-, not dis-: unsafe.'],
+      [/^safe$/, 'You need the opposite prefix at the front: un- + safe.']
+    ],
+    hint: 'Structure: un- + safe.'
+  },
+  rc3: {
+    accept: ['frightened'],
+    good: 'Correct — frightened. -ed describes how you feel after watching it.',
+    errors: [
+      [/^frightening$/, '"Frightening" describes the film. Here you\'re describing how YOU feel — use -ed: frightened.'],
+      [/^frighten$/, 'You need the feeling ending: frighten + ed.']
+    ],
+    hint: 'Structure: the person\'s feeling → adjective + -ed.'
+  }
+};
+
+function showFb(el, type, msg) {
+  el.className = 'feedback ' + type;
+  el.innerHTML = msg;
+}
+
+function checkEx(id) {
+  const ex = EX[id];
+  const raw = document.getElementById(id).value;
+  const fb = document.getElementById(id + '-fb');
+  if (!raw.trim()) {
+    showFb(fb, 'error', 'Type your answer first — have a go, a wrong guess teaches you more than an empty box.');
+    return;
+  }
+  const n = normalize(raw);
+  if (ex.accept.some(a => n === normalize(a))) {
+    showFb(fb, 'success', ex.good);
+    return;
+  }
+  for (const [re, msg] of ex.errors) {
+    if (re.test(n)) { showFb(fb, 'error', msg); return; }
+  }
+  showFb(fb, 'error', 'Not quite. ' + ex.hint);
+}
+
+const MCQ = {
+  mcq1: { correct: 'a', fb: {
+    a: 'Yes — "teacher": teach is one of the many verbs that just add -er.',
+    b: '"-or" is only for a smaller group of jobs (act → actor, direct → director). Teach uses -er: teacher.',
+    c: '"-ing" makes a different kind of word — the activity, not the person. You need the person word: teacher.'
+  }},
+  mcq2: { correct: 'a', fb: {
+    a: 'Yes — "unlucky": lucky uses un- to make its opposite.',
+    b: '"in-" isn\'t used with "lucky" — the opposite is unlucky.',
+    c: '"dis-" isn\'t used with "lucky" either — remember unlucky.'
+  }},
+  mcq3: { correct: 'b', fb: {
+    a: '"Excited" describes how a PERSON feels, not the match itself. The match is exciting; the fans are excited.',
+    b: 'Yes — "exciting": it describes the match, the thing that causes the feeling.',
+    c: 'You need the adjective form, not the plain verb: exciting.'
+  }}
+};
+
+function checkMCQ(id, choice) {
+  const q = MCQ[id];
+  const fb = document.getElementById(id + '-fb');
+  showFb(fb, choice === q.correct ? 'success' : 'error', q.fb[choice]);
+}
+
+function checkMessage() {
+  const raw = document.getElementById('message1').value;
+  const fb = document.getElementById('message1-fb');
+  if (raw.trim().split(/\s+/).length < 15) {
+    showFb(fb, 'error', 'Keep going — aim for 3–5 full sentences so there\'s room for all three word types.');
+    return;
+  }
+  const n = normalize(raw);
+  const found = [];
+  const missing = [];
+  (/\b(teacher|driver|worker|singer|dancer|painter|builder|actor|director|visitor|writer|player|farmer|gardener|runner|swimmer|cleaner|cook|designer)\b/.test(n) ? found : missing).push('<strong>a job word</strong> (teacher, driver, actor...)');
+  (/\b(unhappy|unlucky|unkind|unfair|unfriendly|unsafe|uncomfortable|impossible)\b/.test(n) ? found : missing).push('<strong>an un- opposite</strong> (unlucky, unfriendly, impossible...)');
+  (/\b(bored|boring|tired|tiring|interested|interesting|excited|exciting|frightened|frightening|confused|confusing|annoyed|annoying|surprised|surprising)\b/.test(n) ? found : missing).push('<strong>an -ed/-ing feeling word</strong> (bored, tiring, interested...)');
+  if (missing.length === 0) {
+    showFb(fb, 'success', 'All three word types found: ' + found.join(', ') + '. Now read your message aloud — does every sentence sound like something you\'d really say?');
+  } else {
+    let msg = '';
+    if (found.length) msg += 'Found so far: ' + found.join(', ') + '. ';
+    msg += 'Still missing: ' + missing.join(', ') + '. Add a sentence with the missing type and check again.';
+    showFb(fb, 'error', msg);
+  }
+}
+
+/* ---------- timer ---------- */
+
+let timerInterval = null;
+let timerRemaining = 60;
+let timerStartVal = 60;
+
+function renderTimer() {
+  const d = document.getElementById('timerDisplay');
+  const m = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+  const s = String(timerRemaining % 60).padStart(2, '0');
+  d.textContent = m + ':' + s;
+  d.className = 'timer-display' + (timerRemaining <= 10 ? ' danger' : timerRemaining <= 30 ? ' warning' : '');
+}
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  timerStartVal = seconds;
+  timerRemaining = seconds;
+  renderTimer();
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    if (timerRemaining <= 0) {
+      timerRemaining = 0;
+      clearInterval(timerInterval);
+    }
+    renderTimer();
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRemaining = timerStartVal;
+  renderTimer();
+}
+</script>
+
+</body>
+</html>
