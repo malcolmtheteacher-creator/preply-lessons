@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Phone Call: Catching Up, Round 2 | B2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #4a4a6a;
+    --accent: #667eea;
+    --accent-light: #e8ecff;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #c0392b;
+    --error-bg: #fadbd8;
+    --warning: #f4a261;
+    --warning-bg: #fdebd0;
+    --timer-green: #2ec4b6;
+    --timer-yellow: #f4a261;
+    --timer-red: #e63946;
+    --border: #e0e0e0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+
+  .tab-content {
+    display: none;
+    padding: 30px 20px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .tab-content.active { display: block; animation: fadeIn 0.3s; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  h1 { font-size: 1.8rem; margin-bottom: 12px; font-weight: 600; }
+  h2 { font-size: 1.4rem; margin: 24px 0 14px; font-weight: 600; }
+  h3 { font-size: 1rem; margin: 18px 0 10px; font-weight: 600; }
+  p { margin: 12px 0; }
+
+  .intention {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .dialogue {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    box-shadow: var(--shadow);
+  }
+  .dialogue p { margin: 8px 0; }
+  .dialogue .who { font-weight: 600; color: var(--accent); margin-right: 8px; }
+
+  .structure-box {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  .highlight-box {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .reveal-container { margin: 12px 0; }
+
+  .reveal-prompt {
+    background: var(--card);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+  }
+
+  .reveal-prompt:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .reveal-prompt .click-hint {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .reveal-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 8px;
+    animation: slideDown 0.3s;
+    font-size: 0.95rem;
+  }
+
+  .reveal-answer.visible { display: block; }
+
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .gap-line { font-size: 1rem; margin: 10px 0 4px; line-height: 2.2; }
+
+  .gap-input {
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    min-width: 220px;
+    color: var(--text);
+  }
+  .gap-input:focus { outline: none; border-color: #4a5fd0; background: var(--accent-light); }
+
+  .text-area {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .text-area:focus { outline: none; border-color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 10px 6px 4px 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+  .btn-show { background: var(--accent-light); color: var(--accent); }
+
+  .feedback {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: 10px 0;
+    display: none;
+    animation: fadeIn 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .feedback.success { display: block; background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+  .feedback.error { display: block; background: var(--error-bg); border: 1px solid var(--error); color: var(--error); }
+
+  .mcq-options { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .mcq-btn {
+    text-align: left;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .mcq-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .speak-box {
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+  }
+  .speak-chip {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .speak-box ol { margin: 8px 0 4px 20px; }
+  .speak-box li { margin: 7px 0; font-size: 0.95rem; }
+
+  .timer-container { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--timer-green);
+    min-width: 76px;
+  }
+  .timer-display.warning { color: var(--timer-yellow); }
+  .timer-display.danger { color: var(--timer-red); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .timer-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-timer { background: var(--accent-light); color: var(--accent); }
+  .btn-timer:hover { opacity: 0.8; }
+  .btn-reset { background: #f0f0f0; color: var(--text-light); }
+
+  .ican { list-style: none; padding: 0; margin: 12px 0; }
+  .ican li { margin: 10px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; }
+  .ican input[type="checkbox"] { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--accent); cursor: pointer; }
+
+  @media (max-width: 768px) {
+    .gap-input { min-width: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'tab1')">1. Warm-up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab2')">2. Three Engines, Thirty Seconds Each</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab3')">3. The Question Storm</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab4')">4. The Call</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab5')">5. Keep Talking</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab6')">6. Mix It Up</button>
+  <button class="tab-btn" onclick="openTab(event, 'tab7')">7. What Do You Remember?</button>
+</div>
+
+<!-- Tab 1: Warm-up -->
+<div id="tab1" class="tab-content active">
+  <h1>Warm-up</h1>
+
+  <p>Before you look at anything below, say three sentences out loud about your own week — one with each engine: something you've been doing, something that's changed nearby, and something you're planning.</p>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Go — one sentence with <strong>have been + -ing</strong>, one with <strong>the passive</strong>, one with <strong>a future form</strong>. Don't write anything, just talk.</p>
+  </div>
+
+  <h2>Listen in on this call</h2>
+
+  <div class="dialogue">
+    <p><span class="who">Aunt Jean:</span> Hello, love — I've been meaning to ring you for weeks! How's everything?</p>
+    <p><span class="who">You:</span> Good, thanks — I've been redecorating the spare room. It's taken forever.</p>
+    <p><span class="who">Aunt Jean:</span> Oh, and guess what — the old bakery on the corner's been turned into a coffee shop.</p>
+    <p><span class="who">You:</span> Really? Well, I'm popping into town Saturday, so I'll see it for myself.</p>
+  </div>
+
+  <div class="card">
+    <p><strong>Same three engines as last time, back already.</strong> Can you spot all three before you check?</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Check your answer</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">
+        <strong>1.</strong> "I've been redecorating the spare room" — <em>have been + -ing</em>, for what's filled your week.<br>
+        <strong>2.</strong> "the bakery's been turned into a coffee shop" — <em>the passive</em>, for news without naming who did it.<br>
+        <strong>3.</strong> "I'm popping into town Saturday... I'll see it" — <em>two future forms</em>, one arranged, one decided on the spot.<br><br>
+        Same engines, new voice on the other end of the line. This time, faster.
+      </div>
+    </div>
+  </div>
+
+  <div class="intention">
+    Today: the same three engines — <strong>have been doing</strong>, <strong>is being done / got done</strong>, and <strong>the future forms</strong> — but faster, mixed together, with barely any explaining. More talking, less reading.
+  </div>
+</div>
+
+<!-- Tab 2: Three Engines, Thirty Seconds Each -->
+<div id="tab2" class="tab-content">
+  <h1>Three Engines, Thirty Seconds Each</h1>
+  <p style="color: var(--text-light);">No re-teaching — just the shape of each engine, then straight into using it.</p>
+
+  <h2>Engine 1: have been + -ing</h2>
+  <p>It's the doing that matters, not the result — carrying on, or only recently stopped.</p>
+  <div class="structure-box">
+    have / has + been + verb-ing
+  </div>
+  <div class="highlight-box">
+    Trap: state verbs — know, love, believe — never take been + -ing.
+  </div>
+
+  <div class="card">
+    <p><strong>1.</strong> Your brother started saving for a car eighteen months ago — he's still at it. Use the continuous form of <em>save</em>:</p>
+    <p class="gap-line">"He <input type="text" class="gap-input" id="e1a" autocomplete="off"> for a car for eighteen months."</p>
+    <button class="btn-primary" onclick="checkEx('e1a')">Check</button>
+    <div class="feedback" id="e1a-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> You and your sister have barely stopped texting each other about the wedding this week. Use the continuous form of <em>message</em>:</p>
+    <p class="gap-line">"We <input type="text" class="gap-input" id="e1b" autocomplete="off"> about the wedding all week."</p>
+    <button class="btn-primary" onclick="checkEx('e1b')">Check</button>
+    <div class="feedback" id="e1b-fb"></div>
+  </div>
+
+  <h2>Engine 2: the everyday passive</h2>
+  <p>The thing goes first because the doer doesn't matter.</p>
+  <div class="structure-box">
+    is / are being + participle &nbsp;(now)<br>
+    has / have been + participle &nbsp;(recent)<br>
+    got + participle &nbsp;(casual — usually mishaps)
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> Right now, workmen are repaving the car park next to your gym — you can't park there this week. Start with "The car park":</p>
+    <p class="gap-line">"The car park <input type="text" class="gap-input" id="e2a" autocomplete="off"> at the moment — you'll have to park round the corner."</p>
+    <button class="btn-primary" onclick="checkEx('e2a')">Check</button>
+    <div class="feedback" id="e2a-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>4.</strong> Bad luck: your neighbour's car got scratched in the car park yesterday, and she's furious. Use <em>get</em>:</p>
+    <p class="gap-line">"Her car <input type="text" class="gap-input" id="e2b" autocomplete="off"> in the car park yesterday — she's furious."</p>
+    <button class="btn-primary" onclick="checkEx('e2b')">Check</button>
+    <div class="feedback" id="e2b-fb"></div>
+  </div>
+
+  <h2>Engine 3: which future?</h2>
+  <p>The form you choose tells your listener how fixed the plan is.</p>
+  <div class="structure-box">
+    -ing &nbsp;(arranged) &nbsp;·&nbsp; going to &nbsp;(intended)<br>
+    will &nbsp;(decided now / offer) &nbsp;·&nbsp; will be + -ing &nbsp;(happening anyway)
+  </div>
+
+  <div class="card">
+    <p><strong>5.</strong> Your friend's laptop just died right before an online call. Offer to lend yours — decided this second, with <em>lend</em>:</p>
+    <p class="gap-line">"Here — I <input type="text" class="gap-input" id="e3a" autocomplete="off"> you mine."</p>
+    <button class="btn-primary" onclick="checkEx('e3a')">Check</button>
+    <div class="feedback" id="e3a-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>6.</strong> "I can't do lunch Thursday — I ___ the dentist. It's been in the diary for weeks." Fill the gap with the arranged form of <em>see</em>:</p>
+    <p class="gap-line">"I can't do lunch Thursday — I <input type="text" class="gap-input" id="e3b" autocomplete="off"> the dentist. It's been in the diary for weeks."</p>
+    <button class="btn-primary" onclick="checkEx('e3b')">Check</button>
+    <div class="feedback" id="e3b-fb"></div>
+  </div>
+</div>
+
+<!-- Tab 3: The Question Storm -->
+<div id="tab3" class="tab-content">
+  <h1>The Question Storm</h1>
+  <p style="color: var(--text-light);">Mixed up on purpose — you won't know which engine's coming next.</p>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Race through these, out loud, one full sentence at a time. No pausing to plan — just switch:</p>
+    <ol>
+      <li>What have you been cooking or eating a lot of lately?</li>
+      <li>Has anything near you been knocked down, built, or fixed recently?</li>
+      <li>What are you doing this weekend — anything already arranged?</li>
+      <li>What have you been putting off that you really should just do?</li>
+      <li>Are you going to change anything about your routine next month?</li>
+      <li>Has a parcel, phone, or anything of yours ever got lost or damaged?</li>
+      <li>What's been keeping you busiest this month?</li>
+      <li>Has your street or building had anything repaired or replaced recently?</li>
+      <li>Will you be doing anything this evening — planned or not?</li>
+      <li>What have you been enjoying watching, reading, or listening to?</li>
+      <li>Has somewhere you know well been turned into something completely different?</li>
+      <li>What's one thing that's definitely fixed in your diary this month?</li>
+    </ol>
+  </div>
+
+  <h2>Flip it</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Now you ask me — six questions, mixing the engines yourself:</p>
+    <ol>
+      <li>Fire two "what have you been...?" questions at me — any topic you like.</li>
+      <li>Ask me one question about news from my area — something built, closed, or changed.</li>
+      <li>Ask me one question using "got" about something that went wrong.</li>
+      <li>Ask me two questions about my plans — using two different future forms.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Tab 4: The Call -->
+<div id="tab4" class="tab-content">
+  <h1>The Call</h1>
+  <p style="color: var(--text-light);">Two rounds. First she rings you — then you ring her back.</p>
+
+  <h2>Round 1 — Aunt Jean rings you</h2>
+
+  <div class="dialogue">
+    <p><span class="who">Aunt Jean:</span> Hello love! Been ages. So — what have you been up to?</p>
+  </div>
+  <div class="card">
+    <p>Tell her about your evening photography course, which started in September and is still going. Use <strong>have been + -ing</strong>:</p>
+    <p class="gap-line">"I <input type="text" class="gap-input" id="call1" autocomplete="off"> an evening photography course since September."</p>
+    <button class="btn-primary" onclick="checkEx('call1')">Check</button>
+    <div class="feedback" id="call1-fb"></div>
+  </div>
+
+  <div class="dialogue">
+    <p><span class="who">Aunt Jean:</span> Ooh, lovely. And is it true the old cinema down your road finally reopened? Someone told me it's a restaurant now.</p>
+  </div>
+  <div class="card">
+    <p>Confirm her news: it's genuinely been turned into a gastropub, and it only opened last month. Use <strong>the passive</strong>:</p>
+    <p class="gap-line">"Yes — it <input type="text" class="gap-input" id="call2" autocomplete="off"> into a gastropub. It only opened last month."</p>
+    <button class="btn-primary" onclick="checkEx('call2')">Check</button>
+    <div class="feedback" id="call2-fb"></div>
+  </div>
+
+  <div class="dialogue">
+    <p><span class="who">Aunt Jean:</span> Well, you'll have to come and show me sometime. Any chance of a visit this summer?</p>
+  </div>
+  <div class="card">
+    <p>You haven't booked anything yet, but you intend to visit her this August — decided before now, not yet arranged. Use <strong>going to</strong>:</p>
+    <p class="gap-line">"I haven't booked anything yet, but I <input type="text" class="gap-input" id="call3" autocomplete="off"> you this August."</p>
+    <button class="btn-primary" onclick="checkEx('call3')">Check</button>
+    <div class="feedback" id="call3-fb"></div>
+  </div>
+
+  <div class="dialogue">
+    <p><span class="who">Aunt Jean:</span> Lovely — let me know the dates once you sort them, won't you?</p>
+  </div>
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Answer her out loud — promise to text her the dates once you've booked. Make it an offer with <strong>will</strong>.</p>
+  </div>
+
+  <h2>Round 2 — you open the call</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Now you ring Aunt Jean. Keep the call going yourself, out loud, one cue at a time:</p>
+    <ol>
+      <li>Open the call — greet her and ask what she's been doing lately.</li>
+      <li>Tell her one thing that's been filling your life recently (have been + -ing).</li>
+      <li>Give her one piece of news about your area — something built, closed, or changed (the passive).</li>
+      <li>Tell her about something that went wrong recently — use got.</li>
+      <li>Tell her one plan that's already arranged, and one that's just an idea (two different future forms).</li>
+      <li>Promise to do something before you hang up — an offer with will.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Tab 5: Keep Talking -->
+<div id="tab5" class="tab-content">
+  <h1>Keep Talking</h1>
+  <p style="color: var(--text-light);">She doesn't pick up. Leave her a message — then the plans start moving.</p>
+
+  <h2>Leave the voicemail</h2>
+
+  <div class="card">
+    <p>Aunt Jean doesn't answer. <strong>Talk for two full minutes</strong>, as if you're leaving a voicemail. Get all three engines in there:</p>
+    <ul>
+      <li>how your life's been lately — the good bits and the tiring bits</li>
+      <li>anything different nearby — what's new, gone, or not the same anymore</li>
+      <li>what's ahead — the certain, the maybe, and the "we'll see"</li>
+    </ul>
+  </div>
+
+  <div class="timer-container">
+    <div class="timer-display" id="timerDisplay">02:00</div>
+    <button class="timer-btn btn-timer" onclick="startTimer(120)">Start 2 min</button>
+    <button class="timer-btn btn-timer" onclick="startTimer(180)">Start 3 min</button>
+    <button class="timer-btn btn-reset" onclick="resetTimer()">Reset</button>
+  </div>
+
+  <h2>The plans keep changing</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>She calls back. You've arranged to meet for coffee on Saturday at 11 — then the plan keeps moving. Read each line and speak your response out loud before going to the next one. Let the future form match how fixed things are getting:</p>
+    <ol>
+      <li>She texts: "Can we make it half past two instead?" — agree, keeping the arranged form.</li>
+      <li>Ten minutes later: "Actually, I might be busy Saturday after all — how about Sunday morning?" — respond with an on-the-spot decision.</li>
+      <li>Just as you're heading out on Sunday: "Something's come up — could we push it to next week?" — respond however feels natural, and say out loud why your form changed.</li>
+    </ol>
+  </div>
+
+  <h2>Now put it in writing</h2>
+
+  <div class="card">
+    <p>Draft the voicemail message you'd actually leave — or the text confirming your final plan. 3–5 sentences, and try to fit in all three engines; run the checker afterwards to see which ones showed up.</p>
+    <textarea class="text-area" id="message1" placeholder="Hi, it's me — sorry I missed your call..."></textarea>
+    <button class="btn-primary" onclick="checkMessage()">Check my message</button>
+    <div class="feedback" id="message1-fb"></div>
+  </div>
+</div>
+
+<!-- Tab 6: Mix It Up -->
+<div id="tab6" class="tab-content">
+  <h1>Mix It Up</h1>
+  <p style="color: var(--text-light);">Everything shuffled — nothing tells you which engine to reach for.</p>
+
+  <h2>Which engine fits?</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> Your friend's eyes are puffy at work. "Are you okay?" — "Yeah, I <span style="color: var(--accent); font-weight:700;">___</span> all night — my neighbours had a party."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','a')">a) haven't been sleeping</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','b')">b) am not sleeping</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq1','c')">c) won't be sleeping</button>
+    </div>
+    <div class="feedback" id="mcq1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> A colleague mentions the corner newsagent's in passing. "Actually," you say, "it <span style="color: var(--accent); font-weight:700;">___</span> — I saw the shutters down last week."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','a')">a) closes</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','b')">b) has been closed</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq2','c')">c) is closing</button>
+    </div>
+    <div class="feedback" id="mcq2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> Your cousin texts right as you're leaving the house, asking for a lift in ten minutes. "No problem — I <span style="color: var(--accent); font-weight:700;">___</span> get you."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','a')">a) 'm going to</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','b')">b) 'll</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq3','c')">c) 'm</button>
+    </div>
+    <div class="feedback" id="mcq3-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>4.</strong> "Can't do the pub quiz Wednesday — I <span style="color: var(--accent); font-weight:700;">___</span> dinner with my in-laws. It's been on the calendar for a month."</p>
+    <div class="mcq-options">
+      <button class="mcq-btn" onclick="checkMCQ('mcq4','a')">a) 'll have</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq4','b')">b) 'm having</button>
+      <button class="mcq-btn" onclick="checkMCQ('mcq4','c')">c) 'm going to have</button>
+    </div>
+    <div class="feedback" id="mcq4-fb"></div>
+  </div>
+
+  <h2>Fix the mistakes</h2>
+  <p>Each sentence hides one grammar slip. Say it correctly out loud, then type the corrected sentence.</p>
+
+  <div class="card">
+    <p><strong>5.</strong> "I've been knowing about the surprise party for weeks."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err1" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err1')">Check</button>
+    <div class="feedback" id="err1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>6.</strong> "The new library is building on the old car park site."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err2" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err2')">Check</button>
+    <div class="feedback" id="err2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>7.</strong> "I can't come Friday — I will pick up my parents from the station. We agreed it last month."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err3" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err3')">Check</button>
+    <div class="feedback" id="err3-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>8.</strong> "My bike wheel got puncturing yesterday, right before the race."</p>
+    <input type="text" class="text-area" style="min-height:44px" id="err4" autocomplete="off" placeholder="Say it right, then type it...">
+    <button class="btn-primary" onclick="checkEx('err4')">Check</button>
+    <div class="feedback" id="err4-fb"></div>
+  </div>
+
+  <h2>Say it better</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Every sentence below is grammatically fine but sounds stiff. Say a livelier version out loud, then compare:</p>
+  </div>
+
+  <div class="card">
+    <p><strong>9.</strong> "Somebody fixed my washing machine this morning." <em>(you didn't do it yourself — but who cares who did?)</em></p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Compare with a natural version</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">"I got my washing machine fixed this morning." — this is how people mention a job someone else did for them, no need to say who: got it sorted, got it delivered, got it done.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p><strong>10.</strong> "I began queuing for tickets at seven this morning. It's eleven now. I haven't stopped."</p>
+    <div class="reveal-container">
+      <div class="reveal-prompt" onclick="toggleReveal(this)">
+        <span>Compare with a natural version</span>
+        <span class="click-hint">CLICK</span>
+      </div>
+      <div class="reveal-answer">"I've been queuing for tickets since seven this morning." — three short sentences turn into one, and the exhaustion is built into the tense itself, no extra words needed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab 7: What Do You Remember? -->
+<div id="tab7" class="tab-content">
+  <h1>What Do You Remember?</h1>
+
+  <h2>Answer out loud before you type — brand-new situations</h2>
+
+  <div class="card">
+    <p><strong>1.</strong> Your grandad started growing tomatoes in the garden back in April, and he's out there every evening. Use the continuous form of <em>grow</em>:</p>
+    <p class="gap-line">"He <input type="text" class="gap-input" id="rec1" autocomplete="off"> tomatoes every evening since April."</p>
+    <button class="btn-primary" onclick="checkEx('rec1')">Check</button>
+    <div class="feedback" id="rec1-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>2.</strong> News: the local swimming pool closed for repairs three weeks ago, and nobody knows when it'll reopen. Start with "The swimming pool":</p>
+    <p class="gap-line">"The swimming pool <input type="text" class="gap-input" id="rec2" autocomplete="off"> for repairs for three weeks."</p>
+    <button class="btn-primary" onclick="checkEx('rec2')">Check</button>
+    <div class="feedback" id="rec2-fb"></div>
+  </div>
+
+  <div class="card">
+    <p><strong>3.</strong> A friend just texted asking if you can water her plants while she's away. Decide this second, with <em>water</em>:</p>
+    <p class="gap-line">"Of course — I <input type="text" class="gap-input" id="rec3" autocomplete="off"> them every day."</p>
+    <button class="btn-primary" onclick="checkEx('rec3')">Check</button>
+    <div class="feedback" id="rec3-fb"></div>
+  </div>
+
+  <h2>One last minute of talk</h2>
+
+  <div class="speak-box">
+    <span class="speak-chip">SPEAK</span>
+    <p>Wrap up in under a minute: which engine did you reach for without thinking this time, which one made you pause, and how did this call feel different from the first one?</p>
+  </div>
+
+  <h2>Can you now...?</h2>
+  <p>We said: the same three engines, faster and mixed together. Tick what's true:</p>
+
+  <ul class="ican">
+    <li><input type="checkbox" id="ican1"><label for="ican1">I can talk about what's occupied my time recently using <strong>have been + -ing</strong>, without stopping to think.</label></li>
+    <li><input type="checkbox" id="ican2"><label for="ican2">I can pass on news with <strong>is being done / has been done / got done</strong>, picking whichever fits on the spot.</label></li>
+    <li><input type="checkbox" id="ican3"><label for="ican3">I can switch future forms mid-conversation as a plan gets more or less fixed.</label></li>
+  </ul>
+
+  <div class="highlight-box">
+    This was round two. Want the original conversation again — same three engines, first meeting? It's here: <a href="grammar_b2_19_catching_up.html">Round 1</a>.
+  </div>
+</div>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function toggleReveal(el) {
+  el.nextElementSibling.classList.toggle('visible');
+}
+
+/* ---------- answer checking ---------- */
+
+function normalize(s) {
+  s = s.toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/'s been\b/g, ' has been')
+    .replace(/'ve been\b/g, ' have been')
+    .replace(/'ll\b/g, ' will')
+    .replace(/'m\b/g, ' am')
+    .replace(/'re\b/g, ' are')
+    .replace(/won't\b/g, 'will not')
+    .replace(/can't\b/g, 'can not')
+    .replace(/\bcannot\b/g, 'can not')
+    .replace(/n't\b/g, ' not')
+    .replace(/[.,!?;:"]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return s;
+}
+
+const EX = {
+  e1a: {
+    accept: ['has been saving'],
+    good: 'Right — has been saving. Eighteen months and still going: the activity is the news.',
+    errors: [
+      [/has saved/, 'That sounds finished — but he\'s still saving. You need been + -ing: has been saving.'],
+      [/is saving/, '"For eighteen months" needs the perfect: HAS been saving — it connects then to now.'],
+      [/have been/, '"He" is singular — has, not have.'],
+      [/has been save($| )/, 'Nearly — the -ing form: saving.']
+    ],
+    hint: 'Structure: has + been + saving.'
+  },
+  e1b: {
+    accept: ['have been messaging'],
+    good: 'Yes — have been messaging. Non-stop this week: been + -ing carries that.',
+    errors: [
+      [/have messaged/, 'That sounds like a one-off, finished thing — but it\'s been non-stop. have been messaging.'],
+      [/are messaging/, '"All week" needs the perfect to reach back: HAVE been messaging.'],
+      [/has been/, '"We" takes have, not has.'],
+      [/been message($| )/, 'Nearly — messaging, with -ing.']
+    ],
+    hint: 'Structure: have + been + messaging.'
+  },
+  e2a: {
+    accept: ['is being repaved', 'is getting repaved'],
+    good: 'Yes — is being repaved. Happening right now, workers unnamed and unimportant.',
+    errors: [
+      [/is repaved/, 'That sounds like a habit ("it is repaved every year"). Right now, in progress: is BEING repaved.'],
+      [/has been repaved/, 'That would mean it\'s finished — but you still can\'t park there. Ongoing: is being repaved.'],
+      [/is being repave($| )/, 'Nearly — past participle: repaved.'],
+      [/are being/, '"The car park" is singular — is.']
+    ],
+    hint: 'Happening now: is + being + past participle.'
+  },
+  e2b: {
+    accept: ['got scratched'],
+    good: 'Exactly — got scratched. The spoken passive for bad luck: short and sympathetic.',
+    errors: [
+      [/got scratch($| )/, 'Nearly — past participle: scratched.'],
+      [/was scratched/, 'Grammatically fine! But the task asked for the spoken "get" version: got scratched.'],
+      [/is scratched/, 'For news of what just happened, use got + participle: got scratched.'],
+      [/got scratching/, 'Not -ing here — past participle: got scratched.']
+    ],
+    hint: 'Spoken passive: got + past participle of "scratch".'
+  },
+  e3a: {
+    accept: ['will lend'],
+    good: 'Yes — I\'ll lend you mine. Will is the offer-machine: decided this very second.',
+    errors: [
+      [/am going to lend/, '"Going to" sounds pre-planned — but you only decided when the laptop died. On-the-spot = will.'],
+      [/am lending/, 'The -ing form is for arrangements in the diary. A spontaneous offer takes will.'],
+      [/^lend$/, 'You need a future form — this is an offer: will lend.']
+    ],
+    hint: 'On-the-spot offer: will + base verb.'
+  },
+  e3b: {
+    accept: ['am seeing'],
+    good: 'Right — am seeing. Booked, arranged, in the diary: the -ing future is the arrangement form.',
+    errors: [
+      [/will see/, '"Will" sounds decided this moment — but it\'s been booked for weeks. A fixed arrangement takes the -ing form: am seeing.'],
+      [/am going to see/, '"Going to" is for intentions, not fixed appointments already in the diary. Use: am seeing.'],
+      [/^see$/, 'Plain present is for timetables, not personal arrangements. You need: am seeing.']
+    ],
+    hint: 'Arranged plan: am + seeing.'
+  },
+  call1: {
+    accept: ['have been doing'],
+    good: 'Nice — have been doing. Started in September, still going: exactly what "how have you been?" is asking for.',
+    errors: [
+      [/have done/, 'That sounds finished — but you\'re still going. You need been + -ing: have been doing.'],
+      [/am doing/, '"Since September" needs the perfect: HAVE been doing — it connects September to now.'],
+      [/has been/, '"I" takes have, not has.'],
+      [/been do($| )/, 'Nearly — the -ing form: doing.']
+    ],
+    hint: 'Structure: have + been + doing.'
+  },
+  call2: {
+    accept: ['has been turned'],
+    good: 'Right — has been turned. Recent news, and the workers who did it don\'t matter.',
+    errors: [
+      [/is being turned/, 'That would mean the work\'s still happening — but it already opened last month. Recent result: has been turned.'],
+      [/has turned/, 'The cinema didn\'t turn itself into anything — someone did it TO it. Passive: has been turned.'],
+      [/^turned$/, 'You\'re missing "has been" — otherwise the cinema did the turning itself! has BEEN turned.']
+    ],
+    hint: 'Recent news passive: has + been + turned.'
+  },
+  call3: {
+    accept: ['am going to visit'],
+    good: 'Yes — am going to visit. Decided, but not yet in the diary: that\'s exactly what going to is for.',
+    errors: [
+      [/will visit/, '"Will" sounds like you\'re deciding this second — but you already intend to go. Use: am going to visit.'],
+      [/am visiting/, 'The -ing form needs a fixed arrangement — but nothing\'s booked yet. Intention: am going to visit.'],
+      [/^visit$/, 'You need a future form here: am going to visit.']
+    ],
+    hint: 'Intention, not yet arranged: am + going to + visit.'
+  },
+  err1: {
+    accept: ['i have known about the surprise party for weeks'],
+    good: 'Correct — have known. "Know" is a state, and states refuse the -ing form, however long they last.',
+    errors: [
+      [/been knowing/, 'That\'s the original mistake — "know" is a state verb. No -ing: I have KNOWN about it.'],
+      [/knew about the surprise party for/, '"For weeks" reaches into the present — you need the present perfect: have known.']
+    ],
+    hint: 'State verbs (know, love, believe) never take been + -ing. Have + known.'
+  },
+  err2: {
+    accept: ['the new library is being built on the old car park site', 'is being built on the old car park site'],
+    good: 'Correct — is BEING built. The library isn\'t doing any building; work is being done TO it.',
+    errors: [
+      [/is building/, 'That\'s the original mistake — the library isn\'t doing the building! Passive: is being built.'],
+      [/is being build($| )/, 'Nearly — past participle: built.'],
+      [/has been built/, 'That would mean it\'s finished — but it\'s still a building site. Ongoing: is being built.']
+    ],
+    hint: 'The mistake is "is building". Ongoing passive: is + being + built.'
+  },
+  err3: {
+    accept: ['i can not come friday i am picking up my parents from the station we agreed it last month', 'i am picking up my parents from the station', 'am picking up my parents from the station we agreed it last month'],
+    good: 'Correct — I\'m picking up. "We agreed it last month" is the giveaway: a fixed arrangement takes the -ing form, not will.',
+    errors: [
+      [/i will pick up/, 'That\'s the original mistake — "will" sounds like you decided this second, but it was agreed last month. Arrangement = I\'m picking up.'],
+      [/going to pick up/, 'Better than "will" — but with a fixed, agreed plan ("last month"), the most natural form is the -ing: I\'m picking up.']
+    ],
+    hint: 'The mistake is "I will pick up" for a fixed arrangement. Use: I am picking up.'
+  },
+  err4: {
+    accept: ['my bike wheel got punctured yesterday right before the race', 'got punctured yesterday right before the race', 'my bike wheel got punctured'],
+    good: 'Correct — got punctured. The spoken passive needs the past participle after got, not -ing.',
+    errors: [
+      [/got puncture($| )/, 'Nearly — past participle: punctured.'],
+      [/was puncturing/, '"Was puncturing" would mean the wheel was doing the puncturing! You need: got punctured.'],
+      [/is punctured/, 'This happened yesterday — it\'s already news. Use: got punctured.']
+    ],
+    hint: 'The mistake is "got puncturing". Correct participle: got punctured.'
+  },
+  rec1: {
+    accept: ['has been growing'],
+    good: 'Exactly — has been growing. April to now, still going: been + -ing.',
+    errors: [
+      [/has grown/, 'That sounds complete — but he\'s still out there every evening. has been growing.'],
+      [/is growing/, '"Since April" needs the perfect to connect then and now: HAS been growing.'],
+      [/have been/, '"He" takes has.']
+    ],
+    hint: 'has + been + growing.'
+  },
+  rec2: {
+    accept: ['has been closed'],
+    good: 'Right — has been closed. Recent, unresolved news — exactly what has been + participle is for.',
+    errors: [
+      [/has closed/, 'That sounds like the pool did the closing itself. It was closed BY someone: has been closed.'],
+      [/is being closed/, 'That would mean it\'s closing right now — but it already happened three weeks ago. Recent result: has been closed.'],
+      [/has been close($| )/, 'Nearly — past participle: closed.']
+    ],
+    hint: 'Recent news passive: has + been + closed.'
+  },
+  rec3: {
+    accept: ['will water'],
+    good: 'Perfect — I\'ll water them. An offer made on the spot always takes will.',
+    errors: [
+      [/am going to water/, 'You decided just now, not before — on-the-spot offers take will.'],
+      [/am watering/, 'The -ing form is for diary arrangements. This is a spontaneous offer: will water.'],
+      [/^water$/, 'You need the future offer form: will water.']
+    ],
+    hint: 'Offer: will + water.'
+  }
+};
+
+function showFb(el, type, msg) {
+  el.className = 'feedback ' + type;
+  el.innerHTML = msg;
+}
+
+function checkEx(id) {
+  const ex = EX[id];
+  const raw = document.getElementById(id).value;
+  const fb = document.getElementById(id + '-fb');
+  if (!raw.trim()) {
+    showFb(fb, 'error', 'Say it out loud first, then type it — an attempt teaches more than an empty box.');
+    return;
+  }
+  const n = normalize(raw);
+  if (ex.accept.some(a => n === normalize(a) || n.includes(normalize(a)))) {
+    showFb(fb, 'success', ex.good);
+    return;
+  }
+  for (const [re, msg] of ex.errors) {
+    if (re.test(n)) { showFb(fb, 'error', msg); return; }
+  }
+  showFb(fb, 'error', 'Not quite. ' + ex.hint);
+}
+
+const MCQ = {
+  mcq1: { correct: 'a', fb: {
+    a: 'Yes — haven\'t been sleeping: a whole night of it, and the puffy eyes are the evidence.',
+    b: '"Am not sleeping" is only about right now — but "all night" stretches back, which needs the perfect continuous.',
+    c: '"Won\'t be sleeping" is future — but the puffy eyes are about the night that\'s already happened.'
+  }},
+  mcq2: { correct: 'b', fb: {
+    a: '"It closes" sounds like a routine or timetable, not news about this particular shop.',
+    b: 'Yes — has been closed: recent news, and the shutters are the evidence.',
+    c: '"Is closing" suggests it\'s happening right now, in progress — but the shutters suggest it\'s already done.'
+  }},
+  mcq3: { correct: 'b', fb: {
+    a: '"Going to" means you\'d already planned it — but the text only just arrived. On-the-spot decision = will.',
+    b: 'Yes — I\'ll get you: decided at that very moment. Will is the decide-now form.',
+    c: 'Plain "\'m" with no -ing isn\'t a future form at all here — you need will.'
+  }},
+  mcq4: { correct: 'b', fb: {
+    a: '"\'ll have" sounds decided this second — but it\'s been on the calendar for a month. Fixed arrangement = \'m having.',
+    b: 'Yes — \'m having: booked, arranged, in the diary. The -ing future is the arrangement form.',
+    c: '"Going to" is for intentions not yet fixed — but this one\'s already on the calendar. Use: \'m having.'
+  }}
+};
+
+function checkMCQ(id, choice) {
+  const q = MCQ[id];
+  const fb = document.getElementById(id + '-fb');
+  showFb(fb, choice === q.correct ? 'success' : 'error', q.fb[choice]);
+}
+
+function checkMessage() {
+  const raw = document.getElementById('message1').value;
+  const fb = document.getElementById('message1-fb');
+  if (raw.trim().split(/\s+/).length < 15) {
+    showFb(fb, 'error', 'Keep going — 3–5 full sentences gives all three engines a real chance to appear.');
+    return;
+  }
+  const n = normalize(raw);
+  const found = [];
+  const missing = [];
+  (/\b(have|has) been \w+ing\b/.test(n) ? found : missing).push('<strong>have been doing</strong> (your recent life)');
+  (/\b(is|are|was|were|been|get|gets|got|getting) (being )?\w+(ed|en|wn|ilt|ung|one|old|ut|ost|aid|ept)\b/.test(n) ? found : missing).push('<strong>is being done / got done</strong> (news)');
+  (/\bwill\b|\bgoing to\b|\b(am|are|is) \w+ing\b/.test(n) ? found : missing).push('<strong>a future form</strong> (plans)');
+  if (missing.length === 0) {
+    showFb(fb, 'success', 'All three engines found: ' + found.join(', ') + '. Read it back — does it sound like something you\'d really send?');
+  } else {
+    let msg = '';
+    if (found.length) msg += 'Found: ' + found.join(', ') + '. ';
+    msg += 'Still missing: ' + missing.join(', ') + '. Add a sentence and check again.';
+    showFb(fb, 'error', msg);
+  }
+}
+
+/* ---------- timer ---------- */
+
+let timerInterval = null;
+let timerRemaining = 120;
+let timerStartVal = 120;
+
+function renderTimer() {
+  const d = document.getElementById('timerDisplay');
+  const m = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+  const s = String(timerRemaining % 60).padStart(2, '0');
+  d.textContent = m + ':' + s;
+  d.className = 'timer-display' + (timerRemaining <= 10 ? ' danger' : timerRemaining <= 30 ? ' warning' : '');
+}
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  timerStartVal = seconds;
+  timerRemaining = seconds;
+  renderTimer();
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    if (timerRemaining <= 0) {
+      timerRemaining = 0;
+      clearInterval(timerInterval);
+    }
+    renderTimer();
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRemaining = timerStartVal;
+  renderTimer();
+}
+
+/* ---------- show answer ---------- */
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll("button[onclick^='checkEx(']").forEach(function(btn) {
+    var m = btn.getAttribute('onclick').match(/checkEx\('([^']+)'\)/);
+    if (!m || !EX[m[1]]) return;
+    var id = m[1];
+    var b = document.createElement('button');
+    b.className = 'btn-primary btn-show';
+    b.textContent = 'Show answer';
+    b.onclick = function() { var ex = EX[id]; showFb(document.getElementById(id + '-fb'), 'success', '<strong>Answer:</strong> ' + ex.accept[0] + '<br>' + ex.good); };
+    btn.after(b);
+  });
+});
+</script>
+
+</body>
+</html>
