@@ -40,7 +40,7 @@ Keep the `<style>` block and the `<script>` (tab switching + timer) **byte-ident
 The whole point of the series is that the "Real Story" is TRUE. **Research every factual claim with WebSearch before writing it**, and do not invent people, dates, papers or quotes. If the film distorts history (e.g. Gladiator, Troy, The Imitation Game), say so plainly — "myth vs history" is often the best discussion. Get names and facts right.
 
 ## 5. The twin (A2/B1)
-Same film, **simpler retold story** (short sentences, common words), 10 easy key words in the **8-item match-grid** format from the exemplar, and a **simpler grammar point** tied to the film — NOT the B2/C1 point. Same self-contained, no-inline-gloss vocab rule. A simpler "Real Story" tab (2 short chunks). 50 min.
+Same film, **simpler retold story** (short sentences, common words), 10 easy key words in the **8-item match-grid** format from the exemplar, and a **simpler grammar point** tied to the film — NOT the B2/C1 point. **The match-grid MUST be genuinely scrambled: list the meanings in a DIFFERENT order from the words, so the answer key is NEVER 1=A, 2=B, 3=C… (that pre-matches everything and tests nothing). Word N's meaning must sit under a different-position letter.** Same self-contained, no-inline-gloss vocab rule. A simpler "Real Story" tab (2 short chunks). 50 min.
 
 ## 6. HARD RULES (both levels)
 - **4th-wall clean:** no teacher notes, no pedagogy/TEEP/mode labels, no "Malcolm", no "Simplified".
