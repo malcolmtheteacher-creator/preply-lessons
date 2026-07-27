@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Behind the Screen">
+<title>Behind the Screen: The Social Network · B2/C1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #fafafe; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(102,126,234,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#5a3aa0; }
+.crosslink a { color:#764ba2; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #f0f0fa; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #5a3aa0; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #764ba2; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #ede8f9; border-left: 4px solid #764ba2; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #4a3380; font-size: 0.98rem; }
+.intention strong { color: #5a3aa0; }
+.story-chunk { background: #f6f4fc; border-left: 4px solid #764ba2; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f6f4fc; border: 1px solid #d8d2ea; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #5a3aa0; }
+.reveal-btn { background: #ede8f9; border: 1px solid #c8bce8; color: #5a3aa0; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #ddd1ed; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #b8a8d8; background: transparent; padding: 2px 6px; font: inherit; color: #5a3aa0; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #764ba2; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #5a3aa0; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #5a3aa0; }
+.speak-prompt { background: linear-gradient(135deg, #f0ecf7 0%, #ede7f6 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #764ba2; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #5a3aa0; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #3a2a5a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #d8d2ea; border-left: 4px solid #764ba2; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #5a3aa0; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.realstory-box { background:#eef4ff; border:1px solid #b9d0f5; border-radius:12px; padding:20px 22px; margin:18px 0; }
+.realstory-box h3 { color:#2b5bab; margin-bottom:8px; }
+.realstory-box p { color:#26364f; margin-bottom:12px; }
+.note { background:#f9f7fd; border:1px solid #e0d8ee; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#5a3aa0; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">BEHIND THE SCREEN · B2/C1 · 50 min</span>
+        <h1>The Social Network</h1>
+        <p>A Harvard dorm-room website becomes a global giant — told through two lawsuits from the friends who say they were cut out. Most of it really happened.</p>
+    </header>
+
+    <p class="crosslink">Need an easier version? <a href="behind_the_screen_the_social_network_a2b1.html">Read this lesson at A2/B1 level →</a></p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Film</button>
+        <button class="tab-btn" onclick="showTab(2)">Grammar — reporting verbs &amp; patterns</button>
+        <button class="tab-btn" onclick="showTab(3)">The Real Story</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+    </nav>
+
+    <!-- TAB 0: KEY WORDS -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll tell the story of <em>The Social Network</em> — a Harvard student builds a website that becomes a global giant, and ends up sued by the two friends who say he cut them out — discover how much of the drama is true, and master the patterns English uses to report what people said, denied and refused to admit: <strong>accuse, deny, admit to, claim/insist, refuse, blame</strong>.</div>
+
+            <div class="note" style="border-left:4px solid #764ba2;">
+                <strong>Before we begin — talk it through:</strong> Has anyone ever taken credit for an idea that was really yours, even partly? If two close friends built something valuable together and then fell out over money, could the friendship ever really recover? Does great success always come at some personal cost?
+            </div>
+
+            <h2>The words for today's story</h2>
+            <p>Work through the four short activities. Each word is shown in a situation that gives its meaning away — no need to know the film yet. <strong>Say your answer out loud first</strong>, then reveal.</p>
+
+            <h3>A. Infer from context — what does the bold word mean?</h3>
+            <div class="guess-item">
+                <div class="sent">1. The club was famously <b>exclusive</b>: only students from certain families, with certain connections, were ever invited to join.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>exclusive</b> (adj) — restricted to a select, privileged few; deliberately hard for most people to join.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">2. It was a <b>prestigious</b> old university — the kind of name that, just by appearing on your CV, opened doors for the rest of your life.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>prestigious</b> (adj) — widely admired and respected because of its high status or reputation.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">3. She had <b>coveted</b> her sister's necklace for years, staring at it every visit, unable to stop wishing it were hers instead.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>to covet</b> (v) — to want something badly, especially something that belongs to someone else.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">4. When the company sold new shares to outside investors, the founder's stake was <b>diluted</b> from almost a third of the business down to under ten per cent.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>to dilute</b> (v) — to reduce the strength or proportion of something by adding more of something else; here, more shares.</div>
+            </div>
+
+            <h3>B. Closest in meaning — which one is nearest?</h3>
+            <div class="guess-item">
+                <div class="sent">5. <b>ruthless</b> is closest in meaning to: (a) kind-hearted &nbsp; (b) without mercy &nbsp; (c) forgetful</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>(b) without mercy</b> — <b>ruthless</b> (adj) means having no pity or concern for others when pursuing a goal.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">6. <b>audacious</b> is closest in meaning to: (a) shy &nbsp; (b) boldly daring &nbsp; (c) cautious</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>(b) boldly daring</b> — <b>audacious</b> (adj) means showing a willingness to take bold risks, often ones that shock people.</div>
+            </div>
+
+            <h3>C. Which meaning fits? (choose a, b or c)</h3>
+            <div class="guess-item">
+                <div class="sent">7. The manager was accused of <b>exploiting</b> junior staff, making them work unpaid overtime while he took the credit for it.<br><b>To exploit</b> someone is: (a) to reward them fairly; (b) to treat them unfairly for your own benefit; (c) to promote them.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>(b)</b> — <b>to exploit</b> (v) — to use someone or something unfairly for your own advantage.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">8. He got the contract through <b>underhand</b> methods — a secret deal and a payment nobody was meant to find out about.<br><b>Underhand</b> behaviour is: (a) open and honest; (b) secret and dishonest; (c) generous.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>(b)</b> — <b>underhand</b> (adj) — done in a secret, deceitful or unfair way.</div>
+            </div>
+
+            <h3>D. Infer from context — two bigger ideas</h3>
+            <div class="guess-item">
+                <div class="sent">9. Even after winning the case and the money, he kept attacking her in public for years — friends said it wasn't about justice any more, just <b>vindictiveness</b>.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>vindictive</b> (adj) — having a strong, spiteful desire for revenge, beyond what the situation requires.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">10. The intern did all the research, but her boss presented it to the board as his own work and <b>took the credit for it</b>.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>to take credit for something</b> — to accept praise or recognition for it, especially when you didn't fully deserve it, or didn't do it alone.</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Talk it through before we watch:</strong>
+                <ul>
+                    <li>Using <em>exclusive</em>, <em>covet</em> and <em>ruthless</em>, predict: what kind of story do you think is about to unfold?</li>
+                    <li>Which of these words describe behaviour you'd admire, and which describe behaviour you'd condemn? Sort them out loud and say why.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: THE FILM -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The film, in three parts</h2>
+            <p>David Fincher's <em>The Social Network</em> (2010), written by Aaron Sorkin. Read each part, try the quick check from memory, then discuss. (There are spoilers ahead — that's the point; we're here to talk about it.)</p>
+
+            <h3>Part 1 — A break-up, a website, and a stolen idea</h3>
+            <div class="story-chunk">
+                <p>It's the autumn of 2003 at Harvard. Mark Zuckerberg is a brilliant, sharp-tongued computer science student, obsessed with the university's exclusive social hierarchy — the elite "final clubs" that decide who matters and who doesn't. One night, over a drink, his girlfriend Erica ends things, stung by his condescending remarks about her and her school. Furious and humiliated, Mark storms back to his dorm room and, fuelled by anger and beer, builds a website in a single night: Facemash. It puts pairs of female students' photos side by side and asks visitors to vote on who is more attractive. The site is a sensation and a scandal — it crashes Harvard's network, provokes outrage from student groups, and gets Mark hauled before the disciplinary board. It also makes him briefly, notoriously famous.</p>
+                <p>Around the same time, twin brothers Cameron and Tyler Winklevoss — tall, wealthy, Olympic-calibre rowers — and their business partner Divya Narendra approach Mark with an idea: an exclusive social network just for Harvard students, called Harvard Connection. They need a programmer. Mark says yes, seems enthusiastic, and strings them along with excuses for weeks.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — answer from memory, then reveal:</div>
+                <p>1. What does Mark build the night Erica breaks up with him, and why does it cause trouble?</p>
+                <p>2. What do the Winklevoss twins ask Mark to help them build?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Facemash, a site that rates female students' attractiveness; it crashes Harvard's network and causes a disciplinary scandal.</p>
+                    <p><strong>2.</strong> Harvard Connection, an exclusive social network for Harvard students only.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Mark builds Facemash purely out of anger and wounded pride. Do you think humiliation and revenge are common — even useful — fuel for great ambition, or do they only lead to trouble?</li></ul>
+            </div>
+
+            <h3>Part 2 — Thefacebook, and a friend's money</h3>
+            <div class="story-chunk">
+                <p>While stringing the twins along, Mark is quietly building something of his own: thefacebook.com, a site limited at first to verified Harvard students, where people can post a profile and see who else is single, whose friends are whose, and what everyone is doing. His best friend, Eduardo Saverin, believes in it enough to put in the seed money and take on the business side as CFO. Launched in February 2004, the site is an overnight sensation on campus, and within weeks it spreads to Yale, Columbia, Stanford, and beyond.</p>
+                <p>The Winklevoss twins realise, with fury, that the site Mark has launched looks very much like the one they hired him to build for them — except it's entirely his. They see themselves as victims of a calculated theft, not a missed opportunity. Meanwhile, a charismatic, hard-partying entrepreneur named Sean Parker — the co-founder of Napster — talks his way into Mark's inner circle. He pushes Mark to think bigger: drop the "the," move to Silicon Valley, chase real investors, and stop worrying about small advertising deals. Eduardo, more cautious and increasingly sidelined, distrusts Sean and tries to bring in advertisers the traditional way. The friendship between Mark and Eduardo starts to fray.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — answer from memory, then reveal:</div>
+                <p>1. What is thefacebook.com at first, and who provides the money to start it?</p>
+                <p>2. Why does Sean Parker's arrival create tension with Eduardo?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> A social network limited to verified Harvard students at first; Eduardo Saverin provides the seed money.</p>
+                    <p><strong>2.</strong> Sean pushes Mark toward bigger, riskier ambitions and sidelines Eduardo's more cautious, advertising-based approach.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Sean Parker tells Mark that Eduardo's caution will hold the company back. Is it ever right to sideline a loyal friend because they're "not right" for the next stage of a project?</li></ul>
+            </div>
+
+            <h3>Part 3 — Diluted, frozen out, and a friend request</h3>
+            <div class="story-chunk">
+                <p>As the company grows and takes on investment, Mark — pushed by Sean — restructures it, issuing a huge number of new shares. On paper, Eduardo's stake quietly shrinks from around a third of the company to a sliver worth almost nothing, while everyone else's holdings barely move. When Eduardo finally understands what has happened, he is devastated: this isn't a business decision, it's a betrayal by his closest friend. In retaliation, he freezes the company's bank account, and the friendship collapses for good in a furious confrontation in the Facebook offices.</p>
+                <p>Meanwhile, the Winklevoss twins have taken their grievance to lawyers, convinced Mark stole Harvard Connection outright. Facebook itself keeps growing, racing past a million users and then far beyond, as Mark becomes the youngest self-made billionaire in history. The film closes not with triumph but with Mark alone in a conference room at night, having just been warned by his own lawyer that both lawsuits will likely settle for large sums. Left by himself, he does the one small, human thing he can: he refreshes a page, again and again, waiting to see if Erica — the girlfriend from the very first scene — will accept his friend request.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — answer from memory, then reveal:</div>
+                <p>1. What happens to Eduardo's shares, and how does he react when he finds out?</p>
+                <p>2. How does the film end?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> They are diluted to almost nothing; Eduardo is devastated, calls it a betrayal, and freezes the company's account.</p>
+                    <p><strong>2.</strong> Mark, warned both lawsuits will settle, sits alone refreshing the page to see if Erica will accept his friend request.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>By the end, Mark has built the biggest network of "friends" on Earth and lost the two people closest to him. Is that irony the price of ambition, or did he simply choose badly?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: GRAMMAR -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Grammar — reporting verbs &amp; patterns</h2>
+            <p>No story needs these patterns more than this one — it's built almost entirely out of people accusing, denying, admitting and refusing. Each reporting verb below takes its own fixed pattern; get the pattern wrong and the sentence breaks.</p>
+            <div class="note">
+                <strong>The six patterns:</strong><br>
+                • <strong>accuse someone of + -ing</strong> — "The twins <em>accused</em> Mark <em>of stealing</em> their idea."<br>
+                • <strong>deny + -ing</strong> — "Mark always <em>denied copying</em> anything from Harvard Connection."<br>
+                • <strong>admit to + -ing</strong> — "Eduardo later <em>admitted to feeling</em> completely blindsided by the new shares."<br>
+                • <strong>claim / insist + that</strong> — "The twins <em>insisted that</em> the idea had always been theirs."<br>
+                • <strong>refuse + to</strong> — "Eduardo <em>refused to sign</em> away his stake without a fight."<br>
+                • <strong>blame someone for + -ing</strong> — "Mark <em>blamed</em> Eduardo <em>for failing</em> to bring in advertisers fast enough."
+            </div>
+            <div class="note">
+                <strong>Feel the shape of each one:</strong><br>
+                • <em>accuse / blame</em> — verb + <strong>person</strong> + <em>of / for</em> + <strong>-ing</strong>.<br>
+                • <em>deny / admit to</em> — verb + <strong>-ing</strong> directly (no person).<br>
+                • <em>claim / insist</em> — verb + <strong>that</strong> + a full clause.<br>
+                • <em>refuse</em> — verb + <strong>to + infinitive</strong>.
+            </div>
+
+            <h3>1. Complete the pattern</h3>
+            <p>Put each reporting verb into the correct pattern.</p>
+            <div class="gap-fill">
+                <p>1. The Winklevoss twins accused Mark <input type="text" placeholder="..."> (steal) their idea for a Harvard-only social network.</p>
+                <p>2. Mark always denied <input type="text" placeholder="..."> (copy) anything from Harvard Connection.</p>
+                <p>3. In the deposition, Eduardo admitted <input type="text" placeholder="..."> (feel) completely humiliated when he saw the new shareholder paperwork.</p>
+                <button class="reveal-btn" onclick="document.getElementById('g1Ans').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="g1Ans">
+                    <p><strong>1.</strong> of stealing <em>(accuse someone of + -ing)</em></p>
+                    <p><strong>2.</strong> copying <em>(deny + -ing, no person)</em></p>
+                    <p><strong>3.</strong> to feeling <em>(admit to + -ing)</em></p>
+                </div>
+            </div>
+
+            <h3>2. Fix the pattern</h3>
+            <p>Each sentence needs a different reporting verb pattern. Complete it correctly.</p>
+            <div class="gap-fill">
+                <p>1. Eduardo refused <input type="text" placeholder="..."> (sign) away his shares without seeing a full explanation.</p>
+                <p>2. Mark blamed Eduardo <input type="text" placeholder="..."> (fail) to bring in advertisers quickly enough.</p>
+                <p>3. The board refused <input type="text" placeholder="..."> (intervene) in what it called "a personal dispute" between the founders.</p>
+                <button class="reveal-btn" onclick="document.getElementById('g2Ans').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="g2Ans">
+                    <p><strong>1.</strong> to sign <em>(refuse + to)</em></p>
+                    <p><strong>2.</strong> for failing <em>(blame someone for + -ing)</em></p>
+                    <p><strong>3.</strong> to intervene <em>(refuse + to)</em></p>
+                </div>
+            </div>
+
+            <h3>3. Complete the story — mix the patterns</h3>
+            <p>Fill each gap with the correct pattern. Read it aloud when you're done.</p>
+            <div class="gap-fill">
+                <p>"When the lawsuit finally reached court, the two sides told very different stories. The twins insisted <input type="text" placeholder="..."> (the idea had always been theirs) and accused Mark <input type="text" placeholder="..."> (steal) it outright. Mark, in turn, denied <input type="text" placeholder="..."> (do) anything dishonest, while Eduardo refused <input type="text" placeholder="..."> (accept) that the new shares were fair."</p>
+                <button class="reveal-btn" onclick="document.getElementById('g3Ans').classList.toggle('show')">Reveal answers</button>
+                <div class="answers" id="g3Ans">
+                    <p>that the idea had always been theirs · of stealing · doing · to accept</p>
+                    <p><em>Notice the pattern: <strong>insist</strong> takes <strong>that</strong>; <strong>accuse</strong> needs a person + <strong>of + -ing</strong>; <strong>deny</strong> takes <strong>-ing</strong> alone; <strong>refuse</strong> takes <strong>to + infinitive</strong>.</em></p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Carry these into the Speak tab — one lawsuit is built entirely from people accusing, denying, admitting and refusing; you'll need every one of these patterns to tell it properly.</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: THE REAL STORY -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The Real Story — how much of this is true?</h2>
+            <p>Here's what makes <em>The Social Network</em> unusual: its two harshest, most dramatic betrayals are matters of public legal record. Both lawsuits really happened, and both really settled for real money. What the film invents is smaller, and more personal, than you'd expect.</p>
+
+            <div class="realstory-box">
+                <h3>🏛 Two lawsuits, both real, both settled with real money</h3>
+                <p>The headline facts are true. Mark Zuckerberg did launch Facebook from his Harvard dorm room in February 2004, with fellow students Eduardo Saverin, Dustin Moskovitz and Chris Hughes. Cameron and Tyler Winklevoss and Divya Narendra really did sue, claiming Zuckerberg stole their idea for a Harvard-only social network — a site they had hired him, as a fellow student, to help program. The case dragged on for years and was finally settled in 2008 for a package worth about $65 million, roughly $20 million in cash and $45 million in Facebook stock, which later made the twins worth well over a billion dollars each.</p>
+            </div>
+
+            <h3>Eduardo Saverin really was pushed out — and really was brought back</h3>
+            <div class="story-chunk">
+                <p>Saverin's ownership stake really was diluted through a company restructuring in 2005, dropping from around a third of the company to under 10%, while other shareholdings barely moved — exactly the kind of dilution the film dramatises as a betrayal. Saverin sued, and the case was settled out of court in 2009 under confidential terms. As part of that settlement, Facebook officially restored his title as a co-founder — something the company had previously downplayed — and agreed a stake reported to be around 4–5%. When Facebook went public in 2012, that stake alone made him a multi-billionaire.</p>
+            </div>
+
+            <h3>Where the film leaves the facts behind</h3>
+            <div class="story-chunk">
+                <p>The famous opening scene — Mark getting dumped by a girlfriend called Erica, and building the insulting Facemash site purely out of wounded pride — is invented. Zuckerberg has said flatly that the whole premise involves "a girl who doesn't exist in real life," and that he was already in a relationship with Priscilla Chan, whom he'd met in 2003 and would go on to marry, throughout this period. Sorkin created Erica Albright as a device to give Mark a clean, dramatic motive.</p>
+                <p>The script is based on Ben Mezrich's 2009 book <em>The Accidental Billionaires</em>, and Saverin — freshly settled with the company and no longer bound by silence — was Mezrich's main behind-the-scenes source, which pushes the story's sympathies toward him. Aaron Sorkin has been open about choosing drama over documentary neutrality: he has said he never met Zuckerberg, and that where witnesses gave conflicting sworn testimony about the same events, he simply picked the version that made the best scene, rather than trying to adjudicate what "really" happened.</p>
+            </div>
+
+            <div class="discuss">
+                <strong>Take these into the discussion:</strong>
+                <ul>
+                    <li>Before this lesson, which parts did you assume were exaggerated for drama — and which turn out to be documented, settled-in-court fact?</li>
+                    <li>Sorkin says he never tried to decide "the truth" between conflicting testimonies — he just dramatised them. Is that an honest way to tell a true story, or a cop-out?</li>
+                    <li>Does it change how you feel about the film, knowing its two harshest betrayals (the twins, Eduardo) are real, but its most sympathetic detail (the heartbroken ex-girlfriend) is invented?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAK -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>This is the heart of the lesson — do it all out loud. The timer keeps you going; fill the time with detail.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> reach for today's patterns to talk about who said what — <em>accuse someone of</em>, <em>deny + -ing</em>, <em>admit to + -ing</em>, <em>claim / insist that</em>, <em>refuse to</em>, <em>blame someone for</em>. For opinions: "What's striking is…", "You could argue that…", "On one level… but on another…".
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task A · Tell the story (4 minutes)</span>
+                <p>Tell the story of <em>The Social Network</em> in your own words, as if to someone who has never seen it. Move through the arc: <em>the break-up and Facemash → the Winklevoss twins' idea and Mark's own site → Eduardo's money and Sean Parker's arrival → the diluted shares and the two lawsuits → Mark alone at the end.</em></p>
+                <p>Work in at least <strong>five key words</strong> (exclusive, prestigious, covet, dilute, ruthless, audacious, exploit, underhand, vindictive, take credit for), and use today's reporting patterns when you reach the lawsuits: "the twins accused him <em>of stealing</em> their idea"; "he always <em>denied copying</em> anything."</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task B · The impossible choice (4 minutes)</span>
+                <p>Mark ends the film wildly rich but essentially alone, having lost his two closest allies. Was building something world-changing worth that personal cost? Build an argument: does genuinely great success almost always require burning some bridges — or is that just an excuse ambitious people use to justify how they treat people?</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task C · Who deserves the credit? (4 minutes)</span>
+                <p>The film's whole plot is a fight over who really deserves credit — and money — for a good idea. Whose claim do you find most convincing: Mark's (he built it), the twins' (it was their concept), or Eduardo's (he funded and ran it)? Make your case.</p>
+                <p style="margin-top:6px;"><strong>Stuck for an idea? Pick one of these and run with it:</strong></p>
+                <ul style="margin:6px 0 0 20px; color:#3a2a5a;">
+                    <li>Whether you've ever felt someone took credit for your idea or your work.</li>
+                    <li>Whether talent or ruthlessness matters more for succeeding in business.</li>
+                    <li>Whether you'd keep working with a brilliant but untrustworthy business partner for a huge potential reward.</li>
+                    <li>A friendship you know of that was damaged, or ended, over money.</li>
+                    <li>Whether social media has been good or bad for the world, on balance.</li>
+                    <li>A founder or entrepreneur you admire, or don't, and why.</li>
+                </ul>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the bigger questions</h3>
+                <ol>
+                    <li>Two lawsuits shape this whole story. Whose claim do you find more sympathetic — the twins' or Eduardo's — and why?</li>
+                    <li>The film suggests Mark never really registers the human cost of his choices. Is that fair, or too harsh a reading of a 19-year-old under enormous pressure?</li>
+                    <li>If you had been Eduardo, watching your best friend's company explode in value while your own share quietly shrank, what would you have done differently, and earlier?</li>
+                    <li><strong>Before you go — from memory:</strong> give one sentence using <em>accuse someone of + -ing</em> and one using <em>deny + -ing</em> about any dispute you know, real or invented, and explain the pattern.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Behind the Screen · The Social Network · B2/C1
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+</script>
+</body>
+</html>
