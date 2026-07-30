@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Are the Captain — Odysseus's Voyage Home</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif; color:#f4ecd6;
+  background:radial-gradient(ellipse at 50% -10%, #1c3a5e 0%, #0e2038 45%, #081428 100%) fixed; min-height:100vh; line-height:1.55; }
+.wrap { max-width:820px; margin:0 auto; padding:16px 18px 60px; }
+
+/* HUD */
+.hud { position:sticky; top:0; z-index:10; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  background:rgba(8,20,40,0.92); backdrop-filter:blur(4px); border-bottom:2px solid #d4a843; padding:10px 14px; margin:0 -18px 18px; }
+.hud .stat { font-weight:700; font-size:0.98rem; }
+.hud .stat b { color:#d4a843; }
+.hud .crew b { color:#e07a5f; }
+.hud .prog { font-size:0.82rem; opacity:0.8; letter-spacing:0.04em; }
+
+h1 { font-size:1.7rem; color:#ffd97a; text-shadow:0 2px 12px rgba(0,0,0,0.5); margin-bottom:6px; text-align:center; }
+.sub { text-align:center; opacity:0.85; margin-bottom:18px; font-size:0.98rem; }
+
+.card { background:rgba(20,40,66,0.78); border:1px solid #2e5680; border-radius:16px; padding:22px 24px; margin-bottom:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35); }
+.emoji { font-size:2.6rem; text-align:center; display:block; margin-bottom:6px; }
+.card h2 { color:#ffd97a; font-size:1.4rem; text-align:center; margin-bottom:12px; }
+.scene { font-size:1.08rem; margin-bottom:16px; }
+
+.speak { background:#3a2f10; border:1px dashed #d4a843; border-radius:10px; padding:12px 16px; margin-bottom:16px; color:#ffe9b0; }
+.speak b { color:#ffd97a; }
+
+.frames { background:rgba(255,255,255,0.06); border-radius:10px; padding:10px 16px; margin-bottom:16px; font-size:0.9rem; opacity:0.92; }
+.frames b { color:#9fd0ff; }
+.frames span { display:inline-block; margin:2px 8px 2px 0; }
+
+.choice { display:block; width:100%; text-align:left; background:#122c4a; color:#f4ecd6; border:1px solid #35608f;
+  border-radius:12px; padding:14px 18px; margin:10px 0; font-size:1.02rem; font-family:inherit; cursor:pointer; transition:all .15s; }
+.choice:hover:not(:disabled) { background:#1b3f66; border-color:#d4a843; transform:translateY(-2px); }
+.choice:disabled { opacity:0.45; cursor:default; }
+.choice .k { color:#d4a843; font-weight:800; margin-right:8px; }
+
+.reveal { display:none; margin-top:6px; }
+.reveal.show { display:block; animation:fade .3s ease; }
+@keyframes fade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+.outcome { background:#0f2a1c; border-left:4px solid #4caf7d; border-radius:0 10px 10px 0; padding:14px 18px; margin-bottom:12px; }
+.outcome .tag { font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; color:#7fd6a6; font-weight:800; display:block; margin-bottom:4px; }
+.homer { background:#2a1f3a; border-left:4px solid #b48fe0; border-radius:0 10px 10px 0; padding:14px 18px; margin-bottom:12px; }
+.homer .tag { font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; color:#c9a7f0; font-weight:800; display:block; margin-bottom:4px; }
+.delta { font-weight:700; }
+.delta .up { color:#7fd6a6; } .delta .down { color:#e07a5f; }
+
+.btn { display:inline-block; background:#d4a843; color:#0e2038; font-weight:800; border:none; border-radius:10px;
+  padding:13px 26px; font-size:1.05rem; font-family:inherit; cursor:pointer; transition:all .15s; }
+.btn:hover { background:#ffd97a; transform:translateY(-2px); }
+.center { text-align:center; }
+
+.end h2 { font-size:2rem; color:#ffd97a; }
+.end .score { font-size:1.2rem; margin:12px 0; }
+.debrief { text-align:left; background:rgba(20,40,66,0.6); border-radius:12px; padding:18px 22px; margin-top:16px; }
+.debrief h3 { color:#9fd0ff; margin-bottom:8px; }
+.debrief li { margin-bottom:8px; }
+.footnote { text-align:center; opacity:0.6; font-size:0.82rem; margin-top:24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud">
+    <div class="stat crew">🚣 Crew: <b id="crew">20</b></div>
+    <div class="stat">🧠 Cunning: <b id="cunning">3</b></div>
+    <div class="prog" id="prog">Island 1 of 6</div>
+  </div>
+
+  <h1>⚓ You Are the Captain</h1>
+  <div class="sub">You are <b>Odysseus</b>. Ten years since the fall of Troy — now just get your crew home to Ithaca. At every island: <b>tell your crew your plan out loud, and why</b> — then choose.</div>
+
+  <div id="stage"></div>
+
+  <div class="footnote">The sea remembers pride. Choose with your head, not your fists.</div>
+</div>
+
+<script>
+const FRAMES = '<div class="frames"><b>Say it before you choose:</b> ' +
+  '<span>"My plan is to… because…"</span>' +
+  '<span>"If we…, we\'ll…"</span>' +
+  '<span>"We\'d better… / We should…"</span>' +
+  '<span>"The risk is… but…"</span>' +
+  '<span>"I\'d rather lose … than …"</span></div>';
+
+const SCENES = [
+  {
+    emoji:"🌺", title:"The Island of the Lotus-Eaters",
+    scene:"Your starving crew are offered a sweet flower by gentle islanders — the lotus. But anyone who eats it forgets home, forgets everything, and only wants to lie in the sun for ever. Some of your men are already reaching for it.",
+    speak:"Tell your crew what to do about the lotus — and why.",
+    homer:"The real Odysseus refused the lotus, dragged his weeping men back to the ships by force, and sailed away at once.",
+    choices:[
+      {k:"A", label:"Let them rest and eat — they've earned it.", out:"Several men eat the lotus and refuse to leave. You have to drag them back to the ship in tears.", crew:-3, cun:0},
+      {k:"B", label:"Forbid the lotus — everyone back to the ships NOW.", out:"You lose no one. The men grumble, but by nightfall they've forgotten the flower and thanked you.", crew:0, cun:1},
+      {k:"C", label:"Try the lotus yourself first, to check it's safe.", out:"One bite and you nearly forget your own name. A loyal man hauls you away just in time.", crew:0, cun:-1}
+    ]
+  },
+  {
+    emoji:"🗿", title:"The Cave of the Cyclops",
+    scene:"You shelter in a giant's cave. He comes home — Polyphemus, a one-eyed Cyclops — rolls an enormous boulder across the only door, and eats two of your men. The rock is far too heavy for any human to move. He grins and asks your name.",
+    speak:"You're trapped. What is your plan to get out alive? Give the order.",
+    homer:"Odysseus told the giant his name was “Nobody”, got him drunk, blinded him, and escaped tied under the belly of the sheep — so when the Cyclops screamed “Nobody is killing me!”, no other giants came to help.",
+    choices:[
+      {k:"A", label:"Kill the giant in his sleep with your sword.", out:"You almost do it — then realise: if he dies, that boulder seals the door for ever and you all starve in the dark. A trap you only just avoid.", crew:-2, cun:-1},
+      {k:"B", label:"Say your name is “Nobody”. Get him drunk, blind him, and slip out under his sheep.", out:"He howls “NOBODY is killing me!” so no giant comes to help — and you ride out under the rams. Pure genius.", crew:0, cun:2},
+      {k:"C", label:"Beg him for mercy and offer him treasure.", out:"He laughs, pockets nothing, and eats another of your men.", crew:-1, cun:0}
+    ]
+  },
+  {
+    emoji:"💨", title:"The Bag of the Winds",
+    scene:"Aeolus, king of the winds, gives you a gift: a leather bag with every storm-wind sealed inside. Keep it shut, and a gentle breeze will carry you home. And there — on the horizon — you can SEE Ithaca. You haven't slept in nine days. Your crew stare at the bag; they think it's gold you're hiding from them.",
+    speak:"What do you do about the bag — and your exhausted, suspicious crew?",
+    homer:"Odysseus, in sight of home, finally fell asleep. His crew opened the bag looking for treasure — the winds burst out and blew them all the way back. So close.",
+    choices:[
+      {k:"A", label:"Guard it yourself — stay awake, whatever it costs.", out:"You make it into the harbour on willpower alone, then collapse. But you're HOME. (For now, cunning holds.)", crew:0, cun:1},
+      {k:"B", label:"Sleep — you're only human — and trust the crew.", out:"They open the bag looking for gold. The winds explode out and blow you all the way back across the sea. Ithaca vanishes. Heartbreak.", crew:0, cun:-2},
+      {k:"C", label:"Tell the crew exactly what's in the bag.", out:"Some believe you, some don't — but the honesty just holds them. A very near thing.", crew:0, cun:1}
+    ]
+  },
+  {
+    emoji:"🎶", title:"The Song of the Sirens",
+    scene:"Ahead lie the Sirens. Their song is so beautiful that every sailor who hears it steers onto the rocks and drowns. No one has ever heard it and lived. And yet… part of you desperately wants to hear it.",
+    speak:"How will you get past the Sirens? Give the exact order to your crew.",
+    homer:"Odysseus plugged his crew's ears with beeswax and had them tie HIM to the mast, ears open — so he alone heard the Sirens' song and lived to tell it.",
+    choices:[
+      {k:"A", label:"Plug everyone's ears with beeswax, yours included.", out:"You sail past in perfect safety — but you never hear the famous song. Safe, and a little sad.", crew:0, cun:1},
+      {k:"B", label:"Seal the crew's ears — but have them tie YOU to the mast so you can hear it and survive.", out:"You hear the unbearable song, thrash against the ropes, beg to be freed — and live. The only human ever to hear the Sirens.", crew:0, cun:2},
+      {k:"C", label:"Sail close, just for a moment.", out:"The song grips you instantly. A quick-thinking man wrenches the ship away from the rocks with seconds to spare.", crew:-1, cun:-1}
+    ]
+  },
+  {
+    emoji:"🌊", title:"Scylla and Charybdis",
+    scene:"A narrow strait, and no way round. On one side: Scylla, a six-headed monster who will snatch and eat exactly SIX of your men — no more, no less. On the other: Charybdis, a whirlpool that could swallow the WHOLE ship, and everyone on it, in a single gulp. You must pass between them.",
+    speak:"This is the hardest choice of the whole voyage. Which side — and what, if anything, do you tell your crew?",
+    homer:"Odysseus chose Scylla — sacrificing six men on purpose to save the rest — and called it the most pitiful thing his eyes ever saw. He did NOT warn the crew, so they wouldn't freeze in panic.",
+    choices:[
+      {k:"A", label:"Steer past Scylla — lose six to save the many.", out:"Six men are torn away, screaming your name. The rest survive. It is the worst thing you have ever had to do — but the ship goes on.", crew:-6, cun:1},
+      {k:"B", label:"Steer past Charybdis and pray the whirlpool sleeps.", out:"A desperate gamble. The whirlpool nearly takes everything; you scrape past on luck, not skill, with the ship half-wrecked.", crew:-2, cun:-1},
+      {k:"C", label:"Arm the men and fight Scylla off with spears.", out:"Spears are useless against a monster hidden in a cliff. She takes her six anyway — and now you're exhausted too.", crew:-6, cun:-1}
+    ]
+  },
+  {
+    emoji:"🏛️", title:"Home at Last — The Hall of the Suitors",
+    scene:"Twenty years gone. You finally reach Ithaca — in disguise, dressed as a beggar. Inside your own hall, over a hundred arrogant suitors are eating your food and pressuring your wife Penelope to remarry. On your side: your grown son Telemachus, one loyal old servant, and a great bow that only YOU are strong enough to string. One man against a hundred.",
+    speak:"You have survived every monster with your MIND, not your muscles. What is your plan to take back your home?",
+    homer:"Odysseus stayed hidden, won the contest of the bow no other man could string, barred the doors, and reclaimed his home and family through patience and cunning — exactly as he had survived the whole long voyage.",
+    choices:[
+      {k:"A", label:"Throw off the disguise and charge in swinging — you're Odysseus!", out:"Brave. Also suicide: a hundred armed men against one. Not today.", crew:0, cun:-1},
+      {k:"B", label:"Stay disguised, win the bow contest, bar the doors, and strike when they're unarmed.", out:"Only you can string the great bow. You send the first arrow, the doors slam shut, the suitors are trapped — and Ithaca is yours again. Cunning wins one last time.", crew:0, cun:2},
+      {k:"C", label:"Reveal who you are and order them all to leave.", out:"They laugh in the “beggar's” face — and now you've thrown away your one advantage: surprise.", crew:0, cun:-1}
+    ]
+  }
+];
+
+let idx = 0, crew = 20, cunning = 3;
+const stage = document.getElementById('stage');
+
+function updateHUD(){
+  document.getElementById('crew').textContent = crew;
+  document.getElementById('cunning').textContent = cunning;
+  document.getElementById('prog').textContent = (idx < SCENES.length) ? ('Island ' + (idx+1) + ' of ' + SCENES.length) : 'Home';
+}
+
+function deltaText(crewD, cunD){
+  const parts = [];
+  if(crewD) parts.push('<span class="'+(crewD>0?'up':'down')+'">Crew '+(crewD>0?'+':'')+crewD+'</span>');
+  if(cunD)  parts.push('<span class="'+(cunD>0?'up':'down')+'">Cunning '+(cunD>0?'+':'')+cunD+'</span>');
+  return parts.length ? '<div class="delta">'+parts.join(' &nbsp; ')+'</div>' : '';
+}
+
+function render(){
+  updateHUD();
+  if(idx >= SCENES.length){ renderEnd(); return; }
+  const s = SCENES[idx];
+  let html = '<div class="card"><span class="emoji">'+s.emoji+'</span><h2>'+s.title+'</h2>';
+  html += '<div class="scene">'+s.scene+'</div>';
+  html += '<div class="speak">🗣️ <b>Speak first:</b> '+s.speak+'</div>';
+  html += FRAMES;
+  s.choices.forEach((c,i)=>{
+    html += '<button class="choice" id="ch'+i+'" onclick="choose('+i+')"><span class="k">'+c.k+'</span>'+c.label+'</button>';
+  });
+  html += '<div class="reveal" id="reveal"></div>';
+  html += '</div>';
+  stage.innerHTML = html;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function choose(i){
+  const s = SCENES[idx], c = s.choices[i];
+  crew += c.crew; cunning += c.cun; if(crew<0) crew=0;
+  updateHUD();
+  document.querySelectorAll('.choice').forEach((b,j)=>{ b.disabled = true; if(j===i) b.style.borderColor='#d4a843'; });
+  const rev = document.getElementById('reveal');
+  rev.innerHTML =
+    '<div class="outcome"><span class="tag">What happens</span>'+c.out+deltaText(c.crew,c.cun)+'</div>' +
+    '<div class="homer"><span class="tag">⚓ What Homer\'s Odysseus did</span>'+s.homer+'</div>' +
+    '<div class="center"><button class="btn" onclick="next()">'+(idx < SCENES.length-1 ? 'Sail on →' : 'Reach the shore →')+'</button></div>';
+  rev.classList.add('show');
+  rev.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function next(){ idx++; render(); }
+
+function renderEnd(){
+  const verdict = cunning >= 8 ? "A legend. You out-thought the gods themselves." :
+                  cunning >= 5 ? "A worthy captain — cunning carried you home." :
+                  cunning >= 2 ? "You made it — bruised, wiser, and home." :
+                                 "You reached Ithaca, but the sea taught you hard lessons.";
+  stage.innerHTML =
+    '<div class="card end center">' +
+      '<span class="emoji">🏝️</span><h2>You\'re Home.</h2>' +
+      '<div class="score">🚣 Crew who made it home: <b>'+crew+'</b> &nbsp;·&nbsp; 🧠 Cunning: <b>'+cunning+'</b></div>' +
+      '<p style="margin:10px 0 4px;opacity:.92;">'+verdict+'</p>' +
+      '<div class="debrief">' +
+        '<h3>Talk it through</h3>' +
+        '<ol>' +
+          '<li>Which choice was the hardest? Would you make the same one again?</li>' +
+          '<li>Did you <em>beat</em> Homer\'s Odysseus — or did he outsmart you?</li>' +
+          '<li>Nearly every time Odysseus won, it was with his <strong>mind</strong>, not his strength. Where in real life is being clever worth more than being strong?</li>' +
+          '<li>He was ready to lose six men to save the rest. Was that brave, or was it cold? What would you have done?</li>' +
+          '<li>The real Odysseus, in the end, lost <em>every last member</em> of his crew and reached home completely alone. Does that change how you feel about the whole journey?</li>' +
+        '</ol>' +
+      '</div>' +
+      '<div class="center" style="margin-top:18px;"><button class="btn" onclick="reset()">↺ Sail again</button></div>' +
+    '</div>';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function reset(){ idx=0; crew=20; cunning=3; render(); }
+
+render();
+</script>
+</body>
+</html>
