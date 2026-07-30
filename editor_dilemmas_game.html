@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Are the Editor — Six Decisions That Make a Journal</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif; color:#26262c;
+  background:radial-gradient(ellipse at 50% -10%, #ffffff 0%, #f5f1e8 45%, #efe9db 100%) fixed; min-height:100vh; line-height:1.55; }
+.wrap { max-width:840px; margin:0 auto; padding:16px 18px 60px; }
+
+.hud { position:sticky; top:0; z-index:10; display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  background:rgba(255,255,255,0.94); backdrop-filter:blur(4px); border-bottom:2px solid #1e3a5e; padding:10px 14px; margin:0 -18px 18px; }
+.hud .stat { font-weight:700; font-size:0.98rem; color:#1e3a5e; }
+.hud .stat b { color:#b5892f; }
+.hud .prog { font-size:0.82rem; opacity:0.7; letter-spacing:0.04em; }
+.meter { display:inline-block; width:74px; height:8px; border-radius:5px; background:#e2dccb; vertical-align:middle; margin-left:4px; overflow:hidden; }
+.meter i { display:block; height:100%; background:linear-gradient(90deg,#1e3a5e,#3f6ea5); transition:width .3s; }
+.meter.g i { background:linear-gradient(90deg,#8a6d1f,#c99a2e); }
+
+h1 { font-size:1.7rem; color:#1e3a5e; margin-bottom:6px; text-align:center; }
+.sub { text-align:center; color:#4a4a52; margin-bottom:18px; font-size:0.98rem; }
+.sub b { color:#1e3a5e; }
+
+.card { background:#fff; border:1px solid #e0d9c8; border-radius:16px; padding:22px 26px; margin-bottom:16px; box-shadow:0 8px 26px rgba(30,58,94,0.10); }
+.emoji { font-size:2.2rem; text-align:center; display:block; margin-bottom:4px; }
+.card h2 { color:#1e3a5e; font-size:1.35rem; text-align:center; margin-bottom:12px; }
+.scene { font-size:1.06rem; margin-bottom:16px; color:#333; }
+
+.speak { background:#fbf5e4; border:1px dashed #b5892f; border-radius:10px; padding:12px 16px; margin-bottom:14px; color:#5a4410; }
+.speak b { color:#8a6d1f; }
+.frames { background:#eef3f8; border-radius:10px; padding:10px 16px; margin-bottom:16px; font-size:0.9rem; color:#3a4a5e; }
+.frames b { color:#1e3a5e; }
+.frames span { display:inline-block; margin:2px 8px 2px 0; }
+
+.choice { display:block; width:100%; text-align:left; background:#f7f4ec; color:#26262c; border:1px solid #d8cfb8;
+  border-radius:12px; padding:14px 18px; margin:10px 0; font-size:1.02rem; font-family:inherit; cursor:pointer; transition:all .15s; }
+.choice:hover:not(:disabled) { background:#eef3f8; border-color:#1e3a5e; transform:translateY(-2px); }
+.choice:disabled { opacity:0.5; cursor:default; }
+.choice .k { color:#b5892f; font-weight:800; margin-right:8px; }
+
+.reveal { display:none; margin-top:6px; }
+.reveal.show { display:block; animation:fade .3s ease; }
+@keyframes fade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+.outcome { background:#eef5f0; border-left:4px solid #2f8f66; border-radius:0 10px 10px 0; padding:14px 18px; margin-bottom:12px; }
+.outcome .tag { font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:#2f8f66; font-weight:800; display:block; margin-bottom:4px; }
+.best { background:#eef1f8; border-left:4px solid #3f6ea5; border-radius:0 10px 10px 0; padding:14px 18px; margin-bottom:12px; }
+.best .tag { font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:#3f6ea5; font-weight:800; display:block; margin-bottom:4px; }
+.delta { font-weight:700; margin-top:8px; }
+.delta .up { color:#2f8f66; } .delta .down { color:#c1553c; }
+
+.btn { display:inline-block; background:#1e3a5e; color:#fff; font-weight:800; border:none; border-radius:10px; padding:13px 26px; font-size:1.05rem; font-family:inherit; cursor:pointer; transition:all .15s; }
+.btn:hover { background:#2a4f7c; transform:translateY(-2px); }
+.center { text-align:center; }
+
+.end h2 { font-size:2rem; color:#1e3a5e; }
+.end .score { font-size:1.15rem; margin:12px 0; color:#1e3a5e; }
+.debrief { text-align:left; background:#f7f4ec; border:1px solid #e0d9c8; border-radius:12px; padding:18px 22px; margin-top:16px; }
+.debrief h3 { color:#1e3a5e; margin-bottom:8px; }
+.debrief li { margin-bottom:9px; }
+.footnote { text-align:center; opacity:0.55; font-size:0.82rem; margin-top:24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud">
+    <div class="stat">📈 Reputation: <b id="repN">5</b><span class="meter"><i id="repBar" style="width:50%"></i></span></div>
+    <div class="stat">🤝 Goodwill: <b id="goodN">5</b><span class="meter g"><i id="goodBar" style="width:50%"></i></span></div>
+    <div class="prog" id="prog">Case 1 of 6</div>
+  </div>
+
+  <h1>🖋️ You Are the Editor</h1>
+  <div class="sub">You run a respected scholarly journal. Every issue, its standing rests on a handful of hard calls. At each one: <b>say your decision out loud — and your reasoning</b> — then choose.</div>
+
+  <div id="stage"></div>
+  <div class="footnote">A journal's reputation is built on a hundred quiet decisions. Choose well.</div>
+</div>
+
+<script>
+const FRAMES = '<div class="frames"><b>Think aloud before you decide:</b> ' +
+  '<span>"The tension here is between … and …"</span>' +
+  '<span>"On balance, I\'d… because…"</span>' +
+  '<span>"While I accept that…, I\'m not persuaded that…"</span>' +
+  '<span>"It would set a troubling precedent to…"</span>' +
+  '<span>"I\'d be inclined to… provided that…"</span></div>';
+
+const SCENES = [
+  {
+    emoji:"⚖️", title:"A Split Decision",
+    scene:"A promising manuscript is back from peer review — and your two reviewers could not disagree more. One calls it “a landmark that will define the field”; the other, “fatally flawed and beyond saving.” The authors are already asking when it will appear. A third reviewer could settle it, but that means three more weeks.",
+    speak:"How do you handle two expert reviewers who flatly contradict each other?",
+    best:"When reviewers conflict, the editor is expected to weigh the arguments, not simply count votes — and seeking a third opinion is standard when the disagreement is substantive. The decision is the editor's to own, not the reviewers'.",
+    choices:[
+      {k:"A", label:"Side with the enthusiastic reviewer and move to accept — momentum matters.", out:"You publish quickly, but the flaws the second reviewer flagged surface after publication, and readers notice.", rep:-2, good:1},
+      {k:"B", label:"Invite a third, independent reviewer and wait, despite the pressure.", out:"The delay frustrates the authors — but the third opinion clarifies the issue, and the final paper is far stronger.", rep:2, good:-1},
+      {k:"C", label:"Reject it to be safe — one firm “no” is enough.", out:"A rival journal publishes it to acclaim. You're left wondering what you let slip away.", rep:-1, good:-1}
+    ]
+  },
+  {
+    emoji:"🎓", title:"The Eminent Author",
+    scene:"A submission arrives from one of the most celebrated names in the field — the kind of paper that brings prestige and citations. But a careful early-career reviewer has spotted a genuine methodological flaw that undermines the headline claim. Push back, and you risk offending a powerful author who could take their future work elsewhere.",
+    speak:"A famous author, a real flaw, and a junior reviewer who happens to be right. What do you do?",
+    best:"Peer review is meant to be blind to status — the same standard applies to a laureate and a PhD student. Editors are expected to protect reviewers' independence, and never to lean on them to soften an honest conclusion.",
+    choices:[
+      {k:"A", label:"Wave it through — the reputation of the name carries the paper.", out:"The flaw is later exposed publicly, and critics ask how it passed review. The big name doesn't save you.", rep:-2, good:0},
+      {k:"B", label:"Send the flaw back to the author diplomatically and ask them to address it.", out:"The author is briefly prickly, then respects the rigour — and fixes it. Your reviewer is vindicated.", rep:2, good:0},
+      {k:"C", label:"Quietly ask the junior reviewer to soften their report.", out:"You've compromised a reviewer's honesty. Word travels, and good reviewers grow wary of you.", rep:-1, good:-2}
+    ]
+  },
+  {
+    emoji:"🔍", title:"The Suspicious Figure",
+    scene:"Your integrity screening flags a figure in an accepted paper: one panel looks suspiciously like a rotated duplicate of another. The author is well-regarded and, when asked, says it was an honest slip while assembling the figure. Pursuing it formally is slow and feels accusatory; letting it go feels like looking away.",
+    speak:"A flagged image and an author who says “honest error.” How do you proceed?",
+    best:"Concerns should be tested against evidence, not personalities. The standard first step is to request the original, unprocessed data behind the figure — treating the author as innocent until the data says otherwise. This is the kind of due process bodies like COPE set out.",
+    choices:[
+      {k:"A", label:"Accept their explanation and publish — they have a good reputation.", out:"If it was innocent, fine — but you've let reputation outweigh evidence, and you'll never be quite sure.", rep:-1, good:1},
+      {k:"B", label:"Ask, calmly and without accusation, for the original unprocessed data.", out:"A routine, fair request. The author supplies clean originals, and the record is secure.", rep:2, good:0},
+      {k:"C", label:"Publicly accuse them of manipulation.", out:"You skipped due process. If you're wrong, the damage — to them and to you — is severe.", rep:-2, good:-2}
+    ]
+  },
+  {
+    emoji:"🌍", title:"The Fee and the Fair Thing",
+    scene:"A genuinely important study arrives from a researcher at an under-funded institution who cannot afford the publication fee. Waiving it costs money and, as a habit, threatens the model. Charging it may bury excellent science the world should see.",
+    speak:"Excellent research, a researcher who can't pay, and a model to protect. What's fair?",
+    best:"Most reputable publishers keep fee-waiver policies precisely so that ability to pay doesn't decide what gets published. Equitable access is increasingly treated as part of research integrity — not a favour.",
+    choices:[
+      {k:"A", label:"Hold firm on the fee — rules are rules.", out:"The paper goes unpublished, or to a lesser venue. Good science lost to an accident of geography.", rep:-1, good:-2},
+      {k:"B", label:"Grant a waiver under the hardship policy, and publish it fully open.", out:"The work reaches everyone, the researcher is grateful, and the journal's fairness is noticed.", rep:1, good:2},
+      {k:"C", label:"Publish it, but behind the paywall to recover costs.", out:"A workable compromise — the science is out, but the people who most need it may never reach it.", rep:0, good:0}
+    ]
+  },
+  {
+    emoji:"🤖", title:"The Machine's Hand",
+    scene:"A submission lands that reads a little too smoothly. Your checks suggest large parts were drafted by an AI language model. The underlying data may be sound — but the authorship, the disclosure, and the reliability of the prose are all in question. There's no settled rule yet. You're about to set one.",
+    speak:"Possibly AI-written, possibly sound science, and no rulebook. Where do you draw the line?",
+    best:"The emerging consensus (from bodies like ICMJE and COPE) is that AI tools cannot be listed as authors — they can't take responsibility — but their use should be disclosed. The line most editors are drawing is transparency, not prohibition.",
+    choices:[
+      {k:"A", label:"Reject it outright — no machines in the literature.", out:"Clear, but perhaps too blunt: you may be rejecting sound science over a tool, and the line will only blur further.", rep:0, good:-1},
+      {k:"B", label:"Ask the authors to disclose exactly how AI was used, and judge the science on its merits.", out:"Transparent and future-proof: you separate the tool from the truth, and your disclosure policy becomes a model.", rep:2, good:1},
+      {k:"C", label:"Say nothing and publish — the science looks fine.", out:"The undisclosed AI use later comes to light, and readers ask what else wasn't disclosed.", rep:-2, good:0}
+    ]
+  },
+  {
+    emoji:"📕", title:"The Reckoning",
+    scene:"Months after you championed and published a celebrated paper, a serious, genuine error comes to light that undermines its main conclusion. It isn't fraud — but the finding, as published, is unreliable. Retracting it is public and embarrassing, not least for you.",
+    speak:"A paper you fought for turns out to be wrong. What do you do now?",
+    best:"When a conclusion is unreliable — through error or misconduct — the correct remedy is a retraction with a clear, public notice of why. Corrections are for honest, minor errors that don't affect the conclusions. COPE's retraction guidelines draw exactly this line.",
+    choices:[
+      {k:"A", label:"Defend it and hope the criticism fades.", out:"The error is real; standing by it only compounds the damage and looks like a cover-up.", rep:-2, good:-1},
+      {k:"B", label:"Issue a full, transparent retraction explaining exactly what went wrong.", out:"Retraction stings in the moment — but correcting the record openly is what earns a journal lasting trust.", rep:2, good:0},
+      {k:"C", label:"Slip in a quiet correction and hope no one notices the conclusion changed.", out:"A correction can't fix a broken conclusion; when readers realise, the quiet reads as concealment.", rep:-1, good:-1}
+    ]
+  }
+];
+
+let idx=0, rep=5, good=5;
+const stage = document.getElementById('stage');
+const clamp = v => Math.max(0, Math.min(10, v));
+
+function updateHUD(){
+  document.getElementById('repN').textContent = rep;
+  document.getElementById('goodN').textContent = good;
+  document.getElementById('repBar').style.width = clamp(rep)*10 + '%';
+  document.getElementById('goodBar').style.width = clamp(good)*10 + '%';
+  document.getElementById('prog').textContent = (idx < SCENES.length) ? ('Case ' + (idx+1) + ' of ' + SCENES.length) : 'To press';
+}
+function deltaText(r,g){
+  const p=[];
+  if(r) p.push('<span class="'+(r>0?'up':'down')+'">Reputation '+(r>0?'+':'')+r+'</span>');
+  if(g) p.push('<span class="'+(g>0?'up':'down')+'">Goodwill '+(g>0?'+':'')+g+'</span>');
+  return p.length ? '<div class="delta">'+p.join(' &nbsp; ')+'</div>' : '';
+}
+function render(){
+  updateHUD();
+  if(idx >= SCENES.length){ renderEnd(); return; }
+  const s = SCENES[idx];
+  let h = '<div class="card"><span class="emoji">'+s.emoji+'</span><h2>'+s.title+'</h2>';
+  h += '<div class="scene">'+s.scene+'</div>';
+  h += '<div class="speak">🗣️ <b>Decide aloud:</b> '+s.speak+'</div>';
+  h += FRAMES;
+  s.choices.forEach((c,i)=>{ h += '<button class="choice" onclick="choose('+i+')"><span class="k">'+c.k+'</span>'+c.label+'</button>'; });
+  h += '<div class="reveal" id="reveal"></div></div>';
+  stage.innerHTML = h;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function choose(i){
+  const s=SCENES[idx], c=s.choices[i];
+  rep=clamp(rep+c.rep); good=clamp(good+c.good);
+  updateHUD();
+  document.querySelectorAll('.choice').forEach((b,j)=>{ b.disabled=true; if(j===i) b.style.borderColor='#1e3a5e'; });
+  const rev=document.getElementById('reveal');
+  rev.innerHTML =
+    '<div class="outcome"><span class="tag">What happens</span>'+c.out+deltaText(c.rep,c.good)+'</div>' +
+    '<div class="best"><span class="tag">⚖️ Best practice</span>'+s.best+'</div>' +
+    '<div class="center"><button class="btn" onclick="next()">'+(idx < SCENES.length-1 ? 'Next case →' : 'Send to press →')+'</button></div>';
+  rev.classList.add('show');
+  rev.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function next(){ idx++; render(); }
+function renderEnd(){
+  const t = rep+good;
+  const verdict = t>=16 ? "A model editor. Rigorous and humane — the journal is in the safest of hands." :
+                  t>=11 ? "A trusted editor. You held the line where it mattered." :
+                  t>=6  ? "You got the issue out — a little bruised, and wiser for it." :
+                          "A hard tenure. The chair teaches its lessons the expensive way.";
+  stage.innerHTML =
+    '<div class="card end center"><span class="emoji">🏛️</span><h2>To Press.</h2>' +
+    '<div class="score">📈 Reputation: <b>'+rep+'/10</b> &nbsp;·&nbsp; 🤝 Goodwill: <b>'+good+'/10</b></div>' +
+    '<p style="margin:10px 0 4px;color:#4a4a52;">'+verdict+'</p>' +
+    '<div class="debrief"><h3>Talk it through</h3><ol>' +
+      '<li>Which dilemma was the hardest — and would you decide the same way tomorrow?</li>' +
+      '<li>Where did protecting the journal\'s reputation and keeping people onside pull in opposite directions? Can an editor ever fully have both?</li>' +
+      '<li>Peer review is meant to be blind to status. In practice, how often do you think a famous name really is judged the same as an unknown one?</li>' +
+      '<li>On AI, the line was “transparency, not prohibition.” Do you agree that\'s where it should sit — or should the rules be stricter?</li>' +
+      '<li>If you had to name one principle you would never compromise as an editor, what would it be?</li>' +
+    '</ol></div>' +
+    '<div class="center" style="margin-top:18px;"><button class="btn" onclick="reset()">↺ Take the chair again</button></div></div>';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function reset(){ idx=0; rep=5; good=5; render(); }
+render();
+</script>
+</body>
+</html>
