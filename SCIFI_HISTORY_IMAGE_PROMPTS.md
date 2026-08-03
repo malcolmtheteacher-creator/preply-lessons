@@ -29,9 +29,6 @@ Prompts for ChatGPT to create every image and infographic in the 2-lesson pathwa
 ### **`scifi_timeline_origins.png`** — INFOGRAPHIC: origins → Golden Age timeline *(16:9, horizontal)*
 > Horizontal timeline titled **"From Frankenstein to the Golden Age."** Six nodes left→right, each a tiny emblem + year + label: **1818 Shelley** · **1864–70 Verne** · **1895–98 Wells** · **1926 Gernsback / "science fiction"** · **1938 Campbell / Golden Age** · **1950s Asimov · Clarke · Bradbury**. A single connecting line evolving from ink to chrome. Indigo/violet on cream, amber nodes, fully legible.
 
-### **`scifi_pulp_cover.png`** — scene: pulp & Golden Age *(4:5 portrait, magazine shape)*
-> Stylish, muted pastiche of a 1930s–40s SF pulp magazine cover: a sleek silver rocket arcing over a ringed planet, a tiny astronaut silhouette, bold Art-Deco framing. Violet/indigo with amber and chrome. Leave a blank banner area at top (no text). Retro-futurist optimism.
-
 ### **`scifi_war_of_worlds.png`** — scene: The War of the Worlds *(16:9)*
 > Towering, spindly Martian tripods striding over a foggy Victorian London skyline at dusk, tiny crowds fleeing, one cold amber heat-ray sweeping the city. Muted indigo fog, silhouettes. Eerie and restrained — more dread than spectacle.
 
@@ -72,7 +69,7 @@ Prompts for ChatGPT to create every image and infographic in the 2-lesson pathwa
 ---
 
 ## QUICK CHECKLIST — the 17 exact filenames
-**Part 1:** `scifi_hero_part1.png` · `scifi_fiction_map.png` · `scifi_verne_wells.png` · `scifi_frankenstein.png` · `scifi_timeline_origins.png` · `scifi_pulp_cover.png` · `scifi_war_of_worlds.png` · `scifi_recap_part1.png`
+**Part 1:** `scifi_hero_part1.png` · `scifi_fiction_map.png` · `scifi_verne_wells.png` · `scifi_frankenstein.png` · `scifi_timeline_origins.png` · `scifi_war_of_worlds.png` · `scifi_recap_part1.png`
 **Part 2:** `scifi_hero_part2.png` · `scifi_new_wave.png` · `scifi_new_voices.png` · `scifi_movements_map.png` · `scifi_cyberpunk_city.png` · `scifi_cyberpunk_formula.png` · `scifi_prose_toolkit.png` · `scifi_theme_trace.png` · `scifi_timeline_master.png`
 
 Save each with its exact name into `gitsite/`, reload the lesson, and it slots in automatically. Aspect ratios are suggestions — send whatever you generate and it will fit.
