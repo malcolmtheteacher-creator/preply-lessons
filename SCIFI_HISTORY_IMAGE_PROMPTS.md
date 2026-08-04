@@ -68,8 +68,42 @@ Prompts for ChatGPT to create every image and infographic in the 2-lesson pathwa
 
 ---
 
-## QUICK CHECKLIST — the 17 exact filenames
-**Part 1:** `scifi_hero_part1.png` · `scifi_fiction_map.png` · `scifi_verne_wells.png` · `scifi_frankenstein.png` · `scifi_timeline_origins.png` · `scifi_war_of_worlds.png` · `scifi_recap_part1.png`
-**Part 2:** `scifi_hero_part2.png` · `scifi_new_wave.png` · `scifi_new_voices.png` · `scifi_movements_map.png` · `scifi_cyberpunk_city.png` · `scifi_cyberpunk_formula.png` · `scifi_prose_toolkit.png` · `scifi_theme_trace.png` · `scifi_timeline_master.png`
+# THE DENSE SET — four reference posters packed with information
 
-Save each with its exact name into `gitsite/`, reload the lesson, and it slots in automatically. Aspect ratios are suggestions — send whatever you generate and it will fit.
+These are different from everything above: **information-dense study posters** a student can genuinely learn from. All the data they need is written out below — the image just has to lay it out beautifully.
+
+**Paste this style line once before requesting them (it replaces the purple house style for these four):**
+> **Style for this set:** a richly detailed, MULTI-COLOUR editorial infographic poster — museum-exhibition quality. Cream paper background, deep navy text, and a full palette of accent colours (teal, crimson, amber, forest green, indigo) used to COLOUR-CODE the categories. Fine line-work, small icons, elegant serif headings. Dense but perfectly organised — every label crisp and legible. **Use exactly the text I give you, spelled exactly as given. Include ALL the entries — do not drop, merge or invent any.**
+
+### **`scifi_author_atlas.png`** — the seventeen writers on one poster *(portrait, 4:5 or 3:4)*
+> A dense reference chart titled **"The Writers of Science Fiction — Two Centuries on One Page."** Seventeen rows grouped into five colour-coded era bands, each row: name, dates, key works with years, and a one-line contribution. Use exactly:
+> **ORIGINS (amber band):** Mary Shelley 1797–1851 — Frankenstein (1818) — science, not magic, makes the monster · Jules Verne 1828–1905 — Twenty Thousand Leagues Under the Sea (1870), Journey to the Centre of the Earth (1864) — the romance of the machine · H. G. Wells 1866–1946 — The Time Machine (1895), The War of the Worlds (1898) — science as social warning.
+> **GOLDEN AGE (blue band):** Isaac Asimov 1920–1992 — I, Robot (1950), Foundation (1951) — the Three Laws; the future as logic · Robert A. Heinlein 1907–1988 — Stranger in a Strange Land (1961) — the outsider's gaze; coined "grok" · Arthur C. Clarke 1917–2008 — Childhood's End (1953), 2001: A Space Odyssey (1968) — cosmic awe; proposed the comsat · Ray Bradbury 1920–2012 — Fahrenheit 451 (1953), The Martian Chronicles (1950) — poetry and warning.
+> **NEW WAVE (teal band):** J. G. Ballard 1930–2009 — The Drowned World (1962) — "inner space": the disaster within · Philip K. Dick 1928–1982 — Do Androids Dream of Electric Sheep? (1968), The Man in the High Castle (1962) — what is real, what is human · Samuel R. Delany b. 1942 — Dhalgren (1975) — the genre's boldest stylist.
+> **NEW VOICES (crimson band):** Ursula K. Le Guin 1929–2018 — The Left Hand of Darkness (1969), The Dispossessed (1974) — anthropology of the future · Joanna Russ 1937–2011 — The Female Man (1975) — feminist SF at its fiercest · Octavia E. Butler 1947–2006 — Kindred (1979), Parable of the Sower (1993) — Black survival at the centre of the future · Margaret Atwood b. 1939 — The Handmaid's Tale (1985) — dystopia as warning.
+> **DIGITAL & GLOBAL (green band):** William Gibson b. 1948 — Neuromancer (1984) — coined "cyberspace"; cyberpunk · Liu Cixin b. 1963 — The Three-Body Problem (2008) — first translated Hugo winner; SF goes global · Nnedi Okorafor b. 1974 — Binti (2015) — Africanfuturism.
+
+### **`scifi_predictions_scorecard.png`** — what SF called, what it missed *(landscape 16:9)*
+> A two-column scorecard poster titled **"The Prophecy Scorecard."** Left column **"CALLED IT"** with green tick icons; right column **"MISSED IT"** with red cross icons; every entry has its dates. Use exactly:
+> **CALLED IT:** Verne, 1870: an electric submarine — the first nuclear sub (1954) was named Nautilus after his · Wells, 1914: coined "atomic bombs" in The World Set Free — reality caught up in 1945 · Čapek, 1920: coined "robot" — now a global industry · Bradbury, 1953: "seashell" ear radios and wall-sized TVs — earbuds and flatscreens · Asimov, 1950: laws to keep machine minds safe — today's AI-safety debates · Clarke, 1945: communications satellites in fixed orbit — the first flew in the 1960s; the orbit bears his name · Dick, 1968: a test to tell machines from humans — today we test whether text was written by an AI · Gibson, 1984: coined "cyberspace," a world addicted to a shared data-space — the web arrived in 1991.
+> **MISSED IT:** Neuromancer's hackers roam cyberspace — then stop at payphones: almost nobody saw the phone in every pocket · Flying cars and Mars colonies by 2000 — still waiting · HAL 9000 by 2001: conscious AI — still absent · And the biggest blind spot of all: hardly anyone predicted social media — billions performing their own lives for each other.
+> Footer line, exactly: **"SF rarely predicts the future. It sees the present clearly — and follows the arrow."**
+
+### **`scifi_subgenre_atlas.png`** — the map of the genre's territories *(portrait 4:5 or square)*
+> A colour-coded grid poster titled **"The Territories of Science Fiction"** — twelve tiles, each with a small icon, the subgenre name, a one-line definition, and two example works. Use exactly:
+> **Space Opera** — epic adventure across star systems — Dune · Foundation | **Hard SF** — plays strictly fair with real physics — The Martian · Rendezvous with Rama | **Cyberpunk** — high tech, low life — Neuromancer · Blade Runner | **Dystopia** — the nightmare society, as warning — Nineteen Eighty-Four · The Handmaid's Tale | **Time Travel** — the past and future made reachable — The Time Machine · Kindred | **First Contact** — the day we are not alone — The War of the Worlds · The Three-Body Problem | **Alternate History** — what if the past went differently? — The Man in the High Castle · The Plot Against America | **Climate Fiction** — the planet itself as the story — The Drowned World · The Ministry for the Future | **Afrofuturism** — the future through Black and African experience — Binti · Black Panther | **Post-Apocalyptic** — life after the fall — The Road · Station Eleven | **AI & Robots** — minds we make — I, Robot · Ex Machina | **Military SF** — war among the stars, and its cost — Starship Troopers · Ender's Game.
+
+### **`scifi_reading_ladder.png`** — "which book first?" flowchart *(portrait 4:5)*
+> A warm, inviting decision-flowchart poster titled **"Your First Science Fiction Book — Choose Your Door."** One start node — **"What do you want a book to do to you?"** — branching into six colour-coded doors, each leading to named books (draw each book as a small spine or cover shape with the title on it). Use exactly:
+> **WONDER** → cosmic scale: Childhood's End · gentle and poetic: The Martian Chronicles | **BIG IDEAS** → gender: The Left Hand of Darkness · politics: The Dispossessed | **A WARNING** → about screens: Fahrenheit 451 · about rights: The Handmaid's Tale · about collapse: Parable of the Sower | **ADVENTURE** → the classic voyage: Twenty Thousand Leagues Under the Sea · galaxy-scale: Foundation · a neon heist: Neuromancer | **A BENT MIND** → what is real: Do Androids Dream of Electric Sheep? · history flipped: The Man in the High Castle | **SHORT & GRIPPING** → Binti · Kindred.
+> Footer line, exactly: **"Wherever you start, you finish somewhere different."**
+
+---
+
+## QUICK CHECKLIST — all 20 exact filenames
+**Already generated (16):**
+Part 1 — `scifi_hero_part1.png` · `scifi_fiction_map.png` · `scifi_verne_wells.png` · `scifi_frankenstein.png` · `scifi_timeline_origins.png` · `scifi_war_of_worlds.png` · `scifi_recap_part1.png`
+Part 2 — `scifi_hero_part2.png` · `scifi_new_wave.png` · `scifi_new_voices.png` · `scifi_movements_map.png` · `scifi_cyberpunk_city.png` · `scifi_cyberpunk_formula.png` · `scifi_prose_toolkit.png` · `scifi_theme_trace.png` · `scifi_timeline_master.png`
+**The dense set (4 to generate):** `scifi_subgenre_atlas.png` (Part 1, Critical Toolkit) · `scifi_predictions_scorecard.png` (Part 2, Big Debate) · `scifi_author_atlas.png` (Part 2, Looking Back) · `scifi_reading_ladder.png` (Part 2, Looking Back)
+
+Save each with its exact name into `gitsite/`, reload the lesson, and it slots in automatically. Then tell me and I'll push them live.
