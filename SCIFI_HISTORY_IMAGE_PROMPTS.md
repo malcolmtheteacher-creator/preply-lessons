@@ -89,9 +89,20 @@ These are different from everything above: **information-dense study posters** a
 > **MISSED IT:** Neuromancer's hackers roam cyberspace — then stop at payphones: almost nobody saw the phone in every pocket · Flying cars and Mars colonies by 2000 — still waiting · HAL 9000 by 2001: conscious AI — still absent · And the biggest blind spot of all: hardly anyone predicted social media — billions performing their own lives for each other.
 > Footer line, exactly: **"SF rarely predicts the future. It sees the present clearly — and follows the arrow."**
 
-### **`scifi_subgenre_atlas.png`** — the map of the genre's territories *(portrait 4:5 or square)*
-> A colour-coded grid poster titled **"The Territories of Science Fiction"** — twelve tiles, each with a small icon, the subgenre name, a one-line definition, and two example works. Use exactly:
-> **Space Opera** — epic adventure across star systems — Dune · Foundation | **Hard SF** — plays strictly fair with real physics — The Martian · Rendezvous with Rama | **Cyberpunk** — high tech, low life — Neuromancer · Blade Runner | **Dystopia** — the nightmare society, as warning — Nineteen Eighty-Four · The Handmaid's Tale | **Time Travel** — the past and future made reachable — The Time Machine · Kindred | **First Contact** — the day we are not alone — The War of the Worlds · The Three-Body Problem | **Alternate History** — what if the past went differently? — The Man in the High Castle · The Plot Against America | **Climate Fiction** — the planet itself as the story — The Drowned World · The Ministry for the Future | **Afrofuturism** — the future through Black and African experience — Binti · Black Panther | **Post-Apocalyptic** — life after the fall — The Road · Station Eleven | **AI & Robots** — minds we make — I, Robot · Ex Machina | **Military SF** — war among the stars, and its cost — Starship Troopers · Ender's Game.
+### **`scifi_subgenre_atlas.png`** — the map of the genre's territories *(portrait 4:5 or square)* — **v2, dense**
+> A colour-coded grid poster titled **"The Territories of Science Fiction"** — twelve compact tiles in a tight 3×4 grid. **CRITICAL LAYOUT RULE: no empty space inside any tile.** Each tile is a packed reference card of exactly four lines — icon + NAME · definition in italics · three works · one short hook line in small caps — and each tile is only as tall as those four lines. Use exactly:
+> **Space Opera** — epic adventure across star systems — Dune · Foundation · Star Wars — THE BIGGEST CANVAS THERE IS
+> **Hard SF** — plays strictly fair with real physics — The Martian · Rendezvous with Rama · 2001: A Space Odyssey — YOU COULD FOOTNOTE IT
+> **Cyberpunk** — high tech, low life — Neuromancer · Blade Runner · Snow Crash — CORPORATE, NEON AND WET
+> **Dystopia** — the nightmare society, as warning — Nineteen Eighty-Four · The Handmaid's Tale · Fahrenheit 451 — NOTHING IN IT IS IMPOSSIBLE
+> **Time Travel** — the past and future made reachable — The Time Machine · Kindred · Doctor Who — HISTORY WITH THE DOOR OPEN
+> **First Contact** — the day we are not alone — The War of the Worlds · The Three-Body Problem · Arrival — THE MIRROR ARRIVES FROM SPACE
+> **Alternate History** — what if the past went differently? — The Man in the High Castle · The Plot Against America — ONE CHANGED DAY, A CHANGED WORLD
+> **Climate Fiction** — the planet itself as the story — The Drowned World · Parable of the Sower · The Ministry for the Future — THE FORECAST AS PLOT
+> **Afrofuturism** — the future through Black and African experience — Binti · Black Panther · Kindred — WHO GETS A TOMORROW
+> **Post-Apocalyptic** — life after the fall — The Road · Station Eleven · Mad Max: Fury Road — WHAT SURVIVES OF US
+> **AI & Robots** — minds we make — I, Robot · R.U.R. · Ex Machina — THE CREATED LOOKS BACK
+> **Military SF** — war among the stars, and its cost — Starship Troopers · Ender's Game · The Forever War — THE UNIFORM IN ZERO GRAVITY
 
 ### **`scifi_reading_ladder.png`** — "which book first?" flowchart *(portrait 4:5)*
 > A warm, inviting decision-flowchart poster titled **"Your First Science Fiction Book — Choose Your Door."** One start node — **"What do you want a book to do to you?"** — branching into six colour-coded doors, each leading to named books (draw each book as a small spine or cover shape with the title on it). Use exactly:
