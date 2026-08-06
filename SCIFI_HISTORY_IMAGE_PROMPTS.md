@@ -116,10 +116,10 @@ These are different from everything above: **information-dense study posters** a
 These sit at the **very top of each lesson** (first thing the student sees). They are the opposite of the dense set: **bright, joyful and inviting** — a visual roadmap that says *this is what we'll do → let's do it → here's what we've done* (the three-part "hendiatris" framing). Each shows the lesson's own stops as a friendly journey.
 
 **Paste this style line before requesting the two maps (it replaces the purple house style for these):**
-> **Style for the two pathway maps:** a bright, joyful, INVITING flat-vector JOURNEY MAP — like a beautiful illustrated adventure map or board-game path that makes you want to set off. A winding path travels from a glowing **START** flag to a triumphant **FINISH** trophy, passing numbered stops drawn as little landmarks, each with a simple emblem. Warm cream background; a full rainbow of cheerful accent colours (coral, amber, teal, violet, sky-blue, leaf-green), **one colour per stop**; rounded friendly shapes, soft shadows, clear clean labels. Across the top, a three-part banner in three joined arches. **Use exactly the text I give you, spelled exactly as given; include every stop, in order; do not invent extra stops.** Landscape, 16:9 or 4:3.
+> **Style for the two pathway maps:** a bright, joyful, INVITING flat-vector JOURNEY MAP — like a beautiful illustrated adventure map or board-game path that makes you want to set off. A winding path travels from a glowing **START** flag to a triumphant **FINISH** trophy, passing numbered stops drawn as little landmarks, each with a simple emblem. Warm cream background; a full rainbow of cheerful accent colours (coral, amber, teal, violet, sky-blue, leaf-green), **one colour per stop**; rounded friendly shapes, soft shadows, clear clean labels. Across the top, a three-part banner in three joined arches. **Use exactly the text I give you, spelled exactly as given; include every stop, in order; do not invent extra stops.** **Portrait — tall and vertical:** the path begins at **START** at the top and winds downward to **FINISH** at the bottom. Clearly taller than wide (about 2:3, or taller).
 
-### **`scifi_pathway_part1.png`** — journey map, sits at the TOP of Part 1 *(landscape 16:9 / 4:3)*
-> Top banner, three joined arches: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. A winding path from a glowing START flag to a golden FINISH trophy, with these stops in order, each a little landmark + emblem + short label. Use exactly:
+### **`scifi_pathway_part1.png`** — journey map, sits at the TOP of Part 1 *(portrait, tall — a vertical journey)*
+> Top banner, three joined arches: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. A path winding downward from a glowing START flag at the top to a golden FINISH trophy at the bottom, with these stops in order top-to-bottom, each a little landmark + emblem + short label. Use exactly:
 > **START · First Thoughts** (thought-bubble) — what you already think science fiction is
 > **1 · The Critical Toolkit** (toolbox) — the words critics use: novum, estrangement, extrapolation
 > **2 · Origins** (open book with a spark) — Frankenstein, 1818; then Verne vs Wells
@@ -129,8 +129,8 @@ These sit at the **very top of each lesson** (first thing the student sees). The
 > **6 · The Big Debate** (two speech bubbles) — take a side, with evidence
 > **FINISH · Looking Back** (trophy) — "I can tell science fiction's origin story and analyse a text"
 
-### **`scifi_pathway_part2.png`** — journey map, sits at the TOP of Part 2 *(landscape 16:9 / 4:3)*
-> Same three-arch banner: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. Winding path from START flag to FINISH trophy, stops in order. Use exactly:
+### **`scifi_pathway_part2.png`** — journey map, sits at the TOP of Part 2 *(portrait, tall — a vertical journey)*
+> Same three-arch banner: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. A path winding downward from a START flag at the top to a FINISH trophy at the bottom, stops in order top-to-bottom. Use exactly:
 > **START · First Thoughts** (thought-bubble) — carry Part 1 forward
 > **1 · The New Wave** (a head opening like a door) — inner space: Ballard, Dick, Delany
 > **2 · New Voices** (many hands raising a star) — feminist SF, Afrofuturism, the global turn
