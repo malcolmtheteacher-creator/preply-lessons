@@ -111,10 +111,42 @@ These are different from everything above: **information-dense study posters** a
 
 ---
 
-## QUICK CHECKLIST — all 20 exact filenames
+# THE LESSON PATHWAY MAPS — bright, inviting "here's our journey" posters *(NEW)*
+
+These sit at the **very top of each lesson** (first thing the student sees). They are the opposite of the dense set: **bright, joyful and inviting** — a visual roadmap that says *this is what we'll do → let's do it → here's what we've done* (the three-part "hendiatris" framing). Each shows the lesson's own stops as a friendly journey.
+
+**Paste this style line before requesting the two maps (it replaces the purple house style for these):**
+> **Style for the two pathway maps:** a bright, joyful, INVITING flat-vector JOURNEY MAP — like a beautiful illustrated adventure map or board-game path that makes you want to set off. A winding path travels from a glowing **START** flag to a triumphant **FINISH** trophy, passing numbered stops drawn as little landmarks, each with a simple emblem. Warm cream background; a full rainbow of cheerful accent colours (coral, amber, teal, violet, sky-blue, leaf-green), **one colour per stop**; rounded friendly shapes, soft shadows, clear clean labels. Across the top, a three-part banner in three joined arches. **Use exactly the text I give you, spelled exactly as given; include every stop, in order; do not invent extra stops.** Landscape, 16:9 or 4:3.
+
+### **`scifi_pathway_part1.png`** — journey map, sits at the TOP of Part 1 *(landscape 16:9 / 4:3)*
+> Top banner, three joined arches: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. A winding path from a glowing START flag to a golden FINISH trophy, with these stops in order, each a little landmark + emblem + short label. Use exactly:
+> **START · First Thoughts** (thought-bubble) — what you already think science fiction is
+> **1 · The Critical Toolkit** (toolbox) — the words critics use: novum, estrangement, extrapolation
+> **2 · Origins** (open book with a spark) — Frankenstein, 1818; then Verne vs Wells
+> **3 · The Golden Age** (rocket over a pulp magazine) — Asimov, Clarke, Bradbury
+> **4 · How SF Works** (four little gears) — the four techniques that make a story science fiction
+> **5 · Close Analysis** (magnifying glass) — reading a sentence like an examiner
+> **6 · The Big Debate** (two speech bubbles) — take a side, with evidence
+> **FINISH · Looking Back** (trophy) — "I can tell science fiction's origin story and analyse a text"
+
+### **`scifi_pathway_part2.png`** — journey map, sits at the TOP of Part 2 *(landscape 16:9 / 4:3)*
+> Same three-arch banner: **"HERE'S WHERE WE'RE GOING"** → **"LET'S WALK IT"** → **"HERE'S WHAT YOU CAN NOW DO"**. Winding path from START flag to FINISH trophy, stops in order. Use exactly:
+> **START · First Thoughts** (thought-bubble) — carry Part 1 forward
+> **1 · The New Wave** (a head opening like a door) — inner space: Ballard, Dick, Delany
+> **2 · New Voices** (many hands raising a star) — feminist SF, Afrofuturism, the global turn
+> **3 · Cyberpunk & Beyond** (a neon skyline in the rain) — high tech, low life: Gibson's Neuromancer
+> **4 · The Writer's Toolkit** (a pen nib and gears) — neologism, incluing, the used future, tone
+> **5 · Close Analysis** (magnifying glass over a timeline) — one fear across two hundred years
+> **6 · The Big Debate** (two speech bubbles) — argue what science fiction is for
+> **FINISH · Looking Back** (trophy) — "I can tell the whole 200-year story and debate what SF is for"
+
+---
+
+## QUICK CHECKLIST — all 22 exact filenames
 **Already generated (16):**
 Part 1 — `scifi_hero_part1.png` · `scifi_fiction_map.png` · `scifi_verne_wells.png` · `scifi_frankenstein.png` · `scifi_timeline_origins.png` · `scifi_war_of_worlds.png` · `scifi_recap_part1.png`
 Part 2 — `scifi_hero_part2.png` · `scifi_new_wave.png` · `scifi_new_voices.png` · `scifi_movements_map.png` · `scifi_cyberpunk_city.png` · `scifi_cyberpunk_formula.png` · `scifi_prose_toolkit.png` · `scifi_theme_trace.png` · `scifi_timeline_master.png`
 **The dense set (4 to generate):** `scifi_subgenre_atlas.png` (Part 1, Critical Toolkit) · `scifi_predictions_scorecard.png` (Part 2, Big Debate) · `scifi_author_atlas.png` (Part 2, Looking Back) · `scifi_reading_ladder.png` (Part 2, Looking Back)
+**The pathway maps (2 to generate — NEW, bright & inviting):** `scifi_pathway_part1.png` (top of Part 1) · `scifi_pathway_part2.png` (top of Part 2)
 
 Save each with its exact name into `gitsite/`, reload the lesson, and it slots in automatically. Then tell me and I'll push them live.
