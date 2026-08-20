@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vocabulary Palace</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif; background:#fafafe; color:#2a2a3a; line-height:1.6; }
+.container { max-width:1000px; margin:0 auto; padding:20px; }
+header { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:36px 26px; text-align:center; margin-bottom:16px; border-radius:12px; box-shadow:0 8px 24px rgba(102,126,234,0.18); }
+header .tag { display:inline-block; padding:5px 14px; background:rgba(255,255,255,0.18); border-radius:14px; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; margin-bottom:10px; }
+header h1 { font-size:2.1rem; line-height:1.25; margin-bottom:6px; }
+header p { font-size:1rem; opacity:0.92; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:16px; }
+.stat { background:white; border:1px solid #e0e0ee; border-radius:11px; padding:14px 16px; text-align:center; }
+.stat .v { font-size:1.7rem; font-weight:700; color:#5a3aa0; line-height:1.2; }
+.stat .l { font-size:0.82rem; color:#8a7ab0; }
+.stat.due .v { color:#c2410c; }
+.tab-nav { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:20px; }
+.tab-btn { padding:10px 18px; border:1px solid #d0d0e0; background:white; color:#555; border-radius:22px; cursor:pointer; font-size:0.92rem; font-weight:500; transition:all 0.2s; }
+.tab-btn:hover { background:#f0f0fa; }
+.tab-btn.active { background:linear-gradient(135deg,#667eea,#764ba2); color:white; border-color:transparent; }
+.tab-btn .badge { display:inline-block; background:#c2410c; color:white; border-radius:10px; padding:1px 7px; font-size:0.75rem; margin-left:5px; }
+.tab-btn.active .badge { background:rgba(255,255,255,0.3); }
+.view { display:none; }
+.view.active { display:block; animation:fade 0.3s ease; }
+@keyframes fade { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+.card { background:white; border:1px solid #e0e0ee; border-radius:12px; padding:24px 26px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color:#5a3aa0; margin-bottom:12px; font-size:1.45rem; }
+.card h3 { color:#764ba2; margin:16px 0 9px; font-size:1.12rem; }
+.card p { margin-bottom:11px; color:#3a3a4a; }
+.controls { display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-bottom:14px; }
+.controls input[type=search] { flex:1; min-width:200px; padding:10px 14px; border:1px solid #d8d2ea; border-radius:22px; font:inherit; outline:none; }
+.controls input[type=search]:focus { border-color:#764ba2; }
+.chip { padding:7px 14px; border:1px solid #d8d2ea; background:white; color:#5a3aa0; border-radius:18px; cursor:pointer; font-size:0.86rem; font-weight:600; }
+.chip.on { background:linear-gradient(135deg,#667eea,#764ba2); color:white; border-color:transparent; }
+.rooms { display:grid; grid-template-columns:repeat(auto-fill,minmax(228px,1fr)); gap:11px; }
+.room { background:white; border:1px solid #e0e0ee; border-radius:11px; padding:14px 16px; cursor:pointer; transition:all 0.18s; text-align:left; font:inherit; }
+.room:hover { border-color:#b8a8d8; transform:translateY(-2px); box-shadow:0 6px 16px rgba(102,126,234,0.13); }
+.room .t { font-weight:700; color:#5a3aa0; font-size:1rem; margin-bottom:3px; }
+.room .m { font-size:0.8rem; color:#9a93ad; }
+.bar { height:6px; background:#efecf7; border-radius:3px; margin-top:9px; overflow:hidden; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,#667eea,#764ba2); border-radius:3px; transition:width 0.3s; }
+.room .st { font-size:0.76rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; margin-top:7px; color:#b0a8c4; }
+.room.furnished .st { color:#4a7c4a; }
+.room.started .st { color:#c2410c; }
+.empty { text-align:center; color:#9a93ad; padding:36px 20px; }
+.backlink { background:none; border:none; color:#764ba2; font:inherit; font-weight:600; cursor:pointer; padding:0; margin-bottom:12px; }
+.backlink:hover { text-decoration:underline; }
+.station { background:#f6f4fc; border:1px solid #d8d2ea; border-radius:10px; padding:15px 18px 15px 56px; margin:11px 0; position:relative; }
+.station .n { position:absolute; left:15px; top:14px; width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#667eea,#764ba2); color:white; font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
+.station.done { background:#f2f9f2; border-color:#c5e3c5; }
+.station.done .n { background:#4a7c4a; }
+.station .cue { font-size:1.01rem; color:#3a3a4a; }
+.station .cue b { color:#5a3aa0; }
+.reveal-btn { background:#ede8f9; border:1px solid #c8bce8; color:#5a3aa0; padding:6px 14px; border-radius:16px; cursor:pointer; font-size:0.85rem; margin-top:9px; }
+.reveal-btn:hover { background:#ddd1ed; }
+.meaning { display:none; margin-top:9px; padding:10px 14px; background:#f0f8f0; border-radius:8px; color:#2a4a2a; }
+.meaning.show { display:block; }
+.meaning b { color:#4a7c4a; }
+.note { background:#f9f7fd; border:1px solid #e0d8ee; border-radius:10px; padding:13px 17px; margin:13px 0; font-size:0.93rem; color:#3a3a4a; }
+.note strong { color:#5a3aa0; }
+.drill { text-align:center; padding:14px 10px 6px; }
+.drill .where { font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:#8a7ab0; font-weight:700; margin-bottom:14px; }
+.drill .where a { color:#764ba2; }
+.drill .q { font-size:1.2rem; line-height:1.7; color:#2a2a3a; max-width:640px; margin:0 auto 20px; }
+.drill .q em { color:#8a7ab0; font-style:normal; font-size:0.94rem; display:block; margin-top:8px; }
+.drill input[type=text] { width:100%; max-width:340px; padding:11px 16px; border:2px solid #d8d2ea; border-radius:24px; font:inherit; font-size:1.05rem; text-align:center; color:#5a3aa0; font-weight:600; outline:none; }
+.drill input[type=text]:focus { border-color:#764ba2; }
+.btn { background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; padding:11px 26px; border-radius:24px; font:inherit; font-weight:700; cursor:pointer; margin:6px 4px; }
+.btn.ghost { background:white; color:#5a3aa0; border:1px solid #c8bce8; }
+.btn:hover { opacity:0.9; }
+.verdict { margin:16px auto 0; max-width:640px; padding:14px 18px; border-radius:10px; text-align:left; }
+.verdict.right { background:#f0f8f0; border:1px solid #c5e3c5; color:#2a4a2a; }
+.verdict.wrong { background:#fdf3f0; border:1px solid #f0cdc0; color:#7a3a20; }
+.verdict b { color:#4a7c4a; }
+.verdict.wrong b { color:#a04020; }
+.progress-line { text-align:center; color:#9a93ad; font-size:0.86rem; margin-bottom:6px; }
+footer { text-align:center; color:#888; font-size:0.85rem; margin:28px 0 12px; }
+footer a { color:#a09ab0; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">VOCABULARY</span>
+        <h1>The Vocabulary Palace</h1>
+        <p>Every story you have read is a room. Every room holds ten words, waiting where you left them.</p>
+    </header>
+
+    <div class="stats">
+        <div class="stat"><div class="v" id="s-rooms">0</div><div class="l">rooms furnished</div></div>
+        <div class="stat"><div class="v" id="s-words">0</div><div class="l">words placed</div></div>
+        <div class="stat due"><div class="v" id="s-due">0</div><div class="l">to revisit today</div></div>
+        <div class="stat"><div class="v" id="s-total">0</div><div class="l">words in the palace</div></div>
+    </div>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" id="nav0" onclick="go(0)">Your Palace</button>
+        <button class="tab-btn" id="nav1" onclick="go(1)">Walk <span class="badge" id="due-badge" style="display:none">0</span></button>
+        <button class="tab-btn" id="nav2" onclick="go(2)">How it works</button>
+    </nav>
+
+    <!-- VIEW 0 -->
+    <div class="view active" id="v0">
+        <div id="roomlist-wrap">
+            <div class="card">
+                <div class="controls">
+                    <input type="search" id="q" placeholder="Search for a room — a story, a person, a word…" oninput="renderRooms()">
+                    <button class="chip on" data-wing="all" onclick="setWing(this,'all')">All</button>
+                    <button class="chip" data-wing="history" onclick="setWing(this,'history')">Histories</button>
+                    <button class="chip" data-wing="story" onclick="setWing(this,'story')">Stories</button>
+                    <button class="chip" data-wing="mine" onclick="setWing(this,'mine')">Mine</button>
+                </div>
+                <div class="progress-line" id="count-line"></div>
+                <div class="rooms" id="rooms"></div>
+                <div class="empty" id="no-rooms" style="display:none">Nothing here by that name. Try a different word.</div>
+            </div>
+        </div>
+        <div id="room-detail" style="display:none"></div>
+    </div>
+
+    <!-- VIEW 1 -->
+    <div class="view" id="v1"><div class="card" id="walk"></div></div>
+
+    <!-- VIEW 2 -->
+    <div class="view" id="v2">
+        <div class="card">
+            <h2>How the palace works</h2>
+            <p>A vocabulary list is ten separate things to carry, and they slide off one by one. A story is <em>one</em> thing — each part pulls the next along behind it. So instead of holding ten words, you hold one story with ten words inside it.</p>
+            <h3>Furnishing a room</h3>
+            <p>Pick a story you have already read. Walk its ten stations in order and, at each one, look at the scene before you say the word. When you can walk the whole room without the page, it is furnished.</p>
+            <h3>Why the scene comes first</h3>
+            <p>Anyone can peg a word to a picture of a shoe on a staircase. The trouble is that a picture gives you back a bare word — not how it behaves in a sentence, not what it sits next to, not whether it is formal or ordinary. Here the word is already inside a sentence that works, so when you go back for it you come away holding all of that too.</p>
+            <h3>Coming back</h3>
+            <p>Rooms fade unless you visit them. <strong>Walk</strong> gathers whatever is due today from every room you have furnished, and asks for it by its scene. Get it right and it waits longer before it asks again — a day, then three, then a week, then a month. Get it wrong and it comes back tomorrow.</p>
+            <div class="note"><strong>Always reach before you check.</strong> The effort of pulling a word out of the dark is what fixes it. Reading the list again feels productive and does almost nothing.</div>
+            <h3>Three rules for leaving a word somewhere</h3>
+            <p><strong>Put it where it actually happened</strong> — find the real moment in the story, don't invent a picture. <strong>Make it move</strong> — still images fade, actions don't. <strong>Make it strange, or make it yours</strong> — a word hooked to your grandmother's kitchen has an unfair advantage over one hooked to nobody.</p>
+            <p style="margin-top:18px"><a href="vocabulary_memory_palace.html" style="color:#764ba2;font-weight:600">Start with the lesson that teaches the method →</a></p>
+        </div>
+    </div>
+
+    <footer>Malcolm Hyndman · English lessons · <a href="short_history_dashboard.html">Short History</a> · <a href="short_stories_long_shadows_dashboard.html">Short Stories</a></footer>
+</div>
+
+<script src="vocab_palace_data.js"></script>
+<script>
+const KEY='vocabPalace_v1';
+const STEPS=[1,3,7,21,60];
+let S={rooms:{},words:{}};
+try{ S=Object.assign(S, JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
+const today=()=>{ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const plus=n=>{ const d=new Date(); d.setDate(d.getDate()+n); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const wk=(r,w)=>r.id+'::'+w.w;
+const rec=(r,w)=>S.words[wk(r,w)];
+const isDue=(r,w)=>{ const k=rec(r,w); return k && k.due<=today(); };
+
+const norm=s=>s.toLowerCase().normalize('NFKD').replace(/[^\w\s']/g,'').replace(/^(to|a|an|the)\s+/,'').replace(/\s+/g,' ').trim();
+function correct(given, w){
+  const g=norm(given); if(!g) return false;
+  const cands=[w.w, w.s].filter(Boolean).map(norm);
+  if(cands.includes(g)) return true;
+  // allow the other inflection: same first letters, close length
+  return cands.some(c=>{ const n=Math.min(c.length,g.length); return n>=5 && c.slice(0,n-1)===g.slice(0,n-1) && Math.abs(c.length-g.length)<=3; });
+}
+const cueOf=w=>(w.c&&w.c.trim())?w.c:w.d;
+function cueHTML(w){
+  const c=cueOf(w);
+  if(w.ty==='define' || !/_____/.test(c)) return c.replace(/Which word\?\s*$/i,'') + '<em>Which word belongs here?</em>';
+  return c.replace(/_____/g,'<b>_____</b>');
+}
+const ROOM=id=>PALACE_ROOMS.find(r=>r.id===id);
+const placed=r=>r.w.filter(w=>rec(r,w)).length;
+const dueIn=r=>r.w.filter(w=>isDue(r,w)).length;
+function allDue(){ const out=[]; PALACE_ROOMS.forEach(r=>r.w.forEach(w=>{ if(isDue(r,w)) out.push({r,w}); })); return out; }
+
+function stats(){
+  const furn=PALACE_ROOMS.filter(r=>placed(r)===r.w.length).length;
+  const words=Object.keys(S.words).length, due=allDue().length;
+  document.getElementById('s-rooms').textContent=furn;
+  document.getElementById('s-words').textContent=words;
+  document.getElementById('s-due').textContent=due;
+  document.getElementById('s-total').textContent=PALACE_ROOMS.reduce((a,r)=>a+r.w.length,0);
+  const b=document.getElementById('due-badge');
+  b.textContent=due; b.style.display=due?'inline-block':'none';
+}
+
+let wing='all';
+function setWing(btn,w){ wing=w; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); btn.classList.add('on'); renderRooms(); }
+
+function renderRooms(){
+  const q=norm(document.getElementById('q').value);
+  let list=PALACE_ROOMS.filter(r=>{
+    if(wing==='mine'){ if(!placed(r)) return false; } else if(wing!=='all' && r.fam!==wing) return false;
+    if(!q) return true;
+    return norm(r.t).includes(q) || r.w.some(w=>norm(w.w).includes(q));
+  });
+  const el=document.getElementById('rooms');
+  el.innerHTML=list.map(r=>{
+    const p=placed(r), n=r.w.length, d=dueIn(r);
+    const cls=p===0?'':(p===n?'furnished':'started');
+    const st=p===0?'not entered':(p===n?(d?d+' to revisit':'furnished'):p+' of '+n+' placed');
+    return `<button class="room ${cls}" onclick="openRoom('${r.id}')">
+      <div class="t">${r.t}</div><div class="m">${n} words</div>
+      <div class="bar"><i style="width:${Math.round(p/n*100)}%"></i></div>
+      <div class="st">${st}</div></button>`;
+  }).join('');
+  document.getElementById('no-rooms').style.display=list.length?'none':'block';
+  document.getElementById('count-line').textContent=list.length+' of '+PALACE_ROOMS.length+' rooms';
+}
+
+function openRoom(id){
+  const r=ROOM(id);
+  document.getElementById('roomlist-wrap').style.display='none';
+  const d=document.getElementById('room-detail'); d.style.display='block';
+  d.innerHTML=`<div class="card">
+    <button class="backlink" onclick="closeRoom()">← back to the palace</button>
+    <h2>${r.t}</h2>
+    <p>${r.w.length} words live here. Walk the stations in order — look at the scene, say the word aloud, then check.
+       <a href="${r.f}" style="color:#764ba2;font-weight:600">Open the story →</a></p>
+    <div id="stations">${r.w.map((w,i)=>{
+      const done=!!rec(r,w);
+      return `<div class="station ${done?'done':''}" id="st${i}">
+        <div class="n">${i+1}</div>
+        <div class="cue">${cueHTML(w)}</div>
+        <button class="reveal-btn" onclick="place('${r.id}',${i},this)">${done?'Show it again':'Reveal and place it'}</button>
+        <div class="meaning ${done?'':''}"><b>${w.w}</b>${w.p?' ('+w.p+')':''} — ${w.d}</div>
+      </div>`;}).join('')}</div>
+    <div class="note"><strong>Now walk it once more with the screen off.</strong> Go station by station and name what is waiting at each one. Anything you can't reach, come back and look at again.</div>
+    <button class="btn" onclick="testRoom('${r.id}')">Test me on this room</button>
+  </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function closeRoom(){ document.getElementById('room-detail').style.display='none'; document.getElementById('roomlist-wrap').style.display='block'; renderRooms(); stats(); }
+
+function place(id,i,btn){
+  const r=ROOM(id), w=r.w[i];
+  btn.nextElementSibling.classList.add('show');
+  btn.textContent='Show it again';
+  if(!rec(r,w)){ S.words[wk(r,w)]={box:0,due:today(),seen:0,right:0}; save(); document.getElementById('st'+i).classList.add('done'); stats(); }
+}
+
+// ---- drilling (used by both "test me on this room" and the daily Walk) ----
+let Q=[], qi=0, mode='walk';
+function startQueue(items,m){ Q=items; qi=0; mode=m; go(1); nextQ(); }
+function testRoom(id){ const r=ROOM(id); startQueue(r.w.map(w=>({r,w})),'room'); }
+
+function nextQ(){
+  const box=document.getElementById('walk');
+  if(qi>=Q.length){
+    box.innerHTML=`<div class="drill"><h2 style="color:#5a3aa0">${mode==='room'?'Room walked.':'Nothing left for today.'}</h2>
+      <p style="color:#3a3a4a;max-width:520px;margin:8px auto 18px">${mode==='room'?'Come back tomorrow and the palace will ask you for these again.':'Every room you have furnished is up to date. Furnish another one, or come back tomorrow.'}</p>
+      <button class="btn" onclick="go(0)">Back to the palace</button></div>`;
+    stats(); return;
+  }
+  const {r,w}=Q[qi];
+  box.innerHTML=`<div class="drill">
+    <div class="progress-line">${qi+1} of ${Q.length}</div>
+    <div class="where">from <a href="${r.f}">${r.t}</a></div>
+    <div class="q">${cueHTML(w)}</div>
+    <input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="the word…">
+    <div><button class="btn" onclick="checkQ()">Check</button>
+    <button class="btn ghost" onclick="checkQ(true)">I can't reach it</button></div>
+    <div id="verdict"></div></div>`;
+  const a=document.getElementById('ans');
+  a.focus();
+  a.addEventListener('keydown',e=>{ if(e.key==='Enter') checkQ(); });
+}
+
+function checkQ(giveUp){
+  const {r,w}=Q[qi];
+  const val=document.getElementById('ans').value;
+  const ok=!giveUp && correct(val,w);
+  let k=rec(r,w); if(!k){ k={box:0,due:plus(1),seen:0,right:0}; S.words[wk(r,w)]=k; }
+  k.seen++;
+  if(ok){ k.right++; k.box=Math.min(k.box+1,STEPS.length-1); k.due=plus(STEPS[k.box]); }
+  else { k.box=0; k.due=plus(1); }
+  save();
+  const v=document.getElementById('verdict');
+  v.className='verdict '+(ok?'right':'wrong');
+  v.innerHTML=(ok?'Yes — ':'It was ')+`<b>${w.w}</b>${w.p?' ('+w.p+')':''} — ${w.d}`+
+    (ok?`<div style="margin-top:6px;font-size:0.88rem">Back again in ${STEPS[k.box]} day${STEPS[k.box]>1?'s':''}.</div>`
+       :`<div style="margin-top:6px;font-size:0.88rem">Go and stand in the scene for a moment before you move on. This one comes back tomorrow.</div>`)+
+    `<div style="text-align:center;margin-top:12px"><button class="btn" onclick="qi++;nextQ()">Next</button></div>`;
+  document.getElementById('ans').disabled=true;
+}
+
+function nextDue(){
+  const ds=Object.values(S.words).map(k=>k.due).sort();
+  if(!ds.length) return '—';
+  const d=new Date(ds[0]+'T00:00:00');
+  return d.toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'long'});
+}
+function startWalk(){
+  const due=allDue();
+  if(!due.length){
+    const any=Object.keys(S.words).length;
+    document.getElementById('walk').innerHTML=any
+      ? `<div class="drill"><h2 style="color:#5a3aa0">Everything is up to date.</h2>
+         <p style="color:#3a3a4a;max-width:540px;margin:8px auto 18px">Nothing is due today. The next words come back on <strong>${nextDue()}</strong>. Furnish another room in the meantime, or test yourself on one you have already walked.</p>
+         <button class="btn" onclick="go(0)">Back to the palace</button></div>`
+      : `<div class="drill"><h2 style="color:#5a3aa0">The palace is empty so far.</h2>
+         <p style="color:#3a3a4a;max-width:540px;margin:8px auto 18px">Furnish a room first — pick a story you have already read and walk its ten stations. Once words are placed, this is where the palace asks you for them.</p>
+         <button class="btn" onclick="go(0)">Choose a room</button></div>`;
+    return;
+  }
+  for(let i=due.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [due[i],due[j]]=[due[j],due[i]]; }
+  startQueue(due,'walk');
+}
+
+function go(i){
+  [0,1,2].forEach(j=>{
+    document.getElementById('nav'+j).classList.toggle('active',i===j);
+    document.getElementById('v'+j).classList.toggle('active',i===j);
+  });
+  if(i===0){ closeRoom(); }
+  if(i===1 && (!Q.length || qi>=Q.length)) { Q=[]; qi=0; startWalk(); }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+renderRooms(); stats();
+</script>
+</body>
+</html>

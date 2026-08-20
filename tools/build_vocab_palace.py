@@ -15,7 +15,7 @@ def txt(s):
     s = re.sub(r'<[^>]+>', '', s)
     return re.sub(r'\s+', ' ', html.unescape(s)).strip()
 
-JUNK = re.compile(r'^\(?[a-z]\)?$|^\d+$', re.I)
+JUNK = re.compile(r'^\(?[a-z]\)?$|^\d+$|^\([a-z]\)\s', re.I)
 
 def mask(cue, surface):
     if not cue or not surface: return cue
@@ -29,6 +29,12 @@ def mask(cue, surface):
         out, n = re.subn(r'\b'+re.escape(stem)+r'\w*', '_____', cue, flags=re.I)
         if n: return out
     return cue
+
+BARE = re.compile(r'^(to|a|an|the)\s+', re.I)
+
+def leaks(cue, word):
+    if not cue: return False
+    return BARE.sub('', word).lower() in cue.lower()
 
 def drill_type(cue, masked):
     if not cue: return 'define'
@@ -84,6 +90,12 @@ for f in files:
             if not word or not d or word.lower() in seen: continue
             seen.add(word.lower())
             words.append(dict(w=word, pos='', d=d, s=word, cue='', m='', ty='define'))
+
+    # a cue may only stand if it cannot hand over its own answer
+    for x in words:
+        if leaks(x['m'], x['w']) or re.search(r'What does it mean\?', x['cue'] or '', re.I):
+            x['m'] = x['cue'] = ''
+            x['ty'] = 'define'
 
     if len(words) < 4:
         skipped.append((f, len(words))); continue
