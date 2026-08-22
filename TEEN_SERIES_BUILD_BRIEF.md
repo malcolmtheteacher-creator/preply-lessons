@@ -62,9 +62,24 @@ numbered TEENS 01-06. Place it directly ABOVE the existing
 "The fifty-nine stories" label. Leave the existing list, counts, banners and
 design untouched.
 
-## Build note
-Write each lesson in 2-3 small chunks and assemble on disk; long single
-generations of story prose have tripped API safety guardrails in bulk builds.
+## Build note — keep the context small, or the build gets blocked
+Long generations of story prose in a context-heavy thread trip API safety
+guardrails (happened repeatedly 2026-08-22). Build this way instead:
+
+1. Work in a FRESH session. Do not read whole lesson files into context.
+2. For each lesson: `cp techniques_the_garden_party.html <newfile>` and then
+   replace one tab at a time with small targeted edits. The CSS/JS and page
+   skeleton are already correct in the copy, so nothing large is regenerated.
+3. Read the template only with narrow `sed -n 'X,Yp'` ranges when needed.
+4. One lesson per request. Assemble, verify, move on.
 
 ## Deploy
-Never push. Malcolm runs (1) Update.
+Malcolm has asked for these to be published as soon as they are built. When
+all six are done, verified in the browser, and the Teens dashboard section is
+in place, run:
+
+    ~/Documents/01_Work/"(1) Update Lesson Index.command"
+
+(the real filename starts with the circled-1 character). It regenerates the
+searchable lesson index and pushes. Then hard-refresh the live pages: the
+edge cache holds the old copy for about ten minutes.
