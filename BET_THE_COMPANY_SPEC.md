@@ -73,17 +73,17 @@ Structure and JS identical to the template (show(0)–show(4), Speak = tab 4).
 | # | Case | Working title | Grammar focus |
 |---|------|---------------|---------------|
 | 01 | Ørsted (LIVE) | The Company That Bet Everything | hedging & diplomatic distance |
-| 02 | Nokia loses mobile | The Giant That Saw It Coming | past deduction & missed alternatives (must have / could have) |
-| 03 | Kodak & the digital camera | The Invention in the Drawer | cause & effect language (lead to, stem from, set in motion) |
-| 04 | Lego 2003 turnaround | Saved by Fewer Bricks | mixed conditionals in post-mortems |
-| 05 | Blockbuster vs Netflix | The $50 Million Phone Call | concession & contrast (whereas, albeit, even so) |
-| 06 | VW Dieselgate | The Cleverest Engineers in the Room | passives & impersonal accountability language |
-| 07 | Wirecard | The Company That Wasn't There | reporting verbs (claim, allege, concede, deny) |
-| 08 | Maersk & NotPetya | Ten Days Without Computers | narrative tenses for incident timelines |
-| 09 | WeWork | The Vision Premium | the language of hype vs substance (emphasis, inversion, downtoning) |
-| 10 | Boeing 737 MAX | The Culture That Signed It Off | obligation & responsibility (be required to, be supposed to, accountability) |
-| 11 | Patagonia gives itself away | The Exit Nobody Priced | purpose, values & mission language (so as to, with a view to, cleft purpose) |
-| 12 | Novo Nordisk & Ozempic | The Problem of Too Much Demand | forecasting & projection (future perfect, likely to, may well) |
+| 02 | Nokia loses mobile (LIVE) | The Giant That Saw It Coming | past deduction & missed alternatives (must have / could have) |
+| 03 | Kodak & the digital camera (LIVE) | The Invention in the Drawer | cause & effect language (lead to, stem from, set in motion) |
+| 04 | Lego 2003 turnaround (LIVE) | Saved by Fewer Bricks | mixed conditionals in post-mortems |
+| 05 | Blockbuster vs Netflix (LIVE) | The $50 Million Phone Call | concession & contrast (whereas, albeit, even so) |
+| 06 | VW Dieselgate (LIVE) | The Cleverest Engineers in the Room | passives & impersonal accountability language |
+| 07 | Wirecard (LIVE) | The Company That Wasn't There | reporting verbs (claim, allege, concede, deny) |
+| 08 | Maersk & NotPetya (LIVE) | Ten Days Without Computers | narrative tenses for incident timelines |
+| 09 | WeWork (LIVE) | The Vision Premium | the language of hype vs substance (emphasis, inversion, downtoning) |
+| 10 | Boeing 737 MAX (LIVE) | The Culture That Signed It Off | obligation & responsibility (be required to, be supposed to, accountability) |
+| 11 | Patagonia gives itself away (LIVE) | The Exit Nobody Priced | purpose, values & mission language (so as to, with a view to, cleft purpose) |
+| 12 | Novo Nordisk & Ozempic (LIVE) | The Problem of Too Much Demand | forecasting & projection (future perfect, likely to, may well) |
 
 Extend the table when adding cases; never reuse a grammar focus within the
 series without a reason.
