@@ -15,7 +15,7 @@ as the rest of the series.
 0. Key Words — intention line, 3 warm-up discussion questions, 10 words in
    3-4 DIFFERENT activity types (infer-from-context / which-word-means /
    a-b-c multiple choice / word-building + collocation), each with a Reveal
-   button. Never put the definition inside the word's own context sentence.
+   button. Never put the definition inside the word's own context sentence. In which-word-means activities, the intro list order must never match the question order (scramble it).
 1. The Story — abridged into 3 parts, each followed by a 2-question quick
    check with hidden answers, then one discussion question.
 2. Grammar — one point, explained in .note boxes, then 3 gap-fill exercises.

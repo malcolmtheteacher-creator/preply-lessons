@@ -24,6 +24,8 @@ Every vocab item reuses the proven mechanic — a stimulus in `.sent`, a `.revea
 
 **Group the 10 words into 3–4 small labelled activities, each a DIFFERENT technique** (at least 3, ideally 4; cover all 10 between them): **infer from context** ("What does **X** mean here?"), **meaning → word** ("Which word means '…'?"), **synonym / antonym**, **collocation / chunk** ("Complete: to **lay ___ to**…"), **odd one out / grouping**, **multiple choice in context** (a/b/c), **word building** ("You know **besiege** — what noun comes from it?").
 
+**HARD RULE — scramble matching lists.** In any "Which term/word means…?" activity, the order of the terms in the intro list must NEVER match the order of the questions (use a derangement — no item in its own position). If the list order mirrors the question order, the student just reads down and nothing is tested. (Systemic fault found and fixed 2026-08-25.)
+
 **HARD RULE — no inline gloss.** Never put the definition, a synonym, or a dash-appositive of the target word inside its own context sentence. ✗ "a *siege* — surrounding a city to starve it out." ✓ "For eleven days nothing got in or out. This was a *siege*." → Reveal gives the meaning. The student thinks; Reveal confirms. Apply the same variety (gentler) in the A2/B1 twin.
 
 ## 4. The twin (A2/B1)
