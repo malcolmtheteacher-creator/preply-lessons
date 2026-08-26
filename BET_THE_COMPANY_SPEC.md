@@ -85,6 +85,7 @@ Structure and JS identical to the template (show(0)–show(4), Speak = tab 4).
 | 11 | Patagonia gives itself away (LIVE) | The Exit Nobody Priced | purpose, values & mission language (so as to, with a view to, cleft purpose) |
 | 12 | Novo Nordisk & Ozempic (LIVE) | The Problem of Too Much Demand | forecasting & projection (future perfect, likely to, may well) |
 | 13 | Hanjin collapse / Incoterms (LIVE) | Three Letters on an Invoice | contract language (shall, provided that, in the event of) |
+| 14 | Translation industry vs AI (LIVE) | The Industry That Trained Its Replacement | comparison & degree (nowhere near as, all but closed, the more… the more…) |
 
 Extend the table when adding cases; never reuse a grammar focus within the
 series without a reason.
