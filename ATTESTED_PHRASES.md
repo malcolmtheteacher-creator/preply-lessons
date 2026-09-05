@@ -123,6 +123,32 @@ Sources so far:
 - I'm so sorry. / What a shame.
 - Can I do anything to help?
 
+## Taking a call from a new customer / an enquiry [BC-B1, EV, DL, OOE]
+Sources added 6 Sep 2026: **[BC-B1]** British Council LearnEnglish, Listening B1 "A phone call from a customer" (transcript);
+**[EV]** EngVarta, "Master Phone Call Vocabulary & Phrases in English"; **[DL]** Duolingo blog, "English phone vocabulary";
+**[OOE]** Oxford Online English, "Talking on the Phone" (A1–A2 listening lesson).
+- Hello, [name] speaking. How can I help you? [BC-B1, EV]
+- Could I have your name and number? [EV]
+- What's this regarding? [EV]
+- Could you please repeat that? / Sorry, can you repeat that? [EV, DL]
+- I didn't catch that. Could you say it again, please? [EV]
+- Could you say that last part again, please? [DL]
+- What was that name again? [DL]
+- Could you speak more slowly? [EV]
+- Let me confirm that. You said [details], correct? [EV]
+- Just to be sure, [details], right? [EV]
+- Let me see what I can do. [BC-B1]
+- I'm not sure if I can do that. [BC-B1]
+- I think we can make an exception this time. [BC-B1]
+- I'm happy to help you. / We're happy to help you. [BC-B1]
+- I'll get back to you. [EV]
+- I'll let him know. / I'll tell him. [OOE]
+- I'll keep an eye out for it. [BC-B1]
+- Talk to you soon. [BC-B1]
+- Thank you for your time. Goodbye. [EV]
+- (asking softly if something is possible) Would you be able to…? [BC, B1 — already in bank]
+- (soft question frame) Could you tell me…, please? [BC grammar — already in bank]
+
 ---
 
 *Growth rule: one function at a time, 2–3 sources, phrases verbatim, source-tagged. Candidate
