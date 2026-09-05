@@ -149,6 +149,28 @@ Sources added 6 Sep 2026: **[BC-B1]** British Council LearnEnglish, Listening B1
 - (asking softly if something is possible) Would you be able to…? [BC, B1 — already in bank]
 - (soft question frame) Could you tell me…, please? [BC grammar — already in bank]
 
+## Giving a price / holding a price / small deals [BC-EO, HE, LEL, + audited lessons]
+Sources added 6 Sep 2026: **[BC-EO]** British Council English Online blog, "6 language must-haves to negotiate in English";
+**[HE]** Hello English, "18 Phrases for Negotiating a Price"; **[LEL]** learnenglish.life, "English for Negotiations: 50 Key Phrases";
+plus lines already audited in live role plays: rp_15 (renting, A2/B1), rp_17 (haggling, A2/B1), wk_05 (negotiating).
+- It's about eighty pounds a month. / It's ___ an hour. [rp_15 dialogue, audited]
+- The internet is not included. / Is ___ included? [rp_15, audited]
+- The price is good for this area. [rp_15 dialogue, audited]
+- Maybe we can meet in the middle. / Could we meet in the middle? [rp_15 audited; HE]
+- I'm not sure if I can do that. [BC-B1]
+- If you can do X, then I can move on Y. / If you ___, I can ___. [wk_05, audited]
+- So, just to confirm what we've agreed, ___. [wk_05, audited]
+- I've priced this as fairly as I can. / That's where I need to be on this. [wk_05, audited]
+- OK, it's a deal! Thank you very much. [rp_17 A2/B1, audited]
+- (buyer) I love it, but it's a bit over my budget. [HE]
+- (buyer) Is this the best price you can offer? / Do you have any flexibility on the price? [HE]
+- (buyer) Would you take [amount] for it? / I can offer you [amount]. [HE]
+- (buyer) Let's go with [agreed amount]. / Thank you — that's a fair deal. [HE]
+- (buyer) That's too much for me. / Can you make it cheaper? [rp_17 A2/B1, audited]
+- We could offer X, provided that you can do Y. [LEL]
+- If you wanted to buy 2,000, we could reduce the price to £4.50. [BC-EO]
+- So, we're in agreement. [BC-EO]
+
 ---
 
 *Growth rule: one function at a time, 2–3 sources, phrases verbatim, source-tagged. Candidate
