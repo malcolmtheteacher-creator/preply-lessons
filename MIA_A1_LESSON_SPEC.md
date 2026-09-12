@@ -29,6 +29,14 @@ var LESSON=[
 ```
 Front = the English. Back = a simple meaning or example a beginner understands (short). Emoji = one clear picture.
 
+**★ APOSTROPHES — this breaks the whole lesson.** The meaning field is wrapped in *single* quotes, so a plain apostrophe inside it ends the string early and throws a SyntaxError. One bad apostrophe kills the entire inline script: the tabs stop switching, the flip cards never build and the review counters stay at 0. The page looks dead. This silently broke 9 live lessons (23, 26, 28, 29, 31, 37, 42, 43, 47).
+
+Whenever the meaning contains `'` (don't, can't, o'clock, or quotes round a word), wrap that field in double quotes instead:
+```
+['l26_lost',"lost","you don't know where you are",'❓'],
+['l43_seen',"seen","the third form of 'see'",'👀'],
+```
+
 ## 4. HARD RULES
 - 4th-wall clean: no teacher notes, no TEEP/mode/pedagogy labels, no "Malcolm" in the body (title/footer keep "Mia's English"). Never use the word "Simplified".
 - All `input`/`textarea` EMPTY (placeholders only, no `value=`).
@@ -36,4 +44,6 @@ Front = the English. Back = a simple meaning or example a beginner understands (
 - Keep it gentle and A1: short sentences, common words, warm tone, big wins.
 
 ## 5. Verify before reporting
+**Open the lesson and click all 6 tabs** — if a tab does not switch, the script is broken (almost always an apostrophe, see §3).
+
 Confirm: 6 `.panel`, 6 `.tab-btn`, 0 prefilled inputs, `SR_KEY='miaSR_v1'` present, `LESSON_NAME` set to THIS lesson (not "Lesson 3"), engine functions unchanged, the two `.morelink` targets exist, Role Play cues never contain the answer sentence. Report: filename + one-line summary + the 8 words + the two image filenames used.
