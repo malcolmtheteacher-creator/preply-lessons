@@ -107,3 +107,17 @@ Malcolm pushes via ① Update (or asks for it explicitly).
 
 | 15 | Online therapy reckoning (LIVE) | A Therapist in Your Pocket | relative clauses at C1 (sentence-relative which, many of whom, reduced) |
 | 16 | ERP go-live disasters (LIVE) | Go-Live | verb patterns that change meaning (stop/try/remember + -ing vs to) |
+| 17 | Bicester Village (LIVE, hand-built, own layout) | The Village That Sold a Day Out | causation without overclaiming |
+
+### The Comeback strand (added 2026-09-13) — cases that WON, to balance the failures
+| 18 | Tylenol 1982 | Seven Deaths and a Hundred Million Dollars | time clauses under pressure (the moment, until, by the time, no sooner… than) |
+| 19 | Apple 1997 | Ninety Days from Empty | cleft sentences for focus (it-cleft, wh-cleft, all / the reason) |
+| 20 | Marvel, bankruptcy → MCU | The Heroes in the Basement | participle clauses (having sold…, backed by…, not owning…) |
+| 21 | Microsoft under Nadella | The Company That Changed Its Mind | nominalisation (decision to, reduction in, commitment to) |
+| 22 | Disney buys Pixar | The Studio That Bought Its Rescuer | the future in the past (was going to, was about to, would, was to have) |
+
+**Build method (from case 18 on):** C1 lessons are generated, not hand-written —
+content in `tools/bc_c1_content/<slug>.json`, then `python3 tools/build_bc_c1.py <slug>`
+(the style and script are copied live from the Ørsted template). Every case now also
+gets an A2/B1 companion via `tools/build_bc_a2b1.py` (content in `tools/bc_a2b1_content/`).
+Never reuse an A2/B1 grammar point either — check the existing content files first.
