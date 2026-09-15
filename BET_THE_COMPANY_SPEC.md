@@ -116,6 +116,9 @@ Malcolm pushes via ① Update (or asks for it explicitly).
 | 21 | Microsoft under Nadella | The Company That Changed Its Mind | nominalisation (decision to, reduction in, commitment to) |
 | 22 | Disney buys Pixar | The Studio That Bought Its Rescuer | the future in the past (was going to, was about to, would, was to have) |
 
+### The Frameworks strand (added 2026-09-15) — a famous business tool, tested on a real company
+| 23 | BCG matrix → Alphabet | The Cow That Pays for the Moonshots | formal recommendations (recommend that + bare verb, it is essential that, it's time we + past) · A2/B1: all / most / some / none of |
+
 **Build method (from case 18 on):** C1 lessons are generated, not hand-written —
 content in `tools/bc_c1_content/<slug>.json`, then `python3 tools/build_bc_c1.py <slug>`
 (the style and script are copied live from the Ørsted template). Every case now also
