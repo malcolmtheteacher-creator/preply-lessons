@@ -118,6 +118,7 @@ Malcolm pushes via ① Update (or asks for it explicitly).
 
 ### The Frameworks strand (added 2026-09-15) — a famous business tool, tested on a real company
 | 23 | BCG matrix → Alphabet | The Cow That Pays for the Moonshots | formal recommendations (recommend that + bare verb, it is essential that, it's time we + past) · A2/B1: all / most / some / none of |
+| 24 | Patent cliff → Prozac & the AI race | The Race Nobody Can Leave | conditional inversion (were … to, should + bare verb, had + pp, were it not for) · A2/B1: want / would like / ask + someone + to do |
 
 **Build method (from case 18 on):** C1 lessons are generated, not hand-written —
 content in `tools/bc_c1_content/<slug>.json`, then `python3 tools/build_bc_c1.py <slug>`
