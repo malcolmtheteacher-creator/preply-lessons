@@ -604,7 +604,7 @@ function checkPhoto(id){
 
 <script>
 (function(){
-    var ROLES = { TWR:'Tower (the controller)', GND:'Ground (the controller for taxiing)', RAD:'Radar (the controller for the climb)', APP:'Approach (the controller for arrivals)', P:'the pilot', P1:'pilot of the first aircraft', P2:'pilot of the second aircraft' };
+    var ROLES = { TWR:'Tower (the controller)', GND:'Ground (the controller for taxiing)', RAD:'Radar (the radar controller)', APP:'Approach (the controller for arrivals)', P:'the pilot', P1:'pilot of the first aircraft', P2:'pilot of the second aircraft' };
     var CONTROLLERS = { TWR:1, GND:1, RAD:1, APP:1, YOU:1 };
     function sayable(t){
         t = t.replace(/[“”]/g, '').replace(/—/g, ', ').replace(/(\d):(\d)/g, '$1$2');
@@ -613,13 +613,30 @@ function checkPhoto(id){
             return ' ' + num.split('').map(function(d){ return d === '9' ? 'niner' : (d === '0' ? 'zero' : d); }).join(' ') + ' ';
         });
     }
+    var NOVELTY = /albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|eddy|^flo|fred|good news|grandma|grandpa|jester|junior|kathy|organ|ralph|reed|rocko|sandy|shelley|superstar|trinoids|whisper|wobble|zarvox/i;
+    var CTRL_PREF  = ['Daniel (Enhanced)', 'Google UK English Male', 'Daniel', 'Microsoft Ryan', 'Alex', 'Google US English'];
+    var PILOT_PREF = ['Samantha', 'Karen', 'Google UK English Female', 'Stephanie (Enhanced)', 'Moira', 'Microsoft Aria', 'Tessa'];
+    var PILOT2_PREF = ['Rishi', 'Moira', 'Tessa', 'Karen', 'Stephanie (Enhanced)', 'Google US English'];
     function pickVoices(){
         var all = speechSynthesis.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
-        var gb = all.filter(function(v){ return /GB/i.test(v.lang); });
-        var us = all.filter(function(v){ return /US|AU|IE/i.test(v.lang); });
-        var a = gb[0] || all[0] || null;
-        var b = us[0] || all.filter(function(v){ return v !== a; })[0] || a;
-        return { controller:a, pilot:b };
+        var usable = all.filter(function(v){ return !NOVELTY.test(v.name); });
+        var takenNames = [];
+        function base(v){ return v.name.split(' (')[0].toLowerCase(); }
+        function free(v){ return v && takenNames.indexOf(base(v)) < 0; }
+        function claim(v){ if(v){ takenNames.push(base(v)); } return v || null; }
+        function fromList(list){
+            for(var i = 0; i < list.length; i++){
+                for(var j = 0; j < usable.length; j++){
+                    if(usable[j].name === list[i] && free(usable[j])){ return claim(usable[j]); }
+                }
+            }
+            for(var k = 0; k < usable.length; k++){ if(free(usable[k])){ return claim(usable[k]); } }
+            return null;
+        }
+        var a = fromList(CTRL_PREF) || all[0] || null;
+        var b = fromList(PILOT_PREF) || a;
+        var c = fromList(PILOT2_PREF) || b;
+        return { controller:a, pilot:b, pilot2:c, oneVoiceOnly:(b === a) };
     }
     if(window.speechSynthesis){ speechSynthesis.getVoices(); }
     document.querySelectorAll('.radio[data-listen]').forEach(function(box){
@@ -690,9 +707,9 @@ function checkPhoto(id){
             lines.forEach(function(l, i){
                 var u = new SpeechSynthesisUtterance(sayable(l.text));
                 var isCtl = !!CONTROLLERS[l.role];
-                u.voice = isCtl ? v.controller : v.pilot;
-                u.pitch = isCtl ? 0.9 : (l.role === 'P2' ? 1.25 : 1.1);
-                u.rate = 1;
+                u.voice = isCtl ? v.controller : (l.role === 'P2' ? v.pilot2 : v.pilot);
+                u.pitch = v.oneVoiceOnly ? (isCtl ? 0.9 : 1.15) : 1;
+                u.rate = 0.98;
                 if(i === lines.length - 1){
                     u.onend = finish;
                 }
