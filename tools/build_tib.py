@@ -17,8 +17,8 @@ CONTENT = os.path.join(HERE, "tib_content")
 SERIES = "Think Inside the Box"
 DASH = "think_inside_the_box_dashboard.html"
 TOOLBOX = "think_inside_the_box_toolbox.html"
-MAP_IMG = "ThinkInsideTheBox_map.png"
-HERO_IMG = "ThinkInsideTheBox.png"
+MAP_IMG = "ThinkInsideTheBox_map.jpg"
+HERO_IMG = "ThinkInsideTheBox.jpg"
 
 TEMPLATE = open(os.path.join(ROOT, "ts_penicillin_b2.html")).read()
 RECOLOUR = {"#667eea": "#0e7490", "#764ba2": "#0f766e", "#5a3aa0": "#115e59", "#4a3380": "#134e4a",

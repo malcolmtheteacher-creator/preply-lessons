@@ -75,4 +75,4 @@ Measure them from the real image, then rebuild.
 > coffee cup and a small compass. Deep teal and warm amber colours, soft morning light, slightly
 > darker at the centre so white title text can sit on top. Painterly, elegant, no people.
 
-Save as `ThinkInsideTheBox.png` (hero) and `ThinkInsideTheBox_map.png` (map) in gitsite.
+Save as `ThinkInsideTheBox.jpg` (hero) and `ThinkInsideTheBox_map.jpg` (map) — convert ChatGPT PNGs to JPEG (sips, quality 82) so the page loads fast in gitsite.
