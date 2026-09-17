@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Think Inside the Box">
+<title>The Tool Nobody Invented · B2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fbfa; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(14,116,144,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#115e59; }
+.crosslink a { color:#0f766e; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #eef7f6; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #115e59; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #0f766e; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #e2f4f1; border-left: 4px solid #0f766e; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #134e4a; font-size: 0.98rem; }
+.intention strong { color: #115e59; }
+.story-chunk { background: #f1f9f8; border-left: 4px solid #0f766e; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f1f9f8; border: 1px solid #c5e6e1; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #115e59; }
+.reveal-btn { background: #e2f4f1; border: 1px solid #99d5cc; color: #115e59; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #cdeae5; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #7cc4bb; background: transparent; padding: 2px 6px; font: inherit; color: #115e59; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #0f766e; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #115e59; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #115e59; }
+.speak-prompt { background: linear-gradient(135deg, #eaf6f4 0%, #e3f2ef 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #0f766e; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #115e59; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #1f3d3a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #c5e6e1; border-left: 4px solid #0f766e; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #115e59; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.note { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#115e59; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+
+.diagram { text-align:center; margin: 10px 0 18px; }
+.diagram svg { max-width: 100%; height: auto; }
+.steps { margin: 6px 0 14px 22px; color:#3a3a4a; }
+.steps li { margin-bottom: 8px; }
+.sort-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; background:#f1f9f8; border:1px solid #c5e6e1; border-radius:10px; padding:10px 14px; margin:8px 0; }
+.sort-row .txt { flex: 1 1 320px; color:#2a3a3a; }
+.sort-row select { font: inherit; padding:5px 8px; border:1px solid #99d5cc; border-radius:8px; background:white; color:#115e59; min-width: 190px; }
+.sort-row .mark { width: 22px; font-weight:700; text-align:center; }
+.sort-row.ok { border-color:#6fbf73; background:#eef8ee; }
+.sort-row.bad { border-color:#e0a0a0; background:#fbf0f0; }
+.check-btn { background: linear-gradient(135deg, #0e7490, #0f766e); color:white; border:none; padding:8px 16px; border-radius:16px; cursor:pointer; font-size:0.88rem; font-weight:600; margin: 10px 8px 0 0; }
+.score { font-weight:700; color:#115e59; margin-left:6px; }
+.cousins { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin: 10px 0; }
+.cousin { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:12px 14px; font-size:0.93rem; color:#3a3a4a; }
+.cousin b { color:#115e59; display:block; margin-bottom:3px; }
+.cousin a { color:#0f766e; font-weight:600; }
+.series-strip { text-align:center; font-size:0.86rem; margin: 0 0 16px; color:#5a6a6a; }
+.series-strip a { color:#0f766e; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">THINK INSIDE THE BOX · TOOL 10 · B2 · 50 min</span>
+        <h1>The Tool Nobody Invented</h1>
+        <p>The most famous planning tool in the world was taught for decades with the wrong origin story. In 2023, three researchers went looking for the truth.</p>
+    </header>
+
+    <p class="series-strip"><a href="tib_diffusion_b2.html">&larr; The Diffusion of Innovations</a> &nbsp;·&nbsp; <a href="think_inside_the_box_dashboard.html">All the tools</a></p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Story</button>
+        <button class="tab-btn" onclick="showTab(2)">The Tool</button>
+        <button class="tab-btn" onclick="showTab(3)">Grammar — must have, might have, can't have</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+    </nav>
+
+    <!-- TAB 0: KEY WORDS -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll learn the detective story behind SWOT, use it to analyse a small business, and practise making guesses about the past: <em>must have, might have, can't have</em>.</div>
+            <div class="discuss">
+                <strong>Before we start — talk these through:</strong>
+                <ul>
+                    <li>What are your own biggest strengths? Is it easy or hard to say them out loud?</li>
+                    <li>Have you ever believed a “fact” for years and then discovered it was wrong?</li>
+                    <li>Before a big decision, do you make lists of pros and cons? Does it help?</li>
+                </ul>
+            </div>
+
+            <h2>The vocabulary of this story</h2>
+            <p>Ten items. Say your answer <strong>out loud before you reveal it</strong>.</p>
+
+            <h3>A · What do they mean here? Work it out from the context</h3>
+            <p>Read the sentence, guess the meaning of the word in bold, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The old letters were found in a university <b>archive</b>, in a box nobody had opened for sixty years.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>archive</b> — a place where historical documents and records are stored.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">NASA is an <b>acronym</b> for National Aeronautics and Space Administration.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>acronym</b> — a word made from the first letters of other words.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">The famous quotation is often <b>attributed</b> to Einstein, but there is no proof he said it.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>attribute (to)</b> — to say that something was written, said or caused by a particular person.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">In our hurry, we <b>overlooked</b> one important detail: the shop was closed on Mondays.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>overlook</b> — to fail to notice or consider something.</div>
+            </div>
+            <h3>B · Which word matches the meaning?</h3>
+            <p>The three words are: <strong>external · myth · internal</strong>. Read each meaning, say the word, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">(noun) A story or belief that many people accept, but which is not true.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>myth</b> — “It's a <b>myth</b> that we only use ten per cent of our brains.”</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(adjective) Inside an organisation, a person or a thing.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>internal</b> — “The company is holding an <b>internal</b> investigation.”</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(adjective) Coming from outside an organisation, a person or a thing.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>external</b> — “Rising oil prices are an <b>external</b> problem we can't control.”</div>
+            </div>
+            <h3>C · Which word completes all three phrases?</h3>
+            <p>One missing word fits every phrase in the group. Say it, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">hard ___ &nbsp;·&nbsp; there is no ___ to support it &nbsp;·&nbsp; give ___ in court</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>evidence</b> — facts or information that show whether something is true.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">make a ___ &nbsp;·&nbsp; a false ___ &nbsp;·&nbsp; ___ to be an expert</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>claim</b> — to say something is true without proof (verb); a statement of this kind (noun).</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">___ the origins of a word &nbsp;·&nbsp; ___ a phone call &nbsp;·&nbsp; disappear without ___</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>trace</b> — to find where something came from (verb); a sign that something existed (noun).</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Before we read:</strong>
+                <ul>
+                    <li>Can you think of a popular <strong>myth</strong> — about health, history or science — that many people still believe?</li>
+                    <li>Which problems in your job or studies are <strong>internal</strong>, and which are <strong>external</strong>?</li>
+                    <li>How far back can you <strong>trace</strong> your family?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: THE STORY -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The story, in three parts</h2>
+            <p>Read each part. After it, answer the quick check from memory, then discuss one question.</p>
+
+            <h3>Part 1 — The story everyone told</h3>
+            <div class="story-chunk">
+                <p>Open almost any business textbook and you will find SWOT analysis: a simple way to look at an organisation's <strong>S</strong>trengths, <strong>W</strong>eaknesses, <strong>O</strong>pportunities and <strong>T</strong>hreats. It is used by companies, charities, schools, hospitals and even students planning their careers. It may be the most widely used planning tool in the world.</p>
+                <p>For decades, the internet and many books repeated the same origin story. In the 1960s, it said, a management consultant called Albert Humphrey led a big research project at Stanford Research Institute in California, studying hundreds of companies to find out why their planning failed. From that project, the story went, came SWOT.</p>
+                <p>The story came mainly from Humphrey’s own later account, published in 2005. It was repeated so often that it became accepted as fact. But when researchers looked for evidence from the 1960s — reports, papers, documents with Humphrey's name on the idea — they found almost nothing.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What do the four letters of SWOT stand for?</p>
+                <p>2. Who was usually said to have invented SWOT?</p>
+                <p>3. What was the problem with this story?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Strengths, weaknesses, opportunities, threats.</p>
+                    <p><strong>2.</strong> Albert Humphrey, at Stanford Research Institute in the 1960s.</p>
+                    <p><strong>3.</strong> There was almost no evidence from the 1960s to support it; it came mainly from Humphrey's own later account.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Why do you think a story with no evidence was repeated for so long?</li></ul>
+            </div>
+
+            <h3>Part 2 — The detectives</h3>
+            <div class="story-chunk">
+                <p>A few years ago, Richard Puyt, a researcher in the Netherlands, became curious. If SWOT was so important, why was its history so unclear? Together with two colleagues, Finn Lie and Celeste Wilderom, he began to dig. They searched archives, read old company reports and interviewed people who had worked at Stanford Research Institute decades earlier.</p>
+                <p>In 2023, they published what they had found. The idea could be traced back to the 1950s, to planners at the aircraft company Lockheed who were trying to understand why long-range plans so often failed. That work led to Robert F. Stewart, who in 1962 became head of a group at Stanford Research Institute studying the theory and practice of planning.</p>
+                <p>Stewart's group developed a way of helping managers plan together. It asked them to look at what was <strong>S</strong>atisfactory, what were <strong>O</strong>pportunities, what were <strong>F</strong>aults and what were <strong>T</strong>hreats. The acronym was not SWOT but <strong>SOFT</strong>, and the institute published the approach in 1965. According to the researchers, Humphrey had been a member of the team — but not its leader, and not the inventor.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. How did Puyt and his colleagues search for the truth?</p>
+                <p>2. Where could the idea be traced back to?</p>
+                <p>3. What was the original acronym, and what did it stand for?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> They searched archives, read old company reports and interviewed people who had worked at the institute.</p>
+                    <p><strong>2.</strong> To planners at the aircraft company Lockheed in the 1950s.</p>
+                    <p><strong>3.</strong> SOFT: Satisfactory, Opportunity, Fault, Threat.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Humphrey was a real member of the team. Was his story a lie, a mistake, or something in between?</li></ul>
+            </div>
+
+            <h3>Part 3 — From SOFT to SWOT</h3>
+            <div class="story-chunk">
+                <p>Within a few years, the words changed. “Satisfactory” became <em>strengths</em>, and “faults” became <em>weaknesses</em>. SOFT became SWOT, which is easier to say and remember. Around the same time, professors at Harvard Business School were teaching a similar way of thinking: compare a company's internal strengths and weaknesses with the external opportunities and threats around it. The idea spread through business schools and consulting firms until almost everyone used it.</p>
+                <p>Its simplicity is its strength — and also its weakness. Critics say that many SWOT analyses are just four lists with no decisions. People often overlook the most important question: <em>so what?</em> In 1982, a professor named Heinz Weihrich suggested a fix, the TOWS matrix, which asks how to use each strength to grab an opportunity or defend against a threat.</p>
+                <p>The story of SWOT has a lesson of its own. Even the world's most famous tools can have a forgotten history, and a fact repeated a thousand times is not necessarily true. Sometimes it takes detectives with patience — and an archive — to find out what really happened.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What did “satisfactory” and “faults” become?</p>
+                <p>2. What is the main criticism of many SWOT analyses?</p>
+                <p>3. What does the TOWS matrix add?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Strengths and weaknesses.</p>
+                    <p><strong>2.</strong> They are just four lists with no decisions — they skip the “so what?” question.</p>
+                    <p><strong>3.</strong> It asks how to use strengths to seize opportunities or defend against threats — it turns the lists into strategy.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>What other “facts” do people repeat without checking? How could we check them?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOL -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>How the tool works</h2>
+            <p>SWOT is a checklist in a grid. The top row is <strong>internal</strong> — things you control. The bottom row is <strong>external</strong> — things in the world around you. The left column <strong>helps</strong> your goal; the right column <strong>harms</strong> it.</p>
+            <div class="diagram"><svg viewBox="0 0 536 290" width="536" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f766e"/></marker></defs><rect x="96" y="20" width="210" height="100" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="70.0">STRENGTHS</tspan></text><rect x="306" y="20" width="210" height="100" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="70.0">WEAKNESSES</tspan></text><rect x="96" y="120" width="210" height="100" fill="#d6e4f5" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="170.0">OPPORTUNITIES</tspan></text><rect x="306" y="120" width="210" height="100" fill="#f7eac0" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="170.0">THREATS</tspan></text><line x1="96" y1="226" x2="516" y2="226" stroke="#0f766e" stroke-width="2"/><line x1="90" y1="220" x2="90" y2="20" stroke="#0f766e" stroke-width="2"/><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle"><tspan x="306.0" y="250.0">Effect on your goal</tspan></text><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 24 120.0)"><tspan x="24" y="120.0">Where it comes from</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="270.0">helpful</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="270.0">harmful</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 74 70.0)"><tspan x="74" y="70.0">internal</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 74 170.0)"><tspan x="74" y="170.0">external</tspan></text></svg></div>
+            <h3>Using it, step by step</h3>
+            <ol class="steps">
+                <li>Write down the <strong>goal</strong> first. A strength for one goal can be a weakness for another.</li>
+                <li>Fill the <strong>internal</strong> boxes honestly: what are we good at, and what do we do badly?</li>
+                <li>Fill the <strong>external</strong> boxes: what is changing around us that could help or hurt?</li>
+                <li>Ask <strong>“so what?”</strong>: how can each strength grab an opportunity or block a threat? Choose two or three actions.</li>
+            </ol>
+
+            <h3>Try it yourself</h3>
+            <p>A small family restaurant has done a SWOT analysis. Which box does each point belong in? Remember: internal or external? Helpful or harmful?</p>
+            <div id="sort1">
+                <div class="sort-row" data-answer="Opportunities">
+                    <span class="txt">1. A large office building with 2,000 workers is opening across the street.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Strengths">
+                    <span class="txt">2. The chef has won several local cooking awards.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Weaknesses">
+                    <span class="txt">3. The kitchen equipment is old and often breaks down.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Strengths">
+                    <span class="txt">4. Loyal customers who have eaten there for twenty years.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Threats">
+                    <span class="txt">5. A cheap fast-food chain plans to open next door.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Threats">
+                    <span class="txt">6. Food prices across the country are rising quickly.</span>
+                    <select><option value="">choose…</option><option value="Strengths">Strengths</option><option value="Weaknesses">Weaknesses</option><option value="Opportunities">Opportunities</option><option value="Threats">Threats</option></select>
+                    <span class="mark"></span>
+                </div>
+                <button class="check-btn" onclick="checkSort('sort1')">Check my answers</button><span class="score"></span>
+                <br><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show the reasons</button>
+                <div class="answers">
+                    <p><strong>1. Opportunities</strong> — external and helpful — lots of new lunch customers.</p>
+                    <p><strong>2. Strengths</strong> — internal and helpful.</p>
+                    <p><strong>3. Weaknesses</strong> — internal and harmful.</p>
+                    <p><strong>4. Strengths</strong> — internal and helpful — something the restaurant has built.</p>
+                    <p><strong>5. Threats</strong> — external and harmful.</p>
+                    <p><strong>6. Threats</strong> — external and harmful — the restaurant can't control it.</p>
+                </div>
+            </div>
+
+            <h3>Where the tool breaks</h3>
+            <div class="note">
+                <p><strong>Four lists are not a plan.</strong> Without the “so what?” step, SWOT produces pages of notes and no decisions.</p>
+                <p><strong>No priorities.</strong> A tiny weakness and a huge one look the same on the page.</p>
+                <p><strong>Easy to be too kind to yourself.</strong> Teams write long strengths lists and short weaknesses lists.</p>
+            </div>
+            <div class="discuss">
+                <strong>Talk it through:</strong>
+                <ul>
+                    <li>Why do people find weaknesses harder to write than strengths?</li>
+                    <li>What would you add to the restaurant's SWOT? What should it do first?</li>
+                </ul>
+            </div>
+
+            <h3>Its cousins</h3>
+            <div class="cousins">
+                <div class="cousin"><b>PESTLE</b>A checklist for the “external” row: political, economic, social, technological, legal, environmental.</div>
+                <div class="cousin"><b>Porter's Five Forces</b>Five pressures that decide how hard a market is.</div>
+                <div class="cousin"><b>The BCG Matrix</b>Sorts a company's products into stars, cash cows, question marks and dogs. <a href="bc_alphabet_c1.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>The Fishbone Diagram</b>When a weakness needs fixing, this finds its causes. <a href="tib_fishbone_b2.html">Open the lesson &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: GRAMMAR -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Grammar — must have, might have, can't have</h2>
+            <p>Detectives — and historians — make guesses about the past from evidence. English uses <em>modal + have + past participle</em> to show how sure we are.</p>
+            <div class="note">
+                <strong>must have + past participle</strong> — you're almost certain something happened.<br>“The streets are wet. It <strong>must have rained</strong> in the night.”
+            </div>
+            <div class="note">
+                <strong>might / may / could have + past participle</strong> — it's possible.<br>“I can't find my keys. I <strong>might have left</strong> them at work.”
+            </div>
+            <div class="note">
+                <strong>can't / couldn't have + past participle</strong> — you're almost certain something did NOT happen.<br>“She <strong>can't have seen</strong> the message — her phone was switched off.”
+            </div>
+            <div class="note">
+                <strong>Watch out:</strong> the opposite of <em>must have</em> is <em>can't have</em> — not <em>mustn't have</em>.
+            </div>
+            <div class="note">
+                <strong>Pronunciation:</strong> in speech, <em>have</em> is weak: <em>must've, might've, can't've</em>. Never write “must of”.
+            </div>
+
+            <h3>1. How sure are you?</h3>
+            <p>Complete with <em>must have, might have</em> or <em>can't have</em> and the verb in brackets.</p>
+            <div class="gap-fill">
+                <p>1. He's got a sun tan. He <input type="text" placeholder="..."> (be) on holiday. (almost certain)</p>
+                <p>2. The café is dark. It <input type="text" placeholder="..."> (close) early — or maybe they're just having a power cut. (possible)</p>
+                <p>3. She <input type="text" placeholder="..."> (write) this report — it's full of mistakes, and she's very careful. (almost certain it didn't happen)</p>
+                <p>4. The team won 5–0. They <input type="text" placeholder="..."> (play) really well. (almost certain)</p>
+                <p>5. I don't know where Tom is. He <input type="text" placeholder="..."> (miss) the train. (possible)</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>must have been</strong></p>
+                    <p>2. <strong>might have closed</strong></p>
+                    <p>3. <strong>can't have written</strong></p>
+                    <p>4. <strong>must have played</strong></p>
+                    <p>5. <strong>might have missed</strong></p>
+                </div>
+            </div>
+
+            <h3>2. Detective work: the SWOT mystery</h3>
+            <p>Use the story. Complete each guess with a modal perfect.</p>
+            <div class="gap-fill">
+                <p>1. Humphrey was on the SOFT team, so he <input type="text" placeholder="..."> (know) about the idea from the start.</p>
+                <p>2. The name changed within a few years, so people <input type="text" placeholder="..."> (find) SOFT hard to use.</p>
+                <p>3. There were no 1960s documents with Humphrey as the inventor, so he <input type="text" placeholder="..."> (lead) the project — or there would be some record of it.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>must have known</strong></p>
+                    <p>2. <strong>might have found</strong> (possible — we don't know the reason)</p>
+                    <p>3. <strong>can't have led</strong></p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Now look around you. Make three guesses about what happened here earlier today: one with <em>must have</em>, one with <em>might have</em>, one with <em>can't have</em>.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAK -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>Put SWOT to work. Choose a task, start the timer, and talk.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> “One of our biggest strengths is …” · “An external threat we can't control is …” · “So what? That means we should …” · “It must have been hard to …”
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 1 — Your personal SWOT</span>
+                <p>Give one strength, one weakness, one opportunity and one threat for your career, studies or English. Then answer: so what?</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 2 — A place you know</span>
+                <p>Choose a business, club, school or town you know well. Do a quick SWOT and suggest the first action.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 3 — The myth-busters</span>
+                <p>Tell the story of a “fact” you once believed that turned out to be wrong. How did you find out?</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the harder questions</h3>
+                <ol>
+                    <li>Does it matter who invented a tool, as long as it works?</li>
+                    <li>Why do origin stories about one brilliant inventor spread more easily than stories about teams?</li>
+                    <li>Is SWOT too simple for today's fast-changing world? What would you add?</li>
+                    <li><strong>From memory:</strong> make three guesses about the SOFT team with <em>must have</em>, <em>might have</em> and <em>can't have</em>.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Think Inside the Box · The Tool Nobody Invented · B2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+
+function checkSort(id) {
+    const box = document.getElementById(id);
+    let right = 0, total = 0;
+    box.querySelectorAll('.sort-row').forEach(r => {
+        const sel = r.querySelector('select');
+        total++;
+        r.classList.remove('ok', 'bad');
+        const mark = r.querySelector('.mark');
+        if (!sel.value) { mark.textContent = ''; return; }
+        if (sel.value === r.dataset.answer) { right++; r.classList.add('ok'); mark.textContent = '\u2713'; }
+        else { r.classList.add('bad'); mark.textContent = '\u2717'; }
+    });
+    box.querySelector('.score').textContent = right + ' / ' + total;
+}
+</script>
+</body>
+</html>
