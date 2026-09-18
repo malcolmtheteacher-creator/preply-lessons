@@ -11,12 +11,16 @@ Usage: python3 tools/build_tib.py     (always rebuilds everything)
 """
 import json, os, re, glob, html, math
 
+CHECK_NAMES = set()
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 CONTENT = os.path.join(HERE, "tib_content")
+CONTENT_A = os.path.join(HERE, "tib_content_a2b1")
 SERIES = "Think Inside the Box"
 DASH = "think_inside_the_box_dashboard.html"
 TOOLBOX = "think_inside_the_box_toolbox.html"
+CHOOSER = "think_inside_the_box_your_problem.html"
 MAP_IMG = "ThinkInsideTheBox_map.jpg"
 HERO_IMG = "ThinkInsideTheBox.jpg"
 
@@ -280,7 +284,7 @@ def story(d):
     return "\n\n".join(out)
 
 
-def tool_tab(t, lessons_by_slug):
+def tool_tab(t):
     s = t["sort"]
     opts = "".join(f'<option value="{E(o)}">{E(o)}</option>' for o in s["options"])
     rows = "\n".join(f'''                <div class="sort-row" data-answer="{E(it["answer"])}">
@@ -386,35 +390,44 @@ def speak(s):
             </div>'''
 
 
-def lesson(d, all_lessons):
-    by_slug = {x["slug"]: x for x in all_lessons}
+def lesson(d, all_lessons, level="B2", twins=()):
+    suffix = "_b2" if level == "B2" else "_a2b1"
     i = [x["slug"] for x in all_lessons].index(d["slug"])
     prev = all_lessons[i - 1] if i > 0 else None
     nxt = all_lessons[i + 1] if i + 1 < len(all_lessons) else None
     strip = [f'<a href="{DASH}">All the tools</a>']
-    if prev:
-        strip.insert(0, f'<a href="tib_{prev["slug"]}_b2.html">&larr; {prev["tool"]}</a>')
-    if nxt:
-        strip.append(f'<a href="tib_{nxt["slug"]}_b2.html">{nxt["tool"]} &rarr;</a>')
+    if level == "B2":
+        if prev:
+            strip.insert(0, f'<a href="tib_{prev["slug"]}_b2.html">&larr; {prev["tool"]}</a>')
+        if nxt:
+            strip.append(f'<a href="tib_{nxt["slug"]}_b2.html">{nxt["tool"]} &rarr;</a>')
+    cross = ""
+    if level == "B2" and d["slug"] in twins:
+        cross = f'    <p class="crosslink">Easier version: <a href="tib_{d["slug"]}_a2b1.html">read this lesson at A2/B1 level &rarr;</a></p>\n\n'
+    elif level != "B2":
+        cross = f'    <p class="crosslink">Harder version: <a href="tib_{d["slug"]}_b2.html">read this lesson at B2 level &rarr;</a></p>\n\n'
+    tag = "B2" if level == "B2" else "A2/B1"
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="series" content="{SERIES}">
-<title>{d["title"]} · B2</title>
+<title>{d["title"]} · {tag}</title>
 <style>
 {CSS}</style>
 </head>
 <body>
 <div class="container">
     <header>
-        <span class="tag">THINK INSIDE THE BOX · TOOL {d["num"]:02d} · B2 · 50 min</span>
+        <span class="tag">THINK INSIDE THE BOX · TOOL {d["num"]:02d} · {tag} · 50 min</span>
         <h1>{d["title"]}</h1>
         <p>{d["subtitle"]}</p>
     </header>
 
     <p class="series-strip">{" &nbsp;·&nbsp; ".join(strip)}</p>
+
+{cross}
 
     <nav class="tab-nav">
         <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
@@ -463,7 +476,7 @@ def lesson(d, all_lessons):
     <!-- TAB 2: THE TOOL -->
     <div class="tab-content">
         <div class="card">
-{tool_tab(d["tool_tab"], by_slug)}
+{tool_tab(d["tool_tab"])}
         </div>
     </div>
 
@@ -482,7 +495,7 @@ def lesson(d, all_lessons):
     </div>
 
     <footer>
-        {SERIES} · {d["title"]} · B2 · Malcolm Hyndman
+        {SERIES} · {d["title"]} · {tag} · Malcolm Hyndman
     </footer>
 </div>
 
@@ -612,6 +625,150 @@ function filt() {{
 </html>
 '''
 
+# ---------------------------------------------------------------- your-problem page
+
+CHOOSER_CSS = """
+.pick-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; margin:14px 0; }
+.pick { text-align:left; font:inherit; background:white; border:1px solid #c5e6e1; border-radius:12px; padding:14px 16px; cursor:pointer; display:flex; flex-direction:column; gap:6px; transition:.15s; }
+.pick:hover { border-color:#0f766e; box-shadow:0 6px 18px rgba(14,116,144,.14); transform:translateY(-2px); }
+.pick.on { background:#0f766e; border-color:#0f766e; }
+.pick.on .pick-when, .pick.on .pick-tool { color:white; }
+.pick-when { font-size:1rem; color:#1f3d3a; font-weight:600; line-height:1.35; }
+.pick-tool { font-size:.84rem; color:#0f766e; font-weight:700; }
+.panel { display:none; background:#f1f9f8; border:1px solid #99d5cc; border-radius:12px; padding:20px 24px; margin:16px 0; }
+.panel.show { display:block; animation:fade .3s ease; }
+.panel h3 { color:#115e59; font-size:1.4rem; margin-bottom:2px; }
+.panel h4 { color:#0f766e; font-size:.96rem; margin:14px 0 6px; }
+.panel-when { color:#667; font-style:italic; margin-bottom:6px; }
+.panel ul, .panel ol { margin:0 0 0 20px; color:#2a3a3a; }
+.panel li { margin-bottom:6px; }
+.two { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px 24px; }
+.phrase { display:block; background:white; border-left:3px solid #0f766e; border-radius:6px; padding:6px 10px; margin-bottom:6px; font-size:.94rem; color:#2a3a3a; }
+.panel-links { margin-top:14px; font-weight:600; }
+.panel-links a { color:#0f766e; }
+.frame { background:white; border:1px solid #cfe7e3; border-radius:12px; padding:18px 22px; margin:14px 0; }
+.frame li { margin-bottom:10px; color:#2a3a3a; }
+"""
+
+CHOOSER_JS = """
+function showTool(id) {
+    document.querySelectorAll('.pick').forEach(b => b.classList.toggle('on', b.dataset.id === id));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('show', p.id === 'panel-' + id));
+    document.getElementById('panel-' + id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+"""
+
+
+def chooser_page(ch):
+    picks, panels = [], []
+    for t in ch["tools"]:
+        picks.append('<button class="pick" data-id="{id}" onclick="showTool(\'{id}\')">'
+                     '<span class="pick-when">{when}</span>'
+                     '<span class="pick-tool">{tool}</span></button>'.format(
+                         id=t["id"], when=t["when"], tool=t["tool"]))
+        links = f'<a href="{t["lesson"]}">Open the full lesson &rarr;</a>'
+        if t.get("lesson2"):
+            links += f' &nbsp;<a href="{t["lesson2"]}">and this one &rarr;</a>'
+        if t.get("lesson_a2b1"):
+            links += f' &nbsp;<a href="{t["lesson_a2b1"]}">easier version &rarr;</a>'
+        asks = "".join(f"<li>{a}</li>" for a in t["asks"])
+        steps = "".join(f"<li>{x}</li>" for x in t["steps"])
+        phrases = "".join(f'<span class="phrase">{x}</span>' for x in t["phrases"])
+        panels.append(f'''            <div class="panel" id="panel-{t["id"]}">
+                <h3>{t["tool"]}</h3>
+                <p class="panel-when">For: {t["when"][0].lower() + t["when"][1:]}</p>
+                <div class="two">
+                    <div><h4>It asks you</h4><ul>{asks}</ul></div>
+                    <div><h4>Useful language</h4>{phrases}</div>
+                </div>
+                <h4>Do this</h4>
+                <ol>{steps}</ol>
+                <p class="panel-links">{links}</p>
+            </div>''')
+    s1, s2, s3 = ch["step1"], ch["step2"], ch["step3"]
+    intro = chr(10).join("        <p>" + p + "</p>" for p in ch["intro"])
+    picks_html = chr(10).join("            " + x for x in picks)
+    panels_html = chr(10).join(panels)
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="{SERIES}">
+<title>{ch["title"]} · B1/B2</title>
+<style>
+{CSS}{CHOOSER_CSS}</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">THINK INSIDE THE BOX · YOUR OWN PROBLEM · B1/B2 · 50 min</span>
+        <h1>{ch["title"]}</h1>
+        <p>{ch["subtitle"]}</p>
+    </header>
+
+    <p class="series-strip"><a href="{DASH}">All the tools</a> &nbsp;&middot;&nbsp; <a href="{TOOLBOX}">The Toolbox</a></p>
+
+    <div class="card">
+{intro}
+    </div>
+
+    <div class="card">
+        <h2>{s1["heading"]}</h2>
+        <p>{s1["lead"]}</p>
+        <div class="discuss">
+            <strong>Answer these out loud:</strong>
+            <ul>
+{ul(s1["prompts"])}
+            </ul>
+        </div>
+        <div class="note">{s1["note"]}</div>
+    </div>
+
+    <div class="card">
+        <h2>{s2["heading"]}</h2>
+        <p>{s2["lead"]}</p>
+        <div class="pick-grid">
+{picks_html}
+        </div>
+{panels_html}
+    </div>
+
+    <div class="card">
+        <h2>{s3["heading"]}</h2>
+        <p>{s3["lead"]}</p>
+        <div class="timer">
+            <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+            <div class="timer-controls">
+                <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+        <div class="frame">
+            <ol>
+{ul(s3["frame"], "                ")}
+            </ol>
+        </div>
+        <div class="final-discussion">
+            <h3>To finish</h3>
+            <ol>
+{ul(s3["final"])}
+            </ol>
+        </div>
+    </div>
+
+    <footer>{SERIES} &middot; {ch["title"]} &middot; Malcolm Hyndman</footer>
+</div>
+<script>
+{JS}{CHOOSER_JS}</script>
+</body>
+</html>
+'''
+
+
 # ---------------------------------------------------------------- dashboard
 
 
@@ -657,19 +814,21 @@ def dashboard(tb, lessons):
     cards = []
     for d in lessons:
         c = d["card"]
+        twin_badge = '<span class="lvl-badge">also at A2/B1</span>' if d.get("twin") else ""
         cards.append(f'''        <a class="story-card" href="tib_{d["slug"]}_b2.html">
             <div class="story-num">TOOL {d["num"]:02d} &middot; {c["shape"]}</div>
             <div class="story-title">{d["tool"]}</div>
             <div class="story-author">{c["who"]}</div>
             <div class="story-essence">{c["essence"]}</div>
             <div class="story-turn"><span>The story:</span> {d["title"]}</div>
-            <div class="story-foot"><span class="grammar-tag">{d["grammar"]["name"]}</span><span class="go">Open &rarr;</span></div>
+            <div class="story-foot"><span class="grammar-tag">{d["grammar"]["name"]}</span>{twin_badge}<span class="go">Open &rarr;</span></div>
         </a>''')
     hotspots = "\n".join(
         f'            <a class="hot" href="tib_{d["slug"]}_b2.html" title="{E(d["tool"])}" '
         f'style="left:{h[0]}%;top:{h[1]}%;width:{h[2]}%;height:{h[3]}%"><span>{d["tool"]}</span></a>'
         for d in lessons if (h := d["card"].get("hotspot")))
     total = sum(len(f["tools"]) for f in tb["families"])
+    n_lessons = {10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen"}.get(len(lessons), str(len(lessons)))
     dash_css = recolour(re.search(r"<style>\n(.*?)</style>", open(os.path.join(ROOT, "true_science_stories_dashboard.html")).read(), re.S).group(1))
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -693,6 +852,7 @@ def dashboard(tb, lessons):
 .map-note {{ text-align:center; font-size:.88rem; color:#667; margin-top:8px; }}
 .map-note a {{ color:#0f766e; font-weight:600; }}
 .grammar-tag::first-letter {{ text-transform:uppercase; }}
+.lvl-badge {{ font-size:.74rem; font-weight:700; color:#0f766e; background:#e2f4f1; border-radius:12px; padding:4px 10px; }}
 .toolbox-cta {{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; background:linear-gradient(135deg,#0e7490,#0f766e); color:white; border-radius:14px; padding:22px 26px; margin-bottom:30px; text-decoration:none; }}
 .toolbox-cta b {{ font-size:1.25rem; display:block; }}
 .toolbox-cta .go-btn {{ background:white; color:#0f766e; font-weight:700; padding:8px 18px; border-radius:18px; }}
@@ -717,10 +877,15 @@ def dashboard(tb, lessons):
 {hotspots}
         </div>
         <template id="mapsvg">{mind_map_svg(tb, lessons)}</template>
-        <p class="map-note">Six families of tools. The ten starred ones have a full lesson below &mdash; all {total} are in <a href="{TOOLBOX}">the Toolbox</a>.</p>
+        <p class="map-note">Six families of tools. The starred ones have a full lesson below &mdash; all {total} are in <a href="{TOOLBOX}">the Toolbox</a>.</p>
     </div>
 
-    <p class="section-label">The ten lessons</p>
+    <a class="toolbox-cta" href="{CHOOSER}" style="background:linear-gradient(135deg,#b45309,#7c2d12);">
+        <span><b>Start with your own problem</b>Bring a real situation &mdash; a decision, a stuck team, an impossible week &mdash; and this page finds you the right tool, the language for it, and a plan you say out loud.</span>
+        <span class="go-btn" style="color:#b45309;">Open it &rarr;</span>
+    </a>
+
+    <p class="section-label">The {n_lessons} lessons</p>
     <div class="story-grid">
 {chr(10).join(cards)}
     </div>
@@ -748,24 +913,41 @@ def dashboard(tb, lessons):
 '''
 
 
+def check(d, level):
+    names = CHECK_NAMES
+    assert d["tool"] in names, f'{d["tool"]} is missing from the toolbox list'
+    want = 10 if level == "B2" else 8
+    n_items = sum(len(s["items"]) for s in d["vocab"])
+    assert n_items == want, f'{d["slug"]} ({level}): {n_items} vocab items, want {want}'
+    ans = [it["answer"] for it in d["tool_tab"]["sort"]["items"]]
+    assert all(a in d["tool_tab"]["sort"]["options"] for a in ans), f'{d["slug"]}: sort answer not in options'
+    run = max(len(list(g)) for _, g in __import__("itertools").groupby(ans))
+    assert run < 3, f'{d["slug"]} ({level}): same sort answer 3 times in a row'
+
+
 def main():
+    global CHECK_NAMES
     lessons = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(CONTENT, "*.json")))]
+    twin_files = sorted(glob.glob(os.path.join(CONTENT_A, "*.json")))
     tb = json.load(open(os.path.join(HERE, "tib_toolbox.json")))
-    names = {t["name"] for f in tb["families"] for t in f["tools"]}
+    CHECK_NAMES = {t["name"] for f in tb["families"] for t in f["tools"]}
+    twins = {json.load(open(p))["slug"] for p in twin_files}
     for d in lessons:
-        assert d["tool"] in names, f'{d["tool"]} is missing from the toolbox list'
-        n_items = sum(len(s["items"]) for s in d["vocab"])
-        assert n_items == 10, f'{d["slug"]}: {n_items} vocab items, want 10'
-        ans = [it["answer"] for it in d["tool_tab"]["sort"]["items"]]
-        assert all(a in d["tool_tab"]["sort"]["options"] for a in ans), f'{d["slug"]}: sort answer not in options'
-        run = max(len(list(g)) for _, g in __import__("itertools").groupby(ans))
-        assert run < 3, f'{d["slug"]}: same sort answer 3 times in a row'
+        check(d, "B2")
+        d["twin"] = d["slug"] in twins
         out = os.path.join(ROOT, f'tib_{d["slug"]}_b2.html')
-        open(out, "w").write(lesson(d, lessons))
+        open(out, "w").write(lesson(d, lessons, "B2", twins))
         print(f"  wrote {os.path.basename(out)}  ({os.path.getsize(out)//1024}KB)")
+    for p in twin_files:
+        t = json.load(open(p))
+        check(t, "A2/B1")
+        out = os.path.join(ROOT, f'tib_{t["slug"]}_a2b1.html')
+        open(out, "w").write(lesson(t, lessons, "A2/B1", twins))
+        print(f"  wrote {os.path.basename(out)}  ({os.path.getsize(out)//1024}KB)")
+    open(os.path.join(ROOT, CHOOSER), "w").write(chooser_page(json.load(open(os.path.join(HERE, "tib_chooser.json")))))
     open(os.path.join(ROOT, TOOLBOX), "w").write(toolbox_page(tb, lessons))
     open(os.path.join(ROOT, DASH), "w").write(dashboard(tb, lessons))
-    print(f"  wrote {TOOLBOX} + {DASH}")
+    print(f"  wrote {TOOLBOX} + {DASH} + {CHOOSER}")
 
 
 if __name__ == "__main__":

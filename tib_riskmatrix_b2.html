@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Think Inside the Box">
+<title>The Grid That Keeps People Alive · B2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fbfa; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(14,116,144,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#115e59; }
+.crosslink a { color:#0f766e; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #eef7f6; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #115e59; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #0f766e; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #e2f4f1; border-left: 4px solid #0f766e; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #134e4a; font-size: 0.98rem; }
+.intention strong { color: #115e59; }
+.story-chunk { background: #f1f9f8; border-left: 4px solid #0f766e; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f1f9f8; border: 1px solid #c5e6e1; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #115e59; }
+.reveal-btn { background: #e2f4f1; border: 1px solid #99d5cc; color: #115e59; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #cdeae5; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #7cc4bb; background: transparent; padding: 2px 6px; font: inherit; color: #115e59; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #0f766e; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #115e59; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #115e59; }
+.speak-prompt { background: linear-gradient(135deg, #eaf6f4 0%, #e3f2ef 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #0f766e; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #115e59; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #1f3d3a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #c5e6e1; border-left: 4px solid #0f766e; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #115e59; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.note { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#115e59; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+
+.diagram { text-align:center; margin: 10px 0 18px; }
+.diagram svg { max-width: 100%; height: auto; }
+.steps { margin: 6px 0 14px 22px; color:#3a3a4a; }
+.steps li { margin-bottom: 8px; }
+.sort-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; background:#f1f9f8; border:1px solid #c5e6e1; border-radius:10px; padding:10px 14px; margin:8px 0; }
+.sort-row .txt { flex: 1 1 320px; color:#2a3a3a; }
+.sort-row select { font: inherit; padding:5px 8px; border:1px solid #99d5cc; border-radius:8px; background:white; color:#115e59; min-width: 190px; }
+.sort-row .mark { width: 22px; font-weight:700; text-align:center; }
+.sort-row.ok { border-color:#6fbf73; background:#eef8ee; }
+.sort-row.bad { border-color:#e0a0a0; background:#fbf0f0; }
+.check-btn { background: linear-gradient(135deg, #0e7490, #0f766e); color:white; border:none; padding:8px 16px; border-radius:16px; cursor:pointer; font-size:0.88rem; font-weight:600; margin: 10px 8px 0 0; }
+.score { font-weight:700; color:#115e59; margin-left:6px; }
+.cousins { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin: 10px 0; }
+.cousin { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:12px 14px; font-size:0.93rem; color:#3a3a4a; }
+.cousin b { color:#115e59; display:block; margin-bottom:3px; }
+.cousin a { color:#0f766e; font-weight:600; }
+.series-strip { text-align:center; font-size:0.86rem; margin: 0 0 16px; color:#5a6a6a; }
+.series-strip a { color:#0f766e; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">THINK INSIDE THE BOX · TOOL 11 · B2 · 50 min</span>
+        <h1>The Grid That Keeps People Alive</h1>
+        <p>How likely is it? How bad would it be? Two questions that decide what hospitals, airlines and engineers worry about first.</p>
+    </header>
+
+    <p class="series-strip"><a href="tib_swot_b2.html">&larr; SWOT Analysis</a> &nbsp;·&nbsp; <a href="think_inside_the_box_dashboard.html">All the tools</a> &nbsp;·&nbsp; <a href="tib_tuckman_b2.html">Tuckman's Team Stages &rarr;</a></p>
+
+
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Story</button>
+        <button class="tab-btn" onclick="showTab(2)">The Tool</button>
+        <button class="tab-btn" onclick="showTab(3)">Grammar — likely, may well, bound to</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+    </nav>
+
+    <!-- TAB 0: KEY WORDS -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll learn how safety teams decide what to worry about, score six real risks yourself, and practise the language of probability: <em>likely to, may well, bound to, unlikely</em>.</div>
+            <div class="discuss">
+                <strong>Before we start — talk these through:</strong>
+                <ul>
+                    <li>What is the most dangerous thing you do in a normal week? Do you think about it?</li>
+                    <li>Are people good at judging danger? Think about flying, driving and swimming.</li>
+                    <li>In your job or home, who decides what is safe?</li>
+                </ul>
+            </div>
+
+            <h2>The vocabulary of this story</h2>
+            <p>Ten items. Say your answer <strong>out loud before you reveal it</strong>.</p>
+
+            <h3>A · What do they mean here? Work it out from the context</h3>
+            <p>Read the sentence, guess the meaning of the word in bold, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The engineers listed every <b>hazard</b> on the site: deep water, moving vehicles, electricity.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>hazard</b> — something that could cause harm or damage.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">A small fire is annoying; a fire in the fuel store would be <b>catastrophic</b>.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>catastrophic</b> — extremely bad; causing enormous damage.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Wearing a helmet does not remove the danger, but it does <b>reduce</b> the harm.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>reduce</b> — to make something smaller or less.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Nurses must report every <b>near miss</b> — an accident that almost happened.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>near miss</b> — a situation where something bad nearly happened but didn't.</div>
+            </div>
+            <h3>B · Which word matches the meaning?</h3>
+            <p>The three words are: <strong>likelihood · consequence · precaution</strong>. Read each meaning, say the word, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">(noun) Something you do in advance to stop a problem happening.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>precaution</b> — “As a <b>precaution</b>, they closed the road.”</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(noun) The chance that something will happen.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>likelihood</b> — “The <b>likelihood</b> of rain today is high.”</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(noun) The result of an action, especially a bad one.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>consequence</b> — “The <b>consequences</b> of the error were serious.”</div>
+            </div>
+            <h3>C · Which word completes all three phrases?</h3>
+            <p>One missing word fits every phrase in the group. Say it, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">take a ___ &nbsp;·&nbsp; a high-___ patient &nbsp;·&nbsp; at ___ of losing everything</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>risk</b> — the chance that something bad happens; a dangerous situation.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">___ an accident &nbsp;·&nbsp; ___ the spread of a disease &nbsp;·&nbsp; better to ___ than to cure</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>prevent</b> — to stop something from happening.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">a safety ___ &nbsp;·&nbsp; run through the ___ before take-off &nbsp;·&nbsp; tick the ___</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>checklist</b> — a written list of things to check or do, in order.</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Before we read:</strong>
+                <ul>
+                    <li>What <strong>precautions</strong> do you take without thinking — at home, at work, on the road?</li>
+                    <li>Tell us about a <strong>near miss</strong> you remember.</li>
+                    <li>Which everyday <strong>risk</strong> do you think people worry about too much?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: THE STORY -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The story, in three parts</h2>
+            <p>Read each part. After it, answer the quick check from memory, then discuss one question.</p>
+
+            <h3>Part 1 — You cannot prevent everything</h3>
+            <div class="story-chunk">
+                <p>Imagine you run a small hospital. This morning your list of worries includes a broken lift, a nurse shortage at night, a cupboard of medicines with similar-looking boxes, a leaking roof, and a computer system that is ten years old.</p>
+                <p>You cannot fix all of them today. So which one do you start with? The loudest complaint? The cheapest repair? The one in yesterday's newspaper?</p>
+                <p>Through the twentieth century, industries that could kill people — mining, chemicals, nuclear power, aviation — learned an uncomfortable lesson. You can never remove every hazard. What you can do is be honest about which hazards deserve your money and your attention first. And for that, you need to ask about each one not one question but two.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. Why can't the hospital fix everything?</p>
+                <p>2. Which industries learned this lesson first?</p>
+                <p>3. How many questions does each hazard need?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> There isn't enough time or money — you have to choose.</p>
+                    <p><strong>2.</strong> Dangerous ones: mining, chemicals, nuclear power, aviation.</p>
+                    <p><strong>3.</strong> Two.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>In your workplace or home, how do people usually decide what to fix first?</li></ul>
+            </div>
+
+            <h3>Part 2 — Two questions, one grid</h3>
+            <div class="story-chunk">
+                <p>The two questions are these. <em>How likely is it to happen?</em> And <em>how bad would it be if it did?</em></p>
+                <p>Answer both — usually on a scale from low to high — and every hazard lands in a box on a grid. The bottom-left corner holds things that probably won't happen and wouldn't matter much. The top-right corner holds things that are likely and would be catastrophic. That corner gets your money, today.</p>
+                <p>The grid also solves an old argument. People disagree loudly about danger, because they are usually arguing about different questions. One person is thinking about likelihood (“that has never happened here”), the other about consequence (“if it did, someone would die”). The grid makes them answer both questions separately, and suddenly the argument becomes a conversation.</p>
+                <p>Its power is that it works for a nuclear plant, a school trip or a wedding.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What are the two questions?</p>
+                <p>2. Which corner of the grid gets attention first?</p>
+                <p>3. Why do people argue about danger, according to the story?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> How likely is it? How bad would it be?</p>
+                    <p><strong>2.</strong> The top-right: likely and catastrophic.</p>
+                    <p><strong>3.</strong> Because they are answering different questions — one thinks about likelihood, the other about consequence.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Think of an argument you've heard about safety. Were the two sides answering different questions?</li></ul>
+            </div>
+
+            <h3>Part 3 — The rare and the terrible</h3>
+            <div class="story-chunk">
+                <p>The grid has a famous weak spot: the box where something is very unlikely but would be catastrophic. A huge flood. A new disease. A bank collapsing. Because the likelihood is low, these risks sit quietly in a corner of the page for years — until the year they don't.</p>
+                <p>There is a second problem. The numbers look scientific, but somebody chose them. Give the same hazard to two teams and they will often score it differently, especially when the person scoring it is also the person who would have to pay for the repair.</p>
+                <p>So good teams use the grid as the start of a conversation, not the end of one. They add a rule: anything that could kill someone gets attention whatever its score. And they record the near misses, because a near miss is the cheapest warning you will ever get.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. Which box is the famous weak spot?</p>
+                <p>2. Why can two teams score the same hazard differently?</p>
+                <p>3. What extra rule do good teams add?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Very unlikely, but catastrophic.</p>
+                    <p><strong>2.</strong> Because the scores are human judgements — and the scorer may be the person who would pay for the repair.</p>
+                    <p><strong>3.</strong> Anything that could kill someone gets attention whatever its score (and they record near misses).</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>How should a company plan for something that is very unlikely but terrible?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOL -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>How the tool works</h2>
+            <p>Score each hazard twice. Along the bottom: <strong>how likely</strong> is it? Up the side: <strong>how serious</strong> would it be? The colour of the box tells you how fast to act.</p>
+            <div class="diagram"><svg viewBox="0 0 540 342" width="540" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f766e"/></marker></defs><rect x="70" y="20" width="150" height="84" fill="#f7eac0" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="145.0" y="54.2">MEDIUM</tspan><tspan x="145.0" y="69.8">plan for it</tspan></text><rect x="220" y="20" width="150" height="84" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="295.0" y="54.2">HIGH</tspan><tspan x="295.0" y="69.8">act soon</tspan></text><rect x="370" y="20" width="150" height="84" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="445.0" y="54.2">EXTREME</tspan><tspan x="445.0" y="69.8">act now</tspan></text><rect x="70" y="104" width="150" height="84" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="145.0" y="138.2">LOW</tspan><tspan x="145.0" y="153.8">watch it</tspan></text><rect x="220" y="104" width="150" height="84" fill="#f7eac0" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="295.0" y="138.2">MEDIUM</tspan><tspan x="295.0" y="153.8">plan for it</tspan></text><rect x="370" y="104" width="150" height="84" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="445.0" y="138.2">HIGH</tspan><tspan x="445.0" y="153.8">act soon</tspan></text><rect x="70" y="188" width="150" height="84" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="145.0" y="222.2">LOW</tspan><tspan x="145.0" y="237.8">watch it</tspan></text><rect x="220" y="188" width="150" height="84" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="295.0" y="222.2">LOW</tspan><tspan x="295.0" y="237.8">watch it</tspan></text><rect x="370" y="188" width="150" height="84" fill="#f7eac0" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="445.0" y="222.2">MEDIUM</tspan><tspan x="445.0" y="237.8">plan for it</tspan></text><line x1="70" y1="278" x2="520" y2="278" stroke="#0f766e" stroke-width="2" marker-end="url(#ar)"/><line x1="64" y1="272" x2="64" y2="20" stroke="#0f766e" stroke-width="2" marker-end="url(#ar)"/><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle"><tspan x="295.0" y="302.0">How likely?</tspan></text><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 24 146.0)"><tspan x="24" y="146.0">How serious?</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="start" dominant-baseline="middle"><tspan x="74" y="322.0">rare</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="end" dominant-baseline="middle"><tspan x="516" y="322.0">often</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="start" dominant-baseline="middle" transform="rotate(-90 46 268)"><tspan x="46" y="268.0">minor</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="end" dominant-baseline="middle" transform="rotate(-90 46 24)"><tspan x="46" y="24.0">severe</tspan></text></svg></div>
+            <h3>Using it, step by step</h3>
+            <ol class="steps">
+                <li>List the hazards plainly — what could go wrong, and to whom.</li>
+                <li>Score each one for <strong>likelihood</strong>, using evidence: has it happened here before? How often?</li>
+                <li>Score each one for <strong>consequence</strong>: the realistic worst case, not the imaginable worst case.</li>
+                <li>Start at the red corner. For each one, either reduce the likelihood, reduce the harm, or both — then score it again.</li>
+            </ol>
+
+            <h3>Try it yourself</h3>
+            <p>A language school is planning a day trip to the mountains. Which box does each risk belong in? Choose, then check.</p>
+            <div id="sort1">
+                <div class="sort-row" data-answer="Medium">
+                    <span class="txt">1. Rain during the walk. It rains most weeks, and everyone would get wet and uncomfortable.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Extreme">
+                    <span class="txt">2. A student with a serious nut allergy is given the wrong packed lunch. The kitchen prepares them by hand, and this nearly happened last term.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="High">
+                    <span class="txt">3. The bus breaks down on the mountain road. The company's buses are old and it happened last year; the group would be stuck for hours in the cold.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Medium">
+                    <span class="txt">4. A student twists an ankle on the path. It happens on about one trip in three, and means a slow walk back.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Low">
+                    <span class="txt">5. A meteorite hits the bus.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Low">
+                    <span class="txt">6. Somebody forgets their sun hat.</span>
+                    <select><option value="">choose…</option><option value="Extreme">Extreme</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+                    <span class="mark"></span>
+                </div>
+                <button class="check-btn" onclick="checkSort('sort1')">Check my answers</button><span class="score"></span>
+                <br><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show the reasons</button>
+                <div class="answers">
+                    <p><strong>1. Medium</strong> — very likely, but only a minor consequence.</p>
+                    <p><strong>2. Extreme</strong> — likely (it nearly happened already) and possibly fatal.</p>
+                    <p><strong>3. High</strong> — likely, and the consequences are serious.</p>
+                    <p><strong>4. Medium</strong> — fairly likely; painful but not severe.</p>
+                    <p><strong>5. Low</strong> — catastrophic, but so rare that no plan is possible.</p>
+                    <p><strong>6. Low</strong> — it may well happen, but it is easily fixed.</p>
+                </div>
+            </div>
+
+            <h3>Where the tool breaks</h3>
+            <div class="note">
+                <p><strong>The scores are opinions in disguise.</strong> Two honest teams often score the same hazard differently.</p>
+                <p><strong>The rare-but-terrible box.</strong> Low likelihood pushes real dangers off the page for years.</p>
+                <p><strong>It can become paperwork.</strong> A finished grid is not a safer school — the actions are.</p>
+            </div>
+            <div class="discuss">
+                <strong>Talk it through:</strong>
+                <ul>
+                    <li>Which risk on the trip would you spend money on first?</li>
+                    <li>Should the person who pays for repairs be the person who scores the risks?</li>
+                </ul>
+            </div>
+
+            <h3>Its cousins</h3>
+            <div class="cousins">
+                <div class="cousin"><b>The Hierarchy of Controls</b>Once you know the risk: remove the danger first; protective clothing is the last resort.</div>
+                <div class="cousin"><b>The Surgical Safety Checklist</b>The WHO checklist that cut deaths in operating theatres.</div>
+                <div class="cousin"><b>The Fishbone Diagram</b>When something does go wrong, this finds the causes. <a href="tib_fishbone_b2.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>The Eisenhower Matrix</b>The same two-question shape, for your time. <a href="tib_eisenhower_b2.html">Open the lesson &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: GRAMMAR -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Grammar — likely, may well, bound to</h2>
+            <p>This grid runs on probability. English has a rich set of ways to say how likely something is — far beyond <em>maybe</em>.</p>
+            <div class="note">
+                <strong>be likely / unlikely + to + verb</strong> — the everyday way to score a chance.<br>“Prices <strong>are likely to rise</strong> next year.” &nbsp;“He <strong>is unlikely to pass</strong> without help.”<br>Also: “It <strong>is likely that</strong> prices will rise.”
+            </div>
+            <div class="note">
+                <strong>may well / might well</strong> — a real possibility, stronger than <em>may</em>.<br>“The meeting <strong>may well</strong> finish early.”
+            </div>
+            <div class="note">
+                <strong>be bound to / be sure to</strong> — you are almost certain.<br>“With this traffic, we <strong>are bound to</strong> be late.”
+            </div>
+            <div class="note">
+                <strong>There's a good / slight chance (that)…</strong><br>“There's a <strong>slight</strong> chance of snow.”
+            </div>
+            <div class="note">
+                <strong>Watch out:</strong> <em>likely</em> is an adjective, not a verb: ~~It likely to rain~~ → “It <strong>is likely to</strong> rain.” And after <em>bound to</em> we use the bare verb: “bound to <strong>be</strong> late”.
+            </div>
+
+            <h3>1. Complete the sentences</h3>
+            <p>Write one word in each gap.</p>
+            <div class="gap-fill">
+                <p>1. The road is closed, so the bus is <input type="text" placeholder="..."> to be late — I'd say ninety-nine per cent.</p>
+                <p>2. Older machines are more <input type="text" placeholder="..."> to break down than new ones.</p>
+                <p>3. There's a slight <input type="text" placeholder="..."> of frost tonight, so cover the plants.</p>
+                <p>4. She may <input type="text" placeholder="..."> refuse the offer — she's turned down two already.</p>
+                <p>5. It is <input type="text" placeholder="..."> that the flight will be cancelled; the storm is enormous.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>bound</strong> (or <em>sure</em>)</p>
+                    <p>2. <strong>likely</strong></p>
+                    <p>3. <strong>chance</strong></p>
+                    <p>4. <strong>well</strong></p>
+                    <p>5. <strong>likely</strong></p>
+                </div>
+            </div>
+
+            <h3>2. Score the risk in words</h3>
+            <p>Rewrite each sentence with the words in brackets, keeping the meaning.</p>
+            <div class="gap-fill">
+                <p>1. It will probably rain during the walk. (likely) → Rain <input type="text" placeholder="..."></p>
+                <p>2. There is almost no chance of a meteorite. (unlikely) → A meteorite <input type="text" placeholder="..."></p>
+                <p>3. Perhaps the bus will break down — it has before. (may well) → The bus <input type="text" placeholder="..."></p>
+                <p>4. With no map, we will certainly get lost. (bound) → Without a map, we <input type="text" placeholder="..."></p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. Rain <strong>is likely (to fall) during the walk</strong>.</p>
+                    <p>2. A meteorite <strong>is extremely unlikely (to hit us)</strong>.</p>
+                    <p>3. The bus <strong>may well break down</strong>.</p>
+                    <p>4. Without a map, we <strong>are bound to get lost</strong>.</p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Now score three risks in your own life or work: one <em>likely</em>, one <em>unlikely</em>, one you are <em>bound to</em> face.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAK -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>Use the grid on something real. Choose a task, start the timer, and talk. Use the probability language from the grammar tab.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> “That's likely, but not serious.” · “It's unlikely — however, if it happened, …” · “We're bound to …” · “I'd put that in the red corner because …”
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 1 — Your place</span>
+                <p>Think of your home, workplace or journey to work. Name three risks and score each one on both questions.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 2 — The rare and terrible</span>
+                <p>Name something very unlikely that would be very serious for you. What, if anything, do you do about it?</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 3 — Convince someone</span>
+                <p>Someone dismisses a danger you take seriously. Explain your scoring and try to change their mind.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the harder questions</h3>
+                <ol>
+                    <li>Governments use this grid for floods and pandemics. Why do the rare-but-terrible risks still surprise us?</li>
+                    <li>Is it acceptable to put a price on reducing a risk to human life? Argue both ways, then commit.</li>
+                    <li>Do people judge risk better from numbers or from stories? Which changes your own behaviour?</li>
+                    <li><strong>From memory:</strong> describe three risks on the school trip using <em>likely to</em>, <em>may well</em> and <em>bound to</em>.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Think Inside the Box · The Grid That Keeps People Alive · B2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+
+function checkSort(id) {
+    const box = document.getElementById(id);
+    let right = 0, total = 0;
+    box.querySelectorAll('.sort-row').forEach(r => {
+        const sel = r.querySelector('select');
+        total++;
+        r.classList.remove('ok', 'bad');
+        const mark = r.querySelector('.mark');
+        if (!sel.value) { mark.textContent = ''; return; }
+        if (sel.value === r.dataset.answer) { right++; r.classList.add('ok'); mark.textContent = '\u2713'; }
+        else { r.classList.add('bad'); mark.textContent = '\u2717'; }
+    });
+    box.querySelector('.score').textContent = right + ' / ' + total;
+}
+</script>
+</body>
+</html>

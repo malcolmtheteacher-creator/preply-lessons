@@ -4,10 +4,11 @@ Thinking tools (grids, pyramids, loops, curves, diagrams, checklists) taught thr
 TRUE story of who drew each one. Born 2026-09-17 from a student's mention of the 9-box grid.
 
 ## Files
-- Lessons: `tib_<slug>_b2.html` — GENERATED, never hand-edit.
+- Lessons: `tib_<slug>_b2.html` (+ `tib_<slug>_a2b1.html` twins) — GENERATED, never hand-edit.
+- Your-own-problem page: `think_inside_the_box_your_problem.html` from `tools/tib_chooser.json`.
 - Dashboard: `think_inside_the_box_dashboard.html` (hero, clickable map, 10 cards, toolbox link).
 - Toolbox: `think_inside_the_box_toolbox.html` — 63 tools in 6 families, search + field filters.
-- Content: `tools/tib_content/NN_<slug>.json` (one per lesson) + `tools/tib_toolbox.json` (the list + dashboard intro).
+- Content: `tools/tib_content/NN_<slug>.json` (B2) and `tools/tib_content_a2b1/NN_<slug>.json` (twins, 8 key words instead of 10) + `tools/tib_toolbox.json` (the list + dashboard intro).
 - Builder: `python3 tools/build_tib.py` rebuilds everything. It refuses to build if a lesson's
   tool is missing from the toolbox, a lesson doesn't have exactly 10 key words, a sort answer isn't
   one of the options, or the same sort answer appears 3 times in a row.
@@ -32,6 +33,17 @@ prompts, harder questions).
 | 08 | The OODA Loop | John Boyd, "Forty-Second Boyd" | time clauses |
 | 09 | The Diffusion of Innovations | Ryan & Gross 1943 hybrid corn, Rogers 1962 | used to and would |
 | 10 | SWOT Analysis | SOFT at SRI; Puyt et al. 2023 | must have / might have / can't have |
+| 11 | The Risk Matrix | safety practice: likelihood × consequence | likely to / may well / bound to |
+| 12 | Tuckman's Team Stages | Tuckman 1965, US Navy; Jensen 1977 | present perfect with for/since |
+| 13 | Berry's Acculturation Model | John Berry, Canada, 1970s–80s | relative clauses |
+| 14 | The Five Whys | Sakichi Toyoda's loom → Toyota | indirect & reported questions |
+
+**A2/B1 twins (4):** Eisenhower (have to / don't have to), Johari (look & seem), Maslow (need & want),
+Pareto (most / a few / a lot of). Same story and tool, simpler language; 8 key words; crosslinked both ways.
+
+**Cross-links out:** IELTS stories pathway, Bet the Company dashboard (frameworks strand) and
+c1_pro_28_consulting_frameworks all link in. Tools 11–14 are NOT on the map image — regenerate it
+(and re-measure hotspots) if you want them starred there.
 
 Adding lesson 11: add `11_<slug>.json` (copy any existing one), make sure the tool's `name` matches a
 toolbox entry exactly, pick an unused grammar point, add a `hotspot` if it's on the map image, run the
@@ -43,7 +55,7 @@ the item order · sort answers never 3 in a row and never following the option o
 web-checked, legends labelled as legends (Pareto's peas, Maslow's pyramid, SWOT's origin).
 
 ## The map picture (ChatGPT) and its clickable spots
-Until `ThinkInsideTheBox_map.png` exists, the dashboard shows a map drawn in code (every ★ clickable).
+Until `ThinkInsideTheBox_map.jpg` exists, the dashboard shows a map drawn in code (every ★ clickable).
 When the picture is added, the page shows it instead, with invisible click-areas on the ten lesson
 tools. Each lesson's `card.hotspot` = `[left%, top%, width%, height%]` of its label on the picture.
 Measure them from the real image, then rebuild.
