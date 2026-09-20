@@ -14,19 +14,33 @@ so a lesson never shows a broken image while a picture is still being made.
 
 ## OODA — `tib_ooda_diorama.jpg`
 
-> A charming isometric diorama of a small cutaway building with four connected rooms arranged in a circle, in the
-> style of a detailed miniature model, soft warm lighting, muted teal and cream palette, clean vector-like 3D
-> render, 16:9.
+Version 2 of the prompt. The first version produced a good building but garbled the small
+background signs ("PEOPLL", "SAME CURIOSITY BRIGHTER TOMORROWS"), so this version names every
+piece of text that should appear and asks for bare walls everywhere else.
+
+> A charming isometric diorama of a small round cutaway building with four connected rooms
+> arranged in a circle, in the style of a detailed miniature model, soft warm lighting, muted
+> teal and cream palette, clean vector-like 3D render, 16:9. One small figure in a cap appears
+> in each room, so the eye follows a route around the circle.
 >
-> Room 1, labelled OBSERVE: a room of windows and telescopes, a tiny figure looking out at weather and traffic outside.
-> Room 2, labelled ORIENT: a map room, walls covered with charts and mirrors, a large table holding a model of this
-> same building; four doors lead out of this room, two standing open with warm light behind them and two closed, and
-> a small sign above them reads WHAT IS POSSIBLE NOW.
-> Room 3, labelled DECIDE: a room with a single lever and three paths painted on the floor, the figure choosing one.
-> Room 4, labelled ACT: an open doorway onto a street, the figure stepping out.
+> Room 1, labelled OBSERVE: a room of tall windows and brass telescopes, the figure looking out
+> at a city with weather and traffic.
+> Room 2, labelled ORIENT: a map room, walls covered with charts, mirrors and a globe, and a
+> large round table holding a model of this same building; four doors lead out of this room, two
+> standing open with warm light behind them and two firmly closed; a sign above the doors reads
+> WHAT IS POSSIBLE NOW.
+> Room 3, labelled DECIDE: a room with a single brass lever and three paths painted on the floor
+> leading to three doorways, the figure with a hand on the lever.
+> Room 4, labelled ACT: an open doorway onto a sunlit street with trees and a bicycle, the figure
+> stepping out.
 >
-> A glowing arrow-path runs from room 1 to room 2 to room 3 to room 4 and loops back to room 1, showing the cycle.
-> Include the four room labels clearly in a clean sans-serif, and a small title at the bottom reading "The Loop".
+> A glowing arrow-path runs from room 1 to room 2 to room 3 to room 4 and loops back to room 1.
+> A curved sign on the outer wall at the front reads "The Loop".
+>
+> The only words anywhere in the picture are: OBSERVE, ORIENT, DECIDE, ACT, WHAT IS POSSIBLE NOW,
+> and "The Loop". Every other wall, plaque, poster and sign is blank — plain painted surfaces,
+> empty picture frames, unmarked boards. Render all six of those labels crisply in a clean
+> sans-serif, correctly spelled.
 
 ## How the picture is used in the lesson
 Before the loop is explained: describe the building — *in the second room there are…*, *behind the open door you can
