@@ -122,6 +122,9 @@ def build(d):
     finals = "\n".join(f"                    <li>{esc(x)}</li>" for x in d["final"])
     vocab_talk = discuss("Talk about it", d["vocab_discuss"])
 
+    crosslink = (f'    <p class="crosslink">Harder version: <a href="{esc(d["c1"])}">read this lesson at C1 level &rarr;</a></p>\n'
+                 if d.get("c1") else "")
+
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,8 +143,7 @@ def build(d):
         <p>{esc(d["subtitle"])}</p>
     </header>
 
-    <p class="crosslink">Harder version: <a href="{esc(d["c1"])}">read this lesson at C1 level &rarr;</a></p>
-
+{crosslink}
     <nav class="tab-nav">
         <button class="tab-btn active" onclick="showTab(0)">Words</button>
         <button class="tab-btn" onclick="showTab(1)">The Story</button>
