@@ -77,6 +77,7 @@
   <button data-tab="t4">A Small Garden</button>
   <button data-tab="t5">Speak</button>
   <button data-tab="t6">Look Back</button>
+  <button data-tab="t7">🎮 Game</button>
 </nav>
 
 <main>
@@ -296,6 +297,32 @@
   </div>
 </section>
 
+<!-- TAB 7 -->
+<section class="tab" id="t7">
+  <h2>Garden Word Race</h2>
+  <p class="hint">Read the clue. Type the garden word and press Enter. You have 90 seconds. Beat your own score!</p>
+  <div class="box sun" style="text-align:center">
+    <div style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px;font-size:1.1rem">
+      <div>⏱ <strong id="gtime">1:30</strong></div>
+      <div>⭐ Score: <strong id="gscore">0</strong></div>
+      <div>🔥 Streak: <strong id="gstreak">0</strong></div>
+    </div>
+  </div>
+  <div class="box" id="gplay" style="text-align:center">
+    <p id="gclue" style="font-size:1.35rem;min-height:3.2em;margin:10px 0">Press Start when you are ready.</p>
+    <p id="ghint" class="hint" style="font-size:1.2rem;letter-spacing:4px;min-height:1.6em"></p>
+    <input type="text" id="ganswer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type the word..." disabled style="font-size:1.2rem;padding:10px 14px;border:2px solid #cfd6dd;border-radius:10px;width:min(320px,90%);text-align:center">
+    <div class="fb" id="gfb" style="margin-top:10px"></div>
+    <div style="margin-top:12px">
+      <button class="btn" id="gstart" onclick="gStart()">Start</button>
+      <button class="btn alt" id="ghintbtn" onclick="gHint()" disabled>Hint (-3)</button>
+      <button class="btn alt" id="gskip" onclick="gNext(true)" disabled>Skip</button>
+    </div>
+  </div>
+  <div class="box pink" id="gend" style="display:none"></div>
+  <p class="hint">Points: +10 for each word, +2 bonus for each word in a row after the first. Words you miss are shown at the end.</p>
+</section>
+
 </main>
 
 <script>
@@ -376,6 +403,104 @@ function startTimer() {
   }, 1000);
 }
 show();
+</script>
+
+<script>
+// Garden Word Race
+var GW = [
+ ["A big tool with a flat metal end for digging holes.","spade"],
+ ["It has a long neck and gives plants a drink.","watering can"],
+ ["You wear them on your hands to keep them clean.","gloves"],
+ ["Tiny things you put in the soil. A plant comes from them.","seeds"],
+ ["Plants you do not want in the garden.","weeds"],
+ ["The short green grass. You cut it every week.","lawn"],
+ ["The brown earth that plants grow in.","soil"],
+ ["A long green pipe for water.","hose"],
+ ["A small wooden house for garden tools.","shed"],
+ ["A house made of glass for growing plants.","greenhouse"],
+ ["A small lake in a garden with water lilies.","pond"],
+ ["Old leaves and food turn into this brown food for soil.","compost"],
+ ["A thick green wall of plants.","hedge"],
+ ["A wooden wall that goes round the garden.","fence"],
+ ["A cart with one wheel for moving soil and plants.","wheelbarrow"],
+ ["A tool with a long handle and metal teeth for leaves.","rake"],
+ ["A seat in the garden.","bench"],
+ ["Carrots, beans and onions are all ______.","vegetables"],
+ ["Red, yellow, pink. It smells nice.","flower"],
+ ["A tall yellow flower. Its name has the word sun in it.","sunflower"],
+ ["The word for putting a young plant in the soil.","plant"],
+ ["The word for taking an apple from a tree.","pick"],
+ ["A flat stone way through the garden.","path"],
+ ["A woven container with a handle for carrying apples or flowers.","basket"]
+];
+var gt = 90, gint = null, gscore = 0, gstreak = 0, gi = 0, gorder = [], gmissed = [], gcur = null, ghints = 0;
+function gNorm(x){ return x.toLowerCase().replace(/[^a-z]/g,"").replace(/s$/,""); }
+function gShow(){ var m=Math.floor(gt/60), r=gt%60; var e=document.getElementById("gtime"); e.textContent=m+":"+(r<10?"0":"")+r; e.style.color = gt<=10 ? "#d9534f" : (gt<=30 ? "#d9a400" : "#1d9b8a"); }
+function gShuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function gStart(){
+  if (gint) return;
+  gt = 90; gscore = 0; gstreak = 0; gi = 0; gmissed = [];
+  gorder = gShuffle(GW.map(function(_,i){return i;}));
+  document.getElementById("gscore").textContent = 0;
+  document.getElementById("gstreak").textContent = 0;
+  document.getElementById("gend").style.display = "none";
+  document.getElementById("gstart").disabled = true;
+  document.getElementById("ganswer").disabled = false;
+  document.getElementById("ghintbtn").disabled = false;
+  document.getElementById("gskip").disabled = false;
+  gNext(false);
+  document.getElementById("ganswer").focus();
+  gShow();
+  gint = setInterval(function(){ gt--; gShow(); if (gt <= 0) gEnd(); }, 1000);
+}
+function gNext(skipped){
+  if (skipped && gcur) { gmissed.push(gcur[1]); gstreak = 0; document.getElementById("gstreak").textContent = 0; }
+  if (gi >= gorder.length) { gEnd(); return; }
+  gcur = GW[gorder[gi++]]; ghints = 0;
+  document.getElementById("gclue").textContent = gcur[0];
+  document.getElementById("ghint").textContent = "";
+  document.getElementById("ganswer").value = "";
+  var fb = document.getElementById("gfb"); fb.className = "fb"; fb.textContent = "";
+  document.getElementById("ganswer").focus();
+}
+function gHint(){
+  if (!gcur || !gint) return;
+  ghints++; gscore = Math.max(0, gscore - 3); document.getElementById("gscore").textContent = gscore;
+  var w = gcur[1], out = "";
+  for (var i=0;i<w.length;i++){ out += (w[i]===" ") ? "  " : (i < ghints ? w[i].toUpperCase() : "_") + " "; }
+  document.getElementById("ghint").textContent = out;
+}
+function gEnd(){
+  clearInterval(gint); gint = null; gt = 0; gShow();
+  document.getElementById("gstart").disabled = false;
+  document.getElementById("gstart").textContent = "Play again";
+  document.getElementById("ganswer").disabled = true;
+  document.getElementById("ghintbtn").disabled = true;
+  document.getElementById("gskip").disabled = true;
+  if (gcur && gmissed.indexOf(gcur[1]) < 0 && document.getElementById("gfb").className.indexOf("ok") < 0) gmissed.push(gcur[1]);
+  document.getElementById("gclue").textContent = "Time is up!";
+  var e = document.getElementById("gend");
+  e.style.display = "block";
+  e.innerHTML = "<p><strong>Final score: " + gscore + "</strong></p>" +
+    (gmissed.length ? "<p>Words to remember: <strong>" + gmissed.join(", ") + "</strong></p><p>Now say each one in a sentence.</p>" : "<p>You did not miss a word!</p>") +
+    "<p>Press Play again and try to beat " + gscore + ".</p>";
+}
+document.getElementById("ganswer").addEventListener("keydown", function(ev){
+  if (ev.key !== "Enter" || !gint || !gcur) return;
+  var v = this.value; if (!v.trim()) return;
+  var fb = document.getElementById("gfb");
+  if (gNorm(v) === gNorm(gcur[1])) {
+    gstreak++; gscore += 10 + (gstreak > 1 ? 2*(gstreak-1) : 0);
+    document.getElementById("gscore").textContent = gscore;
+    document.getElementById("gstreak").textContent = gstreak;
+    fb.className = "fb ok"; fb.textContent = "Correct: " + gcur[1] + "!";
+    setTimeout(function(){ if (gint) gNext(false); }, 500);
+  } else {
+    gstreak = 0; document.getElementById("gstreak").textContent = 0;
+    fb.className = "fb no"; fb.textContent = "Not that one. Read the clue again, or use a hint.";
+    this.select();
+  }
+});
 </script>
 </body>
 </html>
