@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Deep Space">
+<meta name="description" content="Why orbits work, escape velocity, the rocket equation, gravity assists, Voyager, and how long it would take to reach another star. Includes an orbit simulator and a rocket-equation lab.">
+<title>Getting There &middot; Deep Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#060a1c; --bg2:#0b1230; --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.11);
+  --ink:#e8ecff; --mute:#9aa6d0; --accent:#38bdf8; --accent2:#a78bfa;
+  --good:#34d399; --bad:#fb7185; --warn:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:17px;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse at 15% 0%,rgba(120,90,255,.16),transparent 55%),
+  radial-gradient(ellipse at 90% 30%,rgba(40,170,255,.10),transparent 50%),
+  linear-gradient(180deg,var(--bg),var(--bg2))}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.6;pointer-events:none;
+  background-image:
+   radial-gradient(1px 1px at 20px 30px,#fff,transparent),
+   radial-gradient(1px 1px at 120px 80px,#cfe0ff,transparent),
+   radial-gradient(1.6px 1.6px at 200px 160px,#fff,transparent),
+   radial-gradient(1px 1px at 60px 140px,#b8c8ff,transparent),
+   radial-gradient(1px 1px at 170px 20px,#fff,transparent);
+  background-size:240px 200px}
+h1,h2,h3{font-family:"Space Grotesk","Inter","Segoe UI",system-ui,sans-serif;line-height:1.2;letter-spacing:-.01em}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:18px 18px 60px}
+.topbar{display:flex;justify-content:space-between;align-items:center;font-size:.86rem;margin-bottom:12px;color:var(--mute)}
+.topbar a{color:var(--mute);text-decoration:none;font-weight:600}
+.topbar a:hover{color:var(--ink)}
+
+header.hero{position:relative;border-radius:20px;overflow:hidden;text-align:center;padding:74px 26px 62px;border:1px solid var(--line);
+  background:linear-gradient(rgba(6,10,28,.55),rgba(6,10,28,.78)),var(--herourl) center/cover no-repeat,
+  radial-gradient(ellipse at 30% 20%,var(--accent),transparent 60%),linear-gradient(135deg,#101a4a,#1b0f3d);
+  box-shadow:0 20px 60px rgba(0,0,0,.45)}
+header.hero .tag{display:inline-block;padding:5px 15px;border-radius:14px;font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);margin-bottom:16px}
+header.hero h1{font-size:clamp(2rem,6vw,3.1rem);margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+header.hero p.sub{max-width:660px;margin:0 auto;font-size:1.1rem;color:#dfe6ff;text-shadow:0 1px 12px rgba(0,0,0,.7)}
+
+nav.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:22px 0 20px;position:sticky;top:0;z-index:20;padding:10px 6px;
+  background:linear-gradient(180deg,rgba(6,10,28,.94),rgba(6,10,28,.75));backdrop-filter:blur(8px);border-radius:14px}
+nav.tabs button{font:inherit;font-size:.9rem;font-weight:600;color:var(--mute);background:var(--panel);border:1px solid var(--line);
+  padding:9px 16px;border-radius:999px;cursor:pointer;transition:all .15s}
+nav.tabs button:hover{color:var(--ink);border-color:var(--accent)}
+nav.tabs button.on{color:#06101f;background:var(--accent);border-color:var(--accent)}
+nav.tabs button.done::after{content:" \2713";font-weight:800}
+
+section.panel{display:none;animation:fade .3s ease}
+section.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-bottom:18px}
+.card h2{font-size:1.45rem;margin-bottom:10px;color:#fff}
+.card h3{font-size:1.1rem;margin:16px 0 6px;color:var(--accent)}
+.card p{color:#cfd6f5;margin-bottom:12px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:#fff}
+.card ul,.card ol{margin:0 0 12px 22px;color:#cfd6f5}
+.card li{margin-bottom:6px}
+.eyebrow{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:6px}
+
+.bignum{text-align:center;padding:26px 14px}
+.bignum .n{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(2.4rem,9vw,4.4rem);line-height:1.05;color:var(--accent);text-shadow:0 0 40px color-mix(in srgb,var(--accent) 45%,transparent)}
+.bignum .u{font-size:1.05rem;color:#dfe6ff;max-width:560px;margin:8px auto 0}
+
+.predict{border:1px dashed color-mix(in srgb,var(--accent) 60%,transparent);border-radius:14px;padding:16px 18px;margin:16px 0;background:rgba(255,255,255,.03)}
+.predict .pq{font-weight:700;color:#fff;margin-bottom:8px}
+.predict .pq::before{content:"Predict first \00b7  ";color:var(--accent);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.predict button.rv{font:inherit;font-size:.9rem;font-weight:700;background:var(--accent);color:#06101f;border:0;border-radius:999px;padding:7px 16px;cursor:pointer}
+.predict .ans{display:none;margin-top:12px;padding:12px 14px;border-left:3px solid var(--accent);background:rgba(255,255,255,.05);border-radius:0 10px 10px 0;color:#dfe6ff}
+.predict .ans.show{display:block}
+
+.callout{border-left:4px solid var(--accent2);background:rgba(167,139,250,.09);padding:14px 18px;border-radius:0 12px 12px 0;margin:14px 0;color:#dfe6ff}
+.callout b{color:#fff}
+.legend-note{border-left:4px solid var(--warn);background:rgba(251,191,36,.08);padding:14px 18px;border-radius:0 12px 12px 0;margin:14px 0;color:#f6e7b8}
+
+.lab{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:18px;padding:22px 24px;margin-bottom:20px;box-shadow:0 0 40px color-mix(in srgb,var(--accent) 10%,transparent)}
+.lab h2{font-size:1.35rem;margin-bottom:4px;color:#fff}
+.lab .lead{color:var(--mute);margin-bottom:14px;font-size:.98rem}
+.ctrl{display:grid;grid-template-columns:150px 1fr 120px;gap:12px;align-items:center;margin:10px 0;font-size:.95rem}
+.ctrl label{color:var(--mute);font-weight:600}
+.ctrl output{font-variant-numeric:tabular-nums;color:#fff;text-align:right;font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.btns button,.btn{font:inherit;font-size:.88rem;font-weight:600;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:7px 14px;border-radius:999px;cursor:pointer}
+.btns button:hover,.btn:hover{border-color:var(--accent)}
+.btns button.on{background:var(--accent);color:#06101f;border-color:var(--accent)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.ro{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ro .k{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.ro .v{font-family:"Space Grotesk",sans-serif;font-size:1.25rem;font-weight:700;color:#fff;overflow-wrap:anywhere}
+canvas{display:block;width:100%;border-radius:12px;background:#02040f;border:1px solid var(--line)}
+.verdict{margin-top:14px;padding:13px 16px;border-radius:12px;background:rgba(0,0,0,.3);border-left:4px solid var(--accent);color:#e8ecff}
+
+table.t{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:.95rem}
+table.t th,table.t td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.t th{color:var(--accent);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
+.tablewrap{overflow-x:auto}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{font-size:.84rem;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#dfe6ff}
+
+.quiz .qc{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.quiz .qn{font-size:.76rem;letter-spacing:.14em;color:var(--accent);font-weight:700;text-transform:uppercase}
+.quiz .qt{font-weight:700;color:#fff;margin:4px 0 10px}
+.quiz .opt{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:8px;cursor:pointer}
+.quiz .opt:hover{border-color:var(--accent)}
+.quiz .opt.right{background:rgba(52,211,153,.16);border-color:var(--good)}
+.quiz .opt.wrong{background:rgba(251,113,133,.14);border-color:var(--bad)}
+.quiz .fb{display:none;margin-top:6px;padding:11px 14px;border-radius:10px;background:rgba(255,255,255,.05);color:#dfe6ff}
+.quiz .fb.show{display:block}
+.score{font-family:"Space Grotesk",sans-serif;font-size:1.1rem;color:#fff;margin-top:6px}
+
+textarea.say{width:100%;min-height:96px;font:inherit;color:var(--ink);background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+textarea.say:focus{outline:2px solid var(--accent);border-color:transparent}
+
+.rabbit{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.rabbit .rh{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.rabbit .rh b{color:#fff;display:block;margin-bottom:4px}
+.rabbit .rh span{color:#cfd6f5;font-size:.95rem}
+
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px}
+.pager a{flex:1 1 220px;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:14px 18px;border-radius:14px;font-weight:600}
+.pager a small{display:block;color:var(--mute);font-weight:500;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.pager a:hover{border-color:var(--accent)}
+.pager a.next{text-align:right}
+footer{text-align:center;color:var(--mute);font-size:.85rem;margin:30px 0 8px}
+
+@media(max-width:640px){
+  body{font-size:16px}
+  .ctrl{grid-template-columns:1fr 90px;}
+  .ctrl label{grid-column:1/-1}
+  .card,.lab{padding:18px 16px}
+  header.hero{padding:52px 16px 44px}
+}
+
+:root{--accent:#facc15}
+</style>
+</head>
+<body>
+<div class="wrap" style="--herourl:url('ds_06_spaceflight.jpg')">
+  <div class="topbar"><a href="deep_space_dashboard.html">&larr; Deep Space map</a><span>Lesson 6 of 6</span></div>
+  <header class="hero">
+    <span class="tag">Lesson 6 · Orbits, rockets and Voyager</span>
+    <h1>Getting There</h1>
+    <p class="sub">Orbiting is not floating above the Earth. It is falling, sideways, so fast that you keep missing. Everything about spaceflight follows from that, and from one equation that punishes every kilogram.</p>
+  </header>
+  <nav class="tabs"><button data-tab="hook">The Hook</button><button data-tab="idea">The Idea</button><button data-tab="lab">The Lab</button><button data-tab="quiz">Challenge</button><button data-tab="deeper">Go Deeper</button></nav>
+<section class="panel" id="hook">
+<div class="card bignum"><div class="eyebrow">Space is closer than you think</div>
+<div class="n">100 km up</div>
+<div class="u">That is where space officially begins, a drive from London to Cambridge, straight up. Reaching it is easy. <b>Staying there</b> is the hard part, and it needs a sideways speed of 7.8 kilometres every second.</div></div>
+<div class="card">
+<p>The International Space Station is only about 400 km up. At that height gravity is still <b>88% as strong</b> as on the ground. The astronauts float because they and the station are in free fall, together, all the time. They are falling toward Earth at every moment, and moving sideways so fast that the Earth curves away beneath them as fast as they fall.</p>
+<div class="predict"><div class="pq">You are in a spacecraft in a circular orbit, and you fire your engine <i>forward</i>, in the direction you are moving. What happens to your speed, a little later on?</div>
+<button class="rv">Reveal</button>
+<div class="ans"><b>Your orbit rises, and you end up moving <i>slower</i>.</b> Firing forward adds energy and lifts the far side of your orbit to a higher altitude. Higher orbits are slower: the speed for a circular orbit goes as 1/&radic;r. You gave the engine more fuel and ended up going slower. To catch up with something ahead of you in the same orbit, you have to slow down first, drop to a lower and faster orbit, and then climb back.</div></div>
+<div class="predict"><div class="pq">The Saturn V rocket weighed about 2,970 tonnes at lift-off. The Apollo capsule that splashed down weighed about 5.5 tonnes. What fraction of the rocket came home?</div>
+<button class="rv">Reveal</button>
+<div class="ans"><b>About 0.2%.</b> The rest was fuel and parts thrown away on the way. That ratio is not a design flaw. It is what the physics demands, and the equation that explains it is the subject of this lesson.</div></div>
+</div>
+</section>
+<section class="panel" id="idea">
+<div class="card"><div class="eyebrow">Part 1</div><h2>Newton's cannon</h2>
+<p>Isaac Newton described it in 1687. Imagine a cannon on top of a very tall mountain firing horizontally. Fire gently and the ball lands nearby. Fire faster and it lands farther. Fire fast enough and the ground curves away beneath the ball as it falls, and it never lands. That speed is the <b>circular orbital velocity</b>:</p>
+<div class="callout" style="text-align:center;font-size:1.2rem"><b>v<sub>circular</sub> = &radic;(GM / r)</b></div>
+<p>At 400 km it is about <b>7.7 km/s</b>, which is 27,600 km/h. One lap takes about <b>92 minutes</b>, so the ISS crew sees 16 sunrises a day. Go faster and your orbit stretches into an ellipse. At exactly &radic;2 times the circular speed, the path stops curving back. This is <b>escape velocity</b>: about <b>11.2 km/s</b> from Earth's surface, 10.9 km/s from 400 km up. Go any faster and you leave for good, though you never escape gravity entirely; it just fades away.</p>
+<p>The lab on the next tab lets you fire the cannon yourself.</p></div>
+
+<div class="card"><div class="eyebrow">Part 2</div><h2>The most important equation in spaceflight</h2>
+<p>In 1903 a nearly deaf Russian schoolteacher named <b>Konstantin Tsiolkovsky</b> published the key result. A rocket moves by throwing mass backwards. The speed it gains, its <b>delta-v</b>, depends on how fast it throws the exhaust (<i>v<sub>e</sub></i>) and on the ratio of its starting mass to its finishing mass:</p>
+<div class="callout" style="text-align:center;font-size:1.3rem"><b>&Delta;v = v<sub>e</sub> &times; ln(m<sub>start</sub> / m<sub>end</sub>)</b></div>
+<p>The logarithm is the problem. To get a bit more speed you must carry <i>exponentially</i> more fuel. Fuel itself needs more fuel to carry it. Reaching low Earth orbit takes about <b>9.4 km/s</b> of delta-v (7.7 for the orbit and the rest lost to gravity and air drag), and the best chemical rockets, with exhaust speeds of about 4.4 km/s, need roughly <b>88%</b> of the launch mass to be propellant. A Saturn V managed to put about 5% of its launch mass into orbit, and about 1.6% on the way to the Moon.</p>
+<p>The fixes are all clever ways around the same equation: <b>staging</b> (dropping empty tanks), <b>reuse</b> (landing the boosters; the first Falcon 9 landing was in December 2015), and <b>better exhaust speed</b>. An ion engine, such as the one on NASA's Dawn mission, throws charged atoms out at 30 km/s or more, many times faster than chemical fuel. But its thrust is only about the weight of a couple of sheets of paper, so it takes months of gentle pushing. Dawn became the first spacecraft to orbit two different bodies, Vesta and then Ceres.</p></div>
+
+<div class="card"><div class="eyebrow">Part 3</div><h2>Stealing speed from a planet</h2>
+<p>If fuel is so expensive, can speed be had for free? Yes, by a <b>gravity assist</b>. A spacecraft that swings past a moving planet can leave with a different speed relative to the Sun. It takes a tiny amount of the planet's orbital momentum, and the planet slows by an amount too small to measure.</p>
+<p>In 1964 a young aerospace student, <b>Gary Flandro</b>, noticed that the four giant planets would line up in the late 1970s in a way that happens only about once every <b>175 years</b>. A spacecraft launched at the right moment could visit all four, using each planet to sling it on to the next. NASA launched two spacecraft in 1977. <b>Voyager 2</b> visited Jupiter (1979), Saturn (1981), Uranus (1986) and Neptune (1989), and remains the only spacecraft ever to visit Uranus or Neptune. <b>Voyager 1</b> took a faster path out of the plane of the planets.</p>
+<p>Today both are in interstellar space (Voyager 1 crossed the boundary of the Sun's bubble in 2012, Voyager 2 in 2018). Voyager 1 travels at about <b>17 km/s</b>, or 3.6 AU a year. NASA expects it to be <b>one light-day</b> from Earth, about 173 AU, around <b>November 2026</b>. Its radio signals, from a transmitter with the power of a refrigerator bulb, now take almost a day to arrive. It also carries a golden record of sounds and images from Earth.</p>
+<p>The fastest object ever built is the <b>Parker Solar Probe</b>, which used repeated Venus flybys to lose orbital energy and fall closer and closer to the Sun. On 24 December 2024 it passed 6.1 million km from the Sun's surface at about <b>192 km/s</b> (692,000 km/h).</p></div>
+
+<div class="card"><div class="eyebrow">Part 4</div><h2>The next star is very far</h2>
+<p>The nearest star beyond the Sun, Proxima Centauri, is 4.24 light-years away, which is about <b>268,000 AU</b>, or more than 1,500 times farther than Voyager 1 has travelled in nearly fifty years. At Voyager's speed the trip takes about <b>75,000 years</b>. Even the Parker Solar Probe's speed would take more than 6,000.</p>
+<p>The most serious proposal so far is <b>Breakthrough Starshot</b>, announced in 2016: chips weighing a gram, attached to light sails and pushed by a huge array of lasers to 20% of the speed of light, reaching Proxima in about 20 years. It is a concept, not a project. Dust grains hitting a chip at 60,000 km/s, building a laser array of that power, and sending back a signal are all unsolved. Every other idea (fusion rockets, antimatter, enormous generation ships) is even further out. Einstein's relativity adds one more twist: at very high speed, clocks aboard the ship run slow, so the trip feels shorter to the travellers than to people on Earth. Try it in the lab.</p>
+<div class="callout"><b>Why it matters.</b> The rocket equation is the reason we have been to the Moon, but nowhere further with people. It is not a technology problem to be solved with more money, but a physical limit to be worked around. New ideas have to change the exhaust speed or the propulsion method, not just the size.</div></div>
+</section>
+<section class="panel" id="lab">
+<div class="lab"><h2>Fire Newton's cannon</h2>
+<p class="lead">You launch a spacecraft sideways from 400 km above the Earth. Try different speeds. Air resistance is ignored. Speeds are in kilometres per second.</p>
+<div class="ctrl"><label for="ov">Launch speed</label><input type="range" id="ov" min="300" max="1250" value="700"><output id="ovout"></output></div>
+<div class="btns" id="opre"></div>
+<canvas id="orbit" data-h="360"></canvas>
+<div class="readouts">
+<div class="ro"><div class="k">Result</div><div class="v" id="o_res" style="font-size:1.05rem"></div></div>
+<div class="ro"><div class="k">Lowest point</div><div class="v" id="o_peri"></div></div>
+<div class="ro"><div class="k">Highest point</div><div class="v" id="o_apo"></div></div>
+<div class="ro"><div class="k">Time for one lap</div><div class="v" id="o_per"></div></div>
+</div>
+<div class="verdict" id="o_note"></div></div>
+
+<div class="lab"><h2>The rocket equation</h2>
+<p class="lead">Choose an engine and how much of the rocket's mass is fuel. See the speed you can reach and how little is left at the end for payload.</p>
+<div class="btns" id="epre"></div>
+<div class="ctrl"><label for="ve">Exhaust speed</label><input type="range" id="ve" min="20" max="1000" value="44"><output id="veout"></output></div>
+<div class="ctrl"><label for="pf">Fuel fraction per stage</label><input type="range" id="pf" min="10" max="95" value="80"><output id="pfout"></output></div>
+<div class="ctrl"><label for="ns">Stages</label><input type="range" id="ns" min="1" max="4" value="1"><output id="nsout"></output></div>
+<div id="stack" style="display:flex;height:44px;border-radius:12px;overflow:hidden;margin:12px 0;border:1px solid var(--line)"></div>
+<div class="readouts">
+<div class="ro"><div class="k">Speed gained (delta-v)</div><div class="v" id="r_dv"></div></div>
+<div class="ro"><div class="k">Mass left at the end, as a share of launch mass</div><div class="v" id="r_pay"></div></div>
+</div>
+<div class="tablewrap"><table class="t" id="rtable"></table></div>
+<div class="verdict" id="r_note"></div></div>
+
+<div class="lab"><h2>How long to the next star?</h2>
+<p class="lead">Proxima Centauri is 4.24 light-years away. Pick a speed. Times ignore the time spent speeding up and slowing down.</p>
+<div class="btns" id="tpre"></div>
+<div class="ctrl"><label for="ts">Speed</label><input type="range" id="ts" min="0" max="1000" value="200"><output id="tsout"></output></div>
+<div class="readouts">
+<div class="ro"><div class="k">Trip time (Earth clock)</div><div class="v" id="t_earth"></div></div>
+<div class="ro"><div class="k">Time on the ship&rsquo;s clock</div><div class="v" id="t_ship"></div></div>
+</div>
+<div class="verdict" id="t_note"></div></div>
+</section>
+<section class="panel" id="quiz">
+<div class="card"><h2>Check yourself</h2><p>Five questions.</p></div>
+<div class="quiz" id="quiz6"></div>
+</section>
+<section class="panel" id="deeper">
+<div class="card"><h2>Say it out loud</h2>
+<p>A younger friend asks: <b>&ldquo;Why don't astronauts in the space station fall down?&rdquo;</b> Answer without using the word <em>zero-gravity</em>. Use <em>falling</em>, <em>sideways speed</em> and <em>orbit</em>. Then explain why a rocket needs so much fuel, using the rocket equation.</p>
+<textarea class="say" placeholder="Start typing here&hellip;"></textarea></div>
+<div class="card"><h2>Rabbit holes</h2>
+<div class="rabbit">
+<div class="rh"><b>The Oberth effect</b><span>A rocket burn gives more speed when the spacecraft is already moving fast, deep in a gravity well. This is why the Parker Solar Probe and many deep-space missions burn near a planet and not far from it. Where does the extra energy come from?</span></div>
+<div class="rh"><b>Lagrange points</b><span>Five places in the Sun&ndash;Earth system where gravity and orbital motion balance. The James Webb Space Telescope sits at the second one, 1.5 million km away. Why there?</span></div>
+<div class="rh"><b>Space elevators</b><span>A cable from the ground to above geostationary orbit would avoid rockets completely. No known material is strong enough yet at the length needed. Carbon nanotubes are candidates.</span></div>
+<div class="rh"><b>Solar sails</b><span>Light carries momentum. A very large, very light sail can use it, with no fuel. Japan&rsquo;s IKAROS (2010) flew the first one between planets.</span></div>
+</div></div>
+</section>
+
+  <div class="pager"><a href="deep_space_05_dark.html"><small>&larr; Previous</small>The Dark Universe</a> <a class="next" href="deep_space_dashboard.html"><small>Finished &rarr;</small>Back to the Deep Space map</a></div>
+  <footer>Deep Space &middot; Lesson 6 &middot; Malcolm Hyndman</footer>
+</div>
+<script>
+
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs button'));
+  var panels=[].slice.call(document.querySelectorAll('section.panel'));
+  function show(id){
+    tabs.forEach(function(b){b.classList.toggle('on',b.dataset.tab===id)});
+    panels.forEach(function(p){p.classList.toggle('on',p.id===id)});
+    window.scrollTo({top:0,behavior:'smooth'});
+    window.dispatchEvent(new Event('resize'));
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){
+    var cur=document.querySelector('nav.tabs button.on'); if(cur&&cur!==b)cur.classList.add('done');
+    show(b.dataset.tab);
+  })});
+  document.querySelectorAll('[data-goto]').forEach(function(a){a.addEventListener('click',function(e){
+    e.preventDefault();var t=tabs.filter(function(b){return b.dataset.tab===a.dataset.goto})[0]; if(t)t.click();
+  })});
+  document.querySelectorAll('.predict .rv').forEach(function(b){b.addEventListener('click',function(){
+    var a=b.parentNode.querySelector('.ans'); a.classList.toggle('show'); b.textContent=a.classList.contains('show')?'Hide':'Reveal';
+  })});
+  if(tabs.length)tabs[0].click();
+})();
+
+/* ---------- helpers shared by labs ---------- */
+function $(id){return document.getElementById(id)}
+function fit(c,h){ /* size a canvas to its CSS width with devicePixelRatio, return ctx and logical size */
+  var r=window.devicePixelRatio||1, w=c.clientWidth||600; h=h||c.getAttribute('data-h')||340;
+  c.width=Math.round(w*r); c.height=Math.round(h*r); c.style.height=h+'px';
+  var x=c.getContext('2d'); x.setTransform(r,0,0,r,0,0); return {x:x,w:w,h:+h};
+}
+function sci(v,d){ /* readable number */
+  d=d==null?3:d;
+  if(v===0)return '0';
+  var a=Math.abs(v);
+  if(a>=1e6||a<1e-3){var e=Math.floor(Math.log10(a));var m=v/Math.pow(10,e);return m.toFixed(d-1).replace(/\.?0+$/,'')+' × 10<sup>'+e+'</sup>';}
+  if(a<1)return String(Number(v.toPrecision(d)));
+  if(a>=100)return v.toLocaleString('en-GB',{maximumFractionDigits:0});
+  if(a>=10)return v.toFixed(1).replace(/\.0$/,'');
+  return v.toFixed(d-1).replace(/\.?0+$/,'');
+}
+function logSlider(t,min,max){ /* t in 0..1 -> log range */ return Math.exp(Math.log(min)+t*(Math.log(max)-Math.log(min))) }
+
+/* ---------- quiz ---------- */
+function buildQuiz(host,items){
+  var el=$(host); var score=0,answered=0; var out='';
+  items.forEach(function(q,i){
+    out+='<div class="qc" data-i="'+i+'"><div class="qn">Question '+(i+1)+'</div><div class="qt">'+q.q+'</div>';
+    q.o.forEach(function(o,j){out+='<button class="opt" data-j="'+j+'">'+o+'</button>'});
+    out+='<div class="fb"></div></div>';
+  });
+  out+='<div class="score" id="'+host+'_score"></div>';
+  el.innerHTML=out;
+  el.querySelectorAll('.qc').forEach(function(c){
+    var q=items[+c.dataset.i], done=false;
+    c.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){
+      if(done)return; var j=+b.dataset.j, ok=(j===q.a); done=true; answered++; if(ok)score++;
+      b.classList.add(ok?'right':'wrong');
+      if(!ok)c.querySelectorAll('.opt')[q.a].classList.add('right');
+      var fb=c.querySelector('.fb'); fb.innerHTML=(ok?'<b>Correct.</b> ':'<b>Not quite.</b> ')+q.w; fb.classList.add('show');
+      $(host+'_score').textContent='Score: '+score+' / '+answered+(answered===items.length?'  — finished':'');
+    })});
+  });
+}
+
+
+/* ---------- orbit simulator ---------- */
+var MU=398600, RE=6371, R0=RE+400, VC=Math.sqrt(MU/R0), VESC=Math.sqrt(2)*VC;
+var OPATH=[], OCLASS='', OT=0;
+function simulate(v){
+  var x=0,y=R0,vx=v,vy=0,dt=6,t=0,path=[[x,y]],crashed=false;
+  var eps=v*v/2-MU/R0, a=eps<0?-MU/(2*eps):Infinity, T=eps<0?2*Math.PI*Math.sqrt(a*a*a/MU):20*3600;
+  var tmax=Math.min(eps<0?T*1.02:30*3600,36*3600);
+  function acc(px,py){ var r=Math.sqrt(px*px+py*py), k=-MU/(r*r*r); return [k*px,k*py]; }
+  var ax=acc(x,y);
+  for(var i=0;i<tmax/dt;i++){
+    x+=vx*dt+0.5*ax[0]*dt*dt; y+=vy*dt+0.5*ax[1]*dt*dt;
+    var an=acc(x,y); vx+=0.5*(ax[0]+an[0])*dt; vy+=0.5*(ax[1]+an[1])*dt; ax=an;
+    t+=dt; var r=Math.sqrt(x*x+y*y);
+    if(r<=RE){ crashed=true; path.push([x,y]); break; }
+    path.push([x,y]);
+    if(r>30*RE)break;
+  }
+  return {path:path,crashed:crashed,eps:eps,a:a,T:T};
+}
+function updateOrbit(){
+  var v=+$('ov').value/100; $('ovout').textContent=v.toFixed(2)+' km/s';
+  var s=simulate(v), eps=s.eps, h=R0*v, e=Math.sqrt(Math.max(0,1+2*eps*h*h/(MU*MU)));
+  var peri,apo,cls;
+  if(eps<0){ var a=s.a; peri=a*(1-e); apo=a*(1+e); }
+  else { peri=(h*h/MU)/(1+e); apo=Infinity; }
+  if(v>=VESC-0.0001){ cls='Escapes Earth for good'; }
+  else if(peri<RE-1){ cls='Crashes into the Earth'; }
+  else if(Math.abs(v-VC)/VC<0.004){ cls='A circular orbit'; }
+  else cls='An elliptical orbit';
+  OCLASS=cls; OPATH=s.path;
+  $('o_res').textContent=cls;
+  $('o_peri').textContent=(peri-RE>0?Math.round(peri-RE).toLocaleString('en-GB')+' km up':'underground');
+  $('o_apo').textContent=apo===Infinity?'never returns':(apo-RE>1e5?(apo-RE).toExponential(1)+' km':Math.round(apo-RE).toLocaleString('en-GB')+' km up');
+  $('o_per').textContent=eps<0&&peri>=RE?(s.T/60>=120?(s.T/3600).toFixed(1)+' hours':Math.round(s.T/60)+' minutes'):'—';
+  var n='Circular speed here is '+VC.toFixed(2)+' km/s; escape speed is '+VESC.toFixed(2)+' km/s. ';
+  if(cls==='Crashes into the Earth')n+='Too slow: the ground gets in the way before the Earth can curve away. ';
+  else if(cls==='An elliptical orbit')n+='Faster than circular, so the spacecraft climbs to a higher point, slows down there, and falls back. It always returns to the point where it started. ';
+  else if(cls==='Escapes Earth for good')n+='It moves away on an open curve and never comes back. It still feels Earth’s gravity, but not enough to turn around. ';
+  $('o_note').textContent=n;
+  OT=0;
+}
+(function(){ var P=[['Too slow',500],['Circular orbit',Math.round(VC*100)],['Just fast enough to loop',860],['Almost escape',1050],['Escape',Math.round(VESC*100)+1]]; var h=''; P.forEach(function(p,i){h+='<button data-v="'+p[1]+'">'+p[0]+'</button>'}); $('opre').innerHTML=h;
+  $('opre').querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ $('ov').value=b.dataset.v; updateOrbit(); });});})();
+$('ov').addEventListener('input',updateOrbit);
+function drawOrbit(){
+  var c=$('orbit'); if(!c||c.offsetParent===null)return;
+  var o=fit(c,360), x=o.x, W=o.w, H=o.h;
+  x.fillStyle='#02040f'; x.fillRect(0,0,W,H);
+  var P=OPATH; if(!P.length)return;
+  var minx=-RE,maxx=RE,miny=-RE,maxy=RE; P.forEach(function(p){minx=Math.min(minx,p[0]);maxx=Math.max(maxx,p[0]);miny=Math.min(miny,p[1]);maxy=Math.max(maxy,p[1]);});
+  var pad=30, sc=Math.min((W-2*pad)/(maxx-minx),(H-2*pad)/(maxy-miny));
+  var ox=W/2-((minx+maxx)/2)*sc, oy=H/2+((miny+maxy)/2)*sc;
+  function X(p){return ox+p*sc} function Y(p){return oy-p*sc}
+  /* earth */
+  var g=x.createRadialGradient(X(0),Y(0),RE*sc*.2,X(0),Y(0),RE*sc); g.addColorStop(0,'#4aa3ff'); g.addColorStop(1,'#1a4f9a');
+  x.fillStyle=g; x.beginPath(); x.arc(X(0),Y(0),Math.max(4,RE*sc),0,7); x.fill();
+  x.strokeStyle='rgba(120,200,255,.3)'; x.lineWidth=2; x.beginPath(); x.arc(X(0),Y(0),Math.max(5,(RE+100)*sc),0,7); x.stroke();
+  /* reference circle */
+  x.setLineDash([3,5]); x.strokeStyle='rgba(255,255,255,.25)'; x.lineWidth=1; x.beginPath(); x.arc(X(0),Y(0),R0*sc,0,7); x.stroke(); x.setLineDash([]);
+  /* path */
+  var col=OCLASS.indexOf('Crash')===0?'#fb7185':OCLASS.indexOf('Escape')===0?'#fde047':'#facc15';
+  x.strokeStyle=col; x.lineWidth=2.2; x.beginPath(); P.forEach(function(p,i){ if(i)x.lineTo(X(p[0]),Y(p[1])); else x.moveTo(X(p[0]),Y(p[1])); }); x.stroke();
+  /* start */
+  x.fillStyle='#fff'; x.beginPath(); x.arc(X(0),Y(R0),4,0,7); x.fill();
+  x.fillStyle='#9aa6d0'; x.font='11px Inter,sans-serif'; x.textAlign='center'; x.fillText('Launch point, 400 km up. Moving right.',X(0),Y(R0)-12);
+  /* craft */
+  OT+=Math.max(1,Math.floor(P.length/260)); if(OT>=P.length)OT=0;
+  var q=P[OT]; x.fillStyle='#fff'; x.shadowColor=col; x.shadowBlur=14; x.beginPath(); x.arc(X(q[0]),Y(q[1]),5,0,7); x.fill(); x.shadowBlur=0;
+}
+window.addEventListener('resize',drawOrbit); updateOrbit(); setInterval(drawOrbit,40);
+
+/* ---------- rocket equation ---------- */
+var ENG=[['Solid / kerosene',3.0],['Hydrogen + oxygen',4.4],['Ion engine',35],['Hypothetical fusion',100]];
+(function(){ var h=''; ENG.forEach(function(p,i){h+='<button data-v="'+p[1]+'">'+p[0]+'</button>'}); $('epre').innerHTML=h;
+  $('epre').querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ $('ve').value=Math.round(+b.dataset.v*10); updateRocket(); });});})();
+var TARGETS=[['Low Earth orbit (from the ground)',9.4],['Moon landing (from low Earth orbit)',6.0],['Mars transfer (from low Earth orbit)',3.6],['Proxima Centauri in 40 years (0.1 c)',29979]];
+function updateRocket(){
+  var ve=+$('ve').value/10, p=+$('pf').value/100, n=+$('ns').value;
+  $('veout').textContent=ve.toFixed(1)+' km/s'; $('pfout').textContent=Math.round(p*100)+'%'; $('nsout').textContent=n;
+  var R=1/(1-p), dv=n*ve*Math.log(R), pay=Math.pow(1-p,n);
+  $('r_dv').textContent=dv.toFixed(1)+' km/s';
+  $('r_pay').textContent=(pay*100<0.1?(pay*100).toExponential(1):(pay*100).toFixed(pay*100<10?2:1))+'%';
+  var st=''; var cols=['#facc15','#fb923c','#f472b6','#a78bfa'];
+  st+='<div style="width:'+(pay*100)+'%;background:#34d399;min-width:4px" title="Left at the end"></div>';
+  st+='<div style="flex:1;background:linear-gradient(90deg,#fb923c,#facc15);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#0a0a1a">Fuel and structure thrown away: '+(100-pay*100).toFixed(pay*100<1?2:1)+'%</div>';
+  $('stack').innerHTML=st;
+  var t='<tr><th>Mission</th><th>Needs</th><th>Mass ratio needed</th><th>Verdict with this rocket</th></tr>';
+  TARGETS.forEach(function(g){
+    var perStage=g[1]/(n*ve); var log10R=g[1]/(ve*Math.LN10)/n; /* per stage */
+    var totalLog=g[1]/(ve*Math.LN10);
+    var fuelFrac=1-Math.exp(-g[1]/(n*ve));
+    var ratio=totalLog>6?'10<sup>'+Math.round(totalLog).toLocaleString('en-GB')+'</sup>':(Math.pow(10,totalLog)>1e4?sci(Math.pow(10,totalLog),2):Math.pow(10,totalLog).toFixed(1));
+    var verdict;
+    if(totalLog>80)verdict='Impossible: more atoms than exist in the universe.';
+    else if(fuelFrac>0.93)verdict='Not feasible: each stage would need '+(fuelFrac*100).toFixed(1)+'% fuel, and tanks and engines weigh something. Real stages manage about 90–93%.';
+    else verdict='Possible: each of '+n+' stage'+(n>1?'s':'')+' needs '+(fuelFrac*100).toFixed(0)+'% fuel.';
+    t+='<tr><td>'+g[0]+'</td><td>'+(g[1]>1000?g[1].toLocaleString('en-GB'):g[1].toFixed(1))+' km/s</td><td>'+ratio+'</td><td>'+verdict+'</td></tr>';
+  });
+  $('rtable').innerHTML=t;
+  $('r_note').textContent='Speed grows with the logarithm of the mass ratio, so each extra kilometre per second costs more fuel than the last. Raising the exhaust speed, or splitting the job into stages, works far better than just adding fuel.';
+}
+['ve','pf','ns'].forEach(function(id){$(id).addEventListener('input',updateRocket)}); updateRocket();
+
+/* ---------- travel time ---------- */
+var CMS=299792.458, LY=4.24;
+var TP=[['Voyager 1',17],['Parker Solar Probe',192],['1% light speed',2997.9],['Starshot idea: 20% light speed',59958.5],['99% light speed',296794.5]];
+function speedFromSlider(v){ /* log from 1 km/s to 0.999 c */ var lo=Math.log(1),hi=Math.log(0.999*CMS); return Math.exp(lo+v/1000*(hi-lo)); }
+function fmtYears(y){ if(y>=1e6)return (y/1e6).toFixed(1)+' million years'; if(y>=1000)return Math.round(y).toLocaleString('en-GB')+' years'; if(y>=2)return y.toFixed(1)+' years'; if(y>=0.1)return (y*12).toFixed(1)+' months'; return (y*365).toFixed(0)+' days'; }
+function updateTrip(v){
+  var kms=v==null?speedFromSlider(+$('ts').value):v; if(v!=null){ $('ts').value=Math.round(1000*(Math.log(v)-0)/(Math.log(0.999*CMS))); }
+  var b=kms/CMS, tE=LY/b, g=1/Math.sqrt(1-b*b), tS=tE/g;
+  $('tsout').textContent=(b<0.01?kms.toFixed(kms<100?1:0)+' km/s':(b*100).toFixed(b<0.1?1:0)+'% of c');
+  $('t_earth').textContent=fmtYears(tE); $('t_ship').textContent=fmtYears(tS);
+  var n='';
+  if(b<0.001)n='This is the pace of every spacecraft we have actually built. Interstellar travel at this speed takes longer than all of recorded human history.';
+  else if(b<0.15)n='Still thousands of years or more. No known technology gets a spacecraft anywhere near this.';
+  else n='Relativity at work: the faster you go, the more your clock lags. At 99% of light speed the ship&rsquo;s clock shows about 14% of the Earth clock. The crew would age less, but everyone on Earth would have waited the full time. Reaching such speeds needs technology that does not exist.';
+  $('t_note').innerHTML=n;
+}
+(function(){ var h=''; TP.forEach(function(p,i){h+='<button data-v="'+p[1]+'">'+p[0]+'</button>'}); $('tpre').innerHTML=h;
+  $('tpre').querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ updateTrip(+b.dataset.v); });});})();
+$('ts').addEventListener('input',function(){updateTrip()}); updateTrip();
+
+buildQuiz('quiz6',[
+ {q:'Why do astronauts on the space station float?',
+  o:['Gravity is switched off in space','There is no air to hold them down','They and the station are in free fall, moving sideways so fast that they keep missing the Earth','The station is too far away for gravity to reach'],a:2,
+  w:'At 400 km, gravity is still about 88% as strong as on the ground. Astronauts float because they are falling together with the station. Weightlessness is a result of free fall, not of no gravity.'},
+ {q:'What is the main difficulty in reaching orbit?',
+  o:['Getting the sideways speed of about 7.7 km/s','Getting high enough above the atmosphere','Avoiding the Moon','Finding enough oxygen for the engines'],a:0,
+  w:'The edge of space is only about 100 km up, but orbit needs about 7.7 km/s sideways. Almost all of the rocket’s fuel goes into speed, not height.'},
+ {q:'Doubling the amount of fuel in a rocket does what to its top speed?',
+  o:['Doubles it','Does nothing','Quadruples it','Adds less than double: speed goes up with the logarithm of the mass ratio'],a:3,
+  w:'Δv = vₑ ln(m₀/m₁). To double the delta-v you must square the mass ratio, which costs enormously more fuel.'},
+ {q:'How does a gravity assist speed up a spacecraft?',
+  o:['It burns fuel more efficiently near a planet','It takes a tiny amount of momentum from the planet’s motion around the Sun','It uses the planet’s atmosphere to push the craft','It reverses gravity for a moment'],a:1,
+  w:'The planet is moving around the Sun. In the swing-by, the craft gains some of that orbital momentum, and the planet slows by an amount too small to measure.'},
+ {q:'Voyager 1 travels at about 17 km/s. Roughly how long would it take to cover the 4.24 light-years to Proxima Centauri?',
+  o:['About 750 years','About 7,500 years','About 75,000 years','About 7.5 million years'],a:2,
+  w:'4.24 light-years at 17 km/s (about 0.0057% of light speed) is 4.24 / 0.0000567, which is about 75,000 years.'}
+]);
+
+</script>
+</body>
+</html>
