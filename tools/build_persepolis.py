@@ -288,7 +288,7 @@ footer {{ text-align:center; color:#666; font-size:.9rem; margin-top:30px; }}
         </div>
         <template id="mapsvg">{map_svg(lessons)}</template>
     </div>
-    <p class="map-note">Four lessons, one book, and the years it covers.</p>
+    <p class="map-note">Four lessons, one book, and the years it covers. Reading for pleasure rather than for an exam? See <a href="persepolis_bookclub_dashboard.html" style="color:#b3202a;font-weight:700;">Persepolis: Book Club</a>.</p>
 
     <div class="who">
         <h2>Who it is for</h2>
