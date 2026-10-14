@@ -215,7 +215,7 @@ def dashboard(lessons):
             <div class="ptool"><span>The tool:</span> {d["tool"]}</div>
             <div class="pfoot"><span class="ptag">{d["grammar"]["name"]}</span><span class="go">Open &rarr;</span></div>
         </a>''')
-    hot = [(1, 3.5, 16.5, 24.5, 19.4), (2, 71.5, 16.5, 24.5, 19.4), (3, 3.5, 56.5, 24.5, 19.4), (4, 71.5, 56.5, 24.5, 19.4)]
+    hot = [(1, 1.4, 1.7, 36.4, 40.0), (2, 62.2, 1.7, 36.5, 40.0), (3, 1.4, 44.6, 36.4, 37.4), (4, 62.2, 44.6, 36.5, 37.4)]
     hots = "".join(f'<a class="hot" href="persepolis_{lessons[i-1]["slug"]}.html" title="{lessons[i-1]["title"]}" style="left:{l}%;top:{t}%;width:{w}%;height:{h}%"><span>{lessons[i-1]["title"]}</span></a>' for i, l, t, w, h in hot)
     return f'''<!DOCTYPE html>
 <html lang="en">
