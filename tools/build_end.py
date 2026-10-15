@@ -253,6 +253,14 @@ def dashboard(lessons):
 def check(d):
     n_items = sum(len(s["items"]) for s in d["vocab"])
     assert n_items == 10, f'{d["slug"]}: {n_items} vocab items, want 10'
+    # vocab-activity guard (2026-10-15): B must give the student a pool of terms, C must be real collocation gaps
+    vb, vc = d["vocab"][1], d["vocab"][2]
+    assert vb["heading"].startswith(("B · Which term means", "B · Which word matches")), f'{d["slug"]}: vocab B must be "Which term means…?" with the terms listed'
+    assert vb["intro"].count("·") >= 2, f'{d["slug"]}: vocab B intro must list the three terms (a · b · c)'
+    assert all("<b>" in it["sent"] for it in vb["items"]), f'{d["slug"]}: vocab B questions must quote a definition in bold'
+    assert vc["heading"].startswith("C · Which word completes all three phrases"), f'{d["slug"]}: vocab C must be the collocation gap-fill'
+    assert all(it["sent"].count("___") == 3 for it in vc["items"]), f'{d["slug"]}: each vocab C item needs three phrases with ___'
+    assert "Which expression fits" not in json.dumps(d), f'{d["slug"]}: vague "Which expression fits" activity is banned'
     sort = d["tool_tab"]["sort"]
     ans = [it["answer"] for it in sort["items"]]
     assert all(a in sort["options"] for a in ans), f'{d["slug"]}: sort answer not in options'
