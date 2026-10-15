@@ -292,7 +292,7 @@ footer {{ text-align:center; color:#666; font-size:.9rem; margin-top:30px; }}
 
     <div class="who">
         <h2>Who it is for</h2>
-        <p>Anyone who wants to read a text closely and write or speak about it with precision: students of literature, learners who want a serious but accessible book, and readers in a book club. The language level is B2 to C1. No special knowledge of Iran or comics is needed &mdash; each lesson explains what you need.</p>
+        <p>Anyone who wants to read a text closely and write or speak about it with precision: students of literature and anyone who wants an analytical, essay-ready approach to a book. (Reading for pleasure? Try the Book Club edition.) The language level is B2 to C1. No special knowledge of Iran or comics is needed &mdash; each lesson explains what you need.</p>
     </div>
 
     <p class="section-label">The series</p>
