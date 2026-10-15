@@ -49,7 +49,7 @@ header h1 { text-transform:uppercase; letter-spacing:1px; }
 .story-chunk { border-left:5px solid #141414 !important; background:#f6f3ea !important; border-radius:0 6px 6px 0 !important; }
 h2, h3 { color:#141414 !important; }
 .check, .gap-fill, .discuss, .note, .speak-prompt { border-radius:6px !important; }
-.check-btn, .reveal-btn, .timer-btn { border-radius:4px !important; background:#141414 !important; }
+.check-btn, .reveal-btn, .timer-btn { border-radius:4px !important; background:#141414 !important; color:#ffffff !important; border:2px solid #141414 !important; font-weight:700 !important; }
 .check-btn:hover, .reveal-btn:hover, .timer-btn:hover { background:#b3202a !important; }
 .series-strip a { color:#b3202a !important; }
 .cousin a { color:#b3202a !important; }
