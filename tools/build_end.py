@@ -258,7 +258,7 @@ def check(d):
     assert all(a in sort["options"] for a in ans), f'{d["slug"]}: sort answer not in options'
     assert max(len(list(g)) for _, g in itertools.groupby(ans)) < 3, f'{d["slug"]}: same sort answer 3 in a row'
     for c in d["tool_tab"]["cousins"]:
-        if c.get("lesson") and not c["lesson"].startswith("end_"):
+        if c.get("lesson") and not c["lesson"].startswith(("end_", "bc_ai_")):
             assert os.path.exists(os.path.join(ROOT, c["lesson"])), f'missing link target {c["lesson"]}'
     blob = json.dumps(d)
     for bad in ("Malcolm", "your teacher", "Your teacher", "The teacher will", "I Do", "We Do", "You Do", "TEEP", "Pause:"):

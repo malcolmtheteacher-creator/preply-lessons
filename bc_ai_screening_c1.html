@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Bet the Company">
+<title>The Hiring Tool That Learned the Wrong Lesson · C1 English</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f9fd; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1e4e8c 0%, #1b3a6b 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(30,78,140,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#17325c; }
+.crosslink a { color:#1b3a6b; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #eef3fa; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #1e4e8c, #1b3a6b); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #17325c; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #1b3a6b; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #e4edf8; border-left: 4px solid #1b3a6b; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #12284a; font-size: 0.98rem; }
+.intention strong { color: #17325c; }
+.story-chunk { background: #f2f6fb; border-left: 4px solid #1b3a6b; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f2f6fb; border: 1px solid #cbdaee; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #17325c; }
+.reveal-btn { background: #e4edf8; border: 1px solid #a9c4e6; color: #17325c; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #d3e1f1; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #8fb0d9; background: transparent; padding: 2px 6px; font: inherit; color: #17325c; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #1b3a6b; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #1e4e8c 0%, #1b3a6b 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #17325c; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #17325c; }
+.speak-prompt { background: linear-gradient(135deg, #ecf2f9 0%, #e6eef8 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #1b3a6b; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #17325c; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #1d2f4d; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #cbdaee; border-left: 4px solid #1b3a6b; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #17325c; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.note { background:#f6f9fd; border:1px solid #d6e3f2; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#17325c; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+
+.diagram { text-align:center; margin: 10px 0 18px; }
+.diagram svg { max-width: 100%; height: auto; }
+.steps { margin: 6px 0 14px 22px; color:#3a3a4a; }
+.steps li { margin-bottom: 8px; }
+.sort-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; background:#f2f6fb; border:1px solid #cbdaee; border-radius:10px; padding:10px 14px; margin:8px 0; }
+.sort-row .txt { flex: 1 1 320px; color:#2a3a3a; }
+.sort-row select { font: inherit; padding:5px 8px; border:1px solid #a9c4e6; border-radius:8px; background:white; color:#17325c; min-width: 190px; }
+.sort-row .mark { width: 22px; font-weight:700; text-align:center; }
+.sort-row.ok { border-color:#6fbf73; background:#eef8ee; }
+.sort-row.bad { border-color:#e0a0a0; background:#fbf0f0; }
+.check-btn { background: linear-gradient(135deg, #1e4e8c, #1b3a6b); color:white; border:none; padding:8px 16px; border-radius:16px; cursor:pointer; font-size:0.88rem; font-weight:600; margin: 10px 8px 0 0; }
+.score { font-weight:700; color:#17325c; margin-left:6px; }
+.cousins { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin: 10px 0; }
+.cousin { background:#f6f9fd; border:1px solid #d6e3f2; border-radius:10px; padding:12px 14px; font-size:0.93rem; color:#3a3a4a; }
+.cousin b { color:#17325c; display:block; margin-bottom:3px; }
+.cousin a { color:#1b3a6b; font-weight:600; }
+.series-strip { text-align:center; font-size:0.86rem; margin: 0 0 16px; color:#5a6a6a; }
+.series-strip a { color:#1b3a6b; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">BET THE COMPANY · C1 · 50 min</span>
+        <h1>The Hiring Tool That Learned the Wrong Lesson</h1>
+        <p>Amazon built a program to read job applications and give each one a score. Then its engineers noticed what it had taught itself about women.</p>
+    </header>
+
+    <p class="series-strip"><a href="bet_the_company_dashboard.html">All the cases</a></p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Story</button>
+        <button class="tab-btn" onclick="showTab(2)">The Tool</button>
+        <button class="tab-btn" onclick="showTab(3)">Language — Balancing an argument</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+    </nav>
+
+    <!-- TAB 0 -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll follow a real case of an AI hiring tool that went wrong, learn a two-question test for deciding whether to trust an AI recommendation, and practise arguing both sides before you give your own.</div>
+            <div class="discuss">
+                <strong>Before we start — talk these through:</strong>
+                <ul>
+                    <li>How are candidates sorted at the start of a hiring process where you work, or in a company you know? Who looks at the first pile?</li>
+                    <li>Would you rather be judged by a person who is sometimes unfair, or by a program that is consistent but cannot explain itself? Why?</li>
+                    <li>What could go wrong if a tool learns from what a company did in the past?</li>
+                </ul>
+            </div>
+
+            <h2>The vocabulary of this story</h2>
+            <p>Ten items. Say your answer <strong>out loud before you reveal it</strong>.</p>
+
+            <h3>A · What do they mean here? Work it out from the context</h3>
+            <p>Read the sentence, guess the meaning of the word in bold, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The system was <b>trained</b> on ten years of old applications, most of them from men.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>train</b> (a program) — to feed it a large amount of examples so that it learns patterns from them.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">The program began to <b>penalise</b> any CV that contained the word "women's".</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>penalise</b> — to give someone a worse score or treatment because of something. The noun is <b>penalty</b>.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Engineers tried to make the tool <b>neutral</b>, but they could not be sure it had stopped.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>neutral</b> — not favouring either side or any group.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">In the end the company <b>disbanded</b> the team that had built it.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>disband</b> — to close a group or team so that it no longer exists.</div>
+            </div>
+            <h3>B · Which expression fits?</h3>
+            <p>Say the expression you would use, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The tool was good at finding people who looked like the people the company had hired before.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>reproduce a pattern</b> — to repeat something that already existed, often without anyone intending it.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Recruiters looked at its scores but did not rely on them alone.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>rely on</b> — to depend on something or someone, trusting that it will work.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">It is hard to say why the program chose one applicant over another. Nobody can see inside it.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>black box</b> — a system whose results you can see but whose way of working you cannot explain.</div>
+            </div>
+            <h3>C · Which word completes all three phrases?</h3>
+            <p>One missing word fits every phrase in the group. Say it, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">unconscious ___ &nbsp;·&nbsp; show ___ &nbsp;·&nbsp; a ___ against older workers</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>bias</b> — an unfair preference for or against someone, often one that the person does not notice.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">a clear ___ &nbsp;·&nbsp; the selection ___ &nbsp;·&nbsp; hiring ___</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>criteria</b> (singular <b>criterion</b>) — the standards by which something or someone is judged.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">shortlist the ___ &nbsp;·&nbsp; a strong ___ &nbsp;·&nbsp; interview each ___</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>candidate</b> — a person who is applying for a job.</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Before we read:</strong>
+                <ul>
+                    <li>Have you ever been <strong>screened out</strong> of something by a form or a system? How did it feel?</li>
+                    <li>What <strong>criteria</strong> do you use, even without noticing, when you choose a supplier or a colleague?</li>
+                    <li>In your work, is there a decision you would never let anything <strong>black box</strong> make?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The story, in three parts</h2>
+            <p>Read each part. After it, answer the quick check from memory, then discuss one question.</p>
+
+            <h3>Part 1 — Five stars for a candidate</h3>
+            <div class="story-chunk">
+                <p>In 2014, a team of machine-learning engineers at Amazon began work on a program that would read applications. Amazon receives a very large number of CVs, and reading them takes a very large number of recruiters. The idea was easy to state: give the program a pile of CVs and it picks out the best five, the way a shopper picks a product with five stars.</p>
+                <p>The tool did exactly that. It scored each candidate from one to five stars. To teach it what a good candidate looks like, the team fed it the CVs that had been sent to the company over the previous ten years, together with what had happened to them.</p>
+                <p>The method is a sensible one, and it is how many such programs are built. The difficulty is in what it assumes: that the past was fair.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What was the program supposed to do?</p>
+                <p>2. How did it score candidates?</p>
+                <p>3. What data was it trained on?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Read a large number of CVs and pick out the best ones, so recruiters would not have to.</p>
+                    <p><strong>2.</strong> From one to five stars, like a product rating.</p>
+                    <p><strong>3.</strong> CVs that Amazon had received over about ten years, with the outcomes.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>What does "the past was fair" mean? Can you think of a company or a field where it clearly was not?</li></ul>
+            </div>
+
+            <h3>Part 2 — What the tool noticed</h3>
+            <div class="story-chunk">
+                <p>By 2015, the engineers saw that the scores were not gender-neutral, at least for software jobs and other technical roles. Most of the CVs in the ten years of data came from men, which reflects how male the technology industry was, and the program drew the obvious conclusion. Male CVs looked like success. So it marked down CVs that included the word "women's", as in "captain of the women's chess club", and, according to people who spoke to Reuters, it downgraded graduates of two women's colleges.</p>
+                <p>The engineers corrected those particular signals. The trouble was that they could not be certain what else the program had learned. It was looking for patterns they could not see, and removing one pattern did not guarantee the next one had not taken its place.</p>
+                <p>Recruiters had looked at the tool's recommendations, though, according to the sources, they never relied on its ranking alone. That helped a little. It did not make the scores meaningful.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What did the engineers find in 2015?</p>
+                <p>2. Why did the program penalise some CVs?</p>
+                <p>3. Why could the engineers not simply fix the problem?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> That the scores for technical jobs were not gender-neutral.</p>
+                    <p><strong>2.</strong> Most of the CVs it learned from came from men, so it treated male CVs as the pattern of success.</p>
+                    <p><strong>3.</strong> They could remove the signals they found, but they could not be sure the program had not learned other, hidden ones.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>The program did what it was designed to do. Who, if anyone, is to blame?</li></ul>
+            </div>
+
+            <h3>Part 3 — A quiet ending</h3>
+            <div class="story-chunk">
+                <p>Amazon never launched the tool as the only way of choosing people. By the start of 2017, according to Reuters, executives had lost hope in the project and the team was disbanded. Amazon did not comment on the story when it appeared in October 2018, but it said that it was committed to diversity and equality in its workplace.</p>
+                <p>Nobody was fined and there was no court case, which is part of why the story is useful. It shows a mistake found early, by the builders, and corrected by stopping. Most companies are less lucky, and a screening tool bought from a supplier may give its users much less to see.</p>
+                <p>The lesson for anyone who recommends AI to a client is not that these tools never work. It is that you should ask what a tool learned from, and whether anyone can explain what it does. If the answer to the second question is no, the recommendation has to be much more careful.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What happened to the team by the start of 2017?</p>
+                <p>2. Why is the story still useful if nobody was fined?</p>
+                <p>3. What two things should a consultant ask about an AI tool?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> It was disbanded, because executives had lost hope in the project.</p>
+                    <p><strong>2.</strong> It shows a problem found early by the builders and corrected by stopping, which is rarer than a problem found afterwards.</p>
+                    <p><strong>3.</strong> What the tool learned from, and whether anyone can explain what it does.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Reuters reported this because people inside the company talked. What would have happened if they had not?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>How the tool works</h2>
+            <p>When a tool offers to rank, score or sort people, two questions decide how far to trust it. The first is whether it saves real time. The second is whether you could explain, to the person it affects, why it chose as it did. Put the two answers on a grid and the recommendation almost makes itself.</p>
+            <div class="diagram"><svg viewBox="0 0 536 290" width="536" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1b3a6b"/></marker></defs><rect x="96" y="20" width="210" height="100" fill="#d6e4f5" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="54.4">SAFE, SLOW</tspan><tspan x="201.0" y="70.0">explainable,</tspan><tspan x="201.0" y="85.6">little gained</tspan></text><rect x="306" y="20" width="210" height="100" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="54.4">USE IT</tspan><tspan x="411.0" y="70.0">explainable</tspan><tspan x="411.0" y="85.6">and faster</tspan></text><rect x="96" y="120" width="210" height="100" fill="#eef2f7" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="154.4">DROP IT</tspan><tspan x="201.0" y="170.0">no gain,</tspan><tspan x="201.0" y="185.6">no reason</tspan></text><rect x="306" y="120" width="210" height="100" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="154.4">DANGER</tspan><tspan x="411.0" y="170.0">fast, but</tspan><tspan x="411.0" y="185.6">no why</tspan></text><line x1="96" y1="226" x2="516" y2="226" stroke="#1b3a6b" stroke-width="2"/><line x1="90" y1="220" x2="90" y2="20" stroke="#1b3a6b" stroke-width="2"/><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1b3a6b" text-anchor="middle" dominant-baseline="middle"><tspan x="306.0" y="250.0">Does it save real time?</tspan></text><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1b3a6b" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 24 120.0)"><tspan x="24" y="120.0">Can you explain it?</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle"><tspan x="201.0" y="270.0">no</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle"><tspan x="411.0" y="270.0">yes</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 74 70.0)"><tspan x="74" y="70.0">yes</tspan></text><text font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#556" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 74 170.0)"><tspan x="74" y="170.0">no</tspan></text></svg></div>
+            <h3>Using it, step by step</h3>
+            <ol class="steps">
+                <li><strong>Ask what it learned from.</strong> A tool trained on past decisions will repeat them. <em>Which years, whose decisions, and were those decisions fair?</em></li>
+                <li><strong>Ask the explain-it question.</strong> <em>Could I tell the candidate, in two sentences, why they were not shortlisted?</em> If the honest answer is "the system said so", you are in the bottom right of the grid.</li>
+                <li><strong>Find the cell, then make a recommendation with conditions.</strong> Not "yes" or "no". <em>Yes, for sorting by availability and location; no, for ranking people, unless a person reviews every rejection.</em></li>
+                <li><strong>Say what you would check after a month.</strong> A tool is not finished when it is bought. <em>We would look at who is being rejected and compare it with who applied.</em></li>
+            </ol>
+
+            <h3>Try it yourself</h3>
+            <p>Each line is part of a recommendation about an AI screening tool. Is it giving a reason for it, a reason against it, a condition, or a hedge that says nothing? Choose, then check.</p>
+            <div id="sort1">
+                <div class="sort-row" data-answer="For">
+                    <span class="txt">1. It reads in a minute what a recruiter reads in a quarter of an hour.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Against">
+                    <span class="txt">2. It was trained on past decisions, so it may repeat past unfairness.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Condition">
+                    <span class="txt">3. A person must review every candidate it rejects.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Empty hedge">
+                    <span class="txt">4. There are certainly pros and cons to consider.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Against">
+                    <span class="txt">5. Nobody can tell us why it ranks one candidate above another.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Empty hedge">
+                    <span class="txt">6. It could be useful, depending on various factors.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="For">
+                    <span class="txt">7. It consistently applies the same rules to every application.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Condition">
+                    <span class="txt">8. We check every month who it rejects and compare them with who applied.</span>
+                    <select><option value="">choose…</option><option value="For">For</option><option value="Against">Against</option><option value="Condition">Condition</option><option value="Empty hedge">Empty hedge</option></select>
+                    <span class="mark"></span>
+                </div>
+                <button class="check-btn" onclick="checkSort('sort1')">Check my answers</button><span class="score"></span>
+                <br><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show the reasons</button>
+                <div class="answers">
+                    <p><strong>1. For</strong> — a clear benefit: real time saved.</p>
+                    <p><strong>2. Against</strong> — a specific risk, with a reason.</p>
+                    <p><strong>3. Condition</strong> — a rule you could check, which makes the tool safer.</p>
+                    <p><strong>4. Empty hedge</strong> — it says nothing a listener could use or argue with.</p>
+                    <p><strong>5. Against</strong> — if you cannot explain a decision, you cannot defend it.</p>
+                    <p><strong>6. Empty hedge</strong> — which factors? The sentence avoids the work of naming them.</p>
+                    <p><strong>7. For</strong> — consistency is a genuine strength, as long as the rules are fair.</p>
+                    <p><strong>8. Condition</strong> — a named check, with a time, that you could carry out.</p>
+                </div>
+            </div>
+
+            <h3>Where the tool breaks</h3>
+            <div class="note">
+                <p><strong>Not every tool is a black box.</strong> A simple filter, such as "has the required licence", is easy to explain. The test matters most for tools that rank or score people.</p>
+                <p><strong>Humans are biased too.</strong> A fair recommendation says so. The question is not whether the tool is perfect, but whether you can see and correct its mistakes more easily than a person's.</p>
+                <p><strong>The law can matter.</strong> Hiring decisions are regulated in many countries, and some places now require employers to tell candidates when automated tools are used. Check the local rules before recommending anything.</p>
+            </div>
+            <div class="discuss">
+                <strong>Talk it through:</strong>
+                <ul>
+                    <li>Where would you put the tool in the story on the grid, and where would you want it to be?</li>
+                    <li>Is a consistent but biased tool better or worse than an inconsistent human?</li>
+                </ul>
+            </div>
+
+            <h3>Its cousins</h3>
+            <div class="cousins">
+                <div class="cousin"><b>The Report With Invented Sources</b>A consultancy and an AI tool that invented footnotes. <a href="bc_ai_report_c1.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>The Chatbot That Made a Promise</b>Who is responsible for what an AI tool tells a customer? <a href="bc_ai_chatbot_c1.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>Bet the Company: all the cases</b>Real business decisions, told as stories, with a language tool in each. <a href="bet_the_company_dashboard.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>Begin With the End</b>Three C1 lessons on answering clearly and holding your position. <a href="begin_with_the_end_dashboard.html">Open the lesson &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Language — Balancing an argument</h2>
+            <p>A good recommendation shows both sides before it chooses one. The grammar of balance is mostly small connecting words, and each one changes how fair you sound.</p>
+            <div class="note">
+                <strong>Contrast inside one sentence:</strong> <em>Although the tool was fast, nobody could explain its scores. While it saved time, it also copied old habits. The tool was fast, whereas the old process was slow.</em> <em>Although</em> and <em>while</em> introduce the point you are about to set aside. <em>Whereas</em> compares two things side by side.
+            </div>
+            <div class="note">
+                <strong>On the one hand… on the other hand…:</strong> <em>On the one hand, it removes hours of routine reading. On the other hand, nobody can say why it rejects a person.</em> Use it for two balanced points, then give your decision with <em>on balance</em> or <em>overall</em>.
+            </div>
+            <div class="note">
+                <strong>Conceding before you disagree:</strong> <em>It is true that the tool saves time, but that is not the main question. Admittedly, humans are biased as well; even so, we can ask a human to explain.</em> A concession shows that you have heard the other side.
+            </div>
+
+            <h3>1. Join the ideas</h3>
+            <p>Choose the best connector from the box. Use each once: <em>although · whereas · even so · on balance</em>.</p>
+            <div class="gap-fill">
+                <p>1. <input type="text" placeholder="..."> the tool was fast, its scores could not be explained.</p>
+                <p>2. Recruiters read a few CVs a day, <input type="text" placeholder="..."> the program could read thousands.</p>
+                <p>3. Humans are biased too. <input type="text" placeholder="...">, a person can be asked to explain a decision.</p>
+                <p>4. <input type="text" placeholder="...">, I would recommend using it for sorting but not for ranking.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>Although</strong> — introduces the point being set aside</p>
+                    <p>2. <strong>whereas</strong> — compares two things</p>
+                    <p>3. <strong>Even so</strong> — accepts the point, then continues</p>
+                    <p>4. <strong>On balance</strong> — gives the decision after weighing both sides</p>
+                </div>
+            </div>
+
+            <h3>2. Sound fair</h3>
+            <p>Rewrite each flat sentence with the connector in brackets so that it sounds balanced.</p>
+            <div class="gap-fill">
+                <p>1. The tool is quick. It cannot explain its choices. (Although)</p>
+                <p>2. It is consistent. It may be consistently unfair. (While)</p>
+                <p>3. A person reads slowly. A program reads fast. (whereas)</p>
+                <p>4. It saves money. We would still keep a person in the loop. (Even though)</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>Although the tool is quick, it cannot explain its choices.</strong></p>
+                    <p>2. <strong>While it is consistent, it may be consistently unfair.</strong></p>
+                    <p>3. <strong>A person reads slowly, whereas a program reads fast.</strong></p>
+                    <p>4. <strong>Even though it saves money, we would still keep a person in the loop.</strong></p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Now give a balanced view of one tool you use at work, in four sentences. Use two different connectors and finish with on balance.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>Three tasks about judging an AI recommendation. Read the situation, take a moment, and speak. Aim for about a minute each.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> “On the one hand… on the other hand…” · “Although it saves time…” · “Could you explain it to the candidate?” · “On balance…” · “My condition would be…”
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 1 — Tell the story</span>
+                <p>Retell the Amazon case in about a minute to someone who has never heard of it. Say what the tool was for, what it learned, and why the project ended.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 2 — Both sides, then yours</span>
+                <p>A client who runs a recruitment business asks whether AI should screen the first thousand CVs for a vacancy. Give the case for it in thirty seconds, the case against it in thirty seconds, and then your own recommendation with one condition. Use the grid to place the tool.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 3 — The candidate calls</span>
+                <p>You are advising a company that used an automatic tool to reject a candidate. She calls and asks why. The person you are speaking with plays the candidate. Explain what you can, say plainly what you cannot, and say what happens next.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the harder questions</h3>
+                <ol>
+                    <li>If a tool is more consistent than people but cannot explain itself, which problem is worse?</li>
+                    <li>Amazon found the problem and stopped. What would make a smaller company do the same?</li>
+                    <li>How would you explain "trained on past decisions" to a client who has never heard the phrase?</li>
+                    <li><strong>From memory:</strong> tell the story in five sentences, using <em>penalise</em>, <em>rely on</em> and <em>black box</em>, and finish with one condition of your own.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Bet the Company · The Hiring Tool That Learned the Wrong Lesson · C1
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+
+function checkSort(id) {
+    const box = document.getElementById(id);
+    let right = 0, total = 0;
+    box.querySelectorAll('.sort-row').forEach(r => {
+        const sel = r.querySelector('select');
+        total++;
+        r.classList.remove('ok', 'bad');
+        const mark = r.querySelector('.mark');
+        if (!sel.value) { mark.textContent = ''; return; }
+        if (sel.value === r.dataset.answer) { right++; r.classList.add('ok'); mark.textContent = '\u2713'; }
+        else { r.classList.add('bad'); mark.textContent = '\u2717'; }
+    });
+    box.querySelector('.score').textContent = right + ' / ' + total;
+}
+</script>
+</body>
+</html>
