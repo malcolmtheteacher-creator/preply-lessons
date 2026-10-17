@@ -39,6 +39,39 @@ CSS = navy(T.CSS)
 JS = T.JS
 
 
+def practice_tab(pr):
+    groups = "".join(
+        f'<h3>{E(g["title"])}</h3><p class="pr-intro">{g["intro"]}</p><ol class="pr-q">' + "".join(f"<li>{q}</li>" for q in g["questions"]) + "</ol>"
+        for g in pr["groups"])
+    models = "".join(
+        f'<details class="pr-model"><summary>{m["q"]}</summary><p><strong>Point:</strong> {m["point"]}</p><p><strong>Reason:</strong> {m["reason"]}</p><p><strong>Stop:</strong> {m["stop"]}</p></details>'
+        for m in pr["models"])
+    steps = "".join(f"<li>{x}</li>" for x in pr["steps"])
+    harder = "".join(f"<li>{x}</li>" for x in pr["harder"])
+    return f'''    <!-- TAB 5 -->
+    <div class="tab-content">
+        <div class="card">
+            <style>
+            .pr-intro{{color:#555;margin:2px 0 8px}} .pr-q{{margin:0 0 14px 22px}} .pr-q li{{margin:5px 0}}
+            .pr-model{{background:#f2f6fb;border:1px solid #d3e1f1;border-radius:8px;padding:10px 16px;margin:8px 0}}
+            .pr-model summary{{cursor:pointer;font-weight:600;color:#1b3a6b}} .pr-model p{{margin:8px 0 0}}
+            </style>
+            <h2>Practice</h2>
+            <p>{pr["intro"]}</p>
+            <div class="note"><strong>Each time:</strong><ol style="margin:8px 0 0 22px">{steps}</ol></div>
+            <h2>The questions</h2>
+            {groups}
+            <h2>How it sounds</h2>
+            <p>Six examples of the shape. Try the question first, then open the answer.</p>
+            {models}
+            <h2>Make it harder</h2>
+            <ul style="margin:6px 0 0 22px">{harder}</ul>
+        </div>
+    </div>
+
+'''
+
+
 def lesson(d, lessons):
     i = [x["slug"] for x in lessons].index(d["slug"])
     prev = lessons[i - 1] if i > 0 else None
@@ -143,6 +176,10 @@ def lesson(d, lessons):
 </body>
 </html>
 '''
+    if d.get("practice"):
+        body = body.replace('        <button class="tab-btn" onclick="showTab(4)">Speak</button>',
+            '        <button class="tab-btn" onclick="showTab(4)">Speak</button>\n        <button class="tab-btn" onclick="showTab(5)">Practice</button>', 1)
+        body = body.replace('    <footer>', practice_tab(d["practice"]) + '    <footer>', 1)
     return body
 
 
