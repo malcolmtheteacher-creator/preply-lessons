@@ -371,7 +371,7 @@ def back_tab(d, titles, prev, nxt):
     return "".join(parts)
 
 
-PICS = {1: "threshold", 2: "images", 3: "threshold", 4: "banquet", 5: "images", 6: "wheel", 7: "wheel", 8: "allegory", 9: "images", 10: "wheel",
+PICS = {1: "images", 2: "images", 3: "threshold", 4: "banquet", 5: "images", 6: "wheel", 7: "wheel", 8: "allegory", 9: "images", 10: "wheel",
         11: "allegory", 12: "images", 13: "banquet", 14: "wheel", 15: "images", 16: "allegory", 17: "allegory", 18: "wheel", 19: "wheel", 20: "allegory",
         21: "images", 22: "banquet", 23: "wheel", 24: "wheel", 25: "allegory", 26: "banquet", 27: "threshold", 28: "images", 29: "threshold", 30: "banquet"}
 PIC_INFO = {
@@ -442,9 +442,10 @@ HUB_CSS = """
 .part h2 { font-size:1.5rem; color:var(--ink); margin:0 0 2px; }
 .part .blurb { color:var(--muted); margin:0 0 12px; }
 .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:14px; }
-.lcard { position:relative; display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:6px; box-shadow:0 6px 22px var(--shadow); padding:14px 18px 12px 62px; transition:transform .15s, box-shadow .15s; }
+.lcard { position:relative; display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:6px; box-shadow:0 6px 22px var(--shadow); padding:14px 18px 12px 62px; overflow:hidden; transition:transform .15s, box-shadow .15s; }
 .lcard:hover { transform:translate(-2px,-2px); box-shadow:0 10px 26px rgba(22,38,61,.22); }
-.lcard .num { position:absolute; left:14px; top:14px; width:36px; height:36px; line-height:36px; text-align:center; border-radius:50%; background:var(--gold); color:#fff; font-weight:800; }
+.lcard .thumb { display:block; width:calc(100% + 80px); margin:-14px -18px 10px -62px; height:120px; object-fit:cover; border-radius:5px 5px 0 0; }
+.lcard .num { position:absolute; left:14px; top:134px; width:36px; height:36px; line-height:36px; text-align:center; border-radius:50%; background:var(--gold); color:#fff; font-weight:800; }
 .lcard .t { display:block; font-weight:800; color:var(--ink); font-size:1.08rem; line-height:1.2; margin-bottom:2px; }
 .lcard .e { display:block; font-size:.9rem; color:#33405a; }
 .lcard.done::after { content:"\\2713 done"; position:absolute; right:10px; top:8px; font-size:.78rem; color:#2f7a36; font-weight:800; }
@@ -453,6 +454,9 @@ HUB_CSS = """
 .cta a:hover { background:#fff; color:var(--gold); border-color:var(--gold); }
 .side ul { margin:0 0 6px 20px; } .side li { margin-bottom:3px; }
 .progress { text-align:center; color:var(--muted); margin:0 0 12px; min-height:1.4rem; font-weight:600; }
+.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:0 0 22px; }
+.gallery figure { margin:0; } .gallery img { display:block; width:100%; height:130px; object-fit:cover; border-radius:6px; border:1px solid var(--line); box-shadow:0 6px 22px var(--shadow); }
+.gallery figcaption { font-size:.82rem; color:var(--muted); text-align:center; margin-top:4px; font-style:italic; }
 .stripmap { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 26px; }
 .stripmap a { text-decoration:none; background:#fff; border:2px solid var(--ink); color:var(--ink); border-radius:4px; padding:4px 14px; font-weight:700; font-size:.9rem; }
 .stripmap a:hover { background:var(--ink); color:#fff; }
@@ -465,12 +469,14 @@ def hub_page(hub, lessons):
         cards = []
         for num in w["rooms"]:
             d = next(l for l in lessons if l["num"] == num)
-            cards.append(f'<a class="lcard" href="{fname(d)}" data-room="{num:02d}"><span class="num">{num}</span><span class="t">{d["title"]}</span><span class="e">{hub["short"][str(num)]}</span></a>')
+            cards.append(f'<a class="lcard" href="{fname(d)}" data-room="{num:02d}"><img class="thumb" src="{PIC_INFO[PICS[num]][0]}" alt="" loading="lazy" onerror="this.style.display=\'none\'"><span class="num">{num}</span><span class="t">{d["title"]}</span><span class="e">{hub["short"][str(num)]}</span></a>')
         parts.append(f'<section class="part" id="part{w["roman"]}"><div class="section-label">Part {w["roman"]}</div><h2>{w["name"]}</h2><p class="blurb">{w["blurb"]}</p><div class="grid">' + "".join(cards) + "</div></section>")
     jump = "".join(f'<a href="#part{w["roman"]}">{w["roman"]} \u00b7 {w["name"]}</a>' for w in hub["wings"])
     how = "".join(f'<div class="how-step"><div class="n">{n}</div><p>{x}</p></div>' for n, x in hub["how"])
     side = "".join(f'<div class="side"><h3>{x["h"]}</h3>{x["x"]}</div>' for x in hub["sidebars"])
     first = fname(next(l for l in lessons if l["num"] == 1))
+    caps = {"threshold": "The threshold", "images": "Pictures that stick", "banquet": "The banquet hall", "wheel": "The wheel of images", "allegory": "Ideas with faces"}
+    gallery = "".join(f'<figure><img src="{PIC_INFO[k][0]}" alt="{E(PIC_INFO[k][1])}" loading="lazy"><figcaption>{caps[k]}</figcaption></figure>' for k in ["threshold", "images", "banquet", "wheel", "allegory"])
     src, alt = PIC_INFO["threshold"]
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -492,6 +498,7 @@ def hub_page(hub, lessons):
     <div class="cta"><a href="{first}">Start with lesson 1 &rarr;</a></div>
   </header>
   <figure class="scene"><img src="{src}" alt="{E(alt)}" onerror="this.closest('figure').style.display='none'"></figure>
+  <div class="gallery">{gallery}</div>
   <div class="progress" id="progress"></div>
   <div class="intro">{"".join(f"<p>{p}</p>" for p in hub["intro"])}</div>
   <div class="stripmap">{jump}</div>
