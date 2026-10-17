@@ -457,6 +457,14 @@ HUB_CSS = """
 .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:0 0 22px; }
 .gallery figure { margin:0; } .gallery img { display:block; width:100%; height:130px; object-fit:cover; border-radius:6px; border:1px solid var(--line); box-shadow:0 6px 22px var(--shadow); }
 .gallery figcaption { font-size:.82rem; color:var(--muted); text-align:center; margin-top:4px; font-style:italic; }
+header.hero { padding:0; min-height:330px; display:flex; align-items:center; text-align:left; background:#16263d; }
+header.hero::after { display:none; }
+header.hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+header.hero::before { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(22,38,61,.93) 0%, rgba(22,38,61,.78) 34%, rgba(22,38,61,0) 66%); }
+.hero-text { position:relative; z-index:2; max-width:48%; padding:26px 30px; }
+.hero-text h1 { font-size:2.3rem; } .hero-text p { margin:0; font-size:.98rem; }
+.hero .cta { text-align:left; margin-top:14px; }
+@media (max-width:768px) { header.hero { aspect-ratio:auto; min-height:520px; align-items:flex-end; text-align:center; } header.hero::before { background:linear-gradient(0deg, rgba(22,38,61,.96) 0%, rgba(22,38,61,.88) 52%, rgba(22,38,61,0) 82%); } .hero-text { max-width:100%; padding:20px 16px; } .hero-text h1 { font-size:1.8rem; } .hero .cta { text-align:center; } .gallery { grid-template-columns:repeat(2,1fr); } }
 .stripmap { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 26px; }
 .stripmap a { text-decoration:none; background:#fff; border:2px solid var(--ink); color:var(--ink); border-radius:4px; padding:4px 14px; font-weight:700; font-size:.9rem; }
 .stripmap a:hover { background:var(--ink); color:#fff; }
@@ -491,13 +499,15 @@ def hub_page(hub, lessons):
 </head>
 <body>
 <div class="container">
-  <header>
-    <span class="tag">A course \u00b7 30 lessons \u00b7 B2 English</span>
-    <h1>The Art of Memory</h1>
-    <p>{hub["tagline"]}</p>
-    <div class="cta"><a href="{first}">Start with lesson 1 &rarr;</a></div>
+  <header class="hero">
+    <img src="memory_arts_course_header.jpg" alt="An engraved view of a grand hall of columns and arches under a calm sky, in the same style as the plates in the course." onerror="this.style.display='none'">
+    <div class="hero-text">
+      <span class="tag">A course \u00b7 30 lessons \u00b7 B2 English</span>
+      <h1>The Art of Memory</h1>
+      <p>{hub["tagline"]}</p>
+      <div class="cta"><a href="{first}">Start with lesson 1 &rarr;</a></div>
+    </div>
   </header>
-  <figure class="scene"><img src="{src}" alt="{E(alt)}" onerror="this.closest('figure').style.display='none'"></figure>
   <div class="gallery">{gallery}</div>
   <div class="progress" id="progress"></div>
   <div class="intro">{"".join(f"<p>{p}</p>" for p in hub["intro"])}</div>
