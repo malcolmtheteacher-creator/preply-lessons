@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Think Inside the Box">
+<title>Circles and a Cricket Machine · B2</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fbfa; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(14,116,144,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#115e59; }
+.crosslink a { color:#0f766e; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #eef7f6; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #0e7490, #0f766e); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #115e59; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #0f766e; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #e2f4f1; border-left: 4px solid #0f766e; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #134e4a; font-size: 0.98rem; }
+.intention strong { color: #115e59; }
+.story-chunk { background: #f1f9f8; border-left: 4px solid #0f766e; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f1f9f8; border: 1px solid #c5e6e1; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #115e59; }
+.reveal-btn { background: #e2f4f1; border: 1px solid #99d5cc; color: #115e59; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #cdeae5; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #7cc4bb; background: transparent; padding: 2px 6px; font: inherit; color: #115e59; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #0f766e; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #115e59; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #115e59; }
+.speak-prompt { background: linear-gradient(135deg, #eaf6f4 0%, #e3f2ef 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #0f766e; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #115e59; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #1f3d3a; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #c5e6e1; border-left: 4px solid #0f766e; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #115e59; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.note { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#115e59; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+
+.diagram { text-align:center; margin: 10px 0 18px; }
+.diagram svg { max-width: 100%; height: auto; }
+.steps { margin: 6px 0 14px 22px; color:#3a3a4a; }
+.steps li { margin-bottom: 8px; }
+.sort-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; background:#f1f9f8; border:1px solid #c5e6e1; border-radius:10px; padding:10px 14px; margin:8px 0; }
+.sort-row .txt { flex: 1 1 320px; color:#2a3a3a; }
+.sort-row select { font: inherit; padding:5px 8px; border:1px solid #99d5cc; border-radius:8px; background:white; color:#115e59; min-width: 190px; }
+.sort-row .mark { width: 22px; font-weight:700; text-align:center; }
+.sort-row.ok { border-color:#6fbf73; background:#eef8ee; }
+.sort-row.bad { border-color:#e0a0a0; background:#fbf0f0; }
+.check-btn { background: linear-gradient(135deg, #0e7490, #0f766e); color:white; border:none; padding:8px 16px; border-radius:16px; cursor:pointer; font-size:0.88rem; font-weight:600; margin: 10px 8px 0 0; }
+.score { font-weight:700; color:#115e59; margin-left:6px; }
+.cousins { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin: 10px 0; }
+.cousin { background:#f5fbfa; border:1px solid #cfe7e3; border-radius:10px; padding:12px 14px; font-size:0.93rem; color:#3a3a4a; }
+.cousin b { color:#115e59; display:block; margin-bottom:3px; }
+.cousin a { color:#0f766e; font-weight:600; }
+.series-strip { text-align:center; font-size:0.86rem; margin: 0 0 16px; color:#5a6a6a; }
+.series-strip a { color:#0f766e; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">THINK INSIDE THE BOX · TOOL 20 · B2 · 50 min</span>
+        <h1>Circles and a Cricket Machine</h1>
+        <p>A Cambridge logician didn't invent overlapping circles — and said so. But he used them so well that his name stuck. He also built a machine that bowled out an Australian star.</p>
+    </header>
+
+    <p class="series-strip"><a href="tib_hypecycle_b2.html">&larr; The Hype Cycle</a> &nbsp;·&nbsp; <a href="think_inside_the_box_dashboard.html">All the tools</a> &nbsp;·&nbsp; <a href="tib_mindmap_b2.html">The Mind Map &rarr;</a></p>
+
+
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Story</button>
+        <button class="tab-btn" onclick="showTab(2)">The Tool</button>
+        <button class="tab-btn" onclick="showTab(3)">Grammar — both, either, neither — and so do I</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+    </nav>
+
+    <!-- TAB 0: KEY WORDS -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll learn the story of John Venn and his circles, use a Venn diagram to compare two options, and practise talking about what things share: <em>both, either, neither, so do I, neither do I</em>.</div>
+            <div class="discuss">
+                <strong>Before we start — talk these through:</strong>
+                <ul>
+                    <li>Think of a friend who is very different from you. What do you have in common?</li>
+                    <li>When you compare two options — two jobs, two cities — how do you organise your thinking?</li>
+                    <li>Do you remember drawing overlapping circles at school? What for?</li>
+                </ul>
+            </div>
+
+            <h2>The vocabulary of this story</h2>
+            <p>Ten items. Say your answer <strong>out loud before you reveal it</strong>.</p>
+
+            <h3>A · What do they mean here? Work it out from the context</h3>
+            <p>Read the sentence, guess the meaning of the word in bold, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The two courses <b>overlap</b>: both cover statistics, but only one includes programming.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>overlap</b> — to cover part of the same area or subject. (noun: <i>an overlap between two things</i>)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">As a <b>logician</b>, she was interested in what makes an argument valid.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>logician</b> — an expert in logic, the study of correct reasoning. (<i>logic, logical, illogical</i>)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">The app helps you <b>visualise</b> your spending, so you can see at a glance where the money goes.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>visualise</b> — to form a picture of something, in your mind or on paper. (noun <i>visualisation</i>; adj. <i>visual</i>)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">He resigned because the company's new direction was <b>incompatible</b> with his values.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>incompatible</b> — too different to exist or work together. (opposite <i>compatible</i>; <i>incompatible with</i>)</div>
+            </div>
+            <h3>B · Which word matches the meaning?</h3>
+            <p>The three words are: <strong>intersection · exclusive · category</strong>. Read each meaning, say the word, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">(adjective) Belonging to one group only; not shared.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>exclusive</b> — “The two options are mutually <b>exclusive</b>: you can't choose both.”</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(noun) A group of things that have something in common.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>category</b> — “Sort the words into three <b>categories</b>.” (verb <i>categorise</i>)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">(noun) The place or set where two things cross or overlap.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>intersection</b> — “Her work sits at the <b>intersection</b> of art and science.” (also: a road junction)</div>
+            </div>
+            <h3>C · Which word completes all three phrases?</h3>
+            <p>One missing word fits every phrase in the group. Say it, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">have a lot in ___ &nbsp;·&nbsp; ___ ground &nbsp;·&nbsp; ___ sense</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>common</b> — shared. (<i>have something in common, find common ground, common sense</i>)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">___ a resemblance to &nbsp;·&nbsp; ___ in mind &nbsp;·&nbsp; can't ___ it</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>bear</b> — (<i>bear a resemblance to</i> = look like; <i>bear in mind</i> = remember; <i>can't bear</i> = hate)</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">draw a ___ &nbsp;·&nbsp; reach a ___ &nbsp;·&nbsp; jump to ___s</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>conclusion</b> — the judgement you reach after thinking. (verb <i>conclude</i>)</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Before we read:</strong>
+                <ul>
+                    <li>What do you and your best friend have in <strong>common</strong>? Where don't you <strong>overlap</strong>?</li>
+                    <li>Name two things in your life that sometimes feel <strong>incompatible</strong> — work and family, sleep and a new baby?</li>
+                    <li>When you think, do you <strong>visualise</strong> things, or think in words?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: THE STORY -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The story, in three parts</h2>
+            <p>Read each part. After it, answer the quick check from memory, then discuss one question.</p>
+
+            <h3>Part 1 — A family of preachers</h3>
+            <div class="story-chunk">
+                <p>John Venn was born in Hull, in the north of England, in 1834, into a family of evangelical churchmen. His grandfather, also called John Venn, had been rector of Clapham and a leader of the Clapham Sect, the group that campaigned against slavery. Everyone expected young John to become a priest too.</p>
+                <p>In 1853 he went to Gonville and Caius College, Cambridge, and in 1857 he graduated as sixth Wrangler — sixth among the best mathematics students of his year. Two years later he was ordained as a priest.</p>
+                <p>But in 1862 he returned to Cambridge to teach moral sciences — subjects that included logic and probability. Teaching changed the direction of his life. He needed ways to make difficult arguments clear to his students.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What did his family expect him to become?</p>
+                <p>2. What does “sixth Wrangler” mean?</p>
+                <p>3. Why did he return to Cambridge in 1862?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> A priest.</p>
+                    <p><strong>2.</strong> He was ranked sixth among the best mathematics students of his year.</p>
+                    <p><strong>3.</strong> To teach moral sciences, including logic and probability.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Have you ever followed a path that other people expected, and then changed direction?</li></ul>
+            </div>
+
+            <h3>Part 2 — Circles that were not new</h3>
+            <div class="story-chunk">
+                <p>In July 1880, Venn published a paper with a long title: “On the Diagrammatic and Mechanical Representation of Propositions and Reasonings”. In it, he used overlapping circles to show logical statements. With three circles, every possible combination — in A and B but not C, in all three, in none — has its own space.</p>
+                <p>He never claimed the idea was his own. Circles had been used for logic before, most famously by the mathematician Leonhard Euler in his <em>Letters to a German Princess</em> of 1768, and Venn called his diagrams “Eulerian circles”. He later wrote: “Of course the device was not new then, but it was so obviously representative of the way in which any one, who approached the subject from the mathematical side, would attempt to visualise propositions, that it was forced upon me almost at once.”</p>
+                <p>What Venn added was a system: his diagrams show every possible overlap, even the empty ones. The name “Venn diagram” came later; the philosopher Clarence Irving Lewis used it in 1918.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. When did Venn publish his paper?</p>
+                <p>2. What did Venn call his diagrams?</p>
+                <p>3. What did Venn add to the older circles?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> In July 1880.</p>
+                    <p><strong>2.</strong> “Eulerian circles”.</p>
+                    <p><strong>3.</strong> A system that shows every possible overlap, even the empty ones.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Is it fair that the diagram carries Venn's name, not Euler's?</li></ul>
+            </div>
+
+            <h3>Part 3 — The machine that bowled a star</h3>
+            <div class="story-chunk">
+                <p>In 1883 Venn left the clergy, having concluded that his beliefs were incompatible with the Church of England. In the same year he was elected a Fellow of the Royal Society. Later in life he turned to history, and with his son compiled an enormous register of past members of the university.</p>
+                <p>He also had a rare talent for building machines. One of them bowled cricket balls. When the Australian team visited Cambridge in 1909, the machine reportedly bowled out one of their star batsmen, Victor Trumper. In 2024, the university's engineering department built a new version of it.</p>
+                <p>Venn died in 1923. Today he is remembered in a stained-glass window at his old college, on a bridge in Hull, and in almost every classroom in the world. Not bad for a man who borrowed his most famous idea — and was honest enough to say so.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. Why did Venn leave the clergy?</p>
+                <p>2. What happened when the Australian team visited Cambridge?</p>
+                <p>3. Give two ways Venn is remembered today.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> He concluded that his beliefs were incompatible with the Church of England.</p>
+                    <p><strong>2.</strong> His bowling machine reportedly bowled out their star batsman, Victor Trumper.</p>
+                    <p><strong>3.</strong> Any two: a stained-glass window at his college, a bridge in Hull, Venn diagrams in classrooms.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Why do some people become famous for ideas they didn't invent?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: THE TOOL -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>How the tool works</h2>
+            <p>Each circle is a group. Where the circles overlap, things belong to both groups; outside the circles are things that belong to neither. Here, two job offers are compared.</p>
+            <div class="diagram"><svg viewBox="0 0 600 330" width="600" xmlns="http://www.w3.org/2000/svg" role="img"><rect x="8" y="8" width="584" height="314" rx="12" fill="#eef2f1" stroke="#c5e6e1"/><circle cx="225" cy="160" r="125" fill="#d4eeea" fill-opacity="0.75" stroke="#0f766e" stroke-width="2"/><circle cx="375" cy="160" r="125" fill="#d6e4f5" fill-opacity="0.6" stroke="#0f766e" stroke-width="2"/><text font-family="Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle"><tspan x="185" y="54.0">Job A</tspan></text><text font-family="Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle" dominant-baseline="middle"><tspan x="415" y="54.0">Job B</tspan></text><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="175" y="144.4">city centre</tspan><tspan x="175" y="160.0">high salary</tspan><tspan x="175" y="175.6">long hours</tspan></text><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="425" y="144.4">work from home</tspan><tspan x="425" y="160.0">4-day week</tspan><tspan x="425" y="175.6">lower pay</tspan></text><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="300.0" y="144.4">friendly team</tspan><tspan x="300.0" y="160.0">training</tspan><tspan x="300.0" y="175.6">pension</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#556" text-anchor="end" dominant-baseline="middle"><tspan x="576" y="306.0">outside both circles: company car (neither offers it)</tspan></text></svg></div>
+            <h3>Using it, step by step</h3>
+            <ol class="steps">
+                <li>Choose what you are comparing — two or three things — and draw one circle for each.</li>
+                <li>Put features that only one thing has in its own part of its circle.</li>
+                <li>Put shared features in the overlap. With three circles, check every overlap, including the middle.</li>
+                <li>Read the picture: is the overlap big or small? Are the differences the ones that matter to you?</li>
+            </ol>
+
+            <h3>Try it yourself</h3>
+            <p>Two friends are choosing a holiday: the mountains or the coast. Where on the diagram does each feature go?</p>
+            <div id="sort1">
+                <div class="sort-row" data-answer="Both">
+                    <span class="txt">1. Cheap flights from their city.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Mountains only">
+                    <span class="txt">2. Skiing and hiking trails.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Neither">
+                    <span class="txt">3. A theme park.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Coast only">
+                    <span class="txt">4. Fresh seafood restaurants by the harbour.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Both">
+                    <span class="txt">5. Beautiful views and local festivals.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Coast only">
+                    <span class="txt">6. Boat trips and surfing lessons.</span>
+                    <select><option value="">choose…</option><option value="Mountains only">Mountains only</option><option value="Coast only">Coast only</option><option value="Both">Both</option><option value="Neither">Neither</option></select>
+                    <span class="mark"></span>
+                </div>
+                <button class="check-btn" onclick="checkSort('sort1')">Check my answers</button><span class="score"></span>
+                <br><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show the reasons</button>
+                <div class="answers">
+                    <p><strong>1. Both</strong> — both places have it — the overlap.</p>
+                    <p><strong>2. Mountains only</strong> — only the mountains offer this.</p>
+                    <p><strong>3. Neither</strong> — neither place has one — outside both circles.</p>
+                    <p><strong>4. Coast only</strong> — only the coast has a harbour.</p>
+                    <p><strong>5. Both</strong> — shared by both — the overlap.</p>
+                    <p><strong>6. Coast only</strong> — only possible by the sea.</p>
+                </div>
+            </div>
+
+            <h3>Where the tool breaks</h3>
+            <div class="note">
+                <p><strong>Size isn't shown.</strong> A big area on the page might hold two tiny features; a Venn diagram doesn't measure importance.</p>
+                <p><strong>Too many circles.</strong> Beyond three, the diagram quickly becomes hard to read.</p>
+                <p><strong>Things aren't always in or out.</strong> Real categories are fuzzy: is a tomato a fruit or a vegetable?</p>
+            </div>
+            <div class="discuss">
+                <strong>Talk it through:</strong>
+                <ul>
+                    <li>Draw a Venn diagram of you and someone you know. What surprised you?</li>
+                    <li>When is a list of pros and cons better than a Venn diagram?</li>
+                </ul>
+            </div>
+
+            <h3>Its cousins</h3>
+            <div class="cousins">
+                <div class="cousin"><b>Ikigai</b>Four overlapping circles: what you love, what you're good at, what the world needs and what you can be paid for.</div>
+                <div class="cousin"><b>The Mind Map</b>Another way to organise ideas on one page — branches instead of circles. <a href="tib_mindmap_b2.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>SWOT Analysis</b>Compare the strengths and weaknesses of each option side by side. <a href="tib_swot_b2.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>The Johari Window</b>Two questions, four boxes — another picture of what's shared and what's hidden. <a href="tib_johari_b2.html">Open the lesson &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: GRAMMAR -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Grammar — both, either, neither — and so do I</h2>
+            <p>Venn diagrams are about what things share. English has a small family of words for exactly that — and a quick way to say “me too” and “me neither”.</p>
+            <div class="note">
+                <strong>both … and</strong> — two things together; <strong>both of</strong> + <em>us / them / the …</em><br>“<strong>Both</strong> the hotel <strong>and</strong> the flat have a pool.” &nbsp;“<strong>Both of them</strong> speak French.”
+            </div>
+            <div class="note">
+                <strong>either … or</strong> — one or the other; <strong>neither … nor</strong> — not one and not the other.<br>“We can meet <strong>either</strong> on Monday <strong>or</strong> on Friday.” &nbsp;“<strong>Neither</strong> the bus <strong>nor</strong> the train goes there.”
+            </div>
+            <div class="note">
+                <strong>either of / neither of + plural noun</strong> — usually with a singular verb in careful English.<br>“<strong>Neither of</strong> the plans <strong>is</strong> perfect.”
+            </div>
+            <div class="note">
+                <strong>so / neither + auxiliary + subject</strong> — for agreeing.<br>“I love jazz.” — “<strong>So do I</strong>.” &nbsp;“I can't swim.” — “<strong>Neither can I</strong>.” &nbsp;“She went to Rome.” — “<strong>So did we</strong>.”
+            </div>
+            <div class="note">
+                <strong>Watch out:</strong> no double negative: ~~Neither of them didn't come~~ → “<strong>Neither of them came</strong>.”
+            </div>
+
+            <h3>1. Complete the sentences</h3>
+            <p>Use <em>both, either, neither, nor</em> or <em>or</em>.</p>
+            <div class="gap-fill">
+                <p>1. <input type="text" placeholder="..."> my brother and my sister live abroad.</p>
+                <p>2. You can pay <input type="text" placeholder="..."> by card <input type="text" placeholder="..."> in cash.</p>
+                <p>3. <input type="text" placeholder="..."> of the two jobs offers a company car.</p>
+                <p>4. The flat is neither cheap <input type="text" placeholder="..."> close to the station.</p>
+                <p>5. <input type="text" placeholder="..."> of my parents was born here — they're both from Poland.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>Both</strong></p>
+                    <p>2. <strong>either … or</strong></p>
+                    <p>3. <strong>Neither</strong></p>
+                    <p>4. <strong>nor</strong></p>
+                    <p>5. <strong>Neither</strong></p>
+                </div>
+            </div>
+
+            <h3>2. Agree with the speaker</h3>
+            <p>Respond with <em>So … I</em> or <em>Neither … I</em>.</p>
+            <div class="gap-fill">
+                <p>1. “I studied maths at university.” → <input type="text" placeholder="..."></p>
+                <p>2. “I don't like crowded beaches.” → <input type="text" placeholder="..."></p>
+                <p>3. “I've never been to Cambridge.” → <input type="text" placeholder="..."></p>
+                <p>4. “I'm going to compare the two offers tonight.” → <input type="text" placeholder="..."></p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>So did I.</strong></p>
+                    <p>2. <strong>Neither do I.</strong></p>
+                    <p>3. <strong>Neither have I.</strong></p>
+                    <p>4. <strong>So am I.</strong></p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Now compare yourself with your teacher: find two things you both like and one thing neither of you does — and react with <em>So do I / Neither do I</em>.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: SPEAK -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>Draw circles out loud. Choose a task, start the timer, and talk.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> “Both of them …” · “Neither of them …” · “That goes in the overlap.” · “So do I / Neither do I.”
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 1 — Two choices</span>
+                <p>Compare two options you are thinking about — two jobs, two phones, two places to live. What is unique to each, and what do they share?</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 2 — Three circles</span>
+                <p>Draw three circles for three people in your life. What sits in the middle — the thing all three share?</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 3 — Borrowed fame</span>
+                <p>Venn made a borrowed idea famous. Tell the story of someone else who became famous for an idea that wasn't completely new.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the harder questions</h3>
+                <ol>
+                    <li>Is it more interesting to find what people share, or how they differ?</li>
+                    <li>Venn was open about borrowing his idea. Why are many people less honest?</li>
+                    <li>Can a simple diagram ever capture a complicated decision?</li>
+                    <li><strong>From memory:</strong> compare Venn and Euler in four sentences using <em>both</em>, <em>neither</em>, <em>either</em> and <em>so did</em>.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Think Inside the Box · Circles and a Cricket Machine · B2 · Malcolm Hyndman
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+
+function checkSort(id) {
+    const box = document.getElementById(id);
+    let right = 0, total = 0;
+    box.querySelectorAll('.sort-row').forEach(r => {
+        const sel = r.querySelector('select');
+        total++;
+        r.classList.remove('ok', 'bad');
+        const mark = r.querySelector('.mark');
+        if (!sel.value) { mark.textContent = ''; return; }
+        if (sel.value === r.dataset.answer) { right++; r.classList.add('ok'); mark.textContent = '\u2713'; }
+        else { r.classList.add('bad'); mark.textContent = '\u2717'; }
+    });
+    box.querySelector('.score').textContent = right + ' / ' + total;
+}
+</script>
+</body>
+</html>
