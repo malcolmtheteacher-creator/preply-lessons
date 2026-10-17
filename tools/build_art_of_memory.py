@@ -19,9 +19,7 @@ JS = open(os.path.join(HERE, "art_of_memory_template.js"), encoding="utf-8").rea
 SERIES = "The Art of Memory"
 HUB = "art-of-memory.html"
 E = html.escape
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">')
+FONTS = ""
 
 OLD_STUBS = {  # old file name -> new file name (kept so old links still work)
     "lesson-01-how-memory-works-interactive.html": 1, "lesson-02-vivid-imagery-interactive.html": 2,
@@ -44,6 +42,7 @@ def svg_open(w, h, label):
 
 
 def txt(x, y, s, size=22, fill=INK, anchor="middle", weight="700", extra=""):
+    size = round(size * 0.84)
     return f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="{anchor}" font-size="{size}" font-weight="{weight}" fill="{fill}" {extra}>{E(s)}</text>'
 
 
@@ -322,7 +321,7 @@ def wing_of(num, hub):
 
 def story_tab(d, titles):
     s = d["story"]; out = []
-    out.append(f'<div class="intention"><b>In this room:</b> {d["goal"]}</div>')
+    out.append(f'<div class="intention"><b>In this lesson:</b> {d["goal"]}</div>')
     if d.get("left_off"):
         qa = "".join(f'<div class="qa"><div class="q">{x["q"]}</div><button class="reveal-btn">Check</button><div class="reveal">{x["a"]}</div></div>' for x in d["left_off"])
         out.append(f'<div class="left-off"><span class="lbl">{d.get("left_off_label", "Where we left off")}</span>{qa}</div>')
@@ -332,9 +331,6 @@ def story_tab(d, titles):
         chk = f'<div class="qa"><div class="q">{p["check"]["q"]}</div><button class="reveal-btn">Check from memory</button><div class="reveal">{p["check"]["a"]}</div></div>' if p.get("check") else ""
         talk = f'<div class="talk"><b class="t">Talk about it.</b> {p["talk"]}</div>' if p.get("talk") else ""
         out.append(f'<div class="story-part"><div class="story-chunk">{paras}</div><div class="after">{chk}{talk}</div></div>')
-        if i == 0 and d.get("image"):
-            im = d["image"]
-            out.append(block({"t": "image", **im}))
     out.append("<h3>Words worth knowing</h3><p>Say what you think each one means, then open it.</p><div class=\"words\">")
     for w in d["words"]:
         out.append(f'<div class="word"><button class="w" type="button">{w["w"]}</button><div class="m">{w["m"]}</div></div>')
@@ -365,7 +361,7 @@ def back_tab(d, titles, prev, nxt):
     parts = ['<h2>Look back</h2>', '<p>These reach back to earlier rooms. Answer in your head or out loud, then check.</p>']
     for x in d["look_back"]:
         t = titles[x["from"]]
-        parts.append(f'<div class="qa"><div class="q"><span class="red">Room {x["from"]} · {t}.</span> {x["q"]}</div><button class="reveal-btn">Check</button><div class="reveal">{x["a"]}</div></div>')
+        parts.append(f'<div class="qa"><div class="q"><span class="red">Lesson {x["from"]} · {t}.</span> {x["q"]}</div><button class="reveal-btn">Check</button><div class="reveal">{x["a"]}</div></div>')
     parts.append('<h3>What I can do now</h3><ul class="canlist">')
     for i, c in enumerate(d["can_do"]):
         parts.append(f'<li><label><input type="checkbox" data-save="can{i}"> <span>I can {c}</span></label></li>')
@@ -375,19 +371,32 @@ def back_tab(d, titles, prev, nxt):
     return "".join(parts)
 
 
+PICS = {1: "threshold", 2: "images", 3: "threshold", 4: "banquet", 5: "images", 6: "wheel", 7: "wheel", 8: "allegory", 9: "images", 10: "wheel",
+        11: "allegory", 12: "images", 13: "banquet", 14: "wheel", 15: "images", 16: "allegory", 17: "allegory", 18: "wheel", 19: "wheel", 20: "allegory",
+        21: "images", 22: "banquet", 23: "wheel", 24: "wheel", 25: "allegory", 26: "banquet", 27: "threshold", 28: "images", 29: "threshold", 30: "banquet"}
+PIC_INFO = {
+    "threshold": ("memory_arts_notes_threshold.jpg", "An engraved view into an empty grand house at dawn, with small gold markers along the doorway, a window, a hearth and a table."),
+    "images": ("memory_arts_notes_images.jpg", "An engraving of a grand room full of strange, vivid pictures: a cat attacking a soldier, a burning lute, a monkey on a cabinet, a loaf of bread with a sleeping face."),
+    "banquet": ("memory_arts_notes_banquet.jpg", "An engraving of a banquet hall just after the roof has fallen in, with small gold stars marking where each guest sat."),
+    "wheel": ("memory_arts_notes_wheel.jpg", "An engraving of three huge turning wheels covered in small pictures, between statues and globes."),
+    "allegory": ("memory_arts_notes_allegory.jpg", "An engraving of seven women in a columned hall, each holding a symbol such as a book, scales, compasses, a counting frame, a lute and a globe."),
+}
+
+
 def lesson_page(d, hub, lessons):
     titles = {x["num"]: x["title"] for x in lessons}
     w = wing_of(d["num"], hub)
     prev = next((x for x in lessons if x["num"] == d["num"] - 1), None)
     nxt = next((x for x in lessons if x["num"] == d["num"] + 1), None)
-    nav = []
-    nav.append(f'<a href="{fname(prev)}">&larr; {prev["title"]}</a>' if prev else f'<a href="{HUB}">&larr; The house</a>')
-    nav.append(f'<a href="{HUB}">The whole house</a>')
-    nav.append(f'<a href="{fname(nxt)}">{nxt["title"]} &rarr;</a>' if nxt else f'<a href="{HUB}">Back to the house</a>')
-    nav = '<div class="nav-end">' + "".join(nav) + "</div>"
+    strip = [f'<a href="{HUB}">The whole course</a>']
+    if prev: strip.insert(0, f'<a href="{fname(prev)}">&larr; {prev["title"]}</a>')
+    if nxt: strip.append(f'<a href="{fname(nxt)}">{nxt["title"]} &rarr;</a>')
+    nav = '<div class="nav-end">' + (f'<a href="{fname(prev)}">&larr; {prev["title"]}</a>' if prev else f'<a href="{HUB}">&larr; The course</a>') + f'<a href="{HUB}">All 30 lessons</a>' + (f'<a href="{fname(nxt)}">{nxt["title"]} &rarr;</a>' if nxt else f'<a href="{HUB}">Back to the course</a>') + "</div>"
     tabs = "".join(f'<button class="tab-btn{" active" if i == 0 else ""}" role="tab" onclick="showTab({i})">{n}</button>' for i, n in enumerate(TABS))
     panels = [story_tab(d, titles), method_tab(d), try_tab(d), drill_tab(d, titles), back_tab(d, titles, prev, nxt)]
-    pages = "".join(f'<div class="tab-content{" active" if i == 0 else ""}" id="tab{i}"><section class="page"><div class="pgno">{d["num"]}</div>{p}</section></div>' for i, p in enumerate(panels))
+    pages = "".join(f'<div class="tab-content{" active" if i == 0 else ""}" id="tab{i}"><section class="page">{p}</section></div>' for i, p in enumerate(panels))
+    src, alt = PIC_INFO[PICS[d["num"]]]
+    strip_html = " &nbsp;\u00b7&nbsp; ".join(strip)
     desc = E(d["tagline"], quote=True)
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -396,24 +405,23 @@ def lesson_page(d, hub, lessons):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="series" content="{SERIES}">
 <meta name="description" content="{desc}">
-<title>{E(d["title"])} · {SERIES} · Room {d["num"]}</title>
-{FONTS}
+<title>{E(d["title"])} \u00b7 {SERIES} \u00b7 Lesson {d["num"]}</title>
 <style>
 {CSS}</style>
 </head>
 <body data-lesson="{d["num"]:02d}">
-<div class="wrap">
-  <div class="topnav"><a href="{HUB}">&larr; The Art of Memory</a><span class="where">Wing {w["roman"]} · {w["name"]}</span></div>
-  <header class="cover">
-    <span class="plaque">Room {d["num"]} of 30</span>
-    <small>{w["name"]}</small>
+<div class="container">
+  <header>
+    <span class="tag">THE ART OF MEMORY \u00b7 LESSON {d["num"]} OF 30 \u00b7 PART {w["roman"]}: {w["name"].upper()}</span>
     <h1>{d["title"]}</h1>
     <p>{d["tagline"]}</p>
   </header>
+  <figure class="scene"><img src="{src}" alt="{E(alt)}" onerror="this.closest('figure').style.display='none'"></figure>
+  <p class="series-strip">{strip_html}</p>
   <nav class="tab-nav" role="tablist">{tabs}</nav>
 {pages}
   {nav}
-  <footer>The Art of Memory · Room {d["num"]} · {d["title"]}</footer>
+  <footer>The Art of Memory \u00b7 Lesson {d["num"]} \u00b7 {d["title"]}</footer>
 </div>
 <script>
 {JS}</script>
@@ -423,91 +431,47 @@ def lesson_page(d, hub, lessons):
 
 
 # ---------------------------------------------------------------- hub
-ICON = {
-    1: '<rect x="14" y="8" width="36" height="48" rx="3" fill="none" stroke="%(c)s" stroke-width="3"/><path d="M14 56 V26 A18 18 0 0 1 50 26 V56" fill="none" stroke="%(c)s" stroke-width="3"/><circle cx="42" cy="34" r="3" fill="%(c)s"/>',
-    2: '<rect x="8" y="10" width="48" height="44" rx="3" fill="none" stroke="%(c)s" stroke-width="3"/><path d="M8 24 H56 M8 38 H56" stroke="%(c)s" stroke-width="2"/><g fill="%(c)s"><circle cx="20" cy="17" r="3.5"/><circle cx="32" cy="17" r="3.5"/><circle cx="26" cy="31" r="3.5"/><circle cx="42" cy="31" r="3.5"/><circle cx="18" cy="45" r="3.5"/><circle cx="34" cy="45" r="3.5"/><circle cx="46" cy="45" r="3.5"/></g>',
-    3: '<path d="M6 24 L12 8 H52 L58 24 Z" fill="none" stroke="%(c)s" stroke-width="3" stroke-linejoin="round"/><path d="M6 24 q6.5 8 13 0 q6.5 8 13 0 q6.5 8 13 0 q6.5 8 13 0" fill="none" stroke="%(c)s" stroke-width="3"/><path d="M12 32 V56 M52 32 V56 M8 56 H56" stroke="%(c)s" stroke-width="3"/>',
-    4: '<g fill="none" stroke="%(c)s" stroke-width="3" stroke-linejoin="round"><rect x="10" y="12" width="10" height="44"/><rect x="22" y="8" width="10" height="48"/><rect x="34" y="14" width="10" height="42"/><path d="M47 57 L56 18 L60 19 L51 58 Z"/></g>',
-    5: '<g fill="none" stroke="%(c)s" stroke-width="3" stroke-linejoin="round"><path d="M22 58 V22 H42 V58 Z"/><path d="M18 22 V14 H24 V18 H30 V14 H34 V18 H40 V14 H46 V22"/><path d="M32 14 V4 L44 8 L32 11"/><path d="M29 40 a3 3 0 0 1 6 0 V50 H29 Z"/></g>',
-    6: '<g fill="none" stroke="%(c)s" stroke-width="3" stroke-linejoin="round"><path d="M6 24 L32 8 L58 24 Z"/><path d="M12 28 V54 M24 28 V54 M40 28 V54 M52 28 V54 M6 56 H58"/></g>',
-}
-
-
-def icon(n, c=INK):
-    return f'<svg class="wicon" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">{ICON[n] % {"c": c}}</svg>'
-
-
 HUB_CSS = """
-.wing { margin:0 0 34px; }
-.wing-h { display:flex; gap:14px; align-items:center; margin-bottom:6px; }
-.wing-h h2 { font-size:2.3rem; line-height:1; color:var(--ink); }
-.wing-h .num { font-family:"Caveat",cursive; font-size:1.4rem; color:var(--red); display:block; line-height:1; }
-.wing > p.blurb { color:var(--muted); margin:0 0 12px; max-width:700px; }
-.rooms { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
-.room { position:relative; display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--sheet); border:1px solid var(--line); box-shadow:0 6px 18px var(--shadow); padding:16px 18px 14px 56px; transition:transform .15s, box-shadow .15s; }
-.room:hover { transform:translate(-2px,-2px); box-shadow:0 10px 24px rgba(22,38,61,.24); }
-.room .n { position:absolute; left:10px; top:8px; width:38px; text-align:center; font-family:"Caveat",cursive; font-size:2.4rem; font-weight:700; color:var(--red); line-height:1.1; }
-.room .t { font-family:"Caveat",cursive; font-size:1.7rem; font-weight:700; color:var(--ink); line-height:1.1; margin-bottom:2px; }
-.room .e { font-size:.95rem; color:#33405a; flex:1; }
-.room .go { font-family:"Caveat",cursive; font-size:1.25rem; color:var(--gold); font-weight:700; margin-top:6px; }
-.room.done::after { content:"\\2713 done"; position:absolute; right:10px; top:8px; font-family:"Caveat",cursive; font-size:1.2rem; color:#2f7a36; font-weight:700; }
-.plan { background:var(--sheet); border:2px dashed var(--line); padding:8px; margin:0 0 30px; }
-.plan svg { display:block; width:100%; height:auto; font-family:"Caveat",cursive; }
-.plan a { cursor:pointer; } .plan a circle { transition:fill .15s; } .plan a:hover circle { fill:var(--gold); } .plan a:hover text { fill:#fff; }
-.how { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:10px 0 28px; }
-.how div { background:var(--sheet); border:1px solid var(--line); padding:10px 14px; box-shadow:0 4px 12px var(--shadow); }
-.how b { font-family:"Caveat",cursive; font-size:1.5rem; color:var(--red); display:block; line-height:1.1; }
-.how span { font-size:.92rem; color:#33405a; }
-.cta { text-align:center; margin:18px 0 6px; }
-.cta a { display:inline-block; font-family:"Caveat",cursive; font-size:1.7rem; font-weight:700; text-decoration:none; color:#fff; background:var(--ink); padding:4px 30px 2px; border-radius:255px 15px 225px 15px/15px 225px 15px 255px; }
-.cta a:hover { background:var(--gold); }
-.side { background:var(--sheet); border:1px solid var(--line); box-shadow:0 6px 18px var(--shadow); padding:14px 20px 10px; margin:0 0 22px; }
-.side h3 { font-size:1.7rem; color:var(--gold); line-height:1.1; margin-bottom:4px; }
+.intro, .how, .side { background:#fff; border:1px solid var(--line); border-radius:6px; box-shadow:0 6px 22px var(--shadow); padding:22px 26px; margin-bottom:26px; }
+.intro p { margin-bottom:12px; color:#2d2d2d; } .intro p:last-child { margin-bottom:0; }
+.section-label { font-size:.82rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:800; margin:10px 0 12px 2px; }
+.how h2, .side h3 { font-size:1.2rem; margin-bottom:8px; color:var(--ink); border:0; }
+.how-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
+.how-step .n { font-weight:800; color:var(--gold); margin-bottom:2px; } .how-step p { font-size:.92rem; color:#2d2d2d; margin:0; }
+.part { margin:0 0 26px; }
+.part h2 { font-size:1.5rem; color:var(--ink); margin:0 0 2px; }
+.part .blurb { color:var(--muted); margin:0 0 12px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:14px; }
+.lcard { position:relative; display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:6px; box-shadow:0 6px 22px var(--shadow); padding:14px 18px 12px 62px; transition:transform .15s, box-shadow .15s; }
+.lcard:hover { transform:translate(-2px,-2px); box-shadow:0 10px 26px rgba(22,38,61,.22); }
+.lcard .num { position:absolute; left:14px; top:14px; width:36px; height:36px; line-height:36px; text-align:center; border-radius:50%; background:var(--gold); color:#fff; font-weight:800; }
+.lcard .t { display:block; font-weight:800; color:var(--ink); font-size:1.08rem; line-height:1.2; margin-bottom:2px; }
+.lcard .e { display:block; font-size:.9rem; color:#33405a; }
+.lcard.done::after { content:"\\2713 done"; position:absolute; right:10px; top:8px; font-size:.78rem; color:#2f7a36; font-weight:800; }
+.cta { text-align:center; margin:18px 0 0; }
+.cta a { display:inline-block; font-weight:800; text-decoration:none; color:#fff; background:var(--gold); padding:10px 28px; border-radius:4px; border:2px solid #fff; }
+.cta a:hover { background:#fff; color:var(--gold); border-color:var(--gold); }
 .side ul { margin:0 0 6px 20px; } .side li { margin-bottom:3px; }
-.page.intro { padding-left:28px; margin-bottom:26px; } .page.intro::before { display:none; }
-.progress { font-family:"Caveat",cursive; font-size:1.4rem; color:var(--muted); text-align:center; margin:4px 0 14px; min-height:1.6rem; }
-@media (max-width:640px) { .plan { display:none; } .wing-h h2 { font-size:2rem; } }
+.progress { text-align:center; color:var(--muted); margin:0 0 12px; min-height:1.4rem; font-weight:600; }
+.stripmap { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 26px; }
+.stripmap a { text-decoration:none; background:#fff; border:2px solid var(--ink); color:var(--ink); border-radius:4px; padding:4px 14px; font-weight:700; font-size:.9rem; }
+.stripmap a:hover { background:var(--ink); color:#fff; }
 """
 
 
-def hub_plan(hub, lessons):
-    W, H = 900, 560; bw, bh = 280, 230
-    px = [30, 310 + 10, 600 + 10]; py = [30, 300]
-    out = [svg_open(W, H, "Plan of the house of memory: six wings, thirty rooms")]
-    out.append(f'<rect x="12" y="12" width="{W-24}" height="{H-24}" fill="none" stroke="{INK}" stroke-width="6" rx="6"/>')
-    centres = []
-    for i, w in enumerate(hub["wings"]):
-        r, c = divmod(i, 3)
-        if r == 1: c = 2 - c
-        x = 24 + c * 292; y = 24 + r * 262
-        out.append(f'<rect x="{x}" y="{y}" width="280" height="250" fill="none" stroke="{INK}" stroke-width="2.5"/>')
-        out.append(txt(x + 140, y + 36, f'Wing {w["roman"]}', 20, RED))
-        out.append(txt(x + 140, y + 66, w["name"], 28, INK))
-        n = len(w["rooms"]); gx = (280 - 40) / (n - 1)
-        pts = []
-        for k, num in enumerate(w["rooms"]):
-            cx = x + 20 + k * gx; cy = y + 150 + (-26 if k % 2 else 26) * (1 if r == 0 else 1)
-            pts.append((cx, cy))
-        out.append('<polyline points="' + " ".join(f"{a:.0f},{b:.0f}" for a, b in pts) + f'" fill="none" stroke="{RED}" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round"/>')
-        for (cx, cy), num in zip(pts, w["rooms"]):
-            t = next(l for l in lessons if l["num"] == num)
-            out.append(f'<a href="{fname(t)}"><title>Room {num}: {E(t["title"])}</title><circle cx="{cx:.0f}" cy="{cy:.0f}" r="21" fill="{PAPER}" stroke="{GOLD}" stroke-width="4"/>' + txt(cx, cy + 8, str(num), 22, INK) + "</a>")
-        centres.append((x, y))
-    out.append("</svg>")
-    return "".join(out)
-
-
 def hub_page(hub, lessons):
-    wings = []
+    parts = []
     for w in hub["wings"]:
         cards = []
         for num in w["rooms"]:
             d = next(l for l in lessons if l["num"] == num)
-            cards.append(f'<a class="room" href="{fname(d)}" data-room="{num:02d}"><span class="n">{num}</span><span class="t">{d["title"]}</span><span class="e">{d["card"]}</span><span class="go">Open the room &rarr;</span></a>')
-        wings.append(f'<section class="wing" id="wing{w["roman"]}"><div class="wing-h">{icon(w["n"])}<div><span class="num">Wing {w["roman"]}</span><h2>{w["name"]}</h2></div></div><p class="blurb">{w["blurb"]}</p><div class="rooms">' + "".join(cards) + "</div></section>")
-    how = "".join(f'<div><b>{n}</b><span>{x}</span></div>' for n, x in hub["how"])
-    side = "".join(f'<div class="side"><h3>{s["h"]}</h3>{s["x"]}</div>' for s in hub["sidebars"])
+            cards.append(f'<a class="lcard" href="{fname(d)}" data-room="{num:02d}"><span class="num">{num}</span><span class="t">{d["title"]}</span><span class="e">{hub["short"][str(num)]}</span></a>')
+        parts.append(f'<section class="part" id="part{w["roman"]}"><div class="section-label">Part {w["roman"]}</div><h2>{w["name"]}</h2><p class="blurb">{w["blurb"]}</p><div class="grid">' + "".join(cards) + "</div></section>")
+    jump = "".join(f'<a href="#part{w["roman"]}">{w["roman"]} \u00b7 {w["name"]}</a>' for w in hub["wings"])
+    how = "".join(f'<div class="how-step"><div class="n">{n}</div><p>{x}</p></div>' for n, x in hub["how"])
+    side = "".join(f'<div class="side"><h3>{x["h"]}</h3>{x["x"]}</div>' for x in hub["sidebars"])
     first = fname(next(l for l in lessons if l["num"] == 1))
+    src, alt = PIC_INFO["threshold"]
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -515,42 +479,31 @@ def hub_page(hub, lessons):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="series" content="{SERIES}">
 <meta name="description" content="{E(hub["tagline"], quote=True)}">
-<title>The Art of Memory · 30 Rooms in the House of Memory</title>
-{FONTS}
+<title>The Art of Memory \u00b7 30 Lessons</title>
 <style>
 {CSS}{HUB_CSS}</style>
 </head>
 <body>
-<div class="wrap">
-  <div class="topnav"><a href="malcolm_lesson_index.html">&larr; All lessons</a><span class="where">thirty rooms · six wings</span></div>
-  <header class="cover">
-    <small>{hub["kicker"]}</small>
+<div class="container">
+  <header>
+    <span class="tag">A course \u00b7 30 lessons \u00b7 B2 English</span>
     <h1>The Art of Memory</h1>
     <p>{hub["tagline"]}</p>
-    <div class="cta"><a href="{first}">Step through the door &rarr;</a></div>
+    <div class="cta"><a href="{first}">Start with lesson 1 &rarr;</a></div>
   </header>
-
+  <figure class="scene"><img src="{src}" alt="{E(alt)}" onerror="this.closest('figure').style.display='none'"></figure>
   <div class="progress" id="progress"></div>
-
-  <div class="page intro">
-    {"".join(f"<p>{p}</p>" for p in hub["intro"])}
-    <figure class="pol" style="--tilt:1.4deg;margin-left:auto"><img src="memory_arts_notes_threshold.jpg" alt="An engraved view into an empty grand house at dawn, with small gold markers along the doorway, a window, a hearth and a table." loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>an empty house, waiting for its pictures</figcaption></figure>
-  </div>
-
-  <div class="plan">{hub_plan(hub, lessons)}</div>
-
-  <h2 class="hand" style="font-size:2.3rem;color:var(--ink);margin-bottom:6px">How every room works</h2>
-  <div class="how">{how}</div>
-
-{"".join(wings)}
-
+  <div class="intro">{"".join(f"<p>{p}</p>" for p in hub["intro"])}</div>
+  <div class="stripmap">{jump}</div>
+  <p class="section-label">How every lesson works</p>
+  <div class="how"><div class="how-steps">{how}</div></div>
+{"".join(parts)}
 {side}
-
-  <footer>The Art of Memory · thirty rooms · start at the door</footer>
+  <footer>The Art of Memory \u00b7 30 lessons</footer>
 </div>
 <script>
 {JS}
-(function(){{ try {{ var n = document.querySelectorAll('.room.done').length, p = document.getElementById('progress'); if (n && p) p.textContent = 'You have finished ' + n + ' of 30 rooms.'; }} catch(e) {{}} }})();
+(function(){{ try {{ var n = document.querySelectorAll('.lcard.done').length, p = document.getElementById('progress'); if (n && p) p.textContent = 'You have finished ' + n + ' of 30 lessons.'; }} catch(e) {{}} }})();
 </script>
 </body>
 </html>
