@@ -1,719 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 12: Memory for Playing Cards - The Art of Memory</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
-            color: #1a1a1a;
-            padding: 40px;
-            text-align: center;
-        }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { font-size: 1.1em; opacity: 0.9; }
-        .tabs-container {
-            display: flex;
-            background: #f5f5f5;
-            border-bottom: 3px solid #d4af37;
-            flex-wrap: wrap;
-        }
-        .tab-button {
-            flex: 1;
-            min-width: 140px;
-            padding: 15px;
-            background: #f5f5f5;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        .tab-button:hover { background: #efefef; color: #d4af37; }
-        .tab-button.active { background: white; color: #d4af37; border-bottom-color: #d4af37; }
-        .tab-content { padding: 40px; display: none; animation: fadeIn 0.3s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .tab-content h2 {
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 10px;
-        }
-        h3 { color: #333; margin: 20px 0 15px 0; font-size: 1.3em; }
-        p { color: #555; margin-bottom: 12px; }
-        .highlight {
-            background: #fffacd;
-            padding: 15px;
-            border-left: 4px solid #d4af37;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .key-points {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .key-points li { margin-bottom: 10px; color: #333; list-style-position: inside; }
-        .interactive-box {
-            background: #f0f8ff;
-            border: 2px solid #d4af37;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .interactive-box h4 { color: #d4af37; margin-bottom: 15px; }
-        button {
-            background: #d4af37;
-            color: #1a1a1a;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            margin: 8px 8px 8px 0;
-        }
-        button:hover {
-            background: #c9a227;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-        .card {
-            display: inline-block;
-            background: white;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            min-width: 60px;
-        }
-        .card:hover { background: #fffacd; }
-        .card.flipped { background: #d4af37; color: white; }
-        .suit-category {
-            background: white;
-            border: 2px solid #d4af37;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .suit-category h4 { color: #d4af37; margin-bottom: 10px; font-size: 1.2em; }
-        .suit-category p { color: #666; margin-bottom: 8px; }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #d4af37;
-            border-radius: 6px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: #c9a227;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
-        }
-        .quiz-question {
-            background: #f0f8ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .quiz-question p { font-weight: 600; margin-bottom: 15px; color: #333; }
-        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
-        .quiz-option {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            cursor: pointer;
-            background: white;
-            transition: all 0.3s ease;
-            font-size: 0.95em;
-        }
-        .quiz-option:hover { border-color: #d4af37; background: #fffacd; }
-        .quiz-option.correct { background: #90EE90; border-color: #32CD32; color: #1a1a1a; font-weight: 600; }
-        .quiz-option.incorrect { background: #FFB6C6; border-color: #FF1493; color: #1a1a1a; }
-        .results {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .results.fail { background: #ffebee; border-color: #f44336; }
-        .results h3 { color: #2e7d32; margin-bottom: 10px; }
-        .results.fail h3 { color: #c62828; }
-        .score { font-size: 2em; font-weight: bold; color: #2e7d32; margin: 10px 0; }
-        .results.fail .score { color: #c62828; }
-        .timer { font-size: 1.5em; font-weight: bold; color: #d4af37; text-align: center; margin: 20px 0; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 10px; margin: 20px 0; }
-        .suit-section { margin: 15px 0; border: 2px solid #d4af37; border-radius: 8px; overflow: hidden; }
-        .suit-header { background: #d4af37; color: #1a1a1a; padding: 12px 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
-        .suit-header:hover { background: #c9a227; }
-        .suit-header-toggle { font-size: 1.2em; }
-        .suit-entries { display: none; padding: 10px; background: #fafafa; }
-        .suit-entries.open { display: block; }
-        .card-entry { display: grid; grid-template-columns: 50px 150px 1fr; gap: 15px; padding: 10px; border-bottom: 1px solid #eee; align-items: flex-start; }
-        .card-entry:last-child { border-bottom: none; }
-        .card-entry .card-name { font-weight: bold; color: #1a1a1a; font-size: 1.1em; }
-        .card-entry .capital { color: #d4af37; font-weight: 600; }
-        .card-entry .image-desc { color: #666; font-style: italic; font-size: 0.95em; }
-        @media (max-width: 768px) {
-            .tab-button { min-width: 100px; padding: 12px; font-size: 0.85em; }
-            .header h1 { font-size: 1.8em; }
-            .card-grid { grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
-            .card-entry { grid-template-columns: 1fr; gap: 5px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="The Art of Memory">
+<meta name="description" content="A shuffled deck may be in an order no one has ever seen. Fifty-two cards, fifty-two pictures, and a way to hold them all.">
+<title>A Pack of Cards · The Art of Memory · Room 12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#f8f4e9; --sheet:#fffdf6; --ink:#1d2a44; --pen:#26324d; --red:#b4413a; --gold:#8a6a2c; --rule:rgba(70,100,150,.12); --margin:rgba(190,70,70,.38); --sticky:#fff1a8; --sticky-ink:#3d3511; --shadow:rgba(22,38,61,.16); --line:#d8cfb8; --muted:#5d6477; --hl:rgba(255,214,92,.55); --ok:#e6f3e4; --okb:#5aa05e; --bad:#fbeae7; --badb:#c0504a; --tape:rgba(231,214,160,.78); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:"Segoe UI",system-ui,-apple-system,Tahoma,Geneva,Verdana,sans-serif; font-size:1.02rem; line-height:1.65; background-color:var(--paper); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); color:#222a3a; }
+.wrap { max-width:960px; margin:0 auto; padding:18px 16px 70px; }
+.hand, h1, h2, h3, .scrawl { font-family:"Caveat","Kalam","Bradley Hand","Segoe Print",cursive; }
+a { color:var(--gold); }
+.topnav { display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; justify-content:space-between; margin-bottom:12px; font-family:"Caveat",cursive; font-size:1.35rem; }
+.topnav a { color:var(--gold); text-decoration:none; border-bottom:2px dashed var(--gold); }
+.topnav .where { color:var(--red); }
+.cover { position:relative; text-align:center; padding:34px 22px 28px; margin:30px 0 22px; background:var(--sheet); border:1px solid var(--line); box-shadow:0 12px 30px var(--shadow); transform:rotate(-.35deg); }
+.cover::before, .cover::after { content:""; position:absolute; top:-12px; width:104px; height:26px; background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.cover::before { left:-18px; transform:rotate(-33deg); } .cover::after { right:-18px; transform:rotate(33deg); }
+.cover small { font-family:"Caveat",cursive; font-size:1.45rem; color:var(--red); display:block; line-height:1.2; }
+.cover h1 { font-size:3.3rem; line-height:1.04; color:var(--ink); margin:4px 0 8px; font-weight:700; }
+.cover p { max-width:640px; margin:0 auto; color:var(--muted); }
+.plaque { display:inline-block; font-family:"Caveat",cursive; font-size:1.3rem; font-weight:700; color:#fff; background:var(--ink); padding:0 16px; border-radius:3px; margin-bottom:8px; letter-spacing:.5px; }
+.tab-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:0 0 20px; }
+.tab-btn { font-family:"Caveat",cursive; font-size:1.4rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 18px 6px; }
+.tab-btn:hover { background:#f1ead6; }
+.tab-btn.active { background:var(--gold); border-color:var(--gold); color:#fff; }
+.tab-content { display:none; } .tab-content.active { display:block; }
+.page { position:relative; background-color:var(--sheet); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px); border:1px solid var(--line); box-shadow:0 10px 26px var(--shadow); padding:26px 28px 26px 74px; margin-bottom:22px; }
+.page::before { content:""; position:absolute; left:52px; top:0; bottom:0; border-left:2px solid var(--margin); }
+.page > .pgno { position:absolute; left:10px; top:18px; width:36px; text-align:center; font-family:"Caveat",cursive; font-size:2.3rem; font-weight:700; color:var(--red); line-height:1; }
+.page h2 { font-size:2.35rem; line-height:1.08; color:var(--ink); margin:0 0 8px; font-weight:700; }
+.page h3 { font-size:1.75rem; color:var(--gold); margin:20px 0 6px; font-weight:700; line-height:1.1; }
+.page h4 { font-size:1.05rem; color:var(--ink); margin:0 0 4px; }
+.page p { margin:0 0 14px; } .page ul, .page ol { margin:0 0 14px 22px; } .page li { margin-bottom:4px; }
+.hl { background:linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 92%, transparent 92%); padding:0 2px; }
+.red { color:var(--red); font-weight:700; }
+.lead { font-size:1.1rem; color:var(--ink); }
+.src { font-family:"Caveat",cursive; font-size:1.2rem; color:var(--muted); line-height:1.2; margin-top:6px; }
+.sticky { position:relative; background:var(--sticky); color:var(--sticky-ink); padding:12px 18px; margin:14px 0 18px; box-shadow:3px 4px 9px rgba(0,0,0,.18); transform:rotate(-.8deg); font-family:"Caveat",cursive; font-size:1.42rem; line-height:1.25; max-width:520px; }
+.sticky.r { transform:rotate(.9deg); margin-left:auto; }
+.pol { position:relative; background:#fff; padding:9px 9px 6px; box-shadow:0 8px 18px var(--shadow); margin:8px 0 20px; transform:rotate(var(--tilt,-1.2deg)); max-width:520px; border:1px solid var(--line); }
+.pol img { display:block; width:100%; height:auto; }
+.pol figcaption { font-family:"Caveat",cursive; font-size:1.3rem; color:#3b3b3b; text-align:center; line-height:1.2; padding:6px 4px 2px; }
+.pol::before { content:""; position:absolute; top:-11px; left:50%; width:90px; height:22px; transform:translateX(-50%) rotate(-3deg); background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.intention { border-left:5px solid var(--gold); background:#f6f1e1; padding:10px 16px; margin:0 0 18px; border-radius:0 6px 6px 0; }
+.left-off { border:2px dashed var(--line); background:rgba(255,255,255,.7); padding:12px 16px 6px; margin:0 0 22px; }
+.left-off .lbl, .lbl { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); font-weight:700; line-height:1.1; display:block; margin-bottom:4px; }
+.qa { margin:0 0 12px; }
+.qa .q { font-weight:600; color:var(--ink); }
+.btn, .reveal-btn { font-family:"Caveat",cursive; font-size:1.25rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:5px 14px 3px; margin:6px 8px 4px 0; }
+.btn:hover, .reveal-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+.btn.primary { background:var(--ink); color:#fff; } .btn.primary:hover { background:var(--gold); }
+.reveal { display:none; background:#f3eedd; border-left:4px solid var(--gold); padding:9px 14px; margin:6px 0 10px; border-radius:0 6px 6px 0; }
+.reveal.show { display:block; }
+.story-chunk { font-family:Georgia,"Times New Roman",serif; font-size:1.1rem; line-height:1.75; border-left:5px solid var(--ink); background:#faf6ea; padding:12px 18px 2px; margin:0 0 6px; border-radius:0 6px 6px 0; }
+.story-chunk p { margin:0 0 12px; }
+.story-part { margin-bottom:24px; }
+.after { padding:6px 4px 0 14px; }
+.talk, .discuss { background:#eef2f7; border:1px solid #cdd7e6; border-radius:6px; padding:10px 16px 8px; margin:10px 0 14px; }
+.talk b.t, .discuss b.t { font-family:"Caveat",cursive; font-size:1.35rem; color:var(--ink); }
+.words { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px 16px; margin:8px 0 14px; }
+.word { border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 16px 6px; background:var(--sheet); }
+.word .w { font-family:"Caveat",cursive; font-size:1.55rem; line-height:1.1; color:var(--ink); font-weight:700; cursor:pointer; background:none; border:0; text-align:left; display:block; width:100%; }
+.word .m { display:none; font-size:.95rem; color:#33405a; } .word.open .m { display:block; }
+.word .w::after { content:" ▾"; font-size:.9rem; color:var(--gold); } .word.open .w::after { content:" ▴"; }
+.steps { list-style:none; margin-left:0 !important; counter-reset:st; }
+.steps li { position:relative; padding:2px 0 2px 44px; margin-bottom:10px; counter-increment:st; }
+.steps li::before { content:counter(st); position:absolute; left:0; top:-4px; font-family:"Caveat",cursive; font-size:2rem; color:var(--red); font-weight:700; width:34px; text-align:center; }
+.steps li b { color:var(--ink); }
+.tbl-wrap { overflow-x:auto; margin:6px 0 16px; }
+.tbl { width:100%; border-collapse:collapse; font-size:.97rem; line-height:1.4; }
+.tbl th { font-family:"Caveat",cursive; font-size:1.4rem; text-align:left; color:var(--gold); border-bottom:2px solid var(--ink); padding:2px 10px; white-space:nowrap; }
+.tbl td { padding:5px 10px; border-bottom:1px dashed var(--line); vertical-align:top; }
+.tbl td:first-child { font-weight:700; color:var(--ink); }
+.example { border:3px double var(--ink); background:#fffaf0; padding:14px 20px 8px; margin:12px 0 20px; }
+.example .lbl { color:var(--red); }
+.example .given { font-size:1.08rem; color:var(--ink); margin-bottom:8px; }
+.example .row { display:grid; grid-template-columns:130px 1fr; gap:4px 12px; padding:4px 0; border-top:1px dashed var(--line); }
+.example .row .k { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--gold); font-weight:700; line-height:1.2; }
+.example .pic { background:var(--sticky); color:var(--sticky-ink); padding:9px 14px; margin:10px 0 8px; box-shadow:2px 3px 8px rgba(0,0,0,.14); }
+.chips { display:flex; flex-wrap:wrap; gap:8px 12px; margin:4px 0 14px; }
+.chips span { font-family:"Caveat",cursive; font-size:1.35rem; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:32px; background:var(--sheet); }
+.diagram { text-align:center; margin:10px 0 18px; background:var(--sheet); border:2px dashed var(--line); padding:8px; }
+.diagram svg { max-width:100%; height:auto; font-family:"Caveat","Kalam",cursive; }
+.diagram .cap { font-family:"Caveat",cursive; color:var(--muted); font-size:1.2rem; line-height:1.2; }
+.ex { border:1px solid var(--line); background:rgba(255,255,255,.82); border-radius:6px; padding:14px 18px 10px; margin:0 0 18px; }
+.ex h4 { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); }
+.ex .prompt { color:var(--ink); margin-bottom:8px; }
+.ex textarea, .ex input[type=text], .recall textarea, .ref textarea { font:inherit; width:100%; padding:8px 10px; border:2px solid var(--line); border-radius:6px; background:#fff; color:#222a3a; }
+.ex textarea:focus, .ex input:focus, .recall textarea:focus, .ref textarea:focus { outline:none; border-color:var(--gold); }
+.ex input[type=text].gapin { width:auto; min-width:150px; max-width:100%; display:inline-block; padding:3px 8px; margin:0 4px; font-size:.98rem; }
+.ex .gaprow { margin-bottom:10px; line-height:2.1; }
+.ex .gapans { font-size:.9rem; color:var(--badb); margin-left:6px; }
+.ok { background:var(--ok) !important; border-color:var(--okb) !important; } .no { background:var(--bad) !important; border-color:var(--badb) !important; }
+.fb { display:none; margin:8px 0 6px; padding:8px 14px; border-radius:6px; border:2px solid var(--line); background:#f6f6f6; font-size:.97rem; }
+.fb.show { display:block; } .fb.ok { display:block; } .fb.no { display:block; }
+.checks { margin:8px 0 4px; } .checks label { display:flex; gap:8px; align-items:flex-start; margin-bottom:3px; font-size:.96rem; cursor:pointer; }
+.checks input { margin-top:6px; accent-color:var(--gold); }
+.mc-opt { display:block; width:100%; text-align:left; font:inherit; cursor:pointer; border:2px solid var(--line); background:#fff; color:#222a3a; border-radius:6px; padding:7px 12px; margin:5px 0; }
+.mc-opt:hover { border-color:var(--gold); }
+.mc-opt.ok { color:#1b4d1e; } .mc-opt.no { color:#7a2220; }
+.match-row { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; justify-content:space-between; border:1px solid var(--line); background:#faf7ec; border-radius:6px; padding:8px 12px; margin:6px 0; }
+.match-row .txt { flex:1 1 230px; font-weight:600; color:var(--ink); }
+.match-row select { font:inherit; padding:5px 8px; border:2px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); min-width:200px; max-width:100%; }
+.timer { display:inline-block; font-family:"Caveat",cursive; font-size:1.9rem; font-weight:700; color:var(--ink); padding:0 14px; border:2px solid var(--ink); border-radius:6px; background:#fff; min-width:92px; text-align:center; margin:4px 10px 4px 0; }
+.timer.warn { color:#9a6b00; border-color:#d19a1f; background:#fff6dc; } .timer.low { color:#fff; border-color:var(--badb); background:var(--badb); animation:pulse 1s infinite; }
+@keyframes pulse { 50% { opacity:.65; } }
+.card-deck { margin:8px 0 16px; }
+.fcard { min-height:130px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; cursor:pointer; background:var(--sticky); color:var(--sticky-ink); box-shadow:3px 4px 10px rgba(0,0,0,.18); padding:20px 24px; transform:rotate(-.5deg); user-select:none; max-width:560px; margin:6px auto 12px; }
+.fcard .front { font-family:"Caveat",cursive; font-size:1.9rem; line-height:1.15; font-weight:700; }
+.fcard .back { display:none; font-size:1.05rem; margin-top:8px; line-height:1.45; } .fcard.flip .back { display:block; }
+.fcard .tap { font-family:"Caveat",cursive; font-size:1.1rem; color:#7a6a2a; margin-top:6px; } .fcard.flip .tap { display:none; }
+.deck-ctl { text-align:center; } .deck-ctl .cnt { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--muted); margin:0 8px; }
+.recall { border:3px double var(--ink); padding:14px 20px 12px; margin:14px 0 18px; background:#fffaf0; }
+.recall h4 { font-family:"Caveat",cursive; font-size:1.7rem; color:var(--red); }
+.recall .stage { display:none; } .recall .stage.on { display:block; }
+.recall .items { display:flex; flex-wrap:wrap; gap:8px 12px; margin:10px 0; counter-reset:it; }
+.recall .items span { font-family:"Caveat",cursive; font-size:1.5rem; border:2px solid var(--ink); background:var(--sheet); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:34px; counter-increment:it; }
+.recall .items.ordered span::before { content:counter(it) ". "; color:var(--red); }
+.recall .res { margin:8px 0; } .recall .res div { padding:3px 10px; border-radius:4px; margin:3px 0; font-size:.97rem; }
+.recall .score { font-family:"Caveat",cursive; font-size:1.8rem; color:var(--ink); }
+.ref textarea { min-height:90px; }
+.canlist { list-style:none; margin-left:0 !important; } .canlist label { display:flex; gap:10px; cursor:pointer; align-items:flex-start; } .canlist input { margin-top:7px; accent-color:var(--gold); transform:scale(1.2); }
+.nav-end { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:6px 0 0; font-family:"Caveat",cursive; font-size:1.45rem; }
+.nav-end a { color:var(--ink); text-decoration:none; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:3px 18px 1px; background:var(--sheet); }
+.nav-end a:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+footer { text-align:center; font-family:"Caveat",cursive; font-size:1.25rem; color:var(--muted); margin-top:26px; line-height:1.3; }
+.savednote { font-family:"Caveat",cursive; color:var(--muted); font-size:1.15rem; }
+@media (max-width:768px) {
+  body { font-size:1rem; }
+  .cover h1 { font-size:2.45rem; } .cover { padding:28px 14px 22px; transform:none; }
+  .page { padding:22px 14px 20px 44px; } .page::before { left:32px; } .page > .pgno { left:2px; font-size:1.8rem; width:28px; top:16px; }
+  .page h2 { font-size:1.95rem; }
+  .tab-btn { font-size:1.2rem; padding:7px 12px 5px; }
+  .example .row { grid-template-columns:1fr; gap:0; }
+  .match-row select { min-width:0; width:100%; }
+  .ex { padding:12px 12px 8px; }
+  .page ul, .page ol { margin-left:16px; }
+  .sticky { max-width:100%; }
+}
+@media print { .tab-nav, .nav-end, .topnav { display:none; } .tab-content { display:block !important; } }
+</style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Lesson 12: Memory for Playing Cards</h1>
-            <p>Master card-to-image systems and suit categories to memorize entire card sequences</p>
-        </div>
-        <div class="tabs-container">
-            <button class="tab-button active" onclick="switchTab(event, 'retrieval')">Review</button>
-            <button class="tab-button" onclick="switchTab(event, 'content')">New Content</button>
-            <button class="tab-button" onclick="switchTab(event, 'practice')">Guided Practice</button>
-            <button class="tab-button" onclick="switchTab(event, 'elaboration')">Elaboration</button>
-            <button class="tab-button" onclick="switchTab(event, 'independent')">Independent</button>
-            <button class="tab-button" onclick="switchTab(event, 'final')">Final Review</button>
-        </div>
+<body data-lesson="12">
+<div class="wrap">
+  <div class="topnav"><a href="art-of-memory.html">&larr; The Art of Memory</a><span class="where">Wing III · The Market Square</span></div>
+  <header class="cover">
+    <span class="plaque">Room 12 of 30</span>
+    <small>The Market Square</small>
+    <h1>A Pack of Cards</h1>
+    <p>A shuffled deck may be in an order no one has ever seen. Fifty-two cards, fifty-two pictures, and a way to hold them all.</p>
+  </header>
+  <nav class="tab-nav" role="tablist"><button class="tab-btn active" role="tab" onclick="showTab(0)">The Story</button><button class="tab-btn" role="tab" onclick="showTab(1)">The Method</button><button class="tab-btn" role="tab" onclick="showTab(2)">Try It</button><button class="tab-btn" role="tab" onclick="showTab(3)">Drill</button><button class="tab-btn" role="tab" onclick="showTab(4)">Look Back</button></nav>
+<div class="tab-content active" id="tab0"><section class="page"><div class="pgno">12</div><div class="intention"><b>In this room:</b> you will learn a system that gives each of the 52 cards its own picture, use it to memorise a short run of cards, and see how champions go further.</div><div class="left-off"><span class="lbl">Where we left off</span><div class="qa"><div class="q">What are the five steps for remembering a name?</div><button class="reveal-btn">Check</button><div class="reveal">Hear it, say it, find one feature, turn the name into a picture, join them. Then review.</div></div><div class="qa"><div class="q">Why should your feature choice be kind and neutral?</div><button class="reveal-btn">Check</button><div class="reveal">The pictures are for your own memory; choosing a neutral or admirable feature keeps the method respectful.</div></div><div class="qa"><div class="q">When should you review new names?</div><button class="reveal-btn">Check</button><div class="reveal">The same evening, then again after a few days.</div></div></div><h2>An order no one has ever seen</h2><div class="story-part"><div class="story-chunk"><p>It is a rainy Sunday and a family is playing cards. Someone shuffles the deck, seven times as they were taught, and puts it in the middle of the table. The cards are no longer in any order a person could name. There is no Ace of Spades first, no King of Hearts at the end. It is a jumble.</p><p>Here is something curious. A pack has fifty-two cards, and the number of ways to arrange fifty-two things is fifty-two times fifty-one times fifty and so on all the way down to one. That number begins with eight and has sixty-eight digits. It is so large that <span class="hl">a properly shuffled deck is almost certainly in an order that has never existed before</span>, and will never exist again.</p></div><div class="after"><div class="qa"><div class="q">Why is a properly shuffled deck almost certainly unique?</div><button class="reveal-btn">Check from memory</button><div class="reveal">The number of possible orders of 52 cards is astronomically large, so the chance that anyone has had the same order before is tiny.</div></div><div class="talk"><b class="t">Talk about it.</b> Is it more surprising to you that a deck is unique, or that someone can learn that unique order? Why?</div></div></div><div class="story-part"><div class="story-chunk"><p>And yet a person can look at a shuffled deck and learn the whole order. People do it as a hobby and in competitions. They do not do it by repeating <i>seven of hearts, queen of clubs, three of diamonds</i> over and over. A card is a poor thing to remember: the same red and black marks, the same faces, fifty-two almost alike.</p><p>What they do is turn each card into a <span class="hl">picture</span>, and put the pictures in order along a route. In competitions the best of them learn a pack in less than thirteen seconds. The method is the one you already have.</p></div><div class="after"><div class="qa"><div class="q">How do people learn the order of a pack?</div><button class="reveal-btn">Check from memory</button><div class="reveal">They give each card its own picture and place the pictures along a route of places.</div></div><div class="talk"><b class="t">Talk about it.</b> Would you like to learn a deck? What would you use it for?</div></div></div><div class="story-part"><div class="story-chunk"><p>To do this you need a fixed list of fifty-two pictures, one for each card, so that you never have to decide. The seven of hearts is <i>always</i> the same scene. In this room you will learn a simple system, and see how champions make it faster.</p><p>Fifty-two pictures sounds like a lot. But there is a pattern. Each suit is a family of thirteen, so you learn <b>four families</b>, not fifty-two separate things. You will build this system one suit at a time, and by the end of the room you will be able to run through a short hand.</p></div><div class="after"><div class="qa"><div class="q">Why does the card system use a fixed list of pictures?</div><button class="reveal-btn">Check from memory</button><div class="reveal">So the same card is always the same picture and you never have to decide again.</div></div><div class="talk"><b class="t">Talk about it.</b> What pattern would you use to give 52 cards 52 pictures? Think of suits as groups.</div></div></div><h3>Words worth knowing</h3><p>Say what you think each one means, then open it.</p><div class="words"><div class="word"><button class="w" type="button">to shuffle</button><div class="m">to mix up the cards. <em>She shuffled the deck.</em></div></div><div class="word"><button class="w" type="button">a suit</button><div class="m">one of the four groups of cards: hearts, diamonds, clubs and spades.</div></div><div class="word"><button class="w" type="button">a rank</button><div class="m">the value of a card: ace, two to ten, jack, queen, king.</div></div><div class="word"><button class="w" type="button">to categorise</button><div class="m">to put things into groups. <em>Categorise the cards by suit.</em></div></div><div class="word"><button class="w" type="button">unique</button><div class="m">the only one of its kind.</div></div><div class="word"><button class="w" type="button">a capital</button><div class="m">the city where a country's government is based.</div></div></div><p class="src">The number of orders of a 52-card pack is 52! (about 8 × 10<sup>67</sup>).</p></section></div><div class="tab-content" id="tab1"><section class="page"><div class="pgno">12</div><h2>Fifty-two pictures in four families</h2><p class="lead">Give each suit a <b>category</b> and each rank a <b>member</b> of that category. One easy category is capital cities: each suit is a region, each rank is a city.</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Rank</th><th>Clubs (Europe)</th><th>Hearts (Asia)</th><th>Diamonds (the Americas)</th><th>Spades (Africa and Oceania)</th></tr></thead><tbody><tr><td>Ace</td><td>London</td><td>Tokyo</td><td>Washington</td><td>Cairo</td></tr><tr><td>2</td><td>Paris</td><td>Bangkok</td><td>Mexico City</td><td>Abuja</td></tr><tr><td>3</td><td>Berlin</td><td>New Delhi</td><td>Ottawa</td><td>Pretoria</td></tr><tr><td>4</td><td>Rome</td><td>Beijing</td><td>Brasília</td><td>Nairobi</td></tr><tr><td>5</td><td>Madrid</td><td>Seoul</td><td>Lima</td><td>Rabat</td></tr><tr><td>6</td><td>Athens</td><td>Singapore</td><td>Bogotá</td><td>Canberra</td></tr><tr><td>7</td><td>Vienna</td><td>Ankara</td><td>Buenos Aires</td><td>Wellington</td></tr><tr><td>8</td><td>Prague</td><td>Manila</td><td>Santiago</td><td>Accra</td></tr><tr><td>9</td><td>Budapest</td><td>Hanoi</td><td>Caracas</td><td>Addis Ababa</td></tr><tr><td>10</td><td>Warsaw</td><td>Kuala Lumpur</td><td>Havana</td><td>Dakar</td></tr><tr><td>Jack</td><td>Lisbon</td><td>Kathmandu</td><td>Quito</td><td>Tunis</td></tr><tr><td>Queen</td><td>Brussels</td><td>Riyadh</td><td>Montevideo</td><td>Kampala</td></tr><tr><td>King</td><td>Amsterdam</td><td>Tehran</td><td>San José</td><td>Lusaka</td></tr></tbody></table></div><p>Each city then becomes a <b>vivid scene</b> you can see: London is Big Ben and a red bus; Tokyo is neon and Mount Fuji; Cairo is the pyramids and a camel.</p><ol class="steps"><li><b>See the card.</b> Say its suit and rank in your head: seven of hearts.</li><li><b>Look up its picture.</b> Hearts is Asia; 7 is Ankara.</li><li><b>Make the scene big and moving.</b> You stand in a crowded Ankara market, with the smell of bread and the call to prayer.</li><li><b>Place it.</b> Put the scene at the next place on your route.</li><li><b>Go on.</b> One picture per card, one place per picture, in order.</li></ol><div class="example"><span class="lbl">The seven of hearts</span><div class="given">The card is <b>7♥</b>.</div><div class="row"><span class="k">Look-up</span><span>Hearts = Asia, 7 = Ankara.</span></div><div class="row"><span class="k">Scene</span><span>You stand at the foot of a glowing white mausoleum on a hill, with a blue sky and a hot wind. Flags snap above you and crowds climb a long avenue of steps.</span></div><div class="row"><span class="k">Placed</span><span>At place 3 of your route, as the hall of a house.</span></div><div class="pic"><b>The picture:</b> A white mausoleum on a hill in a hot wind, flags snapping, crowds climbing the steps: that is Ankara, so that is 7♥.</div></div><h3>How champions go faster</h3><p>Champions do not use one picture per card. They give every card a <b>person</b> (or a person with an action and an object, like PAO), and then take <b>two or three cards at a time</b>: the first card gives the person, the second the action, the third the object. A pack of 52 then needs only about 17 scenes, and a scene takes a couple of seconds to build. This is how a whole pack can be learned in under a minute.</p><div class="sticky">suit = a region.<br>rank = a city.<br>a fixed picture for<br>each of the 52.</div><p><b>Start small.</b> Learn the clubs this week, then the other suits. The system only works through repetition; once it is automatic you will see the picture the moment you see the card.</p><div class="talk"><b class="t">Say it aloud.</b> Say the thirteen clubs from the ace to the king in order, and describe one scene.</div></section></div><div class="tab-content" id="tab2"><section class="page"><div class="pgno">12</div><h2>Now you build</h2><p>Have a go before you open any answer. A rough attempt teaches you more than a perfect model you only read.</p><div class="ex"><h4>Which city?</h4><div class="prompt">Use the table. Match each card to its city.</div><div class="match-row"><span class="txt">Ace of Clubs</span><select data-ans="London" aria-label="match"><option value="">choose…</option><option value="Addis Ababa">Addis Ababa</option><option value="Brussels">Brussels</option><option value="London">London</option><option value="San José">San José</option><option value="Seoul">Seoul</option></select></div><div class="match-row"><span class="txt">5 of Hearts</span><select data-ans="Seoul" aria-label="match"><option value="">choose…</option><option value="Addis Ababa">Addis Ababa</option><option value="Brussels">Brussels</option><option value="London">London</option><option value="San José">San José</option><option value="Seoul">Seoul</option></select></div><div class="match-row"><span class="txt">King of Diamonds</span><select data-ans="San José" aria-label="match"><option value="">choose…</option><option value="Addis Ababa">Addis Ababa</option><option value="Brussels">Brussels</option><option value="London">London</option><option value="San José">San José</option><option value="Seoul">Seoul</option></select></div><div class="match-row"><span class="txt">9 of Spades</span><select data-ans="Addis Ababa" aria-label="match"><option value="">choose…</option><option value="Addis Ababa">Addis Ababa</option><option value="Brussels">Brussels</option><option value="London">London</option><option value="San José">San José</option><option value="Seoul">Seoul</option></select></div><div class="match-row"><span class="txt">Queen of Clubs</span><select data-ans="Brussels" aria-label="match"><option value="">choose…</option><option value="Addis Ababa">Addis Ababa</option><option value="Brussels">Brussels</option><option value="London">London</option><option value="San José">San José</option><option value="Seoul">Seoul</option></select></div><button class="btn primary" data-act="match">Check</button><div class="fb"></div></div><div class="ex"><h4>Seven of hearts</h4><div class="prompt">Make your own scene for 7♥ (Ankara). Use the senses: what do you see, hear, smell?</div><textarea rows="3" placeholder="Write it here…" data-save="c7h"></textarea><div class="checks"><label><input type="checkbox"> I used at least two senses.</label><label><input type="checkbox"> It is clearly Ankara (or the city I chose).</label><label><input type="checkbox"> It is moving.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">A hot, dry hill under a blue sky; a white marble mausoleum glows in the sun; flags are cracking in the wind; you smell grilled bread; a loudspeaker calls across the city.</div></div><div class="ex"><h4>Three cards in a row</h4><div class="prompt">Make scenes for <b>2 of Clubs</b> (Paris), <b>8 of Hearts</b> (Manila) and <b>A of Spades</b> (Cairo) and put them in three places of your palace.</div><textarea rows="5" placeholder="Write it here…" data-save="c3"></textarea><div class="checks"><label><input type="checkbox"> Each card has a distinct scene.</label><label><input type="checkbox"> Each scene is at its own place.</label><label><input type="checkbox"> They are different from each other.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">Place 1: a giant glass pyramid beside the Seine, with a baker handing you a baguette taller than you (Paris). Place 2: a bright jeepney painted pink, crammed with chickens, pushes through the crowded street (Manila). Place 3: the pyramids glow at dusk and a camel is eating your map (Cairo).</div></div><div class="ex"><h4>The pattern</h4><div class="gaprow">In our system each suit is a <input type="text" class="gapin" id="x1" data-ans="region|continent|family|category" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x1"></span> and each rank is a city.</div><div class="gaprow">Clubs are <input type="text" class="gapin" id="x2" data-ans="europe" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x2"></span>, hearts are Asia.</div><div class="gaprow">Diamonds are the <input type="text" class="gapin" id="x3" data-ans="americas|america|south america" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x3"></span>.</div><button class="btn primary" data-act="gap">Check</button><div class="fb"></div></div><div class="ex" data-why="Combining cards into person-action-object scenes cuts the pictures to a third."><div class="prompt"><b>Why does a champion take two or three cards at a time?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Fewer scenes means a faster pack: a pack of 52 becomes about 17 scenes</button><button class="mc-opt" data-act="mc" data-ok="0">Cards are easier in pairs</button><button class="mc-opt" data-act="mc" data-ok="0">It is the rule</button><div class="fb"></div></div><div class="ex"><h4>Run the clubs</h4><div class="prompt">Say the clubs from ace to king aloud, with a word or two for each scene.</div><div class="timer-box" data-secs="90"><span class="timer">1:30</span><button class="btn" data-act="timer">Start talking</button><button class="btn" data-act="timer-reset">Reset</button> <span class="savednote timer-msg"></span></div></div></section></div><div class="tab-content" id="tab3"><section class="page"><div class="pgno">12</div><h2>Drill</h2><h3>Flash cards</h3><p>Say the answer first, then tap the card.</p><div class="card-deck" data-i="0" data-cards="[[&quot;Ace of Clubs&quot;, &quot;London&quot;], [&quot;King of Clubs&quot;, &quot;Amsterdam&quot;], [&quot;Ace of Hearts&quot;, &quot;Tokyo&quot;], [&quot;7 of Hearts&quot;, &quot;Ankara&quot;], [&quot;Ace of Diamonds&quot;, &quot;Washington&quot;], [&quot;5 of Diamonds&quot;, &quot;Lima&quot;], [&quot;Ace of Spades&quot;, &quot;Cairo&quot;], [&quot;10 of Spades&quot;, &quot;Dakar&quot;]]"><div class="fcard" tabindex="0" role="button" aria-label="Flip the card"><div class="front"></div><div class="back"></div><div class="tap">tap to turn over</div></div><div class="deck-ctl"><button class="btn" data-act="prev">&larr;</button><span class="cnt"></span><button class="btn" data-act="next">&rarr;</button><button class="btn" data-act="shuffle">Shuffle</button></div></div><h3>Quick quiz</h3><div class="ex" data-why="Clubs = Europe in this system."><div class="prompt"><b>What is the suit that stands for Europe?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Clubs</button><button class="mc-opt" data-act="mc" data-ok="0">Hearts</button><button class="mc-opt" data-act="mc" data-ok="0">Spades</button><div class="fb"></div></div><div class="ex" data-why="Three cards per scene: person, action, object."><div class="prompt"><b>How many scenes does a champion need for a whole pack?</b></div><button class="mc-opt" data-act="mc" data-ok="0">52</button><button class="mc-opt" data-act="mc" data-ok="1">About 17</button><button class="mc-opt" data-act="mc" data-ok="0">4</button><div class="fb"></div></div><div class="ex" data-why="A fixed picture makes the system automatic."><div class="prompt"><b>Why must the same card always be the same picture?</b></div><button class="mc-opt" data-act="mc" data-ok="1">So you never have to decide again</button><button class="mc-opt" data-act="mc" data-ok="0">It is more beautiful</button><button class="mc-opt" data-act="mc" data-ok="0">To save paper</button><div class="fb"></div></div><div class="ex" data-why="Diamonds: A Washington, 2 Mexico City, 3 Ottawa."><div class="prompt"><b>What city is the 3 of Diamonds?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Ottawa</button><button class="mc-opt" data-act="mc" data-ok="0">Lima</button><button class="mc-opt" data-act="mc" data-ok="0">Caracas</button><div class="fb"></div></div><h3>The memory challenge</h3><div class="recall" data-items="[&quot;King of Clubs|king clubs|kc&quot;, &quot;2 of Hearts|2 hearts|two of hearts&quot;, &quot;9 of Spades|9 spades|nine of spades&quot;, &quot;Ace of Diamonds|ace diamonds|ad&quot;, &quot;5 of Clubs|5 clubs|five of clubs&quot;, &quot;10 of Hearts|10 hearts|ten of hearts&quot;, &quot;4 of Spades|4 spades|four of spades&quot;, &quot;Queen of Diamonds|queen diamonds|qd&quot;]" data-secs="120" data-ordered="1"><h4>Memory challenge: eight cards</h4><div class="stage on" data-stage="start"><p>Eight cards drawn at random. Turn each into its city scene and place it at your palace. Type the cards back in order, like 'King of Clubs'.</p><button class="btn primary" data-act="rc-start">Start: 120 seconds to study</button></div><div class="stage" data-stage="study"><p>King of Clubs = Amsterdam. 2 of Hearts = Bangkok. 9 of Spades = Addis Ababa...</p><div class="timer-box"><span class="timer">0:00</span><button class="btn" data-act="rc-ready">I’m ready</button></div><div class="items"></div></div><div class="stage" data-stage="recall"><p>The list has gone. Type what you remember, one item per line.</p><textarea rows="8" placeholder="One per line…"></textarea><button class="btn primary" data-act="rc-check">Check</button></div><div class="stage" data-stage="result"><div class="score"></div><div class="res"></div><button class="btn" data-act="rc-again">Try again</button></div></div></section></div><div class="tab-content" id="tab4"><section class="page"><div class="pgno">12</div><h2>Look back</h2><p>These reach back to earlier rooms. Answer in your head or out loud, then check.</p><div class="qa"><div class="q"><span class="red">Room 11 · Names and Faces.</span> What is the first thing to do when you hear a name?</div><button class="reveal-btn">Check</button><div class="reveal">Hear it properly, and ask the person to repeat it if you are unsure.</div></div><div class="qa"><div class="q"><span class="red">Room 10 · Choosing Your System.</span> Which number system holds six digits in one scene?</div><button class="reveal-btn">Check</button><div class="reveal">PAO.</div></div><div class="qa"><div class="q"><span class="red">Room 9 · Person, Action, Object.</span> In PAO, which pair gives the action?</div><button class="reveal-btn">Check</button><div class="reveal">The second pair.</div></div><div class="qa"><div class="q"><span class="red">Room 4 · The Memory Palace.</span> What is the method of loci?</div><button class="reveal-btn">Check</button><div class="reveal">Using places in a fixed route to store pictures in order.</div></div><h3>What I can do now</h3><ul class="canlist"><li><label><input type="checkbox" data-save="can0"> <span>I can explain why a shuffled deck is unique.</span></label></li><li><label><input type="checkbox" data-save="can1"> <span>I can give each card a fixed picture from a system.</span></label></li><li><label><input type="checkbox" data-save="can2"> <span>I can place a short run of cards at the places of a palace.</span></label></li></ul><h3>A thought to keep</h3><p>Which suit would you like to learn first, and what is your first picture for it?</p><div class="ref"><textarea rows="3" data-save="reflect" placeholder="Your thoughts…"></textarea><div class="savednote">Saved on this device as you type.</div></div><p><button class="btn primary" data-act="done">Mark this room as done</button></p></section></div>
+  <div class="nav-end"><a href="lesson-11-names-faces.html">&larr; Names and Faces</a><a href="art-of-memory.html">The whole house</a><a href="lesson-13-presentations.html">Speaking Without Notes &rarr;</a></div>
+  <footer>The Art of Memory · Room 12 · A Pack of Cards</footer>
+</div>
+<script>
+(function () {
+  var store = null;
+  try { var t = '__aom'; window.localStorage.setItem(t, t); window.localStorage.removeItem(t); store = window.localStorage; } catch (e) { store = null; }
+  function sget(k) { try { return store ? store.getItem(k) : null; } catch (e) { return null; } }
+  function sset(k, v) { try { if (store) store.setItem(k, v); } catch (e) {} }
+  var LESSON = document.body.getAttribute('data-lesson') || 'x';
 
-        <div id="retrieval" class="tab-content active">
-            <h2>Review: Prior Knowledge</h2>
-            <a href="lesson-11-names-faces.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #555; color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 0;">← Previous Lesson</a>
-            <p>Let's recall what you learned from Lesson 11: Names & Faces.</p>
-            <div class="quiz-question">
-                <p><strong>Q1:</strong> What are the 3 core steps of the Face-Feature Method?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) Identify one distinctive feature, exaggerate it mentally, link the name-image to it</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) Look at the whole face, study all details, create a general impression</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Repeat the name three times, look at their eyes, ask personal questions</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Take a photo, create a chart, compare with others</div>
-                </div>
-            </div>
-            <div class="quiz-question">
-                <p><strong>Q2:</strong> What makes a good distinctive facial feature for memory purposes?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) The most beautiful feature on the face</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) A feature that stands out and can be mentally exaggerated vividly</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Always the nose or mouth</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Features that match societal standards</div>
-                </div>
-            </div>
-            <div class="quiz-question">
-                <p><strong>Q3:</strong> Which name-to-image conversion technique works for "Gregory"?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Memorize the letters G-R-E-G-O-R-Y</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) Sound-alike: GREG (scary/scary movie) to create SCARY IMAGE</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Rhyme Gregory with history</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Create a general impression from the name</div>
-                </div>
-            </div>
-            <button onclick="scrollToTab('content')">Continue →</button>
-        </div>
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9À-ſ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
-        <div id="content" class="tab-content">
-            <h2>New Content: Card-to-Image Systems</h2>
+  /* ---------- tabs ---------- */
+  window.showTab = function (i, noScroll) {
+    var panels = $all('.tab-content'), btns = $all('.tab-btn');
+    panels.forEach(function (p, k) { p.classList.toggle('active', k === i); });
+    btns.forEach(function (b, k) { b.classList.toggle('active', k === i); b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (!noScroll) { var nav = $('.tab-nav'); if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    sset('aom_tab_' + LESSON, String(i));
+  };
 
-            <div class="highlight" style="background: linear-gradient(135deg, #1a3324 0%, #1a2744 100%); border-left: 4px solid #51cf66; padding: 15px; margin-bottom: 20px;">
-                <strong style="color: #51cf66;">🏆 THE Flagship Event of Memory Sports!</strong><br>
-                <span style="color: #e0e0e0;"><strong>Speed Cards</strong> is the most prestigious World Memory Championship event. World record: <strong>Shijir-Erdene Bat-Enkh</strong> (Mongolia) memorized a shuffled deck in <strong>12.74 seconds</strong>! <strong>Alex Mullen</strong> (3x World Champion) uses PAO cards. You're learning the same system.</span>
-            </div>
+  /* ---------- timers ---------- */
+  var timers = [];
+  function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+  function runTimer(box, secs, onTick, onEnd) {
+    var disp = $('.timer', box), left = secs, id;
+    if (box._id) clearInterval(box._id);
+    function paint() {
+      disp.textContent = fmt(left);
+      disp.classList.toggle('warn', left <= Math.max(10, secs * 0.25) && left > Math.max(5, secs * 0.1));
+      disp.classList.toggle('low', left <= Math.max(5, secs * 0.1));
+      if (onTick) onTick(left);
+    }
+    paint();
+    id = setInterval(function () {
+      left -= 1; paint();
+      if (left <= 0) { clearInterval(id); box._id = null; disp.classList.remove('warn'); if (onEnd) onEnd(); }
+    }, 1000);
+    box._id = id;
+    timers.push(id);
+  }
 
-            <h3>The Card-Image System Foundation</h3>
-            <p>Each playing card must be converted to a vivid, memorable image. The key is consistency—the same card always becomes the same image.</p>
-            <div class="highlight">
-                <strong>Card Conversion Process:</strong><br>
-                1. Assign a specific image to each of the 52 cards<br>
-                2. Use memory palace or story method to link cards<br>
-                3. Practice retrieval repeatedly<br>
-                4. Gradually increase speed<br>
-                5. Eventually memorize entire decks
-            </div>
+  /* ---------- generic click handling ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var btn = t.closest ? t.closest('button, .fcard, a') : null;
+    if (!btn) return;
 
-            <h3>Suit Categorization Method: World Capitals</h3>
-            <p>Assign each suit to a geographic region and memorize capital cities by card position:</p>
-            <div class="key-points">
-                <ul>
-                    <li><strong>Clubs (♣) = EUROPE:</strong> Ace=London, 2=Paris, 3=Berlin, 4=Rome, 5=Madrid, 6=Athens, 7=Vienna, 8=Prague, 9=Budapest, 10=Warsaw</li>
-                    <li><strong>Hearts (❤) = ASIA:</strong> Ace=Tokyo, 2=Bangkok, 3=New Delhi, 4=Beijing, 5=Seoul, 6=Singapore, 7=Istanbul, 8=Manila, 9=Hanoi, 10=Jakarta</li>
-                    <li><strong>Diamonds (♦) = AMERICAS:</strong> Ace=Washington, 2=Mexico City, 3=Toronto, 4=Rio de Janeiro, 5=Lima, 6=Bogota, 7=Buenos Aires, 8=Santiago, 9=Caracas, 10=Havana</li>
-                    <li><strong>Spades (♠) = AFRICA & OCEANIA:</strong> Ace=Cairo, 2=Lagos, 3=Johannesburg, 4=Nairobi, 5=Casablanca, 6=Sydney, 7=Auckland, 8=Canberra, 9=Accra, 10=Addis Ababa</li>
-                </ul>
-            </div>
+    if (btn.classList.contains('reveal-btn')) {
+      var r = btn.nextElementSibling;
+      if (r) { r.classList.toggle('show'); }
+      return;
+    }
+    if (btn.classList.contains('w')) { btn.parentElement.classList.toggle('open'); return; }
 
-            <h3>Sample Card-Capital Mapping</h3>
-            <div class="interactive-box">
-                <h4>Clubs (Europe) Examples:</h4>
-                <p>Ace of Clubs → Big Ben and Parliament in LONDON</p>
-                <p>5 of Clubs → Eiffel Tower in MADRID</p>
-                <p>King of Clubs → Brandenburg Gate in BERLIN</p>
-                <h4 style="margin-top: 20px;">Hearts (Asia) Examples:</h4>
-                <p>Ace of Hearts → Mount Fuji overlooking TOKYO</p>
-                <p>5 of Hearts → Thai temples and palaces of BANGKOK</p>
-                <p>King of Hearts → Great Wall near BEIJING</p>
-            </div>
+    var act = btn.getAttribute('data-act');
+    if (!act) return;
+    var ex = btn.closest('.ex, .recall, .card-deck') || document;
 
-            <h3>Creating Your Personal System</h3>
-            <div class="highlight">
-                Start with just 10 cards and create consistent images for them. Once these are automatic, expand to the full 52-card deck. The system only works through repetition and consistency.
-            </div>
-            <button onclick="scrollToTab('practice')">Continue →</button>
-        </div>
+    if (act === 'gap') {
+      var ok = 0, all = $all('.gapin', ex);
+      all.forEach(function (inp) {
+        var accepted = (inp.getAttribute('data-ans') || '').split('|').map(norm);
+        var v = norm(inp.value);
+        var good = v && accepted.indexOf(v) > -1;
+        inp.classList.toggle('ok', !!good); inp.classList.toggle('no', !good);
+        var note = inp.parentElement.querySelector('.gapans[data-for="' + inp.id + '"]');
+        if (note) { note.textContent = good ? '' : '→ ' + inp.getAttribute('data-ans').split('|')[0]; }
+        if (good) ok++;
+      });
+      var fb = $('.fb', ex);
+      fb.className = 'fb ' + (ok === all.length ? 'ok' : 'no');
+      fb.textContent = ok === all.length ? 'All ' + all.length + ' correct.' : ok + ' of ' + all.length + ' correct. The answers you missed are shown in red; fix them, then check again.';
+      return;
+    }
+    if (act === 'mc') {
+      var q = btn.closest('.ex');
+      var good = btn.getAttribute('data-ok') === '1';
+      var fb2 = $('.fb', q);
+      $all('.mc-opt', q).forEach(function (o) { if (o !== btn && !o.classList.contains('ok')) { o.classList.remove('no'); } });
+      btn.classList.add(good ? 'ok' : 'no');
+      fb2.className = 'fb ' + (good ? 'ok' : 'no');
+      fb2.innerHTML = good ? (q.getAttribute('data-why') || 'Correct.') : (btn.getAttribute('data-hint') || 'Not quite. Think again and try another answer.');
+      return;
+    }
+    if (act === 'match') {
+      var okm = 0, rows = $all('.match-row', ex);
+      rows.forEach(function (row) {
+        var sel = $('select', row), good = sel.value === sel.getAttribute('data-ans');
+        row.classList.toggle('ok', good); row.classList.toggle('no', !good && sel.value !== '');
+        if (good) okm++;
+      });
+      var fb3 = $('.fb', ex);
+      fb3.className = 'fb ' + (okm === rows.length ? 'ok' : 'no');
+      fb3.textContent = okm === rows.length ? 'All ' + rows.length + ' matched.' : okm + ' of ' + rows.length + ' matched. Change the red ones and check again.';
+      return;
+    }
+    if (act === 'timer') {
+      var box = btn.closest('.timer-box'), secs = parseInt(box.getAttribute('data-secs'), 10) || 60;
+      var msg = $('.timer-msg', box);
+      if (msg) msg.textContent = '';
+      runTimer(box, secs, null, function () { if (msg) msg.textContent = 'Time is up.'; });
+      return;
+    }
+    if (act === 'timer-reset') {
+      var b2 = btn.closest('.timer-box'); if (b2._id) clearInterval(b2._id);
+      $('.timer', b2).textContent = fmt(parseInt(b2.getAttribute('data-secs'), 10) || 60);
+      $('.timer', b2).className = 'timer';
+      return;
+    }
+    if (act === 'flip') { return; }
+    if (act === 'next' || act === 'prev' || act === 'shuffle') {
+      var deck = btn.closest('.card-deck');
+      var cards = JSON.parse(deck.getAttribute('data-cards'));
+      var i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+      if (act === 'shuffle') { cards.sort(function () { return Math.random() - 0.5; }); deck.setAttribute('data-cards', JSON.stringify(cards)); i = 0; }
+      else if (act === 'next') i = (i + 1) % cards.length; else i = (i - 1 + cards.length) % cards.length;
+      deck.setAttribute('data-i', i); paintCard(deck); return;
+    }
+    if (act === 'rc-start') { startRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-ready') { endStudy(btn.closest('.recall')); return; }
+    if (act === 'rc-check') { checkRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-again') { resetRecall(btn.closest('.recall')); return; }
+    if (act === 'done') {
+      sset('aom_done_' + LESSON, '1');
+      btn.textContent = 'Marked as done ✓';
+      return;
+    }
+  });
 
-        <div id="practice" class="tab-content">
-            <h2>Guided Practice: Learn 10 Card Images</h2>
-            <p>We'll learn 10 cards using the SUIT-CATEGORY SYSTEM. Each card has a specific capital city image.</p>
+  /* flash cards */
+  function paintCard(deck) {
+    var cards = JSON.parse(deck.getAttribute('data-cards')), i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+    var c = cards[i], el = $('.fcard', deck);
+    el.classList.remove('flip');
+    $('.front', el).innerHTML = c[0]; $('.back', el).innerHTML = c[1];
+    $('.cnt', deck).textContent = (i + 1) + ' of ' + cards.length;
+  }
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest ? e.target.closest('.fcard') : null;
+    if (f) f.classList.toggle('flip');
+  });
+  $all('.card-deck').forEach(paintCard);
 
-            <div class="highlight">
-                <strong>Watch Example - Specific Card-to-Image Conversion:</strong><br><br>
-                <strong>Card: 7 of Hearts ♥</strong><br><br>
-                <strong>Step 1 - System Recognition:</strong> Hearts = ASIA category. 7 = Istanbul (the 7th card in the Asia sequence)<br><br>
-                <strong>Step 2 - Location → Image Conversion:</strong> ISTANBUL = City straddling two continents. Let me make THIS VIVID:<br><br>
-                <strong>My Complete Sensory Image:</strong> I picture myself standing at the BLUE MOSQUE at SUNSET. The entire mosque is GLOWING BRILLIANT BLUE and GOLD. FIVE MINARETS are SHOOTING UPWARD like rockets, PIERCING the sky. I can SMELL exotic SPICES (cinnamon, cardamom) WAFTING through the air. I HEAR the CALL TO PRAYER echoing and REVERBERATING off the blue tiles. THOUSANDS of pigeons are FLYING EVERYWHERE in SYNCHRONIZED patterns, their WINGS BEATING creating a WHOOSHING sound. The BOSPHORUS STRAIT is GLOWING electric TURQUOISE behind the mosque. Turkish merchants in RED FEZ HATS are DANCING and CLAPPING rhythmically. Everything is HYPERSATURATED in COLOR — brilliant BLUES, GOLDS, REDS. The GROUND beneath my feet is WARM from the setting sun.<br><br>
-                <strong>Why This Works:</strong> Instead of just "7 of Hearts = Istanbul," I see 7♥ and INSTANTLY picture this explosive, sensory, bizarre scene. The exaggeration (glowing, rockets, thousands of pigeons, colored everything) makes it UNFORGETTABLE. The next card will link to this image via the story method.<br><br>
-                <strong>The image is YOUR vivid visual shorthand for "7 of Hearts" — when you see this card, your brain IMMEDIATELY recalls this entire sensory experience!</strong>
-            </div>
+  /* memory challenge */
+  function stage(rc, name) { $all('.stage', rc).forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-stage') === name); }); }
+  function startRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var wrap = $('.items', rc); wrap.className = 'items' + (ordered ? ' ordered' : '');
+    wrap.innerHTML = '';
+    items.forEach(function (it) { var s = document.createElement('span'); s.textContent = it.split('|')[0]; wrap.appendChild(s); });
+    stage(rc, 'study');
+    var box = $('.timer-box', rc), secs = parseInt(rc.getAttribute('data-secs'), 10) || 60;
+    box.setAttribute('data-secs', secs);
+    runTimer(box, secs, null, function () { endStudy(rc); });
+  }
+  function endStudy(rc) {
+    var box = $('.timer-box', rc); if (box._id) { clearInterval(box._id); box._id = null; }
+    $('.items', rc).innerHTML = '';
+    stage(rc, 'recall');
+    var ta = $('textarea', rc); ta.value = ''; ta.focus();
+  }
+  function checkRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var raw = $('textarea', rc).value, text = norm(raw);
+    var lines = raw.split(/\n+/).map(norm).filter(Boolean);
+    var res = $('.res', rc), got = 0; res.innerHTML = '';
+    items.forEach(function (it, i) {
+      var alts = it.split('|').map(norm), good = false;
+      if (ordered) {
+        var ln = lines[i] || '';
+        good = alts.some(function (a) { return ln && (ln.indexOf(a) > -1 || (ln.length >= 4 && a.indexOf(ln) > -1)); });
+      } else {
+        var padded = ' ' + text + ' ';
+        good = alts.some(function (a) { return padded.indexOf(' ' + a + ' ') > -1 || padded.indexOf(a) > -1; });
+      }
+      if (good) got++;
+      var d = document.createElement('div'); d.className = good ? 'ok' : 'no';
+      d.textContent = (ordered ? (i + 1) + '. ' : '') + it.split('|')[0] + (good ? '  ✓' : '  ✗');
+      res.appendChild(d);
+    });
+    $('.score', rc).textContent = got + ' of ' + items.length + ' recalled';
+    stage(rc, 'result');
+  }
+  function resetRecall(rc) { stage(rc, 'start'); }
 
-            <div class="suit-category">
-                <h4>Hearts ♥ - ASIA Capitals</h4>
-                <p><strong>Ace ♥ = TOKYO:</strong> Mount Fuji glowing RED at sunset, neon city lights BLAZING</p>
-                <p><strong>5 ♥ = BANGKOK:</strong> GOLDEN Buddhist temples, bells ringing, pilgrims spinning prayer wheels</p>
-                <p><strong>10 ♥ = NEW DELHI:</strong> TAJ MAHAL gleaming white, crowds of people in colorful fabrics</p>
-            </div>
+  /* build-it self checks */
+  document.addEventListener('change', function (e) {
+    var cb = e.target;
+    if (cb.type === 'checkbox' && cb.closest('.checks')) {
+      var box = cb.closest('.ex'), all = $all('.checks input', box), done = all.every(function (c) { return c.checked; });
+      var fb = $('.fb', box);
+      if (fb) { fb.className = done ? 'fb ok' : 'fb'; if (done) fb.textContent = 'Every box ticked: each of those is a reason the picture will still be there tomorrow.'; }
+    }
+    if (cb.type === 'checkbox' && cb.hasAttribute('data-save')) { sset('aom_' + LESSON + '_' + cb.getAttribute('data-save'), cb.checked ? '1' : '0'); }
+  });
 
-            <div class="suit-category">
-                <h4>Clubs ♣ - EUROPE Capitals</h4>
-                <p><strong>Ace ♣ = LONDON:</strong> Big Ben STRIKING loudly, double-decker buses ZOOMING by the Thames</p>
-                <p><strong>5 ♣ = MADRID:</strong> Royal PALACE with guards, vast plazas and green parks stretching forever</p>
-                <p><strong>10 ♣ = PARIS:</strong> Eiffel Tower SPARKLING with lights, cafes filled with people sipping wine</p>
-            </div>
+  /* saved text / ticks */
+  $all('textarea[data-save]').forEach(function (ta) {
+    var k = 'aom_' + LESSON + '_' + ta.getAttribute('data-save'), v = sget(k);
+    if (v) ta.value = v;
+    ta.addEventListener('input', function () { sset(k, ta.value); });
+  });
+  $all('input[type=checkbox][data-save]').forEach(function (cb) {
+    if (sget('aom_' + LESSON + '_' + cb.getAttribute('data-save')) === '1') cb.checked = true;
+  });
+  if (sget('aom_done_' + LESSON) === '1') { var d = $('[data-act=done]'); if (d) d.textContent = 'Marked as done ✓'; }
 
-            <div class="suit-category">
-                <h4>Diamonds ♦ - AMERICAS Capitals</h4>
-                <p><strong>Ace ♦ = WASHINGTON DC:</strong> White House GLEAMING white, guards marching, American flags FLAPPING</p>
-                <p><strong>5 ♦ = MEXICO CITY:</strong> Aztec ruins carved in stone, modern skyscrapers rising behind ancient temples</p>
-                <p><strong>10 ♦ = RIO:</strong> Christ the Redeemer TOWERING above the city, arms spread wide, beaches with golden sand</p>
-            </div>
-
-            <div class="suit-category">
-                <h4>Spades ♠ - AFRICA & OCEANIA Capitals</h4>
-                <p><strong>Ace ♠ = CAIRO:</strong> Pyramids of Giza MASSIVE and ANCIENT, Nile River flowing, desert heat shimmering</p>
-                <p><strong>5 ♠ = JOHANNESBURG:</strong> Vibrant street art, museums filled with history, people in colorful clothing</p>
-                <p><strong>10 ♠ = SYDNEY:</strong> Opera House with DISTINCTIVE white shells, Harbor Bridge ARCHING overhead, ocean blue</p>
-            </div>
-
-            <p style="margin-top: 30px;"><strong>Your Together task:</strong> For each card shown below, create YOUR OWN vivid image using the same location but YOUR details. What colors? What sounds? What are you DOING there?</p>
-            <button onclick="startCardPractice()">Start Card Learning</button>
-            
-            <div id="card-practice-display" style="display:none; margin-top: 30px;">
-                <div class="interactive-box">
-                    <h4 id="card-title">Card</h4>
-                    <p id="card-region" style="color: #d4af37; font-weight: 600; margin-bottom: 5px;"></p>
-                    <p id="card-category" style="color: #666; margin-bottom: 15px;"></p>
-                    <p id="card-capital" style="color: #333; margin-bottom: 20px;"><strong>Capital City:</strong> <span id="cap-name"></span></p>
-
-                    <div class="highlight">
-                        <strong>How to create your image:</strong> This city is REAL - what would you SEE, HEAR, FEEL there? Make it VIVID and SENSORY. Use the example in your mind but add YOUR unique details.
-                    </div>
-
-                    <p style="margin-top: 20px;"><strong>Describe your vivid image for this card:</strong></p>
-                    <textarea id="card-image-desc" placeholder="What specific sensory details do you see in this capital? Colors, sounds, feelings..." style="height: 100px;"></textarea>
-                    <div style="margin-top: 15px;">
-                        <button onclick="nextCard()">Next Card</button>
-                        <span id="card-progress" style="color: #666; margin-left: 10px;">0/10</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="elaboration" class="tab-content">
-            <h2>Elaboration: Advanced Card Systems</h2>
-            <h3>Why Suit Categorization Works</h3>
-            <p>By grouping cards into semantic categories (Hearts=loved ones, Clubs=tough people), you're leveraging your brain's natural categorization abilities. This makes the images more meaningful and memorable.</p>
-            
-            <div class="highlight">
-                <strong>Cognitive Load Reduction:</strong> Instead of memorizing 52 random images, you're learning 4 categories with 13 examples each. This dramatically reduces cognitive burden.
-            </div>
-
-            <h3>Complete 52-Card Reference Table</h3>
-            <p>Here is the complete mapping for all 52 cards. Use this as your starting point — personalise the images to make them YOUR own! Click each suit to expand and review the full reference.</p>
-            <div id="cardReferenceTable"></div>
-
-            <h3>The Link System for Card Sequences</h3>
-            <p>Once you have images for each card, link them together using the story or palace method:</p>
-            <div class="key-points">
-                <ul>
-                    <li><strong>Story Method:</strong> Create absurd stories linking card images in sequence</li>
-                    <li><strong>Palace Method:</strong> Place each image in a specific location of a mental palace</li>
-                    <li><strong>Journey Method:</strong> Imagine traveling through a familiar route, encountering each image</li>
-                    <li><strong>Action Method:</strong> Link cards through bizarre actions and interactions</li>
-                </ul>
-            </div>
-
-            <h3>Building Toward Full Deck Mastery</h3>
-            <div class="interactive-box">
-                <h4>Progression Timeline:</h4>
-                <p><strong>Week 1:</strong> Master 10 cards with consistent images</p>
-                <p><strong>Week 2:</strong> Expand to 26 cards (half deck)</p>
-                <p><strong>Week 3-4:</strong> Master all 52 cards</p>
-                <p><strong>Week 5+:</strong> Practice speed and multiple decks</p>
-            </div>
-            <button onclick="scrollToTab('independent')">Continue →</button>
-        </div>
-
-        <div id="independent" class="tab-content">
-            <h2>Independent Practice: Memory Card Challenge</h2>
-            <p>Challenge yourself: Memorize a 10-card sequence using your SUIT-CATEGORY SYSTEM, then recall it in order.</p>
-
-            <div class="highlight">
-                <strong>How to approach this Your Turn challenge:</strong><br>
-                1. Look at each card and recall which category (suit) it belongs to<br>
-                2. Remember the specific capital city for that card<br>
-                3. Visualize your vivid image from practice<br>
-                4. Link the cards together using the STORY or PALACE method<br>
-                5. When you see the next card, add it to your mental journey
-            </div>
-
-            <button onclick="startCardChallenge()">Start 10-Card Sequence Challenge</button>
-
-            <div id="challenge-display" style="display:none; margin-top: 30px;">
-                <p style="color: #d4af37; font-weight: 600; margin-bottom: 20px;">Study these cards for 60 seconds. USE YOUR SYSTEM: What suit? What region? What capital? What image?</p>
-                <div class="card-grid" id="card-display"></div>
-                <div class="timer">Time: <span id="study-timer">60</span>s</div>
-                <p style="color: #666; text-align: center; margin-top: 15px; font-size: 0.9em;">Hint: Link each card's capital city image in sequence. Create a story or walk them through your palace.</p>
-                <button onclick="startRecallTest()" id="start-recall-btn" style="display:none; margin-top: 20px;">Recall Now</button>
-            </div>
-
-            <div id="recall-test-display" style="display:none; margin-top: 30px;">
-                <h3 style="color: #d4af37; margin-bottom: 20px;">Recall Test: Enter cards in order</h3>
-                <div id="recall-inputs"></div>
-                <button onclick="scoreCardChallenge()" style="margin-top: 30px;">Check Answers</button>
-            </div>
-        </div>
-
-        <div id="final" class="tab-content">
-            <h2>Final Review: Card System Mastery</h2>
-            <div class="quiz-question">
-                <p><strong>Q1:</strong> Which suit category pairs best with "loved ones"?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) Hearts</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) Diamonds</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Clubs</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Spades</div>
-                </div>
-            </div>
-            <div class="quiz-question">
-                <p><strong>Q2:</strong> What is the primary advantage of suit categorization?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) It makes cards smaller</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) It reduces cognitive load by grouping cards semantically</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) It changes the card values</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) It makes cards easier to shuffle</div>
-                </div>
-            </div>
-            <div class="quiz-question">
-                <p><strong>Q3:</strong> Which linking method places images in a spatial location?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Story Method</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) Palace Method</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Random Method</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Number Method</div>
-                </div>
-            </div>
-            <div class="quiz-question">
-                <p><strong>Q4:</strong> How many unique images must you create for a complete deck?</p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) 4 (one per suit)</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) 13 (one per rank)</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">C) 52 (one per card)</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) 104 (two decks)</div>
-                </div>
-            </div>
-            <button onclick="scoreFinal()">Calculate Score</button>
-            <div id="final-results"></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
-                <a href="lesson-11-names-faces.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #555; color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 0;">← Previous Lesson</a>
-                <a href="lesson-13-presentations.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #d4af37; color: #1a1a1a; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 8px 8px 0;">Next Lesson →</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const cardData = [
-            {name: "A♥", suit: "Hearts", category: "Loved One"},
-            {name: "5♥", suit: "Hearts", category: "Loved One"},
-            {name: "10♥", suit: "Hearts", category: "Loved One"},
-            {name: "A♣", suit: "Clubs", category: "Tough Person"},
-            {name: "5♣", suit: "Clubs", category: "Tough Person"},
-            {name: "10♣", suit: "Clubs", category: "Tough Person"},
-            {name: "A♦", suit: "Diamonds", category: "Rich Person"},
-            {name: "5♦", suit: "Diamonds", category: "Rich Person"},
-            {name: "10♦", suit: "Diamonds", category: "Rich Person"},
-            {name: "A♠", suit: "Spades", category: "Sharp/Fast"}
-        ];
-
-        const cardReference = {
-            "Clubs": [
-                {card: "A♣", capital: "London", image: "Big Ben striking"},
-                {card: "2♣", capital: "Paris", image: "Eiffel Tower sparkling"},
-                {card: "3♣", capital: "Berlin", image: "Brandenburg Gate"},
-                {card: "4♣", capital: "Rome", image: "Colosseum with gladiators"},
-                {card: "5♣", capital: "Madrid", image: "Royal Palace"},
-                {card: "6♣", capital: "Athens", image: "Parthenon on hilltop"},
-                {card: "7♣", capital: "Vienna", image: "Concert hall, waltzing"},
-                {card: "8♣", capital: "Prague", image: "Castle on river"},
-                {card: "9♣", capital: "Budapest", image: "Chain Bridge lights"},
-                {card: "10♣", capital: "Warsaw", image: "Old Town square"},
-                {card: "J♣", capital: "Amsterdam", image: "Canals, bicycles"},
-                {card: "Q♣", capital: "Lisbon", image: "Yellow tram climbing"},
-                {card: "K♣", capital: "Dublin", image: "Emerald green pub"}
-            ],
-            "Hearts": [
-                {card: "A♥", capital: "Tokyo", image: "Mount Fuji, neon lights"},
-                {card: "2♥", capital: "Bangkok", image: "Golden temples"},
-                {card: "3♥", capital: "New Delhi", image: "Taj Mahal gleaming"},
-                {card: "4♥", capital: "Beijing", image: "Great Wall stretching"},
-                {card: "5♥", capital: "Seoul", image: "Palaces and K-pop"},
-                {card: "6♥", capital: "Singapore", image: "Marina Bay skyline"},
-                {card: "7♥", capital: "Istanbul", image: "Blue Mosque at sunset"},
-                {card: "8♥", capital: "Manila", image: "Colourful jeepneys"},
-                {card: "9♥", capital: "Hanoi", image: "Lanterns on water"},
-                {card: "10♥", capital: "Jakarta", image: "Bustling markets"},
-                {card: "J♥", capital: "Dubai", image: "Burj Khalifa towering"},
-                {card: "Q♥", capital: "Kyoto", image: "Cherry blossoms, geisha"},
-                {card: "K♥", capital: "Mumbai", image: "Bollywood dancing"}
-            ],
-            "Diamonds": [
-                {card: "A♦", capital: "Washington DC", image: "White House gleaming"},
-                {card: "2♦", capital: "Mexico City", image: "Aztec pyramids"},
-                {card: "3♦", capital: "Toronto", image: "CN Tower piercing sky"},
-                {card: "4♦", capital: "Rio de Janeiro", image: "Christ the Redeemer"},
-                {card: "5♦", capital: "Lima", image: "Machu Picchu ruins"},
-                {card: "6♦", capital: "Bogota", image: "Emerald mountains"},
-                {card: "7♦", capital: "Buenos Aires", image: "Tango dancers"},
-                {card: "8♦", capital: "Santiago", image: "Andes mountains"},
-                {card: "9♦", capital: "Caracas", image: "Tropical coastline"},
-                {card: "10♦", capital: "Havana", image: "Classic cars, cigars"},
-                {card: "J♦", capital: "New York", image: "Statue of Liberty"},
-                {card: "Q♦", capital: "San Francisco", image: "Golden Gate Bridge"},
-                {card: "K♦", capital: "Rio", image: "Carnival parade"}
-            ],
-            "Spades": [
-                {card: "A♠", capital: "Cairo", image: "Pyramids of Giza"},
-                {card: "2♠", capital: "Lagos", image: "Bustling market stalls"},
-                {card: "3♠", capital: "Johannesburg", image: "Gold mines"},
-                {card: "4♠", capital: "Nairobi", image: "Safari animals"},
-                {card: "5♠", capital: "Casablanca", image: "White city walls"},
-                {card: "6♠", capital: "Sydney", image: "Opera House shells"},
-                {card: "7♠", capital: "Auckland", image: "Harbour Bridge"},
-                {card: "8♠", capital: "Canberra", image: "Parliament House"},
-                {card: "9♠", capital: "Accra", image: "Colourful kente cloth"},
-                {card: "10♠", capital: "Addis Ababa", image: "Coffee ceremony"},
-                {card: "J♠", capital: "Marrakech", image: "Red walls, spices"},
-                {card: "Q♠", capital: "Melbourne", image: "Street art laneways"},
-                {card: "K♠", capital: "Cape Town", image: "Table Mountain"}
-            ]
-        };
-
-        let cardMems = [], currentCard = 0, cardTimer = null;
-
-        function switchTab(e, id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            e.target.classList.add('active');
-        }
-        function checkAnswer(el, correct) {
-            el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
-            el.classList.add(correct ? 'correct' : 'incorrect');
-        }
-        function startCardPractice() {
-            cardMems = [];
-            currentCard = 0;
-            document.querySelector('#practice button').style.display = 'none';
-            document.getElementById('card-practice-display').style.display = 'block';
-            showCard();
-        }
-        function showCard() {
-            if(currentCard < cardData.length) {
-                const c = cardData[currentCard];
-                const capitals = {
-                    "A♥": "Tokyo", "5♥": "Bangkok", "10♥": "New Delhi",
-                    "A♣": "London", "5♣": "Madrid", "10♣": "Paris",
-                    "A♦": "Washington DC", "5♦": "Mexico City", "10♦": "Rio de Janeiro",
-                    "A♠": "Cairo"
-                };
-                const regions = {
-                    "Hearts": "ASIA", "Clubs": "EUROPE", "Diamonds": "AMERICAS", "Spades": "AFRICA/OCEANIA"
-                };
-                document.getElementById('card-title').textContent = `Card: ${c.name}`;
-                document.getElementById('card-region').textContent = `${regions[c.suit]} Region`;
-                document.getElementById('card-category').textContent = `Using the SUIT-CATEGORY SYSTEM: ${c.suit} = ${regions[c.suit]}`;
-                document.getElementById('cap-name').textContent = capitals[c.name] || "Check system";
-                document.getElementById('card-image-desc').value = '';
-                document.getElementById('card-progress').textContent = `${currentCard+1}/10`;
-            }
-        }
-        function nextCard() {
-            const desc = document.getElementById('card-image-desc').value.trim();
-            if(!desc) { alert('Describe your image!'); return; }
-            cardMems.push({...cardData[currentCard], image: desc});
-            currentCard++;
-            if(currentCard < cardData.length) {
-                showCard();
-            } else {
-                document.getElementById('card-practice-display').style.display = 'none';
-                alert('Excellent! You\'ve created images for all 10 cards. Review them mentally before moving on.');
-            }
-        }
-        function startCardChallenge() {
-            const shuffled = cardData.slice().sort(() => Math.random() - 0.5);
-            let html = '';
-            shuffled.forEach((c, i) => {
-                html += `<div class="card" data-index="${i}">${c.name}</div>`;
-            });
-            document.getElementById('card-display').innerHTML = html;
-            document.getElementById('challenge-display').style.display = 'block';
-            document.querySelectorAll('#independent button')[0].style.display = 'none';
-            let t = 60;
-            if(cardTimer) clearInterval(cardTimer);
-            cardTimer = setInterval(() => {
-                t--;
-                document.getElementById('study-timer').textContent = t;
-                if(t <= 0) {
-                    clearInterval(cardTimer);
-                    document.getElementById('card-display').style.display = 'none';
-                    document.getElementById('study-timer').parentElement.style.display = 'none';
-                    startRecallTest();
-                }
-            }, 1000);
-        }
-        function startRecallTest() {
-            const shuffled = cardData.slice().sort(() => Math.random() - 0.5);
-            let html = '';
-            shuffled.forEach((c, i) => {
-                html += `<div style="margin-bottom: 15px;"><label>${i+1}. Enter the card:</label><input type="text" class="card-answer" placeholder="e.g., A♥" data-answer="${c.name}"></div>`;
-            });
-            document.getElementById('recall-inputs').innerHTML = html;
-            document.getElementById('recall-test-display').style.display = 'block';
-            document.getElementById('start-recall-btn').style.display = 'none';
-        }
-        function scoreCardChallenge() {
-            const inputs = document.querySelectorAll('.card-answer');
-            let correct = 0;
-            inputs.forEach(inp => {
-                const ans = inp.value.trim().toUpperCase();
-                const expected = inp.dataset.answer.toUpperCase();
-                const isCorrect = ans === expected;
-                if(isCorrect) correct++;
-                inp.style.borderColor = isCorrect ? '#4caf50' : '#f44336';
-                inp.style.background = isCorrect ? '#e8f5e9' : '#ffebee';
-            });
-            const pct = Math.round(correct/inputs.length*100);
-            const res = document.createElement('div');
-            res.className = pct >= 70 ? 'results' : 'results fail';
-            res.innerHTML = `<h3>${pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good!' : 'Keep practicing!'}</h3><div class="score">${correct}/${inputs.length} (${pct}%)</div>`;
-            document.getElementById('recall-test-display').appendChild(res);
-            document.querySelector('#recall-test-display button').style.display = 'none';
-        }
-        function scoreFinal() {
-            let correct = 0;
-            document.querySelectorAll('.quiz-question').forEach(q => {
-                if(q.querySelector('.quiz-option.correct')) correct++;
-            });
-            const pct = Math.round(correct/4*100);
-            const res = document.createElement('div');
-            res.className = pct >= 75 ? 'results' : 'results fail';
-            res.innerHTML = `<h3>${pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Excellent!' : 'Good work!'}</h3><div class="score">${correct}/4 (${pct}%)</div><p>Lesson 12: Card Memory Mastery</p>`;
-            document.getElementById('final-results').appendChild(res);
-            document.querySelector('#final button').style.display = 'none';
-        }
-        function scrollToTab(id) {
-            const tabs = ['retrieval', 'content', 'practice', 'elaboration', 'independent', 'final'];
-            const idx = tabs.indexOf(id);
-            document.querySelectorAll('.tab-button')[idx].click();
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        function renderCardTable() {
-            const container = document.getElementById('cardReferenceTable');
-            if(!container) return;
-
-            const suitInfo = {
-                "Clubs": {emoji: "♣", color: "#d4af37", region: "EUROPE"},
-                "Hearts": {emoji: "♥", color: "#e74c3c", region: "ASIA"},
-                "Diamonds": {emoji: "♦", color: "#3498db", region: "AMERICAS"},
-                "Spades": {emoji: "♠", color: "#2c3e50", region: "AFRICA & OCEANIA"}
-            };
-
-            let html = '';
-            Object.keys(cardReference).forEach(suit => {
-                const info = suitInfo[suit];
-                const cards = cardReference[suit];
-                html += `<div class="suit-section">
-                    <div class="suit-header" onclick="toggleSuitSection(this)">
-                        <span>${suit} ${info.emoji} — ${info.region}</span>
-                        <span class="suit-header-toggle">▼</span>
-                    </div>
-                    <div class="suit-entries">`;
-
-                cards.forEach(card => {
-                    html += `<div class="card-entry">
-                        <div class="card-name">${card.card}</div>
-                        <div class="capital">${card.capital}</div>
-                        <div class="image-desc">${card.image}</div>
-                    </div>`;
-                });
-
-                html += `</div></div>`;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function toggleSuitSection(header) {
-            const entries = header.nextElementSibling;
-            const toggle = header.querySelector('.suit-header-toggle');
-            entries.classList.toggle('open');
-            toggle.textContent = entries.classList.contains('open') ? '▲' : '▼';
-        }
-
-        // Initialize card table when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            renderCardTable();
-        });
-    </script>
+  /* hub progress */
+  $all('[data-room]').forEach(function (el) {
+    if (sget('aom_done_' + el.getAttribute('data-room')) === '1') el.classList.add('done');
+  });
+  /* open on a remembered tab only when asked by hash */
+  var tabNames = ['story', 'method', 'try', 'drill', 'back'];
+  var h = (location.hash || '').replace('#', ''), hi = tabNames.indexOf(h);
+  if ($('.tab-nav')) showTab(hi > -1 ? hi : 0, true);
+})();
+</script>
 </body>
 </html>

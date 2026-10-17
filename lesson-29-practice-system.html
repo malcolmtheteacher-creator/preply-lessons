@@ -1,761 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Lesson 29: Building Your Practice System</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #0f0f1e;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
-            color: #1a1a2e;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
-        .level-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-        .tabs {
-            display: flex;
-            background: #16213e;
-            overflow-x: auto;
-            border-bottom: 2px solid #d4af37;
-        }
-        .tab {
-            flex: 1;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #aaa;
-            transition: all 0.3s;
-            white-space: nowrap;
-            min-width: 120px;
-        }
-        .tab:hover { background: #1a2744; }
-        .tab.active {
-            background: #d4af37;
-            color: #1a1a2e;
-            border-bottom: 3px solid #d4af37;
-        }
-        .content { padding: 30px; display: none; color: #e0e0e0; }
-        .content.active { display: block; }
-        .content h2 { color: #d4af37; margin-bottom: 20px; }
-        .card {
-            background: #1a2744;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid #d4af37;
-        }
-        .card h3 { color: #d4af37; margin-bottom: 10px; }
-        .card p { line-height: 1.6; margin: 10px 0; }
-        .button {
-            background: #d4af37;
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin: 10px 5px 10px 0;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-        .button:hover {
-            background: #aa8c2c;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
-        }
-        .interactive-section {
-            background: #1a2744;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 2px solid #d4af37;
-        }
-        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
-        .input-field {
-            width: 100%;
-            background: #0f0f1e;
-            border: 1px solid #d4af37;
-            border-radius: 5px;
-            padding: 10px;
-            color: #e0e0e0;
-            margin: 10px 0;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .stat-box {
-            background: #1a2744;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid #d4af37;
-            text-align: center;
-        }
-        .stat-box h3 { color: #d4af37; font-size: 0.9em; margin-bottom: 10px; }
-        .stat-value { font-size: 2em; color: #51cf66; font-weight: bold; }
-        .schedule-grid {
-            background: #1a2744;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #d4af37;
-            margin: 15px 0;
-        }
-        .schedule-header {
-            background: #d4af37;
-            color: #1a1a2e;
-            padding: 15px;
-            font-weight: bold;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-        }
-        .schedule-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-            padding: 15px;
-            border-bottom: 1px solid #16213e;
-        }
-        .schedule-row:last-child { border-bottom: none; }
-        .schedule-row input {
-            background: #0f0f1e;
-            border: 1px solid #d4af37;
-            border-radius: 5px;
-            padding: 8px;
-            color: #e0e0e0;
-        }
-        .week-view {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .day-cell {
-            background: #1a2744;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        .day-cell h3 { color: #d4af37; font-size: 0.95em; margin-bottom: 10px; }
-        .day-cell p { font-size: 0.85em; color: #aaa; }
-        .day-cell.completed {
-            background: #1a2744;
-            border-color: #51cf66;
-        }
-        .day-cell.completed p { color: #51cf66; }
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: #16213e;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid #d4af37;
-            margin: 15px 0;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #d4af37, #aa8c2c);
-            transition: width 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1a1a2e;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        .timeline-item {
-            margin-bottom: 20px;
-            padding-left: 40px;
-            position: relative;
-        }
-        .timeline-item:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 5px;
-            width: 20px;
-            height: 20px;
-            background: #d4af37;
-            border-radius: 50%;
-            border: 2px solid #0f0f1e;
-        }
-        .timeline-item:after {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 25px;
-            width: 2px;
-            height: 30px;
-            background: #d4af37;
-        }
-        .timeline-item:last-child:after {
-            display: none;
-        }
-        .routine-block {
-            background: #0f0f1e;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        .routine-block h4 { color: #d4af37; margin-bottom: 8px; }
-        .routine-block p { font-size: 0.9em; margin: 5px 0; }
-    
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="The Art of Memory">
+<meta name="description" content="A student who could hold seven digits, a lab and eighteen months of practice. How to build a routine that keeps all of this alive.">
+<title>From Seven Digits to Seventy-Nine · The Art of Memory · Room 29</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#f8f4e9; --sheet:#fffdf6; --ink:#1d2a44; --pen:#26324d; --red:#b4413a; --gold:#8a6a2c; --rule:rgba(70,100,150,.12); --margin:rgba(190,70,70,.38); --sticky:#fff1a8; --sticky-ink:#3d3511; --shadow:rgba(22,38,61,.16); --line:#d8cfb8; --muted:#5d6477; --hl:rgba(255,214,92,.55); --ok:#e6f3e4; --okb:#5aa05e; --bad:#fbeae7; --badb:#c0504a; --tape:rgba(231,214,160,.78); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:"Segoe UI",system-ui,-apple-system,Tahoma,Geneva,Verdana,sans-serif; font-size:1.02rem; line-height:1.65; background-color:var(--paper); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); color:#222a3a; }
+.wrap { max-width:960px; margin:0 auto; padding:18px 16px 70px; }
+.hand, h1, h2, h3, .scrawl { font-family:"Caveat","Kalam","Bradley Hand","Segoe Print",cursive; }
+a { color:var(--gold); }
+.topnav { display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; justify-content:space-between; margin-bottom:12px; font-family:"Caveat",cursive; font-size:1.35rem; }
+.topnav a { color:var(--gold); text-decoration:none; border-bottom:2px dashed var(--gold); }
+.topnav .where { color:var(--red); }
+.cover { position:relative; text-align:center; padding:34px 22px 28px; margin:30px 0 22px; background:var(--sheet); border:1px solid var(--line); box-shadow:0 12px 30px var(--shadow); transform:rotate(-.35deg); }
+.cover::before, .cover::after { content:""; position:absolute; top:-12px; width:104px; height:26px; background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.cover::before { left:-18px; transform:rotate(-33deg); } .cover::after { right:-18px; transform:rotate(33deg); }
+.cover small { font-family:"Caveat",cursive; font-size:1.45rem; color:var(--red); display:block; line-height:1.2; }
+.cover h1 { font-size:3.3rem; line-height:1.04; color:var(--ink); margin:4px 0 8px; font-weight:700; }
+.cover p { max-width:640px; margin:0 auto; color:var(--muted); }
+.plaque { display:inline-block; font-family:"Caveat",cursive; font-size:1.3rem; font-weight:700; color:#fff; background:var(--ink); padding:0 16px; border-radius:3px; margin-bottom:8px; letter-spacing:.5px; }
+.tab-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:0 0 20px; }
+.tab-btn { font-family:"Caveat",cursive; font-size:1.4rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 18px 6px; }
+.tab-btn:hover { background:#f1ead6; }
+.tab-btn.active { background:var(--gold); border-color:var(--gold); color:#fff; }
+.tab-content { display:none; } .tab-content.active { display:block; }
+.page { position:relative; background-color:var(--sheet); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px); border:1px solid var(--line); box-shadow:0 10px 26px var(--shadow); padding:26px 28px 26px 74px; margin-bottom:22px; }
+.page::before { content:""; position:absolute; left:52px; top:0; bottom:0; border-left:2px solid var(--margin); }
+.page > .pgno { position:absolute; left:10px; top:18px; width:36px; text-align:center; font-family:"Caveat",cursive; font-size:2.3rem; font-weight:700; color:var(--red); line-height:1; }
+.page h2 { font-size:2.35rem; line-height:1.08; color:var(--ink); margin:0 0 8px; font-weight:700; }
+.page h3 { font-size:1.75rem; color:var(--gold); margin:20px 0 6px; font-weight:700; line-height:1.1; }
+.page h4 { font-size:1.05rem; color:var(--ink); margin:0 0 4px; }
+.page p { margin:0 0 14px; } .page ul, .page ol { margin:0 0 14px 22px; } .page li { margin-bottom:4px; }
+.hl { background:linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 92%, transparent 92%); padding:0 2px; }
+.red { color:var(--red); font-weight:700; }
+.lead { font-size:1.1rem; color:var(--ink); }
+.src { font-family:"Caveat",cursive; font-size:1.2rem; color:var(--muted); line-height:1.2; margin-top:6px; }
+.sticky { position:relative; background:var(--sticky); color:var(--sticky-ink); padding:12px 18px; margin:14px 0 18px; box-shadow:3px 4px 9px rgba(0,0,0,.18); transform:rotate(-.8deg); font-family:"Caveat",cursive; font-size:1.42rem; line-height:1.25; max-width:520px; }
+.sticky.r { transform:rotate(.9deg); margin-left:auto; }
+.pol { position:relative; background:#fff; padding:9px 9px 6px; box-shadow:0 8px 18px var(--shadow); margin:8px 0 20px; transform:rotate(var(--tilt,-1.2deg)); max-width:520px; border:1px solid var(--line); }
+.pol img { display:block; width:100%; height:auto; }
+.pol figcaption { font-family:"Caveat",cursive; font-size:1.3rem; color:#3b3b3b; text-align:center; line-height:1.2; padding:6px 4px 2px; }
+.pol::before { content:""; position:absolute; top:-11px; left:50%; width:90px; height:22px; transform:translateX(-50%) rotate(-3deg); background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.intention { border-left:5px solid var(--gold); background:#f6f1e1; padding:10px 16px; margin:0 0 18px; border-radius:0 6px 6px 0; }
+.left-off { border:2px dashed var(--line); background:rgba(255,255,255,.7); padding:12px 16px 6px; margin:0 0 22px; }
+.left-off .lbl, .lbl { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); font-weight:700; line-height:1.1; display:block; margin-bottom:4px; }
+.qa { margin:0 0 12px; }
+.qa .q { font-weight:600; color:var(--ink); }
+.btn, .reveal-btn { font-family:"Caveat",cursive; font-size:1.25rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:5px 14px 3px; margin:6px 8px 4px 0; }
+.btn:hover, .reveal-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+.btn.primary { background:var(--ink); color:#fff; } .btn.primary:hover { background:var(--gold); }
+.reveal { display:none; background:#f3eedd; border-left:4px solid var(--gold); padding:9px 14px; margin:6px 0 10px; border-radius:0 6px 6px 0; }
+.reveal.show { display:block; }
+.story-chunk { font-family:Georgia,"Times New Roman",serif; font-size:1.1rem; line-height:1.75; border-left:5px solid var(--ink); background:#faf6ea; padding:12px 18px 2px; margin:0 0 6px; border-radius:0 6px 6px 0; }
+.story-chunk p { margin:0 0 12px; }
+.story-part { margin-bottom:24px; }
+.after { padding:6px 4px 0 14px; }
+.talk, .discuss { background:#eef2f7; border:1px solid #cdd7e6; border-radius:6px; padding:10px 16px 8px; margin:10px 0 14px; }
+.talk b.t, .discuss b.t { font-family:"Caveat",cursive; font-size:1.35rem; color:var(--ink); }
+.words { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px 16px; margin:8px 0 14px; }
+.word { border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 16px 6px; background:var(--sheet); }
+.word .w { font-family:"Caveat",cursive; font-size:1.55rem; line-height:1.1; color:var(--ink); font-weight:700; cursor:pointer; background:none; border:0; text-align:left; display:block; width:100%; }
+.word .m { display:none; font-size:.95rem; color:#33405a; } .word.open .m { display:block; }
+.word .w::after { content:" ▾"; font-size:.9rem; color:var(--gold); } .word.open .w::after { content:" ▴"; }
+.steps { list-style:none; margin-left:0 !important; counter-reset:st; }
+.steps li { position:relative; padding:2px 0 2px 44px; margin-bottom:10px; counter-increment:st; }
+.steps li::before { content:counter(st); position:absolute; left:0; top:-4px; font-family:"Caveat",cursive; font-size:2rem; color:var(--red); font-weight:700; width:34px; text-align:center; }
+.steps li b { color:var(--ink); }
+.tbl-wrap { overflow-x:auto; margin:6px 0 16px; }
+.tbl { width:100%; border-collapse:collapse; font-size:.97rem; line-height:1.4; }
+.tbl th { font-family:"Caveat",cursive; font-size:1.4rem; text-align:left; color:var(--gold); border-bottom:2px solid var(--ink); padding:2px 10px; white-space:nowrap; }
+.tbl td { padding:5px 10px; border-bottom:1px dashed var(--line); vertical-align:top; }
+.tbl td:first-child { font-weight:700; color:var(--ink); }
+.example { border:3px double var(--ink); background:#fffaf0; padding:14px 20px 8px; margin:12px 0 20px; }
+.example .lbl { color:var(--red); }
+.example .given { font-size:1.08rem; color:var(--ink); margin-bottom:8px; }
+.example .row { display:grid; grid-template-columns:130px 1fr; gap:4px 12px; padding:4px 0; border-top:1px dashed var(--line); }
+.example .row .k { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--gold); font-weight:700; line-height:1.2; }
+.example .pic { background:var(--sticky); color:var(--sticky-ink); padding:9px 14px; margin:10px 0 8px; box-shadow:2px 3px 8px rgba(0,0,0,.14); }
+.chips { display:flex; flex-wrap:wrap; gap:8px 12px; margin:4px 0 14px; }
+.chips span { font-family:"Caveat",cursive; font-size:1.35rem; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:32px; background:var(--sheet); }
+.diagram { text-align:center; margin:10px 0 18px; background:var(--sheet); border:2px dashed var(--line); padding:8px; }
+.diagram svg { max-width:100%; height:auto; font-family:"Caveat","Kalam",cursive; }
+.diagram .cap { font-family:"Caveat",cursive; color:var(--muted); font-size:1.2rem; line-height:1.2; }
+.ex { border:1px solid var(--line); background:rgba(255,255,255,.82); border-radius:6px; padding:14px 18px 10px; margin:0 0 18px; }
+.ex h4 { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); }
+.ex .prompt { color:var(--ink); margin-bottom:8px; }
+.ex textarea, .ex input[type=text], .recall textarea, .ref textarea { font:inherit; width:100%; padding:8px 10px; border:2px solid var(--line); border-radius:6px; background:#fff; color:#222a3a; }
+.ex textarea:focus, .ex input:focus, .recall textarea:focus, .ref textarea:focus { outline:none; border-color:var(--gold); }
+.ex input[type=text].gapin { width:auto; min-width:150px; max-width:100%; display:inline-block; padding:3px 8px; margin:0 4px; font-size:.98rem; }
+.ex .gaprow { margin-bottom:10px; line-height:2.1; }
+.ex .gapans { font-size:.9rem; color:var(--badb); margin-left:6px; }
+.ok { background:var(--ok) !important; border-color:var(--okb) !important; } .no { background:var(--bad) !important; border-color:var(--badb) !important; }
+.fb { display:none; margin:8px 0 6px; padding:8px 14px; border-radius:6px; border:2px solid var(--line); background:#f6f6f6; font-size:.97rem; }
+.fb.show { display:block; } .fb.ok { display:block; } .fb.no { display:block; }
+.checks { margin:8px 0 4px; } .checks label { display:flex; gap:8px; align-items:flex-start; margin-bottom:3px; font-size:.96rem; cursor:pointer; }
+.checks input { margin-top:6px; accent-color:var(--gold); }
+.mc-opt { display:block; width:100%; text-align:left; font:inherit; cursor:pointer; border:2px solid var(--line); background:#fff; color:#222a3a; border-radius:6px; padding:7px 12px; margin:5px 0; }
+.mc-opt:hover { border-color:var(--gold); }
+.mc-opt.ok { color:#1b4d1e; } .mc-opt.no { color:#7a2220; }
+.match-row { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; justify-content:space-between; border:1px solid var(--line); background:#faf7ec; border-radius:6px; padding:8px 12px; margin:6px 0; }
+.match-row .txt { flex:1 1 230px; font-weight:600; color:var(--ink); }
+.match-row select { font:inherit; padding:5px 8px; border:2px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); min-width:200px; max-width:100%; }
+.timer { display:inline-block; font-family:"Caveat",cursive; font-size:1.9rem; font-weight:700; color:var(--ink); padding:0 14px; border:2px solid var(--ink); border-radius:6px; background:#fff; min-width:92px; text-align:center; margin:4px 10px 4px 0; }
+.timer.warn { color:#9a6b00; border-color:#d19a1f; background:#fff6dc; } .timer.low { color:#fff; border-color:var(--badb); background:var(--badb); animation:pulse 1s infinite; }
+@keyframes pulse { 50% { opacity:.65; } }
+.card-deck { margin:8px 0 16px; }
+.fcard { min-height:130px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; cursor:pointer; background:var(--sticky); color:var(--sticky-ink); box-shadow:3px 4px 10px rgba(0,0,0,.18); padding:20px 24px; transform:rotate(-.5deg); user-select:none; max-width:560px; margin:6px auto 12px; }
+.fcard .front { font-family:"Caveat",cursive; font-size:1.9rem; line-height:1.15; font-weight:700; }
+.fcard .back { display:none; font-size:1.05rem; margin-top:8px; line-height:1.45; } .fcard.flip .back { display:block; }
+.fcard .tap { font-family:"Caveat",cursive; font-size:1.1rem; color:#7a6a2a; margin-top:6px; } .fcard.flip .tap { display:none; }
+.deck-ctl { text-align:center; } .deck-ctl .cnt { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--muted); margin:0 8px; }
+.recall { border:3px double var(--ink); padding:14px 20px 12px; margin:14px 0 18px; background:#fffaf0; }
+.recall h4 { font-family:"Caveat",cursive; font-size:1.7rem; color:var(--red); }
+.recall .stage { display:none; } .recall .stage.on { display:block; }
+.recall .items { display:flex; flex-wrap:wrap; gap:8px 12px; margin:10px 0; counter-reset:it; }
+.recall .items span { font-family:"Caveat",cursive; font-size:1.5rem; border:2px solid var(--ink); background:var(--sheet); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:34px; counter-increment:it; }
+.recall .items.ordered span::before { content:counter(it) ". "; color:var(--red); }
+.recall .res { margin:8px 0; } .recall .res div { padding:3px 10px; border-radius:4px; margin:3px 0; font-size:.97rem; }
+.recall .score { font-family:"Caveat",cursive; font-size:1.8rem; color:var(--ink); }
+.ref textarea { min-height:90px; }
+.canlist { list-style:none; margin-left:0 !important; } .canlist label { display:flex; gap:10px; cursor:pointer; align-items:flex-start; } .canlist input { margin-top:7px; accent-color:var(--gold); transform:scale(1.2); }
+.nav-end { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:6px 0 0; font-family:"Caveat",cursive; font-size:1.45rem; }
+.nav-end a { color:var(--ink); text-decoration:none; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:3px 18px 1px; background:var(--sheet); }
+.nav-end a:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+footer { text-align:center; font-family:"Caveat",cursive; font-size:1.25rem; color:var(--muted); margin-top:26px; line-height:1.3; }
+.savednote { font-family:"Caveat",cursive; color:var(--muted); font-size:1.15rem; }
+@media (max-width:768px) {
+  body { font-size:1rem; }
+  .cover h1 { font-size:2.45rem; } .cover { padding:28px 14px 22px; transform:none; }
+  .page { padding:22px 14px 20px 44px; } .page::before { left:32px; } .page > .pgno { left:2px; font-size:1.8rem; width:28px; top:16px; }
+  .page h2 { font-size:1.95rem; }
+  .tab-btn { font-size:1.2rem; padding:7px 12px 5px; }
+  .example .row { grid-template-columns:1fr; gap:0; }
+  .match-row select { min-width:0; width:100%; }
+  .ex { padding:12px 12px 8px; }
+  .page ul, .page ol { margin-left:16px; }
+  .sticky { max-width:100%; }
+}
+@media print { .tab-nav, .nav-end, .topnav { display:none; } .tab-content { display:block !important; } }
 </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>LESSON 29: Building Your Practice System</h1>
-            <span class="level-badge">Mastery Level</span>
-        </div>
-
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab(event, 'retrieval')">Review</button>
-            <button class="tab" onclick="switchTab(event, 'content')">New Content</button>
-            <button class="tab" onclick="switchTab(event, 'guided')">Guided Practice</button>
-            <button class="tab" onclick="switchTab(event, 'elaboration')">Elaboration</button>
-            <button class="tab" onclick="switchTab(event, 'independent')">Independent</button>
-            <button class="tab" onclick="switchTab(event, 'final')">Final Review</button>
-        </div>
-
-        <div id="retrieval" class="content active">
-            <h2>Review: Consolidating Memory Mastery</h2>
-            <p>Review the core principles before building your sustainable practice system.</p>
-
-            <div class="interactive-section">
-                <h3>Key Principle Recall</h3>
-
-                <div class="card">
-                    <p><strong>1. What is the Spacing Effect?</strong></p>
-                    <p id="qa1" style="color: #999; display: none; margin-top: 10px;">Spacing effect: Learning is enhanced when study sessions are separated by increasing time intervals rather than massed practice.</p>
-                    <button class="button" onclick="toggleAns('qa1')">Reveal</button>
-                </div>
-
-                <div class="card">
-                    <p><strong>2. What is Active Recall?</strong></p>
-                    <p id="qa2" style="color: #999; display: none; margin-top: 10px;">Active recall: Retrieving information from memory without looking at the source material strengthens memory pathways.</p>
-                    <button class="button" onclick="toggleAns('qa2')">Reveal</button>
-                </div>
-
-                <div class="card">
-                    <p><strong>3. How does consistency improve memory?</strong></p>
-                    <p id="qa3" style="color: #999; display: none; margin-top: 10px;">Regular practice rewires neural pathways. Consistency builds automaticity and improves long-term retention.</p>
-                    <button class="button" onclick="toggleAns('qa3')">Reveal</button>
-                </div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <h3>Knowledge Level</h3>
-                    <div class="stat-value">Expert</div>
-                </div>
-                <div class="stat-box">
-                    <h3>Ready to Systematize</h3>
-                    <div class="stat-value">Yes</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="content" class="content">
-            <h2>New Content: The Science of Sustainable Practice</h2>
-
-            <div class="card">
-                <h3>The 7 Habits for Building Your Memory Practice System</h3>
-                <p><strong>Based on Stephen Covey's "The 7 Habits of Highly Effective People"</strong> - Apply these principles to memory mastery:</p>
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Be Proactive:</strong> Take initiative in your practice. Don't wait for motivation—schedule your memory sessions and commit to them regardless of circumstances.</li>
-                    <li><strong>Begin with the End in Mind:</strong> Define your memory goals clearly (championship, academic success, professional advantage). Keep this vision as you practice daily.</li>
-                    <li><strong>Put First Things First:</strong> Prioritize your 50-minute daily memory practice over less important activities. Consistency beats sporadic intense effort.</li>
-                    <li><strong>Think Win-Win:</strong> Share memory techniques with others. Teaching reinforces your own mastery and creates a supportive community.</li>
-                    <li><strong>Seek First to Understand, Then to Be Understood:</strong> Master each technique thoroughly before moving forward. Deep understanding beats surface-level knowledge.</li>
-                    <li><strong>Synergize:</strong> Combine multiple memory techniques for maximum effectiveness. Integrate cards, numbers, words, faces—each technique strengthens the others.</li>
-                    <li><strong>Sharpen the Saw:</strong> Continuously improve your system. Reflect on what works, adjust techniques, learn from failures, and evolve your approach.</li>
-                </ol>
-            </div>
-
-            <div class="card">
-                <h3>Daily Routine Architecture</h3>
-                <p><strong>Optimal practice session structure:</strong></p>
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                    <p><strong>Warm-up (5 min):</strong> Quick drill on familiar material</p>
-                    <p style="margin-top: 10px;"><strong>Review (10 min):</strong> Active recall on previously learned items</p>
-                    <p style="margin-top: 10px;"><strong>New Learning (20 min):</strong> Introduce new techniques or material</p>
-                    <p style="margin-top: 10px;"><strong>Application (10 min):</strong> Practice techniques on fresh challenges</p>
-                    <p style="margin-top: 10px;"><strong>Reflection (5 min):</strong> Journal progress and insights</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>Maintenance Calendar Strategy</h3>
-                <p>Different memory items need different refresh schedules:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Weekly:</strong> Fast refresher drills (10-15 min)</li>
-                    <li><strong>Monthly:</strong> Comprehensive review and new challenges</li>
-                    <li><strong>Quarterly:</strong> Assessment and goal adjustment</li>
-                    <li><strong>Annually:</strong> Complete system evaluation and planning</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Long-Term System Planning</h3>
-                <p>Sustainable mastery requires thinking in months and years:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Months 1-3:</strong> Foundation building with consistent daily practice</li>
-                    <li><strong>Months 4-6:</strong> Technique specialization based on interests</li>
-                    <li><strong>Months 7-12:</strong> Competitive participation or advanced applications</li>
-                    <li><strong>Year 2+:</strong> Mastery maintenance and teaching others</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="guided" class="content">
-            <h2>Guided Practice: Design Your Practice System (Watch → Together)</h2>
-
-            <div class="card">
-                <h3>Complete Worked Example with VIVID SCHEDULE CONVERSION</h3>
-                <p><strong>Scenario: Student learning Speed Cards + Random Numbers + Names & Faces</strong></p>
-            </div>
-
-            <div style="background: #0f0f1e; padding: 20px; border-radius: 12px; border: 2px solid #d4af37; margin: 20px 0;">
-                <p style="color: #d4af37; font-weight: bold;">STEP 1: IDENTIFY MATERIALS</p>
-                <p style="margin-top: 10px;">Materials: Speed Cards, Speed Numbers, Names & Faces</p>
-
-                <p style="margin-top: 20px; color: #d4af37; font-weight: bold;">STEP 2: APPLY SPACING EFFECT - Make Your SCHEDULE Memorable with VIVID PALACE IMAGES</p>
-
-                <p style="margin-top: 15px;"><strong>MONDAY = Speed Cards Practice</strong></p>
-                <p style="margin-left: 20px;"><strong>→ CONVERSION: MONDAY = MOON</strong> I picture myself doing SPEED CARDS under a GIANT GLOWING MOON. The moon is MASSIVE, BRIGHT YELLOW, taking up the entire sky. I'm in my room, practicing card conversions, and MOONLIGHT streams through the window, making everything GLOW SILVER. The moon is PULSING and HUMMING. Perfect!</p>
-
-                <p style="margin-top: 15px;"><strong>WEDNESDAY = Random Numbers Practice</strong></p>
-                <p style="margin-left: 20px;"><strong>→ CONVERSION: WEDNESDAY = WED</strong> I picture myself at a GRAND WEDDING practicing RANDOM NUMBERS. The BRIDE is throwing FLOWER BOUQUETS, but instead of flowers, they contain GIANT NUMBERS that EXPLODE in the air - 5, 7, 2, 9, 4, 8! The GROOM is SHOUTING numbers as vows. The WEDDING CAKE has NUMBERS FROSTED on it. CHAMPAGNE BOTTLES have numbers on their labels. VIVID and UNFORGETTABLE!</p>
-
-                <p style="margin-top: 15px;"><strong>FRIDAY = Names & Faces Practice</strong></p>
-                <p style="margin-left: 20px;"><strong>→ CONVERSION: FRIDAY = FRI (FREE)</strong> I picture myself at a FREEDOM FESTIVAL practicing NAMES & FACES. GIANT FACES appear on BALLOONS floating through the air, each one saying their NAME in a loud voice. The FACES are EXAGGERATED and SILLY, with huge GRINS and COLORFUL FEATURES. People are DANCING freely, HOLDING up photos of faces with their NAMES written in GLOWING letters. The festival is LOUD and CELEBRATORY!</p>
-
-                <p style="margin-top: 20px; color: #51cf66;"><strong>✓ Why this works:</strong> Each day of the week becomes a VIVID PALACE IMAGE associated with a practice technique. When you think "Monday," the GLOWING MOON image triggers "Speed Cards practice." Your entire WEEKLY SCHEDULE is now ENCODED in memorable images. Never forget what to practice when!</p>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h3>Build YOUR Spaced Repetition Schedule</h3>
-                <p><strong>Create a schedule using the SPACING PRINCIPLE:</strong> Reviews at increasing intervals (1 day, 3 days, 1 week, 1 month)</p>
-            </div>
-
-            <div class="interactive-section">
-                <h3>Step 1: What Techniques Are YOU Focusing On?</h3>
-                <p style="margin-bottom: 15px;">Check all that apply:</p>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
-                        <input type="checkbox" id="mat1" checked style="margin-right: 10px;"> Speed Cards
-                    </label>
-                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
-                        <input type="checkbox" id="mat2" checked style="margin-right: 10px;"> Speed Numbers
-                    </label>
-                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
-                        <input type="checkbox" id="mat3" style="margin-right: 10px;"> Names & Faces
-                    </label>
-                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
-                        <input type="checkbox" id="mat4" style="margin-right: 10px;"> Academic/Language
-                    </label>
-                </div>
-            </div>
-
-            <div class="interactive-section">
-                <h3>Step 2: Create SPACED REPETITION INTERVALS for Each Technique</h3>
-                <p style="margin-bottom: 15px;"><strong>Key principle: Intervals should INCREASE in length.</strong> (e.g., Day 1, Day 3, Day 10, Day 30)</p>
-
-                <div class="schedule-grid">
-                    <div class="schedule-header">
-                        <div>Review Level</div>
-                        <div>Review Timing (Day X)</div>
-                        <div>Session Duration</div>
-                    </div>
-                    <div class="schedule-row">
-                        <div>Initial Learning</div>
-                        <input type="text" placeholder="e.g., Day 1" id="rev1" value="Day 1">
-                        <input type="text" placeholder="e.g., 15 min" id="dur1" value="15 min">
-                    </div>
-                    <div class="schedule-row">
-                        <div>First Review</div>
-                        <input type="text" placeholder="e.g., Day 2-3" id="rev2" placeholder="When? (should be soon)">
-                        <input type="text" placeholder="e.g., 10-15 min" id="dur2">
-                    </div>
-                    <div class="schedule-row">
-                        <div>Second Review</div>
-                        <input type="text" placeholder="e.g., Day 7-10" id="rev3" placeholder="When? (longer gap)">
-                        <input type="text" placeholder="e.g., 15-20 min" id="dur3">
-                    </div>
-                    <div class="schedule-row">
-                        <div>Third Review</div>
-                        <input type="text" placeholder="e.g., Day 21-30" id="rev4" placeholder="When? (much longer)">
-                        <input type="text" placeholder="e.g., 15-20 min" id="dur4">
-                    </div>
-                    <div class="schedule-row">
-                        <div>Maintenance</div>
-                        <input type="text" placeholder="e.g., Monthly" id="rev5" value="Monthly">
-                        <input type="text" placeholder="e.g., 10 min" id="dur5" value="10 min">
-                    </div>
-                </div>
-
-                <button class="button" onclick="generateSchedule()" style="margin-top: 15px;">Generate My Spaced Schedule</button>
-            </div>
-
-            <div id="scheduleResult" style="display: none; margin-top: 20px;">
-                <div class="interactive-section">
-                    <h3>Your Personalized Spaced Repetition Schedule</h3>
-                    <div id="scheduleContent" style="color: #51cf66;"></div>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 30px;">
-                <h3>Execute One Practice Session</h3>
-                <p><strong>Pick ONE technique from your schedule above and do a 10-minute focused practice session RIGHT NOW.</strong> Use spaced repetition: review material you learned 1-3 days ago, test your active recall.</p>
-            </div>
-        </div>
-
-        <div id="elaboration" class="content">
-            <h2>Elaboration: Daily Routine Builder</h2>
-
-            <div class="card">
-                <h3>Design Your Ideal Memory Practice Routine</h3>
-                <p>Create a structured daily routine that fits your lifestyle while maximizing learning efficiency.</p>
-            </div>
-
-            <div class="interactive-section">
-                <h3>Your Daily Practice Routine</h3>
-
-                <div class="routine-block">
-                    <h4>WARM-UP (5 minutes)</h4>
-                    <input type="text" class="input-field" id="warmup" placeholder="e.g., Review 10 familiar cards or names">
-                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Quick activation to prime your brain</p>
-                </div>
-
-                <div class="routine-block">
-                    <h4>REVIEW (10 minutes)</h4>
-                    <input type="text" class="input-field" id="review" placeholder="e.g., Active recall on cards from 3 days ago">
-                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Strengthen previous learning</p>
-                </div>
-
-                <div class="routine-block">
-                    <h4>NEW LEARNING (20 minutes)</h4>
-                    <input type="text" class="input-field" id="newlearn" placeholder="e.g., Learn new palace or technique">
-                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Introduce new material or advance current skills</p>
-                </div>
-
-                <div class="routine-block">
-                    <h4>APPLICATION (10 minutes)</h4>
-                    <input type="text" class="input-field" id="application" placeholder="e.g., Practice new technique on fresh challenge">
-                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Apply techniques to real-world scenarios</p>
-                </div>
-
-                <div class="routine-block">
-                    <h4>REFLECTION (5 minutes)</h4>
-                    <input type="text" class="input-field" id="reflection" placeholder="e.g., Journal: What worked? What to improve?">
-                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Meta-learning and progress tracking</p>
-                </div>
-
-                <button class="button" onclick="saveRoutine()" style="margin-top: 20px;">Save Routine</button>
-            </div>
-
-            <div id="routineDisplay" style="display: none; margin-top: 20px;">
-                <div class="interactive-section">
-                    <h3>Your Daily Routine Timeline</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <h4 style="color: #d4af37;">8:00 AM - Warm-up (5 min)</h4>
-                            <p id="warmupDisplay"></p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 style="color: #d4af37;">8:05 AM - Review (10 min)</h4>
-                            <p id="reviewDisplay"></p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 style="color: #d4af37;">8:15 AM - New Learning (20 min)</h4>
-                            <p id="newlearnDisplay"></p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 style="color: #d4af37;">8:35 AM - Application (10 min)</h4>
-                            <p id="applicationDisplay"></p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 style="color: #d4af37;">8:45 AM - Reflection (5 min)</h4>
-                            <p id="reflectionDisplay"></p>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px; background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong style="color: #d4af37;">Total Daily Time Commitment: 50 minutes</strong></p>
-                        <p style="margin-top: 10px; color: #aaa;">Invest 50 minutes daily, build lifetime memory mastery.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="independent" class="content">
-            <h2>Independent Practice: Weekly Maintenance Calendar</h2>
-
-            <div class="card">
-                <h3>Plan Your Sustainable Weekly Schedule</h3>
-                <p>Create a maintenance calendar balancing daily practice with weekly deep work and monthly assessments.</p>
-            </div>
-
-            <div class="interactive-section">
-                <h3>Your Weekly Maintenance Plan</h3>
-
-                <p style="margin-bottom: 15px; font-weight: bold;">Daily: 50-minute routine</p>
-                <p style="margin-bottom: 15px;">Weekly deep work and assessments:</p>
-
-                <div class="week-view">
-                    <div class="day-cell">
-                        <h3>Monday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Tuesday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Wednesday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Thursday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Friday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Saturday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                    <div class="day-cell">
-                        <h3>Sunday</h3>
-                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
-                    </div>
-                </div>
-
-                <button class="button" onclick="createWeeklyPlan()" style="margin-top: 20px;">Finalize Weekly Plan</button>
-            </div>
-
-            <div class="interactive-section" style="margin-top: 20px;">
-                <h3>Monthly Maintenance Checklist</h3>
-
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Complete 4 weekly deep work sessions
-                </label>
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Maintain daily 50-minute routine
-                </label>
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Review and update spaced repetition schedule
-                </label>
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Attempt one competitive-style challenge
-                </label>
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Track personal records and progress
-                </label>
-                <label style="display: flex; align-items: center; margin: 10px 0;">
-                    <input type="checkbox" style="margin-right: 10px;"> Identify areas for improvement
-                </label>
-
-                <button class="button" onclick="savePlan()" style="margin-top: 15px;">Save Maintenance Plan</button>
-            </div>
-        </div>
-
-        <div id="final" class="content">
-            <h2>Final Review: Your Complete Practice System</h2>
-
-            <div class="interactive-section">
-                <h3>System Mastery Assessment</h3>
-                <p style="margin-bottom: 15px;">Demonstrate your understanding of sustainable practice by building your complete system:</p>
-
-                <button class="button" onclick="startSystemAssessment()">Begin System Assessment</button>
-            </div>
-
-            <div id="assessmentMode" style="display: none; margin-top: 20px;">
-                <div class="interactive-section">
-                    <h3>Complete System Design Challenge</h3>
-
-                    <div class="card">
-                        <h3>Question 1: Your Spaced Repetition Schedule</h3>
-                        <p style="margin-bottom: 10px;">Design a 4-week spaced repetition schedule. Specify:</p>
-                        <textarea class="input-field" id="ansSchedule" placeholder="First review: Day 1
-Second review: Day 4
-Third review: Day 11
-Maintenance: Monthly
-..." style="height: 120px;"></textarea>
-                    </div>
-
-                    <div class="card">
-                        <h3>Question 2: Your Daily Routine</h3>
-                        <p style="margin-bottom: 10px;">Outline a 50-minute daily routine with timing and activities:</p>
-                        <textarea class="input-field" id="ansDailyRoutine" placeholder="Warm-up (5 min): ...
-Review (10 min): ...
-..." style="height: 120px;"></textarea>
-                    </div>
-
-                    <div class="card">
-                        <h3>Question 3: Your Long-Term Plan</h3>
-                        <p style="margin-bottom: 10px;">Design a 12-month progression for memory mastery:</p>
-                        <textarea class="input-field" id="ansLongterm" placeholder="Months 1-3: ...
-Months 4-6: ...
-..." style="height: 120px;"></textarea>
-                    </div>
-
-                    <button class="button" onclick="evaluateSystem()" style="margin-top: 20px;">Evaluate My System</button>
-                </div>
-
-                <div id="systemResults" style="display: none; margin-top: 20px;">
-                    <div class="interactive-section">
-                        <h3>System Assessment Results</h3>
-
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="systemScore" style="width: 0%;">0%</div>
-                        </div>
-
-                        <div id="systemFeedback" style="margin-top: 20px; color: #51cf66;"></div>
-
-                        <div style="margin-top: 20px; padding: 15px; background: #0f0f1e; border-radius: 8px; border: 1px solid #d4af37;">
-                            <h3 style="color: #d4af37; margin-bottom: 10px;">Lesson 29 Complete!</h3>
-                            <p>You have designed a sustainable, science-based memory practice system. This is the foundation for lifetime memory mastery.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
-                <a href="lesson-28-competitions.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #555; color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 0;">← Previous Lesson</a>
-                <a href="lesson-30-certification.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #d4af37; color: #1a1a1a; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 8px 8px 0;">Next Lesson →</a>
-            </div>
-    </div>
-
-    <script>
-        function switchTab(e, tabName) {
-            const contents = document.querySelectorAll('.content');
-            contents.forEach(el => el.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(el => el.classList.remove('active'));
-            e.target.classList.add('active');
-        }
-
-        function toggleAns(id) {
-            const el = document.getElementById(id);
-            el.style.display = el.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function generateSchedule() {
-            const schedule = `
-                <h4 style="color: #d4af37; margin-bottom: 15px;">Your Spaced Repetition Schedule</h4>
-                <p><strong>First Review:</strong> ${document.getElementById('rev1').value || 'Day 1'} - ${document.getElementById('dur1').value || '15 min'}</p>
-                <p style="margin-top: 10px;"><strong>Second Review:</strong> ${document.getElementById('rev2').value || 'Day 3'} - ${document.getElementById('dur2').value || '15 min'}</p>
-                <p style="margin-top: 10px;"><strong>Third Review:</strong> ${document.getElementById('rev3').value || 'Day 10'} - ${document.getElementById('dur3').value || '20 min'}</p>
-                <p style="margin-top: 10px;"><strong>Maintenance:</strong> ${document.getElementById('rev4').value || 'Monthly'} - ${document.getElementById('dur4').value || '10 min'}</p>
-                <p style="margin-top: 15px; color: #51cf66;"><strong>✓ Schedule created!</strong> Save this and stick to it for optimal results.</p>
-            `;
-            document.getElementById('scheduleContent').innerHTML = schedule;
-            document.getElementById('scheduleResult').style.display = 'block';
-        }
-
-        function saveRoutine() {
-            const warmup = document.getElementById('warmup').value || 'Review familiar material';
-            const review = document.getElementById('review').value || 'Active recall practice';
-            const newlearn = document.getElementById('newlearn').value || 'Learn new material';
-            const application = document.getElementById('application').value || 'Apply techniques';
-            const reflection = document.getElementById('reflection').value || 'Journal and reflect';
-
-            document.getElementById('warmupDisplay').textContent = warmup;
-            document.getElementById('reviewDisplay').textContent = review;
-            document.getElementById('newlearnDisplay').textContent = newlearn;
-            document.getElementById('applicationDisplay').textContent = application;
-            document.getElementById('reflectionDisplay').textContent = reflection;
-
-            document.getElementById('routineDisplay').style.display = 'block';
-        }
-
-        function createWeeklyPlan() {
-            alert('Weekly plan created! Print this and post it where you practice daily.');
-        }
-
-        function savePlan() {
-            alert('Maintenance plan saved! Review monthly for sustainability.');
-        }
-
-        function startSystemAssessment() {
-            document.getElementById('assessmentMode').style.display = 'block';
-        }
-
-        function evaluateSystem() {
-            const schedule = document.getElementById('ansSchedule').value.length;
-            const daily = document.getElementById('ansDailyRoutine').value.length;
-            const longterm = document.getElementById('ansLongterm').value.length;
-
-            let score = 0;
-            if (schedule > 50) score += 35;
-            if (daily > 50) score += 35;
-            if (longterm > 50) score += 30;
-
-            const scoreEl = document.getElementById('systemScore');
-            scoreEl.style.width = score + '%';
-            scoreEl.textContent = score + '%';
-
-            let feedback = '<p><strong>System Assessment Results:</strong></p>';
-            feedback += '<p style="margin-top: 10px;">✓ Spaced Repetition Schedule: ' + (schedule > 50 ? 'Excellent planning' : 'Needs more detail') + '</p>';
-            feedback += '<p style="margin-top: 10px;">✓ Daily Routine: ' + (daily > 50 ? 'Well structured' : 'Add more structure') + '</p>';
-            feedback += '<p style="margin-top: 10px;">✓ Long-Term Plan: ' + (longterm > 50 ? 'Comprehensive vision' : 'Develop further') + '</p>';
-
-            if (score >= 80) {
-                feedback += '<p style="margin-top: 15px; color: #51cf66; font-weight: bold;">Excellent! Your system is well-designed and sustainable.</p>';
-            } else if (score >= 60) {
-                feedback += '<p style="margin-top: 15px; color: #ffa500;">Good foundation. Add more specific details to make it actionable.</p>';
-            } else {
-                feedback += '<p style="margin-top: 15px; color: #aaa;">Build out more detail in each component for better execution.</p>';
-            }
-
-            feedback += '<p style="margin-top: 15px; color: #51cf66;"><strong>Next Step:</strong> Implement this system today. Consistency is the key to mastery.</p>';
-
-            document.getElementById('systemFeedback').innerHTML = feedback;
-            document.getElementById('systemResults').style.display = 'block';
-        }
-    </script>
+<body data-lesson="29">
+<div class="wrap">
+  <div class="topnav"><a href="art-of-memory.html">&larr; The Art of Memory</a><span class="where">Wing VI · The Great Hall</span></div>
+  <header class="cover">
+    <span class="plaque">Room 29 of 30</span>
+    <small>The Great Hall</small>
+    <h1>From Seven Digits to Seventy-Nine</h1>
+    <p>A student who could hold seven digits, a lab and eighteen months of practice. How to build a routine that keeps all of this alive.</p>
+  </header>
+  <nav class="tab-nav" role="tablist"><button class="tab-btn active" role="tab" onclick="showTab(0)">The Story</button><button class="tab-btn" role="tab" onclick="showTab(1)">The Method</button><button class="tab-btn" role="tab" onclick="showTab(2)">Try It</button><button class="tab-btn" role="tab" onclick="showTab(3)">Drill</button><button class="tab-btn" role="tab" onclick="showTab(4)">Look Back</button></nav>
+<div class="tab-content active" id="tab0"><section class="page"><div class="pgno">29</div><div class="intention"><b>In this room:</b> you will design a practice routine with a daily session, a weekly test and a review calendar, and learn why small, regular, focused practice beats long, rare sessions.</div><div class="left-off"><span class="lbl">Where we left off</span><div class="qa"><div class="q">How many standard events are there at the memory championships?</div><button class="reveal-btn">Check</button><div class="reveal">Ten.</div></div><div class="qa"><div class="q">Which tool suits the dates event?</div><button class="reveal-btn">Check</button><div class="reveal">A timeline palace.</div></div><div class="qa"><div class="q">Why do some people design a weekly test for themselves?</div><button class="reveal-btn">Check</button><div class="reveal">It shows progress that daily practice alone does not show.</div></div></div><h2>Seven digits</h2><div class="story-part"><div class="story-chunk"><p>In the late 1970s, at a university in the United States, two psychologists, William Chase and Anders Ericsson, were looking for a volunteer for a very dull experiment. They wanted to know how far a person could stretch the memory for digits. They found a student, known in their reports as S.F., who was a keen runner and an ordinary undergraduate.</p><p>In the first session he could repeat back about seven digits, which is what most people can do. The psychologists asked him to come back, a few hours a week, to practise.</p></div><div class="after"><div class="qa"><div class="q">How many digits could S.F. remember at the start?</div><button class="reveal-btn">Check from memory</button><div class="reveal">About seven, which is typical.</div></div><div class="talk"><b class="t">Talk about it.</b> Would you volunteer for an experiment that asked for a few hours a week for over a year? Why or why not?</div></div></div><div class="story-part"><div class="story-chunk"><p>S.F. practised for many weeks. He found that he could do better if he turned the digits into something meaningful. As a runner, he knew a lot about running times, so he made groups of digits into times: <i>3 4 9 2</i> was 3 minutes 49.2 seconds, which was almost a world-record mile. He also used dates and ages. He built the groups into larger groups, in a structure.</p><p>Slowly the number rose: ten digits, twenty, thirty, forty. After about two hundred and thirty hours of practice, spread over around a year and a half, he could repeat back <span class="hl">about seventy-nine digits</span>, from a single hearing. Nobody had thought it possible for an ordinary person.</p></div><div class="after"><div class="qa"><div class="q">How did S.F. get better?</div><button class="reveal-btn">Check from memory</button><div class="reveal">He made the digits meaningful (running times, dates) and built them into larger groups, with a lot of regular practice.</div></div><div class="talk"><b class="t">Talk about it.</b> What knowledge of your own could you use to make digits meaningful?</div></div></div><div class="story-part"><div class="story-chunk"><p>The experiment taught the psychologists something about practice. S.F.'s memory itself had not changed: when they tested him on letters, he went back to about six or seven. What had grown was a <i>skill</i>, a set of methods tuned to digits. <span class="hl">Skill grows with practice, in small regular steps.</span></p><p>The same is true for you. Everything you have learned in the first twenty-eight rooms is a skill. It will fade if you do not use it, and it will grow if you do. This room builds a plan for keeping it alive.</p></div><div class="after"><div class="qa"><div class="q">What had grown in S.F.?</div><button class="reveal-btn">Check from memory</button><div class="reveal">A skill (methods for digits), not his general memory: with letters he was back to about seven.</div></div><div class="talk"><b class="t">Talk about it.</b> Which of your skills got better because you practised a little every day?</div></div></div><h3>Words worth knowing</h3><p>Say what you think each one means, then open it.</p><div class="words"><div class="word"><button class="w" type="button">practice</button><div class="m">doing something again and again to get better.</div></div><div class="word"><button class="w" type="button">a routine</button><div class="m">a regular way of doing things.</div></div><div class="word"><button class="w" type="button">deliberate</button><div class="m">done on purpose, with attention. <em>Deliberate practice.</em></div></div><div class="word"><button class="w" type="button">to maintain</button><div class="m">to keep something in good condition.</div></div><div class="word"><button class="w" type="button">consistency</button><div class="m">doing the same thing regularly.</div></div><div class="word"><button class="w" type="button">a log</button><div class="m">a written record of what you did.</div></div></div><p class="src">The study of S.F. is reported by William Chase and Anders Ericsson in the early 1980s. Retold here in our own words.</p></section></div><div class="tab-content" id="tab1"><section class="page"><div class="pgno">29</div><h2>A practice system that lasts</h2><p class="lead">A little, often, on purpose. That is the whole secret. The rest is organisation.</p><h3>A daily session of twenty minutes</h3><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Minutes</th><th>What</th><th>Why</th></tr></thead><tbody><tr><td>0 to 3</td><td>Warm-up: walk a palace in your head</td><td>Wakes the routes</td></tr><tr><td>3 to 8</td><td>Review: test yourself on yesterday's items</td><td>Keeps the old ones alive</td></tr><tr><td>8 to 16</td><td>New work: one small set (ten items, one chapter, five cards)</td><td>Adds a little each day</td></tr><tr><td>16 to 20</td><td>Log: write what you did, the time, the mistakes</td><td>Shows progress</td></tr></tbody></table></div><h3>A review calendar</h3><p>Tag each new set with the date you learned it. Review it after one day, three days, a week, two weeks and a month, as in the forgetting curve (room 1). Mark each review in the log.</p><div class="diagram"><svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Review at one day, three days, a week, two weeks and a month"><line x1="70" y1="28" x2="70" y2="270" stroke="#1d2a44" stroke-width="3"/><line x1="70" y1="270" x2="730" y2="270" stroke="#1d2a44" stroke-width="3"/><text x="24" y="150" text-anchor="middle" font-size="22" font-weight="500" fill="#5d6477" transform="rotate(-90 24 150)">how much you keep</text><text x="400" y="312" text-anchor="middle" font-size="22" font-weight="500" fill="#5d6477" >days</text><polyline points="70.0,28.0 74.1,59.4 78.2,86.7 82.4,110.5 86.5,131.2 90.6,149.2 94.8,164.8 98.9,178.5 103.0,190.3 107.1,200.7 111.2,209.7 115.4,217.5 119.5,224.3 123.6,230.2 127.8,235.4 131.9,239.9 136.0,243.8 140.1,247.2 144.2,250.1 148.4,252.7 152.5,255.0 156.6,256.9 160.8,258.6 164.9,260.1 169.0,261.4 173.1,262.5 177.2,263.5 181.4,264.3 185.5,265.0 189.6,265.7 193.8,266.2 197.9,266.7 202.0,267.2 206.1,267.5 210.2,267.8 214.4,268.1 218.5,268.4 222.6,268.6 226.8,268.8 230.9,268.9 235.0,269.1 239.1,269.2 243.2,269.3 247.4,269.4 251.5,269.5 255.6,269.5 259.8,269.6 263.9,269.6 268.0,269.7 272.1,269.7 276.2,269.8 280.4,269.8 284.5,269.8 288.6,269.8 292.8,269.9 296.9,269.9 301.0,269.9 305.1,269.9 309.2,269.9 313.4,269.9 317.5,269.9 321.6,269.9 325.8,270.0 329.9,270.0 334.0,270.0 338.1,270.0 342.2,270.0 346.4,270.0 350.5,270.0 354.6,270.0 358.8,270.0 362.9,270.0 367.0,270.0 371.1,270.0 375.2,270.0 379.4,270.0 383.5,270.0 387.6,270.0 391.8,270.0 395.9,270.0 400.0,270.0 404.1,270.0 408.2,270.0 412.4,270.0 416.5,270.0 420.6,270.0 424.8,270.0 428.9,270.0 433.0,270.0 437.1,270.0 441.2,270.0 445.4,270.0 449.5,270.0 453.6,270.0 457.8,270.0 461.9,270.0 466.0,270.0 470.1,270.0 474.2,270.0 478.4,270.0 482.5,270.0 486.6,270.0 490.8,270.0 494.9,270.0 499.0,270.0 503.1,270.0 507.2,270.0 511.4,270.0 515.5,270.0 519.6,270.0 523.8,270.0 527.9,270.0 532.0,270.0 536.1,270.0 540.2,270.0 544.4,270.0 548.5,270.0 552.6,270.0 556.8,270.0 560.9,270.0 565.0,270.0 569.1,270.0 573.2,270.0 577.4,270.0 581.5,270.0 585.6,270.0 589.8,270.0 593.9,270.0 598.0,270.0 602.1,270.0 606.2,270.0 610.4,270.0 614.5,270.0 618.6,270.0 622.8,270.0 626.9,270.0 631.0,270.0 635.1,270.0 639.2,270.0 643.4,270.0 647.5,270.0 651.6,270.0 655.8,270.0 659.9,270.0 664.0,270.0 668.1,270.0 672.2,270.0 676.4,270.0 680.5,270.0 684.6,270.0 688.8,270.0 692.9,270.0 697.0,270.0 701.1,270.0 705.2,270.0 709.4,270.0 713.5,270.0 717.6,270.0 721.8,270.0 725.9,270.0 730.0,270.0" fill="none" stroke="#5d6477" stroke-width="3" stroke-dasharray="6 6"/><polyline points="70.0,28.0 70.7,33.5 71.4,38.9 72.1,44.2 72.8,49.4 73.4,54.4 74.1,59.4 74.8,64.2 75.5,68.9 76.2,73.5 76.9,78.0 77.6,82.4 78.2,86.7 78.9,90.9 79.6,95.0 80.3,99.0 81.0,102.9 81.7,106.7 82.4,110.5 83.1,114.1 83.8,117.7 84.4,121.2 85.1,124.6 85.8,127.9 86.5,131.2 86.5,28.0 87.9,32.6 89.2,37.2 90.6,41.6 92.0,46.0 93.4,50.3 94.8,54.4 96.1,58.6 97.5,62.6 98.9,66.6 100.2,70.5 101.6,74.3 103.0,78.0 104.4,81.7 105.8,85.3 107.1,88.8 108.5,92.3 109.9,95.7 111.2,99.0 112.6,102.3 114.0,105.5 115.4,108.6 116.8,111.7 118.1,114.7 119.5,117.7 119.5,28.0 122.2,31.9 125.0,35.7 127.8,39.4 130.5,43.1 133.2,46.7 136.0,50.3 138.8,53.8 141.5,57.2 144.2,60.6 147.0,63.9 149.8,67.2 152.5,70.5 155.2,73.6 158.0,76.8 160.8,79.9 163.5,82.9 166.2,85.9 169.0,88.8 171.8,91.7 174.5,94.5 177.2,97.3 180.0,100.1 182.8,102.8 185.5,105.5 185.5,28.0 190.3,30.8 195.1,33.6 199.9,36.4 204.8,39.1 209.6,41.8 214.4,44.4 219.2,47.1 224.0,49.7 228.8,52.2 233.6,54.8 238.4,57.3 243.2,59.8 248.1,62.2 252.9,64.6 257.7,67.0 262.5,69.4 267.3,71.7 272.1,74.0 276.9,76.3 281.8,78.6 286.6,80.8 291.4,83.0 296.2,85.2 301.0,87.3 301.0,28.0 312.0,30.7 323.0,33.3 334.0,36.0 345.0,38.6 356.0,41.1 367.0,43.7 378.0,46.2 389.0,48.7 400.0,51.1 411.0,53.6 422.0,56.0 433.0,58.3 444.0,60.7 455.0,63.0 466.0,65.3 477.0,67.6 488.0,69.8 499.0,72.1 510.0,74.3 521.0,76.4 532.0,78.6 543.0,80.7 554.0,82.8 565.0,84.9 565.0,28.0 571.9,28.7 578.8,29.4 585.6,30.1 592.5,30.8 599.4,31.5 606.2,32.2 613.1,32.9 620.0,33.6 626.9,34.2 633.8,34.9 640.6,35.6 647.5,36.3 654.4,37.0 661.2,37.7 668.1,38.3 675.0,39.0 681.9,39.7 688.8,40.3 695.6,41.0 702.5,41.7 709.4,42.3 716.2,43.0 723.1,43.7 730.0,44.3" fill="none" stroke="#b4413a" stroke-width="4" stroke-linejoin="round"/><line x1="86" y1="270" x2="86" y2="278" stroke="#1d2a44" stroke-width="3"/><text x="86" y="298" text-anchor="middle" font-size="20" font-weight="700" fill="#1d2a44" >1</text><line x1="120" y1="270" x2="120" y2="278" stroke="#1d2a44" stroke-width="3"/><text x="120" y="298" text-anchor="middle" font-size="20" font-weight="700" fill="#1d2a44" >3</text><line x1="186" y1="270" x2="186" y2="278" stroke="#1d2a44" stroke-width="3"/><text x="186" y="298" text-anchor="middle" font-size="20" font-weight="700" fill="#1d2a44" >7</text><line x1="301" y1="270" x2="301" y2="278" stroke="#1d2a44" stroke-width="3"/><text x="301" y="298" text-anchor="middle" font-size="20" font-weight="700" fill="#1d2a44" >14</text><line x1="565" y1="270" x2="565" y2="278" stroke="#1d2a44" stroke-width="3"/><text x="565" y="298" text-anchor="middle" font-size="20" font-weight="700" fill="#1d2a44" >30</text><text x="724" y="70" text-anchor="end" font-size="24" font-weight="700" fill="#b4413a" >with reviews</text><text x="724" y="205" text-anchor="end" font-size="24" font-weight="500" fill="#5d6477" >no review</text></svg><div class="cap">Each review slows the forgetting.</div></div><h3>A weekly test</h3><p>Once a week, run a ten-minute test (see room 28): some words, some faces, a few cards or numbers. Record the score. A weekly number is the best way to see progress.</p><h3>Rules for a routine that lasts</h3><ul><li><b>Same time and place.</b> A habit grows when it has a cue.</li><li><b>Small and regular.</b> Twenty minutes a day beats three hours once a week.</li><li><b>Make it hard enough.</b> If it is easy, raise the difficulty. If you fail a lot, lower it.</li><li><b>Start with the end in mind.</b> Decide what you want the skill for: exams, talks, names, competition.</li><li><b>Sleep and rest.</b> Memories are consolidated while you sleep.</li><li><b>Teach someone.</b> Explaining a method shows what you have not understood.</li></ul><div class="sticky">twenty minutes,<br>every day,<br>on purpose.</div><div class="talk"><b class="t">Say it aloud.</b> Describe your daily twenty minutes aloud: the warm-up, the review, the new work and the log.</div></section></div><div class="tab-content" id="tab2"><section class="page"><div class="pgno">29</div><h2>Now you build</h2><p>Have a go before you open any answer. A rough attempt teaches you more than a perfect model you only read.</p><div class="ex"><h4>Design your session</h4><div class="prompt">Write your own twenty-minute session: when, where, what warm-up, what review, what new work, how you will log it.</div><textarea rows="6" placeholder="Write it here…" data-save="routine"></textarea><div class="checks"><label><input type="checkbox"> There is a time and a place.</label><label><input type="checkbox"> There are four parts.</label><label><input type="checkbox"> There is a log.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">7.30 at the kitchen table after coffee. 3 minutes: walk my flat. 5 minutes: test yesterday's ten words. 8 minutes: ten new words. 4 minutes: write the log in my notebook.</div></div><div class="ex"><h4>A review calendar</h4><div class="prompt">You learned a list today. Write the five dates you will review it, counting from today (day 1, day 3, day 7, day 14, day 30).</div><textarea rows="3" placeholder="Write it here…" data-save="calendar"></textarea><div class="checks"><label><input type="checkbox"> There are five dates.</label><label><input type="checkbox"> The gaps grow.</label><label><input type="checkbox"> I put them in my calendar.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">If today is 18 Oct: review on 19 Oct, 21 Oct, 25 Oct, 1 Nov and 17 Nov.</div></div><div class="ex"><h4>The idea</h4><div class="gaprow">Twenty minutes every day beats three hours once a <input type="text" class="gapin" id="x1" data-ans="week" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x1"></span>.</div><div class="gaprow">S.F. started with about <input type="text" class="gapin" id="x2" data-ans="7|seven" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x2"></span> digits.</div><div class="gaprow">What had grown in S.F. was a <input type="text" class="gapin" id="x3" data-ans="skill" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x3"></span>, not his general memory.</div><button class="btn primary" data-act="gap">Check</button><div class="fb"></div></div><div class="ex"><h4>Part of the session</h4><div class="prompt">Match each part to its purpose.</div><div class="match-row"><span class="txt">Warm-up</span><select data-ans="Wakes the routes" aria-label="match"><option value="">choose…</option><option value="Adds a little each day">Adds a little each day</option><option value="Keeps old items alive">Keeps old items alive</option><option value="Shows progress">Shows progress</option><option value="Wakes the routes">Wakes the routes</option></select></div><div class="match-row"><span class="txt">Review</span><select data-ans="Keeps old items alive" aria-label="match"><option value="">choose…</option><option value="Adds a little each day">Adds a little each day</option><option value="Keeps old items alive">Keeps old items alive</option><option value="Shows progress">Shows progress</option><option value="Wakes the routes">Wakes the routes</option></select></div><div class="match-row"><span class="txt">New work</span><select data-ans="Adds a little each day" aria-label="match"><option value="">choose…</option><option value="Adds a little each day">Adds a little each day</option><option value="Keeps old items alive">Keeps old items alive</option><option value="Shows progress">Shows progress</option><option value="Wakes the routes">Wakes the routes</option></select></div><div class="match-row"><span class="txt">Log</span><select data-ans="Shows progress" aria-label="match"><option value="">choose…</option><option value="Adds a little each day">Adds a little each day</option><option value="Keeps old items alive">Keeps old items alive</option><option value="Shows progress">Shows progress</option><option value="Wakes the routes">Wakes the routes</option></select></div><button class="btn primary" data-act="match">Check</button><div class="fb"></div></div><div class="ex" data-why="Small, regular practice with review works better."><div class="prompt"><b>A learner studies for four hours on Sunday and nothing else all week. What do you advise?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Twenty-minute sessions on most days instead</button><button class="mc-opt" data-act="mc" data-ok="0">Eight hours next Sunday</button><button class="mc-opt" data-act="mc" data-ok="0">Stop</button><div class="fb"></div></div><div class="ex"><h4>Commit</h4><div class="prompt">Say aloud the time, the place and the first set you will practise tomorrow.</div><div class="timer-box" data-secs="60"><span class="timer">1:00</span><button class="btn" data-act="timer">Start talking</button><button class="btn" data-act="timer-reset">Reset</button> <span class="savednote timer-msg"></span></div></div></section></div><div class="tab-content" id="tab3"><section class="page"><div class="pgno">29</div><h2>Drill</h2><h3>Flash cards</h3><p>Say the answer first, then tap the card.</p><div class="card-deck" data-i="0" data-cards="[[&quot;Daily session&quot;, &quot;Warm-up, review, new work, log: about twenty minutes.&quot;], [&quot;Review calendar&quot;, &quot;Day 1, 3, 7, 14, 30.&quot;], [&quot;Weekly test&quot;, &quot;Ten minutes: words, faces, cards or numbers.&quot;], [&quot;S.F.&quot;, &quot;From seven digits to about seventy-nine in about two hundred and thirty hours.&quot;], [&quot;Skill&quot;, &quot;A trained method, not a bigger memory.&quot;], [&quot;Keep it going&quot;, &quot;Same time and place, small and regular, hard enough.&quot;]]"><div class="fcard" tabindex="0" role="button" aria-label="Flip the card"><div class="front"></div><div class="back"></div><div class="tap">tap to turn over</div></div><div class="deck-ctl"><button class="btn" data-act="prev">&larr;</button><span class="cnt"></span><button class="btn" data-act="next">&rarr;</button><button class="btn" data-act="shuffle">Shuffle</button></div></div><h3>Quick quiz</h3><div class="ex" data-why="As a runner he knew times."><div class="prompt"><b>What did S.F. use to make digits meaningful?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Running times</button><button class="mc-opt" data-act="mc" data-ok="0">Colours</button><button class="mc-opt" data-act="mc" data-ok="0">Rhymes</button><div class="fb"></div></div><div class="ex" data-why="Small and regular."><div class="prompt"><b>What is the best size for a daily session?</b></div><button class="mc-opt" data-act="mc" data-ok="1">About twenty minutes</button><button class="mc-opt" data-act="mc" data-ok="0">Five hours</button><button class="mc-opt" data-act="mc" data-ok="0">One minute</button><div class="fb"></div></div><div class="ex" data-why="Numbers show progress."><div class="prompt"><b>What does the log show?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Progress</button><button class="mc-opt" data-act="mc" data-ok="0">Nothing</button><button class="mc-opt" data-act="mc" data-ok="0">Colour</button><div class="fb"></div></div><div class="ex" data-why="The forgetting curve is steepest early."><div class="prompt"><b>When is a first review due?</b></div><button class="mc-opt" data-act="mc" data-ok="1">The next day</button><button class="mc-opt" data-act="mc" data-ok="0">Next year</button><button class="mc-opt" data-act="mc" data-ok="0">Never</button><div class="fb"></div></div><h3>The memory challenge</h3><div class="recall" data-items="[&quot;1 day|one day|1&quot;, &quot;3 days|three days|3&quot;, &quot;7 days|seven days|7&quot;, &quot;14 days|fourteen days|14&quot;, &quot;30 days|thirty days|30&quot;]" data-secs="60" data-ordered="1"><h4>Memory challenge: the review dates</h4><div class="stage on" data-stage="start"><p>Learn the review gaps in order: one day, three days, seven days, fourteen days, thirty days. Make a picture for each.</p><button class="btn primary" data-act="rc-start">Start: 60 seconds to study</button></div><div class="stage" data-stage="study"><p>Use your number pictures: candle, heart, cliff...</p><div class="timer-box"><span class="timer">0:00</span><button class="btn" data-act="rc-ready">I’m ready</button></div><div class="items"></div></div><div class="stage" data-stage="recall"><p>The list has gone. Type what you remember, one item per line.</p><textarea rows="8" placeholder="One per line…"></textarea><button class="btn primary" data-act="rc-check">Check</button></div><div class="stage" data-stage="result"><div class="score"></div><div class="res"></div><button class="btn" data-act="rc-again">Try again</button></div></div></section></div><div class="tab-content" id="tab4"><section class="page"><div class="pgno">29</div><h2>Look back</h2><p>These reach back to earlier rooms. Answer in your head or out loud, then check.</p><div class="qa"><div class="q"><span class="red">Room 28 · A Day at the Championships.</span> How many standard events are there?</div><button class="reveal-btn">Check</button><div class="reveal">Ten.</div></div><div class="qa"><div class="q"><span class="red">Room 27 · Keeping a Book.</span> What is the first step of the book method?</div><button class="reveal-btn">Check</button><div class="reveal">Survey.</div></div><div class="qa"><div class="q"><span class="red">Room 20 · The Night Before the Exam.</span> Which is a better study method: re-reading or testing?</div><button class="reveal-btn">Check</button><div class="reveal">Testing yourself.</div></div><div class="qa"><div class="q"><span class="red">Room 1 · How Memory Works.</span> When is forgetting fastest?</div><button class="reveal-btn">Check</button><div class="reveal">Right after learning.</div></div><h3>What I can do now</h3><ul class="canlist"><li><label><input type="checkbox" data-save="can0"> <span>I can design a twenty-minute daily session.</span></label></li><li><label><input type="checkbox" data-save="can1"> <span>I can set a review calendar of 1, 3, 7, 14 and 30 days.</span></label></li><li><label><input type="checkbox" data-save="can2"> <span>I can run a weekly test and log the score.</span></label></li></ul><h3>A thought to keep</h3><p>When and where will you practise tomorrow? What is the smallest first step?</p><div class="ref"><textarea rows="3" data-save="reflect" placeholder="Your thoughts…"></textarea><div class="savednote">Saved on this device as you type.</div></div><p><button class="btn primary" data-act="done">Mark this room as done</button></p></section></div>
+  <div class="nav-end"><a href="lesson-28-competitions.html">&larr; A Day at the Championships</a><a href="art-of-memory.html">The whole house</a><a href="lesson-30-certification.html">The Final Walk &rarr;</a></div>
+  <footer>The Art of Memory · Room 29 · From Seven Digits to Seventy-Nine</footer>
+</div>
+<script>
+(function () {
+  var store = null;
+  try { var t = '__aom'; window.localStorage.setItem(t, t); window.localStorage.removeItem(t); store = window.localStorage; } catch (e) { store = null; }
+  function sget(k) { try { return store ? store.getItem(k) : null; } catch (e) { return null; } }
+  function sset(k, v) { try { if (store) store.setItem(k, v); } catch (e) {} }
+  var LESSON = document.body.getAttribute('data-lesson') || 'x';
+
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9À-ſ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  /* ---------- tabs ---------- */
+  window.showTab = function (i, noScroll) {
+    var panels = $all('.tab-content'), btns = $all('.tab-btn');
+    panels.forEach(function (p, k) { p.classList.toggle('active', k === i); });
+    btns.forEach(function (b, k) { b.classList.toggle('active', k === i); b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (!noScroll) { var nav = $('.tab-nav'); if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    sset('aom_tab_' + LESSON, String(i));
+  };
+
+  /* ---------- timers ---------- */
+  var timers = [];
+  function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+  function runTimer(box, secs, onTick, onEnd) {
+    var disp = $('.timer', box), left = secs, id;
+    if (box._id) clearInterval(box._id);
+    function paint() {
+      disp.textContent = fmt(left);
+      disp.classList.toggle('warn', left <= Math.max(10, secs * 0.25) && left > Math.max(5, secs * 0.1));
+      disp.classList.toggle('low', left <= Math.max(5, secs * 0.1));
+      if (onTick) onTick(left);
+    }
+    paint();
+    id = setInterval(function () {
+      left -= 1; paint();
+      if (left <= 0) { clearInterval(id); box._id = null; disp.classList.remove('warn'); if (onEnd) onEnd(); }
+    }, 1000);
+    box._id = id;
+    timers.push(id);
+  }
+
+  /* ---------- generic click handling ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var btn = t.closest ? t.closest('button, .fcard, a') : null;
+    if (!btn) return;
+
+    if (btn.classList.contains('reveal-btn')) {
+      var r = btn.nextElementSibling;
+      if (r) { r.classList.toggle('show'); }
+      return;
+    }
+    if (btn.classList.contains('w')) { btn.parentElement.classList.toggle('open'); return; }
+
+    var act = btn.getAttribute('data-act');
+    if (!act) return;
+    var ex = btn.closest('.ex, .recall, .card-deck') || document;
+
+    if (act === 'gap') {
+      var ok = 0, all = $all('.gapin', ex);
+      all.forEach(function (inp) {
+        var accepted = (inp.getAttribute('data-ans') || '').split('|').map(norm);
+        var v = norm(inp.value);
+        var good = v && accepted.indexOf(v) > -1;
+        inp.classList.toggle('ok', !!good); inp.classList.toggle('no', !good);
+        var note = inp.parentElement.querySelector('.gapans[data-for="' + inp.id + '"]');
+        if (note) { note.textContent = good ? '' : '→ ' + inp.getAttribute('data-ans').split('|')[0]; }
+        if (good) ok++;
+      });
+      var fb = $('.fb', ex);
+      fb.className = 'fb ' + (ok === all.length ? 'ok' : 'no');
+      fb.textContent = ok === all.length ? 'All ' + all.length + ' correct.' : ok + ' of ' + all.length + ' correct. The answers you missed are shown in red; fix them, then check again.';
+      return;
+    }
+    if (act === 'mc') {
+      var q = btn.closest('.ex');
+      var good = btn.getAttribute('data-ok') === '1';
+      var fb2 = $('.fb', q);
+      $all('.mc-opt', q).forEach(function (o) { if (o !== btn && !o.classList.contains('ok')) { o.classList.remove('no'); } });
+      btn.classList.add(good ? 'ok' : 'no');
+      fb2.className = 'fb ' + (good ? 'ok' : 'no');
+      fb2.innerHTML = good ? (q.getAttribute('data-why') || 'Correct.') : (btn.getAttribute('data-hint') || 'Not quite. Think again and try another answer.');
+      return;
+    }
+    if (act === 'match') {
+      var okm = 0, rows = $all('.match-row', ex);
+      rows.forEach(function (row) {
+        var sel = $('select', row), good = sel.value === sel.getAttribute('data-ans');
+        row.classList.toggle('ok', good); row.classList.toggle('no', !good && sel.value !== '');
+        if (good) okm++;
+      });
+      var fb3 = $('.fb', ex);
+      fb3.className = 'fb ' + (okm === rows.length ? 'ok' : 'no');
+      fb3.textContent = okm === rows.length ? 'All ' + rows.length + ' matched.' : okm + ' of ' + rows.length + ' matched. Change the red ones and check again.';
+      return;
+    }
+    if (act === 'timer') {
+      var box = btn.closest('.timer-box'), secs = parseInt(box.getAttribute('data-secs'), 10) || 60;
+      var msg = $('.timer-msg', box);
+      if (msg) msg.textContent = '';
+      runTimer(box, secs, null, function () { if (msg) msg.textContent = 'Time is up.'; });
+      return;
+    }
+    if (act === 'timer-reset') {
+      var b2 = btn.closest('.timer-box'); if (b2._id) clearInterval(b2._id);
+      $('.timer', b2).textContent = fmt(parseInt(b2.getAttribute('data-secs'), 10) || 60);
+      $('.timer', b2).className = 'timer';
+      return;
+    }
+    if (act === 'flip') { return; }
+    if (act === 'next' || act === 'prev' || act === 'shuffle') {
+      var deck = btn.closest('.card-deck');
+      var cards = JSON.parse(deck.getAttribute('data-cards'));
+      var i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+      if (act === 'shuffle') { cards.sort(function () { return Math.random() - 0.5; }); deck.setAttribute('data-cards', JSON.stringify(cards)); i = 0; }
+      else if (act === 'next') i = (i + 1) % cards.length; else i = (i - 1 + cards.length) % cards.length;
+      deck.setAttribute('data-i', i); paintCard(deck); return;
+    }
+    if (act === 'rc-start') { startRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-ready') { endStudy(btn.closest('.recall')); return; }
+    if (act === 'rc-check') { checkRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-again') { resetRecall(btn.closest('.recall')); return; }
+    if (act === 'done') {
+      sset('aom_done_' + LESSON, '1');
+      btn.textContent = 'Marked as done ✓';
+      return;
+    }
+  });
+
+  /* flash cards */
+  function paintCard(deck) {
+    var cards = JSON.parse(deck.getAttribute('data-cards')), i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+    var c = cards[i], el = $('.fcard', deck);
+    el.classList.remove('flip');
+    $('.front', el).innerHTML = c[0]; $('.back', el).innerHTML = c[1];
+    $('.cnt', deck).textContent = (i + 1) + ' of ' + cards.length;
+  }
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest ? e.target.closest('.fcard') : null;
+    if (f) f.classList.toggle('flip');
+  });
+  $all('.card-deck').forEach(paintCard);
+
+  /* memory challenge */
+  function stage(rc, name) { $all('.stage', rc).forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-stage') === name); }); }
+  function startRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var wrap = $('.items', rc); wrap.className = 'items' + (ordered ? ' ordered' : '');
+    wrap.innerHTML = '';
+    items.forEach(function (it) { var s = document.createElement('span'); s.textContent = it.split('|')[0]; wrap.appendChild(s); });
+    stage(rc, 'study');
+    var box = $('.timer-box', rc), secs = parseInt(rc.getAttribute('data-secs'), 10) || 60;
+    box.setAttribute('data-secs', secs);
+    runTimer(box, secs, null, function () { endStudy(rc); });
+  }
+  function endStudy(rc) {
+    var box = $('.timer-box', rc); if (box._id) { clearInterval(box._id); box._id = null; }
+    $('.items', rc).innerHTML = '';
+    stage(rc, 'recall');
+    var ta = $('textarea', rc); ta.value = ''; ta.focus();
+  }
+  function checkRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var raw = $('textarea', rc).value, text = norm(raw);
+    var lines = raw.split(/\n+/).map(norm).filter(Boolean);
+    var res = $('.res', rc), got = 0; res.innerHTML = '';
+    items.forEach(function (it, i) {
+      var alts = it.split('|').map(norm), good = false;
+      if (ordered) {
+        var ln = lines[i] || '';
+        good = alts.some(function (a) { return ln && (ln.indexOf(a) > -1 || (ln.length >= 4 && a.indexOf(ln) > -1)); });
+      } else {
+        var padded = ' ' + text + ' ';
+        good = alts.some(function (a) { return padded.indexOf(' ' + a + ' ') > -1 || padded.indexOf(a) > -1; });
+      }
+      if (good) got++;
+      var d = document.createElement('div'); d.className = good ? 'ok' : 'no';
+      d.textContent = (ordered ? (i + 1) + '. ' : '') + it.split('|')[0] + (good ? '  ✓' : '  ✗');
+      res.appendChild(d);
+    });
+    $('.score', rc).textContent = got + ' of ' + items.length + ' recalled';
+    stage(rc, 'result');
+  }
+  function resetRecall(rc) { stage(rc, 'start'); }
+
+  /* build-it self checks */
+  document.addEventListener('change', function (e) {
+    var cb = e.target;
+    if (cb.type === 'checkbox' && cb.closest('.checks')) {
+      var box = cb.closest('.ex'), all = $all('.checks input', box), done = all.every(function (c) { return c.checked; });
+      var fb = $('.fb', box);
+      if (fb) { fb.className = done ? 'fb ok' : 'fb'; if (done) fb.textContent = 'Every box ticked: each of those is a reason the picture will still be there tomorrow.'; }
+    }
+    if (cb.type === 'checkbox' && cb.hasAttribute('data-save')) { sset('aom_' + LESSON + '_' + cb.getAttribute('data-save'), cb.checked ? '1' : '0'); }
+  });
+
+  /* saved text / ticks */
+  $all('textarea[data-save]').forEach(function (ta) {
+    var k = 'aom_' + LESSON + '_' + ta.getAttribute('data-save'), v = sget(k);
+    if (v) ta.value = v;
+    ta.addEventListener('input', function () { sset(k, ta.value); });
+  });
+  $all('input[type=checkbox][data-save]').forEach(function (cb) {
+    if (sget('aom_' + LESSON + '_' + cb.getAttribute('data-save')) === '1') cb.checked = true;
+  });
+  if (sget('aom_done_' + LESSON) === '1') { var d = $('[data-act=done]'); if (d) d.textContent = 'Marked as done ✓'; }
+
+  /* hub progress */
+  $all('[data-room]').forEach(function (el) {
+    if (sget('aom_done_' + el.getAttribute('data-room')) === '1') el.classList.add('done');
+  });
+  /* open on a remembered tab only when asked by hash */
+  var tabNames = ['story', 'method', 'try', 'drill', 'back'];
+  var h = (location.hash || '').replace('#', ''), hi = tabNames.indexOf(h);
+  if ($('.tab-nav')) showTab(hi > -1 ? hi : 0, true);
+})();
+</script>
 </body>
 </html>

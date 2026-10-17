@@ -1,926 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 24: Multiple Palace Architecture - The Art of Memory</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #e0e0e0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-            color: #000;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .tab-container {
-            display: flex;
-            background: #1a1a1a;
-            border-bottom: 2px solid #d4af37;
-            overflow-x: auto;
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 15px;
-            background: #2d2d2d;
-            border: none;
-            color: #d4af37;
-            cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            min-width: 140px;
-        }
-
-        .tab-button:hover {
-            background: #3d3d3d;
-            color: #ffd700;
-        }
-
-        .tab-button.active {
-            background: #d4af37;
-            color: #000;
-            border-bottom-color: #ffd700;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 40px;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h2 {
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 10px;
-        }
-
-        h3 {
-            color: #ffd700;
-            margin-top: 20px;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: #c0c0c0;
-        }
-
-        .content-box {
-            background: rgba(212, 175, 55, 0.1);
-            border-left: 4px solid #d4af37;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 6px;
-        }
-
-        .challenge-box {
-            background: rgba(212, 175, 55, 0.15);
-            border: 2px solid #d4af37;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .button {
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-            color: #000;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1em;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 10px 5px 10px 0;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .button.secondary {
-            background: rgba(212, 175, 55, 0.3);
-            color: #d4af37;
-            border: 2px solid #d4af37;
-        }
-
-        .button.secondary:hover {
-            background: rgba(212, 175, 55, 0.5);
-        }
-
-        .palace-network {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .palace-card {
-            background: rgba(212, 175, 55, 0.15);
-            border: 3px solid #d4af37;
-            padding: 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .palace-card:hover {
-            background: rgba(212, 175, 55, 0.3);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .palace-card h4 {
-            color: #ffd700;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .palace-card .capacity {
-            color: #d4af37;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .palace-card .theme {
-            color: #c0c0c0;
-            font-size: 0.9em;
-        }
-
-        .network-diagram {
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid #d4af37;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .network-box {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.2);
-            border: 2px solid #d4af37;
-            padding: 15px 25px;
-            margin: 5px;
-            border-radius: 6px;
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .connector {
-            color: #d4af37;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        .journey-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(0, 0, 0, 0.3);
-            margin: 20px 0;
-        }
-
-        th, td {
-            border: 2px solid #d4af37;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: rgba(212, 175, 55, 0.3);
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .loci-list {
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 4px solid #d4af37;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .loci-item {
-            padding: 10px;
-            margin: 5px 0;
-            background: rgba(212, 175, 55, 0.1);
-            border-radius: 4px;
-            color: #c0c0c0;
-        }
-
-        .loci-item strong {
-            color: #ffd700;
-        }
-
-        .highlight {
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .tip-box {
-            background: rgba(212, 175, 55, 0.1);
-            border-left: 4px solid #ffd700;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .tip-box strong {
-            color: #ffd700;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #d4af37;
-            border-radius: 4px;
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-        }
-
-        ul, ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            color: #c0c0c0;
-        }
-
-        @media (max-width: 768px) {
-            .palace-network {
-                grid-template-columns: 1fr;
-            }
-
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .tab-button {
-                font-size: 0.85em;
-                padding: 12px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="The Art of Memory">
+<meta name="description" content="A Jesuit who taught the memory palace in China, and how to link many palaces into a network that holds a whole subject.">
+<title>A Town of Palaces · The Art of Memory · Room 24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#f8f4e9; --sheet:#fffdf6; --ink:#1d2a44; --pen:#26324d; --red:#b4413a; --gold:#8a6a2c; --rule:rgba(70,100,150,.12); --margin:rgba(190,70,70,.38); --sticky:#fff1a8; --sticky-ink:#3d3511; --shadow:rgba(22,38,61,.16); --line:#d8cfb8; --muted:#5d6477; --hl:rgba(255,214,92,.55); --ok:#e6f3e4; --okb:#5aa05e; --bad:#fbeae7; --badb:#c0504a; --tape:rgba(231,214,160,.78); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:"Segoe UI",system-ui,-apple-system,Tahoma,Geneva,Verdana,sans-serif; font-size:1.02rem; line-height:1.65; background-color:var(--paper); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); color:#222a3a; }
+.wrap { max-width:960px; margin:0 auto; padding:18px 16px 70px; }
+.hand, h1, h2, h3, .scrawl { font-family:"Caveat","Kalam","Bradley Hand","Segoe Print",cursive; }
+a { color:var(--gold); }
+.topnav { display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; justify-content:space-between; margin-bottom:12px; font-family:"Caveat",cursive; font-size:1.35rem; }
+.topnav a { color:var(--gold); text-decoration:none; border-bottom:2px dashed var(--gold); }
+.topnav .where { color:var(--red); }
+.cover { position:relative; text-align:center; padding:34px 22px 28px; margin:30px 0 22px; background:var(--sheet); border:1px solid var(--line); box-shadow:0 12px 30px var(--shadow); transform:rotate(-.35deg); }
+.cover::before, .cover::after { content:""; position:absolute; top:-12px; width:104px; height:26px; background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.cover::before { left:-18px; transform:rotate(-33deg); } .cover::after { right:-18px; transform:rotate(33deg); }
+.cover small { font-family:"Caveat",cursive; font-size:1.45rem; color:var(--red); display:block; line-height:1.2; }
+.cover h1 { font-size:3.3rem; line-height:1.04; color:var(--ink); margin:4px 0 8px; font-weight:700; }
+.cover p { max-width:640px; margin:0 auto; color:var(--muted); }
+.plaque { display:inline-block; font-family:"Caveat",cursive; font-size:1.3rem; font-weight:700; color:#fff; background:var(--ink); padding:0 16px; border-radius:3px; margin-bottom:8px; letter-spacing:.5px; }
+.tab-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:0 0 20px; }
+.tab-btn { font-family:"Caveat",cursive; font-size:1.4rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 18px 6px; }
+.tab-btn:hover { background:#f1ead6; }
+.tab-btn.active { background:var(--gold); border-color:var(--gold); color:#fff; }
+.tab-content { display:none; } .tab-content.active { display:block; }
+.page { position:relative; background-color:var(--sheet); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px); border:1px solid var(--line); box-shadow:0 10px 26px var(--shadow); padding:26px 28px 26px 74px; margin-bottom:22px; }
+.page::before { content:""; position:absolute; left:52px; top:0; bottom:0; border-left:2px solid var(--margin); }
+.page > .pgno { position:absolute; left:10px; top:18px; width:36px; text-align:center; font-family:"Caveat",cursive; font-size:2.3rem; font-weight:700; color:var(--red); line-height:1; }
+.page h2 { font-size:2.35rem; line-height:1.08; color:var(--ink); margin:0 0 8px; font-weight:700; }
+.page h3 { font-size:1.75rem; color:var(--gold); margin:20px 0 6px; font-weight:700; line-height:1.1; }
+.page h4 { font-size:1.05rem; color:var(--ink); margin:0 0 4px; }
+.page p { margin:0 0 14px; } .page ul, .page ol { margin:0 0 14px 22px; } .page li { margin-bottom:4px; }
+.hl { background:linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 92%, transparent 92%); padding:0 2px; }
+.red { color:var(--red); font-weight:700; }
+.lead { font-size:1.1rem; color:var(--ink); }
+.src { font-family:"Caveat",cursive; font-size:1.2rem; color:var(--muted); line-height:1.2; margin-top:6px; }
+.sticky { position:relative; background:var(--sticky); color:var(--sticky-ink); padding:12px 18px; margin:14px 0 18px; box-shadow:3px 4px 9px rgba(0,0,0,.18); transform:rotate(-.8deg); font-family:"Caveat",cursive; font-size:1.42rem; line-height:1.25; max-width:520px; }
+.sticky.r { transform:rotate(.9deg); margin-left:auto; }
+.pol { position:relative; background:#fff; padding:9px 9px 6px; box-shadow:0 8px 18px var(--shadow); margin:8px 0 20px; transform:rotate(var(--tilt,-1.2deg)); max-width:520px; border:1px solid var(--line); }
+.pol img { display:block; width:100%; height:auto; }
+.pol figcaption { font-family:"Caveat",cursive; font-size:1.3rem; color:#3b3b3b; text-align:center; line-height:1.2; padding:6px 4px 2px; }
+.pol::before { content:""; position:absolute; top:-11px; left:50%; width:90px; height:22px; transform:translateX(-50%) rotate(-3deg); background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.intention { border-left:5px solid var(--gold); background:#f6f1e1; padding:10px 16px; margin:0 0 18px; border-radius:0 6px 6px 0; }
+.left-off { border:2px dashed var(--line); background:rgba(255,255,255,.7); padding:12px 16px 6px; margin:0 0 22px; }
+.left-off .lbl, .lbl { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); font-weight:700; line-height:1.1; display:block; margin-bottom:4px; }
+.qa { margin:0 0 12px; }
+.qa .q { font-weight:600; color:var(--ink); }
+.btn, .reveal-btn { font-family:"Caveat",cursive; font-size:1.25rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:5px 14px 3px; margin:6px 8px 4px 0; }
+.btn:hover, .reveal-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+.btn.primary { background:var(--ink); color:#fff; } .btn.primary:hover { background:var(--gold); }
+.reveal { display:none; background:#f3eedd; border-left:4px solid var(--gold); padding:9px 14px; margin:6px 0 10px; border-radius:0 6px 6px 0; }
+.reveal.show { display:block; }
+.story-chunk { font-family:Georgia,"Times New Roman",serif; font-size:1.1rem; line-height:1.75; border-left:5px solid var(--ink); background:#faf6ea; padding:12px 18px 2px; margin:0 0 6px; border-radius:0 6px 6px 0; }
+.story-chunk p { margin:0 0 12px; }
+.story-part { margin-bottom:24px; }
+.after { padding:6px 4px 0 14px; }
+.talk, .discuss { background:#eef2f7; border:1px solid #cdd7e6; border-radius:6px; padding:10px 16px 8px; margin:10px 0 14px; }
+.talk b.t, .discuss b.t { font-family:"Caveat",cursive; font-size:1.35rem; color:var(--ink); }
+.words { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px 16px; margin:8px 0 14px; }
+.word { border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 16px 6px; background:var(--sheet); }
+.word .w { font-family:"Caveat",cursive; font-size:1.55rem; line-height:1.1; color:var(--ink); font-weight:700; cursor:pointer; background:none; border:0; text-align:left; display:block; width:100%; }
+.word .m { display:none; font-size:.95rem; color:#33405a; } .word.open .m { display:block; }
+.word .w::after { content:" ▾"; font-size:.9rem; color:var(--gold); } .word.open .w::after { content:" ▴"; }
+.steps { list-style:none; margin-left:0 !important; counter-reset:st; }
+.steps li { position:relative; padding:2px 0 2px 44px; margin-bottom:10px; counter-increment:st; }
+.steps li::before { content:counter(st); position:absolute; left:0; top:-4px; font-family:"Caveat",cursive; font-size:2rem; color:var(--red); font-weight:700; width:34px; text-align:center; }
+.steps li b { color:var(--ink); }
+.tbl-wrap { overflow-x:auto; margin:6px 0 16px; }
+.tbl { width:100%; border-collapse:collapse; font-size:.97rem; line-height:1.4; }
+.tbl th { font-family:"Caveat",cursive; font-size:1.4rem; text-align:left; color:var(--gold); border-bottom:2px solid var(--ink); padding:2px 10px; white-space:nowrap; }
+.tbl td { padding:5px 10px; border-bottom:1px dashed var(--line); vertical-align:top; }
+.tbl td:first-child { font-weight:700; color:var(--ink); }
+.example { border:3px double var(--ink); background:#fffaf0; padding:14px 20px 8px; margin:12px 0 20px; }
+.example .lbl { color:var(--red); }
+.example .given { font-size:1.08rem; color:var(--ink); margin-bottom:8px; }
+.example .row { display:grid; grid-template-columns:130px 1fr; gap:4px 12px; padding:4px 0; border-top:1px dashed var(--line); }
+.example .row .k { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--gold); font-weight:700; line-height:1.2; }
+.example .pic { background:var(--sticky); color:var(--sticky-ink); padding:9px 14px; margin:10px 0 8px; box-shadow:2px 3px 8px rgba(0,0,0,.14); }
+.chips { display:flex; flex-wrap:wrap; gap:8px 12px; margin:4px 0 14px; }
+.chips span { font-family:"Caveat",cursive; font-size:1.35rem; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:32px; background:var(--sheet); }
+.diagram { text-align:center; margin:10px 0 18px; background:var(--sheet); border:2px dashed var(--line); padding:8px; }
+.diagram svg { max-width:100%; height:auto; font-family:"Caveat","Kalam",cursive; }
+.diagram .cap { font-family:"Caveat",cursive; color:var(--muted); font-size:1.2rem; line-height:1.2; }
+.ex { border:1px solid var(--line); background:rgba(255,255,255,.82); border-radius:6px; padding:14px 18px 10px; margin:0 0 18px; }
+.ex h4 { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); }
+.ex .prompt { color:var(--ink); margin-bottom:8px; }
+.ex textarea, .ex input[type=text], .recall textarea, .ref textarea { font:inherit; width:100%; padding:8px 10px; border:2px solid var(--line); border-radius:6px; background:#fff; color:#222a3a; }
+.ex textarea:focus, .ex input:focus, .recall textarea:focus, .ref textarea:focus { outline:none; border-color:var(--gold); }
+.ex input[type=text].gapin { width:auto; min-width:150px; max-width:100%; display:inline-block; padding:3px 8px; margin:0 4px; font-size:.98rem; }
+.ex .gaprow { margin-bottom:10px; line-height:2.1; }
+.ex .gapans { font-size:.9rem; color:var(--badb); margin-left:6px; }
+.ok { background:var(--ok) !important; border-color:var(--okb) !important; } .no { background:var(--bad) !important; border-color:var(--badb) !important; }
+.fb { display:none; margin:8px 0 6px; padding:8px 14px; border-radius:6px; border:2px solid var(--line); background:#f6f6f6; font-size:.97rem; }
+.fb.show { display:block; } .fb.ok { display:block; } .fb.no { display:block; }
+.checks { margin:8px 0 4px; } .checks label { display:flex; gap:8px; align-items:flex-start; margin-bottom:3px; font-size:.96rem; cursor:pointer; }
+.checks input { margin-top:6px; accent-color:var(--gold); }
+.mc-opt { display:block; width:100%; text-align:left; font:inherit; cursor:pointer; border:2px solid var(--line); background:#fff; color:#222a3a; border-radius:6px; padding:7px 12px; margin:5px 0; }
+.mc-opt:hover { border-color:var(--gold); }
+.mc-opt.ok { color:#1b4d1e; } .mc-opt.no { color:#7a2220; }
+.match-row { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; justify-content:space-between; border:1px solid var(--line); background:#faf7ec; border-radius:6px; padding:8px 12px; margin:6px 0; }
+.match-row .txt { flex:1 1 230px; font-weight:600; color:var(--ink); }
+.match-row select { font:inherit; padding:5px 8px; border:2px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); min-width:200px; max-width:100%; }
+.timer { display:inline-block; font-family:"Caveat",cursive; font-size:1.9rem; font-weight:700; color:var(--ink); padding:0 14px; border:2px solid var(--ink); border-radius:6px; background:#fff; min-width:92px; text-align:center; margin:4px 10px 4px 0; }
+.timer.warn { color:#9a6b00; border-color:#d19a1f; background:#fff6dc; } .timer.low { color:#fff; border-color:var(--badb); background:var(--badb); animation:pulse 1s infinite; }
+@keyframes pulse { 50% { opacity:.65; } }
+.card-deck { margin:8px 0 16px; }
+.fcard { min-height:130px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; cursor:pointer; background:var(--sticky); color:var(--sticky-ink); box-shadow:3px 4px 10px rgba(0,0,0,.18); padding:20px 24px; transform:rotate(-.5deg); user-select:none; max-width:560px; margin:6px auto 12px; }
+.fcard .front { font-family:"Caveat",cursive; font-size:1.9rem; line-height:1.15; font-weight:700; }
+.fcard .back { display:none; font-size:1.05rem; margin-top:8px; line-height:1.45; } .fcard.flip .back { display:block; }
+.fcard .tap { font-family:"Caveat",cursive; font-size:1.1rem; color:#7a6a2a; margin-top:6px; } .fcard.flip .tap { display:none; }
+.deck-ctl { text-align:center; } .deck-ctl .cnt { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--muted); margin:0 8px; }
+.recall { border:3px double var(--ink); padding:14px 20px 12px; margin:14px 0 18px; background:#fffaf0; }
+.recall h4 { font-family:"Caveat",cursive; font-size:1.7rem; color:var(--red); }
+.recall .stage { display:none; } .recall .stage.on { display:block; }
+.recall .items { display:flex; flex-wrap:wrap; gap:8px 12px; margin:10px 0; counter-reset:it; }
+.recall .items span { font-family:"Caveat",cursive; font-size:1.5rem; border:2px solid var(--ink); background:var(--sheet); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:34px; counter-increment:it; }
+.recall .items.ordered span::before { content:counter(it) ". "; color:var(--red); }
+.recall .res { margin:8px 0; } .recall .res div { padding:3px 10px; border-radius:4px; margin:3px 0; font-size:.97rem; }
+.recall .score { font-family:"Caveat",cursive; font-size:1.8rem; color:var(--ink); }
+.ref textarea { min-height:90px; }
+.canlist { list-style:none; margin-left:0 !important; } .canlist label { display:flex; gap:10px; cursor:pointer; align-items:flex-start; } .canlist input { margin-top:7px; accent-color:var(--gold); transform:scale(1.2); }
+.nav-end { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:6px 0 0; font-family:"Caveat",cursive; font-size:1.45rem; }
+.nav-end a { color:var(--ink); text-decoration:none; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:3px 18px 1px; background:var(--sheet); }
+.nav-end a:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+footer { text-align:center; font-family:"Caveat",cursive; font-size:1.25rem; color:var(--muted); margin-top:26px; line-height:1.3; }
+.savednote { font-family:"Caveat",cursive; color:var(--muted); font-size:1.15rem; }
+@media (max-width:768px) {
+  body { font-size:1rem; }
+  .cover h1 { font-size:2.45rem; } .cover { padding:28px 14px 22px; transform:none; }
+  .page { padding:22px 14px 20px 44px; } .page::before { left:32px; } .page > .pgno { left:2px; font-size:1.8rem; width:28px; top:16px; }
+  .page h2 { font-size:1.95rem; }
+  .tab-btn { font-size:1.2rem; padding:7px 12px 5px; }
+  .example .row { grid-template-columns:1fr; gap:0; }
+  .match-row select { min-width:0; width:100%; }
+  .ex { padding:12px 12px 8px; }
+  .page ul, .page ol { margin-left:16px; }
+  .sticky { max-width:100%; }
+}
+@media print { .tab-nav, .nav-end, .topnav { display:none; } .tab-content { display:block !important; } }
+</style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Lesson 24: Multiple Palace Architecture</h1>
-            <p>Build networked palace systems for large-scale information storage</p>
-        </div>
-
-        <div class="tab-container">
-            <button class="tab-button active" onclick="switchTab('retrieval')">Review</button>
-            <button class="tab-button" onclick="switchTab('content')">New Content</button>
-            <button class="tab-button" onclick="switchTab('practice')">Guided Practice</button>
-            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
-            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
-            <button class="tab-button" onclick="switchTab('final')">Final Review</button>
-        </div>
-
-        <!-- RETRIEVAL TAB -->
-        <div id="retrieval" class="tab-content active">
-            <h2>Review: Review Single Palace Principles</h2>
-            <a href="lesson-23-ben-system.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #555; color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 0;">← Previous Lesson</a>
-
-            <h3>Memory Palace Foundations</h3>
-            <p>Before scaling to multiple palaces, let's review core principles:</p>
-
-            <div class="challenge-box">
-                <p><strong>Q1: What are the three key principles of a memory palace?</strong></p>
-                <button class="button secondary" onclick="toggleAnswer('q1')">Show Answer</button>
-                <p id="q1" style="display:none; margin-top:10px; color:#ffd700;">
-                    <strong>Answer:</strong> 1) Familiar location, 2) Clear sequential route, 3) Distinct loci (stations/points)
-                </p>
-
-                <p style="margin-top: 20px;"><strong>Q2: How many loci should a typical palace have?</strong></p>
-                <button class="button secondary" onclick="toggleAnswer('q2')">Show Answer</button>
-                <p id="q2" style="display:none; margin-top:10px; color:#ffd700;">
-                    <strong>Answer:</strong> Typically 10-30 loci per palace depending on the location and how detailed you can make the route.
-                </p>
-
-                <p style="margin-top: 20px;"><strong>Q3: What data capacity does a single palace have?</strong></p>
-                <button class="button secondary" onclick="toggleAnswer('q3')">Show Answer</button>
-                <p id="q3" style="display:none; margin-top:10px; color:#ffd700;">
-                    <strong>Answer:</strong> A palace with 20 loci can store 20 PAO pairs (40 2-digit numbers) or 20 Ben system images (60 3-digit numbers).
-                </p>
-            </div>
-
-            <div class="content-box">
-                <h3>Why Multiple Palaces?</h3>
-                <p>Single palaces have limitations:</p>
-                <ul>
-                    <li>Limited capacity (20-30 loci max per palace)</li>
-                    <li>Can only store one "set" of information at a time</li>
-                    <li>Interference when switching between different memory tasks</li>
-                    <li>Memory competition requires vast storage (thousands of numbers)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- NEW CONTENT TAB -->
-        <div id="content" class="tab-content">
-            <h2>Building Palace Networks</h2>
-
-            <h3>The Concept of Palace Networks</h3>
-            <p>A <span class="highlight">palace network</span> is a collection of interconnected memory palaces that function as one large memory system. Elite memorizers use dozens of palaces in organized networks.</p>
-
-            <div class="content-box">
-                <h4 style="color: #ffd700; margin-top: 0;">Network Architecture Principles</h4>
-                <ol>
-                    <li><strong>Organization:</strong> Palaces are grouped by theme, purpose, or location</li>
-                    <li><strong>Connectivity:</strong> Clear links between palaces help recall patterns</li>
-                    <li><strong>Capacity:</strong> Multiple palaces provide exponential storage capacity</li>
-                    <li><strong>Specialization:</strong> Different palaces for different data types</li>
-                </ol>
-            </div>
-
-            <h3>Major Knowledge Domain Palaces</h3>
-
-            <div class="palace-network">
-                <div class="palace-card">
-                    <h4>History Palace</h4>
-                    <p class="theme">Timeline of civilizations and eras</p>
-                    <p class="capacity">Capacity: 30-50 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For dates, historical events, figures, and movements across time periods</p>
-                </div>
-
-                <div class="palace-card">
-                    <h4>Science Palace</h4>
-                    <p class="theme">Laboratory and natural world</p>
-                    <p class="capacity">Capacity: 40-60 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For scientific theories, elements, discoveries, and natural phenomena</p>
-                </div>
-
-                <div class="palace-card">
-                    <h4>Art Palace</h4>
-                    <p class="theme">Gallery and creative spaces</p>
-                    <p class="capacity">Capacity: 30-45 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For artistic movements, famous artists, techniques, and cultural works</p>
-                </div>
-
-                <div class="palace-card">
-                    <h4>Music Palace</h4>
-                    <p class="theme">Concert hall and symphony</p>
-                    <p class="capacity">Capacity: 25-40 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For composers, musical pieces, genres, instruments, and performance history</p>
-                </div>
-
-                <div class="palace-card">
-                    <h4>Language Palace</h4>
-                    <p class="theme">Library of words and writing</p>
-                    <p class="capacity">Capacity: 35-55 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For vocabulary, grammar rules, linguistic concepts, and communication</p>
-                </div>
-
-                <div class="palace-card">
-                    <h4>Philosophy Palace</h4>
-                    <p class="theme">Temple of ideas and thought</p>
-                    <p class="capacity">Capacity: 30-50 loci</p>
-                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For philosophical concepts, thinkers, arguments, and schools of thought</p>
-                </div>
-            </div>
-
-            <h3>Journey Linking Between Palaces</h3>
-            <p>To create a seamless network, link palaces through "journey transitions":</p>
-
-            <div class="network-diagram">
-                <div class="network-box">Palace 1<br>(Work)</div>
-                <div class="connector">↓ (Exit office, walk down street)</div>
-                <div class="network-box">Palace 2<br>(Café)</div>
-                <div class="connector">↓ (Exit café, travel to home)</div>
-                <div class="network-box">Palace 3<br>(Home)</div>
-                <div class="connector">↓ (Exit home, imagine teleport to resort)</div>
-                <div class="network-box">Palace 4<br>(Resort)</div>
-            </div>
-
-            <h3>Creating Transition Links</h3>
-            <div class="content-box">
-                <p>Each palace ending should transition naturally to the next palace:</p>
-                <ul>
-                    <li><strong>Visual link:</strong> Imagine a visual pathway between palace exits/entrances</li>
-                    <li><strong>Physical movement:</strong> Use real or imagined travel routes</li>
-                    <li><strong>Thematic connection:</strong> Group related palaces together (all work-related, all vacation, etc.)</li>
-                    <li><strong>Story continuation:</strong> Treat the whole network as one continuous journey</li>
-                </ul>
-
-                <div class="tip-box">
-                    <strong>Pro Tip:</strong> Create a "master map" showing all your palaces and their connection points. Review it weekly.
-                </div>
-            </div>
-
-            <h3>Information Storage Across Networks</h3>
-
-            <div class="table-container" style="overflow-x: auto; margin: 20px 0;">
-                <table class="journey-table">
-                    <thead>
-                        <tr>
-                            <th>Network Type</th>
-                            <th>Number of Palaces</th>
-                            <th>Total Loci</th>
-                            <th>Data Capacity (PAO)</th>
-                            <th>Data Capacity (Ben)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Small Network</td>
-                            <td>3-5</td>
-                            <td>80-150</td>
-                            <td>160-300 (2-digit pairs)</td>
-                            <td>80-150 (3-digit triples)</td>
-                        </tr>
-                        <tr>
-                            <td>Medium Network</td>
-                            <td>5-10</td>
-                            <td>150-300</td>
-                            <td>300-600 (2-digit pairs)</td>
-                            <td>150-300 (3-digit triples)</td>
-                        </tr>
-                        <tr>
-                            <td>Large Network</td>
-                            <td>10-20</td>
-                            <td>300-600</td>
-                            <td>600-1200 (2-digit pairs)</td>
-                            <td>300-600 (3-digit triples)</td>
-                        </tr>
-                        <tr>
-                            <td>Elite Network</td>
-                            <td>20+</td>
-                            <td>600+</td>
-                            <td>1200+ (2-digit pairs)</td>
-                            <td>600+ (3-digit triples)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Large-Scale Information Storage Strategy</h3>
-            <div class="content-box">
-                <h4 style="color: #ffd700; margin-top: 0;">For Memorizing a Complete Deck (52 cards)</h4>
-                <p>A single palace with 26 loci can store all 52 cards (using PAO with 2 cards per locus):</p>
-                <ul>
-                    <li>13 loci for one card each (person)</li>
-                    <li>13 loci for another card each (action)</li>
-                    <li>Or: Create a secondary palace for overflow</li>
-                </ul>
-
-                <h4 style="color: #ffd700; margin-top: 15px;">For Memorizing 1000 Digits</h4>
-                <p>Using Ben System (3-digit numbers):</p>
-                <ul>
-                    <li>333 Ben images × 3 loci per image = 999 loci needed</li>
-                    <li>Build a network of 30-50 palaces (30-50 loci each)</li>
-                    <li>Organize by theme or group (competitions, historical, etc.)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- GUIDED PRACTICE TAB -->
-        <div id="practice" class="tab-content">
-            <h2>Guided Palace Network Design: Watch → Together → Your Turn</h2>
-
-            <!-- I DO: WORKED EXAMPLE -->
-            <div class="content-box">
-                <h3 style="color: #ffd700;">Complete Multi-Palace Network Design with VIVID BRIDGE</h3>
-                <p>I'll show you EXACTLY how to design a 3-palace network from scratch, with special focus on the BRIDGE between palaces:</p>
-
-                <div class="challenge-box">
-                    <p style="color: #ffd700; font-weight: bold; margin-bottom: 15px;">Example: My Personal 3-Palace Network</p>
-
-                    <div style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid #d4af37; padding: 15px; margin: 15px 0; border-radius: 4px;">
-                        <p><strong>Palace 1: MY HOUSE (General Knowledge)</strong></p>
-                        <ul style="color: #c0c0c0; margin-left: 20px;">
-                            <li>10 loci: Front door → Hallway → Living room couch → TV → Kitchen sink → Refrigerator → Dining table → Bathroom mirror → Bedroom door → Bed</li>
-                        </ul>
-
-                        <p style="margin-top: 15px;"><strong>Palace 2: MY SCHOOL (History Dates)</strong></p>
-                        <ul style="color: #c0c0c0; margin-left: 20px;">
-                            <li>10 loci: Main entrance → Hallway → First classroom door → Teacher's desk → Window → Cafeteria entrance → Cafeteria table → Library door → Computer lab → Exit</li>
-                        </ul>
-
-                        <p style="margin-top: 15px;"><strong>THE BRIDGE BETWEEN THEM - THE CRITICAL VIVID CONVERSION:</strong></p>
-                        <p style="color: #c0c0c0;">I walk out my FRONT DOOR (end of Palace 1). But wait - something BIZARRE happens! There's a GIANT RAINBOW BRIDGE made of TRANSLUCENT JELLY that wobbles and JIGGLES as I step on it. The jelly bridge is WOBBLY and SQUISHY, making SQUELCHING sounds with each step. The colors SHIMMER and PULSE - DEEP PURPLE, NEON PINK, ELECTRIC BLUE. I can SEE through the jelly at the LANDSCAPE BELOW. The bridge BOUNCES and VIBRATES. At the far end, the jelly bridge lands at my SCHOOL GATE (start of Palace 2). The transition from solid earth to wobbly jelly to solid ground is so WEIRD and MEMORABLE I will NEVER confuse the two palaces again.</p>
-
-                        <p style="margin-top: 15px;"><strong>Total Capacity:</strong> 20 loci = 10 PAO pairs = 20 digits of storage</p>
-                    </div>
-
-                    <p style="margin-top: 10px; color: #a0a0a0;"><strong>Why this works:</strong> Each palace is distinct (house vs. school). The bridge is BIZARRE and UNMEMORABLE - you'll never accidentally mix the palaces. The vivid jelly bridge serves as a transition anchor that locks the two palaces together permanently.</p>
-                </div>
-            </div>
-
-            <!-- WE DO: GUIDED DESIGN -->
-            <div class="content-box">
-                <h3 style="color: #ffd700;">Design Your 2-Palace Network (Guided)</h3>
-                <p>I'll guide you through designing your FIRST palace network with clear prompts:</p>
-
-                <div class="challenge-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Palace 1 Design (Guided)</h4>
-
-                    <p style="margin-bottom: 10px;"><strong>Choose a familiar location you know VERY well:</strong></p>
-                    <p><input type="text" id="wedo-palace1" placeholder="e.g., Your home, office, school, gym" style="width: 300px;"></p>
-
-                    <p style="margin-top: 15px;"><strong>Now walk through this location mentally and list 8-10 SPECIFIC loci (stopping points):</strong></p>
-                    <textarea id="wedo-palace1-loci" placeholder="Start at entrance, then... (list each room/area)" style="width: 100%; height: 100px;"></textarea>
-
-                    <hr style="border: 1px solid #d4af37; margin: 15px 0;">
-
-                    <h4 style="color: #ffd700; margin-top: 15px;">Palace 2 Design (Guided)</h4>
-
-                    <p style="margin-bottom: 10px;"><strong>Choose a DIFFERENT familiar location:</strong></p>
-                    <p><input type="text" id="wedo-palace2" placeholder="e.g., A different building, park, relative's house" style="width: 300px;"></p>
-
-                    <p style="margin-top: 15px;"><strong>List 8-10 loci in this second location:</strong></p>
-                    <textarea id="wedo-palace2-loci" placeholder="Start at entrance, then..." style="width: 100%; height: 100px;"></textarea>
-
-                    <hr style="border: 1px solid #d4af37; margin: 15px 0;">
-
-                    <h4 style="color: #ffd700; margin-top: 15px;">The Bridge: How Do You Travel From Palace 1 to Palace 2?</h4>
-
-                    <p style="margin-bottom: 10px;"><strong>Describe the transition vividly (this is IMPORTANT for avoiding palace confusion):</strong></p>
-                    <textarea id="wedo-bridge" placeholder="Exit Palace 1 at... and arrive at Palace 2 entrance at... Make this vivid!" style="width: 100%; height: 80px;"></textarea>
-
-                    <div class="button-group" style="margin-top: 20px;">
-                        <button class="button" onclick="alert('Great! You now have a 2-palace network design. Ready for YOU DO?')">Save Together Design</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- YOU DO: INDEPENDENT DESIGN & TIMED CHALLENGE -->
-            <div class="content-box">
-                <h3 style="color: #ffd700;">Build Your 3-Palace Network + Timed Encoding</h3>
-                <p>Now it's your turn. Design a complete 3-palace network and encode data across all three:</p>
-
-                <div class="challenge-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Your 3-Palace Network Design</h4>
-
-                    <p><strong>Palace 1:</strong> <input type="text" id="youdo-p1" placeholder="Location 1"></p>
-                    <p style="margin-top: 10px; color: #a0a0a0;">Loci: <input type="text" id="youdo-p1-count" placeholder="How many loci? (8-15)"></p>
-
-                    <p style="margin-top: 15px;"><strong>Palace 2:</strong> <input type="text" id="youdo-p2" placeholder="Location 2"></p>
-                    <p style="margin-top: 10px; color: #a0a0a0;">Loci: <input type="text" id="youdo-p2-count" placeholder="How many loci? (8-15)"></p>
-
-                    <p style="margin-top: 15px;"><strong>Palace 3:</strong> <input type="text" id="youdo-p3" placeholder="Location 3"></p>
-                    <p style="margin-top: 10px; color: #a0a0a0;">Loci: <input type="text" id="youdo-p3-count" placeholder="How many loci? (8-15)"></p>
-
-                    <hr style="border: 1px solid #d4af37; margin: 15px 0;">
-
-                    <h4 style="color: #ffd700; margin-top: 15px;">Encoding Challenge: 15-Digit Number Across 3 Palaces</h4>
-
-                    <p style="margin-top: 10px; color: #a0a0a0; font-weight: bold;">Memorize this sequence using YOUR 3-palace network:</p>
-                    <p style="font-size: 1.2em; color: #d4af37; font-weight: bold; margin: 15px 0;">47 23 91 | 56 82 34 | 61 78 45</p>
-
-                    <p style="color: #c0c0c0; margin-bottom: 15px;">Palace 1 (first 5 digits: 47 23 91) → Palace 2 (next 4 digits: 56 82 34) → Palace 3 (last 6 digits: 61 78 45)</p>
-
-                    <p style="margin-top: 15px; color: #ffd700; font-weight: bold;">Recall Test (3 minute memorization window):</p>
-                    <p>What 15-digit number was encoded across your 3-palace network?</p>
-                    <input type="text" id="youdo-recall" placeholder="Enter all 15 digits or pairs separated by spaces">
-                    <button class="button" onclick="checkYouDoPalaceRecall('youdo-recall')">Check Answer</button>
-                    <p id="youdo-recall-result" style="margin-top: 10px;"></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ELABORATION TAB -->
-        <div id="elaboration" class="tab-content">
-            <h2>Advanced Network Architecture</h2>
-
-            <h3>Network Organization Strategies</h3>
-
-            <div class="grid-2">
-                <div class="content-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Geographic Organization</h4>
-                    <p>Group palaces by physical location:</p>
-                    <ul>
-                        <li>Work district palaces</li>
-                        <li>Home area palaces</li>
-                        <li>Travel destination palaces</li>
-                    </ul>
-                </div>
-
-                <div class="content-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Purpose-Based Organization</h4>
-                    <p>Group palaces by information type:</p>
-                    <ul>
-                        <li>Numbers palaces</li>
-                        <li>Card palaces</li>
-                        <li>Historical palaces</li>
-                    </ul>
-                </div>
-
-                <div class="content-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Chronological Organization</h4>
-                    <p>Arrange palaces by time periods:</p>
-                    <ul>
-                        <li>Ancient history</li>
-                        <li>Medieval era</li>
-                        <li>Modern era</li>
-                    </ul>
-                </div>
-
-                <div class="content-box">
-                    <h4 style="color: #ffd700; margin-top: 0;">Hierarchical Organization</h4>
-                    <p>Create palace families:</p>
-                    <ul>
-                        <li>Primary palaces (main storage)</li>
-                        <li>Secondary palaces (backup)</li>
-                        <li>Tertiary palaces (overflow)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Scale Progression: From Single to Multiple Palaces</h3>
-            <div class="content-box">
-                <h4 style="color: #ffd700; margin-top: 0;">Stage 1: Master the Single Palace (Week 1-2)</h4>
-                <ul>
-                    <li>Create one detailed palace with 20-30 loci</li>
-                    <li>Practice encoding and recall until automatic</li>
-                    <li>Achieve 95%+ accuracy on mixed data types</li>
-                </ul>
-
-                <h4 style="color: #ffd700; margin-top: 15px;">Stage 2: Create a Second Palace (Week 3-4)</h4>
-                <ul>
-                    <li>Build a second palace with similar detail</li>
-                    <li>Connect the two palaces with clear transitions</li>
-                    <li>Practice encoding across both palaces</li>
-                </ul>
-
-                <h4 style="color: #ffd700; margin-top: 15px;">Stage 3: Expand to 5 Palaces (Week 5-8)</h4>
-                <ul>
-                    <li>Build 3 more palaces to create a network</li>
-                    <li>Establish clear organizational structure</li>
-                    <li>Practice large-scale information storage</li>
-                </ul>
-
-                <h4 style="color: #ffd700; margin-top: 15px;">Stage 4: Advanced Scaling (Week 9+)</h4>
-                <ul>
-                    <li>Expand to 10, 20, or 50+ palaces</li>
-                    <li>Create specialized palace networks</li>
-                    <li>Achieve elite-level memorization capacity</li>
-                </ul>
-            </div>
-
-            <h3>Avoiding Network Confusion</h3>
-            <div class="content-box">
-                <ul>
-                    <li><span class="highlight">Distinctiveness:</span> Make each palace visually and thematically different</li>
-                    <li><span class="highlight">Clear transitions:</span> Never leave ambiguity about palace boundaries</li>
-                    <li><span class="highlight">Locus order:</span> Always follow the same sequence within each palace</li>
-                    <li><span class="highlight">Regular review:</span> Weekly review of your network map prevents decay</li>
-                    <li><span class="highlight">Backup documentation:</span> Keep written descriptions of each palace's layout</li>
-                </ul>
-            </div>
-
-            <h3>Network Visualization Tool</h3>
-            <div class="challenge-box">
-                <p><strong>Create a visual map of your network:</strong></p>
-                <textarea placeholder="Draw or describe your palace network structure. Show connections between palaces and identify transition points." style="height: 200px;"></textarea>
-                <button class="button">Save Network Map</button>
-            </div>
-        </div>
-
-        <!-- INDEPENDENT PRACTICE TAB -->
-        <div id="independent" class="tab-content">
-            <h2>Independent Network Challenges</h2>
-
-            <h3>Challenge 1: Build Your First Network</h3>
-            <div class="challenge-box">
-                <p><strong>Task:</strong> Design and construct a 3-palace network for personal use.</p>
-                <ol>
-                    <li>Identify 3 familiar locations</li>
-                    <li>Count loci in each location</li>
-                    <li>Map transitions between palaces</li>
-                    <li>Encode a 20-digit number across all three</li>
-                    <li>Recall the number after 5 minutes</li>
-                </ol>
-
-                <h4 style="color: #ffd700; margin-top: 20px;">Your Network:</h4>
-                <textarea placeholder="Type your answer..." style="height: 150px;"></textarea>
-                <button class="button">Submit Network</button>
-            </div>
-
-            <h3>Challenge 2: Large-Scale Memorization</h3>
-            <div class="challenge-box">
-                <p><strong>Task:</strong> Memorize 100 numbers (4 numbers per palace × 5 palaces) using your network</p>
-
-                <p style="margin-top: 15px; color: #ffd700; font-weight: bold;">Sample Data (5 palaces, 4 PAO pairs each = 20 numbers):</p>
-                <p style="word-break: break-all;">47 23 91 56 | 82 14 39 75 | 48 62 27 81 | 59 16 74 42 | 93 67 52 88</p>
-
-                <p style="margin-top: 20px;"><strong>Your Challenge:</strong> Encode this data across your 5-palace network</p>
-                <textarea placeholder="Type your answer..." style="height: 100px;"></textarea>
-
-                <p style="margin-top: 20px;"><strong>Recall Test:</strong></p>
-                <p>What 20-digit number sequence was encoded?</p>
-                <input type="text" id="challenge2" placeholder="Enter all 20 numbers separated by spaces">
-                <button class="button" onclick="checkRecall('challenge2', '47 23 91 56 82 14 39 75 48 62 27 81 59 16 74 42 93 67 52 88')">Check</button>
-                <p id="challenge2-result" style="margin-top: 10px;"></p>
-            </div>
-
-            <h3>Challenge 3: Network Scaling</h3>
-            <div class="challenge-box">
-                <p><strong>Task:</strong> Expand your network from 3 to 7 palaces</p>
-
-                <p style="margin-top: 15px;">Document your expansion:</p>
-                <textarea placeholder="Describe how you will expand your network&#10;- New palaces: &#10;- Loci counts: &#10;- Transition points: " style="height: 120px;"></textarea>
-
-                <button class="button">Map Expanded Network</button>
-            </div>
-
-            <h3>Progress Tracker</h3>
-            <div class="content-box">
-                <p><strong>Track your palace network development:</strong></p>
-                <ul>
-                    <li><input type="checkbox"> Created 1 detailed palace with 20+ loci</li>
-                    <li><input type="checkbox"> Created 2-palace network with clear transitions</li>
-                    <li><input type="checkbox"> Successfully encoded 20+ digits across 2 palaces</li>
-                    <li><input type="checkbox"> Created 5-palace network</li>
-                    <li><input type="checkbox"> Successfully encoded 50+ digits across 5 palaces</li>
-                    <li><input type="checkbox"> Expanded to 10+ palaces</li>
-                    <li><input type="checkbox"> Achieve 95%+ recall on large-scale networks</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- FINAL RETRIEVAL TAB -->
-        <div id="final" class="tab-content">
-            <h2>Final Review & Mastery Assessment</h2>
-
-            <h3>Multiple Palace Architecture Quiz</h3>
-            <div class="challenge-box">
-                <p><strong>1. Why are multiple palaces necessary for elite memorization?</strong></p>
-                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
-                <button class="button secondary" onclick="toggleAnswer('ans1')">Show Answer</button>
-                <p id="ans1" style="display:none; margin-top:10px; color:#ffd700;">
-                    Single palaces have limited capacity (20-30 loci). Multiple palaces provide exponential storage for large-scale memorization and prevent interference between different memory tasks.
-                </p>
-
-                <p style="margin-top: 20px;"><strong>2. Describe how you would link 3 palaces into a network:</strong></p>
-                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
-                <button class="button secondary" onclick="toggleAnswer('ans2')">Show Answer</button>
-                <p id="ans2" style="display:none; margin-top:10px; color:#ffd700;">
-                    Create clear transition points between palace exits and entrances. Imagine walking from Palace 1 to 2, then from 2 to 3. Make transitions vivid and memorable to prevent confusion.
-                </p>
-
-                <p style="margin-top: 20px;"><strong>3. What organizational strategy works best for your needs?</strong></p>
-                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
-                <button class="button secondary" onclick="toggleAnswer('ans3')">Show Answer</button>
-                <p id="ans3" style="display:none; margin-top:10px; color:#ffd700;">
-                    Geographic, purpose-based, chronological, or hierarchical - choose based on your memorization goals. Geographic works well for learning locations, purpose-based for competitions, etc.
-                </p>
-            </div>
-
-            <h3>Mastery Checklist</h3>
-            <div class="content-box">
-                <p>Before moving to the next lesson, confirm you can:</p>
-                <ul>
-                    <li><input type="checkbox"> Design a multi-palace network (3+ palaces)</li>
-                    <li><input type="checkbox"> Identify 20+ distinct loci per palace</li>
-                    <li><input type="checkbox"> Create clear transitions between palaces</li>
-                    <li><input type="checkbox"> Encode information across multiple palaces</li>
-                    <li><input type="checkbox"> Recall 50+ items across a 5-palace network</li>
-                    <li><input type="checkbox"> Understand different organization strategies</li>
-                    <li><input type="checkbox"> Avoid interference and confusion in large networks</li>
-                </ul>
-            </div>
-
-            <h3>Key Takeaways</h3>
-            <div class="content-box">
-                <ol>
-                    <li><span class="highlight">Scale requires networks:</span> Multiple palaces provide exponential capacity</li>
-                    <li><span class="highlight">Clear transitions prevent confusion:</span> Always link palaces with memorable paths</li>
-                    <li><span class="highlight">Organization matters:</span> Use geographic, purpose-based, or hierarchical structure</li>
-                    <li><span class="highlight">Build incrementally:</span> Master 1 palace, then 2, then expand to 5+</li>
-                    <li><span class="highlight">Documentation prevents decay:</span> Keep written maps of your networks</li>
-                </ol>
-            </div>
-
-            <h3>Next Steps</h3>
-            <div class="content-box">
-                <ul>
-                    <li>Design your first 3-palace network this week</li>
-                    <li>Create detailed locus maps for each palace</li>
-                    <li>Practice encoding across palaces daily</li>
-                    <li>Expand to 5 palaces when ready</li>
-                    <li>Document your network in a personal memory atlas</li>
-                    <li>When ready (comfortable with 5+ palaces), move to Lesson 25: Abstract Information</li>
-                </ul>
-            </div>
-        </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
-                <a href="lesson-23-ben-system.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #555; color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 0;">← Previous Lesson</a>
-                <a href="lesson-25-abstract-information.html" style="text-decoration: none; display: inline-flex; align-items: center; background: #d4af37; color: #1a1a1a; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; margin: 8px 8px 8px 0;">Next Lesson →</a>
-            </div>
-    </div>
-
-    <script>
-        function switchTab(tabName) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function toggleAnswer(id) {
-            const element = document.getElementById(id);
-            element.style.display = element.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function checkYouDoPalaceRecall(inputId) {
-            const input = document.getElementById(inputId);
-            const result = document.getElementById(inputId + '-result');
-            const userAnswer = input.value.trim();
-
-            // Accept various formats: "47 23 91 56 82 34 61 78 45" or "4723915682346178 45" etc.
-            const cleanedInput = userAnswer.replace(/\s/g, '');
-            const expectedAnswers = ['4723915682346178 45', '47239156823461 7845', '47 23 91 56 82 34 61 78 45'];
-
-            let isCorrect = false;
-            expectedAnswers.forEach(expected => {
-                if (cleanedInput === expected.replace(/\s/g, '')) {
-                    isCorrect = true;
-                }
-            });
-
-            if (isCorrect) {
-                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Excellent! You successfully encoded and recalled across your 3-palace network!</span>';
-            } else {
-                result.innerHTML = `<span style="color: #ff6b6b;">Incomplete or incorrect. Keep practicing - multi-palace encoding takes time!</span>`;
-            }
-        }
-    </script>
+<body data-lesson="24">
+<div class="wrap">
+  <div class="topnav"><a href="art-of-memory.html">&larr; The Art of Memory</a><span class="where">Wing V · The Tower</span></div>
+  <header class="cover">
+    <span class="plaque">Room 24 of 30</span>
+    <small>The Tower</small>
+    <h1>A Town of Palaces</h1>
+    <p>A Jesuit who taught the memory palace in China, and how to link many palaces into a network that holds a whole subject.</p>
+  </header>
+  <nav class="tab-nav" role="tablist"><button class="tab-btn active" role="tab" onclick="showTab(0)">The Story</button><button class="tab-btn" role="tab" onclick="showTab(1)">The Method</button><button class="tab-btn" role="tab" onclick="showTab(2)">Try It</button><button class="tab-btn" role="tab" onclick="showTab(3)">Drill</button><button class="tab-btn" role="tab" onclick="showTab(4)">Look Back</button></nav>
+<div class="tab-content active" id="tab0"><section class="page"><div class="pgno">24</div><div class="intention"><b>In this room:</b> you will learn why one palace is not enough, link palaces with vivid bridges, plan a network with a hub, and keep each building distinct.</div><div class="left-off"><span class="lbl">Where we left off</span><div class="qa"><div class="q">How many digits does a three-digit picture hold?</div><button class="reveal-btn">Check</button><div class="reveal">Three: a consonant, a vowel and a consonant.</div></div><div class="qa"><div class="q">Why is the three-digit system more costly to learn than PAO?</div><button class="reveal-btn">Check</button><div class="reveal">It needs a thousand pictures, against PAO's three lists of a hundred.</div></div><div class="qa"><div class="q">What do you do when a syllable is not a word?</div><button class="reveal-btn">Check</button><div class="reveal">Use a sound-alike, a name or an abbreviation, and always the same one.</div></div></div><h2>The Jesuit and the palace</h2><div class="story-part"><div class="story-chunk"><p>China, the late sixteenth century. An Italian priest of the Jesuit order, Matteo Ricci, has lived in the country for years. He has learned to speak, read and write Chinese, and dresses as a scholar. He is there to talk about his religion, but he has found that the best door into Chinese society is a surprising one: his memory.</p><p>In China, ambitious young men prepared for years for the imperial examinations, which tested their knowledge of an enormous body of classical texts. Memory was a serious matter. When Ricci reportedly showed scholars that he could learn a long list of Chinese characters, read once, and say it back in order, <span class="hl">and then backwards</span>, they wanted to know how.</p></div><div class="after"><div class="qa"><div class="q">Why were people in China interested in Ricci's memory?</div><button class="reveal-btn">Check from memory</button><div class="reveal">Exam candidates needed to memorise a huge number of texts, so a method that worked on long lists of characters was valuable.</div></div><div class="talk"><b class="t">Talk about it.</b> What is the largest body of material you have ever had to memorise for an exam?</div></div></div><figure class="pol" style="--tilt:-1.4deg"><img src="memory_arts_notes_wheel.jpg" alt="An engraving of three huge turning wheels covered in small pictures, between statues and globes." loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>a wheel of images: the Renaissance dream of a whole subject in one machine</figcaption></figure><div class="story-part"><div class="story-chunk"><p>In 1596 he wrote a short book in Chinese to explain the art. In it he taught the memory palace. He told his readers to choose a building, to fix places in it, and to put a picture in each place. He explained that the scholar should fix places in order and walk through them. He did not present it as his own invention; it came from the West.</p><p>The scholars who read it faced the same problem as every student with a lot to learn. A single building is not enough. One house with fifty places holds fifty things, and the examination was thousands of lines long. What they needed was <span class="hl">more buildings, and a way to move between them</span>.</p></div><div class="after"><div class="qa"><div class="q">What did Ricci teach in his book?</div><button class="reveal-btn">Check from memory</button><div class="reveal">The memory palace: choosing a building, fixing places in it and putting a picture in each.</div></div><div class="talk"><b class="t">Talk about it.</b> How many places do you think you could find in the buildings you know well?</div></div></div><div class="story-part"><div class="story-chunk"><p>Which is exactly where this room begins. A network of palaces is like a town. You do not memorise one house; you memorise streets, and the streets connect houses, and each house is about one subject. A bank of buildings for history, another for languages, another for your job.</p><p>The part of the network that matters most is not the houses but the <b>connections</b>. A good connection is a short, vivid step between the last place of one palace and the first of the next. With those, a hundred buildings can be walked in one long journey, and you can enter and leave wherever you want.</p></div><div class="after"><div class="qa"><div class="q">What is the most important part of a network?</div><button class="reveal-btn">Check from memory</button><div class="reveal">The connections between palaces: a short, vivid link from the last place of one to the first of the next.</div></div><div class="talk"><b class="t">Talk about it.</b> Which five places that you know well could be the start of a network?</div></div></div><h3>Words worth knowing</h3><p>Say what you think each one means, then open it.</p><div class="words"><div class="word"><button class="w" type="button">a network</button><div class="m">a set of things connected to each other.</div></div><div class="word"><button class="w" type="button">a hub</button><div class="m">the central point of a network, where things meet.</div></div><div class="word"><button class="w" type="button">a bridge</button><div class="m">here: a vivid link between the last place of one palace and the first of another.</div></div><div class="word"><button class="w" type="button">an imperial examination</button><div class="m">the very difficult civil-service tests of old China.</div></div><div class="word"><button class="w" type="button">to connect</button><div class="m">to join one thing to another.</div></div><div class="word"><button class="w" type="button">distinct</button><div class="m">clearly different from the others.</div></div></div><p class="src">Matteo Ricci (1552 to 1610) wrote a treatise on the art of memory in Chinese in 1596. Retold here in our own words.</p></section></div><div class="tab-content" id="tab1"><section class="page"><div class="pgno">24</div><h2>Many palaces, one journey</h2><p class="lead">One palace holds as many items as it has places. A network of palaces holds a subject, a course, or a career.</p><div class="diagram"><svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A network of palaces: a hub and three subject palaces"><line x1="380" y1="65" x2="630" y2="190" stroke="#b4413a" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/><text x="505" y="122" text-anchor="middle" font-size="19" font-weight="500" fill="#b4413a" >front gate</text><line x1="380" y1="65" x2="380" y2="315" stroke="#b4413a" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/><text x="380" y="184" text-anchor="middle" font-size="19" font-weight="500" fill="#b4413a" >side door</text><line x1="380" y1="65" x2="130" y2="190" stroke="#b4413a" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/><text x="255" y="122" text-anchor="middle" font-size="19" font-weight="500" fill="#b4413a" >stairs</text><line x1="630" y1="190" x2="380" y2="315" stroke="#b4413a" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/><text x="505" y="246" text-anchor="middle" font-size="19" font-weight="500" fill="#b4413a" >bridge</text><ellipse cx="380" cy="65" rx="82" ry="38" fill="#fffdf6" stroke="#1d2a44" stroke-width="3"/><text x="380" y="73" text-anchor="middle" font-size="22" font-weight="700" fill="#1d2a44" >Hub: home</text><ellipse cx="630" cy="190" rx="82" ry="38" fill="#fffdf6" stroke="#1d2a44" stroke-width="3"/><text x="630" y="198" text-anchor="middle" font-size="22" font-weight="700" fill="#1d2a44" >History</text><ellipse cx="380" cy="315" rx="82" ry="38" fill="#fffdf6" stroke="#1d2a44" stroke-width="3"/><text x="380" y="323" text-anchor="middle" font-size="22" font-weight="700" fill="#1d2a44" >Languages</text><ellipse cx="130" cy="190" rx="82" ry="38" fill="#fffdf6" stroke="#1d2a44" stroke-width="3"/><text x="130" y="198" text-anchor="middle" font-size="22" font-weight="700" fill="#1d2a44" >Work</text></svg><div class="cap">A hub connected to three subject palaces, with a bridge between two of them.</div></div><ol class="steps"><li><b>Choose one building per subject.</b> History in your old school, languages in your grandmother's house, work in your office.</li><li><b>Make each building distinct.</b> Different styles, colours, sizes: so you never mix a room of one with a room of another.</li><li><b>Pick a hub.</b> A place you know very well, with doors to the others. Your own home works.</li><li><b>Build the bridges.</b> A vivid, short link, for example: you open the front door of your home and walk straight into the school playground.</li><li><b>Keep a plan.</b> A list of palaces, what is in each, and how many places are free.</li></ol><div class="example"><span class="lbl">A bridge</span><div class="given">From the last place of the history palace (the school hall) to the first place of the languages palace (your grandmother's front door).</div><div class="row"><span class="k">Last place</span><span>The school hall: a giant clock on the stage.</span></div><div class="row"><span class="k">Bridge</span><span>The clock's pendulum swings out of the door, and when it comes back it is a door knocker shaped like a parrot.</span></div><div class="row"><span class="k">First place</span><span>Your grandmother's front door: the parrot knocker greets you in five languages.</span></div><div class="pic"><b>The picture:</b> The clock's pendulum swings out of the school hall and comes back as a parrot-shaped door knocker on grandmother's front door.</div></div><h3>Practical rules</h3><ul><li><b>Fifty places per palace is a lot.</b> Twenty to thirty is a good size to start with.</li><li><b>Keep one palace per subject.</b> A subject that overflows gets a second building and a bridge.</li><li><b>Keep the order fixed</b> in each, and the order of buildings fixed along the journey.</li><li><b>Reuse after clearing.</b> When a palace is no longer needed, clear it by imagining it empty, clean and bright.</li><li><b>Review the bridges.</b> The weak point of a network is a connection that has faded.</li></ul><div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>Size</th><th>Best for</th></tr></thead><tbody><tr><td>One palace</td><td>20 to 50 places</td><td>A talk, a list, a lesson</td></tr><tr><td>A small network</td><td>3 to 6 palaces</td><td>A course or a project</td></tr><tr><td>A large network</td><td>A dozen palaces or more</td><td>A subject for years</td></tr></tbody></table></div><div class="sticky r">each palace distinct.<br>each bridge vivid.<br>one plan.</div><div class="talk"><b class="t">Say it aloud.</b> Describe your network aloud: the hub, three palaces and the bridges between them.</div></section></div><div class="tab-content" id="tab2"><section class="page"><div class="pgno">24</div><h2>Now you build</h2><p>Have a go before you open any answer. A rough attempt teaches you more than a perfect model you only read.</p><div class="ex"><h4>Plan a small network</h4><div class="prompt">Choose three subjects you want to keep. For each, name a building you know well, and say how it differs from the others. Add a hub.</div><textarea rows="5" placeholder="Write it here…" data-save="plan"></textarea><div class="checks"><label><input type="checkbox"> There are three palaces and a hub.</label><label><input type="checkbox"> Each is a place I know well.</label><label><input type="checkbox"> They look different from each other.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">Hub: my flat. History: my old school (a red brick building, long corridors). Languages: my grandmother's house (small, warm, full of plants). Work: the office (glass and steel). All three look very different from each other.</div></div><div class="ex"><h4>A bridge</h4><div class="prompt">Write a bridge from the last place of your first palace to the first place of your second palace. Make it vivid and short.</div><textarea rows="3" placeholder="Write it here…" data-save="bridge"></textarea><div class="checks"><label><input type="checkbox"> It starts at the last place of the first palace.</label><label><input type="checkbox"> It ends at the first place of the second.</label><label><input type="checkbox"> It is vivid and moves.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">The last place of the school is the front gate. A banner from the gate flies across the street and wraps itself round the front door of my grandmother's house like a ribbon.</div></div><div class="ex"><h4>The idea</h4><div class="gaprow">The central place that connects the palaces is called the <input type="text" class="gapin" id="x1" data-ans="hub" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x1"></span>.</div><div class="gaprow">A vivid link between the last place of one palace and the first of the next is a <input type="text" class="gapin" id="x2" data-ans="bridge|link|connection" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x2"></span>.</div><div class="gaprow">Each palace should be <input type="text" class="gapin" id="x3" data-ans="distinct|different" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x3"></span>, so you never mix up their rooms.</div><button class="btn primary" data-act="gap">Check</button><div class="fb"></div></div><div class="ex"><h4>Which size?</h4><div class="prompt">Match each task to the size of palace network.</div><div class="match-row"><span class="txt">A ten-minute talk</span><select data-ans="One palace" aria-label="match"><option value="">choose…</option><option value="A large network">A large network</option><option value="A small network">A small network</option><option value="One palace">One palace</option></select></div><div class="match-row"><span class="txt">A six-month course</span><select data-ans="A small network" aria-label="match"><option value="">choose…</option><option value="A large network">A large network</option><option value="A small network">A small network</option><option value="One palace">One palace</option></select></div><div class="match-row"><span class="txt">A subject you want to keep for years</span><select data-ans="A large network" aria-label="match"><option value="">choose…</option><option value="A large network">A large network</option><option value="A small network">A small network</option><option value="One palace">One palace</option></select></div><button class="btn primary" data-act="match">Check</button><div class="fb"></div></div><div class="ex" data-why="Distinct buildings stop one subject leaking into another."><div class="prompt"><b>A friend uses the same house for history and languages and keeps mixing them up. What do you advise?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Use a different, distinct building for each subject</button><button class="mc-opt" data-act="mc" data-ok="0">Add more pictures</button><button class="mc-opt" data-act="mc" data-ok="0">Stop using palaces</button><div class="fb"></div></div><div class="ex"><h4>Walk the network</h4><div class="prompt">Walk through your hub and your three palaces in order aloud, naming the first and last place of each and the bridges.</div><div class="timer-box" data-secs="90"><span class="timer">1:30</span><button class="btn" data-act="timer">Start talking</button><button class="btn" data-act="timer-reset">Reset</button> <span class="savednote timer-msg"></span></div></div></section></div><div class="tab-content" id="tab3"><section class="page"><div class="pgno">24</div><h2>Drill</h2><h3>Flash cards</h3><p>Say the answer first, then tap the card.</p><div class="card-deck" data-i="0" data-cards="[[&quot;Network&quot;, &quot;A set of palaces connected by bridges.&quot;], [&quot;Hub&quot;, &quot;The central place from which you reach the others.&quot;], [&quot;Bridge&quot;, &quot;A vivid link from the last place of one palace to the first of the next.&quot;], [&quot;Distinct&quot;, &quot;Each palace should look different from the others.&quot;], [&quot;Plan&quot;, &quot;A list of palaces, what is in each, and free places.&quot;], [&quot;Matteo Ricci&quot;, &quot;Jesuit in China who taught the memory palace in a 1596 book in Chinese.&quot;]]"><div class="fcard" tabindex="0" role="button" aria-label="Flip the card"><div class="front"></div><div class="back"></div><div class="tap">tap to turn over</div></div><div class="deck-ctl"><button class="btn" data-act="prev">&larr;</button><span class="cnt"></span><button class="btn" data-act="next">&rarr;</button><button class="btn" data-act="shuffle">Shuffle</button></div></div><h3>Quick quiz</h3><div class="ex" data-why="More material needs more places."><div class="prompt"><b>Why use more than one palace?</b></div><button class="mc-opt" data-act="mc" data-ok="1">One palace holds only as many items as it has places</button><button class="mc-opt" data-act="mc" data-ok="0">Palaces get tired</button><button class="mc-opt" data-act="mc" data-ok="0">It is more fashionable</button><div class="fb"></div></div><div class="ex" data-why="If a bridge fades, you may not get across."><div class="prompt"><b>What is the weak point of a network?</b></div><button class="mc-opt" data-act="mc" data-ok="1">A faded connection</button><button class="mc-opt" data-act="mc" data-ok="0">The size of the hub</button><button class="mc-opt" data-act="mc" data-ok="0">Too many pictures</button><div class="fb"></div></div><div class="ex" data-why="Big enough to hold something, small enough to keep distinct."><div class="prompt"><b>How many places is a good size for a palace to start with?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Twenty to thirty</button><button class="mc-opt" data-act="mc" data-ok="0">One</button><button class="mc-opt" data-act="mc" data-ok="0">A thousand</button><div class="fb"></div></div><div class="ex" data-why="Clearing lets you reuse it."><div class="prompt"><b>What should you do with a palace you no longer need?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Clear it by imagining it empty and clean</button><button class="mc-opt" data-act="mc" data-ok="0">Burn it</button><button class="mc-opt" data-act="mc" data-ok="0">Keep every picture</button><div class="fb"></div></div><h3>The memory challenge</h3><div class="recall" data-items="[&quot;Mercury&quot;, &quot;Venus&quot;, &quot;Earth&quot;, &quot;Mars&quot;, &quot;Jupiter&quot;, &quot;Saturn&quot;, &quot;Uranus&quot;, &quot;Neptune&quot;]" data-secs="120" data-ordered="1"><h4>Memory challenge: the eight planets across two palaces</h4><div class="stage on" data-stage="start"><p>Put the first four planets in palace A and the next four in palace B, with a bridge between. Mercury, Venus, Earth, Mars | Jupiter, Saturn, Uranus, Neptune. Type them in order.</p><button class="btn primary" data-act="rc-start">Start: 120 seconds to study</button></div><div class="stage" data-stage="study"><p>Four in the first palace; a bridge; four in the second palace.</p><div class="timer-box"><span class="timer">0:00</span><button class="btn" data-act="rc-ready">I’m ready</button></div><div class="items"></div></div><div class="stage" data-stage="recall"><p>The list has gone. Type what you remember, one item per line.</p><textarea rows="8" placeholder="One per line…"></textarea><button class="btn primary" data-act="rc-check">Check</button></div><div class="stage" data-stage="result"><div class="score"></div><div class="res"></div><button class="btn" data-act="rc-again">Try again</button></div></div></section></div><div class="tab-content" id="tab4"><section class="page"><div class="pgno">24</div><h2>Look back</h2><p>These reach back to earlier rooms. Answer in your head or out loud, then check.</p><div class="qa"><div class="q"><span class="red">Room 23 · Three Digits, One Picture.</span> What does the middle digit give in the three-digit system?</div><button class="reveal-btn">Check</button><div class="reveal">A vowel sound.</div></div><div class="qa"><div class="q"><span class="red">Room 22 · A Palace of Centuries.</span> In the timeline palace, what is a room?</div><button class="reveal-btn">Check</button><div class="reveal">A century.</div></div><div class="qa"><div class="q"><span class="red">Room 21 · Against the Clock.</span> How do you get faster at memorising?</div><button class="reveal-btn">Check</button><div class="reveal">Find the slowest step and make it automatic.</div></div><div class="qa"><div class="q"><span class="red">Room 4 · The Memory Palace.</span> What is the method of loci?</div><button class="reveal-btn">Check</button><div class="reveal">Using places along a fixed route to store pictures in order.</div></div><h3>What I can do now</h3><ul class="canlist"><li><label><input type="checkbox" data-save="can0"> <span>I can explain why one palace is not enough.</span></label></li><li><label><input type="checkbox" data-save="can1"> <span>I can link two palaces with a vivid bridge.</span></label></li><li><label><input type="checkbox" data-save="can2"> <span>I can plan a network with a hub and distinct buildings.</span></label></li></ul><h3>A thought to keep</h3><p>Which three subjects deserve a palace of their own? What building would you give each?</p><div class="ref"><textarea rows="3" data-save="reflect" placeholder="Your thoughts…"></textarea><div class="savednote">Saved on this device as you type.</div></div><p><button class="btn primary" data-act="done">Mark this room as done</button></p></section></div>
+  <div class="nav-end"><a href="lesson-23-ben-system.html">&larr; Three Digits, One Picture</a><a href="art-of-memory.html">The whole house</a><a href="lesson-25-abstract-information.html">Ideas You Cannot See &rarr;</a></div>
+  <footer>The Art of Memory · Room 24 · A Town of Palaces</footer>
+</div>
+<script>
+(function () {
+  var store = null;
+  try { var t = '__aom'; window.localStorage.setItem(t, t); window.localStorage.removeItem(t); store = window.localStorage; } catch (e) { store = null; }
+  function sget(k) { try { return store ? store.getItem(k) : null; } catch (e) { return null; } }
+  function sset(k, v) { try { if (store) store.setItem(k, v); } catch (e) {} }
+  var LESSON = document.body.getAttribute('data-lesson') || 'x';
+
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9À-ſ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  /* ---------- tabs ---------- */
+  window.showTab = function (i, noScroll) {
+    var panels = $all('.tab-content'), btns = $all('.tab-btn');
+    panels.forEach(function (p, k) { p.classList.toggle('active', k === i); });
+    btns.forEach(function (b, k) { b.classList.toggle('active', k === i); b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (!noScroll) { var nav = $('.tab-nav'); if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    sset('aom_tab_' + LESSON, String(i));
+  };
+
+  /* ---------- timers ---------- */
+  var timers = [];
+  function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+  function runTimer(box, secs, onTick, onEnd) {
+    var disp = $('.timer', box), left = secs, id;
+    if (box._id) clearInterval(box._id);
+    function paint() {
+      disp.textContent = fmt(left);
+      disp.classList.toggle('warn', left <= Math.max(10, secs * 0.25) && left > Math.max(5, secs * 0.1));
+      disp.classList.toggle('low', left <= Math.max(5, secs * 0.1));
+      if (onTick) onTick(left);
+    }
+    paint();
+    id = setInterval(function () {
+      left -= 1; paint();
+      if (left <= 0) { clearInterval(id); box._id = null; disp.classList.remove('warn'); if (onEnd) onEnd(); }
+    }, 1000);
+    box._id = id;
+    timers.push(id);
+  }
+
+  /* ---------- generic click handling ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var btn = t.closest ? t.closest('button, .fcard, a') : null;
+    if (!btn) return;
+
+    if (btn.classList.contains('reveal-btn')) {
+      var r = btn.nextElementSibling;
+      if (r) { r.classList.toggle('show'); }
+      return;
+    }
+    if (btn.classList.contains('w')) { btn.parentElement.classList.toggle('open'); return; }
+
+    var act = btn.getAttribute('data-act');
+    if (!act) return;
+    var ex = btn.closest('.ex, .recall, .card-deck') || document;
+
+    if (act === 'gap') {
+      var ok = 0, all = $all('.gapin', ex);
+      all.forEach(function (inp) {
+        var accepted = (inp.getAttribute('data-ans') || '').split('|').map(norm);
+        var v = norm(inp.value);
+        var good = v && accepted.indexOf(v) > -1;
+        inp.classList.toggle('ok', !!good); inp.classList.toggle('no', !good);
+        var note = inp.parentElement.querySelector('.gapans[data-for="' + inp.id + '"]');
+        if (note) { note.textContent = good ? '' : '→ ' + inp.getAttribute('data-ans').split('|')[0]; }
+        if (good) ok++;
+      });
+      var fb = $('.fb', ex);
+      fb.className = 'fb ' + (ok === all.length ? 'ok' : 'no');
+      fb.textContent = ok === all.length ? 'All ' + all.length + ' correct.' : ok + ' of ' + all.length + ' correct. The answers you missed are shown in red; fix them, then check again.';
+      return;
+    }
+    if (act === 'mc') {
+      var q = btn.closest('.ex');
+      var good = btn.getAttribute('data-ok') === '1';
+      var fb2 = $('.fb', q);
+      $all('.mc-opt', q).forEach(function (o) { if (o !== btn && !o.classList.contains('ok')) { o.classList.remove('no'); } });
+      btn.classList.add(good ? 'ok' : 'no');
+      fb2.className = 'fb ' + (good ? 'ok' : 'no');
+      fb2.innerHTML = good ? (q.getAttribute('data-why') || 'Correct.') : (btn.getAttribute('data-hint') || 'Not quite. Think again and try another answer.');
+      return;
+    }
+    if (act === 'match') {
+      var okm = 0, rows = $all('.match-row', ex);
+      rows.forEach(function (row) {
+        var sel = $('select', row), good = sel.value === sel.getAttribute('data-ans');
+        row.classList.toggle('ok', good); row.classList.toggle('no', !good && sel.value !== '');
+        if (good) okm++;
+      });
+      var fb3 = $('.fb', ex);
+      fb3.className = 'fb ' + (okm === rows.length ? 'ok' : 'no');
+      fb3.textContent = okm === rows.length ? 'All ' + rows.length + ' matched.' : okm + ' of ' + rows.length + ' matched. Change the red ones and check again.';
+      return;
+    }
+    if (act === 'timer') {
+      var box = btn.closest('.timer-box'), secs = parseInt(box.getAttribute('data-secs'), 10) || 60;
+      var msg = $('.timer-msg', box);
+      if (msg) msg.textContent = '';
+      runTimer(box, secs, null, function () { if (msg) msg.textContent = 'Time is up.'; });
+      return;
+    }
+    if (act === 'timer-reset') {
+      var b2 = btn.closest('.timer-box'); if (b2._id) clearInterval(b2._id);
+      $('.timer', b2).textContent = fmt(parseInt(b2.getAttribute('data-secs'), 10) || 60);
+      $('.timer', b2).className = 'timer';
+      return;
+    }
+    if (act === 'flip') { return; }
+    if (act === 'next' || act === 'prev' || act === 'shuffle') {
+      var deck = btn.closest('.card-deck');
+      var cards = JSON.parse(deck.getAttribute('data-cards'));
+      var i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+      if (act === 'shuffle') { cards.sort(function () { return Math.random() - 0.5; }); deck.setAttribute('data-cards', JSON.stringify(cards)); i = 0; }
+      else if (act === 'next') i = (i + 1) % cards.length; else i = (i - 1 + cards.length) % cards.length;
+      deck.setAttribute('data-i', i); paintCard(deck); return;
+    }
+    if (act === 'rc-start') { startRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-ready') { endStudy(btn.closest('.recall')); return; }
+    if (act === 'rc-check') { checkRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-again') { resetRecall(btn.closest('.recall')); return; }
+    if (act === 'done') {
+      sset('aom_done_' + LESSON, '1');
+      btn.textContent = 'Marked as done ✓';
+      return;
+    }
+  });
+
+  /* flash cards */
+  function paintCard(deck) {
+    var cards = JSON.parse(deck.getAttribute('data-cards')), i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+    var c = cards[i], el = $('.fcard', deck);
+    el.classList.remove('flip');
+    $('.front', el).innerHTML = c[0]; $('.back', el).innerHTML = c[1];
+    $('.cnt', deck).textContent = (i + 1) + ' of ' + cards.length;
+  }
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest ? e.target.closest('.fcard') : null;
+    if (f) f.classList.toggle('flip');
+  });
+  $all('.card-deck').forEach(paintCard);
+
+  /* memory challenge */
+  function stage(rc, name) { $all('.stage', rc).forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-stage') === name); }); }
+  function startRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var wrap = $('.items', rc); wrap.className = 'items' + (ordered ? ' ordered' : '');
+    wrap.innerHTML = '';
+    items.forEach(function (it) { var s = document.createElement('span'); s.textContent = it.split('|')[0]; wrap.appendChild(s); });
+    stage(rc, 'study');
+    var box = $('.timer-box', rc), secs = parseInt(rc.getAttribute('data-secs'), 10) || 60;
+    box.setAttribute('data-secs', secs);
+    runTimer(box, secs, null, function () { endStudy(rc); });
+  }
+  function endStudy(rc) {
+    var box = $('.timer-box', rc); if (box._id) { clearInterval(box._id); box._id = null; }
+    $('.items', rc).innerHTML = '';
+    stage(rc, 'recall');
+    var ta = $('textarea', rc); ta.value = ''; ta.focus();
+  }
+  function checkRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var raw = $('textarea', rc).value, text = norm(raw);
+    var lines = raw.split(/\n+/).map(norm).filter(Boolean);
+    var res = $('.res', rc), got = 0; res.innerHTML = '';
+    items.forEach(function (it, i) {
+      var alts = it.split('|').map(norm), good = false;
+      if (ordered) {
+        var ln = lines[i] || '';
+        good = alts.some(function (a) { return ln && (ln.indexOf(a) > -1 || (ln.length >= 4 && a.indexOf(ln) > -1)); });
+      } else {
+        var padded = ' ' + text + ' ';
+        good = alts.some(function (a) { return padded.indexOf(' ' + a + ' ') > -1 || padded.indexOf(a) > -1; });
+      }
+      if (good) got++;
+      var d = document.createElement('div'); d.className = good ? 'ok' : 'no';
+      d.textContent = (ordered ? (i + 1) + '. ' : '') + it.split('|')[0] + (good ? '  ✓' : '  ✗');
+      res.appendChild(d);
+    });
+    $('.score', rc).textContent = got + ' of ' + items.length + ' recalled';
+    stage(rc, 'result');
+  }
+  function resetRecall(rc) { stage(rc, 'start'); }
+
+  /* build-it self checks */
+  document.addEventListener('change', function (e) {
+    var cb = e.target;
+    if (cb.type === 'checkbox' && cb.closest('.checks')) {
+      var box = cb.closest('.ex'), all = $all('.checks input', box), done = all.every(function (c) { return c.checked; });
+      var fb = $('.fb', box);
+      if (fb) { fb.className = done ? 'fb ok' : 'fb'; if (done) fb.textContent = 'Every box ticked: each of those is a reason the picture will still be there tomorrow.'; }
+    }
+    if (cb.type === 'checkbox' && cb.hasAttribute('data-save')) { sset('aom_' + LESSON + '_' + cb.getAttribute('data-save'), cb.checked ? '1' : '0'); }
+  });
+
+  /* saved text / ticks */
+  $all('textarea[data-save]').forEach(function (ta) {
+    var k = 'aom_' + LESSON + '_' + ta.getAttribute('data-save'), v = sget(k);
+    if (v) ta.value = v;
+    ta.addEventListener('input', function () { sset(k, ta.value); });
+  });
+  $all('input[type=checkbox][data-save]').forEach(function (cb) {
+    if (sget('aom_' + LESSON + '_' + cb.getAttribute('data-save')) === '1') cb.checked = true;
+  });
+  if (sget('aom_done_' + LESSON) === '1') { var d = $('[data-act=done]'); if (d) d.textContent = 'Marked as done ✓'; }
+
+  /* hub progress */
+  $all('[data-room]').forEach(function (el) {
+    if (sget('aom_done_' + el.getAttribute('data-room')) === '1') el.classList.add('done');
+  });
+  /* open on a remembered tab only when asked by hash */
+  var tabNames = ['story', 'method', 'try', 'drill', 'back'];
+  var h = (location.hash || '').replace('#', ''), hi = tabNames.indexOf(h);
+  if ($('.tab-nav')) showTab(hi > -1 ? hi : 0, true);
+})();
+</script>
 </body>
 </html>

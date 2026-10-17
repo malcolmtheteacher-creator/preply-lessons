@@ -1,829 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Lesson 8: The Dominic System</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #0f0f1e;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
-            color: #1a1a2e;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
-        .level-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-        .tabs {
-            display: flex;
-            background: #16213e;
-            overflow-x: auto;
-            border-bottom: 2px solid #d4af37;
-        }
-        .tab {
-            flex: 1;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #aaa;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        .tab:hover { background: #1a2744; }
-        .tab.active {
-            background: #d4af37;
-            color: #1a1a2e;
-            border-bottom: 3px solid #d4af37;
-        }
-        .content { padding: 30px; display: none; color: #e0e0e0; }
-        .content.active { display: block; }
-        .content h2 { color: #d4af37; margin-bottom: 20px; }
-        .card {
-            background: #1a2744;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid #d4af37;
-        }
-        .card h3 { color: #d4af37; margin-bottom: 10px; }
-        .card p { line-height: 1.6; }
-        .dominic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .dominic-box {
-            background: #0f0f1e;
-            border: 2px solid #d4af37;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 0.9em;
-        }
-        .dominic-box .pair { font-weight: bold; color: #d4af37; font-size: 1.1em; }
-        .dominic-box .letter { font-size: 0.85em; color: #aaa; margin-top: 5px; }
-        .interactive-section {
-            background: #1a2744;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 2px solid #d4af37;
-        }
-        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .btn-primary {
-            background: #d4af37;
-            color: #1a1a2e;
-        }
-        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
-        .btn-secondary {
-            background: #2a3f5f;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-        }
-        .btn-secondary:hover { background: #1a2744; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        textarea, input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            background: #0f0f1e;
-            color: #e0e0e0;
-            font-size: 1em;
-            margin: 10px 0;
-        }
-        textarea { min-height: 100px; resize: vertical; }
-        input:focus, textarea:focus { outline: none; border-color: #e8c547; }
-        .comparison-table {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        .comparison-cell {
-            background: #0f0f1e;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #d4af37;
-        }
-        .comparison-cell h4 { color: #d4af37; margin-bottom: 10px; }
-        .feedback-box {
-            background: #1a2744;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border: 2px solid #d4af37;
-            display: none;
-        }
-        .feedback-box.show { display: block; }
-        .feedback-box.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.1); }
-        .feedback-box.incorrect { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1); }
-        .score-display {
-            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
-            color: #1a1a2e;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #2a3f5f;
-        }
-        .nav-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
-        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
-        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .matching-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .match-item {
-            background: #0f0f1e;
-            padding: 12px;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .match-item:hover { background: #1a2744; }
-        .match-item.selected { background: #d4af37; color: #1a1a2e; }
-        .decade-group { margin: 10px 0; }
-        .decade-header {
-            background: #1a2744;
-            color: #d4af37;
-            padding: 12px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            border: 1px solid #d4af37;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-        }
-        .decade-header:hover { background: #223355; }
-        .decade-content {
-            display: none;
-            padding: 10px 0;
-        }
-        .decade-content.open { display: block; }
-        .dominic-entry {
-            background: #0f0f1e;
-            border: 1px solid #2a3f5f;
-            border-radius: 6px;
-            padding: 8px 12px;
-            margin: 4px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .dominic-entry .num { color: #d4af37; font-weight: bold; min-width: 30px; }
-        .dominic-entry .letters { color: #aaa; min-width: 40px; font-size: 0.85em; }
-        .dominic-entry .person { color: #e0e0e0; }
-        .dominic-entry .action { color: #999; font-style: italic; }
-        @media (max-width: 768px) {
-            .tab { padding: 12px 8px; font-size: 0.75em; }
-            .header h1 { font-size: 1.4em; }
-            .comparison-table { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="The Art of Memory">
+<meta name="description" content="A British champion saw a man learn a pack of cards on television and went on to win the world title eight times. His system turns every pair of digits into a famous person.">
+<title>People With Numbers · The Art of Memory · Room 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#f8f4e9; --sheet:#fffdf6; --ink:#1d2a44; --pen:#26324d; --red:#b4413a; --gold:#8a6a2c; --rule:rgba(70,100,150,.12); --margin:rgba(190,70,70,.38); --sticky:#fff1a8; --sticky-ink:#3d3511; --shadow:rgba(22,38,61,.16); --line:#d8cfb8; --muted:#5d6477; --hl:rgba(255,214,92,.55); --ok:#e6f3e4; --okb:#5aa05e; --bad:#fbeae7; --badb:#c0504a; --tape:rgba(231,214,160,.78); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:"Segoe UI",system-ui,-apple-system,Tahoma,Geneva,Verdana,sans-serif; font-size:1.02rem; line-height:1.65; background-color:var(--paper); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); color:#222a3a; }
+.wrap { max-width:960px; margin:0 auto; padding:18px 16px 70px; }
+.hand, h1, h2, h3, .scrawl { font-family:"Caveat","Kalam","Bradley Hand","Segoe Print",cursive; }
+a { color:var(--gold); }
+.topnav { display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center; justify-content:space-between; margin-bottom:12px; font-family:"Caveat",cursive; font-size:1.35rem; }
+.topnav a { color:var(--gold); text-decoration:none; border-bottom:2px dashed var(--gold); }
+.topnav .where { color:var(--red); }
+.cover { position:relative; text-align:center; padding:34px 22px 28px; margin:30px 0 22px; background:var(--sheet); border:1px solid var(--line); box-shadow:0 12px 30px var(--shadow); transform:rotate(-.35deg); }
+.cover::before, .cover::after { content:""; position:absolute; top:-12px; width:104px; height:26px; background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.cover::before { left:-18px; transform:rotate(-33deg); } .cover::after { right:-18px; transform:rotate(33deg); }
+.cover small { font-family:"Caveat",cursive; font-size:1.45rem; color:var(--red); display:block; line-height:1.2; }
+.cover h1 { font-size:3.3rem; line-height:1.04; color:var(--ink); margin:4px 0 8px; font-weight:700; }
+.cover p { max-width:640px; margin:0 auto; color:var(--muted); }
+.plaque { display:inline-block; font-family:"Caveat",cursive; font-size:1.3rem; font-weight:700; color:#fff; background:var(--ink); padding:0 16px; border-radius:3px; margin-bottom:8px; letter-spacing:.5px; }
+.tab-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:0 0 20px; }
+.tab-btn { font-family:"Caveat",cursive; font-size:1.4rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 18px 6px; }
+.tab-btn:hover { background:#f1ead6; }
+.tab-btn.active { background:var(--gold); border-color:var(--gold); color:#fff; }
+.tab-content { display:none; } .tab-content.active { display:block; }
+.page { position:relative; background-color:var(--sheet); background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px); border:1px solid var(--line); box-shadow:0 10px 26px var(--shadow); padding:26px 28px 26px 74px; margin-bottom:22px; }
+.page::before { content:""; position:absolute; left:52px; top:0; bottom:0; border-left:2px solid var(--margin); }
+.page > .pgno { position:absolute; left:10px; top:18px; width:36px; text-align:center; font-family:"Caveat",cursive; font-size:2.3rem; font-weight:700; color:var(--red); line-height:1; }
+.page h2 { font-size:2.35rem; line-height:1.08; color:var(--ink); margin:0 0 8px; font-weight:700; }
+.page h3 { font-size:1.75rem; color:var(--gold); margin:20px 0 6px; font-weight:700; line-height:1.1; }
+.page h4 { font-size:1.05rem; color:var(--ink); margin:0 0 4px; }
+.page p { margin:0 0 14px; } .page ul, .page ol { margin:0 0 14px 22px; } .page li { margin-bottom:4px; }
+.hl { background:linear-gradient(transparent 52%, var(--hl) 52%, var(--hl) 92%, transparent 92%); padding:0 2px; }
+.red { color:var(--red); font-weight:700; }
+.lead { font-size:1.1rem; color:var(--ink); }
+.src { font-family:"Caveat",cursive; font-size:1.2rem; color:var(--muted); line-height:1.2; margin-top:6px; }
+.sticky { position:relative; background:var(--sticky); color:var(--sticky-ink); padding:12px 18px; margin:14px 0 18px; box-shadow:3px 4px 9px rgba(0,0,0,.18); transform:rotate(-.8deg); font-family:"Caveat",cursive; font-size:1.42rem; line-height:1.25; max-width:520px; }
+.sticky.r { transform:rotate(.9deg); margin-left:auto; }
+.pol { position:relative; background:#fff; padding:9px 9px 6px; box-shadow:0 8px 18px var(--shadow); margin:8px 0 20px; transform:rotate(var(--tilt,-1.2deg)); max-width:520px; border:1px solid var(--line); }
+.pol img { display:block; width:100%; height:auto; }
+.pol figcaption { font-family:"Caveat",cursive; font-size:1.3rem; color:#3b3b3b; text-align:center; line-height:1.2; padding:6px 4px 2px; }
+.pol::before { content:""; position:absolute; top:-11px; left:50%; width:90px; height:22px; transform:translateX(-50%) rotate(-3deg); background:var(--tape); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+.intention { border-left:5px solid var(--gold); background:#f6f1e1; padding:10px 16px; margin:0 0 18px; border-radius:0 6px 6px 0; }
+.left-off { border:2px dashed var(--line); background:rgba(255,255,255,.7); padding:12px 16px 6px; margin:0 0 22px; }
+.left-off .lbl, .lbl { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); font-weight:700; line-height:1.1; display:block; margin-bottom:4px; }
+.qa { margin:0 0 12px; }
+.qa .q { font-weight:600; color:var(--ink); }
+.btn, .reveal-btn { font-family:"Caveat",cursive; font-size:1.25rem; font-weight:700; line-height:1; cursor:pointer; border:2px solid var(--ink); background:var(--sheet); color:var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:5px 14px 3px; margin:6px 8px 4px 0; }
+.btn:hover, .reveal-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+.btn.primary { background:var(--ink); color:#fff; } .btn.primary:hover { background:var(--gold); }
+.reveal { display:none; background:#f3eedd; border-left:4px solid var(--gold); padding:9px 14px; margin:6px 0 10px; border-radius:0 6px 6px 0; }
+.reveal.show { display:block; }
+.story-chunk { font-family:Georgia,"Times New Roman",serif; font-size:1.1rem; line-height:1.75; border-left:5px solid var(--ink); background:#faf6ea; padding:12px 18px 2px; margin:0 0 6px; border-radius:0 6px 6px 0; }
+.story-chunk p { margin:0 0 12px; }
+.story-part { margin-bottom:24px; }
+.after { padding:6px 4px 0 14px; }
+.talk, .discuss { background:#eef2f7; border:1px solid #cdd7e6; border-radius:6px; padding:10px 16px 8px; margin:10px 0 14px; }
+.talk b.t, .discuss b.t { font-family:"Caveat",cursive; font-size:1.35rem; color:var(--ink); }
+.words { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px 16px; margin:8px 0 14px; }
+.word { border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:8px 16px 6px; background:var(--sheet); }
+.word .w { font-family:"Caveat",cursive; font-size:1.55rem; line-height:1.1; color:var(--ink); font-weight:700; cursor:pointer; background:none; border:0; text-align:left; display:block; width:100%; }
+.word .m { display:none; font-size:.95rem; color:#33405a; } .word.open .m { display:block; }
+.word .w::after { content:" ▾"; font-size:.9rem; color:var(--gold); } .word.open .w::after { content:" ▴"; }
+.steps { list-style:none; margin-left:0 !important; counter-reset:st; }
+.steps li { position:relative; padding:2px 0 2px 44px; margin-bottom:10px; counter-increment:st; }
+.steps li::before { content:counter(st); position:absolute; left:0; top:-4px; font-family:"Caveat",cursive; font-size:2rem; color:var(--red); font-weight:700; width:34px; text-align:center; }
+.steps li b { color:var(--ink); }
+.tbl-wrap { overflow-x:auto; margin:6px 0 16px; }
+.tbl { width:100%; border-collapse:collapse; font-size:.97rem; line-height:1.4; }
+.tbl th { font-family:"Caveat",cursive; font-size:1.4rem; text-align:left; color:var(--gold); border-bottom:2px solid var(--ink); padding:2px 10px; white-space:nowrap; }
+.tbl td { padding:5px 10px; border-bottom:1px dashed var(--line); vertical-align:top; }
+.tbl td:first-child { font-weight:700; color:var(--ink); }
+.example { border:3px double var(--ink); background:#fffaf0; padding:14px 20px 8px; margin:12px 0 20px; }
+.example .lbl { color:var(--red); }
+.example .given { font-size:1.08rem; color:var(--ink); margin-bottom:8px; }
+.example .row { display:grid; grid-template-columns:130px 1fr; gap:4px 12px; padding:4px 0; border-top:1px dashed var(--line); }
+.example .row .k { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--gold); font-weight:700; line-height:1.2; }
+.example .pic { background:var(--sticky); color:var(--sticky-ink); padding:9px 14px; margin:10px 0 8px; box-shadow:2px 3px 8px rgba(0,0,0,.14); }
+.chips { display:flex; flex-wrap:wrap; gap:8px 12px; margin:4px 0 14px; }
+.chips span { font-family:"Caveat",cursive; font-size:1.35rem; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:32px; background:var(--sheet); }
+.diagram { text-align:center; margin:10px 0 18px; background:var(--sheet); border:2px dashed var(--line); padding:8px; }
+.diagram svg { max-width:100%; height:auto; font-family:"Caveat","Kalam",cursive; }
+.diagram .cap { font-family:"Caveat",cursive; color:var(--muted); font-size:1.2rem; line-height:1.2; }
+.ex { border:1px solid var(--line); background:rgba(255,255,255,.82); border-radius:6px; padding:14px 18px 10px; margin:0 0 18px; }
+.ex h4 { font-family:"Caveat",cursive; font-size:1.55rem; color:var(--red); }
+.ex .prompt { color:var(--ink); margin-bottom:8px; }
+.ex textarea, .ex input[type=text], .recall textarea, .ref textarea { font:inherit; width:100%; padding:8px 10px; border:2px solid var(--line); border-radius:6px; background:#fff; color:#222a3a; }
+.ex textarea:focus, .ex input:focus, .recall textarea:focus, .ref textarea:focus { outline:none; border-color:var(--gold); }
+.ex input[type=text].gapin { width:auto; min-width:150px; max-width:100%; display:inline-block; padding:3px 8px; margin:0 4px; font-size:.98rem; }
+.ex .gaprow { margin-bottom:10px; line-height:2.1; }
+.ex .gapans { font-size:.9rem; color:var(--badb); margin-left:6px; }
+.ok { background:var(--ok) !important; border-color:var(--okb) !important; } .no { background:var(--bad) !important; border-color:var(--badb) !important; }
+.fb { display:none; margin:8px 0 6px; padding:8px 14px; border-radius:6px; border:2px solid var(--line); background:#f6f6f6; font-size:.97rem; }
+.fb.show { display:block; } .fb.ok { display:block; } .fb.no { display:block; }
+.checks { margin:8px 0 4px; } .checks label { display:flex; gap:8px; align-items:flex-start; margin-bottom:3px; font-size:.96rem; cursor:pointer; }
+.checks input { margin-top:6px; accent-color:var(--gold); }
+.mc-opt { display:block; width:100%; text-align:left; font:inherit; cursor:pointer; border:2px solid var(--line); background:#fff; color:#222a3a; border-radius:6px; padding:7px 12px; margin:5px 0; }
+.mc-opt:hover { border-color:var(--gold); }
+.mc-opt.ok { color:#1b4d1e; } .mc-opt.no { color:#7a2220; }
+.match-row { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; justify-content:space-between; border:1px solid var(--line); background:#faf7ec; border-radius:6px; padding:8px 12px; margin:6px 0; }
+.match-row .txt { flex:1 1 230px; font-weight:600; color:var(--ink); }
+.match-row select { font:inherit; padding:5px 8px; border:2px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); min-width:200px; max-width:100%; }
+.timer { display:inline-block; font-family:"Caveat",cursive; font-size:1.9rem; font-weight:700; color:var(--ink); padding:0 14px; border:2px solid var(--ink); border-radius:6px; background:#fff; min-width:92px; text-align:center; margin:4px 10px 4px 0; }
+.timer.warn { color:#9a6b00; border-color:#d19a1f; background:#fff6dc; } .timer.low { color:#fff; border-color:var(--badb); background:var(--badb); animation:pulse 1s infinite; }
+@keyframes pulse { 50% { opacity:.65; } }
+.card-deck { margin:8px 0 16px; }
+.fcard { min-height:130px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; cursor:pointer; background:var(--sticky); color:var(--sticky-ink); box-shadow:3px 4px 10px rgba(0,0,0,.18); padding:20px 24px; transform:rotate(-.5deg); user-select:none; max-width:560px; margin:6px auto 12px; }
+.fcard .front { font-family:"Caveat",cursive; font-size:1.9rem; line-height:1.15; font-weight:700; }
+.fcard .back { display:none; font-size:1.05rem; margin-top:8px; line-height:1.45; } .fcard.flip .back { display:block; }
+.fcard .tap { font-family:"Caveat",cursive; font-size:1.1rem; color:#7a6a2a; margin-top:6px; } .fcard.flip .tap { display:none; }
+.deck-ctl { text-align:center; } .deck-ctl .cnt { font-family:"Caveat",cursive; font-size:1.3rem; color:var(--muted); margin:0 8px; }
+.recall { border:3px double var(--ink); padding:14px 20px 12px; margin:14px 0 18px; background:#fffaf0; }
+.recall h4 { font-family:"Caveat",cursive; font-size:1.7rem; color:var(--red); }
+.recall .stage { display:none; } .recall .stage.on { display:block; }
+.recall .items { display:flex; flex-wrap:wrap; gap:8px 12px; margin:10px 0; counter-reset:it; }
+.recall .items span { font-family:"Caveat",cursive; font-size:1.5rem; border:2px solid var(--ink); background:var(--sheet); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:0 14px; line-height:34px; counter-increment:it; }
+.recall .items.ordered span::before { content:counter(it) ". "; color:var(--red); }
+.recall .res { margin:8px 0; } .recall .res div { padding:3px 10px; border-radius:4px; margin:3px 0; font-size:.97rem; }
+.recall .score { font-family:"Caveat",cursive; font-size:1.8rem; color:var(--ink); }
+.ref textarea { min-height:90px; }
+.canlist { list-style:none; margin-left:0 !important; } .canlist label { display:flex; gap:10px; cursor:pointer; align-items:flex-start; } .canlist input { margin-top:7px; accent-color:var(--gold); transform:scale(1.2); }
+.nav-end { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:6px 0 0; font-family:"Caveat",cursive; font-size:1.45rem; }
+.nav-end a { color:var(--ink); text-decoration:none; border:2px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; padding:3px 18px 1px; background:var(--sheet); }
+.nav-end a:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+footer { text-align:center; font-family:"Caveat",cursive; font-size:1.25rem; color:var(--muted); margin-top:26px; line-height:1.3; }
+.savednote { font-family:"Caveat",cursive; color:var(--muted); font-size:1.15rem; }
+@media (max-width:768px) {
+  body { font-size:1rem; }
+  .cover h1 { font-size:2.45rem; } .cover { padding:28px 14px 22px; transform:none; }
+  .page { padding:22px 14px 20px 44px; } .page::before { left:32px; } .page > .pgno { left:2px; font-size:1.8rem; width:28px; top:16px; }
+  .page h2 { font-size:1.95rem; }
+  .tab-btn { font-size:1.2rem; padding:7px 12px 5px; }
+  .example .row { grid-template-columns:1fr; gap:0; }
+  .match-row select { min-width:0; width:100%; }
+  .ex { padding:12px 12px 8px; }
+  .page ul, .page ol { margin-left:16px; }
+  .sticky { max-width:100%; }
+}
+@media print { .tab-nav, .nav-end, .topnav { display:none; } .tab-content { display:block !important; } }
+</style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <span class="level-badge">Memory Course - Lesson 8</span>
-            <h1>👤 The Dominic System</h1>
-            <p>Number Pairs → People & Actions</p>
-        </div>
-
-        <div class="tabs">
-            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
-            <button class="tab" onclick="showTab(1)">2. NEW CONTENT</button>
-            <button class="tab" onclick="showTab(2)">3. GUIDED PRACTICE</button>
-            <button class="tab" onclick="showTab(3)">4. ELABORATION</button>
-            <button class="tab" onclick="showTab(4)">5. INDEPENDENT</button>
-            <button class="tab" onclick="showTab(5)">6. FINAL RETRIEVAL</button>
-        </div>
-
-        <!-- TAB 1: RETRIEVAL -->
-        <div class="content active" id="tab0">
-            <h2>🔄 Recall: The Major System</h2>
-            <p style="margin-bottom: 20px;">Let's review the consonant sounds from the Major System:</p>
-
-            <div class="card">
-                <h3>📝 Quick Consonant Recall</h3>
-                <div style="display: grid; gap: 10px; margin: 20px 0;">
-                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong>What sounds are 3, 6, and 9?</strong></p>
-                        <input type="text" id="recall1" placeholder="e.g., m, j/ch/sh, p/b">
-                    </div>
-                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong>What sounds are 0, 1, and 5?</strong></p>
-                        <input type="text" id="recall2" placeholder="e.g., s/z, t/d, l">
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="checkMajorRecall()">Check Answers</button>
-                <div class="feedback-box" id="recallFeedback"></div>
-            </div>
-
-            <div class="nav-buttons">
-                <a href="lesson-07-major-system.html" class="nav-btn prev" style="text-decoration: none; display: inline-block; padding: 14px 30px;">← Previous Lesson</a>
-                <button class="nav-btn next" onclick="showTab(1)">Next: Dominic System →</button>
-            </div>
-        </div>
-
-        <!-- TAB 2: NEW CONTENT -->
-        <div class="content" id="tab1">
-            <h2>📚 The Dominic System Explained</h2>
-
-            <div class="card" style="border-left: 4px solid #51cf66; background: linear-gradient(135deg, #1a2744 0%, #1a3324 100%);">
-                <h3 style="color: #51cf66;">🏆 Created by the GOAT of Memory Sports</h3>
-                <p style="margin-bottom: 10px;"><strong>Dominic O'Brien</strong> is the most decorated memory athlete in history:</p>
-                <p style="font-size: 0.95em; color: #aaa;">• 8x World Memory Champion (1991-2001)</p>
-                <p style="font-size: 0.95em; color: #aaa;">• Guinness World Record: Memorized 54 decks of cards (2,808 cards) in sequence</p>
-                <p style="font-size: 0.95em; color: #aaa; margin-bottom: 0;">• Author of "You Can Have an Amazing Memory" - the bible of memory training</p>
-            </div>
-
-            <div class="card">
-                <h3>🎯 What is the Dominic System?</h3>
-                <p style="margin-bottom: 15px;">Created by Dominic O'Brien, this system converts number pairs into PEOPLE and ACTIONS.</p>
-                <ul style="margin-left: 20px; line-height: 2;">
-                    <li>Each number pair (00-99) = one specific person</li>
-                    <li>You assign each person an action</li>
-                    <li>Much easier to remember famous people than abstract words!</li>
-                    <li>Great for competing in memory championships</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>🔤 Dominic Letter Code</h3>
-                <p style="margin-bottom: 15px;">Each digit becomes a letter based on its shape or sound:</p>
-                <div class="dominic-grid" id="dominicChart"></div>
-            </div>
-
-            <div class="interactive-section">
-                <h3>💡 How It Works Step-by-Step</h3>
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <p><strong>Example: Number 42 → Letters D-B</strong></p>
-                    <p style="margin-top: 10px; color: #d4af37;">D = David, B = Beckham = DAVID BECKHAM</p>
-                    <p style="margin-top: 10px;">You picture David Beckham and assign him an ACTION (e.g., scoring a goal)</p>
-                </div>
-                <p style="margin-top: 15px;"><strong>Key Advantage:</strong> Famous people are MUCH more memorable than random words!</p>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
-                <button class="nav-btn next" onclick="showTab(2)">Next: Practice →</button>
-            </div>
-        </div>
-
-        <!-- TAB 3: GUIDED PRACTICE -->
-        <div class="content" id="tab2">
-            <h2>🎯 Creating Your Dominic List</h2>
-
-            <div class="card">
-                <h3>📖 Complete Dominic Encoding Walkthrough</h3>
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <p><strong>Target: 1066 (Norman Conquest)</strong></p>
-
-                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>STEP 1: Break into 2-digit pairs</strong></p>
-                    <p style="color: #d4af37;">10 and 66</p>
-
-                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>STEP 2: Convert to LETTERS (using Dominic chart above)</strong></p>
-                    <p style="margin-bottom: 5px;">10 = 1 (A) + 0 (O) = A-O letters</p>
-                    <p style="margin-bottom: 5px;">66 = 6 (S) + 6 (S) = S-S letters</p>
-
-                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>STEP 3: Find a FAMOUS PERSON with those initials</strong></p>
-                    <p style="margin-bottom: 5px;">For A-O: <strong>Al Oerter</strong> (Olympic discus thrower)</p>
-                    <p style="margin-bottom: 5px;">For S-S: <strong>Steven Spielberg</strong> (film director)</p>
-
-                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>STEP 4: Keep the PERSON from the first pair, borrow the ACTION from the second</strong></p>
-                    <p style="margin-bottom: 5px;">This is the heart of the Dominic System. With a 4-digit number you do <strong>NOT</strong> put both people in the scene. You take:</p>
-                    <p style="margin-bottom: 5px;">• The <strong>PERSON</strong> from the first pair — 10 → <strong>Al Oerter</strong></p>
-                    <p style="margin-bottom: 5px;">• The <strong>ACTION</strong> from the second pair — 66 → Steven Spielberg's action, <strong>Directing</strong> (megaphone, "CUT!")</p>
-                    <p style="margin-bottom: 5px; color: #d4af37;">So 1066 = <strong>Al Oerter DIRECTING</strong>. One person, doing someone else's action. Spielberg himself never appears — only his action does.</p>
-
-                    <p style="margin-top: 15px; margin-bottom: 5px;"><strong>STEP 5: Put that single person-plus-borrowed-action into a vivid scene at the Norman Conquest</strong></p>
-                    <p style="margin-top: 5px; color: #d4af37;"><strong>My Image:</strong> On the beach at Hastings, AL OERTER is DIRECTING a film in the middle of the battle — megaphone in hand, bellowing "CUT!" at the Norman invaders, ordering a re-take as arrows fly past. The Battle of Hastings rages behind him.</p>
-                    <p style="margin-top: 10px; color: #b0b0b0;"><em>ONE person (Al Oerter = 10) doing ONE borrowed action (directing = 66) = the whole of 1066. That person-does-another's-action combination is what makes the Dominic System work for long numbers.</em></p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>👥 Create Dominic for 17 (US Independence)</h3>
-                <p style="margin-bottom: 15px;">Let me guide you through FINDING your own person:</p>
-
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
-                    <p style="margin-bottom: 10px;"><strong>STEP 1: The letters are 1-7 = A-G</strong></p>
-
-                    <p style="margin-bottom: 10px;"><strong>STEP 2: Think of a FAMOUS A-G person</strong></p>
-                    <p style="margin-bottom: 5px; color: #aaa;">Some ideas: Albert Einstein, Albert Schweitzer, Abraham Lincoln, Aretha Franklin, Angelina Jolie, etc. But YOU pick who comes to YOUR mind!</p>
-                    <input type="text" id="weDoName" placeholder="YOUR A-G person...">
-
-                    <p style="margin-bottom: 10px; margin-top: 15px;"><strong>STEP 3: What's an ACTION they're famous for?</strong></p>
-                    <input type="text" id="weDoAction" placeholder="What would this person DO? Signing? Thinking? Speaking?">
-
-                    <p style="margin-bottom: 10px; margin-top: 15px;"><strong>STEP 4: Place them in the American Independence scene</strong></p>
-                    <textarea id="weDoImage" placeholder="Describe: [Person] is [ACTION] at the signing of the Declaration..."></textarea>
-                    <button class="btn btn-primary" onclick="checkWeDo()" style="margin-top: 10px;">Show Example</button>
-                </div>
-                <div class="feedback-box" id="weDoFeedback"></div>
-            </div>
-
-            <div class="card">
-                <h3>🧪 Create Dominic for 19 (WW2 Ends)</h3>
-                <p style="margin-bottom: 15px;">19 = A-N. Create YOUR OWN Dominic image. Use the letter chart visible above!</p>
-
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <p style="margin-bottom: 10px;"><strong>STEP 1: Convert 19 to letters</strong></p>
-                    <p style="margin-bottom: 15px; color: #d4af37;">1 = A, 9 = N → A-N</p>
-
-                    <p style="margin-bottom: 10px;"><strong>STEP 2: Find a famous A-N person (YOUR choice!)</strong></p>
-                    <input type="text" id="youDoName" placeholder="Any A-N person: Audrey Hepburn, Angelina Jolie, Arnold Schwarzenegger, etc.">
-
-                    <p style="margin-bottom: 10px;"><strong>STEP 3: What ACTION are they famous for?</strong></p>
-                    <input type="text" id="youDoAction" placeholder="Singing? Acting? Philosophizing? Fighting? Celebrating?">
-
-                    <p style="margin-bottom: 10px;"><strong>STEP 4: Place them at WW2's end - describe the vivid scene</strong></p>
-                    <textarea id="youDoImage" placeholder="[Your person] is [their action] as the war ends. Make it bizarre and visual!"></textarea>
-                    <button class="btn btn-primary" onclick="checkYouDo()">Submit My Dominic Image</button>
-                </div>
-                <div class="feedback-box" id="youDoFeedback"></div>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
-                <button class="nav-btn next" onclick="showTab(3)">Next: Elaboration →</button>
-            </div>
-        </div>
-
-        <!-- TAB 4: ELABORATION -->
-        <div class="content" id="tab3">
-            <h2>🔍 Dominic vs Major System</h2>
-
-            <div class="card">
-                <h3>📊 Head-to-Head Comparison</h3>
-                <div class="comparison-table">
-                    <div class="comparison-cell">
-                        <h4>🔐 Major System</h4>
-                        <ul style="margin-left: 15px;">
-                            <li>Uses consonant words</li>
-                            <li>Must create vowels</li>
-                            <li>More universal</li>
-                            <li>Words sometimes random</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-cell">
-                        <h4>👤 Dominic System</h4>
-                        <ul style="margin-left: 15px;">
-                            <li>Uses famous people</li>
-                            <li>Assigns actions</li>
-                            <li>More memorable</li>
-                            <li>Personal & emotional</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="interactive-section">
-                <h3>🎯 When to Use Each System</h3>
-                <p style="margin-bottom: 15px;"><strong>Use Major System when:</strong></p>
-                <ul style="margin-left: 20px; margin-bottom: 15px;">
-                    <li>You need quick, flexible word creation</li>
-                    <li>The language isn't English</li>
-                    <li>You're just learning memory</li>
-                </ul>
-                <p style="margin-bottom: 15px;"><strong>Use Dominic System when:</strong></p>
-                <ul style="margin-left: 20px;">
-                    <li>You want MAXIMUM memorability</li>
-                    <li>You have time to build a personal list</li>
-                    <li>You're competing in memory championships</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>📋 Complete Dominic System Model (00-99)</h3>
-                <p style="margin-bottom: 15px;">Use this as a starting point. The best Dominic System is YOUR personalised one — swap any person for someone more memorable to YOU!</p>
-                <div id="dominicReference"></div>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
-                <button class="nav-btn next" onclick="showTab(4)">Next: Independent →</button>
-            </div>
-        </div>
-
-        <!-- TAB 5: INDEPENDENT PRACTICE -->
-        <div class="content" id="tab4">
-            <h2>💪 Independent Dominic Challenges</h2>
-
-            <div class="card">
-                <h3>🎮 Challenge 1: Convert Numbers to People</h3>
-                <p style="margin-bottom: 15px;">For each pair, write the letters and a famous person:</p>
-
-                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
-                    <p><strong>10 (from 1066):</strong> <input type="text" id="ch1a" placeholder="Letters (A-O)"></p>
-                    <p><strong>Famous Person:</strong> <input type="text" id="ch1p" placeholder="A-O person"></p>
-                </div>
-
-                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
-                    <p><strong>76 (from 1776):</strong> <input type="text" id="ch2a" placeholder="Letters (G-S)"></p>
-                    <p><strong>Famous Person:</strong> <input type="text" id="ch2p" placeholder="G-S person"></p>
-                </div>
-
-                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
-                    <p><strong>89 (from 1989):</strong> <input type="text" id="ch3a" placeholder="Letters (H-N)"></p>
-                    <p><strong>Famous Person:</strong> <input type="text" id="ch3p" placeholder="H-N person"></p>
-                </div>
-
-                <button class="btn btn-primary" onclick="checkConversion()">Check My Conversions</button>
-                <div class="feedback-box" id="conversionFeedback"></div>
-            </div>
-
-            <div class="card">
-                <h3>🎯 Challenge 2: Create Complete Dominic Images</h3>
-                <p style="margin-bottom: 15px;">Create full Dominic images (person + action) for 6-digit sequences:</p>
-
-                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <p style="color: #d4af37; font-size: 1.2em; margin-bottom: 15px;"><strong>106619899792</strong></p>
-                    <p style="color: #a0a0a0; font-size: 0.9em; margin-bottom: 15px;">1066 (Norman Conquest) | 1989 (Berlin Wall Falls) | Speed of Light (299,792 km/s)</p>
-                    <p style="margin-bottom: 10px;">Image 1 (10 - Norman start):</p>
-                    <input type="text" id="img1" placeholder="Person - Action">
-                    <p style="margin-bottom: 10px;">Image 2 (66 - Norman end):</p>
-                    <input type="text" id="img2" placeholder="Person - Action">
-                    <p style="margin-bottom: 10px;">Image 3 (19 - Berlin Wall):</p>
-                    <input type="text" id="img3" placeholder="Person - Action">
-                    <p style="margin-bottom: 10px;">Image 4 (98 - Speed of light):</p>
-                    <input type="text" id="img4" placeholder="Person - Action">
-                    <button class="btn btn-secondary" onclick="checkDominicChallenge()">Submit</button>
-                </div>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
-                <button class="nav-btn next" onclick="showTab(5)">Next: Final Test →</button>
-            </div>
-        </div>
-
-        <!-- TAB 6: FINAL RETRIEVAL -->
-        <div class="content" id="tab5">
-            <h2>🏆 Dominic System Mastery Test</h2>
-
-            <div class="card">
-                <h3>📝 Letter Code Recall</h3>
-                <div style="display: grid; gap: 10px; margin: 20px 0;">
-                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong>What letters are 4 and 8?</strong></p>
-                        <input type="text" id="final1" placeholder="e.g., D-H">
-                    </div>
-                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong>What letters are 2 and 6?</strong></p>
-                        <input type="text" id="final2" placeholder="e.g., B-S">
-                    </div>
-                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
-                        <p><strong>What letters are 0 and 9?</strong></p>
-                        <input type="text" id="final3" placeholder="e.g., O-N">
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="checkFinalLetters()">Check Answers</button>
-                <div class="score-display" id="letterScore" style="display: none;"></div>
-            </div>
-
-            <div class="card">
-                <h3>🎬 Comprehensive Challenge: 8-Digit Dominic Encoding</h3>
-                <p style="margin-bottom: 15px;">Create 4 complete Dominic images for this 8-digit number:</p>
-                <div style="background: #0f0f1e; padding: 20px; border-radius: 8px; text-align: center; margin: 15px 0;">
-                    <p style="font-size: 1.4em; color: #d4af37; letter-spacing: 2px;">61527849</p>
-                </div>
-                <p style="margin-bottom: 15px;"><strong>Create one vivid image for each pair:</strong></p>
-                <textarea id="finalChallenge" placeholder="61: [person/action] | 52: [person/action] | 78: [person/action] | 49: [person/action]"></textarea>
-                <button class="btn btn-primary" onclick="checkFinalChallenge()">Submit Final Challenge</button>
-                <div class="feedback-box" id="finalChallengeFeedback"></div>
-            </div>
-
-            <div class="nav-buttons">
-                <a href="lesson-07-major-system.html" class="nav-btn prev" style="text-decoration: none; display: inline-block; padding: 14px 30px;">← Previous Lesson</a>
-                <a href="lesson-09-pao-system.html" class="nav-btn next">Next Lesson →</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const dominicLetters = {
-            '0': 'O',
-            '1': 'A',
-            '2': 'B',
-            '3': 'C',
-            '4': 'D',
-            '5': 'E',
-            '6': 'S',
-            '7': 'G',
-            '8': 'H',
-            '9': 'N'
-        };
-
-        function showTab(index) {
-            const contents = document.querySelectorAll('.content');
-            const tabs = document.querySelectorAll('.tab');
-            contents.forEach(c => c.classList.remove('active'));
-            tabs.forEach(t => t.classList.remove('active'));
-            contents[index].classList.add('active');
-            tabs[index].classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function initializeContent() {
-            // Build Dominic chart
-            const chart = document.getElementById('dominicChart');
-            for (let i = 0; i < 10; i++) {
-                const box = document.createElement('div');
-                box.className = 'dominic-box';
-                box.innerHTML = `<div class="pair">${i}</div><div class="letter">→ ${dominicLetters[i]}</div>`;
-                chart.appendChild(box);
-            }
-
-            // Build complete Dominic System
-            renderDominicSystem();
-        }
-
-        const dominicSystem = [
-            { num: '00', letters: 'O-O', person: 'Ozzy Osbourne', action: 'Head-banging' },
-            { num: '01', letters: 'O-A', person: 'Obi-Wan Kenobi', action: 'Lightsaber-slashing' },
-            { num: '02', letters: 'O-B', person: 'Orlando Bloom', action: 'Arrow-shooting' },
-            { num: '03', letters: 'O-C', person: 'Oliver Cromwell', action: 'Commanding troops' },
-            { num: '04', letters: 'O-D', person: 'Oscar De La Hoya', action: 'Boxing' },
-            { num: '05', letters: 'O-E', person: 'Oprah Winfrey', action: 'Pointing at audience' },
-            { num: '06', letters: 'O-S', person: 'Omar Sharif', action: 'Dealing cards' },
-            { num: '07', letters: 'O-G', person: 'Oliver Goldsmith', action: 'Writing poetry' },
-            { num: '08', letters: 'O-H', person: 'Oliver Hardy', action: 'Belly-laughing' },
-            { num: '09', letters: 'O-N', person: 'Olivia Newton-John', action: 'Dancing' },
-            { num: '10', letters: 'A-O', person: 'Al Pacino', action: 'Shouting' },
-            { num: '11', letters: 'A-A', person: 'Andre Agassi', action: 'Serving' },
-            { num: '12', letters: 'A-B', person: 'Antonio Banderas', action: 'Fencing' },
-            { num: '13', letters: 'A-C', person: 'Al Capone', action: 'Counting money' },
-            { num: '14', letters: 'A-D', person: 'Alan Davies', action: 'Joking' },
-            { num: '15', letters: 'A-E', person: 'Albert Einstein', action: 'Scribbling equations' },
-            { num: '16', letters: 'A-S', person: 'Arnold Schwarzenegger', action: 'Flexing muscles' },
-            { num: '17', letters: 'A-G', person: 'Agatha Christie', action: 'Writing mysteries' },
-            { num: '18', letters: 'A-H', person: 'Audrey Hepburn', action: 'Twirling elegantly' },
-            { num: '19', letters: 'A-N', person: 'Anthony Hopkins', action: 'Acting intensely' },
-            { num: '20', letters: 'B-O', person: 'Bob Dylan', action: 'Singing' },
-            { num: '21', letters: 'B-A', person: 'Brigitte Bardot', action: 'Dancing' },
-            { num: '22', letters: 'B-B', person: 'Bugs Bunny', action: 'Chewing carrot' },
-            { num: '23', letters: 'B-C', person: 'Bill Cosby', action: 'Telling jokes' },
-            { num: '24', letters: 'B-D', person: 'Bette Davis', action: 'Smoking dramatically' },
-            { num: '25', letters: 'B-E', person: 'Billie Eilish', action: 'Singing hauntingly' },
-            { num: '26', letters: 'B-S', person: 'Britney Spears', action: 'Performing dance' },
-            { num: '27', letters: 'B-G', person: 'Bob Geldof', action: 'Singing passionately' },
-            { num: '28', letters: 'B-H', person: 'Bob Hope', action: 'Telling jokes' },
-            { num: '29', letters: 'B-N', person: 'Brigitte Nielsen', action: 'Posing powerfully' },
-            { num: '30', letters: 'C-O', person: 'Charlie Chaplin', action: 'Twirling cane' },
-            { num: '31', letters: 'C-A', person: 'Clark Gable', action: 'Smiling charmingly' },
-            { num: '32', letters: 'C-B', person: 'Christopher Columbus', action: 'Sailing ship' },
-            { num: '33', letters: 'C-C', person: 'Coco Chanel', action: 'Designing dress' },
-            { num: '34', letters: 'C-D', person: 'Clint Eastwood', action: 'Drawing gun' },
-            { num: '35', letters: 'C-E', person: 'Che Guevara', action: 'Leading revolution' },
-            { num: '36', letters: 'C-S', person: 'Charlie Sheen', action: 'Acting dramatically' },
-            { num: '37', letters: 'C-G', person: 'Cary Grant', action: 'Charming woman' },
-            { num: '38', letters: 'C-H', person: 'Charles Dickens', action: 'Writing novel' },
-            { num: '39', letters: 'C-N', person: 'Chuck Norris', action: 'Roundhouse-kicking' },
-            { num: '40', letters: 'D-O', person: 'Don Quixote', action: 'Tilting at windmills' },
-            { num: '41', letters: 'D-A', person: 'David Attenborough', action: 'Narrating nature' },
-            { num: '42', letters: 'D-B', person: 'David Beckham', action: 'Kicking soccer ball' },
-            { num: '43', letters: 'D-C', person: 'Diana, Princess of Wales', action: 'Waving graciously' },
-            { num: '44', letters: 'D-D', person: 'Doris Day', action: 'Singing sweetly' },
-            { num: '45', letters: 'D-E', person: 'Duke Ellington', action: 'Playing piano' },
-            { num: '46', letters: 'D-S', person: 'David Copperfield', action: 'Conjuring magic' },
-            { num: '47', letters: 'D-G', person: 'Dalai Lama', action: 'Blessing people' },
-            { num: '48', letters: 'D-H', person: 'Darcey Bussell', action: 'Pirouetting gracefully' },
-            { num: '49', letters: 'D-N', person: 'Diana Ross', action: 'Singing soulfully' },
-            { num: '50', letters: 'E-O', person: 'Elvis Presley', action: 'Gyrating hips' },
-            { num: '51', letters: 'E-A', person: 'Eddie the Eagle', action: 'Ski-jumping' },
-            { num: '52', letters: 'E-B', person: 'Elizabeth Bennet', action: 'Reading letters' },
-            { num: '53', letters: 'E-C', person: 'Eric Clapton', action: 'Strumming blues' },
-            { num: '54', letters: 'E-D', person: 'Eddie Murphy', action: 'Laughing hilariously' },
-            { num: '55', letters: 'E-E', person: 'Emilio Estevez', action: 'Coaching hockey team' },
-            { num: '56', letters: 'E-S', person: 'Ernest Hemingway', action: 'Writing intensely' },
-            { num: '57', letters: 'E-G', person: 'Ed Sheeran', action: 'Strumming guitar' },
-            { num: '58', letters: 'E-H', person: 'Ernest Rutherford', action: 'Splitting atoms' },
-            { num: '59', letters: 'E-N', person: 'Eminem', action: 'Rapping fast' },
-            { num: '60', letters: 'S-O', person: 'Sylvester Stallone', action: 'Punching' },
-            { num: '61', letters: 'S-A', person: 'Sachin Tendulkar', action: 'Batting masterfully' },
-            { num: '62', letters: 'S-B', person: 'Serena Williams', action: 'Serving powerfully' },
-            { num: '63', letters: 'S-C', person: 'Sherlock Holmes', action: 'Examining clues' },
-            { num: '64', letters: 'S-D', person: 'Salvador Dali', action: 'Painting surreally' },
-            { num: '65', letters: 'S-E', person: 'Sophia Loren', action: 'Posing elegantly' },
-            { num: '66', letters: 'S-S', person: 'Superman', action: 'Flying' },
-            { num: '67', letters: 'S-G', person: 'Stevie Wonder', action: 'Playing keyboard' },
-            { num: '68', letters: 'S-H', person: 'Stephen Hawking', action: 'Explaining universe' },
-            { num: '69', letters: 'S-N', person: 'Sinead O\'Connor', action: 'Singing powerfully' },
-            { num: '70', letters: 'G-O', person: 'Gandalf', action: 'Casting spells' },
-            { num: '71', letters: 'G-A', person: 'Galileo Galilei', action: 'Observing stars' },
-            { num: '72', letters: 'G-B', person: 'Greta Garbo', action: 'Gazing mysteriously' },
-            { num: '73', letters: 'G-C', person: 'Grace Jones', action: 'Posing provocatively' },
-            { num: '74', letters: 'G-D', person: 'Greta Thunberg', action: 'Protesting passionately' },
-            { num: '75', letters: 'G-E', person: 'George Washington', action: 'Crossing river' },
-            { num: '76', letters: 'G-S', person: 'Gwen Stefani', action: 'Singing boldly' },
-            { num: '77', letters: 'G-G', person: 'Gorbachev', action: 'Reforming nation' },
-            { num: '78', letters: 'G-H', person: 'George Harrison', action: 'Playing sitar' },
-            { num: '79', letters: 'G-N', person: 'Gene Kelly', action: 'Dancing in rain' },
-            { num: '80', letters: 'H-O', person: 'Harry Houdini', action: 'Escaping bonds' },
-            { num: '81', letters: 'H-A', person: 'Humphrey Bogart', action: 'Tipping hat coolly' },
-            { num: '82', letters: 'H-B', person: 'Helena Bonham Carter', action: 'Acting eccentrically' },
-            { num: '83', letters: 'H-C', person: 'Harry Connick Jr.', action: 'Singing smoothly' },
-            { num: '84', letters: 'H-D', person: 'Henry David Thoreau', action: 'Writing philosophy' },
-            { num: '85', letters: 'H-E', person: 'Hilary Swank', action: 'Punching powerfully' },
-            { num: '86', letters: 'H-S', person: 'Hedy Lamarr', action: 'Inventing radio' },
-            { num: '87', letters: 'H-G', person: 'Hugh Grant', action: 'Fumbling charmingly' },
-            { num: '88', letters: 'H-H', person: 'Helen Hunt', action: 'Storm-chasing' },
-            { num: '89', letters: 'H-N', person: 'Horatio Nelson', action: 'Commanding fleet' },
-            { num: '90', letters: 'N-O', person: 'Napoleon Bonaparte', action: 'Commanding army' },
-            { num: '91', letters: 'N-A', person: 'Neil Armstrong', action: 'Walking on moon' },
-            { num: '92', letters: 'N-B', person: 'Natalie Portman', action: 'Acting gracefully' },
-            { num: '93', letters: 'N-C', person: 'Niccolo Paganini', action: 'Playing violin' },
-            { num: '94', letters: 'N-D', person: 'Nikola Tesla', action: 'Creating electricity' },
-            { num: '95', letters: 'N-E', person: 'Noel Edmonds', action: 'Opening mystery box' },
-            { num: '96', letters: 'N-S', person: 'Nostradamus', action: 'Predicting future' },
-            { num: '97', letters: 'N-G', person: 'Nelson Mandela', action: 'Leading nation' },
-            { num: '98', letters: 'N-H', person: 'Nietzsche', action: 'Philosophizing' },
-            { num: '99', letters: 'N-N', person: 'Nino Rota', action: 'Composing symphony' }
-        ];
-
-        function renderDominicSystem() {
-            const ref = document.getElementById('dominicReference');
-            ref.innerHTML = '';
-
-            // Group by decades
-            for (let decade = 0; decade < 10; decade++) {
-                const decadeStart = decade * 10;
-                const decadeEnd = decadeStart + 10;
-                const decadeItems = dominicSystem.filter(item => {
-                    const itemNum = parseInt(item.num);
-                    return itemNum >= decadeStart && itemNum < decadeEnd;
-                });
-
-                // Create decade group
-                const group = document.createElement('div');
-                group.className = 'decade-group';
-
-                const header = document.createElement('div');
-                header.className = 'decade-header';
-                header.innerHTML = `${decadeStart.toString().padStart(2, '0')}-${(decadeEnd - 1).toString().padStart(2, '0')} <span>▶</span>`;
-                header.onclick = function() {
-                    const content = group.querySelector('.decade-content');
-                    content.classList.toggle('open');
-                    const span = header.querySelector('span');
-                    span.textContent = content.classList.contains('open') ? '▼' : '▶';
-                };
-
-                const content = document.createElement('div');
-                content.className = 'decade-content';
-
-                // Add entries
-                decadeItems.forEach(item => {
-                    const entry = document.createElement('div');
-                    entry.className = 'dominic-entry';
-                    entry.innerHTML = `
-                        <span class="num">${item.num}</span>
-                        <span class="letters">(${item.letters})</span>
-                        <span class="person"><strong>${item.person}</strong></span>
-                        <span class="action">— ${item.action}</span>
-                    `;
-                    content.appendChild(entry);
-                });
-
-                group.appendChild(header);
-                group.appendChild(content);
-                ref.appendChild(group);
-            }
-        }
-
-        function checkMajorRecall() {
-            const feedback = document.getElementById('recallFeedback');
-            feedback.classList.add('show', 'correct');
-            feedback.innerHTML = '✓ Great! You remember the Major System foundation. Ready for Dominic!';
-        }
-
-        function checkWeDo() {
-            const name = document.getElementById('weDoName').value;
-            const action = document.getElementById('weDoAction').value;
-            const image = document.getElementById('weDoImage').value;
-            const feedback = document.getElementById('weDoFeedback');
-            feedback.classList.add('show');
-            if (name.length > 2 && action.length > 2 && image.length > 10) {
-                feedback.classList.add('correct');
-                feedback.innerHTML = '✓ Excellent! Example: Albert Einstein WRITING equations on the Declaration of Independence, then the equations EXPLODE into fireworks! You found the person, assigned an action, and placed them in context. Perfect Dominic process!';
-            } else {
-                feedback.classList.add('incorrect');
-                feedback.innerHTML = 'You need: 1) An A-G person 2) Their signature action 3) A vivid scene at the Declaration!';
-            }
-        }
-
-        function checkYouDo() {
-            const name = document.getElementById('youDoName').value;
-            const action = document.getElementById('youDoAction').value;
-            const image = document.getElementById('youDoImage').value;
-            const feedback = document.getElementById('youDoFeedback');
-            feedback.classList.add('show');
-            if (name.length > 2 && action.length > 2 && image.length > 20) {
-                feedback.classList.add('correct');
-                feedback.innerHTML = '✓ Perfect! You completed the FULL Dominic process: Letter codes → Find person → Assign action → Create vivid scene. That image encodes 19 (and the WW2 end) forever!';
-            } else {
-                feedback.classList.add('incorrect');
-                feedback.innerHTML = 'You need: 1) An A-N famous person 2) Their action 3) A vivid detailed scene at WW2s end!';
-            }
-        }
-
-        function checkConversion() {
-            const feedback = document.getElementById('conversionFeedback');
-            feedback.classList.add('show', 'correct');
-            feedback.innerHTML = '✓ Great number-to-person conversions! You\'re building your Dominic skills!';
-        }
-
-        function checkDominicChallenge() {
-            alert('Excellent! You\'ve created a complete 6-digit Dominic sequence. Keep building your image list!');
-        }
-
-        function checkFinalLetters() {
-            const answers = {
-                final1: 'D-H',
-                final2: 'B-S',
-                final3: 'O-N'
-            };
-            let correct = 0;
-            for (let [id, answer] of Object.entries(answers)) {
-                const val = document.getElementById(id).value.toUpperCase().replace(/\s/g, '-');
-                if (val === answer || val === answer.replace(/-/g, '')) {
-                    correct++;
-                }
-            }
-            const score = document.getElementById('letterScore');
-            score.style.display = 'block';
-            score.innerHTML = `Score: ${correct}/3 - ${correct === 3 ? 'Perfect! Dominic Letters Mastered!' : 'Good work!'}`;
-        }
-
-        function checkFinalChallenge() {
-            const challenge = document.getElementById('finalChallenge').value;
-            const feedback = document.getElementById('finalChallengeFeedback');
-            feedback.classList.add('show');
-            if (challenge.trim().length > 50 && challenge.includes('|')) {
-                feedback.classList.add('correct');
-                feedback.innerHTML = '✓ Excellent! You\'ve mastered the Dominic System! Ready for PAO next!';
-            } else {
-                feedback.classList.add('incorrect');
-                feedback.innerHTML = 'Create more detailed people-action pairs for each number pair!';
-            }
-        }
-
-        window.addEventListener('load', initializeContent);
-    </script>
+<body data-lesson="08">
+<div class="wrap">
+  <div class="topnav"><a href="art-of-memory.html">&larr; The Art of Memory</a><span class="where">Wing II · The Counting House</span></div>
+  <header class="cover">
+    <span class="plaque">Room 8 of 30</span>
+    <small>The Counting House</small>
+    <h1>People With Numbers</h1>
+    <p>A British champion saw a man learn a pack of cards on television and went on to win the world title eight times. His system turns every pair of digits into a famous person.</p>
+  </header>
+  <nav class="tab-nav" role="tablist"><button class="tab-btn active" role="tab" onclick="showTab(0)">The Story</button><button class="tab-btn" role="tab" onclick="showTab(1)">The Method</button><button class="tab-btn" role="tab" onclick="showTab(2)">Try It</button><button class="tab-btn" role="tab" onclick="showTab(3)">Drill</button><button class="tab-btn" role="tab" onclick="showTab(4)">Look Back</button></nav>
+<div class="tab-content active" id="tab0"><section class="page"><div class="pgno">8</div><div class="intention"><b>In this room:</b> you will learn the Dominic System letter code, turn number pairs into people, and use the rule that one person plus another person's action can hold four digits.</div><div class="left-off"><span class="lbl">Where we left off</span><div class="qa"><div class="q">What are the sounds for 1, 2, 3 and 4 in the Major System?</div><button class="reveal-btn">Check</button><div class="reveal">1 = t/d, 2 = n, 3 = m, 4 = r.</div></div><div class="qa"><div class="q">What does 'vowels are free' mean?</div><button class="reveal-btn">Check</button><div class="reveal">Vowels, w, h and y carry no digit, so you can add them to make real words.</div></div><div class="qa"><div class="q">What number does the word MOON stand for?</div><button class="reveal-btn">Check</button><div class="reveal">32: m is 3 and n is 2.</div></div></div><h2>The man who learned a pack of cards on television</h2><div class="story-part"><div class="story-chunk"><p>In 1987 a young Englishman called Dominic O'Brien was watching television when a man appeared who could memorise the order of a shuffled pack of cards. The presenter shuffled, the man looked at each card once, and then he named the whole pack in order, without a mistake.</p><p>O'Brien did not think of himself as someone with a special memory. That evening he did something unusual. He picked up a pack of cards and tried to find out how the trick was done.</p></div><div class="after"><div class="qa"><div class="q">What happened in 1987 to change O'Brien's mind?</div><button class="reveal-btn">Check from memory</button><div class="reveal">He saw someone memorise a shuffled pack of cards on television, and decided to find out how it was done.</div></div><div class="talk"><b class="t">Talk about it.</b> Have you ever seen someone do something that made you say 'I could learn that'? What was it?</div></div></div><div class="story-part"><div class="story-chunk"><p>He read about the old methods: the places, the pictures, the stories. He trained, and he made up his own ways of speeding it up. In 1991 he won the first World Memory Championship, in London. He went on to win it eight times in all.</p><p>In 2002 he memorised fifty-four decks of cards, in a single viewing of each, a record that made the newspapers: 2,808 cards in total. He did it with the same two tools you have already learned, a long route of places and strong pictures. He also built a way of turning numbers into people.</p></div><div class="after"><div class="qa"><div class="q">What did O'Brien win?</div><button class="reveal-btn">Check from memory</button><div class="reveal">The first World Memory Championship in 1991, and eight world titles in all.</div></div><div class="talk"><b class="t">Talk about it.</b> What do you think was the hardest part of his training: making the pictures, or learning the places?</div></div></div><div class="story-part"><div class="story-chunk"><p>His idea is that a person is the best picture there is. A word like <i>toes</i> is a picture, but you meet it and forget it. A person has a face, a voice, a way of moving, and things they do. If every pair of digits is a <span class="hl">famous person doing something</span>, then a long number becomes a short film, and a film is far easier to remember than a row of digits.</p><p>This system is named for him. It is the system behind the PAO method of the next room, and it is the link between the simple systems of room 6 and the champion's methods of rooms 21 and 23.</p></div><div class="after"><div class="qa"><div class="q">Why does O'Brien use famous people for numbers?</div><button class="reveal-btn">Check from memory</button><div class="reveal">A person is rich in detail: face, voice, movement and action, so a person is a stronger picture than a plain word.</div></div><div class="talk"><b class="t">Talk about it.</b> Which famous person do you find easiest to picture, and what is the first thing you see them doing?</div></div></div><h3>Words worth knowing</h3><p>Say what you think each one means, then open it.</p><div class="words"><div class="word"><button class="w" type="button">an initial</button><div class="m">the first letter of a name. <em>Albert Einstein has the initials A. E.</em></div></div><div class="word"><button class="w" type="button">an action</button><div class="m">something a person does. <em>Directing a film</em> is an action.</div></div><div class="word"><button class="w" type="button">a record</button><div class="m">the best result ever achieved. <em>A world record.</em></div></div><div class="word"><button class="w" type="button">to memorise</button><div class="m">to learn something so that you can remember it exactly.</div></div><div class="word"><button class="w" type="button">a champion</button><div class="m">the winner of a competition.</div></div><div class="word"><button class="w" type="button">single viewing</button><div class="m">looking at something just once.</div></div></div><p class="src">O'Brien's career and records are summarised from public accounts. The Dominic System is his own invention; the details below are told in our own words.</p></section></div><div class="tab-content" id="tab1"><section class="page"><div class="pgno">8</div><h2>Digits to letters, letters to people</h2><p class="lead">Every digit becomes a letter. A pair of digits becomes a pair of initials. The initials belong to a person you can see, and that person has one famous action.</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Digit</th><th>Letter</th><th>Digit</th><th>Letter</th></tr></thead><tbody><tr><td>1</td><td>A</td><td>6</td><td>S</td></tr><tr><td>2</td><td>B</td><td>7</td><td>G</td></tr><tr><td>3</td><td>C</td><td>8</td><td>H</td></tr><tr><td>4</td><td>D</td><td>9</td><td>N</td></tr><tr><td>5</td><td>E</td><td>0</td><td>O</td></tr></tbody></table></div><p>Why these letters? 1 to 5 simply follow the alphabet. After that: an S looks like a 6, a G looks a little like a 7, the letter H says <i>aitch</i>, which sounds like <i>eight</i>, N is the first letter of <i>nine</i>, and O looks like a zero.</p><ol class="steps"><li><b>Split the number into pairs.</b> 1066 → 10 and 66.</li><li><b>Turn each digit into a letter.</b> 10 → A, O. 66 → S, S.</li><li><b>Find a person with those initials.</b> A. O. = Al Oerter (an Olympic discus champion). S. S. = Steven Spielberg.</li><li><b>Give each person one action.</b> Oerter: throwing a discus. Spielberg: directing a film.</li><li><b>Four digits = one person + another's action.</b> Take the <b>person</b> of the first pair and the <b>action</b> of the second pair.</li></ol><div class="example"><span class="lbl">Encode 1066</span><div class="given"><b>1066</b>: 10 = A. O., 66 = S. S.</div><div class="row"><span class="k">Person (10)</span><span>Al Oerter.</span></div><div class="row"><span class="k">Action (66)</span><span>Spielberg's action: directing, with a megaphone, shouting 'Cut!'.</span></div><div class="row"><span class="k">Scene</span><span>Al Oerter is on the beach at Hastings, directing the whole battle through a megaphone, telling the Normans to do the landing again.</span></div><div class="pic"><b>The picture:</b> Al Oerter with a megaphone, shouting 'Cut!' at the Normans as they land at Hastings.</div></div><h3>A starter list</h3><p>The best list is yours: use people you know and can see doing things. Here are some to start from.</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pair</th><th>Initials</th><th>Person</th><th>Action</th></tr></thead><tbody><tr><td>10</td><td>A O</td><td>Al Oerter</td><td>throwing a discus</td></tr><tr><td>12</td><td>A B</td><td>Alec Baldwin</td><td>acting in a film</td></tr><tr><td>13</td><td>A C</td><td>Al Capone</td><td>counting money</td></tr><tr><td>15</td><td>A E</td><td>Albert Einstein</td><td>writing on a blackboard</td></tr><tr><td>16</td><td>A S</td><td>Arnold Schwarzenegger</td><td>lifting weights</td></tr><tr><td>17</td><td>A G</td><td>Al Gore</td><td>giving a lecture</td></tr><tr><td>18</td><td>A H</td><td>Alfred Hitchcock</td><td>filming a shower scene</td></tr><tr><td>23</td><td>B C</td><td>Bill Clinton</td><td>playing the saxophone</td></tr><tr><td>24</td><td>B D</td><td>Bob Dylan</td><td>singing with a guitar and a harmonica</td></tr><tr><td>26</td><td>B S</td><td>Bruce Springsteen</td><td>singing with a guitar</td></tr><tr><td>27</td><td>B G</td><td>Bill Gates</td><td>typing on a computer</td></tr><tr><td>33</td><td>C C</td><td>Charlie Chaplin</td><td>walking with a cane</td></tr><tr><td>34</td><td>C D</td><td>Charles Darwin</td><td>looking through a magnifying glass</td></tr><tr><td>36</td><td>C S</td><td>Carl Sagan</td><td>looking at the stars</td></tr><tr><td>66</td><td>S S</td><td>Steven Spielberg</td><td>directing a film</td></tr><tr><td>68</td><td>S H</td><td>Stephen Hawking</td><td>speaking through a machine</td></tr><tr><td>77</td><td>G G</td><td>Greta Garbo</td><td>wearing a hat and sunglasses</td></tr><tr><td>78</td><td>G H</td><td>George Harrison</td><td>playing a sitar</td></tr><tr><td>91</td><td>N A</td><td>Neil Armstrong</td><td>walking on the moon</td></tr></tbody></table></div><h3>Compare with the Major System</h3><div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>Major System</th><th>Dominic System</th></tr></thead><tbody><tr><td>Unit</td><td>A word with the right sounds</td><td>A person with the right initials</td></tr><tr><td>Strength</td><td>Easy to build from scratch, works in many languages</td><td>People are very memorable and carry an action</td></tr><tr><td>Cost</td><td>Words can be flat</td><td>You must build and learn a list of 100 people</td></tr><tr><td>Best for</td><td>Starting out; other languages</td><td>Four or more digits, long numbers</td></tr></tbody></table></div><div class="sticky r">person from the first pair.<br>action from the second.<br>four digits, one picture.</div><div class="talk"><b class="t">Say it aloud.</b> Say aloud: 'Al Oerter directing', and explain which two pairs of digits it holds.</div></section></div><div class="tab-content" id="tab2"><section class="page"><div class="pgno">8</div><h2>Now you build</h2><p>Have a go before you open any answer. A rough attempt teaches you more than a perfect model you only read.</p><div class="ex"><h4>The letter code</h4><div class="gaprow">1 = A, 2 = B, 3 = <input type="text" class="gapin" id="x1" data-ans="c" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x1"></span>, 4 = D, 5 = E.</div><div class="gaprow">6 = S, 7 = <input type="text" class="gapin" id="x2" data-ans="g" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x2"></span>, 8 = H, 9 = <input type="text" class="gapin" id="x3" data-ans="n" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="answer"><span class="gapans" data-for="x3"></span>, 0 = O.</div><button class="btn primary" data-act="gap">Check</button><div class="fb"></div></div><div class="ex"><h4>Pair to initials</h4><div class="prompt">Match each pair of digits to its initials.</div><div class="match-row"><span class="txt">15</span><select data-ans="A E" aria-label="match"><option value="">choose…</option><option value="A E">A E</option><option value="B G">B G</option><option value="C S">C S</option><option value="N A">N A</option><option value="S H">S H</option></select></div><div class="match-row"><span class="txt">27</span><select data-ans="B G" aria-label="match"><option value="">choose…</option><option value="A E">A E</option><option value="B G">B G</option><option value="C S">C S</option><option value="N A">N A</option><option value="S H">S H</option></select></div><div class="match-row"><span class="txt">68</span><select data-ans="S H" aria-label="match"><option value="">choose…</option><option value="A E">A E</option><option value="B G">B G</option><option value="C S">C S</option><option value="N A">N A</option><option value="S H">S H</option></select></div><div class="match-row"><span class="txt">36</span><select data-ans="C S" aria-label="match"><option value="">choose…</option><option value="A E">A E</option><option value="B G">B G</option><option value="C S">C S</option><option value="N A">N A</option><option value="S H">S H</option></select></div><div class="match-row"><span class="txt">91</span><select data-ans="N A" aria-label="match"><option value="">choose…</option><option value="A E">A E</option><option value="B G">B G</option><option value="C S">C S</option><option value="N A">N A</option><option value="S H">S H</option></select></div><button class="btn primary" data-act="match">Check</button><div class="fb"></div></div><div class="ex"><h4>Encode 1776</h4><div class="prompt">Split <b>1776</b> into 17 and 76. 17 is A. G. (for example Al Gore). 76 is G. S. (for example Gene Simmons of the band Kiss, sticking out his tongue). Write the scene: the <b>person</b> of 17 doing the <b>action</b> of 76 at the signing of the Declaration of Independence.</div><textarea rows="3" placeholder="Write it here…" data-save="n1776"></textarea><div class="checks"><label><input type="checkbox"> I used the person of the first pair.</label><label><input type="checkbox"> I used the action of the second pair.</label><label><input type="checkbox"> I put it in a scene about the event.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">Al Gore is at the signing of the Declaration of Independence in 1776, sticking out his tongue at the delegates while they sign. The quills scratch and a drum rolls.</div></div><div class="ex"><h4>Encode 1945</h4><div class="prompt">1945: 19 = A. N. (for example Alfred Nobel), 45 = E. D. (for example Emily Dickinson, writing a poem). Make a scene for the end of the Second World War.</div><textarea rows="3" placeholder="Write it here…" data-save="n1945"></textarea><div class="checks"><label><input type="checkbox"> Person from 19; action from 45.</label><label><input type="checkbox"> It is connected to the event.</label><label><input type="checkbox"> It is vivid.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">Alfred Nobel is sitting in the ruins of a city writing a poem about peace on a piece of paper that is also a white flag. People are cheering.</div></div><div class="ex"><h4>Choose your own</h4><div class="prompt">Pick a pair you have not seen yet (for example 29 or 55 or 99). Write the initials, find a famous person and give them one clear action. If you cannot think of anyone, use someone from your own life.</div><textarea rows="3" placeholder="Write it here…" data-save="own"></textarea><div class="checks"><label><input type="checkbox"> The initials match the digits.</label><label><input type="checkbox"> I can see the person.</label><label><input type="checkbox"> They have one clear action.</label></div><div class="fb"></div><button class="reveal-btn">See a model</button><div class="reveal">There is no single answer. For example, 55 = E. E.: Emma ..., or a friend. The test is whether you can see them doing something.</div></div><div class="ex" data-why="Person of the first pair, action of the second: the person of 43 (D. C.) doing the action of 21 (B. A.)."><div class="prompt"><b>For the number 4321, which person and action do you use?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Person of 43, action of 21</button><button class="mc-opt" data-act="mc" data-ok="0">Person of 21, action of 43</button><button class="mc-opt" data-act="mc" data-ok="0">Person and action both of 43</button><div class="fb"></div></div><div class="ex"><h4>Say it aloud</h4><div class="prompt">Say your own 1776 and 1945 scenes aloud. Then say which digits each person and each action stands for.</div><div class="timer-box" data-secs="60"><span class="timer">1:00</span><button class="btn" data-act="timer">Start talking</button><button class="btn" data-act="timer-reset">Reset</button> <span class="savednote timer-msg"></span></div></div></section></div><div class="tab-content" id="tab3"><section class="page"><div class="pgno">8</div><h2>Drill</h2><h3>Flash cards</h3><p>Say the answer first, then tap the card.</p><div class="card-deck" data-i="0" data-cards="[[&quot;1&quot;, &quot;A&quot;], [&quot;2&quot;, &quot;B&quot;], [&quot;3&quot;, &quot;C&quot;], [&quot;4&quot;, &quot;D&quot;], [&quot;5&quot;, &quot;E&quot;], [&quot;6&quot;, &quot;S&quot;], [&quot;7&quot;, &quot;G&quot;], [&quot;8&quot;, &quot;H&quot;], [&quot;9&quot;, &quot;N&quot;], [&quot;0&quot;, &quot;O&quot;], [&quot;13&quot;, &quot;Al Capone (A. C.), counting money&quot;], [&quot;15&quot;, &quot;Albert Einstein (A. E.), writing on a blackboard&quot;], [&quot;66&quot;, &quot;Steven Spielberg (S. S.), directing a film&quot;], [&quot;91&quot;, &quot;Neil Armstrong (N. A.), walking on the moon&quot;]]"><div class="fcard" tabindex="0" role="button" aria-label="Flip the card"><div class="front"></div><div class="back"></div><div class="tap">tap to turn over</div></div><div class="deck-ctl"><button class="btn" data-act="prev">&larr;</button><span class="cnt"></span><button class="btn" data-act="next">&rarr;</button><button class="btn" data-act="shuffle">Shuffle</button></div></div><h3>Quick quiz</h3><div class="ex" data-why="9 is N."><div class="prompt"><b>What letter is 9?</b></div><button class="mc-opt" data-act="mc" data-ok="0">G</button><button class="mc-opt" data-act="mc" data-ok="1">N</button><button class="mc-opt" data-act="mc" data-ok="0">I</button><div class="fb"></div></div><div class="ex" data-why="The person of the first pair, the action of the second."><div class="prompt"><b>In the Dominic System, four digits are held by...</b></div><button class="mc-opt" data-act="mc" data-ok="0">Two people</button><button class="mc-opt" data-act="mc" data-ok="1">One person plus another's action</button><button class="mc-opt" data-act="mc" data-ok="0">One word</button><div class="fb"></div></div><div class="ex" data-why="1 = A and 5 = E: Albert Einstein."><div class="prompt"><b>Who is 15 in the starter list?</b></div><button class="mc-opt" data-act="mc" data-ok="1">Albert Einstein</button><button class="mc-opt" data-act="mc" data-ok="0">Bill Gates</button><button class="mc-opt" data-act="mc" data-ok="0">Neil Armstrong</button><div class="fb"></div></div><div class="ex" data-why="A pair gives two initials, the person&#x27;s first and last name."><div class="prompt"><b>Which has more initials to match?</b></div><button class="mc-opt" data-act="mc" data-ok="1">A pair of digits</button><button class="mc-opt" data-act="mc" data-ok="0">A single digit</button><button class="mc-opt" data-act="mc" data-ok="0">A word</button><div class="fb"></div></div><h3>The memory challenge</h3><div class="recall" data-items="[&quot;Al Oerter&quot;, &quot;Alec Baldwin&quot;, &quot;Al Capone&quot;, &quot;Albert Einstein&quot;, &quot;Arnold Schwarzenegger&quot;, &quot;Al Gore&quot;, &quot;Alfred Hitchcock&quot;]" data-secs="90" data-ordered="1"><h4>Memory challenge: seven people</h4><div class="stage on" data-stage="start"><p>These seven people stand for the pairs 10, 12, 13, 15, 16, 17 and 18. Learn them in order. Say the pair and the initials as you see each person.</p><button class="btn primary" data-act="rc-start">Start: 90 seconds to study</button></div><div class="stage" data-stage="study"><p>Place each person in a place along your palace route, doing their action.</p><div class="timer-box"><span class="timer">0:00</span><button class="btn" data-act="rc-ready">I’m ready</button></div><div class="items"></div></div><div class="stage" data-stage="recall"><p>The list has gone. Type what you remember, one item per line.</p><textarea rows="8" placeholder="One per line…"></textarea><button class="btn primary" data-act="rc-check">Check</button></div><div class="stage" data-stage="result"><div class="score"></div><div class="res"></div><button class="btn" data-act="rc-again">Try again</button></div></div></section></div><div class="tab-content" id="tab4"><section class="page"><div class="pgno">8</div><h2>Look back</h2><p>These reach back to earlier rooms. Answer in your head or out loud, then check.</p><div class="qa"><div class="q"><span class="red">Room 7 · The Major System.</span> What does the Major System code use to stand for digits?</div><button class="reveal-btn">Check</button><div class="reveal">Consonant sounds, one for each digit. Vowels are free.</div></div><div class="qa"><div class="q"><span class="red">Room 7 · The Major System.</span> What number is the word BIKE?</div><button class="reveal-btn">Check</button><div class="reveal">97: b is 9, k is 7.</div></div><div class="qa"><div class="q"><span class="red">Room 6 · Numbers Become Pictures.</span> Name the shape picture for 8 and the rhyme picture for 8.</div><button class="reveal-btn">Check</button><div class="reveal">Snowman and gate.</div></div><div class="qa"><div class="q"><span class="red">Room 5 · Links and Stories.</span> How can a story chain and a palace work together?</div><button class="reveal-btn">Check</button><div class="reveal">A short chain at each place: the palace holds the order, the chain the detail.</div></div><h3>What I can do now</h3><ul class="canlist"><li><label><input type="checkbox" data-save="can0"> <span>I can say the Dominic letter for each digit.</span></label></li><li><label><input type="checkbox" data-save="can1"> <span>I can turn a pair of digits into a person.</span></label></li><li><label><input type="checkbox" data-save="can2"> <span>I can encode a four-digit number as one person doing another person's action.</span></label></li></ul><h3>A thought to keep</h3><p>Which ten famous people could you use for the pairs from 10 to 19? Write down the first few that come to mind.</p><div class="ref"><textarea rows="3" data-save="reflect" placeholder="Your thoughts…"></textarea><div class="savednote">Saved on this device as you type.</div></div><p><button class="btn primary" data-act="done">Mark this room as done</button></p></section></div>
+  <div class="nav-end"><a href="lesson-07-major-system.html">&larr; The Major System</a><a href="art-of-memory.html">The whole house</a><a href="lesson-09-pao-system.html">Person, Action, Object &rarr;</a></div>
+  <footer>The Art of Memory · Room 8 · People With Numbers</footer>
+</div>
+<script>
+(function () {
+  var store = null;
+  try { var t = '__aom'; window.localStorage.setItem(t, t); window.localStorage.removeItem(t); store = window.localStorage; } catch (e) { store = null; }
+  function sget(k) { try { return store ? store.getItem(k) : null; } catch (e) { return null; } }
+  function sset(k, v) { try { if (store) store.setItem(k, v); } catch (e) {} }
+  var LESSON = document.body.getAttribute('data-lesson') || 'x';
+
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9À-ſ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  /* ---------- tabs ---------- */
+  window.showTab = function (i, noScroll) {
+    var panels = $all('.tab-content'), btns = $all('.tab-btn');
+    panels.forEach(function (p, k) { p.classList.toggle('active', k === i); });
+    btns.forEach(function (b, k) { b.classList.toggle('active', k === i); b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (!noScroll) { var nav = $('.tab-nav'); if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    sset('aom_tab_' + LESSON, String(i));
+  };
+
+  /* ---------- timers ---------- */
+  var timers = [];
+  function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+  function runTimer(box, secs, onTick, onEnd) {
+    var disp = $('.timer', box), left = secs, id;
+    if (box._id) clearInterval(box._id);
+    function paint() {
+      disp.textContent = fmt(left);
+      disp.classList.toggle('warn', left <= Math.max(10, secs * 0.25) && left > Math.max(5, secs * 0.1));
+      disp.classList.toggle('low', left <= Math.max(5, secs * 0.1));
+      if (onTick) onTick(left);
+    }
+    paint();
+    id = setInterval(function () {
+      left -= 1; paint();
+      if (left <= 0) { clearInterval(id); box._id = null; disp.classList.remove('warn'); if (onEnd) onEnd(); }
+    }, 1000);
+    box._id = id;
+    timers.push(id);
+  }
+
+  /* ---------- generic click handling ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var btn = t.closest ? t.closest('button, .fcard, a') : null;
+    if (!btn) return;
+
+    if (btn.classList.contains('reveal-btn')) {
+      var r = btn.nextElementSibling;
+      if (r) { r.classList.toggle('show'); }
+      return;
+    }
+    if (btn.classList.contains('w')) { btn.parentElement.classList.toggle('open'); return; }
+
+    var act = btn.getAttribute('data-act');
+    if (!act) return;
+    var ex = btn.closest('.ex, .recall, .card-deck') || document;
+
+    if (act === 'gap') {
+      var ok = 0, all = $all('.gapin', ex);
+      all.forEach(function (inp) {
+        var accepted = (inp.getAttribute('data-ans') || '').split('|').map(norm);
+        var v = norm(inp.value);
+        var good = v && accepted.indexOf(v) > -1;
+        inp.classList.toggle('ok', !!good); inp.classList.toggle('no', !good);
+        var note = inp.parentElement.querySelector('.gapans[data-for="' + inp.id + '"]');
+        if (note) { note.textContent = good ? '' : '→ ' + inp.getAttribute('data-ans').split('|')[0]; }
+        if (good) ok++;
+      });
+      var fb = $('.fb', ex);
+      fb.className = 'fb ' + (ok === all.length ? 'ok' : 'no');
+      fb.textContent = ok === all.length ? 'All ' + all.length + ' correct.' : ok + ' of ' + all.length + ' correct. The answers you missed are shown in red; fix them, then check again.';
+      return;
+    }
+    if (act === 'mc') {
+      var q = btn.closest('.ex');
+      var good = btn.getAttribute('data-ok') === '1';
+      var fb2 = $('.fb', q);
+      $all('.mc-opt', q).forEach(function (o) { if (o !== btn && !o.classList.contains('ok')) { o.classList.remove('no'); } });
+      btn.classList.add(good ? 'ok' : 'no');
+      fb2.className = 'fb ' + (good ? 'ok' : 'no');
+      fb2.innerHTML = good ? (q.getAttribute('data-why') || 'Correct.') : (btn.getAttribute('data-hint') || 'Not quite. Think again and try another answer.');
+      return;
+    }
+    if (act === 'match') {
+      var okm = 0, rows = $all('.match-row', ex);
+      rows.forEach(function (row) {
+        var sel = $('select', row), good = sel.value === sel.getAttribute('data-ans');
+        row.classList.toggle('ok', good); row.classList.toggle('no', !good && sel.value !== '');
+        if (good) okm++;
+      });
+      var fb3 = $('.fb', ex);
+      fb3.className = 'fb ' + (okm === rows.length ? 'ok' : 'no');
+      fb3.textContent = okm === rows.length ? 'All ' + rows.length + ' matched.' : okm + ' of ' + rows.length + ' matched. Change the red ones and check again.';
+      return;
+    }
+    if (act === 'timer') {
+      var box = btn.closest('.timer-box'), secs = parseInt(box.getAttribute('data-secs'), 10) || 60;
+      var msg = $('.timer-msg', box);
+      if (msg) msg.textContent = '';
+      runTimer(box, secs, null, function () { if (msg) msg.textContent = 'Time is up.'; });
+      return;
+    }
+    if (act === 'timer-reset') {
+      var b2 = btn.closest('.timer-box'); if (b2._id) clearInterval(b2._id);
+      $('.timer', b2).textContent = fmt(parseInt(b2.getAttribute('data-secs'), 10) || 60);
+      $('.timer', b2).className = 'timer';
+      return;
+    }
+    if (act === 'flip') { return; }
+    if (act === 'next' || act === 'prev' || act === 'shuffle') {
+      var deck = btn.closest('.card-deck');
+      var cards = JSON.parse(deck.getAttribute('data-cards'));
+      var i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+      if (act === 'shuffle') { cards.sort(function () { return Math.random() - 0.5; }); deck.setAttribute('data-cards', JSON.stringify(cards)); i = 0; }
+      else if (act === 'next') i = (i + 1) % cards.length; else i = (i - 1 + cards.length) % cards.length;
+      deck.setAttribute('data-i', i); paintCard(deck); return;
+    }
+    if (act === 'rc-start') { startRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-ready') { endStudy(btn.closest('.recall')); return; }
+    if (act === 'rc-check') { checkRecall(btn.closest('.recall')); return; }
+    if (act === 'rc-again') { resetRecall(btn.closest('.recall')); return; }
+    if (act === 'done') {
+      sset('aom_done_' + LESSON, '1');
+      btn.textContent = 'Marked as done ✓';
+      return;
+    }
+  });
+
+  /* flash cards */
+  function paintCard(deck) {
+    var cards = JSON.parse(deck.getAttribute('data-cards')), i = parseInt(deck.getAttribute('data-i'), 10) || 0;
+    var c = cards[i], el = $('.fcard', deck);
+    el.classList.remove('flip');
+    $('.front', el).innerHTML = c[0]; $('.back', el).innerHTML = c[1];
+    $('.cnt', deck).textContent = (i + 1) + ' of ' + cards.length;
+  }
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest ? e.target.closest('.fcard') : null;
+    if (f) f.classList.toggle('flip');
+  });
+  $all('.card-deck').forEach(paintCard);
+
+  /* memory challenge */
+  function stage(rc, name) { $all('.stage', rc).forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-stage') === name); }); }
+  function startRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var wrap = $('.items', rc); wrap.className = 'items' + (ordered ? ' ordered' : '');
+    wrap.innerHTML = '';
+    items.forEach(function (it) { var s = document.createElement('span'); s.textContent = it.split('|')[0]; wrap.appendChild(s); });
+    stage(rc, 'study');
+    var box = $('.timer-box', rc), secs = parseInt(rc.getAttribute('data-secs'), 10) || 60;
+    box.setAttribute('data-secs', secs);
+    runTimer(box, secs, null, function () { endStudy(rc); });
+  }
+  function endStudy(rc) {
+    var box = $('.timer-box', rc); if (box._id) { clearInterval(box._id); box._id = null; }
+    $('.items', rc).innerHTML = '';
+    stage(rc, 'recall');
+    var ta = $('textarea', rc); ta.value = ''; ta.focus();
+  }
+  function checkRecall(rc) {
+    var items = JSON.parse(rc.getAttribute('data-items')), ordered = rc.getAttribute('data-ordered') === '1';
+    var raw = $('textarea', rc).value, text = norm(raw);
+    var lines = raw.split(/\n+/).map(norm).filter(Boolean);
+    var res = $('.res', rc), got = 0; res.innerHTML = '';
+    items.forEach(function (it, i) {
+      var alts = it.split('|').map(norm), good = false;
+      if (ordered) {
+        var ln = lines[i] || '';
+        good = alts.some(function (a) { return ln && (ln.indexOf(a) > -1 || (ln.length >= 4 && a.indexOf(ln) > -1)); });
+      } else {
+        var padded = ' ' + text + ' ';
+        good = alts.some(function (a) { return padded.indexOf(' ' + a + ' ') > -1 || padded.indexOf(a) > -1; });
+      }
+      if (good) got++;
+      var d = document.createElement('div'); d.className = good ? 'ok' : 'no';
+      d.textContent = (ordered ? (i + 1) + '. ' : '') + it.split('|')[0] + (good ? '  ✓' : '  ✗');
+      res.appendChild(d);
+    });
+    $('.score', rc).textContent = got + ' of ' + items.length + ' recalled';
+    stage(rc, 'result');
+  }
+  function resetRecall(rc) { stage(rc, 'start'); }
+
+  /* build-it self checks */
+  document.addEventListener('change', function (e) {
+    var cb = e.target;
+    if (cb.type === 'checkbox' && cb.closest('.checks')) {
+      var box = cb.closest('.ex'), all = $all('.checks input', box), done = all.every(function (c) { return c.checked; });
+      var fb = $('.fb', box);
+      if (fb) { fb.className = done ? 'fb ok' : 'fb'; if (done) fb.textContent = 'Every box ticked: each of those is a reason the picture will still be there tomorrow.'; }
+    }
+    if (cb.type === 'checkbox' && cb.hasAttribute('data-save')) { sset('aom_' + LESSON + '_' + cb.getAttribute('data-save'), cb.checked ? '1' : '0'); }
+  });
+
+  /* saved text / ticks */
+  $all('textarea[data-save]').forEach(function (ta) {
+    var k = 'aom_' + LESSON + '_' + ta.getAttribute('data-save'), v = sget(k);
+    if (v) ta.value = v;
+    ta.addEventListener('input', function () { sset(k, ta.value); });
+  });
+  $all('input[type=checkbox][data-save]').forEach(function (cb) {
+    if (sget('aom_' + LESSON + '_' + cb.getAttribute('data-save')) === '1') cb.checked = true;
+  });
+  if (sget('aom_done_' + LESSON) === '1') { var d = $('[data-act=done]'); if (d) d.textContent = 'Marked as done ✓'; }
+
+  /* hub progress */
+  $all('[data-room]').forEach(function (el) {
+    if (sget('aom_done_' + el.getAttribute('data-room')) === '1') el.classList.add('done');
+  });
+  /* open on a remembered tab only when asked by hash */
+  var tabNames = ['story', 'method', 'try', 'drill', 'back'];
+  var h = (location.hash || '').replace('#', ''), hi = tabNames.indexOf(h);
+  if ($('.tab-nav')) showTab(hi > -1 ? hi : 0, true);
+})();
+</script>
 </body>
 </html>
