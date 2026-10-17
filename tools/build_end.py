@@ -258,6 +258,10 @@ def check(d):
     assert vb["heading"].startswith(("B · Which term means", "B · Which word matches")), f'{d["slug"]}: vocab B must be "Which term means…?" with the terms listed'
     assert vb["intro"].count("·") >= 2, f'{d["slug"]}: vocab B intro must list the three terms (a · b · c)'
     assert all("<b>" in it["sent"] for it in vb["items"]), f'{d["slug"]}: vocab B questions must quote a definition in bold'
+    answers = [re.search(r"<b>(.*?)</b>", it["meaning"]).group(1).lower() for it in vb["items"]]
+    listed = [t.strip().lower() for t in vb["intro"].split(":", 1)[1].split(".")[0].split("·")]
+    assert sorted(answers) == sorted(listed), f'{d["slug"]}: vocab B intro terms must match the answers {answers}'
+    assert not any(a == l for a, l in zip(answers, listed)), f'{d["slug"]}: vocab B terms are listed in the same order as the answers - shuffle the intro list'
     assert vc["heading"].startswith("C · Which word completes all three phrases"), f'{d["slug"]}: vocab C must be the collocation gap-fill'
     assert all(it["sent"].count("___") == 3 for it in vc["items"]), f'{d["slug"]}: each vocab C item needs three phrases with ___'
     assert "Which expression fits" not in json.dumps(d), f'{d["slug"]}: vague "Which expression fits" activity is banned'
