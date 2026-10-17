@@ -44,7 +44,7 @@ def practice_tab(pr):
         f'<h3>{E(g["title"])}</h3><p class="pr-intro">{g["intro"]}</p><ol class="pr-q">' + "".join(f"<li>{q}</li>" for q in g["questions"]) + "</ol>"
         for g in pr["groups"])
     models = "".join(
-        f'<details class="pr-model"><summary>{m["q"]}</summary><p><strong>Point:</strong> {m["point"]}</p><p><strong>Reason:</strong> {m["reason"]}</p><p><strong>Stop:</strong> {m["stop"]}</p></details>'
+        f'<details class="pr-model"><summary>{m["q"]}</summary>' + "".join(f"<p><strong>{a}:</strong> {b}</p>" for a, b in (m["parts"] if "parts" in m else [("Point", m["point"]), ("Reason", m["reason"]), ("Stop", m["stop"])])) + '</details>'
         for m in pr["models"])
     steps = "".join(f"<li>{x}</li>" for x in pr["steps"])
     harder = "".join(f"<li>{x}</li>" for x in pr["harder"])
@@ -59,10 +59,10 @@ def practice_tab(pr):
             <h2>Practice</h2>
             <p>{pr["intro"]}</p>
             <div class="note"><strong>Each time:</strong><ol style="margin:8px 0 0 22px">{steps}</ol></div>
-            <h2>The questions</h2>
+            <h2>{pr.get("questions_title","The questions")}</h2>
             {groups}
             <h2>How it sounds</h2>
-            <p>Six examples of the shape. Try the question first, then open the answer.</p>
+            <p>{pr.get("models_intro","Six examples of the shape. Try the question first, then open the answer.")}</p>
             {models}
             <h2>Make it harder</h2>
             <ul style="margin:6px 0 0 22px">{harder}</ul>
