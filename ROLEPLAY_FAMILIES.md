@@ -2,7 +2,7 @@
 
 Most everyday conversations follow one of six shapes. Each roleplay belongs to one family, so the toolkit, shape strip and Your Turn scenes can be planned once per family and reused. The shape is a **map, not a script**: real conversations skip steps, repeat them and branch. Students see it as "the shape of this conversation" on the Useful Phrases tab.
 
-**Status:** all 40 B2/C1 lessons (`rp_01`–`rp_40`) are rebuilt with the new Useful Phrases and Your Turn panels. The A2/B1 twins (`*_a2b1.html`), Modern Life (`ml_*`) and English at Work (`wk_*`) lessons are not rebuilt.
+**Status:** all 40 B2/C1 lessons (`rp_01`–`rp_40`) are rebuilt with the new Useful Phrases and Your Turn panels. All 30 A2/B1 twins (`rp_01_*_a2b1.html` … `rp_30_*_a2b1.html`) are rebuilt too, in the simpler A2/B1 form (see below). Modern Life (`ml_*`) and English at Work (`wk_*`) lessons are not rebuilt.
 
 ## The six families
 
@@ -50,6 +50,16 @@ Tab order: **Scene → Useful Phrases → Conversation → Your Turn → Echo**.
 
 ## Known issues
 
-- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one, so all 40 B2/C1 lessons now have a working timer. The A2/B1 twins probably still lack it.
+- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one, so all 40 B2/C1 lessons and all 30 A2/B1 twins now have a working timer.
 - The toolkit phrases, role cards, twists and teacher-sheet "secrets" in `cfg_f*.py` were written by Claude and have not been read through by a teacher. Skim each lesson before using it.
-- A2/B1 twins (`*_a2b1.html`) are not rebuilt yet. They would need shorter toolkits, simpler role cards and sentence frames.
+- The A2/B1 phrases, role cards, twists and teacher-sheet notes were also written by Claude and not yet read through by a teacher. Skim before use.
+
+## A2/B1 twins
+
+The 30 twins follow the same six families (rp_NN number = same family as its B2/C1 lesson; there are no twins for rp_31–rp_40). Same tab order and structure, but simpler:
+
+- Useful Phrases: 4 moves x 2 short phrases (the twin's original 8 phrases, lightly tidied), 4 phrases for the other person, 3 "when something changes" phrases, a 4-phrase repair set (`REPAIR_A2` in `cfg_a2_util.py`), a speed round of 7 cards and the Cover-the-toolkit button.
+- Your Turn: the spoken warm-up gives a sentence frame per move (e.g. "Can I have ___, please?"), 3 scenes plus "My own", a 3/5-minute timer, 5 easy twists, swap seats, 3-4 ticks and a Go-again step.
+- Teacher sheets are written to `teacher/rp_NN_*_a2b1.html` and are not linked from the student page.
+
+Build: add or edit the lesson in `tools/roleplay_live/cfg_a2_f1.py` … `cfg_a2_f6.py` (helpers in `cfg_a2_util.py`, collected by `configs_a2.py`), then run `python3 tools/roleplay_live/build_a2.py rp_NN` (or `all`). It reuses the CSS, JS and panel-splitting of `build.py`, never touches the Scene, Conversation and Echo panels, and is idempotent.
