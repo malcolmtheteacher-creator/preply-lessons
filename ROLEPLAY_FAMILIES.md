@@ -50,5 +50,5 @@ Tab order: **Scene → Useful Phrases → Conversation → Your Turn → Echo**.
 
 ## Known issues
 
-- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one. The 28 other lessons that still use the old panel have the same gap.
+- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one. `rp_02` had the same gap, so the other lessons built from that template probably do too (not checked one by one).
 - A2/B1 twins (`*_a2b1.html`) are not rebuilt yet. They would need shorter toolkits, simpler role cards and sentence frames.
