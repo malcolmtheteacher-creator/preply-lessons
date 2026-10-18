@@ -307,35 +307,34 @@ ul,ol{{margin:4px 0 4px 20px}}li{{margin:3px 0}}.small{{color:#6f685d;font-size:
 </body></html>
 '''
 
-def reorder_tabs(s):
-    """Phrases before conversation. No-op if already done."""
-    if re.search(r'showTab\(1\)">🧰', s):
-        return s
-    s = s.replace('<button class="tab-btn" onclick="showTab(1)">💬 The Conversation</button>\n        <button class="tab-btn" onclick="showTab(2)">🧰 Useful Phrases</button>',
-                  '<button class="tab-btn" onclick="showTab(1)">🧰 Useful Phrases</button>\n        <button class="tab-btn" onclick="showTab(2)">💬 The Conversation</button>')
-    a = s.index('    <!-- 💬 THE CONVERSATION -->')
-    b = s.index('    <!-- 🧰 USEFUL PHRASES -->')
-    cc = s.index('    <!-- 🎭 YOUR TURN -->')
-    s = s[:a] + s[b:cc] + s[a:b] + s[cc:]
-    s = s.replace('<div class="panel" id="p2">', '<div class="panel" id="pX">', 1).replace('<div class="panel" id="p1">', '<div class="panel" id="p2">', 1).replace('<div class="panel" id="pX">', '<div class="panel" id="p1">', 1)
-    return s
+def split_panels(s):
+    """Return (head, [panel blocks], tail). Panel marker comments are dropped."""
+    starts = [m.start() for m in re.finditer(r'[ \t]*<div class="panel[^"]*" id="p\d">', s)]
+    if '<footer' in s:
+        foot = s.rfind('\n', 0, s.index('<footer')) + 1
+    else:
+        foot = s.rfind('\n</div>', 0, s.index('<script>')) + 1
+    blocks = [s[starts[i]:(starts[i + 1] if i + 1 < len(starts) else foot)] for i in range(len(starts))]
+    blocks = [re.sub(r'(\n[ \t]*<!--[^\n]*-->[ \t]*)+\s*$', '\n', b) for b in blocks]
+    return s[:starts[0]], blocks, s[foot:]
 
-def swap_panel(s, marker_title, new_html):
-    """Replace the panel following the HTML comment `marker_title` up to the next comment."""
-    a = s.index(marker_title)
-    a = s.index('    <div class="panel"', a)
-    nxt = s.index('    <!-- ', a)
-    return s[:a] + new_html + '\n' + s[nxt:]
+def title_of(block):
+    return re.search(r'<h2>([A-Za-z ]+)', block).group(1).strip()
 
 def wire(path, c):
     s = open(path).read()
-    s = reorder_tabs(s)
-    s = swap_panel(s, '<!-- 🧰 USEFUL PHRASES -->', phrases_panel(c))
-    s = swap_panel(s, '<!-- 🎭 YOUR TURN -->', turn_panel(c))
-    # text tweaks (only if the original wording is still there)
+    head, blocks, tail = split_panels(s)
+    by = {title_of(b): b for b in blocks}
+    order = [by['The Scene'], phrases_panel(c), by['The Conversation'], turn_panel(c), by['The Echo']]
+    order = [re.sub(r'id="p\d"', 'id="p%d"' % i, o, count=1) for i, o in enumerate(order)]
+    order = [re.sub(r'class="panel( active)?"', 'class="panel active"' if i == 0 else 'class="panel"', o, count=1) for i, o in enumerate(order)]
+    s = head + '\n'.join(o.rstrip('\n') + '\n' for o in order) + '\n' + tail
+    s = re.sub(r'<button class="tab-btn[^"]*" onclick="showTab\(\d\)">[^<]*</button>\s*', '', s)
+    tabs = ['🎬 The Scene', '🧰 Useful Phrases', '💬 The Conversation', '🎭 Your Turn', '🕰️ The Echo']
+    btns = ''.join('        <button class="tab-btn%s" onclick="showTab(%d)">%s</button>\n' % (' active' if i == 0 else '', i, t) for i, t in enumerate(tabs))
+    s = s.replace('<div class="tabs">\n', '<div class="tabs">\n' + btns, 1)
     s = re.sub(r'<b>First:</b> read the conversation in the next tab\.', "<b>Next:</b> pick up the phrases you'll need in the next tab, then watch them at work in a real conversation.", s)
     s = s.replace('Read it out loud, one role each — then swap. ', 'Read it out loud, one role each, then swap. Spot as many phrases from your toolkit as you can. ')
-    # replace previously injected css/js
     s = re.sub(re.escape(CSS_START) + r'.*?' + re.escape(CSS_END) + r'\n?', '', s, flags=re.S)
     s = re.sub(re.escape(JS_START) + r'.*?' + re.escape(JS_END) + r'\n?', '', s, flags=re.S)
     s = s.replace('</style>', CSS_START + CSS + CSS_END + '\n</style>', 1)

@@ -2,7 +2,7 @@
 
 Most everyday conversations follow one of six shapes. Each roleplay belongs to one family, so the toolkit, shape strip and Your Turn scenes can be planned once per family and reused. The shape is a **map, not a script**: real conversations skip steps, repeat them and branch. Students see it as "the shape of this conversation" on the Useful Phrases tab.
 
-**Piloted so far:** `rp_09` (family 2) and `rp_02` (family 1). Everything below the pilots is proposed and not built.
+**Status:** all 40 B2/C1 lessons (`rp_01`–`rp_40`) are rebuilt with the new Useful Phrases and Your Turn panels. The A2/B1 twins (`*_a2b1.html`), Modern Life (`ml_*`) and English at Work (`wk_*`) lessons are not rebuilt.
 
 ## The six families
 
@@ -43,12 +43,13 @@ Tab order: **Scene → Useful Phrases → Conversation → Your Turn → Echo**.
 
 ## Building a lesson
 
-1. Add an entry to `tools/roleplay_live/configs.py` (copy `rp_09` or `rp_02`).
+1. Add an entry to the family file (`tools/roleplay_live/cfg_f1.py` … `cfg_f6.py`), using the helpers in `cfg_util.py`. `configs.py` holds the two hand-written pilots (`rp_09`, `rp_02`).
 2. Run `python3 tools/roleplay_live/build.py rp_NN`.
 3. It rewrites the Useful Phrases and Your Turn panels, reorders the tabs, injects the CSS and JS once (between `RPLIVE` markers, so re-running is safe), and writes the teacher sheet.
 4. The Scene, Conversation and Echo panels are never touched.
 
 ## Known issues
 
-- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one. `rp_02` had the same gap, so the other lessons built from that template probably do too (not checked one by one).
+- The original series template defined timer JavaScript but had no timer on the page. The rebuilt Your Turn panel includes one, so all 40 B2/C1 lessons now have a working timer. The A2/B1 twins probably still lack it.
+- The toolkit phrases, role cards, twists and teacher-sheet "secrets" in `cfg_f*.py` were written by Claude and have not been read through by a teacher. Skim each lesson before using it.
 - A2/B1 twins (`*_a2b1.html`) are not rebuilt yet. They would need shorter toolkits, simpler role cards and sentence frames.

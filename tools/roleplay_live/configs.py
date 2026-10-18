@@ -2,14 +2,7 @@
 which go to the separate teacher sheet."""
 
 # Shared by every roleplay: the repair set students can use in any conversation.
-REPAIR = [
-    "Sorry, I didn't quite catch that. Could you say it again?",
-    "Do you mean…?",
-    "Just so I've got this right, you're saying…",
-    "Could you go a bit slower, please?",
-    "Give me a second to think.",
-    "How do you say that in English? I mean…",
-]
+from configs_repair import REPAIR  # noqa: E402,F401
 
 CONFIGS = {}
 
@@ -229,3 +222,11 @@ CONFIGS['rp_02'] = {
         ('Their own situation', 'agree the details together in 30 seconds, then use the three moves.'),
     ],
 }
+
+
+for _m in ('cfg_f1', 'cfg_f2', 'cfg_f3', 'cfg_f4', 'cfg_f5', 'cfg_f6'):
+    try:
+        __import__(_m).register(CONFIGS)
+    except ImportError as _e:
+        if _m not in str(_e):
+            raise
