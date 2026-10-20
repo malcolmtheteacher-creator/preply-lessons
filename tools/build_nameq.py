@@ -340,6 +340,12 @@ header.slim .subtitle{font-size:1rem;max-width:760px}
 .lessoncta i{display:block;font-style:normal;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
 .lessoncta b{font-family:Georgia,serif;font-size:1.3rem}
 .lessoncta em{font-style:normal;background:#fff;color:#23233a;font-weight:700;padding:8px 18px;border-radius:18px}
+.map-frame #mapframe,.map-frame .painted{position:relative}
+.map-frame .painted img{display:block;width:100%;height:auto;border-radius:10px}
+.hot{position:absolute;display:block;border-radius:14px;transition:background .15s,box-shadow .15s}
+.hot.circ{border-radius:50%}
+.hot:hover,.hot:focus-visible{background:rgba(255,255,255,.28);box-shadow:0 0 0 3px rgba(15,118,110,.85);outline:none}
+.mapnote{text-align:center;font-size:.9rem;color:#55556a;margin:-2px 0 24px}
 .cta{text-align:center;margin:6px 0 30px}
 .cta a.b{display:inline-block;text-decoration:none;font-size:1rem;padding:12px 26px}
 .how-steps{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
@@ -430,6 +436,49 @@ def lessons_row(d):
                    % (esc(l["href"]), colors[l["kind"]], l["num"], esc(l["title"])) for l in d["lessons"])
 
 
+HOTSPOTS = os.path.join(HERE, "nameq_content", "map_hotspots.json")
+
+
+def legend_html():
+    return ('<div class="legend"><span><i class="chip tool"></i> a thinking tool</span>'
+            '<span><i class="chip case"></i> a real case to practise on</span>'
+            '<span><i class="chip say"></i> a lesson on saying it</span></div>')
+
+
+def map_block(d):
+    """The painted map with click areas laid over it. Falls back to the code-drawn map if the picture is missing."""
+    svg = build_map(d)
+    if not os.path.exists(HOTSPOTS):
+        return svg + legend_html()
+    hs = json.load(open(HOTSPOTS, encoding="utf8"))
+    if not os.path.exists(os.path.join(ROOT, hs["image"])):
+        return svg + legend_html()
+    W_, H_ = hs["width"], hs["height"]
+    boxes = hs["boxes"]
+
+    def area(key, href, label, cls=""):
+        x0, y0, x1, y1 = boxes[key]
+        return ('<a class="hot%s" href="%s" aria-label="%s" title="%s" style="left:%.2f%%;top:%.2f%%;width:%.2f%%;height:%.2f%%"></a>'
+                % (cls, esc(href), esc(label), esc(label), x0 / W_ * 100, y0 / H_ * 100,
+                   (x1 - x0) / W_ * 100, (y1 - y0) / H_ * 100))
+
+    spots = []
+    for b in d["branches"]:
+        spots.append(area("branch:" + b["id"], b["page"], b["cue"] + " \u2014 open this kind of question", " circ"))
+        for i, l in enumerate(b["leaves"]):
+            spots.append(area("leaf:%s:%d" % (b["id"], i), l["href"], "%s \u2014 %s" % (l["name"], l["desc"])))
+    for i, x in enumerate(d["delivery"]):
+        spots.append(area("step:%d" % i, x["href"], "%s \u2014 %s" % (x["name"], x["desc"])))
+    fallback = ("var f=document.getElementById('mapframe');"
+                "f.innerHTML=document.getElementById('mapsvg').innerHTML;")
+    return (
+        '<div id="mapframe" class="painted"><img src="%s" width="%d" height="%d" alt="%s" onerror="%s">%s</div>'
+        '<template id="mapsvg">%s%s</template>'
+        '<p class="mapnote">Click a circle, or any label, to open it.</p>'
+        % (esc(hs["image"]), W_, H_, esc(hs["alt"]), fallback, "".join(spots), svg, legend_html())
+    )
+
+
 def dashboard(d):
     head = ('<header class="slim"><div class="tag">%s</div><h1>%s</h1><p class="subtitle">%s</p></header>'
             % (esc(d["tag"]), esc(d["title"]), esc(d["subtitle"])))
@@ -437,16 +486,12 @@ def dashboard(d):
                     % (s["n"], esc(s["t"]), esc(s["d"])) for s in d["steps"])
     body = (
         '<div class="wide"><div class="map"><div class="map-scroll"><div class="map-frame">%s</div></div></div></div>'
-        '<div class="legend"><span><i class="chip tool"></i> a thinking tool</span>'
-        '<span><i class="chip case"></i> a real case to practise on</span>'
-        '<span><i class="chip say"></i> a lesson on saying it</span>'
-        '<span>Click a circle to open that kind of question</span></div>'
         '<div class="intro">%s</div>'
         '<section class="how"><div class="how-steps">%s</div></section>'
         '<div class="section-label">%s</div><div class="lessons">%s</div>'
         '<div class="cta"><a class="b" href="%s">Take the quick test: which kind of question is it? \u2192</a></div>'
         '<div class="section-label">Go further</div><div class="further">%s</div>'
-        % (build_map(d), "".join("<p>%s</p>" % p for p in d["intro"]), steps, esc(d["lessons_heading"]), lessons_row(d), esc(d["quiz"]["page"]),
+        % (map_block(d), "".join("<p>%s</p>" % p for p in d["intro"]), steps, esc(d["lessons_heading"]), lessons_row(d), esc(d["quiz"]["page"]),
            "".join('<a href="%s"><b>%s</b><span>%s</span></a>' % (esc(f["href"]), esc(f["name"]), esc(f["desc"]))
                    for f in d["further"]))
     )
