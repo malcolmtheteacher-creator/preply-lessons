@@ -216,6 +216,10 @@ def dashboard(lessons):
 .who h2 {{ font-size:1.1rem; color:#1b3a6b; margin-bottom:6px; }}
 .who p {{ color:#3a3a4a; line-height:1.7; margin:0; }}
 .flow .arrow {{ align-self:center; color:#1e4e8c; font-size:1.4rem; }}
+.nq-cta {{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; background:linear-gradient(135deg,#1e4e8c,#12284a); color:white; border-radius:14px; padding:20px 26px; margin-bottom:26px; text-decoration:none; }}
+.nq-cta b {{ font-size:1.2rem; display:block; margin-bottom:2px; }}
+.nq-cta span:first-child {{ flex:1 1 420px; line-height:1.5; }}
+.nq-cta .nq-go {{ background:white; color:#1b3a6b; font-weight:700; padding:8px 18px; border-radius:18px; }}
 </style>
 </head>
 <body>
@@ -254,6 +258,11 @@ def dashboard(lessons):
         <h2>Who it is for</h2>
         <p>Anyone who speaks English at work and already speaks it well &mdash; managers, specialists, presenters, people who sit in meetings where seniority is judged in seconds. If you talk too long, lose your sentence, fill silences, or give way too fast when challenged, this is the pathway. No grammar from scratch: the language here is the language of control.</p>
     </div>
+
+    <a class="nq-cta" href="name_the_question_dashboard.html">
+        <span><b>Before you speak: name the question</b>Landing an answer starts earlier. Is it a <em>Should we</em>, a <em>Which</em>, a <em>Why</em>? Seven lessons on hearing which kind of question you have been asked, and thinking it through, before you say it.</span>
+        <span class="nq-go">Open the map &rarr;</span>
+    </a>
 
     <p class="section-label">The pathway</p>
     <div class="flow">

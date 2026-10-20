@@ -1004,6 +1004,11 @@ def dashboard(tb, lessons):
         <span class="go-btn" style="color:#b45309;">Open it &rarr;</span>
     </a>
 
+    <a class="toolbox-cta" href="name_the_question_dashboard.html" style="background:linear-gradient(135deg,#2f5f8a,#12284a);">
+        <span><b>Name the Question</b>Which tool fits depends on the kind of question. A map of six kinds, from <em>Should we</em> to <em>Is it right</em>, with the tools and cases that fit each.</span>
+        <span class="go-btn" style="color:#2f5f8a;">Open the map &rarr;</span>
+    </a>
+
     <p class="section-label">The {n_lessons} lessons</p>
     <div class="story-grid">
 {chr(10).join(cards)}
