@@ -37,6 +37,15 @@ prompts, harder questions).
 | 12 | Tuckman's Team Stages | Tuckman 1965, US Navy; Jensen 1977 | present perfect with for/since |
 | 13 | Berry's Acculturation Model | John Berry, Canada, 1970s–80s | relative clauses |
 | 14 | The Five Whys | Sakichi Toyoda's loom → Toyota | indirect & reported questions |
+| 15 | Bloom's Taxonomy | 1948 examiners, 1956 handbook, 2001 revision, Lawler 2016 | subject and object questions |
+| 16 | The Food Pyramid | Sweden 1972–74 (KF, Agnsäter), USDA 1991–92, 2026 inverted | should / ought to / had better / it's best to |
+| 17 | Plan–Do–Check–Act | Shewhart 1939, Deming wheel 1950, Japanese PDCA, Deming's PDSA | zero and first conditionals |
+| 18 | Kolb's Learning Cycle | Dewey/Lewin/Piaget, Kolb 1984, Pashler et al. 2008 | past simple and past continuous |
+| 19 | The Hype Cycle | Jackie Fenn, Gartner 1995; The Economist 2024 | future in the past: was going to, would |
+| 20 | The Venn Diagram | John Venn 1880, Euler 1768, the bowling machine | both / either / neither, so do I |
+| 21 | The Mind Map | Porphyry, Llull, Tony Buzan's BBC series; Farrand 2002 | phrasal verbs for ideas and notes |
+| 22 | PESTLE | Aguilar 1967, ETPS → PEST → PESTLE | future continuous and future perfect |
+| 23 | Porter's Five Forces | Porter 1979 HBR, Monitor Group, complementors | cause and effect linkers |
 
 **A2/B1 twins (4):** Eisenhower (have to / don't have to), Johari (look & seem), Maslow (need & want),
 Pareto (most / a few / a lot of). Same story and tool, simpler language; 8 key words; crosslinked both ways.
@@ -44,6 +53,9 @@ Pareto (most / a few / a lot of). Same story and tool, simpler language; 8 key w
 **Cross-links out:** IELTS stories pathway, Bet the Company dashboard (frameworks strand) and
 c1_pro_28_consulting_frameworks all link in. Tools 11–14 are NOT on the map image — regenerate it
 (and re-measure hotspots) if you want them starred there.
+Tools 15–23 ARE on the map image (they were unlinked labels); their hotspots were measured in pixels
+on the 1536×1024 JPG. They use extra diagram types added to `build_tib.py`: widepyramid, venn, hype,
+mindmap, forces.
 
 Adding lesson 11: add `11_<slug>.json` (copy any existing one), make sure the tool's `name` matches a
 toolbox entry exactly, pick an unused grammar point, add a `hotspot` if it's on the map image, run the
