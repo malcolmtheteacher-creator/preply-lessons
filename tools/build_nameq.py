@@ -36,6 +36,8 @@ def check(d):
     hrefs += [x["href"] for x in d["delivery"]]
     hrefs += [x["href"] for x in d["medicine"]["items"]]
     hrefs += [x["href"] for x in d["further"]]
+    hrefs += [st["href"] for st in d["route"]["steps"] if st["href"] and not st["href"].startswith("#")]
+    hrefs += [l["href"] for st in d["route"]["steps"] for l in st["links"]]
     hrefs += [b["lesson"]["href"] for b in d["branches"]] + [l["href"] for l in d["lessons"]]
     for h in sorted(set(hrefs)):
         h = h.split("#")[0]
@@ -346,6 +348,21 @@ header.slim .subtitle{font-size:1rem;max-width:760px}
 .hot.circ{border-radius:50%}
 .hot:hover,.hot:focus-visible{background:rgba(255,255,255,.28);box-shadow:0 0 0 3px rgba(15,118,110,.85);outline:none}
 .mapnote{text-align:center;font-size:.9rem;color:#55556a;margin:-2px 0 24px}
+.route{margin:4px 0 26px}
+.rsteps{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.rstep{flex:1 1 250px;background:#fff;border:1px solid #e0e0ee;border-radius:14px;padding:16px 18px 14px;position:relative}
+.rstep.here{border:2px solid #0f766e;background:#f1f9f8;box-shadow:0 6px 18px rgba(15,118,110,.15)}
+.rbadge{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a6d0b;margin-bottom:6px}
+.rstep.here .rbadge{color:#0f766e}
+.rnum{position:absolute;top:12px;right:16px;font-family:Georgia,serif;font-size:2.2rem;color:rgba(0,0,0,.08);line-height:1}
+.rstep h3{font-family:Georgia,serif;font-size:1.2rem;color:#23233a;margin-bottom:4px}
+.rstep h3 a.rt{color:inherit;text-decoration:none;border-bottom:2px solid #b9e4de}
+.rstep p{font-size:.92rem;color:#3a3a4a;line-height:1.5}
+.rlinks{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.rlinks a{font-size:.82rem;font-weight:600;color:#115e59;text-decoration:none;border:1.5px solid #b9e4de;border-radius:14px;padding:3px 11px;background:#fff}
+.rlinks a:hover{background:#f1f9f8}
+.rarrow{align-self:center;font-size:1.6rem;color:#0f766e;font-weight:700}
+@media(max-width:760px){.rarrow{display:none}}
 .cta{text-align:center;margin:6px 0 30px}
 .cta a.b{display:inline-block;text-decoration:none;font-size:1rem;padding:12px 26px}
 .how-steps{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
@@ -479,6 +496,22 @@ def map_block(d):
     )
 
 
+def route_html(d):
+    r = d["route"]
+    cards = []
+    for st in r["steps"]:
+        links = "".join('<a href="%s">%s</a>' % (esc(l["href"]), esc(l["name"])) for l in st["links"])
+        title = esc(st["title"])
+        if st["href"]:
+            title = '<a class="rt" href="%s">%s</a>' % (esc(st["href"]), title)
+        cards.append(
+            '<div class="rstep%s"><div class="rbadge">%s</div><div class="rnum">%s</div><h3>%s</h3><p>%s</p>%s</div>'
+            % (" here" if st["here"] else "", esc(st["badge"]), esc(st["n"]), title, esc(st["text"]),
+               ('<div class="rlinks">%s</div>' % links) if links else ""))
+    return ('<section class="route"><div class="section-label">%s</div><div class="rsteps">%s</div></section>'
+            % (esc(r["heading"]), '<div class="rarrow">\u2192</div>'.join(cards)))
+
+
 def dashboard(d):
     head = ('<header class="slim"><div class="tag">%s</div><h1>%s</h1><p class="subtitle">%s</p></header>'
             % (esc(d["tag"]), esc(d["title"]), esc(d["subtitle"])))
@@ -486,12 +519,13 @@ def dashboard(d):
                     % (s["n"], esc(s["t"]), esc(s["d"])) for s in d["steps"])
     body = (
         '<div class="wide"><div class="map"><div class="map-scroll"><div class="map-frame">%s</div></div></div></div>'
+        '%s'
         '<div class="intro">%s</div>'
-        '<section class="how"><div class="how-steps">%s</div></section>'
-        '<div class="section-label">%s</div><div class="lessons">%s</div>'
+        '<section class="how"><div class="section-label" style="margin-left:0">How to use the map</div><div class="how-steps">%s</div></section>'
+        '<div class="section-label" id="lessons">%s</div><div class="lessons">%s</div>'
         '<div class="cta"><a class="b" href="%s">Take the quick test: which kind of question is it? \u2192</a></div>'
         '<div class="section-label">Go further</div><div class="further">%s</div>'
-        % (map_block(d), "".join("<p>%s</p>" % p for p in d["intro"]), steps, esc(d["lessons_heading"]), lessons_row(d), esc(d["quiz"]["page"]),
+        % (map_block(d), route_html(d), "".join("<p>%s</p>" % p for p in d["intro"]), steps, esc(d["lessons_heading"]), lessons_row(d), esc(d["quiz"]["page"]),
            "".join('<a href="%s"><b>%s</b><span>%s</span></a>' % (esc(f["href"]), esc(f["name"]), esc(f["desc"]))
                    for f in d["further"]))
     )
