@@ -260,7 +260,7 @@ def dashboard(lessons):
     </div>
 
     <a class="nq-cta" href="name_the_question_dashboard.html">
-        <span><b>Before you speak: name the question</b>Landing an answer starts earlier. Is it a <em>Should we</em>, a <em>Which</em>, a <em>Why</em>? Seven lessons on hearing which kind of question you have been asked, and thinking it through, before you say it.</span>
+        <span><b>Next: the map of thinking tools</b>Once you can land an answer, the next question is what to say. Is it a <em>Should we</em>, a <em>Which</em>, a <em>Why</em>? A map of six kinds of question, with the thinking tools and cases that fit each, and seven full lessons to go deeper.</span>
         <span class="nq-go">Open the map &rarr;</span>
     </a>
 

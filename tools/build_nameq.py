@@ -491,7 +491,7 @@ def branch_page(d, b, idx):
                           for i in m["items"])))
     body = (
         kinds_nav(d, b["id"]) +
-        '<a class="lessoncta" href="%s" style="--c:%s"><span><i>The lesson \u00b7 50 minutes \u00b7 C1</i><b>%s</b></span><em>Open the lesson \u2192</em></a>'
+        '<a class="lessoncta" href="%s" style="--c:%s"><span><i>Go deeper \u00b7 the full lesson \u00b7 50 minutes \u00b7 C1</i><b>%s</b></span><em>Open the lesson \u2192</em></a>'
         % (esc(b["lesson"]["href"]), b["color"], esc(b["lesson"]["title"])) +
         '<section class="card" style="%s"><div class="two"><div><h4>The lens</h4><ol class="lens">%s</ol></div>'
         '<div><h4>It can lead to</h4><ul class="leads">%s</ul></div></div></section>' % (style, lens, leads) +

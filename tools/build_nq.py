@@ -101,10 +101,25 @@ T.DIAGRAMS["lens"] = d_lens
 
 
 # ---------------------------------------------------------------- page
+
+def story_html(d):
+    out = T.story(d)
+    for part in d["story"]:
+        seen = part.get("seen")
+        if not seen:
+            continue
+        names = " and ".join(f'<a href="{x["href"]}">{E(x["title"])}</a>' for x in seen)
+        note = (f'<p class="seen">You may have met this case in {names}. '
+                f'This time, look at it through the lens.</p>')
+        marker = f'<h3>{part["heading"]}</h3>'
+        assert marker in out, part["heading"]
+        out = out.replace(marker, marker + "\n            " + note, 1)
+    return out
+
 def lesson(d, lessons, pathway):
     kind = d["kind"]
     base = BASE[kind]
-    css = tint(T.CSS, base)
+    css = tint(T.CSS, base) + ".seen{font-size:.9rem;color:#556;font-style:italic;margin:-2px 0 10px}.seen a{color:inherit}\n"
     ink = mix(base, 0.62, (10, 14, 24))
     T.INK, T.TEAL, T.LIGHT = ink, mix(base, 0.18, (10, 14, 24)), mix(base, 0.88)
     dg = d["tool_tab"]["diagram"]
@@ -180,7 +195,7 @@ def lesson(d, lessons, pathway):
             <h2>The cases, in three parts</h2>
             <p>Read each part. After it, answer the quick check from memory, then discuss one question. The figures are rounded, and the facts are as the cases were reported.</p>
 
-{T.story(d)}
+{story_html(d)}
         </div>
     </div>
 
