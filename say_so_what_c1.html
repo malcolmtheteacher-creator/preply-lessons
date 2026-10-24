@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="series" content="Say It Clearly">
+<title>The Chart That Hid the Answer · C1 English</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f9fd; color: #2a2a3a; line-height: 1.6; }
+.container { max-width: 920px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1e4e8c 0%, #1b3a6b 100%); color: white; padding: 40px 26px; text-align: center; margin-bottom: 18px; border-radius: 12px; box-shadow: 0 8px 24px rgba(30,78,140,0.18); }
+header .tag { display: inline-block; padding: 5px 14px; background: rgba(255,255,255,0.18); border-radius: 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 10px; }
+header h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 6px; }
+header p { font-size: 1.02rem; opacity: 0.92; }
+.crosslink { text-align:center; margin: 0 0 18px; font-size:0.9rem; color:#17325c; }
+.crosslink a { color:#1b3a6b; font-weight:600; }
+.tab-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.tab-btn { padding: 10px 18px; border: 1px solid #d0d0e0; background: white; color: #555; border-radius: 22px; cursor: pointer; font-size: 0.92rem; font-weight: 500; transition: all 0.2s; }
+.tab-btn:hover { background: #eef3fa; color: #333; }
+.tab-btn.active { background: linear-gradient(135deg, #1e4e8c, #1b3a6b); color: white; border-color: transparent; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border: 1px solid #e0e0ee; border-radius: 12px; padding: 26px 28px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.card h2 { color: #17325c; margin-bottom: 14px; font-size: 1.5rem; }
+.card h3 { color: #1b3a6b; margin: 18px 0 10px; font-size: 1.15rem; }
+.card p { margin-bottom: 12px; color: #3a3a4a; }
+.intention { background: #e4edf8; border-left: 4px solid #1b3a6b; border-radius: 0 8px 8px 0; padding: 12px 18px; margin-bottom: 16px; color: #12284a; font-size: 0.98rem; }
+.intention strong { color: #17325c; }
+.story-chunk { background: #f2f6fb; border-left: 4px solid #1b3a6b; padding: 18px 22px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 1.02rem; line-height: 1.78; }
+.story-chunk p { margin-bottom: 12px; }
+.story-chunk p:last-child { margin-bottom: 0; }
+.discuss { background: #fff8e8; border: 1px dashed #d4a843; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+.discuss strong { color: #a07020; }
+.discuss ul { margin: 8px 0 0 22px; color: #5a3a20; }
+.guess-item { background: #f2f6fb; border: 1px solid #cbdaee; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+.guess-item .sent { font-size: 1.02rem; color: #3a3a4a; }
+.guess-item .sent b { color: #17325c; }
+.reveal-btn { background: #e4edf8; border: 1px solid #a9c4e6; color: #17325c; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
+.reveal-btn:hover { background: #d3e1f1; }
+.meaning { display: none; margin-top: 10px; padding: 10px 14px; background: #f0f8f0; border-radius: 8px; color:#2a4a2a; }
+.meaning.show { display: block; }
+.meaning b { color: #4a7c4a; }
+.check { margin: 12px 0; }
+.check .q { font-weight: 600; color: #2a2a3a; margin-bottom: 6px; }
+.check p { margin-bottom: 6px; color:#3a3a4a; }
+.gap-fill { margin: 14px 0; }
+.gap-fill p { margin-bottom: 10px; }
+.gap-fill input { border: none; border-bottom: 2px solid #8fb0d9; background: transparent; padding: 2px 6px; font: inherit; color: #17325c; font-weight: 600; width: 130px; outline: none; }
+.gap-fill input:focus { border-bottom-color: #1b3a6b; }
+.answers { display:none; margin-top:10px; padding:12px 16px; background:#f0f8f0; border-radius:8px; }
+.answers.show { display:block; }
+.answers p { margin-bottom:6px; }
+.answers strong { color:#4a7c4a; }
+.timer { background: linear-gradient(135deg, #1e4e8c 0%, #1b3a6b 100%); color: white; padding: 14px 22px; border-radius: 10px; margin: 18px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-weight: 700; }
+.timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+.timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+.timer-display { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer-btn { background: white; color: #17325c; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.timer-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+.duration-btn { padding: 6px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; cursor: pointer; color: white; font-weight: 600; font-size: 0.85rem; }
+.duration-btn.active { background: white; color: #17325c; }
+.speak-prompt { background: linear-gradient(135deg, #ecf2f9 0%, #e6eef8 100%); padding: 18px 22px; border-radius: 8px; border-left: 4px solid #1b3a6b; margin: 18px 0; }
+.speak-prompt .speak-label { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #17325c; font-weight: 700; margin-bottom: 10px; display: block; }
+.speak-prompt p { margin-bottom: 10px; color: #1d2f4d; }
+.speak-prompt p:last-child { margin-bottom: 0; }
+.final-discussion { background: white; border: 1px solid #cbdaee; border-left: 4px solid #1b3a6b; border-radius: 8px; padding: 22px 26px; margin: 22px 0 0; }
+.final-discussion h3 { color: #17325c; margin-bottom: 12px; }
+.final-discussion ol { margin-left: 22px; line-height: 1.85; color: #3a3a4a; }
+.final-discussion li { margin-bottom: 10px; }
+.note { background:#f6f9fd; border:1px solid #d6e3f2; border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.94rem; color:#3a3a4a; }
+.note strong { color:#17325c; }
+footer { text-align: center; color: #888; font-size: 0.86rem; margin: 30px 0 12px; }
+
+.diagram { text-align:center; margin: 10px 0 18px; }
+.diagram svg { max-width: 100%; height: auto; }
+.steps { margin: 6px 0 14px 22px; color:#3a3a4a; }
+.steps li { margin-bottom: 8px; }
+.sort-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; background:#f2f6fb; border:1px solid #cbdaee; border-radius:10px; padding:10px 14px; margin:8px 0; }
+.sort-row .txt { flex: 1 1 320px; color:#2a3a3a; }
+.sort-row select { font: inherit; padding:5px 8px; border:1px solid #a9c4e6; border-radius:8px; background:white; color:#17325c; min-width: 190px; }
+.sort-row .mark { width: 22px; font-weight:700; text-align:center; }
+.sort-row.ok { border-color:#6fbf73; background:#eef8ee; }
+.sort-row.bad { border-color:#e0a0a0; background:#fbf0f0; }
+.check-btn { background: linear-gradient(135deg, #1e4e8c, #1b3a6b); color:white; border:none; padding:8px 16px; border-radius:16px; cursor:pointer; font-size:0.88rem; font-weight:600; margin: 10px 8px 0 0; }
+.score { font-weight:700; color:#17325c; margin-left:6px; }
+.cousins { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin: 10px 0; }
+.cousin { background:#f6f9fd; border:1px solid #d6e3f2; border-radius:10px; padding:12px 14px; font-size:0.93rem; color:#3a3a4a; }
+.cousin b { color:#17325c; display:block; margin-bottom:3px; }
+.cousin a { color:#1b3a6b; font-weight:600; }
+.series-strip { text-align:center; font-size:0.86rem; margin: 0 0 16px; color:#5a6a6a; }
+.series-strip a { color:#1b3a6b; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <span class="tag">SAY IT CLEARLY · LESSON 1 · C1 · 50 min</span>
+        <h1>The Chart That Hid the Answer</h1>
+        <p>The night before the Challenger launch, engineers argued against flying in the cold. The pattern that proved their point was in their data, but it was not in their charts.</p>
+    </header>
+
+    <p class="series-strip"><a href="say_it_clearly_dashboard.html">The whole pathway</a> &nbsp;·&nbsp; <a href="say_bridge_c1.html">Twelve Times the Same Question &rarr;</a></p>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
+        <button class="tab-btn" onclick="showTab(1)">The Story</button>
+        <button class="tab-btn" onclick="showTab(2)">The Tool</button>
+        <button class="tab-btn" onclick="showTab(3)">Language — Which means: linking evidence to meaning</button>
+        <button class="tab-btn" onclick="showTab(4)">Speak</button>
+        <button class="tab-btn" onclick="showTab(5)">Practice</button>
+    </nav>
+
+    <!-- TAB 0 -->
+    <div class="tab-content active">
+        <div class="card">
+            <div class="intention"><strong>Today:</strong> you'll see why data without a meaning gets ignored, build a one-sentence 'finding, so what, now what' summary, and use it to turn a number into a clear message in under twenty seconds.</div>
+            <div class="discuss">
+                <strong>Before we start — talk these through:</strong>
+                <ul>
+                    <li>Think of a meeting where someone showed a lot of numbers. What did you remember afterwards, and what did you forget?</li>
+                    <li>When you are given a report, where do you look first: the figures, the summary, or the recommendation? Why?</li>
+                    <li>Have you ever been right about something and still not been believed? What was missing?</li>
+                </ul>
+            </div>
+
+            <h2>The vocabulary of this story</h2>
+            <p>Ten items. Say your answer <strong>out loud before you reveal it</strong>.</p>
+
+            <h3>A · What do they mean here? Work it out from the context</h3>
+            <p>Read the sentence, guess the meaning of the word in bold, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">The data showed a clear <b>correlation</b> between the temperature on the day and the amount of damage to the seals.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>correlation</b> — a relationship between two things, so that when one changes the other tends to change too. It does not by itself prove that one causes the other.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">The chart <b>omitted</b> every flight with no damage, so the pattern disappeared.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>omit</b> — to leave something out, either by accident or on purpose. The noun is <b>omission</b>.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Put side by side on a single page, the contrast between the two groups was <b>stark</b>.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>stark</b> — very clear and impossible to ignore, often in an uncomfortable way. A stark choice, a stark warning.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">The figures were clear, but their <b>implications</b> for the schedule were not.</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>implication</b> — what something suggests or leads to, even if no one has said it directly. <em>What are the implications of this?</em></div>
+            </div>
+            <h3>B · Which term means…?</h3>
+            <p>Three terms: drive home · bury the lead · the burden of proof. Say the right one, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">Which term means <b>to hide the most important fact deep inside a text or talk, after less important details</b>?</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>bury the lead</b> — <em>The report buried the lead: the key recommendation appeared on page eleven.</em> Journalists spell it <em>lede</em>.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Which term means <b>the duty to show that something is true, which usually falls on the person making the claim</b>?</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>the burden of proof</b> — <em>In court, the burden of proof is on the prosecution.</em> It becomes a problem when it is quietly passed to the wrong side.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">Which term means <b>to make a point so clearly and strongly that it cannot be missed</b>?</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>drive home</b> — <em>She used one vivid example to drive the message home.</em></div>
+            </div>
+            <h3>C · Which word completes all three phrases?</h3>
+            <p>One missing word fits every phrase in the group. Say it, then reveal.</p>
+            <div class="guess-item">
+                <div class="sent">___ a conclusion &nbsp;·&nbsp; ___ attention to a risk &nbsp;·&nbsp; ___ a comparison</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>draw</b> — draw a conclusion, draw attention to something, draw a comparison.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">convey a ___ &nbsp;·&nbsp; the key ___ &nbsp;·&nbsp; a mixed ___</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>message</b> — the central idea you want the listener to receive. A <em>mixed message</em> is one that points in two directions at once.</div>
+            </div>
+            <div class="guess-item">
+                <div class="sent">___ a case &nbsp;·&nbsp; ___ a difference &nbsp;·&nbsp; ___ a decision</div>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal</button>
+                <div class="meaning"><b>make</b> — make a case (for something), make a difference, make a decision.</div>
+            </div>
+
+            <h3>Now use them — out loud</h3>
+            <div class="discuss">
+                <strong>Before we read:</strong>
+                <ul>
+                    <li>Tell me about a report or presentation where the <strong>implications</strong> were not obvious. What should the speaker have said?</li>
+                    <li>Think of a news story or an email that <strong>buried the lead</strong>. Where was the real point, and how long did it take you to find it?</li>
+                    <li>What is the most <strong>stark</strong> statistic you have heard recently, and what <strong>conclusion</strong> would you <strong>draw</strong> from it?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>The story, in three parts</h2>
+            <p>Read each part. After it, answer the quick check from memory, then discuss one question.</p>
+
+            <h3>Part 1 — The night before</h3>
+            <div class="story-chunk">
+                <p>In January 1986 NASA was preparing to launch the space shuttle Challenger from Florida. The two solid rocket boosters were built in sections, and each joint between the sections was sealed with rubber rings called O-rings. On some earlier flights, hot gas had damaged those rings.</p>
+                <p>The boosters were built by a company called Morton Thiokol. Its engineers feared that cold weather would make the rubber stiffer and slower to seal. The forecast for the morning of 28 January was unusually cold. The coldest earlier launch had been at 53 degrees Fahrenheit, about 12 degrees Celsius, and no one had launched in anything like what was expected.</p>
+                <p>On the evening of 27 January, Thiokol engineers and managers joined NASA officials on a long teleconference. The engineers' message was simple: do not launch in these temperatures.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What was used to seal the joints between the booster sections?</p>
+                <p>2. Why were the engineers worried about the weather?</p>
+                <p>3. What was the engineers' message on the evening of 27 January?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> Rubber rings called O-rings.</p>
+                    <p><strong>2.</strong> They feared cold would make the rubber stiffer and slower to seal, and no launch had been anywhere near that cold.</p>
+                    <p><strong>3.</strong> Do not launch in these temperatures.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>A warning is only useful if the listener understands it within the first minute. How would you test whether your own warnings can be understood that fast?</li></ul>
+            </div>
+
+            <h3>Part 2 — The dots that were not on the page</h3>
+            <div class="story-chunk">
+                <p>Thiokol made its case with about a dozen charts. Most of them were tables and technical detail. NASA managers were not convinced, partly because the link between cold and damage was hard to see in what they were shown.</p>
+                <p>One important chart listed only the flights on which the rings had been damaged, with the launch temperature beside each. It left out the flights with no damage at all. Without those flights the dots looked scattered, and nothing seemed to connect temperature to damage. When the investigators later plotted every flight, the pattern was clear: the worst damage had come on the coldest earlier launch.</p>
+                <p>NASA officials pushed back hard. One of them said afterwards that the meeting felt as though Thiokol had to prove beyond doubt that it was unsafe to fly, instead of NASA having to show that it was safe. After a private break, Thiokol's managers changed their recommendation.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What did the important chart leave out?</p>
+                <p>2. What did the pattern look like once every flight was plotted?</p>
+                <p>3. What did Thiokol's managers do after the private break?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> The flights on which the rings had not been damaged.</p>
+                    <p><strong>2.</strong> The worst damage had come on the coldest earlier launch: the colder the launch, the greater the risk.</p>
+                    <p><strong>3.</strong> They changed the company's recommendation, so that it no longer advised against launching.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>Imagine you were one of the engineers and had time to say only one sentence before the managers took their break. What would it have been?</li></ul>
+            </div>
+
+            <h3>Part 3 — What the investigation said</h3>
+            <div class="story-chunk">
+                <p>The shuttle was launched on the morning of 28 January. Seventy-three seconds later it broke apart, and all seven crew members were killed. The investigation, led by a presidential commission, found that a joint seal had failed in the cold.</p>
+                <p>The commission also criticised what it called a serious flaw in the decision-making process before the launch. Pressure on the schedule, the way the burden of proof had been reversed, and the way the evidence was presented all played a part. Writers still disagree about how much weight each deserves, and this lesson is only about the third.</p>
+                <p>The statistician and designer Edward Tufte later argued that the charts had hidden the argument. The evidence the room needed was in the data, but nobody could see at a glance what it proved. His lesson for speakers is simple: before you show anything, know the sentence the evidence is meant to prove, and say that sentence.</p>
+            </div>
+            <div class="check">
+                <div class="q">Quick check — from memory, then reveal:</div>
+                <p>1. What did the investigation find about the joint seal?</p>
+                <p>2. Besides the charts, what other factors did the commission point to?</p>
+                <p>3. What did Tufte say the charts failed to do?</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p><strong>1.</strong> It had failed in the cold.</p>
+                    <p><strong>2.</strong> Pressure on the schedule and the reversal of the burden of proof, as well as the way the evidence was presented.</p>
+                    <p><strong>3.</strong> They did not make the argument visible: nobody could see at a glance what the data proved.</p>
+                </div>
+            </div>
+            <div class="discuss">
+                <strong>Discuss:</strong>
+                <ul><li>The engineers were right, and they were not heard in time. Is being right enough? What else does a speaker owe the listener?</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>How the tool works</h2>
+            <p>Data never speaks for itself. Someone has to say what it means, and what to do about it. Barbara Minto, who taught consultants to write and speak at McKinsey, called this answering the listener's silent question: <em>So what?</em> The tool below is a single sentence with three parts. Say it before you show the evidence, and the evidence becomes proof instead of noise.</p>
+            <div class="diagram"><svg viewBox="0 0 490 290" width="490" xmlns="http://www.w3.org/2000/svg" role="img"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1b3a6b"/></marker></defs><rect x="70" y="20" width="200" height="100" fill="#f7eac0" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="170.0" y="54.4">OPINION</tspan><tspan x="170.0" y="70.0">a claim with</tspan><tspan x="170.0" y="85.6">nothing behind it</tspan></text><rect x="270" y="20" width="200" height="100" fill="#cdebd3" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="370.0" y="54.4">HEADLINE</tspan><tspan x="370.0" y="70.0">the finding and</tspan><tspan x="370.0" y="85.6">what it means</tspan></text><rect x="70" y="120" width="200" height="100" fill="#eef2f7" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="170.0" y="154.4">SILENCE</tspan><tspan x="170.0" y="170.0">nothing useful</tspan><tspan x="170.0" y="185.6">has been said</tspan></text><rect x="270" y="120" width="200" height="100" fill="#f3cfcf" stroke="white" stroke-width="3" rx="6"/><text font-family="Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#1f3d3a" text-anchor="middle" dominant-baseline="middle"><tspan x="370.0" y="154.4">DATA DUMP</tspan><tspan x="370.0" y="170.0">the facts, and</tspan><tspan x="370.0" y="185.6">no meaning</tspan></text><line x1="70" y1="226" x2="470" y2="226" stroke="#1b3a6b" stroke-width="2" marker-end="url(#ar)"/><line x1="64" y1="220" x2="64" y2="20" stroke="#1b3a6b" stroke-width="2" marker-end="url(#ar)"/><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1b3a6b" text-anchor="middle" dominant-baseline="middle"><tspan x="270.0" y="250.0">Evidence</tspan></text><text font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1b3a6b" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 24 120.0)"><tspan x="24" y="120.0">Meaning</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="start" dominant-baseline="middle"><tspan x="74" y="270.0">none</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="end" dominant-baseline="middle"><tspan x="466" y="270.0">clear</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="start" dominant-baseline="middle" transform="rotate(-90 46 216)"><tspan x="46" y="216.0">unsaid</tspan></text><text font-family="Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#667" text-anchor="end" dominant-baseline="middle" transform="rotate(-90 46 24)"><tspan x="46" y="24.0">said</tspan></text></svg></div>
+            <h3>Using it, step by step</h3>
+            <ol class="steps">
+                <li><strong>Finding.</strong> Start from your evidence and pick the one fact that matters. Say it with one number: <em>Response times have doubled since March.</em></li>
+                <li><strong>So what.</strong> Say <em>which means…</em> and finish the thought. What does the finding change? <em>…which means we are losing customers faster than we win them.</em></li>
+                <li><strong>Now what.</strong> Add the ask, so that the listener knows what to do with it: <em>So I recommend that we pause the rollout until the fault is fixed.</em></li>
+                <li><strong>Test it.</strong> Imagine the listener saying <em>So what?</em> after your first sentence. If your sentence has not already answered that, add the meaning before you show a single chart.</li>
+            </ol>
+
+            <h3>Try it yourself</h3>
+            <p>These sentences come from the opening of a presentation. What job does each one do? Choose, then check.</p>
+            <div id="sort1">
+                <div class="sort-row" data-answer="Finding">
+                    <span class="txt">1. Complaints rose by forty per cent after the new system went live.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="So what">
+                    <span class="txt">2. Which means customers are leaving faster than we can replace them.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Now what">
+                    <span class="txt">3. So I recommend that we pause the rollout until the fault is fixed.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Cut it">
+                    <span class="txt">4. I have prepared a number of slides and I would like to take you through all of them.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Finding">
+                    <span class="txt">5. Support calls took twelve minutes on average last month.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="So what">
+                    <span class="txt">6. That matters because each extra minute costs us about ten thousand pounds a year.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Now what">
+                    <span class="txt">7. I need your approval for two extra staff by Friday.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Cut it">
+                    <span class="txt">8. As you can see on the next slide, there is quite a lot of data here.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="So what">
+                    <span class="txt">9. Which is why the problem will get worse before it gets better.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <div class="sort-row" data-answer="Finding">
+                    <span class="txt">10. Three of our four sites missed their targets.</span>
+                    <select><option value="">choose…</option><option value="Finding">Finding</option><option value="So what">So what</option><option value="Now what">Now what</option><option value="Cut it">Cut it</option></select>
+                    <span class="mark"></span>
+                </div>
+                <button class="check-btn" onclick="checkSort('sort1')">Check my answers</button><span class="score"></span>
+                <br><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show the reasons</button>
+                <div class="answers">
+                    <p><strong>1. Finding</strong> — a fact with one number, and nothing yet about what it means.</p>
+                    <p><strong>2. So what</strong> — it starts with <em>which means</em> and finishes the thought: what the number changes.</p>
+                    <p><strong>3. Now what</strong> — a clear recommendation: it tells the listener what to do with the finding.</p>
+                    <p><strong>4. Cut it</strong> — it announces the format and says nothing; start with the sentence instead.</p>
+                    <p><strong>5. Finding</strong> — a concrete fact with a number.</p>
+                    <p><strong>6. So what</strong> — <em>that matters because</em> links the fact to a consequence.</p>
+                    <p><strong>7. Now what</strong> — an ask with a decision and a deadline.</p>
+                    <p><strong>8. Cut it</strong> — it describes the slide instead of the message.</p>
+                    <p><strong>9. So what</strong> — it states the implication, not the fact.</p>
+                    <p><strong>10. Finding</strong> — a fact in a short sentence, with numbers the listener can hold.</p>
+                </div>
+            </div>
+
+            <h3>Where the tool breaks</h3>
+            <div class="note">
+                <p><strong>You do not know the meaning yet.</strong> Do not invent one. Say what you do know and what you do not: <em>The finding is clear. What it means, I cannot yet say.</em></p>
+                <p><strong>The link is only a possibility.</strong> One strong number does not prove a cause. Match the verb to the evidence: <em>which suggests…</em> rather than <em>which proves…</em>.</p>
+                <p><strong>The listener needs the method first.</strong> A scientific audience may want to hear how you collected the data before they accept your meaning. Even then, the best scientific papers open with the result.</p>
+            </div>
+            <div class="discuss">
+                <strong>Talk it through:</strong>
+                <ul>
+                    <li>Which part do you find hardest to say aloud: the finding, the meaning, or the ask? Why?</li>
+                    <li>When is it better to let the listener work out the meaning for themselves?</li>
+                </ul>
+            </div>
+
+            <h3>Its cousins</h3>
+            <div class="cousins">
+                <div class="cousin"><b>The landing plan</b>The same instinct, applied to answers: point first, one reason, stop. <a href="end_point_c1.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>Name the Question</b>Once you know your meaning, the map of six kinds of question helps you decide what to say next. <a href="name_the_question_dashboard.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>Seven Deaths and a Hundred Million Dollars: Tylenol 1982</b>A case of a company that said the meaning of its numbers loudly and quickly. <a href="bc_tylenol_c1.html">Open the lesson &rarr;</a></div>
+                <div class="cousin"><b>Next in this series: Twelve Times the Same Question</b>What to do when the question you are asked is not the one you want to answer. <a href="say_bridge_c1.html">Open the lesson &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Language — Which means: linking evidence to meaning</h2>
+            <p>The so-what sentence depends on a handful of linking structures. The first, a comma followed by <em>which</em>, lets one sentence carry both the evidence and what it means.</p>
+            <div class="note">
+                <strong>Comment clause with <em>which</em>:</strong> a comma plus <em>which</em> refers to the whole idea before it. <em>Complaints have doubled, which means we have a serious problem.</em> Here <em>which</em> stands for 'the fact that complaints have doubled'.
+            </div>
+            <div class="note">
+                <strong>Other ways to link:</strong> <em>meaning that</em> (<em>The test failed twice, meaning that we cannot go ahead</em>), <em>which is why</em> (<em>Costs keep rising, which is why I am asking for a review</em>), and <em>that matters because</em> as a separate sentence.
+            </div>
+            <div class="note">
+                <strong>Match the verb to the strength of the evidence:</strong> <em>proves, shows, confirms</em> are strong; <em>suggests, points to, indicates</em> are moderate; <em>may mean, could indicate</em> are cautious.
+            </div>
+
+            <h3>1. Link the finding to its meaning</h3>
+            <p>Use each word from the box once: <em>which · meaning · suggests · why</em>.</p>
+            <div class="gap-fill">
+                <p>1. Response times have doubled, <input type="text" placeholder="..."> means we are losing customers.</p>
+                <p>2. Only two of the nine trials worked, <input type="text" placeholder="..."> that the method is unreliable.</p>
+                <p>3. The sample is small, which <input type="text" placeholder="..."> that the result may not hold for everyone.</p>
+                <p>4. Costs have risen every month this year. That is <input type="text" placeholder="..."> I am asking for a review.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>which</strong></p>
+                    <p>2. <strong>meaning</strong></p>
+                    <p>3. <strong>suggests</strong></p>
+                    <p>4. <strong>why</strong></p>
+                </div>
+            </div>
+
+            <h3>2. Match the verb to the evidence</h3>
+            <p>Choose the better word for the strength of the evidence.</p>
+            <div class="gap-fill">
+                <p>1. Every one of the 400 tests failed, which <input type="text" placeholder="..."> (proves / suggests) the design is faulty.</p>
+                <p>2. Two of the five sites reported delays, which <input type="text" placeholder="..."> (proves / suggests) the problem may be wider.</p>
+                <p>3. The audited accounts match the figures exactly, which <input type="text" placeholder="..."> (confirms / hints) that the report is accurate.</p>
+                <p>4. One customer in a hundred mentioned the price, which <input type="text" placeholder="..."> (shows / hints) that price is not the main concern.</p>
+                <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Reveal answers</button>
+                <div class="answers">
+                    <p>1. <strong>proves</strong> — all 400 failed, so strong language is justified.</p>
+                    <p>2. <strong>suggests</strong> — two sites out of five is not enough to prove anything.</p>
+                    <p>3. <strong>confirms</strong> — the evidence is complete and checked.</p>
+                    <p>4. <strong>hints</strong> — one in a hundred is weak evidence, so choose a cautious verb.</p>
+                </div>
+            </div>
+            <p style="margin-top:14px; color:#666; font-style:italic;">Now say one finding from your work or reading this week and complete it with <em>which means…</em></p>
+        </div>
+    </div>
+
+    <!-- TAB 4 -->
+    <div class="tab-content">
+        <div class="card">
+            <h2>Speak</h2>
+            <p>Decide the meaning, then speak. Choose a task, start the timer, and talk.</p>
+
+            <div class="note">
+                <strong>Useful language:</strong> “The finding is…” · “…which means…” · “That matters because…” · “So I recommend that we…” · “What I need from you is…”
+            </div>
+
+            <div class="timer">
+                <span>Time remaining: <strong><span id="timer-display">4:00</span></strong></span>
+                <div class="timer-controls">
+                    <button class="duration-btn" onclick="setDuration(this, 3)">3 min</button>
+                    <button class="duration-btn active" onclick="setDuration(this, 4)">4 min</button>
+                    <button class="duration-btn" onclick="setDuration(this, 5)">5 min</button>
+                    <button class="timer-btn" onclick="startTimer()">Start</button>
+                    <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 1 — Twenty seconds</span>
+                <p>A report says: <em>Customer waiting time rose from four minutes to nine minutes in six months.</em> Give the finding, say what it means, and make a recommendation. Twenty seconds, three sentences.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 2 — Choose your headline</span>
+                <p>Pick one of these three facts and decide what it means: <em>Staff turnover is at twenty-six per cent. / Eight of our ten largest customers have not ordered in three months. / The new product has been returned twice as often as the old one.</em> Say your so-what sentence, then explain why you chose that meaning.</p>
+            </div>
+
+            <div class="speak-prompt">
+                <span class="speak-label">Task 3 — The story in sixty seconds</span>
+                <p>Tell the story of the Challenger charts, but start with the so-what: what does it show about speaking? Then give one fact as evidence and say what a speaker should do.</p>
+            </div>
+
+            <div class="final-discussion">
+                <h3>To finish — the harder questions</h3>
+                <ol>
+                    <li>The engineers had the right data and the wrong charts. Is it better to simplify your evidence so that the message is obvious, or to show everything so that nobody can say you hid something?</li>
+                    <li>Can you give a so-what sentence that is wrong? What would a careful speaker add so that the listener knows how sure they are?</li>
+                    <li>In your field, what is the most common way for good data to fail to persuade people?</li>
+                    <li><strong>From memory:</strong> explain the three parts of the so-what sentence in four sentences, using <em>which means</em>, <em>that matters because</em>, <em>I recommend that</em> and <em>bury the lead</em>.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5 -->
+    <div class="tab-content">
+        <div class="card">
+            <style>
+            .pr-intro{color:#555;margin:2px 0 8px} .pr-q{margin:0 0 14px 22px} .pr-q li{margin:5px 0}
+            .pr-model{background:#f2f6fb;border:1px solid #d3e1f1;border-radius:8px;padding:10px 16px;margin:8px 0}
+            .pr-model summary{cursor:pointer;font-weight:600;color:#1b3a6b} .pr-model p{margin:8px 0 0}
+            </style>
+            <h2>Practice</h2>
+            <p>One page of numbers to turn into messages. Pick one, take ten seconds to decide what it means, and speak for twenty. Say the finding, say what it means, and say what should happen next.</p>
+            <div class="note"><strong>Each time:</strong><ol style="margin:8px 0 0 22px"><li><strong>Ten seconds:</strong> what does this number change? Who needs to do something about it?</li><li><strong>Twenty seconds:</strong> the finding with one number, then <em>which means…</em>, then the ask.</li><li><strong>Stop</strong> after the ask. If you are asked <em>how do you know?</em>, only then add the detail.</li></ol></div>
+            <h2>The numbers</h2>
+            <h3>Work and projects</h3><p class="pr-intro">Someone has handed you a figure and wants to know what to do about it.</p><ol class="pr-q"><li>The project is twelve per cent over budget with half the work done.</li><li>Three of the five key staff have handed in their notice this quarter.</li><li>Only one in four customers opened the new feature.</li><li>Delivery times have fallen from nine days to four since March.</li><li>Meetings now take up almost half the working week.</li></ol><h3>Sales and customers</h3><p class="pr-intro">The listener is a busy manager.</p><ol class="pr-q"><li>Sales are up twenty per cent, but returns have doubled.</li><li>Our best customer now buys a third of what it bought last year.</li><li>Eighty per cent of complaints come from one product.</li><li>New customers cost four times as much to win as existing ones cost to keep.</li><li>The price comparison site shows us ten per cent more expensive than the next supplier.</li></ol><h3>Health and safety</h3><p class="pr-intro">The meaning matters more than the detail.</p><ol class="pr-q"><li>Waiting times in the emergency department have risen from two hours to five.</li><li>Nine out of ten accidents happen in the last hour of a shift.</li><li>Staff sickness has risen by a fifth over two winters.</li><li>Only forty per cent of employees completed the safety training.</li><li>The new procedure has halved the number of errors, but it takes twice as long.</li></ol><h3>Money and the economy</h3><p class="pr-intro">Make the number mean something to a non-specialist.</p><ol class="pr-q"><li>Prices have risen by six per cent while wages have risen by three.</li><li>The average rent now takes forty per cent of the average salary.</li><li>Our energy bill has doubled in two years.</li><li>Only one in five households has savings that would last three months.</li><li>Interest on the loan will cost us more than the equipment itself.</li></ol><h3>Everyday life</h3><p class="pr-intro">A number you read or hear that makes you stop.</p><ol class="pr-q"><li>The average person checks their phone around a hundred times a day.</li><li>Nearly half of adults say they read no books last year.</li><li>Most people think they are better than average drivers.</li><li>A city of a million people is losing ten thousand residents a year.</li><li>Global air travel doubled in twenty years.</li></ol>
+            <h2>How it sounds</h2>
+            <p>Six examples of the shape. Try the question first, then open the answer.</p>
+            <details class="pr-model"><summary>The project is twelve per cent over budget with half the work done.</summary><p><strong>Finding:</strong> We are twelve per cent over budget with half the work done.</p><p><strong>So what:</strong> Which means that, if nothing changes, we will finish about twelve per cent over, and the contingency will not cover it.</p><p><strong>Now what:</strong> I recommend that we cut the optional features now, and I need a decision by Friday.</p></details><details class="pr-model"><summary>Only one in four customers opened the new feature.</summary><p><strong>Finding:</strong> Only one in four customers has opened the new feature.</p><p><strong>So what:</strong> That suggests that most people either cannot find it or do not see why they would want it.</p><p><strong>Now what:</strong> I'd like us to test a clearer button next week before we spend more on it.</p></details><details class="pr-model"><summary>Prices have risen by six per cent while wages have risen by three.</summary><p><strong>Finding:</strong> Prices have risen twice as fast as wages.</p><p><strong>So what:</strong> Which means most people are about three per cent poorer than a year ago.</p><p><strong>Now what:</strong> That is why the pay review needs to happen this quarter, not next.</p></details><details class="pr-model"><summary>Waiting times in the emergency department have risen from two hours to five.</summary><p><strong>Finding:</strong> The average wait has gone from two hours to five.</p><p><strong>So what:</strong> Which means we now have patients waiting longer than a whole shift.</p><p><strong>Now what:</strong> I need agreement to open the second assessment room from Monday.</p></details><details class="pr-model"><summary>Our best customer now buys a third of what it bought last year.</summary><p><strong>Finding:</strong> Our biggest customer is buying a third of what it did last year.</p><p><strong>So what:</strong> That matters because it was a fifth of our revenue, so we have lost about thirteen per cent of our income.</p><p><strong>Now what:</strong> I recommend that I visit them this week to find out why.</p></details><details class="pr-model"><summary>Meetings now take up almost half the working week.</summary><p><strong>Finding:</strong> Meetings now take up almost half the working week.</p><p><strong>So what:</strong> Which means we only have about half the time to do the work the meetings are about.</p><p><strong>Now what:</strong> I suggest that we drop every recurring meeting and add back only the ones people miss.</p></details>
+            <h2>Make it harder</h2>
+            <ul style="margin:6px 0 0 22px"><li><strong>Shorter:</strong> give the so-what sentence in a single sentence, using <em>which means</em>.</li><li><strong>Interrupted:</strong> your partner says <em>So what?</em> after your finding. Answer immediately with the meaning.</li><li><strong>Opposite meaning:</strong> give a different, honest meaning for the same number. Which is more likely, and how would you tell?</li><li><strong>For a different listener:</strong> say it to a senior manager, then to a new colleague, then to a customer. The finding stays the same. The meaning and the ask change.</li><li><strong>Cautious version:</strong> say the same sentence again, but change <em>proves</em> to <em>suggests</em> and add one thing you would check.</li></ul>
+        </div>
+    </div>
+
+    <footer>
+        Say It Clearly · The Chart That Hid the Answer · C1
+    </footer>
+</div>
+
+<script>
+function showTab(i) {
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+    document.querySelectorAll('.tab-content').forEach((c, j) => c.classList.toggle('active', i === j));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let timerInterval = null;
+let timeRemaining = 240;
+let currentDuration = 240;
+function setDuration(btn, minutes) {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDuration = minutes * 60;
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function updateDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer-display').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+function resetTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    timeRemaining = currentDuration;
+    updateDisplay();
+    document.querySelector('.timer').classList.remove('warning', 'danger');
+}
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateDisplay();
+        const t = document.querySelector('.timer');
+        if (timeRemaining <= 10) { t.classList.add('danger'); t.classList.remove('warning'); }
+        else if (timeRemaining <= 30) { t.classList.add('warning'); t.classList.remove('danger'); }
+        else { t.classList.remove('warning', 'danger'); }
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timer-display').textContent = 'Time is up';
+        }
+    }, 1000);
+}
+
+function checkSort(id) {
+    const box = document.getElementById(id);
+    let right = 0, total = 0;
+    box.querySelectorAll('.sort-row').forEach(r => {
+        const sel = r.querySelector('select');
+        total++;
+        r.classList.remove('ok', 'bad');
+        const mark = r.querySelector('.mark');
+        if (!sel.value) { mark.textContent = ''; return; }
+        if (sel.value === r.dataset.answer) { right++; r.classList.add('ok'); mark.textContent = '\u2713'; }
+        else { r.classList.add('bad'); mark.textContent = '\u2717'; }
+    });
+    box.querySelector('.score').textContent = right + ' / ' + total;
+}
+</script>
+</body>
+</html>
