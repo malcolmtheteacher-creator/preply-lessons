@@ -58,6 +58,11 @@ select { padding: 8px; border: 2px solid #1f3a5f; border-radius: 6px; font-size:
 .icanlist label { display: block; padding: 8px 0; cursor: pointer; }
 .tag { display: inline-block; background: #1f3a5f; color: #fff; border-radius: 20px; padding: 2px 12px; font-size: .85em; margin-right: 6px; }
 @media (max-width: 768px) { .slot { grid-template-columns: 1fr; } header h1 { font-size: 1.5em; } .tab-button { flex: 1 1 45%; } }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: #fff; border: 2px solid #3b5b8c; color: #1f3a5f; border-radius: 20px; padding: 8px 14px; font-size: 1em; cursor: pointer; font-family: inherit; }
+.chip:hover { background: #e8eef6; }
+.chip.sel { background: #1f3a5f; color: #fff; }
+.slot { grid-template-columns: 130px 1fr; align-items: start; }
 </style>
 </head>
 <body>
@@ -120,13 +125,7 @@ select { padding: 8px; border: 2px solid #1f3a5f; border-radius: 6px; font-size:
 <div class="block">
 <h2>Build your perfect day</h2>
 <p>Choose one idea for each part of the day. Your story appears below.</p>
-<div class="slots">
-<div class="slot"><label>Morning</label><select id="s0" onchange="buildStory()"><option value="">Choose…</option><option>lie in until ten</option><option>cook a big breakfast</option><option>go for a long run</option><option>have coffee in a quiet café</option><option>watch the sunrise</option><option>do nothing at all</option></select></div>
-<div class="slot"><label>Late morning</label><select id="s1" onchange="buildStory()"><option value="">Choose…</option><option>go for a walk</option><option>visit a market</option><option>read a good book</option><option>try something new</option><option>play a sport</option><option>go shopping</option></select></div>
-<div class="slot"><label>Afternoon</label><select id="s2" onchange="buildStory()"><option value="">Choose…</option><option>have a long lunch with friends</option><option>have a nap</option><option>go to the beach</option><option>visit a museum</option><option>play games with family</option><option>catch up with an old friend</option></select></div>
-<div class="slot"><label>Evening</label><select id="s3" onchange="buildStory()"><option value="">Choose…</option><option>cook a special dinner</option><option>go to a concert</option><option>watch a film</option><option>eat at a new restaurant</option><option>have a picnic</option><option>treat myself to something nice</option></select></div>
-<div class="slot"><label>Night</label><select id="s4" onchange="buildStory()"><option value="">Choose…</option><option>look at the stars</option><option>dance</option><option>go to bed early</option><option>stay up late and talk</option><option>sit by a fire</option><option>listen to music</option></select></div>
-</div>
+<div class="slots" id="slots"></div>
 <div class="story" id="story">Your day will appear here…</div>
 <div class="say">SPEAK: Tell me your day. Use <strong>First … then … after that … finally</strong> and give <strong>one reason</strong> with <em>because</em>.</div>
 </div>
@@ -298,10 +297,31 @@ words.forEach(function(w){
   c1.appendChild(d);
 });
 // story builder
+var slotData=[['Morning', ['lie in until ten', 'cook a big breakfast', 'go for a long run', 'have coffee in a quiet café', 'watch the sunrise', 'do nothing at all']], ['Late morning', ['go for a walk', 'visit a market', 'read a good book', 'try something new', 'play a sport', 'go shopping']], ['Afternoon', ['have a long lunch with friends', 'have a nap', 'go to the beach', 'visit a museum', 'play games with family', 'catch up with an old friend']], ['Evening', ['cook a special dinner', 'go to a concert', 'watch a film', 'eat at a new restaurant', 'have a picnic', 'treat myself to something nice']], ['Night', ['look at the stars', 'dance', 'go to bed early', 'stay up late and talk', 'sit by a fire', 'listen to music']]];
+var picks=[];
+(function(){
+  var box=document.getElementById('slots');
+  slotData.forEach(function(sd,i){
+    var row=document.createElement('div'); row.className='slot';
+    var lab=document.createElement('label'); lab.textContent=sd[0]; row.appendChild(lab);
+    var chips=document.createElement('div'); chips.className='chips';
+    sd[1].forEach(function(o){
+      var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=o;
+      b.addEventListener('click',function(){
+        var on=b.classList.contains('sel');
+        chips.querySelectorAll('.chip').forEach(function(x){x.classList.remove('sel');});
+        if(!on){ b.classList.add('sel'); picks[i]=o; } else { picks[i]=''; }
+        buildStory();
+      });
+      chips.appendChild(b);
+    });
+    row.appendChild(chips); box.appendChild(row);
+  });
+})();
 function buildStory(){
-  var ids=['s0','s1','s2','s3','s4'], links=['First, I\'d love to ','then I\'d like to ','after that I\'d like to ','in the evening I\'d love to ','finally, I\'d like to '];
+  var links=['First, I\'d love to ','then I\'d like to ','after that I\'d like to ','in the evening I\'d love to ','finally, I\'d like to '];
   var parts=[];
-  ids.forEach(function(id,i){ var v=document.getElementById(id).value; if(v) parts.push(links[i]+v); });
+  for(var i=0;i<links.length;i++){ if(picks[i]) parts.push(links[i]+picks[i]); }
   document.getElementById('story').textContent = parts.length ? parts.join(', ')+'.' : 'Your day will appear here…';
 }
 // twists
