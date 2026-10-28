@@ -39,19 +39,19 @@ def build(L):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="series" content="Psychology Questions">
+<meta name="series" content="{L.get("series", "Psychology Questions")}">
 <title>{L["title"]} · {L["level"]} English</title>
 {CSS}
 </head>
 <body>
 <div class="container">
     <header>
-        <span class="tag">PSYCHOLOGY QUESTIONS · {L["level"]} · 50 min</span>
+        <span class="tag">{L.get("tag", "PSYCHOLOGY QUESTIONS")} · {L["level"]} · 50 min</span>
         <h1>{L["title"]}</h1>
         <p>{L["subtitle"]}</p>
     </header>
 
-    <p class="crosslink"><a href="psychology_questions_dashboard.html">← All the Psychology Questions</a></p>
+    <p class="crosslink"><a href="psychology_questions_dashboard.html{L.get("anchor", "")}">← All the Psychology Questions</a></p>
 
     <nav class="tab-nav">
         <button class="tab-btn active" onclick="showTab(0)">Key Words</button>
