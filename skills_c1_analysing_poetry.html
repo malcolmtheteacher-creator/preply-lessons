@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Analyse a Poem · C1 English</title>
+<meta name="series" content="Techniques in Action">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e; --muted: #5b5f77; --bg: #f8f9fa; --card: #ffffff; --line: #e2e4ee;
+    --accent: #667eea; --accent-dark: #4b55c4;
+    --voice: #667eea; --voice-t: #eef0ff;
+    --image: #0e9aa7; --image-t: #e5f6f7;
+    --sound: #d9701c; --sound-t: #fdf0e3;
+    --shape: #2e9e6b; --shape-t: #e6f6ee;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6; padding-bottom: 60px; }
+  header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 26px 20px 22px; text-align: center; }
+  header h1 { font-size: 1.7em; font-weight: 700; }
+  header p { opacity: .9; margin-top: 4px; font-size: .95em; }
+
+  .tab-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; background: #fff;
+    padding: 10px 12px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04); }
+  .tab-btn { padding: 8px 14px; border: 1px solid var(--line); background: #f0f1f8; color: #444;
+    border-radius: 20px; font-size: .85em; cursor: pointer; font-weight: 600; }
+  .tab-btn:hover { background: #e4e6f7; }
+  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  main { max-width: 920px; margin: 0 auto; padding: 24px 18px; }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade .3s; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  h2 { font-size: 1.45em; margin-bottom: 6px; }
+  h3 { font-size: 1.1em; margin: 18px 0 6px; }
+  .lead { color: var(--muted); margin-bottom: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin: 14px 0; }
+  .goal { background: #eef0ff; border-left: 5px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin: 14px 0; font-weight: 600; }
+  .say { background: #fff8e1; border-left: 5px solid #f2b300; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .say b.tag { display: inline-block; background: #f2b300; color: #3b2d00; font-size: .72em; letter-spacing: 1px;
+    padding: 2px 8px; border-radius: 4px; margin-right: 8px; vertical-align: 1px; }
+  textarea { width: 100%; min-height: 84px; padding: 10px 12px; border: 1px solid #cfd2e3; border-radius: 8px;
+    font: inherit; resize: vertical; background: #fff; color: var(--ink); margin-top: 8px; }
+  textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  input[type=text] { width: 100%; padding: 9px 12px; border: 1px solid #cfd2e3; border-radius: 8px; font: inherit; margin-top: 6px; }
+  label.small { font-size: .85em; font-weight: 600; color: var(--muted); display: block; margin-top: 10px; }
+
+  button.btn { background: var(--accent); color: #fff; border: 0; padding: 9px 18px; border-radius: 8px; font: inherit;
+    font-weight: 600; cursor: pointer; margin-top: 10px; }
+  button.btn:hover { background: var(--accent-dark); }
+  button.btn.ghost { background: #fff; color: var(--accent-dark); border: 1px solid var(--accent); }
+
+  .reveal-box { display: none; margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #e8f7ef;
+    border-left: 5px solid #2e9e6b; }
+  .reveal-box.show { display: block; animation: fade .25s; }
+
+  /* poem */
+  .poem { background: #fffdf7; border: 1px solid #ece6d2; border-radius: 12px; padding: 18px 22px; margin: 14px 0;
+    font-family: Georgia, "Times New Roman", serif; font-size: 1.08em; line-height: 1.85; }
+  .poem .ln { display: block; }
+  .poem .ln i { display: inline-block; width: 28px; color: #aaa; font-style: normal; font-size: .75em; text-align: right; margin-right: 12px; font-family: -apple-system, sans-serif; }
+  .poem .gap { display: block; height: 10px; }
+  .poem-title { font-family: -apple-system, sans-serif; font-size: .8em; letter-spacing: 1px; text-transform: uppercase; color: #8a7a3d; margin-bottom: 6px; font-weight: 700; }
+
+  /* lenses */
+  .lens-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; margin: 14px 0; }
+  .lens { border-radius: 12px; padding: 16px 18px; border: 2px solid; background: #fff; }
+  .lens h3 { margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  .lens .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+  .lens.voice { border-color: var(--voice); } .lens.voice .dot { background: var(--voice); } .lens.voice .reveal-box { background: var(--voice-t); border-color: var(--voice); }
+  .lens.image { border-color: var(--image); } .lens.image .dot { background: var(--image); } .lens.image .reveal-box { background: var(--image-t); border-color: var(--image); }
+  .lens.sound { border-color: var(--sound); } .lens.sound .dot { background: var(--sound); } .lens.sound .reveal-box { background: var(--sound-t); border-color: var(--sound); }
+  .lens.shape { border-color: var(--shape); } .lens.shape .dot { background: var(--shape); } .lens.shape .reveal-box { background: var(--shape-t); border-color: var(--shape); }
+  .lens .q { font-style: italic; color: var(--muted); margin: 4px 0 0; }
+  .reveal-box ul { margin: 6px 0 0 20px; }
+  .reveal-box li { margin: 3px 0; }
+  .chips span { display: inline-block; background: #fff; border: 1px solid #ccd; border-radius: 14px; padding: 2px 10px; margin: 3px 3px 0 0; font-size: .85em; }
+
+  /* chain */
+  .chain { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 16px 0; }
+  .chain .step { flex: 1 1 170px; max-width: 210px; background: #fff; border: 2px solid var(--accent); border-radius: 12px; padding: 12px; text-align: center; position: relative; }
+  .chain .step b { display: block; color: var(--accent-dark); letter-spacing: 1px; }
+  .chain .step small { color: var(--muted); }
+  .chain .step:not(:last-child)::after { content: "→"; position: absolute; right: -16px; top: 38%; color: var(--accent); font-weight: 700; font-size: 1.2em; }
+
+  /* tag quiz */
+  .qitem { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 12px 0; }
+  .qitem .quote { font-family: Georgia, serif; font-size: 1.05em; background: #fffdf7; border-left: 4px solid #d9c98a; padding: 8px 12px; margin: 6px 0 8px; }
+  .qitem label.opt { display: block; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+  .qitem label.opt:hover { background: #f0f1f8; }
+  .fb { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 8px; border-left: 5px solid; }
+  .fb.show { display: block; }
+  .fb.ok { background: #e8f7ef; border-color: #2e9e6b; }
+  .fb.no { background: #fdeaea; border-color: #d64545; }
+  .scoreline { font-weight: 700; margin: 10px 0; }
+
+  /* weak/strong */
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .pair .p { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .pair .p h4 { font-size: .8em; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+
+  /* timer */
+  .timer-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .timer { font-size: 1.7em; font-weight: 700; font-variant-numeric: tabular-nums; color: #0e9aa7; min-width: 90px; }
+  .timer.warn { color: #d99a00; } .timer.danger { color: #d64545; animation: pulse .6s infinite alternate; }
+  @keyframes pulse { to { opacity: .45; } }
+  .tbtn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--accent); background: #fff; color: var(--accent-dark); cursor: pointer; font-weight: 600; font-size: .85em; }
+  .tbtn:hover { background: #eef0ff; }
+
+  .checks label { display: block; padding: 7px 10px; border-radius: 6px; cursor: pointer; }
+  .checks label:hover { background: #f0f1f8; }
+  .checks input { margin-right: 8px; transform: scale(1.2); }
+  .verbs span { display: inline-block; background: #eef0ff; border-radius: 14px; padding: 2px 11px; margin: 3px 3px 0 0; font-size: .88em; font-weight: 600; color: var(--accent-dark); }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 1.35em; }
+    .lens-grid { grid-template-columns: 1fr; }
+    .chain .step:not(:last-child)::after { display: none; }
+    main { padding: 16px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>How to Analyse a Poem</h1>
+  <p>C1 Level · A method you can use on any poem you have never seen before</p>
+</header>
+
+<nav class="tab-nav" id="tabNav"></nav>
+
+<main>
+
+<!-- ============ TAB 1 ============ -->
+<section class="panel active" data-title="1 · Start Here">
+  <h2>Start Here</h2>
+  <p class="lead">Have a go &mdash; there are no wrong answers yet. Let&rsquo;s see what comes to mind.</p>
+
+  <div class="say"><b class="tag">SPEAK</b> Imagine someone hands you a poem you have never seen. Talk me through what you do, step by step. Then name as many poetic devices as you can remember, without looking anything up.</div>
+  <textarea placeholder="Optional: jot down the steps and devices you said..."></textarea>
+
+  <div class="goal">Today we&rsquo;re building a method for analysing any poem, so you can explain not just what a poet does but why it works.</div>
+
+  <h3>Two versions of the same idea</h3>
+  <div class="pair">
+    <div class="p"><h4>Version A</h4><p style="font-family:Georgia,serif;">The statue is broken. Nothing else is left. There is only sand all around.</p></div>
+    <div class="p"><h4>Version B</h4><p style="font-family:Georgia,serif;">Nothing beside remains. Round the decay<br>Of that colossal Wreck, boundless and bare<br>The lone and level sands stretch far away.</p></div>
+  </div>
+  <div class="say" style="margin-top:14px;"><b class="tag">SPEAK</b> Both say the same thing. Read them aloud. Why does B feel so different? Try to give three reasons, and use the word <em>because</em> each time.</div>
+  <button class="btn ghost" onclick="toggle('r1')">Show some things worth noticing</button>
+  <div class="reveal-box" id="r1">
+    <ul>
+      <li><b>Sound:</b> <em>boundless and bare</em>, <em>lone and level</em> &mdash; repeated consonants slow the line down.</li>
+      <li><b>Image:</b> <em>colossal Wreck</em> sets enormous size against ruin, in just two words.</li>
+      <li><b>Shape:</b> the line runs on across the line break, so the sentence stretches like the desert it describes.</li>
+      <li><b>Voice:</b> A is a plain report. B sounds like someone standing there, stunned.</li>
+    </ul>
+    <p style="margin-top:8px;">Notice that each reason can be sorted into a type. That sorting is the heart of today&rsquo;s method.</p>
+  </div>
+</section>
+
+<!-- ============ TAB 2 ============ -->
+<section class="panel" data-title="2 · Four Lenses">
+  <h2>Four Lenses</h2>
+  <p class="lead">Instead of hunting for devices at random, look through four lenses, one at a time. For each lens, say the questions you would ask <em>before</em> you reveal them.</p>
+
+  <div class="lens-grid">
+    <div class="lens voice">
+      <h3><span class="dot"></span>VOICE</h3>
+      <p class="q">Who is speaking, and how do they sound?</p>
+      <div class="say" style="margin:10px 0 0;"><b class="tag">SPEAK</b> What two or three questions would you ask about the voice of a poem?</div>
+      <button class="btn ghost" onclick="toggle('l1')">Reveal</button>
+      <div class="reveal-box" id="l1">
+        <ul><li>Who is the speaker &mdash; and are they the poet?</li><li>Who are they speaking to, and where and when?</li><li>What is the tone, and does it change?</li></ul>
+        <div class="chips"><span>persona</span><span>tone</span><span>apostrophe</span><span>frame narrative</span><span>irony</span></div>
+      </div>
+    </div>
+    <div class="lens image">
+      <h3><span class="dot"></span>IMAGE</h3>
+      <p class="q">What do I see, and which words carry the weight?</p>
+      <div class="say" style="margin:10px 0 0;"><b class="tag">SPEAK</b> What would you look for under IMAGE?</div>
+      <button class="btn ghost" onclick="toggle('l2')">Reveal</button>
+      <div class="reveal-box" id="l2">
+        <ul><li>Which pictures, senses or objects appear?</li><li>Which comparisons are being made?</li><li>Which single words have strong connotations?</li></ul>
+        <div class="chips"><span>imagery</span><span>metaphor / simile</span><span>personification</span><span>symbol</span><span>diction</span></div>
+      </div>
+    </div>
+    <div class="lens sound">
+      <h3><span class="dot"></span>SOUND</h3>
+      <p class="q">What happens when I read it aloud?</p>
+      <div class="say" style="margin:10px 0 0;"><b class="tag">SPEAK</b> What would you listen for?</div>
+      <button class="btn ghost" onclick="toggle('l3')">Reveal</button>
+      <div class="reveal-box" id="l3">
+        <ul><li>Which sounds repeat, and what do they feel like in the mouth?</li><li>Where does the rhythm speed up, slow down or stumble?</li><li>Which words are stressed by rhyme or repetition?</li></ul>
+        <div class="chips"><span>alliteration</span><span>assonance</span><span>sibilance</span><span>rhyme</span><span>rhythm</span><span>caesura</span><span>repetition</span></div>
+      </div>
+    </div>
+    <div class="lens shape">
+      <h3><span class="dot"></span>SHAPE</h3>
+      <p class="q">How is the poem built on the page?</p>
+      <div class="say" style="margin:10px 0 0;"><b class="tag">SPEAK</b> What would you check about the structure?</div>
+      <button class="btn ghost" onclick="toggle('l4')">Reveal</button>
+      <div class="reveal-box" id="l4">
+        <ul><li>What form is it &mdash; and does it obey or break the form&rsquo;s rules?</li><li>Where does the poem turn, and how does the ending differ from the start?</li><li>Where do lines end &mdash; with a stop, or running on?</li></ul>
+        <div class="chips"><span>form (sonnet etc.)</span><span>stanza</span><span>enjambment</span><span>end-stopped line</span><span>volta (the turn)</span><span>punctuation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>One more step: the chain that turns a spot into an analysis</h3>
+  <p class="lead">Spotting a device earns very little. The marks come from taking it through four steps.</p>
+  <div class="chain">
+    <div class="step"><b>NAME</b><small>the device</small></div>
+    <div class="step"><b>QUOTE</b><small>the exact words</small></div>
+    <div class="step"><b>EFFECT</b><small>what it does to the reader</small></div>
+    <div class="step"><b>IDEA</b><small>how it serves the poem&rsquo;s big point</small></div>
+  </div>
+  <p><b>Effect verbs to reach for:</b></p>
+  <div class="verbs"><span>creates</span><span>mirrors</span><span>undercuts</span><span>slows</span><span>heightens</span><span>exposes</span><span>echoes</span><span>unsettles</span><span>isolates</span><span>contrasts</span></div>
+  <div class="say" style="margin-top:14px;"><b class="tag">SPEAK</b> Without looking back: say the four lenses, then the four steps of the chain. Check yourself against the cards above.</div>
+</section>
+
+<!-- ============ TAB 3 ============ -->
+<section class="panel" data-title="3 · First Poem">
+  <h2>First Poem</h2>
+  <p class="lead">Percy Bysshe Shelley, 1818. Read it aloud once, slowly, before doing anything else.</p>
+
+  <div class="poem">
+    <div class="poem-title">Ozymandias</div>
+    <span class="ln"><i>1</i>I met a traveller from an antique land,</span>
+    <span class="ln"><i>2</i>Who said&mdash;&ldquo;Two vast and trunkless legs of stone</span>
+    <span class="ln"><i>3</i>Stand in the desert. . . . Near them, on the sand,</span>
+    <span class="ln"><i>4</i>Half sunk a shattered visage lies, whose frown,</span>
+    <span class="ln"><i>5</i>And wrinkled lip, and sneer of cold command,</span>
+    <span class="ln"><i>6</i>Tell that its sculptor well those passions read</span>
+    <span class="ln"><i>7</i>Which yet survive, stamped on these lifeless things,</span>
+    <span class="ln"><i>8</i>The hand that mocked them, and the heart that fed;</span>
+    <span class="ln"><i>9</i>And on the pedestal, these words appear:</span>
+    <span class="ln"><i>10</i>My name is Ozymandias, King of Kings;</span>
+    <span class="ln"><i>11</i>Look on my Works, ye Mighty, and despair!</span>
+    <span class="ln"><i>12</i>Nothing beside remains. Round the decay</span>
+    <span class="ln"><i>13</i>Of that colossal Wreck, boundless and bare</span>
+    <span class="ln"><i>14</i>The lone and level sands stretch far away.&rdquo;</span>
+  </div>
+
+  <div class="say"><b class="tag">SPEAK</b> First reaction, before any technique: in one minute, tell me what the poem is <em>about</em> and what it makes you feel. Then say which lens you think this poem leans on most.</div>
+
+  <h3>Name the feature</h3>
+  <p class="lead">For each quotation, say the effect aloud first, then choose the feature and check.</p>
+  <div id="quiz"></div>
+  <div class="scoreline" id="quizScore"></div>
+</section>
+
+<!-- ============ TAB 4 ============ -->
+<section class="panel" data-title="4 · Say Why">
+  <h2>Say Why</h2>
+  <p class="lead">A device is only worth mentioning if you can say what it <em>does</em>. Compare two answers about the same line.</p>
+
+  <div class="pair">
+    <div class="p">
+      <h4>Answer 1</h4>
+      <p>Shelley uses alliteration in &ldquo;boundless and bare&rdquo;. This makes the line sound good and adds to the poem. The poem is about a broken statue in the desert.</p>
+    </div>
+    <div class="p">
+      <h4>Answer 2</h4>
+      <p>In the final lines, the repeated <em>b</em> and <em>l</em> sounds of &ldquo;boundless and bare&rdquo; and &ldquo;lone and level&rdquo; slow the reading down, so the voice drifts across the line as the sand drifts across the ruin. The empty, spreading sound drains the energy the king&rsquo;s boast had, which leaves &ldquo;Look on my Works&rdquo; with nothing to answer it but silence. Shelley&rsquo;s point is that power is temporary, while the sculptor&rsquo;s art outlasts the tyrant it portrayed.</p>
+    </div>
+  </div>
+  <div class="say" style="margin-top:14px;"><b class="tag">SPEAK</b> Which answer would earn more marks, and why? Find where Answer 2 does each of the four steps (name, quote, effect, idea), then say exactly what Answer 1 is missing.</div>
+  <button class="btn ghost" onclick="toggle('r4a')">Show a check</button>
+  <div class="reveal-box" id="r4a">
+    <p><b>Name:</b> repeated <em>b</em> and <em>l</em> sounds. <b>Quote:</b> &ldquo;boundless and bare&rdquo;, &ldquo;lone and level&rdquo;. <b>Effect:</b> slows the reading and drains energy. <b>Idea:</b> power is temporary; art outlasts it.</p>
+    <p style="margin-top:6px;">Answer 1 names the device and quotes it, but its effect is vague (&ldquo;sounds good&rdquo;) and it never reaches an idea.</p>
+  </div>
+
+  <h3>Build your own</h3>
+  <p class="lead">Take the turn in line 9 (&ldquo;And on the pedestal, these words appear&rdquo;). First speak your analysis, then write one line for each step.</p>
+  <label class="small">NAME it</label><input type="text">
+  <label class="small">QUOTE it</label><input type="text">
+  <label class="small">EFFECT: what does it do to the reader?</label><textarea style="min-height:60px;"></textarea>
+  <label class="small">IDEA: how does it serve the poem&rsquo;s point?</label><textarea style="min-height:60px;"></textarea>
+  <button class="btn" onclick="toggle('r4b')">Compare with a model</button>
+  <div class="reveal-box" id="r4b">
+    <p>The <b>volta</b> comes at the start of line 9: <em>&ldquo;And on the pedestal, these words appear&rdquo;</em>. Up to here the poem describes a ruin; now it lets the ruin speak. The new, deliberate pace sets up the inscription, so the reader is lured into hearing the king&rsquo;s boast in full. When the boast is followed by &ldquo;Nothing beside remains&rdquo;, the irony lands with maximum force: the turn turns the king&rsquo;s own words into his epitaph.</p>
+    <p style="margin-top:6px;"><b>Challenge:</b> your version does not have to match. Where is yours stronger or weaker than this one?</p>
+  </div>
+
+  <h3>Why it&rsquo;s layered</h3>
+  <div class="say"><b class="tag">SPEAK</b> The poem is told by a speaker who heard it from a traveller, who read an inscription, which was carved by a sculptor, who copied the king&rsquo;s face. Count the layers between us and the king. Why might Shelley build it like this? Give two reasons.</div>
+</section>
+
+<!-- ============ TAB 5 ============ -->
+<section class="panel" data-title="5 · Second Poem">
+  <h2>Second Poem</h2>
+  <p class="lead">William Blake, 1794. This time, you lead. Read it aloud first.</p>
+
+  <div class="poem">
+    <div class="poem-title">London</div>
+    <span class="ln"><i>1</i>I wander thro&rsquo; each charter&rsquo;d street,</span>
+    <span class="ln"><i>2</i>Near where the charter&rsquo;d Thames does flow.</span>
+    <span class="ln"><i>3</i>A mark in every face I meet,</span>
+    <span class="ln"><i>4</i>Marks of weakness, marks of woe.</span>
+    <span class="gap"></span>
+    <span class="ln"><i>5</i>In every cry of every Man,</span>
+    <span class="ln"><i>6</i>In every Infant&rsquo;s cry of fear,</span>
+    <span class="ln"><i>7</i>In every voice, in every ban,</span>
+    <span class="ln"><i>8</i>The mind-forg&rsquo;d manacles I hear.</span>
+    <span class="gap"></span>
+    <span class="ln"><i>9</i>How the Chimney-sweeper&rsquo;s cry</span>
+    <span class="ln"><i>10</i>Every black&rsquo;ning Church appalls;</span>
+    <span class="ln"><i>11</i>And the hapless Soldier&rsquo;s sigh</span>
+    <span class="ln"><i>12</i>Runs in blood down Palace walls.</span>
+    <span class="gap"></span>
+    <span class="ln"><i>13</i>But most thro&rsquo; midnight streets I hear</span>
+    <span class="ln"><i>14</i>How the youthful Harlot&rsquo;s curse</span>
+    <span class="ln"><i>15</i>Blasts the new-born Infant&rsquo;s tear,</span>
+    <span class="ln"><i>16</i>And blights with plagues the Marriage hearse.</span>
+  </div>
+
+  <div class="say"><b class="tag">SPEAK</b> Choose <b>two</b> lenses. For each one, give a one-minute analysis using the four-step chain. Use the notes boxes if they help, and start the timer when you begin.</div>
+
+  <div class="timer-wrap" data-timer>
+    <span class="timer" data-display>3:00</span>
+    <button class="tbtn" data-set="180">3 min</button>
+    <button class="tbtn" data-set="300">5 min</button>
+    <button class="tbtn" data-start>Start</button>
+    <button class="tbtn" data-reset>Reset</button>
+  </div>
+
+  <div class="lens-grid">
+    <div class="lens voice"><h3><span class="dot"></span>VOICE notes</h3><textarea style="min-height:70px;"></textarea></div>
+    <div class="lens image"><h3><span class="dot"></span>IMAGE notes</h3><textarea style="min-height:70px;"></textarea></div>
+    <div class="lens sound"><h3><span class="dot"></span>SOUND notes</h3><textarea style="min-height:70px;"></textarea></div>
+    <div class="lens shape"><h3><span class="dot"></span>SHAPE notes</h3><textarea style="min-height:70px;"></textarea></div>
+  </div>
+
+  <button class="btn ghost" onclick="toggle('r5')">After your attempt: things worth noticing</button>
+  <div class="reveal-box" id="r5">
+    <ul>
+      <li><b>Voice:</b> a walking, first-person witness (&ldquo;I wander&rdquo;, &ldquo;I hear&rdquo;) who listens more than he looks. Where does the tone harden?</li>
+      <li><b>Image:</b> &ldquo;charter&rsquo;d&rdquo; means licensed or owned, and it is applied to the street <em>and</em> the river. What does it say about freedom in the city? And why <em>forg&rsquo;d</em> manacles, if they are made in the mind?</li>
+      <li><b>Sound:</b> &ldquo;every&rdquo; appears five times in the second stanza. What does that relentless repetition do to the reader&rsquo;s sense of escape?</li>
+      <li><b>Shape:</b> four tight stanzas, each rhyming ABAB with a steady beat. Could the regularity itself be a kind of manacle?</li>
+      <li><b>Oxymoron:</b> &ldquo;Marriage hearse&rdquo; joins a wedding to a funeral in two words. What is Blake saying about what institutions have turned into?</li>
+    </ul>
+  </div>
+
+  <h3>Write one paragraph</h3>
+  <p class="lead">Choose the single strongest idea you found. Write one paragraph that follows the chain: name it, quote it, explain the effect, tie it to the poem&rsquo;s idea.</p>
+  <div class="timer-wrap" data-timer>
+    <span class="timer" data-display>5:00</span>
+    <button class="tbtn" data-set="180">3 min</button>
+    <button class="tbtn" data-set="300">5 min</button>
+    <button class="tbtn" data-start>Start</button>
+    <button class="tbtn" data-reset>Reset</button>
+  </div>
+  <textarea style="min-height:150px;" placeholder="Write your paragraph here..."></textarea>
+
+  <div class="card checks" id="selfcheck">
+    <b>Check your paragraph:</b>
+    <label><input type="checkbox"> I named the device precisely.</label>
+    <label><input type="checkbox"> I quoted the exact words.</label>
+    <label><input type="checkbox"> I used an effect verb to say what it does to the reader.</label>
+    <label><input type="checkbox"> I connected it to the poem&rsquo;s bigger idea.</label>
+    <div class="fb" id="scFb"></div>
+  </div>
+</section>
+
+<!-- ============ TAB 6 ============ -->
+<section class="panel" data-title="6 · Write It Back">
+  <h2>Write It Back</h2>
+  <p class="lead">Now flip the method. A writer chooses devices on purpose. Write four lines about a place you know well.</p>
+
+  <div class="card">
+    <b>Your four lines must include:</b>
+    <ul style="margin:8px 0 0 20px;">
+      <li>a clear <b>voice</b> choice (who is speaking, and in what tone?)</li>
+      <li>one strong <b>image</b></li>
+      <li>one <b>sound</b> pattern</li>
+      <li>a <b>shape</b> decision, such as a turn in the final line</li>
+    </ul>
+  </div>
+  <textarea style="min-height:120px;" placeholder="Write your four lines here..."></textarea>
+
+  <div class="say"><b class="tag">SPEAK</b> Read your lines aloud. The person listening names one device they heard and says what it did to them. Does it match what you intended?</div>
+
+  <h3>Annotate your own lines</h3>
+  <label class="small">VOICE: what did you choose, and why?</label><input type="text">
+  <label class="small">IMAGE: which words carry the weight?</label><input type="text">
+  <label class="small">SOUND: what pattern did you create?</label><input type="text">
+  <label class="small">SHAPE: what did the last line do?</label><input type="text">
+
+  <h3>Swap the roles</h3>
+  <div class="say"><b class="tag">SPEAK</b> Pick any poem from earlier in this lesson and rewrite two lines so that one device disappears. Read both versions aloud. What was lost? Say it in one sentence.</div>
+</section>
+
+<!-- ============ TAB 7 ============ -->
+<section class="panel" data-title="7 · Look Back">
+  <h2>Look Back</h2>
+
+  <h3>Quick recall</h3>
+  <p class="lead">Answer each one out loud before you reveal it.</p>
+  <div id="recall"></div>
+
+  <h3>From memory</h3>
+  <div class="say"><b class="tag">SPEAK</b> Close your notes. Without looking up, explain the whole method to someone who has never heard of it: the four lenses, the four steps, and one example of each.</div>
+  <button class="btn ghost" onclick="toggle('r7a')">Compare with the method</button>
+  <div class="reveal-box" id="r7a">
+    <p><b>Lenses:</b> VOICE &middot; IMAGE &middot; SOUND &middot; SHAPE.</p>
+    <p><b>Chain:</b> NAME it &rarr; QUOTE it &rarr; EFFECT on the reader &rarr; tie it to the IDEA.</p>
+    <p style="margin-top:6px;">Did you include an example of each? If not, which lens was hardest to remember?</p>
+  </div>
+
+  <h3>Reflect</h3>
+  <div class="say"><b class="tag">SPEAK</b> Which part of today helped the method stick the most: the comparison, the quiz, the solo analysis or the writing? What would you change for next time?</div>
+  <textarea placeholder="Optional notes..."></textarea>
+
+  <div class="goal" style="margin-top:20px;">We said you&rsquo;d be able to analyse any poem and explain why it works. Can you?</div>
+  <div class="card checks" id="ican">
+    <b>I can...</b>
+    <label><input type="checkbox"> look at an unseen poem through four lenses.</label>
+    <label><input type="checkbox"> name a device, quote it, and explain its effect.</label>
+    <label><input type="checkbox"> connect a technique to the poem&rsquo;s central idea.</label>
+    <label><input type="checkbox"> use the same lenses to shape my own writing.</label>
+    <div class="fb" id="icanFb"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ---------- tabs ---------- */
+var panels = document.querySelectorAll('.panel');
+var nav = document.getElementById('tabNav');
+panels.forEach(function (p, i) {
+  var b = document.createElement('button');
+  b.className = 'tab-btn' + (i === 0 ? ' active' : '');
+  b.textContent = p.getAttribute('data-title');
+  b.onclick = function () { showTab(i); };
+  nav.appendChild(b);
+});
+function showTab(i) {
+  var btns = nav.querySelectorAll('.tab-btn');
+  panels.forEach(function (p, j) {
+    p.classList.toggle('active', i === j);
+    btns[j].classList.toggle('active', i === j);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggle(id) { document.getElementById(id).classList.toggle('show'); }
+
+/* ---------- name-the-feature quiz ---------- */
+var QUIZ = [
+  { q: '“I met a traveller from an antique land, / Who said—”',
+    o: ['Direct address to the reader', 'Apostrophe to a statue', 'A frame narrative: the story is passed on second-hand', 'Personification of the desert'], a: 2,
+    why: 'The speaker is only repeating what a traveller said, so the king is distanced by several layers, like a story told twice. That distance suggests how far he has faded from the world.' },
+  { q: '“boundless and bare / The lone and level sands”',
+    o: ['Alliteration of b and l', 'Rhyme', 'Metaphor', 'Oxymoron'], a: 0,
+    why: 'Repeated opening consonants (b…b, l…l) make the line slow and spreading, so the sound mirrors the emptiness.' },
+  { q: '“And on the pedestal, these words appear:”',
+    o: ['A simile', 'Enjambment', 'Onomatopoeia', 'A volta, the turn of the poem'], a: 3,
+    why: 'Line 9 is where a sonnet turns. Here the poem moves from describing the ruin to quoting the king himself.' },
+  { q: '“The hand that mocked them, and the heart that fed”',
+    o: ['Alliteration', 'Parallel structure', 'Rhetorical question', 'Hyperbole'], a: 1,
+    why: 'Two matching phrases (“the hand that…, the heart that…”) set sculptor and king side by side. And “mocked” works both ways: imitated and ridiculed.' },
+  { q: '“Look on my Works, ye Mighty, and despair!”',
+    o: ['Irony: the words now mean the opposite of what the king intended', 'Understatement', 'Sibilance', 'Direct praise of the king'], a: 0,
+    why: 'The king meant “despair at my greatness”. Placed beside the ruin, the reader despairs at how everything fades, so his words undo themselves.' },
+  { q: '“Nothing beside remains. Round the decay”',
+    o: ['Enjambment', 'Alliteration', 'Hyperbole', 'Caesura: a full stop that halts the line mid-way'], a: 3,
+    why: 'The sentence stops dead after “remains”, so the silence in the middle of the line enacts the absence it names.' }
+];
+var qDone = {}, qRight = 0;
+(function buildQuiz() {
+  var box = document.getElementById('quiz');
+  QUIZ.forEach(function (it, i) {
+    var d = document.createElement('div'); d.className = 'qitem';
+    var h = '<b>' + (i + 1) + '.</b><div class="quote">' + it.q + '</div>';
+    it.o.forEach(function (t, k) {
+      h += '<label class="opt"><input type="radio" name="q' + i + '" value="' + k + '"> ' + String.fromCharCode(65 + k) + '. ' + t + '</label>';
+    });
+    h += '<button class="btn" data-i="' + i + '">Check</button><div class="fb" id="fb' + i + '"></div>';
+    d.innerHTML = h; box.appendChild(d);
+  });
+  box.addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') return;
+    var i = +e.target.getAttribute('data-i');
+    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+    var fb = document.getElementById('fb' + i);
+    fb.className = 'fb show';
+    if (!sel) { fb.className = 'fb show no'; fb.textContent = 'Choose a feature first, then check.'; return; }
+    var ok = +sel.value === QUIZ[i].a;
+    if (ok && !qDone[i]) { qRight++; }
+    if (!qDone[i] || ok) qDone[i] = ok ? 'right' : (qDone[i] || 'wrong');
+    fb.className = 'fb show ' + (ok ? 'ok' : 'no');
+    fb.innerHTML = (ok ? '<b>Right feature.</b> ' : '<b>Not quite.</b> Reread the quotation and ask which lens it belongs to. ') + (ok ? QUIZ[i].why : 'Hint: ' + QUIZ[i].why.split('. ')[0] + '.');
+    document.getElementById('quizScore').textContent = 'Correct so far: ' + qRight + ' / ' + QUIZ.length;
+  });
+})();
+
+/* ---------- recall zone ---------- */
+var RECALL = [
+  ['What are the three rhetorical appeals, and what does each aim at?', 'Ethos (credibility), pathos (emotion), logos (logic and evidence).'],
+  ['What is the difference between antithesis and an oxymoron?', 'Antithesis sets contrasting ideas in balanced parallel structure; an oxymoron fuses two contradictory words into one phrase.'],
+  ['Why is an effect verb better than saying a device “makes the poem better”?', 'It says exactly what the device does to the reader (slows, mirrors, undercuts), which is what analysis marks reward.'],
+  ['What is a tricolon, and why do speakers like it?', 'A list of three parallel items; it sounds complete, rhythmic and memorable.'],
+  ['What is the difference between enjambment and an end-stopped line?', 'An enjambed line runs on without punctuation into the next; an end-stopped line ends with a pause or stop.']
+];
+(function buildRecall() {
+  var box = document.getElementById('recall');
+  RECALL.forEach(function (r, i) {
+    var d = document.createElement('div'); d.className = 'card';
+    d.innerHTML = '<b>' + (i + 1) + '.</b> ' + r[0] +
+      '<br><button class="btn ghost" data-r="' + i + '">Reveal</button><div class="reveal-box" id="rc' + i + '">' + r[1] + '</div>';
+    box.appendChild(d);
+  });
+  box.addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') return;
+    document.getElementById('rc' + e.target.getAttribute('data-r')).classList.toggle('show');
+  });
+})();
+
+/* ---------- timers (click to start only) ---------- */
+document.querySelectorAll('[data-timer]').forEach(function (w) {
+  var disp = w.querySelector('[data-display]');
+  var total = parseInt((disp.textContent.split(':')[0]) * 60, 10) + parseInt(disp.textContent.split(':')[1], 10);
+  var left = total, iv = null;
+  function paint() {
+    var m = Math.floor(left / 60), s = left % 60;
+    disp.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    disp.className = 'timer' + (left <= 10 && left > 0 ? ' danger' : (left <= 30 ? ' warn' : ''));
+    if (left === 0) disp.className = 'timer danger';
+  }
+  function stop() { if (iv) { clearInterval(iv); iv = null; } }
+  w.querySelectorAll('[data-set]').forEach(function (b) {
+    b.onclick = function () { stop(); total = +b.getAttribute('data-set'); left = total; paint(); };
+  });
+  w.querySelector('[data-start]').onclick = function () {
+    if (iv || left === 0) return;
+    iv = setInterval(function () { left--; paint(); if (left <= 0) { left = 0; paint(); stop(); } }, 1000);
+  };
+  w.querySelector('[data-reset]').onclick = function () { stop(); left = total; paint(); };
+  paint();
+});
+
+/* ---------- checklists with inline feedback ---------- */
+function wireChecks(boxId, fbId, doneMsg, partMsg) {
+  var box = document.getElementById(boxId), fb = document.getElementById(fbId);
+  box.addEventListener('change', function () {
+    var all = box.querySelectorAll('input[type=checkbox]');
+    var n = 0; all.forEach(function (c) { if (c.checked) n++; });
+    fb.className = 'fb show ' + (n === all.length ? 'ok' : 'no');
+    fb.textContent = n === all.length ? doneMsg : n + ' of ' + all.length + ' ticked. ' + partMsg;
+  });
+}
+wireChecks('selfcheck', 'scFb',
+  'All four steps are in place. Read the paragraph aloud once and listen for any sentence that only names a device without explaining its effect.',
+  'Find the step that is missing and add one sentence for it.');
+wireChecks('ican', 'icanFb',
+  'All four statements ticked. Pick the one you feel least sure about and say how you would practise it this week.',
+  'Leave any you are not sure about unticked; they show what to practise next.');
+</script>
+</body>
+</html>
