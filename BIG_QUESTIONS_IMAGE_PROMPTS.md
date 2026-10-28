@@ -13,7 +13,7 @@ A wide panoramic banner, about 3:1. Style: hand-illustrated watercolour and ink 
 ## Mind map (`BigQuestions_map.jpg`, landscape 16:10)
 
 ```
-Create a refined hand-illustrated mind map, landscape 16:10, on warm cream paper. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Typography: a classic serif for titles and a clean sans-serif for labels, perfectly spelled and easy to read. Every piece of text below must appear exactly as written.
+Create a refined hand-illustrated mind map, landscape 16:10, on warm cream paper. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no logos, no photo-realism. Typography: a classic serif for titles and a clean sans-serif for labels, perfectly spelled and easy to read. Every piece of text below must appear exactly as written.
 
 CENTRE: a large deep-purple circle with the title "Big Questions".
 
