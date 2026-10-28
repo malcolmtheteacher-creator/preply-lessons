@@ -67,11 +67,12 @@ def svg_map():
     return '\n'.join(s)
 
 def hotspots():
+    # circle centres in the painted map (pixels of the 1586x992 image), in lesson order
+    centres = [(760, 150), (1135, 315), (1155, 595), (1015, 795), (545, 790), (425, 575), (445, 270)]
     out = ''
-    for i, L in enumerate(LESSONS):
-        x, y, _ = node_pos(i)
+    for L, (x, y) in zip(LESSONS, centres):
         out += (f'<a class="hot" href="{L["file"]}" aria-label="{L["title"]}" title="{L["title"]}" '
-                f'style="left:{(x - 62) / 14.40:.2f}%;top:{(y - 62) / 9.00:.2f}%;width:{124 / 14.40:.2f}%;height:{124 / 9.00:.2f}%"></a>')
+                f'style="left:{(x - 95) / 15.86:.2f}%;top:{(y - 95) / 9.92:.2f}%;width:{190 / 15.86:.2f}%;height:{190 / 9.92:.2f}%"></a>')
     return out
 
 def card(L):
