@@ -125,6 +125,9 @@ header .subtitle { font-size: 1.1rem; max-width: 720px; margin: 0 auto; opacity:
 .map-frame img { display: block; width: 100%; height: auto; border-radius: 8px; } .map-frame svg { display: block; width: 100%; height: auto; }
 .map-frame svg a { cursor: pointer; } .map-frame svg a:hover circle { stroke: #ffd36b; }
 .hot { position: absolute; border-radius: 50%; } .hot:hover { box-shadow: 0 0 0 3px rgba(255,211,107,0.9); }
+.pick { position: absolute; z-index: 20; background: white; border: 2px solid var(--c, #764ba2); border-radius: 12px; padding: 10px 12px; box-shadow: 0 10px 28px rgba(40,20,90,0.25); display: none; min-width: 190px; }
+.pick b { display: block; font-size: 0.82rem; color: #3a2a6a; margin-bottom: 8px; }
+.pick a { display: block; text-align: center; text-decoration: none; font-weight: 700; font-size: 0.88rem; padding: 7px 10px; border-radius: 8px; margin-top: 6px; color: var(--c); border: 2px solid var(--c); } .pick a:hover { background: var(--c); color: white; }
 .map-note { text-align: center; color: #6a5a8a; font-size: 0.88rem; margin-top: 10px; }
 .set-head { margin: 34px 0 6px; } .set-head h2 { color: #3a2a6a; font-size: 1.5rem; } .set-head p { color: #555; font-size: 0.95rem; margin-bottom: 16px; }
 .intro { background: white; border: 1px solid #e0e0ee; border-left: 4px solid #764ba2; border-radius: 12px; padding: 22px 28px; margin-bottom: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
@@ -165,13 +168,13 @@ footer { text-align: center; color: #888; font-size: 0.86rem; margin: 24px 0 16p
   <p>Each lesson starts from one of them. You meet the <strong>key words</strong>, read the <strong>story</strong> in three short parts, practise <strong>one grammar structure</strong> the story needs, test your thinking on five cases, and then <strong>speak</strong>. The second set, <strong>going deeper</strong>, asks how psychology checks itself: whether results repeat, what ethics allows, whether the method matters, who decides what is normal, whether experts beat formulas, and whose minds the research is about. Pick a question, then pick your level.</p>
 </div>
 
-<p class="section-label">The map &mdash; click a circle to jump to its lesson</p>
+<p class="section-label">The map &mdash; click a circle to open its lesson</p>
 <div class="map"><div class="map-scroll"><div class="map-frame" id="mapframe">
 <img src="PsychologyQuestions_map.jpg" alt="A mind map of twelve psychology questions in two sets" onerror="var f=document.getElementById('mapframe');f.innerHTML=document.getElementById('mapsvg').innerHTML;">
 HOTSPOTS
 </div></div>
 <template id="mapsvg">SVGMAP</template>
-<p class="map-note">Right: the six experiments. Left: six deeper questions for professionals.</p></div>
+<p class="map-note">Click a circle, then choose your level. Right: the six experiments. Left: six deeper questions for professionals.</p></div>
 
 <div class="set-head" id="set1"><h2>The experiments</h2><p>Six studies that changed what people thought about the mind. Open a question, then choose A2/B1 or B2/C1.</p></div>
 <div class="story-grid">
@@ -195,10 +198,30 @@ CARDS2
 </div>
 <footer>Psychology Questions · A2/B1 and B2/C1 · 12 lessons × 2 levels</footer>
 </div>
+<script>
+(function () {
+  var LINKS = LINKSJSON, frame = document.getElementById('mapframe'), pick = document.createElement('div');
+  pick.className = 'pick'; frame.appendChild(pick);
+  function hide() { pick.style.display = 'none'; }
+  frame.addEventListener('click', function (e) {
+    var a = e.target.closest('a'); if (!a || !frame.contains(a) || a.parentNode === pick) return;
+    var m = (a.getAttribute('href') || '').match(/^#q(\d+)$/); if (!m) return;
+    e.preventDefault(); e.stopPropagation();
+    var d = LINKS[m[1]], r = frame.getBoundingClientRect();
+    pick.style.setProperty('--c', d[3]);
+    pick.innerHTML = '<b>' + d[0] + '</b><a href="' + d[1] + '">A2/B1 lesson</a><a href="' + d[2] + '">B2/C1 lesson</a>';
+    var x = Math.min(e.clientX - r.left, r.width - 210), y = e.clientY - r.top + 12;
+    pick.style.left = Math.max(4, x) + 'px'; pick.style.top = y + 'px'; pick.style.display = 'block';
+  });
+  document.addEventListener('click', function (e) { if (!pick.contains(e.target) && !e.target.closest('#mapframe a')) hide(); });
+})();
+</script>
 </body>
 </html>
 '''
-html = (PAGE.replace('HOTSPOTS', hotspots()).replace('SVGMAP', svg_map())
+import json
+LINKS = json.dumps({str(L['n']): [L['title'], L['slug'] + '_a2b1.html', L['slug'] + '_b2c1.html', L['color']] for L in LESSONS})
+html = (PAGE.replace('LINKSJSON', LINKS).replace('HOTSPOTS', hotspots()).replace('SVGMAP', svg_map())
         .replace('CARDS1', '\n'.join(card(L) for L in LESSONS if L['set'] == 1))
         .replace('CARDS2', '\n'.join(card(L) for L in LESSONS if L['set'] == 2)))
 open(os.path.join(ROOT, 'psychology_questions_dashboard.html'), 'w').write(html)
