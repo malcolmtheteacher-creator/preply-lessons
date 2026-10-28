@@ -65,11 +65,13 @@ def svg_map():
     return '\n'.join(s)
 
 def hotspots():
+    # circle centres in the painted map (pixels of the 1586x992 image), in lesson order
+    centres = [(985, 155), (1280, 215), (1308, 395), (1295, 578), (1242, 765), (950, 790),
+               (652, 795), (350, 770), (308, 578), (283, 392), (318, 205), (640, 160)]
     out = ''
-    for L in LESSONS:
-        x, y = node_pos(L['n'] - 1)
+    for L, (x, y) in zip(LESSONS, centres):
         out += (f'<a class="hot" href="#q{L["n"]}" aria-label="{L["title"]}" title="{L["title"]}" '
-                f'style="left:{(x - 70) / 14.4:.2f}%;top:{(y - 70) / 9:.2f}%;width:{140 / 14.4:.2f}%;height:{140 / 9:.2f}%"></a>')
+                f'style="left:{(x - 90) / 15.86:.2f}%;top:{(y - 90) / 9.92:.2f}%;width:{180 / 15.86:.2f}%;height:{180 / 9.92:.2f}%"></a>')
     return out
 
 def prompts():
