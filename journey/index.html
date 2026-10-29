@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Room</title>
+<style>
+:root{--bg:#f5f6fa;--card:#fff;--ink:#1f2433;--mute:#6b7285;--line:#e1e4ee;--accent:#4f46e5;--accent2:#7c3aed;--bronze:#b9774a;--silver:#8d98a8;--gold:#d4a017;--radius:14px;--font:system-ui,-apple-system,"Segoe UI",sans-serif;--head:Georgia,"Times New Roman",serif}
+body.challenge{--bg:#0f172a;--card:#1e293b;--ink:#e8edf5;--mute:#94a3b8;--line:#334155;--accent:#14b8a6;--accent2:#0d9488}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.45;min-height:100vh}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+h1{font:400 1.9rem/1.1 var(--head);margin:0}
+.sub{color:var(--mute);font-size:.92rem}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:12px;padding:10px 16px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--accent2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:14px}
+.stage{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#14110f}
+.stage svg{display:block;width:100%;height:auto}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:1.4rem;cursor:pointer}
+.nav:disabled{opacity:.25;cursor:default}
+.nav.l{left:10px}.nav.r{right:10px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);cursor:pointer}
+.dots i.on{background:var(--accent)}.dots i.full{outline:2px solid var(--gold)}
+.slot{cursor:pointer;outline:none}.slot:focus-visible circle{stroke:#fff}
+.bob{animation:bob 5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.mote{animation:drift 12s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-22px)}}
+.tw{transform-box:fill-box;transform-origin:center;animation:tw 2.4s ease-in-out infinite}.tw.d2{animation-delay:-1.2s}
+@keyframes tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.1)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.bob,.mote,.tw,.spin{animation:none}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{border:2px solid var(--line);border-radius:999px;padding:3px 11px;font-size:.88rem}
+.chip.r1{border-color:var(--bronze)}.chip.r2{border-color:var(--silver)}.chip.r3{border-color:var(--gold)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mute{color:var(--mute);font-size:.9rem}
+</style>
+</head>
+<body class="classic">
+<div class="wrap" id="app"></div>
+<script src="../wordbank/words.js"></script>
+<script src="slots.js" onerror="void 0"></script>
+<script>
+(function(){
+var WB = window.WORDBANK || {lessons:[],words:{}}, KEY = 'wb_v1', CAP = 8, DAY = 86400000;
+var S = {};
+try { S = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+S.done = S.done || {}; S.words = S.words || {};
+document.body.className = S.skin === 'challenge' || S.skin === 'dungeon' ? 'challenge' : 'classic';
+
+/* ---------- objects: simple line icons on a 24x24 grid ---------- */
+var ICONS = [
+ '<circle cx="8" cy="9" r="4"/><path d="M11 12l9 9M16 17l2-2M19 20l2-2"/>',
+ '<path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/>',
+ '<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1zM12 6v14"/>',
+ '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+ '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ '<path d="M9 3h6M10 3v2h4V3M8 5h8l1 4v7l-1 3H8l-1-3V9zM9 9h6M9 14h6M12 19v2"/>',
+ '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ '<path d="M20 4c-8 0-12 5-13 12l-3 4M20 4c0 7-5 11-12 12M9 15l5-5"/>',
+ '<path d="M10 10h4v11h-4zM12 4c2 2 2 4 0 5-2-1-2-3 0-5M8 21h8"/>',
+ '<path d="M3 13l12-6 2 4-12 6zM15 7l2-1 2 4-2 1M9 17l-2 4M12 15l3 6"/>',
+ '<circle cx="12" cy="5" r="2"/><path d="M12 7v14M7 11h10M5 15c0 4 3 6 7 6s7-2 7-6"/>',
+ '<path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15zM5 19l9-9"/>',
+ '<path d="M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7M7 4a2 2 0 00-2 2v1h2M7 20a2 2 0 01-2-2v-1h4M9 9h7M9 13h7"/>',
+ '<circle cx="12" cy="15" r="5"/><path d="M8 3l4 7 4-7M12 12v6"/>',
+ '<path d="M6 17V11a6 6 0 0112 0v6l2 2H4zM10 21h4"/>',
+ '<path d="M4 18l-1-10 5 4 4-7 4 7 5-4-1 10zM4 21h16"/>',
+ '<path d="M6 4h12v6a6 6 0 01-12 0zM6 6H3a3 3 0 003 4M18 6h3a3 3 0 01-3 4M12 16v4M8 21h8"/>',
+ '<path d="M9 21l1-13h4l1 13zM9 8l1-3h4l1 3M12 2v3M3 21h18"/>',
+ '<path d="M12 3l6 7-6 8-6-8zM12 3v15M6 10h12M12 18c-2 2 0 3-2 4"/>',
+ '<path d="M3 20l6-11 4 6 3-4 5 9zM3 20h18"/>',
+ '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+ '<path d="M12 3v14M12 4l7 11H12M12 8l-5 7h5M4 19h16l-2 2H6z"/>'
+];
+var ROOMS = [
+ {name:'The Study',     wall:'#dcc8a6', wallD:'#b79f78', wain:'#6b4a32', wainD:'#533724', trim:'#f3e6cb', gold:'#d9b25f', fl:['#9a7650','#8c6a47','#a58259'], rug:'#8e2f35', rug2:'#d9b25f', glow:'#ffd68a', niche:'#2e2117', prop:'books'},
+ {name:'The Library',   wall:'#3f6c5b', wallD:'#2c5143', wain:'#2c2018', wainD:'#1d140f', trim:'#d3ad55', gold:'#e0bb62', fl:['#5d4731','#523f2b','#684f37'], rug:'#7c2f33', rug2:'#e0bb62', glow:'#ffe0a0', niche:'#10201a', prop:'globe'},
+ {name:'The Gallery',   wall:'#a3b3c6', wallD:'#7f91a8', wain:'#ece7dc', wainD:'#d7d1c3', trim:'#ffffff', gold:'#c9a95a', fl:['#d0c9ba','#c4bcac','#dad3c4'], rug:'#2f4a6b', rug2:'#e6d7ad', glow:'#fff0c8', niche:'#1f2b3a', prop:'bust'},
+ {name:'The Courtyard', wall:'#dba97f', wallD:'#b98760', wain:'#8a5a3a', wainD:'#6e4529', trim:'#f5e1c0', gold:'#e6bd6a', fl:['#a89270','#9b8563','#b49f7d'], rug:'#3f6b52', rug2:'#f0d9a0', glow:'#ffd9a0', niche:'#3b2517', prop:'urn'}
+];
+var IMGS = ['img/room1_study.webp','img/room2_library.webp','img/room3_gallery.webp','img/room4_courtyard.webp','img/room5_observatory.webp','img/room6_conservatory.webp'];
+var imgOk = {}, EDIT = /[?&]edit=1/.test(location.search), editSlot = 0;
+var CUSTOM = (function(){ var c = window.ROOM_SLOTS || {}; try { var l = JSON.parse(localStorage.getItem('jr_slots') || '{}'); for (var k in l) c[k] = l[k]; } catch(e){} return c; })();
+var ORDER = [[0,'L'],[0,'R'],[1,'L'],[1,'R'],[2,'L'],[2,'R'],[3,'L'],[3,'R']];
+var U = [.15,.38,.62,.85], SL = 0.3256, OBJY = 106;
+
+function hash(s){ var h = 7; for (var i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) >>> 0; return h; }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+/* global position of a niche's object. wall local box is 430 x 260; left wall rises toward the corner, right wall falls away */
+function slotPos(side, u){
+  var lx = 430 * u;
+  return side === 'L' ? {x: 70 + lx, y: 210 - SL*lx + OBJY} : {x: 500 + lx, y: 70 + SL*lx + OBJY};
+}
+function posFor(ri, slot){
+  var c = CUSTOM[ri % IMGS.length];
+  if (imgOk[ri % IMGS.length] && c && c[slot]) return {x: c[slot][0], y: c[slot][1]};
+  var o = ORDER[slot]; return slotPos(o[1], U[o[0]]);
+}
+function wallMatrix(side){ return side === 'L' ? 'matrix(1,' + (-SL) + ',0,1,70,210)' : 'matrix(1,' + SL + ',0,1,500,70)'; }
+
+/* ---------- data ---------- */
+var lessons = WB.lessons.filter(function(l){ return S.done[l.id]; }).sort(function(a,b){ return S.done[a.id] - S.done[b.id]; });
+var items = []; // {lesson, room, slot, icon}
+var usedByRoom = {};
+lessons.forEach(function(l, k){
+  var room = Math.floor(k / CAP), slot = k % CAP, used = usedByRoom[room] = usedByRoom[room] || {};
+  var ic = hash(l.id) % ICONS.length; while (used[ic]) ic = (ic + 1) % ICONS.length; used[ic] = 1;
+  items.push({lesson:l, room:room, slot:slot, icon:ic});
+});
+var roomCount = Math.max(1, Math.ceil(lessons.length / CAP) + (lessons.length && lessons.length % CAP === 0 ? 1 : 0));
+var cur = Math.max(0, roomCount - 1), sel = null;
+
+function stats(l){
+  var n = l.words.length, sum = 0, due = 0, now = Date.now();
+  l.words.forEach(function(w){ var r = S.words[w]; var b = r ? r.box : 0; sum += b; if (!r || r.due <= now) due++; });
+  return {avg: n ? sum / n : 0, due: due, n: n};
+}
+function ringColor(a){ return a >= 3.5 ? 'var(--gold)' : a >= 1.5 ? 'var(--silver)' : 'var(--bronze)'; }
+
+/* ---------- drawing ---------- */
+function wallArt(side, T, filled, ri){
+  var g = '<g transform="' + wallMatrix(side) + '">';
+  var id = side + ri;
+  g += '<rect width="430" height="260" fill="' + T.wall + '"/>';
+  g += '<rect width="430" height="260" fill="url(#pat' + ri + ')"/>';
+  g += '<rect width="430" height="260" fill="url(#lit' + side + ')"/>';
+  // wainscot panelling
+  g += '<rect y="172" width="430" height="88" fill="' + T.wain + '"/>';
+  for (var k = 0; k < 6; k++) { var px = 12 + k*70; g += '<rect x="' + px + '" y="190" width="58" height="54" rx="2" fill="' + T.wainD + '" opacity=".55"/><rect x="' + (px+3) + '" y="193" width="52" height="48" rx="1" fill="none" stroke="#fff" stroke-opacity=".10"/>'; }
+  g += '<rect y="168" width="430" height="7" fill="' + T.trim + '"/><rect y="175" width="430" height="5" fill="#000" opacity=".25"/>';
+  g += '<rect y="246" width="430" height="14" fill="' + T.trim + '"/><rect y="246" width="430" height="3" fill="#000" opacity=".2"/>';
+  // crown moulding
+  g += '<rect width="430" height="16" fill="' + T.trim + '"/><rect y="16" width="430" height="6" fill="#000" opacity=".28"/><rect y="12" width="430" height="2" fill="' + T.gold + '" opacity=".8"/>';
+  // niches
+  ORDER.forEach(function(o, slot){
+    if (o[1] !== side) return;
+    var cx = 430 * U[o[0]], w = 74, top = 34, bot = 164, it = filled[slot];
+    var arch = 'M' + (cx - w/2) + ',' + bot + ' V' + (top + w/2) + ' a' + (w/2) + ',' + (w/2) + ' 0 0 1 ' + w + ',0 V' + bot + ' Z';
+    g += '<path d="' + arch + '" fill="' + T.trim + '" transform="translate(0,0) scale(1)" opacity=".9" stroke="' + T.gold + '" stroke-width="2.5" stroke-opacity=".9" style="paint-order:stroke" transform-origin="' + cx + ' ' + bot + '"/>';
+    g += '<path d="' + arch + '" fill="url(#nb' + ri + ')" transform="translate(' + cx + ',' + bot + ') scale(.9,.94) translate(' + (-cx) + ',' + (-bot) + ')"/>';
+    if (it) g += '<ellipse cx="' + cx + '" cy="' + (bot - 20) + '" rx="26" ry="60" fill="' + T.glow + '" opacity=".16"/>';
+    g += '<rect x="' + (cx - w/2 - 5) + '" y="' + (bot - 2) + '" width="' + (w + 10) + '" height="9" rx="2" fill="' + T.trim + '"/><rect x="' + (cx - w/2 - 5) + '" y="' + (bot + 6) + '" width="' + (w + 10) + '" height="3" fill="#000" opacity=".3"/>';
+  });
+  // corner shade
+  g += '<rect x="' + (side === 'L' ? 390 : 0) + '" width="40" height="260" fill="url(#ao' + side + ')"/>';
+  return g + '</g>';
+}
+function propArt(kind, T, x, y){
+  var s = '';
+  if (kind === 'books') {
+    s += '<ellipse cx="' + x + '" cy="' + (y+4) + '" rx="46" ry="12" fill="#000" opacity=".3"/>';
+    [['#7a2e2e',0,0,70],['#2f5d7a',4,-14,62],['#b0802c',-2,-28,56]].forEach(function(b){ s += '<rect x="' + (x-35+b[1]) + '" y="' + (y-12+b[2]) + '" width="' + b[3] + '" height="14" rx="2" fill="' + b[0] + '"/><rect x="' + (x-35+b[1]) + '" y="' + (y-12+b[2]) + '" width="' + b[3] + '" height="3" fill="#fff" opacity=".25"/>'; });
+  } else if (kind === 'globe') {
+    s += '<ellipse cx="' + x + '" cy="' + (y+4) + '" rx="36" ry="10" fill="#000" opacity=".3"/><path d="M' + (x-22) + ',' + (y+2) + 'h44l-8-16h-28z" fill="#3a2a1c"/><circle cx="' + x + '" cy="' + (y-42) + '" r="30" fill="#2d5d7f"/><path d="M' + (x-30) + ',' + (y-42) + 'h60M' + x + ',' + (y-72) + 'v60M' + (x-18) + ',' + (y-62) + 'q-10,20 0,40M' + (x+18) + ',' + (y-62) + 'q10,20 0,40" stroke="#e8d7a0" stroke-width="1.4" fill="none" opacity=".75"/><circle cx="' + (x-10) + '" cy="' + (y-52) + '" r="10" fill="#fff" opacity=".12"/>';
+  } else if (kind === 'bust') {
+    s += '<ellipse cx="' + x + '" cy="' + (y+4) + '" rx="34" ry="9" fill="#000" opacity=".3"/><rect x="' + (x-20) + '" y="' + (y-52) + '" width="40" height="54" fill="#efe9dc"/><rect x="' + (x-24) + '" y="' + (y-58) + '" width="48" height="8" fill="#fff"/><circle cx="' + x + '" cy="' + (y-78) + '" r="17" fill="#e4dccb"/><path d="M' + (x-26) + ',' + (y-58) + 'q26,-20 52,0z" fill="#d8d0bd"/><rect x="' + (x-20) + '" y="' + (y-52) + '" width="10" height="54" fill="#fff" opacity=".35"/>';
+  } else {
+    s += '<ellipse cx="' + x + '" cy="' + (y+4) + '" rx="36" ry="10" fill="#000" opacity=".3"/><path d="M' + (x-26) + ',' + y + ' q-8,-34 10,-54 h32 q18,20 10,54z" fill="#b5673e"/><path d="M' + (x-16) + ',' + (y-56) + 'h32" stroke="#e0a070" stroke-width="3"/><path d="M' + (x-20) + ',' + (y-30) + 'q20,8 40,0" stroke="#7a4326" stroke-width="2" fill="none"/>';
+  }
+  return s;
+}
+function plantArt(x, y){
+  var s = '<ellipse cx="' + x + '" cy="' + (y+4) + '" rx="34" ry="10" fill="#000" opacity=".3"/>';
+  [[-40,-70,-30],[-18,-96,-12],[0,-104,0],[18,-96,12],[40,-70,30],[-28,-52,-52],[28,-52,52]].forEach(function(l){
+    s += '<ellipse cx="' + (x + l[0]) + '" cy="' + (y + l[1]) + '" rx="10" ry="30" fill="#3f7d4f" transform="rotate(' + l[2] + ' ' + (x + l[0]) + ' ' + (y + l[1]) + ')"/><ellipse cx="' + (x + l[0] - 2) + '" cy="' + (y + l[1] - 4) + '" rx="3" ry="22" fill="#6fb07c" opacity=".55" transform="rotate(' + l[2] + ' ' + (x + l[0]) + ' ' + (y + l[1]) + ')"/>';
+  });
+  return s + '<path d="M' + (x-22) + ',' + (y-34) + 'h44l-6,34h-32z" fill="#a8572f"/><rect x="' + (x-24) + '" y="' + (y-38) + '" width="48" height="8" rx="2" fill="#c06a3c"/>';
+}
+function roomSvg(ri){
+  var T = ROOMS[ri % ROOMS.length];
+  var filled = {}, last = items.length ? items[items.length - 1] : null;
+  items.filter(function(it){ return it.room === ri; }).forEach(function(it){ filled[it.slot] = it; });
+  var s = '<svg viewBox="0 0 1000 640" role="img" aria-label="' + esc(T.name) + '">';
+  s += '<defs>' +
+    '<radialGradient id="bg" cx="50%" cy="42%" r="75%"><stop offset="0" stop-color="#3a2f26"/><stop offset=".6" stop-color="#1a1411"/><stop offset="1" stop-color="#0b0908"/></radialGradient>' +
+    '<filter id="iglow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+    '<radialGradient id="gl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="' + T.glow + '" stop-opacity=".9"/><stop offset=".5" stop-color="' + T.glow + '" stop-opacity=".25"/><stop offset="1" stop-color="' + T.glow + '" stop-opacity="0"/></radialGradient>' +
+    '<radialGradient id="lamp" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe3a8" stop-opacity=".75"/><stop offset="1" stop-color="#ffd07a" stop-opacity="0"/></radialGradient>' +
+    '<linearGradient id="litL" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>' +
+    '<linearGradient id="litR" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".34"/></linearGradient>' +
+    '<linearGradient id="aoL" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>' +
+    '<linearGradient id="aoR" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>' +
+    '<linearGradient id="nb' + ri + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + T.niche + '"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></linearGradient>' +
+    '<linearGradient id="slabL" x1="0" x2="1"><stop offset="0" stop-color="#4a372a"/><stop offset="1" stop-color="#2a1e16"/></linearGradient>' +
+    '<linearGradient id="slabR" x1="0" x2="1"><stop offset="0" stop-color="#2a1e16"/><stop offset="1" stop-color="#150f0b"/></linearGradient>' +
+    '<pattern id="pat' + ri + '" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M17,4 L28,17 L17,30 L6,17 Z" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.2"/><circle cx="17" cy="17" r="2" fill="#fff" fill-opacity=".14"/></pattern>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>' +
+    '</defs>';
+  s += '<rect width="1000" height="640" fill="url(#bg)"/>';
+  s += '<ellipse cx="500" cy="618" rx="470" ry="26" fill="#000" opacity=".55" filter="url(#soft)"/>';
+  var useImg = imgOk[ri % IMGS.length];
+  if (useImg) s += '<image href="' + IMGS[ri % IMGS.length] + '" width="1000" height="640" preserveAspectRatio="xMidYMid slice"/>';
+  else {
+  // slab
+  s += '<polygon points="70,470 500,610 500,636 70,496" fill="url(#slabL)"/><polygon points="500,610 930,470 930,496 500,636" fill="url(#slabR)"/>';
+  s += '<polyline points="70,470 500,610 930,470" fill="none" stroke="' + T.gold + '" stroke-opacity=".7" stroke-width="2"/>';
+  // floor (unit square mapped onto the rhombus)
+  s += '<g transform="matrix(430,-140,430,140,70,470)">';
+  for (var p = 0; p < 16; p++) s += '<rect x="0" y="' + (p/16) + '" width="1" height="' + (1/16 + .001) + '" fill="' + T.fl[p % 3] + '"/>';
+  for (var q = 0; q < 16; q++) { var off = (q * 0.37) % 1; s += '<line x1="' + off + '" y1="' + (q/16) + '" x2="' + off + '" y2="' + ((q+1)/16) + '" stroke="#000" stroke-opacity=".22" stroke-width="1" vector-effect="non-scaling-stroke"/>'; }
+  for (var r = 1; r < 16; r++) s += '<line x1="0" y1="' + (r/16) + '" x2="1" y2="' + (r/16) + '" stroke="#000" stroke-opacity=".28" stroke-width="1" vector-effect="non-scaling-stroke"/>';
+  s += '<rect x=".2" y=".2" width=".6" height=".6" fill="#000" opacity=".25" transform="translate(.015,.02)"/>';
+  s += '<rect x=".2" y=".2" width=".6" height=".6" fill="' + T.rug + '"/><rect x=".23" y=".23" width=".54" height=".54" fill="none" stroke="' + T.rug2 + '" stroke-width="3" vector-effect="non-scaling-stroke"/><rect x=".27" y=".27" width=".46" height=".46" fill="none" stroke="' + T.rug2 + '" stroke-opacity=".6" stroke-width="1.5" vector-effect="non-scaling-stroke"/>';
+  s += '<path d="M.5,.31 L.69,.5 L.5,.69 L.31,.5 Z" fill="none" stroke="' + T.rug2 + '" stroke-opacity=".8" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx=".5" cy=".5" r=".05" fill="' + T.rug2 + '" fill-opacity=".7"/>';
+  s += '</g>';
+  // window light on the floor
+  s += '<g transform="matrix(430,-140,430,140,70,470)" style="mix-blend-mode:screen" filter="url(#soft)" opacity=".6"><rect x=".08" y=".52" width=".2" height=".2" fill="' + T.glow + '"/><rect x=".31" y=".52" width=".2" height=".2" fill="' + T.glow + '"/><rect x=".08" y=".75" width=".2" height=".2" fill="' + T.glow + '"/><rect x=".31" y=".75" width=".2" height=".2" fill="' + T.glow + '"/></g>';
+  // walls
+  s += wallArt('L', T, filled, ri) + wallArt('R', T, filled, ri);
+  s += '<line x1="500" y1="70" x2="500" y2="330" stroke="#000" stroke-opacity=".35" stroke-width="3"/>';
+  // lamp in the back corner
+  s += '<circle cx="500" cy="226" r="150" fill="url(#lamp)" style="mix-blend-mode:screen"/>';
+  s += '<ellipse cx="500" cy="388" rx="26" ry="8" fill="#000" opacity=".35"/><rect x="498" y="228" width="4" height="158" fill="' + T.gold + '"/><ellipse cx="500" cy="386" rx="16" ry="5" fill="' + T.gold + '"/><path d="M478,230 L522,230 L514,200 L486,200 Z" fill="#fbe7b8"/><path d="M486,200 L514,200 L518,210 L482,210 Z" fill="#fff" opacity=".5"/>';
+  // props
+  s += plantArt(236, 492) + propArt(T.prop, T, 780, 494);
+  }
+  // objects
+  ORDER.forEach(function(o, slot){
+    var it = filled[slot]; if (!it) return;
+    var pt = posFor(ri, slot), st = stats(it.lesson), dusty = st.n && st.due / st.n >= .5;
+    var isNew = last && it === last, isSel = sel === slot;
+    if (useImg) {
+      s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
+        '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="52" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .35 : 1) + '"/>' +
+        '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(st.avg) + '" stroke-width="2"/>' +
+        '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><g filter="url(#iglow)" transform="translate(' + (pt.x - 25) + ',' + (pt.y - 30) + ') scale(2.1)" fill="#ffc94d" fill-opacity=".16" stroke="' + (dusty ? '#c2ad78' : '#ffd36b') + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ICONS[it.icon] + '</g></g>' +
+        (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
+        (isNew ? '<path class="tw" d="M' + (pt.x + 22) + ',' + (pt.y - 34) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/>' : '') +
+        '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="transparent"/></g>';
+      return;
+    }
+    s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
+      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="70" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .4 : 1) + '"/>' +
+      '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's">' +
+      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#1a1410" fill-opacity=".86" stroke="' + ringColor(st.avg) + '" stroke-width="3.5"/>' +
+      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="26" fill="none" stroke="#fff" stroke-opacity=".12"/>' +
+      '<g transform="translate(' + (pt.x - 19) + ',' + (pt.y - 19) + ') scale(1.58)" fill="none" stroke="#f9e7b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="' + (dusty ? .55 : 1) + '">' + ICONS[it.icon] + '</g>' +
+      (dusty ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#6b6459" opacity=".35"/>' : '') +
+      '</g>' +
+      (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
+      (isNew ? '<path class="tw" d="M' + (pt.x + 30) + ',' + (pt.y - 40) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/><path class="tw d2" d="M' + (pt.x - 38) + ',' + (pt.y - 24) + 'l2,5 5,2 -5,2 -2,5 -2,-5 -5,-2 5,-2z" fill="#fff4cf"/>' : '') +
+      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="46" fill="transparent"/></g>';
+  });
+  if (EDIT && useImg) ORDER.forEach(function(o, slot){ var p = posFor(ri, slot); s += '<g pointer-events="none"><circle cx="' + p.x + '" cy="' + p.y + '" r="18" fill="' + (slot === editSlot ? '#14b8a6' : '#f59e0b') + '" fill-opacity=".8" stroke="#fff" stroke-width="2"/><text x="' + p.x + '" y="' + (p.y + 5) + '" text-anchor="middle" font-size="16" font-weight="700" fill="#000">' + (slot + 1) + '</text></g>'; });
+  // dust motes
+  for (var m = 0; m < 16; m++) { var mx = 160 + (m * 137) % 700, my = 120 + (m * 89) % 380; s += '<circle class="mote" cx="' + mx + '" cy="' + my + '" r="' + (1.2 + (m % 3) * .6) + '" fill="#fff3d0" opacity="' + (.18 + (m % 4) * .06) + '" style="animation-delay:-' + (m * 1.3) + 's;animation-duration:' + (9 + m % 5 * 2) + 's"/>'; }
+  s += '<rect width="1000" height="640" fill="url(#vg)" pointer-events="none"/>';
+  return s.replace('</defs>', '<radialGradient id="vg" cx="50%" cy="48%" r="70%"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient></defs>') + '</svg>';
+}
+
+/* ---------- page ---------- */
+var app = document.getElementById('app');
+function render(){
+  var T = ROOMS[cur % ROOMS.length], inRoom = items.filter(function(it){ return it.room === cur; }).length;
+  var h = '<header><div><h1>My Room</h1><div class="sub">' + (lessons.length ? 'Room ' + (cur + 1) + ' of ' + roomCount + ' · ' + esc(T.name) + ' · ' + inRoom + ' of ' + CAP + ' objects' : 'Each lesson you do adds an object to your room') + '</div></div>' +
+    '<div class="row"><a class="btn" href="../wordbank/index.html">My Words</a></div></header>';
+  h += '<div class="stage">' + roomSvg(cur) +
+    '<button class="nav l" id="prev" aria-label="Previous room"' + (cur === 0 ? ' disabled' : '') + '>‹</button>' +
+    '<button class="nav r" id="next" aria-label="Next room"' + (cur >= roomCount - 1 ? ' disabled' : '') + '>›</button></div>';
+  h += '<div class="dots">';
+  for (var i = 0; i < roomCount; i++) {
+    var n = items.filter(function(it){ return it.room === i; }).length;
+    h += '<i class="' + (i === cur ? 'on ' : '') + (n >= CAP ? 'full' : '') + '" data-r="' + i + '" title="Room ' + (i+1) + '"></i>';
+  }
+  h += '</div>';
+  var it = sel !== null ? items.filter(function(x){ return x.room === cur && x.slot === sel; })[0] : null;
+  if (it) {
+    var l = it.lesson, st = stats(l);
+    h += '<div class="card"><div class="mute">' + esc(l.level) + '</div><h2 style="font:400 1.4rem/1.2 Georgia,serif;margin:2px 0 4px">' + esc(l.title) + '</h2>' +
+      '<div class="chips">' + l.words.map(function(w){ var r = S.words[w], b = r ? r.box : 0; return '<span class="chip r' + (b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 : 0) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
+      (st.due ? '<p class="mute" style="margin:0 0 10px">' + st.due + ' of ' + st.n + ' words are ready to review. Practise them to bring this object back to full brightness.</p>' : '<p class="mute" style="margin:0 0 10px">All the words from this lesson are fresh.</p>') +
+      '<div class="row"><a class="btn" href="../wordbank/index.html?lesson=' + encodeURIComponent(l.id) + '&practise=1">Practise these words</a><a class="btn ghost" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div></div>';
+  } else if (!lessons.length) {
+    h += '<div class="card"><p style="margin:0">Your room is empty. Open a lesson from your teacher’s link, or paste a lesson link into My Words, and its first object appears here.</p></div>';
+  } else if (cur === roomCount - 1 && inRoom < CAP) {
+    h += '<div class="card"><p style="margin:0" class="mute">Tap an object to see its words. ' + (CAP - inRoom) + ' more lessons fill this room and open the next one.</p></div>';
+  } else {
+    h += '<div class="card"><p style="margin:0" class="mute">Tap an object to see its words.</p></div>';
+  }
+  if (EDIT) h += editPanel();
+  app.innerHTML = h;
+  var stg = app.querySelector('.stage svg');
+  if (EDIT && stg) stg.addEventListener('click', function(e){
+    if (!imgOk[cur % IMGS.length] || e.target.closest('.slot')) return;
+    var r = stg.getBoundingClientRect(), x = Math.round((e.clientX - r.left) / r.width * 1000), y = Math.round((e.clientY - r.top) / r.height * 640);
+    var k = cur % IMGS.length; CUSTOM[k] = CUSTOM[k] || []; CUSTOM[k][editSlot] = [x, y];
+    try { localStorage.setItem('jr_slots', JSON.stringify(CUSTOM)); } catch(er){}
+    editSlot = Math.min(CAP - 1, editSlot + 1); render();
+  });
+  Array.prototype.forEach.call(app.querySelectorAll('[data-es]'), function(b){ b.onclick = function(){ editSlot = +b.getAttribute('data-es'); render(); }; });
+  var cp = document.getElementById('copyslots'); if (cp) cp.onclick = function(){ var t = 'window.ROOM_SLOTS=' + JSON.stringify(CUSTOM) + ';'; try { navigator.clipboard.writeText(t); cp.textContent = 'Copied'; } catch(er){ prompt('Copy this', t); } };
+  Array.prototype.forEach.call(app.querySelectorAll('.slot'), function(g){
+    function pick(){ sel = +g.getAttribute('data-slot'); render(); }
+    g.onclick = pick; g.onkeydown = function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } };
+  });
+  var p = document.getElementById('prev'), nx = document.getElementById('next');
+  if (p) p.onclick = function(){ if (cur > 0) { cur--; sel = null; render(); } };
+  if (nx) nx.onclick = function(){ if (cur < roomCount - 1) { cur++; sel = null; render(); } };
+  Array.prototype.forEach.call(app.querySelectorAll('.dots i'), function(d){ d.onclick = function(){ cur = +d.getAttribute('data-r'); sel = null; render(); }; });
+}
+IMGS.forEach(function(src, i){ var im = new Image(); im.onload = function(){ imgOk[i] = true; render(); }; im.src = src; });
+function editPanel(){
+  var c = CUSTOM[cur % IMGS.length] || [], h = '<div class="card"><b>Placement editor</b><p class="mute" style="margin:4px 0 8px">Pick an alcove number, then click its centre in the picture. When all eight are placed, press Copy and send me the text.</p><div class="row">';
+  for (var i = 0; i < CAP; i++) h += '<button class="btn' + (i === editSlot ? '' : ' ghost') + '" data-es="' + i + '">' + (i+1) + '</button>';
+  return h + '<button class="btn ghost" id="copyslots">Copy positions</button></div></div>';
+}
+document.onkeydown = function(e){ if (e.key === 'ArrowLeft' && cur > 0) { cur--; sel = null; render(); } else if (e.key === 'ArrowRight' && cur < roomCount - 1) { cur++; sel = null; render(); } };
+render();
+})();
+</script>
+</body>
+</html>

@@ -73,7 +73,8 @@ var WB = window.WORDBANK || {lessons:[],words:{}};
 var KEY = 'wb_v1', DAY = 86400000, DAYS = [0,0,1,3,7,14,30];
 
 var S = load();
-(function(){ var m = location.search.match(/[?&]lesson=([^&]+)/); if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); } try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
+var autoRun = '';
+(function(){ var m = location.search.match(/[?&]lesson=([^&]+)/); if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); if (/[?&]practise=1/.test(location.search)) autoRun = id; } try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
 mergeCustom();
 var added = parseAdd();
@@ -241,7 +242,7 @@ function strikesStr(n){ var s=''; for (var i=0;i<3;i++) s += i < n ? '●' : '�
 function renderHome(){
   var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
   var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
-    '<div class="row"><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
+    '<div class="row"><a class="btn ghost" href="../journey/index.html" style="text-decoration:none">My Room</a><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
   h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste the lesson link here, or drag it onto this box. Lessons you open from the link are added automatically.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0">' + esc(lnkMsg) + '</p></div>';
   h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
     '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
@@ -437,6 +438,7 @@ function renderResult(){
 }
 
 render();
+if (autoRun) { var al = WB.lessons.filter(function(x){ return x.id === autoRun; })[0]; if (al) startRun(al.words.slice(0,10), al.title); }
 })();
 </script>
 </body>

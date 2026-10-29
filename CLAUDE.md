@@ -27,3 +27,5 @@ Students review lesson vocabulary in `wordbank/index.html`. Lessons feed it auto
 The bar is student-facing and contains no teacher notes, so it respects the 4th wall rule. Do not add teacher guidance to the lesson HTML to explain it.
 
 Dashboards that link to registered lessons get an "Open My Words" bar from the same command. Lessons with fewer than 3 registered words, dashboards, and files named `* (1).html` are skipped.
+
+`journey/` holds the "My Room" page that fills with objects as students open lessons; it reads the same saved progress as My Words and needs no per-lesson setup.
