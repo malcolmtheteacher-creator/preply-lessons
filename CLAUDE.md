@@ -29,3 +29,10 @@ The bar is student-facing and contains no teacher notes, so it respects the 4th 
 Dashboards that link to registered lessons get an "Open My Words" bar from the same command. Lessons with fewer than 3 registered words, dashboards, and files named `* (1).html` are skipped.
 
 `journey/` holds the "My Room" page that fills with objects as students open lessons; it reads the same saved progress as My Words and needs no per-lesson setup.
+
+Series lessons (e.g. Mia `a1s_NN_*.html`) keep their words in `var LESSON=[['id','front','meaning','emoji'],...]`; the extractor reads that too.
+
+Catch-up links for students who have done lessons already (send in chat; one click adds them to My Words and My Room, in order):
+- `https://malcolmhyndman.com/preply-lessons/wordbank/index.html?series=a1s&upto=24` (all Mia lessons up to number 24)
+- `...wordbank/index.html?lessons=id1,id2,id3` (any list of lesson ids; lessons without words are kept as a record)
+Students can also paste several lesson links at once into the My Words box.

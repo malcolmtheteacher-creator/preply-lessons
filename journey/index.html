@@ -142,7 +142,10 @@ function posFor(ri, slot){
 function wallMatrix(side){ return side === 'L' ? 'matrix(1,' + (-SL) + ',0,1,70,210)' : 'matrix(1,' + SL + ',0,1,500,70)'; }
 
 /* ---------- data ---------- */
-var lessons = WB.lessons.filter(function(l){ return S.done[l.id]; }).sort(function(a,b){ return S.done[a.id] - S.done[b.id]; });
+var regIds = {}; WB.lessons.forEach(function(l){ regIds[l.id] = 1; });
+S.log = S.log || {};
+var logged = Object.keys(S.log).filter(function(id){ return S.done[id] && !regIds[id]; }).map(function(id){ return {id: id, title: S.log[id].title || id, level: '', words: [], rec: true}; });
+var lessons = WB.lessons.filter(function(l){ return S.done[l.id]; }).concat(logged).sort(function(a,b){ return S.done[a.id] - S.done[b.id]; });
 var items = []; // {lesson, room, slot, icon}
 var usedByRoom = {};
 lessons.forEach(function(l, k){
@@ -265,7 +268,7 @@ function roomSvg(ri){
     if (useImg) {
       s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
         '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="52" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .35 : 1) + '"/>' +
-        '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(st.avg) + '" stroke-width="2"/>' +
+        '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(it.lesson.rec ? 3 : st.avg) + '" stroke-width="2"/>' +
         '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><circle cx="' + pt.x + '" cy="' + (pt.y - 2) + '" r="27" fill="#1a1410" fill-opacity=".62" stroke="#ffd36b" stroke-opacity=".35" stroke-width="1.5"/><g filter="url(#iglow)" transform="translate(' + (pt.x - 25) + ',' + (pt.y - 30) + ') scale(2.1)" fill="#ffc94d" fill-opacity=".16" stroke="' + (dusty ? '#c2ad78' : '#ffd36b') + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ICONS[it.icon] + '</g></g>' +
         (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
         (isNew ? '<path class="tw" d="M' + (pt.x + 22) + ',' + (pt.y - 34) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/>' : '') +
@@ -275,7 +278,7 @@ function roomSvg(ri){
     s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
       '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="70" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .4 : 1) + '"/>' +
       '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's">' +
-      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#1a1410" fill-opacity=".86" stroke="' + ringColor(st.avg) + '" stroke-width="3.5"/>' +
+      '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#1a1410" fill-opacity=".86" stroke="' + ringColor(it.lesson.rec ? 3 : st.avg) + '" stroke-width="3.5"/>' +
       '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="26" fill="none" stroke="#fff" stroke-opacity=".12"/>' +
       '<g transform="translate(' + (pt.x - 19) + ',' + (pt.y - 19) + ') scale(1.58)" fill="none" stroke="#f9e7b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="' + (dusty ? .55 : 1) + '">' + ICONS[it.icon] + '</g>' +
       (dusty ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#6b6459" opacity=".35"/>' : '') +
@@ -347,6 +350,7 @@ var camT = null;
 function sheetHtml(it){
   if (!it) return '';
   var l = it.lesson, st = stats(l);
+  if (l.rec) return '<button class="x" id="closesheet" aria-label="Close">\u00d7</button><div class="mute">A lesson you have done</div><h2>' + esc(l.title) + '</h2><div class="row" style="margin-top:10px"><a class="btn" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>';
   return '<button class="x" id="closesheet" aria-label="Close">×</button><div class="mute">' + esc(l.level) + '</div><h2>' + esc(l.title) + '</h2>' +
     '<div class="chips">' + l.words.map(function(w){ var r = S.words[w], b = r ? r.box : 0; return '<span class="chip r' + (b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 : 0) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
     (st.due ? '<p class="mute" style="margin:0 0 10px">' + st.due + ' of ' + st.n + ' words are ready to review. Practise them to bring this object back to full brightness.</p>' : '<p class="mute" style="margin:0 0 10px">All the words from this lesson are fresh.</p>') +

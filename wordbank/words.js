@@ -1,6 +1,756 @@
 window.WORDBANK={
  "lessons": [
   {
+   "id": "a1s_01_hello",
+   "title": "Mia — Lesson 1 · Hello",
+   "level": "A1",
+   "words": [
+    "hello",
+    "my name is",
+    "what's your name",
+    "i'm from",
+    "where are you from",
+    "nice to meet you",
+    "yes",
+    "goodbye"
+   ]
+  },
+  {
+   "id": "a1s_02_coffee",
+   "title": "Mia — Lesson 2 · A coffee, please",
+   "level": "A1",
+   "words": [
+    "can i have",
+    "coffee",
+    "tea",
+    "water",
+    "sandwich",
+    "please",
+    "thank you",
+    "how much is it"
+   ]
+  },
+  {
+   "id": "a1s_03_where",
+   "title": "Mia — Lesson 3 · Where is it?",
+   "level": "A1",
+   "words": [
+    "where is",
+    "key",
+    "bag",
+    "door",
+    "on",
+    "in",
+    "under",
+    "next to"
+   ]
+  },
+  {
+   "id": "a1s_04_family",
+   "title": "Mia — Lesson 4 · My family",
+   "level": "A1",
+   "words": [
+    "family",
+    "mother",
+    "father",
+    "sister",
+    "brother",
+    "photo",
+    "this is",
+    "these are"
+   ]
+  },
+  {
+   "id": "a1s_05_day",
+   "title": "Mia — Lesson 5 · My day",
+   "level": "A1",
+   "words": [
+    "get up",
+    "breakfast",
+    "go to work",
+    "lunch",
+    "go home",
+    "in the morning",
+    "in the evening",
+    "o'clock"
+   ]
+  },
+  {
+   "id": "a1s_06_like",
+   "title": "Mia — Lesson 6 · I like it!",
+   "level": "A1",
+   "words": [
+    "like",
+    "love",
+    "i don't like",
+    "music",
+    "film",
+    "book",
+    "cook",
+    "walk"
+   ]
+  },
+  {
+   "id": "a1s_07_market",
+   "title": "Mia — Lesson 7 · At the market",
+   "level": "A1",
+   "words": [
+    "market",
+    "fruit",
+    "apple",
+    "buy",
+    "money",
+    "cheap",
+    "expensive",
+    "this"
+   ]
+  },
+  {
+   "id": "a1s_08_town",
+   "title": "Mia — Lesson 8 · Our little town",
+   "level": "A1",
+   "words": [
+    "there is",
+    "town",
+    "park",
+    "river",
+    "bridge",
+    "station",
+    "street",
+    "hill"
+   ]
+  },
+  {
+   "id": "a1s_09_call",
+   "title": "Mia — Lesson 9 · The phone call",
+   "level": "A1",
+   "words": [
+    "call",
+    "what are you doing",
+    "now",
+    "busy",
+    "help",
+    "carry",
+    "cat",
+    "sleep"
+   ]
+  },
+  {
+   "id": "a1s_10_bake",
+   "title": "Mia — Lesson 10 · Rosa teaches me",
+   "level": "A1",
+   "words": [
+    "i can",
+    "i can't",
+    "bake",
+    "cake",
+    "egg",
+    "sugar",
+    "learn",
+    "try"
+   ]
+  },
+  {
+   "id": "a1s_11_rain",
+   "title": "Mia — Lesson 11 · A rainy day",
+   "level": "A1",
+   "words": [
+    "rain",
+    "rainy",
+    "cloudy",
+    "sunny",
+    "cold",
+    "warm",
+    "wet",
+    "umbrella"
+   ]
+  },
+  {
+   "id": "a1s_12_sea",
+   "title": "Mia — Lesson 12 · A day at the sea",
+   "level": "A1",
+   "words": [
+    "sea",
+    "beach",
+    "sand",
+    "bus",
+    "swim",
+    "ice cream",
+    "shell",
+    "yesterday"
+   ]
+  },
+  {
+   "id": "a1s_13_party",
+   "title": "Mia — Lesson 13 · The invitation",
+   "level": "A1",
+   "words": [
+    "would you like",
+    "invitation",
+    "party",
+    "i'd love to",
+    "bring",
+    "drink",
+    "music",
+    "together"
+   ]
+  },
+  {
+   "id": "a1s_14_clothes",
+   "title": "Mia — Lesson 14 · New clothes",
+   "level": "A1",
+   "words": [
+    "clothes",
+    "shop",
+    "try on",
+    "jacket",
+    "dress",
+    "too big",
+    "too small",
+    "perfect"
+   ]
+  },
+  {
+   "id": "a1s_15_sister",
+   "title": "Mia — Lesson 15 · Ana arrives",
+   "level": "A1",
+   "words": [
+    "visit",
+    "train",
+    "station",
+    "wait",
+    "arrive",
+    "hug",
+    "suitcase",
+    "welcome"
+   ]
+  },
+  {
+   "id": "a1s_16_plans",
+   "title": "Mia — Lesson 16 · The big weekend",
+   "level": "A1",
+   "words": [
+    "i'm going to",
+    "weekend",
+    "plan",
+    "bike",
+    "ride",
+    "castle",
+    "picnic",
+    "map"
+   ]
+  },
+  {
+   "id": "a1s_17_saturday",
+   "title": "Mia — Lesson 17 · A busy Saturday",
+   "level": "A1",
+   "words": [
+    "worked",
+    "helped",
+    "cleaned",
+    "smiled",
+    "yesterday",
+    "busy",
+    "tired",
+    "tray"
+   ]
+  },
+  {
+   "id": "a1s_18_castle",
+   "title": "Mia — Lesson 18 · The old castle",
+   "level": "A1",
+   "words": [
+    "went",
+    "saw",
+    "had",
+    "took",
+    "castle",
+    "hill",
+    "old",
+    "photo"
+   ]
+  },
+  {
+   "id": "a1s_19_didyou",
+   "title": "Mia — Lesson 19 · Did you like it?",
+   "level": "A1",
+   "words": [
+    "did you",
+    "yes, i did",
+    "no, i didn\\'t",
+    "photo",
+    "show",
+    "climb",
+    "stairs",
+    "funny"
+   ]
+  },
+  {
+   "id": "a1s_20_always",
+   "title": "Mia — Lesson 20 · My week",
+   "level": "A1",
+   "words": [
+    "always",
+    "usually",
+    "sometimes",
+    "never",
+    "week",
+    "run",
+    "early",
+    "lazy"
+   ]
+  },
+  {
+   "id": "a1s_21_flat",
+   "title": "Mia — Lesson 21 · The little flat",
+   "level": "A1",
+   "words": [
+    "flat",
+    "room",
+    "wall",
+    "box",
+    "rug",
+    "plant",
+    "empty",
+    "have got"
+   ]
+  },
+  {
+   "id": "a1s_22_fridge",
+   "title": "Mia — Lesson 22 · The empty fridge",
+   "level": "A1",
+   "words": [
+    "fridge",
+    "milk",
+    "bread",
+    "egg",
+    "butter",
+    "list",
+    "some",
+    "any"
+   ]
+  },
+  {
+   "id": "a1s_23_shopping",
+   "title": "Mia — Lesson 23 · The big shop",
+   "level": "A1",
+   "words": [
+    "shop",
+    "trolley",
+    "rice",
+    "bag",
+    "till",
+    "how much",
+    "how many",
+    "pay"
+   ]
+  },
+  {
+   "id": "a1s_24_compare",
+   "title": "Mia — Lesson 24 · Two markets",
+   "level": "A1",
+   "words": [
+    "bigger",
+    "cheaper",
+    "fresher",
+    "friendlier",
+    "better",
+    "than",
+    "bright",
+    "choose"
+   ]
+  },
+  {
+   "id": "a1s_25_best",
+   "title": "Mia — Lesson 25 · The best coffee in town",
+   "level": "A1",
+   "words": [
+    "best",
+    "prize",
+    "queue",
+    "newspaper",
+    "cheer",
+    "oldest",
+    "busiest",
+    "proud"
+   ]
+  },
+  {
+   "id": "a1s_26_lost",
+   "title": "Mia — Lesson 26 · The lost tourist",
+   "level": "A1",
+   "words": [
+    "tourist",
+    "straight",
+    "left",
+    "right",
+    "turn",
+    "corner",
+    "way",
+    "lost"
+   ]
+  },
+  {
+   "id": "a1s_27_run",
+   "title": "Mia — Lesson 27 · The morning run",
+   "level": "A1",
+   "words": [
+    "run",
+    "across",
+    "through",
+    "up",
+    "down",
+    "past",
+    "bridge",
+    "top"
+   ]
+  },
+  {
+   "id": "a1s_28_hobbies",
+   "title": "Mia — Lesson 28 · Hobby night",
+   "level": "A1",
+   "words": [
+    "hobby",
+    "paint",
+    "read",
+    "play",
+    "guitar",
+    "enjoy",
+    "free time",
+    "clap"
+   ]
+  },
+  {
+   "id": "a1s_29_wish",
+   "title": "Mia — Lesson 29 · The savings jar",
+   "level": "A1",
+   "words": [
+    "dream",
+    "travel",
+    "jar",
+    "coin",
+    "save",
+    "hope",
+    "would like to",
+    "one day"
+   ]
+  },
+  {
+   "id": "a1s_30_work",
+   "title": "Mia — Lesson 30 · Opening up",
+   "level": "A1",
+   "words": [
+    "open",
+    "early",
+    "key",
+    "have to",
+    "clean",
+    "trust",
+    "machine",
+    "hard work"
+   ]
+  },
+  {
+   "id": "a1s_31_birthday",
+   "title": "Mia — Lesson 31 · Rosa",
+   "level": "A1",
+   "words": [
+    "birthday",
+    "calendar",
+    "surprise",
+    "first",
+    "second",
+    "candle",
+    "sing",
+    "cake"
+   ]
+  },
+  {
+   "id": "a1s_32_festival",
+   "title": "Mia — Lesson 32 · The town festival",
+   "level": "A1",
+   "words": [
+    "festival",
+    "square",
+    "band",
+    "lantern",
+    "dance",
+    "in",
+    "on",
+    "at"
+   ]
+  },
+  {
+   "id": "a1s_33_nextweek",
+   "title": "Mia — Lesson 33 · Next week",
+   "level": "A1",
+   "words": [
+    "diary",
+    "plan",
+    "delivery",
+    "class",
+    "meet",
+    "next week",
+    "visit",
+    "ready"
+   ]
+  },
+  {
+   "id": "a1s_34_will",
+   "title": "Mia — Lesson 34 · I think it",
+   "level": "A1",
+   "words": [
+    "cloud",
+    "will",
+    "won't",
+    "promise",
+    "help",
+    "umbrella",
+    "film",
+    "grey"
+   ]
+  },
+  {
+   "id": "a1s_35_because",
+   "title": "Mia — Lesson 35 · Late!",
+   "level": "A1",
+   "words": [
+    "late",
+    "why",
+    "because",
+    "alarm",
+    "miss",
+    "reason",
+    "run",
+    "tired"
+   ]
+  },
+  {
+   "id": "a1s_36_walkclub",
+   "title": "Mia — Lesson 36 · The walking club",
+   "level": "A1",
+   "words": [
+    "club",
+    "how often",
+    "every",
+    "once",
+    "twice",
+    "chart",
+    "exercise",
+    "neighbour"
+   ]
+  },
+  {
+   "id": "a1s_37_noise",
+   "title": "Mia — Lesson 37 · Something in the night",
+   "level": "A1",
+   "words": [
+    "noise",
+    "something",
+    "anything",
+    "nothing",
+    "shadow",
+    "branch",
+    "afraid",
+    "night"
+   ]
+  },
+  {
+   "id": "a1s_38_storm",
+   "title": "Mia — Lesson 38 · The night of the storm",
+   "level": "A1",
+   "words": [
+    "storm",
+    "power",
+    "candle",
+    "cards",
+    "wind",
+    "dark",
+    "was doing",
+    "golden"
+   ]
+  },
+  {
+   "id": "a1s_39_sick",
+   "title": "Mia — Lesson 39 · Mia has a cold",
+   "level": "A1",
+   "words": [
+    "ill",
+    "cold",
+    "should",
+    "shouldn't",
+    "soup",
+    "rest",
+    "better",
+    "doctor"
+   ]
+  },
+  {
+   "id": "a1s_40_inspection",
+   "title": "Mia — Lesson 40 · The inspection",
+   "level": "A1",
+   "words": [
+    "inspection",
+    "rule",
+    "must",
+    "mustn't",
+    "nervous",
+    "shine",
+    "pass",
+    "clipboard"
+   ]
+  },
+  {
+   "id": "a1s_41_scarf",
+   "title": "Mia — Lesson 41 · Whose scarf is this?",
+   "level": "A1",
+   "words": [
+    "scarf",
+    "whose",
+    "mine",
+    "yours",
+    "hers",
+    "owner",
+    "lady",
+    "find"
+   ]
+  },
+  {
+   "id": "a1s_42_gift",
+   "title": "Mia — Lesson 42 · The perfect gift",
+   "level": "A1",
+   "words": [
+    "gift",
+    "one",
+    "ones",
+    "wrap",
+    "ribbon",
+    "choose",
+    "shop",
+    "plain"
+   ]
+  },
+  {
+   "id": "a1s_43_ever",
+   "title": "Mia — Lesson 43 · Have you ever…?",
+   "level": "A1",
+   "words": [
+    "story",
+    "travel",
+    "ever",
+    "treasure",
+    "compass",
+    "seen",
+    "been",
+    "short"
+   ]
+  },
+  {
+   "id": "a1s_44_gone",
+   "title": "Mia — Lesson 44 · Where",
+   "level": "A1",
+   "words": [
+    "closed",
+    "sign",
+    "gone",
+    "been",
+    "postcard",
+    "wedding",
+    "city",
+    "soon"
+   ]
+  },
+  {
+   "id": "a1s_45_ifitrains",
+   "title": "Mia — Lesson 45 · If it rains…",
+   "level": "A1",
+   "words": [
+    "if",
+    "street",
+    "bunting",
+    "move",
+    "inside",
+    "enough",
+    "need",
+    "sunny"
+   ]
+  },
+  {
+   "id": "a1s_46_race",
+   "title": "Mia — Lesson 46 · The sack race",
+   "level": "A1",
+   "words": [
+    "race",
+    "referee",
+    "whistle",
+    "jump",
+    "finish",
+    "tie",
+    "as  as",
+    "winner"
+   ]
+  },
+  {
+   "id": "a1s_47_toomuch",
+   "title": "Mia — Lesson 47 · Too much lemonade",
+   "level": "A1",
+   "words": [
+    "too much",
+    "too many",
+    "enough",
+    "lemonade",
+    "balloon",
+    "chair",
+    "heavy",
+    "thirsty"
+   ]
+  },
+  {
+   "id": "a1s_48_quiz",
+   "title": "Mia — Lesson 48 · Quiz night",
+   "level": "A1",
+   "words": [
+    "quiz",
+    "team",
+    "who",
+    "which",
+    "answer",
+    "question",
+    "win",
+    "prize"
+   ]
+  },
+  {
+   "id": "a1s_49_year",
+   "title": "Mia — Lesson 49 · One whole year",
+   "level": "A1",
+   "words": [
+    "scrapbook",
+    "remember",
+    "first",
+    "then",
+    "finally",
+    "memory",
+    "year",
+    "home"
+   ]
+  },
+  {
+   "id": "a1s_50_home",
+   "title": "Mia — Lesson 50 · This is home",
+   "level": "A1",
+   "words": [
+    "party",
+    "lantern",
+    "speech",
+    "arrive",
+    "friend",
+    "home",
+    "proud",
+    "belong"
+   ]
+  },
+  {
    "id": "a2_lesson_tennis",
    "title": "Tennis — A2 Lesson",
    "level": "",
@@ -9898,6 +10648,3459 @@ window.WORDBANK={
   }
  ],
  "words": {
+  "hello": {
+   "w": "hello",
+   "pos": "",
+   "def": "you say this to greet someone",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "my name is": {
+   "w": "my name is",
+   "pos": "",
+   "def": "use this to tell someone your name",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "what's your name": {
+   "w": "what's your name",
+   "pos": "",
+   "def": "ask someone their name",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "i'm from": {
+   "w": "i'm from",
+   "pos": "",
+   "def": "use this to say your country or city",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "where are you from": {
+   "w": "where are you from",
+   "pos": "",
+   "def": "ask someone their country",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "nice to meet you": {
+   "w": "nice to meet you",
+   "pos": "",
+   "def": "say this when you meet someone new",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "yes": {
+   "w": "yes",
+   "pos": "",
+   "def": "answer a question",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "goodbye": {
+   "w": "goodbye",
+   "pos": "",
+   "def": "you say this when you leave",
+   "ex": "",
+   "lessons": [
+    "a1s_01_hello"
+   ]
+  },
+  "can i have": {
+   "w": "can i have",
+   "pos": "",
+   "def": "use this to order or ask for something",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "coffee": {
+   "w": "coffee",
+   "pos": "",
+   "def": "a hot drink",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "tea": {
+   "w": "tea",
+   "pos": "",
+   "def": "a hot drink",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "water": {
+   "w": "water",
+   "pos": "",
+   "def": "you drink it — no colour",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "sandwich": {
+   "w": "sandwich",
+   "pos": "",
+   "def": "food — bread with something inside",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "please": {
+   "w": "please",
+   "pos": "",
+   "def": "a polite word when you ask",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "thank you": {
+   "w": "thank you",
+   "pos": "",
+   "def": "a polite word after",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "how much is it": {
+   "w": "how much is it",
+   "pos": "",
+   "def": "ask the price",
+   "ex": "",
+   "lessons": [
+    "a1s_02_coffee"
+   ]
+  },
+  "where is": {
+   "w": "where is",
+   "pos": "",
+   "def": "use this to ask where something is",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where"
+   ]
+  },
+  "key": {
+   "w": "key",
+   "pos": "n",
+   "def": "you open a door with it",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where",
+    "a1s_30_work",
+    "techniques_jekyll_and_hyde_1_a2b1",
+    "techniques_metamorphosis_1_a2b1"
+   ]
+  },
+  "bag": {
+   "w": "bag",
+   "pos": "n",
+   "def": "you carry your things in it",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where",
+    "a1s_23_shopping",
+    "techniques_the_cabuliwallah_a2b1"
+   ]
+  },
+  "door": {
+   "w": "door",
+   "pos": "",
+   "def": "you open it to go in and out",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where"
+   ]
+  },
+  "on": {
+   "w": "on",
+   "pos": "",
+   "def": "the cup is ON the table",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where",
+    "a1s_32_festival"
+   ]
+  },
+  "in": {
+   "w": "in",
+   "pos": "",
+   "def": "the keys are IN the bag",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where",
+    "a1s_32_festival"
+   ]
+  },
+  "under": {
+   "w": "under",
+   "pos": "",
+   "def": "the cat is UNDER the chair",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where"
+   ]
+  },
+  "next to": {
+   "w": "next to",
+   "pos": "",
+   "def": "the phone is NEXT TO the keys",
+   "ex": "",
+   "lessons": [
+    "a1s_03_where"
+   ]
+  },
+  "family": {
+   "w": "family",
+   "pos": "",
+   "def": "the people close to you",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "mother": {
+   "w": "mother",
+   "pos": "",
+   "def": "your female parent",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "father": {
+   "w": "father",
+   "pos": "n",
+   "def": "your male parent",
+   "ex": "Her father was often difficult with her.",
+   "lessons": [
+    "a1s_04_family",
+    "techniques_eveline_a2b1"
+   ]
+  },
+  "sister": {
+   "w": "sister",
+   "pos": "",
+   "def": "a girl in your family",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "brother": {
+   "w": "brother",
+   "pos": "",
+   "def": "a boy in your family",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "photo": {
+   "w": "photo",
+   "pos": "",
+   "def": "a picture of people",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family",
+    "a1s_18_castle",
+    "a1s_19_didyou"
+   ]
+  },
+  "this is": {
+   "w": "this is",
+   "pos": "",
+   "def": "to show ONE person",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "these are": {
+   "w": "these are",
+   "pos": "",
+   "def": "to show MORE people",
+   "ex": "",
+   "lessons": [
+    "a1s_04_family"
+   ]
+  },
+  "get up": {
+   "w": "get up",
+   "pos": "",
+   "def": "leave your bed in the morning",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "breakfast": {
+   "w": "breakfast",
+   "pos": "",
+   "def": "the first meal of the day",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "go to work": {
+   "w": "go to work",
+   "pos": "",
+   "def": "go to your job",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "lunch": {
+   "w": "lunch",
+   "pos": "",
+   "def": "the meal in the middle of the day",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "go home": {
+   "w": "go home",
+   "pos": "",
+   "def": "go back to your house",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "in the morning": {
+   "w": "in the morning",
+   "pos": "",
+   "def": "the early part of the day",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "in the evening": {
+   "w": "in the evening",
+   "pos": "",
+   "def": "the end of the day",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "o'clock": {
+   "w": "o'clock",
+   "pos": "",
+   "def": "for the time: seven o\\",
+   "ex": "",
+   "lessons": [
+    "a1s_05_day"
+   ]
+  },
+  "like": {
+   "w": "like",
+   "pos": "",
+   "def": "it makes you happy",
+   "ex": "",
+   "lessons": [
+    "a1s_06_like"
+   ]
+  },
+  "love": {
+   "w": "love",
+   "pos": "noun / verb",
+   "def": "to like a lot",
+   "ex": "The student was in love.\" / \"I love my family.",
+   "lessons": [
+    "a1s_06_like",
+    "techniques_the_nightingale_and_the_rose_a2b1"
+   ]
+  },
+  "i don't like": {
+   "w": "i don't like",
+   "pos": "",
+   "def": "it does not make you happy",
+   "ex": "",
+   "lessons": [
+    "a1s_06_like"
+   ]
+  },
+  "music": {
+   "w": "music",
+   "pos": "n",
+   "def": "sounds you enjoy",
+   "ex": "The band plays music.\" / \"I like this music.",
+   "lessons": [
+    "a1s_06_like",
+    "a1s_13_party",
+    "techniques_miss_brill_a2b1"
+   ]
+  },
+  "film": {
+   "w": "film",
+   "pos": "noun (uncountable)",
+   "def": "a movie you watch",
+   "ex": "Kodak sold film all over the world.",
+   "lessons": [
+    "a1s_06_like",
+    "a1s_34_will",
+    "bc_kodak_a2b1"
+   ]
+  },
+  "book": {
+   "w": "book",
+   "pos": "n",
+   "def": "you read it",
+   "ex": "He read many books.\" / \"This book is very long.",
+   "lessons": [
+    "a1s_06_like",
+    "techniques_the_bet_a2b1"
+   ]
+  },
+  "cook": {
+   "w": "cook",
+   "pos": "",
+   "def": "to make food",
+   "ex": "",
+   "lessons": [
+    "a1s_06_like"
+   ]
+  },
+  "walk": {
+   "w": "walk",
+   "pos": "",
+   "def": "to go on foot",
+   "ex": "",
+   "lessons": [
+    "a1s_06_like"
+   ]
+  },
+  "market": {
+   "w": "market",
+   "pos": "n",
+   "def": "a place with many small shops outside",
+   "ex": "It was market day in the town.\" / \"I buy fruit at the market.",
+   "lessons": [
+    "a1s_07_market",
+    "bc_alphabet_a2b1",
+    "bc_nokia_a2b1",
+    "techniques_a_piece_of_string_a2b1",
+    "techniques_appointment_in_samarra_a2b1",
+    "techniques_araby_a2b1"
+   ]
+  },
+  "fruit": {
+   "w": "fruit",
+   "pos": "",
+   "def": "apples, bananas, oranges…",
+   "ex": "",
+   "lessons": [
+    "a1s_07_market"
+   ]
+  },
+  "apple": {
+   "w": "apple",
+   "pos": "",
+   "def": "a round red or green fruit",
+   "ex": "",
+   "lessons": [
+    "a1s_07_market"
+   ]
+  },
+  "buy": {
+   "w": "buy",
+   "pos": "",
+   "def": "you give money and take something",
+   "ex": "",
+   "lessons": [
+    "a1s_07_market",
+    "short_history_the_gold_that_came_home_a2b1"
+   ]
+  },
+  "money": {
+   "w": "money",
+   "pos": "n",
+   "def": "you pay with it — coins and notes",
+   "ex": "There was a lot of money in the wallet.\" / \"I have no money.",
+   "lessons": [
+    "a1s_07_market",
+    "techniques_a_piece_of_string_a2b1"
+   ]
+  },
+  "cheap": {
+   "w": "cheap",
+   "pos": "adjective — cheaper, the cheapest",
+   "def": "it costs LITTLE money",
+   "ex": "The R2 is cheaper than Rivian’s first cars.",
+   "lessons": [
+    "a1s_07_market",
+    "bc_china_challenge_a2b1",
+    "bc_rivian_ev_a2b1"
+   ]
+  },
+  "expensive": {
+   "w": "expensive",
+   "pos": "adj",
+   "def": "it costs a LOT of money",
+   "ex": "Wind farms were very expensive.",
+   "lessons": [
+    "a1s_07_market",
+    "bc_orsted_bet_the_company_a2"
+   ]
+  },
+  "this": {
+   "w": "this",
+   "pos": "",
+   "def": "THIS is near me · THAT is over there",
+   "ex": "",
+   "lessons": [
+    "a1s_07_market"
+   ]
+  },
+  "there is": {
+   "w": "there is",
+   "pos": "",
+   "def": "say what a place has: there is a park",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town"
+   ]
+  },
+  "town": {
+   "w": "town",
+   "pos": "",
+   "def": "a small city — streets, houses, people",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town"
+   ]
+  },
+  "park": {
+   "w": "park",
+   "pos": "n",
+   "def": "a green place with trees and grass",
+   "ex": "She goes to the park every Sunday.\" / \"The children play in the park.",
+   "lessons": [
+    "a1s_08_town",
+    "techniques_miss_brill_a2b1"
+   ]
+  },
+  "river": {
+   "w": "river",
+   "pos": "",
+   "def": "long water — it moves through the town",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town"
+   ]
+  },
+  "bridge": {
+   "w": "bridge",
+   "pos": "v",
+   "def": "you cross the river on it",
+   "ex": "When she didn't know, she bridged to what she did know rather than guessing.",
+   "lessons": [
+    "a1s_08_town",
+    "a1s_27_run",
+    "reading_the_room_c2"
+   ]
+  },
+  "station": {
+   "w": "station",
+   "pos": "n",
+   "def": "trains stop here",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town",
+    "a1s_15_sister",
+    "techniques_hills_like_white_elephants_a2b1"
+   ]
+  },
+  "street": {
+   "w": "street",
+   "pos": "",
+   "def": "a road in a town, with houses",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town",
+    "a1s_45_ifitrains"
+   ]
+  },
+  "hill": {
+   "w": "hill",
+   "pos": "",
+   "def": "like a small mountain — you walk up it",
+   "ex": "",
+   "lessons": [
+    "a1s_08_town",
+    "a1s_18_castle"
+   ]
+  },
+  "call": {
+   "w": "call",
+   "pos": "",
+   "def": "to phone someone: I call my mum",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call",
+    "bc_nokia_c1",
+    "nq_02_which_c1"
+   ]
+  },
+  "what are you doing": {
+   "w": "what are you doing",
+   "pos": "",
+   "def": "ask what is happening right now",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call"
+   ]
+  },
+  "now": {
+   "w": "now",
+   "pos": "adv",
+   "def": "at this moment — not before, not after",
+   "ex": "I want it now!",
+   "lessons": [
+    "a1s_09_call",
+    "psy_01_marshmallow_a2b1"
+   ]
+  },
+  "busy": {
+   "w": "busy",
+   "pos": "adj",
+   "def": "with many, many things to do",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call",
+    "a1s_17_saturday",
+    "psy_02_invisible_gorilla_a2b1"
+   ]
+  },
+  "help": {
+   "w": "help",
+   "pos": "verb / noun",
+   "def": "to do something good for someone",
+   "ex": "They shouted for help.\" / \"Can you help me, please?",
+   "lessons": [
+    "a1s_09_call",
+    "a1s_34_will",
+    "techniques_the_interlopers_a2b1"
+   ]
+  },
+  "carry": {
+   "w": "carry",
+   "pos": "v",
+   "def": "to hold something and take it with you",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call",
+    "techniques_metamorphosis_2_a2b1"
+   ]
+  },
+  "cat": {
+   "w": "cat",
+   "pos": "",
+   "def": "a small animal — it says \"miaow\"",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call"
+   ]
+  },
+  "sleep": {
+   "w": "sleep",
+   "pos": "",
+   "def": "you do it in bed, with your eyes closed",
+   "ex": "",
+   "lessons": [
+    "a1s_09_call"
+   ]
+  },
+  "i can": {
+   "w": "i can",
+   "pos": "",
+   "def": "say what is possible for you: I CAN swim",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake"
+   ]
+  },
+  "i can't": {
+   "w": "i can't",
+   "pos": "",
+   "def": "say what is not possible: I CAN\\",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake"
+   ]
+  },
+  "bake": {
+   "w": "bake",
+   "pos": "",
+   "def": "to make bread or cake in the oven",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake"
+   ]
+  },
+  "cake": {
+   "w": "cake",
+   "pos": "",
+   "def": "sweet food for happy days",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake",
+    "a1s_31_birthday"
+   ]
+  },
+  "egg": {
+   "w": "egg",
+   "pos": "",
+   "def": "it comes from a hen; you cook with it",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake",
+    "a1s_22_fridge"
+   ]
+  },
+  "sugar": {
+   "w": "sugar",
+   "pos": "",
+   "def": "it makes food sweet",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake"
+   ]
+  },
+  "learn": {
+   "w": "learn",
+   "pos": "verb — learned / learnt",
+   "def": "to get something new in your head",
+   "ex": "Nadella wanted people to learn, not to know everything.",
+   "lessons": [
+    "a1s_10_bake",
+    "bc_microsoft_a2b1",
+    "techniques_dr_heideggers_experiment",
+    "tib_pdca_b2"
+   ]
+  },
+  "try": {
+   "w": "try",
+   "pos": "",
+   "def": "to do something and see if you can",
+   "ex": "",
+   "lessons": [
+    "a1s_10_bake"
+   ]
+  },
+  "rain": {
+   "w": "rain",
+   "pos": "",
+   "def": "water that falls from the sky",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain"
+   ]
+  },
+  "rainy": {
+   "w": "rainy",
+   "pos": "",
+   "def": "it's rainy = rain is falling",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain"
+   ]
+  },
+  "cloudy": {
+   "w": "cloudy",
+   "pos": "",
+   "def": "the sky is grey — no sun",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain"
+   ]
+  },
+  "sunny": {
+   "w": "sunny",
+   "pos": "",
+   "def": "the sun is out and bright",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain",
+    "a1s_45_ifitrains"
+   ]
+  },
+  "cold": {
+   "w": "cold",
+   "pos": "adj",
+   "def": "brr! not warm",
+   "ex": "The cellar was cold.\" / \"He had a cold plan.",
+   "lessons": [
+    "a1s_11_rain",
+    "a1s_39_sick",
+    "techniques_the_cask_of_amontillado_a2b1"
+   ]
+  },
+  "warm": {
+   "w": "warm",
+   "pos": "",
+   "def": "a little hot — nice and cosy",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain"
+   ]
+  },
+  "wet": {
+   "w": "wet",
+   "pos": "adjective",
+   "def": "with water on it; not dry",
+   "ex": "He cried and cried about a sad story that was not real. Soon his stick was completely wet.",
+   "lessons": [
+    "a1s_11_rain",
+    "techniques_the_remarkable_rocket_a2b1",
+    "techniques_to_build_a_fire_a2b1"
+   ]
+  },
+  "umbrella": {
+   "w": "umbrella",
+   "pos": "",
+   "def": "you hold it over your head in the rain",
+   "ex": "",
+   "lessons": [
+    "a1s_11_rain",
+    "a1s_34_will"
+   ]
+  },
+  "sea": {
+   "w": "sea",
+   "pos": "",
+   "def": "big blue water — waves and salt",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "beach": {
+   "w": "beach",
+   "pos": "",
+   "def": "the sand next to the sea",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "sand": {
+   "w": "sand",
+   "pos": "",
+   "def": "soft yellow ground — you walk on it at the beach",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "bus": {
+   "w": "bus",
+   "pos": "",
+   "def": "a big car for many people",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "swim": {
+   "w": "swim",
+   "pos": "",
+   "def": "to move in the water",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "ice cream": {
+   "w": "ice cream",
+   "pos": "",
+   "def": "cold and sweet — perfect on a warm day",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "shell": {
+   "w": "shell",
+   "pos": "",
+   "def": "a small pretty thing from the sea",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea"
+   ]
+  },
+  "yesterday": {
+   "w": "yesterday",
+   "pos": "",
+   "def": "the day before today",
+   "ex": "",
+   "lessons": [
+    "a1s_12_sea",
+    "a1s_17_saturday"
+   ]
+  },
+  "would you like": {
+   "w": "would you like",
+   "pos": "",
+   "def": "a kind way to invite or offer",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party"
+   ]
+  },
+  "invitation": {
+   "w": "invitation",
+   "pos": "",
+   "def": "a card that says \"please come!\"",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party"
+   ]
+  },
+  "party": {
+   "w": "party",
+   "pos": "n",
+   "def": "music, food and friends together",
+   "ex": "They went to a big party.\" / \"It was a birthday party.",
+   "lessons": [
+    "a1s_13_party",
+    "a1s_50_home",
+    "techniques_the_masque_of_the_red_death_a2b1",
+    "techniques_the_necklace_a2b1"
+   ]
+  },
+  "i'd love to": {
+   "w": "i'd love to",
+   "pos": "",
+   "def": "a warm, happy way to say yes",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party"
+   ]
+  },
+  "bring": {
+   "w": "bring",
+   "pos": "",
+   "def": "come with something: \"I can bring a cake\"",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party"
+   ]
+  },
+  "drink": {
+   "w": "drink",
+   "pos": "",
+   "def": "juice, tea or lemonade",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party"
+   ]
+  },
+  "together": {
+   "w": "together",
+   "pos": "",
+   "def": "with other people, not alone",
+   "ex": "",
+   "lessons": [
+    "a1s_13_party",
+    "short_history_the_real_robinson_crusoe_a2b1"
+   ]
+  },
+  "clothes": {
+   "w": "clothes",
+   "pos": "n, plural",
+   "def": "the things you wear — a jacket, a dress, shoes",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes",
+    "techniques_sweat_a2b1"
+   ]
+  },
+  "shop": {
+   "w": "shop",
+   "pos": "n",
+   "def": "you go there to buy things",
+   "ex": "He opened a small shop.\" / \"I buy bread at the shop.",
+   "lessons": [
+    "a1s_14_clothes",
+    "a1s_23_shopping",
+    "a1s_42_gift",
+    "techniques_the_verger_a2b1"
+   ]
+  },
+  "try on": {
+   "w": "try on",
+   "pos": "",
+   "def": "put clothes on to see if they are good for you",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes"
+   ]
+  },
+  "jacket": {
+   "w": "jacket",
+   "pos": "",
+   "def": "you wear it when it is cold outside",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes"
+   ]
+  },
+  "dress": {
+   "w": "dress",
+   "pos": "",
+   "def": "clothes for a party — Mia buys an amber one",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes"
+   ]
+  },
+  "too big": {
+   "w": "too big",
+   "pos": "",
+   "def": "big — and not good! The jacket is TOO BIG",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes"
+   ]
+  },
+  "too small": {
+   "w": "too small",
+   "pos": "",
+   "def": "small — and not good! The hat is TOO SMALL",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes"
+   ]
+  },
+  "perfect": {
+   "w": "perfect",
+   "pos": "",
+   "def": "100% good — not too big, not too small",
+   "ex": "",
+   "lessons": [
+    "a1s_14_clothes",
+    "techniques_the_dolls_house_a2b1",
+    "topic_expertise_b2"
+   ]
+  },
+  "visit": {
+   "w": "visit",
+   "pos": "",
+   "def": "to go and see a person or place",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister",
+    "a1s_33_nextweek"
+   ]
+  },
+  "train": {
+   "w": "train",
+   "pos": "a program",
+   "def": "it takes you from town to town",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister",
+    "bc_ai_screening_c1",
+    "techniques_a_vendetta_a2b1",
+    "techniques_araby_a2b1",
+    "techniques_hills_like_white_elephants_a2b1",
+    "tib_mindmap_b2"
+   ]
+  },
+  "wait": {
+   "w": "wait",
+   "pos": "v",
+   "def": "to stay until someone or something comes",
+   "ex": "I want to wait for the bus. It comes in five minutes.",
+   "lessons": [
+    "a1s_15_sister",
+    "psy_01_marshmallow_a2b1",
+    "techniques_before_the_law_a2b1"
+   ]
+  },
+  "arrive": {
+   "w": "arrive",
+   "pos": "",
+   "def": "to come to a place",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister",
+    "a1s_50_home"
+   ]
+  },
+  "hug": {
+   "w": "hug",
+   "pos": "",
+   "def": "you put your arms around someone",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister"
+   ]
+  },
+  "suitcase": {
+   "w": "suitcase",
+   "pos": "",
+   "def": "a big bag for your travel things",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister"
+   ]
+  },
+  "welcome": {
+   "w": "welcome",
+   "pos": "",
+   "def": "you say it when someone arrives",
+   "ex": "",
+   "lessons": [
+    "a1s_15_sister"
+   ]
+  },
+  "i'm going to": {
+   "w": "i'm going to",
+   "pos": "",
+   "def": "say your plan: I\\",
+   "ex": "",
+   "lessons": [
+    "a1s_16_plans"
+   ]
+  },
+  "weekend": {
+   "w": "weekend",
+   "pos": "",
+   "def": "Saturday and Sunday",
+   "ex": "",
+   "lessons": [
+    "a1s_16_plans"
+   ]
+  },
+  "plan": {
+   "w": "plan",
+   "pos": "n",
+   "def": "your idea for what to do",
+   "ex": "They had a plan, but it did not survive the first hour.",
+   "lessons": [
+    "a1s_16_plans",
+    "a1s_33_nextweek",
+    "bc_intel_foundry_a2b1",
+    "bc_maersk_a2b1",
+    "behind_the_screen_thirteen_days",
+    "techniques_a_vendetta_a2b1",
+    "techniques_the_ransom_of_red_chief_a2b1"
+   ]
+  },
+  "bike": {
+   "w": "bike",
+   "pos": "",
+   "def": "you ride it — it has two wheels",
+   "ex": "",
+   "lessons": [
+    "a1s_16_plans"
+   ]
+  },
+  "ride": {
+   "w": "ride",
+   "pos": "v",
+   "def": "go on a bike: we ride our bikes",
+   "ex": "I will ride to Samarra.\" / \"She rides her bike to school.",
+   "lessons": [
+    "a1s_16_plans",
+    "techniques_appointment_in_samarra_a2b1"
+   ]
+  },
+  "castle": {
+   "w": "castle",
+   "pos": "n",
+   "def": "a very old, big building on a hill",
+   "ex": "",
+   "lessons": [
+    "a1s_16_plans",
+    "a1s_18_castle",
+    "techniques_the_masque_of_the_red_death_a2b1"
+   ]
+  },
+  "picnic": {
+   "w": "picnic",
+   "pos": "",
+   "def": "you eat outside, on the grass",
+   "ex": "",
+   "lessons": [
+    "a1s_16_plans"
+   ]
+  },
+  "map": {
+   "w": "map",
+   "pos": "v",
+   "def": "a picture of streets and places",
+   "ex": "Ask what maps onto what before you trust the comparison.",
+   "lessons": [
+    "a1s_16_plans",
+    "skills_c1_senior_interview_2_leadership",
+    "the_art_of_the_analogy_c2"
+   ]
+  },
+  "worked": {
+   "w": "worked",
+   "pos": "",
+   "def": "the past of WORK: yesterday I worked",
+   "ex": "",
+   "lessons": [
+    "a1s_17_saturday"
+   ]
+  },
+  "helped": {
+   "w": "helped",
+   "pos": "",
+   "def": "the past of HELP: she helped everyone",
+   "ex": "",
+   "lessons": [
+    "a1s_17_saturday"
+   ]
+  },
+  "cleaned": {
+   "w": "cleaned",
+   "pos": "",
+   "def": "the past of CLEAN: we cleaned the tables",
+   "ex": "",
+   "lessons": [
+    "a1s_17_saturday"
+   ]
+  },
+  "smiled": {
+   "w": "smiled",
+   "pos": "",
+   "def": "the past of SMILE: the people smiled",
+   "ex": "",
+   "lessons": [
+    "a1s_17_saturday"
+   ]
+  },
+  "tired": {
+   "w": "tired",
+   "pos": "adj",
+   "def": "after a long day, you want to sleep",
+   "ex": "She worked for twelve hours today. Now she just wants to sit down and close her eyes. She is very tired.",
+   "lessons": [
+    "a1s_17_saturday",
+    "a1s_35_because",
+    "techniques_metamorphosis_3_a2b1",
+    "techniques_the_ransom_of_red_chief_a2b1"
+   ]
+  },
+  "tray": {
+   "w": "tray",
+   "pos": "",
+   "def": "you carry cups and plates on it",
+   "ex": "",
+   "lessons": [
+    "a1s_17_saturday"
+   ]
+  },
+  "went": {
+   "w": "went",
+   "pos": "",
+   "def": "the past of GO — we WENT to the castle",
+   "ex": "",
+   "lessons": [
+    "a1s_18_castle"
+   ]
+  },
+  "saw": {
+   "w": "saw",
+   "pos": "",
+   "def": "the past of SEE — I SAW a big tower",
+   "ex": "",
+   "lessons": [
+    "a1s_18_castle"
+   ]
+  },
+  "had": {
+   "w": "had",
+   "pos": "",
+   "def": "the past of HAVE — we HAD a picnic",
+   "ex": "",
+   "lessons": [
+    "a1s_18_castle"
+   ]
+  },
+  "took": {
+   "w": "took",
+   "pos": "",
+   "def": "the past of TAKE — I TOOK a photo",
+   "ex": "",
+   "lessons": [
+    "a1s_18_castle"
+   ]
+  },
+  "old": {
+   "w": "old",
+   "pos": "adj",
+   "def": "not new — the castle is 500 years old",
+   "ex": "Miss Brill is an old woman.\" / \"She wears an old fur.",
+   "lessons": [
+    "a1s_18_castle",
+    "techniques_miss_brill_a2b1"
+   ]
+  },
+  "did you": {
+   "w": "did you",
+   "pos": "",
+   "def": "use this to ask about yesterday: Did you like it?",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "yes, i did": {
+   "w": "yes, i did",
+   "pos": "",
+   "def": "the happy answer to \"Did you…?\"",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "no, i didn\\'t": {
+   "w": "no, i didn\\'t",
+   "pos": "",
+   "def": "the \"no\" answer to \"Did you…?\"",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "show": {
+   "w": "show",
+   "pos": "",
+   "def": "look! I show you my photos",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "climb": {
+   "w": "climb",
+   "pos": "v",
+   "def": "to go up — stairs, a tower, a hill",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou",
+    "techniques_the_spiders_thread_a2b1"
+   ]
+  },
+  "stairs": {
+   "w": "stairs",
+   "pos": "",
+   "def": "you walk up them, step by step",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "funny": {
+   "w": "funny",
+   "pos": "",
+   "def": "it makes you laugh",
+   "ex": "",
+   "lessons": [
+    "a1s_19_didyou"
+   ]
+  },
+  "always": {
+   "w": "always",
+   "pos": "",
+   "def": "every time — I ALWAYS run in the morning",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always"
+   ]
+  },
+  "usually": {
+   "w": "usually",
+   "pos": "",
+   "def": "most times — she USUALLY makes the coffee",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always"
+   ]
+  },
+  "sometimes": {
+   "w": "sometimes",
+   "pos": "",
+   "def": "some times, not all — Mia SOMETIMES wins",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always"
+   ]
+  },
+  "never": {
+   "w": "never",
+   "pos": "",
+   "def": "no times — the cat NEVER gets up early",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always",
+    "topic_dreams_a2b1"
+   ]
+  },
+  "week": {
+   "w": "week",
+   "pos": "",
+   "def": "seven days, Monday to Sunday",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always"
+   ]
+  },
+  "run": {
+   "w": "run",
+   "pos": "",
+   "def": "you go fast on your legs — a morning RUN",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always",
+    "a1s_27_run",
+    "a1s_35_because",
+    "tib_pdca_b2"
+   ]
+  },
+  "early": {
+   "w": "early",
+   "pos": "",
+   "def": "before the usual time — 6 a.m. is EARLY",
+   "ex": "",
+   "lessons": [
+    "a1s_20_always",
+    "a1s_30_work"
+   ]
+  },
+  "lazy": {
+   "w": "lazy",
+   "pos": "",
+   "def": "slow and restful — a LAZY Sunday in bed",
+   "ex": "Rip was very lazy — he never wanted to work on his own farm.",
+   "lessons": [
+    "a1s_20_always",
+    "techniques_rip_van_winkle_a2b1"
+   ]
+  },
+  "flat": {
+   "w": "flat",
+   "pos": "",
+   "def": "a home in a building, on one floor",
+   "ex": "",
+   "lessons": [
+    "a1s_21_flat"
+   ]
+  },
+  "room": {
+   "w": "room",
+   "pos": "",
+   "def": "one part of a home",
+   "ex": "",
+   "lessons": [
+    "a1s_21_flat"
+   ]
+  },
+  "wall": {
+   "w": "wall",
+   "pos": "n",
+   "def": "the side of a room",
+   "ex": "He built a wall of bricks.\" / \"There was a picture on the wall.",
+   "lessons": [
+    "a1s_21_flat",
+    "techniques_metamorphosis_2_a2b1",
+    "techniques_the_cask_of_amontillado_a2b1",
+    "techniques_the_last_leaf_a2b1",
+    "techniques_the_selfish_giant",
+    "techniques_the_two_labyrinths_a2b1"
+   ]
+  },
+  "box": {
+   "w": "box",
+   "pos": "n",
+   "def": "you put things in it to carry them",
+   "ex": "She keeps the fur in a box.\" / \"She closes the box.",
+   "lessons": [
+    "a1s_21_flat",
+    "techniques_miss_brill_a2b1"
+   ]
+  },
+  "rug": {
+   "w": "rug",
+   "pos": "",
+   "def": "a small soft mat on the floor",
+   "ex": "",
+   "lessons": [
+    "a1s_21_flat"
+   ]
+  },
+  "plant": {
+   "w": "plant",
+   "pos": "",
+   "def": "it is green and grows",
+   "ex": "",
+   "lessons": [
+    "a1s_21_flat"
+   ]
+  },
+  "empty": {
+   "w": "empty",
+   "pos": "adj",
+   "def": "with nothing in it",
+   "ex": "It was ten o'clock at night. The wind was cold and the streets were empty. There were no people and no cars.",
+   "lessons": [
+    "a1s_21_flat",
+    "techniques_after_twenty_years_a2b1"
+   ]
+  },
+  "have got": {
+   "w": "have got",
+   "pos": "",
+   "def": "use this to say what you have",
+   "ex": "",
+   "lessons": [
+    "a1s_21_flat"
+   ]
+  },
+  "fridge": {
+   "w": "fridge",
+   "pos": "",
+   "def": "it keeps your food cold",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "milk": {
+   "w": "milk",
+   "pos": "n",
+   "def": "a white drink from cows",
+   "ex": "The baby is hungry, so her father gives her some warm milk in a bottle.",
+   "lessons": [
+    "a1s_22_fridge",
+    "techniques_metamorphosis_2_a2b1"
+   ]
+  },
+  "bread": {
+   "w": "bread",
+   "pos": "",
+   "def": "you make sandwiches with it",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "butter": {
+   "w": "butter",
+   "pos": "",
+   "def": "yellow, you put it on bread",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "list": {
+   "w": "list",
+   "pos": "",
+   "def": "words you write to remember",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "some": {
+   "w": "some",
+   "pos": "",
+   "def": "a little, in + sentences",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "any": {
+   "w": "any",
+   "pos": "",
+   "def": "in − sentences and questions",
+   "ex": "",
+   "lessons": [
+    "a1s_22_fridge"
+   ]
+  },
+  "trolley": {
+   "w": "trolley",
+   "pos": "",
+   "def": "you push it and put food in it",
+   "ex": "",
+   "lessons": [
+    "a1s_23_shopping"
+   ]
+  },
+  "rice": {
+   "w": "rice",
+   "pos": "",
+   "def": "small white grains you cook",
+   "ex": "",
+   "lessons": [
+    "a1s_23_shopping"
+   ]
+  },
+  "till": {
+   "w": "till",
+   "pos": "",
+   "def": "where you pay in a shop",
+   "ex": "",
+   "lessons": [
+    "a1s_23_shopping"
+   ]
+  },
+  "how much": {
+   "w": "how much",
+   "pos": "",
+   "def": "for things you can't count",
+   "ex": "",
+   "lessons": [
+    "a1s_23_shopping"
+   ]
+  },
+  "how many": {
+   "w": "how many",
+   "pos": "",
+   "def": "for things you can count",
+   "ex": "",
+   "lessons": [
+    "a1s_23_shopping"
+   ]
+  },
+  "pay": {
+   "w": "pay",
+   "pos": "verb (paid, paid)",
+   "def": "to give money for things",
+   "ex": "They worked hard to pay for the necklace.\" / \"I paid for the tickets.",
+   "lessons": [
+    "a1s_23_shopping",
+    "techniques_the_necklace_a2b1",
+    "techniques_the_ransom_of_red_chief_a2b1"
+   ]
+  },
+  "bigger": {
+   "w": "bigger",
+   "pos": "",
+   "def": "more big",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare"
+   ]
+  },
+  "cheaper": {
+   "w": "cheaper",
+   "pos": "",
+   "def": "less money",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare"
+   ]
+  },
+  "fresher": {
+   "w": "fresher",
+   "pos": "",
+   "def": "more new and good (food)",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare"
+   ]
+  },
+  "friendlier": {
+   "w": "friendlier",
+   "pos": "",
+   "def": "more kind and warm",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare"
+   ]
+  },
+  "better": {
+   "w": "better",
+   "pos": "adj",
+   "def": "more good",
+   "ex": "Johnsy got better.\" / \"I feel much better today.",
+   "lessons": [
+    "a1s_24_compare",
+    "a1s_39_sick",
+    "techniques_the_last_leaf_a2b1"
+   ]
+  },
+  "than": {
+   "w": "than",
+   "pos": "",
+   "def": "use it to compare: bigger THAN",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare"
+   ]
+  },
+  "bright": {
+   "w": "bright",
+   "pos": "",
+   "def": "full of light",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare",
+    "topic_optimism_b2"
+   ]
+  },
+  "choose": {
+   "w": "choose",
+   "pos": "",
+   "def": "to pick the one you want",
+   "ex": "",
+   "lessons": [
+    "a1s_24_compare",
+    "a1s_42_gift",
+    "discuss_a2_will_to_believe"
+   ]
+  },
+  "best": {
+   "w": "best",
+   "pos": "",
+   "def": "the most good",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "prize": {
+   "w": "prize",
+   "pos": "v",
+   "def": "you win it for being very good",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best",
+    "a1s_48_quiz",
+    "techniques_the_gift_of_the_magi"
+   ]
+  },
+  "queue": {
+   "w": "queue",
+   "pos": "",
+   "def": "a line of people waiting",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "newspaper": {
+   "w": "newspaper",
+   "pos": "",
+   "def": "you read the news in it",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "cheer": {
+   "w": "cheer",
+   "pos": "",
+   "def": "to shout because you are happy",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "oldest": {
+   "w": "oldest",
+   "pos": "",
+   "def": "the most old",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "busiest": {
+   "w": "busiest",
+   "pos": "",
+   "def": "the most busy",
+   "ex": "",
+   "lessons": [
+    "a1s_25_best"
+   ]
+  },
+  "proud": {
+   "w": "proud",
+   "pos": "adjective",
+   "def": "very happy about something good you did",
+   "ex": "A proud person thinks: \"I am important. My family is important.\" Sometimes proud people cannot say sorry.",
+   "lessons": [
+    "a1s_25_best",
+    "a1s_50_home",
+    "techniques_desirees_baby_a2b1",
+    "techniques_the_remarkable_rocket_a2b1",
+    "techniques_the_two_labyrinths_a2b1"
+   ]
+  },
+  "tourist": {
+   "w": "tourist",
+   "pos": "",
+   "def": "a visitor from another place",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "straight": {
+   "w": "straight",
+   "pos": "",
+   "def": "not left, not right — forward",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "left": {
+   "w": "left",
+   "pos": "",
+   "def": "this side ←",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "right": {
+   "w": "right",
+   "pos": "",
+   "def": "this side →",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "turn": {
+   "w": "turn",
+   "pos": "",
+   "def": "to change the way you go",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "corner": {
+   "w": "corner",
+   "pos": "",
+   "def": "where two streets meet",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "way": {
+   "w": "way",
+   "pos": "",
+   "def": "how you get somewhere",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "lost": {
+   "w": "lost",
+   "pos": "",
+   "def": "you don't know where you are",
+   "ex": "",
+   "lessons": [
+    "a1s_26_lost"
+   ]
+  },
+  "across": {
+   "w": "across",
+   "pos": "",
+   "def": "from one side to the other",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "through": {
+   "w": "through",
+   "pos": "",
+   "def": "in one side and out the other",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "up": {
+   "w": "up",
+   "pos": "",
+   "def": "to a higher place",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "down": {
+   "w": "down",
+   "pos": "",
+   "def": "to a lower place",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "past": {
+   "w": "past",
+   "pos": "",
+   "def": "to go by something",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "top": {
+   "w": "top",
+   "pos": "",
+   "def": "the highest part",
+   "ex": "",
+   "lessons": [
+    "a1s_27_run"
+   ]
+  },
+  "hobby": {
+   "w": "hobby",
+   "pos": "",
+   "def": "something you love to do in your free time",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "paint": {
+   "w": "paint",
+   "pos": "v",
+   "def": "to make a picture with colours",
+   "ex": "Behrman painted a leaf on the wall.\" / \"I want to paint the sea.",
+   "lessons": [
+    "a1s_28_hobbies",
+    "techniques_the_last_leaf_a2b1"
+   ]
+  },
+  "read": {
+   "w": "read",
+   "pos": "v",
+   "def": "to look at words in a book",
+   "ex": "Albert could not read.\" / \"I read a book last night.",
+   "lessons": [
+    "a1s_28_hobbies",
+    "techniques_the_verger_a2b1"
+   ]
+  },
+  "play": {
+   "w": "play",
+   "pos": "",
+   "def": "to make music, or a game",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "guitar": {
+   "w": "guitar",
+   "pos": "",
+   "def": "a music thing with strings",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "enjoy": {
+   "w": "enjoy",
+   "pos": "",
+   "def": "to have a good time doing it",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "free time": {
+   "w": "free time",
+   "pos": "",
+   "def": "time when you don't work",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "clap": {
+   "w": "clap",
+   "pos": "",
+   "def": "to hit your hands together 👏",
+   "ex": "",
+   "lessons": [
+    "a1s_28_hobbies"
+   ]
+  },
+  "dream": {
+   "w": "dream",
+   "pos": "",
+   "def": "something you hope to do one day",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish"
+   ]
+  },
+  "travel": {
+   "w": "travel",
+   "pos": "",
+   "def": "to go to other places",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish",
+    "a1s_43_ever"
+   ]
+  },
+  "jar": {
+   "w": "jar",
+   "pos": "",
+   "def": "a glass pot you keep things in",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish"
+   ]
+  },
+  "coin": {
+   "w": "coin",
+   "pos": "noun",
+   "def": "round metal money",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish",
+    "techniques_idgah_a2b1",
+    "techniques_mateo_falcone_a2b1"
+   ]
+  },
+  "save": {
+   "w": "save",
+   "pos": "verb — saved",
+   "def": "to keep money for later",
+   "ex": "Buying in large numbers helps a company save money.",
+   "lessons": [
+    "a1s_29_wish",
+    "bc_ikea_a2b1"
+   ]
+  },
+  "hope": {
+   "w": "hope",
+   "pos": "",
+   "def": "to want something good to happen",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish"
+   ]
+  },
+  "would like to": {
+   "w": "would like to",
+   "pos": "",
+   "def": "a polite way to say 'want to'",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish"
+   ]
+  },
+  "one day": {
+   "w": "one day",
+   "pos": "",
+   "def": "some time in the future",
+   "ex": "",
+   "lessons": [
+    "a1s_29_wish"
+   ]
+  },
+  "open": {
+   "w": "open",
+   "pos": "",
+   "def": "to make ready for people to come in",
+   "ex": "",
+   "lessons": [
+    "a1s_30_work"
+   ]
+  },
+  "have to": {
+   "w": "have to",
+   "pos": "",
+   "def": "use this for necessary things",
+   "ex": "",
+   "lessons": [
+    "a1s_30_work"
+   ]
+  },
+  "clean": {
+   "w": "clean",
+   "pos": "",
+   "def": "to make something not dirty",
+   "ex": "",
+   "lessons": [
+    "a1s_30_work"
+   ]
+  },
+  "trust": {
+   "w": "trust",
+   "pos": "verb — trusted",
+   "def": "to believe someone is good",
+   "ex": "After the deaths, many people did not trust the medicine.",
+   "lessons": [
+    "a1s_30_work",
+    "bc_airbnb_a2b1",
+    "bc_bluebuffalo_a2b1",
+    "bc_patagonia_a2b1",
+    "bc_patagonia_c1",
+    "bc_tylenol_a2b1",
+    "piranesi_bc_other",
+    "techniques_jekyll_and_hyde_1_a2b1",
+    "tib_johari_a2b1"
+   ]
+  },
+  "machine": {
+   "w": "machine",
+   "pos": "n",
+   "def": "it does a job for you",
+   "ex": "This machine may help doctors in the future.",
+   "lessons": [
+    "a1s_30_work",
+    "bc_may_might_could_a2"
+   ]
+  },
+  "hard work": {
+   "w": "hard work",
+   "pos": "",
+   "def": "when a job takes a lot of effort",
+   "ex": "",
+   "lessons": [
+    "a1s_30_work"
+   ]
+  },
+  "birthday": {
+   "w": "birthday",
+   "pos": "",
+   "def": "the day you were born",
+   "ex": "",
+   "lessons": [
+    "a1s_31_birthday"
+   ]
+  },
+  "calendar": {
+   "w": "calendar",
+   "pos": "",
+   "def": "it shows the days and months",
+   "ex": "",
+   "lessons": [
+    "a1s_31_birthday"
+   ]
+  },
+  "surprise": {
+   "w": "surprise",
+   "pos": "noun",
+   "def": "something nice you don't expect",
+   "ex": "It was a look of surprise.\" / \"The party was a big surprise.",
+   "lessons": [
+    "a1s_31_birthday",
+    "techniques_appointment_in_samarra_a2b1",
+    "techniques_the_gift_of_the_magi_a2b1"
+   ]
+  },
+  "first": {
+   "w": "first",
+   "pos": "",
+   "def": "number 1 in order",
+   "ex": "",
+   "lessons": [
+    "a1s_31_birthday",
+    "a1s_49_year"
+   ]
+  },
+  "second": {
+   "w": "second",
+   "pos": "",
+   "def": "number 2 in order",
+   "ex": "",
+   "lessons": [
+    "a1s_31_birthday"
+   ]
+  },
+  "candle": {
+   "w": "candle",
+   "pos": "",
+   "def": "a small light on a cake",
+   "ex": "",
+   "lessons": [
+    "a1s_31_birthday",
+    "a1s_38_storm"
+   ]
+  },
+  "sing": {
+   "w": "sing",
+   "pos": "v",
+   "def": "to make music with your voice",
+   "ex": "The bird sang all night.\" / \"I like to sing in the car.",
+   "lessons": [
+    "a1s_31_birthday",
+    "techniques_the_nightingale_and_the_rose_a2b1"
+   ]
+  },
+  "festival": {
+   "w": "festival",
+   "pos": "",
+   "def": "a big happy town party",
+   "ex": "",
+   "lessons": [
+    "a1s_32_festival"
+   ]
+  },
+  "square": {
+   "w": "square",
+   "pos": "",
+   "def": "an open place in a town",
+   "ex": "",
+   "lessons": [
+    "a1s_32_festival"
+   ]
+  },
+  "band": {
+   "w": "band",
+   "pos": "",
+   "def": "a group who play music",
+   "ex": "",
+   "lessons": [
+    "a1s_32_festival"
+   ]
+  },
+  "lantern": {
+   "w": "lantern",
+   "pos": "",
+   "def": "a light in a paper cover",
+   "ex": "",
+   "lessons": [
+    "a1s_32_festival",
+    "a1s_50_home"
+   ]
+  },
+  "dance": {
+   "w": "dance",
+   "pos": "verb / noun",
+   "def": "to move to music",
+   "ex": "She will dance with him.\" / \"We love to dance at parties.",
+   "lessons": [
+    "a1s_32_festival",
+    "techniques_the_nightingale_and_the_rose_a2b1"
+   ]
+  },
+  "at": {
+   "w": "at",
+   "pos": "",
+   "def": "for clock times",
+   "ex": "",
+   "lessons": [
+    "a1s_32_festival"
+   ]
+  },
+  "diary": {
+   "w": "diary",
+   "pos": "",
+   "def": "a book for your plans and days",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "delivery": {
+   "w": "delivery",
+   "pos": "",
+   "def": "when goods are brought to you",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "class": {
+   "w": "class",
+   "pos": "",
+   "def": "a group who learn together",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "meet": {
+   "w": "meet",
+   "pos": "",
+   "def": "to come together with someone",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "next week": {
+   "w": "next week",
+   "pos": "",
+   "def": "the week after this one",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "ready": {
+   "w": "ready",
+   "pos": "",
+   "def": "done and prepared",
+   "ex": "",
+   "lessons": [
+    "a1s_33_nextweek"
+   ]
+  },
+  "cloud": {
+   "w": "cloud",
+   "pos": "noun",
+   "def": "white or grey, it floats in the sky",
+   "ex": "Microsoft's cloud business grew very fast.",
+   "lessons": [
+    "a1s_34_will",
+    "bc_microsoft_a2b1",
+    "short_history_pompeii_a2b1"
+   ]
+  },
+  "will": {
+   "w": "will",
+   "pos": "n",
+   "def": "use it for the future",
+   "ex": "",
+   "lessons": [
+    "a1s_34_will",
+    "techniques_jekyll_and_hyde_1_a2b1",
+    "techniques_the_adventure_of_the_speckled_band"
+   ]
+  },
+  "won't": {
+   "w": "won't",
+   "pos": "",
+   "def": "will not",
+   "ex": "",
+   "lessons": [
+    "a1s_34_will"
+   ]
+  },
+  "promise": {
+   "w": "promise",
+   "pos": "noun / verb",
+   "def": "to say you really will do it",
+   "ex": "She made a promise to her mother.\" / \"I promise to help you.",
+   "lessons": [
+    "a1s_34_will",
+    "bc_ai_chatbot_c1",
+    "bc_bluebuffalo_a2b1",
+    "bc_onlinetherapy_a2b1",
+    "bc_wework_a2b1",
+    "techniques_after_twenty_years_a2b1",
+    "techniques_araby_a2b1",
+    "techniques_eveline_a2b1",
+    "techniques_mateo_falcone_a2b1",
+    "techniques_the_bet_a2b1",
+    "topic_willpower_b2"
+   ]
+  },
+  "grey": {
+   "w": "grey",
+   "pos": "",
+   "def": "the colour of rain clouds",
+   "ex": "",
+   "lessons": [
+    "a1s_34_will"
+   ]
+  },
+  "late": {
+   "w": "late",
+   "pos": "adjective / adverb",
+   "def": "after the right time",
+   "ex": "The factory in Ohio will be five years late.",
+   "lessons": [
+    "a1s_35_because",
+    "bc_intel_foundry_a2b1",
+    "bc_nokia_a2b1"
+   ]
+  },
+  "why": {
+   "w": "why",
+   "pos": "",
+   "def": "use it to ask the reason",
+   "ex": "",
+   "lessons": [
+    "a1s_35_because"
+   ]
+  },
+  "because": {
+   "w": "because",
+   "pos": "",
+   "def": "use it to give the reason",
+   "ex": "",
+   "lessons": [
+    "a1s_35_because"
+   ]
+  },
+  "alarm": {
+   "w": "alarm",
+   "pos": "n",
+   "def": "it wakes you in the morning",
+   "ex": "",
+   "lessons": [
+    "a1s_35_because",
+    "nq_04_what_if_c1",
+    "techniques_there_will_come_soft_rains_a2b1"
+   ]
+  },
+  "miss": {
+   "w": "miss",
+   "pos": "",
+   "def": "to be too late for (a bus)",
+   "ex": "",
+   "lessons": [
+    "a1s_35_because",
+    "techniques_araby"
+   ]
+  },
+  "reason": {
+   "w": "reason",
+   "pos": "",
+   "def": "why something happens",
+   "ex": "",
+   "lessons": [
+    "a1s_35_because",
+    "discuss_a2_frankl_meaning"
+   ]
+  },
+  "club": {
+   "w": "club",
+   "pos": "",
+   "def": "a group who do something together",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "how often": {
+   "w": "how often",
+   "pos": "",
+   "def": "use it to ask about times",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "every": {
+   "w": "every",
+   "pos": "",
+   "def": "each one, with no gaps",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "once": {
+   "w": "once",
+   "pos": "",
+   "def": "one time",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "twice": {
+   "w": "twice",
+   "pos": "",
+   "def": "two times",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "chart": {
+   "w": "chart",
+   "pos": "",
+   "def": "a paper that shows your progress",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "exercise": {
+   "w": "exercise",
+   "pos": "",
+   "def": "to move your body to be healthy",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "neighbour": {
+   "w": "neighbour",
+   "pos": "",
+   "def": "a person who lives near you",
+   "ex": "",
+   "lessons": [
+    "a1s_36_walkclub"
+   ]
+  },
+  "noise": {
+   "w": "noise",
+   "pos": "n",
+   "def": "a sound, often not nice",
+   "ex": "Human judgement suffers from noise: the same expert, shown the same case twice, may reach a different conclusion.",
+   "lessons": [
+    "a1s_37_noise",
+    "psyp_11_judgment_or_formula_b2c1",
+    "ts_noise_b2"
+   ]
+  },
+  "something": {
+   "w": "something",
+   "pos": "",
+   "def": "a thing (you don't say which)",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise"
+   ]
+  },
+  "anything": {
+   "w": "anything",
+   "pos": "",
+   "def": "a thing, in − and ? sentences",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise"
+   ]
+  },
+  "nothing": {
+   "w": "nothing",
+   "pos": "",
+   "def": "not one thing",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise"
+   ]
+  },
+  "shadow": {
+   "w": "shadow",
+   "pos": "n",
+   "def": "a dark shape from a light",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise",
+    "techniques_there_will_come_soft_rains_a2b1"
+   ]
+  },
+  "branch": {
+   "w": "branch",
+   "pos": "",
+   "def": "an arm of a tree",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise",
+    "tib_mindmap_b2"
+   ]
+  },
+  "afraid": {
+   "w": "afraid",
+   "pos": "adj",
+   "def": "when you feel fear",
+   "ex": "He was very afraid. His hands shook and he could not sleep at night.",
+   "lessons": [
+    "a1s_37_noise",
+    "discuss_a2_will_to_believe",
+    "psy_03_follow_the_crowd_a2b1",
+    "techniques_appointment_in_samarra_a2b1",
+    "techniques_eveline_a2b1",
+    "techniques_jekyll_and_hyde_1_a2b1",
+    "techniques_the_ransom_of_red_chief_a2b1"
+   ]
+  },
+  "night": {
+   "w": "night",
+   "pos": "",
+   "def": "the dark time to sleep",
+   "ex": "",
+   "lessons": [
+    "a1s_37_noise"
+   ]
+  },
+  "storm": {
+   "w": "storm",
+   "pos": "n",
+   "def": "strong wind and heavy rain",
+   "ex": "There was a big storm in the night.\" / \"The storm was cold and loud.",
+   "lessons": [
+    "a1s_38_storm",
+    "short_history_the_great_serum_run_a2b1",
+    "techniques_the_last_leaf_a2b1",
+    "techniques_yuki_onna_a2b1"
+   ]
+  },
+  "power": {
+   "w": "power",
+   "pos": "",
+   "def": "the electricity for lights",
+   "ex": "",
+   "lessons": [
+    "a1s_38_storm"
+   ]
+  },
+  "cards": {
+   "w": "cards",
+   "pos": "n, plural",
+   "def": "you play games with them",
+   "ex": "She put the cards on the table — the king, the queen, the seven of hearts — and looked at them for a long time.",
+   "lessons": [
+    "a1s_38_storm",
+    "techniques_the_fortune_teller_a2b1",
+    "techniques_the_queen_of_spades_a2b1"
+   ]
+  },
+  "wind": {
+   "w": "wind",
+   "pos": "",
+   "def": "fast-moving air",
+   "ex": "",
+   "lessons": [
+    "a1s_38_storm"
+   ]
+  },
+  "dark": {
+   "w": "dark",
+   "pos": "adj",
+   "def": "with no light",
+   "ex": "He worked in a deep, dark place.\" / \"The room was dark at night.",
+   "lessons": [
+    "a1s_38_storm",
+    "techniques_the_cask_of_amontillado_a2b1",
+    "techniques_the_signal_man_a2b1"
+   ]
+  },
+  "was doing": {
+   "w": "was doing",
+   "pos": "",
+   "def": "use it for past actions in progress",
+   "ex": "",
+   "lessons": [
+    "a1s_38_storm"
+   ]
+  },
+  "golden": {
+   "w": "golden",
+   "pos": "",
+   "def": "warm yellow like gold",
+   "ex": "",
+   "lessons": [
+    "a1s_38_storm"
+   ]
+  },
+  "ill": {
+   "w": "ill",
+   "pos": "adj",
+   "def": "not well; sick",
+   "ex": "Alicia was ill. She stayed in bed all day and the doctor came every morning.",
+   "lessons": [
+    "a1s_39_sick",
+    "short_history_the_great_serum_run_a2b1",
+    "techniques_a_piece_of_string_a2b1",
+    "techniques_metamorphosis_1_a2b1",
+    "techniques_the_feather_pillow_a2b1",
+    "techniques_the_last_leaf_a2b1"
+   ]
+  },
+  "should": {
+   "w": "should",
+   "pos": "",
+   "def": "use it to give good advice",
+   "ex": "",
+   "lessons": [
+    "a1s_39_sick"
+   ]
+  },
+  "shouldn't": {
+   "w": "shouldn't",
+   "pos": "",
+   "def": "use it for a bad idea",
+   "ex": "",
+   "lessons": [
+    "a1s_39_sick"
+   ]
+  },
+  "soup": {
+   "w": "soup",
+   "pos": "",
+   "def": "a warm liquid food",
+   "ex": "",
+   "lessons": [
+    "a1s_39_sick"
+   ]
+  },
+  "rest": {
+   "w": "rest",
+   "pos": "verb",
+   "def": "to stop and relax",
+   "ex": "",
+   "lessons": [
+    "a1s_39_sick",
+    "techniques_the_yellow_wallpaper_a2b1"
+   ]
+  },
+  "doctor": {
+   "w": "doctor",
+   "pos": "n",
+   "def": "they help you when you are ill",
+   "ex": "",
+   "lessons": [
+    "a1s_39_sick",
+    "techniques_the_feather_pillow_a2b1"
+   ]
+  },
+  "inspection": {
+   "w": "inspection",
+   "pos": "",
+   "def": "a check to see all is correct",
+   "ex": "",
+   "lessons": [
+    "a1s_40_inspection"
+   ]
+  },
+  "rule": {
+   "w": "rule",
+   "pos": "n",
+   "def": "something you must do or not do",
+   "ex": "Some people want the same rules for every company.",
+   "lessons": [
+    "a1s_40_inspection",
+    "bc_airace_a2b1",
+    "bc_airbnb_a2b1",
+    "bc_lego_a2b1",
+    "bc_menufoods_a2b1",
+    "techniques_the_dolls_house_a2b1",
+    "tib_foodpyramid_b2"
+   ]
+  },
+  "must": {
+   "w": "must",
+   "pos": "",
+   "def": "use it for very important things",
+   "ex": "",
+   "lessons": [
+    "a1s_40_inspection"
+   ]
+  },
+  "mustn't": {
+   "w": "mustn't",
+   "pos": "",
+   "def": "use it for things not allowed",
+   "ex": "",
+   "lessons": [
+    "a1s_40_inspection"
+   ]
+  },
+  "nervous": {
+   "w": "nervous",
+   "pos": "adj",
+   "def": "a little afraid before something",
+   "ex": "Before the meeting his hands were shaking and he could not eat anything. He was very nervous.",
+   "lessons": [
+    "a1s_40_inspection",
+    "techniques_hands_a2b1",
+    "techniques_the_open_window_a2b1"
+   ]
+  },
+  "shine": {
+   "w": "shine",
+   "pos": "",
+   "def": "to be very bright and clean",
+   "ex": "",
+   "lessons": [
+    "a1s_40_inspection"
+   ]
+  },
+  "pass": {
+   "w": "pass",
+   "pos": "verb",
+   "def": "to be good enough; to succeed",
+   "ex": "She passed the ball to her friend.",
+   "lessons": [
+    "a1s_40_inspection",
+    "psy_02_invisible_gorilla_a2b1",
+    "story_a2b1_dorando_marathon"
+   ]
+  },
+  "clipboard": {
+   "w": "clipboard",
+   "pos": "",
+   "def": "a board to hold papers",
+   "ex": "",
+   "lessons": [
+    "a1s_40_inspection"
+   ]
+  },
+  "scarf": {
+   "w": "scarf",
+   "pos": "",
+   "def": "you wear it around your neck",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "whose": {
+   "w": "whose",
+   "pos": "",
+   "def": "use it to ask who owns something",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "mine": {
+   "w": "mine",
+   "pos": "",
+   "def": "it belongs to me",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "yours": {
+   "w": "yours",
+   "pos": "",
+   "def": "it belongs to you",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "hers": {
+   "w": "hers",
+   "pos": "",
+   "def": "it belongs to her",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "owner": {
+   "w": "owner",
+   "pos": "n",
+   "def": "the person a thing belongs to",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf",
+    "techniques_a_chameleon_a2b1",
+    "tib_pareto_a2b1"
+   ]
+  },
+  "lady": {
+   "w": "lady",
+   "pos": "",
+   "def": "a polite word for a woman",
+   "ex": "",
+   "lessons": [
+    "a1s_41_scarf"
+   ]
+  },
+  "find": {
+   "w": "find",
+   "pos": "verb",
+   "def": "to see something you looked for",
+   "ex": "Another man found the wallet.\" / \"I found my keys!",
+   "lessons": [
+    "a1s_41_scarf",
+    "discuss_a2_frankl_meaning",
+    "techniques_a_piece_of_string_a2b1",
+    "techniques_desirees_baby_a2b1"
+   ]
+  },
+  "gift": {
+   "w": "gift",
+   "pos": "noun",
+   "def": "a present you give someone",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift",
+    "techniques_araby_a2b1",
+    "techniques_before_the_law_a2b1",
+    "techniques_the_gift_of_the_magi_a2b1"
+   ]
+  },
+  "one": {
+   "w": "one",
+   "pos": "",
+   "def": "use it so you don't repeat the noun",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift"
+   ]
+  },
+  "ones": {
+   "w": "ones",
+   "pos": "",
+   "def": "'one' for more than one thing",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift"
+   ]
+  },
+  "wrap": {
+   "w": "wrap",
+   "pos": "",
+   "def": "to cover a gift in paper",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift"
+   ]
+  },
+  "ribbon": {
+   "w": "ribbon",
+   "pos": "",
+   "def": "a pretty strip to tie a gift",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift"
+   ]
+  },
+  "plain": {
+   "w": "plain",
+   "pos": "",
+   "def": "simple, with no pattern",
+   "ex": "",
+   "lessons": [
+    "a1s_42_gift"
+   ]
+  },
+  "story": {
+   "w": "story",
+   "pos": "",
+   "def": "a tale someone tells you",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever"
+   ]
+  },
+  "ever": {
+   "w": "ever",
+   "pos": "",
+   "def": "at any time in your life",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever"
+   ]
+  },
+  "treasure": {
+   "w": "treasure",
+   "pos": "noun",
+   "def": "a special thing you keep",
+   "ex": "The pirates dug for weeks on the island, dreaming of the chest of gold and jewels — the treasure said to be buried beneath the palm trees.",
+   "lessons": [
+    "a1s_43_ever",
+    "short_history_tutankhamun",
+    "techniques_the_gift_of_the_magi_a2b1"
+   ]
+  },
+  "compass": {
+   "w": "compass",
+   "pos": "n",
+   "def": "it shows you north and south",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever",
+    "short_history_the_bermuda_triangle"
+   ]
+  },
+  "seen": {
+   "w": "seen",
+   "pos": "",
+   "def": "the third form of 'see'",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever"
+   ]
+  },
+  "been": {
+   "w": "been",
+   "pos": "",
+   "def": "the third form of 'be/go'",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever",
+    "a1s_44_gone"
+   ]
+  },
+  "short": {
+   "w": "short",
+   "pos": "",
+   "def": "not long",
+   "ex": "",
+   "lessons": [
+    "a1s_43_ever"
+   ]
+  },
+  "closed": {
+   "w": "closed",
+   "pos": "",
+   "def": "not open",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone"
+   ]
+  },
+  "sign": {
+   "w": "sign",
+   "pos": "",
+   "def": "words on a board that tell you something",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone"
+   ]
+  },
+  "gone": {
+   "w": "gone",
+   "pos": "",
+   "def": "left and still away",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone"
+   ]
+  },
+  "postcard": {
+   "w": "postcard",
+   "pos": "",
+   "def": "a card you send from a trip",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone"
+   ]
+  },
+  "wedding": {
+   "w": "wedding",
+   "pos": "n",
+   "def": "the day two people marry",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone",
+    "techniques_the_cabuliwallah_a2b1",
+    "techniques_the_remarkable_rocket_a2b1"
+   ]
+  },
+  "city": {
+   "w": "city",
+   "pos": "",
+   "def": "a very big town",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone",
+    "short_history_the_manhattan_project_a2b1"
+   ]
+  },
+  "soon": {
+   "w": "soon",
+   "pos": "",
+   "def": "in a short time",
+   "ex": "",
+   "lessons": [
+    "a1s_44_gone"
+   ]
+  },
+  "if": {
+   "w": "if",
+   "pos": "",
+   "def": "use it to talk about a condition",
+   "ex": "",
+   "lessons": [
+    "a1s_45_ifitrains"
+   ]
+  },
+  "bunting": {
+   "w": "bunting",
+   "pos": "",
+   "def": "little flags on a string for parties",
+   "ex": "",
+   "lessons": [
+    "a1s_45_ifitrains"
+   ]
+  },
+  "move": {
+   "w": "move",
+   "pos": "",
+   "def": "to go to another place",
+   "ex": "",
+   "lessons": [
+    "a1s_45_ifitrains"
+   ]
+  },
+  "inside": {
+   "w": "inside",
+   "pos": "",
+   "def": "not outside; in a building",
+   "ex": "",
+   "lessons": [
+    "a1s_45_ifitrains"
+   ]
+  },
+  "enough": {
+   "w": "enough",
+   "pos": "determiner / adverb",
+   "def": "as much as you need",
+   "ex": "He never had enough land.\" / \"Do we have enough time?",
+   "lessons": [
+    "a1s_45_ifitrains",
+    "a1s_47_toomuch",
+    "techniques_how_much_land_a2b1"
+   ]
+  },
+  "need": {
+   "w": "need",
+   "pos": "",
+   "def": "to have to have something",
+   "ex": "",
+   "lessons": [
+    "a1s_45_ifitrains"
+   ]
+  },
+  "race": {
+   "w": "race",
+   "pos": "n",
+   "def": "who can be fastest?",
+   "ex": "Some people call it the AI race.",
+   "lessons": [
+    "a1s_46_race",
+    "bc_airace_a2b1",
+    "techniques_the_rocking_horse_winner_a2b1"
+   ]
+  },
+  "referee": {
+   "w": "referee",
+   "pos": "n",
+   "def": "the person who runs a game",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race",
+    "short_history_the_world_cup_a2b1"
+   ]
+  },
+  "whistle": {
+   "w": "whistle",
+   "pos": "noun",
+   "def": "you blow it to make a sound",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race",
+    "techniques_the_adventure_of_the_speckled_band_a2b1"
+   ]
+  },
+  "jump": {
+   "w": "jump",
+   "pos": "",
+   "def": "to push up off the ground",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race"
+   ]
+  },
+  "finish": {
+   "w": "finish",
+   "pos": "",
+   "def": "the end of a race",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race",
+    "discuss_a2_frankl_meaning"
+   ]
+  },
+  "tie": {
+   "w": "tie",
+   "pos": "",
+   "def": "when two people are equal",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race"
+   ]
+  },
+  "as  as": {
+   "w": "as  as",
+   "pos": "",
+   "def": "use it to say things are the same",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race"
+   ]
+  },
+  "winner": {
+   "w": "winner",
+   "pos": "",
+   "def": "the person who wins",
+   "ex": "",
+   "lessons": [
+    "a1s_46_race",
+    "techniques_the_rocking_horse_winner_a2b1"
+   ]
+  },
+  "too much": {
+   "w": "too much",
+   "pos": "",
+   "def": "more than you need (can't count)",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "too many": {
+   "w": "too many",
+   "pos": "",
+   "def": "more than you need (can count)",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "lemonade": {
+   "w": "lemonade",
+   "pos": "",
+   "def": "a sweet cold drink",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "balloon": {
+   "w": "balloon",
+   "pos": "",
+   "def": "you blow air into it for parties",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "chair": {
+   "w": "chair",
+   "pos": "",
+   "def": "you sit on it",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "heavy": {
+   "w": "heavy",
+   "pos": "",
+   "def": "hard to carry; not light",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "thirsty": {
+   "w": "thirsty",
+   "pos": "",
+   "def": "when you want a drink",
+   "ex": "",
+   "lessons": [
+    "a1s_47_toomuch"
+   ]
+  },
+  "quiz": {
+   "w": "quiz",
+   "pos": "",
+   "def": "a game of questions",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz"
+   ]
+  },
+  "team": {
+   "w": "team",
+   "pos": "",
+   "def": "a group who play together",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz"
+   ]
+  },
+  "who": {
+   "w": "who",
+   "pos": "",
+   "def": "use it to describe people",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz"
+   ]
+  },
+  "which": {
+   "w": "which",
+   "pos": "",
+   "def": "use it to describe things",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz"
+   ]
+  },
+  "answer": {
+   "w": "answer",
+   "pos": "",
+   "def": "what you say to a question",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz"
+   ]
+  },
+  "question": {
+   "w": "question",
+   "pos": "n",
+   "def": "something you ask",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz",
+    "psy_04_can_you_trust_memory_a2b1",
+    "techniques_before_the_law_a2b1"
+   ]
+  },
+  "win": {
+   "w": "win",
+   "pos": "",
+   "def": "to be the best in a game",
+   "ex": "",
+   "lessons": [
+    "a1s_48_quiz",
+    "a2_lesson_tennis",
+    "topic_free_time_b2",
+    "ts_marie_curie_b2"
+   ]
+  },
+  "scrapbook": {
+   "w": "scrapbook",
+   "pos": "",
+   "def": "a book for your photos and memories",
+   "ex": "",
+   "lessons": [
+    "a1s_49_year"
+   ]
+  },
+  "remember": {
+   "w": "remember",
+   "pos": "v",
+   "def": "to keep something in your mind",
+   "ex": "She remembered happy times from her childhood.",
+   "lessons": [
+    "a1s_49_year",
+    "psy_04_can_you_trust_memory_a2b1",
+    "techniques_eveline_a2b1"
+   ]
+  },
+  "then": {
+   "w": "then",
+   "pos": "",
+   "def": "after that",
+   "ex": "",
+   "lessons": [
+    "a1s_49_year"
+   ]
+  },
+  "finally": {
+   "w": "finally",
+   "pos": "",
+   "def": "at the end, last of all",
+   "ex": "",
+   "lessons": [
+    "a1s_49_year"
+   ]
+  },
+  "memory": {
+   "w": "memory",
+   "pos": "n",
+   "def": "a thing you remember",
+   "ex": "A painful memory came back to life.",
+   "lessons": [
+    "a1s_49_year",
+    "bc_stanislaw_lem_b1b2",
+    "discuss_a2_frankl_meaning",
+    "piranesi_bc_journals"
+   ]
+  },
+  "year": {
+   "w": "year",
+   "pos": "",
+   "def": "twelve months",
+   "ex": "",
+   "lessons": [
+    "a1s_49_year"
+   ]
+  },
+  "home": {
+   "w": "home",
+   "pos": "n",
+   "def": "the place where you belong",
+   "ex": "She wanted to leave her home and start a new life.",
+   "lessons": [
+    "a1s_49_year",
+    "a1s_50_home",
+    "techniques_eveline_a2b1",
+    "ts_apollo13_b2"
+   ]
+  },
+  "speech": {
+   "w": "speech",
+   "pos": "",
+   "def": "when you stand and talk to people",
+   "ex": "",
+   "lessons": [
+    "a1s_50_home"
+   ]
+  },
+  "friend": {
+   "w": "friend",
+   "pos": "n",
+   "def": "a person you like and trust",
+   "ex": "At the end, the two men became friends.",
+   "lessons": [
+    "a1s_50_home",
+    "techniques_the_interlopers_a2b1",
+    "techniques_the_necklace_a2b1"
+   ]
+  },
+  "belong": {
+   "w": "belong",
+   "pos": "",
+   "def": "to feel this is your place",
+   "ex": "",
+   "lessons": [
+    "a1s_50_home",
+    "tib_maslow_a2b1",
+    "tib_maslow_b2"
+   ]
+  },
   "court": {
    "w": "court",
    "pos": "n",
@@ -9973,17 +14176,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "a2_lesson_tennis"
-   ]
-  },
-  "win": {
-   "w": "win",
-   "pos": "",
-   "def": "to be number one — to beat the other player",
-   "ex": "",
-   "lessons": [
-    "a2_lesson_tennis",
-    "topic_free_time_b2",
-    "ts_marie_curie_b2"
    ]
   },
   "lose": {
@@ -10368,24 +14560,6 @@ window.WORDBANK={
     "bc_ai_chatbot_c1"
    ]
   },
-  "promise": {
-   "w": "promise",
-   "pos": "noun / verb",
-   "def": "a statement that you will definitely do something, which another person then relies on.",
-   "ex": "She made a promise to her mother.\" / \"I promise to help you.",
-   "lessons": [
-    "bc_ai_chatbot_c1",
-    "bc_bluebuffalo_a2b1",
-    "bc_onlinetherapy_a2b1",
-    "bc_wework_a2b1",
-    "techniques_after_twenty_years_a2b1",
-    "techniques_araby_a2b1",
-    "techniques_eveline_a2b1",
-    "techniques_mateo_falcone_a2b1",
-    "techniques_the_bet_a2b1",
-    "topic_willpower_b2"
-   ]
-  },
   "ruling": {
    "w": "ruling",
    "pos": "or decision",
@@ -10590,19 +14764,6 @@ window.WORDBANK={
     "news_desk_who_said_that"
    ]
   },
-  "train": {
-   "w": "train",
-   "pos": "a program",
-   "def": "to feed it a large amount of examples so that it learns patterns from them.",
-   "ex": "",
-   "lessons": [
-    "bc_ai_screening_c1",
-    "techniques_a_vendetta_a2b1",
-    "techniques_araby_a2b1",
-    "techniques_hills_like_white_elephants_a2b1",
-    "tib_mindmap_b2"
-   ]
-  },
   "penalise": {
    "w": "penalise",
    "pos": "",
@@ -10744,16 +14905,6 @@ window.WORDBANK={
     "bc_novo_a2b1"
    ]
   },
-  "race": {
-   "w": "race",
-   "pos": "n",
-   "def": "A competition to see who is the fastest.",
-   "ex": "Some people call it the AI race.",
-   "lessons": [
-    "bc_airace_a2b1",
-    "techniques_the_rocking_horse_winner_a2b1"
-   ]
-  },
   "dangerous": {
    "w": "dangerous",
    "pos": "adj",
@@ -10788,20 +14939,6 @@ window.WORDBANK={
    "lessons": [
     "bc_airace_a2b1",
     "techniques_hills_like_white_elephants_a2b1"
-   ]
-  },
-  "rule": {
-   "w": "rule",
-   "pos": "n",
-   "def": "Something that tells you what you must or must not do.",
-   "ex": "Some people want the same rules for every company.",
-   "lessons": [
-    "bc_airace_a2b1",
-    "bc_airbnb_a2b1",
-    "bc_lego_a2b1",
-    "bc_menufoods_a2b1",
-    "techniques_the_dolls_house_a2b1",
-    "tib_foodpyramid_b2"
    ]
   },
   "patent cliff": {
@@ -10931,22 +15068,6 @@ window.WORDBANK={
     "bc_airbnb_a2b1",
     "techniques_rip_van_winkle_a2b1",
     "techniques_the_three_strangers_a2b1"
-   ]
-  },
-  "trust": {
-   "w": "trust",
-   "pos": "verb — trusted",
-   "def": "To believe that a person is honest and will not hurt you.",
-   "ex": "After the deaths, many people did not trust the medicine.",
-   "lessons": [
-    "bc_airbnb_a2b1",
-    "bc_bluebuffalo_a2b1",
-    "bc_patagonia_a2b1",
-    "bc_patagonia_c1",
-    "bc_tylenol_a2b1",
-    "piranesi_bc_other",
-    "techniques_jekyll_and_hyde_1_a2b1",
-    "tib_johari_a2b1"
    ]
   },
   "review": {
@@ -11161,19 +15282,6 @@ window.WORDBANK={
     "bc_translation_a2b1",
     "nq_04_what_if_c1",
     "tib_riskmatrix_b2"
-   ]
-  },
-  "market": {
-   "w": "market",
-   "pos": "n",
-   "def": "All the people who buy a kind of product — or a place where people buy and sell things.",
-   "ex": "It was market day in the town.\" / \"I buy fruit at the market.",
-   "lessons": [
-    "bc_alphabet_a2b1",
-    "bc_nokia_a2b1",
-    "techniques_a_piece_of_string_a2b1",
-    "techniques_appointment_in_samarra_a2b1",
-    "techniques_araby_a2b1"
    ]
   },
   "grow": {
@@ -12101,16 +16209,6 @@ window.WORDBANK={
    "ex": "Many countries import solar panels from China.",
    "lessons": [
     "bc_china_challenge_a2b1"
-   ]
-  },
-  "cheap": {
-   "w": "cheap",
-   "pos": "adjective — cheaper, the cheapest",
-   "def": "Not expensive; costing little money.",
-   "ex": "The R2 is cheaper than Rivian’s first cars.",
-   "lessons": [
-    "bc_china_challenge_a2b1",
-    "bc_rivian_ev_a2b1"
    ]
   },
   "tariff": {
@@ -13331,15 +17429,6 @@ window.WORDBANK={
     "end_point_c1"
    ]
   },
-  "save": {
-   "w": "save",
-   "pos": "verb — saved",
-   "def": "To keep money, or to spend less money.",
-   "ex": "Buying in large numbers helps a company save money.",
-   "lessons": [
-    "bc_ikea_a2b1"
-   ]
-  },
   "instructions": {
    "w": "instructions",
    "pos": "plural noun",
@@ -13365,29 +17454,6 @@ window.WORDBANK={
    "ex": "Every phone has chips inside it.",
    "lessons": [
     "bc_intel_foundry_a2b1"
-   ]
-  },
-  "plan": {
-   "w": "plan",
-   "pos": "n",
-   "def": "An idea about what you are going to do in the future.",
-   "ex": "They had a plan, but it did not survive the first hour.",
-   "lessons": [
-    "bc_intel_foundry_a2b1",
-    "bc_maersk_a2b1",
-    "behind_the_screen_thirteen_days",
-    "techniques_a_vendetta_a2b1",
-    "techniques_the_ransom_of_red_chief_a2b1"
-   ]
-  },
-  "late": {
-   "w": "late",
-   "pos": "adjective / adverb",
-   "def": "After the planned time.",
-   "ex": "The factory in Ohio will be five years late.",
-   "lessons": [
-    "bc_intel_foundry_a2b1",
-    "bc_nokia_a2b1"
    ]
   },
   "government": {
@@ -13649,15 +17715,6 @@ window.WORDBANK={
    "lessons": [
     "bc_kodak_a2b1",
     "short_history_the_renaissance"
-   ]
-  },
-  "film": {
-   "w": "film",
-   "pos": "noun (uncountable)",
-   "def": "The special plastic that old cameras used to record pictures. You bought it, used it, then bought more.",
-   "ex": "Kodak sold film all over the world.",
-   "lessons": [
-    "bc_kodak_a2b1"
    ]
   },
   "sensible": {
@@ -14372,15 +18429,6 @@ window.WORDBANK={
     "bc_may_might_could_a2"
    ]
   },
-  "machine": {
-   "w": "machine",
-   "pos": "n",
-   "def": "A thing with parts that does a job for us.",
-   "ex": "This machine may help doctors in the future.",
-   "lessons": [
-    "bc_may_might_could_a2"
-   ]
-  },
   "invent": {
    "w": "invent",
    "pos": "v",
@@ -14504,16 +18552,6 @@ window.WORDBANK={
     "bc_microsoft_a2b1"
    ]
   },
-  "cloud": {
-   "w": "cloud",
-   "pos": "noun",
-   "def": "Computers on the internet that store your files and run programs for you.",
-   "ex": "Microsoft's cloud business grew very fast.",
-   "lessons": [
-    "bc_microsoft_a2b1",
-    "short_history_pompeii_a2b1"
-   ]
-  },
   "valuable": {
    "w": "valuable",
    "pos": "adj",
@@ -14530,17 +18568,6 @@ window.WORDBANK={
    "ex": "The company cut thousands of jobs.",
    "lessons": [
     "bc_microsoft_a2b1"
-   ]
-  },
-  "learn": {
-   "w": "learn",
-   "pos": "verb — learned / learnt",
-   "def": "To get new knowledge or a new skill.",
-   "ex": "Nadella wanted people to learn, not to know everything.",
-   "lessons": [
-    "bc_microsoft_a2b1",
-    "techniques_dr_heideggers_experiment",
-    "tib_pdca_b2"
    ]
   },
   "cash cow": {
@@ -14823,16 +18850,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_nokia_c1"
-   ]
-  },
-  "call": {
-   "w": "call",
-   "pos": "",
-   "def": "a market call (a prediction), a wake-up call (a warning event), a judgement call (a decision on fine margins). The 2007 launch was the wake-up call — the case turns on why the alarm didn't wake anyone.",
-   "ex": "",
-   "lessons": [
-    "bc_nokia_c1",
-    "nq_02_which_c1"
    ]
   },
   "drug": {
@@ -15210,15 +19227,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "A big group of tall machines that make electricity from the wind. Some wind farms are in the sea.",
    "ex": "They built a wind farm in the sea.",
-   "lessons": [
-    "bc_orsted_bet_the_company_a2"
-   ]
-  },
-  "expensive": {
-   "w": "expensive",
-   "pos": "adj",
-   "def": "It costs a lot of money. The opposite is cheap.",
-   "ex": "Wind farms were very expensive.",
    "lessons": [
     "bc_orsted_bet_the_company_a2"
    ]
@@ -16238,17 +20246,6 @@ window.WORDBANK={
    "lessons": [
     "bc_stanislaw_lem_b1b2",
     "techniques_jekyll_and_hyde_3_a2b1"
-   ]
-  },
-  "memory": {
-   "w": "memory",
-   "pos": "n",
-   "def": "Something from the past that you remember.",
-   "ex": "A painful memory came back to life.",
-   "lessons": [
-    "bc_stanislaw_lem_b1b2",
-    "discuss_a2_frankl_meaning",
-    "piranesi_bc_journals"
    ]
   },
   "imagine": {
@@ -20784,15 +24781,6 @@ window.WORDBANK={
     "discuss_a2_frankl_meaning"
    ]
   },
-  "finish": {
-   "w": "finish",
-   "pos": "",
-   "def": "I finish work at six. She finished her book.",
-   "ex": "",
-   "lessons": [
-    "discuss_a2_frankl_meaning"
-   ]
-  },
   "strong": {
    "w": "strong",
    "pos": "",
@@ -20800,40 +24788,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "discuss_a2_frankl_meaning"
-   ]
-  },
-  "reason": {
-   "w": "reason",
-   "pos": "",
-   "def": "What is the reason? I have no reason to be sad. A reason to live.",
-   "ex": "",
-   "lessons": [
-    "discuss_a2_frankl_meaning"
-   ]
-  },
-  "find": {
-   "w": "find",
-   "pos": "verb",
-   "def": "find a reason, find a plan, find an answer. found = past.",
-   "ex": "Another man found the wallet.\" / \"I found my keys!",
-   "lessons": [
-    "discuss_a2_frankl_meaning",
-    "techniques_a_piece_of_string_a2b1",
-    "techniques_desirees_baby_a2b1"
-   ]
-  },
-  "afraid": {
-   "w": "afraid",
-   "pos": "adj",
-   "def": "you feel fear. I am afraid of dogs. Same idea: scared, frightened.",
-   "ex": "He was very afraid. His hands shook and he could not sleep at night.",
-   "lessons": [
-    "discuss_a2_will_to_believe",
-    "psy_03_follow_the_crowd_a2b1",
-    "techniques_appointment_in_samarra_a2b1",
-    "techniques_eveline_a2b1",
-    "techniques_jekyll_and_hyde_1_a2b1",
-    "techniques_the_ransom_of_red_chief_a2b1"
    ]
   },
   "notebook": {
@@ -20862,15 +24816,6 @@ window.WORDBANK={
    "lessons": [
     "discuss_a2_will_to_believe",
     "ts_semmelweis_b2"
-   ]
-  },
-  "choose": {
-   "w": "choose",
-   "pos": "",
-   "def": "choose, chose, chosen. I chose the blue one. The noun is a choice.",
-   "ex": "",
-   "lessons": [
-    "discuss_a2_will_to_believe"
    ]
   },
   "make": {
@@ -22108,16 +26053,6 @@ window.WORDBANK={
     "nq_04_what_if_c1"
    ]
   },
-  "alarm": {
-   "w": "alarm",
-   "pos": "n",
-   "def": "a warning of danger. raise the alarm means to tell others about a danger.",
-   "ex": "",
-   "lessons": [
-    "nq_04_what_if_c1",
-    "techniques_there_will_come_soft_rains_a2b1"
-   ]
-  },
   "cycle": {
    "w": "cycle",
    "pos": "",
@@ -23066,16 +27001,6 @@ window.WORDBANK={
     "piranesi_bc_other"
    ]
   },
-  "wait": {
-   "w": "wait",
-   "pos": "v",
-   "def": "to stay in one place until something happens.",
-   "ex": "I want to wait for the bus. It comes in five minutes.",
-   "lessons": [
-    "psy_01_marshmallow_a2b1",
-    "techniques_before_the_law_a2b1"
-   ]
-  },
   "self-control": {
    "w": "self-control",
    "pos": "n",
@@ -23096,15 +27021,6 @@ window.WORDBANK={
     "techniques_a_white_heron_a2b1",
     "techniques_the_model_millionaire",
     "topic_willpower_b2"
-   ]
-  },
-  "now": {
-   "w": "now",
-   "pos": "adv",
-   "def": "at the present time",
-   "ex": "I want it now!",
-   "lessons": [
-    "psy_01_marshmallow_a2b1"
    ]
   },
   "experiment": {
@@ -23265,16 +27181,6 @@ window.WORDBANK={
     "psy_02_invisible_gorilla_a2b1"
    ]
   },
-  "pass": {
-   "w": "pass",
-   "pos": "verb",
-   "def": "to go past someone who is moving in the same direction.",
-   "ex": "She passed the ball to her friend.",
-   "lessons": [
-    "psy_02_invisible_gorilla_a2b1",
-    "story_a2b1_dorando_marathon"
-   ]
-  },
   "amazing": {
    "w": "amazing",
    "pos": "adj",
@@ -23288,15 +27194,6 @@ window.WORDBANK={
    "w": "see",
    "pos": "",
    "def": "didn't see the gorilla. Also: miss (didn't see) is common: \"They missed it.\"",
-   "ex": "",
-   "lessons": [
-    "psy_02_invisible_gorilla_a2b1"
-   ]
-  },
-  "busy": {
-   "w": "busy",
-   "pos": "adj",
-   "def": "answer (a). Doing something and having no time for other things.",
    "ex": "",
    "lessons": [
     "psy_02_invisible_gorilla_a2b1"
@@ -23471,16 +27368,6 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_b2c1"
    ]
   },
-  "remember": {
-   "w": "remember",
-   "pos": "v",
-   "def": "to keep something in your mind from the past.",
-   "ex": "She remembered happy times from her childhood.",
-   "lessons": [
-    "psy_04_can_you_trust_memory_a2b1",
-    "techniques_eveline_a2b1"
-   ]
-  },
   "forget": {
    "w": "forget",
    "pos": "v",
@@ -23519,16 +27406,6 @@ window.WORDBANK={
    "lessons": [
     "psy_04_can_you_trust_memory_a2b1",
     "techniques_dr_heideggers_experiment_a2b1"
-   ]
-  },
-  "question": {
-   "w": "question",
-   "pos": "n",
-   "def": "answer (a). Something that you ask to learn something.",
-   "ex": "",
-   "lessons": [
-    "psy_04_can_you_trust_memory_a2b1",
-    "techniques_before_the_law_a2b1"
    ]
   },
   "reconstructive": {
@@ -24488,16 +28365,6 @@ window.WORDBANK={
     "psyp_11_judgment_or_formula_b2c1"
    ]
   },
-  "noise": {
-   "w": "noise",
-   "pos": "n",
-   "def": "unwanted variability in judgement. Compare bias, a systematic error in one direction.",
-   "ex": "Human judgement suffers from noise: the same expert, shown the same case twice, may reach a different conclusion.",
-   "lessons": [
-    "psyp_11_judgment_or_formula_b2c1",
-    "ts_noise_b2"
-   ]
-  },
   "predictor": {
    "w": "predictor",
    "pos": "n",
@@ -24685,15 +28552,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "To receive and respond to a question, especially a difficult or unexpected one, calmly and competently.",
    "ex": "He fielded the hostile question without a flicker, even the part he couldn't fully answer.",
-   "lessons": [
-    "reading_the_room_c2"
-   ]
-  },
-  "bridge": {
-   "w": "bridge",
-   "pos": "v",
-   "def": "To move smoothly from a difficult or unanswerable point to firmer ground — \"I can't answer that directly, but what I can tell you is…\".",
-   "ex": "When she didn't know, she bridged to what she did know rather than guessing.",
    "lessons": [
     "reading_the_room_c2"
    ]
@@ -29786,15 +33644,6 @@ window.WORDBANK={
     "short_history_the_bermuda_triangle"
    ]
   },
-  "compass": {
-   "w": "compass",
-   "pos": "n",
-   "def": "an instrument with a magnetic needle that shows the direction of north.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_bermuda_triangle"
-   ]
-  },
   "stretch": {
    "w": "stretch",
    "pos": "n",
@@ -30810,15 +34659,6 @@ window.WORDBANK={
     "short_history_the_gold_that_came_home_a2b1"
    ]
   },
-  "buy": {
-   "w": "buy",
-   "pos": "",
-   "def": "is the opposite. You sell something and get money; you buy something and give money. Past forms: sold and bought.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_gold_that_came_home_a2b1"
-   ]
-  },
   "exuberance": {
    "w": "exuberance",
    "pos": "n",
@@ -30915,19 +34755,6 @@ window.WORDBANK={
     "short_history_the_great_serum_run"
    ]
   },
-  "ill": {
-   "w": "ill",
-   "pos": "adj",
-   "def": "sick; not healthy. \"The children were ill and needed a doctor.\"",
-   "ex": "Alicia was ill. She stayed in bed all day and the doctor came every morning.",
-   "lessons": [
-    "short_history_the_great_serum_run_a2b1",
-    "techniques_a_piece_of_string_a2b1",
-    "techniques_metamorphosis_1_a2b1",
-    "techniques_the_feather_pillow_a2b1",
-    "techniques_the_last_leaf_a2b1"
-   ]
-  },
   "ice": {
    "w": "ice",
    "pos": "",
@@ -30936,17 +34763,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_great_serum_run_a2b1",
     "topic_strangers_b2"
-   ]
-  },
-  "storm": {
-   "w": "storm",
-   "pos": "n",
-   "def": "very bad weather with strong wind and rain or snow. A snow storm is also called a blizzard.",
-   "ex": "There was a big storm in the night.\" / \"The storm was cold and loud.",
-   "lessons": [
-    "short_history_the_great_serum_run_a2b1",
-    "techniques_the_last_leaf_a2b1",
-    "techniques_yuki_onna_a2b1"
    ]
   },
   "not afraid of danger": {
@@ -31725,15 +35541,6 @@ window.WORDBANK={
     "short_history_the_manhattan_project_a2b1"
    ]
   },
-  "city": {
-   "w": "city",
-   "pos": "",
-   "def": "a very big town where many people live.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_manhattan_project_a2b1"
-   ]
-  },
   "wreck": {
    "w": "wreck",
    "pos": "n",
@@ -32350,15 +36157,6 @@ window.WORDBANK={
    "w": "rescue",
    "pos": "",
    "def": "to save someone from danger and bring them to a safe place.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_real_robinson_crusoe_a2b1"
-   ]
-  },
-  "together": {
-   "w": "together",
-   "pos": "",
-   "def": "is the opposite. alone = with no other people. \"He lived alone on the island.\"",
    "ex": "",
    "lessons": [
     "short_history_the_real_robinson_crusoe_a2b1"
@@ -33233,15 +37031,6 @@ window.WORDBANK={
     "short_history_the_world_cup_a2b1"
    ]
   },
-  "referee": {
-   "w": "referee",
-   "pos": "n",
-   "def": "the official who controls a match and makes sure players follow the rules.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_world_cup_a2b1"
-   ]
-  },
   "penalty": {
    "w": "penalty",
    "pos": "n",
@@ -33342,16 +37131,6 @@ window.WORDBANK={
    "ex": "For years they had laughed at her warnings; when the bridge finally cracked exactly where she had said it would, she felt a quiet, bittersweet vindication.",
    "lessons": [
     "short_history_the_wright_brothers"
-   ]
-  },
-  "treasure": {
-   "w": "treasure",
-   "pos": "noun",
-   "def": "a collection of valuable things, especially gold, jewels and precious objects.",
-   "ex": "The pirates dug for weeks on the island, dreaming of the chest of gold and jewels — the treasure said to be buried beneath the palm trees.",
-   "lessons": [
-    "short_history_tutankhamun",
-    "techniques_the_gift_of_the_magi_a2b1"
    ]
   },
   "archaeologist": {
@@ -33596,16 +37375,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "skills_c1_senior_interview_2_leadership"
-   ]
-  },
-  "map": {
-   "w": "map",
-   "pos": "v",
-   "def": "dependencies; also manage and untangle. “In week one I mapped the dependencies and found three that nobody owned.”",
-   "ex": "Ask what maps onto what before you trust the comparison.",
-   "lessons": [
-    "skills_c1_senior_interview_2_leadership",
-    "the_art_of_the_analogy_c2"
    ]
   },
   "warm introduction": {
@@ -34073,16 +37842,6 @@ window.WORDBANK={
     "techniques_a_chameleon_a2b1"
    ]
   },
-  "owner": {
-   "w": "owner",
-   "pos": "n",
-   "def": "from the verb to own. \"Who is the owner of this dog?\"",
-   "ex": "",
-   "lessons": [
-    "techniques_a_chameleon_a2b1",
-    "tib_pareto_a2b1"
-   ]
-  },
   "stray": {
    "w": "stray",
    "pos": "n",
@@ -34359,15 +38118,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "A small flat bag for money. You keep it in your pocket.",
    "ex": "The wallet had a lot of money in it.\" / \"My wallet is empty.",
-   "lessons": [
-    "techniques_a_piece_of_string_a2b1"
-   ]
-  },
-  "money": {
-   "w": "money",
-   "pos": "n",
-   "def": "Coins and paper notes that you use to buy things.",
-   "ex": "There was a lot of money in the wallet.\" / \"I have no money.",
    "lessons": [
     "techniques_a_piece_of_string_a2b1"
    ]
@@ -34747,15 +38497,6 @@ window.WORDBANK={
     "techniques_after_twenty_years"
    ]
   },
-  "empty": {
-   "w": "empty",
-   "pos": "adj",
-   "def": "with nothing and nobody inside. \"An empty street. An empty box.\"",
-   "ex": "It was ten o'clock at night. The wind was cold and the streets were empty. There were no people and no cars.",
-   "lessons": [
-    "techniques_after_twenty_years_a2b1"
-   ]
-  },
   "doorway": {
    "w": "doorway",
    "pos": "n",
@@ -34873,25 +38614,6 @@ window.WORDBANK={
     "techniques_appointment_in_samarra_a2b1"
    ]
   },
-  "ride": {
-   "w": "ride",
-   "pos": "v",
-   "def": "To sit on a horse (or a bike) and travel on it.",
-   "ex": "I will ride to Samarra.\" / \"She rides her bike to school.",
-   "lessons": [
-    "techniques_appointment_in_samarra_a2b1"
-   ]
-  },
-  "surprise": {
-   "w": "surprise",
-   "pos": "noun",
-   "def": "A feeling you get when something happens that you did not expect.",
-   "ex": "It was a look of surprise.\" / \"The party was a big surprise.",
-   "lessons": [
-    "techniques_appointment_in_samarra_a2b1",
-    "techniques_the_gift_of_the_magi_a2b1"
-   ]
-  },
   "appointment": {
    "w": "appointment",
    "pos": "n",
@@ -34958,15 +38680,6 @@ window.WORDBANK={
     "techniques_araby"
    ]
   },
-  "miss": {
-   "w": "miss",
-   "pos": "",
-   "def": "the train · lose your temper · lose your way. The boy nearly misses everything — the train is late, the evening drains away.",
-   "ex": "",
-   "lessons": [
-    "techniques_araby"
-   ]
-  },
   "crush": {
    "w": "crush",
    "pos": "",
@@ -34974,17 +38687,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_araby_a2b1"
-   ]
-  },
-  "gift": {
-   "w": "gift",
-   "pos": "noun",
-   "def": "\"He wanted to buy a gift for the girl.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_araby_a2b1",
-    "techniques_before_the_law_a2b1",
-    "techniques_the_gift_of_the_magi_a2b1"
    ]
   },
   "shy": {
@@ -35248,17 +38950,6 @@ window.WORDBANK={
     "techniques_desirees_baby_a2b1"
    ]
   },
-  "proud": {
-   "w": "proud",
-   "pos": "adjective",
-   "def": "feeling that you (or your family) are important; too proud people cannot say sorry.",
-   "ex": "A proud person thinks: \"I am important. My family is important.\" Sometimes proud people cannot say sorry.",
-   "lessons": [
-    "techniques_desirees_baby_a2b1",
-    "techniques_the_remarkable_rocket_a2b1",
-    "techniques_the_two_labyrinths_a2b1"
-   ]
-  },
   "skin": {
    "w": "skin",
    "pos": "noun",
@@ -35447,25 +39138,6 @@ window.WORDBANK={
     "techniques_eveline_a2b1"
    ]
   },
-  "home": {
-   "w": "home",
-   "pos": "n",
-   "def": "The place where you live with your family.",
-   "ex": "She wanted to leave her home and start a new life.",
-   "lessons": [
-    "techniques_eveline_a2b1",
-    "ts_apollo13_b2"
-   ]
-  },
-  "father": {
-   "w": "father",
-   "pos": "n",
-   "def": "Your male parent; your dad.",
-   "ex": "Her father was often difficult with her.",
-   "lessons": [
-    "techniques_eveline_a2b1"
-   ]
-  },
   "sailor": {
    "w": "sailor",
    "pos": "n",
@@ -35612,16 +39284,6 @@ window.WORDBANK={
     "techniques_hands"
    ]
   },
-  "nervous": {
-   "w": "nervous",
-   "pos": "adj",
-   "def": "worried and a little afraid; not calm.",
-   "ex": "Before the meeting his hands were shaking and he could not eat anything. He was very nervous.",
-   "lessons": [
-    "techniques_hands_a2b1",
-    "techniques_the_open_window_a2b1"
-   ]
-  },
   "teacher": {
    "w": "teacher",
    "pos": "n",
@@ -35675,15 +39337,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_hills_like_white_elephants"
-   ]
-  },
-  "station": {
-   "w": "station",
-   "pos": "n",
-   "def": "the place where trains stop and people get on and off.",
-   "ex": "",
-   "lessons": [
-    "techniques_hills_like_white_elephants_a2b1"
    ]
   },
   "hills": {
@@ -35840,15 +39493,6 @@ window.WORDBANK={
     "techniques_how_much_land_a2b1"
    ]
   },
-  "enough": {
-   "w": "enough",
-   "pos": "determiner / adverb",
-   "def": "As much as you need — not more, not less.",
-   "ex": "He never had enough land.\" / \"Do we have enough time?",
-   "lessons": [
-    "techniques_how_much_land_a2b1"
-   ]
-  },
   "sturdy": {
    "w": "sturdy",
    "pos": "adj",
@@ -35902,16 +39546,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_idgah_a2b1"
-   ]
-  },
-  "coin": {
-   "w": "coin",
-   "pos": "noun",
-   "def": "\"He had three coins in his pocket.\" Paper money = notes (UK) or bills (US).",
-   "ex": "",
-   "lessons": [
-    "techniques_idgah_a2b1",
-    "techniques_mateo_falcone_a2b1"
    ]
   },
   "tongs": {
@@ -36101,26 +39735,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_jekyll_and_hyde_1_a2b1"
-   ]
-  },
-  "will": {
-   "w": "will",
-   "pos": "n",
-   "def": "a legal paper that says who gets your money and your things when you die. \"He left everything to his daughter in his will.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_jekyll_and_hyde_1_a2b1",
-    "techniques_the_adventure_of_the_speckled_band"
-   ]
-  },
-  "key": {
-   "w": "key",
-   "pos": "n",
-   "def": "\"I can't find my keys!\" Verb: to lock a door (with a key) / to unlock it.",
-   "ex": "",
-   "lessons": [
-    "techniques_jekyll_and_hyde_1_a2b1",
-    "techniques_metamorphosis_1_a2b1"
    ]
   },
   "evil": {
@@ -36963,15 +40577,6 @@ window.WORDBANK={
     "techniques_metamorphosis_2"
    ]
   },
-  "milk": {
-   "w": "milk",
-   "pos": "n",
-   "def": "the white drink that comes from cows. a glass of milk; milk in my coffee.",
-   "ex": "The baby is hungry, so her father gives her some warm milk in a bottle.",
-   "lessons": [
-    "techniques_metamorphosis_2_a2b1"
-   ]
-  },
   "look after": {
    "w": "look after",
    "pos": "phrasal v",
@@ -36979,28 +40584,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_metamorphosis_2_a2b1"
-   ]
-  },
-  "carry": {
-   "w": "carry",
-   "pos": "v",
-   "def": "to hold something and take it to another place. Can you carry this bag for me?",
-   "ex": "",
-   "lessons": [
-    "techniques_metamorphosis_2_a2b1"
-   ]
-  },
-  "wall": {
-   "w": "wall",
-   "pos": "n",
-   "def": "There is a clock on the wall.",
-   "ex": "He built a wall of bricks.\" / \"There was a picture on the wall.",
-   "lessons": [
-    "techniques_metamorphosis_2_a2b1",
-    "techniques_the_cask_of_amontillado_a2b1",
-    "techniques_the_last_leaf_a2b1",
-    "techniques_the_selfish_giant",
-    "techniques_the_two_labyrinths_a2b1"
    ]
   },
   "faint": {
@@ -37076,16 +40659,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_metamorphosis_3"
-   ]
-  },
-  "tired": {
-   "w": "tired",
-   "pos": "adj",
-   "def": "you need to rest or sleep. tired of something = bored with it, you don't want it any more.",
-   "ex": "She worked for twelve hours today. Now she just wants to sit down and close her eyes. She is very tired.",
-   "lessons": [
-    "techniques_metamorphosis_3_a2b1",
-    "techniques_the_ransom_of_red_chief_a2b1"
    ]
   },
   "dust": {
@@ -37228,33 +40801,6 @@ window.WORDBANK={
     "techniques_miss_brill"
    ]
   },
-  "old": {
-   "w": "old",
-   "pos": "adj",
-   "def": "Having lived for many years; not young or new.",
-   "ex": "Miss Brill is an old woman.\" / \"She wears an old fur.",
-   "lessons": [
-    "techniques_miss_brill_a2b1"
-   ]
-  },
-  "park": {
-   "w": "park",
-   "pos": "n",
-   "def": "A big open place with grass and trees, for people to walk in.",
-   "ex": "She goes to the park every Sunday.\" / \"The children play in the park.",
-   "lessons": [
-    "techniques_miss_brill_a2b1"
-   ]
-  },
-  "music": {
-   "w": "music",
-   "pos": "n",
-   "def": "Sounds made by people singing or playing instruments.",
-   "ex": "The band plays music.\" / \"I like this music.",
-   "lessons": [
-    "techniques_miss_brill_a2b1"
-   ]
-  },
   "fur": {
    "w": "fur",
    "pos": "n",
@@ -37278,15 +40824,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "Not nice; saying or doing something that hurts someone.",
    "ex": "The young man says unkind words.\" / \"That was unkind.",
-   "lessons": [
-    "techniques_miss_brill_a2b1"
-   ]
-  },
-  "box": {
-   "w": "box",
-   "pos": "n",
-   "def": "A container with sides and a lid, to keep things in.",
-   "ex": "She keeps the fur in a box.\" / \"She closes the box.",
    "lessons": [
     "techniques_miss_brill_a2b1"
    ]
@@ -37445,15 +40982,6 @@ window.WORDBANK={
     "techniques_rip_van_winkle"
    ]
   },
-  "lazy": {
-   "w": "lazy",
-   "pos": "",
-   "def": "not wanting to work. Rip was lazy at home but always helped other people!",
-   "ex": "Rip was very lazy — he never wanted to work on his own farm.",
-   "lessons": [
-    "techniques_rip_van_winkle_a2b1"
-   ]
-  },
   "mountain": {
    "w": "mountain",
    "pos": "",
@@ -37574,15 +41102,6 @@ window.WORDBANK={
     "techniques_sweat_a2b1"
    ]
   },
-  "clothes": {
-   "w": "clothes",
-   "pos": "n, plural",
-   "def": ". She washed other people's clothes.",
-   "ex": "",
-   "lessons": [
-    "techniques_sweat_a2b1"
-   ]
-  },
   "church": {
    "w": "church",
    "pos": "n",
@@ -37677,15 +41196,6 @@ window.WORDBANK={
     "ts_erikson_b2"
    ]
   },
-  "whistle": {
-   "w": "whistle",
-   "pos": "noun",
-   "def": "a high sound, made with the mouth or a small instrument.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_adventure_of_the_speckled_band_a2b1"
-   ]
-  },
   "poisonous": {
    "w": "poisonous",
    "pos": "adjective",
@@ -37736,15 +41246,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "A person who works with money in a bank; often a rich person.",
    "ex": "The banker had a lot of money.\" / \"My uncle is a banker.",
-   "lessons": [
-    "techniques_the_bet_a2b1"
-   ]
-  },
-  "book": {
-   "w": "book",
-   "pos": "n",
-   "def": "Pages with words that you read.",
-   "ex": "He read many books.\" / \"This book is very long.",
    "lessons": [
     "techniques_the_bet_a2b1"
    ]
@@ -37895,15 +41396,6 @@ window.WORDBANK={
     "techniques_the_cabuliwallah_a2b1"
    ]
   },
-  "bag": {
-   "w": "bag",
-   "pos": "n",
-   "def": "a soft container for carrying things.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_cabuliwallah_a2b1"
-   ]
-  },
   "raisins": {
    "w": "raisins",
    "pos": "n, plural",
@@ -37920,16 +41412,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_cabuliwallah_a2b1"
-   ]
-  },
-  "wedding": {
-   "w": "wedding",
-   "pos": "n",
-   "def": ". Mini's wedding was that night.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_cabuliwallah_a2b1",
-    "techniques_the_remarkable_rocket_a2b1"
    ]
   },
   "connoisseur": {
@@ -38005,15 +41487,6 @@ window.WORDBANK={
     "techniques_the_dolls_house"
    ]
   },
-  "cold": {
-   "w": "cold",
-   "pos": "adj",
-   "def": "Having a low temperature; not warm. Also: with no kind feelings.",
-   "ex": "The cellar was cold.\" / \"He had a cold plan.",
-   "lessons": [
-    "techniques_the_cask_of_amontillado_a2b1"
-   ]
-  },
   "deep": {
    "w": "deep",
    "pos": "adj",
@@ -38021,16 +41494,6 @@ window.WORDBANK={
    "ex": "The cellar was deep.\" / \"The lake is very deep.",
    "lessons": [
     "techniques_the_cask_of_amontillado_a2b1"
-   ]
-  },
-  "dark": {
-   "w": "dark",
-   "pos": "adj",
-   "def": "With little or no light.",
-   "ex": "He worked in a deep, dark place.\" / \"The room was dark at night.",
-   "lessons": [
-    "techniques_the_cask_of_amontillado_a2b1",
-    "techniques_the_signal_man_a2b1"
    ]
   },
   "polite": {
@@ -38248,16 +41711,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_dolls_house_a2b1"
-   ]
-  },
-  "perfect": {
-   "w": "perfect",
-   "pos": "",
-   "def": "with nothing wrong at all. \"The dolls were too big, but the lamp was perfect.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_the_dolls_house_a2b1",
-    "topic_expertise_b2"
    ]
   },
   "reincarnation": {
@@ -38497,15 +41950,6 @@ window.WORDBANK={
     "techniques_the_feather_pillow_a2b1"
    ]
   },
-  "doctor": {
-   "w": "doctor",
-   "pos": "n",
-   "def": ". The doctor could not explain the illness.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_feather_pillow_a2b1"
-   ]
-  },
   "blood": {
    "w": "blood",
    "pos": "n",
@@ -38576,16 +42020,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_fortune_teller_a2b1"
-   ]
-  },
-  "cards": {
-   "w": "cards",
-   "pos": "n, plural",
-   "def": "small pieces of card with pictures or numbers, used for games or fortune-telling.",
-   "ex": "She put the cards on the table — the king, the queen, the seven of hearts — and looked at them for a long time.",
-   "lessons": [
-    "techniques_the_fortune_teller_a2b1",
-    "techniques_the_queen_of_spades_a2b1"
    ]
   },
   "letter": {
@@ -38793,15 +42227,6 @@ window.WORDBANK={
     "techniques_the_gift_of_the_magi"
    ]
   },
-  "prize": {
-   "w": "prize",
-   "pos": "v",
-   "def": "to value something extremely highly. A prized possession is the thing you treasure most.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_gift_of_the_magi"
-   ]
-  },
   "meagre": {
    "w": "meagre",
    "pos": "adj",
@@ -38973,25 +42398,6 @@ window.WORDBANK={
     "techniques_the_interlopers_a2b1"
    ]
   },
-  "friend": {
-   "w": "friend",
-   "pos": "n",
-   "def": "A person you like and trust.",
-   "ex": "At the end, the two men became friends.",
-   "lessons": [
-    "techniques_the_interlopers_a2b1",
-    "techniques_the_necklace_a2b1"
-   ]
-  },
-  "help": {
-   "w": "help",
-   "pos": "verb / noun",
-   "def": "To do something good for another person; to give aid.",
-   "ex": "They shouted for help.\" / \"Can you help me, please?",
-   "lessons": [
-    "techniques_the_interlopers_a2b1"
-   ]
-  },
   "shout": {
    "w": "shout",
    "pos": "v",
@@ -39142,24 +42548,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "A person who makes pictures with paint.",
    "ex": "Sue and Johnsy were painters.\" / \"The painter sold her picture.",
-   "lessons": [
-    "techniques_the_last_leaf_a2b1"
-   ]
-  },
-  "better": {
-   "w": "better",
-   "pos": "adj",
-   "def": "More well than before; not so ill now.",
-   "ex": "Johnsy got better.\" / \"I feel much better today.",
-   "lessons": [
-    "techniques_the_last_leaf_a2b1"
-   ]
-  },
-  "paint": {
-   "w": "paint",
-   "pos": "v",
-   "def": "To make a picture with colours.",
-   "ex": "Behrman painted a leaf on the wall.\" / \"I want to paint the sea.",
    "lessons": [
     "techniques_the_last_leaf_a2b1"
    ]
@@ -39400,25 +42788,6 @@ window.WORDBANK={
     "techniques_the_masque_of_the_red_death_a2b1"
    ]
   },
-  "castle": {
-   "w": "castle",
-   "pos": "n",
-   "def": "a big, strong building where important people lived long ago.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_masque_of_the_red_death_a2b1"
-   ]
-  },
-  "party": {
-   "w": "party",
-   "pos": "n",
-   "def": "a happy event with people, food, music and dancing.",
-   "ex": "They went to a big party.\" / \"It was a birthday party.",
-   "lessons": [
-    "techniques_the_masque_of_the_red_death_a2b1",
-    "techniques_the_necklace_a2b1"
-   ]
-  },
   "mask": {
    "w": "mask",
    "pos": "n",
@@ -39657,16 +43026,6 @@ window.WORDBANK={
     "techniques_the_necklace_a2b1"
    ]
   },
-  "pay": {
-   "w": "pay",
-   "pos": "verb (paid, paid)",
-   "def": "To give money for something.",
-   "ex": "They worked hard to pay for the necklace.\" / \"I paid for the tickets.",
-   "lessons": [
-    "techniques_the_necklace_a2b1",
-    "techniques_the_ransom_of_red_chief_a2b1"
-   ]
-  },
   "real": {
    "w": "real",
    "pos": "adj",
@@ -39757,38 +43116,11 @@ window.WORDBANK={
     "techniques_the_nightingale_and_the_rose_a2b1"
    ]
   },
-  "sing": {
-   "w": "sing",
-   "pos": "v",
-   "def": "To make music with your voice.",
-   "ex": "The bird sang all night.\" / \"I like to sing in the car.",
-   "lessons": [
-    "techniques_the_nightingale_and_the_rose_a2b1"
-   ]
-  },
-  "love": {
-   "w": "love",
-   "pos": "noun / verb",
-   "def": "A very strong, warm feeling for another person.",
-   "ex": "The student was in love.\" / \"I love my family.",
-   "lessons": [
-    "techniques_the_nightingale_and_the_rose_a2b1"
-   ]
-  },
   "student": {
    "w": "student",
    "pos": "n",
    "def": "A person who studies and learns, often at a school or university.",
    "ex": "The young student read many books.\" / \"I am a student of English.",
-   "lessons": [
-    "techniques_the_nightingale_and_the_rose_a2b1"
-   ]
-  },
-  "dance": {
-   "w": "dance",
-   "pos": "verb / noun",
-   "def": "To move your body to music.",
-   "ex": "She will dance with him.\" / \"We love to dance at parties.",
    "lessons": [
     "techniques_the_nightingale_and_the_rose_a2b1"
    ]
@@ -40058,16 +43390,6 @@ window.WORDBANK={
     "techniques_the_remarkable_rocket_a2b1"
    ]
   },
-  "wet": {
-   "w": "wet",
-   "pos": "adjective",
-   "def": "with water on it or in it. Opposite: dry. (A little wet = damp.)",
-   "ex": "He cried and cried about a sad story that was not real. Soon his stick was completely wet.",
-   "lessons": [
-    "techniques_the_remarkable_rocket_a2b1",
-    "techniques_to_build_a_fire_a2b1"
-   ]
-  },
   "firework": {
    "w": "firework",
    "pos": "n",
@@ -40153,15 +43475,6 @@ window.WORDBANK={
    "w": "bill",
    "pos": "",
    "def": "a paper that says how much money you must pay for something.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_rocking_horse_winner_a2b1"
-   ]
-  },
-  "winner": {
-   "w": "winner",
-   "pos": "",
-   "def": "\"Paul always knew the winner.\" From the verb to win.",
    "ex": "",
    "lessons": [
     "techniques_the_rocking_horse_winner_a2b1"
@@ -40496,15 +43809,6 @@ window.WORDBANK={
     "techniques_the_spiders_thread_a2b1"
    ]
   },
-  "climb": {
-   "w": "climb",
-   "pos": "v",
-   "def": "to go up using your hands and feet. Careful: we don't say the b: /klaɪm/. climb a tree, climb a mountain.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_spiders_thread_a2b1"
-   ]
-  },
   "pond": {
    "w": "pond",
    "pos": "n",
@@ -40809,24 +44113,6 @@ window.WORDBANK={
     "techniques_the_verger_jobseeker"
    ]
   },
-  "shop": {
-   "w": "shop",
-   "pos": "n",
-   "def": "A place where you can buy things.",
-   "ex": "He opened a small shop.\" / \"I buy bread at the shop.",
-   "lessons": [
-    "techniques_the_verger_a2b1"
-   ]
-  },
-  "read": {
-   "w": "read",
-   "pos": "v",
-   "def": "To look at words and understand them.",
-   "ex": "Albert could not read.\" / \"I read a book last night.",
-   "lessons": [
-    "techniques_the_verger_a2b1"
-   ]
-  },
   "write": {
    "w": "write",
    "pos": "v",
@@ -41011,15 +44297,6 @@ window.WORDBANK={
     "ts_john_snow_b2"
    ]
   },
-  "rest": {
-   "w": "rest",
-   "pos": "verb",
-   "def": "to stop working and stay quiet, for example in bed.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_yellow_wallpaper_a2b1"
-   ]
-  },
   "nursery": {
    "w": "nursery",
    "pos": "noun",
@@ -41079,15 +44356,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "damaged or destroyed by fire. Verb: burn – burned/burnt – burned/burnt. \"Sorry — the toast is burnt!\"",
    "ex": "There was a fire in the kitchen. In the morning the walls were black and burnt, and the room smelled of smoke.",
-   "lessons": [
-    "techniques_there_will_come_soft_rains_a2b1"
-   ]
-  },
-  "shadow": {
-   "w": "shadow",
-   "pos": "n",
-   "def": "the dark shape you make when you stand in front of a light. \"The tree made a big shadow on the grass.\"",
-   "ex": "",
    "lessons": [
     "techniques_there_will_come_soft_rains_a2b1"
    ]
@@ -42352,16 +45620,6 @@ window.WORDBANK={
     "tib_maslow_a2b1"
    ]
   },
-  "belong": {
-   "w": "belong",
-   "pos": "",
-   "def": "to feel at home in a group, or to be someone's.",
-   "ex": "",
-   "lessons": [
-    "tib_maslow_a2b1",
-    "tib_maslow_b2"
-   ]
-  },
   "deprived": {
    "w": "deprived",
    "pos": "of",
@@ -42441,15 +45699,6 @@ window.WORDBANK={
    "pos": "",
    "def": "covered with too many things; untidy. (noun clutter; opposite uncluttered)",
    "ex": "Her desk was so cluttered that she couldn't find her keys.",
-   "lessons": [
-    "tib_mindmap_b2"
-   ]
-  },
-  "branch": {
-   "w": "branch",
-   "pos": "",
-   "def": "“Each branch of the map is a new subtopic.” (also: a local office of a bank or shop)",
-   "ex": "",
    "lessons": [
     "tib_mindmap_b2"
    ]
@@ -42711,15 +45960,6 @@ window.WORDBANK={
    "w": "iterate",
    "pos": "",
    "def": "“We iterated on the design five times before the launch.” (noun iteration)",
-   "ex": "",
-   "lessons": [
-    "tib_pdca_b2"
-   ]
-  },
-  "run": {
-   "w": "run",
-   "pos": "",
-   "def": "(run an experiment, run a business, run out of time)",
    "ex": "",
    "lessons": [
     "tib_pdca_b2"
@@ -43028,15 +46268,6 @@ window.WORDBANK={
    "w": "dreams",
    "pos": "",
    "def": "to follow your dreams = to try to do the things you really want. Also: to follow your heart.",
-   "ex": "",
-   "lessons": [
-    "topic_dreams_a2b1"
-   ]
-  },
-  "never": {
-   "w": "never",
-   "pos": "",
-   "def": "never say never = don't say something is impossible; things can change.",
    "ex": "",
    "lessons": [
     "topic_dreams_a2b1"
@@ -43496,15 +46727,6 @@ window.WORDBANK={
    "w": "half empty",
    "pos": "",
    "def": ". a glass-half-full person = an optimist; a glass-half-empty person = a pessimist.",
-   "ex": "",
-   "lessons": [
-    "topic_optimism_b2"
-   ]
-  },
-  "bright": {
-   "w": "bright",
-   "pos": "",
-   "def": "to look on the bright side — to think about the good part of a bad situation.",
    "ex": "",
    "lessons": [
     "topic_optimism_b2"

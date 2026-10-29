@@ -30,7 +30,7 @@ def clean(s):
 
 
 def level_of(stem):
-    return "B2/C1" if stem.endswith("b2c1") else "A2/B1" if stem.endswith("a2b1") else ""
+    return "B2/C1" if stem.endswith("b2c1") else "A2/B1" if stem.endswith("a2b1") else "A1" if stem.startswith("a1s_") else ""
 
 
 POS = {"noun": "n", "verb": "v", "adjective": "adj", "adverb": "adv", "phrasal verb": "phr v", "phrase": "phr"}
@@ -70,6 +70,12 @@ def entries(text):
                 if "?" not in cand and "_" not in cand:
                     example = cand
         yield word, pos, rest, example
+    # series lessons keep their items in `var LESSON=[['id','front','meaning','emoji'], ...]`
+    ls = re.search(r"var LESSON\s*=\s*\[(.*?)\n\s*\];", text, re.S)
+    if ls:
+        for r in re.finditer(r"\[\s*(['\"])(.*?)\1\s*,\s*(['\"])(.*?)\3\s*,\s*(['\"])(.*?)\5", ls.group(1)):
+            front = re.split(r"\s+/\s+", r.group(4))[0].replace("\u2026", "").replace("...", "").strip(" ?!.")
+            yield front, "", clean(r.group(6)), ""
     for chunk in text.split('class="vocab-card')[1:]:
         f = {k: (clean(r.search(chunk).group(1)) if r.search(chunk) else "") for k, r in CARD_FIELD.items()}
         if f["word"]:
@@ -81,6 +87,9 @@ def parse_lesson(path):
     text = open(path, encoding="utf-8").read()
     t = re.search(r"<title>([^<]*)", text)
     title = clean(t.group(1)).split("\u00b7")[0].strip() if t else stem
+    ln = re.search(r'var LESSON_NAME\s*=\s*["\'](.+?)["\']', text)
+    if ln and stem.startswith("a1s_"):
+        title = "Mia \u2014 " + clean(ln.group(1))
     words, seen = [], set()
     for word, pos, rest, example in entries(text):
         w = norm_word(word)
@@ -112,7 +121,7 @@ def main():
     globs = args or DEFAULT_GLOBS
     if "--auto" in sys.argv:
         files = sorted(f for f in glob.glob(os.path.join(ROOT, "*.html"))
-                       if any(k in open(f, encoding="utf-8", errors="ignore").read() for k in ('class="meaning"', 'class="vocab-card')))
+                       if any(k in open(f, encoding="utf-8", errors="ignore").read() for k in ('class="meaning"', 'class="vocab-card', 'var LESSON=[')))
     else:
         files = sorted({f for g in globs for f in glob.glob(os.path.join(ROOT, g))})
     files = [f for f in files if "dashboard" not in f and not re.search(r" \(\d+\)\.html$", f)]

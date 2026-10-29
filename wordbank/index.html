@@ -73,13 +73,45 @@ var WB = window.WORDBANK || {lessons:[],words:{}};
 var KEY = 'wb_v1', DAY = 86400000, DAYS = [0,0,1,3,7,14,30];
 
 var S = load();
-var autoRun = '';
-(function(){ var m = location.search.match(/[?&]lesson=([^&]+)/); if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); if (/[?&]practise=1/.test(location.search)) autoRun = id; } try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
+var autoRun = '', catchMsg = '';
+function isReg(id){ return WB.lessons.some(function(l){ return l.id === id; }); }
+function prettyId(id){ var t = id.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim(); return t.charAt(0).toUpperCase() + t.slice(1); }
+function fetchTitle(id){
+  try { fetch('../' + encodeURIComponent(id) + '.html').then(function(r){ return r.ok ? r.text() : ''; }).then(function(t){
+    var m = t && t.match(/<title>([^<]*)/i); if (!m) return;
+    var ti = m[1].split('·')[0].replace(/&amp;/g, '&').trim();
+    if (ti && S.log && S.log[id] && S.log[id].title !== ti) { S.log[id].title = ti; save(); if (typeof render === 'function' && view === 'home') render(); }
+  }).catch(function(){}); } catch(e){}
+}
+function markDone(ids){
+  var n = 0, base = Date.now() - ids.length * 3600000;
+  S.log = S.log || {};
+  ids.forEach(function(id, i){
+    if (S.done[id]) return;
+    S.done[id] = base + i * 3600000; n++;
+    if (!isReg(id)) { S.log[id] = {title: prettyId(id)}; fetchTitle(id); }
+  });
+  if (ids.length) { var last = ids.filter(function(id){ return S.done[id]; }).pop(); if (last) S.latest = last; save(); }
+  return n;
+}
+(function(){
+  var q = location.search, m = q.match(/[?&]lesson=([^&]+)/), changed = false;
+  if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); if (/[?&]practise=1/.test(q)) autoRun = id; } changed = true; }
+  var ml = q.match(/[?&]lessons=([^&]+)/);
+  if (ml) { var got = markDone(decodeURIComponent(ml[1]).split(',').map(function(x){ return x.trim().replace(/\.html$/, ''); }).filter(Boolean)); catchMsg = got ? 'Caught up: ' + got + ' lesson' + (got === 1 ? '' : 's') + ' added to My Words and My Room.' : 'Those lessons were already in My Words.'; changed = true; }
+  var ms = q.match(/[?&]series=([^&]+)/), mu = q.match(/[?&]upto=(\d+)/);
+  if (ms) {
+    var pre = decodeURIComponent(ms[1]), up = mu ? +mu[1] : 9999, re = new RegExp('^' + pre.replace(/[^a-z0-9_]/gi, '') + '_(\\d+)_');
+    var list = WB.lessons.filter(function(l){ var k = l.id.match(re); return k && +k[1] <= up; }).sort(function(a, b){ return a.id < b.id ? -1 : 1; }).map(function(l){ return l.id; });
+    var got2 = markDone(list); catchMsg = got2 ? 'Caught up: ' + got2 + ' lesson' + (got2 === 1 ? '' : 's') + ' added to My Words and My Room.' : 'Those lessons were already in My Words.'; changed = true;
+  }
+  if (changed) { try { history.replaceState(null, '', location.pathname); } catch(e){} }
+})();
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
 mergeCustom();
 var added = parseAdd();
 if (added.length || /[?&]add=/.test(location.search)) { try { history.replaceState(null, '', location.pathname); } catch(e){} }
-var lnkOk = false, lnkText = '', view = 'home', tab = location.hash === '#add' ? 'add' : 'lessons', run = null, lnkMsg = '', addMsg = added.length ? 'Added to your words: ' + added.join(', ') : '';
+var lnkOk = !!catchMsg, lnkText = '', view = 'home', tab = location.hash === '#add' ? 'add' : 'lessons', run = null, lnkMsg = (typeof catchMsg === 'string' ? catchMsg : ''), addMsg = added.length ? 'Added to your words: ' + added.join(', ') : '';
 
 function load(){
   var d = {};
@@ -243,7 +275,7 @@ function renderHome(){
   var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
   var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
     '<div class="row"><a class="btn ghost" href="../journey/index.html" style="text-decoration:none">My Room</a><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
-  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste the lesson link here, or drag it onto this box. Lessons you open from the link are added automatically.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="lnkpaste" type="button">Paste</button><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0' + (lnkMsg && lnkOk ? ';color:#047857;font-weight:600' : '') + '">' + (lnkMsg && lnkOk ? '\u2713 ' : '') + esc(lnkMsg) + '</p></div>';
+  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste a lesson link here (or several at once), or drag it onto this box. Lessons you open from the link are added automatically. Lessons without new words are kept as a record of what you have done.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="lnkpaste" type="button">Paste</button><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0' + (lnkMsg && lnkOk ? ';color:#047857;font-weight:600' : '') + '">' + (lnkMsg && lnkOk ? '\u2713 ' : '') + esc(lnkMsg) + '</p></div>';
   h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
     '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
   if (S.xp > 0 && Date.now() - (S.backedUp || 0) > 7*DAY) h += '<div class="card"><b>Keep your progress safe.</b><p class="mute" style="margin:4px 0 10px">' + (S.backedUp ? 'You last saved a backup ' + Math.floor((Date.now()-S.backedUp)/DAY) + ' days ago.' : 'You have not saved a backup yet.') + ' Browsers sometimes clear saved data, so keep a copy.</p><button class="btn" id="backup0">Save a backup file</button></div>';
@@ -267,13 +299,14 @@ function renderHome(){
   bindHome();
 }
 function lessonsHtml(){
-  var done = WB.lessons.filter(function(l){ return S.done[l.id]; }).sort(function(a,b){ return S.done[b.id] - S.done[a.id]; });
-  if (!done.length) return '<div class="card"><p style="margin:0">Your lessons will appear here. Open a lesson from your teacher\u2019s link and it is added automatically, or paste a lesson link into the box above.</p></div>';
+  var logged = Object.keys(S.log || {}).filter(function(id){ return S.done[id] && !isReg(id); }).map(function(id){ return {id: id, title: S.log[id].title || prettyId(id), level: '', words: [], rec: true}; });
+  var done = WB.lessons.filter(function(l){ return S.done[l.id]; }).concat(logged).sort(function(a,b){ return S.done[b.id] - S.done[a.id]; });
+  if (!done.length) return '<div class="card"><p style="margin:0">Your lessons will appear here. Open a lesson from your teacher’s link and it is added automatically, or paste a lesson link into the box above. You can paste several at once.</p></div>';
   var h = '<div class="card">';
   done.forEach(function(l){
-    h += '<div class="lesson"><div class="t"><a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a><small>' + esc(l.level) + (l.level ? ' \u00b7 ' : '') + l.words.length + ' words</small></div>' +
-      '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>' +
-      '<button class="btn ghost" data-unl="' + esc(l.id) + '" aria-label="Remove this lesson from my list" title="Remove">\u00d7</button></div>';
+    h += '<div class="lesson"><div class="t"><a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a><small>' + (l.rec ? 'Lesson record' : esc(l.level) + (l.level ? ' · ' : '') + l.words.length + ' words') + '</small></div>' +
+      (l.rec ? '<a class="btn ghost" href="../' + esc(l.id) + '.html" style="text-decoration:none">Open</a>' : '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>') +
+      '<button class="btn ghost" data-unl="' + esc(l.id) + '" aria-label="Remove this lesson from my list" title="Remove">×</button></div>';
   });
   return h + '</div>';
 }
@@ -371,7 +404,7 @@ function bindHome(){
     dz.ondrop = function(e){ e.preventDefault(); var t = e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain'); tryAdd(t); };
   }
   Array.prototype.forEach.call(document.querySelectorAll('[data-unl]'), function(b){
-    b.onclick = function(){ delete S.done[b.dataset.unl]; if (S.latest === b.dataset.unl) S.latest = ''; save(); render(); };
+    b.onclick = function(){ delete S.done[b.dataset.unl]; if (S.log) delete S.log[b.dataset.unl]; if (S.latest === b.dataset.unl) S.latest = ''; save(); render(); };
   });
   on('skin', function(){ S.skin = isChallenge() ? 'classic' : 'challenge'; save(); render(); });
   on('daily', function(){ startRun(pickDaily(), 'Daily review'); });
@@ -388,13 +421,21 @@ function bindHome(){
   on('reset', function(){ if (confirm('Erase all your progress on this device?')) { S = {}; try { localStorage.removeItem(KEY); } catch(e){} S = load(); render(); } });
 }
 function addLessonFromText(t){
-  var m = String(t || '').match(/([^\/?#\s]+)\.html/i);
-  var id = m ? decodeURIComponent(m[1]) : '';
-  var l = WB.lessons.filter(function(x){ return x.id === id; })[0];
-  if (!l) { lnkMsg = id ? 'That lesson is not in My Words yet. You can still add words one by one in the Add a word tab.' : 'That does not look like a lesson link.'; return false; }
-  if (!S.done[l.id]) S.done[l.id] = Date.now();
-  S.latest = l.id; save(); tab = 'lessons';
-  lnkMsg = 'Added: ' + l.title + ' \u2014 ' + l.words.length + ' words';
+  var ids = [], re = /([^\/?#\s,;]+)\.html/ig, m;
+  while ((m = re.exec(String(t || '')))) { var x; try { x = decodeURIComponent(m[1]); } catch(e){ x = m[1]; } if (ids.indexOf(x) < 0 && !/dashboard|index$/i.test(x)) ids.push(x); }
+  if (!ids.length) { lnkMsg = 'That does not look like a lesson link.'; return false; }
+  var before = Object.keys(S.done).length;
+  if (ids.length === 1 && isReg(ids[0])) {
+    var l = WB.lessons.filter(function(x){ return x.id === ids[0]; })[0];
+    if (!S.done[l.id]) S.done[l.id] = Date.now();
+    S.latest = l.id; save(); tab = 'lessons';
+    lnkMsg = 'Added: ' + l.title + ' — ' + l.words.length + ' words';
+    return true;
+  }
+  markDone(ids); tab = 'lessons';
+  var added = Object.keys(S.done).length - before, w = 0, rec = 0;
+  ids.forEach(function(id){ if (isReg(id)) w += WB.lessons.filter(function(x){ return x.id === id; })[0].words.length; else rec++; });
+  lnkMsg = added ? 'Added ' + added + ' lesson' + (added === 1 ? '' : 's') + (w ? ' (' + w + ' words)' : '') + (rec ? (w ? '; ' : ' — ') + rec + ' kept as a record of lessons done' : '') + (added < ids.length ? '. ' + (ids.length - added) + ' already there' : '') : 'Those lessons were already in your list.';
   return true;
 }
 function say(t){ try { var u = new SpeechSynthesisUtterance(t); u.lang = 'en-GB'; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch(e){} }
