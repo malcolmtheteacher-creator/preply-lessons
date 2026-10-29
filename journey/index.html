@@ -375,7 +375,7 @@ function miaSvg(ri){
   var w = MIA.h * 222 / 720;
   return '<g class="mia" tabindex="0" role="button" aria-label="Mia">' +
     '<ellipse cx="' + MIA.x + '" cy="' + (MIA.y - 2) + '" rx="' + (w * .62) + '" ry="7" fill="#000" opacity=".38"/>' +
-    '<image class="mfig" href="img/mia_stand.png" x="' + (MIA.x - w / 2) + '" y="' + (MIA.y - MIA.h) + '" width="' + w + '" height="' + MIA.h + '"/>' +
+    '<image class="mfig" href="img/mia_stand.png?v=2" x="' + (MIA.x - w / 2) + '" y="' + (MIA.y - MIA.h) + '" width="' + w + '" height="' + MIA.h + '"/>' +
     '<rect x="' + (MIA.x - w * .7) + '" y="' + (MIA.y - MIA.h) + '" width="' + (w * 1.4) + '" height="' + MIA.h + '" fill="transparent"/></g>';
 }
 function miaState(){
@@ -408,15 +408,21 @@ function miaLine(){
 }
 var MIA_NOW = null;
 var MIA_REPLY = ['Lovely. Now say it once more, a little slower. It sounds better each time.', 'Good. That is exactly how words move from your head to your mouth.', 'Well said. Tell your teacher about it in your next lesson.', 'I liked that. Keep it, and use it again tomorrow.'];
+function cleanTitle(t){ return String(t).replace(/^Mia — /, '').replace(/^Lesson \d+ · /, ''); }
+var lastTask = '';
 function miaTask(){
-  var pool = lessons.filter(function(l){ return !l.rec && l.words.length >= 2; }), recs = lessons.filter(function(l){ return l.rec && !l.talk; }), talks = lessons.filter(function(l){ return l.talk; });
-  var opts = [];
-  if (pool.length) { var l = pool[Math.floor(Math.random() * pool.length)], ws = l.words.slice().sort(function(){ return Math.random() - .5; }), v = {title: l.title, w1: ws[0], w2: ws[1]};
-    ['Use “{w1}” and “{w2}” together in two sentences about your own life.', 'Explain “{w1}” to me without using the word itself.', 'Tell me about “{title}” in thirty seconds. Try to use “{w1}”.', 'Imagine you are telling a friend about “{title}”. What would you say first?'].forEach(function(t){ opts.push(fmt(t, v)); }); }
-  if (recs.length) { var r = recs[Math.floor(Math.random() * recs.length)]; opts.push(fmt('Tell me one thing you remember from “{title}”.', {title: r.title}), fmt('If a friend asked what “{title}” was about, what would you say?', {title: r.title})); }
-  if (talks.length) { var tk = talks[Math.floor(Math.random() * talks.length)]; opts.push(fmt('What did you say about “{title}”? Say it again, a little clearer and a little longer.', {title: tk.title})); }
-  if (!opts.length) opts.push('Tell me about your day in three sentences.');
-  return choose('task', opts);
+  function one(){
+    var pool = lessons.filter(function(l){ return !l.rec && l.words.filter(function(w){ return /^[A-Za-z']{4,}$/.test(w); }).length >= 2; }), recs = lessons.filter(function(l){ return l.rec && !l.talk; }), talks = lessons.filter(function(l){ return l.talk; });
+    var opts = [];
+    if (pool.length) { var l = pool[Math.floor(Math.random() * pool.length)], ws = l.words.filter(function(w){ return /^[A-Za-z']{4,}$/.test(w); }).sort(function(){ return Math.random() - .5; }), v = {title: cleanTitle(l.title), w1: ws[0], w2: ws[1]};
+      ['Say one true sentence about your life using “{w1}”.', 'Say two sentences using “{w1}” and “{w2}”.', 'Tell me about “{title}” in your own words.', 'Explain “{w1}” to me without using the word itself.'].forEach(function(t){ opts.push(fmt(t, v)); }); }
+    if (recs.length) { var r = recs[Math.floor(Math.random() * recs.length)]; opts.push(fmt('Tell me one thing you remember from “{title}”.', {title: cleanTitle(r.title)}), fmt('If a friend asked what “{title}” was about, what would you say?', {title: cleanTitle(r.title)})); }
+    if (talks.length) { var tk = talks[Math.floor(Math.random() * talks.length)]; opts.push(fmt('What did you say about “{title}”? Say it again, a little clearer and a little longer.', {title: cleanTitle(tk.title)})); }
+    opts.push('Tell me about your day in three sentences.', 'Tell me about something you did this week.');
+    return opts[Math.floor(Math.random() * opts.length)];
+  }
+  var t = one(), n = 0; while (t === lastTask && n++ < 12) t = one();
+  return lastTask = t;
 }
 function miaSheet(task, done){
   var m = MIA_NOW || (MIA_NOW = miaLine()), st = m.st, face = done ? 'laugh' : (task ? 'smile' : m.face), say = done ? choose('reply', MIA_REPLY) : task ? choose('lead', ['Here is something to try.', 'Try this one.', 'Take your time with this.']) : m.text;
@@ -431,7 +437,7 @@ function bindMia(){
   function show(task, done){ sheet.innerHTML = miaSheet(task, done); bindMia(); }
   var t = document.getElementById('mtask'), o = document.getElementById('mother'), d = document.getElementById('mdone');
   if (t) t.onclick = function(){ show(miaTask(), false); };
-  if (o) o.onclick = function(){ show(miaTask(), false); };
+  if (o) o.onclick = function(){ var tx = document.getElementById('mtext'); if (tx) tx.value = ''; show(miaTask(), false); };
   if (d) d.onclick = function(){ show(null, true); };
 }
 
