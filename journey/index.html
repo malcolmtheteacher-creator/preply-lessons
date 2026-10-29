@@ -79,6 +79,7 @@ body.imm .dots i{background:rgba(246,236,212,.35)}body.imm .dots i.on{background
 <body class="classic">
 <div class="wrap" id="app"></div>
 <script src="../wordbank/words.js"></script>
+<script src="../wordbank/all_lessons.js" onerror="void 0"></script>
 <script src="slots.js" onerror="void 0"></script>
 <script>
 (function(){
@@ -144,7 +145,8 @@ function wallMatrix(side){ return side === 'L' ? 'matrix(1,' + (-SL) + ',0,1,70,
 /* ---------- data ---------- */
 var regIds = {}; WB.lessons.forEach(function(l){ regIds[l.id] = 1; });
 S.log = S.log || {};
-var logged = Object.keys(S.log).filter(function(id){ return S.done[id] && !regIds[id]; }).map(function(id){ return {id: id, title: S.log[id].title || id, level: '', words: [], rec: true}; });
+var ALL = window.WBALL || {};
+var logged = Object.keys(S.done).filter(function(id){ return !regIds[id]; }).map(function(id){ var a = ALL[id]; return {id: id, title: (S.log[id] && S.log[id].title) || (a && a[0]) || id.replace(/[_-]+/g, ' '), level: (a && a[1]) || '', words: [], rec: true, talk: !!(S.log[id] && S.log[id].talk)}; });
 var lessons = WB.lessons.filter(function(l){ return S.done[l.id]; }).concat(logged).sort(function(a,b){ return S.done[a.id] - S.done[b.id]; });
 var items = []; // {lesson, room, slot, icon}
 var usedByRoom = {};
@@ -350,7 +352,7 @@ var camT = null;
 function sheetHtml(it){
   if (!it) return '';
   var l = it.lesson, st = stats(l);
-  if (l.rec) return '<button class="x" id="closesheet" aria-label="Close">\u00d7</button><div class="mute">A lesson you have done</div><h2>' + esc(l.title) + '</h2><div class="row" style="margin-top:10px"><a class="btn" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>';
+  if (l.rec) return '<button class="x" id="closesheet" aria-label="Close">\u00d7</button><div class="mute">' + (l.talk ? 'A conversation you had' : 'A lesson you have done') + '</div><h2>' + esc(l.title) + '</h2>' + (l.talk ? '' : '<div class="row" style="margin-top:10px"><a class="btn" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>');
   return '<button class="x" id="closesheet" aria-label="Close">×</button><div class="mute">' + esc(l.level) + '</div><h2>' + esc(l.title) + '</h2>' +
     '<div class="chips">' + l.words.map(function(w){ var r = S.words[w], b = r ? r.box : 0; return '<span class="chip r' + (b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 : 0) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
     (st.due ? '<p class="mute" style="margin:0 0 10px">' + st.due + ' of ' + st.n + ' words are ready to review. Practise them to bring this object back to full brightness.</p>' : '<p class="mute" style="margin:0 0 10px">All the words from this lesson are fresh.</p>') +

@@ -36,3 +36,8 @@ Catch-up links for students who have done lessons already (send in chat; one cli
 - `https://malcolmhyndman.com/preply-lessons/wordbank/index.html?series=a1s&upto=24` (all Mia lessons up to number 24)
 - `...wordbank/index.html?lessons=id1,id2,id3` (any list of lesson ids; lessons without words are kept as a record)
 Students can also paste several lesson links at once into the My Words box.
+
+Every lesson in `malcolm_lesson_index.html` is registered with My Room (words optional): after adding a lesson to the index run `python3 tools/build_all_lessons.py` (writes `wordbank/all_lessons.js` and adds the `wordbank/hook.js` tag to the page, preserving line endings). Opening any such lesson saves it to the student's My Room.
+
+Free conversations (no lesson page): a link adds them with a topic in a few words, e.g.
+`https://malcolmhyndman.com/preply-lessons/wordbank/index.html?talk=Why%20we%20dream%20of%20falling` (several: separate with `|`). Students can also type the topic into the "Add chat" box in My Words.
