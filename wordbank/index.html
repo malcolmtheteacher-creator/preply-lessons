@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Words</title>
+<style>
+:root{--bg:#f5f6fa;--card:#fff;--ink:#1f2433;--mute:#6b7285;--line:#e1e4ee;--accent:#4f46e5;--accent2:#7c3aed;--good:#16a34a;--bad:#dc2626;--bronze:#b9774a;--silver:#8d98a8;--gold:#d4a017;--radius:14px;--font:system-ui,-apple-system,"Segoe UI",sans-serif;--head:var(--font)}
+body.challenge{--bg:#0f172a;--card:#1e293b;--ink:#e8edf5;--mute:#94a3b8;--line:#334155;--accent:#14b8a6;--accent2:#0d9488;--good:#4ade80;--bad:#f87171}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.45;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1,h2,h3{font-family:var(--head);margin:0}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+header h1{font-size:1.6rem}
+.lvl{font-size:.85rem;color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:1.4rem;font-family:var(--head)}
+.stat span{font-size:.75rem;color:var(--mute)}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:12px 18px;font-weight:600}
+.btn:hover{background:var(--accent2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.big{width:100%;font-size:1.1rem;padding:16px}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{flex:1;padding:9px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lesson{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lesson:last-child{border:0}
+.lesson .t{flex:1;min-width:0}
+.lesson .t small{display:block;color:var(--mute)}
+.lesson input{width:20px;height:20px}
+.lesson .btn{padding:7px 12px;font-size:.85rem}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.wc{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.wc.r1{border-color:var(--bronze)}.wc.r2{border-color:var(--silver)}.wc.r3{border-color:var(--gold);box-shadow:0 0 10px rgba(212,160,23,.35)}
+.wc.lock{opacity:.35;cursor:default}
+.wc b{font-size:1.05rem}.wc small{color:var(--mute)}
+.wc p{margin:4px 0 0;font-size:.85rem;color:var(--mute)}
+.prog{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.95rem}
+.track{display:flex;gap:4px;margin:0 0 14px}.track i{flex:1;height:6px;border-radius:3px;background:var(--line)}.track i.ok{background:var(--good)}.track i.miss{background:var(--bad)}.track i.now{background:var(--accent)}
+.strikes{letter-spacing:3px}
+.q{font-size:1.2rem;margin:6px 0 14px;font-family:var(--head)}
+.opt{display:block;width:100%;text-align:left;margin-bottom:8px;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.good{border-color:var(--good);background:rgba(34,197,94,.15)}.opt.bad{border-color:var(--bad);background:rgba(239,68,68,.15)}
+input.ans{width:100%;padding:13px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:1.1rem;margin-bottom:10px}
+.fb{padding:12px;border-radius:12px;margin:10px 0;font-size:.95rem}
+.fb.good{background:rgba(34,197,94,.15)}.fb.bad{background:rgba(239,68,68,.15)}
+.say{border:1px solid var(--line);background:none;color:var(--accent);font-size:.8rem;border-radius:8px;padding:2px 8px;cursor:pointer}
+.mute{color:var(--mute);font-size:.9rem}
+textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px;font:inherit}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body class="classic">
+<div class="wrap" id="app"></div>
+<script src="words.js"></script>
+<script>
+(function(){
+var WB = window.WORDBANK || {lessons:[],words:{}};
+var KEY = 'wb_v1', DAY = 86400000, DAYS = [0,0,1,3,7,14,30];
+
+var S = load();
+(function(){ var m = location.search.match(/[?&]lesson=([^&]+)/); if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); } try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
+mergeCustom();
+var added = parseAdd();
+if (added.length || /[?&]add=/.test(location.search)) { try { history.replaceState(null, '', location.pathname); } catch(e){} }
+var view = 'home', tab = location.hash === '#add' ? 'add' : 'lessons', run = null, addMsg = added.length ? 'Added to your words: ' + added.join(', ') : '';
+
+function load(){
+  var d = {};
+  try { d = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+  d.done = d.done || {}; d.words = d.words || {};
+  d.xp = d.xp || 0; d.streak = d.streak || 0; d.last = d.last || '';
+  d.custom = d.custom || {};
+  d.skin = d.skin === 'dungeon' ? 'challenge' : (d.skin || 'classic');
+  return d;
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function today(){ return new Date().toISOString().slice(0,10); }
+function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+function level(){ return Math.floor(Math.sqrt(S.xp/25)) + 1; }
+function box(w){ return S.words[w] ? S.words[w].box : 0; }
+function isChallenge(){ return S.skin === 'challenge'; }
+
+function mergeCustom(){
+  Object.keys(S.custom).forEach(function(w){
+    var c = S.custom[w], cur = WB.words[w];
+    if (!cur) WB.words[w] = {w: w, pos: c.pos || '', def: c.def || '', ex: c.ex || '', lessons: [], mine: true};
+    else { if (!cur.def && c.def) cur.def = c.def; if (!cur.ex && c.ex) cur.ex = c.ex; }
+  });
+}
+function addWord(w, def, ex, pos){
+  w = (w || '').trim().toLowerCase(); def = (def || '').trim(); ex = (ex || '').trim();
+  if (!w || w.length > 60) return 'Type the word first.';
+  if (!def && !ex && !WB.words[w]) return 'Add a meaning or an example sentence so you can practise it.';
+  var old = S.custom[w] || {};
+  S.custom[w] = {w: w, pos: pos || old.pos || '', def: def || old.def || '', ex: ex || old.ex || ''};
+  mergeCustom(); save(); return '';
+}
+function parseAdd(){
+  var m = location.search.match(/[?&]add=([^&]+)/); if (!m) return [];
+  var out = [];
+  decodeURIComponent(m[1].replace(/\+/g,' ')).split('|').forEach(function(p){
+    var a = p.split('~'); if (a[0] && a[0].trim() && addWord(a[0], a[1], a[2]) === '') out.push(a[0].trim().toLowerCase());
+  });
+  return out;
+}
+function unlocked(){
+  var seen = {}, out = [];
+  WB.lessons.forEach(function(l){ if (S.done[l.id]) l.words.forEach(function(w){ if (!seen[w] && WB.words[w]) { seen[w]=1; out.push(w); } }); });
+  Object.keys(S.custom).forEach(function(w){ if (!seen[w] && WB.words[w]) { seen[w]=1; out.push(w); } });
+  return out;
+}
+function isDue(w){ var r = S.words[w]; return !r || r.due <= Date.now(); }
+function rarity(w){ var b = box(w); return b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 : 0; }
+
+/* ---------- question building ---------- */
+function distractors(w, field, n){
+  var me = WB.words[w], pool = Object.keys(WB.words).filter(function(k){ return k !== w && WB.words[k][field]; });
+  var same = pool.filter(function(k){ return WB.words[k].pos === me.pos; });
+  var pick = shuffle(same).slice(0, n);
+  if (pick.length < n) pick = pick.concat(shuffle(pool.filter(function(k){ return pick.indexOf(k) < 0; })).slice(0, n - pick.length));
+  return pick;
+}
+function blank(w, ex){
+  var re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\w{0,3}\\b', 'i');
+  var m = ex.match(re);
+  if (!m) return null;
+  return {text: ex.replace(re, '______'), surface: m[0].toLowerCase()};
+}
+function hide(t, w){
+  if (!t) return t;
+  var re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\w{0,3}\\b', 'ig');
+  return t.replace(re, '______');
+}
+function makeQ(w){
+  var d = WB.words[w], b = box(w), types = [];
+  if (d.def) types.push('def');
+  if (d.def && b <= 2) types.push('w2d');
+  var g = d.ex ? blank(w, d.ex) : null;
+  if (g) { types.push('gap'); if (b >= 2) types.push('gap'); }
+  if (d.def && b >= 3) types.push('spell');
+  if (!types.length) types.push('def');
+  var t = types[Math.floor(Math.random()*types.length)];
+  var q = {word: w, type: t, d: d};
+  if (t === 'def') {
+    q.sub = hide(d.def, w); q.prompt = q.sub.indexOf('______') >= 0 ? 'Which word fits?' : 'Which word or phrase means…';
+    q.options = shuffle([w].concat(distractors(w,'def',3))); q.answer = w;
+  } else if (t === 'w2d') {
+    q.prompt = 'What does “' + w + '” mean?'; q.sub = '';
+    var ds = distractors(w,'def',3);
+    q.options = shuffle([w].concat(ds)).map(function(k){ return {key:k, label: hide(WB.words[k].def, k)}; }); q.answer = w; q.labelled = true;
+  } else if (t === 'gap') {
+    q.prompt = 'Fill the gap'; q.sub = g.text; q.accept = [w, g.surface];
+    if (b >= 3) q.typed = true; else { q.options = shuffle([w].concat(distractors(w,'ex',3))); q.answer = w; }
+  } else {
+    q.prompt = 'Type the word'; q.sub = hide(d.def, w) + '  (starts with “' + w[0] + '”)'; q.typed = true; q.accept = [w];
+  }
+  return q;
+}
+
+/* ---------- runs ---------- */
+function pickDaily(){
+  var u = unlocked();
+  var due = u.filter(isDue);
+  var seen = due.filter(function(w){ return box(w) > 0; }).sort(function(a,b){ return box(a)-box(b); });
+  var fresh = shuffle(due.filter(function(w){ return box(w) === 0; })).slice(0,5);
+  return seen.slice(0,8-Math.min(fresh.length,3)).concat(fresh).slice(0,8);
+}
+function startRun(words, label, boss){
+  if (!words.length) return;
+  words = shuffle(words);
+  run = {label: label, boss: !!boss, queue: words.map(function(w){ return {w:w, retry:false}; }), total: words.length, i: 0,
+         hearts: 3, correct: 0, xp: 0, promoted: 0, answered: null, combo: 0, best: 0, marks: [], over: false, results: {}};
+  view = 'run'; render();
+}
+function current(){ return run.queue[0]; }
+function nextQ(){ run.q = makeQ(current().w); run.answered = null; }
+function answer(given){
+  var q = run.q, ok;
+  if (q.typed) { var g = given.trim().toLowerCase(); ok = q.accept.indexOf(g) >= 0; }
+  else ok = given === q.answer;
+  var item = current(), w = item.w;
+  run.answered = {ok: ok, given: given};
+  if (!item.retry) run.marks.push(ok ? 'ok' : 'miss');
+  var r = S.words[w] || (S.words[w] = {box:0, due:0, seen:0, right:0});
+  r.seen++;
+  if (ok) {
+    run.correct++; run.xp += item.retry ? 5 : 10 + box(w);
+    if (!run.results[w]) { var nb = Math.min(5, r.box + 1); if (nb > r.box) run.promoted++; r.box = nb; r.due = Date.now() + DAYS[nb+1 > 6 ? 6 : nb+1] * DAY; r.right++; }
+    run.combo = (run.combo||0)+1; run.best = Math.max(run.best||0, run.combo);
+  } else {
+    run.results[w] = 'miss';
+    r.box = 1; r.due = Date.now(); run.combo = 0;
+    if (isChallenge()) run.hearts--;
+    if (!item.retry) run.queue.push({w:w, retry:true});
+  }
+  if (ok && !run.results[w]) run.results[w] = 'ok';
+  save();
+}
+function advance(){
+  run.queue.shift(); run.i++;
+  if (!run.queue.length || (isChallenge() && run.hearts <= 0)) { finish(); return; }
+  nextQ(); render();
+}
+function finish(){
+  var t = today();
+  if (S.last !== t) {
+    var y = new Date(Date.now() - DAY).toISOString().slice(0,10);
+    S.streak = S.last === y ? S.streak + 1 : 1; S.last = t;
+  }
+  var bonus = run.boss && run.hearts > 0 ? 25 : 0;
+  run.xp += bonus; S.xp += run.xp; run.over = true; save(); view = 'result'; render();
+}
+
+/* ---------- rendering ---------- */
+var app = document.getElementById('app');
+function render(){
+  document.body.className = isChallenge() ? 'challenge' : 'classic';
+  if (view === 'run') return renderRun();
+  if (view === 'result') return renderResult();
+  renderHome();
+}
+function strikesStr(n){ var s=''; for (var i=0;i<3;i++) s += i < n ? '●' : '○'; return s; }
+
+function renderHome(){
+  var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
+  var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
+    '<div class="row"><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
+  h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
+    '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
+  if (S.xp > 0 && Date.now() - (S.backedUp || 0) > 7*DAY) h += '<div class="card"><b>Keep your progress safe.</b><p class="mute" style="margin:4px 0 10px">' + (S.backedUp ? 'You last saved a backup ' + Math.floor((Date.now()-S.backedUp)/DAY) + ' days ago.' : 'You have not saved a backup yet.') + ' Browsers sometimes clear saved data, so keep a copy.</p><button class="btn" id="backup0">Save a backup file</button></div>';
+  if (added.length && !S.seenAdd) { h += '<div class="card"><b>' + esc(addMsg) + '</b></div>'; }
+  var lat = S.latest && WB.lessons.filter(function(l){ return l.id === S.latest; })[0];
+  if (lat) h += '<div class="card"><div class="mute">Your latest lesson</div><h3>' + esc(lat.title) + '</h3><p class="mute">' + lat.words.length + ' words · ' + lat.words.filter(function(w){ return box(w) >= 3; }).length + ' well known</p><div class="row"><button class="btn" id="latest">Practise these words</button><button class="btn ghost" id="latestlist">See the list</button></div></div>';
+  if (!u.length) {
+    h += '<div class="card"><h3>No words yet</h3><p>Open a lesson below, or tick the lessons you have already done. Their words will appear here.</p></div>';
+  } else {
+    var daily = pickDaily();
+    h += '<div class="card">' + (daily.length
+      ? '<button class="btn big" id="daily">' + (isChallenge() ? 'Start challenge round' : 'Start today’s review') + ' · ' + daily.length + ' words</button>'
+      : '<p>You are all caught up. Nothing is due right now.</p><button class="btn big" id="extra">Practise anyway</button>') + '</div>';
+  }
+  h += '<div class="tabs"><button data-t="lessons" class="' + (tab==='lessons'?'on':'') + '">Lessons</button><button data-t="words" class="' + (tab==='words'?'on':'') + '">Words</button><button data-t="add" class="' + (tab==='add'?'on':'') + '">Add a word</button><button data-t="me" class="' + (tab==='me'?'on':'') + '">Backup</button></div>';
+  if (tab === 'lessons') h += lessonsHtml();
+  else if (tab === 'words') h += wordsHtml();
+  else if (tab === 'add') h += addHtml();
+  else h += meHtml();
+  app.innerHTML = h;
+  bindHome();
+}
+function lessonsHtml(){
+  if (!WB.lessons.length) return '<div class="card">No lessons registered yet.</div>';
+  var h = '<div class="card">';
+  WB.lessons.forEach(function(l){
+    var done = !!S.done[l.id];
+    h += '<div class="lesson"><input type="checkbox" data-l="' + esc(l.id) + '"' + (done?' checked':'') + ' aria-label="I did this lesson">' +
+      '<div class="t"><a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a><small>' + esc(l.level) + ' · ' + l.words.length + ' words</small></div>' +
+      (done ? '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>' : '') + '</div>';
+  });
+  return h + '<p class="mute">Tick a lesson once you have done it to unlock its words.</p></div>';
+}
+function wordsHtml(){
+  var all = Object.keys(WB.words).sort(), un = {};
+  unlocked().forEach(function(w){ un[w] = 1; });
+  var h = '<div class="words">';
+  all.forEach(function(w){
+    var d = WB.words[w];
+    if (!un[w]) { h += '<div class="wc lock"><b>???</b><p>Locked</p></div>'; return; }
+    var r = rarity(w), tag = ['new','bronze','silver','gold'][r] + (d.mine ? ' · mine' : '');
+    h += '<div class="wc r' + r + '" data-w="' + esc(w) + '"><b>' + esc(w) + '</b> <small>' + esc(d.pos) + ' · ' + tag + '</small><p>' + esc(d.def || d.ex) + '</p></div>';
+  });
+  return h + '</div>';
+}
+function addHtml(){
+  var mine = Object.keys(S.custom).sort();
+  var h = '<div class="card"><h3>Add a word</h3><p class="mute">Heard or read a word you want to remember? Add it and it joins your reviews.</p>' +
+    '<input class="ans" id="nw" placeholder="Word or phrase" autocomplete="off" autocapitalize="off">' +
+    '<input class="ans" id="nd" placeholder="What it means (your own words are fine)" autocomplete="off">' +
+    '<input class="ans" id="ne" placeholder="An example sentence (optional, but it helps)" autocomplete="off">' +
+    '<div class="row"><button class="btn" id="addbtn">Add to my words</button></div><p class="mute" id="addmsg">' + esc(addMsg) + '</p></div>';
+  if (mine.length) {
+    h += '<div class="card"><h3>Words I added</h3>';
+    mine.forEach(function(w){
+      var c = S.custom[w];
+      h += '<div class="lesson"><div class="t"><b>' + esc(w) + '</b><small>' + esc(c.def || c.ex) + '</small></div><button class="btn ghost" data-rm="' + esc(w) + '">Remove</button></div>';
+    });
+    h += '</div>';
+  }
+  return h;
+}
+function meHtml(){
+  return '<div class="card"><h3>Backup file</h3><p class="mute">The safest way to keep your progress: save a file and keep it somewhere safe (Downloads, cloud drive, email to yourself).' + (S.backedUp ? ' Last saved: ' + new Date(S.backedUp).toLocaleDateString() + '.' : '') + '</p><div class="row"><button class="btn" id="backup">Save backup file</button><button class="btn ghost" id="restore">Restore from file</button></div><input type="file" id="rfile" accept=".json,application/json" hidden><p class="mute" id="fmsg"></p><p class="mute">Tip: on a phone, add this page to your home screen so it is less likely to be cleared.</p></div>' +
+    '<div class="card"><h3>Progress code</h3><p class="mute">The same information as a short code you can paste into a message. Paste it on another device to continue there.</p>' +
+    '<textarea id="code" readonly>' + esc(exportCode()) + '</textarea><div class="row" style="margin-top:8px"><button class="btn" id="copy">Copy code</button></div></div>' +
+    '<div class="card"><h3>Load progress</h3><textarea id="incode" placeholder="Paste a code here"></textarea><div class="row" style="margin-top:8px"><button class="btn ghost" id="import">Load</button><button class="btn ghost" id="reset">Start again</button></div><p class="mute" id="msg"></p></div>';
+}
+function exportCode(){ try { return btoa(unescape(encodeURIComponent(JSON.stringify(S)))); } catch(e){ return ''; } }
+function importCode(c){
+  try {
+    var d = JSON.parse(decodeURIComponent(escape(atob(c.trim()))));
+    if (!d || typeof d !== 'object' || !d.words) throw 0;
+    S = d; S = (function(){ localStorage.setItem(KEY, JSON.stringify(S)); return load(); })(); return true;
+  } catch(e){ return false; }
+}
+function bindHome(){
+  function on(id, fn){ var e = document.getElementById(id); if (e) e.onclick = fn; }
+  function backup(){
+    var blob = new Blob([JSON.stringify(S)], {type: 'application/json'}), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'my-words-backup-' + today() + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    S.backedUp = Date.now(); save(); setTimeout(render, 300);
+  }
+  on('addbtn', function(){
+    var err = addWord(document.getElementById('nw').value, document.getElementById('nd').value, document.getElementById('ne').value);
+    if (err) { document.getElementById('addmsg').textContent = err; return; }
+    addMsg = 'Added: ' + document.getElementById('nw').value.trim().toLowerCase(); render();
+    var n = document.getElementById('nw'); if (n) n.focus();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rm]'), function(b){
+    b.onclick = function(){ var w = b.dataset.rm; delete S.custom[w]; delete S.words[w]; if (WB.words[w] && WB.words[w].mine) delete WB.words[w]; addMsg = ''; save(); render(); };
+  });
+  on('backup0', backup); on('backup', backup);
+  on('restore', function(){ document.getElementById('rfile').click(); });
+  var rf = document.getElementById('rfile');
+  if (rf) rf.onchange = function(){
+    var f = rf.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function(){ var ok = importCode(btoa(unescape(encodeURIComponent(String(r.result))))); if (ok) { S.backedUp = Date.now(); save(); render(); } else document.getElementById('fmsg').textContent = 'That file did not work.'; };
+    r.readAsText(f);
+  };
+  on('skin', function(){ S.skin = isChallenge() ? 'classic' : 'challenge'; save(); render(); });
+  on('daily', function(){ startRun(pickDaily(), 'Daily review'); });
+  on('latest', function(){ var l = WB.lessons.filter(function(x){ return x.id === S.latest; })[0]; startRun(l.words.slice(0,10), l.title); });
+  on('latestlist', function(){ tab = 'words'; render(); });
+  on('extra', function(){ startRun(shuffle(unlocked()).slice(0,8), 'Practice'); });
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function(b){ b.onclick = function(){ tab = b.dataset.t; render(); }; });
+  Array.prototype.forEach.call(document.querySelectorAll('input[data-l]'), function(c){
+    c.onchange = function(){ if (c.checked) S.done[c.dataset.l] = Date.now(); else delete S.done[c.dataset.l]; save(); render(); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-boss]'), function(b){
+    b.onclick = function(){ var l = WB.lessons.filter(function(x){ return x.id === b.dataset.boss; })[0]; startRun(l.words.slice(), l.title, true); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.wc[data-w]'), function(c){ c.onclick = function(){ say(c.dataset.w); }; });
+  on('copy', function(){ var t = document.getElementById('code'); t.select(); try { document.execCommand('copy'); } catch(e){} var m=this; m.textContent='Copied ✓'; });
+  on('import', function(){ var ok = importCode(document.getElementById('incode').value); if (ok) render(); else document.getElementById('msg').textContent = 'That code did not work.'; });
+  on('reset', function(){ if (confirm('Erase all your progress on this device?')) { S = {}; try { localStorage.removeItem(KEY); } catch(e){} S = load(); render(); } });
+}
+function say(t){ try { var u = new SpeechSynthesisUtterance(t); u.lang = 'en-GB'; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch(e){} }
+
+function trackHtml(){
+  var h = '<div class="track">', n = run.total;
+  for (var i = 0; i < n; i++) h += '<i class="' + (run.marks[i] || (i === run.marks.length ? 'now' : '')) + '"></i>';
+  return h + '</div>';
+}
+function renderRun(){
+  if (!run.q) nextQ();
+  var q = run.q, a = run.answered, d = isChallenge();
+  var pct = Math.round(run.i / (run.i + run.queue.length) * 100);
+  var h = '<div class="hud"><button class="btn ghost" id="quit">✕</button><span>' + esc(run.label) + '</span><span>' + (d ? '<span class="strikes" title="Strikes left">' + strikesStr(run.hearts) + '</span> · ' + run.combo + ' in a row' : run.xp + ' XP') + '</span></div>';
+  h += '<div class="prog"><i style="width:' + Math.min(100,pct) + '%"></i></div>';
+  if (d) h += trackHtml();
+  h += '<div class="card"><div class="q">' + esc(q.prompt) + '</div>';
+  if (q.sub) h += '<p style="font-size:1.1rem;margin:0 0 14px">' + esc(q.sub) + '</p>';
+  if (q.typed) {
+    h += '<input class="ans" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false"' + (a?' disabled value="' + esc(a.given) + '"':'') + '>';
+    if (!a) h += '<button class="btn" id="go">Check</button>';
+  } else {
+    q.options.forEach(function(o){
+      var key = q.labelled ? o.key : o, label = q.labelled ? o.label : o, cls = '';
+      if (a) cls = key === q.answer ? ' good' : (key === a.given ? ' bad' : '');
+      h += '<button class="opt' + cls + '" data-k="' + esc(key) + '"' + (a?' disabled':'') + '>' + esc(label) + '</button>';
+    });
+  }
+  if (a) {
+    var dd = q.d;
+    h += '<div class="fb ' + (a.ok?'good':'bad') + '"><b>' + (a.ok ? 'Correct.' : (d ? 'Strike.' : 'Not quite.')) + '</b> ' +
+      '<button class="say" data-say="' + esc(q.word) + '" aria-label="Hear the word">Listen</button><br><b>' + esc(q.word) + '</b>' + (dd.pos ? ' (' + esc(dd.pos) + ')' : '') + (dd.def ? ' — ' + esc(dd.def) : '') +
+      (dd.ex ? '<br><i>' + esc(dd.ex) + '</i>' : '') + '</div><button class="btn big" id="next">' + (run.queue.length === 1 || (d && run.hearts <= 0) ? 'Finish' : 'Next') + '</button>';
+  }
+  h += '</div>';
+  app.innerHTML = h;
+  var inp = document.getElementById('ans');
+  if (inp && !a) { inp.focus(); inp.onkeydown = function(e){ if (e.key === 'Enter') { answer(inp.value); render(); } }; }
+  Array.prototype.forEach.call(app.querySelectorAll('.opt'), function(b){ b.onclick = function(){ answer(b.dataset.k); render(); }; });
+  Array.prototype.forEach.call(app.querySelectorAll('[data-say]'), function(b){ b.onclick = function(){ say(b.dataset.say); }; });
+  var go = document.getElementById('go'); if (go) go.onclick = function(){ answer(inp.value); render(); };
+  var nx = document.getElementById('next'); if (nx) { nx.onclick = advance; nx.focus(); }
+  document.getElementById('quit').onclick = function(){ if (run.i === 0 || confirm('Leave this run? Your answers so far are kept.')) { run = null; view = 'home'; render(); } };
+}
+function renderResult(){
+  var d = isChallenge(), won = !d || run.hearts > 0;
+  var h = '<div class="card" style="text-align:center"><h2>' + (d ? (won ? (run.boss ? 'Final review passed' : 'Round complete') : 'Round ended') : 'Session complete') + '</h2>' +
+    '<p>' + run.correct + ' correct · +' + run.xp + ' XP' + (run.promoted ? ' · ' + run.promoted + ' word' + (run.promoted>1?'s':'') + ' levelled up' : '') + '</p>';
+  if (d && run.best > 1) h += '<p class="mute">Best run: ' + run.best + ' correct in a row</p>';
+  var miss = Object.keys(run.results).filter(function(w){ return run.results[w] === 'miss'; });
+  if (miss.length) h += '<p class="mute">Come back to these: ' + miss.map(esc).join(', ') + '</p>';
+  h += '<button class="btn big" id="home">Back to my words</button></div>';
+  app.innerHTML = h;
+  document.getElementById('home').onclick = function(){ run = null; view = 'home'; render(); };
+}
+
+render();
+})();
+</script>
+</body>
+</html>
