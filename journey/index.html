@@ -73,6 +73,10 @@ body.imm .dots i{background:rgba(246,236,212,.35)}body.imm .dots i.on{background
 .sheet .x{position:absolute;right:10px;top:8px;background:none;border:0;color:#cdbf9f;font-size:1.5rem;cursor:pointer}
 .hint{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);width:max-content;max-width:min(520px,calc(100vw - 24px));text-align:center;background:rgba(20,17,15,.6);backdrop-filter:blur(8px);border:1px solid rgba(246,236,212,.2);border-radius:18px;padding:8px 18px;z-index:4;transition:opacity .4s}
 .hint.off{opacity:0;pointer-events:none}
+.peg{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:.9rem;color:#e6d6ae}
+.peg .pn{background:#1a1410;border:1.5px solid #e6c070;color:#ffe3a0;border-radius:999px;padding:1px 9px;font:700 .85rem Georgia,serif}
+.peg img{width:30px;height:30px;border-radius:6px;object-fit:cover}
+.peg a{margin-left:auto;color:#e6c070;font-size:.8rem}
 .mia{cursor:pointer;outline:none}
 .mia .mfig{transform-box:fill-box;transform-origin:50% 100%;animation:mbreath 5.5s ease-in-out infinite}
 @keyframes mbreath{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.012)}}
@@ -166,7 +170,7 @@ var usedByRoom = {};
 lessons.forEach(function(l, k){
   var room = Math.floor(k / CAP), slot = k % CAP, used = usedByRoom[room] = usedByRoom[room] || {};
   var ic = hash(l.id) % ICONS.length; while (used[ic]) ic = (ic + 1) % ICONS.length; used[ic] = 1;
-  items.push({lesson:l, room:room, slot:slot, icon:ic});
+  items.push({lesson:l, room:room, slot:slot, icon:ic, n:k + 1});
 });
 var roomCount = Math.max(1, Math.ceil(lessons.length / CAP) + (lessons.length && lessons.length % CAP === 0 ? 1 : 0));
 var cur = Math.max(0, roomCount - 1), sel = null;
@@ -227,6 +231,10 @@ function plantArt(x, y){
   });
   return s + '<path d="M' + (x-22) + ',' + (y-34) + 'h44l-6,34h-32z" fill="#a8572f"/><rect x="' + (x-24) + '" y="' + (y-38) + '" width="48" height="8" rx="2" fill="#c06a3c"/>';
 }
+function numPill(pt, n, dy){
+  var t = String(n), w = 14 + t.length * 9;
+  return '<g pointer-events="none"><rect x="' + (pt.x - w / 2) + '" y="' + (pt.y - dy) + '" width="' + w + '" height="20" rx="10" fill="#1a1410" fill-opacity=".85" stroke="#e6c070" stroke-width="1.5"/><text x="' + pt.x + '" y="' + (pt.y - dy + 14.5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#ffe3a0" font-family="Georgia,serif">' + t + '</text></g>';
+}
 function roomSvg(ri){
   var T = ROOMS[ri % ROOMS.length];
   var filled = {}, last = items.length ? items[items.length - 1] : null;
@@ -285,6 +293,7 @@ function roomSvg(ri){
         '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="52" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .35 : 1) + '"/>' +
         '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(it.lesson.rec ? 3 : st.avg) + '" stroke-width="2"/>' +
         '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><circle cx="' + pt.x + '" cy="' + (pt.y - 2) + '" r="27" fill="#1a1410" fill-opacity=".62" stroke="#ffd36b" stroke-opacity=".35" stroke-width="1.5"/><g filter="url(#iglow)" transform="translate(' + (pt.x - 25) + ',' + (pt.y - 30) + ') scale(2.1)" fill="#ffc94d" fill-opacity=".16" stroke="' + (dusty ? '#c2ad78' : '#ffd36b') + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ICONS[it.icon] + '</g></g>' +
+        numPill(pt, it.n, 56) +
         (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
         (isNew ? '<path class="tw" d="M' + (pt.x + 22) + ',' + (pt.y - 34) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/>' : '') +
         '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="46" fill="transparent"/></g>';
@@ -298,6 +307,7 @@ function roomSvg(ri){
       '<g transform="translate(' + (pt.x - 19) + ',' + (pt.y - 19) + ') scale(1.58)" fill="none" stroke="#f9e7b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="' + (dusty ? .55 : 1) + '">' + ICONS[it.icon] + '</g>' +
       (dusty ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="30" fill="#6b6459" opacity=".35"/>' : '') +
       '</g>' +
+      numPill(pt, it.n, 62) +
       (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="40" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
       (isNew ? '<path class="tw" d="M' + (pt.x + 30) + ',' + (pt.y - 40) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/><path class="tw d2" d="M' + (pt.x - 38) + ',' + (pt.y - 24) + 'l2,5 5,2 -5,2 -2,5 -2,-5 -5,-2 5,-2z" fill="#fff4cf"/>' : '') +
       '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="46" fill="transparent"/></g>';
@@ -441,13 +451,19 @@ function bindMia(){
   if (d) d.onclick = function(){ show(null, true); };
 }
 
+var PEGS = null, PEGBASE = '../../major-system-palace/';
+try { fetch(PEGBASE + 'data/numbers.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (j && j.numbers) { PEGS = {}; j.numbers.forEach(function(x){ PEGS[x.n] = x; }); if (typeof applySel === 'function' && sel !== null && sel !== 'mia') applySel(); } }).catch(function(){}); } catch(e){}
+function pegHtml(n){
+  var g = PEGS && PEGS[n];
+  return '<div class="peg"><span class="pn">' + n + '</span>' + (g ? '<img src="' + PEGBASE + esc(g.image) + '" alt="" onerror="this.style.display=\'none\'"><span>' + esc(g.word) + '</span>' : '<span>Spot ' + n + '</span>') + '<a href="' + PEGBASE + '#/n/' + n + '" target="_blank" rel="noopener">See it in the palace</a></div>';
+}
 /* ---------- immersive full-screen scene ---------- */
 var camT = null;
 function sheetHtml(it){
   if (!it) return '';
   var l = it.lesson, st = stats(l);
-  if (l.rec) return '<button class="x" id="closesheet" aria-label="Close">\u00d7</button><div class="mute">' + (l.talk ? 'A conversation you had' : 'A lesson you have done') + '</div><h2>' + esc(l.title) + '</h2>' + (l.talk ? '' : '<div class="row" style="margin-top:10px"><a class="btn" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>');
-  return '<button class="x" id="closesheet" aria-label="Close">×</button><div class="mute">' + esc(l.level) + '</div><h2>' + esc(l.title) + '</h2>' +
+  if (l.rec) return '<button class="x" id="closesheet" aria-label="Close">\u00d7</button><div class="mute">' + (l.talk ? 'A conversation you had' : 'A lesson you have done') + '</div><h2>' + esc(l.title) + '</h2>' + pegHtml(it.n) + (l.talk ? '' : '<div class="row" style="margin-top:10px"><a class="btn" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>');
+  return '<button class="x" id="closesheet" aria-label="Close">×</button><div class="mute">' + esc(l.level) + '</div><h2>' + esc(l.title) + '</h2>' + pegHtml(it.n) +
     '<div class="chips">' + l.words.map(function(w){ var r = S.words[w], b = r ? r.box : 0; return '<span class="chip r' + (b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 : 0) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
     (st.due ? '<p class="mute" style="margin:0 0 10px">' + st.due + ' of ' + st.n + ' words are ready to review. Practise them to bring this object back to full brightness.</p>' : '<p class="mute" style="margin:0 0 10px">All the words from this lesson are fresh.</p>') +
     '<div class="row"><a class="btn" href="../wordbank/index.html?lesson=' + encodeURIComponent(l.id) + '&practise=1">Practise these words</a><a class="btn ghost" href="../' + encodeURIComponent(l.id) + '.html">Open the lesson</a></div>';
