@@ -73,7 +73,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
 mergeCustom();
 var added = parseAdd();
 if (added.length || /[?&]add=/.test(location.search)) { try { history.replaceState(null, '', location.pathname); } catch(e){} }
-var view = 'home', tab = location.hash === '#add' ? 'add' : 'lessons', run = null, addMsg = added.length ? 'Added to your words: ' + added.join(', ') : '';
+var view = 'home', tab = location.hash === '#add' ? 'add' : 'lessons', run = null, lnkMsg = '', addMsg = added.length ? 'Added to your words: ' + added.join(', ') : '';
 
 function load(){
   var d = {};
@@ -237,6 +237,7 @@ function renderHome(){
   var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
   var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
     '<div class="row"><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
+  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste the lesson link here, or drag it onto this box. Lessons you open from the link are added automatically.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0">' + esc(lnkMsg) + '</p></div>';
   h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
     '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
   if (S.xp > 0 && Date.now() - (S.backedUp || 0) > 7*DAY) h += '<div class="card"><b>Keep your progress safe.</b><p class="mute" style="margin:4px 0 10px">' + (S.backedUp ? 'You last saved a backup ' + Math.floor((Date.now()-S.backedUp)/DAY) + ' days ago.' : 'You have not saved a backup yet.') + ' Browsers sometimes clear saved data, so keep a copy.</p><button class="btn" id="backup0">Save a backup file</button></div>';
@@ -244,14 +245,14 @@ function renderHome(){
   var lat = S.latest && WB.lessons.filter(function(l){ return l.id === S.latest; })[0];
   if (lat) h += '<div class="card"><div class="mute">Your latest lesson</div><h3>' + esc(lat.title) + '</h3><p class="mute">' + lat.words.length + ' words · ' + lat.words.filter(function(w){ return box(w) >= 3; }).length + ' well known</p><div class="row"><button class="btn" id="latest">Practise these words</button><button class="btn ghost" id="latestlist">See the list</button></div></div>';
   if (!u.length) {
-    h += '<div class="card"><h3>No words yet</h3><p>Open a lesson below, or tick the lessons you have already done. Their words will appear here.</p></div>';
+    h += '<div class="card"><h3>No words yet</h3><p>Open a lesson from your teacher\u2019s link and its words appear here automatically. Or paste a lesson link into the box above.</p></div>';
   } else {
     var daily = pickDaily();
     h += '<div class="card">' + (daily.length
       ? '<button class="btn big" id="daily">' + (isChallenge() ? 'Start challenge round' : 'Start today’s review') + ' · ' + daily.length + ' words</button>'
       : '<p>You are all caught up. Nothing is due right now.</p><button class="btn big" id="extra">Practise anyway</button>') + '</div>';
   }
-  h += '<div class="tabs"><button data-t="lessons" class="' + (tab==='lessons'?'on':'') + '">Lessons</button><button data-t="words" class="' + (tab==='words'?'on':'') + '">Words</button><button data-t="add" class="' + (tab==='add'?'on':'') + '">Add a word</button><button data-t="me" class="' + (tab==='me'?'on':'') + '">Backup</button></div>';
+  h += '<div class="tabs"><button data-t="lessons" class="' + (tab==='lessons'?'on':'') + '">My lessons</button><button data-t="words" class="' + (tab==='words'?'on':'') + '">Words</button><button data-t="add" class="' + (tab==='add'?'on':'') + '">Add a word</button><button data-t="me" class="' + (tab==='me'?'on':'') + '">Backup</button></div>';
   if (tab === 'lessons') h += lessonsHtml();
   else if (tab === 'words') h += wordsHtml();
   else if (tab === 'add') h += addHtml();
@@ -260,15 +261,15 @@ function renderHome(){
   bindHome();
 }
 function lessonsHtml(){
-  if (!WB.lessons.length) return '<div class="card">No lessons registered yet.</div>';
+  var done = WB.lessons.filter(function(l){ return S.done[l.id]; }).sort(function(a,b){ return S.done[b.id] - S.done[a.id]; });
+  if (!done.length) return '<div class="card"><p style="margin:0">Your lessons will appear here. Open a lesson from your teacher\u2019s link and it is added automatically, or paste a lesson link into the box above.</p></div>';
   var h = '<div class="card">';
-  WB.lessons.forEach(function(l){
-    var done = !!S.done[l.id];
-    h += '<div class="lesson"><input type="checkbox" data-l="' + esc(l.id) + '"' + (done?' checked':'') + ' aria-label="I did this lesson">' +
-      '<div class="t"><a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a><small>' + esc(l.level) + ' · ' + l.words.length + ' words</small></div>' +
-      (done ? '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>' : '') + '</div>';
+  done.forEach(function(l){
+    h += '<div class="lesson"><div class="t"><a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a><small>' + esc(l.level) + (l.level ? ' \u00b7 ' : '') + l.words.length + ' words</small></div>' +
+      '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>' +
+      '<button class="btn ghost" data-unl="' + esc(l.id) + '" aria-label="Remove this lesson from my list" title="Remove">\u00d7</button></div>';
   });
-  return h + '<p class="mute">Tick a lesson once you have done it to unlock its words.</p></div>';
+  return h + '</div>';
 }
 function wordsHtml(){
   var all = Object.keys(WB.words).sort(), un = {};
@@ -339,15 +340,25 @@ function bindHome(){
     r.onload = function(){ var ok = importCode(btoa(unescape(encodeURIComponent(String(r.result))))); if (ok) { S.backedUp = Date.now(); save(); render(); } else document.getElementById('fmsg').textContent = 'That file did not work.'; };
     r.readAsText(f);
   };
+  var lk = document.getElementById('lnk');
+  function tryAdd(v){ addLessonFromText(v); render(); }
+  on('lnkgo', function(){ tryAdd(lk.value); });
+  if (lk) { lk.onkeydown = function(e){ if (e.key === 'Enter') tryAdd(lk.value); }; lk.onpaste = function(e){ var t = (e.clipboardData || window.clipboardData).getData('text'); if (t) { e.preventDefault(); tryAdd(t); } }; }
+  var dz = document.getElementById('drop');
+  if (dz) {
+    dz.ondragover = function(e){ e.preventDefault(); dz.style.borderColor = 'var(--accent)'; };
+    dz.ondragleave = function(){ dz.style.borderColor = ''; };
+    dz.ondrop = function(e){ e.preventDefault(); var t = e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain'); tryAdd(t); };
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-unl]'), function(b){
+    b.onclick = function(){ delete S.done[b.dataset.unl]; if (S.latest === b.dataset.unl) S.latest = ''; save(); render(); };
+  });
   on('skin', function(){ S.skin = isChallenge() ? 'classic' : 'challenge'; save(); render(); });
   on('daily', function(){ startRun(pickDaily(), 'Daily review'); });
   on('latest', function(){ var l = WB.lessons.filter(function(x){ return x.id === S.latest; })[0]; startRun(l.words.slice(0,10), l.title); });
   on('latestlist', function(){ tab = 'words'; render(); });
   on('extra', function(){ startRun(shuffle(unlocked()).slice(0,8), 'Practice'); });
   Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function(b){ b.onclick = function(){ tab = b.dataset.t; render(); }; });
-  Array.prototype.forEach.call(document.querySelectorAll('input[data-l]'), function(c){
-    c.onchange = function(){ if (c.checked) S.done[c.dataset.l] = Date.now(); else delete S.done[c.dataset.l]; save(); render(); };
-  });
   Array.prototype.forEach.call(document.querySelectorAll('[data-boss]'), function(b){
     b.onclick = function(){ var l = WB.lessons.filter(function(x){ return x.id === b.dataset.boss; })[0]; startRun(l.words.slice(), l.title, true); };
   });
@@ -355,6 +366,16 @@ function bindHome(){
   on('copy', function(){ var t = document.getElementById('code'); t.select(); try { document.execCommand('copy'); } catch(e){} var m=this; m.textContent='Copied ✓'; });
   on('import', function(){ var ok = importCode(document.getElementById('incode').value); if (ok) render(); else document.getElementById('msg').textContent = 'That code did not work.'; });
   on('reset', function(){ if (confirm('Erase all your progress on this device?')) { S = {}; try { localStorage.removeItem(KEY); } catch(e){} S = load(); render(); } });
+}
+function addLessonFromText(t){
+  var m = String(t || '').match(/([^\/?#\s]+)\.html/i);
+  var id = m ? decodeURIComponent(m[1]) : '';
+  var l = WB.lessons.filter(function(x){ return x.id === id; })[0];
+  if (!l) { lnkMsg = id ? 'That lesson is not in My Words yet. You can still add words one by one in the Add a word tab.' : 'That does not look like a lesson link.'; return false; }
+  if (!S.done[l.id]) S.done[l.id] = Date.now();
+  S.latest = l.id; save(); tab = 'lessons';
+  lnkMsg = 'Added: ' + l.title + ' \u2014 ' + l.words.length + ' words';
+  return true;
 }
 function say(t){ try { var u = new SpeechSynthesisUtterance(t); u.lang = 'en-GB'; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch(e){} }
 

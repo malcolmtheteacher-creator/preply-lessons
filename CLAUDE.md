@@ -1,3 +1,9 @@
+# Where things live (read first)
+
+- **"My website" / "the homepage"** = `~/Documents/01_Work/malcolmtheteacher-creator.github.io/index.html` (a separate repo, served at malcolmhyndman.com). Edit and push THAT repo for any homepage request.
+- `malcolm_lesson_index.html` in this folder is only the searchable lesson index. It is not the website. Only change it if asked for "the lesson index".
+- This folder is the `preply-lessons` repo: lessons, dashboards and `wordbank/`.
+
 # Word Bank (My Words) — required for every new lesson
 
 Students review lesson vocabulary in `wordbank/index.html`. Lessons feed it automatically, but only if they follow this.
