@@ -28,6 +28,7 @@
       isDash ? 'Open My Words' : 'Practise them',
       'background:#14b8a6;color:#fff;text-decoration:none;padding:6px 14px;border-radius:8px;font-weight:600;white-space:nowrap'));
     b.appendChild(link(base + 'index.html#add', '+ Add a word', 'color:#5eead4;text-decoration:none;white-space:nowrap'));
+    b.appendChild(link(base + '../journey/index.html', 'My Room', 'color:#fcd34d;text-decoration:none;white-space:nowrap'));
     var x = document.createElement('button');
     x.textContent = '\u00d7'; x.setAttribute('aria-label', 'Hide');
     x.style.cssText = 'background:none;border:0;color:#94a3b8;font-size:20px;cursor:pointer';
