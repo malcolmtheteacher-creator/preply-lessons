@@ -103,8 +103,8 @@ function markDone(ids){
   if (ids.length) { var last = ids.filter(function(id){ return S.done[id]; }).pop(); if (last) S.latest = last; save(); }
   return n;
 }
-(function(){
-  var q = location.search, m = q.match(/[?&]lesson=([^&]+)/), changed = false;
+function applyQuery(q){
+  var m = q.match(/[?&]lesson=([^&]+)/), changed = false;
   if (m) { var id = decodeURIComponent(m[1]); if (WB.lessons.some(function(l){ return l.id === id; })) { if (!S.done[id]) S.done[id] = Date.now(); S.latest = id; save(); if (/[?&]practise=1/.test(q)) autoRun = id; } changed = true; }
   var ml = q.match(/[?&]lessons=([^&]+)/);
   if (ml) { var got = markDone(decodeURIComponent(ml[1]).split(',').map(function(x){ return x.trim().replace(/\.html$/, ''); }).filter(Boolean)); catchMsg = got ? 'Caught up: ' + got + ' lesson' + (got === 1 ? '' : 's') + ' added to My Words and My Room.' : 'Those lessons were already in My Words.'; changed = true; }
@@ -116,8 +116,9 @@ function markDone(ids){
     var list = WB.lessons.filter(function(l){ var k = l.id.match(re); return k && +k[1] <= up; }).sort(function(a, b){ return a.id < b.id ? -1 : 1; }).map(function(l){ return l.id; });
     var got2 = markDone(list); catchMsg = got2 ? 'Caught up: ' + got2 + ' lesson' + (got2 === 1 ? '' : 's') + ' added to My Words and My Room.' : 'Those lessons were already in My Words.'; changed = true;
   }
-  if (changed) { try { history.replaceState(null, '', location.pathname); } catch(e){} }
-})();
+  return changed;
+}
+(function(){ if (applyQuery(location.search)) { try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
 mergeCustom();
 var added = parseAdd();
@@ -436,6 +437,8 @@ function bindHome(){
   on('reset', function(){ if (confirm('Erase all your progress on this device?')) { S = {}; try { localStorage.removeItem(KEY); } catch(e){} S = load(); render(); } });
 }
 function addLessonFromText(t){
+  var qm = String(t || '').match(/\?([^\s#]*(?:series|lessons|talk)=[^\s#]*)/);
+  if (qm) { catchMsg = ''; applyQuery('?' + qm[1]); lnkMsg = catchMsg || 'Those lessons were already in My Words.'; tab = 'lessons'; return true; }
   var ids = [], re = /([^\/?#\s,;]+)\.html/ig, m;
   while ((m = re.exec(String(t || '')))) { var x; try { x = decodeURIComponent(m[1]); } catch(e){ x = m[1]; } if (ids.indexOf(x) < 0 && !/dashboard|index$/i.test(x)) ids.push(x); }
   if (!ids.length) { lnkMsg = 'That does not look like a lesson link.'; return false; }
