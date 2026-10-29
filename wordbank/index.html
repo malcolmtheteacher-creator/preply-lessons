@@ -243,7 +243,7 @@ function renderHome(){
   var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
   var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
     '<div class="row"><a class="btn ghost" href="../journey/index.html" style="text-decoration:none">My Room</a><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
-  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste the lesson link here, or drag it onto this box. Lessons you open from the link are added automatically.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0">' + esc(lnkMsg) + '</p></div>';
+  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste the lesson link here, or drag it onto this box. Lessons you open from the link are added automatically.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="lnkpaste" type="button">Paste</button><button class="btn" id="lnkgo">Add</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0">' + esc(lnkMsg) + '</p></div>';
   h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
     '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
   if (S.xp > 0 && Date.now() - (S.backedUp || 0) > 7*DAY) h += '<div class="card"><b>Keep your progress safe.</b><p class="mute" style="margin:4px 0 10px">' + (S.backedUp ? 'You last saved a backup ' + Math.floor((Date.now()-S.backedUp)/DAY) + ' days ago.' : 'You have not saved a backup yet.') + ' Browsers sometimes clear saved data, so keep a copy.</p><button class="btn" id="backup0">Save a backup file</button></div>';
@@ -349,7 +349,18 @@ function bindHome(){
   var lk = document.getElementById('lnk');
   function tryAdd(v){ addLessonFromText(v); render(); }
   on('lnkgo', function(){ tryAdd(lk.value); });
-  if (lk) { lk.onkeydown = function(e){ if (e.key === 'Enter') tryAdd(lk.value); }; lk.onpaste = function(e){ var t = (e.clipboardData || window.clipboardData).getData('text'); if (t) { e.preventDefault(); tryAdd(t); } }; }
+  function clipText(e){ var c = e.clipboardData || window.clipboardData; if (!c) return ''; return c.getData('text/plain') || c.getData('text') || c.getData('text/uri-list') || c.getData('text/html') || ''; }
+  function say2(m){ lnkMsg = m; var el = document.getElementById('lnkmsg'); if (el) el.textContent = m; }
+  if (lk) {
+    lk.onkeydown = function(e){ if (e.key === 'Enter') tryAdd(lk.value); };
+    lk.onpaste = function(e){ e.preventDefault(); var t = clipText(e); if (t) tryAdd(t); else say2('Could not read the clipboard. Use the Paste button, or drag the link onto this box.'); };
+    lk.oninput = function(){ if (/\.html/i.test(lk.value)) tryAdd(lk.value); };
+  }
+  on('lnkpaste', function(){
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      navigator.clipboard.readText().then(function(t){ if (t) tryAdd(t); else say2('Nothing to paste. Copy the lesson link first.'); }, function(){ say2('Your browser would not let me read the clipboard. Click in the box and press Cmd+V (Ctrl+V on Windows).'); if (lk) lk.focus(); });
+    } else { say2('Click in the box and press Cmd+V (Ctrl+V on Windows).'); if (lk) lk.focus(); }
+  });
   var dz = document.getElementById('drop');
   if (dz) {
     dz.ondragover = function(e){ e.preventDefault(); dz.style.borderColor = 'var(--accent)'; };
