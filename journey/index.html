@@ -73,7 +73,20 @@ body.imm .dots i{background:rgba(246,236,212,.35)}body.imm .dots i.on{background
 .sheet .x{position:absolute;right:10px;top:8px;background:none;border:0;color:#cdbf9f;font-size:1.5rem;cursor:pointer}
 .hint{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);width:max-content;max-width:min(520px,calc(100vw - 24px));text-align:center;background:rgba(20,17,15,.6);backdrop-filter:blur(8px);border:1px solid rgba(246,236,212,.2);border-radius:18px;padding:8px 18px;z-index:4;transition:opacity .4s}
 .hint.off{opacity:0;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.par svg{animation:none}.cam.go{transition:none}.fadein{animation:none}}
+.mia{cursor:pointer;outline:none}
+.mia .mfig{transform-box:fill-box;transform-origin:50% 100%;animation:mbreath 5.5s ease-in-out infinite}
+@keyframes mbreath{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.012)}}
+.mia:hover .mfig,.mia:focus-visible .mfig{filter:drop-shadow(0 0 6px rgba(255,226,160,.8))}
+.mav{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(246,236,212,.55);background:#2a211b;flex:none}
+.hint.mia-h{display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:#f6ecd4;font-size:.95rem;line-height:1.4;padding:10px 18px 10px 12px}
+.hint.mia-h .mute{display:block;font-size:.8rem;margin-top:2px}
+.miab{display:flex;gap:14px;align-items:flex-start;margin:4px 0 12px}
+.miab .mav{width:62px;height:62px}
+.miab .mname{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#cdbf9f}
+.miab .msay{font:400 1.12rem/1.45 var(--head);color:#fff4d6;margin-top:2px}
+.mtask{background:rgba(246,236,212,.07);border:1px solid rgba(246,236,212,.18);border-radius:12px;padding:10px 12px;margin:0 0 10px;color:#f3e9d2}
+.mtask textarea{width:100%;box-sizing:border-box;min-height:64px;margin-top:8px;border-radius:8px;border:1px solid rgba(246,236,212,.25);background:rgba(10,8,6,.5);color:#f3e9d2;padding:8px;font:inherit}
+@media (prefers-reduced-motion:reduce){.mia .mfig{animation:none}.par svg{animation:none}.cam.go{transition:none}.fadein{animation:none}}
 </style>
 </head>
 <body class="classic">
@@ -290,6 +303,7 @@ function roomSvg(ri){
       '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="46" fill="transparent"/></g>';
   });
   if (EDIT && useImg) ORDER.forEach(function(o, slot){ var p = posFor(ri, slot); s += '<g pointer-events="none"><circle cx="' + p.x + '" cy="' + p.y + '" r="18" fill="' + (slot === editSlot ? '#14b8a6' : '#f59e0b') + '" fill-opacity=".8" stroke="#fff" stroke-width="2"/><text x="' + p.x + '" y="' + (p.y + 5) + '" text-anchor="middle" font-size="16" font-weight="700" fill="#000">' + (slot + 1) + '</text></g>'; });
+  if (!EDIT && imgOk[ri % IMGS.length]) s += miaSvg(ri);
   // dust motes
   for (var m = 0; m < 16; m++) { var mx = 160 + (m * 137) % 700, my = 120 + (m * 89) % 380; s += '<circle class="mote" cx="' + mx + '" cy="' + my + '" r="' + (1.2 + (m % 3) * .6) + '" fill="#fff3d0" opacity="' + (.18 + (m % 4) * .06) + '" style="animation-delay:-' + (m * 1.3) + 's;animation-duration:' + (9 + m % 5 * 2) + 's"/>'; }
   s += '<rect width="1000" height="640" fill="url(#vg)" pointer-events="none"/>';
@@ -311,7 +325,8 @@ function renderClassic(){
     h += '<i class="' + (i === cur ? 'on ' : '') + (n >= CAP ? 'full' : '') + '" data-r="' + i + '" title="Room ' + (i+1) + '"></i>';
   }
   h += '</div>';
-  var it = sel !== null ? items.filter(function(x){ return x.room === cur && x.slot === sel; })[0] : null;
+  var isMia = sel === 'mia';
+  var it = sel !== null && !isMia ? items.filter(function(x){ return x.room === cur && x.slot === sel; })[0] : null;
   if (it) {
     var l = it.lesson, st = stats(l);
     h += '<div class="card"><div class="mute">' + esc(l.level) + '</div><h2 style="font:400 1.4rem/1.2 Georgia,serif;margin:2px 0 4px">' + esc(l.title) + '</h2>' +
@@ -347,6 +362,79 @@ function renderClassic(){
   Array.prototype.forEach.call(app.querySelectorAll('.dots i'), function(d){ d.onclick = function(){ cur = +d.getAttribute('data-r'); sel = null; render(); }; });
 }
 
+/* ---------- Mia: the resident of every room ---------- */
+function lsg(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lss(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+var MIA_FACE = {smile:'img/mia_smile.jpg', think:'img/mia_think.jpg', laugh:'img/mia_laugh.jpg'};
+var MIA = {x:470, y:528, h:150};
+var prevVisit = +lsg('jr_visit') || 0; lss('jr_visit', String(Date.now()));
+var lastPick = {};
+function choose(key, arr){ var i = Math.floor(Math.random() * arr.length); if (arr.length > 1 && i === lastPick[key]) i = (i + 1) % arr.length; lastPick[key] = i; return arr[i]; }
+function fmt(t, v){ return t.replace(/\{(\w+)\}/g, function(m, k){ return v[k] != null ? v[k] : m; }); }
+function miaSvg(ri){
+  var w = MIA.h * 222 / 720;
+  return '<g class="mia" tabindex="0" role="button" aria-label="Mia">' +
+    '<ellipse cx="' + MIA.x + '" cy="' + (MIA.y - 2) + '" rx="' + (w * .62) + '" ry="7" fill="#000" opacity=".38"/>' +
+    '<image class="mfig" href="img/mia_stand.png" x="' + (MIA.x - w / 2) + '" y="' + (MIA.y - MIA.h) + '" width="' + w + '" height="' + MIA.h + '"/>' +
+    '<rect x="' + (MIA.x - w * .7) + '" y="' + (MIA.y - MIA.h) + '" width="' + (w * 1.4) + '" height="' + MIA.h + '" fill="transparent"/></g>';
+}
+function miaState(){
+  var due = 0, worst = null, wd = 0;
+  lessons.forEach(function(l){ if (l.rec) return; var d = stats(l).due; due += d; if (d > wd) { wd = d; worst = l; } });
+  var newest = lessons.length ? lessons[lessons.length - 1] : null;
+  var inRoom = items.filter(function(it){ return it.room === cur; }).length;
+  return {due: due, worst: worst, newest: newest, inRoom: inRoom, gap: prevVisit ? Date.now() - prevVisit : 0};
+}
+var MIA_SAY = {
+  intro: ['Hello. I am Mia. I look after this room. Each lesson you finish puts something here, and I will help you keep it all bright.'],
+  empty: ['Your room is empty for now. Finish a lesson and I will put the first thing in it.', 'It is quiet in here today. Do a lesson with your teacher and there will be something to show you.'],
+  due: ['{n} words are ready to review. Shall we start with “{title}”?', 'Some of your words need a little attention. {n} are ready, and it only takes a few minutes.', 'I think “{title}” is getting dusty. Come and practise it with me.', 'A few minutes now, and these words stay with you. {n} are waiting.'],
+  fresh: ['Everything here is bright today. Well done. Would you like something to say out loud?', 'All your words are fresh. That is a good feeling.', 'Nothing to review. Shall we try a little speaking instead?'],
+  back: ['You are back. I kept everything just as you left it.', 'I am glad you came. Let us see what has faded since last time.'],
+  full: ['This room is full. Take a moment to look around. The next room is open whenever you are ready.'],
+  talk: ['I liked your conversation about “{title}”. Shall we say it again, a little clearer?']
+};
+function miaLine(){
+  var st = miaState(), v = {n: st.due, title: st.worst ? st.worst.title : (st.newest ? st.newest.title : '')}, kind, face = 'smile';
+  if (!lsg('jr_mia_met')) kind = 'intro';
+  else if (!lessons.length) kind = 'empty';
+  else if (st.gap > 7 * DAY) { kind = 'back'; face = 'laugh'; }
+  else if (st.inRoom >= CAP && cur === roomCount - 1) { kind = 'full'; face = 'laugh'; }
+  else if (st.due) { kind = 'due'; face = 'think'; }
+  else if (st.newest && st.newest.talk) { kind = 'talk'; v.title = st.newest.title; }
+  else { kind = 'fresh'; face = 'laugh'; }
+  v.title = v.title.replace(/^Mia \u2014 /, '').replace(/^Lesson \d+ \u00b7 /, '');
+  return {text: fmt(choose(kind, MIA_SAY[kind]), v), face: face, st: st};
+}
+var MIA_NOW = null;
+var MIA_REPLY = ['Lovely. Now say it once more, a little slower. It sounds better each time.', 'Good. That is exactly how words move from your head to your mouth.', 'Well said. Tell your teacher about it in your next lesson.', 'I liked that. Keep it, and use it again tomorrow.'];
+function miaTask(){
+  var pool = lessons.filter(function(l){ return !l.rec && l.words.length >= 2; }), recs = lessons.filter(function(l){ return l.rec && !l.talk; }), talks = lessons.filter(function(l){ return l.talk; });
+  var opts = [];
+  if (pool.length) { var l = pool[Math.floor(Math.random() * pool.length)], ws = l.words.slice().sort(function(){ return Math.random() - .5; }), v = {title: l.title, w1: ws[0], w2: ws[1]};
+    ['Use “{w1}” and “{w2}” together in two sentences about your own life.', 'Explain “{w1}” to me without using the word itself.', 'Tell me about “{title}” in thirty seconds. Try to use “{w1}”.', 'Imagine you are telling a friend about “{title}”. What would you say first?'].forEach(function(t){ opts.push(fmt(t, v)); }); }
+  if (recs.length) { var r = recs[Math.floor(Math.random() * recs.length)]; opts.push(fmt('Tell me one thing you remember from “{title}”.', {title: r.title}), fmt('If a friend asked what “{title}” was about, what would you say?', {title: r.title})); }
+  if (talks.length) { var tk = talks[Math.floor(Math.random() * talks.length)]; opts.push(fmt('What did you say about “{title}”? Say it again, a little clearer and a little longer.', {title: tk.title})); }
+  if (!opts.length) opts.push('Tell me about your day in three sentences.');
+  return choose('task', opts);
+}
+function miaSheet(task, done){
+  var m = MIA_NOW || (MIA_NOW = miaLine()), st = m.st, face = done ? 'laugh' : (task ? 'smile' : m.face), say = done ? choose('reply', MIA_REPLY) : task ? choose('lead', ['Here is something to try.', 'Try this one.', 'Take your time with this.']) : m.text;
+  var h = '<button class="x" id="closesheet" aria-label="Close">×</button><div class="miab"><img class="mav" src="' + MIA_FACE[face] + '" alt="Mia"><div><div class="mname">Mia</div><div class="msay">' + esc(say) + '</div></div></div>';
+  if (task && !done) h += '<div class="mtask">' + esc(task) + '<textarea id="mtext" placeholder="Say it out loud first, then write it here if you like."></textarea></div><div class="row"><button class="btn" id="mdone">I have said it</button><button class="btn ghost" id="mother">Another one</button></div>';
+  else h += '<div class="row">' + (st.due && st.worst && !done ? '<a class="btn" href="../wordbank/index.html?lesson=' + encodeURIComponent(st.worst.id) + '&practise=1">Review ' + st.due + ' word' + (st.due === 1 ? '' : 's') + '</a>' : '') + '<button class="btn' + (st.due && !done ? ' ghost' : '') + '" id="mtask">' + (done ? 'Another one' : 'Give me something to say') + '</button></div>';
+  return h;
+}
+function bindMia(){
+  var sheet = document.getElementById('sheet'), cl = document.getElementById('closesheet');
+  if (cl) cl.onclick = function(e){ e.stopPropagation(); sel = null; applySel(); };
+  function show(task, done){ sheet.innerHTML = miaSheet(task, done); bindMia(); }
+  var t = document.getElementById('mtask'), o = document.getElementById('mother'), d = document.getElementById('mdone');
+  if (t) t.onclick = function(){ show(miaTask(), false); };
+  if (o) o.onclick = function(){ show(miaTask(), false); };
+  if (d) d.onclick = function(){ show(null, true); };
+}
+
 /* ---------- immersive full-screen scene ---------- */
 var camT = null;
 function sheetHtml(it){
@@ -361,17 +449,19 @@ function sheetHtml(it){
 function applySel(){
   var cam = document.getElementById('cam'), scene = document.getElementById('scene'), sheet = document.getElementById('sheet'), hint = document.getElementById('hint');
   if (!cam) return;
-  var it = sel !== null ? items.filter(function(x){ return x.room === cur && x.slot === sel; })[0] : null;
-  Array.prototype.forEach.call(document.querySelectorAll('.slot'), function(g){ g.classList.toggle('sel', it && +g.getAttribute('data-slot') === sel); });
+  var isMia = sel === 'mia';
+  var it = sel !== null && !isMia ? items.filter(function(x){ return x.room === cur && x.slot === sel; })[0] : null;
+  Array.prototype.forEach.call(document.querySelectorAll('.slot'), function(g){ g.classList.toggle('sel', !!it && +g.getAttribute('data-slot') === sel); });
   cam.classList.add('go');
-  if (it) {
-    var pt = posFor(cur, sel), W = cam.offsetWidth, H = cam.offsetHeight, vw = innerWidth, vh = innerHeight, k = 2.1;
+  if (it || isMia) {
+    var pt = isMia ? {x: MIA.x, y: MIA.y - MIA.h * .55} : posFor(cur, sel), W = cam.offsetWidth, H = cam.offsetHeight, vw = innerWidth, vh = innerHeight, k = isMia ? 1.7 : 2.1;
     var px = pt.x / 1000 * W, py = pt.y / 640 * H, sl = scene.scrollLeft, st = scene.scrollTop;
     var tx = vw / 2 - px * k + sl, ty = vh * (vw < 700 ? .3 : .4) - py * k + st;
     tx = Math.min(sl, Math.max(vw - W * k + sl, tx)); ty = Math.min(st, Math.max(vh - H * k + st, ty));
     cam.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + k + ')';
-    sheet.innerHTML = sheetHtml(it); sheet.classList.add('on'); hint.classList.add('off');
-    var cl = document.getElementById('closesheet'); if (cl) cl.onclick = function(e){ e.stopPropagation(); sel = null; applySel(); };
+    if (isMia) { lss('jr_mia_met', '1'); sheet.innerHTML = miaSheet(); } else sheet.innerHTML = sheetHtml(it);
+    sheet.classList.add('on'); hint.classList.add('off');
+    if (isMia) bindMia(); else { var cl = document.getElementById('closesheet'); if (cl) cl.onclick = function(e){ e.stopPropagation(); sel = null; applySel(); }; }
   } else {
     cam.style.transform = 'none';
     sheet.classList.remove('on'); hint.classList.remove('off');
@@ -396,12 +486,13 @@ function renderImm(){
     var n = items.filter(function(it){ return it.room === i; }).length;
     h += '<i class="' + (i === cur ? 'on ' : '') + (n >= CAP ? 'full' : '') + '" data-r="' + i + '" title="Room ' + (i + 1) + '"></i>';
   }
-  h += '</div><div class="hint" id="hint"><span class="mute">' + hintTxt + '</span></div><div class="sheet" id="sheet"></div>';
+  var ml = MIA_NOW = MIA_NOW || miaLine();
+  h += '</div><div class="hint mia-h" id="hint"><img class="mav" src="' + MIA_FACE[ml.face] + '" alt="Mia"><div>' + esc(ml.text) + '<span class="mute">Tap an object to step closer, or tap me.</span></div></div><div class="sheet" id="sheet"></div>';
   app.innerHTML = h;
   var scene = document.getElementById('scene');
   scene.scrollLeft = keepL !== null ? keepL : (Wc - vw) / 2;
   scene.scrollTop = keepT !== null ? keepT : (Hc - vh) * .35;
-  scene.onclick = function(e){ if (!e.target.closest('.slot') && sel !== null) { sel = null; applySel(); } };
+  scene.onclick = function(e){ if (!e.target.closest('.slot,.mia') && sel !== null) { sel = null; applySel(); } };
   scene.onmousemove = function(e){
     if (sel !== null || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5, par = document.getElementById('par');
@@ -411,6 +502,8 @@ function renderImm(){
     function pick(e){ if (e) e.stopPropagation(); sel = +g.getAttribute('data-slot'); applySel(); }
     g.onclick = pick; g.onkeydown = function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } };
   });
+  var mi = app.querySelector('.mia'); if (mi) { mi.onclick = function(e){ e.stopPropagation(); sel = 'mia'; applySel(); }; mi.onkeydown = function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sel = 'mia'; applySel(); } }; }
+  var hn = document.getElementById('hint'); if (hn) hn.onclick = function(e){ e.stopPropagation(); sel = 'mia'; applySel(); };
   var p = document.getElementById('prev'), nx = document.getElementById('next');
   if (p) p.onclick = function(){ if (cur > 0) { cur--; sel = null; renderImm(); } };
   if (nx) nx.onclick = function(){ if (cur < roomCount - 1) { cur++; sel = null; renderImm(); } };
