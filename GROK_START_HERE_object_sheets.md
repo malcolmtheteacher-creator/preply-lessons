@@ -12,7 +12,7 @@ Each sheet is ONE square image (2048 x 2048 or larger) holding exactly 36 small 
 4. **Attach a reference room picture** with every prompt so the style matches. Use this one (save it first; convert to PNG if Grok will not take webp): https://malcolmhyndman.com/preply-lessons/journey/img/room1_study.webp
 5. **Check the first object** of the image against the "First object" line before sending it on. Wrong sheet, repeated sheet and merged objects have all happened.
 6. If it gets the count or order wrong, say: "Exactly 36 objects, 6 columns by 6 rows, in the order listed, each fully separate with magenta all round it." If 36 is too many, ask for the first 18 and the last 18 as two images and say so.
-7. Name each file with its sheet number, for example `sheet03.png`.
+7. Name each file with its sheet number, for example `sheet03.png`, and **save it in `journey/incoming/` inside this repo** (that is the only place to put them). Do not cut, edit or push anything else; Claude cuts them and checks each one.
 
 ## Sheets still to make
 Sheets 01, 02 and 04 are done. Make these: **03, 05, 06, 07, 08, 09, 10.** (The full prompt list, including finished sheets, is in `JOURNEY_OBJECT_SHEETS.md`.)
