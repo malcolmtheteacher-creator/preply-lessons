@@ -6975,6 +6975,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "skills_b2c1_playing_a_different_game",
+   "title": "Playing a Different Game",
+   "level": "",
+   "words": [
+    "incumbent",
+    "outmanoeuvre",
+    "undercut",
+    "leverage",
+    "contingency",
+    "pivot",
+    "niche",
+    "concession"
+   ]
+  },
+  {
    "id": "skills_c1_leading_a_discussion",
    "title": "Questions That Make People Think",
    "level": "",
@@ -16280,11 +16295,12 @@ window.WORDBANK={
    "w": "leverage",
    "pos": "n",
    "def": "gain / use / lose leverage over someone; a source of leverage. Also a verb in business English: to leverage our scale = to use it to advantage. (In finance, leverage also means borrowing.)",
-   "ex": "",
+   "ex": "Whoever has another supplier has more leverage.",
    "lessons": [
     "bc_china_challenge_c1",
     "behind_the_screen_the_big_short",
     "c1_pro_21_financial_literacy",
+    "skills_b2c1_playing_a_different_game",
     "skills_c1_senior_interview_5_closing"
    ]
   },
@@ -18809,9 +18825,10 @@ window.WORDBANK={
    "w": "incumbent",
    "pos": "n/adj",
    "def": "the established leader currently holding the position. Incumbent advantage, the incumbent operator. Same word for a politician in office.",
-   "ex": "",
+   "ex": "The incumbent had most of the market, so the newcomer had to find another way in.",
    "lessons": [
-    "bc_nokia_c1"
+    "bc_nokia_c1",
+    "skills_b2c1_playing_a_different_game"
    ]
   },
   "disruption": {
@@ -19334,6 +19351,7 @@ window.WORDBANK={
    "ex": "Many teachers eventually pivot into materials writing, examining, or one-to-one online work.",
    "lessons": [
     "bc_orsted_bet_the_company_c1",
+    "skills_b2c1_playing_a_different_game",
     "techniques_the_verger_english_teacher",
     "techniques_the_verger_jobseeker"
    ]
@@ -21256,11 +21274,12 @@ window.WORDBANK={
    "w": "contingency",
    "pos": "n",
    "def": "a possible future event or situation that is planned for in case it happens; a backup plan for the unexpected.",
-   "ex": "",
+   "ex": "Whatever happens, we have a contingency for it.",
    "lessons": [
     "behind_the_screen_apollo_13",
     "behind_the_screen_first_man",
-    "short_history_apollo_13"
+    "short_history_apollo_13",
+    "skills_b2c1_playing_a_different_game"
    ]
   },
   "decipher": {
@@ -30448,9 +30467,10 @@ window.WORDBANK={
    "w": "outmanoeuvre",
    "pos": "v",
    "def": "to defeat or gain advantage over someone by cleverer positioning or tactics, not brute force.",
-   "ex": "",
+   "ex": "A smaller rival outmanoeuvred them by launching in a city they had ignored.",
    "lessons": [
     "short_history_cleopatra",
+    "skills_b2c1_playing_a_different_game",
     "tib_ooda_b2"
    ]
   },
@@ -30508,9 +30528,10 @@ window.WORDBANK={
    "w": "concession",
    "pos": "n",
    "def": "something you give up or grant in order to reach an agreement or end a dispute.",
-   "ex": "",
+   "ex": "However small the concession, ask for something in return.",
    "lessons": [
-    "short_history_cuban_missile_crisis"
+    "short_history_cuban_missile_crisis",
+    "skills_b2c1_playing_a_different_game"
    ]
   },
   "vanish": {
@@ -37232,6 +37253,25 @@ window.WORDBANK={
     "short_history_watergate"
    ]
   },
+  "undercut": {
+   "w": "undercut",
+   "pos": "v",
+   "def": "to sell at a lower price than a competitor",
+   "ex": "They undercut every rival, whatever it cost them.",
+   "lessons": [
+    "skills_b2c1_playing_a_different_game"
+   ]
+  },
+  "niche": {
+   "w": "niche",
+   "pos": "n",
+   "def": "a small, specialised part of a market",
+   "ex": "He chained him into the niche.\" / \"The firm found a profitable niche.",
+   "lessons": [
+    "skills_b2c1_playing_a_different_game",
+    "techniques_the_cask_of_amontillado"
+   ]
+  },
   "explain": {
    "w": "explain",
    "pos": "",
@@ -41428,15 +41468,6 @@ window.WORDBANK={
    "pos": "noun (often plural)",
    "def": "An underground cemetery of tunnels and recesses where the dead are placed in the walls.",
    "ex": "He led his victim down into the family catacombs.",
-   "lessons": [
-    "techniques_the_cask_of_amontillado"
-   ]
-  },
-  "niche": {
-   "w": "niche",
-   "pos": "n",
-   "def": "A shallow recess set into a wall. (In business English, also: a small, specialised market segment.)",
-   "ex": "He chained him into the niche.\" / \"The firm found a profitable niche.",
    "lessons": [
     "techniques_the_cask_of_amontillado"
    ]
