@@ -4,7 +4,7 @@ The **Big Questions** page on Malcolm's site has seven question cards. Each card
 
 **Style for this task (overrides rule 1 of the shared rules):** this task is NOT the painted house style. These pictures go on pages that already use a hand-illustrated **watercolour and ink on warm cream paper** look, with a rich jewel-tone palette and fine linework. The style is already written inside every prompt below; use the prompt exactly and do not attach the room picture. Rules 3 to 7 of the shared rules still apply in full.
 
-**Each card picture is 16:9, 1600 x 900 or larger.** The top-left corner of each is left a little quiet because a number badge sits there. Keep it exactly as in the prompt.
+**Each card picture is 16:9, 1600 x 900 or larger.** The top-left corner of each must be calm and empty (the page adds its own badge later). **Never paint a badge, number or label there.**
 
 **Upload.** Follow "Exactly where and how to upload" in https://malcolmhyndman.com/preply-lessons/BOTS_START_HERE.md: repository `malcolmtheteacher-creator/preply-lessons`, branch `main` only, never create a branch, pull request or fork. Your folder for this task is `journey/incoming/folio2/` (create it by typing it into the upload path). Commit message: `Folio: round 2, <what you uploaded>`. After committing, check the files are listed on `main` and tell Malcolm the exact paths.
 
@@ -14,37 +14,37 @@ The **Big Questions** page on Malcolm's site has seven question cards. Each card
 
 ### Card 1: Why Risk It? — save as `BQ_card_01.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a lone caver in a headlamp squeezing sideways through a narrow crack in glowing rock, a vast hidden chamber opening ahead, tiny against the stone, mist and warm light, teal and amber palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a lone caver in a headlamp squeezing sideways through a narrow crack in glowing rock, a vast hidden chamber opening ahead, tiny against the stone, mist and warm light, teal and amber palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 2: Is It Still the Same Ship? — save as `BQ_card_02.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a wooden sailing ship in a quiet harbour at dawn, half of its planks old and dark, half pale and new, a faint ghost outline of the original ship behind it, blue and gold palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a wooden sailing ship in a quiet harbour at dawn, half of its planks old and dark, half pale and new, a faint ghost outline of the original ship behind it, blue and gold palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 3: Would You Plug In? — save as `BQ_card_03.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a calm figure floating in a glass tank of soft violet light, dreamlike paradise landscapes glowing inside the glass, a real sunrise visible outside the window beyond, violet and rose palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a calm figure floating in a glass tank of soft violet light, dreamlike paradise landscapes glowing inside the glass, a real sunrise visible outside the window beyond, violet and rose palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 4: The Trolley and the Footbridge — save as `BQ_card_04.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: an old tram on a track that splits in two at a lever, a stone footbridge arching above, tiny distant figures as abstract silhouettes, dusk light, no violence shown, crimson and slate palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: an old tram on a track that splits in two at a lever, a stone footbridge arching above, tiny distant figures as abstract silhouettes, dusk light, no violence shown, crimson and slate palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 5: Is It Art? — save as `BQ_card_05.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a bright gallery with ordinary objects displayed like treasures on plinths (a banana, a wooden chair, a bottle rack), a small crowd of puzzled and delighted silhouettes, amber and cream palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a bright gallery with ordinary objects displayed like treasures on plinths (a banana, a wooden chair, a bottle rack), a small crowd of puzzled and delighted silhouettes, amber and cream palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 6: Is Free Will an Illusion? — save as `BQ_card_06.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a figure at a crossroads whose shadow is drawn in gears and glowing neurons, a clock face in the sky, two paths ahead, one hand reaching out, green and silver palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: a figure at a crossroads whose shadow is drawn in gears and glowing neurons, a clock face in the sky, two paths ahead, one hand reaching out, green and silver palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 ### Card 7: Is Luck Fair? — save as `BQ_card_07.png`
 ```
-A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: runners on a long track starting from very different places, a pair of dice mid-roll in the foreground, a soft veil of mist hanging over the start line, magenta and gold palette. Leave the top-left corner a little quiet, as a number badge sits there.
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no logos, no photo-realism. Scene: runners on a long track starting from very different places, a pair of dice mid-roll in the foreground, a soft veil of mist hanging over the start line, magenta and gold palette. Keep the top-left corner calm and empty, with no badge, number or shape in it.
 ```
 
 **What Claude does next:** checks each picture, converts it to the site's format, and puts it on the page. You do not need to do anything else.
