@@ -77,13 +77,30 @@ POOLS = {
 }
 GENERIC = ['notebook','lightbulb','telescope','compass' if False else 'pocketwatch','owl','bookstack','lantern' if False else 'handlamp','scroll','globe','magnifier','hourglass','teapot']
 keyset = set(keys)
-m = dict(o['map']); stats = {'kept': len(m), 'rule': 0, 'pool': 0, 'spread': 0}
+libkeys = {x['key'] for x in o['library']}
+hand = json.load(open(root + '/journey/objects_hand_map.json'))
+base_keys = [x['key'] for x in o['library'] if x['sheet'] <= 10]
+ready_now = {k for k in keys if os.path.exists(f'{root}/journey/img/obj/{k}.png')}
+new = []
+for ln in open(root + '/tools/new_objects.txt'):
+    if ln.strip() and not ln.startswith('#'):
+        k, _, rx = [x.strip() for x in ln.split(' :: ')]
+        new.append((k, re.compile(r'\b(?:' + rx + r')')))
+m = dict(hand); stats = {'kept': len(m), 'new': 0, 'rule': 0, 'pool': 0, 'spread': 0}
+keys = base_keys; keyset = set(keys)
 for lid, (title, level, series) in d.items():
     if lid in m: continue
     ti = re.sub(r'\s*[-\u2014]\s*(year \d+ )?(religious studies|b\d.*|c\d.*|a\d.*|english lesson)$', '', title, flags=re.I)
     if ':' in ti and len(ti.split(':')[0].split()) <= 4: ti = ti.split(':', 1)[1]
     s = ti.lower()
     c = None
+    for nk, nrx in new:
+        if nrx.search(s) and nk in libkeys:
+            m[lid] = nk if nk in ready_now else None; stats['new'] += 1; c = 'N'; break
+    if c == 'N':
+        if m[lid] is None: m.pop(lid)
+        else: continue
+        c = None
     if series == 'Religious Studies':
         lst = RULES[-3][1] if False else ['candlestick','orthodoxcross','dome','temple','dove','scroll','candle','lanterns','bamboo','tree']
         rel = [(r'\b(islam|muslim|mosque|hajj|ramadan|quran|prophet)', ['dome','moon','lanterns']),
@@ -109,6 +126,6 @@ for lid, (title, level, series) in d.items():
     m[lid] = c
 o['map'] = m
 json.dump(o, open(root + '/journey/objects.json', 'w'), indent=1, ensure_ascii=False)
-ready = sorted(k for k in keys if os.path.exists(f'{root}/journey/img/obj/{k}.png'))
+ready = sorted(k for k in libkeys if os.path.exists(f'{root}/journey/img/obj/{k}.png'))
 open(root + '/journey/objects_ready.js', 'w').write('window.OBJ_READY=' + json.dumps({k: 1 for k in ready}) + ';window.OBJ_MAP=' + json.dumps(m, separators=(',', ':')) + ';')
 print(stats, len(m))

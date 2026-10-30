@@ -59,3 +59,6 @@ ready = sorted(k for k in keys if os.path.exists(os.path.join(od, k + '.png')))
 open(os.path.join(root, 'journey/objects_ready.js'), 'w').write(
     'window.OBJ_READY=' + json.dumps({k: 1 for k in ready}) + ';window.OBJ_MAP=' + json.dumps(d['map'], separators=(',', ':')) + ';')
 print(len(ready), 'objects ready')
+
+import subprocess, sys
+subprocess.run([sys.executable, os.path.join(root, 'tools/match_objects.py')])

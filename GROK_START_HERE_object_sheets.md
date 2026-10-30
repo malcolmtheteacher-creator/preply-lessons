@@ -1,27 +1,47 @@
-# GROK: START HERE (My Room painted object sheets)
+# GROK: START HERE — My Room painted object sheets, project list
 
-This file tells you what to make. Make one image per sheet below and give each back to Malcolm. He passes them to Claude, who cuts them into single objects and puts them on the website.
+**Read this whole file first. Claude is in charge of this project and is responsible for the finished result; Grok does the painting. Claude checks every sheet you deliver, so follow the rules exactly.**
 
-## What you are making
-Each sheet is ONE square image (2048 x 2048 or larger) holding exactly 36 small painted treasures in a 6 column x 6 row grid, in the order listed in the prompt.
+## The job
+Malcolm teaches English. His website has a page called **My Room**: a painted room that fills with small collectible objects as students complete lessons. Each lesson gets an object that matches its subject (a film, a historical person, a shop scene, an idea). You are making the pictures of those objects.
 
-## Rules that matter (the cutting tool depends on them)
-1. **Flat pure magenta background (#FF00FF)** everywhere. No gradient, texture or shadows on the background. No magenta or pink inside the objects.
-2. **Exactly 36 objects, 6 x 6, in the listed order**, each fully separate with empty space around it, centred in its own cell, and about the same size.
-3. **Painted style to match the rooms:** near-photorealistic painterly collectible pieces, warm golden light from the upper left, same slightly raised three-quarter view.
-4. **Attach a reference room picture** with every prompt so the style matches. Use this one (save it first; convert to PNG if Grok will not take webp): https://malcolmhyndman.com/preply-lessons/journey/img/room1_study.webp
-5. **Check the first object** of the image against the "First object" line before sending it on. Wrong sheet, repeated sheet and merged objects have all happened.
-6. If it gets the count or order wrong, say: "Exactly 36 objects, 6 columns by 6 rows, in the order listed, each fully separate with magenta all round it." If 36 is too many, ask for the first 18 and the last 18 as two images and say so.
-7. Name each file with its sheet number, for example `sheet03.png`, and **save it in `journey/incoming/` inside this repo** (that is the only place to put them). Do not cut, edit or push anything else; Claude cuts them and checks each one.
+You will make **8 sheets** (Sheet 11 to Sheet 18). Each sheet is **one square image** holding **36 small painted objects** in a **6 columns x 6 rows** grid, on a **flat magenta background**. Claude then cuts the sheet into single objects automatically, so the layout rules below are not optional.
 
-## Sheets still to make
-Sheets 01, 02 and 04 are done. Make these: **03, 05, 06, 07, 08, 09, 10.** (The full prompt list, including finished sheets, is in `JOURNEY_OBJECT_SHEETS.md`.)
+## Project checklist (tick off as you go)
+- [ ] Sheet 11 — films, part 1
+- [ ] Sheet 12 — films, part 2 and short stories
+- [ ] Sheet 13 — philosophy, shops and services
+- [ ] Sheet 14 — workplace and business
+- [ ] Sheet 15 — science, mind and culture
+- [ ] Sheet 16 — history and people
+- [ ] Sheet 17 — more history, big ideas
+- [ ] Sheet 18 — everyday life, grammar and exams
 
+Do them in order. The full prompt for each sheet is further down this file. Copy it exactly.
+
+## How to work, for every sheet
+1. **Attach the reference room picture** every time so the style matches (save it first; convert to PNG if needed): https://malcolmhyndman.com/preply-lessons/journey/img/room1_study.webp
+2. **Paste the whole prompt** for that sheet. Do not shorten or reword the object list.
+3. **Check the result before you save it:**
+   - It is a single square image, 2048 x 2048 or larger.
+   - The background is flat pure magenta (#FF00FF) everywhere: no gradient, no texture, no shadows on the background, and no magenta or pink inside the objects.
+   - There are exactly 36 objects in a clean 6 x 6 grid, in the listed order, each with empty magenta all round it, none touching, none cut off at the edge.
+   - The **top-left object matches the "First object" line** of that sheet. If it does not, you made the wrong sheet or the wrong order: redo it.
+   - The style matches the room picture: near-photorealistic painterly, warm golden light from the upper left, rich colour, same slightly raised three-quarter view, all objects about the same size.
+4. **If it is wrong,** say to yourself: "Exactly 36 objects, 6 columns by 6 rows, in the order listed, each fully separate with magenta all round it." and regenerate. If 36 will not fit, make the first 18 and last 18 as two images of 3 rows each and name them `sheet11a.png` and `sheet11b.png`.
+5. **Save the finished image as `sheetNN.png`** (for example `sheet11.png`) **in the folder `journey/incoming/` of this repository** (https://github.com/malcolmtheteacher-creator/preply-lessons/tree/main/journey/incoming). Upload page: https://github.com/malcolmtheteacher-creator/preply-lessons/upload/main/journey/incoming
+6. Do not edit, cut, rename or delete anything else in the repository. Do not make extra images in that folder: only one finished file per sheet.
+7. Tick the sheet off above only after it is uploaded. Tell Malcolm which sheets are in.
+
+## What Claude does after you upload
+Claude checks each sheet against its first object and the rules, cuts it into 36 pictures, and puts the objects on the site. If a sheet fails the check, Claude will ask for that sheet again and say exactly what was wrong; redo only that sheet.
+
+## The prompts
 ---
 
-## Sheet 03
+## Sheet 11
 
-First object (top-left): wooden shuttered window
+First object (top-left): an electric ceiling fan above a jury table
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -31,21 +51,21 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a wooden shuttered window; a sack of dried fruit and nuts; a silk blindfold; a miniature dolls' house with a tiny lamp; a golden egg; an artist's palette with brushes.
-Row 2: a wooden slingshot; a small stone labyrinth model; an ornate silver church candlestick; a white heron figurine; a blue-and-white porcelain vase; a stone mason's chisel and mallet.
-Row 3: an iron street lamp; a chameleon figurine; a patchwork quilt square with a needle; a ball of string; a brass safe dial; a loyal hunting dog figurine.
-Row 4: an hourglass with golden sand; a heavy wooden door with an iron lock; a wooden baby cradle; a silver goblet with a wilted rose; a steamship ticket; a rusty chain and padlock.
-Row 5: a rolled antique tapestry; a gnarled oak tree with a fallen branch; a vintage tin toy robot; a folded letter with a stamp; a golf club and ball; a large ice-crystal snowflake.
-Row 6: a vintage typewriter; a black fedora hat; an iron ring of heavy keys; a bronze Greek helmet with a crest; a pair of leather aviator goggles; a carved stone temple tower.
+Row 1: an electric ceiling fan above a jury table; a square air filter taped to a round one; a circular black ink glyph on a stone slab; a hovering futuristic police car model; a blue-painted Scottish claymore sword; a small U-2 spy plane model on a stand.
+Row 2: a pair of vintage 1920s running spikes; a weathered radiation warning sign; a folded surgical face mask; a curved milky sandworm-tooth knife; a worn spoon beside a crumbling cell wall; a pebble with googly eyes.
+Row 3: a gold-mesh android head; a pink bar of soap; a boot print in grey moon dust; a spiral staircase shaped like a DNA helix; a short gladiator sword and arena token; a space station solar-panel module.
+Row 4: a small wireless earpiece; a slide rule with a pencil; an ear of wheat beside a toy spaceship; a green-and-gold rugby shirt; a dinosaur egg beside a claw; a yellow jumpsuit with a katana.
+Row 5: an instant photo covered in handwriting; a wired test sphere on a tower base; a basement window showing only feet; a navy sailor cap in drifting smoke; a typed list of names on thin paper; a clipboard with an old asylum key.
+Row 6: a green-shaded newsroom desk lamp; a "Votes for Women" placard on a stick; a house of cards on a dollar bill; a rag doll with a pin; a carved golden dragon throne; a round green hobbit door.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 05
+## Sheet 12
 
-First object (top-left): breadfruit on a branch
+First object (top-left): a potato plant in a box of red soil
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -55,21 +75,21 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a breadfruit on a branch; a black bicorne hat; a crude iron bucket armour helmet; a wooden globe on a brass stand; a white dove; a Tesla coil with purple sparks.
-Row 2: a bundle of banknotes tied with string; a grey battleship model; a carved pink sandstone column; a Victorian cameo brooch; an Orthodox cross; a round bronze hoplite shield.
-Row 3: a tiny Stonehenge of standing stones; a tin sheriff star badge; a bronze gear mechanism; a turquoise mosaic mask; a single arrow with fletching; a small bronze cannon.
-Row 4: a cracked concrete wall fragment with paint; a ship in a bottle; a beaked plague doctor mask; a wooden tea chest; a vintage leather football; a model of the Colosseum.
-Row 5: an ice axe; a conquistador steel helmet; a crusader kite shield with a red cross; a pair of red ballet slippers; a row of spice jars; a gilded domed palace.
-Row 6: a golden dragon figurine; a red liberty cap; a tin soup bowl with a spoon; a vintage gas mask; a Great Wall watchtower; a hand-carved wooden drum.
+Row 1: a potato plant in a box of red soil; a monitor of falling green code; a laptop with a glowing thumbs-up; a blackboard with a chalk spiral galaxy; a painted studio sun on a ceiling; a brass-cornered accounting ledger.
+Row 2: a red telephone on a desk; a Greek ship prow with a spear; crossed drumsticks over a cymbal; a golden spider on a calabash gourd; a round bank-vault door with a stethoscope; a loose rope on a wooden railway bridge.
+Row 3: a threadbare grey overcoat; a lantern beside a leaning gravestone; a park bench with a policeman's helmet; a white cane and a pair of dark glasses; a gilded statue with a sapphire eye; a bundle of matches in a snowy apron.
+Row 4: a lottery ticket with circled numbers; a humming panel of numbered buttons; an easel with a beggar's cap; a dark red chamber door lit by candles; a garden wall with small footprints in snow; a test tube labelled in old script.
+Row 5: a clay cup of hemlock; a cave wall with shadows of objects; a glass globe of swirling atoms; a table with four small vials; a still pond with one lily; a bunch of grapes and a fig.
+Row 6: a closed door with light under it; a nautilus shell with a golden spiral; a still hand beside a spinning orb; a sea monster wearing a tiny crown; a signed contract and a quill; a surging dark wave.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 06
+## Sheet 13
 
-First object (top-left): silver zeppelin airship
+First object (top-left): a rope across a deep chasm
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -79,21 +99,21 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a silver zeppelin airship; a steam locomotive model; a muddy potato; a black bowler hat; a clay jar of papyrus scrolls; an atom model of orbiting spheres.
-Row 2: a wooden ship's wheel; a carved Maya calendar stone; an Olympic torch with a flame; a steamship model with funnels; a torn paper map; wooden movable type blocks.
-Row 3: a golden pyramid; a tiny desert island with a palm tree; a Roman eagle standard; a carved stone tablet with inscriptions; a black pointed witch hat; a samurai kabuto helmet.
-Row 4: an explorer's pith helmet; a lighthouse of Alexandria model; a camel figurine with saddlebags; a Spanish galleon model; a glass thermometer; a purple, white and green sash.
-Row 5: a terracotta warrior figurine; a life ring; a wooden Trojan horse; a Tudor rose; a Viking longship with a dragon prow; a golden cup trophy.
-Row 6: a Wright Flyer biplane model; a golden death mask; sunflowers in a vase; a gothic castle tower; a reel-to-reel tape recorder; a trident and net.
+Row 1: a rope across a deep chasm; a broken iron shackle; a feather on a balance pan; a stone cairn on a cliff edge; a brass bank teller's window; a cinema ticket booth window.
+Row 2: a visa page with a stamped flag; a leather barber's chair; an eye chart with round glasses; a green pharmacy cross sign; a parcel tied with string and stamps; a stethoscope with a paw print.
+Row 3: a wooden library card-catalogue drawer; a flat key on a rental contract; a car bonnet venting steam; a car key fob on a rental form; a rubber passport stamp; a dumbbell and a water bottle.
+Row 4: an enamel club membership badge; a chalk menu on an A-frame board; a complaint form with a red pen; a drinking glass held against a wall; a farewell card and a balloon; a cardboard box holding a desk plant.
+Row 5: a small-ads page with a sofa; a hotel key card on a reception counter; a metal ticket punch and ticket; an open toolbox on a repair counter; a ringing phone with a warning skull; an invoice stamped OVERDUE.
+Row 6: a dented parcel with a muddy footprint; a pay slip with a rising arrow; a clipboard with star ratings; a letter on top of a box of desk things; a chrome pen on a leather desk pad; a board of sticky notes in columns.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 07
+## Sheet 14
 
-First object (top-left): punched loom card
+First object (top-left): a whiteboard with a two-by-two matrix
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -103,21 +123,21 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a punched loom card; a quill pen in a crystal inkwell; a brass sieve; a medicine bottle with capsules; a box of breakfast cereal; a boulder on a hillside.
-Row 2: a cow figurine; a red apple with a bite taken; a VHS video cassette; a dog bowl with a bone; a passenger jet model; a single cracked brick.
-Row 3: a carved wooden mask; an articulated desk lamp; a glass flask of coloured liquid; a big red push button; a pressure gauge; a red shipping container.
-Row 4: a judge's gavel; a brass sundial; a hex key beside a flat-pack box; a silicon microchip; a bowl mended with gold; a vintage film camera.
-Row 5: red plastic toy building bricks; a thick dictionary with a pen; a cargo ship model; a comic book; a small sapling in a pot; a brass Turkish coffee pot.
-Row 6: an old brick mobile phone; an insulin pen; a smartphone with a glowing heart; a brain model made of circuits; a wind turbine model; the Earth as a blue marble.
+Row 1: a whiteboard with a two-by-two matrix; a framed charter on a panelled wall; a green leaf resting on a coin; scissors cutting a banknote; a forklift beside stacked pallets; a red alarm phone and a megaphone.
+Row 2: a patchwork of hands in many colours; a welcome pack with a lanyard; two jigsaw pieces fitting together; a lantern passed between two hands; a fan of business cards; a shop price tag on a string.
+Row 3: a wooden hand-lettered stop sign; a speech bubble with a tick; a seedling growing between stair steps; a to-do list with ticks; a call-centre headset; a calendar date circled in red.
+Row 4: a ruler beside a bar-chart schedule; a conference badge on a lanyard; a wooden lectern with a microphone; a glowing black hole with an accretion ring; a cratered metallic meteorite; a gold moon lander model.
+Row 5: a balloon with painted dots; an egg cracking on a table; a tiny gear held in tweezers; a single sugar pill on a spoon; a piano with coloured keys; a torn photograph.
+Row 6: a pale mask reflected in a mirror; a bell with its clapper tied; a corkboard joined with red string; a porcelain doll's face; a toy tram at a split in the track; a round watchtower prison model.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 08
+## Sheet 15
 
-First object (top-left): snow-capped mountain peak model
+First object (top-left): a keyboard delete key
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -127,21 +147,21 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a snow-capped mountain peak model; a fan of paint swatches; a songbird on a branch; an electric car model; a wooden sauna bucket and ladle; a stack of old books.
-Row 2: an old notebook with a pencil; a ringed planet model; a car engine piston; a laptop with a coffee mug; an open empty treasure chest; a dress on a hanger.
-Row 3: a butterfly; a plug and socket; a railway track lever; an ornate gilded empty picture frame; a marionette puppet; a pair of dice.
-Row 4: a pair of brass balance scales; an adjustable wrench; a dartboard with darts; a crumpled beige raincoat; a single lit candle; a rope bridge.
-Row 5: a golden vinyl record; a wooden metronome; a yellow hard hat; a silver stopwatch; a signpost at a fork in the road; a glass bottle with a spray bulb, old advertising style.
-Row 6: a ginger beer bottle with a snail; a wooden lifeboat; a closed brass padlock; a red pillar box; a vintage microphone; a sketchbook with a pencil.
+Row 1: a keyboard delete key; a funhouse curved mirror; a watch with a stretched face; a flare gun and a tin cup; a horseshoe above a door; a top hat and a wand.
+Row 2: a glass Christmas bauble; a leather riding saddle; a ball of wool with knitting needles; a blackened blighted potato; a gold pan with nuggets; a small barrel of gunpowder with a fuse.
+Row 3: a carved Rosetta Stone slab; a white marble Taj Mahal model; swing saloon doors with a six-shooter; a swirling starry-night canvas; a wooden stake beside a dragon pendant; a compass spinning over a sea chart.
+Row 4: a tight Gordian knot of rope; a red 1930s monoplane model; a stone-faced temple tower of Angkor; a headsman's axe and block; a black Jolly Roger flag; a chariot with scythed wheels.
+Row 5: a set of Russian nesting dolls; a gold asp bracelet; a burning model of Roman rooftops; a felt Mongol yurt; an Alpine pass sign with a tiny elephant; a locked milk can with chains.
+Row 6: a ruined dome standing alone; a white breastplate with a small banner; a dagger beside a calendar leaf; a round table with twelve seats; a sketch of a man in a circle; terraced stone ruins on a peak.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 09
+## Sheet 16
 
-First object (top-left): marble statue head
+First object (top-left): a bolt of silk on a camel saddle
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
@@ -151,36 +171,60 @@ A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, ar
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a marble statue head; a marshmallow on a stick; a gorilla figurine; a row of small sheep; a DNA double helix; a rack of test tubes.
-Row 2: a brass microscope; an abacus; comedy and tragedy theatre masks; a suspension bridge model; a chess king; a leather briefcase.
-Row 3: a glowing lightbulb; a vintage pram; a silver hand mirror; a paper kite; a megaphone; a wooden ladder.
-Row 4: a seed packet; a fish skeleton; a pie with a slice cut out; a brass question mark; a toy roller coaster; a four-pane window.
-Row 5: a nine-compartment wooden tray; a pea pod; a brass telescope; a traffic light; a Swiss army knife; two interlocking rings.
-Row 6: a glass eye; a crescent moon; a black London taxi; a salt shaker; a rocking chair; a skull.
+Row 1: a bolt of silk on a camel saddle; a tall powdered wig and a cake; a heavy cell key and a quarry pick; a shield marked with a lambda; a heavy chain across a harbour; a flat cap and an empty bowl.
+Row 2: a wax seal of two knights on one horse; a pinstripe lapel with a rose; a scorched scroll in a burning shelf; a half-eaten meal on a ship's table; a map of Africa sliced by a ruler; a red rose beside a white rose.
+Row 3: a castle with a longbow; a turkey leg beside a goblet; a pearl-studded lace ruff; a tapestry strip with a comet; a sealed charter with a bishop's crook; burnt cakes on a hearth.
+Row 4: a coastal fort wall with a beacon; an eyepatch beside a small telescope; a wooden spinning jenny; a dusty manuscript on a monastery desk; a skull and a quill; a red carpet with a gold star.
+Row 5: a green sprout through a pavement crack; a leather collar with a brass tag; a stained-glass rose window; a melting clock over a branch; a lantern in thick fog; a crumpled ball of paper.
+Row 6: a chain with one link opened; a clear glass of water; a tightrope walker figurine; a velvet rope on brass posts; a crown of thorns; a faded family photo album.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
 
 ---
 
-## Sheet 10
+## Sheet 17
 
-First object (top-left): seahorse
+First object (top-left): a keyhole with an eye behind it
 
 ```
 The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
 
-A masterpiece-quality painted collection sheet of EXACTLY 35 small treasures, arranged in a perfect grid of 6 columns by 6 rows, every object fully separate with generous empty space around it. The background is perfectly flat, pure magenta (#FF00FF) with no gradient, texture or shadows, so the objects can be cut out cleanly. Do not use magenta or pink anywhere in the objects.
+A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, arranged in a perfect grid of 6 columns by 6 rows, every object fully separate with generous empty space around it. The background is perfectly flat, pure magenta (#FF00FF) with no gradient, texture or shadows, so the objects can be cut out cleanly. Do not use magenta or pink anywhere in the objects.
 
 Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
 
 The objects, left to right, top to bottom:
-Row 1: a seahorse; a round stone coin with a hole; a nightcap; a water pump with a handle; a vaccine vial; wooden pink tower blocks.
-Row 2: a petri dish with mould; an X-ray film; a Rubik's cube; a bar of soap in a basin; a milk pail; poker chips and cards.
-Row 3: a sprig of wormwood herb; a columned palace; a red ceramic mug; a black monolith slab; an origami unicorn; a wooden ballot box.
-Row 4: a desert water canteen; a worn metal spoon; an everything bagel; a folding paper fan; an amber stone with a mosquito; a gold ring.
-Row 5: a Polaroid photo; a baseball and bat; a carved scholar's rock; a striped lighthouse; a folded newspaper; a tower of wooden blocks.
-Row 6: a jade seal; a film clapperboard; a tree of life; a snare drum with drumsticks; a rugby ball.
+Row 1: a keyhole with an eye behind it; a fingerprint on a wax seal; a spiral tower of Babel model; a single chair by a rain-streaked window; a flag on a snowy summit; a half-peeled paper face.
+Row 2: a candle in a night window; a stone hero on a plinth; a tiny city skyline at dusk; a colourful transit-map poster; a staircase of blocks descending into dark; two interlocked golden symbols.
+Row 3: a chess knight and a steel helmet; an iceberg with only its tip lit; an empty picture frame with a new view; a smiling sun-yellow stone; a coffee mug beside a pile of papers; a school bell on a wooden handle.
+Row 4: a bedside alarm and a steaming mug; a street name sign at a corner; stacked numbered wooden cubes; a framed family portrait on a shelf; a set of coloured geometric shapes; a pair of tickets to a show.
+Row 5: a lightbulb on a notepad; a worn backpack with a rolled map; a beach bag with a sun hat; a ribboned gift and tag; a laid dinner table for two; a clinic bed with a clipboard.
+Row 6: a white first-aid box with a red cross; a "Quiet please" hanging sign; a folded newspaper front page; a press camera with a flashbulb; a vintage radio microphone; a spiral notepad with a pen.
+
+Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
+```
+
+---
+
+## Sheet 18
+
+First object (top-left): a set of wooden spelling letters
+
+```
+The attached image is one of my painted rooms. Use it only as the reference for painting style, lighting and colour richness.
+
+A masterpiece-quality painted collection sheet of EXACTLY 36 small treasures, arranged in a perfect grid of 6 columns by 6 rows, every object fully separate with generous empty space around it. The background is perfectly flat, pure magenta (#FF00FF) with no gradient, texture or shadows, so the objects can be cut out cleanly. Do not use magenta or pink anywhere in the objects.
+
+Style: the same near-photorealistic painterly rendering as the attached room, like collectible museum pieces: rich oil-paint texture, warm golden light from the upper left, soft shading on the object itself, jewel-like colour. Each object is seen from the same slightly raised three-quarter angle, centred in its cell, about the same visual size, fully inside its cell, with a crisp clean edge. No cast shadows on the background, no text, no letters, no numbers, no people, no frames, no labels, no watermarks.
+
+The objects, left to right, top to bottom:
+Row 1: a set of wooden spelling letters; a heavy grammar book with bookmarks; two overlapping speech bubbles; a trembling teacup and saucer; a ring of question marks; two signposts pointing opposite ways.
+Row 2: a large brass comma and full stop; a model bridge made of lollipop sticks; a pendulum metronome on a piano; a green sound wave on a screen; a hand mirror beside a small speaker; a small cockpit dashboard model.
+Row 3: a toolbox with a hammer and spanner; a gold star award on a ribbon; a half-solved puzzle cube; a rolled certificate with a laurel seal; coloured party bunting on a pole; a small sandcastle with a flag.
+Row 4: a flowering window box; a small rain cloud over an umbrella stand; a ring of red autumn leaves; a picnic basket with checked cloth; a paper takeaway coffee cup; a vintage bicycle model.
+Row 5: a pair of dancing shoes; a jar of brushes beside a canvas; a short bookshelf with a reading lamp; a curl of film strip; a velvet theatre curtain model; a ballot paper and a pencil.
+Row 6: a small courthouse with columns; a police badge and notebook; a footprint and a magnifier; a treasure map with an X; a moon through a window; a copper kettle on a stove.
 
 Every object is complete, crisp-edged and clearly separate. Square image, 2048 x 2048 or larger.
 ```
