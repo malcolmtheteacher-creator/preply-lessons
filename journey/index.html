@@ -106,6 +106,9 @@ try { S = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
 S.done = S.done || {}; S.words = S.words || {};
 document.body.className = S.skin === 'challenge' || S.skin === 'dungeon' ? 'challenge' : 'classic';
 
+/* painted treasures (24, cut from one ChatGPT sheet): one per alcove, no repeats within a room */
+var OBJ = ['00_key','01_hourglass','02_compass','03_quill','04_pocketwatch','05_bell','06_trophy','07_crown','08_ship','09_lighthouse','10_anchor','11_telescope','12_lantern','13_magnifier','14_map','15_book','16_knight','17_candle','18_musicbox','19_crystal','20_star','21_owl','22_globe','23_teacup'];
+
 /* ---------- objects: simple line icons on a 24x24 grid ---------- */
 var ICONS = [
  '<circle cx="8" cy="9" r="4"/><path d="M11 12l9 9M16 17l2-2M19 20l2-2"/>',
@@ -171,7 +174,8 @@ var usedByRoom = {};
 lessons.forEach(function(l, k){
   var room = Math.floor(k / CAP), slot = READ[k % CAP], used = usedByRoom[room] = usedByRoom[room] || {};
   var ic = hash(l.id) % ICONS.length; while (used[ic]) ic = (ic + 1) % ICONS.length; used[ic] = 1;
-  items.push({lesson:l, room:room, slot:slot, icon:ic, n:k + 1});
+  var usedO = usedByRoom['o' + room] = usedByRoom['o' + room] || {}, oc = hash(l.id) % OBJ.length; while (usedO[oc]) oc = (oc + 1) % OBJ.length; usedO[oc] = 1;
+  items.push({lesson:l, room:room, slot:slot, icon:ic, obj:oc, n:k + 1});
 });
 var roomCount = Math.max(1, Math.ceil(lessons.length / CAP) + (lessons.length && lessons.length % CAP === 0 ? 1 : 0));
 var cur = Math.max(0, roomCount - 1), sel = null;
@@ -293,7 +297,7 @@ function roomSvg(ri){
       s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
         '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="52" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .35 : 1) + '"/>' +
         '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(it.lesson.rec ? 3 : st.avg) + '" stroke-width="2"/>' +
-        '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><circle cx="' + pt.x + '" cy="' + (pt.y - 2) + '" r="27" fill="#1a1410" fill-opacity=".62" stroke="#ffd36b" stroke-opacity=".35" stroke-width="1.5"/><g filter="url(#iglow)" transform="translate(' + (pt.x - 25) + ',' + (pt.y - 30) + ') scale(2.1)" fill="#ffc94d" fill-opacity=".16" stroke="' + (dusty ? '#c2ad78' : '#ffd36b') + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ICONS[it.icon] + '</g></g>' +
+        '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><image href="img/obj/' + OBJ[it.obj] + '.png" x="' + (pt.x - 42) + '" y="' + (pt.y - 52) + '" width="84" height="84" opacity="' + (dusty ? .6 : 1) + '"/></g>' +
         numPill(pt, it.n, 56) +
         (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
         (isNew ? '<path class="tw" d="M' + (pt.x + 22) + ',' + (pt.y - 34) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/>' : '') +
