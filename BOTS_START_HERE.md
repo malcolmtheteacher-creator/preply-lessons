@@ -7,15 +7,17 @@ You are one of several image bots working for Malcolm, an English teacher. His s
 ## Step 1: find your task
 Malcolm will have given you a name. Find it in this table and open your brief.
 
+**Round 2.** Round 1 is finished. Find your name below and open your round 2 brief. Each round 2 brief says where its style differs from the shared rules below; where it does, the brief wins for that task.
+
 | Name | Task | Your brief |
 |---|---|---|
-| **Grok** | Object sheets 11 to 18 (288 painted objects) | https://malcolmhyndman.com/preply-lessons/GROK_START_HERE_object_sheets.md |
-| **Atlas** | Six new painted rooms | https://malcolmhyndman.com/preply-lessons/bots/atlas.md |
-| **Folio** | One painted cover for each lesson series (24) | https://malcolmhyndman.com/preply-lessons/bots/folio.md |
-| **Muse** | Twelve painted poses of the character Mia | https://malcolmhyndman.com/preply-lessons/bots/muse.md |
-| **Lexi** | Two sheets of picture-words for beginner lessons (72 objects) | https://malcolmhyndman.com/preply-lessons/bots/lexi.md |
-| **Vista** | Three homepage banner paintings | https://malcolmhyndman.com/preply-lessons/bots/vista.md |
-| Basil | Second batch of lesson objects | NOT STARTED. If your name is Basil, tell Malcolm there is nothing to do yet and stop. |
+| **Folio** | Seven cards for the Big Questions page | https://malcolmhyndman.com/preply-lessons/bots/round2_folio.md |
+| **Atlas** | Twelve cards for the Psychology Questions page | https://malcolmhyndman.com/preply-lessons/bots/round2_atlas.md |
+| **Vista** | Three wide banners for three course pages | https://malcolmhyndman.com/preply-lessons/bots/round2_vista.md |
+| **Muse** | Three missing story pictures for the Speak First course | https://malcolmhyndman.com/preply-lessons/bots/round2_muse.md |
+| **Lexi** | Nothing yet. Tell Malcolm there is no round 2 task for you until Claude has checked your two sheets, then stop. | none |
+| **Grok** | Object sheets 11 to 18 (finished) | https://malcolmhyndman.com/preply-lessons/GROK_START_HERE_object_sheets.md |
+| Basil | NOT STARTED. If your name is Basil, tell Malcolm there is nothing to do yet and stop. | none |
 
 If your name is not in the table, tell Malcolm and stop. Do not pick a task yourself.
 
