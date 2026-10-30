@@ -98,6 +98,7 @@ body.imm .dots i{background:rgba(246,236,212,.35)}body.imm .dots i.on{background
 <script src="../wordbank/words.js"></script>
 <script src="../wordbank/all_lessons.js" onerror="void 0"></script>
 <script src="slots.js" onerror="void 0"></script>
+<script src="objects_ready.js" onerror="void 0"></script>
 <script>
 (function(){
 var WB = window.WORDBANK || {lessons:[],words:{}}, KEY = 'wb_v1', CAP = 8, DAY = 86400000;
@@ -175,7 +176,8 @@ lessons.forEach(function(l, k){
   var room = Math.floor(k / CAP), slot = READ[k % CAP], used = usedByRoom[room] = usedByRoom[room] || {};
   var ic = hash(l.id) % ICONS.length; while (used[ic]) ic = (ic + 1) % ICONS.length; used[ic] = 1;
   var usedO = usedByRoom['o' + room] = usedByRoom['o' + room] || {}, oc = hash(l.id) % OBJ.length; while (usedO[oc]) oc = (oc + 1) % OBJ.length; usedO[oc] = 1;
-  items.push({lesson:l, room:room, slot:slot, icon:ic, obj:oc, n:k + 1});
+  var mk = (window.OBJ_MAP || {})[l.id], src = mk && (window.OBJ_READY || {})[mk] ? mk : OBJ[oc];
+  items.push({lesson:l, room:room, slot:slot, icon:ic, obj:src, matched:src === mk, n:k + 1});
 });
 var roomCount = Math.max(1, Math.ceil(lessons.length / CAP) + (lessons.length && lessons.length % CAP === 0 ? 1 : 0));
 var cur = Math.max(0, roomCount - 1), sel = null;
@@ -297,7 +299,7 @@ function roomSvg(ri){
       s += '<g class="slot" data-slot="' + slot + '" tabindex="0" role="button" aria-label="' + esc(it.lesson.title) + '">' +
         '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="52" fill="url(#gl)" style="mix-blend-mode:screen" opacity="' + (dusty ? .35 : 1) + '"/>' +
         '<ellipse cx="' + pt.x + '" cy="' + (pt.y + 24) + '" rx="20" ry="5" fill="#000" opacity=".35"/><ellipse cx="' + pt.x + '" cy="' + (pt.y + 23) + '" rx="19" ry="4.5" fill="none" stroke="' + ringColor(it.lesson.rec ? 3 : st.avg) + '" stroke-width="2"/>' +
-        '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><image href="img/obj/' + OBJ[it.obj] + '.png" x="' + (pt.x - 42) + '" y="' + (pt.y - 52) + '" width="84" height="84" opacity="' + (dusty ? .6 : 1) + '"/></g>' +
+        '<g class="bob" style="animation-delay:-' + ((slot * 0.7) % 4) + 's"><image href="img/obj/' + it.obj + '.png" x="' + (pt.x - 42) + '" y="' + (pt.y - 52) + '" width="84" height="84" opacity="' + (dusty ? .6 : 1) + '"/></g>' +
         numPill(pt, it.n, 56) +
         (isSel ? '<circle cx="' + pt.x + '" cy="' + pt.y + '" r="34" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 6" class="spin"/>' : '') +
         (isNew ? '<path class="tw" d="M' + (pt.x + 22) + ',' + (pt.y - 34) + 'l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3z" fill="#fff4cf"/>' : '') +
