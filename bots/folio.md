@@ -30,11 +30,11 @@ A masterpiece-quality painted cover illustration, landscape 3:2: <SUBJECT>. Near
 4. `cover_behind_the_screen.png` — series "Behind the Screen" — SUBJECT: a vintage cinema scene: a film reel, a clapperboard, a popcorn box and a glowing projector beam in a dark room.
 5. `cover_topic_explorer.png` — series "Topic Explorer" — SUBJECT: a brass compass, a rolled map, a magnifying glass and a small globe on a wooden explorer table.
 6. `cover_quick_fix.png` — series "Quick Fix" — SUBJECT: a neat workbench with a small wrench, a bright pencil and a notepad with a green tick-shaped sticker, tidy and crisp.
-7. `cover_wordwall_games.png` — series "WordWall Games" — SUBJECT: a playful table of dice, a stack of colourful tiles, a spinning top and playing cards in warm light.
-8. `cover_ielts_course.png` — series "IELTS Course" — SUBJECT: a tidy exam desk with a stopwatch, a sharpened pencil, a clean answer sheet and a small trophy.
+7. `cover_wordwall_games.png` — series "WordWall Games" — SUBJECT: a playful table of plain wooden skittles, a spinning top, colourful glass marbles and a blank wooden puzzle in warm light, with no dice, cards, tiles or markings of any kind.
+8. `cover_ielts_course.png` — series "IELTS Course" — SUBJECT: a tidy exam desk with a sand timer, a sharpened pencil, a blank cream sheet of paper and a small trophy, with no clock face, numbers or writing.
 9. `cover_speaking_pathway.png` — series "Speaking Pathway" — SUBJECT: a winding path of stepping stones leading to a brass microphone on a stand in golden light.
 10. `cover_grammar_course.png` — series "Grammar Course" — SUBJECT: a brass clockwork mechanism of interlocking gears with wooden letter blocks and a small ruler.
-11. `cover_everyday_echoes.png` — series "Everyday Echoes" — SUBJECT: a cosy street corner with a red pillar box, a cafe table with two cups and a bicycle, morning light.
+11. `cover_everyday_echoes.png` — series "Everyday Echoes" — SUBJECT: a cosy street corner with an iron lamppost, a cafe table with two cups and a bicycle, morning light, with no signs, lettering or postbox.
 12. `cover_cambridge_exam_prep.png` — series "Cambridge Exam Prep" — SUBJECT: a college desk with a dictionary, a fountain pen, a ribboned certificate and an old brass bell.
 13. `cover_a1_pathway.png` — series "A1 Pathway" — SUBJECT: a friendly welcome table with a suitcase, a cup of tea, a key and a postcard, bright and simple.
 14. `cover_english_at_work.png` — series "English at Work" — SUBJECT: a modern office desk with a laptop, a leather briefcase, a coffee mug and a desk lamp.
@@ -47,6 +47,6 @@ A masterpiece-quality painted cover illustration, landscape 3:2: <SUBJECT>. Near
 21. `cover_religious_studies.png` — series "Religious Studies" — SUBJECT: a quiet shelf with a candle, an open book, a small bell and a bowl of light, respectful and calm, no religious symbols of any single faith.
 22. `cover_true_science_stories.png` — series "True Science Stories" — SUBJECT: a laboratory bench with a brass microscope, a glass flask of glowing liquid and a notebook, with a moon through the window.
 23. `cover_deep_space.png` — series "Deep Space" — SUBJECT: a brass telescope in an observatory dome window with a ringed planet and a star field outside.
-24. `cover_psychology_questions.png` — series "Psychology Questions" — SUBJECT: a quiet room with a mirror, a pocket watch, a half-open door and a single lit lamp, dreamlike.
+24. `cover_psychology_questions.png` — series "Psychology Questions" — SUBJECT: a quiet room with a mirror, a lit candle, a half-open door and a single lit lamp, dreamlike, with no clocks or watches.
 
 **What Claude does next:** adds each cover to its series page and the lesson index, and puts the title over it. You do not need to do anything else.
