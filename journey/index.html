@@ -388,12 +388,15 @@ var prevVisit = +lsg('jr_visit') || 0; lss('jr_visit', String(Date.now()));
 var lastPick = {};
 function choose(key, arr){ var i = Math.floor(Math.random() * arr.length); if (arr.length > 1 && i === lastPick[key]) i = (i + 1) % arr.length; lastPick[key] = i; return arr[i]; }
 function fmt(t, v){ return t.replace(/\{(\w+)\}/g, function(m, k){ return v[k] != null ? v[k] : m; }); }
+var MIA_POSE = {intro:'wave', empty:'coffee', due:'think', fresh:'cheer', back:'wave', full:'cheer', talk:'point'};
 function miaSvg(ri){
-  var w = MIA.h * 222 / 720;
+  var m = MIA_NOW || (MIA_NOW = miaLine()), pose = MIA_POSE[m.kind] || 'wave';
+  if (m.kind === 'due' && m.st.due >= 20) pose = 'tired';
+  var H = MIA.h / .9, w = H * .75;
   return '<g class="mia" tabindex="0" role="button" aria-label="Mia">' +
-    '<ellipse cx="' + MIA.x + '" cy="' + (MIA.y - 2) + '" rx="' + (w * .62) + '" ry="7" fill="#000" opacity=".38"/>' +
-    '<image class="mfig" href="img/mia_stand.png?v=3" x="' + (MIA.x - w / 2) + '" y="' + (MIA.y - MIA.h) + '" width="' + w + '" height="' + MIA.h + '"/>' +
-    '<rect x="' + (MIA.x - w * .7) + '" y="' + (MIA.y - MIA.h) + '" width="' + (w * 1.4) + '" height="' + MIA.h + '" fill="transparent"/></g>';
+    '<ellipse cx="' + MIA.x + '" cy="' + (MIA.y - 2) + '" rx="' + (w * .22) + '" ry="7" fill="#000" opacity=".38"/>' +
+    '<image class="mfig" href="img/mia/' + pose + '.png" x="' + (MIA.x - w / 2) + '" y="' + (MIA.y - H * .94) + '" width="' + w + '" height="' + H + '"/>' +
+    '<rect x="' + (MIA.x - w * .3) + '" y="' + (MIA.y - MIA.h) + '" width="' + (w * .6) + '" height="' + MIA.h + '" fill="transparent"/></g>';
 }
 function miaState(){
   var due = 0, worst = null, wd = 0;
@@ -421,7 +424,7 @@ function miaLine(){
   else if (st.newest && st.newest.talk) { kind = 'talk'; v.title = st.newest.title; }
   else { kind = 'fresh'; face = 'laugh'; }
   v.title = v.title.replace(/^Mia \u2014 /, '').replace(/^Lesson \d+ \u00b7 /, '');
-  return {text: fmt(choose(kind, MIA_SAY[kind]), v), face: face, st: st};
+  return {text: fmt(choose(kind, MIA_SAY[kind]), v), face: face, st: st, kind: kind};
 }
 var MIA_NOW = null;
 var MIA_REPLY = ['Lovely. Now say it once more, a little slower. It sounds better each time.', 'Good. That is exactly how words move from your head to your mouth.', 'Well said. Tell your teacher about it in your next lesson.', 'I liked that. Keep it, and use it again tomorrow.'];
