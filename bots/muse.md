@@ -10,14 +10,14 @@
 
 **Every image must be:**
 - **One person only, full body, head to feet**, centred, fully inside the picture with space around her.
-- On a **flat pure magenta background (#FF00FF)**: no gradient, texture, floor or shadow on the background, so Claude can cut her out cleanly. No magenta or pink in her clothes.
-- Portrait, **1024 x 1536 pixels or larger.**
+- On a **single flat, even background colour** (pure magenta #FF00FF if the tool can do it; if not, whatever flat colour it gives, such as crimson pink): no gradient, texture, floor or shadow on the background, so Claude can cut her out cleanly. Do not use that colour in her clothes.
+- Portrait, **as large as your tool allows: 864 x 1152 pixels is fine.** Do not upscale or recolour an image afterwards; upload it as the tool made it.
 - Painted in the house style: near-photorealistic painterly, warm golden light from the upper left, rich oil-paint texture.
 - No text, no logos, nothing else in the picture except what the pose names.
 
 **Files:** upload each pose to `journey/incoming/muse/` with the exact names below.
 
-**Acceptance check for each pose:** same Mia as the sheet; full body, nothing cut off; flat magenta background; the pose matches; no text. If any check fails, regenerate.
+**Acceptance check for each pose:** same Mia as the sheet; full body, nothing cut off; flat even background; the pose matches; no text. If any check fails, regenerate.
 
 **Prompt template.** Use this exactly, replacing only the pose line:
 
