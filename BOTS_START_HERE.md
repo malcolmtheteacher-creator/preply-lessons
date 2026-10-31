@@ -21,6 +21,8 @@ Every bot has the same job with its own set of batches, so nobody works on the s
 | **Grok** | Nothing: your object sheets are finished. Tell Malcolm and stop. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
+> **Round 3 exception (text work).** In Round 3 you write text, not images. Where the rules and upload rules below say "images", "`journey/incoming/`" or "image", your Round 3 brief overrides them: upload only the one `.tsv` file named in your brief, to `bots/queue/hooks/done/` on `main`, and nothing else. The other rules still apply: do not edit or delete anything else, do not edit these instruction files, do not say a file is uploaded when it is not, and ask Malcolm one short question if the brief is unclear.
+
 If your name is not in the table, tell Malcolm and stop. Do not pick a task yourself.
 
 ## Step 2: the rules every bot follows
