@@ -49,6 +49,7 @@
       var n = (window.WBLESSONS || {})[id] || 0;
       if (isDash) return bar(0);
       remember(); bar(n);
+      var l = document.createElement('script'); l.src = base + 'lookup.js'; document.head.appendChild(l);
     };
     document.head.appendChild(s);
   }
