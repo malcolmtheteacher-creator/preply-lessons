@@ -7,21 +7,19 @@ You are one of several image bots working for Malcolm, an English teacher. His s
 ## Step 1: find your task
 Malcolm will have given you a name. Find it in this table and open your brief.
 
-**Round 3.** Rounds 1 and 2 are finished and every image is checked and live. Nothing more is needed on cards 7 and 11 or on the banners: Claude has accepted them. Round 3 is TEXT work, no images: you write one short curious question for each lesson on the site, so students can find lessons that interest them.
+**Round 4.** Rounds 1 to 3 are finished and live. Round 4 has two jobs. **Folio, Atlas and Vista** first paint six topic pictures each, then do vocabulary batches. **Muse and Lexi** do vocabulary batches only. Find your name, open your brief and follow it exactly.
 
-Every bot has the same job with its own set of batches, so nobody works on the same file. Find your name, open the brief, and do your batches one at a time, in order, until your range is finished.
-
-| Name | Your batches | Your brief |
+| Name | Your jobs | Your brief |
 |---|---|---|
-| **Folio** | batch_001 to batch_010 | https://malcolmhyndman.com/preply-lessons/bots/round3_folio.md |
-| **Atlas** | batch_011 to batch_020 | https://malcolmhyndman.com/preply-lessons/bots/round3_atlas.md |
-| **Vista** | batch_021 to batch_030 | https://malcolmhyndman.com/preply-lessons/bots/round3_vista.md |
-| **Muse** | batch_031 to batch_040 | https://malcolmhyndman.com/preply-lessons/bots/round3_muse.md |
-| **Lexi** | batch_041 to batch_051 | https://malcolmhyndman.com/preply-lessons/bots/round3_lexi.md |
-| **Grok** | Nothing: your object sheets are finished. Tell Malcolm and stop. | none |
+| **Folio** | 6 topic pictures, then vocabulary batch_001 to batch_012 | https://malcolmhyndman.com/preply-lessons/bots/round4_folio.md |
+| **Atlas** | 6 topic pictures, then vocabulary batch_013 to batch_024 | https://malcolmhyndman.com/preply-lessons/bots/round4_atlas.md |
+| **Vista** | 6 topic pictures, then vocabulary batch_025 to batch_036 | https://malcolmhyndman.com/preply-lessons/bots/round4_vista.md |
+| **Muse** | vocabulary batch_037 to batch_048 | https://malcolmhyndman.com/preply-lessons/bots/round4_muse.md |
+| **Lexi** | vocabulary batch_049 to batch_061 | https://malcolmhyndman.com/preply-lessons/bots/round4_lexi.md |
+| **Grok** | Nothing: you are the relay. Pass on messages and report back. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
-> **Round 3 exception (text work).** In Round 3 you write text, not images. Where the rules and upload rules below say "images", "`journey/incoming/`" or "image", your Round 3 brief overrides them: upload only the one `.tsv` file named in your brief, to `bots/queue/hooks/done/` on `main`, and nothing else. The other rules still apply: do not edit or delete anything else, do not edit these instruction files, do not say a file is uploaded when it is not, and ask Malcolm one short question if the brief is unclear.
+> **Round 4 upload rules.** Pictures go to `journey/incoming/topics4/` and vocabulary files go to `bots/queue/vocab/done/`, both on `main` only. Where the rules and upload rules below name a different folder or say "images only", your Round 4 brief overrides them. Upload only the files your brief names. The other rules still apply: do not edit or delete anything else, do not edit these instruction files, never say a file is uploaded when it is not, and ask Malcolm one short question if the brief is unclear.
 
 If your name is not in the table, tell Malcolm and stop. Do not pick a task yourself.
 
