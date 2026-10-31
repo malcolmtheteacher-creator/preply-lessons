@@ -17,8 +17,11 @@ Malcolm will have given you a name. Find it in this table and open your brief.
 | **Muse** | vocabulary batch_037 to batch_048 | https://malcolmhyndman.com/preply-lessons/bots/round4_muse.md |
 | **Lexi** | vocabulary batch_049 to batch_061 | https://malcolmhyndman.com/preply-lessons/bots/round4_lexi.md |
 | **Round 5 (after Round 4)** | Folio: Professional route pictures; Atlas: Academic route pictures (and the missing topic_CUL); Vista: General route pictures | https://malcolmhyndman.com/preply-lessons/bots/round5_<yourname>.md |
+| **Round 6 (vocabulary, after Round 5)** | Folio: batch_062 to 072; Atlas: batch_073 to 082; Vista: batch_083 to 092; Muse: batch_093 to 102; Lexi: batch_103 to 112 | https://malcolmhyndman.com/preply-lessons/bots/round6_<yourname>.md |
 | **Grok** | Nothing: you are the relay. Pass on messages and report back. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
+
+> **Round 6 upload rules.** Vocabulary files go to `bots/queue/vocab/done/` on `main` only, one `batch_NNN.tsv` per batch; the Round 4 vocabulary rules below apply unchanged.
 
 > **Round 4 upload rules.** Pictures go to `journey/incoming/topics4/` and vocabulary files go to `bots/queue/vocab/done/`, both on `main` only. Where the rules and upload rules below name a different folder or say "images only", your Round 4 brief overrides them. Upload only the files your brief names. The other rules still apply: do not edit or delete anything else, do not edit these instruction files, never say a file is uploaded when it is not, and ask Malcolm one short question if the brief is unclear.
 
