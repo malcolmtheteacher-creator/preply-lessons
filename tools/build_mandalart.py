@@ -20,6 +20,10 @@ def lesson(id_):
 def count(n): return 1 if not n['k'] else sum(count(c) for c in n['k'])
 def chunk(kids, cap=8, off=0):
     if len(kids) <= cap: return kids
+    if len(kids) <= 2 * cap:
+        rest = kids[cap - 1:]
+        what = 'lessons' if all(not x['k'] for x in rest) else 'collections'
+        return kids[:cap - 1] + [{'t': 'More %s' % what, 's': 'from ' + trim(rest[0]['t'], 24), 'i': '', 'h': '', 'l': '', 'k': rest}]
     size = math.ceil(len(kids) / cap); out = []
     for i in range(0, len(kids), size):
         g = kids[i:i + size]
@@ -27,8 +31,14 @@ def chunk(kids, cap=8, off=0):
         what = 'Lessons' if all(not x['k'] for x in g) else 'Collections'
         out.append({'t': '%s %d–%d' % (what, off + i + 1, off + i + len(g)), 's': 'from ' + trim(g[0]['t'], 24), 'i': '', 'h': '', 'l': '', 'k': chunk(g, cap, off + i)})
     return out
+def slug(t): return re.sub(r'[^a-z0-9]+', '_', html.unescape(t).lower()).strip('_')[:50]
+def mapimg(t):
+    for e in ('jpg', 'png'):
+        if os.path.exists(os.path.join(ROOT, 'journey/map/%s.%s' % (slug(t), e))): return 'journey/map/%s.%s' % (slug(t), e)
+    return ''
 def group(t, s, img, kids, page=''):
     t = html.unescape(t)
+    img = img or mapimg(t)
     kids = list(kids)
     if page: kids = [{'t': 'Open the full page', 's': t, 'i': '', 'h': page, 'l': '', 'k': [], 'pg': 1}] + kids
     return {'t': t, 's': s, 'i': img, 'h': '', 'l': '', 'k': chunk(kids, 8)}
@@ -95,8 +105,28 @@ top = {'t': 'English, taught through stories', 's': '', 'i': 'journey/world/regi
 # order: clockwise-ish to match the 3x3 positions (TL,T,TR,L,R,BL,B,BR)
 o = {x['t']: x for x in top['k']}
 top['k'] = [o[REG[k][0]] for k in ('professional', 'academic', 'general', 'library', 'explore', 'palace', 'comics', 'words')]
+def slim(n):
+    for k in [k for k, v in n.items() if v in ('', [], None)]: del n[k]
+    for c in n.get('k', []): slim(c)
+def distinct(n, acc):
+    if not n['k']: acc.add(n['h'])
+    for c in n['k']: distinct(c, acc)
+    return acc
+print('distinct pages:', len(distinct(top, set())))
 def depth(n): return 1 + max([depth(c) for c in n['k']] or [0])
+nleaf = count(top); dep = depth(top)
+slim(top)
 tpl = rd('tools/mandalart_template.html')
 out = sys.argv[1] if len(sys.argv) > 1 else 'map.html'
 open(os.path.join(ROOT, out), 'w', encoding='utf-8').write(tpl.replace('__TREE__', json.dumps(top, ensure_ascii=False, separators=(',', ':'))))
-print(out, 'lessons reachable:', count(top), 'depth:', depth(top))
+print(out, 'leaf boxes:', nleaf, 'depth:', dep)
+
+if '--list' in sys.argv:
+    need = []; seen = set()
+    def w(n, par):
+        if n.get('k') and not n.get('i') and not re.match(r'(Lessons|Collections|More) ', n['t']) and slug(n['t']) not in seen:
+            seen.add(slug(n['t'])); need.append((par, n['t'], n.get('s', '')))
+        for c in n.get('k', []): w(c, n['t'])
+    w(top, '')
+    json.dump([{'file': slug(t), 'title': t, 'within': p, 'note': s_} for p, t, s_ in need], open(os.path.join(ROOT, 'bots/map_pics.json'), 'w'), indent=1, ensure_ascii=False)
+    print(len(need), 'pictures listed')
