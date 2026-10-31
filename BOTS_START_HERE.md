@@ -13,11 +13,11 @@ Every bot has the same job with its own set of batches, so nobody works on the s
 
 | Name | Your batches | Your brief |
 |---|---|---|
-| **Folio** | batch_001 to batch_010 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
-| **Atlas** | batch_011 to batch_020 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
-| **Vista** | batch_021 to batch_030 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
-| **Muse** | batch_031 to batch_040 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
-| **Lexi** | batch_041 to batch_051 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Folio** | batch_001 to batch_010 | https://malcolmhyndman.com/preply-lessons/bots/round3_folio.md |
+| **Atlas** | batch_011 to batch_020 | https://malcolmhyndman.com/preply-lessons/bots/round3_atlas.md |
+| **Vista** | batch_021 to batch_030 | https://malcolmhyndman.com/preply-lessons/bots/round3_vista.md |
+| **Muse** | batch_031 to batch_040 | https://malcolmhyndman.com/preply-lessons/bots/round3_muse.md |
+| **Lexi** | batch_041 to batch_051 | https://malcolmhyndman.com/preply-lessons/bots/round3_lexi.md |
 | **Grok** | Nothing: your object sheets are finished. Tell Malcolm and stop. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
