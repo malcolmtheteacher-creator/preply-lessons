@@ -28283,6 +28283,2610 @@ window.WORDBANK={
     "imitation",
     "audibly"
    ]
+  },
+  {
+   "id": "b2_03_making_your_opinion_heard",
+   "title": "Making Your Opinion Heard - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "tight deadline",
+    "undervalued",
+    "stuck",
+    "depressed",
+    "progress",
+    "multi-word verb"
+   ]
+  },
+  {
+   "id": "b2_04_telling_a_funny_story",
+   "title": "Telling a Funny Story - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "humour",
+    "giggle",
+    "dry",
+    "understated",
+    "self-mocking",
+    "edgy"
+   ]
+  },
+  {
+   "id": "b2_05_dealing_with_disaster",
+   "title": "Dealing with Disaster - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "crisis management",
+    "sweep through",
+    "flood",
+    "severe",
+    "cold snap",
+    "supplies",
+    "certainty"
+   ]
+  },
+  {
+   "id": "b2_07_is_tv_bad_for_us",
+   "title": "Is TV Bad For Us? - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "documentary",
+    "reality show",
+    "persuasive",
+    "debate",
+    "be aware of",
+    "risk"
+   ]
+  },
+  {
+   "id": "b2_08_great_achievements",
+   "title": "Great Achievements - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "achievement",
+    "innovation",
+    "household appliance",
+    "productivity",
+    "impact",
+    "device"
+   ]
+  },
+  {
+   "id": "b2_09_happiness",
+   "title": "Happiness - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "contentment",
+    "satisfaction",
+    "fulfilled",
+    "sense of purpose",
+    "pleasure",
+    "meaningful"
+   ]
+  },
+  {
+   "id": "b2_100_publishing_author_feedback",
+   "title": "Giving Feedback to an Author",
+   "level": "B2",
+   "words": [
+    "commission",
+    "first draft",
+    "pacing",
+    "sag",
+    "motivation",
+    "climax",
+    "dig back in"
+   ]
+  },
+  {
+   "id": "b2_101_design_brand_stretch",
+   "title": "Presenting a Bolder Design Concept",
+   "level": "B2",
+   "words": [
+    "brand refresh",
+    "route",
+    "stretch",
+    "reckless",
+    "agenda",
+    "concept"
+   ]
+  },
+  {
+   "id": "b2_102_manufacturing_supplier_quality",
+   "title": "Raising a Quality Issue with a Supplier",
+   "level": "B2",
+   "words": [
+    "supplier",
+    "batch",
+    "defect",
+    "component",
+    "reliable",
+    "nudge",
+    "on the record"
+   ]
+  },
+  {
+   "id": "b2_103_logistics_late_delivery",
+   "title": "Explaining a Late Delivery",
+   "level": "B2",
+   "words": [
+    "logistics",
+    "paperwork",
+    "at the earliest",
+    "production line",
+    "furious",
+    "depend on"
+   ]
+  },
+  {
+   "id": "b2_104_greener_cities_solutions",
+   "title": "Greener Cities: Solving Urban Environmental Problems",
+   "level": "B2",
+   "words": [
+    "urban",
+    "pitch",
+    "tackle",
+    "starting point",
+    "action plan",
+    "solution"
+   ]
+  },
+  {
+   "id": "b2_106_status_games",
+   "title": "The Status Game",
+   "level": "B2",
+   "words": [
+    "status",
+    "rank",
+    "admire",
+    "stung",
+    "talk over",
+    "look down on"
+   ]
+  },
+  {
+   "id": "b2_10_getting_a_pay_rise",
+   "title": "Getting a Pay Rise — B2 Level",
+   "level": "B2",
+   "words": [
+    "pay rise",
+    "negotiation",
+    "inflation",
+    "tentatively",
+    "common ground",
+    "proposal"
+   ]
+  },
+  {
+   "id": "b2_11_right_or_left_brain",
+   "title": "Are You a Right or Left-Sided Thinker? — B2 Level",
+   "level": "B2",
+   "words": [
+    "rational",
+    "instinctive",
+    "analytical",
+    "intuitive",
+    "character trait",
+    "fluency"
+   ]
+  },
+  {
+   "id": "b2_12_workplace_ethics",
+   "title": "Ethics in the Workplace — B2 Level",
+   "level": "B2",
+   "words": [
+    "ethical",
+    "reference",
+    "suitable",
+    "resolve",
+    "conflict",
+    "appropriate"
+   ]
+  },
+  {
+   "id": "b2_13_organising_a_dinner",
+   "title": "Organising a Dinner — B2 ESL Lesson",
+   "level": "B2",
+   "words": [
+    "foodie",
+    "bland",
+    "underdone",
+    "tender",
+    "turn out",
+    "eat out"
+   ]
+  },
+  {
+   "id": "b2_14_alternative_sports",
+   "title": "Alternative Sports - B2 ESL Lesson",
+   "level": "B2",
+   "words": [
+    "extreme sport",
+    "parkour",
+    "skateboarding",
+    "individual",
+    "popularity",
+    "rock climbing"
+   ]
+  },
+  {
+   "id": "b2_15_celebrity_opinions",
+   "title": "Celebrity Culture & Opinions - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "celebrity",
+    "fame",
+    "profession",
+    "justify",
+    "in my opinion",
+    "earn"
+   ]
+  },
+  {
+   "id": "b2_16_the_year_in_review",
+   "title": "The Year in Review - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "reporting verb",
+    "heart-warming",
+    "scandalous",
+    "refuse",
+    "apparently",
+    "touching"
+   ]
+  },
+  {
+   "id": "b2_18_dealing_with_problems",
+   "title": "B2.18 Dealing with Problems: Reported Speech",
+   "level": "B2",
+   "words": [
+    "dress code",
+    "attire",
+    "turn up",
+    "casual",
+    "charity",
+    "supposed to"
+   ]
+  },
+  {
+   "id": "b2_19_awkward_situations",
+   "title": "B2: Dealing with Awkward Situations",
+   "level": "B2",
+   "words": [
+    "awkward",
+    "excuse",
+    "acquaintance",
+    "uneasy",
+    "jumper",
+    "politely"
+   ]
+  },
+  {
+   "id": "b2_20_sporting_events",
+   "title": "Sporting Events — B2 Upper-Intermediate",
+   "level": "B2",
+   "words": [
+    "championship",
+    "atmosphere",
+    "athlete",
+    "stand out",
+    "committed",
+    "participant"
+   ]
+  },
+  {
+   "id": "b2_21_the_workshop_project",
+   "title": "The Workshop Project - B2 Upper-Intermediate",
+   "level": "B2",
+   "words": [
+    "workshop",
+    "involve",
+    "instructions",
+    "go-kart",
+    "controller",
+    "fix"
+   ]
+  },
+  {
+   "id": "b2_22_food_and_health",
+   "title": "B2 Food and Health: Writing to Persuade",
+   "level": "B2",
+   "words": [
+    "circadian rhythm",
+    "prevalence",
+    "diabetes",
+    "hidden sugar",
+    "immune system",
+    "saturated fat"
+   ]
+  },
+  {
+   "id": "b2_23_chairing_the_meeting",
+   "title": "Chairing the Meeting – B2 English",
+   "level": "B2",
+   "words": [
+    "draw up",
+    "circulate",
+    "send apologies",
+    "consensus",
+    "take minutes",
+    "chairperson"
+   ]
+  },
+  {
+   "id": "b2_24_clarity_is_key",
+   "title": "Clarity is Key - B2 Negotiations",
+   "level": "B2",
+   "words": [
+    "joint venture",
+    "reservations",
+    "flaw",
+    "commission",
+    "compromise",
+    "consensus"
+   ]
+  },
+  {
+   "id": "b2_25_magic_tricks",
+   "title": "Magic Tricks (B2) – Interactive Lesson",
+   "level": "B2",
+   "words": [
+    "sleight of hand",
+    "hoax",
+    "illusion",
+    "work like magic",
+    "magic touch",
+    "speculation"
+   ]
+  },
+  {
+   "id": "b2_27_appraisal_meeting",
+   "title": "B2-27: An Appraisal Meeting",
+   "level": "B2",
+   "words": [
+    "appraisal",
+    "performance review",
+    "employee",
+    "collocation",
+    "disadvantage",
+    "career development"
+   ]
+  },
+  {
+   "id": "b2_28_taking_up_a_sport",
+   "title": "Taking Up a Sport — B2 Lesson",
+   "level": "B2",
+   "words": [
+    "take up",
+    "persuasion",
+    "hobby",
+    "competition",
+    "perform",
+    "pitch"
+   ]
+  },
+  {
+   "id": "b2_29_misunderstandings",
+   "title": "Misunderstandings",
+   "level": "B2",
+   "words": [
+    "misunderstanding",
+    "misunderstood",
+    "past perfect",
+    "express yourself",
+    "clearly",
+    "lead to"
+   ]
+  },
+  {
+   "id": "b2_30_a_good_investment",
+   "title": "A Good Investment",
+   "level": "B2",
+   "words": [
+    "investment",
+    "savings",
+    "profit",
+    "losses",
+    "hypothesis",
+    "risky"
+   ]
+  },
+  {
+   "id": "b2_31_job_interview",
+   "title": "A Job Interview - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "nervous",
+    "previous",
+    "career goal",
+    "personality",
+    "apply",
+    "proud"
+   ]
+  },
+  {
+   "id": "b2_32_living_without_money",
+   "title": "Living Without Money - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "barter",
+    "exchange",
+    "donate",
+    "membership",
+    "economic crisis",
+    "summarise"
+   ]
+  },
+  {
+   "id": "b2_33_business_and_tourism",
+   "title": "Business and Tourism - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "marketing budget",
+    "preferable",
+    "upwardly mobile",
+    "renewable energy",
+    "resolve",
+    "weak form"
+   ]
+  },
+  {
+   "id": "b2_34_ethics_in_the_workplace",
+   "title": "Ethics in the Workplace - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "unethical",
+    "see the back of",
+    "compulsive",
+    "omit",
+    "perk",
+    "resources"
+   ]
+  },
+  {
+   "id": "b2_36_awkward_situations",
+   "title": "Awkward Situations - English Lesson",
+   "level": "B2",
+   "words": [
+    "offensive",
+    "apologize",
+    "uncomfortable",
+    "courteous",
+    "resentment",
+    "regret"
+   ]
+  },
+  {
+   "id": "b2_37_formal_emails",
+   "title": "Formal Emails - English Lesson",
+   "level": "B2",
+   "words": [
+    "follow up",
+    "bullet point",
+    "precise",
+    "tone",
+    "formality",
+    "framework"
+   ]
+  },
+  {
+   "id": "b2_38_is_tv_bad_for_us",
+   "title": "Is TV Bad for Us? - English Lesson",
+   "level": "B2",
+   "words": [
+    "soap opera",
+    "drama series",
+    "game show",
+    "chat show",
+    "fictional",
+    "storyline"
+   ]
+  },
+  {
+   "id": "b2_39_best_email_replies",
+   "title": "Writing Best Email Replies - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "ambiguous",
+    "clarify",
+    "rephrase",
+    "assumption",
+    "root cause",
+    "key issue"
+   ]
+  },
+  {
+   "id": "b2_40_informal_email_writing",
+   "title": "Informal Email Writing - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "informal",
+    "sustain",
+    "active voice",
+    "contraction",
+    "colloquial",
+    "update"
+   ]
+  },
+  {
+   "id": "b2_41_celebrity_debate",
+   "title": "Celebrity Discussion and Debate - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "salary",
+    "well-paid",
+    "deserve",
+    "tv personality",
+    "challenge",
+    "argument"
+   ]
+  },
+  {
+   "id": "b2_42_telling_funny_stories",
+   "title": "Telling Funny Stories — B2 Lesson",
+   "level": "B2",
+   "words": [
+    "burst into laughter",
+    "amused",
+    "absurd",
+    "crude",
+    "sequencing",
+    "in the end"
+   ]
+  },
+  {
+   "id": "b2_43_making_small_talk",
+   "title": "Making Small Talk — B2 Lesson",
+   "level": "B2",
+   "words": [
+    "filling silence",
+    "genuine",
+    "conversationalist",
+    "valued",
+    "neighbour",
+    "danger zone"
+   ]
+  },
+  {
+   "id": "b2_45_giving_feedback",
+   "title": "Giving Constructive Feedback - B2 Professional English",
+   "level": "B2",
+   "words": [
+    "constructive",
+    "clarity",
+    "strengthen",
+    "unhelpful",
+    "hurt feelings",
+    "valuable"
+   ]
+  },
+  {
+   "id": "b2_46_remote_work",
+   "title": "Remote Work Communication - B2 Professional English",
+   "level": "B2",
+   "words": [
+    "remote",
+    "hybrid",
+    "arrangement",
+    "motivated",
+    "channel",
+    "presence"
+   ]
+  },
+  {
+   "id": "b2_47_handling_complaints",
+   "title": "Handling Complaints Professionally - B2 Professional English",
+   "level": "B2",
+   "words": [
+    "complaint",
+    "customer service",
+    "instinct",
+    "reputation",
+    "refund",
+    "apology"
+   ]
+  },
+  {
+   "id": "b2_48_writing_reports",
+   "title": "Writing Professional Reports - B2 English",
+   "level": "B2",
+   "words": [
+    "stakeholder",
+    "systematically",
+    "recommendation",
+    "feasibility",
+    "aligned",
+    "timeline"
+   ]
+  },
+  {
+   "id": "b2_49_networking_events",
+   "title": "Networking at Professional Events - B2 English",
+   "level": "B2",
+   "words": [
+    "intimidating",
+    "stranger",
+    "job board",
+    "insight",
+    "perspective",
+    "industry"
+   ]
+  },
+  {
+   "id": "b2_50_leading_meetings",
+   "title": "Leading Team Meetings - B2 English",
+   "level": "B2",
+   "words": [
+    "productive",
+    "alignment",
+    "dynamics",
+    "set the tone",
+    "wander",
+    "waste of time"
+   ]
+  },
+  {
+   "id": "b2_51_presenting_data",
+   "title": "Presenting Data & Statistics - B2 English",
+   "level": "B2",
+   "words": [
+    "credible",
+    "quarterly",
+    "trajectory",
+    "upfront",
+    "make a case",
+    "struggle"
+   ]
+  },
+  {
+   "id": "b2_52_cross_cultural_business",
+   "title": "Cross-Cultural Business Communication - B2 Level",
+   "level": "B2",
+   "words": [
+    "cultural background",
+    "enrich",
+    "high-context",
+    "interaction",
+    "custom",
+    "react"
+   ]
+  },
+  {
+   "id": "b2_54_persuasion_at_work",
+   "title": "Persuasion & Influence at Work - B2 Level",
+   "level": "B2",
+   "words": [
+    "manipulation",
+    "convince",
+    "hesitant",
+    "approve",
+    "gain support",
+    "appreciate"
+   ]
+  },
+  {
+   "id": "b2_55_telephone_skills",
+   "title": "Professional Telephone Skills - B2 Level",
+   "level": "B2",
+   "words": [
+    "phone anxiety",
+    "immediate",
+    "unpredictable",
+    "accent",
+    "real-time",
+    "body language"
+   ]
+  },
+  {
+   "id": "b2_56_food_sustainability",
+   "title": "Food Sustainability & The Future of Eating",
+   "level": "B2",
+   "words": [
+    "sustainability",
+    "seasonal",
+    "food miles",
+    "produce",
+    "origin",
+    "food waste"
+   ]
+  },
+  {
+   "id": "b2_57_medical_ethics",
+   "title": "Medical Ethics: Where Do We Draw the Line?",
+   "level": "B2",
+   "words": [
+    "draw the line",
+    "profound",
+    "intervention",
+    "vulnerable",
+    "exploit",
+    "oversight",
+    "equity"
+   ]
+  },
+  {
+   "id": "b2_58_adventure_travel",
+   "title": "Adventure Travel & Risk",
+   "level": "B2",
+   "words": [
+    "thrill seeker",
+    "push boundaries",
+    "adrenaline",
+    "deliberate",
+    "expedition",
+    "capability"
+   ]
+  },
+  {
+   "id": "b2_59_digital_wellbeing",
+   "title": "Digital Wellbeing & Screen Time",
+   "level": "B2",
+   "words": [
+    "notification",
+    "scroll",
+    "streaming",
+    "browsing",
+    "legitimate",
+    "woven into"
+   ]
+  },
+  {
+   "id": "b2_60_film_criticism",
+   "title": "The Art of Film Criticism",
+   "level": "B2",
+   "words": [
+    "medium",
+    "provoke",
+    "blockbuster",
+    "art-house",
+    "forgettable",
+    "critic"
+   ]
+  },
+  {
+   "id": "b2_62_culture_humour_language",
+   "title": "Culture, Humour and Language: Happiness",
+   "level": "B2",
+   "words": [
+    "survey",
+    "findings",
+    "factor",
+    "aspect",
+    "interpret",
+    "circumstances"
+   ]
+  },
+  {
+   "id": "b2_64_voice_and_body_language",
+   "title": "Voice and Body Language - B2 Upper Intermediate Lesson",
+   "level": "B2",
+   "words": [
+    "non-verbal",
+    "slouch",
+    "eye contact",
+    "fidget",
+    "gesture",
+    "chunking"
+   ]
+  },
+  {
+   "id": "b2_65_find_that_annoying",
+   "title": "I Find That Annoying - B2 Upper Intermediate Lesson",
+   "level": "B2",
+   "words": [
+    "dissatisfaction",
+    "opener",
+    "frustration",
+    "compliment",
+    "venue",
+    "familiarity"
+   ]
+  },
+  {
+   "id": "b2_66_impact_of_technology",
+   "title": "The Impact of Technology - B2 Upper Intermediate Lesson",
+   "level": "B2",
+   "words": [
+    "invention",
+    "revolutionize",
+    "preservation",
+    "commerce",
+    "coordination",
+    "transform"
+   ]
+  },
+  {
+   "id": "b2_67_making_a_decision",
+   "title": "Making a Decision - B2 Upper Intermediate Lesson",
+   "level": "B2",
+   "words": [
+    "motion",
+    "abstain",
+    "unanimous",
+    "proxy vote",
+    "casting vote",
+    "in favour of"
+   ]
+  },
+  {
+   "id": "b2_68_keeping_fit",
+   "title": "Keeping Fit - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "cardiovascular",
+    "endurance",
+    "stamina",
+    "keep fit",
+    "effective",
+    "regularly"
+   ]
+  },
+  {
+   "id": "b2_69_changes_in_workplace",
+   "title": "Changes in the Workplace - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "redundancy",
+    "job security",
+    "zero-hour contract",
+    "trade union",
+    "sick pay",
+    "permanent"
+   ]
+  },
+  {
+   "id": "b2_70_fair_trade",
+   "title": "Fair Trade - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "fair trade",
+    "harvest",
+    "consumer",
+    "packaging",
+    "retail",
+    "consumption"
+   ]
+  },
+  {
+   "id": "b2_71_work_life_balance",
+   "title": "Work-Life Balance - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "work-life balance",
+    "get someone down",
+    "strike a balance",
+    "take over",
+    "milestone",
+    "miss out"
+   ]
+  },
+  {
+   "id": "b2_73_dress_for_success",
+   "title": "Dress for Success – B2 Lesson",
+   "level": "B2",
+   "words": [
+    "trainers",
+    "accessories",
+    "smart",
+    "fabric",
+    "outfit",
+    "trousers"
+   ]
+  },
+  {
+   "id": "b2_74_ways_of_travelling",
+   "title": "Ways of Travelling – B2 Lesson",
+   "level": "B2",
+   "words": [
+    "coach",
+    "frequent",
+    "duty free",
+    "indirect flight",
+    "disadvantage",
+    "comparative"
+   ]
+  },
+  {
+   "id": "b2_75_managing_stress",
+   "title": "Managing Stress – B2 Lesson",
+   "level": "B2",
+   "words": [
+    "burnout",
+    "boundary",
+    "prioritize",
+    "symptom",
+    "tension",
+    "exhaustion"
+   ]
+  },
+  {
+   "id": "b2_76_creating_connections",
+   "title": "Creating Connections – B2 Lesson",
+   "level": "B2",
+   "words": [
+    "reciprocal",
+    "empathy",
+    "attentive",
+    "engagement",
+    "emotional awareness",
+    "executive presence"
+   ]
+  },
+  {
+   "id": "b2_77_cope_with_unexpected",
+   "title": "Cope with the Unexpected – B2 Lesson",
+   "level": "B2",
+   "words": [
+    "impromptu",
+    "hostile",
+    "tribute",
+    "anagram",
+    "cope",
+    "spontaneous"
+   ]
+  },
+  {
+   "id": "b2_78_bad_restaurant",
+   "title": "A Bad Restaurant Experience - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "attentiveness",
+    "cleanliness",
+    "firmly",
+    "poor service",
+    "complain",
+    "distinguish"
+   ]
+  },
+  {
+   "id": "b2_79_making_a_complaint",
+   "title": "Making a Complaint - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "sincere",
+    "sympathy",
+    "apologise",
+    "delivery",
+    "resolution",
+    "look into"
+   ]
+  },
+  {
+   "id": "b2_80_in_the_news",
+   "title": "In the News - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "pressing",
+    "humanity",
+    "breakthrough",
+    "maritime",
+    "navigation",
+    "global problem"
+   ]
+  },
+  {
+   "id": "b2_81_live_performance",
+   "title": "The Cultural Centre - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "proposal",
+    "exhibit",
+    "facilities",
+    "atmosphere",
+    "recommendation",
+    "linking words"
+   ]
+  },
+  {
+   "id": "b2_82_problems_at_work",
+   "title": "Problems at Work - B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "resolve",
+    "collocation",
+    "relative clause",
+    "context",
+    "accurately",
+    "organise"
+   ]
+  },
+  {
+   "id": "b2_83_changing_jobs",
+   "title": "Changing Jobs — B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "career",
+    "consider",
+    "advice",
+    "good idea",
+    "reason",
+    "expression"
+   ]
+  },
+  {
+   "id": "b2_84_no_free_lunch",
+   "title": "No Such Thing as a Free School Lunch — B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "pros and cons",
+    "debate",
+    "interruption",
+    "take your point",
+    "government",
+    "agreement"
+   ]
+  },
+  {
+   "id": "b2_85_superstitions",
+   "title": "Superstitions — B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "superstition",
+    "unlucky",
+    "believable",
+    "luck",
+    "belief",
+    "personal experience"
+   ]
+  },
+  {
+   "id": "b2_86_email_problems",
+   "title": "Cross-Cultural Email Communication — B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "formality",
+    "clarity",
+    "tone",
+    "appropriate",
+    "address",
+    "suggestion"
+   ]
+  },
+  {
+   "id": "b2_87_organising_event",
+   "title": "Organising a Charity Event — B2 English Lesson",
+   "level": "B2",
+   "words": [
+    "charity",
+    "fundraising",
+    "participate",
+    "request",
+    "offer",
+    "make a difference"
+   ]
+  },
+  {
+   "id": "b2_88_proving_your_worth",
+   "title": "Proving Your Worth — B2/C1 English Lesson",
+   "level": "B2/C1",
+   "words": [
+    "qualification",
+    "recognition",
+    "progression",
+    "senior",
+    "pitch",
+    "prove"
+   ]
+  },
+  {
+   "id": "b2_90_lost_in_translation",
+   "title": "Lost in Translation",
+   "level": "B2",
+   "words": [
+    "translate",
+    "exotic",
+    "borrow",
+    "capture",
+    "specific",
+    "recognise"
+   ]
+  },
+  {
+   "id": "b2_92_language_of_historical_debate",
+   "title": "The Language of Historical Debate",
+   "level": "B2",
+   "words": [
+    "scholar",
+    "hedging",
+    "uncertainty",
+    "claim",
+    "aggressive",
+    "evaluate"
+   ]
+  },
+  {
+   "id": "b2_93_talking_about_books",
+   "title": "Talking About Books",
+   "level": "B2",
+   "words": [
+    "audiobook",
+    "literature",
+    "book review",
+    "plot",
+    "recommend",
+    "e-book"
+   ]
+  },
+  {
+   "id": "b2_94_accounting_fee_pushback",
+   "title": "Handling Pushback on Fees",
+   "level": "B2",
+   "words": [
+    "pushback",
+    "fee",
+    "hold the line",
+    "client",
+    "audit",
+    "structured"
+   ]
+  },
+  {
+   "id": "b2_95_it_outage_communication",
+   "title": "Explaining a Service Outage to the Business",
+   "level": "B2",
+   "words": [
+    "outage",
+    "jargon",
+    "investigate",
+    "core system",
+    "informed",
+    "panicked"
+   ]
+  },
+  {
+   "id": "b2_96_engineering_safety_concerns",
+   "title": "Raising Safety Concerns With a Client Under Pressure",
+   "level": "B2",
+   "words": [
+    "safety concern",
+    "deadline",
+    "raise",
+    "on site",
+    "negative",
+    "properly"
+   ]
+  },
+  {
+   "id": "b2_97_retail_banking_loan_decline",
+   "title": "Explaining a Declined Loan Application",
+   "level": "B2",
+   "words": [
+    "decline",
+    "loan",
+    "missed payment",
+    "debt",
+    "application",
+    "ratio"
+   ]
+  },
+  {
+   "id": "b2_98_insurance_partial_claim",
+   "title": "Explaining a Partially Covered Claim",
+   "level": "B2",
+   "words": [
+    "claim",
+    "payout",
+    "small print",
+    "portable",
+    "covered",
+    "burst"
+   ]
+  },
+  {
+   "id": "b2_anchoring",
+   "title": "Anchoring",
+   "level": "B2",
+   "words": [
+    "anchoring",
+    "negotiate",
+    "showroom",
+    "stroll",
+    "mental trap",
+    "psychologist"
+   ]
+  },
+  {
+   "id": "b2_new_boss_in_town",
+   "title": "New Boss in Town — B2 Lesson",
+   "level": "B2",
+   "words": [
+    "jitters",
+    "nerve-racking",
+    "honeymoon period",
+    "leadership",
+    "run smoothly",
+    "brilliant"
+   ]
+  },
+  {
+   "id": "b2_the_ulysses_contract",
+   "title": "The Ulysses Contract",
+   "level": "B2",
+   "words": [
+    "resist",
+    "in advance",
+    "back out",
+    "savings",
+    "deep work",
+    "philosopher"
+   ]
+  },
+  {
+   "id": "b2c1_dream_before_the_mast",
+   "title": "Dream Before the Mast",
+   "level": "",
+   "words": [
+    "provocation",
+    "lash",
+    "bind",
+    "destination",
+    "option",
+    "quietly"
+   ]
+  },
+  {
+   "id": "b2c1_the_art_of_questioning",
+   "title": "The Art of Asking Better Questions",
+   "level": "B2/C1",
+   "words": [
+    "draw out",
+    "exchange",
+    "mysterious",
+    "recognisable",
+    "talent",
+    "questioning"
+   ]
+  },
+  {
+   "id": "bc_account_of_a_crime_b2c1",
+   "title": "An Account of a Crime — B2/C1",
+   "level": "B2/C1",
+   "words": [
+    "robbery",
+    "burglary",
+    "heist",
+    "victim",
+    "witness",
+    "compelling"
+   ]
+  },
+  {
+   "id": "bc_adapt_presentation_c1",
+   "title": "Adapt Your Presentation - C1",
+   "level": "C1",
+   "words": [
+    "deviate",
+    "incorporate",
+    "contingency",
+    "gauge",
+    "improvise",
+    "proactive"
+   ]
+  },
+  {
+   "id": "bc_adapt_your_writing_c1",
+   "title": "Adapt Your Written Style",
+   "level": "C1",
+   "words": [
+    "stakeholder",
+    "clarification",
+    "cross-functional",
+    "summary",
+    "adapt",
+    "frustrated"
+   ]
+  },
+  {
+   "id": "bc_advanced_life_skills_c1",
+   "title": "Advanced Life Skills",
+   "level": "C1",
+   "words": [
+    "critical thinking",
+    "conflict resolution",
+    "creativity",
+    "teamwork",
+    "data analysis",
+    "regret"
+   ]
+  },
+  {
+   "id": "bc_company_culture_c1",
+   "title": "Company Culture",
+   "level": "C1",
+   "words": [
+    "collaboration",
+    "transparency",
+    "autonomy",
+    "initiative",
+    "inclusion",
+    "accountability"
+   ]
+  },
+  {
+   "id": "bc_complex_situations_c1",
+   "title": "Complex Situations — C1 Level",
+   "level": "C1",
+   "words": [
+    "infrastructure",
+    "controversial",
+    "large-scale",
+    "causative",
+    "dam",
+    "address"
+   ]
+  },
+  {
+   "id": "bc_confident_meetings_c1",
+   "title": "Confident Contributions in Professional Meetings",
+   "level": "",
+   "words": [
+    "contribution",
+    "hesitate",
+    "speak up",
+    "diplomatic",
+    "simulation",
+    "awkward"
+   ]
+  },
+  {
+   "id": "bc_conspiracy_theories_b2c1",
+   "title": "Conspiracy Theories - B2/C1 English Lesson",
+   "level": "B2/C1",
+   "words": [
+    "conspiracy theory",
+    "doubt",
+    "persist",
+    "contrary",
+    "verdict",
+    "convincingly"
+   ]
+  },
+  {
+   "id": "bc_consulting_reset_expectations_c1",
+   "title": "Resetting Expectations When a Project Slips",
+   "level": "C1",
+   "words": [
+    "slip",
+    "engagement",
+    "anticipate",
+    "absorb",
+    "steering committee",
+    "realistic"
+   ]
+  },
+  {
+   "id": "bc_creative_decision_making_b2c1",
+   "title": "Creative Decision Making - Six Thinking Hats",
+   "level": "B2/C1",
+   "words": [
+    "framework",
+    "sleep on it",
+    "gut feeling",
+    "snap decision",
+    "go about",
+    "perspective"
+   ]
+  },
+  {
+   "id": "bc_critical_evaluation_sources_phd",
+   "title": "Critical Evaluation of Sources — PhD Reading",
+   "level": "",
+   "words": [
+    "source",
+    "citation",
+    "thesis",
+    "defensible",
+    "earn",
+    "acceptance"
+   ]
+  },
+  {
+   "id": "bc_culture_shock_b2c1",
+   "title": "Culture Shock - B2/C1 English Lesson",
+   "level": "B2/C1",
+   "words": [
+    "culture shock",
+    "adaptability",
+    "connector",
+    "dimension",
+    "survive",
+    "precise"
+   ]
+  },
+  {
+   "id": "bc_current_issues_c1",
+   "title": "Current Issues",
+   "level": "",
+   "words": [
+    "counter argument",
+    "brainstorm",
+    "ethical",
+    "informal",
+    "interrupt",
+    "construct"
+   ]
+  },
+  {
+   "id": "bc_cycling_built_for_speed_c1",
+   "title": "Cycling: Built for Speed",
+   "level": "",
+   "words": [
+    "hot take",
+    "fence-sitting",
+    "compulsory",
+    "aerodynamic",
+    "downhill",
+    "gears"
+   ]
+  },
+  {
+   "id": "bc_cycling_c1",
+   "title": "The Bicycle: Freedom on Two Wheels",
+   "level": "C1",
+   "words": [
+    "nuisance",
+    "stir",
+    "means of transport",
+    "efficient",
+    "cyclist",
+    "frame"
+   ]
+  },
+  {
+   "id": "bc_data_and_information_c1",
+   "title": "Data and Information — C1 Level",
+   "level": "C1",
+   "words": [
+    "connotation",
+    "functionality",
+    "investor",
+    "connected speech",
+    "feature",
+    "collaborator"
+   ]
+  },
+  {
+   "id": "bc_de_extinction_c1",
+   "title": "Bring It Back: The De-Extinction Debate",
+   "level": "C1",
+   "words": [
+    "extinct",
+    "de-extinction",
+    "population",
+    "isolated",
+    "volcanic",
+    "die out"
+   ]
+  },
+  {
+   "id": "bc_debate_defend_view_c1",
+   "title": "Debate Sparks: Defend Your View - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "fluency",
+    "sophistication",
+    "nuance",
+    "vegetarian",
+    "overthink",
+    "measure"
+   ]
+  },
+  {
+   "id": "bc_defending_methodology_phd",
+   "title": "Defending Methodological Choices — PhD Academic English",
+   "level": "",
+   "words": [
+    "methodology",
+    "justification",
+    "objection",
+    "limitation",
+    "examiner",
+    "exclusion"
+   ]
+  },
+  {
+   "id": "bc_demonstrating_credibility_c1",
+   "title": "Demonstrating Credibility - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "credibility",
+    "competency",
+    "decisiveness",
+    "humility",
+    "expertise",
+    "consistency"
+   ]
+  },
+  {
+   "id": "bc_economic_issues_c1",
+   "title": "Economic Issues C1 - Money, Ethics and Social Responsibility",
+   "level": "C1",
+   "words": [
+    "economy",
+    "inequality",
+    "stability",
+    "displacement",
+    "opportunity",
+    "economically"
+   ]
+  },
+  {
+   "id": "bc_education_and_training_c1",
+   "title": "Education and Training - C1 ESL Lesson",
+   "level": "C1",
+   "words": [
+    "tolerance",
+    "punishment",
+    "reward",
+    "resonate",
+    "philosophy",
+    "neutral"
+   ]
+  },
+  {
+   "id": "bc_employment_matters_c1",
+   "title": "Employment Matters: Belbin's Nine Team Roles",
+   "level": "",
+   "words": [
+    "extrovert",
+    "introverted",
+    "meticulous",
+    "objective",
+    "dynamic",
+    "tend to"
+   ]
+  },
+  {
+   "id": "bc_endangered_species_b2c1",
+   "title": "Endangered Species",
+   "level": "B2/C1",
+   "words": [
+    "endangered",
+    "habitat loss",
+    "conservation",
+    "documentary",
+    "reverse",
+    "wildlife"
+   ]
+  },
+  {
+   "id": "bc_english_as_medium_instruction_c1",
+   "title": "English as Medium of Instruction",
+   "level": "C1",
+   "words": [
+    "medium of instruction",
+    "bilingual education",
+    "proficiency",
+    "tertiary education",
+    "align",
+    "abbreviation"
+   ]
+  },
+  {
+   "id": "bc_environmental_science_c1",
+   "title": "Environmental Science - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "habitat",
+    "imminent",
+    "invasive species",
+    "destructive",
+    "conservation project",
+    "ecosystem"
+   ]
+  },
+  {
+   "id": "bc_ethics_of_ai_c1",
+   "title": "The Ethics of AI - C1",
+   "level": "C1",
+   "words": [
+    "artificial intelligence",
+    "algorithm",
+    "regulate",
+    "third conditional",
+    "bill of rights",
+    "verdict"
+   ]
+  },
+  {
+   "id": "bc_explain_intuitively_c1",
+   "title": "Explaining Hard Ideas Simply — The Feynman Method",
+   "level": "",
+   "words": [
+    "analogy",
+    "click",
+    "memorise",
+    "nod along",
+    "plain language",
+    "layered"
+   ]
+  },
+  {
+   "id": "bc_first_impressions_c1",
+   "title": "First Impressions — C1 Level",
+   "level": "C1",
+   "words": [
+    "first impression",
+    "demeanour",
+    "instantaneous",
+    "perception",
+    "trait",
+    "assessment"
+   ]
+  },
+  {
+   "id": "bc_follow_the_rules_c1",
+   "title": "Follow the Rules — C1 Level",
+   "level": "C1",
+   "words": [
+    "clear-cut",
+    "forbidden",
+    "universally",
+    "acceptable",
+    "ethics",
+    "guide"
+   ]
+  },
+  {
+   "id": "bc_four_day_week_c1",
+   "title": "The Four-Day Working Week — A Case Study",
+   "level": "C1",
+   "words": [
+    "pilot",
+    "productivity",
+    "reform",
+    "wellbeing",
+    "norm",
+    "hack"
+   ]
+  },
+  {
+   "id": "bc_future_of_work_c1",
+   "title": "The Future of Work - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "remote working",
+    "freelance",
+    "digital literacy",
+    "soft skills",
+    "emerge",
+    "labour"
+   ]
+  },
+  {
+   "id": "bc_future_shock_ai_b2c1",
+   "title": "Future Shock - AI & Technology",
+   "level": "B2/C1",
+   "words": [
+    "surpass",
+    "exponential",
+    "prediction",
+    "science fiction",
+    "speculate",
+    "differ"
+   ]
+  },
+  {
+   "id": "bc_gadgets_persuasion_b2c1",
+   "title": "Gadgets: The Art of Persuasion",
+   "level": "B2/C1",
+   "words": [
+    "gadget",
+    "early adopter",
+    "must-have",
+    "obsession",
+    "revolutionary",
+    "sales pitch"
+   ]
+  },
+  {
+   "id": "bc_global_branding_c1",
+   "title": "Global Branding - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "globalisation",
+    "inversion",
+    "emphasis",
+    "brand image",
+    "marketing",
+    "worldwide"
+   ]
+  },
+  {
+   "id": "bc_green_news_c1",
+   "title": "Green News",
+   "level": "C1",
+   "words": [
+    "evaluative",
+    "inspire",
+    "overwhelm",
+    "catch your interest",
+    "vowel",
+    "adjective"
+   ]
+  },
+  {
+   "id": "bc_grow_model_c1",
+   "title": "GROW Model",
+   "level": "C1",
+   "words": [
+    "goal setting",
+    "obstacle",
+    "commit",
+    "concrete",
+    "assess",
+    "reality"
+   ]
+  },
+  {
+   "id": "bc_gtd_david_allen_c1",
+   "title": "Getting Things Done — David Allen",
+   "level": "",
+   "words": [
+    "reporting verb",
+    "inbox",
+    "to-do list",
+    "reference",
+    "demand",
+    "paraphrasing"
+   ]
+  },
+  {
+   "id": "bc_handling_intercultural_c1",
+   "title": "Handling Uncomfortable Intercultural Situations",
+   "level": "",
+   "words": [
+    "discomfort",
+    "navigate",
+    "intercultural",
+    "smoothly",
+    "growth",
+    "response strategy"
+   ]
+  },
+  {
+   "id": "bc_healthcare_billing_c1",
+   "title": "Mediating a Clinical-Billing Dispute",
+   "level": "C1",
+   "words": [
+    "dispute",
+    "mediate",
+    "documentation",
+    "inpatient",
+    "necessity",
+    "invoice"
+   ]
+  },
+  {
+   "id": "bc_high_performers_workaholism_b2c1",
+   "title": "High Performers: Workaholism Debate",
+   "level": "",
+   "words": [
+    "workaholic",
+    "high performer",
+    "guilty",
+    "identity",
+    "self-worth",
+    "complexity"
+   ]
+  },
+  {
+   "id": "bc_honesty_dishonesty_b2c1",
+   "title": "Honesty & Dishonesty — B2/C1 Level",
+   "level": "B2/C1",
+   "words": [
+    "dishonesty",
+    "plagiarize",
+    "declare",
+    "conduct",
+    "attitude",
+    "lie"
+   ]
+  },
+  {
+   "id": "bc_humour_in_presentations_c1",
+   "title": "Humour in Presentations — C1 Level",
+   "level": "C1",
+   "words": [
+    "humour",
+    "interactivity",
+    "foundational",
+    "launch into",
+    "introduction",
+    "establish"
+   ]
+  },
+  {
+   "id": "bc_inspiring_women_b2c1",
+   "title": "Inspiring Women - B2/C1 Lesson",
+   "level": "B2/C1",
+   "words": [
+    "inspiring",
+    "activist",
+    "resilient",
+    "achievement",
+    "cheer on",
+    "inspiration"
+   ]
+  },
+  {
+   "id": "bc_international_presentations_c1",
+   "title": "C1 - Presentations for International Audiences",
+   "level": "C1",
+   "words": [
+    "visual aids",
+    "delivery",
+    "ineffective",
+    "crucial",
+    "presenter",
+    "cultural differences"
+   ]
+  },
+  {
+   "id": "bc_investment_banking_pitch_c1",
+   "title": "Pushing Back on an Unrealistic Deadline",
+   "level": "C1",
+   "words": [
+    "unrealistic",
+    "valuation",
+    "preliminary",
+    "analyst",
+    "burn out",
+    "deal"
+   ]
+  },
+  {
+   "id": "bc_legal_unwelcome_advice_c1",
+   "title": "Delivering Unwelcome Legal Advice",
+   "level": "C1",
+   "words": [
+    "unwelcome",
+    "underestimate",
+    "footnote",
+    "lawyer",
+    "advisory",
+    "potentially"
+   ]
+  },
+  {
+   "id": "bc_life_on_mars_b2c1",
+   "title": "Life on Mars",
+   "level": "B2/C1",
+   "words": [
+    "colonisation",
+    "colonise",
+    "one-way",
+    "idiom",
+    "ordinary",
+    "lifetime"
+   ]
+  },
+  {
+   "id": "bc_looking_ahead_c1",
+   "title": "Looking Ahead - C1",
+   "level": "C1",
+   "words": [
+    "cleft sentence",
+    "future perfect",
+    "future continuous",
+    "speculation",
+    "hold",
+    "degree"
+   ]
+  },
+  {
+   "id": "bc_making_deductions_c1",
+   "title": "Making Deductions and Recommendations",
+   "level": "",
+   "words": [
+    "deduction",
+    "modal",
+    "profitable",
+    "certainty",
+    "employ",
+    "occur"
+   ]
+  },
+  {
+   "id": "bc_making_world_better_c1",
+   "title": "Making the World a Better Place",
+   "level": "",
+   "words": [
+    "gerund",
+    "hesitation device",
+    "expand on",
+    "community",
+    "naturally",
+    "keep going"
+   ]
+  },
+  {
+   "id": "bc_managing_nerves_c1",
+   "title": "How to Manage Nerves",
+   "level": "C1",
+   "words": [
+    "nerves",
+    "panic attack",
+    "visualization",
+    "rehearse",
+    "anxiety",
+    "breathing"
+   ]
+  },
+  {
+   "id": "bc_market_research_c1",
+   "title": "Market Research",
+   "level": "C1",
+   "words": [
+    "market research",
+    "feedback",
+    "preference",
+    "convenience",
+    "frequency",
+    "word stress"
+   ]
+  },
+  {
+   "id": "bc_mask_we_wear_c1",
+   "title": "The Mask We Wear",
+   "level": "C1",
+   "words": [
+    "persona",
+    "authentic",
+    "fake",
+    "play a role",
+    "wise",
+    "expressive"
+   ]
+  },
+  {
+   "id": "bc_advertising_defend_creative_c1",
+   "title": "Defending the Creative Work",
+   "level": "C1",
+   "words": [
+    "campaign",
+    "cave",
+    "dig in",
+    "flatly",
+    "defensively",
+    "account"
+   ]
+  },
+  {
+   "id": "bc_ai_for_phd_research_c1",
+   "title": "AI in PhD Research — Practical Workflows & Integrity (C1)",
+   "level": "C1",
+   "words": [
+    "workflow",
+    "integrity",
+    "paraphrase",
+    "synthesis",
+    "originality",
+    "cognitive"
+   ]
+  },
+  {
+   "id": "bc_ai_responsibility_c1",
+   "title": "AI Responsibility",
+   "level": "",
+   "words": [
+    "accountable",
+    "regulator",
+    "deployment",
+    "rigorous",
+    "explainable",
+    "speculate"
+   ]
+  },
+  {
+   "id": "bc_aliens_probability_b2c1",
+   "title": "Aliens - Probability & Conditionals",
+   "level": "B2/C1",
+   "words": [
+    "probability",
+    "conditional",
+    "sighting",
+    "unidentified",
+    "sheer",
+    "miracle"
+   ]
+  },
+  {
+   "id": "bc_alternative_way_c1",
+   "title": "The Alternative Way - C1",
+   "level": "C1",
+   "words": [
+    "alternative medicine",
+    "therapy",
+    "spring to mind",
+    "trend",
+    "reasoning",
+    "evidence"
+   ]
+  },
+  {
+   "id": "bc_andy_burnham_c1",
+   "title": "Andy Burnham & the Power of Cities",
+   "level": "C1",
+   "words": [
+    "mayor",
+    "hold to account",
+    "visible",
+    "region",
+    "housing",
+    "genuinely"
+   ]
+  },
+  {
+   "id": "bc_appliance_of_science_c1",
+   "title": "The Appliance of Science",
+   "level": "",
+   "words": [
+    "manufacturer",
+    "coating",
+    "recycle",
+    "rotate",
+    "mould",
+    "treatment plant"
+   ]
+  },
+  {
+   "id": "bc_artemis_moon_c1",
+   "title": "Back to the Moon — Artemis II",
+   "level": "B2/C1",
+   "words": [
+    "astronaut",
+    "splash down",
+    "mission",
+    "exploration",
+    "perspective",
+    "worth it"
+   ]
+  },
+  {
+   "id": "bc_asteroids_c1",
+   "title": "Asteroids and Meteorites",
+   "level": "",
+   "words": [
+    "asteroid",
+    "meteorite",
+    "trajectory",
+    "think tank",
+    "collision course",
+    "discourse marker"
+   ]
+  },
+  {
+   "id": "bc_being_green_c1",
+   "title": "Being Green - C1 Advanced",
+   "level": "C1",
+   "words": [
+    "conscious shopper",
+    "beat myself up",
+    "limiting consumption",
+    "overwhelmed",
+    "over the top",
+    "drive me crazy"
+   ]
+  },
+  {
+   "id": "bc_black_holes_cosmology_c1",
+   "title": "At the Edge of Knowing — Black Holes & Cosmology",
+   "level": "",
+   "words": [
+    "black hole",
+    "cosmology",
+    "gravity",
+    "textbook",
+    "occasionally",
+    "region"
+   ]
+  },
+  {
+   "id": "bc_books_changed_world_part2_c1",
+   "title": "Books that Changed the World: Part 2 – C1 ESL",
+   "level": "C1",
+   "words": [
+    "foundation",
+    "movement",
+    "devastating",
+    "pesticide",
+    "credit",
+    "ranking"
+   ]
+  },
+  {
+   "id": "bc_books_or_films_c1",
+   "title": "Books or Films: A Debate",
+   "level": "C1",
+   "words": [
+    "blurb",
+    "prose",
+    "soundtrack",
+    "cast",
+    "bestselling",
+    "credits"
+   ]
+  },
+  {
+   "id": "bc_books_that_changed_the_world_c1",
+   "title": "Books that Changed the World – C1 ESL",
+   "level": "C1",
+   "words": [
+    "put down",
+    "abandon",
+    "live up to",
+    "compelling",
+    "impact",
+    "deserve"
+   ]
+  },
+  {
+   "id": "bc_broadening_horizons_advanced_c1",
+   "title": "Broadening Your Horizons",
+   "level": "C1",
+   "words": [
+    "transferrable skills",
+    "prestigious",
+    "integrate",
+    "character-building",
+    "cliché",
+    "revision techniques"
+   ]
+  },
+  {
+   "id": "bc_broadening_horizons_b2c1",
+   "title": "Broadening Horizons",
+   "level": "B2/C1",
+   "words": [
+    "abroad",
+    "settle in",
+    "memorable",
+    "stand out",
+    "draw",
+    "international"
+   ]
+  },
+  {
+   "id": "bc_build_relationships_writing_c1",
+   "title": "Build Relationships Through Writing",
+   "level": "",
+   "words": [
+    "rapport",
+    "harmonious",
+    "mutual respect",
+    "emotional intelligence",
+    "pitfall",
+    "damaging"
+   ]
+  },
+  {
+   "id": "bc_building_your_brand_c1",
+   "title": "Building Your Brand - C1 ESL Lesson",
+   "level": "C1",
+   "words": [
+    "brand",
+    "elevator pitch",
+    "admire",
+    "distinct",
+    "jot down",
+    "reputation"
+   ]
+  },
+  {
+   "id": "bc_business_rules_innovation_c1",
+   "title": "Business Rule-Breaking and Innovation",
+   "level": "C1",
+   "words": [
+    "procedure",
+    "policy",
+    "innovation",
+    "grey area",
+    "corporate culture",
+    "signposting"
+   ]
+  },
+  {
+   "id": "bc_changing_places_c1",
+   "title": "Changing Places - C1",
+   "level": "C1",
+   "words": [
+    "obesity",
+    "deteriorate",
+    "level off",
+    "steadily",
+    "workmanship",
+    "fatality"
+   ]
+  },
+  {
+   "id": "bc_charity_b2c1",
+   "title": "Charity",
+   "level": "B2/C1",
+   "words": [
+    "cause",
+    "poverty",
+    "companionship",
+    "helpline",
+    "abandoned",
+    "social responsibility"
+   ]
+  },
+  {
+   "id": "bc_citizenship_test_c1",
+   "title": "British Life and Culture",
+   "level": "",
+   "words": [
+    "citizen",
+    "generalisation",
+    "applicant",
+    "traditional",
+    "brunch",
+    "citizenship"
+   ]
+  },
+  {
+   "id": "bc_clarifying_intercultural_c1",
+   "title": "Clarifying Expectations in Intercultural Situations",
+   "level": "",
+   "words": [
+    "expectations",
+    "intent",
+    "culturally sensitive",
+    "misunderstand",
+    "clarify",
+    "action plan"
+   ]
+  },
+  {
+   "id": "bc_climate_change_b2c1",
+   "title": "Climate Change: Evaluating Solutions",
+   "level": "B2/C1",
+   "words": [
+    "carbon dioxide",
+    "persuasively",
+    "construction",
+    "solution",
+    "environmental",
+    "recall"
+   ]
+  },
+  {
+   "id": "bc_climate_change_c1",
+   "title": "Climate Change: Opinion & Proposals",
+   "level": "C1",
+   "words": [
+    "greenhouse gas",
+    "fossil fuel",
+    "sea level",
+    "land clearance",
+    "severe weather",
+    "human activity"
+   ]
+  },
+  {
+   "id": "dinosaur_heist",
+   "title": "The Dinosaur Heist",
+   "level": "",
+   "words": [
+    "mastermind",
+    "preserved",
+    "obstacle",
+    "anticipate",
+    "outsmart",
+    "crown jewel"
+   ]
+  },
+  {
+   "id": "discuss_a2_taking_to_the_streets",
+   "title": "When People Take to the Streets",
+   "level": "A2",
+   "words": [
+    "protest",
+    "strike",
+    "petition",
+    "march",
+    "peaceful",
+    "demand"
+   ]
+  },
+  {
+   "id": "discuss_b1_french_elections",
+   "title": "Two Rounds: How France Picks a President",
+   "level": "B1",
+   "words": [
+    "election",
+    "candidate",
+    "round",
+    "annoy",
+    "vote",
+    "term"
+   ]
+  },
+  {
+   "id": "discuss_b2_emotional_intelligence",
+   "title": "Emotional Intelligence — B2 Speaking Lesson",
+   "level": "B2",
+   "words": [
+    "emotional intelligence",
+    "associate",
+    "performer",
+    "predict",
+    "self-awareness",
+    "empathy"
+   ]
+  },
+  {
+   "id": "discuss_b2_iran_us_europe_reacts",
+   "title": "When Allies Disagree — B2 Discussion & Analysis",
+   "level": "B2",
+   "words": [
+    "ally",
+    "read between the lines",
+    "crisis",
+    "statement",
+    "react",
+    "conflict"
+   ]
+  },
+  {
+   "id": "discuss_b2_taking_to_the_streets",
+   "title": "When People Take to the Streets",
+   "level": "B2",
+   "words": [
+    "weigh up",
+    "marching",
+    "follow",
+    "anger",
+    "crowd",
+    "violent"
+   ]
+  },
+  {
+   "id": "discuss_b2_who_belongs_here",
+   "title": "Who Belongs Here? — B2 Speaking",
+   "level": "B2",
+   "words": [
+    "immigrant",
+    "refugee",
+    "origin",
+    "reveal",
+    "century",
+    "belong"
+   ]
+  },
+  {
+   "id": "discuss_b2c1_animal_trials",
+   "title": "Animal Trials of the Middle Ages",
+   "level": "B2/C1",
+   "words": [
+    "verdict",
+    "acquit",
+    "medieval",
+    "charge",
+    "guilty",
+    "hang"
+   ]
+  },
+  {
+   "id": "discuss_b2c1_dealing_with_uncertainty",
+   "title": "Dealing with Uncertainty — B2/C1 Speaking",
+   "level": "B2/C1",
+   "words": [
+    "think through",
+    "fascinating",
+    "decision",
+    "nuance",
+    "confident",
+    "risk"
+   ]
+  },
+  {
+   "id": "discuss_b2c1_endings_and_after",
+   "title": "Endings, and What Comes After",
+   "level": "B2/C1",
+   "words": [
+    "cliché",
+    "chapter",
+    "retrieval",
+    "historical figure",
+    "gradual",
+    "from a distance"
+   ]
+  },
+  {
+   "id": "discuss_b2c1_photography",
+   "title": "The Decisive Moment: Photography & Taking Pictures",
+   "level": "B2/C1",
+   "words": [
+    "messy",
+    "roughly",
+    "candid",
+    "composition",
+    "frame",
+    "have a go"
+   ]
+  },
+  {
+   "id": "discuss_b2c1_power_and_accountability",
+   "title": "Power, Privilege & Accountability",
+   "level": "",
+   "words": [
+    "victim",
+    "sentence",
+    "net worth",
+    "accountability",
+    "plea deal",
+    "investigation"
+   ]
+  },
+  {
+   "id": "discuss_c1_advice_industry",
+   "title": "The Advice Industry - Who Really Benefits?",
+   "level": "C1",
+   "words": [
+    "consulting",
+    "revenue",
+    "industry",
+    "harm",
+    "reality",
+    "global"
+   ]
+  },
+  {
+   "id": "discuss_c1_arrow_of_time",
+   "title": "The Arrow of Time",
+   "level": "C1/C2",
+   "words": [
+    "entropy",
+    "in reverse",
+    "hedged",
+    "direction",
+    "backwards",
+    "precise"
+   ]
+  },
+  {
+   "id": "discuss_c1_endings_and_fresh_starts",
+   "title": "Endings and Fresh Starts",
+   "level": "C1",
+   "words": [
+    "close a chapter",
+    "turn out",
+    "mixed feelings",
+    "reflect",
+    "beginning",
+    "carry with you"
+   ]
+  },
+  {
+   "id": "doctor_heist_b2c1",
+   "title": "The Antidote - Medical Heist (B2/C1)",
+   "level": "B2/C1",
+   "words": [
+    "antidote",
+    "clinical trial",
+    "vault",
+    "biometric",
+    "oath",
+    "refrigerated"
+   ]
+  },
+  {
+   "id": "editor_dilemmas_game",
+   "title": "You Are the Editor — Six Decisions That Make a Journal",
+   "level": "",
+   "words": [
+    "reputation",
+    "goodwill",
+    "scholarly",
+    "journal",
+    "standing",
+    "reasoning"
+   ]
+  },
+  {
+   "id": "english_at_work_phrase_bank",
+   "title": "Phrase Bank",
+   "level": "",
+   "words": [
+    "get the floor",
+    "raid",
+    "automatic",
+    "conference",
+    "break into",
+    "reach for"
+   ]
+  },
+  {
+   "id": "epicurean_01_who_was_epicurus",
+   "title": "Lesson 1: Who Was Epicurus?",
+   "level": "",
+   "words": [
+    "revolutionary",
+    "fine dining",
+    "philosophy",
+    "fear",
+    "figure",
+    "explore"
+   ]
+  },
+  {
+   "id": "epicurean_02_tetrapharmakos",
+   "title": "Lesson 2: The Tetrapharmakos",
+   "level": "",
+   "words": [
+    "remedy",
+    "cure",
+    "summarise",
+    "recall",
+    "anxiety",
+    "pleasure"
+   ]
+  },
+  {
+   "id": "epicurean_03_primary_sources",
+   "title": "Lesson 3: Primary Sources",
+   "level": "",
+   "words": [
+    "primary source",
+    "survive",
+    "fraction",
+    "survey",
+    "dive into",
+    "lost"
+   ]
+  },
+  {
+   "id": "epicurean_04_the_garden_community",
+   "title": "Lesson 4: The Garden Community",
+   "level": "",
+   "words": [
+    "community",
+    "friendship",
+    "function",
+    "hold together",
+    "daily",
+    "equality"
+   ]
+  },
+  {
+   "id": "epicurean_05_why_controversial",
+   "title": "Lesson 5: Why Epicureanism Was Controversial",
+   "level": "",
+   "words": [
+    "misunderstanding",
+    "byword",
+    "inclusion",
+    "significant",
+    "central",
+    "differ"
+   ]
+  },
+  {
+   "id": "epicurean_06_atoms_and_void",
+   "title": "Lesson 6: Atoms and the Void",
+   "level": "",
+   "words": [
+    "atom",
+    "void",
+    "intervene",
+    "supernatural",
+    "emphasize",
+    "establish"
+   ]
+  },
+  {
+   "id": "epicurean_07_the_swerve",
+   "title": "Lesson 7: The Swerve (Clinamen)",
+   "level": "",
+   "words": [
+    "swerve",
+    "spontaneous",
+    "property",
+    "existence",
+    "brilliant",
+    "straight"
+   ]
   }
  ],
  "words": {
@@ -30177,7 +32781,8 @@ window.WORDBANK={
     "techniques_the_remarkable_rocket_a2b1",
     "techniques_the_two_labyrinths_a2b1",
     "behind_the_screen_chariots_of_fire_a2b1",
-    "sf_a1_15_the_visit"
+    "sf_a1_15_the_visit",
+    "b2_31_job_interview"
    ]
   },
   "tourist": {
@@ -30199,7 +32804,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "a1s_26_lost",
-    "lf_20_being_dumped"
+    "lf_20_being_dumped",
+    "epicurean_07_the_swerve"
    ]
   },
   "left": {
@@ -30256,7 +32862,8 @@ window.WORDBANK={
    "def": "you don't know where you are",
    "ex": "",
    "lessons": [
-    "a1s_26_lost"
+    "a1s_26_lost",
+    "epicurean_03_primary_sources"
    ]
   },
   "across": {
@@ -30322,7 +32929,8 @@ window.WORDBANK={
     "a1s_28_hobbies",
     "gr_warmup_a2_hot_takes_books",
     "hobbies_free_time_a2",
-    "first_lesson_a2"
+    "first_lesson_a2",
+    "b2_28_taking_up_a_sport"
    ]
   },
   "paint": {
@@ -30707,7 +33315,9 @@ window.WORDBANK={
     "rp_31_at_the_post_office",
     "Jane_Performance_STUDENT",
     "su_a2_91_online_shopping",
-    "skills_a2_trade_fair_your_product"
+    "skills_a2_trade_fair_your_product",
+    "b2_79_making_a_complaint",
+    "bc_international_presentations_c1"
    ]
   },
   "class": {
@@ -30874,7 +33484,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_35_because",
     "discuss_a2_frankl_meaning",
-    "rs_y8_sum1_11_03"
+    "rs_y8_sum1_11_03",
+    "b2_83_changing_jobs"
    ]
   },
   "club": {
@@ -30953,7 +33564,8 @@ window.WORDBANK={
     "rs_y7_sum2_06_02",
     "rp_13_talking_about_the_weather_a2b1",
     "behind_the_screen_the_crucible_a2b1",
-    "sf_a1_13_flying_home"
+    "sf_a1_13_flying_home",
+    "b2_43_making_small_talk"
    ]
   },
   "noise": {
@@ -31236,7 +33848,8 @@ window.WORDBANK={
     "su_a2_87_at_the_doctor",
     "explore_all_first_lesson_intro",
     "rp_11_a_job_interview_a2b1",
-    "sf_a1_06_the_airport"
+    "sf_a1_06_the_airport",
+    "b2_31_job_interview"
    ]
   },
   "shine": {
@@ -31927,7 +34540,8 @@ window.WORDBANK={
     "b1_53_uk_citizenship",
     "c1_pro_18_onboarding",
     "short_history_the_rosetta_stone_a2b1",
-    "techniques_the_country_of_the_blind_a2b1"
+    "techniques_the_country_of_the_blind_a2b1",
+    "discuss_b2_who_belongs_here"
    ]
   },
   "court": {
@@ -32093,7 +34707,8 @@ window.WORDBANK={
     "ts_rubik_cube_b2",
     "bc_why_things_go_viral_c1",
     "gr_warmup_b2_hot_takes_technology",
-    "b1_45_social_media_life"
+    "b1_45_social_media_life",
+    "bc_ethics_of_ai_c1"
    ]
   },
   "surge pricing": {
@@ -32153,7 +34768,8 @@ window.WORDBANK={
    "lessons": [
     "b2_robotaxi_revolution",
     "spain_rail_disaster",
-    "talk_cars_in_cities_b2c1"
+    "talk_cars_in_cities_b2c1",
+    "bc_complex_situations_c1"
    ]
   },
   "regulation": {
@@ -32357,7 +34973,9 @@ window.WORDBANK={
    "lessons": [
     "bc_ada_lovelace_c1",
     "tib_pestle_b2",
-    "Business-Bootcamp-Lesson6-The-Boardroom"
+    "Business-Bootcamp-Lesson6-The-Boardroom",
+    "bc_consulting_reset_expectations_c1",
+    "dinosaur_heist"
    ]
   },
   "bereavement": {
@@ -32455,7 +35073,9 @@ window.WORDBANK={
     "tib_swot_b2",
     "acad_b1_22_understanding_arguments",
     "ct_b1_33_justifying_opinions",
-    "epicurean_10_pleasure_highest_good"
+    "epicurean_10_pleasure_highest_good",
+    "b2_92_language_of_historical_debate",
+    "b2_98_insurance_partial_claim"
    ]
   },
   "recruitment": {
@@ -32550,7 +35170,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_ai_handover_c1",
-    "end_hold_c1"
+    "end_hold_c1",
+    "bc_endangered_species_b2c1"
    ]
   },
   "fabricate": {
@@ -32571,7 +35192,8 @@ window.WORDBANK={
    "def": "a note at the bottom of a page that tells you where a fact or quotation comes from.",
    "ex": "",
    "lessons": [
-    "bc_ai_report_c1"
+    "bc_ai_report_c1",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "instalment": {
@@ -32634,7 +35256,8 @@ window.WORDBANK={
     "bc_ai_report_c1",
     "the_art_of_the_analogy_c2",
     "deep_space_03_universe",
-    "epicurean_15_the_canonic"
+    "epicurean_15_the_canonic",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "responsibility": {
@@ -32664,7 +35287,8 @@ window.WORDBANK={
     "bp_c2_04_the_power_of_imprecision",
     "presenting_your_business",
     "prof_c2_06_csuite_communication",
-    "wk_13_the_mistake"
+    "wk_13_the_mistake",
+    "bc_demonstrating_credibility_c1"
    ]
   },
   "penalise": {
@@ -32684,7 +35308,8 @@ window.WORDBANK={
    "lessons": [
     "bc_ai_screening_c1",
     "gr_b2_the_register",
-    "everyone_has_an_accent_b1b2"
+    "everyone_has_an_accent_b1b2",
+    "bc_education_and_training_c1"
    ]
   },
   "disband": {
@@ -32767,7 +35392,8 @@ window.WORDBANK={
     "su_a2_47_making_decisions",
     "interview_essentials",
     "c2_pro_16_decision_making",
-    "wk_06_the_interview"
+    "wk_06_the_interview",
+    "discuss_b1_french_elections"
    ]
   },
   "medicine": {
@@ -32944,7 +35570,8 @@ window.WORDBANK={
     "bc_openai_agi_c1",
     "gr_b2_the_upgrade",
     "chatterbox_4_ridiculous_ventures",
-    "prof_c2_01_boardroom_english"
+    "prof_c2_01_boardroom_english",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "arms race": {
@@ -33020,7 +35647,8 @@ window.WORDBANK={
     "gr_b1_story_chain",
     "rp_13_talking_about_the_weather_a2b1",
     "rp_06_asking_for_directions",
-    "skills_a2_trade_fair_small_talk"
+    "skills_a2_trade_fair_small_talk",
+    "b2_49_networking_events"
    ]
   },
   "review": {
@@ -33046,7 +35674,8 @@ window.WORDBANK={
     "bc_wework_a2b1",
     "gr_b2_the_upgrade",
     "gr_warmup_c1_the_elevator",
-    "c1_pro_27_corporate_responsibility"
+    "c1_pro_27_corporate_responsibility",
+    "bc_data_and_information_c1"
    ]
   },
   "ban": {
@@ -33077,7 +35706,8 @@ window.WORDBANK={
     "behind_the_screen_everything_everywhere_all_at_once",
     "gr_b2_chain_reaction",
     "speaking_naturally_teens_bonus_camus_absurd_hero",
-    "rs_y9_sum1_17_05"
+    "rs_y9_sum1_17_05",
+    "b2_42_telling_funny_stories"
    ]
   },
   "grapple with": {
@@ -33149,7 +35779,8 @@ window.WORDBANK={
     "bc_naguib_mahfouz_c1",
     "bc_rumi_c1",
     "bc_stanislaw_lem_c1",
-    "techniques_the_egg"
+    "techniques_the_egg",
+    "b2_57_medical_ethics"
    ]
   },
   "bleak": {
@@ -33211,7 +35842,8 @@ window.WORDBANK={
     "bc_alphabet_a2b1",
     "bc_apple1997_a2b1",
     "bc_kodak_a2b1",
-    "Business-Bootcamp-Lesson4-The-Numbers"
+    "Business-Bootcamp-Lesson4-The-Numbers",
+    "b2_30_a_good_investment"
    ]
   },
   "invest": {
@@ -33254,7 +35886,9 @@ window.WORDBANK={
     "bc_translation_a2b1",
     "nq_04_what_if_c1",
     "tib_riskmatrix_b2",
-    "skills_b1_numbers_deadlines_risks_meetings"
+    "skills_b1_numbers_deadlines_risks_meetings",
+    "b2_07_is_tv_bad_for_us",
+    "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
   "grow": {
@@ -33589,7 +36223,8 @@ window.WORDBANK={
     "b1_06_a_memorable_holiday",
     "su_a2_28_a_good_holiday",
     "travel_adventures",
-    "travel_holidays_a2"
+    "travel_holidays_a2",
+    "b2c1_dream_before_the_mast"
    ]
   },
   "journey": {
@@ -33621,7 +36256,8 @@ window.WORDBANK={
     "short_history_the_berlin_wall_a2b1",
     "short_history_the_colosseum_a2b1",
     "short_history_the_gladiators_a2b1",
-    "short_history_the_gold_rush_a2b1"
+    "short_history_the_gold_rush_a2b1",
+    "discuss_b2_taking_to_the_streets"
    ]
   },
   "spend": {
@@ -33737,7 +36373,8 @@ window.WORDBANK={
     "bc_bicester_destination_c1",
     "say_so_what_c1",
     "ts_john_snow_b2",
-    "short_history_the_scramble_for_africa_a2b1"
+    "short_history_the_scramble_for_africa_a2b1",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "fee": {
@@ -33746,7 +36383,8 @@ window.WORDBANK={
    "def": "Money you pay for a service. A late fee is money you pay when you are late.",
    "ex": "Blockbuster charged a late fee if you kept the film too long.",
    "lessons": [
-    "bc_blockbuster_a2b1"
+    "bc_blockbuster_a2b1",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "customer": {
@@ -33784,7 +36422,8 @@ window.WORDBANK={
    "lessons": [
     "bc_blockbuster_a2b1",
     "techniques_the_ransom_of_red_chief_a2b1",
-    "ml_27_the_better_deal"
+    "ml_27_the_better_deal",
+    "b2_87_organising_event"
    ]
   },
   "refuse": {
@@ -33797,7 +36436,8 @@ window.WORDBANK={
     "ts_montessori_b2",
     "behind_the_screen_chariots_of_fire_a2b1",
     "su_a2_54_managing_time_with_others",
-    "short_history_muhammad_ali_a2b1"
+    "short_history_muhammad_ali_a2b1",
+    "b2_16_the_year_in_review"
    ]
   },
   "shareholder": {
@@ -33971,7 +36611,8 @@ window.WORDBANK={
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "c1_pro_22_supply_chain",
     "nq_07_mixed_c1",
-    "skills_b1_numbers_deadlines_risks_meetings"
+    "skills_b1_numbers_deadlines_risks_meetings",
+    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "test": {
@@ -34027,7 +36668,8 @@ window.WORDBANK={
     "b1_25_career_development",
     "su_a2_44_working_smarter",
     "c1_pro_03_delivering_bad_news",
-    "skills_b1_numbers_deadlines_risks_meetings"
+    "skills_b1_numbers_deadlines_risks_meetings",
+    "b2_96_engineering_safety_concerns"
    ]
   },
   "sensor": {
@@ -34124,7 +36766,8 @@ window.WORDBANK={
    "def": "To say what you think, especially when it is difficult or unpopular.",
    "ex": "Engineers no longer felt able to speak up.",
    "lessons": [
-    "bc_boeing_a2b1"
+    "bc_boeing_a2b1",
+    "bc_confident_meetings_c1"
    ]
   },
   "derivative": {
@@ -34142,7 +36785,8 @@ window.WORDBANK={
    "def": "supervisory control (regulatory oversight, congressional oversight). Note the trap: an oversight also means a thing accidentally missed — English's darkest pun, and this case contains both meanings.",
    "ex": "",
    "lessons": [
-    "bc_boeing_max_c1"
+    "bc_boeing_max_c1",
+    "b2_57_medical_ethics"
    ]
   },
   "fix": {
@@ -34153,7 +36797,8 @@ window.WORDBANK={
    "lessons": [
     "bc_boeing_max_c1",
     "tib_fivewhys_b2",
-    "lf_02_your_mother_s_advice"
+    "lf_02_your_mother_s_advice",
+    "b2_21_the_workshop_project"
    ]
   },
   "deferred prosecution agreement": {
@@ -34297,7 +36942,8 @@ window.WORDBANK={
    "lessons": [
     "bc_china_challenge_a2b1",
     "grammar_b2_20_making_plans",
-    "su_a2_89_holiday_planning"
+    "su_a2_89_holiday_planning",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "licence": {
@@ -34520,7 +37166,8 @@ window.WORDBANK={
    "def": "A chance to do something good or useful.",
    "ex": "That trip gave me an opportunity I never expected.",
    "lessons": [
-    "bc_connecting_the_dots_b2"
+    "bc_connecting_the_dots_b2",
+    "bc_economic_issues_c1"
    ]
   },
   "take a risk": {
@@ -34541,7 +37188,9 @@ window.WORDBANK={
     "bc_connecting_the_dots_b2",
     "grammar_c1_17_counterfactual_conditionals",
     "bc_organising_client_events_c1",
-    "short_history_marie_antoinette_a2b1"
+    "short_history_marie_antoinette_a2b1",
+    "b2_36_awkward_situations",
+    "bc_advanced_life_skills_c1"
    ]
   },
   "with hindsight": {
@@ -34637,7 +37286,8 @@ window.WORDBANK={
     "bc_disneypixar_a2b1",
     "techniques_how_much_land_a2b1",
     "breaking_news_netflix_warner_bros_jan_2026",
-    "first_impressions_small_talk"
+    "first_impressions_small_talk",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "leader": {
@@ -34698,7 +37348,8 @@ window.WORDBANK={
     "rs_y11_spr1_27_05",
     "bc_passion_for_danger_c1",
     "talk_working_from_home_b2c1",
-    "wp_14_the_dog_philosopher"
+    "wp_14_the_dog_philosopher",
+    "bc_company_culture_c1"
    ]
   },
   "walk away": {
@@ -34790,7 +37441,8 @@ window.WORDBANK={
     "tib_pdca_b2",
     "acad_b2_11_research_basics",
     "bc_talking_about_it_c1",
-    "behind_the_screen_arrival_a2b1"
+    "behind_the_screen_arrival_a2b1",
+    "b2_30_a_good_investment"
    ]
   },
   "evidence": {
@@ -34816,7 +37468,8 @@ window.WORDBANK={
     "behind_the_screen_the_untouchables_a2b1",
     "b1_42_star_interview_technique",
     "c1_pro_08_internal_pitching",
-    "epicurean_16_truth_and_error"
+    "epicurean_16_truth_and_error",
+    "bc_alternative_way_c1"
    ]
   },
   "breakthrough": {
@@ -34831,7 +37484,8 @@ window.WORDBANK={
     "columbo_c1_lovely_but_lethal",
     "tib_hypecycle_b2",
     "ts_dna_fingerprint_b2",
-    "prof_c2_05_advanced_negotiation"
+    "prof_c2_05_advanced_negotiation",
+    "b2_80_in_the_news"
    ]
   },
   "taboo": {
@@ -35014,7 +37668,8 @@ window.WORDBANK={
     "su_a2_64_adapting_communication",
     "b1_20_flexible_communication",
     "c2_pro_29_innovation_culture",
-    "talk_traditions_b2c1"
+    "talk_traditions_b2c1",
+    "bc_adapt_your_writing_c1"
    ]
   },
   "erp": {
@@ -35117,7 +37772,8 @@ window.WORDBANK={
     "bc_grace_under_pressure_b1b2",
     "ts_erikson_b2",
     "are_we_forgetting_how_to_be_friends",
-    "short_history_cuban_missile_crisis_a2b1"
+    "short_history_cuban_missile_crisis_a2b1",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "cope": {
@@ -35129,7 +37785,8 @@ window.WORDBANK={
     "bc_grace_under_pressure_b1b2",
     "topic_optimism_b2",
     "wk_21_the_colleague_who_cries",
-    "wk_24_not_coping_at_work"
+    "wk_24_not_coping_at_work",
+    "b2_77_cope_with_unexpected"
    ]
   },
   "experience": {
@@ -35154,7 +37811,8 @@ window.WORDBANK={
     "techniques_to_build_a_fire_a2b1",
     "tib_ooda_b2",
     "gr_b2_the_black_box",
-    "bp_c2_02_the_language_of_not_knowing"
+    "bp_c2_02_the_language_of_not_knowing",
+    "b2_47_handling_complaints"
    ]
   },
   "overwhelmed": {
@@ -35167,7 +37825,8 @@ window.WORDBANK={
     "short_history_the_spanish_flu",
     "tib_eisenhower_a2b1",
     "tib_eisenhower_b2",
-    "b1_49_mental_health"
+    "b1_49_mental_health",
+    "bc_being_green_c1"
    ]
   },
   "split-second decision": {
@@ -35589,7 +38248,8 @@ window.WORDBANK={
    "def": "A room or shop where a company shows its products.",
    "ex": "Clients can see the new cars in our showroom.",
    "lessons": [
-    "bc_ikea_a2b1"
+    "bc_ikea_a2b1",
+    "b2_anchoring"
    ]
   },
   "fit": {
@@ -35632,7 +38292,8 @@ window.WORDBANK={
    "ex": "The instructions say you must switch the machine off first.",
    "lessons": [
     "bc_ikea_a2b1",
-    "ct_a2_19_explaining_processes"
+    "ct_a2_19_explaining_processes",
+    "b2_21_the_workshop_project"
    ]
   },
   "damaged": {
@@ -35660,7 +38321,8 @@ window.WORDBANK={
    "ex": "The US government gave Intel money.",
    "lessons": [
     "bc_intel_foundry_a2b1",
-    "behind_the_screen_the_last_samurai_a2b1"
+    "behind_the_screen_the_last_samurai_a2b1",
+    "b2_84_no_free_lunch"
    ]
   },
   "share": {
@@ -35871,7 +38533,8 @@ window.WORDBANK={
    "lessons": [
     "bc_kintsugi_b2",
     "tib_fishbone_b2",
-    "acad_c1_07_critical_analysis"
+    "acad_c1_07_critical_analysis",
+    "b2_24_clarity_is_key"
    ]
   },
   "precious": {
@@ -35914,7 +38577,8 @@ window.WORDBANK={
    "lessons": [
     "bc_kintsugi_b2",
     "bc_marie_curie_c1",
-    "techniques_the_machine_stops"
+    "techniques_the_machine_stops",
+    "bc_inspiring_women_b2c1"
    ]
   },
   "embrace": {
@@ -35940,7 +38604,8 @@ window.WORDBANK={
     "gr_b2_time_auction",
     "gr_warmup_a2_hot_takes_technology",
     "behind_the_screen_oppenheimer_a2b1",
-    "su_a2_29_describing_future_technology"
+    "su_a2_29_describing_future_technology",
+    "b2_66_impact_of_technology"
    ]
   },
   "sensible": {
@@ -35972,7 +38637,9 @@ window.WORDBANK={
     "bc_kodak_a2b1",
     "bc_nokia_a2b1",
     "behind_the_screen_apollo_13_a2b1",
-    "short_history_shackleton_a2b1"
+    "short_history_shackleton_a2b1",
+    "bc_culture_shock_b2c1",
+    "epicurean_03_primary_sources"
    ]
   },
   "recurring revenue": {
@@ -36058,7 +38725,8 @@ window.WORDBANK={
    "ex": "By 2003 the company's debt was close to a billion dollars.",
    "lessons": [
     "bc_lego_a2b1",
-    "speaking_naturally_teens_06_generation_vs_parents"
+    "speaking_naturally_teens_06_generation_vs_parents",
+    "b2_97_retail_banking_loan_decline"
    ]
   },
   "sell off": {
@@ -36111,7 +38779,8 @@ window.WORDBANK={
    "lessons": [
     "bc_lego_turnaround_c1",
     "bp_c2_06_the_consultants_edge",
-    "rs_y9_aut1_13_02"
+    "rs_y9_aut1_13_02",
+    "bc_high_performers_workaholism_b2c1"
    ]
   },
   "sku": {
@@ -36158,7 +38827,8 @@ window.WORDBANK={
    "ex": "That word captures the feeling exactly.",
    "lessons": [
     "bc_lost_in_translation_b2",
-    "b1_30_bringing_ideas_together"
+    "b1_30_bringing_ideas_together",
+    "b2_90_lost_in_translation"
    ]
   },
   "concept": {
@@ -36168,7 +38838,8 @@ window.WORDBANK={
    "ex": "Some cultures have a concept that others simply don't.",
    "lessons": [
     "bc_lost_in_translation_b2",
-    "ct_b1_26_abstract_concepts"
+    "ct_b1_26_abstract_concepts",
+    "b2_101_design_brand_stretch"
    ]
   },
   "nuance": {
@@ -36181,7 +38852,9 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_reductio",
     "bp_c2_02_the_language_of_not_knowing",
     "talk_ai_and_language_learning_b2c1",
-    "ct_b1_21_complex_questions"
+    "ct_b1_21_complex_questions",
+    "bc_debate_defend_view_c1",
+    "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
   "vivid": {
@@ -36302,7 +38975,8 @@ window.WORDBANK={
     "bc_maersk_a2b1",
     "techniques_luck_a2b1",
     "techniques_the_queen_of_spades_a2b1",
-    "ts_thinking_in_bets_b2"
+    "ts_thinking_in_bets_b2",
+    "b2_85_superstitions"
    ]
   },
   "collateral damage": {
@@ -36332,7 +39006,8 @@ window.WORDBANK={
    "lessons": [
     "bc_maersk_notpetya_c1",
     "bc_staff_morale_c1",
-    "c2_pro_12_difficult_conversations"
+    "c2_pro_12_difficult_conversations",
+    "b2_69_changes_in_workplace"
    ]
   },
   "single point of failure": {
@@ -36409,7 +39084,9 @@ window.WORDBANK={
    "ex": "Winning two Nobel Prizes was a huge achievement.",
    "lessons": [
     "bc_marie_curie_b1b2",
-    "imposter_syndrome_c1"
+    "imposter_syndrome_c1",
+    "b2_08_great_achievements",
+    "bc_inspiring_women_b2c1"
    ]
   },
   "overcome": {
@@ -36431,7 +39108,9 @@ window.WORDBANK={
     "bc_marie_curie_b1b2",
     "techniques_before_the_law",
     "techniques_the_adventure_of_the_speckled_band",
-    "bc_nine_team_roles_belbin_b2c1"
+    "bc_nine_team_roles_belbin_b2c1",
+    "bc_grow_model_c1",
+    "dinosaur_heist"
    ]
   },
   "single-minded": {
@@ -36590,7 +39269,8 @@ window.WORDBANK={
    "lessons": [
     "bc_marvel_a2b1",
     "rp_20_at_the_library_a2b1",
-    "su_a2_33_mistakes_and_misadventures"
+    "su_a2_33_mistakes_and_misadventures",
+    "b2_97_retail_banking_loan_decline"
    ]
   },
   "famous": {
@@ -36613,7 +39293,9 @@ window.WORDBANK={
     "bc_marvel_a2b1",
     "gr_warmup_a2_hot_takes_money",
     "gr_warmup_a2_hot_takes_sport",
-    "su_a2_41_my_past_story"
+    "su_a2_41_my_past_story",
+    "b2_15_celebrity_opinions",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "series": {
@@ -36772,7 +39454,9 @@ window.WORDBANK={
     "acad_b2_13_exam_strategies",
     "gr_c1_spotting_the_spin",
     "bestiary",
-    "food_tech_quality_innovation"
+    "food_tech_quality_innovation",
+    "bc_climate_change_b2c1",
+    "epicurean_02_tetrapharmakos"
    ]
   },
   "protein": {
@@ -36836,7 +39520,8 @@ window.WORDBANK={
     "bc_menufoods_a2b1",
     "lf_45_the_late_friend",
     "skills_a2_trade_fair_problems",
-    "wk_16_the_client_who_shouts"
+    "wk_16_the_client_who_shouts",
+    "b2_79_making_a_complaint"
    ]
   },
   "check": {
@@ -36878,7 +39563,8 @@ window.WORDBANK={
    "def": "Worth a lot of money, or very important.",
    "ex": "Microsoft became one of the most valuable companies in the world.",
    "lessons": [
-    "bc_microsoft_a2b1"
+    "bc_microsoft_a2b1",
+    "b2_45_giving_feedback"
    ]
   },
   "cut jobs": {
@@ -37002,7 +39688,8 @@ window.WORDBANK={
     "bc_naguib_mahfouz_b1b2",
     "psyp_10_who_decides_whats_normal_a2b1",
     "chatterbox_1_sliding_doors",
-    "explore_b2_spiderman"
+    "explore_b2_spiderman",
+    "bc_life_on_mars_b2c1"
    ]
   },
   "grow up": {
@@ -37186,7 +39873,8 @@ window.WORDBANK={
    "lessons": [
     "bc_nokia_c1",
     "bc_rachel_carson_c1",
-    "acad_c2_05_academic_publishing"
+    "acad_c2_05_academic_publishing",
+    "bc_environmental_science_c1"
    ]
   },
   "burning platform": {
@@ -37215,7 +39903,9 @@ window.WORDBANK={
    "lessons": [
     "bc_novo_a2b1",
     "bc_translation_a2b1",
-    "c2_pro_03_diplomatic_negotiation"
+    "c2_pro_03_diplomatic_negotiation",
+    "bc_gtd_david_allen_c1",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "supply": {
@@ -37296,7 +39986,8 @@ window.WORDBANK={
    "def": "borrowed from cinema. A blockbuster drug. This case concerns arguably the biggest one ever launched.",
    "ex": "",
    "lessons": [
-    "bc_novo_nordisk_c1"
+    "bc_novo_nordisk_c1",
+    "b2_60_film_criticism"
    ]
   },
   "pipeline": {
@@ -37401,7 +40092,8 @@ window.WORDBANK={
    "ex": "In many countries you wait months for therapy.",
    "lessons": [
     "bc_onlinetherapy_a2b1",
-    "b1_55_the_66_day_question"
+    "b1_55_the_66_day_question",
+    "bc_alternative_way_c1"
    ]
   },
   "waiting list": {
@@ -37458,7 +40150,8 @@ window.WORDBANK={
     "bc_onlinetherapy_a2b1",
     "bc_pharma_off_label_c1",
     "gr_warmup_b2_hot_takes_parenting",
-    "su_a2_54_managing_time_with_others"
+    "su_a2_54_managing_time_with_others",
+    "b2_75_managing_stress"
    ]
   },
   "data centre": {
@@ -37615,7 +40308,8 @@ window.WORDBANK={
     "rp_20_at_the_library_a2b1",
     "su_a2_79_mistakes_and_misadventures",
     "su_a2_33_mistakes_and_misadventures",
-    "bp_c2_01_where_your_words_come_from"
+    "bp_c2_01_where_your_words_come_from",
+    "b2_90_lost_in_translation"
    ]
   },
   "sell": {
@@ -37763,7 +40457,10 @@ window.WORDBANK={
     "acad_b1_05_giving_opinions",
     "bestiary_discourse_navigate",
     "kuba_lesson_1_professional_presence",
-    "wp_36_the_best_of_all_worlds"
+    "wp_36_the_best_of_all_worlds",
+    "b2_49_networking_events",
+    "bc_creative_decision_making_b2c1",
+    "bc_artemis_moon_c1"
    ]
   },
   "overwhelming": {
@@ -37853,7 +40550,9 @@ window.WORDBANK={
    "lessons": [
     "bc_patagonia_a2b1",
     "techniques_the_cop_and_the_anthem",
-    "rs_y9_spr1_15_05"
+    "rs_y9_spr1_15_05",
+    "b2_18_dealing_with_problems",
+    "b2_87_organising_event"
    ]
   },
   "inherit": {
@@ -37875,7 +40574,8 @@ window.WORDBANK={
    "ex": "The company donated one per cent of sales for forty years.",
    "lessons": [
     "bc_patagonia_a2b1",
-    "rs_y9_spr1_15_05"
+    "rs_y9_spr1_15_05",
+    "b2_32_living_without_money"
    ]
   },
   "value": {
@@ -38121,7 +40821,8 @@ window.WORDBANK={
    "def": "A chemical used to kill pests; an insecticide targets insects specifically. Collocations: spray / apply a pesticide.",
    "ex": "The farmer sprayed the pesticide on Monday; by Friday the songbirds in his hedge had gone quiet.",
    "lessons": [
-    "bc_rachel_carson_c1"
+    "bc_rachel_carson_c1",
+    "bc_books_changed_world_part2_c1"
    ]
   },
   "accumulate": {
@@ -38266,7 +40967,8 @@ window.WORDBANK={
    "def": "set up / launch / exit a joint venture; a 50/50 joint venture.",
    "ex": "",
    "lessons": [
-    "bc_rivian_ev_c1"
+    "bc_rivian_ev_c1",
+    "b2_24_clarity_is_key"
    ]
   },
   "production ramp": {
@@ -38647,7 +41349,8 @@ window.WORDBANK={
     "short_history_vincent_van_gogh",
     "techniques_rip_van_winkle",
     "bc_staff_morale_c1",
-    "c1_pro_13_employee_engagement"
+    "c1_pro_13_employee_engagement",
+    "b2_88_proving_your_worth"
    ]
   },
   "alien": {
@@ -38776,7 +41479,8 @@ window.WORDBANK={
     "bc_translation_a2b1",
     "gr_b2_the_translator",
     "ml_31_speaking_for_two",
-    "short_history_the_rosetta_stone_a2b1"
+    "short_history_the_rosetta_stone_a2b1",
+    "b2_90_lost_in_translation"
    ]
   },
   "interpret": {
@@ -38787,7 +41491,8 @@ window.WORDBANK={
    "lessons": [
     "bc_translation_a2b1",
     "rs_y7_spr1_03_01",
-    "bc_theoretical_framing_phd"
+    "bc_theoretical_framing_phd",
+    "b2_62_culture_humour_language"
    ]
   },
   "archive": {
@@ -38830,7 +41535,8 @@ window.WORDBANK={
     "bq_06_free_will_c1",
     "rs_y10_sum1_23_05",
     "Business-Bootcamp-Lesson3-The-Project-Manager",
-    "operation_absolute_resolve_lesson"
+    "operation_absolute_resolve_lesson",
+    "bc_ai_responsibility_c1"
    ]
   },
   "interpreting": {
@@ -38945,7 +41651,8 @@ window.WORDBANK={
    "ex": "Tylenol was the most popular painkiller brand in America.",
    "lessons": [
     "bc_tylenol_a2b1",
-    "bc_zara_a2b1"
+    "bc_zara_a2b1",
+    "bc_building_your_brand_c1"
    ]
   },
   "copycat": {
@@ -38999,7 +41706,9 @@ window.WORDBANK={
     "leading_international_teams",
     "prof_c1_09_stakeholder_management",
     "scenario-lessons",
-    "when_yes_doesnt_mean_yes_c1"
+    "when_yes_doesnt_mean_yes_c1",
+    "b2_48_writing_reports",
+    "bc_adapt_your_writing_c1"
    ]
   },
   "relaunched": {
@@ -39236,7 +41945,8 @@ window.WORDBANK={
     "bullshit-jobs-ai-hr-c1",
     "rs_y8_aut2_08_03",
     "concorso_unit_overview",
-    "operation_absolute_resolve_lesson"
+    "operation_absolute_resolve_lesson",
+    "b2_15_celebrity_opinions"
    ]
   },
   "payment": {
@@ -39293,7 +42003,8 @@ window.WORDBANK={
    "def": "A government organisation that controls an industry and makes sure it follows the law.",
    "ex": "The German regulator defended the company.",
    "lessons": [
-    "bc_wirecard_a2b1"
+    "bc_wirecard_a2b1",
+    "bc_ai_responsibility_c1"
    ]
   },
   "investigate": {
@@ -39304,7 +42015,8 @@ window.WORDBANK={
    "lessons": [
     "bc_wirecard_a2b1",
     "su_a2_57_investigating_a_problem",
-    "behind_the_screen_spotlight_a2b1"
+    "behind_the_screen_spotlight_a2b1",
+    "b2_95_it_outage_communication"
    ]
   },
   "disappear": {
@@ -39372,7 +42084,8 @@ window.WORDBANK={
     "behind_the_screen_everything_everywhere_all_at_once",
     "ts_noise_b2",
     "skills_b2c1_compliance_manager_role",
-    "st_pro_12_storytellers_toolkit"
+    "st_pro_12_storytellers_toolkit",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "whistleblower": {
@@ -39403,7 +42116,8 @@ window.WORDBANK={
     "say_number_c1",
     "tib_diffusion_b2",
     "su_a2_72_mobile_phones",
-    "c2_01_the_way_things_are_going"
+    "c2_01_the_way_things_are_going",
+    "bc_alternative_way_c1"
    ]
   },
   "sell out": {
@@ -39519,7 +42233,8 @@ window.WORDBANK={
     "acad_c1_01_argumentation",
     "rp_40_the_ticket_inspector",
     "split-second-decisions",
-    "lf_45_the_late_friend"
+    "lf_45_the_late_friend",
+    "b2_58_adventure_travel"
    ]
   },
   "testimony": {
@@ -39739,7 +42454,8 @@ window.WORDBANK={
     "techniques_the_lumber_room",
     "ts_apollo13_b2",
     "gr_b1_story_chain",
-    "problem_solving_under_pressure"
+    "problem_solving_under_pressure",
+    "bc_adapt_presentation_c1"
    ]
   },
   "precarious": {
@@ -39771,7 +42487,8 @@ window.WORDBANK={
     "columbo_c1_murder_by_the_book",
     "short_history_db_cooper",
     "story_c1_the_left_handed_universe",
-    "art_museum_heist_c1c2"
+    "art_museum_heist_c1c2",
+    "bc_employment_matters_c1"
    ]
   },
   "disastrous": {
@@ -39803,7 +42520,9 @@ window.WORDBANK={
     "skills_c1_senior_interview_1_your_story",
     "ts_apollo13_b2",
     "speaking_naturally_teens_04_ai_jobs",
-    "c2_pro_07_investor_relations"
+    "c2_pro_07_investor_relations",
+    "b2_51_presenting_data",
+    "bc_asteroids_c1"
    ]
   },
   "contingency": {
@@ -39816,7 +42535,8 @@ window.WORDBANK={
     "behind_the_screen_first_man",
     "short_history_apollo_13",
     "skills_b2c1_playing_a_different_game",
-    "art_museum_heist_c1c2"
+    "art_museum_heist_c1c2",
+    "bc_adapt_presentation_c1"
    ]
   },
   "decipher": {
@@ -39941,7 +42661,8 @@ window.WORDBANK={
     "rs_y7_aut1_01_06",
     "skills_b1b2_trade_fair_networking",
     "su_a2_83_talk_about_travel",
-    "skills_a2_trade_fair_small_talk"
+    "skills_a2_trade_fair_small_talk",
+    "b2_43_making_small_talk"
    ]
   },
   "exposed to harm": {
@@ -39966,7 +42687,9 @@ window.WORDBANK={
     "rs_y11_aut1_25_04",
     "bc_organising_client_events_c1",
     "speaking_naturally_06_emotions_reactions",
-    "rs_y8_sum1_11_03"
+    "rs_y8_sum1_11_03",
+    "b2_76_creating_connections",
+    "discuss_b2_emotional_intelligence"
    ]
   },
   "callous": {
@@ -40553,7 +43276,9 @@ window.WORDBANK={
     "behind_the_screen_escape_from_alcatraz",
     "short_history_the_great_depression",
     "short_history_the_mary_celeste",
-    "althist_history_c1_part1"
+    "althist_history_c1_part1",
+    "b2_25_magic_tricks",
+    "bc_looking_ahead_c1"
    ]
   },
   "mundane": {
@@ -40653,7 +43378,8 @@ window.WORDBANK={
     "behind_the_screen_ex_machina",
     "behind_the_screen_pearl_harbor",
     "behind_the_screen_the_crucible",
-    "gr_b2_alibi"
+    "gr_b2_alibi",
+    "b2_85_superstitions"
    ]
   },
   "ulterior motive": {
@@ -40778,7 +43504,8 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_gattaca",
     "short_history_the_berlin_wall",
-    "tib_pareto_b2"
+    "tib_pareto_b2",
+    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "deceitful": {
@@ -40944,7 +43671,8 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_her",
     "persepolis_bc_pictures",
-    "tib_ninebox_b2"
+    "tib_ninebox_b2",
+    "discuss_b2c1_photography"
    ]
   },
   "wistful": {
@@ -40997,7 +43725,8 @@ window.WORDBANK={
     "rs_y10_spr2_22_03",
     "rs_y9_spr1_15_02",
     "talk_adult_friendships_b2c1",
-    "playing_the_room"
+    "playing_the_room",
+    "b2_57_medical_ethics"
    ]
   },
   "segregated": {
@@ -41210,7 +43939,8 @@ window.WORDBANK={
     "ts_forssmann_b2",
     "art_museum_heist_c1c2",
     "techniques_the_stolen_bacillus",
-    "wp_07_the_last_day"
+    "wp_07_the_last_day",
+    "b2_101_design_brand_stretch"
    ]
   },
   "highly profitable": {
@@ -41405,7 +44135,8 @@ window.WORDBANK={
    "def": "judged to be worth less than it really is; priced or rated below its true worth.",
    "ex": "For years the little house on the corner was badly undervalued: buyers walked straight past it, and it finally sold for less than half of what the identical house next door had fetched.",
    "lessons": [
-    "behind_the_screen_moneyball"
+    "behind_the_screen_moneyball",
+    "b2_03_making_your_opinion_heard"
    ]
   },
   "overhaul": {
@@ -41784,7 +44515,9 @@ window.WORDBANK={
     "leading_under_pressure",
     "lesson_review_sheet",
     "prof_c1_05_crisis_communication",
-    "rs_y9_sum1_17_03"
+    "rs_y9_sum1_17_03",
+    "bc_company_culture_c1",
+    "discuss_b2c1_power_and_accountability"
    ]
   },
   "grievance": {
@@ -41924,7 +44657,8 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_the_crucible",
     "acad_b2_06_referencing",
-    "prof_c2_03_corporate_governance"
+    "prof_c2_03_corporate_governance",
+    "bc_ai_for_phd_research_c1"
    ]
   },
   "painstaking": {
@@ -42102,7 +44836,8 @@ window.WORDBANK={
     "behind_the_screen_the_matrix",
     "behind_the_screen_the_matrix_a2b1",
     "patterns_that_arent_there",
-    "wp_03_the_way_of_truth"
+    "wp_03_the_way_of_truth",
+    "b2_25_magic_tricks"
    ]
   },
   "perceive": {
@@ -42154,7 +44889,8 @@ window.WORDBANK={
     "behind_the_screen_the_social_network",
     "speaking_naturally_05_money_happiness",
     "su_a2_53_qualifications_required",
-    "curious_conversations_simone_weil"
+    "curious_conversations_simone_weil",
+    "bc_broadening_horizons_advanced_c1"
    ]
   },
   "covet": {
@@ -42291,7 +45027,8 @@ window.WORDBANK={
     "ml_32_the_house_guest",
     "short_history_marie_antoinette",
     "techniques_the_lottery_ticket",
-    "wk_38_suddenly_the_boss"
+    "wk_38_suddenly_the_boss",
+    "b2_36_awkward_situations"
    ]
   },
   "surveillance": {
@@ -42765,7 +45502,8 @@ window.WORDBANK={
     "speaking_naturally_teens_06_who_are_you_really",
     "b1_48_street_food",
     "bp_c2_05_thinking_out_loud",
-    "talk_tourism_b2c1"
+    "talk_tourism_b2c1",
+    "bc_mask_we_wear_c1"
    ]
   },
   "intact": {
@@ -43142,7 +45880,8 @@ window.WORDBANK={
     "komorebi_10_beginners_mind",
     "ois_07_danes_and_last_saxons",
     "religions_c1_functional",
-    "wp_06_the_gadfly"
+    "wp_06_the_gadfly",
+    "bc_demonstrating_credibility_c1"
    ]
   },
   "arbitrary": {
@@ -43330,7 +46069,8 @@ window.WORDBANK={
     "c1_pro_12_project_management",
     "chatterbox_1_sliding_doors",
     "explore_comic_book_history",
-    "wp_40_the_moral_law"
+    "wp_40_the_moral_law",
+    "b2_71_work_life_balance"
    ]
   },
   "hedge": {
@@ -43673,7 +46413,9 @@ window.WORDBANK={
     "gr_b2_the_black_box",
     "gr_b2_the_headline",
     "bestiary_discourse_qualify",
-    "wp_01_the_birth_of_wonder"
+    "wp_01_the_birth_of_wonder",
+    "bc_future_shock_ai_b2c1",
+    "bc_ai_responsibility_c1"
    ]
   },
   "launched": {
@@ -43811,7 +46553,8 @@ window.WORDBANK={
    "def": "a positive / negative attitude; an attitude to / towards life. Also (informal): She's got attitude = she is confident, sometimes rude.",
    "ex": "",
    "lessons": [
-    "discuss_c1_frankl_meaning"
+    "discuss_c1_frankl_meaning",
+    "bc_honesty_dishonesty_b2c1"
    ]
   },
   "face": {
@@ -43939,7 +46682,10 @@ window.WORDBANK={
     "techniques_a_white_heron",
     "techniques_the_cop_and_the_anthem",
     "c1_pro_23_customer_experience",
-    "deep_space_03_universe"
+    "deep_space_03_universe",
+    "b2_12_workplace_ethics",
+    "b2_33_business_and_tourism",
+    "b2_82_problems_at_work"
    ]
   },
   "free will": {
@@ -43977,7 +46723,8 @@ window.WORDBANK={
     "su_a2_38_interesting_stories",
     "c1_pro_04_active_listening",
     "c1_pro_15_time_management",
-    "wk_16_the_client_who_shouts"
+    "wk_16_the_client_who_shouts",
+    "bc_current_issues_c1"
    ]
   },
   "rapid-fire": {
@@ -44038,7 +46785,8 @@ window.WORDBANK={
     "end_beat_c1",
     "tib_fivewhys_b2",
     "tib_tuckman_b2",
-    "skills_b1b2_trade_fair_objections"
+    "skills_b1b2_trade_fair_objections",
+    "b2_96_engineering_safety_concerns"
    ]
   },
   "pace": {
@@ -44337,7 +47085,8 @@ window.WORDBANK={
    "lessons": [
     "lw_carlill_c1",
     "rs_y9_spr2_16_04",
-    "wp_50_the_purest_way_to_see"
+    "wp_50_the_purest_way_to_see",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "privity of contract": {
@@ -44400,7 +47149,8 @@ window.WORDBANK={
    "lessons": [
     "lw_dudley_stephens_c1",
     "nq_06_is_it_right_c1",
-    "rs_y9_aut1_13_03"
+    "rs_y9_aut1_13_03",
+    "bc_healthcare_billing_c1"
    ]
   },
   "duress": {
@@ -44428,7 +47178,8 @@ window.WORDBANK={
    "def": "noun an acquittal; to be acquitted of a charge. Note the register trap: an acquittal is not a finding of innocence but a finding that the case was not proved. Opposite: to convict / a conviction.",
    "ex": "",
    "lessons": [
-    "lw_dudley_stephens_c1"
+    "lw_dudley_stephens_c1",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "commute": {
@@ -44675,7 +47426,8 @@ window.WORDBANK={
    "ex": "The company ran a pilot in two offices before it decided whether to introduce the new system everywhere.",
    "lessons": [
     "nq_01_should_we_c1",
-    "behind_the_screen_thirteen_days_a2b1"
+    "behind_the_screen_thirteen_days_a2b1",
+    "bc_four_day_week_c1"
    ]
   },
   "reversible": {
@@ -44783,7 +47535,8 @@ window.WORDBANK={
    "lessons": [
     "nq_02_which_c1",
     "c1_pro_16_remote_teams",
-    "ml_07_working_from_home"
+    "ml_07_working_from_home",
+    "b2_46_remote_work"
    ]
   },
   "deal-breaker": {
@@ -44805,7 +47558,8 @@ window.WORDBANK={
     "nq_02_which_c1",
     "su_a2_60_interacting_with_people",
     "b1_18_brainstorming_and_problem_solving",
-    "dating_apps_c1_vocabulary"
+    "dating_apps_c1_vocabulary",
+    "b2c1_dream_before_the_mast"
    ]
   },
   "balance": {
@@ -44970,7 +47724,8 @@ window.WORDBANK={
     "rp_14_at_the_pharmacy_a2b1",
     "bl_03_placebo_lie_heals",
     "real_conversations_medical_mysteries",
-    "wk_26_the_consultation"
+    "wk_26_the_consultation",
+    "b2_75_managing_stress"
    ]
   },
   "root cause": {
@@ -44980,7 +47735,8 @@ window.WORDBANK={
    "ex": "When they traced the delays back, the root cause turned out to be a single missing signature at the start of the process.",
    "lessons": [
     "nq_05_why_c1",
-    "tib_fishbone_b2"
+    "tib_fishbone_b2",
+    "b2_39_best_email_replies"
    ]
   },
   "friction": {
@@ -45088,7 +47844,8 @@ window.WORDBANK={
    "def": "The law on sharing health data in advertising is still a grey area.",
    "ex": "",
    "lessons": [
-    "nq_06_is_it_right_c1"
+    "nq_06_is_it_right_c1",
+    "bc_business_rules_innovation_c1"
    ]
   },
   "law": {
@@ -45166,7 +47923,8 @@ window.WORDBANK={
    "lessons": [
     "persepolis_bc_home",
     "acad_b1_30_study_abroad",
-    "gr_warmup_b2_hot_takes_travel"
+    "gr_warmup_b2_hot_takes_travel",
+    "bc_culture_shock_b2c1"
    ]
   },
   "rootless": {
@@ -45269,7 +48027,9 @@ window.WORDBANK={
     "st_pro_01_architecture_of_story",
     "c2_pro_03_diplomatic_negotiation",
     "epicurean_23_lorenzo_valla",
-    "wp_22_the_restless_heart"
+    "wp_22_the_restless_heart",
+    "bc_account_of_a_crime_b2c1",
+    "bc_books_that_changed_the_world_c1"
    ]
   },
   "resonate": {
@@ -45279,7 +48039,8 @@ window.WORDBANK={
    "ex": "Some stories resonate with you because something in them reminds you of your own life.",
    "lessons": [
     "persepolis_bc_pictures",
-    "piranesi_bc_meaning"
+    "piranesi_bc_meaning",
+    "bc_education_and_training_c1"
    ]
   },
   "understated": {
@@ -45288,7 +48049,8 @@ window.WORDBANK={
    "def": "expressed in a restrained, quiet way that is less dramatic than expected.",
    "ex": "What struck me most was how understated it is: the worst moments are told in the calmest voice.",
    "lessons": [
-    "persepolis_bc_pictures"
+    "persepolis_bc_pictures",
+    "b2_04_telling_a_funny_story"
    ]
   },
   "wholeheartedly": {
@@ -45392,7 +48154,8 @@ window.WORDBANK={
     "psy_04_can_you_trust_memory_b2c1",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "acad_b1_16_finding_information",
-    "the_art_of_the_impression"
+    "the_art_of_the_impression",
+    "b2_51_presenting_data"
    ]
   },
   "selective": {
@@ -45527,7 +48290,8 @@ window.WORDBANK={
     "behind_the_screen_12_angry_men_a2b1",
     "rp_36_giving_a_statement",
     "rs_y8_spr1_09_03",
-    "c1_pro_17_recruitment"
+    "c1_pro_17_recruitment",
+    "bc_account_of_a_crime_b2c1"
    ]
   },
   "panel": {
@@ -45585,7 +48349,9 @@ window.WORDBANK={
    "lessons": [
     "persepolis_words",
     "piranesi_bc_other",
-    "skills_b1_sharing_opinions_politely"
+    "skills_b1_sharing_opinions_politely",
+    "b2_37_formal_emails",
+    "b2_86_email_problems"
    ]
   },
   "symbolise": {
@@ -45621,7 +48387,8 @@ window.WORDBANK={
     "tib_acculturation_b2",
     "ts_erikson_b2",
     "behind_the_screen_gattaca_a2b1",
-    "b1_51_music_and_identity"
+    "b1_51_music_and_identity",
+    "bc_high_performers_workaholism_b2c1"
    ]
   },
   "exile": {
@@ -45768,7 +48535,8 @@ window.WORDBANK={
    "def": "a daily or regular written record of what you do, see or think.",
    "ex": "",
    "lessons": [
-    "piranesi_bc_house"
+    "piranesi_bc_house",
+    "editor_dilemmas_game"
    ]
   },
   "tide": {
@@ -45862,7 +48630,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "piranesi_bc_journals",
-    "short_history_the_seven_wonders"
+    "short_history_the_seven_wonders",
+    "bc_advertising_defend_creative_c1"
    ]
   },
   "ambiguous": {
@@ -45875,7 +48644,8 @@ window.WORDBANK={
     "gr_b2_the_courtroom",
     "bc_navigating_misunderstandings_c1",
     "c2_pro_21_contract_negotiation",
-    "wp_46_the_will_to_believe"
+    "wp_46_the_will_to_believe",
+    "b2_39_best_email_replies"
    ]
   },
   "interpretation": {
@@ -45921,7 +48691,8 @@ window.WORDBANK={
     "techniques_the_garden_party_a2b1",
     "rs_y9_aut1_13_05",
     "ct_b1_23_structuring_arguments",
-    "epicurean_09_epicurean_gods"
+    "epicurean_09_epicurean_gods",
+    "b2_41_celebrity_debate"
    ]
   },
   "theme": {
@@ -45971,7 +48742,8 @@ window.WORDBANK={
    "ex": "He was always courteous to the staff, thanking them and holding the door, even when he was in a hurry.",
    "lessons": [
     "piranesi_bc_other",
-    "su_a2_54_managing_time_with_others"
+    "su_a2_54_managing_time_with_others",
+    "b2_36_awkward_situations"
    ]
   },
   "evasive": {
@@ -46002,7 +48774,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "piranesi_bc_other",
-    "the-art-of-reading-people"
+    "the-art-of-reading-people",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "take at face value": {
@@ -46045,7 +48818,8 @@ window.WORDBANK={
     "techniques_the_model_millionaire",
     "topic_willpower_b2",
     "rs_y10_sum2_24_01",
-    "short_history_the_mary_celeste_a2b1"
+    "short_history_the_mary_celeste_a2b1",
+    "bc_education_and_training_c1"
    ]
   },
   "experiment": {
@@ -46342,7 +49116,8 @@ window.WORDBANK={
     "b1_14_the_art_of_conversation",
     "su_a2_03_getting_around_town",
     "talk_it_through_b1b2",
-    "skills_a2_trade_fair_first_contact"
+    "skills_a2_trade_fair_first_contact",
+    "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
   "stand out": {
@@ -46351,7 +49126,9 @@ window.WORDBANK={
    "def": "to be different from other people in a way that people notice. Opposite: fit in.",
    "ex": "",
    "lessons": [
-    "psy_03_follow_the_crowd_a2b1"
+    "psy_03_follow_the_crowd_a2b1",
+    "b2_20_sporting_events",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "comply": {
@@ -46383,7 +49160,9 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_b2c1",
     "bc_negotiating_c1",
     "skills_c1_trade_fair_cross_cultural",
-    "acad_b1_09_working_in_pairs"
+    "acad_b1_09_working_in_pairs",
+    "b2_23_chairing_the_meeting",
+    "b2_24_clarity_is_key"
    ]
   },
   "unanimous": {
@@ -46393,7 +49172,8 @@ window.WORDBANK={
    "ex": "The confederates' answers were unanimous.",
    "lessons": [
     "psy_03_follow_the_crowd_b2c1",
-    "behind_the_screen_12_angry_men_a2b1"
+    "behind_the_screen_12_angry_men_a2b1",
+    "b2_67_making_a_decision"
    ]
   },
   "ally": {
@@ -46405,7 +49185,8 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_b2c1",
     "short_history_bletchley_park",
     "greenland_tariffs_c1",
-    "short_history_the_conquistadors_a2b1"
+    "short_history_the_conquistadors_a2b1",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "nonconformists": {
@@ -46529,7 +49310,8 @@ window.WORDBANK={
     "topic_willpower_b2",
     "acad_b1_16_finding_information",
     "bl_01_memory_liar",
-    "first_lesson_b2c1"
+    "first_lesson_b2c1",
+    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "convicted": {
@@ -46576,7 +49358,8 @@ window.WORDBANK={
    "ex": "Your personality is the kind of person you are: shy, friendly, funny…",
    "lessons": [
     "psy_05_born_or_made_a2b1",
-    "su_a2_59_applying_for_a_job"
+    "su_a2_59_applying_for_a_job",
+    "b2_31_job_interview"
    ]
   },
   "identical": {
@@ -46750,7 +49533,8 @@ window.WORDBANK={
    "lessons": [
     "psy_06_does_money_buy_happiness_a2b1",
     "su_a2_73_a_good_plan",
-    "skills_b1_simple_small_talk_for_work"
+    "skills_b1_simple_small_talk_for_work",
+    "b2_41_celebrity_debate"
    ]
   },
   "savings": {
@@ -46759,7 +49543,9 @@ window.WORDBANK={
    "def": "",
    "ex": "I have some savings for a holiday.",
    "lessons": [
-    "psy_06_does_money_buy_happiness_a2b1"
+    "psy_06_does_money_buy_happiness_a2b1",
+    "b2_30_a_good_investment",
+    "b2_the_ulysses_contract"
    ]
   },
   "study": {
@@ -46804,7 +49590,8 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_health",
     "b1_49_mental_health",
     "rs_y8_sum1_11_03",
-    "prof_c1_14_workplace_wellbeing"
+    "prof_c1_14_workplace_wellbeing",
+    "bc_four_day_week_c1"
    ]
   },
   "income": {
@@ -46842,7 +49629,8 @@ window.WORDBANK={
    "def": "your position compared with others. Relative income is one's income compared with others.",
    "ex": "",
    "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1"
+    "psy_06_does_money_buy_happiness_b2c1",
+    "b2_106_status_games"
    ]
   },
   "generalise": {
@@ -46873,7 +49661,8 @@ window.WORDBANK={
    "ex": "The result was significant: it was probably not an accident.",
    "lessons": [
     "psyp_07_replication_crisis_a2b1",
-    "acad_b1_28_formal_vs_informal"
+    "acad_b1_28_formal_vs_informal",
+    "epicurean_05_why_controversial"
    ]
   },
   "preregister": {
@@ -47159,7 +49948,8 @@ window.WORDBANK={
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
     "ml_23_the_ai_mistake",
-    "skills_a2_trade_fair_your_product"
+    "skills_a2_trade_fair_your_product",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "relationship": {
@@ -47308,7 +50098,8 @@ window.WORDBANK={
    "def": "strongly attached. Researcher allegiance can bias results in favour of the favoured therapy.",
    "ex": "",
    "lessons": [
-    "psyp_09_does_the_method_matter_b2c1"
+    "psyp_09_does_the_method_matter_b2c1",
+    "b2_20_sporting_events"
    ]
   },
   "premature": {
@@ -47443,7 +50234,8 @@ window.WORDBANK={
     "su_a2_61_planning_a_project",
     "su_a2_29_describing_future_technology",
     "su_a2_48_solving_problems",
-    "short_history_the_wright_brothers_a2b1"
+    "short_history_the_wright_brothers_a2b1",
+    "bc_future_shock_ai_b2c1"
    ]
   },
   "formula": {
@@ -47483,7 +50275,8 @@ window.WORDBANK={
    "def": "The noun is assessment",
    "ex": "We assess the risk.",
    "lessons": [
-    "psyp_11_judgment_or_formula_a2b1"
+    "psyp_11_judgment_or_formula_a2b1",
+    "bc_grow_model_c1"
    ]
   },
   "feedback": {
@@ -47498,7 +50291,8 @@ window.WORDBANK={
     "tib_johari_b2",
     "tib_pdca_b2",
     "su_a2_63_mapping_the_customer_journey",
-    "acad_b1_15_learning_from_mistakes"
+    "acad_b1_15_learning_from_mistakes",
+    "bc_market_research_c1"
    ]
   },
   "statistical": {
@@ -47665,7 +50459,8 @@ window.WORDBANK={
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
     "b1_42_star_interview_technique",
-    "bp_c2_03_why_they_dont_understand_you"
+    "bp_c2_03_why_they_dont_understand_you",
+    "b2_82_problems_at_work"
    ]
   },
   "outlier": {
@@ -47707,7 +50502,10 @@ window.WORDBANK={
     "Business-Bootcamp-Lesson1-The-Pitch",
     "business_meetings_course_guide",
     "c1_pro_08_internal_pitching",
-    "wk_31_the_sceptical_client"
+    "wk_31_the_sceptical_client",
+    "b2_104_greener_cities_solutions",
+    "b2_28_taking_up_a_sport",
+    "b2_88_proving_your_worth"
    ]
   },
   "field": {
@@ -47729,7 +50527,8 @@ window.WORDBANK={
     "bc_multicultural_teams_c1",
     "speaking_naturally_01_agreement_disagreement",
     "grammar_b2_23_disagreeing_nicely",
-    "ct_b1_27_acknowledging_views"
+    "ct_b1_27_acknowledging_views",
+    "bc_confident_meetings_c1"
    ]
   },
   "defer": {
@@ -47762,7 +50561,8 @@ window.WORDBANK={
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "b1_23_business_travel_socialising",
     "business_meetings_course_guide",
-    "talk_adult_friendships_b2c1"
+    "talk_adult_friendships_b2c1",
+    "bc_build_relationships_writing_c1"
    ]
   },
   "tactful": {
@@ -47936,7 +50736,8 @@ window.WORDBANK={
    "def": "to leave something out, either by accident or on purpose. The noun is omission.",
    "ex": "",
    "lessons": [
-    "say_so_what_c1"
+    "say_so_what_c1",
+    "b2_34_ethics_in_the_workplace"
    ]
   },
   "implication": {
@@ -48482,7 +51283,8 @@ window.WORDBANK={
     "short_history_the_conquest_of_everest",
     "lesson_famous_explorers_speaking",
     "lesson_hms_erebus_mystery",
-    "ois_02_the_romans_come"
+    "ois_02_the_romans_come",
+    "b2_58_adventure_travel"
    ]
   },
   "enduring": {
@@ -48545,7 +51347,8 @@ window.WORDBANK={
     "short_history_angkor",
     "short_history_genghis_khan",
     "short_history_the_aztecs",
-    "short_history_the_aztecs_a2b1"
+    "short_history_the_aztecs_a2b1",
+    "b2_77_cope_with_unexpected"
    ]
   },
   "irrigation": {
@@ -49352,7 +52155,8 @@ window.WORDBANK={
    "ex": "reform — from The SuffragettesName a reform your country has seen.",
    "lessons": [
     "short_history_catherine_the_great",
-    "short_history_florence_nightingale"
+    "short_history_florence_nightingale",
+    "bc_four_day_week_c1"
    ]
   },
   "scholar": {
@@ -49365,7 +52169,8 @@ window.WORDBANK={
     "short_history_the_library_of_alexandria",
     "techniques_kong_yiji",
     "techniques_kong_yiji_a2b1",
-    "short_history_the_library_of_alexandria_a2b1"
+    "short_history_the_library_of_alexandria_a2b1",
+    "b2_92_language_of_historical_debate"
    ]
   },
   "realm": {
@@ -49390,7 +52195,8 @@ window.WORDBANK={
     "short_history_nellie_bly",
     "short_history_the_suffragettes",
     "ts_smallpox_b2",
-    "c1_pro_24_marketing_campaigns"
+    "c1_pro_24_marketing_campaigns",
+    "bc_advertising_defend_creative_c1"
    ]
   },
   "clergy": {
@@ -49578,7 +52384,8 @@ window.WORDBANK={
     "techniques_the_ransom_of_red_chief",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "books_changed_world_lesson",
-    "grammar_b2_20_making_plans"
+    "grammar_b2_20_making_plans",
+    "b2_anchoring"
    ]
   },
   "command": {
@@ -49650,7 +52457,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_christopher_columbus",
     "acad_c2_04_teaching_english",
-    "bp_c2_06_the_consultants_edge"
+    "bp_c2_06_the_consultants_edge",
+    "bc_handling_intercultural_c1"
    ]
   },
   "epidemic": {
@@ -49678,7 +52486,8 @@ window.WORDBANK={
     "short_history_christopher_columbus",
     "techniques_the_verger_ielts",
     "topic_strangers_b2",
-    "gr_b2_the_ranking_game"
+    "gr_b2_the_ranking_game",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "petition": {
@@ -49688,7 +52497,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_christopher_columbus",
-    "short_history_the_suffragettes"
+    "short_history_the_suffragettes",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "landfall": {
@@ -49999,7 +52809,8 @@ window.WORDBANK={
     "short_history_emperor_nero",
     "gr_c1_the_boardroom",
     "gr_warmup_c1_hot_takes_apology_tour",
-    "ml_25_the_review_they_want_down"
+    "ml_25_the_review_they_want_down",
+    "b2_77_cope_with_unexpected"
    ]
   },
   "insurrection": {
@@ -50112,7 +52923,8 @@ window.WORDBANK={
     "short_history_florence_nightingale",
     "acad_c2_07_interdisciplinary",
     "c1_pro_17_recruitment",
-    "wp_40_the_moral_law"
+    "wp_40_the_moral_law",
+    "bc_ai_responsibility_c1"
    ]
   },
   "lobby": {
@@ -50136,7 +52948,9 @@ window.WORDBANK={
     "short_history_michelangelo",
     "short_history_the_renaissance",
     "short_history_the_taj_mahal",
-    "gr_warmup_b2_hot_takes_art"
+    "gr_warmup_b2_hot_takes_art",
+    "b2_100_publishing_author_feedback",
+    "b2_24_clarity_is_key"
    ]
   },
   "nomadic": {
@@ -50222,7 +53036,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_great_fire_of_london",
     "su_a2_50_getting_in_touch",
-    "wk_27_breaking_the_news"
+    "wk_27_breaking_the_news",
+    "bc_confident_meetings_c1"
    ]
   },
   "gunpowder": {
@@ -50390,7 +53205,8 @@ window.WORDBANK={
     "short_history_the_maya",
     "short_history_the_spanish_flu",
     "short_history_the_trojan_war",
-    "short_history_the_vikings_a2b1"
+    "short_history_the_vikings_a2b1",
+    "english_at_work_phrase_bank"
    ]
   },
   "grudge": {
@@ -50545,7 +53361,8 @@ window.WORDBANK={
    "ex": "With a single smooth sleight of hand, the magician made the silver coin vanish from his open palm and reappear behind a child's ear.",
    "lessons": [
     "short_history_houdini",
-    "vocabulary_memory_palace"
+    "vocabulary_memory_palace",
+    "b2_25_magic_tricks"
    ]
   },
   "straitjacket": {
@@ -50848,7 +53665,8 @@ window.WORDBANK={
     "short_history_the_great_serum_run",
     "bc_pamir_cycling_narrative_c1",
     "c1_pro_16_remote_teams",
-    "short_history_mutiny_on_the_bounty_a2b1"
+    "short_history_mutiny_on_the_bounty_a2b1",
+    "b2_46_remote_work"
    ]
   },
   "devastating": {
@@ -50859,7 +53677,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_krakatoa",
     "short_history_the_manhattan_project",
-    "standalone_why_do_people_believe_strange_things"
+    "standalone_why_do_people_believe_strange_things",
+    "bc_books_changed_world_part2_c1"
    ]
   },
   "magma": {
@@ -50936,7 +53755,9 @@ window.WORDBANK={
     "short_history_krakatoa",
     "su_a2_78_choosing_a_restaurant",
     "asteroids_b2c1",
-    "su_a2_06_memorable_meals"
+    "su_a2_06_memorable_meals",
+    "b2_20_sporting_events",
+    "b2_81_live_performance"
    ]
   },
   "afterglow": {
@@ -50965,7 +53786,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_leonardo_da_vinci",
     "rs_y8_sum2_12_01",
-    "c2_pro_20_visionary_leadership"
+    "c2_pro_20_visionary_leadership",
+    "bc_green_news_c1"
    ]
   },
   "polymath": {
@@ -51260,7 +54082,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_mansa_musa",
     "su_a2_37_budget",
-    "c2_pro_14_performance_reviews"
+    "c2_pro_14_performance_reviews",
+    "b2_10_getting_a_pay_rise"
    ]
   },
   "scholarship": {
@@ -51397,7 +54220,8 @@ window.WORDBANK={
     "short_history_mary_queen_of_scots",
     "gr_b1_story_chain",
     "short_history_rasputin_a2b1",
-    "short_history_the_gunpowder_plot_a2b1"
+    "short_history_the_gunpowder_plot_a2b1",
+    "b2_93_talking_about_books"
    ]
   },
   "execution": {
@@ -51730,7 +54554,8 @@ window.WORDBANK={
    "def": "the skill of working out where you are and steering a course to where you want to go.",
    "ex": "Only an extraordinary feat of navigation — reading the stars, the currents and the coastline — could bring an open boat that far.",
    "lessons": [
-    "short_history_mutiny_on_the_bounty"
+    "short_history_mutiny_on_the_bounty",
+    "b2_80_in_the_news"
    ]
   },
   "uncharted": {
@@ -51962,7 +54787,10 @@ window.WORDBANK={
     "gr_b2_the_courtroom",
     "gr_b2_the_dilemma",
     "Business-Bootcamp-Lesson3-The-Project-Manager",
-    "lf_01_the_car_keys"
+    "lf_01_the_car_keys",
+    "bc_conspiracy_theories_b2c1",
+    "bc_ethics_of_ai_c1",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "incarceration": {
@@ -52227,7 +55055,8 @@ window.WORDBANK={
     "short_history_the_mary_celeste",
     "lesson_hms_erebus_mystery",
     "short_history_angkor_a2b1",
-    "short_history_the_maya_a2b1"
+    "short_history_the_maya_a2b1",
+    "bc_books_that_changed_the_world_c1"
    ]
   },
   "nabataeans": {
@@ -52417,7 +55246,9 @@ window.WORDBANK={
    "def": "the making of goods in factories, and the businesses that do this on a large scale.",
    "ex": "",
    "lessons": [
-    "short_history_queen_victoria"
+    "short_history_queen_victoria",
+    "b2_49_networking_events",
+    "discuss_c1_advice_industry"
    ]
   },
   "monarch": {
@@ -52643,7 +55474,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_sparta",
-    "rs_y11_aut2_26_01"
+    "rs_y11_aut2_26_01",
+    "b2_68_keeping_fit"
    ]
   },
   "last stand": {
@@ -52693,7 +55525,8 @@ window.WORDBANK={
     "short_history_the_pyramids",
     "skills_c1_senior_interview_2_leadership",
     "story_c1_the_left_handed_universe",
-    "c1_pro_27_corporate_responsibility"
+    "c1_pro_27_corporate_responsibility",
+    "bc_english_as_medium_instruction_c1"
    ]
   },
   "solstice": {
@@ -53150,7 +55983,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_bermuda_triangle",
     "rp_15_renting_a_flat",
-    "lesson_02_speaking_naturally_interactive"
+    "lesson_02_speaking_naturally_interactive",
+    "b2_101_design_brand_stretch"
    ]
   },
   "plague": {
@@ -53229,7 +56063,8 @@ window.WORDBANK={
     "rp_14_at_the_pharmacy",
     "b1_11_alternative_medicine",
     "komorebi_02_the_placebo_effect",
-    "wp_16_the_fourfold_cure"
+    "wp_16_the_fourfold_cure",
+    "epicurean_02_tetrapharmakos"
    ]
   },
   "colony": {
@@ -53381,7 +56216,9 @@ window.WORDBANK={
    "ex": "The gesture was entirely spontaneous — no general had ordered it, and no plan lay behind it; it simply happened, all along the line at once.",
    "lessons": [
     "short_history_the_christmas_truce",
-    "rs_y7_spr2_04_03"
+    "rs_y7_spr2_04_03",
+    "b2_77_cope_with_unexpected",
+    "epicurean_07_the_swerve"
    ]
   },
   "parapet": {
@@ -53624,7 +56461,8 @@ window.WORDBANK={
     "short_history_tutankhamun",
     "techniques_the_monkeys_paw",
     "techniques_the_monkeys_paw_a2b1",
-    "rs_y10_sum1_23_02"
+    "rs_y10_sum1_23_02",
+    "b2_85_superstitions"
    ]
   },
   "authorities": {
@@ -53769,7 +56607,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_east_india_company",
     "st_pro_05_the_reframe",
-    "Business-Bootcamp-Lesson4-The-Numbers"
+    "Business-Bootcamp-Lesson4-The-Numbers",
+    "discuss_c1_advice_industry"
    ]
   },
   "exploitation": {
@@ -53895,7 +56734,8 @@ window.WORDBANK={
    "ex": "Entry was strictly forbidden to the public — to step inside without permission could cost an ordinary person their life.",
    "lessons": [
     "short_history_the_forbidden_city",
-    "short_history_the_samurai_a2b1"
+    "short_history_the_samurai_a2b1",
+    "bc_follow_the_rules_c1"
    ]
   },
   "concubine": {
@@ -54150,7 +56990,8 @@ window.WORDBANK={
     "techniques_a_retrieved_reformation",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_cask_of_amontillado",
-    "topic_money_b2"
+    "topic_money_b2",
+    "doctor_heist_b2c1"
    ]
   },
   "reserves": {
@@ -54207,7 +57048,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_gold_that_came_home_a2b1",
     "su_a2_25_important_events",
-    "b1_50_volunteering"
+    "b1_50_volunteering",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "worried": {
@@ -54378,7 +57220,8 @@ window.WORDBANK={
    "def": "a reversal of the normal order; in weather, a lid of warm air trapping cold air near the ground.",
    "ex": "",
    "lessons": [
-    "short_history_the_great_smog"
+    "short_history_the_great_smog",
+    "bc_global_branding_c1"
    ]
   },
   "sulphurous": {
@@ -54597,7 +57440,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_haitian_revolution",
     "short_history_the_scramble_for_africa",
-    "talk_volunteering_b2c1"
+    "talk_volunteering_b2c1",
+    "b2_57_medical_ethics"
    ]
   },
   "plantation": {
@@ -54787,7 +57631,8 @@ window.WORDBANK={
     "rs_y10_spr2_22_03",
     "b1_21_cause_and_effect",
     "rs_y9_spr1_15_03",
-    "short_history_the_great_depression_a2b1"
+    "short_history_the_great_depression_a2b1",
+    "bc_charity_b2c1"
    ]
   },
   "mechanise": {
@@ -55055,7 +57900,8 @@ window.WORDBANK={
     "hobbies_free_time_a2",
     "talk_books_and_screens_b2c1",
     "ml_09_the_comparison_trap",
-    "short_history_the_library_of_alexandria_a2b1"
+    "short_history_the_library_of_alexandria_a2b1",
+    "b2_59_digital_wellbeing"
    ]
   },
   "comprehensive": {
@@ -55114,7 +57960,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_manhattan_project",
     "rs_y11_spr2_28_03",
-    "rs_y9_spr1_15_05"
+    "rs_y9_spr1_15_05",
+    "discuss_b2_who_belongs_here"
    ]
   },
   "armaments": {
@@ -55152,7 +57999,8 @@ window.WORDBANK={
    "def": "one of the very small pieces that everything is made of.",
    "ex": "",
    "lessons": [
-    "short_history_the_manhattan_project_a2b1"
+    "short_history_the_manhattan_project_a2b1",
+    "epicurean_06_atoms_and_void"
    ]
   },
   "split": {
@@ -55247,7 +58095,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_match_girls_strike",
-    "grammar_b2_24_passing_on_the_news"
+    "grammar_b2_24_passing_on_the_news",
+    "bc_making_deductions_c1"
    ]
   },
   "reinstate": {
@@ -55549,7 +58398,8 @@ window.WORDBANK={
    "def": "the forced removal of people from where they live. Verb: to displace. Field: borders and movement.",
    "ex": "",
    "lessons": [
-    "short_history_the_partition_of_india"
+    "short_history_the_partition_of_india",
+    "bc_economic_issues_c1"
    ]
   },
   "communal": {
@@ -56070,7 +58920,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_scramble_for_africa",
-    "short_history_the_vikings"
+    "short_history_the_vikings",
+    "bc_life_on_mars_b2c1"
    ]
   },
   "hinterland": {
@@ -56295,7 +59146,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_suffragettes",
-    "b1_50_volunteering"
+    "b1_50_volunteering",
+    "bc_charity_b2c1"
    ]
   },
   "privilege": {
@@ -56325,7 +59177,8 @@ window.WORDBANK={
    "def": "a person who works energetically to bring about political or social change.",
    "ex": "",
    "lessons": [
-    "short_history_the_suffragettes"
+    "short_history_the_suffragettes",
+    "bc_inspiring_women_b2c1"
    ]
   },
   "landmark": {
@@ -56791,7 +59644,8 @@ window.WORDBANK={
     "techniques_the_queen_of_spades",
     "techniques_the_yellow_wallpaper",
     "ts_rubik_cube_b2",
-    "althist_history_c1_part2"
+    "althist_history_c1_part2",
+    "bc_gadgets_persuasion_b2c1"
    ]
   },
   "wing-warping": {
@@ -56999,7 +59853,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "skills_c1_leading_a_discussion",
-    "b1_15_teamwork"
+    "b1_15_teamwork",
+    "b2_41_celebrity_debate"
    ]
   },
   "what if": {
@@ -57356,7 +60211,8 @@ window.WORDBANK={
     "story_b2_dorando_marathon",
     "behind_the_screen_suffragette_a2b1",
     "short_history_nelson_mandela_a2b1",
-    "short_history_the_boston_tea_party_a2b1"
+    "short_history_the_boston_tea_party_a2b1",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "stamina": {
@@ -57365,7 +60221,8 @@ window.WORDBANK={
    "def": "physical or mental energy that lets you continue an effort for a long time.",
    "ex": "Marathon runners need great stamina: the ability to keep going for hours without becoming exhausted.",
    "lessons": [
-    "story_b2_dorando_marathon"
+    "story_b2_dorando_marathon",
+    "b2_68_keeping_fit"
    ]
   },
   "hit the wall": {
@@ -57488,7 +60345,8 @@ window.WORDBANK={
    "def": "separating things into their parts in order to examine them. (n: analysis; v: analyse)",
    "ex": "An analytical mind takes a problem apart: isolate the one variable that matters, hold everything else still, and test it.",
    "lessons": [
-    "story_c1_the_needham_question"
+    "story_c1_the_needham_question",
+    "b2_11_right_or_left_brain"
    ]
   },
   "interdependent": {
@@ -57909,7 +60767,8 @@ window.WORDBANK={
     "bc_tourism_alternative_holidays_b2c1",
     "rp_26_a_wedding_invitation",
     "epicurean_19_the_decline",
-    "the-art-of-growing-older"
+    "the-art-of-growing-older",
+    "b2_97_retail_banking_loan_decline"
    ]
   },
   "farmer": {
@@ -58357,7 +61216,8 @@ window.WORDBANK={
    "def": "· friendly (adj). \"A long friendship.\" \"A friendly person.\"",
    "ex": "",
    "lessons": [
-    "techniques_after_twenty_years_a2b1"
+    "techniques_after_twenty_years_a2b1",
+    "epicurean_04_the_garden_community"
    ]
   },
   "jostle": {
@@ -59098,7 +61958,8 @@ window.WORDBANK={
    "lessons": [
     "techniques_god_sees_the_truth_a2b1",
     "gr_a2_two_truths",
-    "behind_the_screen_ex_machina_a2b1"
+    "behind_the_screen_ex_machina_a2b1",
+    "bc_honesty_dishonesty_b2c1"
    ]
   },
   "beset": {
@@ -59638,7 +62499,8 @@ window.WORDBANK={
    "lessons": [
     "techniques_jekyll_and_hyde_1_a2b1",
     "techniques_the_bet_a2b1",
-    "behind_the_screen_dracula_a2b1"
+    "behind_the_screen_dracula_a2b1",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "cheque": {
@@ -59905,7 +62767,9 @@ window.WORDBANK={
     "techniques_jekyll_and_hyde_4_a2b1",
     "behind_the_screen_12_angry_men_a2b1",
     "behind_the_screen_oppenheimer_a2b1",
-    "short_history_joan_of_arc_a2b1"
+    "short_history_joan_of_arc_a2b1",
+    "bc_high_performers_workaholism_b2c1",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "bench": {
@@ -60202,7 +63066,10 @@ window.WORDBANK={
     "techniques_luck",
     "tib_fishbone_b2",
     "acad_b2_06_referencing",
-    "wk_33_the_deadline"
+    "wk_33_the_deadline",
+    "b2_47_handling_complaints",
+    "bc_building_your_brand_c1",
+    "editor_dilemmas_game"
    ]
   },
   "eminent": {
@@ -60525,7 +63392,8 @@ window.WORDBANK={
     "techniques_metamorphosis_2",
     "bc_master_storytelling_c1",
     "skills_c1_trade_fair_strategic_pitch",
-    "prof_c1_11_corporate_storytelling"
+    "prof_c1_11_corporate_storytelling",
+    "b2_79_making_a_complaint"
    ]
   },
   "pelt": {
@@ -61473,7 +64341,8 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_cask_of_amontillado_a2b1",
     "techniques_the_dolls_house",
-    "ct_a2_19_explaining_processes"
+    "ct_a2_19_explaining_processes",
+    "discuss_b2_taking_to_the_streets"
    ]
   },
   "deep": {
@@ -61563,7 +64432,8 @@ window.WORDBANK={
    "ex": "For fifteen generations the community had been completely isolated, cut off from the outside world by a landslide that sealed the only pass.",
    "lessons": [
     "techniques_the_country_of_the_blind",
-    "talk_working_from_home_b2c1"
+    "talk_working_from_home_b2c1",
+    "bc_de_extinction_c1"
    ]
   },
   "tumble": {
@@ -61859,7 +64729,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_emperors_new_clothes",
-    "bc_solutions_c1"
+    "bc_solutions_c1",
+    "epicurean_07_the_swerve"
    ]
   },
   "flatter": {
@@ -62449,7 +65320,8 @@ window.WORDBANK={
     "su_a2_51_life_stories",
     "c1_pro_14_talent_retention",
     "short_history_shackleton_a2b1",
-    "think_inside_the_box_your_problem"
+    "think_inside_the_box_your_problem",
+    "b2_03_making_your_opinion_heard"
    ]
   },
   "shout": {
@@ -62640,7 +65512,8 @@ window.WORDBANK={
    "def": "(v) — to rub a match sharply so that it catches fire.",
    "ex": "",
    "lessons": [
-    "techniques_the_little_match_girl"
+    "techniques_the_little_match_girl",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "glow": {
@@ -62730,7 +65603,8 @@ window.WORDBANK={
     "techniques_the_lumber_room",
     "techniques_the_lumber_room_a2b1",
     "rs_y11_spr2_28_04",
-    "short_history_mutiny_on_the_bounty_a2b1"
+    "short_history_mutiny_on_the_bounty_a2b1",
+    "bc_education_and_training_c1"
    ]
   },
   "trouble": {
@@ -63358,7 +66232,8 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_queen_of_spades",
     "tib_johari_b2",
-    "gr_a2_two_truths"
+    "gr_a2_two_truths",
+    "discuss_b2_who_belongs_here"
    ]
   },
   "careful": {
@@ -63751,7 +66626,8 @@ window.WORDBANK={
    "ex": "He saw a strange figure by the light.\" / \"A dark figure stood in the door.",
    "lessons": [
     "techniques_the_signal_man_a2b1",
-    "ml_23_the_ai_mistake"
+    "ml_23_the_ai_mistake",
+    "epicurean_01_who_was_epicurus"
    ]
   },
   "twilight": {
@@ -64694,7 +67570,9 @@ window.WORDBANK={
    "lessons": [
     "techniques_vanka_a2b1",
     "rp_20_at_the_library_a2b1",
-    "sf_a1_07_welcome_to_london"
+    "sf_a1_07_welcome_to_london",
+    "b2_86_email_problems",
+    "bc_complex_situations_c1"
    ]
   },
   "postbox": {
@@ -64911,7 +67789,8 @@ window.WORDBANK={
     "rs_y7_aut2_02_02",
     "bc_software_technical_debt_c1",
     "rs_y10_aut1_19_02",
-    "rhetorical_devices_british_texts_interactive"
+    "rhetorical_devices_british_texts_interactive",
+    "bc_explain_intuitively_c1"
    ]
   },
   "metaphor": {
@@ -65005,7 +67884,8 @@ window.WORDBANK={
     "Business-Bootcamp-Lesson1-The-Pitch",
     "c1_pro_07_cross_functional",
     "scenario-lessons",
-    "skills_b1b2_trade_fair_elevator_pitch"
+    "skills_b1b2_trade_fair_elevator_pitch",
+    "b2_95_it_outage_communication"
    ]
   },
   "nominalisation": {
@@ -65170,7 +68050,8 @@ window.WORDBANK={
    "def": "to become comfortable in a new place, home or job.",
    "ex": "The council ran language classes to help new arrivals settle in.",
    "lessons": [
-    "tib_acculturation_b2"
+    "tib_acculturation_b2",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "mainstream": {
@@ -65217,7 +68098,9 @@ window.WORDBANK={
     "business_meetings_course_guide",
     "interview_essentials",
     "rs_y8_sum1_11_01",
-    "think_inside_the_box_toolbox"
+    "think_inside_the_box_toolbox",
+    "b2_37_formal_emails",
+    "bc_creative_decision_making_b2c1"
    ]
   },
   "apply": {
@@ -65228,7 +68111,8 @@ window.WORDBANK={
    "lessons": [
     "tib_blooms_b2",
     "b1_53_uk_citizenship",
-    "epicurean_08_soul_and_death"
+    "epicurean_08_soul_and_death",
+    "b2_31_job_interview"
    ]
   },
   "memorise": {
@@ -65240,7 +68124,8 @@ window.WORDBANK={
     "tib_blooms_b2",
     "rs_y10_sum2_24_03",
     "rs_y7_spr1_03_01",
-    "b1_59_leaving_again_goodbye"
+    "b1_59_leaving_again_goodbye",
+    "bc_explain_intuitively_c1"
    ]
   },
   "evaluate": {
@@ -65253,7 +68138,8 @@ window.WORDBANK={
     "acad_b2_03_critical_thinking",
     "gr_b2_time_auction",
     "c1c2_the_ulysses_contract_for_leaders",
-    "epicurean_29_legacy_tensions"
+    "epicurean_29_legacy_tensions",
+    "b2_92_language_of_historical_debate"
    ]
   },
   "thinking": {
@@ -65380,7 +68266,8 @@ window.WORDBANK={
    "def": "“It was a difficult decision.”",
    "ex": "",
    "lessons": [
-    "tib_eisenhower_a2b1"
+    "tib_eisenhower_a2b1",
+    "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
   "invasion": {
@@ -65401,7 +68288,8 @@ window.WORDBANK={
    "def": "needing to be dealt with very soon.",
    "ex": "Before the holiday I had a list of pressing jobs: the car, the bills and a broken window.",
    "lessons": [
-    "tib_eisenhower_b2"
+    "tib_eisenhower_b2",
+    "b2_80_in_the_news"
    ]
   },
   "delegate": {
@@ -65493,7 +68381,8 @@ window.WORDBANK={
     "tib_fishbone_b2",
     "su_a2_61_planning_a_project",
     "acad_b1_09_working_in_pairs",
-    "b1_18_brainstorming_and_problem_solving"
+    "b1_18_brainstorming_and_problem_solving",
+    "bc_current_issues_c1"
    ]
   },
   "tackle": {
@@ -65503,7 +68392,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_fishbone_b2",
-    "epicurean_26_baptizing_atoms"
+    "epicurean_26_baptizing_atoms",
+    "b2_104_greener_cities_solutions"
    ]
   },
   "bargaining": {
@@ -65645,7 +68535,8 @@ window.WORDBANK={
     "speaking_naturally_01_agreement_disagreement",
     "breaking_news_enhanced_games_jan_2026",
     "cancel_culture_proper",
-    "epicurean_14_death_full_treatment"
+    "epicurean_14_death_full_treatment",
+    "bc_complex_situations_c1"
    ]
   },
   "nutrient": {
@@ -65783,7 +68674,8 @@ window.WORDBANK={
     "tib_kolb_b2",
     "rs_y7_spr2_04_05",
     "bc_powerful_presentations_c1",
-    "c1_pro_02_executive_summaries"
+    "c1_pro_02_executive_summaries",
+    "b2_49_networking_events"
    ]
   },
   "aware": {
@@ -65804,7 +68696,8 @@ window.WORDBANK={
     "tib_kolb_b2",
     "rs_y7_spr2_04_01",
     "acad_b1_15_learning_from_mistakes",
-    "b1_51_music_and_identity"
+    "b1_51_music_and_identity",
+    "discuss_c1_endings_and_fresh_starts"
    ]
   },
   "hands-on": {
@@ -65840,7 +68733,8 @@ window.WORDBANK={
     "c1_pro_08_internal_pitching",
     "ct_b1_29_reformulation",
     "wk_06_the_interview",
-    "writing_poetry_image"
+    "writing_poetry_image",
+    "bc_grow_model_c1"
    ]
   },
   "abstract": {
@@ -65896,7 +68790,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_maslow_a2b1",
-    "tib_maslow_b2"
+    "tib_maslow_b2",
+    "discuss_b2_who_belongs_here"
    ]
   },
   "basic": {
@@ -66098,7 +68993,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_ninebox_b2",
-    "topic_expertise_b2"
+    "topic_expertise_b2",
+    "b2c1_the_art_of_questioning"
    ]
   },
   "dogfight": {
@@ -66211,7 +69107,8 @@ window.WORDBANK={
     "tib_pareto_a2b1",
     "su_a2_42_travel_problems",
     "c1_pro_03_delivering_bad_news",
-    "sb_03_handling_a_complaint_a2b1"
+    "sb_03_handling_a_complaint_a2b1",
+    "b2_47_handling_complaints"
    ]
   },
   "most": {
@@ -66270,7 +69167,8 @@ window.WORDBANK={
     "tib_pareto_b2",
     "gr_warmup_b2_hot_takes_money",
     "rs_y9_spr1_15_03",
-    "talk_homework_b2c1"
+    "talk_homework_b2c1",
+    "bc_economic_issues_c1"
    ]
   },
   "vital": {
@@ -66289,7 +69187,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_pareto_b2",
-    "ml_21_the_caf_poster"
+    "ml_21_the_caf_poster",
+    "bc_books_changed_world_part2_c1"
    ]
   },
   "distribute": {
@@ -66328,7 +69227,9 @@ window.WORDBANK={
    "lessons": [
     "tib_pestle_b2",
     "su_a2_50_getting_in_touch",
-    "c2_pro_18_mentoring_language"
+    "c2_pro_18_mentoring_language",
+    "b2_40_informal_email_writing",
+    "bc_current_issues_c1"
    ]
   },
   "demographic": {
@@ -66357,7 +69258,8 @@ window.WORDBANK={
    "def": "“A Washington think tank published a report on energy.”",
    "ex": "",
    "lessons": [
-    "tib_prisoners_b2"
+    "tib_prisoners_b2",
+    "bc_asteroids_c1"
    ]
   },
   "rational": {
@@ -66367,7 +69269,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_prisoners_b2",
-    "c2_pro_05_executive_storytelling"
+    "c2_pro_05_executive_storytelling",
+    "b2_11_right_or_left_brain"
    ]
   },
   "cooperate": {
@@ -66490,7 +69393,8 @@ window.WORDBANK={
    "def": "an accepted way of behaving in a group.",
    "ex": "",
    "lessons": [
-    "tib_tuckman_b2"
+    "tib_tuckman_b2",
+    "bc_four_day_week_c1"
    ]
   },
   "take over": {
@@ -66499,7 +69403,8 @@ window.WORDBANK={
    "def": "“When the manager left, Ana took over.”",
    "ex": "",
    "lessons": [
-    "tib_tuckman_b2"
+    "tib_tuckman_b2",
+    "b2_71_work_life_balance"
    ]
   },
   "settle": {
@@ -66615,7 +69520,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "topic_attention_b2",
-    "su_a2_54_managing_time_with_others"
+    "su_a2_54_managing_time_with_others",
+    "b2_59_digital_wellbeing"
    ]
   },
   "novel": {
@@ -66732,7 +69638,8 @@ window.WORDBANK={
    "lessons": [
     "topic_english_language_b2",
     "gr_warmup_b2_hot_takes_language",
-    "everyone_has_an_accent_b1b2"
+    "everyone_has_an_accent_b1b2",
+    "b2_55_telephone_skills"
    ]
   },
   "global": {
@@ -66741,7 +69648,8 @@ window.WORDBANK={
    "def": "English · globalisation · a global / world language. Also met in the wild: \"Globish\" — the nickname for the simple international English of airports and meetings.",
    "ex": "",
    "lessons": [
-    "topic_english_language_b2"
+    "topic_english_language_b2",
+    "discuss_c1_advice_industry"
    ]
   },
   "expert": {
@@ -66801,7 +69709,8 @@ window.WORDBANK={
     "c1_pro_05_assertive_communication",
     "keeping_teams_motivated",
     "scenario-lessons",
-    "talk_working_from_home_b2c1"
+    "talk_working_from_home_b2c1",
+    "b2_75_managing_stress"
    ]
   },
   "productivity": {
@@ -66813,7 +69722,9 @@ window.WORDBANK={
     "topic_free_time_b2",
     "gr_warmup_c1_hot_takes_reframe",
     "4_day_work_week",
-    "c1_pro_10_meeting_facilitation"
+    "c1_pro_10_meeting_facilitation",
+    "b2_08_great_achievements",
+    "bc_four_day_week_c1"
    ]
   },
   "disconnect": {
@@ -66918,7 +69829,8 @@ window.WORDBANK={
    "def": "done without thinking. The noun in the story is automaticity — how automatic something feels.",
    "ex": "After a few months, checking my emails at 8 a.m. became completely automatic. I don't even decide to do it.",
    "lessons": [
-    "topic_habits_b2"
+    "topic_habits_b2",
+    "english_at_work_phrase_bank"
    ]
   },
   "cue": {
@@ -67000,7 +69912,8 @@ window.WORDBANK={
    "def": "hold your breath, hold someone in suspense, hold your nerve. Also worth stealing: to make your skin crawl, to send shivers down your spine — the body vocabulary of fear.",
    "ex": "",
    "lessons": [
-    "topic_horror_films_b2"
+    "topic_horror_films_b2",
+    "bc_looking_ahead_c1"
    ]
   },
   "shipwrecked": {
@@ -67041,7 +69954,8 @@ window.WORDBANK={
     "topic_human_nature_b2",
     "rs_y7_spr2_04_01",
     "lesson_world_war_2_speaking",
-    "wp_15_the_garden"
+    "wp_15_the_garden",
+    "epicurean_06_atoms_and_void"
    ]
   },
   "doubt": {
@@ -67055,7 +69969,8 @@ window.WORDBANK={
     "behind_the_screen_12_angry_men_a2b1",
     "b2_01_truth_and_lies",
     "short_history_the_wright_brothers_a2b1",
-    "tennis_mental_game"
+    "tennis_mental_game",
+    "bc_conspiracy_theories_b2c1"
    ]
   },
   "unreliable": {
@@ -67136,7 +70051,8 @@ window.WORDBANK={
    "lessons": [
     "topic_optimism_b2",
     "b1_12_life_coaching",
-    "b1_25_career_development"
+    "b1_25_career_development",
+    "bc_consulting_reset_expectations_c1"
    ]
   },
   "outlook": {
@@ -67191,7 +70107,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "topic_strangers_b2",
-    "talk_adult_friendships_b2c1"
+    "talk_adult_friendships_b2c1",
+    "b2_19_awkward_situations"
    ]
   },
   "rejection": {
@@ -67213,7 +70130,9 @@ window.WORDBANK={
     "acad_b1_25_understanding_feedback",
     "speaking_naturally_04_small_talk_fillers",
     "skills_a2_trade_fair_small_talk",
-    "wk_14_taking_credit"
+    "wk_14_taking_credit",
+    "b2_19_awkward_situations",
+    "bc_confident_meetings_c1"
    ]
   },
   "small talk": {
@@ -67287,7 +70206,8 @@ window.WORDBANK={
     "topic_willpower_b2",
     "c1_pro_29_digital_transformation",
     "c1_the_ulysses_contract_for_hr",
-    "explore_b1_need_for_speed"
+    "explore_b1_need_for_speed",
+    "b2_the_ulysses_contract"
    ]
   },
   "predict": {
@@ -67296,7 +70216,8 @@ window.WORDBANK={
    "def": "Nobody can predict the future. The noun is a prediction.",
    "ex": "",
    "lessons": [
-    "topic_willpower_b2"
+    "topic_willpower_b2",
+    "discuss_b2_emotional_intelligence"
    ]
   },
   "bush": {
@@ -67393,7 +70314,8 @@ window.WORDBANK={
    "def": "the gas we breathe out, toxic as it accumulates. The famous square-peg-round-hole problem of this story is a CO2 problem.",
    "ex": "",
    "lessons": [
-    "ts_apollo13_b2"
+    "ts_apollo13_b2",
+    "bc_climate_change_b2c1"
    ]
   },
   "mission control": {
@@ -67432,7 +70354,8 @@ window.WORDBANK={
    "def": "to get / have / do a degree in something. Erikson became a Harvard professor without one.",
    "ex": "",
    "lessons": [
-    "ts_erikson_b2"
+    "ts_erikson_b2",
+    "bc_looking_ahead_c1"
    ]
   },
   "mistrust": {
@@ -67604,7 +70527,8 @@ window.WORDBANK={
    "def": "an immune response; immunity. The villain of her early experiments: it attacked her synthetic mRNA as an invader. Solving that attack became the discovery.",
    "ex": "",
    "lessons": [
-    "ts_kariko_b2"
+    "ts_kariko_b2",
+    "b2_22_food_and_health"
    ]
   },
   "vaccine": {
@@ -67688,7 +70612,8 @@ window.WORDBANK={
    "def": "the punishment a judge decides for someone guilty of a crime. A heavy / light sentence; to sentence someone (v). The same word is also a group of words with a full stop!",
    "ex": "",
    "lessons": [
-    "ts_noise_b2"
+    "ts_noise_b2",
+    "discuss_b2c1_power_and_accountability"
    ]
   },
   "error": {
@@ -67753,7 +70678,8 @@ window.WORDBANK={
    "def": "the furry fungus that grows on old bread, damp walls — and one legendary dish. (US spelling: mold.) Adjective: mouldy.",
    "ex": "He came back from holiday to a bench of unwashed plates. On one, something furry and green had grown — a spot of mould, blown in from somewhere.",
    "lessons": [
-    "ts_penicillin_b2"
+    "ts_penicillin_b2",
+    "bc_appliance_of_science_c1"
    ]
   },
   "antibiotic": {
@@ -68053,7 +70979,8 @@ window.WORDBANK={
     "ts_thinking_in_bets_b2",
     "bp_c2_02_the_language_of_not_knowing",
     "making_the_leap_full",
-    "prof_c1_05_crisis_communication"
+    "prof_c1_05_crisis_communication",
+    "b2_92_language_of_historical_debate"
    ]
   },
   "odds": {
@@ -68093,7 +71020,8 @@ window.WORDBANK={
    "lessons": [
     "ts_tu_youyou_b2",
     "su_a2_14_online_or_offline",
-    "su_a2_28_a_good_holiday"
+    "su_a2_28_a_good_holiday",
+    "bc_citizenship_test_c1"
    ]
   },
   "screen": {
@@ -68282,7 +71210,8 @@ window.WORDBANK={
     "acad_b1_28_formal_vs_informal",
     "gr_b2_the_register",
     "su_a2_43_making_requests",
-    "skills_a2_trade_fair_simulation"
+    "skills_a2_trade_fair_simulation",
+    "b2_18_dealing_with_problems"
    ]
   },
   "accommodation": {
@@ -68416,7 +71345,8 @@ window.WORDBANK={
     "bp_c2_03_why_they_dont_understand_you",
     "epicurean_29_legacy_tensions",
     "the-power-of-accents",
-    "wp_30_the_razor"
+    "wp_30_the_razor",
+    "b2_39_best_email_replies"
    ]
   },
   "pessimistic": {
@@ -68434,7 +71364,8 @@ window.WORDBANK={
    "def": "a weakness or limit that reduces how useful something is",
    "ex": "One limitation of the survey is that only ten people answered.",
    "lessons": [
-    "acad_b2_03_critical_thinking"
+    "acad_b2_03_critical_thinking",
+    "bc_defending_methodology_phd"
    ]
   },
   "distinguish": {
@@ -68443,7 +71374,8 @@ window.WORDBANK={
    "def": "to show or see the difference between things",
    "ex": "Can you distinguish a real banknote from a fake one?",
    "lessons": [
-    "acad_b2_03_critical_thinking"
+    "acad_b2_03_critical_thinking",
+    "b2_78_bad_restaurant"
    ]
   },
   "seminar": {
@@ -68463,7 +71395,8 @@ window.WORDBANK={
    "ex": "Everyone is encouraged to participate in the discussion.",
    "lessons": [
     "acad_b2_05_seminar_discussions",
-    "b1_46_family_traditions"
+    "b1_46_family_traditions",
+    "b2_87_organising_event"
    ]
   },
   "respectfully": {
@@ -68496,7 +71429,9 @@ window.WORDBANK={
     "acad_b2_05_seminar_discussions",
     "stoicism_lesson_1_dichotomy_of_control",
     "b1_49_mental_health",
-    "c1_pro_03_delivering_bad_news"
+    "c1_pro_03_delivering_bad_news",
+    "bc_managing_nerves_c1",
+    "epicurean_02_tetrapharmakos"
    ]
   },
   "entry point": {
@@ -68525,7 +71460,8 @@ window.WORDBANK={
    "lessons": [
     "acad_b2_06_referencing",
     "c1_pro_04_active_listening",
-    "ct_b1_29_reformulation"
+    "ct_b1_29_reformulation",
+    "bc_ai_for_phd_research_c1"
    ]
   },
   "cite": {
@@ -68686,7 +71622,8 @@ window.WORDBANK={
    "def": "the set of methods used to do a piece of research",
    "ex": "The methodology section explains how the data was collected.",
    "lessons": [
-    "acad_b2_11_research_basics"
+    "acad_b2_11_research_basics",
+    "bc_defending_methodology_phd"
    ]
   },
   "concisely": {
@@ -68744,7 +71681,8 @@ window.WORDBANK={
     "bc_mind_over_body_health_b2c1",
     "handling_questions_buying_time",
     "c1_pro_09_business_writing",
-    "pss_lesson_01_explaining_clearly"
+    "pss_lesson_01_explaining_clearly",
+    "bc_adapt_your_writing_c1"
    ]
   },
   "vague": {
@@ -68782,7 +71720,8 @@ window.WORDBANK={
    "lessons": [
     "acad_b2_14_academic_emails",
     "closing_meetings_following_up",
-    "skills_a2_trade_fair_contacts"
+    "skills_a2_trade_fair_contacts",
+    "b2_37_formal_emails"
    ]
   },
   "cross-examination": {
@@ -68864,7 +71803,8 @@ window.WORDBANK={
    "ex": "The motion was passed by a large majority.",
    "lessons": [
     "acad_c1_03_academic_debate",
-    "chatterbox_3_hot_seat"
+    "chatterbox_3_hot_seat",
+    "b2_67_making_a_decision"
    ]
   },
   "outweigh": {
@@ -68904,7 +71844,8 @@ window.WORDBANK={
    "ex": "She argued persuasively for a longer lunch break.",
    "lessons": [
     "acad_c1_03_academic_debate",
-    "wp_05_the_myth_sellers"
+    "wp_05_the_myth_sellers",
+    "bc_climate_change_b2c1"
    ]
   },
   "contextualise": {
@@ -68940,7 +71881,8 @@ window.WORDBANK={
    "def": "something you give or add that helps achieve a result",
    "ex": "Her contribution to the project was essential.",
    "lessons": [
-    "acad_c1_04_dissertation_language"
+    "acad_c1_04_dissertation_language",
+    "bc_confident_meetings_c1"
    ]
   },
   "choke": {
@@ -69083,7 +72025,8 @@ window.WORDBANK={
    "def": "informal and used in everyday conversation",
    "ex": "Colloquial phrases are fine in texts to friends.",
    "lessons": [
-    "acad_c1_08_academic_register"
+    "acad_c1_08_academic_register",
+    "b2_40_informal_email_writing"
    ]
   },
   "correlate": {
@@ -69124,7 +72067,10 @@ window.WORDBANK={
    "lessons": [
     "acad_c1_08_academic_register",
     "bestiary_discourse_command",
-    "pss_lesson_02_asking_precise_questions"
+    "pss_lesson_02_asking_precise_questions",
+    "b2_37_formal_emails",
+    "bc_culture_shock_b2c1",
+    "discuss_c1_arrow_of_time"
    ]
   },
   "hedging": {
@@ -69135,7 +72081,8 @@ window.WORDBANK={
    "lessons": [
     "acad_c1_09_hedging_in_academia",
     "gr_c1_the_press_conference",
-    "prof_c1_03_executive_presence"
+    "prof_c1_03_executive_presence",
+    "b2_92_language_of_historical_debate"
    ]
   },
   "preliminary": {
@@ -69144,7 +72091,8 @@ window.WORDBANK={
    "def": "coming early, before the main or final part",
    "ex": "These are preliminary results, so we cannot be sure yet.",
    "lessons": [
-    "acad_c1_09_hedging_in_academia"
+    "acad_c1_09_hedging_in_academia",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "distorted": {
@@ -69162,7 +72110,8 @@ window.WORDBANK={
    "def": "to refuse to change your position under pressure",
    "ex": "Despite the pressure, she managed to hold the line on the budget.",
    "lessons": [
-    "acad_c1_09_hedging_in_academia"
+    "acad_c1_09_hedging_in_academia",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "submission": {
@@ -69212,7 +72161,8 @@ window.WORDBANK={
     "acad_c2_01_journal_writing",
     "gr_warmup_b2_hot_takes_ai",
     "Business-Bootcamp-Lesson8-The-Final-Interview",
-    "c2_pro_04_stakeholder_influence"
+    "c2_pro_04_stakeholder_influence",
+    "b2_50_leading_meetings"
    ]
   },
   "strategic": {
@@ -69231,7 +72181,9 @@ window.WORDBANK={
    "ex": "Our proposal for a new bike lane was accepted.",
    "lessons": [
     "acad_c2_02_grant_proposals",
-    "c1_pro_09_business_writing"
+    "c1_pro_09_business_writing",
+    "b2_10_getting_a_pay_rise",
+    "b2_81_live_performance"
    ]
   },
   "feasible": {
@@ -69267,7 +72219,8 @@ window.WORDBANK={
    "def": "a long piece of writing on one topic for a university degree",
    "ex": "She spent three years writing her thesis on river pollution.",
    "lessons": [
-    "acad_c2_03_viva_preparation"
+    "acad_c2_03_viva_preparation",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "examiner": {
@@ -69277,7 +72230,8 @@ window.WORDBANK={
    "ex": "The examiner asked me to explain my results in more detail.",
    "lessons": [
     "acad_c2_03_viva_preparation",
-    "bc_theoretical_framing_phd"
+    "bc_theoretical_framing_phd",
+    "bc_defending_methodology_phd"
    ]
   },
   "reflexively": {
@@ -69326,7 +72280,8 @@ window.WORDBANK={
    "ex": "Only one statement on the list is false.",
    "lessons": [
     "gr_a2_two_truths",
-    "rp_36_giving_a_statement"
+    "rp_36_giving_a_statement",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "detail": {
@@ -69494,7 +72449,9 @@ window.WORDBANK={
    "lessons": [
     "gr_b2_fact_or_bluff",
     "acad_b1_22_understanding_arguments",
-    "rs_y8_sum1_11_05"
+    "rs_y8_sum1_11_05",
+    "bc_alternative_way_c1",
+    "editor_dilemmas_game"
    ]
   },
   "either or": {
@@ -69515,7 +72472,8 @@ window.WORDBANK={
     "gr_b2_split_second",
     "gr_b2_the_dilemma",
     "rp_12_at_the_restaurant",
-    "c1_the_quarterly_story_for_leaders"
+    "c1_the_quarterly_story_for_leaders",
+    "bc_andy_burnham_c1"
    ]
   },
   "convince": {
@@ -69526,7 +72484,8 @@ window.WORDBANK={
    "lessons": [
     "gr_b2_split_second",
     "ct_b1_33_justifying_opinions",
-    "epicurean_14_death_full_treatment"
+    "epicurean_14_death_full_treatment",
+    "b2_54_persuasion_at_work"
    ]
   },
   "clue": {
@@ -69565,7 +72524,8 @@ window.WORDBANK={
    "ex": "He believes every conspiracy theory he reads online.",
    "lessons": [
     "gr_b2_the_conspiracy",
-    "standalone_why_do_people_believe_strange_things"
+    "standalone_why_do_people_believe_strange_things",
+    "bc_conspiracy_theories_b2c1"
    ]
   },
   "fallacy": {
@@ -69684,7 +72644,9 @@ window.WORDBANK={
    "ex": "How did your parents react when you told them the news?",
    "lessons": [
     "gr_b2_the_headline",
-    "skills_b1_friendly_chat_at_work"
+    "skills_b1_friendly_chat_at_work",
+    "b2_52_cross_cultural_business",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "hesitation": {
@@ -69752,7 +72714,8 @@ window.WORDBANK={
     "c2_pro_19_conflict_transformation",
     "epicurean_29_legacy_tensions",
     "prof_c2_10_future_of_work",
-    "skills_b1_sharing_opinions_politely"
+    "skills_b1_sharing_opinions_politely",
+    "b2_24_clarity_is_key"
    ]
   },
   "confront": {
@@ -69822,7 +72785,8 @@ window.WORDBANK={
    "lessons": [
     "gr_b2_the_translator",
     "bc_passion_for_food_b2c1",
-    "talk_ai_and_language_learning_b2c1"
+    "talk_ai_and_language_learning_b2c1",
+    "bc_life_on_mars_b2c1"
    ]
   },
   "literal": {
@@ -69865,7 +72829,8 @@ window.WORDBANK={
    "lessons": [
     "gr_b2_the_upgrade",
     "prof_c1_15_innovation_and_disruption",
-    "scenario-lessons"
+    "scenario-lessons",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "close the deal": {
@@ -69917,7 +72882,8 @@ window.WORDBANK={
     "gr_b2_time_auction",
     "bc_rhetorical_devices_c1",
     "Rhetorical Devices in British Literary History",
-    "rs_y9_sum2_18_04"
+    "rs_y9_sum2_18_04",
+    "b2_07_is_tv_bad_for_us"
    ]
   },
   "gut feeling": {
@@ -69927,7 +72893,8 @@ window.WORDBANK={
    "ex": "I had a gut feeling that something was wrong.",
    "lessons": [
     "gr_b2_time_auction",
-    "bp_c2_02_the_language_of_not_knowing"
+    "bp_c2_02_the_language_of_not_knowing",
+    "bc_creative_decision_making_b2c1"
    ]
   },
   "play devils advocate": {
@@ -69974,7 +72941,8 @@ window.WORDBANK={
     "rs_y11_spr2_28_02",
     "rs_y8_spr2_10_03",
     "c2_pro_09_change_management",
-    "wk_29_the_front_desk"
+    "wk_29_the_front_desk",
+    "b2_59_digital_wellbeing"
    ]
   },
   "spectrum": {
@@ -70015,7 +72983,8 @@ window.WORDBANK={
    "def": "controlling people in a clever and often unfair way",
    "ex": "Some adverts use emotional manipulation to sell products.",
    "lessons": [
-    "gr_c1_spotting_the_spin"
+    "gr_c1_spotting_the_spin",
+    "b2_54_persuasion_at_work"
    ]
   },
   "deficit": {
@@ -70258,7 +73227,8 @@ window.WORDBANK={
    "def": "a book that you read on a screen",
    "ex": "I always take e-books on holiday because they are light.",
    "lessons": [
-    "gr_warmup_a2_hot_takes_books"
+    "gr_warmup_a2_hot_takes_books",
+    "b2_93_talking_about_books"
    ]
   },
   "information": {
@@ -70609,7 +73579,8 @@ window.WORDBANK={
    "ex": "Open your textbook at page twenty.",
    "lessons": [
     "gr_warmup_a2_hot_takes_school",
-    "real_conversations_medical_mysteries"
+    "real_conversations_medical_mysteries",
+    "bc_black_holes_cosmology_c1"
    ]
   },
   "online shopping": {
@@ -70664,7 +73635,8 @@ window.WORDBANK={
    "def": "done by one person alone, not in a group",
    "ex": "Tennis can be an individual sport.",
    "lessons": [
-    "gr_warmup_a2_hot_takes_sport"
+    "gr_warmup_a2_hot_takes_sport",
+    "b2_14_alternative_sports"
    ]
   },
   "social": {
@@ -70922,7 +73894,8 @@ window.WORDBANK={
    "def": "getting involved to change what happens",
    "ex": "Some pray for God's intervention when someone is ill.",
    "lessons": [
-    "rs_y10_spr1_21_02"
+    "rs_y10_spr1_21_02",
+    "b2_57_medical_ethics"
    ]
   },
   "unanswered": {
@@ -71154,7 +74127,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_spr2_22_01",
     "rs_y8_sum2_12_03",
-    "rs_y9_aut2_14_04"
+    "rs_y9_aut2_14_04",
+    "bc_aliens_probability_b2c1"
    ]
   },
   "reflection": {
@@ -71283,7 +74257,8 @@ window.WORDBANK={
     "rs_y10_spr2_22_04",
     "someone_i_admire_b2c1",
     "su_a2_92_back_to_the_moon",
-    "c2_pro_20_visionary_leadership"
+    "c2_pro_20_visionary_leadership",
+    "bc_artemis_moon_c1"
    ]
   },
   "missionary": {
@@ -71453,7 +74428,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_sum1_23_01",
     "rs_y7_spr1_03_06",
-    "bc_theoretical_framing_phd"
+    "bc_theoretical_framing_phd",
+    "bc_humour_in_presentations_c1"
    ]
   },
   "tawhid": {
@@ -71849,7 +74825,9 @@ window.WORDBANK={
     "bl_03_placebo_lie_heals",
     "talk_eating_less_meat_b2c1",
     "c1_pro_25_sales_techniques",
-    "pets_c1_collocations"
+    "pets_c1_collocations",
+    "b2_12_workplace_ethics",
+    "bc_current_issues_c1"
    ]
   },
   "prostration": {
@@ -71916,7 +74894,8 @@ window.WORDBANK={
    "def": "honest and really meaning what you say",
    "ex": "The words must be said in a sincere way.",
    "lessons": [
-    "rs_y11_aut1_25_02"
+    "rs_y11_aut1_25_02",
+    "b2_79_making_a_complaint"
    ]
   },
   "intention": {
@@ -71978,7 +74957,8 @@ window.WORDBANK={
    "def": "that you must do because of a rule",
    "ex": "Prayer is compulsory for adult Muslims.",
    "lessons": [
-    "rs_y11_aut1_25_03"
+    "rs_y11_aut1_25_03",
+    "bc_cycling_built_for_speed_c1"
    ]
   },
   "wudu": {
@@ -72024,7 +75004,8 @@ window.WORDBANK={
    "def": "to choose not to do or have something",
    "ex": "Muslims abstain from food and drink during daylight hours.",
    "lessons": [
-    "rs_y11_aut1_25_04"
+    "rs_y11_aut1_25_04",
+    "b2_67_making_a_decision"
    ]
   },
   "self-discipline": {
@@ -72357,7 +75338,8 @@ window.WORDBANK={
    "def": "a friendly relationship with someone you spend time with",
    "ex": "Marriage offers love, support and companionship.",
    "lessons": [
-    "rs_y11_spr1_27_01"
+    "rs_y11_spr1_27_01",
+    "bc_charity_b2c1"
    ]
   },
   "contraception": {
@@ -72469,7 +75451,9 @@ window.WORDBANK={
    "lessons": [
     "rs_y11_spr1_27_03",
     "rs_y9_spr2_16_04",
-    "prof_c2_07_global_leadership"
+    "prof_c2_07_global_leadership",
+    "bc_company_culture_c1",
+    "epicurean_05_why_controversial"
    ]
   },
   "restriction": {
@@ -72498,7 +75482,8 @@ window.WORDBANK={
    "def": "the science of how the universe began and develops",
    "ex": "Modern cosmology explains the Big Bang.",
    "lessons": [
-    "rs_y11_spr1_27_04"
+    "rs_y11_spr1_27_04",
+    "bc_black_holes_cosmology_c1"
    ]
   },
   "literalist": {
@@ -72655,7 +75640,9 @@ window.WORDBANK={
    "def": "a person hurt by a crime, war or accident",
    "ex": "Charities support the victims of war.",
    "lessons": [
-    "rs_y11_spr2_28_03"
+    "rs_y11_spr2_28_03",
+    "bc_account_of_a_crime_b2c1",
+    "discuss_b2c1_power_and_accountability"
    ]
   },
   "interfaith": {
@@ -72789,7 +75776,8 @@ window.WORDBANK={
    "def": "something that you think is true",
    "ex": "Her belief in God helps her when life is hard.",
    "lessons": [
-    "rs_y7_aut1_01_01"
+    "rs_y7_aut1_01_01",
+    "b2_85_superstitions"
    ]
   },
   "atheist": {
@@ -72840,7 +75828,8 @@ window.WORDBANK={
     "rs_y7_aut1_01_01",
     "horror_history_c1_part1",
     "rs_y9_aut2_14_05",
-    "wp_29_the_angelic_doctor"
+    "wp_29_the_angelic_doctor",
+    "epicurean_06_atoms_and_void"
    ]
   },
   "religion": {
@@ -72901,7 +75890,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y7_aut1_01_03",
     "bc_multicultural_teams_c1",
-    "c2_pro_13_cross_cultural_leadership"
+    "c2_pro_13_cross_cultural_leadership",
+    "bc_culture_shock_b2c1"
    ]
   },
   "temple": {
@@ -73056,7 +76046,9 @@ window.WORDBANK={
    "ex": "Where did the origin of the universe come from?",
    "lessons": [
     "rs_y7_aut1_01_06",
-    "bp_c2_01_where_your_words_come_from"
+    "bp_c2_01_where_your_words_come_from",
+    "b2_56_food_sustainability",
+    "discuss_b2_who_belongs_here"
    ]
   },
   "experiential": {
@@ -73126,7 +76118,8 @@ window.WORDBANK={
    "ex": "Father, Son and Spirit are distinct persons.",
    "lessons": [
     "rs_y7_aut2_02_02",
-    "rs_y10_aut1_19_02"
+    "rs_y10_aut1_19_02",
+    "bc_building_your_brand_c1"
    ]
   },
   "contradiction": {
@@ -73319,7 +76312,8 @@ window.WORDBANK={
    "ex": "Atheists question the existence of any god.",
    "lessons": [
     "rs_y7_aut2_02_05",
-    "rs_y9_aut1_13_01"
+    "rs_y9_aut1_13_01",
+    "epicurean_07_the_swerve"
    ]
   },
   "debate": {
@@ -73329,7 +76323,9 @@ window.WORDBANK={
    "ex": "The class held a debate about whether God exists.",
    "lessons": [
     "rs_y7_aut2_02_06",
-    "4_day_work_week"
+    "4_day_work_week",
+    "b2_07_is_tv_bad_for_us",
+    "b2_84_no_free_lunch"
    ]
   },
   "empiricism": {
@@ -73440,7 +76436,8 @@ window.WORDBANK={
    "def": "kept safe and unchanged over time",
    "ex": "Muslims believe the Qur'an has been perfectly preserved.",
    "lessons": [
-    "rs_y7_spr1_03_03"
+    "rs_y7_spr1_03_03",
+    "dinosaur_heist"
    ]
   },
   "unchanged": {
@@ -73642,7 +76639,8 @@ window.WORDBANK={
    "def": "the state of being washed and free from dirt",
    "ex": "Washing before prayer shows the importance of cleanliness.",
    "lessons": [
-    "rs_y7_spr2_04_02"
+    "rs_y7_spr2_04_02",
+    "b2_78_bad_restaurant"
    ]
   },
   "liturgy": {
@@ -73670,7 +76668,8 @@ window.WORDBANK={
    "ex": "Catholic services are highly structured and follow set words.",
    "lessons": [
     "rs_y7_spr2_04_03",
-    "professional_interview_prep_interactive"
+    "professional_interview_prep_interactive",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "puja": {
@@ -73742,7 +76741,8 @@ window.WORDBANK={
    "def": "to move away from what you should be thinking about",
    "ex": "It is normal for your mind to wander.",
    "lessons": [
-    "rs_y7_spr2_04_05"
+    "rs_y7_spr2_04_05",
+    "b2_50_leading_meetings"
    ]
   },
   "mantra": {
@@ -74020,7 +77020,8 @@ window.WORDBANK={
    "def": "important and having a clear purpose",
    "ex": "Humanists aim to live a meaningful life now.",
    "lessons": [
-    "rs_y7_sum1_05_05"
+    "rs_y7_sum1_05_05",
+    "b2_09_happiness"
    ]
   },
   "absolute": {
@@ -74048,7 +77049,8 @@ window.WORDBANK={
    "def": "the facts or situation around an event",
    "ex": "Should rules change in different circumstances?",
    "lessons": [
-    "rs_y7_sum2_06_01"
+    "rs_y7_sum2_06_01",
+    "b2_62_culture_humour_language"
    ]
   },
   "obligation": {
@@ -74086,7 +77088,8 @@ window.WORDBANK={
    "def": "a feeling of being happy with what you have",
    "ex": "Not coveting other people's things leads to contentment.",
    "lessons": [
-    "rs_y7_sum2_06_02"
+    "rs_y7_sum2_06_02",
+    "b2_09_happiness"
    ]
   },
   "agape": {
@@ -74320,7 +77323,8 @@ window.WORDBANK={
    "def": "the duty to help society and protect the environment",
    "ex": "The bank talks a lot about social responsibility but rarely shows it.",
    "lessons": [
-    "bc_money_ethics_social_c1"
+    "bc_money_ethics_social_c1",
+    "bc_charity_b2c1"
    ]
   },
   "generalization": {
@@ -74410,7 +77414,9 @@ window.WORDBANK={
    "ex": "A small misunderstanding about the date caused a lot of stress.",
    "lessons": [
     "bc_navigating_misunderstandings_c1",
-    "skills_a2_trade_fair_problems"
+    "skills_a2_trade_fair_problems",
+    "b2_29_misunderstandings",
+    "epicurean_05_why_controversial"
    ]
   },
   "dismissive": {
@@ -74486,7 +77492,8 @@ window.WORDBANK={
    "def": "full of energy and new ideas",
    "ex": "Our new sales director is dynamic and always looking for opportunities.",
    "lessons": [
-    "bc_nine_team_roles_belbin_b2c1"
+    "bc_nine_team_roles_belbin_b2c1",
+    "bc_employment_matters_c1"
    ]
   },
   "urgency": {
@@ -74515,7 +77522,8 @@ window.WORDBANK={
    "def": "to establish the general mood or style of something",
    "ex": "His warm welcome set the tone for a relaxed afternoon.",
    "lessons": [
-    "bc_off_to_a_great_start_c1"
+    "bc_off_to_a_great_start_c1",
+    "b2_50_leading_meetings"
    ]
   },
   "reassurance": {
@@ -74539,7 +77547,8 @@ window.WORDBANK={
     "bc_off_to_a_great_start_c1",
     "rp_13_talking_about_the_weather",
     "st_pro_06_numbers_that_breathe",
-    "st_pro_02_your_origin_story"
+    "st_pro_02_your_origin_story",
+    "b2_60_film_criticism"
    ]
   },
   "outline": {
@@ -74569,7 +77578,8 @@ window.WORDBANK={
    "lessons": [
     "bc_organising_client_events_c1",
     "rp_26_a_wedding_invitation",
-    "skills_a2_trade_fair_your_product"
+    "skills_a2_trade_fair_your_product",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "risk assessment": {
@@ -74635,7 +77645,8 @@ window.WORDBANK={
    "def": "a chemical the body produces when you are excited or afraid",
    "ex": "The jump gave him a rush of adrenaline he still remembers.",
    "lessons": [
-    "bc_passion_for_danger_c1"
+    "bc_passion_for_danger_c1",
+    "b2_58_adventure_travel"
    ]
   },
   "regulate": {
@@ -74644,7 +77655,8 @@ window.WORDBANK={
    "def": "to control something with rules or laws",
    "ex": "Some countries strictly regulate who can go cave diving.",
    "lessons": [
-    "bc_passion_for_danger_c1"
+    "bc_passion_for_danger_c1",
+    "bc_ethics_of_ai_c1"
    ]
   },
   "tough nut to crack": {
@@ -74698,7 +77710,9 @@ window.WORDBANK={
    "def": "to respect and approve of someone or something",
    "ex": "I admire people who stay calm in a crisis.",
    "lessons": [
-    "bc_person_you_admire_b2c1"
+    "bc_person_you_admire_b2c1",
+    "b2_106_status_games",
+    "bc_building_your_brand_c1"
    ]
   },
   "look up to": {
@@ -75028,7 +78042,8 @@ window.WORDBANK={
    "def": "to arrange things in a clear and useful order",
    "ex": "I organise my notes into three sections before every talk.",
    "lessons": [
-    "bc_presentation_structure_c1"
+    "bc_presentation_structure_c1",
+    "b2_82_problems_at_work"
    ]
   },
   "absorb": {
@@ -75038,7 +78053,8 @@ window.WORDBANK={
    "ex": "The business cannot absorb another rise in energy costs.",
    "lessons": [
     "bc_procurement_price_increase_c1",
-    "deep_space_05_dark"
+    "deep_space_05_dark",
+    "bc_consulting_reset_expectations_c1"
    ]
   },
   "ceiling": {
@@ -75057,7 +78073,8 @@ window.WORDBANK={
    "ex": "More transparency about costs helped both companies trust each other.",
    "lessons": [
     "bc_procurement_price_increase_c1",
-    "c2_pro_02_crisis_communication"
+    "c2_pro_02_crisis_communication",
+    "bc_company_culture_c1"
    ]
   },
   "soft spot": {
@@ -75156,7 +78173,8 @@ window.WORDBANK={
     "bc_reframing_conflict_c1",
     "bc_team_building_c1",
     "rs_y8_sum1_11_05",
-    "c2_pro_09_change_management"
+    "c2_pro_09_change_management",
+    "bc_employment_matters_c1"
    ]
   },
   "substandard": {
@@ -75216,7 +78234,8 @@ window.WORDBANK={
    "def": "a small, clever device or tool that does a useful job",
    "ex": "My favourite gadget is a tiny speaker I take everywhere.",
    "lessons": [
-    "bc_science_space_tech_c1"
+    "bc_science_space_tech_c1",
+    "bc_gadgets_persuasion_b2c1"
    ]
   },
   "handy": {
@@ -75439,7 +78458,8 @@ window.WORDBANK={
    "def": "a practical use for an idea or technology",
    "ex": "The new material has many applications in medicine.",
    "lessons": [
-    "bc_solutions_c1"
+    "bc_solutions_c1",
+    "b2_97_retail_banking_loan_decline"
    ]
   },
   "welfare": {
@@ -75517,7 +78537,8 @@ window.WORDBANK={
    "def": "to become gradually worse over a period of time",
    "ex": "Relations between the two departments deteriorated after the merger.",
    "lessons": [
-    "bc_staff_morale_c1"
+    "bc_staff_morale_c1",
+    "bc_changing_places_c1"
    ]
   },
   "ripple": {
@@ -75583,7 +78604,8 @@ window.WORDBANK={
    "def": "a formal request inviting companies to offer a price for work",
    "ex": "The city published a tender for new school buses.",
    "lessons": [
-    "bc_supplier_analysis_c1"
+    "bc_supplier_analysis_c1",
+    "b2_13_organising_a_dinner"
    ]
   },
   "specification": {
@@ -75669,7 +78691,8 @@ window.WORDBANK={
    "ex": "Selling customer data without permission is unethical.",
    "lessons": [
     "bc_talking_about_it_c1",
-    "c2_pro_07_investor_relations"
+    "c2_pro_07_investor_relations",
+    "b2_34_ethics_in_the_workplace"
    ]
   },
   "foster": {
@@ -75875,7 +78898,8 @@ window.WORDBANK={
     "bc_tourism_alternative_holidays_b2c1",
     "skills_c1_trade_fair_strategic_pitch",
     "ct_b1_33_justifying_opinions",
-    "wp_05_the_myth_sellers"
+    "wp_05_the_myth_sellers",
+    "b2_28_taking_up_a_sport"
    ]
   },
   "endangered": {
@@ -75885,7 +78909,8 @@ window.WORDBANK={
    "ex": "The mountain gorilla is still an endangered animal.",
    "lessons": [
     "bc_travel_c1",
-    "talk_zoos_a2b1"
+    "talk_zoos_a2b1",
+    "bc_endangered_species_b2c1"
    ]
   },
   "habitat": {
@@ -75896,7 +78921,8 @@ window.WORDBANK={
    "lessons": [
     "bc_travel_c1",
     "b1_32_environmental_reading",
-    "talk_zoos_a2b1"
+    "talk_zoos_a2b1",
+    "bc_environmental_science_c1"
    ]
   },
   "endearing": {
@@ -76039,7 +79065,9 @@ window.WORDBANK={
     "acad_b1_21_asking_good_questions",
     "su_a2_54_managing_time_with_others",
     "handling_questions_buying_time",
-    "skills_b1_numbers_deadlines_risks_meetings"
+    "skills_b1_numbers_deadlines_risks_meetings",
+    "b2_39_best_email_replies",
+    "bc_clarifying_intercultural_c1"
    ]
   },
   "preserve": {
@@ -76101,7 +79129,8 @@ window.WORDBANK={
    "ex": "Engineers are studying the feasibility of a bridge across the bay.",
    "lessons": [
     "bc_world_of_tomorrow_c1",
-    "c2_pro_04_stakeholder_influence"
+    "c2_pro_04_stakeholder_influence",
+    "b2_48_writing_reports"
    ]
   },
   "colonisation": {
@@ -76110,7 +79139,8 @@ window.WORDBANK={
    "def": "settling in a new place and taking control of it",
    "ex": "Many films imagine the colonisation of distant planets.",
    "lessons": [
-    "bc_world_of_tomorrow_c1"
+    "bc_world_of_tomorrow_c1",
+    "bc_life_on_mars_b2c1"
    ]
   },
   "habitable": {
@@ -76215,7 +79245,8 @@ window.WORDBANK={
    "ex": "Can you prove that you were at home last night?",
    "lessons": [
     "behind_the_screen_12_angry_men_a2b1",
-    "b1_53_uk_citizenship"
+    "b1_53_uk_citizenship",
+    "b2_88_proving_your_worth"
    ]
   },
   "reasonable": {
@@ -76237,7 +79268,8 @@ window.WORDBANK={
     "su_a2_92_back_to_the_moon",
     "deep_space_06_spaceflight",
     "short_history_apollo_11_a2b1",
-    "short_history_the_space_race_a2b1"
+    "short_history_the_space_race_a2b1",
+    "bc_artemis_moon_c1"
    ]
   },
   "oxygen": {
@@ -76307,7 +79339,8 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_blade_runner_a2b1",
     "curious_conversations_simone_weil",
-    "short_history_alexander_the_great_a2b1"
+    "short_history_alexander_the_great_a2b1",
+    "b2_the_ulysses_contract"
    ]
   },
   "battle": {
@@ -76328,7 +79361,8 @@ window.WORDBANK={
    "def": "a person who trains and helps a sports team or player",
    "ex": "Our coach makes us run ten laps before every game.",
    "lessons": [
-    "behind_the_screen_chariots_of_fire_a2b1"
+    "behind_the_screen_chariots_of_fire_a2b1",
+    "b2_74_ways_of_travelling"
    ]
   },
   "medal": {
@@ -76387,7 +79421,8 @@ window.WORDBANK={
    "def": "not real; invented for a story",
    "ex": "The village in the book is fictional, but it feels real.",
    "lessons": [
-    "behind_the_screen_contagion_a2b1"
+    "behind_the_screen_contagion_a2b1",
+    "b2_38_is_tv_bad_for_us"
    ]
   },
   "vampire": {
@@ -76653,7 +79688,8 @@ window.WORDBANK={
    "ex": "Because of gravity, a dropped apple falls down.",
    "lessons": [
     "behind_the_screen_interstellar_a2b1",
-    "deep_space_05_dark"
+    "deep_space_05_dark",
+    "bc_black_holes_cosmology_c1"
    ]
   },
   "captain": {
@@ -76738,7 +79774,8 @@ window.WORDBANK={
    "def": "to stop existing completely, so none are left",
    "ex": "Some old traditions have died out in the countryside.",
    "lessons": [
-    "behind_the_screen_jurassic_park_a2b1"
+    "behind_the_screen_jurassic_park_a2b1",
+    "bc_de_extinction_c1"
    ]
   },
   "composer": {
@@ -76814,7 +79851,8 @@ window.WORDBANK={
    "def": "a strong opinion, often meant to start an argument",
    "ex": "His hot take is that breakfast is overrated.",
    "lessons": [
-    "gr_warmup_b2_hot_takes"
+    "gr_warmup_b2_hot_takes",
+    "bc_cycling_built_for_speed_c1"
    ]
   },
   "on the fence": {
@@ -76916,7 +79954,8 @@ window.WORDBANK={
    "ex": "The ethics of eating meat is a hot topic.",
    "lessons": [
     "gr_warmup_b2_hot_takes_animals",
-    "st_pro_08_stories_that_change_minds"
+    "st_pro_08_stories_that_change_minds",
+    "bc_follow_the_rules_c1"
    ]
   },
   "factory farming": {
@@ -76946,7 +79985,8 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_animals",
     "gr_warmup_b2_hot_takes_environment",
     "b1_32_environmental_reading",
-    "talk_zoos_b2c1"
+    "talk_zoos_b2c1",
+    "bc_endangered_species_b2c1"
    ]
   },
   "humane": {
@@ -76976,7 +80016,8 @@ window.WORDBANK={
    "lessons": [
     "gr_warmup_b2_hot_takes_art",
     "b1_16_strengths_and_weaknesses",
-    "boredom_is_a_superpower_lesson"
+    "boredom_is_a_superpower_lesson",
+    "bc_advanced_life_skills_c1"
    ]
   },
   "conceptual": {
@@ -77200,7 +80241,8 @@ window.WORDBANK={
    "def": "carefully judging ideas and evidence before accepting them",
    "ex": "Good schools teach critical thinking, not just facts.",
    "lessons": [
-    "gr_warmup_b2_hot_takes_education"
+    "gr_warmup_b2_hot_takes_education",
+    "bc_advanced_life_skills_c1"
    ]
   },
   "sustainable": {
@@ -77444,7 +80486,8 @@ window.WORDBANK={
    "def": "treating everyone the same and giving the same rights",
    "ex": "The campaign fights for equality at work.",
    "lessons": [
-    "gr_warmup_b2_hot_takes_gender"
+    "gr_warmup_b2_hot_takes_gender",
+    "epicurean_04_the_garden_community"
    ]
   },
   "equity": {
@@ -77455,7 +80498,8 @@ window.WORDBANK={
    "lessons": [
     "gr_warmup_b2_hot_takes_gender",
     "Business-Bootcamp-Lesson1-The-Pitch",
-    "c1_pro_20_diversity_inclusion"
+    "c1_pro_20_diversity_inclusion",
+    "b2_57_medical_ethics"
    ]
   },
   "glass ceiling": {
@@ -77594,7 +80638,9 @@ window.WORDBANK={
    "ex": "Her fluency improved after a year abroad.",
    "lessons": [
     "gr_warmup_b2_hot_takes_language",
-    "explore_b1_need_for_speed"
+    "explore_b1_need_for_speed",
+    "b2_11_right_or_left_brain",
+    "bc_debate_defend_view_c1"
    ]
   },
   "dialect": {
@@ -77680,7 +80726,8 @@ window.WORDBANK={
    "def": "the value of everything you own minus your debts",
    "ex": "His net worth doubled after the company sold.",
    "lessons": [
-    "gr_warmup_b2_hot_takes_money"
+    "gr_warmup_b2_hot_takes_money",
+    "discuss_b2c1_power_and_accountability"
    ]
   },
   "streaming": {
@@ -77690,7 +80737,8 @@ window.WORDBANK={
    "ex": "Streaming has replaced CDs for most young listeners.",
    "lessons": [
     "gr_warmup_b2_hot_takes_music",
-    "breaking_news_netflix_warner_bros_jan_2026"
+    "breaking_news_netflix_warner_bros_jan_2026",
+    "b2_59_digital_wellbeing"
    ]
   },
   "autotune": {
@@ -77868,7 +80916,8 @@ window.WORDBANK={
    "def": "using body features such as fingerprints or faces",
    "ex": "My phone uses biometric checks to unlock.",
    "lessons": [
-    "gr_warmup_b2_hot_takes_privacy"
+    "gr_warmup_b2_hot_takes_privacy",
+    "doctor_heist_b2c1"
    ]
   },
   "encryption": {
@@ -78156,7 +81205,8 @@ window.WORDBANK={
    "ex": "Remote work improved my work-life balance.",
    "lessons": [
     "gr_warmup_b2_hot_takes_work",
-    "4_day_work_week"
+    "4_day_work_week",
+    "b2_71_work_life_balance"
    ]
   },
   "climb the ladder": {
@@ -78604,7 +81654,8 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_reframe",
     "c2_pro_08_thought_leadership",
     "epicurean_26_baptizing_atoms",
-    "wp_25_the_house_of_wisdom"
+    "wp_25_the_house_of_wisdom",
+    "bc_ai_for_phd_research_c1"
    ]
   },
   "mentorship": {
@@ -78902,7 +81953,8 @@ window.WORDBANK={
    "ex": "The doctor gave me good advice about sleep.",
    "lessons": [
     "rp_14_at_the_pharmacy_a2b1",
-    "b1_28_study_advice"
+    "b1_28_study_advice",
+    "b2_83_changing_jobs"
    ]
   },
   "damp": {
@@ -79014,7 +82066,8 @@ window.WORDBANK={
    "def": "something that is annoying and causes problems",
    "ex": "Losing your phone is a real nuisance.",
    "lessons": [
-    "rp_16_reporting_something_lost"
+    "rp_16_reporting_something_lost",
+    "bc_cycling_c1"
    ]
   },
   "describe": {
@@ -79036,7 +82089,8 @@ window.WORDBANK={
    "ex": "She wore a thick wool jumper in winter.",
    "lessons": [
     "rp_16_reporting_something_lost_a2b1",
-    "rp_08_buying_clothes_a2b1"
+    "rp_08_buying_clothes_a2b1",
+    "b2_19_awkward_situations"
    ]
   },
   "trader": {
@@ -79119,7 +82173,8 @@ window.WORDBANK={
    "def": "being part of a club and paying to use it",
    "ex": "A gym membership costs forty pounds a month.",
    "lessons": [
-    "rp_18_joining_a_gym"
+    "rp_18_joining_a_gym",
+    "b2_32_living_without_money"
    ]
   },
   "pushy": {
@@ -79441,7 +82496,9 @@ window.WORDBANK={
    "def": "to have earned something because of what you did",
    "ex": "They played well and deserved to win.",
    "lessons": [
-    "rp_22_talking_about_sport"
+    "rp_22_talking_about_sport",
+    "b2_41_celebrity_debate",
+    "bc_books_that_changed_the_world_c1"
    ]
   },
   "favourite": {
@@ -79461,7 +82518,8 @@ window.WORDBANK={
    "def": "having bad things happen by chance",
    "ex": "The team was unlucky to lose in the last minute.",
    "lessons": [
-    "rp_22_talking_about_sport_a2b1"
+    "rp_22_talking_about_sport_a2b1",
+    "b2_85_superstitions"
    ]
   },
   "exciting": {
@@ -79653,7 +82711,8 @@ window.WORDBANK={
    "def": "plain and without much taste or spice",
    "ex": "Give him bland food like rice for a few days.",
    "lessons": [
-    "rp_25_at_the_vet"
+    "rp_25_at_the_vet",
+    "b2_13_organising_a_dinner"
    ]
   },
   "sick": {
@@ -80108,7 +83167,8 @@ window.WORDBANK={
    "ex": "I rehearsed my introduction on the bus.",
    "lessons": [
     "rp_30_first_day_at_work",
-    "c2_pro_12_difficult_conversations"
+    "c2_pro_12_difficult_conversations",
+    "bc_managing_nerves_c1"
    ]
   },
   "resourceful": {
@@ -80248,7 +83308,8 @@ window.WORDBANK={
    "lessons": [
     "rp_31_at_the_post_office",
     "grammar_b2_22_explaining_a_problem",
-    "lf_21_at_the_dentist"
+    "lf_21_at_the_dentist",
+    "discuss_b2c1_photography"
    ]
   },
   "stamp": {
@@ -80385,7 +83446,8 @@ window.WORDBANK={
    "def": "official forms and documents you must fill in",
    "ex": "Bring all your paperwork to the appointment.",
    "lessons": [
-    "rp_34_at_the_town_hall"
+    "rp_34_at_the_town_hall",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "signature": {
@@ -80517,7 +83579,8 @@ window.WORDBANK={
    "def": "a person who rides a bicycle",
    "ex": "The cyclist fell when the car turned.",
    "lessons": [
-    "rp_36_giving_a_statement"
+    "rp_36_giving_a_statement",
+    "bc_cycling_c1"
    ]
   },
   "screech": {
@@ -80555,7 +83618,8 @@ window.WORDBANK={
    "ex": "What is the procedure if my passport is stolen?",
    "lessons": [
     "rp_37_at_the_consulate",
-    "acad_c2_13_methodology"
+    "acad_c2_13_methodology",
+    "bc_business_rules_innovation_c1"
    ]
   },
   "stranded": {
@@ -80677,7 +83741,9 @@ window.WORDBANK={
    "lessons": [
     "rp_39_at_the_optician",
     "st_pro_05_the_reframe",
-    "bestiary_discourse_frame"
+    "bestiary_discourse_frame",
+    "bc_cycling_c1",
+    "discuss_b2c1_photography"
    ]
   },
   "anti-glare": {
@@ -80835,7 +83901,8 @@ window.WORDBANK={
    "def": "having ordinary feelings and needs, like hunger and sadness",
    "ex": "The story shows the humanity of Jesus, who felt hunger.",
    "lessons": [
-    "rs_y10_aut1_19_05"
+    "rs_y10_aut1_19_05",
+    "b2_80_in_the_news"
    ]
   },
   "flesh": {
@@ -80920,7 +83987,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_aut2_20_02",
     "books_changed_world_lesson",
-    "epicurean_27_gassendi_ethics"
+    "epicurean_27_gassendi_ethics",
+    "b2_66_impact_of_technology"
    ]
   },
   "creed": {
@@ -80957,7 +84025,8 @@ window.WORDBANK={
    "def": "a part or quality of a product, such as what it has or can do",
    "ex": "The new phone has one feature I really love: a huge battery.",
    "lessons": [
-    "skills_b1b2_trade_fair_features_benefits"
+    "skills_b1b2_trade_fair_features_benefits",
+    "bc_data_and_information_c1"
    ]
   },
   "stand": {
@@ -81053,7 +84122,8 @@ window.WORDBANK={
    "def": "interests or opinions that two people share",
    "ex": "We found common ground quickly because we both work in logistics.",
    "lessons": [
-    "skills_b1b2_trade_fair_networking"
+    "skills_b1b2_trade_fair_networking",
+    "b2_10_getting_a_pay_rise"
    ]
   },
   "transactional": {
@@ -81075,7 +84145,8 @@ window.WORDBANK={
     "rs_y9_aut1_13_02",
     "c1_pro_08_internal_pitching",
     "prof_c1_04_influencing_without_authority",
-    "wk_07_asking_to_work_from_home"
+    "wk_07_asking_to_work_from_home",
+    "bc_defending_methodology_phd"
    ]
   },
   "validate": {
@@ -81104,7 +84175,8 @@ window.WORDBANK={
    "ex": "Good signposting helps the audience follow a long talk.",
    "lessons": [
     "skills_b2_lecture_reach",
-    "acad_c2_04_teaching_english"
+    "acad_c2_04_teaching_english",
+    "bc_business_rules_innovation_c1"
    ]
   },
   "road map": {
@@ -81396,7 +84468,9 @@ window.WORDBANK={
    "def": "a list of steps you will take to reach a goal",
    "ex": "We left the meeting with a clear action plan.",
    "lessons": [
-    "skills_c1_trade_fair_post_fair"
+    "skills_c1_trade_fair_post_fair",
+    "b2_104_greener_cities_solutions",
+    "bc_clarifying_intercultural_c1"
    ]
   },
   "under pressure": {
@@ -81710,7 +84784,8 @@ window.WORDBANK={
    "lessons": [
     "st_pro_03_one_sentence_story",
     "b1_25_career_development",
-    "c1_pro_20_diversity_inclusion"
+    "c1_pro_20_diversity_inclusion",
+    "bc_company_culture_c1"
    ]
   },
   "clarity": {
@@ -81720,7 +84795,9 @@ window.WORDBANK={
    "ex": "Her email had real clarity; everyone knew what to do.",
    "lessons": [
     "st_pro_03_one_sentence_story",
-    "c1_pro_18_onboarding"
+    "c1_pro_18_onboarding",
+    "b2_45_giving_feedback",
+    "b2_86_email_problems"
    ]
   },
   "screenwriter": {
@@ -81748,7 +84825,8 @@ window.WORDBANK={
    "ex": "Making facts look better is not the same as dishonesty.",
    "lessons": [
     "st_pro_05_the_reframe",
-    "rs_y8_sum1_11_01"
+    "rs_y8_sum1_11_01",
+    "bc_honesty_dishonesty_b2c1"
    ]
   },
   "raw data": {
@@ -81774,7 +84852,8 @@ window.WORDBANK={
     "c1_pro_24_marketing_campaigns",
     "family_celebrations_interactive",
     "presenting_your_business",
-    "skills_b1b2_trade_fair_elevator_pitch"
+    "skills_b1b2_trade_fair_elevator_pitch",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "acre": {
@@ -81801,7 +84880,8 @@ window.WORDBANK={
    "def": "a short line in a list, with a dot before it",
    "ex": "His slides were just endless bullet points.",
    "lessons": [
-    "st_pro_07_the_boardroom_story"
+    "st_pro_07_the_boardroom_story",
+    "b2_37_formal_emails"
    ]
   },
   "arc": {
@@ -81830,7 +84910,9 @@ window.WORDBANK={
    "ex": "The consultant's main recommendation was to close two shops.",
    "lessons": [
     "st_pro_07_the_boardroom_story",
-    "c1_pro_02_executive_summaries"
+    "c1_pro_02_executive_summaries",
+    "b2_48_writing_reports",
+    "b2_81_live_performance"
    ]
   },
   "information-dumping": {
@@ -81893,7 +84975,8 @@ window.WORDBANK={
    "def": "causing harm to someone's reputation or situation",
    "ex": "The leaked emails were very damaging to the minister.",
    "lessons": [
-    "st_pro_09_the_crisis_story"
+    "st_pro_09_the_crisis_story",
+    "bc_build_relationships_writing_c1"
    ]
   },
   "job security": {
@@ -81902,7 +84985,8 @@ window.WORDBANK={
    "def": "confidence that you will not lose your job",
    "ex": "Many people value job security more than high pay.",
    "lessons": [
-    "st_pro_10_reading_the_room"
+    "st_pro_10_reading_the_room",
+    "b2_69_changes_in_workplace"
    ]
   },
   "empathy map": {
@@ -81957,7 +85041,8 @@ window.WORDBANK={
    "def": "done without planning or preparation",
    "ex": "He gave an impromptu speech at the wedding.",
    "lessons": [
-    "st_pro_12_storytellers_toolkit"
+    "st_pro_12_storytellers_toolkit",
+    "b2_77_cope_with_unexpected"
    ]
   },
   "integration": {
@@ -82078,7 +85163,8 @@ window.WORDBANK={
    "def": "a new version of software with improvements",
    "ex": "Install the latest update to fix the problem.",
    "lessons": [
-    "su_a2_57_investigating_a_problem"
+    "su_a2_57_investigating_a_problem",
+    "b2_40_informal_email_writing"
    ]
   },
   "incident": {
@@ -82125,7 +85211,8 @@ window.WORDBANK={
    "def": "happening or existing before the present one",
    "ex": "My previous job was in a bank.",
    "lessons": [
-    "su_a2_59_applying_for_a_job"
+    "su_a2_59_applying_for_a_job",
+    "b2_31_job_interview"
    ]
   },
   "graduate": {
@@ -82220,7 +85307,9 @@ window.WORDBANK={
    "ex": "I can't say with certainty that the plan will work.",
    "lessons": [
     "su_a2_61_planning_a_project",
-    "bestiary_discourse_qualify"
+    "bestiary_discourse_qualify",
+    "b2_05_dealing_with_disaster",
+    "bc_making_deductions_c1"
    ]
   },
   "quieter": {
@@ -82302,7 +85391,8 @@ window.WORDBANK={
    "def": "to make someone a little angry",
    "ex": "Loud phone calls annoy everyone in the office.",
    "lessons": [
-    "su_a2_62_raising_an_issue"
+    "su_a2_62_raising_an_issue",
+    "discuss_b1_french_elections"
    ]
   },
   "customer journey": {
@@ -82332,7 +85422,8 @@ window.WORDBANK={
     "su_a2_63_mapping_the_customer_journey",
     "c1_people_and_past_times_first_impressions",
     "interview_essentials",
-    "first_impressions_small_talk"
+    "first_impressions_small_talk",
+    "bc_first_impressions_c1"
    ]
   },
   "satisfaction": {
@@ -82342,7 +85433,8 @@ window.WORDBANK={
    "ex": "Customer satisfaction went up after the changes.",
    "lessons": [
     "su_a2_63_mapping_the_customer_journey",
-    "the-art-of-simple-pleasures"
+    "the-art-of-simple-pleasures",
+    "b2_09_happiness"
    ]
   },
   "improvement": {
@@ -82384,7 +85476,8 @@ window.WORDBANK={
     "su_a2_64_adapting_communication",
     "b1_20_flexible_communication",
     "b1_31_flexible_communication",
-    "ct_b1_28_advantages_disadvantages"
+    "ct_b1_28_advantages_disadvantages",
+    "bc_market_research_c1"
    ]
   },
   "flexible": {
@@ -82453,7 +85546,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_65_presentation_structure",
     "talk_it_through_b1b2",
-    "ct_b1_30_combining_skills"
+    "ct_b1_30_combining_skills",
+    "bc_handling_intercultural_c1"
    ]
   },
   "organized": {
@@ -82471,7 +85565,8 @@ window.WORDBANK={
    "def": "to stand or sit with your shoulders and back bent",
    "ex": "Don't slouch when you stand in front of people.",
    "lessons": [
-    "su_a2_66_more_than_words"
+    "su_a2_66_more_than_words",
+    "b2_64_voice_and_body_language"
    ]
   },
   "volume": {
@@ -82520,7 +85615,8 @@ window.WORDBANK={
    "def": "a person who takes part in an event",
    "ex": "Each participant will receive a name badge.",
    "lessons": [
-    "su_a2_68_joining_instructions"
+    "su_a2_68_joining_instructions",
+    "b2_20_sporting_events"
    ]
   },
   "venue": {
@@ -82531,7 +85627,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_68_joining_instructions",
     "breaking_news_milan_cortina_jan_2026",
-    "skills_a2_trade_fair_small_talk"
+    "skills_a2_trade_fair_small_talk",
+    "b2_65_find_that_annoying"
    ]
   },
   "agenda": {
@@ -82543,7 +85640,8 @@ window.WORDBANK={
     "su_a2_68_joining_instructions",
     "c1_pro_10_meeting_facilitation",
     "skills_b1_simple_small_talk_for_work",
-    "wk_08_chairing_the_meeting"
+    "wk_08_chairing_the_meeting",
+    "b2_101_design_brand_stretch"
    ]
   },
   "conference": {
@@ -82552,7 +85650,8 @@ window.WORDBANK={
    "def": "a large formal meeting for people to discuss a subject",
    "ex": "She spoke at a medical conference in Berlin.",
    "lessons": [
-    "su_a2_68_joining_instructions"
+    "su_a2_68_joining_instructions",
+    "english_at_work_phrase_bank"
    ]
   },
   "look forward to": {
@@ -82665,7 +85764,8 @@ window.WORDBANK={
    "def": "clean, neat and dressed well",
    "ex": "You need to look smart for the interview.",
    "lessons": [
-    "su_a2_70_fashion_through_the_years"
+    "su_a2_70_fashion_through_the_years",
+    "b2_73_dress_for_success"
    ]
   },
   "out of date": {
@@ -82767,7 +85867,8 @@ window.WORDBANK={
    "def": "a piece of equipment made for a special purpose",
    "ex": "Please turn off all devices during the film.",
    "lessons": [
-    "su_a2_72_mobile_phones"
+    "su_a2_72_mobile_phones",
+    "b2_08_great_achievements"
    ]
   },
   "battery": {
@@ -82906,7 +86007,8 @@ window.WORDBANK={
    "ex": "The presenter used lots of funny pictures.",
    "lessons": [
     "su_a2_75_presentation_structure",
-    "su_a2_52_handling_questions"
+    "su_a2_52_handling_questions",
+    "bc_international_presentations_c1"
    ]
   },
   "thriller": {
@@ -82955,7 +86057,8 @@ window.WORDBANK={
    "ex": "Who won the last election in your country?",
    "lessons": [
     "su_a2_77_budget",
-    "su_a2_37_budget"
+    "su_a2_37_budget",
+    "discuss_b1_french_elections"
    ]
   },
   "pollution": {
@@ -82992,7 +86095,8 @@ window.WORDBANK={
    "def": "the leader of a town or city",
    "ex": "The mayor opened the new library yesterday.",
    "lessons": [
-    "su_a2_77_budget"
+    "su_a2_77_budget",
+    "bc_andy_burnham_c1"
    ]
   },
   "linking words": {
@@ -83001,7 +86105,8 @@ window.WORDBANK={
    "def": "words such as so and because that connect ideas",
    "ex": "Use linking words to make your sentences flow.",
    "lessons": [
-    "su_a2_78_choosing_a_restaurant"
+    "su_a2_78_choosing_a_restaurant",
+    "b2_81_live_performance"
    ]
   },
   "factor": {
@@ -83010,7 +86115,8 @@ window.WORDBANK={
    "def": "one of the things that affects a decision",
    "ex": "Price is the main factor when I choose a café.",
    "lessons": [
-    "su_a2_78_choosing_a_restaurant"
+    "su_a2_78_choosing_a_restaurant",
+    "b2_62_culture_humour_language"
    ]
   },
   "embarrassing": {
@@ -83097,7 +86203,8 @@ window.WORDBANK={
    "def": "something that gives you new ideas or the wish to do something",
    "ex": "The trip gave me inspiration for my next book.",
    "lessons": [
-    "su_a2_81_travel_plans"
+    "su_a2_81_travel_plans",
+    "bc_inspiring_women_b2c1"
    ]
   },
   "explore": {
@@ -83106,7 +86213,8 @@ window.WORDBANK={
    "def": "to travel around a new place to learn about it",
    "ex": "We explored the old streets on foot.",
    "lessons": [
-    "su_a2_81_travel_plans"
+    "su_a2_81_travel_plans",
+    "epicurean_01_who_was_epicurus"
    ]
   },
   "rail track": {
@@ -83172,7 +86280,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_82_religious_art_and_history",
     "memory-books",
-    "ois_05_arthur_and_the_dark_ages"
+    "ois_05_arthur_and_the_dark_ages",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "go camping": {
@@ -83380,7 +86489,8 @@ window.WORDBANK={
    "def": "a feeling or idea that a word suggests beyond its basic meaning",
    "ex": "The word cheap can have a negative connotation for some buyers.",
    "lessons": [
-    "Business-Bootcamp-Lesson5-The-Branding-Challenge"
+    "Business-Bootcamp-Lesson5-The-Branding-Challenge",
+    "bc_data_and_information_c1"
    ]
   },
   "recognisable": {
@@ -83389,7 +86499,8 @@ window.WORDBANK={
    "def": "easy to identify because you have seen it before",
    "ex": "Their red logo is recognisable all over the world.",
    "lessons": [
-    "Business-Bootcamp-Lesson5-The-Branding-Challenge"
+    "Business-Bootcamp-Lesson5-The-Branding-Challenge",
+    "b2c1_the_art_of_questioning"
    ]
   },
   "scrutinize": {
@@ -83462,7 +86573,8 @@ window.WORDBANK={
    "def": "a calm, confident manner that makes people see you as a leader",
    "ex": "He has strong executive presence and people listen when he speaks.",
    "lessons": [
-    "Business-Bootcamp-Lesson8-The-Final-Interview"
+    "Business-Bootcamp-Lesson8-The-Final-Interview",
+    "b2_76_creating_connections"
    ]
   },
   "personification": {
@@ -83531,7 +86643,8 @@ window.WORDBANK={
    "lessons": [
     "Jane_Performance_STUDENT",
     "su_a2_46_body_language",
-    "talk_gift_giving_b2c1"
+    "talk_gift_giving_b2c1",
+    "b2_64_voice_and_body_language"
    ]
   },
   "pick something up": {
@@ -83669,7 +86782,8 @@ window.WORDBANK={
    "def": "a sport that is exciting and has a high risk of injury",
    "ex": "Surfing huge waves is an extreme sport that needs years of training.",
    "lessons": [
-    "a_passion_for_danger_b2c1"
+    "a_passion_for_danger_b2c1",
+    "b2_14_alternative_sports"
    ]
   },
   "refute": {
@@ -83727,7 +86841,9 @@ window.WORDBANK={
    "ex": "Asking the room questions is a simple way to increase engagement.",
    "lessons": [
     "acad_b1_07_basic_presentations",
-    "c1_pro_13_employee_engagement"
+    "c1_pro_13_employee_engagement",
+    "b2_76_creating_connections",
+    "bc_consulting_reset_expectations_c1"
    ]
   },
   "summarise": {
@@ -83737,7 +86853,9 @@ window.WORDBANK={
    "ex": "At the end, summarise your three main ideas.",
    "lessons": [
     "acad_b1_07_basic_presentations",
-    "bestiary_discourse_command"
+    "bestiary_discourse_command",
+    "b2_32_living_without_money",
+    "epicurean_02_tetrapharmakos"
    ]
   },
   "collaborative": {
@@ -83766,7 +86884,8 @@ window.WORDBANK={
    "def": "to help two sides end a disagreement",
    "ex": "A neighbour offered to mediate between the two families.",
    "lessons": [
-    "acad_b1_09_working_in_pairs"
+    "acad_b1_09_working_in_pairs",
+    "bc_healthcare_billing_c1"
    ]
   },
   "turn-taking": {
@@ -83785,7 +86904,9 @@ window.WORDBANK={
    "ex": "Make a decision is a very common collocation.",
    "lessons": [
     "acad_b1_13_using_dictionary",
-    "su_a2_23_staying_healthy"
+    "su_a2_23_staying_healthy",
+    "b2_27_appraisal_meeting",
+    "b2_82_problems_at_work"
    ]
   },
   "synonym": {
@@ -83893,7 +87014,8 @@ window.WORDBANK={
    "def": "lasting for a very long time or forever",
    "ex": "The injury was not permanent, and she soon walked again.",
    "lessons": [
-    "acad_b1_15_learning_from_mistakes"
+    "acad_b1_15_learning_from_mistakes",
+    "b2_69_changes_in_workplace"
    ]
   },
   "peer-reviewed": {
@@ -83929,7 +87051,8 @@ window.WORDBANK={
    "def": "a reference to the source of a piece of information",
    "ex": "Each citation should include the author and the year.",
    "lessons": [
-    "acad_b1_16_finding_information"
+    "acad_b1_16_finding_information",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "follow-up question": {
@@ -84129,7 +87252,8 @@ window.WORDBANK={
    "ex": "Choosing the cheaper supplier was a defensible decision.",
    "lessons": [
     "acad_c2_09_systematic_reviews",
-    "nq_07_mixed_c1"
+    "nq_07_mixed_c1",
+    "bc_critical_evaluation_sources_phd"
    ]
   },
   "creep in": {
@@ -84373,7 +87497,8 @@ window.WORDBANK={
    "ex": "The hotel integrated the new booking app into its website.",
    "lessons": [
     "ai_and_the_law_c1",
-    "talk_living_abroad_b2c1"
+    "talk_living_abroad_b2c1",
+    "bc_broadening_horizons_advanced_c1"
    ]
   },
   "workflow": {
@@ -84382,7 +87507,8 @@ window.WORDBANK={
    "def": "the order of steps used to get work done",
    "ex": "The new software has simplified our workflow.",
    "lessons": [
-    "ai_and_the_law_c1"
+    "ai_and_the_law_c1",
+    "bc_ai_for_phd_research_c1"
    ]
   },
   "fall apart": {
@@ -84558,7 +87684,8 @@ window.WORDBANK={
    "ex": "New problems emerged after the first week.",
    "lessons": [
     "are_we_forgetting_how_to_be_friends",
-    "wp_49_the_garden_and_the_kingdom"
+    "wp_49_the_garden_and_the_kingdom",
+    "bc_future_of_work_c1"
    ]
   },
   "struggle": {
@@ -84567,7 +87694,8 @@ window.WORDBANK={
    "def": "to find something very difficult to do",
    "ex": "Many people struggle to make friends as adults.",
    "lessons": [
-    "are_we_forgetting_how_to_be_friends"
+    "are_we_forgetting_how_to_be_friends",
+    "b2_51_presenting_data"
    ]
   },
   "close friend": {
@@ -84585,7 +87713,8 @@ window.WORDBANK={
    "def": "a robbery of something very valuable",
    "ex": "The film is about a clever bank heist.",
    "lessons": [
-    "art_museum_heist_c1c2"
+    "art_museum_heist_c1c2",
+    "bc_account_of_a_crime_b2c1"
    ]
   },
   "untraceable": {
@@ -84622,7 +87751,8 @@ window.WORDBANK={
    "ex": "Scientists watch for any asteroid that comes close to the earth.",
    "lessons": [
     "asteroids_b2c1",
-    "lesson_space_advanced_EXPANDED"
+    "lesson_space_advanced_EXPANDED",
+    "bc_asteroids_c1"
    ]
   },
   "meteorite": {
@@ -84631,7 +87761,8 @@ window.WORDBANK={
    "def": "a piece of rock from space that has landed on the earth",
    "ex": "The museum has a meteorite that fell in a farmer's field.",
    "lessons": [
-    "asteroids_b2c1"
+    "asteroids_b2c1",
+    "bc_asteroids_c1"
    ]
   },
   "collision": {
@@ -84660,7 +87791,8 @@ window.WORDBANK={
    "lessons": [
     "asteroids_b2c1",
     "ct_b1_30_combining_skills",
-    "kuba_lesson_1_professional_presence"
+    "kuba_lesson_1_professional_presence",
+    "bc_asteroids_c1"
    ]
   },
   "phraseology": {
@@ -84763,7 +87895,8 @@ window.WORDBANK={
     "lf_31_the_broken_boiler",
     "ml_13_the_apology",
     "wk_07_asking_to_work_from_home",
-    "wk_33_the_deadline"
+    "wk_33_the_deadline",
+    "bc_consulting_reset_expectations_c1"
    ]
   },
   "catch fire": {
@@ -84852,7 +87985,8 @@ window.WORDBANK={
    "def": "light and small enough to carry easily",
    "ex": "We took a portable speaker to the picnic.",
    "lessons": [
-    "b1_04_technology_friend_or_foe"
+    "b1_04_technology_friend_or_foe",
+    "b2_98_insurance_partial_claim"
    ]
   },
   "impatient": {
@@ -84880,7 +88014,8 @@ window.WORDBANK={
    "def": "working well without wasting time, money or energy",
    "ex": "The new heating system is much more efficient.",
    "lessons": [
-    "b1_04_technology_friend_or_foe"
+    "b1_04_technology_friend_or_foe",
+    "bc_cycling_c1"
    ]
   },
   "advance": {
@@ -85017,7 +88152,8 @@ window.WORDBANK={
    "def": "rooms, equipment or services provided for a purpose",
    "ex": "The hotel facilities include a gym and a pool.",
    "lessons": [
-    "b1_08_home"
+    "b1_08_home",
+    "b2_81_live_performance"
    ]
   },
   "cyberbullying": {
@@ -85071,7 +88207,8 @@ window.WORDBANK={
    "def": "treatments that are not part of standard modern medicine",
    "ex": "Some people try alternative medicine when other treatments fail.",
    "lessons": [
-    "b1_11_alternative_medicine"
+    "b1_11_alternative_medicine",
+    "bc_alternative_way_c1"
    ]
   },
   "treatment": {
@@ -85126,7 +88263,8 @@ window.WORDBANK={
    "def": "to treat used things so that they can be used again",
    "ex": "We recycle all our paper and plastic at work.",
    "lessons": [
-    "b1_13_the_green_workplace"
+    "b1_13_the_green_workplace",
+    "bc_appliance_of_science_c1"
    ]
   },
   "lighting": {
@@ -85363,7 +88501,8 @@ window.WORDBANK={
    "def": "to cause something to happen",
    "ex": "Too much stress can lead to health problems.",
    "lessons": [
-    "b1_21_cause_and_effect"
+    "b1_21_cause_and_effect",
+    "b2_29_misunderstandings"
    ]
   },
   "allowed to": {
@@ -85411,7 +88550,8 @@ window.WORDBANK={
    "lessons": [
     "b1_24_long_term_goals",
     "christmas_would_you_rather",
-    "prof_c1_02_negotiation_tactics"
+    "prof_c1_02_negotiation_tactics",
+    "bc_aliens_probability_b2c1"
    ]
   },
   "salary raise": {
@@ -85477,7 +88617,8 @@ window.WORDBANK={
    "lessons": [
     "b1_28_study_advice",
     "giving_opinions_suggestions",
-    "problems_and_solutions"
+    "problems_and_solutions",
+    "b2_86_email_problems"
    ]
   },
   "modal": {
@@ -85486,7 +88627,8 @@ window.WORDBANK={
    "def": "a verb such as should or could used with other verbs",
    "ex": "Should is a modal often used for giving advice.",
    "lessons": [
-    "b1_28_study_advice"
+    "b1_28_study_advice",
+    "bc_making_deductions_c1"
    ]
   },
   "boarding school": {
@@ -85533,7 +88675,8 @@ window.WORDBANK={
    "lessons": [
     "b1_31_flexible_communication",
     "rp_07_at_the_bank",
-    "the-people-we-used-to-be"
+    "the-people-we-used-to-be",
+    "b2_90_lost_in_translation"
    ]
   },
   "flex": {
@@ -86093,7 +89236,8 @@ window.WORDBANK={
    "def": "a very small part or amount of something larger",
    "ex": "The new machine does the work at a fraction of the cost.",
    "lessons": [
-    "speaking_naturally_advanced_01_ai_jobs"
+    "speaking_naturally_advanced_01_ai_jobs",
+    "epicurean_03_primary_sources"
    ]
   },
   "go on strike": {
@@ -86186,7 +89330,8 @@ window.WORDBANK={
    "ex": "When I'm tired, I tend to eat too much sugar.",
    "lessons": [
     "speaking_naturally_mental_toolkit",
-    "talk_it_through_b1b2"
+    "talk_it_through_b1b2",
+    "bc_employment_matters_c1"
    ]
   },
   "now that i think": {
@@ -86562,7 +89707,8 @@ window.WORDBANK={
    "ex": "I felt I was supposed to become a doctor.",
    "lessons": [
     "speaking_naturally_teens_06_who_are_you_really",
-    "grammar_b2_21_what_went_wrong"
+    "grammar_b2_21_what_went_wrong",
+    "b2_18_dealing_with_problems"
    ]
   },
   "meaningless": {
@@ -86620,7 +89766,8 @@ window.WORDBANK={
    "def": "grouping words together so you read them at once",
    "ex": "Chunking lets you read three words in one glance.",
    "lessons": [
-    "speed_reading_masterclass"
+    "speed_reading_masterclass",
+    "b2_64_voice_and_body_language"
    ]
   },
   "regression": {
@@ -86667,7 +89814,8 @@ window.WORDBANK={
    "def": "a very quick choice made without long thinking",
    "ex": "Don't make a snap decision about buying a house.",
    "lessons": [
-    "split-second-decisions"
+    "split-second-decisions",
+    "bc_creative_decision_making_b2c1"
    ]
   },
   "go with your instinct": {
@@ -86767,7 +89915,8 @@ window.WORDBANK={
    "def": "to think about something too much",
    "ex": "Don't overthink it; just say the first answer.",
    "lessons": [
-    "st_pro_02_your_origin_story"
+    "st_pro_02_your_origin_story",
+    "bc_debate_defend_view_c1"
    ]
   },
   "grilled": {
@@ -86940,7 +90089,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_05_comparing_cultures",
     "pet_food_speaking_a2",
-    "travel_adventures"
+    "travel_adventures",
+    "b2_93_talking_about_books"
    ]
   },
   "not as cold as": {
@@ -87030,7 +90180,8 @@ window.WORDBANK={
    "def": "showing a lot of fighting and people getting hurt",
    "ex": "I don't let my kids watch violent films.",
    "lessons": [
-    "su_a2_07_the_silver_screen"
+    "su_a2_07_the_silver_screen",
+    "discuss_b2_taking_to_the_streets"
    ]
   },
   "romantic comedy": {
@@ -87167,7 +90318,8 @@ window.WORDBANK={
    "def": "a plan you have made with another person",
    "ex": "I have an arrangement to meet my cousin on Friday.",
    "lessons": [
-    "su_a2_10_planning_the_future"
+    "su_a2_10_planning_the_future",
+    "b2_46_remote_work"
    ]
   },
   "schedule": {
@@ -87225,7 +90377,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_11_cultural_celebrations",
     "behind_the_screen_whiplash_a2b1",
-    "gr_warmup_c1_the_elevator"
+    "gr_warmup_c1_the_elevator",
+    "b2_28_taking_up_a_sport"
    ]
   },
   "take place": {
@@ -87279,7 +90432,8 @@ window.WORDBANK={
    "def": "the state of being known by many people",
    "ex": "He found fame after one hit song.",
    "lessons": [
-    "su_a2_12_musicians"
+    "su_a2_12_musicians",
+    "b2_15_celebrity_opinions"
    ]
   },
   "award": {
@@ -87315,7 +90469,8 @@ window.WORDBANK={
    "def": "wanting to do something and work hard at it",
    "ex": "I feel more motivated when I study with friends.",
    "lessons": [
-    "su_a2_14_online_or_offline"
+    "su_a2_14_online_or_offline",
+    "b2_46_remote_work"
    ]
   },
   "challenging": {
@@ -87505,7 +90660,8 @@ window.WORDBANK={
    "ex": "You should consider buying a second-hand bike.",
    "lessons": [
     "su_a2_17_getting_a_bargain",
-    "ct_b1_21_complex_questions"
+    "ct_b1_21_complex_questions",
+    "b2_83_changing_jobs"
    ]
   },
   "indoors": {
@@ -87579,7 +90735,8 @@ window.WORDBANK={
    "def": "rules about what clothes people should wear",
    "ex": "The dress code for the dinner is formal.",
    "lessons": [
-    "su_a2_19_a_special_occasion"
+    "su_a2_19_a_special_occasion",
+    "b2_18_dealing_with_problems"
    ]
   },
   "vividly": {
@@ -87718,7 +90875,8 @@ window.WORDBANK={
    "def": "how often something happens or is done",
    "ex": "Always and never are adverbs of frequency.",
    "lessons": [
-    "su_a2_24_sports_and_games"
+    "su_a2_24_sports_and_games",
+    "bc_market_research_c1"
    ]
   },
   "rarely": {
@@ -87908,7 +91066,8 @@ window.WORDBANK={
    "ex": "The probability of rain tomorrow is very high.",
    "lessons": [
     "su_a2_29_describing_future_technology",
-    "making_the_leap_full"
+    "making_the_leap_full",
+    "bc_aliens_probability_b2c1"
    ]
   },
   "air conditioning": {
@@ -88057,7 +91216,8 @@ window.WORDBANK={
    "ex": "The hotel charged us for the drinks in the fridge.",
    "lessons": [
     "su_a2_33_mistakes_and_misadventures",
-    "sb_03_handling_a_complaint_a2b1"
+    "sb_03_handling_a_complaint_a2b1",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "i'm calling about": {
@@ -88239,7 +91399,8 @@ window.WORDBANK={
    "ex": "Buying the flat was a good investment.",
    "lessons": [
     "su_a2_37_budget",
-    "su_a2_41_my_past_story"
+    "su_a2_41_my_past_story",
+    "b2_30_a_good_investment"
    ]
   },
   "cut costs": {
@@ -88317,7 +91478,8 @@ window.WORDBANK={
    "ex": "It is a custom to give money at weddings here.",
    "lessons": [
     "su_a2_39_my_celebrations",
-    "b1_46_family_traditions"
+    "b1_46_family_traditions",
+    "b2_52_cross_cultural_business"
    ]
   },
   "owe": {
@@ -88393,7 +91555,8 @@ window.WORDBANK={
    "ex": "My boss agreed to my request for a day off.",
    "lessons": [
     "su_a2_43_making_requests",
-    "ct_b1_24_clarification_building_blocks"
+    "ct_b1_24_clarification_building_blocks",
+    "b2_87_organising_event"
    ]
   },
   "would you mind": {
@@ -88460,7 +91623,8 @@ window.WORDBANK={
     "su_a2_44_working_smarter",
     "c1_pro_15_time_management",
     "closing_meetings_following_up",
-    "daily_routines_a2"
+    "daily_routines_a2",
+    "b2_50_leading_meetings"
    ]
   },
   "presentation": {
@@ -88479,7 +91643,8 @@ window.WORDBANK={
    "ex": "Let's discuss the pros and cons of working from home.",
    "lessons": [
     "su_a2_45_presentation_skills",
-    "ct_b1_28_advantages_disadvantages"
+    "ct_b1_28_advantages_disadvantages",
+    "b2_84_no_free_lunch"
    ]
   },
   "moving on to": {
@@ -88517,7 +91682,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_46_body_language",
     "first_lesson_b2c1",
-    "the-art-of-reading-people"
+    "the-art-of-reading-people",
+    "b2_55_telephone_skills"
    ]
   },
   "eye contact": {
@@ -88527,7 +91693,8 @@ window.WORDBANK={
    "ex": "Make eye contact with your audience when you speak.",
    "lessons": [
     "su_a2_46_body_language",
-    "playing_the_room"
+    "playing_the_room",
+    "b2_64_voice_and_body_language"
    ]
   },
   "facial expression": {
@@ -88546,7 +91713,8 @@ window.WORDBANK={
    "def": "without using any spoken or written words",
    "ex": "Smiling is a simple form of non-verbal communication.",
    "lessons": [
-    "su_a2_46_body_language"
+    "su_a2_46_body_language",
+    "b2_64_voice_and_body_language"
    ]
   },
   "well-qualified": {
@@ -88630,7 +91798,9 @@ window.WORDBANK={
    "lessons": [
     "su_a2_48_solving_problems",
     "c1_pro_25_sales_techniques",
-    "skills_a2_trade_fair_problems"
+    "skills_a2_trade_fair_problems",
+    "b2_104_greener_cities_solutions",
+    "bc_climate_change_b2c1"
    ]
   },
   "drop me a line": {
@@ -88657,7 +91827,8 @@ window.WORDBANK={
    "def": "to be grateful for something",
    "ex": "I really appreciate your help with the move.",
    "lessons": [
-    "su_a2_50_getting_in_touch"
+    "su_a2_50_getting_in_touch",
+    "b2_54_persuasion_at_work"
    ]
   },
   "occasionally": {
@@ -88666,7 +91837,8 @@ window.WORDBANK={
    "def": "sometimes, but not very often at all",
    "ex": "We occasionally meet for coffee in town.",
    "lessons": [
-    "su_a2_50_getting_in_touch"
+    "su_a2_50_getting_in_touch",
+    "bc_black_holes_cosmology_c1"
    ]
   },
   "naughty": {
@@ -88702,7 +91874,8 @@ window.WORDBANK={
    "def": "finally, after a lot of things happened",
    "ex": "In the end, we found a hotel near the beach.",
    "lessons": [
-    "su_a2_51_life_stories"
+    "su_a2_51_life_stories",
+    "b2_42_telling_funny_stories"
    ]
   },
   "interruption": {
@@ -88712,7 +91885,8 @@ window.WORDBANK={
    "ex": "There were many interruptions during the meeting.",
    "lessons": [
     "su_a2_52_handling_questions",
-    "b1_41_giving_presentation"
+    "b1_41_giving_presentation",
+    "b2_84_no_free_lunch"
    ]
   },
   "thank you for asking": {
@@ -88739,7 +91913,8 @@ window.WORDBANK={
    "def": "an official record that shows you finished a course or exam",
    "ex": "You need a teaching qualification for this job.",
    "lessons": [
-    "su_a2_53_qualifications_required"
+    "su_a2_53_qualifications_required",
+    "b2_88_proving_your_worth"
    ]
   },
   "diploma": {
@@ -88793,7 +91968,8 @@ window.WORDBANK={
    "def": "a quick, unstressed way of saying a short word",
    "ex": "The word to often has a weak form in fast speech.",
    "lessons": [
-    "su_a2_55_memorable_events"
+    "su_a2_55_memorable_events",
+    "b2_33_business_and_tourism"
    ]
   },
   "on my own": {
@@ -88866,7 +92042,8 @@ window.WORDBANK={
    "def": "working well and producing the result you want",
    "ex": "Short slides are more effective than long ones.",
    "lessons": [
-    "su_a2_56_seeing_is_believing"
+    "su_a2_56_seeing_is_believing",
+    "b2_68_keeping_fit"
    ]
   },
   "basement": {
@@ -88884,7 +92061,8 @@ window.WORDBANK={
    "def": "a lot of water covering land that is usually dry",
    "ex": "The flood damaged hundreds of homes near the river.",
    "lessons": [
-    "behind_the_screen_parasite_a2b1"
+    "behind_the_screen_parasite_a2b1",
+    "b2_05_dealing_with_disaster"
    ]
   },
   "historic": {
@@ -88971,7 +92149,8 @@ window.WORDBANK={
    "def": "to choose someone or something in an election",
    "ex": "Everyone over eighteen can vote in the election.",
    "lessons": [
-    "behind_the_screen_suffragette_a2b1"
+    "behind_the_screen_suffragette_a2b1",
+    "discuss_b1_french_elections"
    ]
   },
   "fight for": {
@@ -89031,7 +92210,9 @@ window.WORDBANK={
    "def": "extremely clever or skilful at doing something",
    "ex": "She is a brilliant cook and everything she makes tastes wonderful.",
    "lessons": [
-    "behind_the_screen_the_imitation_game_a2b1"
+    "behind_the_screen_the_imitation_game_a2b1",
+    "b2_new_boss_in_town",
+    "epicurean_07_the_swerve"
    ]
   },
   "break a code": {
@@ -89080,7 +92261,8 @@ window.WORDBANK={
    "ex": "The bag looked expensive, but it was fake.",
    "lessons": [
     "behind_the_screen_the_matrix_a2b1",
-    "short_history_alcatraz_a2b1"
+    "short_history_alcatraz_a2b1",
+    "bc_mask_we_wear_c1"
    ]
   },
   "philosophy": {
@@ -89090,7 +92272,9 @@ window.WORDBANK={
    "ex": "He studied philosophy at university in Edinburgh.",
    "lessons": [
     "behind_the_screen_the_matrix_a2b1",
-    "lesson_ancient_greece_interactive"
+    "lesson_ancient_greece_interactive",
+    "bc_education_and_training_c1",
+    "epicurean_01_who_was_epicurus"
    ]
   },
   "cave": {
@@ -89100,7 +92284,8 @@ window.WORDBANK={
    "ex": "We explored a dark cave with torches.",
    "lessons": [
     "behind_the_screen_the_matrix_a2b1",
-    "lesson_dinosaurs_speaking_EXPANDED"
+    "lesson_dinosaurs_speaking_EXPANDED",
+    "bc_advertising_defend_creative_c1"
    ]
   },
   "website": {
@@ -89127,7 +92312,8 @@ window.WORDBANK={
    "def": "an area in space where gravity pulls everything in, even light",
    "ex": "Scientists took the first picture of a black hole in 2019.",
    "lessons": [
-    "behind_the_screen_the_theory_of_everything_a2b1"
+    "behind_the_screen_the_theory_of_everything_a2b1",
+    "bc_black_holes_cosmology_c1"
    ]
   },
   "wheelchair": {
@@ -89388,7 +92574,8 @@ window.WORDBANK={
    "def": "to accept that what someone says is reasonable",
    "ex": "I take your point about cost, but quality matters more.",
    "lessons": [
-    "bestiary_discourse_position"
+    "bestiary_discourse_position",
+    "b2_84_no_free_lunch"
    ]
   },
   "strengthen": {
@@ -89397,7 +92584,8 @@ window.WORDBANK={
    "def": "to make something stronger or more convincing",
    "ex": "More examples would strengthen your report.",
    "lessons": [
-    "bestiary_discourse_position"
+    "bestiary_discourse_position",
+    "b2_45_giving_feedback"
    ]
   },
   "counterpoint": {
@@ -89524,7 +92712,8 @@ window.WORDBANK={
    "def": "the state of being very overweight in a way that harms health",
    "ex": "Obesity is becoming more common among young children.",
    "lessons": [
-    "b1_36_awareness_campaign"
+    "b1_36_awareness_campaign",
+    "bc_changing_places_c1"
    ]
   },
   "sedentary": {
@@ -89616,7 +92805,8 @@ window.WORDBANK={
    "def": "to show that something is especially important",
    "ex": "The doctor emphasized the need for rest.",
    "lessons": [
-    "b1_41_giving_presentation"
+    "b1_41_giving_presentation",
+    "epicurean_06_atoms_and_void"
    ]
   },
   "technique": {
@@ -89644,7 +92834,8 @@ window.WORDBANK={
    "ex": "Please give a specific example of your leadership skills.",
    "lessons": [
     "b1_42_star_interview_technique",
-    "ct_b1_28_advantages_disadvantages"
+    "ct_b1_28_advantages_disadvantages",
+    "b2_90_lost_in_translation"
    ]
   },
   "balanced diet": {
@@ -89680,7 +92871,8 @@ window.WORDBANK={
    "def": "good enough or allowed in a situation",
    "ex": "Is it acceptable to eat cake for breakfast?",
    "lessons": [
-    "b1_43_healthy_eating"
+    "b1_43_healthy_eating",
+    "bc_follow_the_rules_c1"
    ]
   },
   "hidden gem": {
@@ -89793,7 +92985,8 @@ window.WORDBANK={
    "def": "to have a good effect on a situation or person",
    "ex": "Small acts of kindness can really make a difference.",
    "lessons": [
-    "b1_50_volunteering"
+    "b1_50_volunteering",
+    "b2_87_organising_event"
    ]
   },
   "community": {
@@ -89802,7 +92995,9 @@ window.WORDBANK={
    "def": "the people who live in one area",
    "ex": "The whole community helped clean the park.",
    "lessons": [
-    "b1_50_volunteering"
+    "b1_50_volunteering",
+    "bc_making_world_better_c1",
+    "epicurean_04_the_garden_community"
    ]
   },
   "soundtrack": {
@@ -89811,7 +93006,8 @@ window.WORDBANK={
    "def": "the music that goes with a film or a period of life",
    "ex": "The soundtrack of the film became more famous than the story.",
    "lessons": [
-    "b1_51_music_and_identity"
+    "b1_51_music_and_identity",
+    "bc_books_or_films_c1"
    ]
   },
   "playlist": {
@@ -89847,7 +93043,8 @@ window.WORDBANK={
    "def": "the legal right to belong to a particular country",
    "ex": "She applied for citizenship after living there for ten years.",
    "lessons": [
-    "b1_53_uk_citizenship"
+    "b1_53_uk_citizenship",
+    "bc_citizenship_test_c1"
    ]
   },
   "requirement": {
@@ -90051,7 +93248,8 @@ window.WORDBANK={
    "ex": "The amount of choice can overwhelm new shoppers.",
    "lessons": [
     "b2_02_explaining_emotions",
-    "c1_the_ulysses_contract_for_hr"
+    "c1_the_ulysses_contract_for_hr",
+    "bc_green_news_c1"
    ]
   },
   "stressed": {
@@ -90117,7 +93315,8 @@ window.WORDBANK={
    "lessons": [
     "bl_03_placebo_lie_heals",
     "short_history_the_black_death_a2b1",
-    "techniques_the_country_of_the_blind_a2b1"
+    "techniques_the_country_of_the_blind_a2b1",
+    "epicurean_02_tetrapharmakos"
    ]
   },
   "fed up": {
@@ -90136,7 +93335,8 @@ window.WORDBANK={
    "ex": "I felt uneasy walking home alone in the dark.",
    "lessons": [
     "boredom_is_a_superpower_lesson",
-    "wk_08_chairing_the_meeting"
+    "wk_08_chairing_the_meeting",
+    "b2_19_awkward_situations"
    ]
   },
   "boredom": {
@@ -90154,7 +93354,8 @@ window.WORDBANK={
    "def": "to organise and carry out an activity",
    "ex": "The university conducted a survey of five thousand people.",
    "lessons": [
-    "boredom_is_a_superpower_lesson"
+    "boredom_is_a_superpower_lesson",
+    "bc_honesty_dishonesty_b2c1"
    ]
   },
   "precision": {
@@ -90280,7 +93481,8 @@ window.WORDBANK={
    "ex": "The athletes trained at high altitude for months.",
    "lessons": [
     "breaking_news_enhanced_games_jan_2026",
-    "short_history_the_olympic_games_a2b1"
+    "short_history_the_olympic_games_a2b1",
+    "b2_20_sporting_events"
    ]
   },
   "world record": {
@@ -90309,7 +93511,8 @@ window.WORDBANK={
    "lessons": [
     "breaking_news_milan_cortina_jan_2026",
     "prof_c1_11_corporate_storytelling",
-    "wk_04_the_difficult_conversation"
+    "wk_04_the_difficult_conversation",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "overtime": {
@@ -90401,7 +93604,8 @@ window.WORDBANK={
    "def": "making you feel slightly worried or embarrassed",
    "ex": "There was an uncomfortable silence after his joke.",
    "lessons": [
-    "c1_people_and_past_times_first_impressions"
+    "c1_people_and_past_times_first_impressions",
+    "b2_36_awkward_situations"
    ]
   },
   "snap judgment": {
@@ -90514,7 +93718,8 @@ window.WORDBANK={
    "def": "behaving in an angry or forceful way",
    "ex": "The driver became aggressive when we asked him to move.",
    "lessons": [
-    "c1_pro_05_assertive_communication"
+    "c1_pro_05_assertive_communication",
+    "b2_92_language_of_historical_debate"
    ]
   },
   "overloaded": {
@@ -90650,7 +93855,8 @@ window.WORDBANK={
    "def": "making a person stronger through difficulty",
    "ex": "Camping in the rain was certainly character-building.",
    "lessons": [
-    "gr_warmup_c1_hot_takes_suffering"
+    "gr_warmup_c1_hot_takes_suffering",
+    "bc_broadening_horizons_advanced_c1"
    ]
   },
   "inured": {
@@ -90678,7 +93884,8 @@ window.WORDBANK={
    "ex": "Prepare a thirty-second elevator pitch for the conference.",
    "lessons": [
     "gr_warmup_c1_the_elevator",
-    "skills_b1b2_trade_fair_elevator_pitch"
+    "skills_b1b2_trade_fair_elevator_pitch",
+    "bc_building_your_brand_c1"
    ]
   },
   "unsellable": {
@@ -90813,7 +94020,8 @@ window.WORDBANK={
    "def": "to appear or happen, often unexpectedly",
    "ex": "Do not worry, a better job will turn up.",
    "lessons": [
-    "grammar_b2_19_catching_up"
+    "grammar_b2_19_catching_up",
+    "b2_18_dealing_with_problems"
    ]
   },
   "renovate": {
@@ -90949,7 +94157,8 @@ window.WORDBANK={
    "def": "used for news you heard from others but did not see",
    "ex": "Apparently the bakery on our street is closing.",
    "lessons": [
-    "grammar_b2_24_passing_on_the_news"
+    "grammar_b2_24_passing_on_the_news",
+    "b2_16_the_year_in_review"
    ]
   },
   "supposedly": {
@@ -91262,7 +94471,8 @@ window.WORDBANK={
    "def": "a state of extreme tiredness",
    "ex": "Several nurses were treated for exhaustion.",
    "lessons": [
-    "keeping_teams_motivated"
+    "keeping_teams_motivated",
+    "b2_75_managing_stress"
    ]
   },
   "perfectionism": {
@@ -92047,7 +95257,8 @@ window.WORDBANK={
    "def": "the reason why someone does something",
    "ex": "We should look carefully at the motivation for the violence.",
    "lessons": [
-    "rs_y8_spr2_10_01"
+    "rs_y8_spr2_10_01",
+    "b2_100_publishing_author_feedback"
    ]
   },
   "justification": {
@@ -92056,7 +95267,8 @@ window.WORDBANK={
    "def": "a good reason given for an action",
    "ex": "Religion is sometimes used as a justification for war.",
    "lessons": [
-    "rs_y8_spr2_10_01"
+    "rs_y8_spr2_10_01",
+    "bc_defending_methodology_phd"
    ]
   },
   "theocracy": {
@@ -92310,7 +95522,8 @@ window.WORDBANK={
    "def": "damage or injury to a person",
    "ex": "We should always try to avoid causing harm.",
    "lessons": [
-    "rs_y8_sum1_11_03"
+    "rs_y8_sum1_11_03",
+    "discuss_c1_advice_industry"
    ]
   },
   "legalism": {
@@ -92420,7 +95633,8 @@ window.WORDBANK={
    "def": "the most important or exciting point of an event",
    "ex": "The day at Arafat is the climax of the journey.",
    "lessons": [
-    "rs_y8_sum2_12_02"
+    "rs_y8_sum2_12_02",
+    "b2_100_publishing_author_feedback"
    ]
   },
   "holiest": {
@@ -92747,7 +95961,9 @@ window.WORDBANK={
    "ex": "Some people see a conflict between science and faith.",
    "lessons": [
     "rs_y9_aut2_14_01",
-    "c2_pro_17_organisational_politics"
+    "c2_pro_17_organisational_politics",
+    "b2_12_workplace_ethics",
+    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "heliocentric": {
@@ -92821,7 +96037,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y9_aut2_14_03",
     "c1_pro_24_marketing_campaigns",
-    "lego_quest"
+    "lego_quest",
+    "bc_first_impressions_c1"
    ]
   },
   "reproduce": {
@@ -93001,7 +96218,8 @@ window.WORDBANK={
    "def": "keeping someone out of a group or place",
    "ex": "Exclusion can make people feel worthless.",
    "lessons": [
-    "rs_y9_spr1_15_04"
+    "rs_y9_spr1_15_04",
+    "bc_defending_methodology_phd"
    ]
   },
   "ableism": {
@@ -93315,7 +96533,8 @@ window.WORDBANK={
    "def": "extremely interesting and holding your attention",
    "ex": "The museum had a fascinating exhibition about ships.",
    "lessons": [
-    "su_a2_86_interesting_narratives"
+    "su_a2_86_interesting_narratives",
+    "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
   "plot twist": {
@@ -93352,7 +96571,8 @@ window.WORDBANK={
    "def": "to mix food in a pan or pot with a spoon",
    "ex": "Stir the soup slowly so it doesn't burn.",
    "lessons": [
-    "su_a2_88_cooking_at_home"
+    "su_a2_88_cooking_at_home",
+    "bc_cycling_c1"
    ]
   },
   "boil": {
@@ -93391,7 +96611,8 @@ window.WORDBANK={
    "def": "quiet and calm, without noise or trouble",
    "ex": "The village was very peaceful in the evening.",
    "lessons": [
-    "su_a2_89_holiday_planning"
+    "su_a2_89_holiday_planning",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "hang out": {
@@ -93457,7 +96678,8 @@ window.WORDBANK={
     "su_a2_91_online_shopping",
     "ml_25_the_review_they_want_down",
     "rp_09_making_a_complaint",
-    "sb_03_handling_a_complaint_a2b1"
+    "sb_03_handling_a_complaint_a2b1",
+    "b2_47_handling_complaints"
    ]
   },
   "exchange": {
@@ -93467,7 +96689,9 @@ window.WORDBANK={
    "ex": "Can I exchange this shirt for a bigger size?",
    "lessons": [
     "su_a2_91_online_shopping",
-    "skills_a2_trade_fair_contacts"
+    "skills_a2_trade_fair_contacts",
+    "b2_32_living_without_money",
+    "b2c1_the_art_of_questioning"
    ]
   },
   "electronics": {
@@ -93506,7 +96730,8 @@ window.WORDBANK={
    "def": "to land in the sea after a trip into space",
    "ex": "The capsule will splash down near the coast.",
    "lessons": [
-    "su_a2_92_back_to_the_moon"
+    "su_a2_92_back_to_the_moon",
+    "bc_artemis_moon_c1"
    ]
   },
   "break a record": {
@@ -93534,7 +96759,8 @@ window.WORDBANK={
    "def": "done or felt equally by both sides in return",
    "ex": "Real friendship needs reciprocal effort and trust.",
    "lessons": [
-    "talk_adult_friendships_b2c1"
+    "talk_adult_friendships_b2c1",
+    "b2_76_creating_connections"
    ]
   },
   "initiate": {
@@ -93580,7 +96806,8 @@ window.WORDBANK={
    "def": "a high level of skill in something",
    "ex": "The job requires proficiency in Spanish.",
    "lessons": [
-    "talk_ai_and_language_learning_b2c1"
+    "talk_ai_and_language_learning_b2c1",
+    "bc_english_as_medium_instruction_c1"
    ]
   },
   "cultural insight": {
@@ -93652,7 +96879,8 @@ window.WORDBANK={
    "def": "connected with towns and cities",
    "ex": "Urban areas often have better public transport.",
    "lessons": [
-    "talk_city_or_countryside_b2c1"
+    "talk_city_or_countryside_b2c1",
+    "b2_104_greener_cities_solutions"
    ]
   },
   "rural": {
@@ -93698,7 +96926,8 @@ window.WORDBANK={
    "ex": "The new transport policy favours cyclists.",
    "lessons": [
     "talk_climate_action_b2c1",
-    "c1_the_ulysses_contract_for_hr"
+    "c1_the_ulysses_contract_for_hr",
+    "bc_business_rules_innovation_c1"
    ]
   },
   "collective": {
@@ -93862,7 +97091,8 @@ window.WORDBANK={
    "def": "to become exhausted from working too hard for too long",
    "ex": "If you never rest, you will burn out.",
    "lessons": [
-    "talk_homework_b2c1"
+    "talk_homework_b2c1",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "endorsement": {
@@ -93898,7 +97128,8 @@ window.WORDBANK={
    "def": "not based on what is possible or true",
    "ex": "Edited photos create unrealistic beauty standards.",
    "lessons": [
-    "talk_influencers_b2c1"
+    "talk_influencers_b2c1",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "monetise": {
@@ -94060,7 +97291,8 @@ window.WORDBANK={
    "def": "official written information about how something works",
    "ex": "The software comes with clear documentation.",
    "lessons": [
-    "c1_pro_09_business_writing"
+    "c1_pro_09_business_writing",
+    "bc_healthcare_billing_c1"
    ]
   },
   "relevant": {
@@ -94236,7 +97468,8 @@ window.WORDBANK={
    "ex": "There is tension between saving money and hiring staff.",
    "lessons": [
     "c1_pro_16_remote_teams",
-    "prof_c1_09_stakeholder_management"
+    "prof_c1_09_stakeholder_management",
+    "b2_75_managing_stress"
    ]
   },
   "red flag": {
@@ -94264,7 +97497,8 @@ window.WORDBANK={
    "def": "the act of judging the quality or ability of something",
    "ex": "The nurse made an assessment of the patient's needs.",
    "lessons": [
-    "c1_pro_17_recruitment"
+    "c1_pro_17_recruitment",
+    "bc_first_impressions_c1"
    ]
   },
   "interview": {
@@ -94283,7 +97517,8 @@ window.WORDBANK={
    "ex": "Trust is the foundation of a good relationship.",
    "lessons": [
     "c1_pro_18_onboarding",
-    "first_impressions_small_talk"
+    "first_impressions_small_talk",
+    "bc_books_changed_world_part2_c1"
    ]
   },
   "waterfall": {
@@ -94320,7 +97555,8 @@ window.WORDBANK={
    "def": "at the beginning, before other work starts",
    "ex": "We paid half the cost upfront.",
    "lessons": [
-    "c1_pro_19_agile_scrum"
+    "c1_pro_19_agile_scrum",
+    "b2_51_presenting_data"
    ]
   },
   "execute": {
@@ -94339,7 +97575,8 @@ window.WORDBANK={
    "def": "one of the parts of a machine or system",
    "ex": "The factory is waiting for a key component from Japan.",
    "lessons": [
-    "c1_pro_22_supply_chain"
+    "c1_pro_22_supply_chain",
+    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "expedite": {
@@ -94367,7 +97604,8 @@ window.WORDBANK={
    "def": "an occasion when people or things communicate",
    "ex": "Every interaction with staff should be friendly.",
    "lessons": [
-    "c1_pro_23_customer_experience"
+    "c1_pro_23_customer_experience",
+    "b2_52_cross_cultural_business"
    ]
   },
   "intent": {
@@ -94376,7 +97614,8 @@ window.WORDBANK={
    "def": "the purpose behind an action",
    "ex": "His intent was to help, not to criticise.",
    "lessons": [
-    "c1_pro_25_sales_techniques"
+    "c1_pro_25_sales_techniques",
+    "bc_clarifying_intercultural_c1"
    ]
   },
   "playbook": {
@@ -94478,7 +97717,9 @@ window.WORDBANK={
    "def": "a new idea or method, or the use of one",
    "ex": "Innovation is key to staying ahead of competitors.",
    "lessons": [
-    "c1_pro_30_entrepreneurial_mindset"
+    "c1_pro_30_entrepreneurial_mindset",
+    "b2_08_great_achievements",
+    "bc_business_rules_innovation_c1"
    ]
   },
   "side project": {
@@ -94532,7 +97773,8 @@ window.WORDBANK={
    "def": "drinks bought by one person for everyone in a group",
    "ex": "It's my turn to buy a round of drinks.",
    "lessons": [
-    "c1_the_british_pub"
+    "c1_the_british_pub",
+    "discuss_b1_french_elections"
    ]
   },
   "quarterly": {
@@ -94541,7 +97783,8 @@ window.WORDBANK={
    "def": "happening or produced once every three months",
    "ex": "The company publishes its quarterly results in April.",
    "lessons": [
-    "c1_the_quarterly_story_for_leaders"
+    "c1_the_quarterly_story_for_leaders",
+    "b2_51_presenting_data"
    ]
   },
   "attribution": {
@@ -94561,7 +97804,8 @@ window.WORDBANK={
    "lessons": [
     "c1_the_quarterly_story_for_leaders",
     "c1_the_ulysses_contract_for_hr",
-    "rp_04_checking_into_a_hotel"
+    "rp_04_checking_into_a_hotel",
+    "b2_the_ulysses_contract"
    ]
   },
   "lash": {
@@ -94570,7 +97814,8 @@ window.WORDBANK={
    "def": "to tie something tightly to another thing with rope",
    "ex": "The sailors lashed the boxes to the deck before the storm.",
    "lessons": [
-    "c1_the_ulysses_contract_for_hr"
+    "c1_the_ulysses_contract_for_hr",
+    "b2c1_dream_before_the_mast"
    ]
   },
   "pre-commitment": {
@@ -94652,7 +97897,8 @@ window.WORDBANK={
    "def": "the use of something for a particular purpose",
    "ex": "The deployment of new software took six months.",
    "lessons": [
-    "c2_pro_01_boardroom_rhetoric"
+    "c2_pro_01_boardroom_rhetoric",
+    "bc_ai_responsibility_c1"
    ]
   },
   "accomplished": {
@@ -94899,7 +98145,8 @@ window.WORDBANK={
    "def": "feelings of worry before an important event",
    "ex": "I always have nerves before I give a presentation.",
    "lessons": [
-    "c2_pro_10_public_speaking"
+    "c2_pro_10_public_speaking",
+    "bc_managing_nerves_c1"
    ]
   },
   "polish": {
@@ -94937,7 +98184,8 @@ window.WORDBANK={
    "lessons": [
     "c2_pro_11_coaching_conversations",
     "komorebi_10_beginners_mind",
-    "wk_32_the_repair_counter"
+    "wk_32_the_repair_counter",
+    "bc_demonstrating_credibility_c1"
    ]
   },
   "livelihood": {
@@ -95056,7 +98304,8 @@ window.WORDBANK={
    "def": "based on feelings rather than facts or reasoning",
    "ex": "My decision was intuitive rather than carefully planned.",
    "lessons": [
-    "c2_pro_16_decision_making"
+    "c2_pro_16_decision_making",
+    "b2_11_right_or_left_brain"
    ]
   },
   "fantasy": {
@@ -95074,7 +98323,8 @@ window.WORDBANK={
    "def": "money, people and materials available to use",
    "ex": "The school lacks the resources to buy new computers.",
    "lessons": [
-    "c2_pro_17_organisational_politics"
+    "c2_pro_17_organisational_politics",
+    "b2_34_ethics_in_the_workplace"
    ]
   },
   "ethically": {
@@ -95111,7 +98361,8 @@ window.WORDBANK={
    "ex": "The dispute over the land lasted ten years.",
    "lessons": [
     "c2_pro_19_conflict_transformation",
-    "rp_07_at_the_bank"
+    "rp_07_at_the_bank",
+    "bc_healthcare_billing_c1"
    ]
   },
   "restore": {
@@ -95165,7 +98416,8 @@ window.WORDBANK={
    "def": "a likely problem or danger that is not obvious",
    "ex": "Avoid the common pitfalls of buying a used car.",
    "lessons": [
-    "c2_pro_21_contract_negotiation"
+    "c2_pro_21_contract_negotiation",
+    "bc_build_relationships_writing_c1"
    ]
   },
   "corner-cutting": {
@@ -95239,7 +98491,8 @@ window.WORDBANK={
    "def": "the ability to continue without harming the environment",
    "ex": "The farm focuses on sustainability and local produce.",
    "lessons": [
-    "c2_pro_25_sustainability_reporting"
+    "c2_pro_25_sustainability_reporting",
+    "b2_56_food_sustainability"
    ]
   },
   "cherry-pick": {
@@ -95285,7 +98538,8 @@ window.WORDBANK={
    "def": "the way people think about or understand something",
    "ex": "Public perception of the company improved after the campaign.",
    "lessons": [
-    "c2_pro_27_brand_strategy"
+    "c2_pro_27_brand_strategy",
+    "bc_first_impressions_c1"
    ]
   },
   "fundamentally": {
@@ -95405,7 +98659,8 @@ window.WORDBANK={
    "def": "rude or likely to upset people",
    "ex": "He apologised for his offensive comments.",
    "lessons": [
-    "cancel_culture_interactive"
+    "cancel_culture_interactive",
+    "b2_36_awkward_situations"
    ]
   },
   "celebrity": {
@@ -95414,7 +98669,8 @@ window.WORDBANK={
    "def": "a famous person, especially in entertainment",
    "ex": "The restaurant is popular with celebrities.",
    "lessons": [
-    "cancel_culture_interactive"
+    "cancel_culture_interactive",
+    "b2_15_celebrity_opinions"
    ]
   },
   "call out": {
@@ -95636,7 +98892,8 @@ window.WORDBANK={
    "def": "strange and difficult to explain or understand",
    "ex": "A mysterious letter arrived with no name on it.",
    "lessons": [
-    "chatterbox_6_once_upon"
+    "chatterbox_6_once_upon",
+    "b2c1_the_art_of_questioning"
    ]
   },
   "likable": {
@@ -95691,7 +98948,8 @@ window.WORDBANK={
    "def": "to act or behave in a way to impress others",
    "ex": "I hate feeling like I have to perform at family parties.",
    "lessons": [
-    "christmas_conversations_compass_teens"
+    "christmas_conversations_compass_teens",
+    "b2_28_taking_up_a_sport"
    ]
   },
   "would rather": {
@@ -95719,7 +98977,8 @@ window.WORDBANK={
    "def": "in a normal relaxed way, without effort",
    "ex": "Try to speak naturally, as you would with friends.",
    "lessons": [
-    "christmas_would_you_rather"
+    "christmas_would_you_rather",
+    "bc_making_world_better_c1"
    ]
   },
   "action point": {
@@ -95737,7 +98996,8 @@ window.WORDBANK={
    "def": "an activity that achieves nothing useful",
    "ex": "The training session was a complete waste of time.",
    "lessons": [
-    "closing_meetings_following_up"
+    "closing_meetings_following_up",
+    "b2_50_leading_meetings"
    ]
   },
   "next steps": {
@@ -95822,7 +99082,8 @@ window.WORDBANK={
    "def": "the process of developing gradually from one stage to another",
    "ex": "There is a clear progression from simple to complex tasks.",
    "lessons": [
-    "concorso_unit_overview"
+    "concorso_unit_overview",
+    "b2_88_proving_your_worth"
    ]
   },
   "cooperative": {
@@ -96069,7 +99330,8 @@ window.WORDBANK={
    "def": "a word form used to compare two things",
    "ex": "Bigger is the comparative of big.",
    "lessons": [
-    "ct_b1_28_advantages_disadvantages"
+    "ct_b1_28_advantages_disadvantages",
+    "b2_74_ways_of_travelling"
    ]
   },
   "situation": {
@@ -96132,7 +99394,8 @@ window.WORDBANK={
    "def": "a word or phrase that joins ideas in a sentence",
    "ex": "Because is a connector that introduces a reason.",
    "lessons": [
-    "ct_b1_33_justifying_opinions"
+    "ct_b1_33_justifying_opinions",
+    "bc_culture_shock_b2c1"
    ]
   },
   "romantic": {
@@ -96232,7 +99495,8 @@ window.WORDBANK={
    "def": "the length of time that something exists or someone lives",
    "ex": "A phone battery has a limited lifetime.",
    "lessons": [
-    "deep_space_01_stars"
+    "deep_space_01_stars",
+    "bc_life_on_mars_b2c1"
    ]
   },
   "matter": {
@@ -96406,7 +99670,8 @@ window.WORDBANK={
    "ex": "Many artists feel misunderstood during their lives.",
    "lessons": [
     "epicurean_10_pleasure_highest_good",
-    "wp_15_the_garden"
+    "wp_15_the_garden",
+    "b2_29_misunderstandings"
    ]
   },
   "immediate": {
@@ -96415,7 +99680,8 @@ window.WORDBANK={
    "def": "happening or done straight away, without delay",
    "ex": "The new law had an immediate effect on prices.",
    "lessons": [
-    "epicurean_10_pleasure_highest_good"
+    "epicurean_10_pleasure_highest_good",
+    "b2_55_telephone_skills"
    ]
   },
   "desire": {
@@ -96771,7 +100037,8 @@ window.WORDBANK={
    "def": "a group of people working together to achieve shared aims",
    "ex": "The green movement has grown rapidly.",
    "lessons": [
-    "epicurean_24_humanist_epicureans"
+    "epicurean_24_humanist_epicureans",
+    "bc_books_changed_world_part2_c1"
    ]
   },
   "core": {
@@ -96816,7 +100083,8 @@ window.WORDBANK={
    "def": "a person who says what is bad about something",
    "ex": "Critics say the plan is far too expensive.",
    "lessons": [
-    "epicurean_26_baptizing_atoms"
+    "epicurean_26_baptizing_atoms",
+    "b2_60_film_criticism"
    ]
   },
   "redefine": {
@@ -96863,7 +100131,8 @@ window.WORDBANK={
    "def": "a person who works with others on a shared project",
    "ex": "She thanked all her collaborators in the book.",
    "lessons": [
-    "epicurean_28_gassendist_circle"
+    "epicurean_28_gassendist_circle",
+    "bc_data_and_information_c1"
    ]
   },
   "major": {
@@ -96992,7 +100261,8 @@ window.WORDBANK={
    "def": "without water or rain for a period of time",
    "ex": "The soil is very dry after a long hot week.",
    "lessons": [
-    "explore_a2_garden_plans"
+    "explore_a2_garden_plans",
+    "b2_04_telling_a_funny_story"
    ]
   },
   "job": {
@@ -97185,7 +100455,9 @@ window.WORDBANK={
    "def": "a strong effect that something has on people or things",
    "ex": "The internet had a huge impact on music.",
    "lessons": [
-    "explore_comic_book_history"
+    "explore_comic_book_history",
+    "b2_08_great_achievements",
+    "bc_books_that_changed_the_world_c1"
    ]
   },
   "art form": {
@@ -97461,7 +100733,8 @@ window.WORDBANK={
    "def": "involving two or more countries",
    "ex": "She works for an international bank in London.",
    "lessons": [
-    "giving_opinions_suggestions"
+    "giving_opinions_suggestions",
+    "bc_broadening_horizons_b2c1"
    ]
   },
   "task-switching": {
@@ -97542,7 +100815,8 @@ window.WORDBANK={
    "def": "a controlled medical test of a new treatment on patients",
    "ex": "The vaccine passed its final clinical trial.",
    "lessons": [
-    "komorebi_02_the_placebo_effect"
+    "komorebi_02_the_placebo_effect",
+    "doctor_heist_b2c1"
    ]
   },
   "demonstrably": {
@@ -97569,7 +100843,8 @@ window.WORDBANK={
    "def": "to keep moving your hands or body because you are restless",
    "ex": "The children fidgeted through the long speech.",
    "lessons": [
-    "komorebi_03_the_power_of_boredom"
+    "komorebi_03_the_power_of_boredom",
+    "b2_64_voice_and_body_language"
    ]
   },
   "mind-wandering": {
@@ -97945,7 +101220,8 @@ window.WORDBANK={
    "def": "extremely important, because success depends on it",
    "ex": "Clear communication is crucial in remote teams.",
    "lessons": [
-    "kuba_lesson_1_professional_presence"
+    "kuba_lesson_1_professional_presence",
+    "bc_international_presentations_c1"
    ]
   },
   "time zone": {
@@ -98689,7 +101965,9 @@ window.WORDBANK={
    "def": "to agree with someone just to keep them happy",
    "ex": "I humoured my grandmother and tried her strange soup.",
    "lessons": [
-    "lf_10_your_father_s_silence"
+    "lf_10_your_father_s_silence",
+    "b2_04_telling_a_funny_story",
+    "bc_humour_in_presentations_c1"
    ]
   },
   "come along": {
@@ -99474,7 +102752,8 @@ window.WORDBANK={
    "def": "a reason given to explain a mistake or bad behaviour",
    "ex": "Traffic is always his excuse for being late.",
    "lessons": [
-    "ml_13_the_apology"
+    "ml_13_the_apology",
+    "b2_19_awkward_situations"
    ]
   },
   "fair enough": {
@@ -99492,7 +102771,8 @@ window.WORDBANK={
    "def": "to wait until the next day before deciding",
    "ex": "Do not sign today, just sleep on it.",
    "lessons": [
-    "ml_15_the_big_favour"
+    "ml_15_the_big_favour",
+    "bc_creative_decision_making_b2c1"
    ]
   },
   "ask": {
@@ -99837,7 +103117,8 @@ window.WORDBANK={
    "def": "in a correct, complete and serious way",
    "ex": "Can we sit down and talk properly this weekend?",
    "lessons": [
-    "ml_32_the_house_guest"
+    "ml_32_the_house_guest",
+    "b2_96_engineering_safety_concerns"
    ]
   },
   "both are true": {
@@ -99983,7 +103264,8 @@ window.WORDBANK={
    "ex": "The plumber sent an invoice the day after the job.",
    "lessons": [
     "ml_34_the_bad_recommendation",
-    "wk_12_the_changing_brief"
+    "wk_12_the_changing_brief",
+    "bc_healthcare_billing_c1"
    ]
   },
   "worktops": {
@@ -100064,7 +103346,8 @@ window.WORDBANK={
    "def": "the internal daily clock that controls sleep and waking",
    "ex": "Long flights can upset your circadian rhythm for days.",
    "lessons": [
-    "morning_people_vs_night_owls"
+    "morning_people_vs_night_owls",
+    "b2_22_food_and_health"
    ]
   },
   "hit my stride": {
@@ -100127,7 +103410,8 @@ window.WORDBANK={
    "def": "an idea created by society rather than a natural fact",
    "ex": "Time zones are a human construct for organising the day.",
    "lessons": [
-    "native_speakerism_c1"
+    "native_speakerism_c1",
+    "bc_current_issues_c1"
    ]
   },
   "pedagogical": {
@@ -100346,7 +103630,8 @@ window.WORDBANK={
    "def": "happening slowly over a long period",
    "ex": "There has been a gradual rise in prices this year.",
    "lessons": [
-    "ois_03_the_saxon_shore"
+    "ois_03_the_saxon_shore",
+    "discuss_b2c1_endings_and_after"
    ]
   },
   "burial": {
@@ -100988,7 +104273,8 @@ window.WORDBANK={
    "def": "to include something as a necessary part",
    "ex": "My new job will involve a lot of travel.",
    "lessons": [
-    "passion_for_danger_b2c1"
+    "passion_for_danger_b2c1",
+    "b2_21_the_workshop_project"
    ]
   },
   "herbivore": {
@@ -101096,7 +104382,8 @@ window.WORDBANK={
    "def": "unusual and coming from a distant country",
    "ex": "He keeps exotic birds in a large garden aviary.",
    "lessons": [
-    "pets_c1_collocations"
+    "pets_c1_collocations",
+    "b2_90_lost_in_translation"
    ]
   },
   "breeding": {
@@ -101187,7 +104474,8 @@ window.WORDBANK={
    "ex": "The timeline shows the launch in early spring.",
    "lessons": [
     "presenting_online_project_manager",
-    "wk_05_negotiating"
+    "wk_05_negotiating",
+    "b2_48_writing_reports"
    ]
   },
   "miscommunication": {
@@ -101242,7 +104530,8 @@ window.WORDBANK={
    "ex": "Guests often complain about the slow lifts.",
    "lessons": [
     "problems_and_solutions",
-    "sb_03_handling_a_complaint_a2b1"
+    "sb_03_handling_a_complaint_a2b1",
+    "b2_78_bad_restaurant"
    ]
   },
   "promoted": {
@@ -101397,7 +104686,8 @@ window.WORDBANK={
    "ex": "Ice cream sales show a strong seasonal pattern.",
    "lessons": [
     "prof_c1_07_data_driven_decisions",
-    "talk_tourism_b2c1"
+    "talk_tourism_b2c1",
+    "b2_56_food_sustainability"
    ]
   },
   "async": {
@@ -101723,7 +105013,8 @@ window.WORDBANK={
    "def": "setting a first number that influences later offers",
    "ex": "Anchoring high gave the seller room to negotiate.",
    "lessons": [
-    "prof_c2_05_advanced_negotiation"
+    "prof_c2_05_advanced_negotiation",
+    "b2_anchoring"
    ]
   },
   "earnings": {
@@ -101804,7 +105095,8 @@ window.WORDBANK={
    "def": "making money or financial gain",
    "ex": "The small bakery became profitable in its second year.",
    "lessons": [
-    "prof_c2_08_ethical_leadership"
+    "prof_c2_08_ethical_leadership",
+    "bc_making_deductions_c1"
    ]
   },
   "segment": {
@@ -101831,7 +105123,8 @@ window.WORDBANK={
    "def": "acting early to prevent problems rather than reacting",
    "ex": "A proactive approach saved us from bigger delays.",
    "lessons": [
-    "prof_c2_09_strategic_communication"
+    "prof_c2_09_strategic_communication",
+    "bc_adapt_presentation_c1"
    ]
   },
   "downplay": {
@@ -101922,7 +105215,8 @@ window.WORDBANK={
    "def": "involving the possibility of danger or failure",
    "ex": "Driving in this snow would be risky.",
    "lessons": [
-    "pss_lesson_01_explaining_clearly"
+    "pss_lesson_01_explaining_clearly",
+    "b2_30_a_good_investment"
    ]
   },
   "narrowing": {
@@ -101958,7 +105252,8 @@ window.WORDBANK={
    "def": "connected with thinking, learning and memory",
    "ex": "Puzzles may help keep your cognitive skills sharp.",
    "lessons": [
-    "psychology-intro-lesson"
+    "psychology-intro-lesson",
+    "bc_ai_for_phd_research_c1"
    ]
   },
   "nurture": {
@@ -102669,7 +105964,8 @@ window.WORDBANK={
    "def": "a company that makes goods to sell",
    "ex": "Contact the manufacturer if the warranty is still valid.",
    "lessons": [
-    "rp_09_making_a_complaint"
+    "rp_09_making_a_complaint",
+    "bc_appliance_of_science_c1"
    ]
   },
   "helpline": {
@@ -102678,7 +105974,8 @@ window.WORDBANK={
    "def": "a phone number for advice or support",
    "ex": "I called the helpline to fix my internet.",
    "lessons": [
-    "rp_09_making_a_complaint"
+    "rp_09_making_a_complaint",
+    "bc_charity_b2c1"
    ]
   },
   "single": {
@@ -103161,7 +106458,8 @@ window.WORDBANK={
    "def": "a period when a system or service stops working",
    "ex": "The outage affected thousands of online customers.",
    "lessons": [
-    "scenario-lessons"
+    "scenario-lessons",
+    "b2_95_it_outage_communication"
    ]
   },
   "extrapolate": {
@@ -103287,7 +106585,8 @@ window.WORDBANK={
    "def": "ordinary written language, not poetry",
    "ex": "Her prose is sharp, cool and precise.",
    "lessons": [
-    "scifi_history_c1_part2"
+    "scifi_history_c1_part2",
+    "bc_books_or_films_c1"
    ]
   },
   "masterstroke": {
@@ -103534,7 +106833,8 @@ window.WORDBANK={
    "ex": "The army marched for thousands of kilometres.",
    "lessons": [
     "short_history_alexander_the_great_a2b1",
-    "short_history_the_battle_of_hastings_a2b1"
+    "short_history_the_battle_of_hastings_a2b1",
+    "discuss_a2_taking_to_the_streets"
    ]
   },
   "channel": {
@@ -103543,7 +106843,8 @@ window.WORDBANK={
    "def": "a long, narrow way made for water to move along",
    "ex": "They dug channels to carry water to the fields.",
    "lessons": [
-    "short_history_angkor_a2b1"
+    "short_history_angkor_a2b1",
+    "b2_46_remote_work"
    ]
   },
   "powerful": {
@@ -103790,7 +107091,8 @@ window.WORDBANK={
    "def": "a room or building where things are made",
    "ex": "As a boy, he worked in an artist's workshop.",
    "lessons": [
-    "short_history_leonardo_da_vinci_a2b1"
+    "short_history_leonardo_da_vinci_a2b1",
+    "b2_21_the_workshop_project"
    ]
   },
   "tool": {
@@ -104141,7 +107443,8 @@ window.WORDBANK={
    "def": "the time when farmers collect their crops",
    "ex": "The harvest turned black and rotten in the fields.",
    "lessons": [
-    "short_history_the_irish_potato_famine_a2b1"
+    "short_history_the_irish_potato_famine_a2b1",
+    "b2_70_fair_trade"
    ]
   },
   "evict": {
@@ -104213,7 +107516,8 @@ window.WORDBANK={
    "def": "a person who has rights in a country",
    "ex": "Only some people in Rome were citizens.",
    "lessons": [
-    "short_history_the_roman_republic_a2b1"
+    "short_history_the_roman_republic_a2b1",
+    "bc_citizenship_test_c1"
    ]
   },
   "ancient": {
@@ -104231,7 +107535,8 @@ window.WORDBANK={
    "def": "to kill someone with a rope around the neck",
    "ex": "Nineteen people were hanged in 1692.",
    "lessons": [
-    "short_history_the_salem_witch_trials_a2b1"
+    "short_history_the_salem_witch_trials_a2b1",
+    "discuss_b2c1_animal_trials"
    ]
   },
   "apology": {
@@ -104240,7 +107545,8 @@ window.WORDBANK={
    "def": "words that say you are sorry",
    "ex": "Years later the state made an official apology.",
    "lessons": [
-    "short_history_the_salem_witch_trials_a2b1"
+    "short_history_the_salem_witch_trials_a2b1",
+    "b2_47_handling_complaints"
    ]
   },
   "lord": {
@@ -104448,7 +107754,8 @@ window.WORDBANK={
    "def": "changing so you cannot know what will happen",
    "ex": "Real conversations at a busy fair can be unpredictable.",
    "lessons": [
-    "skills_a2_trade_fair_simulation"
+    "skills_a2_trade_fair_simulation",
+    "b2_55_telephone_skills"
    ]
   },
   "topic": {
@@ -104512,7 +107819,8 @@ window.WORDBANK={
    "def": "a first sentence used to begin a conversation",
    "ex": "The weather is an easy opener.",
    "lessons": [
-    "skills_b1_simple_small_talk_for_work"
+    "skills_b1_simple_small_talk_for_work",
+    "b2_65_find_that_annoying"
    ]
   },
   "reply": {
@@ -104557,7 +107865,8 @@ window.WORDBANK={
    "def": "the materials used to wrap or protect products",
    "ex": "Their packaging is fully biodegradable and cheap.",
    "lessons": [
-    "skills_b1b2_trade_fair_elevator_pitch"
+    "skills_b1b2_trade_fair_elevator_pitch",
+    "b2_70_fair_trade"
    ]
   },
   "gratuity": {
@@ -104665,7 +107974,8 @@ window.WORDBANK={
    "def": "working together with others to produce something",
    "ex": "Good collaboration is harder over video calls.",
    "lessons": [
-    "talk_working_from_home_b2c1"
+    "talk_working_from_home_b2c1",
+    "bc_company_culture_c1"
    ]
   },
   "switch off": {
@@ -104964,7 +108274,8 @@ window.WORDBANK={
    "def": "a substance that stops or reverses the effect of a poison",
    "ex": "The hospital gave him an antidote to the snake bite.",
    "lessons": [
-    "techniques_the_treasure_in_the_forest"
+    "techniques_the_treasure_in_the_forest",
+    "doctor_heist_b2c1"
    ]
   },
   "in the zone": {
@@ -105420,7 +108731,8 @@ window.WORDBANK={
    "def": "to gently push someone toward a choice without forcing them",
    "ex": "The app nudges users to drink more water.",
    "lessons": [
-    "the_invisible_hand"
+    "the_invisible_hand",
+    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "choice architecture": {
@@ -105673,7 +108985,8 @@ window.WORDBANK={
    "def": "good enough to justify the effort or cost",
    "ex": "The climb was hard, but the view was worth it.",
    "lessons": [
-    "travel_adventures"
+    "travel_adventures",
+    "bc_artemis_moon_c1"
    ]
   },
   "welcoming": {
@@ -106089,7 +109402,8 @@ window.WORDBANK={
    "ex": "She was stung by his comments about her work.",
    "lessons": [
     "wk_09_the_performance_review",
-    "wk_17_your_younger_boss"
+    "wk_17_your_younger_boss",
+    "b2_106_status_games"
    ]
   },
   "in the frame": {
@@ -106289,7 +109603,8 @@ window.WORDBANK={
    "def": "annoyed because you cannot change or achieve something",
    "ex": "He felt frustrated by the slow internet.",
    "lessons": [
-    "wk_16_the_client_who_shouts"
+    "wk_16_the_client_who_shouts",
+    "bc_adapt_your_writing_c1"
    ]
   },
   "survivable": {
@@ -106352,7 +109667,9 @@ window.WORDBANK={
    "def": "a statement about your work written for a future employer",
    "ex": "My old boss wrote me a glowing reference.",
    "lessons": [
-    "wk_18_made_redundant"
+    "wk_18_made_redundant",
+    "b2_12_workplace_ethics",
+    "bc_gtd_david_allen_c1"
    ]
   },
   "cowardly": {
@@ -106469,7 +109786,8 @@ window.WORDBANK={
    "def": "working for different companies rather than one employer",
    "ex": "She works as a freelance photographer.",
    "lessons": [
-    "wk_22_the_unpaid_invoice"
+    "wk_22_the_unpaid_invoice",
+    "bc_future_of_work_c1"
    ]
   },
   "confrontation": {
@@ -106487,7 +109805,8 @@ window.WORDBANK={
    "def": "friendly feelings and trust between people or companies",
    "ex": "Fixing the error quickly created a lot of goodwill.",
    "lessons": [
-    "wk_22_the_unpaid_invoice"
+    "wk_22_the_unpaid_invoice",
+    "editor_dilemmas_game"
    ]
   },
   "reminder": {
@@ -106883,7 +110202,8 @@ window.WORDBANK={
    "def": "an increase in the money you earn for your work",
    "ex": "She asked for a pay rise after the busy year.",
    "lessons": [
-    "wk_37_the_pay_rise"
+    "wk_37_the_pay_rise",
+    "b2_10_getting_a_pay_rise"
    ]
   },
   "fall behind": {
@@ -106946,7 +110266,9 @@ window.WORDBANK={
    "def": "very correct and serious behaviour that feels distant",
    "ex": "The sudden formality in his emails surprised me.",
    "lessons": [
-    "wk_38_suddenly_the_boss"
+    "wk_38_suddenly_the_boss",
+    "b2_37_formal_emails",
+    "b2_86_email_problems"
    ]
   },
   "in-joke": {
@@ -107171,7 +110493,8 @@ window.WORDBANK={
    "def": "a large, completely empty space with nothing in it",
    "ex": "The rocket disappeared into the void of space.",
    "lessons": [
-    "wp_04_atoms_in_the_void"
+    "wp_04_atoms_in_the_void",
+    "epicurean_06_atoms_and_void"
    ]
   },
   "indestructible": {
@@ -107567,7 +110890,8 @@ window.WORDBANK={
    "def": "better or more suitable than something else",
    "ex": "A short walk is preferable to sitting all day.",
    "lessons": [
-    "wp_17_the_painted_porch"
+    "wp_17_the_painted_porch",
+    "b2_33_business_and_tourism"
    ]
   },
   "consoling": {
@@ -107972,7 +111296,8 @@ window.WORDBANK={
    "def": "keeping something safe or in its original state",
    "ex": "The preservation of old buildings matters to the town.",
    "lessons": [
-    "wp_35_the_blank_slate"
+    "wp_35_the_blank_slate",
+    "b2_66_impact_of_technology"
    ]
   },
   "solidity": {
@@ -108621,6 +111946,4241 @@ window.WORDBANK={
    "ex": "She sighed audibly when the train was late.",
    "lessons": [
     "writing_poetry_sound"
+   ]
+  },
+  "tight deadline": {
+   "w": "tight deadline",
+   "pos": "n",
+   "def": "a very short amount of time to finish something",
+   "ex": "We have a tight deadline, so nobody can take a day off.",
+   "lessons": [
+    "b2_03_making_your_opinion_heard"
+   ]
+  },
+  "depressed": {
+   "w": "depressed",
+   "pos": "adj",
+   "def": "very sad and without hope for a long time",
+   "ex": "He felt depressed during the long dark winter.",
+   "lessons": [
+    "b2_03_making_your_opinion_heard"
+   ]
+  },
+  "progress": {
+   "w": "progress",
+   "pos": "n",
+   "def": "movement towards finishing or improving something",
+   "ex": "We are making good progress with the new kitchen.",
+   "lessons": [
+    "b2_03_making_your_opinion_heard"
+   ]
+  },
+  "multi-word verb": {
+   "w": "multi-word verb",
+   "pos": "n",
+   "def": "a verb made of two or three words with a special meaning",
+   "ex": "Give up is a common multi-word verb with several meanings.",
+   "lessons": [
+    "b2_03_making_your_opinion_heard"
+   ]
+  },
+  "giggle": {
+   "w": "giggle",
+   "pos": "v",
+   "def": "to laugh in a quiet and silly way",
+   "ex": "The children giggled at the funny noise.",
+   "lessons": [
+    "b2_04_telling_a_funny_story"
+   ]
+  },
+  "self-mocking": {
+   "w": "self-mocking",
+   "pos": "adj",
+   "def": "making jokes about yourself and your own faults",
+   "ex": "His self-mocking style makes audiences relax.",
+   "lessons": [
+    "b2_04_telling_a_funny_story"
+   ]
+  },
+  "edgy": {
+   "w": "edgy",
+   "pos": "adj",
+   "def": "slightly shocking and pushing normal limits",
+   "ex": "The comedian is known for his edgy jokes.",
+   "lessons": [
+    "b2_04_telling_a_funny_story"
+   ]
+  },
+  "crisis management": {
+   "w": "crisis management",
+   "pos": "n",
+   "def": "the process of dealing with a sudden dangerous situation",
+   "ex": "The airline was praised for its crisis management after the storm.",
+   "lessons": [
+    "b2_05_dealing_with_disaster"
+   ]
+  },
+  "sweep through": {
+   "w": "sweep through",
+   "pos": "phr v",
+   "def": "to spread quickly across an area",
+   "ex": "A flu virus swept through the school last winter.",
+   "lessons": [
+    "b2_05_dealing_with_disaster"
+   ]
+  },
+  "severe": {
+   "w": "severe",
+   "pos": "adj",
+   "def": "very serious, bad or harmful",
+   "ex": "Severe storms caused damage across the region.",
+   "lessons": [
+    "b2_05_dealing_with_disaster"
+   ]
+  },
+  "cold snap": {
+   "w": "cold snap",
+   "pos": "n",
+   "def": "a short period of very cold weather",
+   "ex": "Many pipes froze during the cold snap.",
+   "lessons": [
+    "b2_05_dealing_with_disaster"
+   ]
+  },
+  "supplies": {
+   "w": "supplies",
+   "pos": "n",
+   "def": "food, water and other things people need",
+   "ex": "We packed enough supplies for three days in the hills.",
+   "lessons": [
+    "b2_05_dealing_with_disaster"
+   ]
+  },
+  "documentary": {
+   "w": "documentary",
+   "pos": "n",
+   "def": "a film or programme that gives facts about a real subject",
+   "ex": "We watched a documentary about life in the ocean.",
+   "lessons": [
+    "b2_07_is_tv_bad_for_us",
+    "bc_endangered_species_b2c1"
+   ]
+  },
+  "reality show": {
+   "w": "reality show",
+   "pos": "n",
+   "def": "a programme that films ordinary people in real situations",
+   "ex": "She became famous after appearing on a reality show.",
+   "lessons": [
+    "b2_07_is_tv_bad_for_us"
+   ]
+  },
+  "be aware of": {
+   "w": "be aware of",
+   "pos": "phr",
+   "def": "to know about or notice something",
+   "ex": "Drivers should always be aware of cyclists.",
+   "lessons": [
+    "b2_07_is_tv_bad_for_us"
+   ]
+  },
+  "household appliance": {
+   "w": "household appliance",
+   "pos": "n",
+   "def": "a machine used in the home, such as a washing machine",
+   "ex": "Old household appliances often use a lot of electricity.",
+   "lessons": [
+    "b2_08_great_achievements"
+   ]
+  },
+  "fulfilled": {
+   "w": "fulfilled",
+   "pos": "adj",
+   "def": "happy because your life or work has meaning",
+   "ex": "She feels fulfilled working with young children.",
+   "lessons": [
+    "b2_09_happiness"
+   ]
+  },
+  "sense of purpose": {
+   "w": "sense of purpose",
+   "pos": "n",
+   "def": "a feeling that your life has a clear aim",
+   "ex": "Volunteering gave him a new sense of purpose.",
+   "lessons": [
+    "b2_09_happiness"
+   ]
+  },
+  "pleasure": {
+   "w": "pleasure",
+   "pos": "n",
+   "def": "a feeling of enjoyment or happiness",
+   "ex": "Reading in the garden gives me real pleasure.",
+   "lessons": [
+    "b2_09_happiness",
+    "epicurean_02_tetrapharmakos"
+   ]
+  },
+  "first draft": {
+   "w": "first draft",
+   "pos": "n",
+   "def": "the first version of a piece of writing",
+   "ex": "My first draft was far too long.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "pacing": {
+   "w": "pacing",
+   "pos": "n",
+   "def": "the speed at which a story develops",
+   "ex": "The film's slow pacing made me fall asleep.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "sag": {
+   "w": "sag",
+   "pos": "v",
+   "def": "to become weaker or less interesting in the middle",
+   "ex": "The conversation began to sag after an hour.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "dig back in": {
+   "w": "dig back in",
+   "pos": "phr v",
+   "def": "to start working hard on something again",
+   "ex": "After a short rest, it is time to dig back in.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "brand refresh": {
+   "w": "brand refresh",
+   "pos": "n",
+   "def": "an update to the look of a company's name and image",
+   "ex": "The bank had a brand refresh with a new logo and colours.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "route": {
+   "w": "route",
+   "pos": "n",
+   "def": "one possible way or plan for doing something",
+   "ex": "We considered three routes for the new marketing plan.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "batch": {
+   "w": "batch",
+   "pos": "n",
+   "def": "a group of things produced at the same time",
+   "ex": "The bakery makes a fresh batch of bread every hour.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "on the record": {
+   "w": "on the record",
+   "pos": "phr",
+   "def": "officially written down or stated in public",
+   "ex": "The mayor would not comment on the record.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "at the earliest": {
+   "w": "at the earliest",
+   "pos": "phr",
+   "def": "not before the time mentioned",
+   "ex": "The repairs will be done next month at the earliest.",
+   "lessons": [
+    "b2_103_logistics_late_delivery"
+   ]
+  },
+  "production line": {
+   "w": "production line",
+   "pos": "n",
+   "def": "a system where products are made step by step in a factory",
+   "ex": "The car moves slowly along the production line.",
+   "lessons": [
+    "b2_103_logistics_late_delivery"
+   ]
+  },
+  "starting point": {
+   "w": "starting point",
+   "pos": "n",
+   "def": "a place or idea from which something can begin",
+   "ex": "This report is a good starting point for our discussion.",
+   "lessons": [
+    "b2_104_greener_cities_solutions"
+   ]
+  },
+  "rank": {
+   "w": "rank",
+   "pos": "n",
+   "def": "a position in an organisation or society",
+   "ex": "He rose to the rank of captain.",
+   "lessons": [
+    "b2_106_status_games"
+   ]
+  },
+  "talk over": {
+   "w": "talk over",
+   "pos": "phr v",
+   "def": "to speak at the same time as someone so they cannot be heard",
+   "ex": "It is rude to talk over people in meetings.",
+   "lessons": [
+    "b2_106_status_games"
+   ]
+  },
+  "look down on": {
+   "w": "look down on",
+   "pos": "phr v",
+   "def": "to think that someone is less important than you",
+   "ex": "He looks down on people without a degree.",
+   "lessons": [
+    "b2_106_status_games"
+   ]
+  },
+  "negotiation": {
+   "w": "negotiation",
+   "pos": "n",
+   "def": "formal discussion to reach an agreement",
+   "ex": "After long negotiations, the workers accepted the offer.",
+   "lessons": [
+    "b2_10_getting_a_pay_rise"
+   ]
+  },
+  "tentatively": {
+   "w": "tentatively",
+   "pos": "adv",
+   "def": "in a careful way that shows you are not completely certain",
+   "ex": "She tentatively suggested a different plan.",
+   "lessons": [
+    "b2_10_getting_a_pay_rise"
+   ]
+  },
+  "instinctive": {
+   "w": "instinctive",
+   "pos": "adj",
+   "def": "based on natural feelings rather than careful thought",
+   "ex": "Her instinctive reaction was to run.",
+   "lessons": [
+    "b2_11_right_or_left_brain"
+   ]
+  },
+  "character trait": {
+   "w": "character trait",
+   "pos": "n",
+   "def": "a particular quality in someone's personality",
+   "ex": "Patience is his best character trait.",
+   "lessons": [
+    "b2_11_right_or_left_brain"
+   ]
+  },
+  "suitable": {
+   "w": "suitable",
+   "pos": "adj",
+   "def": "right or appropriate for a particular purpose",
+   "ex": "This film is not suitable for young children.",
+   "lessons": [
+    "b2_12_workplace_ethics"
+   ]
+  },
+  "appropriate": {
+   "w": "appropriate",
+   "pos": "adj",
+   "def": "right or suitable for a particular situation",
+   "ex": "Jeans are not appropriate for a job interview.",
+   "lessons": [
+    "b2_12_workplace_ethics",
+    "b2_86_email_problems"
+   ]
+  },
+  "foodie": {
+   "w": "foodie",
+   "pos": "n",
+   "def": "someone who loves cooking and eating well and enjoys new dishes",
+   "ex": "As a foodie, she reads restaurant reviews every week.",
+   "lessons": [
+    "b2_13_organising_a_dinner"
+   ]
+  },
+  "underdone": {
+   "w": "underdone",
+   "pos": "adj",
+   "def": "not cooked enough, often still pink inside",
+   "ex": "The chicken was underdone, so we sent it back.",
+   "lessons": [
+    "b2_13_organising_a_dinner"
+   ]
+  },
+  "turn out": {
+   "w": "turn out",
+   "pos": "phr v",
+   "def": "to happen or end in a particular way",
+   "ex": "The cake turned out better than I expected.",
+   "lessons": [
+    "b2_13_organising_a_dinner",
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "eat out": {
+   "w": "eat out",
+   "pos": "phr v",
+   "def": "to have a meal in a restaurant rather than at home",
+   "ex": "We usually eat out at the end of the week.",
+   "lessons": [
+    "b2_13_organising_a_dinner"
+   ]
+  },
+  "parkour": {
+   "w": "parkour",
+   "pos": "n",
+   "def": "a sport of running, jumping and climbing over things in cities",
+   "ex": "They practise parkour in the park every evening.",
+   "lessons": [
+    "b2_14_alternative_sports"
+   ]
+  },
+  "skateboarding": {
+   "w": "skateboarding",
+   "pos": "n",
+   "def": "riding on a board with small wheels",
+   "ex": "Skateboarding became very popular in the town.",
+   "lessons": [
+    "b2_14_alternative_sports"
+   ]
+  },
+  "popularity": {
+   "w": "popularity",
+   "pos": "n",
+   "def": "the state of being liked by many people",
+   "ex": "Cycling has grown in popularity in recent years.",
+   "lessons": [
+    "b2_14_alternative_sports"
+   ]
+  },
+  "rock climbing": {
+   "w": "rock climbing",
+   "pos": "n",
+   "def": "the sport of climbing steep rock faces",
+   "ex": "We tried rock climbing on our holiday.",
+   "lessons": [
+    "b2_14_alternative_sports"
+   ]
+  },
+  "profession": {
+   "w": "profession",
+   "pos": "n",
+   "def": "a type of job that needs special training",
+   "ex": "Nursing is a demanding but rewarding profession.",
+   "lessons": [
+    "b2_15_celebrity_opinions"
+   ]
+  },
+  "in my opinion": {
+   "w": "in my opinion",
+   "pos": "phr",
+   "def": "used to say what you think about something",
+   "ex": "In my opinion, the film was far too long.",
+   "lessons": [
+    "b2_15_celebrity_opinions"
+   ]
+  },
+  "reporting verb": {
+   "w": "reporting verb",
+   "pos": "n",
+   "def": "a verb used to describe what someone said, such as claim",
+   "ex": "Refuse is a reporting verb we use for negative replies.",
+   "lessons": [
+    "b2_16_the_year_in_review",
+    "bc_gtd_david_allen_c1"
+   ]
+  },
+  "heart-warming": {
+   "w": "heart-warming",
+   "pos": "adj",
+   "def": "making you feel happy and full of kind feelings",
+   "ex": "It was a heart-warming story about a lost dog.",
+   "lessons": [
+    "b2_16_the_year_in_review"
+   ]
+  },
+  "scandalous": {
+   "w": "scandalous",
+   "pos": "adj",
+   "def": "shocking and morally wrong in a way that upsets people",
+   "ex": "The amount of food wasted is scandalous.",
+   "lessons": [
+    "b2_16_the_year_in_review"
+   ]
+  },
+  "touching": {
+   "w": "touching",
+   "pos": "adj",
+   "def": "making you feel sympathy or emotion",
+   "ex": "Her speech at the wedding was very touching.",
+   "lessons": [
+    "b2_16_the_year_in_review"
+   ]
+  },
+  "attire": {
+   "w": "attire",
+   "pos": "n",
+   "def": "clothes of a particular type",
+   "ex": "Formal attire is required for the dinner.",
+   "lessons": [
+    "b2_18_dealing_with_problems"
+   ]
+  },
+  "politely": {
+   "w": "politely",
+   "pos": "adv",
+   "def": "in a way that shows good manners and respect",
+   "ex": "She politely refused the second piece of cake.",
+   "lessons": [
+    "b2_19_awkward_situations"
+   ]
+  },
+  "championship": {
+   "w": "championship",
+   "pos": "n",
+   "def": "a competition to find the best player or team",
+   "ex": "Our team won the national championship last year.",
+   "lessons": [
+    "b2_20_sporting_events"
+   ]
+  },
+  "go-kart": {
+   "w": "go-kart",
+   "pos": "n",
+   "def": "a small low racing car with an open frame",
+   "ex": "The children raced their go-kart down the hill.",
+   "lessons": [
+    "b2_21_the_workshop_project"
+   ]
+  },
+  "controller": {
+   "w": "controller",
+   "pos": "n",
+   "def": "a device used to operate a machine or video game",
+   "ex": "He threw the controller across the room in anger.",
+   "lessons": [
+    "b2_21_the_workshop_project"
+   ]
+  },
+  "prevalence": {
+   "w": "prevalence",
+   "pos": "n",
+   "def": "how common something is among a group of people",
+   "ex": "The prevalence of allergies is rising in many countries.",
+   "lessons": [
+    "b2_22_food_and_health"
+   ]
+  },
+  "diabetes": {
+   "w": "diabetes",
+   "pos": "n",
+   "def": "an illness in which the body cannot control blood sugar properly",
+   "ex": "People with diabetes must check their blood regularly.",
+   "lessons": [
+    "b2_22_food_and_health"
+   ]
+  },
+  "hidden sugar": {
+   "w": "hidden sugar",
+   "pos": "n",
+   "def": "sugar added to foods where you would not expect it",
+   "ex": "Many sauces contain a lot of hidden sugar.",
+   "lessons": [
+    "b2_22_food_and_health"
+   ]
+  },
+  "saturated fat": {
+   "w": "saturated fat",
+   "pos": "n",
+   "def": "a type of fat in meat and butter linked to heart disease",
+   "ex": "Cheese and butter are high in saturated fat.",
+   "lessons": [
+    "b2_22_food_and_health"
+   ]
+  },
+  "draw up": {
+   "w": "draw up",
+   "pos": "phr v",
+   "def": "to prepare and write a document or plan",
+   "ex": "Please draw up a list of guests for the party.",
+   "lessons": [
+    "b2_23_chairing_the_meeting"
+   ]
+  },
+  "circulate": {
+   "w": "circulate",
+   "pos": "v",
+   "def": "to send something to all the people in a group",
+   "ex": "I will circulate the notes after the call.",
+   "lessons": [
+    "b2_23_chairing_the_meeting"
+   ]
+  },
+  "send apologies": {
+   "w": "send apologies",
+   "pos": "phr",
+   "def": "to say formally that you cannot attend a meeting",
+   "ex": "If you cannot come, please send apologies to the secretary.",
+   "lessons": [
+    "b2_23_chairing_the_meeting"
+   ]
+  },
+  "take minutes": {
+   "w": "take minutes",
+   "pos": "phr",
+   "def": "to write an official record of what is said at a meeting",
+   "ex": "Who will take minutes at the next meeting?",
+   "lessons": [
+    "b2_23_chairing_the_meeting"
+   ]
+  },
+  "chairperson": {
+   "w": "chairperson",
+   "pos": "n",
+   "def": "the person who leads a meeting",
+   "ex": "The chairperson asked everyone to keep their comments short.",
+   "lessons": [
+    "b2_23_chairing_the_meeting"
+   ]
+  },
+  "reservations": {
+   "w": "reservations",
+   "pos": "n",
+   "def": "doubts or worries about whether something is a good idea",
+   "ex": "I have some reservations about moving so far away.",
+   "lessons": [
+    "b2_24_clarity_is_key"
+   ]
+  },
+  "hoax": {
+   "w": "hoax",
+   "pos": "n",
+   "def": "a trick or false story meant to make people believe something",
+   "ex": "The photo of the ghost turned out to be a hoax.",
+   "lessons": [
+    "b2_25_magic_tricks"
+   ]
+  },
+  "work like magic": {
+   "w": "work like magic",
+   "pos": "phr",
+   "def": "to be extremely effective very quickly",
+   "ex": "This cream works like magic on dry skin.",
+   "lessons": [
+    "b2_25_magic_tricks"
+   ]
+  },
+  "magic touch": {
+   "w": "magic touch",
+   "pos": "n",
+   "def": "a special ability to make things succeed",
+   "ex": "The new coach has a magic touch with young players.",
+   "lessons": [
+    "b2_25_magic_tricks"
+   ]
+  },
+  "appraisal": {
+   "w": "appraisal",
+   "pos": "n",
+   "def": "a formal meeting to discuss how well an employee is working",
+   "ex": "My annual appraisal is next week.",
+   "lessons": [
+    "b2_27_appraisal_meeting"
+   ]
+  },
+  "performance review": {
+   "w": "performance review",
+   "pos": "n",
+   "def": "a regular check of how well someone does their job",
+   "ex": "The performance review showed that she had met all her targets.",
+   "lessons": [
+    "b2_27_appraisal_meeting"
+   ]
+  },
+  "employee": {
+   "w": "employee",
+   "pos": "n",
+   "def": "a person who is paid to work for a company",
+   "ex": "The company has over two hundred employees.",
+   "lessons": [
+    "b2_27_appraisal_meeting"
+   ]
+  },
+  "disadvantage": {
+   "w": "disadvantage",
+   "pos": "n",
+   "def": "something that makes a situation less good",
+   "ex": "The main disadvantage of the flat is the noise.",
+   "lessons": [
+    "b2_27_appraisal_meeting",
+    "b2_74_ways_of_travelling"
+   ]
+  },
+  "career development": {
+   "w": "career development",
+   "pos": "n",
+   "def": "the process of improving your skills and moving forward at work",
+   "ex": "The company offers training for career development.",
+   "lessons": [
+    "b2_27_appraisal_meeting"
+   ]
+  },
+  "take up": {
+   "w": "take up",
+   "pos": "phr v",
+   "def": "to start doing a new activity or hobby",
+   "ex": "Many people take up golf after they retire.",
+   "lessons": [
+    "b2_28_taking_up_a_sport"
+   ]
+  },
+  "past perfect": {
+   "w": "past perfect",
+   "pos": "n",
+   "def": "a verb form describing an action before another past action",
+   "ex": "We use the past perfect to show which event happened first.",
+   "lessons": [
+    "b2_29_misunderstandings"
+   ]
+  },
+  "express yourself": {
+   "w": "express yourself",
+   "pos": "phr",
+   "def": "to say clearly what you think or feel",
+   "ex": "It is not always easy to express yourself in a new language.",
+   "lessons": [
+    "b2_29_misunderstandings"
+   ]
+  },
+  "clearly": {
+   "w": "clearly",
+   "pos": "adv",
+   "def": "in a way that is easy to see, hear or understand",
+   "ex": "Please speak clearly so everyone can hear you.",
+   "lessons": [
+    "b2_29_misunderstandings"
+   ]
+  },
+  "losses": {
+   "w": "losses",
+   "pos": "n",
+   "def": "money that a business or person has lost",
+   "ex": "The company reported heavy losses this year.",
+   "lessons": [
+    "b2_30_a_good_investment"
+   ]
+  },
+  "career goal": {
+   "w": "career goal",
+   "pos": "n",
+   "def": "what you want to achieve in your working life",
+   "ex": "My career goal is to run my own business.",
+   "lessons": [
+    "b2_31_job_interview"
+   ]
+  },
+  "barter": {
+   "w": "barter",
+   "pos": "v",
+   "def": "to exchange goods or services without using money",
+   "ex": "Farmers once bartered eggs for flour.",
+   "lessons": [
+    "b2_32_living_without_money"
+   ]
+  },
+  "economic crisis": {
+   "w": "economic crisis",
+   "pos": "n",
+   "def": "a period of serious financial problems in a country",
+   "ex": "Many people lost their jobs during the economic crisis.",
+   "lessons": [
+    "b2_32_living_without_money"
+   ]
+  },
+  "marketing budget": {
+   "w": "marketing budget",
+   "pos": "n",
+   "def": "the money a company plans to spend on advertising",
+   "ex": "We need a bigger marketing budget to reach young people.",
+   "lessons": [
+    "b2_33_business_and_tourism"
+   ]
+  },
+  "upwardly mobile": {
+   "w": "upwardly mobile",
+   "pos": "adj",
+   "def": "moving towards a higher social or financial position",
+   "ex": "The area attracts upwardly mobile young families.",
+   "lessons": [
+    "b2_33_business_and_tourism"
+   ]
+  },
+  "renewable energy": {
+   "w": "renewable energy",
+   "pos": "n",
+   "def": "power from sources like wind and sun that do not run out",
+   "ex": "The town gets most of its power from renewable energy.",
+   "lessons": [
+    "b2_33_business_and_tourism"
+   ]
+  },
+  "see the back of": {
+   "w": "see the back of",
+   "pos": "phr",
+   "def": "to be happy that someone or something has gone",
+   "ex": "We were glad to see the back of that old printer.",
+   "lessons": [
+    "b2_34_ethics_in_the_workplace"
+   ]
+  },
+  "compulsive": {
+   "w": "compulsive",
+   "pos": "adj",
+   "def": "done again and again because you cannot stop yourself",
+   "ex": "He is a compulsive shopper who buys things he never uses.",
+   "lessons": [
+    "b2_34_ethics_in_the_workplace"
+   ]
+  },
+  "perk": {
+   "w": "perk",
+   "pos": "n",
+   "def": "an extra advantage you get from your job",
+   "ex": "Free lunch is one of the perks of working here.",
+   "lessons": [
+    "b2_34_ethics_in_the_workplace"
+   ]
+  },
+  "apologize": {
+   "w": "apologize",
+   "pos": "v",
+   "def": "to say that you are sorry for something",
+   "ex": "You should apologize for being so late.",
+   "lessons": [
+    "b2_36_awkward_situations"
+   ]
+  },
+  "soap opera": {
+   "w": "soap opera",
+   "pos": "n",
+   "def": "a long-running series about the daily lives of fictional characters",
+   "ex": "My grandmother has watched the same soap opera for years.",
+   "lessons": [
+    "b2_38_is_tv_bad_for_us"
+   ]
+  },
+  "drama series": {
+   "w": "drama series",
+   "pos": "n",
+   "def": "a serious fictional story shown in many episodes",
+   "ex": "We watched the whole drama series in one weekend.",
+   "lessons": [
+    "b2_38_is_tv_bad_for_us"
+   ]
+  },
+  "game show": {
+   "w": "game show",
+   "pos": "n",
+   "def": "a programme where people compete to win prizes",
+   "ex": "He won a car on a game show.",
+   "lessons": [
+    "b2_38_is_tv_bad_for_us"
+   ]
+  },
+  "chat show": {
+   "w": "chat show",
+   "pos": "n",
+   "def": "a programme where a host talks to famous guests",
+   "ex": "The actor talked about his new film on a chat show.",
+   "lessons": [
+    "b2_38_is_tv_bad_for_us"
+   ]
+  },
+  "storyline": {
+   "w": "storyline",
+   "pos": "n",
+   "def": "the series of events in a book, film or programme",
+   "ex": "The storyline was too complicated to follow.",
+   "lessons": [
+    "b2_38_is_tv_bad_for_us"
+   ]
+  },
+  "rephrase": {
+   "w": "rephrase",
+   "pos": "v",
+   "def": "to say or write something again using different words",
+   "ex": "Let me rephrase my question to make it clearer.",
+   "lessons": [
+    "b2_39_best_email_replies"
+   ]
+  },
+  "key issue": {
+   "w": "key issue",
+   "pos": "n",
+   "def": "an important problem that needs to be dealt with",
+   "ex": "Cost is the key issue for most customers.",
+   "lessons": [
+    "b2_39_best_email_replies"
+   ]
+  },
+  "sustain": {
+   "w": "sustain",
+   "pos": "v",
+   "def": "to keep something going over a period of time",
+   "ex": "It is hard to sustain a friendship over long distances.",
+   "lessons": [
+    "b2_40_informal_email_writing"
+   ]
+  },
+  "active voice": {
+   "w": "active voice",
+   "pos": "n",
+   "def": "a sentence form in which the subject does the action",
+   "ex": "Use the active voice to make your writing more direct.",
+   "lessons": [
+    "b2_40_informal_email_writing"
+   ]
+  },
+  "contraction": {
+   "w": "contraction",
+   "pos": "n",
+   "def": "a short form of words joined together, such as it's",
+   "ex": "Avoid contractions in very formal letters.",
+   "lessons": [
+    "b2_40_informal_email_writing"
+   ]
+  },
+  "well-paid": {
+   "w": "well-paid",
+   "pos": "adj",
+   "def": "earning a lot of money for the work done",
+   "ex": "Engineers are usually well-paid in this country.",
+   "lessons": [
+    "b2_41_celebrity_debate"
+   ]
+  },
+  "tv personality": {
+   "w": "tv personality",
+   "pos": "n",
+   "def": "a famous person who often appears on television",
+   "ex": "The new show is hosted by a popular tv personality.",
+   "lessons": [
+    "b2_41_celebrity_debate"
+   ]
+  },
+  "burst into laughter": {
+   "w": "burst into laughter",
+   "pos": "phr",
+   "def": "to suddenly start laughing loudly",
+   "ex": "Everyone burst into laughter when the dog stole his sandwich.",
+   "lessons": [
+    "b2_42_telling_funny_stories"
+   ]
+  },
+  "amused": {
+   "w": "amused",
+   "pos": "adj",
+   "def": "finding something funny or entertaining",
+   "ex": "She was amused by the children's silly game.",
+   "lessons": [
+    "b2_42_telling_funny_stories"
+   ]
+  },
+  "crude": {
+   "w": "crude",
+   "pos": "adj",
+   "def": "rude and offensive, especially about the body",
+   "ex": "His crude jokes upset some of the guests.",
+   "lessons": [
+    "b2_42_telling_funny_stories"
+   ]
+  },
+  "sequencing": {
+   "w": "sequencing",
+   "pos": "n",
+   "def": "putting events or ideas in the right order",
+   "ex": "Good sequencing makes a story easy to follow.",
+   "lessons": [
+    "b2_42_telling_funny_stories"
+   ]
+  },
+  "filling silence": {
+   "w": "filling silence",
+   "pos": "phr",
+   "def": "talking so that there is no quiet moment",
+   "ex": "He talks about the weather just for filling silence.",
+   "lessons": [
+    "b2_43_making_small_talk"
+   ]
+  },
+  "conversationalist": {
+   "w": "conversationalist",
+   "pos": "n",
+   "def": "a person who is good at talking with others",
+   "ex": "My uncle is a wonderful conversationalist at dinner.",
+   "lessons": [
+    "b2_43_making_small_talk"
+   ]
+  },
+  "valued": {
+   "w": "valued",
+   "pos": "adj",
+   "def": "feeling important and appreciated by others",
+   "ex": "Staff work harder when they feel valued.",
+   "lessons": [
+    "b2_43_making_small_talk"
+   ]
+  },
+  "danger zone": {
+   "w": "danger zone",
+   "pos": "n",
+   "def": "a subject that might cause trouble in a conversation",
+   "ex": "Money and politics are danger zones at family dinners.",
+   "lessons": [
+    "b2_43_making_small_talk"
+   ]
+  },
+  "constructive": {
+   "w": "constructive",
+   "pos": "adj",
+   "def": "helpful and meant to improve something",
+   "ex": "Thank you for your constructive comments on my essay.",
+   "lessons": [
+    "b2_45_giving_feedback"
+   ]
+  },
+  "unhelpful": {
+   "w": "unhelpful",
+   "pos": "adj",
+   "def": "not useful or not making things better",
+   "ex": "His unhelpful remarks only made her more upset.",
+   "lessons": [
+    "b2_45_giving_feedback"
+   ]
+  },
+  "hurt feelings": {
+   "w": "hurt feelings",
+   "pos": "phr",
+   "def": "to upset a person by saying or doing something unkind",
+   "ex": "Honest comments can hurt feelings if they are said carelessly.",
+   "lessons": [
+    "b2_45_giving_feedback"
+   ]
+  },
+  "presence": {
+   "w": "presence",
+   "pos": "n",
+   "def": "the impression you make on others through your manner",
+   "ex": "She has a calm presence on video calls.",
+   "lessons": [
+    "b2_46_remote_work"
+   ]
+  },
+  "customer service": {
+   "w": "customer service",
+   "pos": "n",
+   "def": "help and advice a company gives to the people who buy from it",
+   "ex": "Their customer service is quick and friendly.",
+   "lessons": [
+    "b2_47_handling_complaints"
+   ]
+  },
+  "systematically": {
+   "w": "systematically",
+   "pos": "adv",
+   "def": "in a careful and organised way",
+   "ex": "The police searched the house systematically.",
+   "lessons": [
+    "b2_48_writing_reports"
+   ]
+  },
+  "aligned": {
+   "w": "aligned",
+   "pos": "adj",
+   "def": "in agreement and working towards the same aims",
+   "ex": "Make sure the whole team is aligned before the launch.",
+   "lessons": [
+    "b2_48_writing_reports"
+   ]
+  },
+  "intimidating": {
+   "w": "intimidating",
+   "pos": "adj",
+   "def": "making you feel nervous or less confident",
+   "ex": "Speaking to a big crowd can be intimidating.",
+   "lessons": [
+    "b2_49_networking_events"
+   ]
+  },
+  "job board": {
+   "w": "job board",
+   "pos": "n",
+   "def": "a website where job openings are listed",
+   "ex": "She found her new role on an online job board.",
+   "lessons": [
+    "b2_49_networking_events"
+   ]
+  },
+  "dynamics": {
+   "w": "dynamics",
+   "pos": "n",
+   "def": "the way people in a group behave and affect each other",
+   "ex": "The dynamics of the group changed when he joined.",
+   "lessons": [
+    "b2_50_leading_meetings"
+   ]
+  },
+  "make a case": {
+   "w": "make a case",
+   "pos": "phr",
+   "def": "to give reasons why something should happen",
+   "ex": "You need data to make a case for more staff.",
+   "lessons": [
+    "b2_51_presenting_data"
+   ]
+  },
+  "cultural background": {
+   "w": "cultural background",
+   "pos": "n",
+   "def": "the customs and beliefs of the society a person comes from",
+   "ex": "Our team includes people from many cultural backgrounds.",
+   "lessons": [
+    "b2_52_cross_cultural_business"
+   ]
+  },
+  "enrich": {
+   "w": "enrich",
+   "pos": "v",
+   "def": "to improve something by adding something valuable",
+   "ex": "Travelling abroad can enrich your understanding of the world.",
+   "lessons": [
+    "b2_52_cross_cultural_business"
+   ]
+  },
+  "high-context": {
+   "w": "high-context",
+   "pos": "adj",
+   "def": "relying on shared understanding and hints rather than direct words",
+   "ex": "In a high-context culture, much meaning is left unsaid.",
+   "lessons": [
+    "b2_52_cross_cultural_business"
+   ]
+  },
+  "hesitant": {
+   "w": "hesitant",
+   "pos": "adj",
+   "def": "slow to act or speak because you are not sure",
+   "ex": "He was hesitant to accept the job abroad.",
+   "lessons": [
+    "b2_54_persuasion_at_work"
+   ]
+  },
+  "approve": {
+   "w": "approve",
+   "pos": "v",
+   "def": "to officially agree to a plan or request",
+   "ex": "The council approved the plans for a new park.",
+   "lessons": [
+    "b2_54_persuasion_at_work"
+   ]
+  },
+  "gain support": {
+   "w": "gain support",
+   "pos": "phr",
+   "def": "to get more people to agree with or help you",
+   "ex": "The idea slowly began to gain support among staff.",
+   "lessons": [
+    "b2_54_persuasion_at_work"
+   ]
+  },
+  "phone anxiety": {
+   "w": "phone anxiety",
+   "pos": "n",
+   "def": "fear or nervousness about making or answering phone calls",
+   "ex": "Many young people suffer from phone anxiety.",
+   "lessons": [
+    "b2_55_telephone_skills"
+   ]
+  },
+  "real-time": {
+   "w": "real-time",
+   "pos": "adj",
+   "def": "happening at the same moment, with no delay",
+   "ex": "The app gives real-time updates on train delays.",
+   "lessons": [
+    "b2_55_telephone_skills"
+   ]
+  },
+  "food miles": {
+   "w": "food miles",
+   "pos": "n",
+   "def": "the distance food travels from where it is produced to the shop",
+   "ex": "Buying local produce reduces food miles.",
+   "lessons": [
+    "b2_56_food_sustainability"
+   ]
+  },
+  "produce": {
+   "w": "produce",
+   "pos": "n",
+   "def": "food grown on farms, especially fruit and vegetables",
+   "ex": "The market sells fresh local produce every weekend.",
+   "lessons": [
+    "b2_56_food_sustainability"
+   ]
+  },
+  "food waste": {
+   "w": "food waste",
+   "pos": "n",
+   "def": "food that is thrown away without being eaten",
+   "ex": "Planning meals helps reduce food waste at home.",
+   "lessons": [
+    "b2_56_food_sustainability"
+   ]
+  },
+  "draw the line": {
+   "w": "draw the line",
+   "pos": "phr",
+   "def": "to set a limit on what you are willing to accept",
+   "ex": "I like helping friends, but I draw the line at lending money.",
+   "lessons": [
+    "b2_57_medical_ethics"
+   ]
+  },
+  "thrill seeker": {
+   "w": "thrill seeker",
+   "pos": "n",
+   "def": "a person who enjoys exciting and dangerous activities",
+   "ex": "As a thrill seeker, he loves skydiving.",
+   "lessons": [
+    "b2_58_adventure_travel"
+   ]
+  },
+  "push boundaries": {
+   "w": "push boundaries",
+   "pos": "phr",
+   "def": "to try to go beyond normal limits",
+   "ex": "Young artists often push boundaries with their work.",
+   "lessons": [
+    "b2_58_adventure_travel"
+   ]
+  },
+  "capability": {
+   "w": "capability",
+   "pos": "n",
+   "def": "the ability or power to do something",
+   "ex": "We underestimated the capability of the small boat.",
+   "lessons": [
+    "b2_58_adventure_travel"
+   ]
+  },
+  "browsing": {
+   "w": "browsing",
+   "pos": "n",
+   "def": "looking at websites without a clear purpose",
+   "ex": "I spent an hour browsing online shops.",
+   "lessons": [
+    "b2_59_digital_wellbeing"
+   ]
+  },
+  "woven into": {
+   "w": "woven into",
+   "pos": "phr",
+   "def": "forming an important part of something",
+   "ex": "Music is woven into every part of their culture.",
+   "lessons": [
+    "b2_59_digital_wellbeing"
+   ]
+  },
+  "medium": {
+   "w": "medium",
+   "pos": "n",
+   "def": "a way of communicating information or art to people",
+   "ex": "Radio is still a popular medium for news.",
+   "lessons": [
+    "b2_60_film_criticism"
+   ]
+  },
+  "provoke": {
+   "w": "provoke",
+   "pos": "v",
+   "def": "to cause a strong reaction or feeling",
+   "ex": "His comments provoked an angry response.",
+   "lessons": [
+    "b2_60_film_criticism"
+   ]
+  },
+  "art-house": {
+   "w": "art-house",
+   "pos": "adj",
+   "def": "describing serious films made for small audiences",
+   "ex": "We watched an art-house film at the small cinema.",
+   "lessons": [
+    "b2_60_film_criticism"
+   ]
+  },
+  "survey": {
+   "w": "survey",
+   "pos": "n",
+   "def": "a set of questions asked to many people to gather information",
+   "ex": "The survey showed that most people want more parks.",
+   "lessons": [
+    "b2_62_culture_humour_language",
+    "epicurean_03_primary_sources"
+   ]
+  },
+  "findings": {
+   "w": "findings",
+   "pos": "n",
+   "def": "the information discovered as the result of research",
+   "ex": "The findings will be published next month.",
+   "lessons": [
+    "b2_62_culture_humour_language"
+   ]
+  },
+  "aspect": {
+   "w": "aspect",
+   "pos": "n",
+   "def": "one part or feature of a situation",
+   "ex": "The best aspect of the job is the travel.",
+   "lessons": [
+    "b2_62_culture_humour_language"
+   ]
+  },
+  "dissatisfaction": {
+   "w": "dissatisfaction",
+   "pos": "n",
+   "def": "a feeling of not being pleased with something",
+   "ex": "Customers expressed dissatisfaction with the new menu.",
+   "lessons": [
+    "b2_65_find_that_annoying"
+   ]
+  },
+  "frustration": {
+   "w": "frustration",
+   "pos": "n",
+   "def": "a feeling of annoyance when things do not happen as you want",
+   "ex": "I understand your frustration with the delays.",
+   "lessons": [
+    "b2_65_find_that_annoying"
+   ]
+  },
+  "compliment": {
+   "w": "compliment",
+   "pos": "n",
+   "def": "a polite remark that praises someone",
+   "ex": "She paid me a nice compliment about my cooking.",
+   "lessons": [
+    "b2_65_find_that_annoying"
+   ]
+  },
+  "familiarity": {
+   "w": "familiarity",
+   "pos": "n",
+   "def": "good knowledge of something because you have seen it often",
+   "ex": "His familiarity with the area made him a great guide.",
+   "lessons": [
+    "b2_65_find_that_annoying"
+   ]
+  },
+  "revolutionize": {
+   "w": "revolutionize",
+   "pos": "v",
+   "def": "to completely change the way something is done",
+   "ex": "Mobile phones revolutionized how people keep in touch.",
+   "lessons": [
+    "b2_66_impact_of_technology"
+   ]
+  },
+  "commerce": {
+   "w": "commerce",
+   "pos": "n",
+   "def": "the activity of buying and selling goods",
+   "ex": "Online commerce grew quickly during the last decade.",
+   "lessons": [
+    "b2_66_impact_of_technology"
+   ]
+  },
+  "coordination": {
+   "w": "coordination",
+   "pos": "n",
+   "def": "organising people or things so they work well together",
+   "ex": "The event needed careful coordination between teams.",
+   "lessons": [
+    "b2_66_impact_of_technology"
+   ]
+  },
+  "proxy vote": {
+   "w": "proxy vote",
+   "pos": "n",
+   "def": "a vote given by one person for another who is absent",
+   "ex": "She sent a proxy vote because she was abroad.",
+   "lessons": [
+    "b2_67_making_a_decision"
+   ]
+  },
+  "casting vote": {
+   "w": "casting vote",
+   "pos": "n",
+   "def": "the deciding vote used when the votes are equal",
+   "ex": "The chair used her casting vote to approve the plan.",
+   "lessons": [
+    "b2_67_making_a_decision"
+   ]
+  },
+  "in favour of": {
+   "w": "in favour of",
+   "pos": "phr",
+   "def": "supporting or agreeing with something",
+   "ex": "Most people were in favour of a shorter working week.",
+   "lessons": [
+    "b2_67_making_a_decision"
+   ]
+  },
+  "cardiovascular": {
+   "w": "cardiovascular",
+   "pos": "adj",
+   "def": "connected with the heart and blood vessels",
+   "ex": "Swimming is a great form of cardiovascular exercise.",
+   "lessons": [
+    "b2_68_keeping_fit"
+   ]
+  },
+  "keep fit": {
+   "w": "keep fit",
+   "pos": "phr",
+   "def": "to stay healthy and strong through exercise",
+   "ex": "I walk every day to keep fit.",
+   "lessons": [
+    "b2_68_keeping_fit"
+   ]
+  },
+  "regularly": {
+   "w": "regularly",
+   "pos": "adv",
+   "def": "often and at the same times",
+   "ex": "She goes swimming regularly before work.",
+   "lessons": [
+    "b2_68_keeping_fit"
+   ]
+  },
+  "zero-hour contract": {
+   "w": "zero-hour contract",
+   "pos": "n",
+   "def": "a work agreement with no fixed minimum hours",
+   "ex": "On a zero-hour contract, she never knows her weekly pay.",
+   "lessons": [
+    "b2_69_changes_in_workplace"
+   ]
+  },
+  "trade union": {
+   "w": "trade union",
+   "pos": "n",
+   "def": "an organisation that protects workers' rights",
+   "ex": "He joined a trade union when he started at the factory.",
+   "lessons": [
+    "b2_69_changes_in_workplace"
+   ]
+  },
+  "sick pay": {
+   "w": "sick pay",
+   "pos": "n",
+   "def": "money you receive from your employer when you are ill",
+   "ex": "The company offers full sick pay for two weeks.",
+   "lessons": [
+    "b2_69_changes_in_workplace"
+   ]
+  },
+  "fair trade": {
+   "w": "fair trade",
+   "pos": "n",
+   "def": "a system that pays farmers in poorer countries a fair price",
+   "ex": "We only buy fair trade coffee at the office.",
+   "lessons": [
+    "b2_70_fair_trade"
+   ]
+  },
+  "consumer": {
+   "w": "consumer",
+   "pos": "n",
+   "def": "a person who buys goods or services",
+   "ex": "Consumers want clear labels on food.",
+   "lessons": [
+    "b2_70_fair_trade"
+   ]
+  },
+  "retail": {
+   "w": "retail",
+   "pos": "n",
+   "def": "the sale of goods to the public in shops",
+   "ex": "She has worked in retail for ten years.",
+   "lessons": [
+    "b2_70_fair_trade"
+   ]
+  },
+  "consumption": {
+   "w": "consumption",
+   "pos": "n",
+   "def": "the amount of something that is used or eaten",
+   "ex": "Our coffee consumption doubles during exams.",
+   "lessons": [
+    "b2_70_fair_trade"
+   ]
+  },
+  "get someone down": {
+   "w": "get someone down",
+   "pos": "phr",
+   "def": "to make someone feel sad or depressed",
+   "ex": "The grey weather is starting to get me down.",
+   "lessons": [
+    "b2_71_work_life_balance"
+   ]
+  },
+  "strike a balance": {
+   "w": "strike a balance",
+   "pos": "phr",
+   "def": "to find a fair middle point between two things",
+   "ex": "It is hard to strike a balance between work and family.",
+   "lessons": [
+    "b2_71_work_life_balance"
+   ]
+  },
+  "miss out": {
+   "w": "miss out",
+   "pos": "phr v",
+   "def": "to lose the chance to do or enjoy something",
+   "ex": "I do not want to miss out on the trip.",
+   "lessons": [
+    "b2_71_work_life_balance"
+   ]
+  },
+  "trainers": {
+   "w": "trainers",
+   "pos": "n",
+   "def": "shoes made for sport or casual wear",
+   "ex": "He wore old trainers to the gym.",
+   "lessons": [
+    "b2_73_dress_for_success"
+   ]
+  },
+  "accessories": {
+   "w": "accessories",
+   "pos": "n",
+   "def": "extra items worn with clothes, such as belts or jewellery",
+   "ex": "She added a scarf and some simple accessories.",
+   "lessons": [
+    "b2_73_dress_for_success"
+   ]
+  },
+  "fabric": {
+   "w": "fabric",
+   "pos": "n",
+   "def": "material made by weaving or knitting fibres",
+   "ex": "This fabric is soft and keeps you warm.",
+   "lessons": [
+    "b2_73_dress_for_success"
+   ]
+  },
+  "outfit": {
+   "w": "outfit",
+   "pos": "n",
+   "def": "a set of clothes worn together",
+   "ex": "She bought a new outfit for the wedding.",
+   "lessons": [
+    "b2_73_dress_for_success"
+   ]
+  },
+  "trousers": {
+   "w": "trousers",
+   "pos": "n",
+   "def": "a piece of clothing covering each leg from waist to ankle",
+   "ex": "These trousers are too long for me.",
+   "lessons": [
+    "b2_73_dress_for_success"
+   ]
+  },
+  "frequent": {
+   "w": "frequent",
+   "pos": "adj",
+   "def": "happening often or many times in a short period",
+   "ex": "There are frequent trains to the coast in summer.",
+   "lessons": [
+    "b2_74_ways_of_travelling"
+   ]
+  },
+  "duty free": {
+   "w": "duty free",
+   "pos": "adj",
+   "def": "sold without tax, usually at airports",
+   "ex": "She bought some duty free perfume on her way home.",
+   "lessons": [
+    "b2_74_ways_of_travelling"
+   ]
+  },
+  "indirect flight": {
+   "w": "indirect flight",
+   "pos": "n",
+   "def": "a flight that stops at one or more places on the way",
+   "ex": "An indirect flight was much cheaper but took longer.",
+   "lessons": [
+    "b2_74_ways_of_travelling"
+   ]
+  },
+  "prioritize": {
+   "w": "prioritize",
+   "pos": "v",
+   "def": "to deal with the most important things first",
+   "ex": "You need to prioritize your tasks each morning.",
+   "lessons": [
+    "b2_75_managing_stress"
+   ]
+  },
+  "attentive": {
+   "w": "attentive",
+   "pos": "adj",
+   "def": "listening or watching carefully and helping when needed",
+   "ex": "The waiter was very attentive all evening.",
+   "lessons": [
+    "b2_76_creating_connections"
+   ]
+  },
+  "emotional awareness": {
+   "w": "emotional awareness",
+   "pos": "n",
+   "def": "understanding the feelings of yourself and others",
+   "ex": "Emotional awareness helps you handle conflict calmly.",
+   "lessons": [
+    "b2_76_creating_connections"
+   ]
+  },
+  "anagram": {
+   "w": "anagram",
+   "pos": "n",
+   "def": "a word made by changing the order of letters in another word",
+   "ex": "Listen is an anagram of silent.",
+   "lessons": [
+    "b2_77_cope_with_unexpected"
+   ]
+  },
+  "attentiveness": {
+   "w": "attentiveness",
+   "pos": "n",
+   "def": "the quality of paying close attention to someone's needs",
+   "ex": "The staff's attentiveness made the meal special.",
+   "lessons": [
+    "b2_78_bad_restaurant"
+   ]
+  },
+  "firmly": {
+   "w": "firmly",
+   "pos": "adv",
+   "def": "in a strong and determined way",
+   "ex": "She firmly refused to pay for the cold soup.",
+   "lessons": [
+    "b2_78_bad_restaurant"
+   ]
+  },
+  "poor service": {
+   "w": "poor service",
+   "pos": "n",
+   "def": "help from staff that is slow, rude or not good enough",
+   "ex": "We left no tip because of the poor service.",
+   "lessons": [
+    "b2_78_bad_restaurant"
+   ]
+  },
+  "sympathy": {
+   "w": "sympathy",
+   "pos": "n",
+   "def": "a feeling of sadness for someone else's problems",
+   "ex": "We sent flowers to show our sympathy.",
+   "lessons": [
+    "b2_79_making_a_complaint"
+   ]
+  },
+  "look into": {
+   "w": "look into",
+   "pos": "phr v",
+   "def": "to examine or investigate something",
+   "ex": "I will look into the problem and call you back.",
+   "lessons": [
+    "b2_79_making_a_complaint"
+   ]
+  },
+  "maritime": {
+   "w": "maritime",
+   "pos": "adj",
+   "def": "connected with the sea or ships",
+   "ex": "The city has a long maritime history.",
+   "lessons": [
+    "b2_80_in_the_news"
+   ]
+  },
+  "global problem": {
+   "w": "global problem",
+   "pos": "n",
+   "def": "a serious difficulty that affects the whole world",
+   "ex": "Plastic waste has become a global problem.",
+   "lessons": [
+    "b2_80_in_the_news"
+   ]
+  },
+  "exhibit": {
+   "w": "exhibit",
+   "pos": "n",
+   "def": "an object shown to the public in a museum",
+   "ex": "The most popular exhibit is a huge dinosaur skeleton.",
+   "lessons": [
+    "b2_81_live_performance"
+   ]
+  },
+  "relative clause": {
+   "w": "relative clause",
+   "pos": "n",
+   "def": "part of a sentence that gives more information about a noun",
+   "ex": "A relative clause can tell us which person you mean.",
+   "lessons": [
+    "b2_82_problems_at_work"
+   ]
+  },
+  "accurately": {
+   "w": "accurately",
+   "pos": "adv",
+   "def": "in a correct and exact way",
+   "ex": "Please fill in the form accurately and clearly.",
+   "lessons": [
+    "b2_82_problems_at_work"
+   ]
+  },
+  "career": {
+   "w": "career",
+   "pos": "n",
+   "def": "the series of jobs a person has during their working life",
+   "ex": "He started his career as a junior designer.",
+   "lessons": [
+    "b2_83_changing_jobs"
+   ]
+  },
+  "good idea": {
+   "w": "good idea",
+   "pos": "phr",
+   "def": "a plan or suggestion that seems sensible",
+   "ex": "Saving a little every month is a good idea.",
+   "lessons": [
+    "b2_83_changing_jobs"
+   ]
+  },
+  "expression": {
+   "w": "expression",
+   "pos": "n",
+   "def": "a word or group of words with a particular meaning",
+   "ex": "Learn a few expressions for giving polite advice.",
+   "lessons": [
+    "b2_83_changing_jobs"
+   ]
+  },
+  "agreement": {
+   "w": "agreement",
+   "pos": "n",
+   "def": "the situation when people share the same opinion",
+   "ex": "We finally reached agreement on the new plan.",
+   "lessons": [
+    "b2_84_no_free_lunch"
+   ]
+  },
+  "personal experience": {
+   "w": "personal experience",
+   "pos": "n",
+   "def": "something that has happened to you yourself",
+   "ex": "From personal experience, I know how hard moving is.",
+   "lessons": [
+    "b2_85_superstitions"
+   ]
+  },
+  "fundraising": {
+   "w": "fundraising",
+   "pos": "n",
+   "def": "the activity of collecting money for a cause",
+   "ex": "The fundraising dinner raised enough for a new roof.",
+   "lessons": [
+    "b2_87_organising_event"
+   ]
+  },
+  "senior": {
+   "w": "senior",
+   "pos": "adj",
+   "def": "having a high position or rank in an organisation",
+   "ex": "He was promoted to a senior role last year.",
+   "lessons": [
+    "b2_88_proving_your_worth"
+   ]
+  },
+  "audiobook": {
+   "w": "audiobook",
+   "pos": "n",
+   "def": "a recording of a book being read aloud",
+   "ex": "I listen to an audiobook on my long drive.",
+   "lessons": [
+    "b2_93_talking_about_books"
+   ]
+  },
+  "literature": {
+   "w": "literature",
+   "pos": "n",
+   "def": "written works such as novels, plays and poems",
+   "ex": "She studied classic literature at university.",
+   "lessons": [
+    "b2_93_talking_about_books"
+   ]
+  },
+  "book review": {
+   "w": "book review",
+   "pos": "n",
+   "def": "an article giving an opinion about a book",
+   "ex": "The book review praised the clever ending.",
+   "lessons": [
+    "b2_93_talking_about_books"
+   ]
+  },
+  "core system": {
+   "w": "core system",
+   "pos": "n",
+   "def": "the main computer system that a business depends on",
+   "ex": "The core system crashed during the busiest hour.",
+   "lessons": [
+    "b2_95_it_outage_communication"
+   ]
+  },
+  "informed": {
+   "w": "informed",
+   "pos": "adj",
+   "def": "having knowledge about a situation",
+   "ex": "We will keep you informed of any changes.",
+   "lessons": [
+    "b2_95_it_outage_communication"
+   ]
+  },
+  "panicked": {
+   "w": "panicked",
+   "pos": "adj",
+   "def": "feeling sudden strong fear that stops clear thinking",
+   "ex": "The panicked crowd rushed towards the exits.",
+   "lessons": [
+    "b2_95_it_outage_communication"
+   ]
+  },
+  "safety concern": {
+   "w": "safety concern",
+   "pos": "n",
+   "def": "a worry that something could cause harm or injury",
+   "ex": "Workers raised a safety concern about the old ladder.",
+   "lessons": [
+    "b2_96_engineering_safety_concerns"
+   ]
+  },
+  "on site": {
+   "w": "on site",
+   "pos": "phr",
+   "def": "at the place where building work is happening",
+   "ex": "Hard hats must be worn at all times on site.",
+   "lessons": [
+    "b2_96_engineering_safety_concerns"
+   ]
+  },
+  "negative": {
+   "w": "negative",
+   "pos": "adj",
+   "def": "thinking only about the bad side of things",
+   "ex": "Try not to be so negative about the changes.",
+   "lessons": [
+    "b2_96_engineering_safety_concerns"
+   ]
+  },
+  "missed payment": {
+   "w": "missed payment",
+   "pos": "n",
+   "def": "a payment that was not made on time",
+   "ex": "One missed payment can hurt your credit score.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "ratio": {
+   "w": "ratio",
+   "pos": "n",
+   "def": "the relationship between two amounts shown as numbers",
+   "ex": "The ratio of staff to customers is too low.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "payout": {
+   "w": "payout",
+   "pos": "n",
+   "def": "a large amount of money paid to someone",
+   "ex": "The insurance payout covered the new kitchen.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "small print": {
+   "w": "small print",
+   "pos": "n",
+   "def": "the details in a contract that are easy to miss",
+   "ex": "Always read the small print before you sign.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "covered": {
+   "w": "covered",
+   "pos": "adj",
+   "def": "protected by an insurance policy",
+   "ex": "Is water damage covered by your policy?",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "burst": {
+   "w": "burst",
+   "pos": "v",
+   "def": "to break open suddenly because of pressure",
+   "ex": "A pipe burst and flooded the basement.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "stroll": {
+   "w": "stroll",
+   "pos": "v",
+   "def": "to walk slowly in a relaxed way",
+   "ex": "We strolled along the beach after dinner.",
+   "lessons": [
+    "b2_anchoring"
+   ]
+  },
+  "mental trap": {
+   "w": "mental trap",
+   "pos": "n",
+   "def": "a way of thinking that leads to poor decisions",
+   "ex": "Following the crowd is a common mental trap.",
+   "lessons": [
+    "b2_anchoring"
+   ]
+  },
+  "psychologist": {
+   "w": "psychologist",
+   "pos": "n",
+   "def": "a person who studies the mind and behaviour",
+   "ex": "The psychologist studied how stress affects memory.",
+   "lessons": [
+    "b2_anchoring"
+   ]
+  },
+  "jitters": {
+   "w": "jitters",
+   "pos": "n",
+   "def": "a feeling of nervousness before something important",
+   "ex": "I always get the jitters before a big presentation.",
+   "lessons": [
+    "b2_new_boss_in_town"
+   ]
+  },
+  "nerve-racking": {
+   "w": "nerve-racking",
+   "pos": "adj",
+   "def": "making you feel very nervous and worried",
+   "ex": "Waiting for the results was nerve-racking.",
+   "lessons": [
+    "b2_new_boss_in_town"
+   ]
+  },
+  "honeymoon period": {
+   "w": "honeymoon period",
+   "pos": "n",
+   "def": "a short time at the start when everyone is friendly and positive",
+   "ex": "The new manager's honeymoon period did not last long.",
+   "lessons": [
+    "b2_new_boss_in_town"
+   ]
+  },
+  "leadership": {
+   "w": "leadership",
+   "pos": "n",
+   "def": "the ability or position of guiding a group of people",
+   "ex": "Her strong leadership helped the team succeed.",
+   "lessons": [
+    "b2_new_boss_in_town"
+   ]
+  },
+  "run smoothly": {
+   "w": "run smoothly",
+   "pos": "phr",
+   "def": "to work well without any problems",
+   "ex": "Good planning helps the event run smoothly.",
+   "lessons": [
+    "b2_new_boss_in_town"
+   ]
+  },
+  "back out": {
+   "w": "back out",
+   "pos": "phr v",
+   "def": "to decide not to do something you agreed to do",
+   "ex": "He backed out of the deal at the last minute.",
+   "lessons": [
+    "b2_the_ulysses_contract"
+   ]
+  },
+  "deep work": {
+   "w": "deep work",
+   "pos": "n",
+   "def": "focused work done without any distraction",
+   "ex": "I turn off my phone for two hours of deep work.",
+   "lessons": [
+    "b2_the_ulysses_contract"
+   ]
+  },
+  "provocation": {
+   "w": "provocation",
+   "pos": "n",
+   "def": "an action or statement meant to cause a strong reaction",
+   "ex": "The question was meant as a provocation for debate.",
+   "lessons": [
+    "b2c1_dream_before_the_mast"
+   ]
+  },
+  "bind": {
+   "w": "bind",
+   "pos": "v",
+   "def": "to tie or force someone to do something",
+   "ex": "The contract binds you to stay for two years.",
+   "lessons": [
+    "b2c1_dream_before_the_mast"
+   ]
+  },
+  "quietly": {
+   "w": "quietly",
+   "pos": "adv",
+   "def": "in a calm way that is not easily noticed",
+   "ex": "The new law quietly changed how people shop.",
+   "lessons": [
+    "b2c1_dream_before_the_mast"
+   ]
+  },
+  "draw out": {
+   "w": "draw out",
+   "pos": "phr v",
+   "def": "to encourage a shy person to talk more",
+   "ex": "A good host can draw out even the quietest guest.",
+   "lessons": [
+    "b2c1_the_art_of_questioning"
+   ]
+  },
+  "questioning": {
+   "w": "questioning",
+   "pos": "n",
+   "def": "the act of asking someone a series of questions",
+   "ex": "Careful questioning revealed the real problem.",
+   "lessons": [
+    "b2c1_the_art_of_questioning"
+   ]
+  },
+  "robbery": {
+   "w": "robbery",
+   "pos": "n",
+   "def": "the crime of taking money from someone using force",
+   "ex": "The bank robbery was caught on camera.",
+   "lessons": [
+    "bc_account_of_a_crime_b2c1"
+   ]
+  },
+  "burglary": {
+   "w": "burglary",
+   "pos": "n",
+   "def": "the crime of entering a building to steal things",
+   "ex": "There was a burglary on our street last night.",
+   "lessons": [
+    "bc_account_of_a_crime_b2c1"
+   ]
+  },
+  "deviate": {
+   "w": "deviate",
+   "pos": "v",
+   "def": "to move away from a plan or normal way",
+   "ex": "Do not deviate from the agreed route.",
+   "lessons": [
+    "bc_adapt_presentation_c1"
+   ]
+  },
+  "incorporate": {
+   "w": "incorporate",
+   "pos": "v",
+   "def": "to include something as part of something larger",
+   "ex": "We incorporated their feedback into the final design.",
+   "lessons": [
+    "bc_adapt_presentation_c1"
+   ]
+  },
+  "gauge": {
+   "w": "gauge",
+   "pos": "v",
+   "def": "to judge or estimate how people feel",
+   "ex": "It is hard to gauge the audience's mood online.",
+   "lessons": [
+    "bc_adapt_presentation_c1"
+   ]
+  },
+  "cross-functional": {
+   "w": "cross-functional",
+   "pos": "adj",
+   "def": "involving people from different departments",
+   "ex": "A cross-functional team designed the new product.",
+   "lessons": [
+    "bc_adapt_your_writing_c1"
+   ]
+  },
+  "summary": {
+   "w": "summary",
+   "pos": "n",
+   "def": "a short statement of the main points",
+   "ex": "Please send me a summary of the report.",
+   "lessons": [
+    "bc_adapt_your_writing_c1"
+   ]
+  },
+  "conflict resolution": {
+   "w": "conflict resolution",
+   "pos": "n",
+   "def": "ways of ending disagreements fairly and peacefully",
+   "ex": "The course covers conflict resolution at work.",
+   "lessons": [
+    "bc_advanced_life_skills_c1"
+   ]
+  },
+  "teamwork": {
+   "w": "teamwork",
+   "pos": "n",
+   "def": "working well together with others to reach a goal",
+   "ex": "The project succeeded thanks to great teamwork.",
+   "lessons": [
+    "bc_advanced_life_skills_c1"
+   ]
+  },
+  "data analysis": {
+   "w": "data analysis",
+   "pos": "n",
+   "def": "the process of studying information to find useful patterns",
+   "ex": "Data analysis showed that sales peak in summer.",
+   "lessons": [
+    "bc_advanced_life_skills_c1"
+   ]
+  },
+  "large-scale": {
+   "w": "large-scale",
+   "pos": "adj",
+   "def": "involving many people or things over a wide area",
+   "ex": "A large-scale study looked at sleep habits.",
+   "lessons": [
+    "bc_complex_situations_c1"
+   ]
+  },
+  "causative": {
+   "w": "causative",
+   "pos": "n",
+   "def": "a structure showing that someone arranges for another to act",
+   "ex": "We had our roof repaired is a causative structure.",
+   "lessons": [
+    "bc_complex_situations_c1"
+   ]
+  },
+  "dam": {
+   "w": "dam",
+   "pos": "n",
+   "def": "a wall built across a river to hold back water",
+   "ex": "The new dam provides electricity for the region.",
+   "lessons": [
+    "bc_complex_situations_c1"
+   ]
+  },
+  "simulation": {
+   "w": "simulation",
+   "pos": "n",
+   "def": "a practice activity that copies a real situation",
+   "ex": "Pilots train for emergencies using a flight simulation.",
+   "lessons": [
+    "bc_confident_meetings_c1"
+   ]
+  },
+  "persist": {
+   "w": "persist",
+   "pos": "v",
+   "def": "to continue to exist for a long time",
+   "ex": "The rumours persisted for many years.",
+   "lessons": [
+    "bc_conspiracy_theories_b2c1"
+   ]
+  },
+  "contrary": {
+   "w": "contrary",
+   "pos": "adj",
+   "def": "completely different or opposite to something",
+   "ex": "Despite evidence to the contrary, he still believes the story.",
+   "lessons": [
+    "bc_conspiracy_theories_b2c1"
+   ]
+  },
+  "convincingly": {
+   "w": "convincingly",
+   "pos": "adv",
+   "def": "in a way that makes people believe something",
+   "ex": "He argued convincingly that the plan would fail.",
+   "lessons": [
+    "bc_conspiracy_theories_b2c1"
+   ]
+  },
+  "steering committee": {
+   "w": "steering committee",
+   "pos": "n",
+   "def": "a group that guides the direction of a project",
+   "ex": "The steering committee meets once a month.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "go about": {
+   "w": "go about",
+   "pos": "phr v",
+   "def": "to start dealing with a task in a certain way",
+   "ex": "How do you go about choosing a new car?",
+   "lessons": [
+    "bc_creative_decision_making_b2c1"
+   ]
+  },
+  "adaptability": {
+   "w": "adaptability",
+   "pos": "n",
+   "def": "the ability to change to suit new conditions",
+   "ex": "Adaptability is important when you start a new job.",
+   "lessons": [
+    "bc_culture_shock_b2c1"
+   ]
+  },
+  "counter argument": {
+   "w": "counter argument",
+   "pos": "n",
+   "def": "an argument against another argument",
+   "ex": "Prepare a strong counter argument before the debate.",
+   "lessons": [
+    "bc_current_issues_c1"
+   ]
+  },
+  "fence-sitting": {
+   "w": "fence-sitting",
+   "pos": "n",
+   "def": "refusing to choose a side in an argument",
+   "ex": "There is no room for fence-sitting in this vote.",
+   "lessons": [
+    "bc_cycling_built_for_speed_c1"
+   ]
+  },
+  "aerodynamic": {
+   "w": "aerodynamic",
+   "pos": "adj",
+   "def": "shaped to move easily through the air",
+   "ex": "The new car has a sleek aerodynamic shape.",
+   "lessons": [
+    "bc_cycling_built_for_speed_c1"
+   ]
+  },
+  "downhill": {
+   "w": "downhill",
+   "pos": "adj",
+   "def": "going down a slope or hill",
+   "ex": "The downhill section of the race is very dangerous.",
+   "lessons": [
+    "bc_cycling_built_for_speed_c1"
+   ]
+  },
+  "gears": {
+   "w": "gears",
+   "pos": "n",
+   "def": "parts of a bike that change how hard you pedal",
+   "ex": "Change gears before you start climbing the hill.",
+   "lessons": [
+    "bc_cycling_built_for_speed_c1"
+   ]
+  },
+  "means of transport": {
+   "w": "means of transport",
+   "pos": "n",
+   "def": "a way of travelling from one place to another",
+   "ex": "The bus is the cheapest means of transport here.",
+   "lessons": [
+    "bc_cycling_c1"
+   ]
+  },
+  "functionality": {
+   "w": "functionality",
+   "pos": "n",
+   "def": "the range of things a device or program can do",
+   "ex": "The new version adds a lot of functionality.",
+   "lessons": [
+    "bc_data_and_information_c1"
+   ]
+  },
+  "connected speech": {
+   "w": "connected speech",
+   "pos": "n",
+   "def": "the way sounds join and change in natural speaking",
+   "ex": "In connected speech, want to often sounds like wanna.",
+   "lessons": [
+    "bc_data_and_information_c1"
+   ]
+  },
+  "extinct": {
+   "w": "extinct",
+   "pos": "adj",
+   "def": "no longer existing as a species",
+   "ex": "Many animals became extinct after humans arrived.",
+   "lessons": [
+    "bc_de_extinction_c1"
+   ]
+  },
+  "de-extinction": {
+   "w": "de-extinction",
+   "pos": "n",
+   "def": "bringing back animals that have died out using science",
+   "ex": "Some scientists believe de-extinction will soon be possible.",
+   "lessons": [
+    "bc_de_extinction_c1"
+   ]
+  },
+  "population": {
+   "w": "population",
+   "pos": "n",
+   "def": "all the animals of a particular kind in an area",
+   "ex": "The local population of wolves is growing.",
+   "lessons": [
+    "bc_de_extinction_c1"
+   ]
+  },
+  "volcanic": {
+   "w": "volcanic",
+   "pos": "adj",
+   "def": "produced by hot rock coming out of a mountain",
+   "ex": "The island has rich volcanic soil.",
+   "lessons": [
+    "bc_de_extinction_c1"
+   ]
+  },
+  "sophistication": {
+   "w": "sophistication",
+   "pos": "n",
+   "def": "a high level of skill, knowledge or complexity",
+   "ex": "Her writing shows great sophistication for her age.",
+   "lessons": [
+    "bc_debate_defend_view_c1"
+   ]
+  },
+  "vegetarian": {
+   "w": "vegetarian",
+   "pos": "n",
+   "def": "a person who does not eat meat or fish",
+   "ex": "She has been a vegetarian since childhood.",
+   "lessons": [
+    "bc_debate_defend_view_c1"
+   ]
+  },
+  "measure": {
+   "w": "measure",
+   "pos": "n",
+   "def": "a way of judging the value or size of something",
+   "ex": "Exam results are not the only measure of success.",
+   "lessons": [
+    "bc_debate_defend_view_c1"
+   ]
+  },
+  "competency": {
+   "w": "competency",
+   "pos": "n",
+   "def": "the ability to do something successfully",
+   "ex": "The course builds core competency in sales.",
+   "lessons": [
+    "bc_demonstrating_credibility_c1"
+   ]
+  },
+  "decisiveness": {
+   "w": "decisiveness",
+   "pos": "n",
+   "def": "the ability to make choices quickly and confidently",
+   "ex": "Leaders need decisiveness in a crisis.",
+   "lessons": [
+    "bc_demonstrating_credibility_c1"
+   ]
+  },
+  "consistency": {
+   "w": "consistency",
+   "pos": "n",
+   "def": "behaving or performing the same way over time",
+   "ex": "Consistency is the key to good results.",
+   "lessons": [
+    "bc_demonstrating_credibility_c1"
+   ]
+  },
+  "economy": {
+   "w": "economy",
+   "pos": "n",
+   "def": "the system of money, trade and industry in a country",
+   "ex": "The economy grew slowly last year.",
+   "lessons": [
+    "bc_economic_issues_c1"
+   ]
+  },
+  "stability": {
+   "w": "stability",
+   "pos": "n",
+   "def": "a situation that is calm and not likely to change",
+   "ex": "Investors usually look for political stability before spending money.",
+   "lessons": [
+    "bc_economic_issues_c1"
+   ]
+  },
+  "economically": {
+   "w": "economically",
+   "pos": "adv",
+   "def": "in a way that relates to money and trade",
+   "ex": "The region is economically weaker than the capital.",
+   "lessons": [
+    "bc_economic_issues_c1"
+   ]
+  },
+  "tolerance": {
+   "w": "tolerance",
+   "pos": "n",
+   "def": "willingness to accept beliefs or behaviour different from yours",
+   "ex": "We should teach children tolerance and respect.",
+   "lessons": [
+    "bc_education_and_training_c1"
+   ]
+  },
+  "extrovert": {
+   "w": "extrovert",
+   "pos": "n",
+   "def": "an outgoing person who enjoys being with others",
+   "ex": "As an extrovert, he loves big parties.",
+   "lessons": [
+    "bc_employment_matters_c1"
+   ]
+  },
+  "introverted": {
+   "w": "introverted",
+   "pos": "adj",
+   "def": "quiet and preferring to spend time alone",
+   "ex": "She is introverted and prefers small groups.",
+   "lessons": [
+    "bc_employment_matters_c1"
+   ]
+  },
+  "habitat loss": {
+   "w": "habitat loss",
+   "pos": "n",
+   "def": "the destruction of the natural home of animals or plants",
+   "ex": "Habitat loss is the biggest threat to wildlife.",
+   "lessons": [
+    "bc_endangered_species_b2c1"
+   ]
+  },
+  "wildlife": {
+   "w": "wildlife",
+   "pos": "n",
+   "def": "animals and plants living in natural conditions",
+   "ex": "The park is home to a lot of wildlife.",
+   "lessons": [
+    "bc_endangered_species_b2c1"
+   ]
+  },
+  "medium of instruction": {
+   "w": "medium of instruction",
+   "pos": "n",
+   "def": "the language used to teach subjects in schools",
+   "ex": "In many universities, the medium of instruction is changing.",
+   "lessons": [
+    "bc_english_as_medium_instruction_c1"
+   ]
+  },
+  "bilingual education": {
+   "w": "bilingual education",
+   "pos": "n",
+   "def": "teaching that uses two languages",
+   "ex": "Bilingual education helps children learn both languages early.",
+   "lessons": [
+    "bc_english_as_medium_instruction_c1"
+   ]
+  },
+  "tertiary education": {
+   "w": "tertiary education",
+   "pos": "n",
+   "def": "study at a university or college after secondary school",
+   "ex": "More young people now go on to tertiary education.",
+   "lessons": [
+    "bc_english_as_medium_instruction_c1"
+   ]
+  },
+  "abbreviation": {
+   "w": "abbreviation",
+   "pos": "n",
+   "def": "a short form of a word or phrase",
+   "ex": "Etc is an abbreviation for et cetera.",
+   "lessons": [
+    "bc_english_as_medium_instruction_c1"
+   ]
+  },
+  "imminent": {
+   "w": "imminent",
+   "pos": "adj",
+   "def": "about to happen very soon",
+   "ex": "The storm is imminent, so stay indoors.",
+   "lessons": [
+    "bc_environmental_science_c1"
+   ]
+  },
+  "invasive species": {
+   "w": "invasive species",
+   "pos": "n",
+   "def": "a plant or animal that harms a new area it spreads into",
+   "ex": "An invasive species can destroy local plants.",
+   "lessons": [
+    "bc_environmental_science_c1"
+   ]
+  },
+  "destructive": {
+   "w": "destructive",
+   "pos": "adj",
+   "def": "causing a lot of damage",
+   "ex": "The storm was the most destructive in years.",
+   "lessons": [
+    "bc_environmental_science_c1"
+   ]
+  },
+  "conservation project": {
+   "w": "conservation project",
+   "pos": "n",
+   "def": "planned work to protect nature or wildlife",
+   "ex": "Volunteers joined a conservation project on the coast.",
+   "lessons": [
+    "bc_environmental_science_c1"
+   ]
+  },
+  "artificial intelligence": {
+   "w": "artificial intelligence",
+   "pos": "n",
+   "def": "computer systems that can perform tasks needing human thinking",
+   "ex": "Artificial intelligence is changing many industries.",
+   "lessons": [
+    "bc_ethics_of_ai_c1"
+   ]
+  },
+  "third conditional": {
+   "w": "third conditional",
+   "pos": "n",
+   "def": "a structure for imagining a different past result",
+   "ex": "If I had known, I would have come is a third conditional.",
+   "lessons": [
+    "bc_ethics_of_ai_c1"
+   ]
+  },
+  "bill of rights": {
+   "w": "bill of rights",
+   "pos": "n",
+   "def": "a formal list of the basic rights of people",
+   "ex": "The country adopted a new bill of rights.",
+   "lessons": [
+    "bc_ethics_of_ai_c1"
+   ]
+  },
+  "click": {
+   "w": "click",
+   "pos": "v",
+   "def": "to suddenly become clear or understood",
+   "ex": "After the example, the idea finally clicked for me.",
+   "lessons": [
+    "bc_explain_intuitively_c1"
+   ]
+  },
+  "nod along": {
+   "w": "nod along",
+   "pos": "phr v",
+   "def": "to move your head to show agreement while listening",
+   "ex": "He nodded along but did not really understand.",
+   "lessons": [
+    "bc_explain_intuitively_c1"
+   ]
+  },
+  "plain language": {
+   "w": "plain language",
+   "pos": "n",
+   "def": "simple and clear words that everyone can understand",
+   "ex": "Write the instructions in plain language.",
+   "lessons": [
+    "bc_explain_intuitively_c1"
+   ]
+  },
+  "layered": {
+   "w": "layered",
+   "pos": "adj",
+   "def": "built up in several levels or stages",
+   "ex": "She gave a layered explanation, from simple to complex.",
+   "lessons": [
+    "bc_explain_intuitively_c1"
+   ]
+  },
+  "demeanour": {
+   "w": "demeanour",
+   "pos": "n",
+   "def": "the way a person looks and behaves",
+   "ex": "Her calm demeanour helped everyone relax.",
+   "lessons": [
+    "bc_first_impressions_c1"
+   ]
+  },
+  "instantaneous": {
+   "w": "instantaneous",
+   "pos": "adj",
+   "def": "happening immediately with no delay",
+   "ex": "The reaction to the news was instantaneous.",
+   "lessons": [
+    "bc_first_impressions_c1"
+   ]
+  },
+  "clear-cut": {
+   "w": "clear-cut",
+   "pos": "adj",
+   "def": "easy to understand and with no doubt about it",
+   "ex": "The answer is not as clear-cut as it seems.",
+   "lessons": [
+    "bc_follow_the_rules_c1"
+   ]
+  },
+  "universally": {
+   "w": "universally",
+   "pos": "adv",
+   "def": "by everyone or everywhere without exception",
+   "ex": "Clean water is universally accepted as a basic need.",
+   "lessons": [
+    "bc_follow_the_rules_c1"
+   ]
+  },
+  "guide": {
+   "w": "guide",
+   "pos": "v",
+   "def": "to help someone understand or move in a direction",
+   "ex": "Clear headings guide the reader through the report.",
+   "lessons": [
+    "bc_follow_the_rules_c1"
+   ]
+  },
+  "hack": {
+   "w": "hack",
+   "pos": "n",
+   "def": "a clever trick that makes a task easier",
+   "ex": "This kitchen hack saves me ten minutes every morning.",
+   "lessons": [
+    "bc_four_day_week_c1"
+   ]
+  },
+  "remote working": {
+   "w": "remote working",
+   "pos": "n",
+   "def": "doing your job from home or another place outside the office",
+   "ex": "Remote working gives parents more flexibility.",
+   "lessons": [
+    "bc_future_of_work_c1"
+   ]
+  },
+  "digital literacy": {
+   "w": "digital literacy",
+   "pos": "n",
+   "def": "the ability to use computers and the internet well",
+   "ex": "Digital literacy is essential for most jobs today.",
+   "lessons": [
+    "bc_future_of_work_c1"
+   ]
+  },
+  "soft skills": {
+   "w": "soft skills",
+   "pos": "n",
+   "def": "personal qualities that help you work well with others",
+   "ex": "Listening is one of the most important soft skills.",
+   "lessons": [
+    "bc_future_of_work_c1"
+   ]
+  },
+  "labour": {
+   "w": "labour",
+   "pos": "n",
+   "def": "physical work, especially hard work",
+   "ex": "The farm relies on cheap seasonal labour.",
+   "lessons": [
+    "bc_future_of_work_c1"
+   ]
+  },
+  "surpass": {
+   "w": "surpass",
+   "pos": "v",
+   "def": "to become better or greater than something else",
+   "ex": "Sales this year surpassed all our expectations.",
+   "lessons": [
+    "bc_future_shock_ai_b2c1"
+   ]
+  },
+  "exponential": {
+   "w": "exponential",
+   "pos": "adj",
+   "def": "growing faster and faster over time",
+   "ex": "The app saw exponential growth in its first year.",
+   "lessons": [
+    "bc_future_shock_ai_b2c1"
+   ]
+  },
+  "science fiction": {
+   "w": "science fiction",
+   "pos": "n",
+   "def": "stories about imagined future science and technology",
+   "ex": "He loves reading science fiction about space travel.",
+   "lessons": [
+    "bc_future_shock_ai_b2c1"
+   ]
+  },
+  "differ": {
+   "w": "differ",
+   "pos": "v",
+   "def": "to be not the same as something else",
+   "ex": "Our opinions differ on almost everything.",
+   "lessons": [
+    "bc_future_shock_ai_b2c1",
+    "epicurean_05_why_controversial"
+   ]
+  },
+  "early adopter": {
+   "w": "early adopter",
+   "pos": "n",
+   "def": "a person who buys new technology as soon as it appears",
+   "ex": "Early adopters often pay the highest prices.",
+   "lessons": [
+    "bc_gadgets_persuasion_b2c1"
+   ]
+  },
+  "must-have": {
+   "w": "must-have",
+   "pos": "n",
+   "def": "something that many people feel they need to own",
+   "ex": "These headphones are this year's must-have.",
+   "lessons": [
+    "bc_gadgets_persuasion_b2c1"
+   ]
+  },
+  "revolutionary": {
+   "w": "revolutionary",
+   "pos": "adj",
+   "def": "completely new and causing great change",
+   "ex": "The printing press was a revolutionary invention.",
+   "lessons": [
+    "bc_gadgets_persuasion_b2c1",
+    "epicurean_01_who_was_epicurus"
+   ]
+  },
+  "sales pitch": {
+   "w": "sales pitch",
+   "pos": "n",
+   "def": "a talk that tries to persuade people to buy something",
+   "ex": "The sales pitch was clever but too long.",
+   "lessons": [
+    "bc_gadgets_persuasion_b2c1"
+   ]
+  },
+  "globalisation": {
+   "w": "globalisation",
+   "pos": "n",
+   "def": "the process of businesses and cultures spreading worldwide",
+   "ex": "Globalisation has made products cheaper everywhere.",
+   "lessons": [
+    "bc_global_branding_c1"
+   ]
+  },
+  "emphasis": {
+   "w": "emphasis",
+   "pos": "n",
+   "def": "special importance given to something",
+   "ex": "The course puts emphasis on speaking skills.",
+   "lessons": [
+    "bc_global_branding_c1"
+   ]
+  },
+  "brand image": {
+   "w": "brand image",
+   "pos": "n",
+   "def": "the way the public sees a company and its products",
+   "ex": "The scandal damaged the company's brand image.",
+   "lessons": [
+    "bc_global_branding_c1"
+   ]
+  },
+  "marketing": {
+   "w": "marketing",
+   "pos": "n",
+   "def": "the work of promoting and selling products",
+   "ex": "She works in marketing for a sports company.",
+   "lessons": [
+    "bc_global_branding_c1"
+   ]
+  },
+  "worldwide": {
+   "w": "worldwide",
+   "pos": "adv",
+   "def": "in every part of the world",
+   "ex": "The song became famous worldwide within weeks.",
+   "lessons": [
+    "bc_global_branding_c1"
+   ]
+  },
+  "evaluative": {
+   "w": "evaluative",
+   "pos": "adj",
+   "def": "showing an opinion about how good or bad something is",
+   "ex": "Words like shocking are evaluative and show feelings.",
+   "lessons": [
+    "bc_green_news_c1"
+   ]
+  },
+  "catch your interest": {
+   "w": "catch your interest",
+   "pos": "phr",
+   "def": "to make you notice and want to know more",
+   "ex": "A good headline should catch your interest immediately.",
+   "lessons": [
+    "bc_green_news_c1"
+   ]
+  },
+  "vowel": {
+   "w": "vowel",
+   "pos": "n",
+   "def": "a speech sound made with an open mouth",
+   "ex": "English has five vowel letters but many vowel sounds.",
+   "lessons": [
+    "bc_green_news_c1"
+   ]
+  },
+  "adjective": {
+   "w": "adjective",
+   "pos": "n",
+   "def": "a word that describes a noun",
+   "ex": "Beautiful is an adjective that describes things we like.",
+   "lessons": [
+    "bc_green_news_c1"
+   ]
+  },
+  "goal setting": {
+   "w": "goal setting",
+   "pos": "n",
+   "def": "the process of deciding what you want to achieve",
+   "ex": "Goal setting helps you stay motivated.",
+   "lessons": [
+    "bc_grow_model_c1"
+   ]
+  },
+  "commit": {
+   "w": "commit",
+   "pos": "v",
+   "def": "to promise to do something or give your time to it",
+   "ex": "I committed to exercising three times a week.",
+   "lessons": [
+    "bc_grow_model_c1"
+   ]
+  },
+  "reality": {
+   "w": "reality",
+   "pos": "n",
+   "def": "the true situation as it actually exists",
+   "ex": "The reality of the job was very different.",
+   "lessons": [
+    "bc_grow_model_c1",
+    "discuss_c1_advice_industry"
+   ]
+  },
+  "inbox": {
+   "w": "inbox",
+   "pos": "n",
+   "def": "the place where new messages or tasks arrive",
+   "ex": "My inbox fills up every morning.",
+   "lessons": [
+    "bc_gtd_david_allen_c1"
+   ]
+  },
+  "to-do list": {
+   "w": "to-do list",
+   "pos": "n",
+   "def": "a list of tasks you need to complete",
+   "ex": "Write a short to-do list before you start work.",
+   "lessons": [
+    "bc_gtd_david_allen_c1"
+   ]
+  },
+  "paraphrasing": {
+   "w": "paraphrasing",
+   "pos": "n",
+   "def": "saying the same idea in different words",
+   "ex": "Paraphrasing helps you avoid copying a text.",
+   "lessons": [
+    "bc_gtd_david_allen_c1"
+   ]
+  },
+  "discomfort": {
+   "w": "discomfort",
+   "pos": "n",
+   "def": "a feeling of being uneasy or embarrassed",
+   "ex": "She felt some discomfort talking about money.",
+   "lessons": [
+    "bc_handling_intercultural_c1"
+   ]
+  },
+  "intercultural": {
+   "w": "intercultural",
+   "pos": "adj",
+   "def": "happening between people of different cultures",
+   "ex": "Working abroad helps you develop strong intercultural awareness.",
+   "lessons": [
+    "bc_handling_intercultural_c1"
+   ]
+  },
+  "growth": {
+   "w": "growth",
+   "pos": "n",
+   "def": "the process of developing or improving",
+   "ex": "Travel can lead to real personal growth.",
+   "lessons": [
+    "bc_handling_intercultural_c1"
+   ]
+  },
+  "response strategy": {
+   "w": "response strategy",
+   "pos": "n",
+   "def": "a planned way of reacting to a situation",
+   "ex": "Silence can be a useful response strategy.",
+   "lessons": [
+    "bc_handling_intercultural_c1"
+   ]
+  },
+  "inpatient": {
+   "w": "inpatient",
+   "pos": "adj",
+   "def": "staying in hospital while being treated",
+   "ex": "He needed two weeks of inpatient care.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "workaholic": {
+   "w": "workaholic",
+   "pos": "n",
+   "def": "a person who works too much and finds it hard to stop",
+   "ex": "My father was a workaholic who never took holidays.",
+   "lessons": [
+    "bc_high_performers_workaholism_b2c1"
+   ]
+  },
+  "high performer": {
+   "w": "high performer",
+   "pos": "n",
+   "def": "a person who regularly does excellent work",
+   "ex": "High performers are often given extra responsibility.",
+   "lessons": [
+    "bc_high_performers_workaholism_b2c1"
+   ]
+  },
+  "self-worth": {
+   "w": "self-worth",
+   "pos": "n",
+   "def": "the feeling that you are a good and valuable person",
+   "ex": "Losing his job hurt his sense of self-worth.",
+   "lessons": [
+    "bc_high_performers_workaholism_b2c1"
+   ]
+  },
+  "plagiarize": {
+   "w": "plagiarize",
+   "pos": "v",
+   "def": "to copy someone else's work and pretend it is yours",
+   "ex": "Anyone who tries to plagiarize an essay may be punished.",
+   "lessons": [
+    "bc_honesty_dishonesty_b2c1"
+   ]
+  },
+  "declare": {
+   "w": "declare",
+   "pos": "v",
+   "def": "to officially tell the authorities about something",
+   "ex": "You must declare any income from renting rooms.",
+   "lessons": [
+    "bc_honesty_dishonesty_b2c1"
+   ]
+  },
+  "interactivity": {
+   "w": "interactivity",
+   "pos": "n",
+   "def": "involving the audience so that they take part",
+   "ex": "Interactivity keeps an online class interesting.",
+   "lessons": [
+    "bc_humour_in_presentations_c1"
+   ]
+  },
+  "launch into": {
+   "w": "launch into",
+   "pos": "phr v",
+   "def": "to start something suddenly and with energy",
+   "ex": "He launched into a long story about his holiday.",
+   "lessons": [
+    "bc_humour_in_presentations_c1"
+   ]
+  },
+  "introduction": {
+   "w": "introduction",
+   "pos": "n",
+   "def": "the first part of a speech or piece of writing",
+   "ex": "A strong introduction grabs the reader's attention.",
+   "lessons": [
+    "bc_humour_in_presentations_c1"
+   ]
+  },
+  "establish": {
+   "w": "establish",
+   "pos": "v",
+   "def": "to start or create something that will last",
+   "ex": "It takes time to establish trust with a new team.",
+   "lessons": [
+    "bc_humour_in_presentations_c1",
+    "epicurean_06_atoms_and_void"
+   ]
+  },
+  "inspiring": {
+   "w": "inspiring",
+   "pos": "adj",
+   "def": "making people feel they want to do something good",
+   "ex": "Her speech at the ceremony was truly inspiring.",
+   "lessons": [
+    "bc_inspiring_women_b2c1"
+   ]
+  },
+  "cheer on": {
+   "w": "cheer on",
+   "pos": "phr v",
+   "def": "to shout encouragement to someone",
+   "ex": "We went to the race to cheer on our friends.",
+   "lessons": [
+    "bc_inspiring_women_b2c1"
+   ]
+  },
+  "visual aids": {
+   "w": "visual aids",
+   "pos": "n",
+   "def": "pictures, charts or objects used to help explain a talk",
+   "ex": "Good visual aids make data easier to understand.",
+   "lessons": [
+    "bc_international_presentations_c1"
+   ]
+  },
+  "ineffective": {
+   "w": "ineffective",
+   "pos": "adj",
+   "def": "not producing the result you want",
+   "ex": "The new rules proved completely ineffective.",
+   "lessons": [
+    "bc_international_presentations_c1"
+   ]
+  },
+  "cultural differences": {
+   "w": "cultural differences",
+   "pos": "n",
+   "def": "ways in which people from different cultures behave differently",
+   "ex": "Cultural differences can cause problems in business.",
+   "lessons": [
+    "bc_international_presentations_c1"
+   ]
+  },
+  "analyst": {
+   "w": "analyst",
+   "pos": "n",
+   "def": "a person whose job is to study data in detail",
+   "ex": "The analyst predicted a fall in prices.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "unwelcome": {
+   "w": "unwelcome",
+   "pos": "adj",
+   "def": "not wanted or not pleasant to receive",
+   "ex": "The rain was an unwelcome surprise at the picnic.",
+   "lessons": [
+    "bc_legal_unwelcome_advice_c1"
+   ]
+  },
+  "advisory": {
+   "w": "advisory",
+   "pos": "adj",
+   "def": "giving advice rather than making decisions",
+   "ex": "She has an advisory role on the board.",
+   "lessons": [
+    "bc_legal_unwelcome_advice_c1"
+   ]
+  },
+  "potentially": {
+   "w": "potentially",
+   "pos": "adv",
+   "def": "possibly, though not certainly, in the future",
+   "ex": "The situation is potentially very dangerous.",
+   "lessons": [
+    "bc_legal_unwelcome_advice_c1"
+   ]
+  },
+  "one-way": {
+   "w": "one-way",
+   "pos": "adj",
+   "def": "going to a place without returning",
+   "ex": "They bought one-way tickets and never came back.",
+   "lessons": [
+    "bc_life_on_mars_b2c1"
+   ]
+  },
+  "cleft sentence": {
+   "w": "cleft sentence",
+   "pos": "n",
+   "def": "a sentence split in two to emphasise one part",
+   "ex": "What I need is a holiday is a cleft sentence.",
+   "lessons": [
+    "bc_looking_ahead_c1"
+   ]
+  },
+  "future perfect": {
+   "w": "future perfect",
+   "pos": "n",
+   "def": "a tense for actions finished before a future time",
+   "ex": "By next year, I will have finished uses the future perfect.",
+   "lessons": [
+    "bc_looking_ahead_c1"
+   ]
+  },
+  "future continuous": {
+   "w": "future continuous",
+   "pos": "n",
+   "def": "a tense for actions in progress at a future time",
+   "ex": "This time tomorrow, I will be flying uses the future continuous.",
+   "lessons": [
+    "bc_looking_ahead_c1"
+   ]
+  },
+  "employ": {
+   "w": "employ",
+   "pos": "v",
+   "def": "to pay someone to work for you",
+   "ex": "The factory employs over five hundred people.",
+   "lessons": [
+    "bc_making_deductions_c1"
+   ]
+  },
+  "occur": {
+   "w": "occur",
+   "pos": "v",
+   "def": "to happen, especially in an unexpected way",
+   "ex": "The accident occurred late at night.",
+   "lessons": [
+    "bc_making_deductions_c1"
+   ]
+  },
+  "gerund": {
+   "w": "gerund",
+   "pos": "n",
+   "def": "a verb form ending in -ing used as a noun",
+   "ex": "In swimming is fun, swimming is a gerund.",
+   "lessons": [
+    "bc_making_world_better_c1"
+   ]
+  },
+  "hesitation device": {
+   "w": "hesitation device",
+   "pos": "n",
+   "def": "a word or sound used to gain time while speaking",
+   "ex": "Saying well is a common hesitation device in conversation.",
+   "lessons": [
+    "bc_making_world_better_c1"
+   ]
+  },
+  "expand on": {
+   "w": "expand on",
+   "pos": "phr v",
+   "def": "to give more details about something",
+   "ex": "Could you expand on that last point?",
+   "lessons": [
+    "bc_making_world_better_c1"
+   ]
+  },
+  "keep going": {
+   "w": "keep going",
+   "pos": "phr",
+   "def": "to continue doing something without stopping",
+   "ex": "Keep going, you are nearly at the top.",
+   "lessons": [
+    "bc_making_world_better_c1"
+   ]
+  },
+  "panic attack": {
+   "w": "panic attack",
+   "pos": "n",
+   "def": "a sudden strong feeling of fear with physical symptoms",
+   "ex": "He had a panic attack on the crowded train.",
+   "lessons": [
+    "bc_managing_nerves_c1"
+   ]
+  },
+  "visualization": {
+   "w": "visualization",
+   "pos": "n",
+   "def": "forming pictures in your mind to prepare for something",
+   "ex": "Athletes use visualization before big races.",
+   "lessons": [
+    "bc_managing_nerves_c1"
+   ]
+  },
+  "breathing": {
+   "w": "breathing",
+   "pos": "n",
+   "def": "taking air into and out of your lungs",
+   "ex": "Slow breathing can help you feel calm.",
+   "lessons": [
+    "bc_managing_nerves_c1"
+   ]
+  },
+  "market research": {
+   "w": "market research",
+   "pos": "n",
+   "def": "collecting information about what customers want and buy",
+   "ex": "Market research showed strong demand for vegan food.",
+   "lessons": [
+    "bc_market_research_c1"
+   ]
+  },
+  "convenience": {
+   "w": "convenience",
+   "pos": "n",
+   "def": "the quality of being easy, useful or quick",
+   "ex": "People shop online for the convenience.",
+   "lessons": [
+    "bc_market_research_c1"
+   ]
+  },
+  "word stress": {
+   "w": "word stress",
+   "pos": "n",
+   "def": "saying one part of a word more strongly than the rest",
+   "ex": "Word stress can change the meaning of what you say.",
+   "lessons": [
+    "bc_market_research_c1"
+   ]
+  },
+  "persona": {
+   "w": "persona",
+   "pos": "n",
+   "def": "the public character someone shows to other people",
+   "ex": "His online persona is very different from his real self.",
+   "lessons": [
+    "bc_mask_we_wear_c1"
+   ]
+  },
+  "play a role": {
+   "w": "play a role",
+   "pos": "phr",
+   "def": "to act a part or have a function",
+   "ex": "Luck can play a role in success.",
+   "lessons": [
+    "bc_mask_we_wear_c1"
+   ]
+  },
+  "wise": {
+   "w": "wise",
+   "pos": "adj",
+   "def": "showing good judgement and experience",
+   "ex": "It would be wise to leave early.",
+   "lessons": [
+    "bc_mask_we_wear_c1"
+   ]
+  },
+  "expressive": {
+   "w": "expressive",
+   "pos": "adj",
+   "def": "clearly showing thoughts and feelings",
+   "ex": "She has very expressive eyes and hands.",
+   "lessons": [
+    "bc_mask_we_wear_c1"
+   ]
+  },
+  "dig in": {
+   "w": "dig in",
+   "pos": "phr v",
+   "def": "to refuse to change your opinion or position",
+   "ex": "Both sides decided to dig in and the talks failed.",
+   "lessons": [
+    "bc_advertising_defend_creative_c1"
+   ]
+  },
+  "flatly": {
+   "w": "flatly",
+   "pos": "adv",
+   "def": "in a firm and direct way without any emotion",
+   "ex": "She flatly refused to discuss the matter.",
+   "lessons": [
+    "bc_advertising_defend_creative_c1"
+   ]
+  },
+  "defensively": {
+   "w": "defensively",
+   "pos": "adv",
+   "def": "in a way that shows you feel criticised or attacked",
+   "ex": "He answered defensively when asked about the delay.",
+   "lessons": [
+    "bc_advertising_defend_creative_c1"
+   ]
+  },
+  "originality": {
+   "w": "originality",
+   "pos": "n",
+   "def": "the quality of being new and different",
+   "ex": "The judges praised the originality of her design.",
+   "lessons": [
+    "bc_ai_for_phd_research_c1"
+   ]
+  },
+  "explainable": {
+   "w": "explainable",
+   "pos": "adj",
+   "def": "able to be understood and described clearly",
+   "ex": "Every decision the system makes should be explainable.",
+   "lessons": [
+    "bc_ai_responsibility_c1"
+   ]
+  },
+  "sighting": {
+   "w": "sighting",
+   "pos": "n",
+   "def": "an occasion when something rare or unusual is seen",
+   "ex": "There were several sightings of the rare bird this year.",
+   "lessons": [
+    "bc_aliens_probability_b2c1"
+   ]
+  },
+  "unidentified": {
+   "w": "unidentified",
+   "pos": "adj",
+   "def": "not recognised or not known by name",
+   "ex": "An unidentified man was seen near the house.",
+   "lessons": [
+    "bc_aliens_probability_b2c1"
+   ]
+  },
+  "sheer": {
+   "w": "sheer",
+   "pos": "adj",
+   "def": "used to emphasise how great an amount is",
+   "ex": "The sheer size of the stadium amazed us.",
+   "lessons": [
+    "bc_aliens_probability_b2c1"
+   ]
+  },
+  "spring to mind": {
+   "w": "spring to mind",
+   "pos": "phr",
+   "def": "to come quickly into your thoughts",
+   "ex": "Nothing springs to mind right now, sorry.",
+   "lessons": [
+    "bc_alternative_way_c1"
+   ]
+  },
+  "hold to account": {
+   "w": "hold to account",
+   "pos": "phr",
+   "def": "to make someone explain and take responsibility for actions",
+   "ex": "Voters will hold the council to account.",
+   "lessons": [
+    "bc_andy_burnham_c1"
+   ]
+  },
+  "visible": {
+   "w": "visible",
+   "pos": "adj",
+   "def": "easy to see or notice",
+   "ex": "The new leader is very visible in the community.",
+   "lessons": [
+    "bc_andy_burnham_c1"
+   ]
+  },
+  "region": {
+   "w": "region",
+   "pos": "n",
+   "def": "a large area of a country",
+   "ex": "This region is famous for its cheese.",
+   "lessons": [
+    "bc_andy_burnham_c1",
+    "bc_black_holes_cosmology_c1"
+   ]
+  },
+  "housing": {
+   "w": "housing",
+   "pos": "n",
+   "def": "buildings that people live in",
+   "ex": "The city needs more affordable housing.",
+   "lessons": [
+    "bc_andy_burnham_c1"
+   ]
+  },
+  "coating": {
+   "w": "coating",
+   "pos": "n",
+   "def": "a thin layer of something that covers a surface",
+   "ex": "The pan has a coating that stops food sticking.",
+   "lessons": [
+    "bc_appliance_of_science_c1"
+   ]
+  },
+  "rotate": {
+   "w": "rotate",
+   "pos": "v",
+   "def": "to turn around a central point",
+   "ex": "The wheels rotate faster as the car speeds up.",
+   "lessons": [
+    "bc_appliance_of_science_c1"
+   ]
+  },
+  "treatment plant": {
+   "w": "treatment plant",
+   "pos": "n",
+   "def": "a place where water or waste is cleaned",
+   "ex": "The treatment plant cleans water for the whole town.",
+   "lessons": [
+    "bc_appliance_of_science_c1"
+   ]
+  },
+  "exploration": {
+   "w": "exploration",
+   "pos": "n",
+   "def": "travelling to unknown places to learn about them",
+   "ex": "Space exploration costs a huge amount of money.",
+   "lessons": [
+    "bc_artemis_moon_c1"
+   ]
+  },
+  "collision course": {
+   "w": "collision course",
+   "pos": "n",
+   "def": "a path that will lead to a crash with something",
+   "ex": "The two ships were on a collision course.",
+   "lessons": [
+    "bc_asteroids_c1"
+   ]
+  },
+  "conscious shopper": {
+   "w": "conscious shopper",
+   "pos": "n",
+   "def": "a person who thinks carefully about the effects of what they buy",
+   "ex": "As a conscious shopper, she avoids plastic packaging.",
+   "lessons": [
+    "bc_being_green_c1"
+   ]
+  },
+  "beat myself up": {
+   "w": "beat myself up",
+   "pos": "phr",
+   "def": "to criticise yourself too harshly",
+   "ex": "I beat myself up about every small mistake.",
+   "lessons": [
+    "bc_being_green_c1"
+   ]
+  },
+  "limiting consumption": {
+   "w": "limiting consumption",
+   "pos": "n",
+   "def": "reducing the amount of goods and resources you use",
+   "ex": "Limiting consumption of meat is good for the planet.",
+   "lessons": [
+    "bc_being_green_c1"
+   ]
+  },
+  "over the top": {
+   "w": "over the top",
+   "pos": "phr",
+   "def": "too extreme or exaggerated for the situation",
+   "ex": "The decorations were a bit over the top.",
+   "lessons": [
+    "bc_being_green_c1"
+   ]
+  },
+  "drive me crazy": {
+   "w": "drive me crazy",
+   "pos": "phr",
+   "def": "to annoy me very much",
+   "ex": "The noise from next door is driving me crazy.",
+   "lessons": [
+    "bc_being_green_c1"
+   ]
+  },
+  "ranking": {
+   "w": "ranking",
+   "pos": "n",
+   "def": "a list showing the position of things in order",
+   "ex": "The university rose in the world rankings.",
+   "lessons": [
+    "bc_books_changed_world_part2_c1"
+   ]
+  },
+  "blurb": {
+   "w": "blurb",
+   "pos": "n",
+   "def": "a short description on the back of a book",
+   "ex": "The blurb made me want to read the whole book.",
+   "lessons": [
+    "bc_books_or_films_c1"
+   ]
+  },
+  "cast": {
+   "w": "cast",
+   "pos": "n",
+   "def": "all the actors in a film or play",
+   "ex": "The film has an excellent cast of young actors.",
+   "lessons": [
+    "bc_books_or_films_c1"
+   ]
+  },
+  "bestselling": {
+   "w": "bestselling",
+   "pos": "adj",
+   "def": "very popular and bought by many people",
+   "ex": "She is a bestselling author of crime novels.",
+   "lessons": [
+    "bc_books_or_films_c1"
+   ]
+  },
+  "credits": {
+   "w": "credits",
+   "pos": "n",
+   "def": "the list of people who made a film, shown at the end",
+   "ex": "We stayed to watch the credits at the end.",
+   "lessons": [
+    "bc_books_or_films_c1"
+   ]
+  },
+  "put down": {
+   "w": "put down",
+   "pos": "phr v",
+   "def": "to stop reading a book because it is not interesting",
+   "ex": "I could not put down that thriller all night.",
+   "lessons": [
+    "bc_books_that_changed_the_world_c1"
+   ]
+  },
+  "live up to": {
+   "w": "live up to",
+   "pos": "phr v",
+   "def": "to be as good as people expected",
+   "ex": "The hotel did not live up to the photos.",
+   "lessons": [
+    "bc_books_that_changed_the_world_c1"
+   ]
+  },
+  "transferrable skills": {
+   "w": "transferrable skills",
+   "pos": "n",
+   "def": "abilities that are useful in many different jobs",
+   "ex": "Good communication is one of the most transferrable skills.",
+   "lessons": [
+    "bc_broadening_horizons_advanced_c1"
+   ]
+  },
+  "cliché": {
+   "w": "cliché",
+   "pos": "n",
+   "def": "a phrase or idea that has been used too often",
+   "ex": "His speech was full of tired clichés.",
+   "lessons": [
+    "bc_broadening_horizons_advanced_c1",
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "revision techniques": {
+   "w": "revision techniques",
+   "pos": "n",
+   "def": "methods used to study and prepare for exams",
+   "ex": "Good revision techniques can make exam week less stressful.",
+   "lessons": [
+    "bc_broadening_horizons_advanced_c1"
+   ]
+  },
+  "harmonious": {
+   "w": "harmonious",
+   "pos": "adj",
+   "def": "friendly and peaceful with no disagreement",
+   "ex": "They have a harmonious relationship with their neighbours.",
+   "lessons": [
+    "bc_build_relationships_writing_c1"
+   ]
+  },
+  "mutual respect": {
+   "w": "mutual respect",
+   "pos": "n",
+   "def": "respect that two people or groups feel for each other",
+   "ex": "Good teams are built on mutual respect.",
+   "lessons": [
+    "bc_build_relationships_writing_c1"
+   ]
+  },
+  "emotional intelligence": {
+   "w": "emotional intelligence",
+   "pos": "n",
+   "def": "the ability to understand and manage feelings well",
+   "ex": "Managers need high emotional intelligence to lead well.",
+   "lessons": [
+    "bc_build_relationships_writing_c1",
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "jot down": {
+   "w": "jot down",
+   "pos": "phr v",
+   "def": "to write something quickly in a few words",
+   "ex": "Let me jot down your phone number.",
+   "lessons": [
+    "bc_building_your_brand_c1"
+   ]
+  },
+  "corporate culture": {
+   "w": "corporate culture",
+   "pos": "n",
+   "def": "the shared values and behaviour of people in a company",
+   "ex": "The corporate culture there is relaxed and friendly.",
+   "lessons": [
+    "bc_business_rules_innovation_c1"
+   ]
+  },
+  "level off": {
+   "w": "level off",
+   "pos": "phr v",
+   "def": "to stop rising or falling and stay the same",
+   "ex": "House prices have started to level off.",
+   "lessons": [
+    "bc_changing_places_c1"
+   ]
+  },
+  "steadily": {
+   "w": "steadily",
+   "pos": "adv",
+   "def": "gradually and at an even rate",
+   "ex": "Sales have grown steadily over the year.",
+   "lessons": [
+    "bc_changing_places_c1"
+   ]
+  },
+  "workmanship": {
+   "w": "workmanship",
+   "pos": "n",
+   "def": "the skill with which something is made",
+   "ex": "The workmanship on this old table is excellent.",
+   "lessons": [
+    "bc_changing_places_c1"
+   ]
+  },
+  "fatality": {
+   "w": "fatality",
+   "pos": "n",
+   "def": "a death caused by an accident or violence",
+   "ex": "There were no fatalities in the train crash.",
+   "lessons": [
+    "bc_changing_places_c1"
+   ]
+  },
+  "abandoned": {
+   "w": "abandoned",
+   "pos": "adj",
+   "def": "left alone without care or protection",
+   "ex": "They adopted an abandoned puppy from the street.",
+   "lessons": [
+    "bc_charity_b2c1"
+   ]
+  },
+  "generalisation": {
+   "w": "generalisation",
+   "pos": "n",
+   "def": "a statement that is true in most cases but not all",
+   "ex": "It is a generalisation to say everyone loves football.",
+   "lessons": [
+    "bc_citizenship_test_c1"
+   ]
+  },
+  "applicant": {
+   "w": "applicant",
+   "pos": "n",
+   "def": "a person who formally asks for something such as a job",
+   "ex": "There were fifty applicants for the position.",
+   "lessons": [
+    "bc_citizenship_test_c1"
+   ]
+  },
+  "brunch": {
+   "w": "brunch",
+   "pos": "n",
+   "def": "a meal eaten in the late morning instead of breakfast and lunch",
+   "ex": "We often have a big brunch on lazy weekends.",
+   "lessons": [
+    "bc_citizenship_test_c1"
+   ]
+  },
+  "expectations": {
+   "w": "expectations",
+   "pos": "n",
+   "def": "beliefs about what will or should happen",
+   "ex": "Let us clarify our expectations before we start.",
+   "lessons": [
+    "bc_clarifying_intercultural_c1"
+   ]
+  },
+  "culturally sensitive": {
+   "w": "culturally sensitive",
+   "pos": "adj",
+   "def": "aware of and respectful towards other cultures",
+   "ex": "Choose culturally sensitive images for the brochure.",
+   "lessons": [
+    "bc_clarifying_intercultural_c1"
+   ]
+  },
+  "misunderstand": {
+   "w": "misunderstand",
+   "pos": "v",
+   "def": "to understand something in the wrong way",
+   "ex": "It is easy to misunderstand a short email.",
+   "lessons": [
+    "bc_clarifying_intercultural_c1"
+   ]
+  },
+  "construction": {
+   "w": "construction",
+   "pos": "n",
+   "def": "the way words are put together in a sentence",
+   "ex": "The passive construction is common in science writing.",
+   "lessons": [
+    "bc_climate_change_b2c1"
+   ]
+  },
+  "environmental": {
+   "w": "environmental",
+   "pos": "adj",
+   "def": "relating to the natural world and its protection",
+   "ex": "Plastic waste is a serious environmental issue.",
+   "lessons": [
+    "bc_climate_change_b2c1"
+   ]
+  },
+  "greenhouse gas": {
+   "w": "greenhouse gas",
+   "pos": "n",
+   "def": "a gas that traps heat in the air around the earth",
+   "ex": "Methane is a powerful greenhouse gas.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "fossil fuel": {
+   "w": "fossil fuel",
+   "pos": "n",
+   "def": "a fuel such as coal or oil formed from ancient plants",
+   "ex": "We must reduce our use of fossil fuel for heating.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "sea level": {
+   "w": "sea level",
+   "pos": "n",
+   "def": "the average height of the sea's surface",
+   "ex": "Rising sea level threatens many coastal towns.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "land clearance": {
+   "w": "land clearance",
+   "pos": "n",
+   "def": "removing trees and plants from land for building or farming",
+   "ex": "Land clearance has destroyed much of the forest.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "severe weather": {
+   "w": "severe weather",
+   "pos": "n",
+   "def": "extreme events such as storms, floods and droughts",
+   "ex": "Severe weather closed the roads for two days.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "human activity": {
+   "w": "human activity",
+   "pos": "n",
+   "def": "things that people do that affect the world",
+   "ex": "Human activity is warming the planet.",
+   "lessons": [
+    "bc_climate_change_c1"
+   ]
+  },
+  "mastermind": {
+   "w": "mastermind",
+   "pos": "n",
+   "def": "a very clever person who plans a complicated operation",
+   "ex": "Police say a mastermind planned the whole robbery from abroad.",
+   "lessons": [
+    "dinosaur_heist"
+   ]
+  },
+  "outsmart": {
+   "w": "outsmart",
+   "pos": "v",
+   "def": "to defeat someone by being cleverer than them",
+   "ex": "The fox outsmarted the farmer and stole a chicken.",
+   "lessons": [
+    "dinosaur_heist"
+   ]
+  },
+  "crown jewel": {
+   "w": "crown jewel",
+   "pos": "phr",
+   "def": "the most valuable or impressive item in a group",
+   "ex": "This painting is the crown jewel of the gallery.",
+   "lessons": [
+    "dinosaur_heist"
+   ]
+  },
+  "term": {
+   "w": "term",
+   "pos": "n",
+   "def": "a fixed period of time that someone holds an official job",
+   "ex": "The mayor's term lasts six years.",
+   "lessons": [
+    "discuss_b1_french_elections"
+   ]
+  },
+  "associate": {
+   "w": "associate",
+   "pos": "v",
+   "def": "to connect one thing with another in your mind",
+   "ex": "I always associate the smell of pine with Christmas.",
+   "lessons": [
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "performer": {
+   "w": "performer",
+   "pos": "n",
+   "def": "a person who does a job or activity well or badly",
+   "ex": "She is one of the top performers in the sales team.",
+   "lessons": [
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "self-awareness": {
+   "w": "self-awareness",
+   "pos": "n",
+   "def": "knowledge and understanding of your own character and feelings",
+   "ex": "Self-awareness helps you notice when you are getting stressed.",
+   "lessons": [
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "weigh up": {
+   "w": "weigh up",
+   "pos": "phr v",
+   "def": "to consider carefully the good and bad sides of something",
+   "ex": "We weighed up the costs before buying the car.",
+   "lessons": [
+    "discuss_b2_taking_to_the_streets"
+   ]
+  },
+  "marching": {
+   "w": "marching",
+   "pos": "n",
+   "def": "walking in a group as a protest or display",
+   "ex": "The sound of marching filled the main street.",
+   "lessons": [
+    "discuss_b2_taking_to_the_streets"
+   ]
+  },
+  "anger": {
+   "w": "anger",
+   "pos": "n",
+   "def": "a strong feeling of being upset and wanting to react",
+   "ex": "There is growing public anger about rising rents.",
+   "lessons": [
+    "discuss_b2_taking_to_the_streets"
+   ]
+  },
+  "century": {
+   "w": "century",
+   "pos": "n",
+   "def": "a period of one hundred years",
+   "ex": "The castle was built in the twelfth century.",
+   "lessons": [
+    "discuss_b2_who_belongs_here"
+   ]
+  },
+  "think through": {
+   "w": "think through",
+   "pos": "phr v",
+   "def": "to consider all the possible effects of something carefully",
+   "ex": "Think the plan through before you quit your job.",
+   "lessons": [
+    "discuss_b2c1_dealing_with_uncertainty"
+   ]
+  },
+  "chapter": {
+   "w": "chapter",
+   "pos": "n",
+   "def": "a period of time in someone's life",
+   "ex": "Moving to Rome began a new chapter in her life.",
+   "lessons": [
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "retrieval": {
+   "w": "retrieval",
+   "pos": "n",
+   "def": "the act of getting information back from memory",
+   "ex": "Quizzes help with retrieval of new vocabulary.",
+   "lessons": [
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "historical figure": {
+   "w": "historical figure",
+   "pos": "phr",
+   "def": "a famous person from the past",
+   "ex": "She dressed up as a historical figure for the party.",
+   "lessons": [
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "from a distance": {
+   "w": "from a distance",
+   "pos": "phr",
+   "def": "from a point far away in space or time",
+   "ex": "From a distance, the old problems seem small.",
+   "lessons": [
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "messy": {
+   "w": "messy",
+   "pos": "adj",
+   "def": "untidy or not well organised",
+   "ex": "My first attempt was messy, but it improved.",
+   "lessons": [
+    "discuss_b2c1_photography"
+   ]
+  },
+  "composition": {
+   "w": "composition",
+   "pos": "n",
+   "def": "the way the parts of a picture are arranged",
+   "ex": "The composition of this photo leads your eye to the boat.",
+   "lessons": [
+    "discuss_b2c1_photography"
+   ]
+  },
+  "have a go": {
+   "w": "have a go",
+   "pos": "phr",
+   "def": "to try to do something",
+   "ex": "I've never surfed, but I'd like to have a go.",
+   "lessons": [
+    "discuss_b2c1_photography"
+   ]
+  },
+  "plea deal": {
+   "w": "plea deal",
+   "pos": "phr",
+   "def": "an agreement to admit a crime in return for a lighter punishment",
+   "ex": "The suspect accepted a plea deal to avoid a long trial.",
+   "lessons": [
+    "discuss_b2c1_power_and_accountability"
+   ]
+  },
+  "investigation": {
+   "w": "investigation",
+   "pos": "n",
+   "def": "an official process to discover the facts about something",
+   "ex": "The investigation into the fire took six months.",
+   "lessons": [
+    "discuss_b2c1_power_and_accountability"
+   ]
+  },
+  "consulting": {
+   "w": "consulting",
+   "pos": "n",
+   "def": "the business of giving expert advice to organisations",
+   "ex": "She left banking for a career in consulting.",
+   "lessons": [
+    "discuss_c1_advice_industry"
+   ]
+  },
+  "entropy": {
+   "w": "entropy",
+   "pos": "n",
+   "def": "a measure of disorder that always increases in a closed system",
+   "ex": "Entropy explains why a tidy room naturally becomes messy.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "in reverse": {
+   "w": "in reverse",
+   "pos": "phr",
+   "def": "in the opposite order or direction",
+   "ex": "Play the video in reverse to see the glass mend itself.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "hedged": {
+   "w": "hedged",
+   "pos": "adj",
+   "def": "carefully limited to avoid saying too much or being wrong",
+   "ex": "She gave a hedged answer about when the work would end.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "direction": {
+   "w": "direction",
+   "pos": "n",
+   "def": "the way something moves or faces",
+   "ex": "The wind changed direction during the night.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "backwards": {
+   "w": "backwards",
+   "pos": "adv",
+   "def": "in the opposite way to usual, towards the start",
+   "ex": "Can you say the alphabet backwards?",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "close a chapter": {
+   "w": "close a chapter",
+   "pos": "phr",
+   "def": "to end a period of your life and move on",
+   "ex": "Selling the family house helped her close a chapter.",
+   "lessons": [
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "mixed feelings": {
+   "w": "mixed feelings",
+   "pos": "phr",
+   "def": "a mix of positive and negative emotions about something",
+   "ex": "I have mixed feelings about leaving my old job.",
+   "lessons": [
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "beginning": {
+   "w": "beginning",
+   "pos": "n",
+   "def": "the start or first part of something",
+   "ex": "The beginning of the book is a little slow.",
+   "lessons": [
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "carry with you": {
+   "w": "carry with you",
+   "pos": "phr",
+   "def": "to keep a memory or feeling with you over time",
+   "ex": "I carry with me everything my grandmother taught me.",
+   "lessons": [
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "oath": {
+   "w": "oath",
+   "pos": "n",
+   "def": "a formal promise, often made in public",
+   "ex": "Doctors take an oath to protect their patients.",
+   "lessons": [
+    "doctor_heist_b2c1"
+   ]
+  },
+  "refrigerated": {
+   "w": "refrigerated",
+   "pos": "adj",
+   "def": "kept cold in a fridge or cold room",
+   "ex": "The vaccines arrive in refrigerated lorries.",
+   "lessons": [
+    "doctor_heist_b2c1"
+   ]
+  },
+  "scholarly": {
+   "w": "scholarly",
+   "pos": "adj",
+   "def": "connected with serious academic study",
+   "ex": "She has published many scholarly articles on history.",
+   "lessons": [
+    "editor_dilemmas_game"
+   ]
+  },
+  "standing": {
+   "w": "standing",
+   "pos": "n",
+   "def": "the position or reputation of someone in a group",
+   "ex": "The scandal hurt the bank's standing with investors.",
+   "lessons": [
+    "editor_dilemmas_game"
+   ]
+  },
+  "get the floor": {
+   "w": "get the floor",
+   "pos": "phr",
+   "def": "to get the chance to speak in a meeting or discussion",
+   "ex": "It's hard to get the floor when everyone talks at once.",
+   "lessons": [
+    "english_at_work_phrase_bank"
+   ]
+  },
+  "break into": {
+   "w": "break into",
+   "pos": "phr v",
+   "def": "to start taking part in a conversation or activity",
+   "ex": "It's hard to break into a conversation between old friends.",
+   "lessons": [
+    "english_at_work_phrase_bank"
+   ]
+  },
+  "reach for": {
+   "w": "reach for",
+   "pos": "phr v",
+   "def": "to try to use or find something you need",
+   "ex": "In stressful moments I reach for simple words.",
+   "lessons": [
+    "english_at_work_phrase_bank"
+   ]
+  },
+  "fine dining": {
+   "w": "fine dining",
+   "pos": "phr",
+   "def": "eating expensive, high-quality food in a formal restaurant",
+   "ex": "The hotel is famous for its fine dining.",
+   "lessons": [
+    "epicurean_01_who_was_epicurus"
+   ]
+  },
+  "fear": {
+   "w": "fear",
+   "pos": "v",
+   "def": "to be afraid of something",
+   "ex": "Many people fear change at work.",
+   "lessons": [
+    "epicurean_01_who_was_epicurus"
+   ]
+  },
+  "primary source": {
+   "w": "primary source",
+   "pos": "phr",
+   "def": "an original document from the time being studied",
+   "ex": "Old letters are a valuable primary source for historians.",
+   "lessons": [
+    "epicurean_03_primary_sources"
+   ]
+  },
+  "dive into": {
+   "w": "dive into",
+   "pos": "phr v",
+   "def": "to start doing something with energy and enthusiasm",
+   "ex": "We dived into the project on our first day.",
+   "lessons": [
+    "epicurean_03_primary_sources"
+   ]
+  },
+  "function": {
+   "w": "function",
+   "pos": "v",
+   "def": "to work or operate in a particular way",
+   "ex": "The new system functions well most of the time.",
+   "lessons": [
+    "epicurean_04_the_garden_community"
+   ]
+  },
+  "hold together": {
+   "w": "hold together",
+   "pos": "phr v",
+   "def": "to keep a group united and stop it breaking apart",
+   "ex": "Shared meals held the family together.",
+   "lessons": [
+    "epicurean_04_the_garden_community"
+   ]
+  },
+  "daily": {
+   "w": "daily",
+   "pos": "adj",
+   "def": "happening or done every day as normal",
+   "ex": "Walking is part of my daily routine.",
+   "lessons": [
+    "epicurean_04_the_garden_community"
+   ]
+  },
+  "byword": {
+   "w": "byword",
+   "pos": "n",
+   "def": "a person or thing that is a typical example of a quality",
+   "ex": "The hotel became a byword for luxury.",
+   "lessons": [
+    "epicurean_05_why_controversial"
+   ]
+  },
+  "central": {
+   "w": "central",
+   "pos": "adj",
+   "def": "main or most important part of something",
+   "ex": "Trust is central to any good relationship.",
+   "lessons": [
+    "epicurean_05_why_controversial"
+   ]
+  },
+  "swerve": {
+   "w": "swerve",
+   "pos": "n",
+   "def": "a sudden change of direction",
+   "ex": "A sudden swerve saved the driver from hitting the dog.",
+   "lessons": [
+    "epicurean_07_the_swerve"
    ]
   }
  }

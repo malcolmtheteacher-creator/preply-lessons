@@ -28,7 +28,7 @@ for f in sorted(glob.glob(Q + '/done/batch_*.tsv')):
         if i not in ids: errs.append('%d: unknown id %s' % (n, i)); continue
         if w == 'NONE': lessons.setdefault(i, []); continue
         w = re.sub(r'^(to|a|an|the) ', '', w.lower())
-        if not re.fullmatch(r"[a-z0-9][a-z0-9' -]{0,38}[a-z0-9]", w) or len(w.split()) > 4: errs.append('%d: bad word %r' % (n, w)); continue
+        if not re.fullmatch(r"[a-zé0-9][a-zé0-9' -]{0,38}[a-zé0-9]", w) or len(w.split()) > 4: errs.append('%d: bad word %r' % (n, w)); continue
         if pos not in POS: errs.append('%d: bad pos %r' % (n, pos)); continue
         if not 4 <= len(d.split()) <= 20: errs.append('%d: definition length' % n); continue
         if repeats(w, d): errs.append('%d: definition contains the word %r' % (n, w)); continue
