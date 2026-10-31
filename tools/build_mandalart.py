@@ -13,18 +13,19 @@ OLD = raw(open('/tmp/w_old.html', encoding='utf-8').read(), 'var W=') if os.path
 def trim(t, n=26):
     t = re.sub(r'\s+', ' ', html.unescape(t)).strip(); return t if len(t) <= n else t[:n - 1].rstrip() + '…'
 def leaf(id_, title, level='', sub=''):
-    return {'t': title, 's': sub, 'i': '', 'h': id_ + '.html', 'l': level, 'k': []}
+    return {'t': trim(title, 46), 's': sub, 'i': '', 'h': id_ + '.html', 'l': level, 'k': []}
 def lesson(id_):
     a = ALL.get(id_)
     return leaf(id_, a[0] if a else id_.replace('_', ' '), a[1] if a else '') if os.path.exists(os.path.join(ROOT, id_ + '.html')) else None
 def count(n): return 1 if not n['k'] else sum(count(c) for c in n['k'])
-def chunk(kids, cap=8):
+def chunk(kids, cap=8, off=0):
     if len(kids) <= cap: return kids
     size = math.ceil(len(kids) / cap); out = []
     for i in range(0, len(kids), size):
         g = kids[i:i + size]
         if len(g) == 1: out.append(g[0]); continue
-        out.append({'t': trim(g[0]['t'], 15) + ' … ' + trim(g[-1]['t'], 15), 's': '%d lessons' % sum(count(x) for x in g), 'i': '', 'h': '', 'l': '', 'k': chunk(g, cap)})
+        what = 'Lessons' if all(not x['k'] for x in g) else 'Collections'
+        out.append({'t': '%s %d–%d' % (what, off + i + 1, off + i + len(g)), 's': 'from ' + trim(g[0]['t'], 24), 'i': '', 'h': '', 'l': '', 'k': chunk(g, cap, off + i)})
     return out
 def group(t, s, img, kids, page=''):
     t = html.unescape(t)
