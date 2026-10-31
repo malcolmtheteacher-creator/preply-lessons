@@ -23,6 +23,10 @@ Malcolm will have given you a name. Find it in this table and open your brief.
 | **Grok** | Nothing: you are the relay. Pass on messages and report back. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
+| **Round 9 (any time)** | Map pictures: 28 each, Atlas / Folio / Vista | https://malcolmhyndman.com/preply-lessons/bots/round9_<yourname>.md |
+
+> **Round 9 exceptions.** Round 9 has no fixed prompts and no reference picture: write your own scene for each title, following your brief's style paragraph (watercolour and ink on cream, not oil paint). The brief overrides the house-style, reference and "exactly as written" rules. Pictures go to `journey/incoming/map9/` on `main`, uploaded in batches of about 10 with no need to wait for approval. Any earlier "stop all work" message is cancelled.
+
 > **Round 8 upload rules.** Pictures go to `journey/incoming/world8/` on `main` only.
 
 > **Round 7 upload rules.** Hook files go to `bots/queue/hooks/done/`, word-picture sheets to `journey/incoming/words7/`, and word lists to `bots/queue/words/done/`, all on `main` only. Your Round 7 brief overrides any other folder rule.
