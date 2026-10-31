@@ -2,7 +2,7 @@
 
 You are **Folio**. This round you paint pictures. Rounds 1 to 4 are finished. The site's three "route" pages guide students through a course, and each needs beautiful pictures.
 
-**Your pictures:** 7 images for the **Professional English** route. Save each as the file name shown, and upload all of them to `journey/incoming/routes5/` on `main`. Commit message: `Folio: round 5, professional route pictures`. Follow "Exactly where and how to upload" in https://malcolmhyndman.com/preply-lessons/BOTS_START_HERE.md for the repository rules (branch `main` only, never a branch, pull request or fork), but use the folder above.
+**Your pictures:** 8 images for the **Professional English** route. Save each as the file name shown, and upload all of them to `journey/incoming/routes5/` on `main`. Commit message: `Folio: round 5, professional route pictures`. Follow "Exactly where and how to upload" in https://malcolmhyndman.com/preply-lessons/BOTS_START_HERE.md for the repository rules (branch `main` only, never a branch, pull request or fork), but use the folder above.
 
 **How the pictures are used:** each is a card or banner background with text laid over it, so keep it calm. 16:9, 1280 x 720 (or the nearest the tool gives you). The `hero` picture is a wide banner: keep everything important in the middle band, because the top and bottom will be cropped.
 
@@ -43,4 +43,9 @@ A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream p
 ## `route_professional_leading.png`
 ```
 A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no numbers, no logos, no photo-realism. Scene: a lone figure seen from behind at the head of a mountain path, leading a line of small silhouettes carrying lanterns up into the dusk. Composition: keep the main subject in the middle band and lower half, with calm, quiet, softly painted space in the upper left, and slightly darker, softer edges.
+```
+
+## `route_professional_interviews.png`
+```
+A 16:9 illustration. Style: hand-illustrated watercolour and ink on warm cream paper, rich jewel-tone palette, confident fine linework, soft washes, thoughtful editorial feel, generous empty space, no text, no letters, no numbers, no logos, no photo-realism. Scene: a quiet interview room seen from the doorway, two empty armchairs facing each other across a low wooden table with a glass of water and a closed notebook, tall window with warm morning light. Composition: keep the main subject in the middle band and lower half, with calm, quiet, softly painted space in the upper left, and slightly darker, softer edges.
 ```
