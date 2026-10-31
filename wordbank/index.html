@@ -324,7 +324,7 @@ function lessonsHtml(){
   var logged = Object.keys(S.done).filter(function(id){ return !isReg(id); }).map(function(id){ return {id: id, title: titleFor(id), level: ((window.WBALL || {})[id] || [])[1] || '', words: [], rec: true, talk: !!(S.log && S.log[id] && S.log[id].talk)}; });
   var done = WB.lessons.filter(function(l){ return S.done[l.id]; }).concat(logged).sort(function(a,b){ return S.done[b.id] - S.done[a.id]; });
   if (!done.length) return '<div class="card"><p style="margin:0">Your lessons will appear here. Open a lesson from your teacher’s link and it is added automatically, or paste a lesson link into the box above. You can paste several at once.</p></div>';
-  var h = '<div class="card">';
+  var h = '<div class="card"><div class="row" style="margin-bottom:10px"><button class="btn ghost" id="mylink">Copy my catch-up link</button><span class="mute" id="mylinkmsg"></span></div>';
   done.forEach(function(l){
     h += '<div class="lesson"><div class="t">' + (l.talk ? '<b>' + esc(l.title) + '</b>' : '<a href="../' + esc(l.id) + '.html" style="color:inherit"><b>' + esc(l.title) + '</b></a>') + '<small>' + (l.talk ? 'Conversation' : l.rec ? (l.level ? esc(l.level) + ' · ' : '') + 'Lesson record' : esc(l.level) + (l.level ? ' · ' : '') + l.words.length + ' words') + '</small></div>' +
       (l.talk ? '' : l.rec ? '<a class="btn ghost" href="../' + esc(l.id) + '.html" style="text-decoration:none">Open</a>' : '<button class="btn" data-boss="' + esc(l.id) + '">' + (isChallenge() ? 'Final review' : 'Test') + '</button>') +
@@ -430,6 +430,13 @@ function bindHome(){
     dz.ondragleave = function(){ dz.style.borderColor = ''; };
     dz.ondrop = function(e){ e.preventDefault(); var t = e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain'); tryAdd(t); };
   }
+  var ml = document.getElementById('mylink');
+  if (ml) ml.onclick = function(){
+    var ids = Object.keys(S.done).filter(function(id){ return !(S.log && S.log[id] && S.log[id].talk); }).sort(function(x, y){ return S.done[x] - S.done[y]; });
+    var url = location.origin + location.pathname + '?lessons=' + ids.join(',');
+    var m = document.getElementById('mylinkmsg'), ok = function(){ m.textContent = ' Copied: ' + ids.length + ' lessons.'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function(){ prompt('Copy this link:', url); }); else prompt('Copy this link:', url);
+  };
   Array.prototype.forEach.call(document.querySelectorAll('[data-unl]'), function(b){
     b.onclick = function(){ delete S.done[b.dataset.unl]; if (S.log) delete S.log[b.dataset.unl]; if (S.latest === b.dataset.unl) S.latest = ''; save(); render(); };
   });
