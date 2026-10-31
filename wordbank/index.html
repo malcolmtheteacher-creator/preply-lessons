@@ -90,6 +90,26 @@ body.challenge{background:radial-gradient(1200px 500px at 50% -120px,#134e4a 0%,
 .conf{position:fixed;top:-12px;width:9px;height:14px;border-radius:2px;z-index:9999;pointer-events:none;animation:fall 2.2s ease-in forwards}
 @keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
 .stars{font-size:2.4rem;letter-spacing:6px}
+
+.hero{background:linear-gradient(135deg,#4f46e5,#7c3aed 55%,#ec4899);color:#fff;border-radius:22px;padding:20px 18px 18px;margin-bottom:16px;box-shadow:0 10px 28px rgba(79,70,229,.28)}
+body.challenge .hero{background:linear-gradient(135deg,#0f766e,#14b8a6 60%,#f59e0b)}
+.herotop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.hero h1{font-size:1.9rem;letter-spacing:-.01em}.herosub{opacity:.85;font-size:.9rem;margin-top:2px}
+.herolink{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:600;text-decoration:none;cursor:pointer}
+.herolink:hover{background:rgba(255,255,255,.3)}
+.xpbar{height:8px;background:rgba(255,255,255,.25);border-radius:6px;margin:14px 0 12px;overflow:hidden}.xpbar i{display:block;height:100%;background:#fde68a;border-radius:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.chip{background:rgba(255,255,255,.18);border-radius:999px;padding:5px 12px;font-size:.88rem;font-weight:600}
+.herocta{display:block;width:100%;background:#fff;color:#4f46e5;border:0;border-radius:16px;padding:16px;font-size:1.15rem;font-weight:800;box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .08s,box-shadow .08s}
+body.challenge .herocta{color:#0f766e}
+.herocta:hover{transform:translateY(-1px)}.herocta:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.herodone{font-size:1.05rem;margin-bottom:12px}
+.tabs{background:var(--card);padding:5px;border-radius:999px;border:1px solid var(--line)}
+.tabs button{border:0;border-radius:999px;background:transparent;font-weight:600;color:var(--mute)}
+.tabs button.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.tabs button.addtab{border:0;background:var(--addbg);color:var(--addc)}.tabs button.addtab.on{background:var(--addc);color:#fff}
+.wc{border-radius:16px;padding:12px 14px;transition:transform .1s,box-shadow .1s}.wc:not(.lock):hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(60,50,140,.12)}
+.wp{width:64px;height:64px;border-radius:12px}
+.lesson{padding:12px 0}
 </style>
 </head>
 <body class="classic">
@@ -336,23 +356,23 @@ function strikesStr(n){ var s=''; for (var i=0;i<3;i++) s += i < n ? '●' : '�
 
 function renderHome(){
   var u = unlocked(), due = u.filter(isDue), mastered = u.filter(function(w){ return box(w) >= 5; });
-  var h = '<header><div><h1>' + 'My Words' + '</h1><div class="lvl">Level ' + level() + ' · ' + S.xp + ' XP</div></div>' +
-    '<div class="row"><a class="btn ghost" href="../journey/index.html" style="text-decoration:none">My Room</a><button class="btn ghost" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></header>';
-  h += '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste a lesson link here (or several at once), or drag it onto this box. Lessons you open from the link are added automatically. Lessons without new words are kept as a record of what you have done.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="lnkpaste" type="button">Paste</button><button class="btn" id="lnkgo">Add</button></div><div class="row" style="margin-top:10px"><input class="ans" id="talk" placeholder="Talked about something with no lesson? Type the topic in a few words" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="talkgo" type="button">Add chat</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0' + (lnkMsg && lnkOk ? ';color:#047857;font-weight:600' : '') + '">' + (lnkMsg && lnkOk ? '\u2713 ' : '') + esc(lnkMsg) + '</p></div>';
-  h += '<div class="stats"><div class="stat"><b>' + u.length + '</b><span>words found</span></div><div class="stat"><b>' + mastered.length + '</b><span>mastered</span></div>' +
-    '<div class="stat"><b>' + due.length + '</b><span>ready to review</span></div><div class="stat"><b>' + (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0) + '</b><span>day streak</span></div></div>';
+  var daily = u.length ? pickDaily() : [];
+  var streakN = (S.last === today() || S.last === new Date(Date.now()-DAY).toISOString().slice(0,10) ? S.streak : 0);
+  var lv = level(), lo = Math.pow(lv - 1, 2) * 25, hi = Math.pow(lv, 2) * 25, lp = Math.max(4, Math.min(100, Math.round((S.xp - lo) / (hi - lo) * 100)));
+  var h = '<div class="hero"><div class="herotop"><div><h1>My Words</h1><div class="herosub">Level ' + lv + ' · ' + S.xp + ' XP</div></div>' +
+    '<div class="row"><a class="herolink" href="../journey/index.html">My Room</a><button class="herolink" id="skin">' + (isChallenge() ? 'Standard mode' : 'Challenge mode') + '</button></div></div>' +
+    '<div class="xpbar" title="Progress to level ' + (lv + 1) + '"><i style="width:' + lp + '%"></i></div>' +
+    '<div class="chips"><span class="chip">🔥 ' + streakN + ' day' + (streakN === 1 ? '' : 's') + '</span><span class="chip">📚 ' + u.length + ' words</span><span class="chip">⭐ ' + mastered.length + ' mastered</span></div>' +
+    (u.length ? (daily.length
+      ? '<button class="herocta" id="daily">' + (isChallenge() ? 'Start challenge round' : 'Start today’s review') + ' · ' + daily.length + ' words</button>'
+      : '<div class="herodone">🎉 You are all caught up. Nothing is due right now.</div><button class="herocta" id="extra">Practise anyway</button>')
+      : '<div class="herodone">Open a lesson from your teacher’s link and its words appear here.</div>') + '</div>';
+  var dropH = '<div class="card" id="drop" style="border-style:dashed"><b>Add a lesson</b><p class="mute" style="margin:4px 0 10px">Paste a lesson link here (or several at once), or drag it onto this box. Lessons you open from the link are added automatically. Lessons without new words are kept as a record of what you have done.</p><div class="row"><input class="ans" id="lnk" placeholder="Paste a lesson link" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="lnkpaste" type="button">Paste</button><button class="btn" id="lnkgo">Add</button></div><div class="row" style="margin-top:10px"><input class="ans" id="talk" placeholder="Talked about something with no lesson? Type the topic in a few words" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" id="talkgo" type="button">Add chat</button></div><p class="mute" id="lnkmsg" style="margin:8px 0 0' + (lnkMsg && lnkOk ? ';color:#047857;font-weight:600' : '') + '">' + (lnkMsg && lnkOk ? '\u2713 ' : '') + esc(lnkMsg) + '</p></div>';
   if (S.xp > 0 && Date.now() - (S.backedUp || 0) > 7*DAY) h += '<div class="card"><b>Keep your progress safe.</b><p class="mute" style="margin:4px 0 10px">' + (S.backedUp ? 'You last saved a backup ' + Math.floor((Date.now()-S.backedUp)/DAY) + ' days ago.' : 'You have not saved a backup yet.') + ' Browsers sometimes clear saved data, so keep a copy.</p><button class="btn" id="backup0">Save a backup file</button></div>';
   if (added.length && !S.seenAdd) { h += '<div class="card"><b>' + esc(addMsg) + '</b></div>'; }
   var lat = S.latest && WB.lessons.filter(function(l){ return l.id === S.latest; })[0];
   if (lat) h += '<div class="card"><div class="mute">Your latest lesson</div><h3>' + esc(lat.title) + '</h3><p class="mute">' + lat.words.length + ' words · ' + lat.words.filter(function(w){ return box(w) >= 3; }).length + ' well known</p><div class="row"><button class="btn" id="latest">Practise these words</button><button class="btn ghost" id="latestlist">See the list</button></div></div>';
-  if (!u.length) {
-    h += '<div class="card"><h3>No words yet</h3><p>Open a lesson from your teacher\u2019s link and its words appear here automatically. Or paste a lesson link into the box above.</p></div>';
-  } else {
-    var daily = pickDaily();
-    h += '<div class="card">' + (daily.length
-      ? '<button class="btn big" id="daily">' + (isChallenge() ? 'Start challenge round' : 'Start today’s review') + ' · ' + daily.length + ' words</button>'
-      : '<p>You are all caught up. Nothing is due right now.</p><button class="btn big" id="extra">Practise anyway</button>') + '</div>';
-  }
+  h += dropH;
   h += '<div class="tabs"><button data-t="lessons" class="' + (tab==='lessons'?'on':'') + '">My lessons</button><button data-t="words" class="' + (tab==='words'?'on':'') + '">Words</button><button data-t="add" class="addtab' + (tab==='add'?' on':'') + '">+ Add a word</button><button data-t="me" class="' + (tab==='me'?'on':'') + '">Backup</button></div>';
   if (tab === 'lessons') h += lessonsHtml();
   else if (tab === 'words') h += wordsHtml();
