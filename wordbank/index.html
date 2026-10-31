@@ -64,6 +64,32 @@ input.ans{width:100%;padding:13px;border-radius:12px;border:2px solid var(--line
 .mute{color:var(--mute);font-size:.9rem}
 textarea{width:100%;min-height:70px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px;font:inherit}
 @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- friendlier look ---------- */
+body{background:radial-gradient(1200px 500px at 50% -120px,#e4e0ff 0%,transparent 70%),var(--bg)}
+body.challenge{background:radial-gradient(1200px 500px at 50% -120px,#134e4a 0%,transparent 70%),var(--bg)}
+.btn{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 3px 0 rgba(0,0,0,.14);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.14)}
+.btn.ghost{background:transparent;box-shadow:none}
+.card{box-shadow:0 6px 22px rgba(60,50,140,.07)}
+.prog{height:12px;border-radius:8px}.prog i{background:linear-gradient(90deg,#22c55e,#14b8a6,#4f46e5);border-radius:8px}
+.qcard{padding:22px 20px;border-radius:20px}
+.qcard .q{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin:0 0 10px}
+.qsub{font-size:1.3rem;line-height:1.5;margin:0 0 18px;font-weight:600}
+.qpic{display:block;width:100%;max-height:230px;object-fit:cover;border-radius:16px;margin:0 0 16px}
+.opt{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;font-size:1.05rem;box-shadow:0 3px 0 var(--line);transition:transform .08s,border-color .12s}
+.opt:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 0 var(--accent)}
+.opt .ltr{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg);border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--mute)}
+.opt.good .ltr{background:var(--good);border-color:var(--good);color:#fff}.opt.bad .ltr{background:var(--bad);border-color:var(--bad);color:#fff}
+.fb{border-radius:14px;font-size:1rem;line-height:1.5;animation:rise .25s ease-out}
+.wpq{float:right;width:84px;height:84px;object-fit:cover;border-radius:12px;margin:0 0 6px 10px}
+.pop{animation:pop .3s ease-out}.shake{animation:shake .35s}
+@keyframes pop{50%{transform:scale(1.015)}}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.conf{position:fixed;top:-12px;width:9px;height:14px;border-radius:2px;z-index:9999;pointer-events:none;animation:fall 2.2s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+.stars{font-size:2.4rem;letter-spacing:6px}
 </style>
 </head>
 <body class="classic">
@@ -186,10 +212,18 @@ function rarity(w){ var b = box(w); return b >= 5 ? 3 : b >= 3 ? 2 : b >= 1 ? 1 
 
 /* ---------- question building ---------- */
 function distractors(w, field, n){
-  var me = WB.words[w], pool = Object.keys(WB.words).filter(function(k){ return k !== w && WB.words[k][field]; });
-  var same = pool.filter(function(k){ return WB.words[k].pos === me.pos; });
-  var pick = shuffle(same).slice(0, n);
-  if (pick.length < n) pick = pick.concat(shuffle(pool.filter(function(k){ return pick.indexOf(k) < 0; })).slice(0, n - pick.length));
+  var me = WB.words[w], seen = {}; seen[w] = 1;
+  var ok = function(k){ return !seen[k] && WB.words[k] && WB.words[k][field]; };
+  var near = {};
+  WB.lessons.forEach(function(l){ if ((me.lessons || []).indexOf(l.id) >= 0) l.words.forEach(function(k){ near[k] = 1; }); });
+  var poolNear = Object.keys(near).filter(ok), pick = [];
+  var take = function(list){ shuffle(list).forEach(function(k){ if (pick.length < n && ok(k)) { pick.push(k); seen[k] = 1; } }); };
+  take(poolNear.filter(function(k){ return WB.words[k].pos === me.pos; }));
+  take(poolNear);
+  if (run && run.queue) take(run.queue.map(function(x){ return x.w; }));
+  var all = Object.keys(WB.words).filter(ok);
+  take(all.filter(function(k){ return WB.words[k].pos === me.pos; }));
+  take(all);
   return pick;
 }
 function blank(w, ex){
@@ -200,13 +234,17 @@ function blank(w, ex){
 }
 function hide(t, w){
   if (!t) return t;
+  t = t.replace(/\s*\((?:plural|past|also|pl\.|variant)[^)]*\)\.?/ig, '');
   var re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\w{0,3}\\b', 'ig');
-  return t.replace(re, '______');
+  t = t.replace(re, '______');
+  if (w.length >= 6 && w.indexOf(' ') < 0) t = t.replace(new RegExp('\\b' + w.slice(0, w.length - 3).replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\w*', 'ig'), '______');
+  return t;
 }
 function makeQ(w){
   var d = WB.words[w], b = box(w), types = [];
   if (d.def) types.push('def');
   if (d.def && b <= 2) types.push('w2d');
+  if (window.WORD_PICS && WORD_PICS[w]) { types.push('pic'); types.push('pic'); }
   var g = d.ex ? blank(w, d.ex) : null;
   if (g) { types.push('gap'); if (b >= 2) types.push('gap'); }
   if (d.def && b >= 3) types.push('spell');
@@ -215,6 +253,9 @@ function makeQ(w){
   var q = {word: w, type: t, d: d};
   if (t === 'def') {
     q.sub = hide(d.def, w); q.prompt = q.sub.indexOf('______') >= 0 ? 'Which word fits?' : 'Which word or phrase means…';
+    q.options = shuffle([w].concat(distractors(w,'def',3))); q.answer = w;
+  } else if (t === 'pic') {
+    q.prompt = 'Which word matches the picture?'; q.sub = ''; q.pic = w;
     q.options = shuffle([w].concat(distractors(w,'def',3))); q.answer = w;
   } else if (t === 'w2d') {
     q.prompt = 'What does “' + w + '” mean?'; q.sub = '';
@@ -488,21 +529,23 @@ function renderRun(){
   var h = '<div class="hud"><button class="btn ghost" id="quit">✕</button><span>' + esc(run.label) + '</span><span>' + (d ? '<span class="strikes" title="Strikes left">' + strikesStr(run.hearts) + '</span> · ' + run.combo + ' in a row' : run.xp + ' XP') + '</span></div>';
   h += '<div class="prog"><i style="width:' + Math.min(100,pct) + '%"></i></div>';
   if (d) h += trackHtml();
-  h += '<div class="card"><div class="q">' + esc(q.prompt) + '</div>';
-  if (q.sub) h += '<p style="font-size:1.1rem;margin:0 0 14px">' + esc(q.sub) + '</p>';
+  h += '<div class="card qcard' + (a ? (a.ok ? ' pop' : ' shake') : '') + '"><div class="q">' + esc(q.prompt) + '</div>';
+  if (q.pic) h += picHtml(q.pic, 'qpic');
+  if (q.sub) h += '<p class="qsub">' + esc(q.sub) + '</p>';
   if (q.typed) {
     h += '<input class="ans" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false"' + (a?' disabled value="' + esc(a.given) + '"':'') + '>';
     if (!a) h += '<button class="btn" id="go">Check</button>';
   } else {
+    var oi = 0;
     q.options.forEach(function(o){
       var key = q.labelled ? o.key : o, label = q.labelled ? o.label : o, cls = '';
       if (a) cls = key === q.answer ? ' good' : (key === a.given ? ' bad' : '');
-      h += '<button class="opt' + cls + '" data-k="' + esc(key) + '"' + (a?' disabled':'') + '>' + esc(label) + '</button>';
+      h += '<button class="opt' + cls + '" data-k="' + esc(key) + '"' + (a?' disabled':'') + '><span class="ltr">' + 'ABCD'.charAt(oi++) + '</span><span>' + esc(label) + '</span></button>';
     });
   }
   if (a) {
     var dd = q.d;
-    h += '<div class="fb ' + (a.ok?'good':'bad') + '"><b>' + (a.ok ? 'Correct.' : (d ? 'Strike.' : 'Not quite.')) + '</b> ' +
+    h += '<div class="fb ' + (a.ok?'good':'bad') + '"><b>' + (a.ok ? ['Yes!','Nailed it.','Spot on.','Brilliant.'][run.i % 4] + (run.combo > 2 ? ' 🔥 ' + run.combo + ' in a row' : '') : (d ? 'Strike.' : 'Not quite — now you will remember it.')) + '</b> ' +
       picHtml(q.word, 'wpq') + '<button class="say" data-say="' + esc(q.word) + '" aria-label="Hear the word">Listen</button><br><b>' + esc(q.word) + '</b>' + (dd.pos ? ' (' + esc(dd.pos) + ')' : '') + (dd.def ? ' — ' + esc(dd.def) : '') +
       (dd.ex ? '<br><i>' + esc(dd.ex) + '</i>' : '') + '</div><button class="btn big" id="next">' + (run.queue.length === 1 || (d && run.hearts <= 0) ? 'Finish' : 'Next') + '</button>';
   }
@@ -518,14 +561,22 @@ function renderRun(){
 }
 function renderResult(){
   var d = isChallenge(), won = !d || run.hearts > 0;
-  var h = '<div class="card" style="text-align:center"><h2>' + (d ? (won ? (run.boss ? 'Final review passed' : 'Round complete') : 'Round ended') : 'Session complete') + '</h2>' +
+  var fr = run.total ? run.correct / run.total : 0;
+  var h = '<div class="card" style="text-align:center"><div class="stars">' + (fr >= 0.9 ? '⭐⭐⭐' : fr >= 0.6 ? '⭐⭐' : '⭐') + '</div><h2>' + (d ? (won ? (run.boss ? 'Final review passed' : 'Round complete') : 'Round ended') : 'Session complete') + '</h2>' +
     '<p>' + run.correct + ' correct · +' + run.xp + ' XP' + (run.promoted ? ' · ' + run.promoted + ' word' + (run.promoted>1?'s':'') + ' levelled up' : '') + '</p>';
   if (d && run.best > 1) h += '<p class="mute">Best run: ' + run.best + ' correct in a row</p>';
   var miss = Object.keys(run.results).filter(function(w){ return run.results[w] === 'miss'; });
   if (miss.length) h += '<p class="mute">Come back to these: ' + miss.map(esc).join(', ') + '</p>';
-  h += '<button class="btn big" id="home">Back to my words</button></div>';
+  if (miss.length) h += '<button class="btn big" id="again" style="margin-bottom:10px">Practise the ones I missed</button>';
+  h += '<button class="btn big ghost" id="home">Back to my words</button></div>';
   app.innerHTML = h;
   document.getElementById('home').onclick = function(){ run = null; view = 'home'; render(); };
+  var ag = document.getElementById('again'); if (ag) ag.onclick = function(){ startRun(miss, 'Missed words'); };
+  if (won) confetti();
+}
+function confetti(){
+  var c = ['#4f46e5','#f59e0b','#14b8a6','#ec4899','#22c55e'];
+  for (var i = 0; i < 40; i++) { var e = document.createElement('i'); e.className = 'conf'; e.style.cssText = 'left:' + Math.random()*100 + 'vw;background:' + c[i % 5] + ';animation-delay:' + Math.random()*0.6 + 's;transform:rotate(' + Math.random()*360 + 'deg)'; document.body.appendChild(e); setTimeout(function(x){ x.remove(); }.bind(null, e), 2600); }
 }
 
 render();
