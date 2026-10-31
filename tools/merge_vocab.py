@@ -8,6 +8,13 @@ Q = os.path.join(R, 'bots/queue/vocab')
 OUT = os.path.join(R, 'wordbank/extra_words.json')
 POS = set('n v adj adv phr v prep conj phr'.split()) | {'phr v'}
 BAD = re.compile(r'\b(lesson|teacher|student|malcolm)\b', re.I)
+def repeats(w, d):
+    dl = d.lower()
+    if re.search(r'\b' + re.escape(w) + r'(s|es|ed|d|ing)?\b', dl): return True
+    big = [x for x in w.split() if len(x) >= 5]
+    return len(w.split()) > 1 and len(big) >= 2 and all(re.search(r'\b' + re.escape(x), dl) for x in big)
+
+
 out = json.load(open(OUT, encoding='utf-8')) if os.path.exists(OUT) else {}
 for f in sorted(glob.glob(Q + '/done/batch_*.tsv')):
     b = os.path.basename(f)[:-4]
@@ -21,10 +28,10 @@ for f in sorted(glob.glob(Q + '/done/batch_*.tsv')):
         if i not in ids: errs.append('%d: unknown id %s' % (n, i)); continue
         if w == 'NONE': lessons.setdefault(i, []); continue
         w = re.sub(r'^(to|a|an|the) ', '', w.lower())
-        if not re.fullmatch(r"[a-z][a-z' -]{0,38}[a-z]", w) or len(w.split()) > 4: errs.append('%d: bad word %r' % (n, w)); continue
+        if not re.fullmatch(r"[a-z0-9][a-z0-9' -]{0,38}[a-z0-9]", w) or len(w.split()) > 4: errs.append('%d: bad word %r' % (n, w)); continue
         if pos not in POS: errs.append('%d: bad pos %r' % (n, pos)); continue
         if not 4 <= len(d.split()) <= 20: errs.append('%d: definition length' % n); continue
-        if re.search(r'\b' + re.escape(w.split()[0][:max(4, len(w.split()[0]) - 2)]), d, re.I): errs.append('%d: definition contains the word %r' % (n, w)); continue
+        if repeats(w, d): errs.append('%d: definition contains the word %r' % (n, w)); continue
         if not 5 <= len(ex.split()) <= 22: errs.append('%d: example length' % n); continue
         if BAD.search(d + ' ' + ex): errs.append('%d: banned word' % n); continue
         lessons.setdefault(i, []).append({'w': w, 'pos': pos, 'def': d, 'ex': ex})
