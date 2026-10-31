@@ -16,6 +16,7 @@ Malcolm will have given you a name. Find it in this table and open your brief.
 | **Vista** | 6 topic pictures, then vocabulary batch_025 to batch_036 | https://malcolmhyndman.com/preply-lessons/bots/round4_vista.md |
 | **Muse** | vocabulary batch_037 to batch_048 | https://malcolmhyndman.com/preply-lessons/bots/round4_muse.md |
 | **Lexi** | vocabulary batch_049 to batch_061 | https://malcolmhyndman.com/preply-lessons/bots/round4_lexi.md |
+| **Round 5 (after Round 4)** | Folio: Professional route pictures; Atlas: Academic route pictures (and the missing topic_CUL); Vista: General route pictures | https://malcolmhyndman.com/preply-lessons/bots/round5_<yourname>.md |
 | **Grok** | Nothing: you are the relay. Pass on messages and report back. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
