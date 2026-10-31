@@ -18,13 +18,14 @@ CONF = {
             ("meetings", "Meetings & conversation", "Speak up, think on your feet, keep the conversation moving."),
             ("presenting", "Presenting & storytelling", "Hold a room with a clear story and a confident voice."),
             ("negotiating", "Negotiating & deals", "Trade fairs, bargaining, persuading and closing."),
-            ("career", "Career & interviews", "Interviews, professional skills and senior communication."),
+            ("career", "Career & skills", "Professional skills and the Business Bootcamp."),
             ("writing", "Writing & grammar", "Emails, reports and grammar that works at work."),
             ("leading", "Leading & influencing", "The language of senior people: framing, steering, commanding a room."),
+            ("interviews", "Interviews", "From your first answers to senior-level conversations."),
         ],
         "rules": [("Trade Fair", "negotiating"), ("Speaking Pathway", "meetings"), ("Grammar", "writing"), ("Bootcamp", "career"),
                   ("Business Meetings", "meetings"), ("Professional Skills", "career"), ("Listening", "meetings"),
-                  ("Storytelling", "presenting"), ("Interview", "career"), ("Pronunciation", "presenting"),
+                  ("Storytelling", "presenting"), ("Interview", "interviews"), ("Pronunciation", "presenting"),
                   ("Beyond Perfect", "leading"), ("Commanding", "leading")],
     },
     "academic": {
@@ -94,6 +95,14 @@ for ch in re.split(r'<div class="chapter">', src)[1:]:
             "goal": goal_of(ctitle, html.unescape(g("path-name")).strip()),
             "ids": ids if 3 <= len(ids) <= 40 else [],
         })
+if route == "professional":
+    pos = next(i for i, c in enumerate(cards) if c["level"] == "B1–B2")
+    cards.insert(pos, {"href": "interviews_dashboard.html", "level": "B1–B2", "chapter": "The Professional Toolkit", "tag": "New pathway",
+                     "name": "Interview English", "desc": "One clear path through the interview, from your first answers to senior-level conversations.",
+                     "meta": "19 lessons", "goal": "interviews", "ids": []})
+    d = open(os.path.join(ROOT, "interviews_dashboard.html"), encoding="utf-8").read()
+    ids = sorted({x[:-5] for x in re.findall(r'"id":"([^"]+)"', d)})
+    cards[pos]["ids"] = ids
 levels = []
 for c in cards:
     if c["level"] not in levels:

@@ -43061,6 +43061,146 @@ window.WORDBANK={
     "economy",
     "elect"
    ]
+  },
+  {
+   "id": "qf_falsefriend_spanish_embarazada",
+   "title": "Embarrassed vs Embarazada - Quick Fix",
+   "level": "A2",
+   "words": [
+    "embarrassed",
+    "pregnant",
+    "expecting",
+    "ashamed",
+    "awkward",
+    "announce"
+   ]
+  },
+  {
+   "id": "qf_falsefriend_spanish_exito",
+   "title": "Exito vs Exit - Quick Fix",
+   "level": "B1",
+   "words": [
+    "success",
+    "exit",
+    "achievement",
+    "accomplishment",
+    "remarkable",
+    "emergency"
+   ]
+  },
+  {
+   "id": "Effective-Pronunciation-Lesson",
+   "title": "Effective Pronunciation",
+   "level": "",
+   "words": [
+    "intonation",
+    "stressed",
+    "unstressed",
+    "schwa",
+    "chunk",
+    "pause",
+    "emphasise",
+    "gobsmacked"
+   ]
+  },
+  {
+   "id": "acad_b1_01_classroom_english",
+   "title": "Classroom English: Asking for Help",
+   "level": "B1",
+   "words": [
+    "clarification",
+    "participation",
+    "considerate",
+    "classmate",
+    "comprehension",
+    "lecture",
+    "confidently"
+   ]
+  },
+  {
+   "id": "acad_b1_02_taking_notes",
+   "title": "Taking Notes in English",
+   "level": "B1",
+   "words": [
+    "legible",
+    "abbreviation",
+    "margin",
+    "renewable",
+    "emissions",
+    "fossil fuels",
+    "symbol"
+   ]
+  },
+  {
+   "id": "acad_b1_03_reading_textbooks",
+   "title": "Reading Textbooks Effectively",
+   "level": "B1",
+   "words": [
+    "annotate",
+    "skim",
+    "scan",
+    "glossary",
+    "highlight",
+    "reinforce",
+    "relevance"
+   ]
+  },
+  {
+   "id": "acad_b1_04_writing_paragraphs",
+   "title": "Writing Clear Paragraphs",
+   "level": "B1",
+   "words": [
+    "topic sentence",
+    "concluding sentence",
+    "irrelevant",
+    "logically",
+    "unity",
+    "furthermore",
+    "assignment"
+   ]
+  },
+  {
+   "id": "acad_b1_06_understanding_instructions",
+   "title": "Understanding Assignment Instructions",
+   "level": "B1",
+   "words": [
+    "evaporation",
+    "condensation",
+    "precipitation",
+    "deforestation",
+    "interconnected",
+    "critically",
+    "submission"
+   ]
+  },
+  {
+   "id": "acad_b1_08_writing_emails_teachers",
+   "title": "Emailing Your Teacher",
+   "level": "B1",
+   "words": [
+    "extension",
+    "resubmit",
+    "concise",
+    "wordy",
+    "unwell",
+    "guidance",
+    "gratitude"
+   ]
+  },
+  {
+   "id": "acad_b1_10_describing_graphs",
+   "title": "Describing Charts and Graphs",
+   "level": "B1",
+   "words": [
+    "fluctuate",
+    "plateau",
+    "soar",
+    "steadily",
+    "peak",
+    "volatile",
+    "axis",
+    "gradual"
+   ]
   }
  ],
  "words": {
@@ -47204,7 +47344,8 @@ window.WORDBANK={
     "bc_ada_lovelace_b1b2",
     "short_history_the_colosseum_a2b1",
     "short_history_the_taj_mahal_a2b1",
-    "lesson-19-formulas"
+    "lesson-19-formulas",
+    "acad_b1_02_taking_notes"
    ]
   },
   "picture": {
@@ -51233,7 +51374,8 @@ window.WORDBANK={
     "bc_procurement_price_increase_c1",
     "skills_b1b2_trade_fair_negotiating",
     "Business-Bootcamp-Lesson4-The-Numbers",
-    "may_might_could_professional"
+    "may_might_could_professional",
+    "acad_b1_02_taking_notes"
    ]
   },
   "patent": {
@@ -51664,7 +51806,8 @@ window.WORDBANK={
     "a1p_40_review_unit4_complete",
     "lesson_01_past_simple_life_stories",
     "lesson_11_can_could_be_able_to",
-    "lesson_11_can_could_be_able_to_1"
+    "lesson_11_can_could_be_able_to_1",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "overcome": {
@@ -53285,7 +53428,8 @@ window.WORDBANK={
    "def": "how an owner converts a business into money or passes it on: an IPO, a trade sale, a buyout, succession. An exit strategy. The case's title move: inventing a fifth option.",
    "ex": "",
    "lessons": [
-    "bc_patagonia_c1"
+    "bc_patagonia_c1",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "mission drift": {
@@ -53608,7 +53752,8 @@ window.WORDBANK={
     "sp_prep_a2_01",
     "sp_prep_a2_16",
     "lesson-26-speeches-performance",
-    "grammar_b1_10_relative_clauses_extended"
+    "grammar_b1_10_relative_clauses_extended",
+    "Effective-Pronunciation-Lesson"
    ]
   },
   "ipo": {
@@ -54445,7 +54590,8 @@ window.WORDBANK={
     "talk_cars_in_cities_b2c1",
     "cae_essay_practice_2",
     "bc_ielts_problem_solution_b2c1",
-    "sp_b1_34_problem_solution"
+    "sp_b1_34_problem_solution",
+    "acad_b1_02_taking_notes"
    ]
   },
   "limit": {
@@ -55819,7 +55965,8 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_contagion",
     "behind_the_screen_whiplash",
-    "short_history_the_kray_twins"
+    "short_history_the_kray_twins",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "unprecedented": {
@@ -59832,7 +59979,8 @@ window.WORDBANK={
    "ex": "Her report was concise: three pages, one recommendation, nothing wasted.",
    "lessons": [
     "end_point_c1",
-    "diagnostic_focus_c1_inverted_formal"
+    "diagnostic_focus_c1_inverted_formal",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "eloquent": {
@@ -62689,7 +62837,8 @@ window.WORDBANK={
     "psy_06_does_money_buy_happiness_b2c1",
     "tib_hypecycle_b2",
     "bc_trends_c1",
-    "cpe_read_c1_02_feral_children"
+    "cpe_read_c1_02_feral_children",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "reports": {
@@ -65944,7 +66093,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_easter_island",
     "st_pro_06_numbers_that_breathe",
-    "ielts_writing_problem_solution_essay"
+    "ielts_writing_problem_solution_essay",
+    "acad_b1_06_understanding_instructions"
    ]
   },
   "descendant": {
@@ -71820,7 +71970,8 @@ window.WORDBANK={
    "def": "clear enough to be read easily. Opposite: illegible.",
    "ex": "",
    "lessons": [
-    "short_history_the_printing_press"
+    "short_history_the_printing_press",
+    "acad_b1_02_taking_notes"
    ]
   },
   "disseminate": {
@@ -82231,7 +82382,8 @@ window.WORDBANK={
    "def": "to rise quickly to a very high level. (prices / temperatures soar; soaring costs)",
    "ex": "",
    "lessons": [
-    "tib_foodpyramid_b2"
+    "tib_foodpyramid_b2",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "staple": {
@@ -82313,7 +82465,8 @@ window.WORDBANK={
    "ex": "House prices reached their peak in the spring and then started to fall.",
    "lessons": [
     "tib_hypecycle_b2",
-    "memory_arts_part1"
+    "memory_arts_part1",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "disillusionment": {
@@ -82985,7 +83138,8 @@ window.WORDBANK={
    "ex": "The fishermen scan the sky every morning for signs of a storm.",
    "lessons": [
     "tib_pestle_b2",
-    "ielts_reading_lesson_2_reading_skills"
+    "ielts_reading_lesson_2_reading_skills",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "informal": {
@@ -83972,7 +84126,8 @@ window.WORDBANK={
     "bc_confident_meetings_c1",
     "lf_12_what_are_we",
     "sp_a2_01_buying_time",
-    "b1_38_telling_effective_anecdotes"
+    "b1_38_telling_effective_anecdotes",
+    "qf_falsefriend_spanish_embarazada"
    ]
   },
   "small talk": {
@@ -84124,7 +84279,8 @@ window.WORDBANK={
    "lessons": [
     "trial_beyond_small_talk_guide_b1b2",
     "ielts_writing_guides",
-    "sp_a2_12_follow_up_questions"
+    "sp_a2_12_follow_up_questions",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "guests": {
@@ -85612,7 +85768,8 @@ window.WORDBANK={
    "ex": "I asked my boss for an extension on the deadline.",
    "lessons": [
     "acad_b2_14_academic_emails",
-    "sp_prep_b2_44"
+    "sp_prep_b2_44",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "clarification": {
@@ -85629,7 +85786,8 @@ window.WORDBANK={
     "bc_adapt_your_writing_c1",
     "a1p_41_conversation_management",
     "sp_b1_24_clarification",
-    "b1_19_giving_a_presentation"
+    "b1_19_giving_a_presentation",
+    "acad_b1_01_classroom_english"
    ]
   },
   "vague": {
@@ -86114,7 +86272,8 @@ window.WORDBANK={
     "acad_c2_01_journal_writing",
     "rs_y10_sum2_24_05",
     "rs_y8_aut1_07_04",
-    "rs_y11_aut2_26_06"
+    "rs_y11_aut2_26_06",
+    "acad_b1_06_understanding_instructions"
    ]
   },
   "gatekeeping": {
@@ -86465,7 +86624,8 @@ window.WORDBANK={
    "def": "carefully judging what is good, bad, true or false",
    "ex": "We should read news online critically before sharing it.",
    "lessons": [
-    "gr_b2_fact_or_bluff"
+    "gr_b2_fact_or_bluff",
+    "acad_b1_06_understanding_instructions"
    ]
   },
   "reasoning": {
@@ -88008,7 +88168,8 @@ window.WORDBANK={
     "rs_y10_spr1_21_02",
     "rs_y10_sum2_24_02",
     "rs_y7_spr1_03_01",
-    "c2_pro_18_mentoring_language"
+    "c2_pro_18_mentoring_language",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "recite": {
@@ -89324,7 +89485,8 @@ window.WORDBANK={
    "ex": "White clothing shows the unity of all pilgrims.",
    "lessons": [
     "rs_y11_aut2_26_01",
-    "rs_y9_sum2_18_03"
+    "rs_y9_sum2_18_03",
+    "acad_b1_04_writing_paragraphs"
    ]
   },
   "ihram": {
@@ -89459,7 +89621,8 @@ window.WORDBANK={
    "lessons": [
     "rs_y11_aut2_26_05",
     "bc_someone_i_admire_idioms_c1",
-    "wp_16_the_fourfold_cure"
+    "wp_16_the_fourfold_cure",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "optional": {
@@ -91568,7 +91731,8 @@ window.WORDBANK={
    "lessons": [
     "bc_memorable_language_c1",
     "talk_homework_b2c1",
-    "c1_pro_24_marketing_campaigns"
+    "c1_pro_24_marketing_campaigns",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "contrast": {
@@ -92392,7 +92556,8 @@ window.WORDBANK={
    "lessons": [
     "bc_presentation_structure_c1",
     "ielts_task_1_master_lesson",
-    "grammar_b1_14_prepositions_advanced"
+    "grammar_b1_14_prepositions_advanced",
+    "acad_b1_04_writing_paragraphs"
    ]
   },
   "organise": {
@@ -92479,7 +92644,8 @@ window.WORDBANK={
     "talk_books_and_screens_b2c1",
     "c1_pro_09_business_writing",
     "ielts_reading_lesson_2_reading_skills",
-    "lesson-27-books-articles"
+    "lesson-27-books-articles",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "read up on": {
@@ -92800,7 +92966,8 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_climate",
     "talk_climate_action_b2c1",
     "IELTS-Reading-Practice-Test-1",
-    "sentence_powerups"
+    "sentence_powerups",
+    "acad_b1_02_taking_notes"
    ]
   },
   "overpromise": {
@@ -93846,7 +94013,8 @@ window.WORDBANK={
     "rp_37_at_the_consulate",
     "rs_y9_spr1_15_05",
     "short_history_the_roman_republic_a2b1",
-    "aviation_eapt_06"
+    "aviation_eapt_06",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "infect": {
@@ -97267,7 +97435,8 @@ window.WORDBANK={
    "ex": "My rabbit seems unwell this morning.",
    "lessons": [
     "rp_25_at_the_vet",
-    "su_a2_87_at_the_doctor"
+    "su_a2_87_at_the_doctor",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "bland": {
@@ -102161,7 +102330,8 @@ window.WORDBANK={
    "ex": "I could not see the relevance of his question.",
    "lessons": [
     "acad_c2_12_abstract_writing",
-    "wk_28_the_first_sales_call"
+    "wk_28_the_first_sales_call",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "gap statement": {
@@ -104735,7 +104905,8 @@ window.WORDBANK={
    "lessons": [
     "speed_reading_masterclass",
     "cae_exam_overview",
-    "aviation_english_icao_exam_4"
+    "aviation_english_icao_exam_4",
+    "acad_b1_01_classroom_english"
    ]
   },
   "exaggerated": {
@@ -105090,7 +105261,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_06_memorable_meals",
     "ielts_spelling_results_day",
-    "acad_b1_29_reading_for_detail"
+    "acad_b1_29_reading_for_detail",
+    "Effective-Pronunciation-Lesson"
    ]
   },
   "active listening": {
@@ -105611,7 +105783,8 @@ window.WORDBANK={
    "lessons": [
     "su_a2_16_surprising_tales",
     "b1_35_effective_anecdotes",
-    "grammar_b1_05_possibility_hypothetical"
+    "grammar_b1_05_possibility_hypothetical",
+    "qf_falsefriend_spanish_embarazada"
    ]
   },
   "purchase": {
@@ -107962,7 +108135,8 @@ window.WORDBANK={
     "sp_a2_06_active_listening",
     "sp_c1_73_native_expression",
     "grammar_c1_07_questions_for_effect",
-    "pron_c1_05_intonation_attitude"
+    "pron_c1_05_intonation_attitude",
+    "Effective-Pronunciation-Lesson"
    ]
   },
   "emphasize": {
@@ -108455,7 +108629,8 @@ window.WORDBANK={
    "ex": "She has been very stressed since starting the new job.",
    "lessons": [
     "b2_02_explaining_emotions",
-    "talk_homework_a2b1"
+    "talk_homework_a2b1",
+    "Effective-Pronunciation-Lesson"
    ]
   },
   "fall out": {
@@ -112385,7 +112560,8 @@ window.WORDBANK={
    "ex": "The assignment is due on Friday morning.",
    "lessons": [
     "talk_homework_b2c1",
-    "qf_falsefriend_spanish_carpeta"
+    "qf_falsefriend_spanish_carpeta",
+    "acad_b1_04_writing_paragraphs"
    ]
   },
   "independent learning": {
@@ -113046,7 +113222,8 @@ window.WORDBANK={
    "ex": "All the city's problems are interconnected.",
    "lessons": [
     "c1_pro_29_digital_transformation",
-    "sp_c1_61_sophisticated_cohesion"
+    "sp_c1_61_sophisticated_cohesion",
+    "acad_b1_06_understanding_instructions"
    ]
   },
   "entrepreneurship": {
@@ -114555,7 +114732,8 @@ window.WORDBANK={
    "lessons": [
     "crowds_and_madness",
     "IELTS-Reading-Practice-Test-5",
-    "memory_arts_p1_10"
+    "memory_arts_p1_10",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "wildly": {
@@ -114613,7 +114791,8 @@ window.WORDBANK={
    "def": "in a way that shows you are sure of yourself",
    "ex": "He walked confidently onto the stage.",
    "lessons": [
-    "ct_a2_20_mastery_prep"
+    "ct_a2_20_mastery_prep",
+    "acad_b1_01_classroom_english"
    ]
   },
   "angle": {
@@ -114710,7 +114889,8 @@ window.WORDBANK={
    "ex": "The party was a great success.",
    "lessons": [
     "ct_b1_26_abstract_concepts",
-    "a1p_40_review_unit4_complete"
+    "a1p_40_review_unit4_complete",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "intelligent": {
@@ -116206,7 +116386,8 @@ window.WORDBANK={
    "def": "a formal talk on a subject given to a group",
    "ex": "The lecture on climate change lasted two hours.",
    "lessons": [
-    "general_listening_b2_pitch_drop_interactive"
+    "general_listening_b2_pitch_drop_interactive",
+    "acad_b1_01_classroom_english"
    ]
   },
   "stay quiet": {
@@ -119204,7 +119385,8 @@ window.WORDBANK={
    "ex": "There has been a gradual rise in prices this year.",
    "lessons": [
     "ois_03_the_saxon_shore",
-    "discuss_b2c1_endings_and_after"
+    "discuss_b2c1_endings_and_after",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "burial": {
@@ -120685,7 +120867,8 @@ window.WORDBANK={
    "def": "feeling embarrassed and guilty about something",
    "ex": "She felt ashamed of her angry email.",
    "lessons": [
-    "prof_c2_07_global_leadership"
+    "prof_c2_07_global_leadership",
+    "qf_falsefriend_spanish_embarazada"
    ]
   },
   "profitable": {
@@ -126154,7 +126337,8 @@ window.WORDBANK={
    "def": "the change of a gas into a liquid",
    "ex": "Condensation formed on the cold window.",
    "lessons": [
-    "wp_01_the_birth_of_wonder"
+    "wp_01_the_birth_of_wonder",
+    "acad_b1_06_understanding_instructions"
    ]
   },
   "naturalism": {
@@ -130296,7 +130480,8 @@ window.WORDBANK={
    "ex": "Etc is an abbreviation for et cetera.",
    "lessons": [
     "bc_english_as_medium_instruction_c1",
-    "lesson-23-ben-system"
+    "lesson-23-ben-system",
+    "acad_b1_02_taking_notes"
    ]
   },
   "imminent": {
@@ -131475,7 +131660,8 @@ window.WORDBANK={
    "ex": "Sales have grown steadily over the year.",
    "lessons": [
     "bc_changing_places_c1",
-    "ielts_task_1_complete_interactive"
+    "ielts_task_1_complete_interactive",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "workmanship": {
@@ -133303,7 +133489,8 @@ window.WORDBANK={
     "a1_my_daily_routine_interactive",
     "a1_who_do_you_do_it_with_interactive",
     "grammar_a1_05_wh_questions_negation",
-    "grammar_b1_09_reported_speech_advanced"
+    "grammar_b1_09_reported_speech_advanced",
+    "acad_b1_01_classroom_english"
    ]
   },
   "preposition": {
@@ -134278,7 +134465,8 @@ window.WORDBANK={
    "def": "something good that you have achieved",
    "ex": "Finishing the marathon was a real accomplishment.",
    "lessons": [
-    "cpe_read_c1_15_impostor_syndrome"
+    "cpe_read_c1_15_impostor_syndrome",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "plank": {
@@ -134844,7 +135032,8 @@ window.WORDBANK={
    "ex": "Annotate the extract before you start writing.",
    "lessons": [
     "cla_alevel_06_the_45_mark_answer",
-    "lv_alevel_06_the_two_essays"
+    "lv_alevel_06_the_two_essays",
+    "acad_b1_03_reading_textbooks"
    ]
   },
   "copula": {
@@ -137018,7 +137207,8 @@ window.WORDBANK={
    "def": "the first sentence of a paragraph that states its main idea",
    "ex": "Each paragraph in your report needs a clear topic sentence.",
    "lessons": [
-    "ielts_lesson_3_body_paragraphs"
+    "ielts_lesson_3_body_paragraphs",
+    "acad_b1_04_writing_paragraphs"
    ]
   },
   "sketch": {
@@ -137522,7 +137712,8 @@ window.WORDBANK={
    "def": "to change often between higher and lower levels",
    "ex": "The price of fuel fluctuates from week to week.",
    "lessons": [
-    "ielts_task_1_lesson_3_bar_pie"
+    "ielts_task_1_lesson_3_bar_pie",
+    "acad_b1_10_describing_graphs"
    ]
   },
   "usage": {
@@ -139427,7 +139618,8 @@ window.WORDBANK={
    "def": "said with less force than other parts of a word",
    "ex": "The first part of the word about is unstressed and very short.",
    "lessons": [
-    "qf_pronunciation_schwa"
+    "qf_pronunciation_schwa",
+    "Effective-Pronunciation-Lesson"
    ]
   },
   "invisible": {
@@ -145740,7 +145932,8 @@ window.WORDBANK={
    "def": "to tell people officially about something",
    "ex": "The winners will be announced on Friday.",
    "lessons": [
-    "grammar_b1_07_passive_voice_intermediate"
+    "grammar_b1_07_passive_voice_intermediate",
+    "qf_falsefriend_spanish_embarazada"
    ]
   },
   "instructor": {
@@ -146353,7 +146546,8 @@ window.WORDBANK={
    "def": "using more words than are needed to say something",
    "ex": "The first draft of my essay was far too wordy.",
    "lessons": [
-    "grammar_c1_10_advanced_pronouns_reference"
+    "grammar_c1_10_advanced_pronouns_reference",
+    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "frustrating": {
@@ -147290,6 +147484,150 @@ window.WORDBANK={
    "ex": "The president was elected last year.",
    "lessons": [
     "qf_falsefriend_french_actual"
+   ]
+  },
+  "pregnant": {
+   "w": "pregnant",
+   "pos": "adj",
+   "def": "having a baby growing inside your body",
+   "ex": "My sister is pregnant with her second child.",
+   "lessons": [
+    "qf_falsefriend_spanish_embarazada"
+   ]
+  },
+  "expecting": {
+   "w": "expecting",
+   "pos": "adj",
+   "def": "going to have a baby soon",
+   "ex": "They announced that they're expecting a baby in May.",
+   "lessons": [
+    "qf_falsefriend_spanish_embarazada"
+   ]
+  },
+  "schwa": {
+   "w": "schwa",
+   "pos": "n",
+   "def": "the weak, short vowel sound heard in many unstressed syllables",
+   "ex": "The first sound in about is a schwa.",
+   "lessons": [
+    "Effective-Pronunciation-Lesson"
+   ]
+  },
+  "chunk": {
+   "w": "chunk",
+   "pos": "n",
+   "def": "a short group of words said together without a break",
+   "ex": "Say each chunk smoothly, then pause briefly.",
+   "lessons": [
+    "Effective-Pronunciation-Lesson"
+   ]
+  },
+  "gobsmacked": {
+   "w": "gobsmacked",
+   "pos": "adj",
+   "def": "extremely surprised, so much that you cannot speak",
+   "ex": "I was gobsmacked when I heard the price.",
+   "lessons": [
+    "Effective-Pronunciation-Lesson"
+   ]
+  },
+  "participation": {
+   "w": "participation",
+   "pos": "n",
+   "def": "the act of taking part in an activity",
+   "ex": "Active participation in class discussions helps you learn faster.",
+   "lessons": [
+    "acad_b1_01_classroom_english"
+   ]
+  },
+  "considerate": {
+   "w": "considerate",
+   "pos": "adj",
+   "def": "thinking about other people's feelings and needs",
+   "ex": "It is considerate to let others finish speaking.",
+   "lessons": [
+    "acad_b1_01_classroom_english"
+   ]
+  },
+  "fossil fuels": {
+   "w": "fossil fuels",
+   "pos": "n",
+   "def": "coal, oil and gas formed from ancient plants and animals",
+   "ex": "Burning fossil fuels warms the planet.",
+   "lessons": [
+    "acad_b1_02_taking_notes"
+   ]
+  },
+  "glossary": {
+   "w": "glossary",
+   "pos": "n",
+   "def": "a list of difficult words with their meanings at the back of a book",
+   "ex": "Check the glossary if you do not know a term.",
+   "lessons": [
+    "acad_b1_03_reading_textbooks"
+   ]
+  },
+  "concluding sentence": {
+   "w": "concluding sentence",
+   "pos": "n",
+   "def": "the final line that sums up a paragraph",
+   "ex": "A good concluding sentence links back to the main idea.",
+   "lessons": [
+    "acad_b1_04_writing_paragraphs"
+   ]
+  },
+  "irrelevant": {
+   "w": "irrelevant",
+   "pos": "adj",
+   "def": "not connected to the subject being discussed",
+   "ex": "Remove any irrelevant details from your paragraph.",
+   "lessons": [
+    "acad_b1_04_writing_paragraphs"
+   ]
+  },
+  "furthermore": {
+   "w": "furthermore",
+   "pos": "adv",
+   "def": "used to add another point to what was said",
+   "ex": "Laptops are light; furthermore, they are easy to carry.",
+   "lessons": [
+    "acad_b1_04_writing_paragraphs"
+   ]
+  },
+  "evaporation": {
+   "w": "evaporation",
+   "pos": "n",
+   "def": "the change of a liquid into gas, usually by heat",
+   "ex": "Evaporation from the oceans forms clouds.",
+   "lessons": [
+    "acad_b1_06_understanding_instructions"
+   ]
+  },
+  "precipitation": {
+   "w": "precipitation",
+   "pos": "n",
+   "def": "water that falls from the sky as rain or snow",
+   "ex": "The region gets very little precipitation in summer.",
+   "lessons": [
+    "acad_b1_06_understanding_instructions"
+   ]
+  },
+  "resubmit": {
+   "w": "resubmit",
+   "pos": "v",
+   "def": "to hand in work again after changing it",
+   "ex": "You may resubmit the report after making corrections.",
+   "lessons": [
+    "acad_b1_08_writing_emails_teachers"
+   ]
+  },
+  "axis": {
+   "w": "axis",
+   "pos": "n",
+   "def": "a fixed line on a graph used to show values",
+   "ex": "The vertical axis shows the number of sales.",
+   "lessons": [
+    "acad_b1_10_describing_graphs"
    ]
   }
  }
