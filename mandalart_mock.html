@@ -22,8 +22,12 @@ a.c:after{background:rgba(14,40,36,.52)}
 .crumb{margin:0 0 12px;font-size:15px;min-height:22px}.crumb button{background:none;border:0;font:inherit;color:#7a5a1c;text-decoration:underline;cursor:pointer;padding:0}
 a.x{box-shadow:0 0 0 3px #c9a24a,0 4px 14px rgba(0,0,0,.3)}
 a.s{animation:sh .35s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.blk{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;aspect-ratio:1;border-radius:12px;overflow:hidden;box-shadow:0 0 0 2px #c9a24a}
+.blk a{border-radius:0;box-shadow:none}.blk a b{font-size:clamp(6px,.9vw,10px);line-height:1.05;left:4px;right:4px;bottom:3px}.blk a b small{display:none}.blk a.c b{font-size:clamp(8px,1.5vw,15px)}
+.g.m a b{font-size:clamp(11px,2vw,20px)}
+.mapbtn{margin:0 0 14px;background:#2d4a3e;color:#f3ebdd;border:0;border-radius:20px;padding:8px 18px;font:inherit;cursor:pointer}.mapbtn:hover{background:#3d6252}
 </style>
-<h1 id="t">The World of English</h1><p class="s" id="sub">Choose a corner of the world</p><div class="crumb" id="cr"></div>
+<h1 id="t">The World of English</h1><p class="s" id="sub">Choose a corner of the world</p><div class="crumb" id="cr"></div><button class="mapbtn" id="mb">See the bigger picture</button>
 <div class="stage"><div class="frame" id="fr"><div class="in"><div class="g" id="g"></div></div></div></div>
 <script>
 var R='journey/routes/route_professional_',
@@ -36,7 +40,7 @@ L={top:{t:'The World of English',s:'Choose a corner of the world',c:['English, t
 ['The Palace of Subjects','every subject, shelf by shelf','journey/world/region_palace.jpg'],
 ['Comics & guides','stories in pictures','journey/world/region_comics.jpg'],
 ['My Words & My Room','your progress','journey/world/region_words.jpg']]},
-professional:{t:'Professional English',s:'English for work. What do you want to get better at?',c:['Professional English',R+'hero.jpg'],k:[
+professional:{par:'top',t:'Professional English',s:'English for work. What do you want to get better at?',c:['Professional English',R+'hero.jpg'],k:[
 ['Meetings & conversation','speak up, keep it moving',R+'meetings.jpg','journey_professional.html?goal=meetings'],
 ['Presenting & storytelling','hold a room',R+'presenting.jpg','journey_professional.html?goal=presenting'],
 ['Negotiating & deals','trade fairs, bargaining, closing',R+'negotiating.jpg','journey_professional.html?goal=negotiating'],
@@ -52,10 +56,19 @@ function draw(id,anim){var d=L[id];document.getElementById('t').textContent=d.t;
  var c=document.getElementById('cr');c.innerHTML=stack.length?'<button id="bk">← back</button>':'';
  if(stack.length)document.getElementById('bk').onclick=function(){go(stack.pop(),1,1)};
  if(anim){g.classList.remove('in');void g.offsetWidth;g.classList.add('in');}}
-function go(id,anim,back){g.classList.add('out');setTimeout(function(){g.classList.remove('out');cur=id;draw(id,1);},back?350:520);}
-var cur='top';
+function go(id,anim,back){big=false;g.classList.remove('m');document.getElementById('mb').textContent='See the bigger picture';g.classList.add('out');setTimeout(function(){g.classList.remove('out');cur=id;draw(id,1);},back?350:520);}
+var cur='top',big=false;
+function tile(k,c){if(c)return '<a class="c" style="background-image:url('+c[1]+')"><b>'+c[0]+'</b></a>';return '<a href="'+(k[3]||'#')+'" data-d="'+(L[k[3]]?k[3]:'')+'" style="background-image:url('+k[2]+')"><b>'+k[0]+'<small>'+k[1]+'</small></b></a>';}
+function drawMap(){var P=L[cur].par||cur,d=L[P],h='';
+ d.k.forEach(function(k){if(!k){h+=tile(null,d.c);return;}var kid=k[3]&&L[k[3]],open=kid&&(k[3]===cur||cur==='top');
+  if(!open){h+=tile(k);return;}
+  h+='<div class="blk">'+kid.k.map(function(q){return q?tile(q):tile(null,kid.c);}).join('')+'</div>';});
+ document.getElementById('t').textContent=big?'The bigger picture':d.t;document.getElementById('sub').textContent='Every box, one level out';
+ g.innerHTML=h;g.classList.add('m');g.classList.remove('in');void g.offsetWidth;g.classList.add('in');}
+document.getElementById('mb').onclick=function(){big=!big;this.textContent=big?'Back to one picture':'See the bigger picture';if(big)drawMap();else{g.classList.remove('m');draw(cur,1);}};
 g.onclick=function(e){var a=e.target.closest('a');if(!a)return;var d=a.getAttribute('data-d');
- if(a.classList.contains('c')){if(stack.length)go(stack.pop(),1,1);return;}
+ if(a.classList.contains('c')){if(big){return;}if(stack.length)go(stack.pop(),1,1);return;}
+ var inblk=a.closest('.blk');if(big&&d&&!inblk){e.preventDefault();var st0=cur;stack=cur==='top'?[]:['top'];stack.length||0;stack=[];if(d!=='top')stack.push('top');go(d,1);return;}
  if(d){e.preventDefault();g.querySelectorAll('a').forEach(function(x){x.style.transformOrigin='';});a.style.zIndex=5;stack.push(cur);go(d,1);}
  else if(a.getAttribute('href')==='#'){e.preventDefault();a.classList.add('s');setTimeout(function(){a.classList.remove('s')},400);}};
 draw('top');
