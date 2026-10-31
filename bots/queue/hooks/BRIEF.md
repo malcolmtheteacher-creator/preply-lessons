@@ -3,7 +3,7 @@
 You write the short line a student sees on a card, so they feel curious and open the lesson.
 
 ## Your job
-1. Open the next batch that has no result yet: `bots/queue/hooks/batch_NNN.json` (50 lessons). A batch is done if `bots/queue/hooks/done/batch_NNN.tsv` exists. Take the lowest number without one. Do ONE batch per job.
+1. Your name decides your batches (see the table in `BOTS_START_HERE.md`): Folio 001-010, Atlas 011-020, Vista 021-030, Muse 031-040, Lexi 041-051. Work through your own range in order. A batch is already done if `bots/queue/hooks/done/batch_NNN.tsv` exists, so skip those. Open `bots/queue/hooks/batch_NNN.json` (50 lessons). Do one batch, upload it, then start the next. Never touch a batch outside your range.
 2. For each lesson, from its title (and series/level), write one line. If the title is unclear you may open `https://raw.githubusercontent.com/malcolmtheteacher-creator/preply-lessons/main/<id>.html` and read the start. Do not guess what a lesson is about.
 3. Save `bots/queue/hooks/done/batch_NNN.tsv` to `main`, one line per lesson, 4 fields separated by `|`:
 

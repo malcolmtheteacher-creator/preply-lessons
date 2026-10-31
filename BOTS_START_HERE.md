@@ -7,17 +7,19 @@ You are one of several image bots working for Malcolm, an English teacher. His s
 ## Step 1: find your task
 Malcolm will have given you a name. Find it in this table and open your brief.
 
-**Round 2.** Round 1 is finished. Find your name below and open your round 2 brief. Each round 2 brief says where its style differs from the shared rules below; where it does, the brief wins for that task.
+**Round 3.** Rounds 1 and 2 are finished and every image is checked and live. Nothing more is needed on cards 7 and 11 or on the banners: Claude has accepted them. Round 3 is TEXT work, no images: you write one short curious question for each lesson on the site, so students can find lessons that interest them.
 
-| Name | Task | Your brief |
+Every bot has the same job with its own set of batches, so nobody works on the same file. Find your name, open the brief, and do your batches one at a time, in order, until your range is finished.
+
+| Name | Your batches | Your brief |
 |---|---|---|
-| **Folio** | Seven cards for the Big Questions page | https://malcolmhyndman.com/preply-lessons/bots/round2_folio.md |
-| **Atlas** | Twelve cards for the Psychology Questions page | https://malcolmhyndman.com/preply-lessons/bots/round2_atlas.md |
-| **Vista** | Three wide banners for three course pages | https://malcolmhyndman.com/preply-lessons/bots/round2_vista.md |
-| **Muse** | Three missing story pictures for the Speak First course | https://malcolmhyndman.com/preply-lessons/bots/round2_muse.md |
-| **Lexi** | Nothing yet. Tell Malcolm there is no round 2 task for you until Claude has checked your two sheets, then stop. | none |
-| **Grok** | Object sheets 11 to 18 (finished) | https://malcolmhyndman.com/preply-lessons/GROK_START_HERE_object_sheets.md |
-| Basil | NOT STARTED. If your name is Basil, tell Malcolm there is nothing to do yet and stop. | none |
+| **Folio** | batch_001 to batch_010 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Atlas** | batch_011 to batch_020 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Vista** | batch_021 to batch_030 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Muse** | batch_031 to batch_040 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Lexi** | batch_041 to batch_051 | https://malcolmhyndman.com/preply-lessons/bots/queue/hooks/BRIEF.md |
+| **Grok** | Nothing: your object sheets are finished. Tell Malcolm and stop. | none |
+| **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
 
 If your name is not in the table, tell Malcolm and stop. Do not pick a task yourself.
 
