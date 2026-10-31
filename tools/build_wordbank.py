@@ -148,6 +148,30 @@ def main():
             s = open(f, encoding="utf-8").read()
             if HOOK not in s and "</body>" in s:
                 open(f, "w", encoding="utf-8").write(s.replace("</body>", HOOK + "\n</body>", 1))
+    # words written by bots for lessons that carry no vocabulary markup (wordbank/extra_words.json)
+    extra_p = os.path.join(os.path.dirname(OUT), "extra_words.json")
+    if os.path.exists(extra_p):
+        meta = json.loads(re.search(r"WBALL=(\{.*\});?", open(os.path.join(os.path.dirname(OUT), "all_lessons.js"), encoding="utf-8").read(), re.S).group(1))
+        have = {l["id"] for l in lessons}
+        for lid, ws in json.load(open(extra_p, encoding="utf-8")).items():
+            f = os.path.join(ROOT, lid + ".html")
+            if lid in have or len(ws) < 3 or not os.path.exists(f):
+                continue
+            ids = []
+            for x in ws:
+                cur = bank.get(x["w"])
+                if cur is None:
+                    bank[x["w"]] = {**x, "lessons": [lid]}
+                elif lid not in cur["lessons"]:
+                    cur["lessons"].append(lid)
+                if x["w"] not in ids:
+                    ids.append(x["w"])
+            m = meta.get(lid, [lid, "", ""])
+            lessons.append({"id": lid, "title": clean(m[0]), "level": m[1], "words": ids})
+            if inject:
+                s = open(f, encoding="utf-8").read()
+                if HOOK not in s and "</body>" in s:
+                    open(f, "w", encoding="utf-8").write(s.replace("</body>", HOOK + "\n</body>", 1))
     if inject:
         print(inject_dashboards({l["id"] for l in lessons}), "dashboards given the My Words bar")
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
