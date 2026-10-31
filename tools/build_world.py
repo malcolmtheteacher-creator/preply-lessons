@@ -18,7 +18,7 @@ def add(id, title, x, y, w, h, kind, col, img="", href="", sub="", parent=None, 
 
 
 def link(a, b, col, wd):
-    edges.append([a["x"], a["y"], b["x"], b["y"], col, wd])
+    edges.append([a["x"], a["y"], b["x"], b["y"], col, wd, a["id"], b["id"]])
 
 
 def exists(p):
