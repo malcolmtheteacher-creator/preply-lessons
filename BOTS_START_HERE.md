@@ -19,8 +19,11 @@ Malcolm will have given you a name. Find it in this table and open your brief.
 | **Round 5 (after Round 4)** | Folio: Professional route pictures; Atlas: Academic route pictures (and the missing topic_CUL); Vista: General route pictures | https://malcolmhyndman.com/preply-lessons/bots/round5_<yourname>.md |
 | **Round 6 (vocabulary, after Round 5)** | Folio: batch_062 to 072; Atlas: batch_073 to 082; Vista: batch_083 to 092; Muse: batch_093 to 102; Lexi: batch_103 to 112 | https://malcolmhyndman.com/preply-lessons/bots/round6_<yourname>.md |
 | **Round 7 (after Round 6)** | Hooks (text) then word pictures. Folio: hook batch_052 to 059; Atlas: 060 to 066; Vista: 067 to 073; Muse: 074 to 080; Lexi: 081 to 088; each also paints 2 word-picture sheets | https://malcolmhyndman.com/preply-lessons/bots/round7_<yourname>.md |
+| **Round 8 (after Round 7)** | Pictures: Folio: hub, professional, library backdrops; Atlas: academic, palace, explore; Vista: general, comics, words | https://malcolmhyndman.com/preply-lessons/bots/round8_<yourname>.md |
 | **Grok** | Nothing: you are the relay. Pass on messages and report back. | none |
 | **Basil** | NOT STARTED. Tell Malcolm there is nothing to do yet and stop. | none |
+
+> **Round 8 upload rules.** Pictures go to `journey/incoming/world8/` on `main` only.
 
 > **Round 7 upload rules.** Hook files go to `bots/queue/hooks/done/`, word-picture sheets to `journey/incoming/words7/`, and word lists to `bots/queue/words/done/`, all on `main` only. Your Round 7 brief overrides any other folder rule.
 
