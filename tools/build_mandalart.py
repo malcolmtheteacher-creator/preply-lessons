@@ -65,7 +65,7 @@ def ielts_route():
     def steps(b):
         out = []
         for h, t in re.findall(r'<a class="step-body" href="([^"#?]+)\.html"><span class="step-t">(.*?)</span>', b, re.S):
-            if os.path.exists(os.path.join(ROOT, h + '.html')) and not any(x['h'] == h + '.html' for x in out): out.append(leaf(h, re.sub(r'<[^>]+>', '', html.unescape(t)).strip()))
+            if os.path.exists(os.path.join(ROOT, h + '.html')) and not any(x['h'] == h + '.html' for x in out): out.append(leaf(h, re.sub(r'\s*★.*$', '', re.sub(r'<[^>]+>', '', html.unescape(t))).strip()))
         return out
     for m in re.finditer(r'<section class="stage-sec" id="s(\d)".*?</section>', d, re.S):
         b = m.group(0); n = m.group(1)
