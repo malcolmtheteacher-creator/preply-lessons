@@ -32,7 +32,7 @@ def chunk(kids, cap=8, off=0):
         g = kids[i:i + size]
         if len(g) == 1: out.append(g[0]); continue
         what = 'Lessons' if all(not x['k'] for x in g) else 'Collections'
-        out.append({'t': '%s %d–%d' % (what, off + i + 1, off + i + len(g)), 's': 'from ' + trim(g[0]['t'], 24), 'i': '', 'h': '', 'l': '', 'k': chunk(g, cap, off + i)})
+        out.append({'t': '%s %d–%d' % (what, off + i + 1, off + i + len(g)), 's': 'from ' + trim(g[0]['t'], 24), 'i': g[0].get('i', ''), 'h': '', 'l': '', 'k': chunk(g, cap, off + i)})
     return out
 def slug(t): return re.sub(r'[^a-z0-9]+', '_', html.unescape(t).lower()).strip('_')[:50]
 def mapimg(t):
@@ -50,6 +50,9 @@ def lessons_of_page(p):
     for x in re.findall(r'href="([^"#?]+)\.html', d):
         if x.startswith('http') or 'dashboard' in x.lower() or x in ids: continue
         ids.append(x)
+    if len(ids) < 3:   # dashboards that keep their lesson list in script data, not links
+        for x in re.findall(r'[A-Za-z0-9][A-Za-z0-9_\-]*_[A-Za-z0-9_\-]+', d):
+            if x not in ids and 'dashboard' not in x.lower() and os.path.exists(os.path.join(ROOT, x + '.html')) and x + '.html' != p: ids.append(x)
     return [l for l in (lesson(x) for x in ids) if l]
 
 REG = {'professional': ('Professional English', 'English for work', 'journey/world/region_professional.jpg'),
@@ -78,6 +81,29 @@ def ielts_route():
         if len(kids) == 1 and not kids[0]['k']: kids[0].update(t=t, s=wk); stages.append(kids[0])
         else: stages.append(group(t, wk, '', kids))
     return group('The IELTS Route', 'one path, five stages, from diagnostic to mock', 'journey/map/ielts_route.jpg', stages)
+def series_group(name, ids, sub, mia=False):
+    ls = []
+    for i in sorted(ids):
+        l = lesson(i)
+        if not l: continue
+        if mia:
+            tt = re.search(r'<title>[^<]*Lesson (\d+) · ([^<]+)', rd(i + '.html'))
+            if tt: l['t'] = '%d · %s' % (int(tt.group(1)), html.unescape(tt.group(2)).strip())
+            m = re.match(r'a1s_(\d+)_', i); pic = 'journey/map/mia/%s.jpg' % m.group(1) if m else ''
+            if pic and os.path.exists(os.path.join(ROOT, pic)): l['i'] = pic
+        ls.append(l)
+    return group(name, sub, ('journey/map/mia/01.jpg' if mia else ''), ls) if ls else None
+def general_extras(key):
+    A = {i: v for i, v in ALL.items()}
+    by = lambda f: [i for i, v in A.items() if f(v)]
+    out = []
+    if key == 'first_steps':
+        out.append(series_group("Mia's English", [i for i in A if i.startswith('a1s_')], 'a story in 50 lessons, A1', True))
+        for nm, sub in (('Beginner Course', 'first lessons, A1'), ('Speak First', 'speaking from day one'), ('Stories (A1/A2)', 'short stories')):
+            out.append(series_group(nm, by(lambda v, nm=nm: len(v) > 2 and v[2] == nm), sub))
+    if key == 'finding_voice':
+        out.append(series_group('Spark to Speech', by(lambda v: len(v) > 2 and v[2] == 'Spark to Speech'), 'A2 conversation starters'))
+    return [x for x in out if x]
 def route(r):
     R = raw(rd('journey_%s.html' % r), 'var R=')
     t, s, img = REG[r]; goals = []
@@ -87,6 +113,7 @@ def route(r):
             if c['goal'] != key: continue
             ls = [l for l in (lesson(i) for i in c['ids']) if l] or lessons_of_page(c['href'])
             cards.append(group(c['name'], c['meta'] or trim(c['desc'], 40), '', ls, c['href']) if ls else leaf(c['href'][:-5], c['name'], c['level'], c['meta']))
+        if r == 'general': cards = general_extras(key) + cards
         gimg = 'journey/routes/route_%s_%s.jpg' % (r, key if os.path.exists(os.path.join(ROOT, 'journey/routes/route_%s_%s.jpg' % (r, key))) else 'hero')
         if not os.path.exists(os.path.join(ROOT, gimg)):   # keys differ (e.g. finding_voice): try prefix match
             g2 = [f for f in os.listdir(os.path.join(ROOT, 'journey/routes')) if f.startswith('route_%s_' % r) and key.split('_')[0] in f]
