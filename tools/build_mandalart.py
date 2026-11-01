@@ -41,7 +41,7 @@ def mapimg(t):
     return ''
 def group(t, s, img, kids, page=''):
     t = html.unescape(t)
-    img = img or mapimg(t)
+    img = mapimg(t) or img
     kids = list(kids)
     if page: kids = [{'t': 'Open the full page', 's': t, 'i': '', 'h': page, 'l': '', 'k': [], 'pg': 1}] + kids
     return {'t': t, 's': s, 'i': img, 'h': '', 'l': '', 'k': chunk(kids, 8)}
@@ -95,7 +95,7 @@ def palace():
 def small(r, p):
     t, s, img = REG[r]; kids = []
     for n in OLD['nodes']:
-        if n.get('p') == p: kids.append({'t': n['t'], 's': n.get('s', ''), 'i': n.get('i') or '', 'h': n['h_'], 'l': '', 'k': []})
+        if n.get('p') == p: kids.append({'t': n['t'], 's': n.get('s', ''), 'i': mapimg(n['t']) or n.get('i') or '', 'h': n['h_'], 'l': '', 'k': []})
     return group(t, s, img, kids)
 def library():
     t, s, img = REG['library']; cols = []
