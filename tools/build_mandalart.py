@@ -43,7 +43,6 @@ def group(t, s, img, kids, page=''):
     t = html.unescape(t)
     img = mapimg(t) or img
     kids = list(kids)
-    if page: kids = [{'t': 'Open the full page', 's': t, 'i': '', 'h': page, 'l': '', 'k': [], 'pg': 1}] + kids
     return {'t': t, 's': s, 'i': img, 'h': '', 'l': '', 'k': chunk(kids, 8)}
 def lessons_of_page(p):
     if not os.path.exists(os.path.join(ROOT, p)): return []
