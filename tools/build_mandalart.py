@@ -11,7 +11,10 @@ EXP = raw(rd('explore_data.js'), 'window.EXPLORE=')                # id,title,le
 OLD = raw(open('/tmp/w_old.html', encoding='utf-8').read(), 'var W=') if os.path.exists('/tmp/w_old.html') else None
 
 def trim(t, n=26):
-    t = re.sub(r'\s+', ' ', html.unescape(t)).strip(); return t if len(t) <= n else t[:n - 1].rstrip() + '…'
+    t = re.sub(r'\s+', ' ', html.unescape(t)).strip(); 
+    if len(t) <= n: return t
+    c = t[:n - 1]; c = c[:c.rfind(' ')] if ' ' in c[n // 2:] else c
+    return c.rstrip(' ,;:-—') + '…'
 def leaf(id_, title, level='', sub=''):
     return {'t': trim(title, 46), 's': sub, 'i': '', 'h': id_ + '.html', 'l': level, 'k': []}
 def lesson(id_):
@@ -66,12 +69,12 @@ def route(r):
         for c in R['cards']:
             if c['goal'] != key: continue
             ls = [l for l in (lesson(i) for i in c['ids']) if l] or lessons_of_page(c['href'])
-            cards.append(group(c['name'], c['meta'] or c['desc'][:40], '', ls, c['href']) if ls else leaf(c['href'][:-5], c['name'], c['level'], c['meta']))
+            cards.append(group(c['name'], c['meta'] or trim(c['desc'], 40), '', ls, c['href']) if ls else leaf(c['href'][:-5], c['name'], c['level'], c['meta']))
         gimg = 'journey/routes/route_%s_%s.jpg' % (r, key if os.path.exists(os.path.join(ROOT, 'journey/routes/route_%s_%s.jpg' % (r, key))) else 'hero')
         if not os.path.exists(os.path.join(ROOT, gimg)):   # keys differ (e.g. finding_voice): try prefix match
             g2 = [f for f in os.listdir(os.path.join(ROOT, 'journey/routes')) if f.startswith('route_%s_' % r) and key.split('_')[0] in f]
             gimg = 'journey/routes/' + (g2[0] if g2 else 'route_%s_hero.jpg' % r)
-        goals.append(group(gt, gd[:50], gimg, cards, 'journey_%s.html?goal=%s' % (r, key)))
+        goals.append(group(gt, trim(gd, 50), gimg, cards, 'journey_%s.html?goal=%s' % (r, key)))
     return group(t, s, img, goals, 'journey_%s.html' % r)
 def explore():
     t, s, img = REG['explore']; names = {}
@@ -80,7 +83,7 @@ def explore():
             if n['id'].startswith('ex_'): names[n['id'][3:]] = n['t']
     by = {}
     for e in EXP:
-        if os.path.exists(os.path.join(ROOT, e[0] + '.html')): by.setdefault(e[3][0] if e[3] else 'X', []).append(leaf(e[0], e[1], e[2], e[5][:60]))
+        if os.path.exists(os.path.join(ROOT, e[0] + '.html')): by.setdefault(e[3][0] if e[3] else 'X', []).append(leaf(e[0], e[1], e[2], trim(e[5], 60)))
     topics = [group(names.get(c, c), '%d lessons' % len(v), 'explore_img/%s.jpg' % c if os.path.exists(os.path.join(ROOT, 'explore_img/%s.jpg' % c)) else '', v) for c, v in sorted(by.items(), key=lambda x: -len(x[1])) if c in names]
     return group(t, s, img, chunk(topics), 'explore.html')
 def palace():
