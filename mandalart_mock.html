@@ -15,7 +15,7 @@ p.s{margin:0 0 10px;font-style:italic;opacity:.7;text-align:center;min-height:1.
 .blk a,.blk .e{aspect-ratio:1}
 a,.e{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;text-decoration:none;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .25s;cursor:pointer;display:block}
 .g.n a,.g.n .e{border-radius:4px;box-shadow:none}
-a:hover{transform:scale(1.03)}
+a:hover{transform:scale(1.03)}.g{will-change:transform,opacity}
 a:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,14,0) 45%,rgba(10,16,14,.78))}
 a b{position:absolute;left:10px;right:10px;bottom:9px;z-index:2;font-weight:400;font-size:clamp(14px,2.6vw,26px);line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 a small{display:block;font-style:italic;font-size:clamp(10px,1.5vw,15px);opacity:.92;margin-top:3px}
@@ -38,8 +38,8 @@ a b{overflow-wrap:anywhere;hyphens:auto;display:-webkit-box;-webkit-line-clamp:4
 .crumbs{font-size:13px;opacity:.7;margin:0 8px 8px;text-align:center;max-width:min(90vw,860px)}
 a.c:after{background:rgba(14,40,36,.5)}
 .e{background:rgba(255,255,255,.06);box-shadow:none}
-.g.out{animation:out .45s ease-in forwards}.g.inn{animation:inn .6s cubic-bezier(.2,.8,.2,1)}
-@keyframes out{to{transform:scale(1.5);opacity:0}}@keyframes inn{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+
+
 </style>
 <h1 id="t"></h1><p class="s" id="sub"></p>
 <div class="crumbs" id="cb"></div><div class="bar"><button id="up">↑ Up a level</button><button id="mb">See all 64</button></div>
@@ -74,9 +74,17 @@ function render(anim){
     POS.forEach(function(pos,j){var mc=mn.children[pos],ob=ch[pos];if(!ob||ob.classList.contains('none')||!mc||mc.classList.contains('e'))return;var oc=ob.children[4];
       [mc,oc].forEach(function(el,q){el.style.boxShadow='0 0 0 3px '+C[j]+',0 3px 10px rgba(0,0,0,.45)';el.insertAdjacentHTML('beforeend','<span class="mir" style="background:'+C[j]+'">'+(q?AI[j]:AO[j])+'</span>');el.setAttribute('data-pr',j);});
       ob.style.boxShadow='0 0 0 3px '+C[j]+',0 4px 12px rgba(0,0,0,.35)';ob.setAttribute('data-ob',j);});}
-  if(anim){g.classList.add('inn');}
 }
-function swap(f){g.classList.add('out');setTimeout(function(){f();render(1)},400)}
+var busy=false,RM=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function ready(){var u=[];g.querySelectorAll('[style*="url("]').forEach(function(el){var m=/url\(["']?([^"')]+)/.exec(el.getAttribute('style'));if(m&&u.indexOf(m[1])<0)u.push(m[1])});
+  return Promise.race([Promise.all(u.map(function(x){var im=new Image();im.src=x;return im.decode?im.decode().catch(function(){}):Promise.resolve()})),new Promise(function(r){setTimeout(r,700)})])}
+function swap(f){
+  if(busy)return;busy=true;var before=path.length;
+  if(RM||!g.animate){f();render(0);busy=false;return}
+  var out=g.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.3)',opacity:0}],{duration:300,easing:'cubic-bezier(.45,0,.9,.6)',fill:'forwards'});
+  out.finished.then(function(){f();var dn=path.length>=before;render(0);return ready().then(function(){return dn})}).then(function(dn){
+    var inn=g.animate([{transform:dn?'scale(.72)':'scale(1.3)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:420,easing:'cubic-bezier(.16,.84,.3,1)'});
+    out.cancel();return inn.finished}).catch(function(){}).then(function(){busy=false})}
 g.onclick=function(e){var a=e.target.closest('a');if(!a)return;var n=reg_[+a.getAttribute('data-id')];
   if(n===cur()){if(path.length>1)swap(function(){path.pop()});return;}
   if(n.k&&n.k.length){swap(function(){var P=cur().k.indexOf(n);if(P>=0)path.push(n);else{/* grandchild in 64 view */var par=null;cur().k.forEach(function(k){if(k.k.indexOf(n)>=0)par=k});if(par)path.push(par);path.push(n);}});return;}
