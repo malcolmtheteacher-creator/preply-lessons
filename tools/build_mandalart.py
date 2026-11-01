@@ -60,6 +60,24 @@ REG = {'professional': ('Professional English', 'English for work', 'journey/wor
        'comics': ('Comics & guides', 'stories in pictures', 'journey/world/region_comics.jpg'),
        'words': ('My Words & My Room', 'your progress', 'journey/world/region_words.jpg'),
        'library': ('The Library', 'every lesson, 79 collections', 'journey/world/region_library.jpg')}
+def ielts_route():
+    d = rd('ielts_route.html'); stages = []
+    def steps(b):
+        out = []
+        for h, t in re.findall(r'<a class="step-body" href="([^"#?]+)\.html"><span class="step-t">(.*?)</span>', b, re.S):
+            if os.path.exists(os.path.join(ROOT, h + '.html')) and not any(x['h'] == h + '.html' for x in out): out.append(leaf(h, re.sub(r'<[^>]+>', '', html.unescape(t)).strip()))
+        return out
+    for m in re.finditer(r'<section class="stage-sec" id="s(\d)".*?</section>', d, re.S):
+        b = m.group(0); n = m.group(1)
+        name = html.unescape(re.search(r'<h2>(.*?)</h2>', b).group(1)); wk = re.search(r'class="weeks">(.*?)<', b).group(1)
+        t = '%s · %s' % (n, name)
+        if '<div class="group"' in b and len(re.findall(r'<div class="group"', b)) >= 5:
+            kids = [group(html.unescape(re.search(r'<h3[^>]*>(.*?)</h3>', g).group(1)), '', '', steps(g)) for g in re.split(r'<div class="group"', b)[1:]]
+            kids = [k for k in kids if k['k']]
+        else: kids = steps(b)
+        if len(kids) == 1 and not kids[0]['k']: kids[0].update(t=t, s=wk); stages.append(kids[0])
+        else: stages.append(group(t, wk, '', kids))
+    return group('The IELTS Route', 'one path, five stages, from diagnostic to mock', 'journey/map/ielts_route.jpg', stages)
 def route(r):
     R = raw(rd('journey_%s.html' % r), 'var R=')
     t, s, img = REG[r]; goals = []
@@ -74,6 +92,11 @@ def route(r):
             g2 = [f for f in os.listdir(os.path.join(ROOT, 'journey/routes')) if f.startswith('route_%s_' % r) and key.split('_')[0] in f]
             gimg = 'journey/routes/' + (g2[0] if g2 else 'route_%s_hero.jpg' % r)
         goals.append(group(gt, trim(gd, 50), gimg, cards, 'journey_%s.html?goal=%s' % (r, key)))
+    if r == 'academic':
+        ie = [g for g, (k, _, _) in zip(goals, R['goals']) if k.startswith('ielts_')]
+        rest = [g for g, (k, _, _) in zip(goals, R['goals']) if not k.startswith('ielts_')]
+        more = group('More IELTS practice', 'speaking, reading, writing and word games', 'journey/routes/route_academic_ielts_writing.jpg', [x for g in ie for x in g['k']])
+        goals = [ielts_route(), more] + rest
     return group(t, s, img, goals, 'journey_%s.html' % r)
 def explore():
     t, s, img = REG['explore']; names = {}
