@@ -3362,6 +3362,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_arrow_of_time",
+   "title": "The Arrow of Time",
+   "level": "",
+   "words": [
+    "entropy",
+    "arrangement",
+    "irreversible",
+    "improbable",
+    "dissipate",
+    "symmetric",
+    "isolated",
+    "hedge",
+    "fluke",
+    "hinge on"
+   ]
+  },
+  {
    "id": "discuss_c1_frankl_meaning",
    "title": "The Freedom Nobody Could Take",
    "level": "",
@@ -3374,6 +3391,23 @@ window.WORDBANK={
     "purpose",
     "freedom",
     "face"
+   ]
+  },
+  {
+   "id": "discuss_c1_future_fixed",
+   "title": "Is the Future Already Fixed?",
+   "level": "",
+   "words": [
+    "determinism",
+    "predictable",
+    "chaotic",
+    "trajectory",
+    "diverge",
+    "random",
+    "inevitable",
+    "causation",
+    "negligible",
+    "compatible"
    ]
   },
   {
@@ -5280,6 +5314,23 @@ window.WORDBANK={
     "defiance",
     "ambivalent",
     "rebellion"
+   ]
+  },
+  {
+   "id": "physics_a2b1_02_forces_motion",
+   "title": "Forces and Motion",
+   "level": "",
+   "words": [
+    "force",
+    "push",
+    "pull",
+    "gravity",
+    "friction",
+    "speed",
+    "surface",
+    "slide",
+    "seatbelt",
+    "heavy"
    ]
   },
   {
@@ -32621,19 +32672,6 @@ window.WORDBANK={
    ]
   },
   {
-   "id": "discuss_c1_arrow_of_time",
-   "title": "The Arrow of Time",
-   "level": "C1/C2",
-   "words": [
-    "entropy",
-    "in reverse",
-    "hedged",
-    "direction",
-    "backwards",
-    "precise"
-   ]
-  },
-  {
    "id": "discuss_c1_endings_and_fresh_starts",
    "title": "Endings and Fresh Starts",
    "level": "C1",
@@ -48708,11 +48746,12 @@ window.WORDBANK={
   },
   "heavy": {
    "w": "heavy",
-   "pos": "",
+   "pos": "adj",
    "def": "hard to carry; not light",
-   "ex": "",
+   "ex": "A heavy box is hard to push.",
    "lessons": [
     "a1s_47_toomuch",
+    "physics_a2b1_02_forces_motion",
     "rp_05_at_the_airport_a2b1",
     "short_history_stonehenge_a2b1",
     "a1p_22_bigger_better",
@@ -52694,12 +52733,13 @@ window.WORDBANK={
   },
   "pull": {
    "w": "pull",
-   "pos": "",
+   "pos": "v",
    "def": "pull the plug, pull back, pull the brake. From the Blockbuster case — but inverted: there the plug was pulled too early; in this story, the tragedy is almost always that nobody pulled it at all.",
-   "ex": "",
+   "ex": "Pull the door to open it.",
    "lessons": [
     "bc_golive_erp_c1",
     "nq_01_should_we_c1",
+    "physics_a2b1_02_forces_motion",
     "short_history_the_pyramids_a2b1"
    ]
   },
@@ -57732,9 +57772,10 @@ window.WORDBANK={
    "w": "trajectory",
    "pos": "n",
    "def": "the curved path followed by an object moving through space or air; more broadly, the general direction something is heading in.",
-   "ex": "",
+   "ex": "The two trajectories start together and then drift apart.",
    "lessons": [
     "behind_the_screen_apollo_13",
+    "discuss_c1_future_fixed",
     "short_history_apollo_13",
     "skills_c1_senior_interview_1_your_story",
     "ts_apollo13_b2",
@@ -60760,10 +60801,11 @@ window.WORDBANK={
    "w": "hinge on",
    "pos": "phrasal verb",
    "def": "something (v) — to depend completely on it. \"The case hinges on one witness.\"",
-   "ex": "",
+   "ex": "The argument hinges on how the universe began.",
    "lessons": [
     "bq_02_same_ship_c1",
-    "discuss_b2c1_hinge_moments"
+    "discuss_b2c1_hinge_moments",
+    "discuss_c1_arrow_of_time"
    ]
   },
   "authentic": {
@@ -61050,6 +61092,7 @@ window.WORDBANK={
    "ex": "Once the dam cracked and the rain kept falling, the flood was inevitable; there was nothing anyone in the valley could do except leave.",
    "lessons": [
     "bq_06_free_will_c1",
+    "discuss_c1_future_fixed",
     "techniques_appointment_in_samarra",
     "techniques_the_masque_of_the_red_death",
     "st_pro_11_thought_leadership",
@@ -61103,9 +61146,10 @@ window.WORDBANK={
    "w": "compatible",
    "pos": "adj",
    "def": "able to exist or work together without conflict. Often compatible with.",
-   "ex": "",
+   "ex": "Some philosophers argue that free will is compatible with determinism.",
    "lessons": [
     "bq_06_free_will_c1",
+    "discuss_c1_future_fixed",
     "rs_y11_spr1_27_04",
     "rs_y9_aut2_14_02",
     "epicurean_25_gassendi_life"
@@ -61118,6 +61162,7 @@ window.WORDBANK={
    "ex": "The French scientist Laplace imagined a mind that knew the position of every particle in the universe. For such a mind, he said, nothing would be uncertain, and the future would be as clear as the past. This view is called determinism.(a) the belief that every event is fully caused by earlier events and the laws of nature (b) the habit of never giving up (c) a method for measuring luck",
    "lessons": [
     "bq_06_free_will_c1",
+    "discuss_c1_future_fixed",
     "wp_34_god_or_nature"
    ]
   },
@@ -61384,6 +61429,7 @@ window.WORDBANK={
    "ex": "Good hedging isn't weakness; it's calibrating your confidence to the evidence.",
    "lessons": [
     "calibrated_certainty_c2",
+    "discuss_c1_arrow_of_time",
     "short_history_the_gold_that_came_home",
     "the_curse_of_knowledge_c2",
     "bestiary_discourse_qualify",
@@ -61845,6 +61891,94 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_heroes"
    ]
   },
+  "entropy": {
+   "w": "entropy",
+   "pos": "n",
+   "def": "a measure of how many microscopic arrangements match what you can see; high entropy means \"messy\"",
+   "ex": "A shuffled deck has far higher entropy than a new one.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "arrangement": {
+   "w": "arrangement",
+   "pos": "n",
+   "def": "a particular way in which things are ordered or positioned",
+   "ex": "There are countless arrangements of 52 cards.",
+   "lessons": [
+    "discuss_c1_arrow_of_time",
+    "su_a2_10_planning_the_future",
+    "b2_46_remote_work",
+    "a1p_47_discussing_future_plans",
+    "lesson_08_future_arrangements",
+    "memory_arts_p1_10",
+    "grammar_a2_11_future_will_going_to"
+   ]
+  },
+  "irreversible": {
+   "w": "irreversible",
+   "pos": "adj",
+   "def": "impossible to undo or turn back",
+   "ex": "A smashed glass is an irreversible change.",
+   "lessons": [
+    "discuss_c1_arrow_of_time",
+    "rs_y11_spr2_28_05",
+    "talk_death_penalty_b2c1",
+    "acad_b2_15_thesis_statements"
+   ]
+  },
+  "improbable": {
+   "w": "improbable",
+   "pos": "adj",
+   "def": "very unlikely to happen",
+   "ex": "The film run backwards shows something astronomically improbable.",
+   "lessons": [
+    "discuss_c1_arrow_of_time",
+    "su_a2_48_solving_problems",
+    "rs_y9_aut1_13_02"
+   ]
+  },
+  "dissipate": {
+   "w": "dissipate",
+   "pos": "v",
+   "def": "to spread out and gradually disappear",
+   "ex": "The heat dissipates into the cooler room.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "symmetric": {
+   "w": "symmetric",
+   "pos": "adj",
+   "def": "looking or working the same in both directions",
+   "ex": "The laws of motion are symmetric in time.",
+   "lessons": [
+    "discuss_c1_arrow_of_time"
+   ]
+  },
+  "isolated": {
+   "w": "isolated",
+   "pos": "adj",
+   "def": "completely cut off, with nothing entering or leaving",
+   "ex": "For fifteen generations the community had been completely isolated, cut off from the outside world by a landslide that sealed the only pass.",
+   "lessons": [
+    "discuss_c1_arrow_of_time",
+    "techniques_the_country_of_the_blind",
+    "talk_working_from_home_b2c1",
+    "bc_de_extinction_c1"
+   ]
+  },
+  "fluke": {
+   "w": "fluke",
+   "pos": "n",
+   "def": "a surprising result caused by chance rather than design",
+   "ex": "A beginning that ordered looks like a fluke.",
+   "lessons": [
+    "discuss_c1_arrow_of_time",
+    "psyp_07_replication_crisis_a2b1",
+    "imposter_syndrome_c1"
+   ]
+  },
   "manuscript": {
    "w": "manuscript",
    "pos": "n",
@@ -61911,6 +62045,82 @@ window.WORDBANK={
     "discuss_c1_frankl_meaning",
     "tib_fiveforces_b2",
     "ml_03_the_honest_review"
+   ]
+  },
+  "predictable": {
+   "w": "predictable",
+   "pos": "adj",
+   "def": "possible to forecast accurately before it happens",
+   "ex": "The tides are predictable years in advance.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "bc_spelling_secrets_c1",
+    "su_a2_76_films_and_entertainment",
+    "su_a2_07_the_silver_screen",
+    "sp_b2_47_counterarguments"
+   ]
+  },
+  "chaotic": {
+   "w": "chaotic",
+   "pos": "adj",
+   "def": "extremely sensitive to tiny changes, so long-term outcomes become impossible to forecast",
+   "ex": "Weather is a chaotic system.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "c1_pro_19_agile_scrum",
+    "c1_pro_28_consulting_frameworks",
+    "qf_pronunciation_ough"
+   ]
+  },
+  "diverge": {
+   "w": "diverge",
+   "pos": "v",
+   "def": "to separate and move in different directions",
+   "ex": "Two nearly identical starting points can diverge rapidly.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "rs_y8_aut1_07_05"
+   ]
+  },
+  "random": {
+   "w": "random",
+   "pos": "adj",
+   "def": "happening by chance, with no pattern or cause we can identify",
+   "ex": "A single radioactive atom decays at a random moment.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "st_pro_11_thought_leadership",
+    "ielts_speaking_part1_lesson2_topics",
+    "lesson-28-competitions"
+   ]
+  },
+  "causation": {
+   "w": "causation",
+   "pos": "n",
+   "def": "the relationship in which one event brings about another",
+   "ex": "Physics is largely the study of causation.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "gr_b2_the_conspiracy",
+    "rs_y9_aut1_13_03",
+    "prof_c1_07_data_driven_decisions",
+    "the_numbers_game",
+    "wp_13_the_unmoved_mover",
+    "rs_y9_aut1_13_06",
+    "dewey_palace_architecture"
+   ]
+  },
+  "negligible": {
+   "w": "negligible",
+   "pos": "adj",
+   "def": "so small that it is not worth considering",
+   "ex": "The difference between the two samples was so small that it was negligible.",
+   "lessons": [
+    "discuss_c1_future_fixed",
+    "say_number_c1",
+    "topic_what_if_b2",
+    "bc_passion_for_danger_c1",
+    "duolingo_det_practice_6"
    ]
   },
   "gratuitous": {
@@ -63163,11 +63373,12 @@ window.WORDBANK={
   },
   "friction": {
    "w": "friction",
-   "pos": "",
+   "pos": "n",
    "def": "anything that makes a process harder, slower or more annoying than it should be. low-friction means smooth and easy.",
    "ex": "Arrival, queuing and signs all added friction to the visit, so that guests arrived tired and left earlier than the company hoped.",
    "lessons": [
     "nq_05_why_c1",
+    "physics_a2b1_02_forces_motion",
     "c2_pro_23_merger_acquisition",
     "the_invisible_hand"
    ]
@@ -69909,6 +70120,76 @@ window.WORDBANK={
     "persepolis_worlds"
    ]
   },
+  "force": {
+   "w": "force",
+   "pos": "n",
+   "def": "a push or a pull on something",
+   "ex": "A force can make a ball move or stop.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion"
+   ]
+  },
+  "push": {
+   "w": "push",
+   "pos": "v",
+   "def": "to press something so that it moves away from you",
+   "ex": "Push the box across the floor.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion"
+   ]
+  },
+  "gravity": {
+   "w": "gravity",
+   "pos": "n",
+   "def": "the force that pulls things down towards the Earth",
+   "ex": "Gravity pulls the apple down from the tree.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion",
+    "behind_the_screen_interstellar_a2b1",
+    "deep_space_05_dark",
+    "bc_black_holes_cosmology_c1"
+   ]
+  },
+  "speed": {
+   "w": "speed",
+   "pos": "n",
+   "def": "how fast something moves",
+   "ex": "The car increased its speed on the empty road.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion"
+   ]
+  },
+  "surface": {
+   "w": "surface",
+   "pos": "n",
+   "def": "the outside or top part of something",
+   "ex": "Ice is a very smooth surface.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion",
+    "c1_pro_28_consulting_frameworks"
+   ]
+  },
+  "slide": {
+   "w": "slide",
+   "pos": "v",
+   "def": "to move smoothly over a surface",
+   "ex": "The box slides a long way on ice.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion",
+    "su_a2_56_seeing_is_believing",
+    "ielts_speaking_part3"
+   ]
+  },
+  "seatbelt": {
+   "w": "seatbelt",
+   "pos": "n",
+   "def": "a strap in a car that keeps you in your seat",
+   "ex": "Always wear a seatbelt in a car.",
+   "lessons": [
+    "physics_a2b1_02_forces_motion",
+    "grammar_b1_19_modals_deduction"
+   ]
+  },
   "labyrinth": {
    "w": "labyrinth",
    "pos": "noun",
@@ -71141,16 +71422,6 @@ window.WORDBANK={
     "psyp_07_replication_crisis_a2b1"
    ]
   },
-  "fluke": {
-   "w": "fluke",
-   "pos": "n",
-   "def": "answer (a). A result that happens by chance. Compare: by chance, by accident.",
-   "ex": "",
-   "lessons": [
-    "psyp_07_replication_crisis_a2b1",
-    "imposter_syndrome_c1"
-   ]
-  },
   "p-hacking": {
    "w": "p-hacking",
    "pos": "n",
@@ -72141,18 +72412,6 @@ window.WORDBANK={
     "techniques_the_rocking_horse_winner",
     "tib_acculturation_b2",
     "tib_pestle_b2"
-   ]
-  },
-  "negligible": {
-   "w": "negligible",
-   "pos": "adj",
-   "def": "so small or unimportant that it is not worth considering.",
-   "ex": "The difference between the two samples was so small that it was negligible.",
-   "lessons": [
-    "say_number_c1",
-    "topic_what_if_b2",
-    "bc_passion_for_danger_c1",
-    "duolingo_det_practice_6"
    ]
   },
   "disproportionate": {
@@ -84625,17 +84884,6 @@ window.WORDBANK={
     "techniques_the_country_of_the_blind_a2b1"
    ]
   },
-  "isolated": {
-   "w": "isolated",
-   "pos": "adj",
-   "def": "far away from other people or places; separated and alone.",
-   "ex": "For fifteen generations the community had been completely isolated, cut off from the outside world by a landslide that sealed the only pass.",
-   "lessons": [
-    "techniques_the_country_of_the_blind",
-    "talk_working_from_home_b2c1",
-    "bc_de_extinction_c1"
-   ]
-  },
   "tumble": {
    "w": "tumble",
    "pos": "v",
@@ -93494,7 +93742,6 @@ window.WORDBANK={
     "pss_lesson_02_asking_precise_questions",
     "b2_37_formal_emails",
     "bc_culture_shock_b2c1",
-    "discuss_c1_arrow_of_time",
     "ielts_speaking_part1_band7",
     "qf_falsefriend_russian_accurate",
     "rs_y11_sum2_30_05",
@@ -94019,21 +94266,6 @@ window.WORDBANK={
     "acad_b1_22_understanding_arguments",
     "native_speakerism_c1",
     "sp_prep_c1_02"
-   ]
-  },
-  "causation": {
-   "w": "causation",
-   "pos": "n",
-   "def": "when one thing actually makes another thing happen",
-   "ex": "Two events happening together does not prove causation.",
-   "lessons": [
-    "gr_b2_the_conspiracy",
-    "rs_y9_aut1_13_03",
-    "prof_c1_07_data_driven_decisions",
-    "the_numbers_game",
-    "wp_13_the_unmoved_mover",
-    "rs_y9_aut1_13_06",
-    "dewey_palace_architecture"
    ]
   },
   "cherry-picking": {
@@ -97209,17 +97441,6 @@ window.WORDBANK={
     "talk_death_penalty_a2b1"
    ]
   },
-  "irreversible": {
-   "w": "irreversible",
-   "pos": "adj",
-   "def": "impossible to change back or undo",
-   "ex": "Execution is irreversible if there is a mistake.",
-   "lessons": [
-    "rs_y11_spr2_28_05",
-    "talk_death_penalty_b2c1",
-    "acad_b2_15_thesis_statements"
-   ]
-  },
   "abolition": {
    "w": "abolition",
    "pos": "n",
@@ -100017,18 +100238,6 @@ window.WORDBANK={
     "pron_c1_03_consonant_signatures"
    ]
   },
-  "predictable": {
-   "w": "predictable",
-   "pos": "adj",
-   "def": "happening in a way that you can guess in advance",
-   "ex": "Italian spelling is much more predictable than English spelling.",
-   "lessons": [
-    "bc_spelling_secrets_c1",
-    "su_a2_76_films_and_entertainment",
-    "su_a2_07_the_silver_screen",
-    "sp_b2_47_counterarguments"
-   ]
-  },
   "sequence": {
    "w": "sequence",
    "pos": "n",
@@ -101205,17 +101414,6 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_interstellar_a2b1",
     "short_history_apollo_11_a2b1"
-   ]
-  },
-  "gravity": {
-   "w": "gravity",
-   "pos": "n",
-   "def": "the force that pulls things towards the ground",
-   "ex": "Because of gravity, a dropped apple falls down.",
-   "lessons": [
-    "behind_the_screen_interstellar_a2b1",
-    "deep_space_05_dark",
-    "bc_black_holes_cosmology_c1"
    ]
   },
   "captain": {
@@ -106592,17 +106790,6 @@ window.WORDBANK={
    "ex": "The firm publishes reports to build thought leadership.",
    "lessons": [
     "st_pro_11_thought_leadership"
-   ]
-  },
-  "random": {
-   "w": "random",
-   "pos": "adj",
-   "def": "happening without a clear plan or pattern",
-   "ex": "His job choices looked random until he explained them.",
-   "lessons": [
-    "st_pro_11_thought_leadership",
-    "ielts_speaking_part1_lesson2_topics",
-    "lesson-28-competitions"
    ]
   },
   "mastery": {
@@ -112082,20 +112269,6 @@ window.WORDBANK={
     "su_a2_10_planning_the_future"
    ]
   },
-  "arrangement": {
-   "w": "arrangement",
-   "pos": "n",
-   "def": "a plan you have made with another person",
-   "ex": "I have an arrangement to meet my cousin on Friday.",
-   "lessons": [
-    "su_a2_10_planning_the_future",
-    "b2_46_remote_work",
-    "a1p_47_discussing_future_plans",
-    "lesson_08_future_arrangements",
-    "memory_arts_p1_10",
-    "grammar_a2_11_future_will_going_to"
-   ]
-  },
   "schedule": {
    "w": "schedule",
    "pos": "n",
@@ -113563,16 +113736,6 @@ window.WORDBANK={
     "su_a2_47_making_decisions"
    ]
   },
-  "improbable": {
-   "w": "improbable",
-   "pos": "adj",
-   "def": "not likely to happen or to be true",
-   "ex": "It is improbable that everyone will work from home.",
-   "lessons": [
-    "su_a2_48_solving_problems",
-    "rs_y9_aut1_13_02"
-   ]
-  },
   "first conditional": {
    "w": "first conditional",
    "pos": "n",
@@ -113820,16 +113983,6 @@ window.WORDBANK={
    "ex": "My sister had a big box of dolls.",
    "lessons": [
     "su_a2_55_memorable_events"
-   ]
-  },
-  "slide": {
-   "w": "slide",
-   "pos": "n",
-   "def": "one page of a computer presentation",
-   "ex": "Keep each slide short and clear.",
-   "lessons": [
-    "su_a2_56_seeing_is_believing",
-    "ielts_speaking_part3"
    ]
   },
   "storyboard": {
@@ -116636,15 +116789,6 @@ window.WORDBANK={
     "rs_y8_aut1_07_05"
    ]
   },
-  "diverge": {
-   "w": "diverge",
-   "pos": "v",
-   "def": "to separate and go in different directions",
-   "ex": "The three religions diverge on the role of the messiah.",
-   "lessons": [
-    "rs_y8_aut1_07_05"
-   ]
-  },
   "nativity": {
    "w": "nativity",
    "pos": "n",
@@ -119381,17 +119525,6 @@ window.WORDBANK={
     "c1_pro_19_agile_scrum"
    ]
   },
-  "chaotic": {
-   "w": "chaotic",
-   "pos": "adj",
-   "def": "completely confused and without order",
-   "ex": "The airport was chaotic after the strike.",
-   "lessons": [
-    "c1_pro_19_agile_scrum",
-    "c1_pro_28_consulting_frameworks",
-    "qf_pronunciation_ough"
-   ]
-  },
   "upfront": {
    "w": "upfront",
    "pos": "adv",
@@ -119504,15 +119637,6 @@ window.WORDBANK={
     "wk_06_the_interview",
     "sp_b1_22_hedging",
     "grammar_c2_10_evaluative_language"
-   ]
-  },
-  "surface": {
-   "w": "surface",
-   "pos": "v",
-   "def": "to bring something hidden into the open",
-   "ex": "The survey surfaced several complaints about the canteen.",
-   "lessons": [
-    "c1_pro_28_consulting_frameworks"
    ]
   },
   "obvious": {
@@ -137787,55 +137911,6 @@ window.WORDBANK={
     "discuss_c1_advice_industry"
    ]
   },
-  "entropy": {
-   "w": "entropy",
-   "pos": "n",
-   "def": "a measure of disorder that always increases in a closed system",
-   "ex": "Entropy explains why a tidy room naturally becomes messy.",
-   "lessons": [
-    "discuss_c1_arrow_of_time"
-   ]
-  },
-  "in reverse": {
-   "w": "in reverse",
-   "pos": "phr",
-   "def": "in the opposite order or direction",
-   "ex": "Play the video in reverse to see the glass mend itself.",
-   "lessons": [
-    "discuss_c1_arrow_of_time"
-   ]
-  },
-  "hedged": {
-   "w": "hedged",
-   "pos": "adj",
-   "def": "carefully limited to avoid saying too much or being wrong",
-   "ex": "She gave a hedged answer about when the work would end.",
-   "lessons": [
-    "discuss_c1_arrow_of_time"
-   ]
-  },
-  "direction": {
-   "w": "direction",
-   "pos": "n",
-   "def": "the way something moves or faces",
-   "ex": "The wind changed direction during the night.",
-   "lessons": [
-    "discuss_c1_arrow_of_time",
-    "a1p_17_asking_directions_fr",
-    "qf_collocation_bring_take"
-   ]
-  },
-  "backwards": {
-   "w": "backwards",
-   "pos": "adv",
-   "def": "in the opposite way to usual, towards the start",
-   "ex": "Can you say the alphabet backwards?",
-   "lessons": [
-    "discuss_c1_arrow_of_time",
-    "memory_arts_p1_09",
-    "grammar_a2_10_sentence_structure_word_formation"
-   ]
-  },
   "close a chapter": {
    "w": "close a chapter",
    "pos": "phr",
@@ -138356,6 +138431,16 @@ window.WORDBANK={
    "ex": "Turn left at the second traffic light.",
    "lessons": [
     "a1p_17_asking_directions"
+   ]
+  },
+  "direction": {
+   "w": "direction",
+   "pos": "n",
+   "def": "the way you go to get to a place",
+   "ex": "Can you show me the direction of the museum?",
+   "lessons": [
+    "a1p_17_asking_directions_fr",
+    "qf_collocation_bring_take"
    ]
   },
   "often": {
@@ -144260,6 +144345,16 @@ window.WORDBANK={
    "ex": "Farmers once used an almanac to plan their planting.",
    "lessons": [
     "memory_arts_p1_09"
+   ]
+  },
+  "backwards": {
+   "w": "backwards",
+   "pos": "adv",
+   "def": "in the opposite direction or order from usual",
+   "ex": "Can you say the alphabet backwards?",
+   "lessons": [
+    "memory_arts_p1_09",
+    "grammar_a2_10_sentence_structure_word_formation"
    ]
   },
   "wax tablet": {
@@ -151578,15 +151673,6 @@ window.WORDBANK={
    "ex": "The map was inaccurate, so we got lost.",
    "lessons": [
     "grammar_b1_18_complex_structure_word_formation"
-   ]
-  },
-  "seatbelt": {
-   "w": "seatbelt",
-   "pos": "n",
-   "def": "a strap in a car that holds you in your seat",
-   "ex": "Always fasten your seatbelt before driving off.",
-   "lessons": [
-    "grammar_b1_19_modals_deduction"
    ]
   },
   "wetsuit": {
