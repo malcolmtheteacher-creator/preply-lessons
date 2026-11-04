@@ -770,6 +770,66 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "amst_01_what_is_american_studies",
+   "title": "What Is American Studies?",
+   "level": "",
+   "words": [
+    "discipline",
+    "interdisciplinary",
+    "canon",
+    "myth",
+    "exceptionalism",
+    "frontier",
+    "assumption",
+    "transnational"
+   ]
+  },
+  {
+   "id": "amst_02_colonial_america",
+   "title": "Colonial America",
+   "level": "",
+   "words": [
+    "charter",
+    "settlement",
+    "persecution",
+    "covenant",
+    "flourish",
+    "indentured",
+    "dissent",
+    "ordeal"
+   ]
+  },
+  {
+   "id": "amst_03_revolution",
+   "title": "Revolution",
+   "level": "",
+   "words": [
+    "grievance",
+    "levy",
+    "representation",
+    "boycott",
+    "allegiance",
+    "self-evident",
+    "contradiction",
+    "treason"
+   ]
+  },
+  {
+   "id": "amst_04_the_constitution",
+   "title": "The Constitution",
+   "level": "",
+   "words": [
+    "delegate",
+    "ratify",
+    "branch",
+    "amendment",
+    "veto",
+    "enact",
+    "judicial review",
+    "federal"
+   ]
+  },
+  {
    "id": "b2_robotaxi_revolution",
    "title": "The Robotaxi Revolution — B1/B2",
    "level": "",
@@ -3616,6 +3676,1474 @@ window.WORDBANK={
     "precedent",
     "law",
     "principle"
+   ]
+  },
+  {
+   "id": "odyssey_aethelred",
+   "title": "Æthelred the Unready",
+   "level": "",
+   "words": [
+    "unready",
+    "tribute",
+    "danegeld",
+    "massacre",
+    "betray",
+    "flee",
+    "counsellor",
+    "restore",
+    "conditions",
+    "reprisal"
+   ]
+  },
+  {
+   "id": "odyssey_alfred",
+   "title": "Alfred the Great",
+   "level": "",
+   "words": [
+    "invade",
+    "raid",
+    "refuge",
+    "rally",
+    "truce",
+    "baptised",
+    "burh",
+    "fleet",
+    "literate",
+    "legacy"
+   ]
+  },
+  {
+   "id": "odyssey_anne",
+   "title": "Queen Anne",
+   "level": "",
+   "words": [
+    "unite",
+    "acts of union",
+    "pregnancy",
+    "outlive",
+    "favourite",
+    "blenheim",
+    "palace",
+    "gout",
+    "quarrel",
+    "successor"
+   ]
+  },
+  {
+   "id": "odyssey_athelstan",
+   "title": "Æthelstan",
+   "level": "",
+   "words": [
+    "unite",
+    "annex",
+    "overlord",
+    "coalition",
+    "decisive",
+    "charter",
+    "prestige",
+    "relic",
+    "legislate",
+    "unmarried"
+   ]
+  },
+  {
+   "id": "odyssey_background",
+   "title": "Before We Begin: Saxon England",
+   "level": "",
+   "words": [
+    "withdraw",
+    "settler",
+    "legendary",
+    "rival",
+    "convert",
+    "earthwork",
+    "supremacy",
+    "treaty"
+   ]
+  },
+  {
+   "id": "odyssey_charles_i",
+   "title": "Charles I",
+   "level": "",
+   "words": [
+    "parliament",
+    "dissolve",
+    "personal rule",
+    "ship money",
+    "royalists",
+    "parliamentarians",
+    "trial",
+    "treason",
+    "scaffold",
+    "martyr"
+   ]
+  },
+  {
+   "id": "odyssey_charles_ii",
+   "title": "Charles II",
+   "level": "",
+   "words": [
+    "restoration",
+    "merry",
+    "great plague",
+    "great fire",
+    "bakery",
+    "rebuild",
+    "mistress",
+    "royal society",
+    "theatre",
+    "oak tree"
+   ]
+  },
+  {
+   "id": "odyssey_charles_iii",
+   "title": "Charles III",
+   "level": "",
+   "words": [
+    "heir apparent",
+    "environment",
+    "organic",
+    "charity",
+    "coronation",
+    "slim down",
+    "diagnosis",
+    "campaign",
+    "neutral",
+    "reign"
+   ]
+  },
+  {
+   "id": "odyssey_cnut",
+   "title": "Cnut the Great",
+   "level": "",
+   "words": [
+    "empire",
+    "purge",
+    "marry",
+    "pilgrimage",
+    "earl",
+    "humble",
+    "tide",
+    "flatterers",
+    "generous",
+    "obey"
+   ]
+  },
+  {
+   "id": "odyssey_cromwell",
+   "title": "Oliver Cromwell and the Commonwealth",
+   "level": "",
+   "words": [
+    "commonwealth",
+    "lord protector",
+    "puritans",
+    "dismiss",
+    "massacre",
+    "readmit",
+    "warts and all",
+    "dictator",
+    "exhume",
+    "statue"
+   ]
+  },
+  {
+   "id": "odyssey_dafydd_ap_llywelyn",
+   "title": "Dafydd ap Llywelyn",
+   "level": "",
+   "words": [
+    "half-brother",
+    "imprison",
+    "rope",
+    "recognise",
+    "hostage",
+    "heir",
+    "surrender",
+    "title"
+   ]
+  },
+  {
+   "id": "odyssey_david_i",
+   "title": "David I the Saint",
+   "level": "",
+   "words": [
+    "burgh",
+    "abbey",
+    "coinage",
+    "charter",
+    "generous",
+    "reform",
+    "knight",
+    "sheriff"
+   ]
+  },
+  {
+   "id": "odyssey_david_ii",
+   "title": "David II",
+   "level": "",
+   "words": [
+    "ransom",
+    "minority",
+    "flee",
+    "hostage",
+    "burden",
+    "negotiate",
+    "childless",
+    "wounded"
+   ]
+  },
+  {
+   "id": "odyssey_donald_iii",
+   "title": "Donald III Bane",
+   "level": "",
+   "words": [
+    "seize",
+    "nephew",
+    "depose",
+    "traditional",
+    "foreign",
+    "blind",
+    "captivity",
+    "heir"
+   ]
+  },
+  {
+   "id": "odyssey_duncan_i",
+   "title": "Duncan I the Gracious",
+   "level": "",
+   "words": [
+    "grandson",
+    "succeed",
+    "siege",
+    "rival",
+    "mormaer",
+    "casualty",
+    "playwright",
+    "reputation"
+   ]
+  },
+  {
+   "id": "odyssey_eadred",
+   "title": "Eadred",
+   "level": "",
+   "words": [
+    "frail",
+    "pledge",
+    "expel",
+    "ravage",
+    "archbishop",
+    "will",
+    "famine",
+    "rely on",
+    "persistent",
+    "retain"
+   ]
+  },
+  {
+   "id": "odyssey_eadwig",
+   "title": "Eadwig",
+   "level": "",
+   "words": [
+    "coronation",
+    "withdraw",
+    "scandal",
+    "banish",
+    "annul",
+    "hostile",
+    "divide",
+    "generous",
+    "reputation",
+    "reunite"
+   ]
+  },
+  {
+   "id": "odyssey_edgar",
+   "title": "Edgar the Peaceful",
+   "level": "",
+   "words": [
+    "peaceful",
+    "monastery",
+    "reform",
+    "currency",
+    "mint",
+    "anointing",
+    "row",
+    "symbolic",
+    "stable",
+    "commemorate"
+   ]
+  },
+  {
+   "id": "odyssey_edmund_i",
+   "title": "Edmund I",
+   "level": "",
+   "words": [
+    "recover",
+    "five boroughs",
+    "exile",
+    "feast",
+    "stab",
+    "intervene",
+    "reformer",
+    "abbot",
+    "near miss",
+    "abrupt"
+   ]
+  },
+  {
+   "id": "odyssey_edmund_ironside",
+   "title": "Edmund Ironside",
+   "level": "",
+   "words": [
+    "ironside",
+    "besiege",
+    "betrayal",
+    "treacherous",
+    "partition",
+    "treaty",
+    "outlive",
+    "suspicious",
+    "valiant",
+    "in vain"
+   ]
+  },
+  {
+   "id": "odyssey_edward_i",
+   "title": "Edward I",
+   "level": "",
+   "words": [
+    "longshanks",
+    "conquer",
+    "statute",
+    "expel",
+    "fortress",
+    "hammer",
+    "execute",
+    "stone of scone",
+    "grieve",
+    "cross"
+   ]
+  },
+  {
+   "id": "odyssey_edward_ii",
+   "title": "Edward II",
+   "level": "",
+   "words": [
+    "favourite",
+    "resent",
+    "banish",
+    "rout",
+    "depose",
+    "abdicate",
+    "she-wolf",
+    "captive",
+    "gruesome",
+    "unproven"
+   ]
+  },
+  {
+   "id": "odyssey_edward_iii",
+   "title": "Edward III",
+   "level": "",
+   "words": [
+    "coup",
+    "claim",
+    "longbow",
+    "chivalry",
+    "plague",
+    "wipe out",
+    "labourer",
+    "wage",
+    "ransom",
+    "senile"
+   ]
+  },
+  {
+   "id": "odyssey_edward_iv",
+   "title": "Edward IV",
+   "level": "",
+   "words": [
+    "kingmaker",
+    "secret marriage",
+    "switch sides",
+    "exile",
+    "restore",
+    "return",
+    "printing press",
+    "charming",
+    "ruthless",
+    "sudden"
+   ]
+  },
+  {
+   "id": "odyssey_edward_the_confessor",
+   "title": "Edward the Confessor",
+   "level": "",
+   "words": [
+    "pious",
+    "abbey",
+    "exile",
+    "earl",
+    "quarrel",
+    "childless",
+    "heir",
+    "deathbed",
+    "canonised",
+    "consecrated"
+   ]
+  },
+  {
+   "id": "odyssey_edward_the_elder",
+   "title": "Edward the Elder",
+   "level": "",
+   "words": [
+    "succeed",
+    "rival",
+    "revolt",
+    "frontier",
+    "fortify",
+    "submit",
+    "campaign",
+    "chronicle",
+    "overshadowed",
+    "absorb"
+   ]
+  },
+  {
+   "id": "odyssey_edward_the_martyr",
+   "title": "Edward the Martyr",
+   "level": "",
+   "words": [
+    "half-brother",
+    "faction",
+    "disputed",
+    "ambush",
+    "stepmother",
+    "hastily",
+    "cult",
+    "enshrine",
+    "suspect",
+    "venerate"
+   ]
+  },
+  {
+   "id": "odyssey_edward_v",
+   "title": "Edward V",
+   "level": "",
+   "words": [
+    "protector",
+    "lodge",
+    "illegitimate",
+    "precontract",
+    "vanish",
+    "remains",
+    "suspect",
+    "urn",
+    "inconclusive",
+    "theory"
+   ]
+  },
+  {
+   "id": "odyssey_edward_vi",
+   "title": "Edward VI",
+   "level": "",
+   "words": [
+    "protector",
+    "protestant",
+    "prayer book",
+    "rebel",
+    "tuberculosis",
+    "devise",
+    "exclude",
+    "precocious",
+    "diary",
+    "dominate"
+   ]
+  },
+  {
+   "id": "odyssey_edward_vii",
+   "title": "Edward VII",
+   "level": "",
+   "words": [
+    "heir",
+    "wait",
+    "diplomacy",
+    "entente",
+    "peacemaker",
+    "scandal",
+    "coronation",
+    "appendicitis",
+    "edwardian",
+    "modernise"
+   ]
+  },
+  {
+   "id": "odyssey_edward_viii",
+   "title": "Edward VIII",
+   "level": "",
+   "words": [
+    "abdicate",
+    "divorcee",
+    "crisis",
+    "marry",
+    "church",
+    "duty",
+    "broadcast",
+    "exile",
+    "sympathy",
+    "duke of windsor"
+   ]
+  },
+  {
+   "id": "odyssey_elizabeth_i",
+   "title": "Elizabeth I",
+   "level": "",
+   "words": [
+    "survive",
+    "settlement",
+    "armada",
+    "fireships",
+    "plot",
+    "execute",
+    "golden age",
+    "playwright",
+    "virgin queen",
+    "portrait"
+   ]
+  },
+  {
+   "id": "odyssey_elizabeth_ii",
+   "title": "Elizabeth II",
+   "level": "",
+   "words": [
+    "coronation",
+    "televised",
+    "decolonisation",
+    "commonwealth",
+    "annus horribilis",
+    "jubilee",
+    "modernise",
+    "pledge",
+    "devotion",
+    "mourner"
+   ]
+  },
+  {
+   "id": "odyssey_george_i",
+   "title": "George I",
+   "level": "",
+   "words": [
+    "elector",
+    "succeed",
+    "jacobite rising",
+    "cabinet",
+    "prime minister",
+    "bubble",
+    "speculate",
+    "ruin",
+    "imprison",
+    "unpopular"
+   ]
+  },
+  {
+   "id": "odyssey_george_ii",
+   "title": "George II",
+   "level": "",
+   "words": [
+    "lead",
+    "young pretender",
+    "bonnie prince charlie",
+    "culloden",
+    "suppress",
+    "tartan",
+    "anthem",
+    "empire",
+    "seven years' war",
+    "hallelujah"
+   ]
+  },
+  {
+   "id": "odyssey_george_iii",
+   "title": "George III",
+   "level": "",
+   "words": [
+    "colony",
+    "taxation",
+    "declare",
+    "independence",
+    "porphyria",
+    "mental illness",
+    "regency",
+    "farmer george",
+    "napoleon",
+    "waterloo"
+   ]
+  },
+  {
+   "id": "odyssey_george_iv",
+   "title": "George IV",
+   "level": "",
+   "words": [
+    "regency",
+    "extravagant",
+    "debt",
+    "pavilion",
+    "coronation",
+    "lock out",
+    "mistress",
+    "dandy",
+    "patron",
+    "obese"
+   ]
+  },
+  {
+   "id": "odyssey_george_v",
+   "title": "George V",
+   "level": "",
+   "words": [
+    "dynasty",
+    "anti-german",
+    "rename",
+    "broadcast",
+    "cousin",
+    "asylum",
+    "dutiful",
+    "stamp",
+    "jubilee",
+    "empire"
+   ]
+  },
+  {
+   "id": "odyssey_george_vi",
+   "title": "George VI",
+   "level": "",
+   "words": [
+    "stammer",
+    "reluctant",
+    "speech therapist",
+    "blitz",
+    "bomb",
+    "morale",
+    "rationing",
+    "empire",
+    "commonwealth",
+    "lung cancer"
+   ]
+  },
+  {
+   "id": "odyssey_gruffydd_ap_llywelyn",
+   "title": "Gruffydd ap Llywelyn",
+   "level": "",
+   "words": [
+    "idle",
+    "ambitious",
+    "unify",
+    "burn",
+    "campaign",
+    "betray",
+    "widow",
+    "ruthless"
+   ]
+  },
+  {
+   "id": "odyssey_harold_harefoot",
+   "title": "Harold Harefoot",
+   "level": "",
+   "words": [
+    "regent",
+    "illegitimate",
+    "seize",
+    "blind",
+    "brutal",
+    "dig up",
+    "swift",
+    "exile",
+    "claimant",
+    "propaganda"
+   ]
+  },
+  {
+   "id": "odyssey_harold_ii",
+   "title": "Harold II",
+   "level": "",
+   "words": [
+    "oath",
+    "forfeit",
+    "march",
+    "exhausted",
+    "shield wall",
+    "feign",
+    "pursue",
+    "tapestry",
+    "slay",
+    "turning point"
+   ]
+  },
+  {
+   "id": "odyssey_harthacnut",
+   "title": "Harthacnut",
+   "level": "",
+   "words": [
+    "invade",
+    "tax",
+    "collect",
+    "riot",
+    "punish",
+    "invite",
+    "share",
+    "convulsion",
+    "unpopular",
+    "toast"
+   ]
+  },
+  {
+   "id": "odyssey_henry_i",
+   "title": "Henry I",
+   "level": "",
+   "words": [
+    "charter",
+    "exchequer",
+    "tally",
+    "capture",
+    "heir",
+    "capsize",
+    "drunk",
+    "survivor",
+    "swear",
+    "grief"
+   ]
+  },
+  {
+   "id": "odyssey_henry_ii",
+   "title": "Henry II",
+   "level": "",
+   "words": [
+    "empire",
+    "jury",
+    "common law",
+    "turbulent",
+    "martyr",
+    "penance",
+    "rebel",
+    "restless",
+    "clergy",
+    "flog"
+   ]
+  },
+  {
+   "id": "odyssey_henry_iii",
+   "title": "Henry III",
+   "level": "",
+   "words": [
+    "regent",
+    "parliament",
+    "summon",
+    "provision",
+    "rebel",
+    "burgess",
+    "defeat",
+    "devout",
+    "rebuild",
+    "extravagant"
+   ]
+  },
+  {
+   "id": "odyssey_henry_iv",
+   "title": "Henry IV",
+   "level": "",
+   "words": [
+    "usurper",
+    "legitimacy",
+    "uprising",
+    "ally",
+    "rebel",
+    "skin disease",
+    "prophecy",
+    "uneasy",
+    "crush",
+    "chamber"
+   ]
+  },
+  {
+   "id": "odyssey_henry_v",
+   "title": "Henry V",
+   "level": "",
+   "words": [
+    "campaign",
+    "dysentery",
+    "outnumbered",
+    "mud",
+    "archer",
+    "prisoner",
+    "treaty",
+    "heir",
+    "speech",
+    "inspiring"
+   ]
+  },
+  {
+   "id": "odyssey_henry_vi",
+   "title": "Henry VI",
+   "level": "",
+   "words": [
+    "infant",
+    "stupor",
+    "breakdown",
+    "protector",
+    "found",
+    "pious",
+    "faction",
+    "restore",
+    "tower",
+    "rose"
+   ]
+  },
+  {
+   "id": "odyssey_henry_vii",
+   "title": "Henry VII",
+   "level": "",
+   "words": [
+    "claim",
+    "unite",
+    "pretender",
+    "treasury",
+    "frugal",
+    "fine",
+    "bond",
+    "suppress",
+    "dynasty",
+    "emblem"
+   ]
+  },
+  {
+   "id": "odyssey_henry_viii",
+   "title": "Henry VIII",
+   "level": "",
+   "words": [
+    "annulment",
+    "male heir",
+    "break with",
+    "supreme head",
+    "monastery",
+    "dissolve",
+    "behead",
+    "navy",
+    "tyrannical",
+    "rhyme"
+   ]
+  },
+  {
+   "id": "odyssey_hywel_dda",
+   "title": "Hywel Dda",
+   "level": "",
+   "words": [
+    "law code",
+    "compensation",
+    "assembly",
+    "manuscript",
+    "pilgrimage",
+    "divorce",
+    "mint",
+    "overlord"
+   ]
+  },
+  {
+   "id": "odyssey_ire_dynasties",
+   "title": "Other Early Dynasties",
+   "level": "",
+   "words": [
+    "upstart",
+    "high king",
+    "submit",
+    "alliance",
+    "tent",
+    "myth",
+    "surname",
+    "emperor"
+   ]
+  },
+  {
+   "id": "odyssey_ire_end",
+   "title": "The End of Native Kingship in Ireland",
+   "level": "",
+   "words": [
+    "be exiled",
+    "mercenary",
+    "invade",
+    "treaty",
+    "lordship",
+    "betray",
+    "overlord",
+    "promise"
+   ]
+  },
+  {
+   "id": "odyssey_ire_eoganacht",
+   "title": "The Eóganacht Kings",
+   "level": "",
+   "words": [
+    "province",
+    "rock",
+    "rival",
+    "bishop-king",
+    "rotate",
+    "decline",
+    "chapel",
+    "glossary"
+   ]
+  },
+  {
+   "id": "odyssey_ire_kingship",
+   "title": "A Different Idea of Kingship",
+   "level": "",
+   "words": [
+    "kingdom",
+    "overking",
+    "tribute",
+    "hostage",
+    "sacred",
+    "law",
+    "elect",
+    "blemish"
+   ]
+  },
+  {
+   "id": "odyssey_ire_seven",
+   "title": "The Seven Kingdoms",
+   "level": "",
+   "words": [
+    "province",
+    "dominate",
+    "fleet",
+    "castle",
+    "reform",
+    "synod",
+    "rival",
+    "fifth"
+   ]
+  },
+  {
+   "id": "odyssey_ire_ui_neill",
+   "title": "The Uí Néill Kings",
+   "level": "",
+   "words": [
+    "dynasty",
+    "descendant",
+    "semi-legendary",
+    "hostage",
+    "branch",
+    "alternate",
+    "claim",
+    "raid"
+   ]
+  },
+  {
+   "id": "odyssey_james_i_england",
+   "title": "James I (and VI)",
+   "level": "",
+   "words": [
+    "unite",
+    "gunpowder",
+    "cellar",
+    "conspirator",
+    "discover",
+    "torture",
+    "translation",
+    "divine right",
+    "bonfire",
+    "scholar"
+   ]
+  },
+  {
+   "id": "odyssey_james_i_scot",
+   "title": "James I",
+   "level": "",
+   "words": [
+    "captivity",
+    "poem",
+    "ransom",
+    "ruthless",
+    "execute",
+    "assassin",
+    "drain",
+    "bolt"
+   ]
+  },
+  {
+   "id": "odyssey_james_ii",
+   "title": "James II",
+   "level": "",
+   "words": [
+    "catholic",
+    "declaration",
+    "toleration",
+    "acquit",
+    "heir",
+    "invite",
+    "flee",
+    "great seal",
+    "jacobite",
+    "glorious"
+   ]
+  },
+  {
+   "id": "odyssey_james_ii_scot",
+   "title": "James II",
+   "level": "",
+   "words": [
+    "birthmark",
+    "banquet",
+    "behead",
+    "safe-conduct",
+    "artillery",
+    "siege",
+    "explode",
+    "overmighty"
+   ]
+  },
+  {
+   "id": "odyssey_james_iii_scot",
+   "title": "James III",
+   "level": "",
+   "words": [
+    "dowry",
+    "pledge",
+    "favourite",
+    "hang",
+    "rebellion",
+    "portrait",
+    "renaissance",
+    "unpopular"
+   ]
+  },
+  {
+   "id": "odyssey_james_iv_scot",
+   "title": "James IV",
+   "level": "",
+   "words": [
+    "penance",
+    "warship",
+    "printing press",
+    "alliance",
+    "treaty",
+    "slaughter",
+    "lament",
+    "curious"
+   ]
+  },
+  {
+   "id": "odyssey_james_v_scot",
+   "title": "James V",
+   "level": "",
+   "words": [
+    "infant",
+    "stepfather",
+    "escape",
+    "palace",
+    "disguise",
+    "rout",
+    "despair",
+    "lass"
+   ]
+  },
+  {
+   "id": "odyssey_james_vi_scot",
+   "title": "James VI",
+   "level": "",
+   "words": [
+    "tutor",
+    "kidnap",
+    "treatise",
+    "witch hunt",
+    "union",
+    "absolute",
+    "pacific",
+    "pen"
+   ]
+  },
+  {
+   "id": "odyssey_jane_grey",
+   "title": "Lady Jane Grey",
+   "level": "",
+   "words": [
+    "scholar",
+    "proclaim",
+    "reluctant",
+    "desert",
+    "traitor",
+    "spare",
+    "rebellion",
+    "scaffold",
+    "pawn",
+    "condemn"
+   ]
+  },
+  {
+   "id": "odyssey_john",
+   "title": "King John",
+   "level": "",
+   "words": [
+    "baron",
+    "charter",
+    "seal",
+    "excommunicated",
+    "interdict",
+    "lawful",
+    "annul",
+    "dysentery",
+    "treasure",
+    "clause"
+   ]
+  },
+  {
+   "id": "odyssey_llywelyn_ap_gruffydd",
+   "title": "Llywelyn ap Gruffydd",
+   "level": "",
+   "words": [
+    "recognise",
+    "homage",
+    "treaty",
+    "capture",
+    "revolt",
+    "ambush",
+    "nunnery",
+    "memorial"
+   ]
+  },
+  {
+   "id": "odyssey_llywelyn_ap_iorwerth",
+   "title": "Llywelyn ap Iorwerth",
+   "level": "",
+   "words": [
+    "son-in-law",
+    "illegitimate",
+    "submit",
+    "clause",
+    "affair",
+    "forgive",
+    "hound",
+    "dominant"
+   ]
+  },
+  {
+   "id": "odyssey_lulach",
+   "title": "Lulach the Fool",
+   "level": "",
+   "words": [
+    "stepson",
+    "brief",
+    "nickname",
+    "ambush",
+    "install",
+    "descendant",
+    "scarce",
+    "chronicle"
+   ]
+  },
+  {
+   "id": "odyssey_macbeth",
+   "title": "Macbeth",
+   "level": "",
+   "words": [
+    "seize",
+    "stable",
+    "pilgrimage",
+    "alms",
+    "invasion",
+    "tyrant",
+    "propaganda",
+    "prophecy"
+   ]
+  },
+  {
+   "id": "odyssey_malcolm_iii",
+   "title": "Malcolm III Canmore",
+   "level": "",
+   "words": [
+    "avenge",
+    "exile",
+    "refugee",
+    "pious",
+    "raid",
+    "submit",
+    "dynasty",
+    "canonised"
+   ]
+  },
+  {
+   "id": "odyssey_mary_i",
+   "title": "Mary I",
+   "level": "",
+   "words": [
+    "in her own right",
+    "restore",
+    "heresy",
+    "burn at the stake",
+    "phantom pregnancy",
+    "lose",
+    "devout",
+    "martyr",
+    "propaganda",
+    "determined"
+   ]
+  },
+  {
+   "id": "odyssey_mary_qos",
+   "title": "Mary, Queen of Scots",
+   "level": "",
+   "words": [
+    "abdication",
+    "widow",
+    "secretary",
+    "explosion",
+    "flee",
+    "plot",
+    "treason",
+    "behead"
+   ]
+  },
+  {
+   "id": "odyssey_owain_glyndwr",
+   "title": "Owain Glyndŵr",
+   "level": "",
+   "words": [
+    "dispute",
+    "proclaim",
+    "rising",
+    "guerrilla",
+    "parliament",
+    "pardon",
+    "vanish",
+    "legend"
+   ]
+  },
+  {
+   "id": "odyssey_rhodri_mawr",
+   "title": "Rhodri Mawr",
+   "level": "",
+   "words": [
+    "inherit",
+    "kingdom",
+    "unite",
+    "raider",
+    "drive off",
+    "exile",
+    "ancestor",
+    "mawr"
+   ]
+  },
+  {
+   "id": "odyssey_richard_i",
+   "title": "Richard the Lionheart",
+   "level": "",
+   "words": [
+    "crusade",
+    "truce",
+    "ransom",
+    "capture",
+    "absent",
+    "siege",
+    "crossbow",
+    "legendary",
+    "forgive",
+    "tax"
+   ]
+  },
+  {
+   "id": "odyssey_richard_ii",
+   "title": "Richard II",
+   "level": "",
+   "words": [
+    "poll tax",
+    "revolt",
+    "rebel",
+    "serfdom",
+    "pardon",
+    "revoke",
+    "tyrannical",
+    "confiscate",
+    "starve",
+    "wilton diptych"
+   ]
+  },
+  {
+   "id": "odyssey_richard_iii",
+   "title": "Richard III",
+   "level": "",
+   "words": [
+    "villain",
+    "scoliosis",
+    "hunchback",
+    "betray",
+    "charge",
+    "car park",
+    "dna",
+    "rebury",
+    "propaganda",
+    "reputation"
+   ]
+  },
+  {
+   "id": "odyssey_robert_i",
+   "title": "Robert I the Bruce",
+   "level": "",
+   "words": [
+    "fugitive",
+    "stab",
+    "excommunicated",
+    "guerrilla",
+    "declaration",
+    "independence",
+    "perseverance",
+    "casket"
+   ]
+  },
+  {
+   "id": "odyssey_robert_ii",
+   "title": "Robert II",
+   "level": "",
+   "words": [
+    "steward",
+    "delegate",
+    "guardian",
+    "elderly",
+    "illegitimate",
+    "raid",
+    "lieutenant",
+    "found"
+   ]
+  },
+  {
+   "id": "odyssey_robert_iii",
+   "title": "Robert III",
+   "level": "",
+   "words": [
+    "unlucky",
+    "injury",
+    "regent",
+    "custody",
+    "starve",
+    "capture",
+    "wretched",
+    "midden"
+   ]
+  },
+  {
+   "id": "odyssey_stephen",
+   "title": "Stephen and Matilda",
+   "level": "",
+   "words": [
+    "empress",
+    "usurp",
+    "oath",
+    "anarchy",
+    "besiege",
+    "escape",
+    "chivalrous",
+    "stalemate",
+    "compromise",
+    "adopt"
+   ]
+  },
+  {
+   "id": "odyssey_sweyn",
+   "title": "Sweyn Forkbeard",
+   "level": "",
+   "words": [
+    "forked beard",
+    "conquer",
+    "sail up",
+    "acknowledge",
+    "hostages",
+    "surrender",
+    "sudden",
+    "fleet",
+    "dynasty",
+    "legend"
+   ]
+  },
+  {
+   "id": "odyssey_victoria",
+   "title": "Queen Victoria",
+   "level": "",
+   "words": [
+    "empire",
+    "industry",
+    "railway",
+    "mourn",
+    "widow",
+    "great exhibition",
+    "empress of india",
+    "jubilee",
+    "dynasty",
+    "reclusive"
+   ]
+  },
+  {
+   "id": "odyssey_william_i",
+   "title": "William the Conqueror",
+   "level": "",
+   "words": [
+    "claim",
+    "castle",
+    "rebel",
+    "harrying",
+    "famine",
+    "survey",
+    "landowner",
+    "feudal",
+    "census",
+    "ruthless"
+   ]
+  },
+  {
+   "id": "odyssey_william_ii",
+   "title": "William II (Rufus)",
+   "level": "",
+   "words": [
+    "rufus",
+    "quarrel",
+    "chronicler",
+    "hunting party",
+    "glance off",
+    "abandon",
+    "convenient",
+    "seize",
+    "conspiracy",
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "odyssey_william_iv",
+   "title": "William IV",
+   "level": "",
+   "words": [
+    "sailor king",
+    "reform",
+    "rotten borough",
+    "extend",
+    "abolish",
+    "compensation",
+    "heir",
+    "create",
+    "peer",
+    "constituency"
+   ]
+  },
+  {
+   "id": "odyssey_william_mary",
+   "title": "William III and Mary II",
+   "level": "",
+   "words": [
+    "joint",
+    "bill of rights",
+    "free elections",
+    "free speech",
+    "standing army",
+    "consent",
+    "boyne",
+    "glencoe",
+    "smallpox",
+    "molehill"
    ]
   },
   {
@@ -10659,6 +12187,366 @@ window.WORDBANK={
     "buy-in",
     "hit the ground running",
     "visibility"
+   ]
+  },
+  {
+   "id": "world_eu_background",
+   "title": "Europe: One Continent, Many Cultures",
+   "level": "",
+   "words": [
+    "continent",
+    "border",
+    "member state",
+    "official language",
+    "diversity",
+    "myth",
+    "overlap",
+    "mindset"
+   ]
+  },
+  {
+   "id": "world_eu_coffee",
+   "title": "Coffee Snobs and Cake Breaks",
+   "level": "",
+   "words": [
+    "ritual",
+    "linger",
+    "custom",
+    "frown on",
+    "regular",
+    "debate",
+    "pastry",
+    "heritage"
+   ]
+  },
+  {
+   "id": "world_eu_directness",
+   "title": "Blunt Dutch, Polite British?",
+   "level": "",
+   "words": [
+    "blunt",
+    "understatement",
+    "feedback",
+    "soften",
+    "high-context",
+    "low-context",
+    "misinterpret",
+    "tactful"
+   ]
+  },
+  {
+   "id": "world_eu_east",
+   "title": "'Eastern Europe' Beyond the Clichés",
+   "level": "",
+   "words": [
+    "iron curtain",
+    "label",
+    "cold war",
+    "rebrand",
+    "digital",
+    "pioneer",
+    "transform",
+    "cliché"
+   ]
+  },
+  {
+   "id": "world_eu_greetings",
+   "title": "Kisses, Handshakes and Personal Space",
+   "level": "",
+   "words": [
+    "greeting",
+    "la bise",
+    "personal space",
+    "awkward",
+    "formal",
+    "vary",
+    "norm",
+    "intimate"
+   ]
+  },
+  {
+   "id": "world_eu_nordic",
+   "title": "Cold Nordics, Happy Nordics?",
+   "level": "",
+   "words": [
+    "reserved",
+    "small talk",
+    "well-being",
+    "trust",
+    "modest",
+    "ranking",
+    "satisfaction",
+    "equality"
+   ]
+  },
+  {
+   "id": "world_eu_punctuality",
+   "title": "Punctual Germans, Late Spaniards?",
+   "level": "",
+   "words": [
+    "punctual",
+    "delay",
+    "time zone",
+    "siesta",
+    "flexible",
+    "deadline",
+    "monochronic",
+    "polychronic"
+   ]
+  },
+  {
+   "id": "world_eu_stereotypes",
+   "title": "Where Do Stereotypes Come From?",
+   "level": "",
+   "words": [
+    "stereotype",
+    "kernel of truth",
+    "exaggerate",
+    "survey",
+    "average",
+    "confirmation bias",
+    "label",
+    "nuance"
+   ]
+  },
+  {
+   "id": "world_la_background",
+   "title": "Latin America: One Name, Many Worlds",
+   "level": "",
+   "words": [
+    "region",
+    "indigenous",
+    "colonial",
+    "independence",
+    "diverse",
+    "descent",
+    "diaspora",
+    "label"
+   ]
+  },
+  {
+   "id": "world_la_dead",
+   "title": "Day of the Dead: Mexican Halloween?",
+   "level": "",
+   "words": [
+    "altar",
+    "offering",
+    "marigold",
+    "honour",
+    "skull",
+    "cemetery",
+    "syncretism",
+    "satire"
+   ]
+  },
+  {
+   "id": "world_la_family",
+   "title": "Family Comes First?",
+   "level": "",
+   "words": [
+    "extended family",
+    "godparent",
+    "birth rate",
+    "rely on",
+    "gathering",
+    "network",
+    "asado",
+    "independence"
+   ]
+  },
+  {
+   "id": "world_la_food",
+   "title": "Is It All Tacos and Chilli?",
+   "level": "",
+   "words": [
+    "maize",
+    "domesticate",
+    "staple",
+    "ceviche",
+    "intangible heritage",
+    "mild",
+    "stew",
+    "fusion"
+   ]
+  },
+  {
+   "id": "world_la_language",
+   "title": "Everyone Speaks Spanish?",
+   "level": "",
+   "words": [
+    "treaty",
+    "mutually intelligible",
+    "accent",
+    "co-official",
+    "variety",
+    "endangered",
+    "revive",
+    "slang"
+   ]
+  },
+  {
+   "id": "world_la_party",
+   "title": "Always Dancing? Carnival, Samba and Tango",
+   "level": "",
+   "words": [
+    "carnival",
+    "samba school",
+    "afro-brazilian",
+    "parade",
+    "recognise",
+    "working-class",
+    "rhythm",
+    "stereotype"
+   ]
+  },
+  {
+   "id": "world_la_time",
+   "title": "Mañana, Mañana? Time in Latin America",
+   "level": "",
+   "words": [
+    "punctual",
+    "flexible",
+    "relationship-oriented",
+    "campaign",
+    "traffic",
+    "appointment",
+    "keep someone waiting",
+    "la hora latina"
+   ]
+  },
+  {
+   "id": "world_la_warmth",
+   "title": "Warm, Loud and Touchy?",
+   "level": "",
+   "words": [
+    "cheek kiss",
+    "embrace",
+    "personal space",
+    "expressive",
+    "reserved",
+    "formal",
+    "interrupt",
+    "overlapping"
+   ]
+  },
+  {
+   "id": "world_na_background",
+   "title": "North America: Two Neighbours, One Continent",
+   "level": "",
+   "words": [
+    "neighbour",
+    "border",
+    "bilingual",
+    "province",
+    "federation",
+    "identify with",
+    "influence",
+    "distinct"
+   ]
+  },
+  {
+   "id": "world_na_canadians",
+   "title": "Polite Canadians: Sorry, Not Sorry?",
+   "level": "",
+   "words": [
+    "apologise",
+    "liability",
+    "modest",
+    "identity",
+    "courteous",
+    "stand out",
+    "cliché",
+    "self-deprecating"
+   ]
+  },
+  {
+   "id": "world_na_english",
+   "title": "Same Language, Different Words?",
+   "level": "",
+   "words": [
+    "spelling",
+    "dictionary",
+    "accent",
+    "vocabulary",
+    "dialect",
+    "borrow",
+    "reform",
+    "minority"
+   ]
+  },
+  {
+   "id": "world_na_food",
+   "title": "Big Portions and Fast Food?",
+   "level": "",
+   "words": [
+    "portion",
+    "drive-through",
+    "diner",
+    "regional",
+    "leftover",
+    "farmers' market",
+    "grow",
+    "comfort food"
+   ]
+  },
+  {
+   "id": "world_na_friendly",
+   "title": "Friendly Americans, Fake Smiles?",
+   "level": "",
+   "words": [
+    "small talk",
+    "superficial",
+    "ritual",
+    "acquaintance",
+    "open",
+    "warm up",
+    "genuine",
+    "peach"
+   ]
+  },
+  {
+   "id": "world_na_mosaic",
+   "title": "Melting Pot or Mosaic?",
+   "level": "",
+   "words": [
+    "melting pot",
+    "mosaic",
+    "assimilate",
+    "multiculturalism",
+    "foreign-born",
+    "heritage",
+    "newcomer",
+    "indigenous"
+   ]
+  },
+  {
+   "id": "world_na_tipping",
+   "title": "Tipping: Generous or Obligatory?",
+   "level": "",
+   "words": [
+    "tip",
+    "gratuity",
+    "wage",
+    "obligatory",
+    "server",
+    "screen prompt",
+    "abolish",
+    "income"
+   ]
+  },
+  {
+   "id": "world_na_work",
+   "title": "Live to Work? Vacation and the Hustle",
+   "level": "",
+   "words": [
+    "paid leave",
+    "vacation",
+    "mandate",
+    "hustle",
+    "burnout",
+    "employer",
+    "benefit",
+    "unplug"
    ]
   },
   {
@@ -44376,6 +46264,7 @@ window.WORDBANK={
    "ex": "I want to wait for the bus. It comes in five minutes.",
    "lessons": [
     "a1s_15_sister",
+    "odyssey_edward_vii",
     "psy_01_marshmallow_a2b1",
     "techniques_before_the_law_a2b1",
     "qf_falsefriend_french_attendre"
@@ -44493,6 +46382,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_16_plans",
     "a1s_18_castle",
+    "odyssey_ire_seven",
+    "odyssey_william_i",
     "techniques_the_masque_of_the_red_death_a2b1",
     "behind_the_screen_braveheart_a2b1",
     "short_history_king_arthur_a2b1",
@@ -45494,11 +47385,12 @@ window.WORDBANK={
   },
   "open": {
    "w": "open",
-   "pos": "",
+   "pos": "adj",
    "def": "to make ready for people to come in",
-   "ex": "",
+   "ex": "Americans seem very open at first.",
    "lessons": [
-    "a1s_30_work"
+    "a1s_30_work",
+    "world_na_friendly"
    ]
   },
   "have to": {
@@ -45536,6 +47428,7 @@ window.WORDBANK={
     "piranesi_bc_other",
     "techniques_jekyll_and_hyde_1_a2b1",
     "tib_johari_a2b1",
+    "world_eu_nordic",
     "behind_the_screen_2001_a_space_odyssey_a2b1",
     "b1_52_true_friendship",
     "epicurean_15_the_canonic",
@@ -45710,11 +47603,12 @@ window.WORDBANK={
   },
   "diary": {
    "w": "diary",
-   "pos": "",
+   "pos": "n",
    "def": "a book for your plans and days",
    "ex": "",
    "lessons": [
     "a1s_33_nextweek",
+    "odyssey_edward_vi",
     "su_a2_10_planning_the_future",
     "grammar_a2_02_future_arrangements"
    ]
@@ -45793,6 +47687,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "a1s_34_will",
+    "odyssey_eadred",
     "techniques_jekyll_and_hyde_1_a2b1",
     "techniques_the_adventure_of_the_speckled_band"
    ]
@@ -45817,6 +47712,7 @@ window.WORDBANK={
     "bc_bluebuffalo_a2b1",
     "bc_onlinetherapy_a2b1",
     "bc_wework_a2b1",
+    "odyssey_ire_end",
     "techniques_after_twenty_years_a2b1",
     "techniques_araby_a2b1",
     "techniques_eveline_a2b1",
@@ -45983,11 +47879,12 @@ window.WORDBANK={
   },
   "neighbour": {
    "w": "neighbour",
-   "pos": "",
+   "pos": "n",
    "def": "a person who lives near you",
    "ex": "",
    "lessons": [
     "a1s_36_walkclub",
+    "world_na_background",
     "rs_y7_sum2_06_02",
     "rp_13_talking_about_the_weather_a2b1",
     "behind_the_screen_the_crucible_a2b1",
@@ -46051,11 +47948,13 @@ window.WORDBANK={
   },
   "branch": {
    "w": "branch",
-   "pos": "",
+   "pos": "n",
    "def": "an arm of a tree",
    "ex": "",
    "lessons": [
     "a1s_37_noise",
+    "amst_04_the_constitution",
+    "odyssey_ire_ui_neill",
     "tib_mindmap_b2",
     "lesson-14-mind-mapping"
    ]
@@ -46496,6 +48395,7 @@ window.WORDBANK={
    "ex": "The pirates dug for weeks on the island, dreaming of the chest of gold and jewels — the treasure said to be buried beneath the palm trees.",
    "lessons": [
     "a1s_43_ever",
+    "odyssey_john",
     "short_history_tutankhamun",
     "techniques_the_gift_of_the_magi_a2b1",
     "short_history_angkor_a2b1",
@@ -46984,11 +48884,12 @@ window.WORDBANK={
   },
   "speech": {
    "w": "speech",
-   "pos": "",
+   "pos": "n",
    "def": "when you stand and talk to people",
    "ex": "",
    "lessons": [
-    "a1s_50_home"
+    "a1s_50_home",
+    "odyssey_henry_v"
    ]
   },
   "friend": {
@@ -47114,6 +49015,7 @@ window.WORDBANK={
    "lessons": [
     "a2_lesson_tennis",
     "bc_nokia_a2b1",
+    "odyssey_mary_i",
     "techniques_a_piece_of_string_a2b1",
     "techniques_the_necklace_a2b1",
     "rp_16_reporting_something_lost_a2b1",
@@ -47144,6 +49046,421 @@ window.WORDBANK={
     "rp_22_talking_about_sport"
    ]
   },
+  "discipline": {
+   "w": "discipline",
+   "pos": "n",
+   "def": "a branch of knowledge that is studied and taught, with its own methods and standards.",
+   "ex": "To lose a battle without shame, a warrior had to show great discipline, controlling his fear and following the rules he had trained into himself.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "short_history_the_samurai",
+    "rs_y7_spr2_04_02",
+    "gr_warmup_b2_hot_takes_parenting",
+    "acad_c2_07_interdisciplinary",
+    "ielts_spelling_a_fresh_start"
+   ]
+  },
+  "interdisciplinary": {
+   "w": "interdisciplinary",
+   "pos": "adj",
+   "def": "combining two or more academic subjects or fields of study.",
+   "ex": "An interdisciplinary course lets you read a novel, a law and a map in the same week, because it refuses to keep the subjects apart.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "acad_c2_07_interdisciplinary"
+   ]
+  },
+  "canon": {
+   "w": "canon",
+   "pos": "noun / adjective",
+   "def": "the list of works generally accepted as the most important in a field, especially in literature.",
+   "ex": "Which books count as part of the canon — the ones everyone must read — is a question that scholars never stop arguing over.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "bc_chinua_achebe_c1",
+    "ib_lesson_techniques_story_of_an_hour"
+   ]
+  },
+  "myth": {
+   "w": "myth",
+   "pos": "n",
+   "def": "a widely held story or belief that expresses a group’s values, whether or not it is literally true.",
+   "ex": "A nation’s myth need not be false; it is simply a story that a people tells itself to explain who it is.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "behind_the_screen_2001_a_space_odyssey",
+    "odyssey_ire_dynasties",
+    "short_history_christopher_columbus",
+    "short_history_the_great_wall_of_china",
+    "short_history_the_seven_wonders",
+    "short_history_vlad_the_impaler",
+    "tib_swot_b2",
+    "topic_habits_b2",
+    "world_eu_background",
+    "gr_b2_fact_or_bluff",
+    "fantasy_history_c1_part1",
+    "ois_01_coming_of_the_britons",
+    "short_history_marie_antoinette",
+    "short_history_the_gladiators_a2b1",
+    "short_history_the_great_wall_of_china_a2b1",
+    "short_history_the_vikings_a2b1"
+   ]
+  },
+  "exceptionalism": {
+   "w": "exceptionalism",
+   "pos": "n",
+   "def": "the idea that a particular country is unique and not subject to the same rules as other countries.",
+   "ex": "The belief in exceptionalism — that one’s own country is different from, and perhaps better than, all others — is something critics love to examine.",
+   "lessons": [
+    "amst_01_what_is_american_studies"
+   ]
+  },
+  "frontier": {
+   "w": "frontier",
+   "pos": "noun",
+   "def": "the edge of settled territory, beyond which lies wild or unexplored land.",
+   "ex": "Beyond the last road lay the frontier, where scattered cabins stood between the settlements and the wilderness.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "bc_airace_c1",
+    "behind_the_screen_interstellar",
+    "odyssey_edward_the_elder",
+    "short_history_alexander_the_great",
+    "short_history_hadrians_wall",
+    "short_history_marie_curie",
+    "short_history_ned_kelly",
+    "short_history_the_great_wall_of_china",
+    "short_history_the_wild_west",
+    "techniques_the_boarded_window",
+    "ois_03_roman_britain",
+    "short_history_the_wild_west_a2b1"
+   ]
+  },
+  "assumption": {
+   "w": "assumption",
+   "pos": "n",
+   "def": "a belief that is accepted as true without proof.",
+   "ex": "Behind every confident claim sits an assumption — something taken to be true without ever being proved.",
+   "lessons": [
+    "amst_01_what_is_american_studies",
+    "acad_b2_03_critical_thinking",
+    "bc_reframing_conflict_c1",
+    "gr_warmup_c1_hot_takes_iceberg",
+    "rp_36_giving_a_statement",
+    "bp_c2_03_why_they_dont_understand_you",
+    "epicurean_29_legacy_tensions",
+    "the-power-of-accents",
+    "wp_30_the_razor",
+    "b2_39_best_email_replies",
+    "qf_vocab_actually_currently",
+    "sp_c1_03_diplomatic_disagreement",
+    "sp_prep_c1_04",
+    "sp_prep_c1_70",
+    "su_a2_58_preparing_for_new_cultures",
+    "grammar_b2_11_cleft_sentences_emphasis"
+   ]
+  },
+  "transnational": {
+   "w": "transnational",
+   "pos": "adj",
+   "def": "extending beyond or operating across national boundaries.",
+   "ex": "A transnational study follows ideas, money and people across borders instead of staying inside one country.",
+   "lessons": [
+    "amst_01_what_is_american_studies"
+   ]
+  },
+  "charter": {
+   "w": "charter",
+   "pos": "n",
+   "def": "an official document that grants rights or permission, such as the right to found a colony.",
+   "ex": "The settlers carried a royal charter, a document that gave a company the legal right to found and run a colony.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "odyssey_athelstan",
+    "odyssey_david_i",
+    "odyssey_henry_i",
+    "odyssey_john",
+    "short_history_magna_carta",
+    "short_history_the_east_india_company",
+    "Rhetorical Devices in British Literary History",
+    "ois_09_plantagenets_and_magna_carta"
+   ]
+  },
+  "settlement": {
+   "w": "settlement",
+   "pos": "n",
+   "def": "a place where people have come to live and build a community, especially a new one.",
+   "ex": "The first settlement was a muddy fort on a marshy riverbank, built by a hundred or so men and boys.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "bc_online_therapy_c1",
+    "bc_vw_dieselgate_c1",
+    "odyssey_elizabeth_i",
+    "behind_the_screen_the_social_network_a2b1",
+    "lesson_space_advanced_EXPANDED"
+   ]
+  },
+  "persecution": {
+   "w": "persecution",
+   "pos": "n",
+   "def": "cruel or unfair treatment of a person or group, especially because of their beliefs.",
+   "ex": "Many left England to escape persecution, because they were punished for worshipping in ways the Church of England forbade.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "short_history_muhammad_ali",
+    "rs_y10_spr2_22_05",
+    "rs_y8_spr2_10_04",
+    "ois_03_roman_britain",
+    "rs_y10_spr2_22_06"
+   ]
+  },
+  "covenant": {
+   "w": "covenant",
+   "pos": "n",
+   "def": "a formal, binding agreement or promise, often with a religious meaning.",
+   "ex": "The passengers drew up a covenant, a serious written promise to obey whatever laws they agreed together.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "rs_y11_spr1_27_01",
+    "rs_y7_aut1_01_02",
+    "rs_y8_aut1_07_01",
+    "rs_y11_spr1_27_06",
+    "rs_y8_aut1_07_06"
+   ]
+  },
+  "flourish": {
+   "w": "flourish",
+   "pos": "v",
+   "def": "to grow and develop successfully; to thrive.",
+   "ex": "Against every expectation, the colony began to flourish once farmers found a crop that sold well overseas.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "short_history_petra",
+    "short_history_the_aztecs",
+    "short_history_the_olympic_games",
+    "short_history_the_silk_road",
+    "tib_ninebox_b2",
+    "lesson_ancient_greece_interactive"
+   ]
+  },
+  "indentured": {
+   "w": "indentured",
+   "pos": "adj",
+   "def": "bound by a contract to work for someone for a fixed period, usually to pay off a debt.",
+   "ex": "Many poorer settlers crossed the ocean as indentured servants, working for years without wages to repay their fare.",
+   "lessons": [
+    "amst_02_colonial_america"
+   ]
+  },
+  "dissent": {
+   "w": "dissent",
+   "pos": "n",
+   "def": "open disagreement with an official or widely held opinion.",
+   "ex": "In a company where everyone was expected to agree with the boss without question, the one manager who kept voicing open dissent in every meeting was treated as a troublemaker — even on the two occasions when she turned out to be completely right.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "behind_the_screen_12_angry_men",
+    "short_history_the_boston_tea_party",
+    "sp_prep_c1_03"
+   ]
+  },
+  "ordeal": {
+   "w": "ordeal",
+   "pos": "noun",
+   "def": "a very difficult and painful experience that tests a person’s strength.",
+   "ex": "The first winter was an ordeal: hunger, cold and disease killed many of the settlers.",
+   "lessons": [
+    "amst_02_colonial_america",
+    "behind_the_screen_bridge_of_spies",
+    "behind_the_screen_chariots_of_fire",
+    "behind_the_screen_suffragette",
+    "discuss_c1_why_risk_it",
+    "persepolis_bc_revolution",
+    "short_history_alcatraz",
+    "short_history_hannibal",
+    "short_history_nellie_bly",
+    "short_history_nelson_mandela",
+    "short_history_shackleton"
+   ]
+  },
+  "grievance": {
+   "w": "grievance",
+   "pos": "n",
+   "def": "a real or imagined cause for complaint, especially about unfair treatment.",
+   "ex": "The colonists’ main grievance was that they were being taxed by a Parliament in which they had no voice.",
+   "lessons": [
+    "amst_03_revolution",
+    "behind_the_screen_suffragette",
+    "short_history_boudica",
+    "short_history_magna_carta",
+    "short_history_ned_kelly",
+    "ml_11_the_neighbours_noise",
+    "wk_15_resigning"
+   ]
+  },
+  "levy": {
+   "w": "levy",
+   "pos": "v",
+   "def": "to impose or collect a tax or fee officially.",
+   "ex": "Parliament decided to levy a new duty on tea, and the colonists bitterly resented paying it.",
+   "lessons": [
+    "amst_03_revolution",
+    "short_history_magna_carta",
+    "short_history_petra",
+    "short_history_the_boston_tea_party",
+    "cae_essay_practice_4"
+   ]
+  },
+  "representation": {
+   "w": "representation",
+   "pos": "n",
+   "def": "the right to have someone speak or vote for you in a government.",
+   "ex": "The colonists had no representation in Parliament — not a single member spoke or voted for them — yet Parliament taxed them anyway.",
+   "lessons": [
+    "amst_03_revolution",
+    "short_history_the_boston_tea_party"
+   ]
+  },
+  "boycott": {
+   "w": "boycott",
+   "pos": "n",
+   "def": "a refusal to buy, use or take part in something as a form of protest.",
+   "ex": "Merchants in several cities organised a boycott, refusing to buy British goods until the taxes were removed.",
+   "lessons": [
+    "amst_03_revolution",
+    "short_history_nelson_mandela",
+    "short_history_the_boston_tea_party",
+    "rs_y8_spr2_10_02",
+    "cancel_culture_interactive"
+   ]
+  },
+  "allegiance": {
+   "w": "allegiance",
+   "pos": "n",
+   "def": "loyalty or commitment to a person, group or cause.",
+   "ex": "When the two great houses finally went to war, every family in the valley had to declare its allegiance — and once it was declared, nobody could quietly change sides.",
+   "lessons": [
+    "amst_03_revolution",
+    "behind_the_screen_the_last_samurai",
+    "bc_theoretical_framing_phd"
+   ]
+  },
+  "self-evident": {
+   "w": "self-evident",
+   "pos": "adj",
+   "def": "obvious and needing no proof or explanation.",
+   "ex": "The Declaration called certain truths self-evident, meaning they needed no proof because any reasonable person could see them.",
+   "lessons": [
+    "amst_03_revolution",
+    "wp_26_the_flying_man"
+   ]
+  },
+  "contradiction": {
+   "w": "contradiction",
+   "pos": "n",
+   "def": "a situation in which two ideas or facts cannot both be true or consistent.",
+   "ex": "There is a painful contradiction in a document that declares all men equal, written by a man who owned slaves.",
+   "lessons": [
+    "amst_03_revolution",
+    "rs_y7_aut2_02_02",
+    "gr_warmup_c1_hot_takes_iceberg",
+    "acad_c2_11_thesis_defence",
+    "c2_pro_06_media_interviews",
+    "wp_03_the_way_of_truth",
+    "grammar_b1_21_sentence_building"
+   ]
+  },
+  "treason": {
+   "w": "treason",
+   "pos": "n",
+   "def": "the crime of betraying one’s country, especially by helping its enemies or rebelling against its government.",
+   "ex": "To speak against the king, to plot his death, or even to deny his authority was the gravest crime of all — treason — and the punishment was death.",
+   "lessons": [
+    "amst_03_revolution",
+    "odyssey_charles_i",
+    "odyssey_mary_qos",
+    "short_history_anne_boleyn",
+    "short_history_julius_caesar",
+    "short_history_mary_queen_of_scots",
+    "short_history_the_gunpowder_plot",
+    "short_history_the_tudors",
+    "short_history_marie_antoinette",
+    "wp_24_the_consolation"
+   ]
+  },
+  "delegate": {
+   "w": "delegate",
+   "pos": "n",
+   "def": "a person chosen to represent others at a meeting or conference.",
+   "ex": "",
+   "lessons": [
+    "amst_04_the_constitution",
+    "odyssey_robert_ii",
+    "tib_eisenhower_b2",
+    "bc_team_leader_delegation_c1",
+    "Business-Bootcamp-Lesson3-The-Project-Manager",
+    "b1_25_career_development",
+    "su_a2_44_working_smarter",
+    "c1_pro_11_delegation",
+    "leading_under_pressure",
+    "wk_06_the_interview"
+   ]
+  },
+  "ratify": {
+   "w": "ratify",
+   "pos": "v",
+   "def": "to give formal approval to an agreement or constitution, making it officially valid.",
+   "ex": "A new constitution does not become law until the states ratify it, and in 1788 enough of them finally did.",
+   "lessons": [
+    "amst_04_the_constitution",
+    "short_history_the_panama_canal"
+   ]
+  },
+  "amendment": {
+   "w": "amendment",
+   "pos": "n",
+   "def": "a formal change or addition made to a law or constitution.",
+   "ex": "Every amendment added since 1791 has been a formal change to the text, passed only after a long and difficult process.",
+   "lessons": [
+    "amst_04_the_constitution"
+   ]
+  },
+  "veto": {
+   "w": "veto",
+   "pos": "v",
+   "def": "to officially refuse to approve a proposed law.",
+   "ex": "The president can veto a bill, refusing to sign it so that it cannot become law unless Congress overrides him.",
+   "lessons": [
+    "amst_04_the_constitution"
+   ]
+  },
+  "enact": {
+   "w": "enact",
+   "pos": "v",
+   "def": "to make a proposal into an official law.",
+   "ex": "Congress may enact laws, but it cannot decide for itself how they are enforced or judged.",
+   "lessons": [
+    "amst_04_the_constitution"
+   ]
+  },
+  "judicial review": {
+   "w": "judicial review",
+   "pos": "n",
+   "def": "the power of courts to decide whether a law or action is allowed by the constitution.",
+   "ex": "The principle of judicial review lets courts strike down laws that conflict with the constitution.",
+   "lessons": [
+    "amst_04_the_constitution"
+   ]
+  },
+  "federal": {
+   "w": "federal",
+   "pos": "adj",
+   "def": "relating to a system in which power is divided between a central government and regional governments.",
+   "ex": "Power in the United States is federal, shared between a central government and the individual states.",
+   "lessons": [
+    "amst_04_the_constitution"
+   ]
+  },
   "robotaxi": {
    "w": "robotaxi",
    "pos": "n",
@@ -47170,6 +49487,9 @@ window.WORDBANK={
    "ex": "The company added 500 cars to its fleet this year.",
    "lessons": [
     "b2_robotaxi_revolution",
+    "odyssey_alfred",
+    "odyssey_ire_seven",
+    "odyssey_sweyn",
     "short_history_ching_shih",
     "short_history_the_battle_of_hastings",
     "ois_18_nelson_and_wellington",
@@ -47332,7 +49652,8 @@ window.WORDBANK={
    "def": "To make something new.",
    "ex": "Today, computers can create music.",
    "lessons": [
-    "bc_ada_lovelace_b1b2"
+    "bc_ada_lovelace_b1b2",
+    "odyssey_william_iv"
    ]
   },
   "symbol": {
@@ -47515,6 +49836,8 @@ window.WORDBANK={
    "ex": "The company said clearly that they were not admitting they had done anything wrong, and that they were not legally responsible for what had happened. All the same, they wished to give the family a sum of money as compensation.",
    "lessons": [
     "bc_ai_chatbot_c1",
+    "odyssey_hywel_dda",
+    "odyssey_william_iv",
     "techniques_metamorphosis_3",
     "techniques_the_monkeys_paw",
     "techniques_the_monkeys_paw_a2b1",
@@ -47566,6 +49889,10 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_ai_chatbot_c1",
+    "odyssey_edward_iii",
+    "odyssey_henry_vii",
+    "odyssey_ire_ui_neill",
+    "odyssey_william_i",
     "short_history_the_battle_of_hastings",
     "short_history_the_gold_rush",
     "tib_swot_b2",
@@ -47816,11 +50143,12 @@ window.WORDBANK={
   },
   "neutral": {
    "w": "neutral",
-   "pos": "",
+   "pos": "adj",
    "def": "not favouring either side or any group.",
    "ex": "Engineers tried to make the tool neutral, but they could not be sure it had stopped.",
    "lessons": [
     "bc_ai_screening_c1",
+    "odyssey_charles_iii",
     "gr_b2_the_register",
     "everyone_has_an_accent_b1b2",
     "bc_education_and_training_c1",
@@ -47851,11 +50179,13 @@ window.WORDBANK={
   },
   "rely on": {
    "w": "rely on",
-   "pos": "",
+   "pos": "phr v",
    "def": "(+ noun or -ing) — Recruiters did not rely on the tool alone. Noun: reliance.",
    "ex": "",
    "lessons": [
     "bc_ai_screening_c1",
+    "odyssey_eadred",
+    "world_la_family",
     "talk_ai_and_language_learning_b2c1"
    ]
   },
@@ -48060,25 +50390,6 @@ window.WORDBANK={
    "ex": "While its model was the best on the market, the company could charge almost whatever it liked. That pricing power lasted about three months.",
    "lessons": [
     "bc_airace_c1"
-   ]
-  },
-  "frontier": {
-   "w": "frontier",
-   "pos": "noun",
-   "def": "in AI, frontier models and frontier labs are the most capable systems and the companies that build them. To push (forward) the frontier, to be at the frontier.",
-   "ex": "Beyond the last road lay the frontier, where scattered cabins stood between the settlements and the wilderness.",
-   "lessons": [
-    "bc_airace_c1",
-    "behind_the_screen_interstellar",
-    "short_history_alexander_the_great",
-    "short_history_hadrians_wall",
-    "short_history_marie_curie",
-    "short_history_ned_kelly",
-    "short_history_the_great_wall_of_china",
-    "short_history_the_wild_west",
-    "techniques_the_boarded_window",
-    "ois_03_roman_britain",
-    "short_history_the_wild_west_a2b1"
    ]
   },
   "open-weight": {
@@ -48447,7 +50758,8 @@ window.WORDBANK={
     "bc_alphabet_a2b1",
     "bc_lego_a2b1",
     "techniques_the_egg_a2b1",
-    "tib_maslow_a2b1"
+    "tib_maslow_a2b1",
+    "world_na_food"
    ]
   },
   "close": {
@@ -48559,12 +50871,17 @@ window.WORDBANK={
   },
   "rival": {
    "w": "rival",
-   "pos": "n",
+   "pos": "adj",
    "def": "A person or company that wants to win against you.",
-   "ex": "Microsoft was Apple's biggest rival.",
+   "ex": "Seven rival kingdoms competed for power.",
    "lessons": [
     "bc_apple1997_a2b1",
     "bc_kodak_a2b1",
+    "odyssey_background",
+    "odyssey_duncan_i",
+    "odyssey_edward_the_elder",
+    "odyssey_ire_eoganacht",
+    "odyssey_ire_seven",
     "short_history_agatha_christie",
     "short_history_catherine_the_great",
     "short_history_chernobyl",
@@ -48634,6 +50951,7 @@ window.WORDBANK={
    "ex": "Steve Jobs returned to Apple in 1997.",
    "lessons": [
     "bc_apple1997_a2b1",
+    "odyssey_edward_iv",
     "rp_08_buying_clothes_a2b1",
     "rp_10_at_the_train_station_a2b1"
    ]
@@ -49131,7 +51449,10 @@ window.WORDBANK={
     "bc_bluebuffalo_a2b1",
     "psyp_10_who_decides_whats_normal_a2b1",
     "psyp_10_who_decides_whats_normal_b2c1",
-    "topic_food_b2"
+    "topic_food_b2",
+    "world_eu_east",
+    "world_eu_stereotypes",
+    "world_la_background"
    ]
   },
   "ingredient": {
@@ -49245,6 +51566,7 @@ window.WORDBANK={
    "lessons": [
     "bc_boeing_a2b1",
     "bc_golive_a2b1",
+    "world_eu_punctuality",
     "acad_b1_26_time_management",
     "rp_37_at_the_consulate",
     "b1_25_career_development",
@@ -49451,6 +51773,7 @@ window.WORDBANK={
    "lessons": [
     "bc_breaking_the_barrier_b2",
     "bc_marie_curie_b1b2",
+    "odyssey_mary_i",
     "su_a2_69_acts_of_bravery"
    ]
   },
@@ -49472,6 +51795,7 @@ window.WORDBANK={
    "lessons": [
     "bc_breaking_the_barrier_b2",
     "bc_connecting_the_dots_b2",
+    "odyssey_harold_ii",
     "st_pro_05_the_reframe",
     "prof_c1_11_corporate_storytelling"
    ]
@@ -49483,6 +51807,7 @@ window.WORDBANK={
    "ex": "A small change in mindset can change what you attempt.",
    "lessons": [
     "bc_breaking_the_barrier_b2",
+    "world_eu_background",
     "curious_conversations_02_languages"
    ]
   },
@@ -49655,7 +51980,8 @@ window.WORDBANK={
    "def": "Relating to the rule of one country over another territory and its people.",
    "ex": "Okonkwo's village is changed for ever when the colonial administration arrives.",
    "lessons": [
-    "bc_chinua_achebe_c1"
+    "bc_chinua_achebe_c1",
+    "world_la_background"
    ]
   },
   "narrative": {
@@ -49701,6 +52027,8 @@ window.WORDBANK={
    "ex": "The boy in the story only meets Africans as stereotypes — savages or comic servants.",
    "lessons": [
     "bc_chinua_achebe_c1",
+    "world_eu_stereotypes",
+    "world_la_party",
     "gr_warmup_b2_hot_takes_gender",
     "c1_pro_28_consulting_frameworks",
     "cpe_read_c1_15_impostor_syndrome",
@@ -49735,16 +52063,6 @@ window.WORDBANK={
    "ex": "In Umuofia, a well-chosen proverb wins an argument faster than a shout.",
    "lessons": [
     "bc_chinua_achebe_c1"
-   ]
-  },
-  "canon": {
-   "w": "canon",
-   "pos": "noun / adjective",
-   "def": "The group of books generally accepted as the most important in a tradition.",
-   "ex": "Today the novel sits firmly in the canon taught in schools around the world.",
-   "lessons": [
-    "bc_chinua_achebe_c1",
-    "ib_lesson_techniques_story_of_an_hour"
    ]
   },
   "marginalise": {
@@ -50417,6 +52735,7 @@ window.WORDBANK={
    "ex": "In a crisis, the first job is to stay calm.",
    "lessons": [
     "bc_grace_under_pressure_b1b2",
+    "odyssey_edward_viii",
     "ts_erikson_b2",
     "are_we_forgetting_how_to_be_friends",
     "short_history_cuban_missile_crisis_a2b1",
@@ -50553,6 +52872,7 @@ window.WORDBANK={
     "bc_hanjin_a2b1",
     "bc_kodak_a2b1",
     "tib_eisenhower_a2b1",
+    "world_eu_punctuality",
     "su_a2_20_it_was_a_disaster",
     "c1_pro_22_supply_chain",
     "rp_05_at_the_airport_a2b1",
@@ -50684,6 +53004,8 @@ window.WORDBANK={
    "lessons": [
     "bc_hannah_arendt_c1",
     "behind_the_screen_the_last_emperor",
+    "odyssey_edward_ii",
+    "odyssey_edward_viii",
     "short_history_angkor",
     "short_history_catherine_the_great",
     "short_history_easter_island",
@@ -51009,6 +53331,7 @@ window.WORDBANK={
     "bc_microsoft_a2b1",
     "bc_onlinetherapy_a2b1",
     "bc_rivian_ev_a2b1",
+    "odyssey_harthacnut",
     "ts_rosalind_franklin_b2",
     "anansi_and_the_moss_covered_rock",
     "behind_the_screen_the_social_network_a2b1",
@@ -51274,6 +53597,7 @@ window.WORDBANK={
    "ex": "Kintsugi teaches us to embrace imperfection, not hide it.",
    "lessons": [
     "bc_kintsugi_b2",
+    "world_la_warmth",
     "su_a2_71_a_new_office",
     "epicurean_24_humanist_epicureans",
     "wp_21_the_teacher"
@@ -51324,6 +53648,7 @@ window.WORDBANK={
    "lessons": [
     "bc_kodak_a2b1",
     "bc_nokia_a2b1",
+    "odyssey_elizabeth_i",
     "behind_the_screen_apollo_13_a2b1",
     "short_history_shackleton_a2b1",
     "bc_culture_shock_b2c1",
@@ -51416,6 +53741,7 @@ window.WORDBANK={
    "ex": "By 2003 the company's debt was close to a billion dollars.",
    "lessons": [
     "bc_lego_a2b1",
+    "odyssey_george_iv",
     "speaking_naturally_teens_06_generation_vs_parents",
     "b2_97_retail_banking_loan_decline",
     "behind_the_screen_the_big_short_a2b1"
@@ -51449,6 +53775,7 @@ window.WORDBANK={
     "bc_lego_a2b1",
     "bc_maersk_a2b1",
     "bc_tylenol_a2b1",
+    "odyssey_edmund_i",
     "epicurean_24_humanist_epicureans",
     "short_history_the_spanish_flu_a2b1",
     "behind_the_screen_a_beautiful_mind_a2b1",
@@ -51525,6 +53852,10 @@ window.WORDBANK={
    "ex": "That word captures the feeling exactly.",
    "lessons": [
     "bc_lost_in_translation_b2",
+    "odyssey_henry_i",
+    "odyssey_llywelyn_ap_gruffydd",
+    "odyssey_richard_i",
+    "odyssey_robert_iii",
     "b1_30_bringing_ideas_together",
     "b2_90_lost_in_translation",
     "qf_collocation_take_make_photo"
@@ -51549,6 +53880,7 @@ window.WORDBANK={
    "ex": "Translation often loses the little nuances.",
    "lessons": [
     "bc_lost_in_translation_b2",
+    "world_eu_stereotypes",
     "gr_warmup_c1_hot_takes_reductio",
     "bp_c2_02_the_language_of_not_knowing",
     "talk_ai_and_language_learning_b2c1",
@@ -51613,7 +53945,8 @@ window.WORDBANK={
    "def": "A powerful computer that stores information for a whole company.",
    "ex": "Thousands of servers stopped working.",
    "lessons": [
-    "bc_maersk_a2b1"
+    "bc_maersk_a2b1",
+    "world_na_tipping"
    ]
   },
   "virus": {
@@ -51788,6 +54121,7 @@ window.WORDBANK={
    "ex": "They discovered two new elements.",
    "lessons": [
     "bc_marie_curie_b1b2",
+    "odyssey_james_i_england",
     "c2_pro_11_coaching_conversations",
     "short_history_marie_curie_a2b1",
     "sp_prep_a2_13"
@@ -51916,6 +54250,7 @@ window.WORDBANK={
    "lessons": [
     "bc_marie_curie_c1",
     "behind_the_screen_interstellar",
+    "odyssey_alfred",
     "short_history_agatha_christie",
     "short_history_alexander_the_great",
     "short_history_boudica",
@@ -52043,6 +54378,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_marvel_c1",
+    "odyssey_george_i",
     "tib_hypecycle_b2"
    ]
   },
@@ -52262,6 +54598,7 @@ window.WORDBANK={
    "ex": "The company apologised to its customers.",
    "lessons": [
     "bc_menufoods_a2b1",
+    "world_na_canadians",
     "lf_45_the_late_friend",
     "skills_a2_trade_fair_problems",
     "wk_16_the_client_who_shouts",
@@ -52776,9 +55113,10 @@ window.WORDBANK={
    "w": "rationing",
    "pos": "n",
    "def": "allocating scarcity. Between existing patients and new starts. Note how instantly a business-school \"allocation problem\" becomes an ethical one when the unit is patients.",
-   "ex": "",
+   "ex": "The royal family followed rationing.",
    "lessons": [
-    "bc_novo_nordisk_c1"
+    "bc_novo_nordisk_c1",
+    "odyssey_george_vi"
    ]
   },
   "telehealth": {
@@ -52824,18 +55162,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_online_therapy_c1"
-   ]
-  },
-  "settlement": {
-   "w": "settlement",
-   "pos": "n",
-   "def": "from the Dieselgate case; here, the FTC's 2023 order against a leading therapy platform: money returned to users and a ban on sharing health data for ads.",
-   "ex": "",
-   "lessons": [
-    "bc_online_therapy_c1",
-    "bc_vw_dieselgate_c1",
-    "behind_the_screen_the_social_network_a2b1",
-    "lesson_space_advanced_EXPANDED"
    ]
   },
   "vulnerability": {
@@ -53080,6 +55406,7 @@ window.WORDBANK={
    "lessons": [
     "bc_orsted_bet_the_company_a2",
     "techniques_the_necklace_a2b1",
+    "world_na_english",
     "bc_spelling_secrets_c1",
     "rp_20_at_the_library_a2b1",
     "su_a2_79_mistakes_and_misadventures",
@@ -53111,6 +55438,9 @@ window.WORDBANK={
    "ex": "For ten years, the plan succeeded.",
    "lessons": [
     "bc_orsted_bet_the_company_a2",
+    "odyssey_duncan_i",
+    "odyssey_edward_the_elder",
+    "odyssey_george_i",
     "making_the_leap_full",
     "resolution_problem",
     "cambridge_cae_lesson2_kwt",
@@ -53297,6 +55627,8 @@ window.WORDBANK={
    "lessons": [
     "bc_overview_effect_b2",
     "short_history_the_partition_of_india",
+    "world_eu_background",
+    "world_na_background",
     "short_history_the_berlin_wall_a2b1",
     "short_history_the_scramble_for_africa_a2b1",
     "behind_the_screen_bridge_of_spies_a2b1",
@@ -53356,6 +55688,7 @@ window.WORDBANK={
    "ex": "He had no wish to beg for charity; he would rather earn his shelter, even if that meant earning it the wrong way.",
    "lessons": [
     "bc_patagonia_a2b1",
+    "odyssey_charles_iii",
     "techniques_the_cop_and_the_anthem",
     "rs_y9_spr1_15_05",
     "b2_18_dealing_with_problems",
@@ -53370,6 +55703,7 @@ window.WORDBANK={
    "ex": "His children did not inherit the company.",
    "lessons": [
     "bc_patagonia_a2b1",
+    "odyssey_rhodri_mawr",
     "rs_y10_aut2_20_04",
     "c2_pro_30_legacy_leadership",
     "wk_38_suddenly_the_boss"
@@ -53404,6 +55738,8 @@ window.WORDBANK={
    "ex": "Analysts pointed out that the plan also avoided a lot of tax.",
    "lessons": [
     "bc_patagonia_a2b1",
+    "odyssey_harthacnut",
+    "odyssey_richard_i",
     "behind_the_screen_everything_everywhere_all_at_once_a2b1",
     "short_history_the_boston_tea_party_a2b1"
    ]
@@ -53493,6 +55829,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "bc_patagonia_c1",
+    "odyssey_edward_the_martyr",
     "short_history_magna_carta"
    ]
   },
@@ -53853,6 +56190,8 @@ window.WORDBANK={
    "ex": "The self dissolves into the whole the way a drop dissolves into the sea.",
    "lessons": [
     "bc_rumi_c1",
+    "odyssey_charles_i",
+    "odyssey_henry_viii",
     "short_history_the_east_india_company"
    ]
   },
@@ -53863,6 +56202,7 @@ window.WORDBANK={
    "ex": "She sat by her sister's hospital bed every single night for a year, never once complaining — the kind of devotion that asks for nothing in return.",
    "lessons": [
     "bc_rumi_c1",
+    "odyssey_elizabeth_ii",
     "short_history_vincent_van_gogh",
     "rs_y10_spr1_21_01",
     "rs_y7_spr1_03_05",
@@ -53886,6 +56226,8 @@ window.WORDBANK={
    "ex": "The reed surrenders to the breath; the self surrenders to love.",
    "lessons": [
     "bc_rumi_c1",
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_sweyn",
     "short_history_the_manhattan_project_a2b1",
     "lesson_world_war_2_interactive",
     "ois_20_the_modern_age",
@@ -53901,6 +56243,7 @@ window.WORDBANK={
    "ex": "The experiment failed again and again, yet her perseverance never wavered, no matter how slow or discouraging the results.",
    "lessons": [
     "bc_sisu_b2",
+    "odyssey_robert_i",
     "short_history_marie_curie",
     "rs_y10_sum2_24_02",
     "rs_y8_aut2_08_04",
@@ -53987,6 +56330,7 @@ window.WORDBANK={
    "ex": "Without the patronage of the vicereine, her first book might never have been printed.",
    "lessons": [
     "bc_sor_juana_c1",
+    "odyssey_george_iv",
     "short_history_christopher_columbus",
     "short_history_leonardo_da_vinci",
     "short_history_michelangelo",
@@ -54154,6 +56498,7 @@ window.WORDBANK={
    "ex": "Two professors dismissed his letter without a word of comment.",
    "lessons": [
     "bc_srinivasa_ramanujan_c1",
+    "odyssey_cromwell",
     "acad_c2_07_interdisciplinary",
     "c1_pro_05_assertive_communication",
     "nq_07_mixed_c1",
@@ -54440,11 +56785,12 @@ window.WORDBANK={
    "w": "liability",
    "pos": "n",
    "def": "to accept / carry liability; liable for. The quiet hero of the case: a machine can produce words, but it cannot yet be sued — and where errors cost lives or lawsuits, humans keep the job.",
-   "ex": "",
+   "ex": "An apology isn't an admission of liability.",
    "lessons": [
     "bc_translation_industry_c1",
     "bc_tylenol_c1",
-    "lw_donoghue_c1"
+    "lw_donoghue_c1",
+    "world_na_canadians"
    ]
   },
   "poison": {
@@ -54497,7 +56843,8 @@ window.WORDBANK={
    "def": "A thin cover on a bottle or box. If it is broken, you know someone opened it.",
    "ex": "The new bottles had three seals.",
    "lessons": [
-    "bc_tylenol_a2b1"
+    "bc_tylenol_a2b1",
+    "odyssey_john"
    ]
   },
   "brand": {
@@ -54632,6 +56979,8 @@ window.WORDBANK={
    "ex": "The scandal was in every newspaper in the world.",
    "lessons": [
     "bc_vw_a2b1",
+    "odyssey_eadwig",
+    "odyssey_edward_vii",
     "short_history_agatha_christie",
     "short_history_queen_victoria",
     "short_history_rasputin",
@@ -54646,6 +56995,7 @@ window.WORDBANK={
    "ex": "The company paid enormous fines.",
    "lessons": [
     "bc_vw_a2b1",
+    "odyssey_henry_vii",
     "short_history_the_match_girls_strike_a2b1",
     "rp_20_at_the_library"
    ]
@@ -55189,17 +57539,6 @@ window.WORDBANK={
     "behind_the_screen_12_angry_men"
    ]
   },
-  "dissent": {
-   "w": "dissent",
-   "pos": "n",
-   "def": "open disagreement with an official decision or a widely-held opinion, especially when expressed inside a group that expects agreement.",
-   "ex": "In a company where everyone was expected to agree with the boss without question, the one manager who kept voicing open dissent in every meeting was treated as a troublemaker — even on the two occasions when she turned out to be completely right.",
-   "lessons": [
-    "behind_the_screen_12_angry_men",
-    "short_history_the_boston_tea_party",
-    "sp_prep_c1_03"
-   ]
-  },
   "capitulate": {
    "w": "capitulate",
    "pos": "v",
@@ -55249,28 +57588,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_2001_a_space_odyssey"
-   ]
-  },
-  "myth": {
-   "w": "myth",
-   "pos": "n",
-   "def": "to debunk (v) — to show publicly that a widely believed claim is false. Common partners: debunk a myth, a theory, a rumour, a claim.",
-   "ex": "",
-   "lessons": [
-    "behind_the_screen_2001_a_space_odyssey",
-    "short_history_christopher_columbus",
-    "short_history_the_great_wall_of_china",
-    "short_history_the_seven_wonders",
-    "short_history_vlad_the_impaler",
-    "tib_swot_b2",
-    "topic_habits_b2",
-    "gr_b2_fact_or_bluff",
-    "fantasy_history_c1_part1",
-    "ois_01_coming_of_the_britons",
-    "short_history_marie_antoinette",
-    "short_history_the_gladiators_a2b1",
-    "short_history_the_great_wall_of_china_a2b1",
-    "short_history_the_vikings_a2b1"
    ]
   },
   "delusion": {
@@ -55544,6 +57861,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_blade_runner",
+    "odyssey_robert_i",
     "short_history_db_cooper",
     "short_history_ned_kelly",
     "techniques_jekyll_and_hyde_2",
@@ -55564,11 +57882,12 @@ window.WORDBANK={
   },
   "genuine": {
    "w": "genuine",
-   "pos": "",
+   "pos": "adj",
    "def": "authentic (adj) means real, true, and not a copy or imitation.",
-   "ex": "",
+   "ex": "Their warmth is usually genuine.",
    "lessons": [
     "behind_the_screen_blade_runner",
+    "world_na_friendly",
     "rs_y7_aut1_01_06",
     "skills_b1b2_trade_fair_networking",
     "su_a2_83_talk_about_travel",
@@ -55660,6 +57979,9 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_braveheart",
+    "odyssey_charles_i",
+    "odyssey_henry_ii",
+    "odyssey_mary_i",
     "persepolis_child",
     "short_history_joan_of_arc",
     "short_history_the_suffragettes",
@@ -55686,25 +58008,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_braveheart",
+    "odyssey_alfred",
     "short_history_napoleon"
-   ]
-  },
-  "ordeal": {
-   "w": "ordeal",
-   "pos": "noun",
-   "def": "a long, painful or frightening experience that a person has to endure.",
-   "ex": "The nights of bombing were a long ordeal that the whole city had to endure.",
-   "lessons": [
-    "behind_the_screen_bridge_of_spies",
-    "behind_the_screen_chariots_of_fire",
-    "behind_the_screen_suffragette",
-    "discuss_c1_why_risk_it",
-    "persepolis_bc_revolution",
-    "short_history_alcatraz",
-    "short_history_hannibal",
-    "short_history_nellie_bly",
-    "short_history_nelson_mandela",
-    "short_history_shackleton"
    ]
   },
   "clandestine": {
@@ -56233,6 +58538,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_everything_everywhere_all_at_once",
     "behind_the_screen_lord_of_the_rings",
+    "odyssey_david_ii",
     "Jane_Birdcage_STUDENT",
     "rs_y8_aut1_07_02",
     "curious_conversations_nietzsche_metamorphoses"
@@ -56269,6 +58575,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_ex_machina",
     "columbo_c1_murder_by_the_book",
+    "odyssey_harold_ii",
     "short_history_nellie_bly"
    ]
   },
@@ -56279,6 +58586,8 @@ window.WORDBANK={
    "ex": "The eagle had been hatched in captivity and had never once opened its wings under an open sky; the wire enclosure was the only world it had ever known.",
    "lessons": [
     "behind_the_screen_ex_machina",
+    "odyssey_donald_iii",
+    "odyssey_james_i_scot",
     "short_history_mary_queen_of_scots",
     "short_history_the_romanovs",
     "short_history_vlad_the_impaler",
@@ -56474,6 +58783,7 @@ window.WORDBANK={
    "ex": "He had trusted her completely, which is why her betrayal cut so deep: she had opened the gate to the very people he was fighting.",
    "lessons": [
     "behind_the_screen_gladiator",
+    "odyssey_edmund_ironside",
     "short_history_hannibal",
     "short_history_the_trojan_war",
     "wk_33_the_deadline"
@@ -56486,6 +58796,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_gladiator",
+    "odyssey_stephen",
     "short_history_king_arthur"
    ]
   },
@@ -56823,6 +59134,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "behind_the_screen_invictus",
+    "odyssey_henry_vii",
     "short_history_nelson_mandela"
    ]
   },
@@ -56909,6 +59221,10 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_kill_bill",
     "columbo_c1_death_lends_a_hand",
+    "odyssey_edward_iv",
+    "odyssey_gruffydd_ap_llywelyn",
+    "odyssey_james_i_scot",
+    "odyssey_william_i",
     "short_history_alcatraz",
     "short_history_angkor",
     "short_history_catherine_the_great",
@@ -56971,6 +59287,7 @@ window.WORDBANK={
    "ex": "The mountain road was treacherous that night: it looked passable, but under the thin snow lay black ice, and one careless turn meant a fall of a hundred metres.",
    "lessons": [
     "behind_the_screen_lord_of_the_rings",
+    "odyssey_edmund_ironside",
     "short_history_the_conquest_of_everest",
     "short_history_the_great_serum_run",
     "techniques_the_open_window",
@@ -57475,20 +59792,6 @@ window.WORDBANK={
     "rs_y10_sum1_23_06"
    ]
   },
-  "grievance": {
-   "w": "grievance",
-   "pos": "n",
-   "def": "a real or believed wrong that you feel entitled to complain about; a formal complaint against someone with power over you.",
-   "ex": "",
-   "lessons": [
-    "behind_the_screen_suffragette",
-    "short_history_boudica",
-    "short_history_magna_carta",
-    "short_history_ned_kelly",
-    "ml_11_the_neighbours_noise",
-    "wk_15_resigning"
-   ]
-  },
   "militant": {
    "w": "militant",
    "pos": "adj/n",
@@ -57710,16 +60013,6 @@ window.WORDBANK={
     "behind_the_screen_the_last_samurai",
     "ai_and_the_law_c1",
     "techniques_the_machine_stops"
-   ]
-  },
-  "allegiance": {
-   "w": "allegiance",
-   "pos": "n",
-   "def": "loyalty owed or given to a person, a group, a country or a cause.",
-   "ex": "When the two great houses finally went to war, every family in the valley had to declare its allegiance — and once it was declared, nobody could quietly change sides.",
-   "lessons": [
-    "behind_the_screen_the_last_samurai",
-    "bc_theoretical_framing_phd"
    ]
   },
   "staunch": {
@@ -58254,6 +60547,9 @@ window.WORDBANK={
    "ex": "The army laid siege to the fortress for eleven months.",
    "lessons": [
     "behind_the_screen_troy",
+    "odyssey_duncan_i",
+    "odyssey_james_ii_scot",
+    "odyssey_richard_i",
     "short_history_genghis_khan",
     "short_history_joan_of_arc",
     "short_history_king_arthur",
@@ -58307,6 +60603,8 @@ window.WORDBANK={
    "ex": "They called a truce and vowed to end the old quarrel that night.",
    "lessons": [
     "behind_the_screen_troy",
+    "odyssey_alfred",
+    "odyssey_richard_i",
     "short_history_hannibal",
     "short_history_the_christmas_truce",
     "short_history_the_crusades",
@@ -58351,7 +60649,9 @@ window.WORDBANK={
    "def": "famous through legend or old stories, rather than through proven historical fact.",
    "ex": "For centuries the event was thought to be purely legendary — a beautiful tale invented by poets, with no more truth in it than a folk story about giants.",
    "lessons": [
-    "behind_the_screen_troy"
+    "behind_the_screen_troy",
+    "odyssey_background",
+    "odyssey_richard_i"
    ]
   },
   "mercurial": {
@@ -59440,6 +61740,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "discuss_b2c1_golden_record",
+    "odyssey_george_i",
     "gr_b2_the_black_box",
     "gr_b2_the_headline",
     "bestiary_discourse_qualify",
@@ -59551,6 +61852,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "discuss_c1_frankl_meaning",
+    "odyssey_hywel_dda",
     "short_history_anne_frank",
     "short_history_charlemagne",
     "short_history_leonardo_da_vinci",
@@ -59681,6 +61983,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "discuss_c1_will_to_believe",
+    "odyssey_henry_vi",
     "short_history_vincent_van_gogh",
     "bp_c2_03_why_they_dont_understand_you",
     "skills_b1_numbers_deadlines_risks_meetings",
@@ -59715,6 +62018,7 @@ window.WORDBANK={
    "ex": "He lay awake at night in despair, unable to see any reason to go on.",
    "lessons": [
     "discuss_c1_will_to_believe",
+    "odyssey_james_v_scot",
     "wp_24_the_consolation"
    ]
   },
@@ -59762,11 +62066,12 @@ window.WORDBANK={
   },
   "interrupt": {
    "w": "interrupt",
-   "pos": "",
+   "pos": "v",
    "def": "to start speaking while someone else is still speaking, so that they have to stop.",
    "ex": "",
    "lessons": [
     "end_beat_c1",
+    "world_la_warmth",
     "b1_05_emotions_and_feelings",
     "b1_28_study_advice",
     "su_a2_38_interesting_stories",
@@ -59880,6 +62185,7 @@ window.WORDBANK={
    "ex": "Some engineers thought the data was inconclusive: it hinted at a danger but did not prove one.",
    "lessons": [
     "end_hold_c1",
+    "odyssey_edward_v",
     "psy_06_does_money_buy_happiness_b2c1"
    ]
   },
@@ -60062,11 +62368,12 @@ window.WORDBANK={
   },
   "near miss": {
    "w": "near miss",
-   "pos": "",
+   "pos": "n",
    "def": "an outcome that very nearly went the other way (also: an accident that almost happened).",
    "ex": "She lost the race by two hundredths of a second — a near miss she has never quite got over.",
    "lessons": [
     "grammar_c1_17_counterfactual_conditionals",
+    "odyssey_edmund_i",
     "tib_riskmatrix_b2"
    ]
   },
@@ -60130,7 +62437,8 @@ window.WORDBANK={
    "def": "noun revocation; adjective revocable / irrevocable. \"The offer was revoked before acceptance.\" Related but distinct: to rescind (unwind a contract), to terminate (end it going forward), to repudiate (refuse to perform).",
    "ex": "",
    "lessons": [
-    "lw_carlill_c1"
+    "lw_carlill_c1",
+    "odyssey_richard_ii"
    ]
   },
   "binding": {
@@ -60256,6 +62564,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "lw_dudley_stephens_c1",
+    "odyssey_james_ii",
     "discuss_b2c1_animal_trials"
    ]
   },
@@ -60935,6 +63244,7 @@ window.WORDBANK={
    "ex": "The patients had given consent to treatment, but not to having their private answers shared with advertisers.",
    "lessons": [
     "nq_06_is_it_right_c1",
+    "odyssey_william_mary",
     "psyp_08_should_this_study_run_a2b1",
     "techniques_eveline",
     "rs_y11_spr1_27_02",
@@ -60979,6 +63289,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "nq_06_is_it_right_c1",
+    "odyssey_ire_kingship",
     "techniques_before_the_law_a2b1",
     "behind_the_screen_suffragette_a2b1",
     "short_history_genghis_khan_a2b1",
@@ -60996,6 +63307,6034 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_reductio",
     "c1_the_ulysses_contract_for_hr",
     "memory_arts_p1_09"
+   ]
+  },
+  "unready": {
+   "w": "unready",
+   "pos": "adj",
+   "def": "(here) badly advised — a pun on his name, which means \"noble counsel\".",
+   "ex": "His nickname unready comes from Old English unræd, meaning \"no good counsel\".",
+   "lessons": [
+    "odyssey_aethelred"
+   ]
+  },
+  "tribute": {
+   "w": "tribute",
+   "pos": "n",
+   "def": "money paid by one ruler or country to another to keep the peace.",
+   "ex": "Every conquered town had to send goods to the capital each year — baskets of cotton, feathers, gold and grain — and a town that refused to pay its tribute could expect an army at its gates.",
+   "lessons": [
+    "odyssey_aethelred",
+    "odyssey_ire_kingship",
+    "short_history_angkor",
+    "short_history_genghis_khan",
+    "short_history_the_aztecs",
+    "short_history_the_aztecs_a2b1",
+    "b2_77_cope_with_unexpected"
+   ]
+  },
+  "danegeld": {
+   "w": "danegeld",
+   "pos": "n",
+   "def": "the \"Dane-tax\" raised to pay off Viking raiders.",
+   "ex": "Later writers called these payments Danegeld.",
+   "lessons": [
+    "odyssey_aethelred"
+   ]
+  },
+  "massacre": {
+   "w": "massacre",
+   "pos": "n",
+   "def": "the killing of many people who cannot defend themselves.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "odyssey_cromwell",
+    "short_history_the_crusades_a2b1"
+   ]
+  },
+  "betray": {
+   "w": "betray",
+   "pos": "verb",
+   "def": "to be disloyal to someone who trusts you.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "odyssey_gruffydd_ap_llywelyn",
+    "odyssey_ire_end",
+    "odyssey_richard_iii",
+    "short_history_julius_caesar",
+    "short_history_napoleon",
+    "short_history_the_gunpowder_plot",
+    "short_history_watergate",
+    "techniques_mateo_falcone",
+    "techniques_mateo_falcone_a2b1",
+    "tib_prisoners_b2",
+    "gr_warmup_c1_hot_takes_loyalty",
+    "rs_y10_aut2_20_01",
+    "short_history_king_arthur_a2b1",
+    "short_history_the_gunpowder_plot_a2b1",
+    "behind_the_screen_dune_a2b1"
+   ]
+  },
+  "flee": {
+   "w": "flee",
+   "pos": "v",
+   "def": "to run away from danger.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "odyssey_david_ii",
+    "odyssey_james_ii",
+    "odyssey_mary_qos",
+    "short_history_anne_frank",
+    "short_history_pompeii",
+    "short_history_the_berlin_wall",
+    "short_history_the_black_death",
+    "techniques_the_ransom_of_red_chief",
+    "short_history_marie_antoinette",
+    "short_history_the_black_death_a2b1",
+    "memory_arts_p1_04",
+    "qf_pronunciation_minimal_pairs_i"
+   ]
+  },
+  "counsellor": {
+   "w": "counsellor",
+   "pos": "n",
+   "def": "an adviser.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "b1_18_brainstorming_and_problem_solving",
+    "qf_falsefriend_polish_sympathyczny"
+   ]
+  },
+  "restore": {
+   "w": "restore",
+   "pos": "v",
+   "def": "to bring back to a former position.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "odyssey_edward_iv",
+    "odyssey_henry_vi",
+    "odyssey_mary_i",
+    "c2_pro_19_conflict_transformation"
+   ]
+  },
+  "conditions": {
+   "w": "conditions",
+   "pos": "n",
+   "def": "things that must be agreed before something happens.",
+   "ex": "They agreed — on conditions: he must rule better than before.",
+   "lessons": [
+    "odyssey_aethelred",
+    "lesson_11_can_could_australia_surfing"
+   ]
+  },
+  "reprisal": {
+   "w": "reprisal",
+   "pos": "n",
+   "def": "an act of revenge.",
+   "ex": "",
+   "lessons": [
+    "odyssey_aethelred",
+    "short_history_the_boston_tea_party",
+    "short_history_the_partition_of_india"
+   ]
+  },
+  "invade": {
+   "w": "invade",
+   "pos": "v",
+   "def": "to enter a country by force in order to take control of it.",
+   "ex": "",
+   "lessons": [
+    "odyssey_alfred",
+    "odyssey_harthacnut",
+    "odyssey_ire_end",
+    "short_history_vlad_the_impaler",
+    "rs_y8_spr2_10_02"
+   ]
+  },
+  "raid": {
+   "w": "raid",
+   "pos": "n",
+   "def": "a sudden, short attack.",
+   "ex": "",
+   "lessons": [
+    "odyssey_alfred",
+    "odyssey_ire_ui_neill",
+    "odyssey_malcolm_iii",
+    "odyssey_robert_ii",
+    "short_history_hiroshima",
+    "short_history_the_maya",
+    "short_history_the_spanish_flu",
+    "short_history_the_trojan_war",
+    "short_history_the_vikings_a2b1",
+    "english_at_work_phrase_bank"
+   ]
+  },
+  "refuge": {
+   "w": "refuge",
+   "pos": "n",
+   "def": "a safe place to hide or shelter.",
+   "ex": "",
+   "lessons": [
+    "odyssey_alfred",
+    "techniques_the_cop_and_the_anthem"
+   ]
+  },
+  "baptised": {
+   "w": "baptised",
+   "pos": "adj",
+   "def": "formally made a member of the Christian Church in a religious ceremony.",
+   "ex": "As part of the peace, the Danish king Guthrum was baptised as a Christian, with Alfred as his godfather.",
+   "lessons": [
+    "odyssey_alfred"
+   ]
+  },
+  "burh": {
+   "w": "burh",
+   "pos": "n",
+   "def": "an Anglo-Saxon fortified town (the root of the modern word \"borough\").",
+   "ex": "",
+   "lessons": [
+    "odyssey_alfred"
+   ]
+  },
+  "literate": {
+   "w": "literate",
+   "pos": "adj",
+   "def": "able to read and write.",
+   "ex": "Alfred wanted the young men of free families to become literate, able to read English for themselves.",
+   "lessons": [
+    "odyssey_alfred"
+   ]
+  },
+  "unite": {
+   "w": "unite",
+   "pos": "v",
+   "def": "to join together.",
+   "ex": "",
+   "lessons": [
+    "odyssey_anne",
+    "odyssey_athelstan",
+    "odyssey_henry_vii",
+    "odyssey_james_i_england",
+    "odyssey_rhodri_mawr",
+    "rs_y8_aut1_07_05",
+    "ois_10_edward_wales_scotland"
+   ]
+  },
+  "acts of union": {
+   "w": "acts of union",
+   "pos": "n",
+   "def": "laws joining two countries.",
+   "ex": "The Acts of Union created Great Britain.",
+   "lessons": [
+    "odyssey_anne"
+   ]
+  },
+  "pregnancy": {
+   "w": "pregnancy",
+   "pos": "n",
+   "def": "being pregnant.",
+   "ex": "",
+   "lessons": [
+    "odyssey_anne"
+   ]
+  },
+  "outlive": {
+   "w": "outlive",
+   "pos": "v",
+   "def": "to live longer than.",
+   "ex": "",
+   "lessons": [
+    "odyssey_anne",
+    "odyssey_edmund_ironside"
+   ]
+  },
+  "favourite": {
+   "w": "favourite",
+   "pos": "n",
+   "def": "a close and powerful friend.",
+   "ex": "",
+   "lessons": [
+    "odyssey_anne",
+    "odyssey_edward_ii",
+    "odyssey_james_iii_scot",
+    "rp_22_talking_about_sport_a2b1",
+    "explore_all_first_lesson_intro",
+    "sf_a1_03_my_home",
+    "grammar_a1_05_wh_questions_negation"
+   ]
+  },
+  "blenheim": {
+   "w": "blenheim",
+   "pos": "n",
+   "def": "a battle in 1704.",
+   "ex": "Marlborough won at Blenheim.",
+   "lessons": [
+    "odyssey_anne"
+   ]
+  },
+  "palace": {
+   "w": "palace",
+   "pos": "n",
+   "def": "a grand home.",
+   "ex": "",
+   "lessons": [
+    "odyssey_anne",
+    "odyssey_james_v_scot",
+    "behind_the_screen_the_last_emperor_a2b1",
+    "short_history_marie_antoinette_a2b1",
+    "short_history_queen_victoria_a2b1",
+    "short_history_the_forbidden_city_a2b1"
+   ]
+  },
+  "gout": {
+   "w": "gout",
+   "pos": "n",
+   "def": "a painful joint disease.",
+   "ex": "She suffered from gout.",
+   "lessons": [
+    "odyssey_anne"
+   ]
+  },
+  "quarrel": {
+   "w": "quarrel",
+   "pos": "noun / verb",
+   "def": "an argument.",
+   "ex": "We have quarrelled like devils all our lives over this strip of forest.",
+   "lessons": [
+    "odyssey_anne",
+    "odyssey_edward_the_confessor",
+    "odyssey_william_ii",
+    "techniques_the_interlopers"
+   ]
+  },
+  "successor": {
+   "w": "successor",
+   "pos": "n",
+   "def": "the next ruler.",
+   "ex": "The chief executive was 64, so the board started looking for his successor.",
+   "lessons": [
+    "odyssey_anne",
+    "tib_ninebox_b2",
+    "rs_y10_sum2_24_04"
+   ]
+  },
+  "annex": {
+   "w": "annex",
+   "pos": "v",
+   "def": "to take control of a territory and add it to your own.",
+   "ex": "",
+   "lessons": [
+    "odyssey_athelstan",
+    "short_history_alexander_the_great",
+    "short_history_catherine_the_great",
+    "short_history_charlemagne",
+    "short_history_cleopatra",
+    "short_history_petra",
+    "short_history_the_east_india_company",
+    "short_history_the_roman_republic"
+   ]
+  },
+  "overlord": {
+   "w": "overlord",
+   "pos": "n",
+   "def": "a ruler who has power over other rulers.",
+   "ex": "Henry II became overlord of Ireland.",
+   "lessons": [
+    "odyssey_athelstan",
+    "odyssey_hywel_dda",
+    "odyssey_ire_end"
+   ]
+  },
+  "coalition": {
+   "w": "coalition",
+   "pos": "n",
+   "def": "an alliance of groups who join forces for a shared aim.",
+   "ex": "",
+   "lessons": [
+    "odyssey_athelstan",
+    "c2_pro_04_stakeholder_influence",
+    "prof_c1_04_influencing_without_authority"
+   ]
+  },
+  "decisive": {
+   "w": "decisive",
+   "pos": "adjective",
+   "def": "settling a matter clearly; very important to the result.",
+   "ex": "The last detail was not just frightening; it was the decisive piece of evidence that settled what had happened.",
+   "lessons": [
+    "odyssey_athelstan",
+    "short_history_the_battle_of_waterloo",
+    "techniques_the_boarded_window",
+    "bc_women_political_leaders_c1",
+    "Business-Bootcamp-Lesson3-The-Project-Manager",
+    "cae_essay_practice_3"
+   ]
+  },
+  "prestige": {
+   "w": "prestige",
+   "pos": "n",
+   "def": "respect and admiration that comes from success or power.",
+   "ex": "To rule such vast lands, the sovereign needed prestige: ambassadors bowed lower, rival kings sent gifts, and doors opened at the mere mention of his name.",
+   "lessons": [
+    "odyssey_athelstan",
+    "short_history_mansa_musa",
+    "short_history_the_renaissance",
+    "short_history_the_space_race",
+    "acad_c2_05_academic_publishing",
+    "cpe_read_c1_09_language_death",
+    "lv_alevel_02_the_identity_toolkit"
+   ]
+  },
+  "relic": {
+   "w": "relic",
+   "pos": "n",
+   "def": "a part of a holy person's body or belongings, kept as an object of worship.",
+   "ex": "",
+   "lessons": [
+    "odyssey_athelstan",
+    "rs_y9_aut2_14_04"
+   ]
+  },
+  "legislate": {
+   "w": "legislate",
+   "pos": "v",
+   "def": "to make laws.",
+   "ex": "",
+   "lessons": [
+    "odyssey_athelstan"
+   ]
+  },
+  "unmarried": {
+   "w": "unmarried",
+   "pos": "adj",
+   "def": "not married.",
+   "ex": "Æthelstan died unmarried and childless, so his half-brother Edmund became king.",
+   "lessons": [
+    "odyssey_athelstan"
+   ]
+  },
+  "withdraw": {
+   "w": "withdraw",
+   "pos": "v",
+   "def": "to leave or pull back.",
+   "ex": "The participant was told that he could withdraw at any time.",
+   "lessons": [
+    "odyssey_background",
+    "odyssey_eadwig",
+    "psyp_08_should_this_study_run_a2b1",
+    "psyp_08_should_this_study_run_b2c1",
+    "grammar_c2_01_register_style_shifting"
+   ]
+  },
+  "settler": {
+   "w": "settler",
+   "pos": "n",
+   "def": "a person who goes to live in a new land.",
+   "ex": "",
+   "lessons": [
+    "odyssey_background",
+    "short_history_the_vikings_a2b1"
+   ]
+  },
+  "convert": {
+   "w": "convert",
+   "pos": "v",
+   "def": "to change someone's religion or beliefs.",
+   "ex": "",
+   "lessons": [
+    "odyssey_background",
+    "rs_y10_spr2_22_04",
+    "skills_b1b2_trade_fair_followup"
+   ]
+  },
+  "earthwork": {
+   "w": "earthwork",
+   "pos": "n",
+   "def": "a long bank or ditch made of earth.",
+   "ex": "",
+   "lessons": [
+    "odyssey_background"
+   ]
+  },
+  "supremacy": {
+   "w": "supremacy",
+   "pos": "n",
+   "def": "the position of being the most powerful.",
+   "ex": "When the old ruler died, his eldest son climbed the steps, sat down, and claimed supremacy over every rival lord in the realm, bending them all to his will.",
+   "lessons": [
+    "odyssey_background",
+    "short_history_the_tudors",
+    "ois_13_henry_viii"
+   ]
+  },
+  "treaty": {
+   "w": "treaty",
+   "pos": "n",
+   "def": "a formal agreement between rulers.",
+   "ex": "",
+   "lessons": [
+    "odyssey_background",
+    "odyssey_edmund_ironside",
+    "odyssey_henry_v",
+    "odyssey_ire_end",
+    "odyssey_james_iv_scot",
+    "odyssey_llywelyn_ap_gruffydd",
+    "short_history_magna_carta",
+    "short_history_the_panama_canal",
+    "short_history_the_scramble_for_africa",
+    "world_la_language",
+    "short_history_the_scramble_for_africa_a2b1"
+   ]
+  },
+  "parliament": {
+   "w": "parliament",
+   "pos": "n",
+   "def": "the assembly that makes laws.",
+   "ex": "Parliament refused to give him money.",
+   "lessons": [
+    "odyssey_charles_i",
+    "odyssey_henry_iii",
+    "odyssey_owain_glyndwr"
+   ]
+  },
+  "personal rule": {
+   "w": "personal rule",
+   "pos": "n",
+   "def": "rule without parliament.",
+   "ex": "He ruled without Parliament: the Personal Rule.",
+   "lessons": [
+    "odyssey_charles_i"
+   ]
+  },
+  "ship money": {
+   "w": "ship money",
+   "pos": "n",
+   "def": "a tax for the navy.",
+   "ex": "Ship money was an unpopular tax.",
+   "lessons": [
+    "odyssey_charles_i"
+   ]
+  },
+  "royalists": {
+   "w": "royalists",
+   "pos": "n",
+   "def": "supporters of the king.",
+   "ex": "Royalists supported the king.",
+   "lessons": [
+    "odyssey_charles_i"
+   ]
+  },
+  "parliamentarians": {
+   "w": "parliamentarians",
+   "pos": "n",
+   "def": "supporters of parliament.",
+   "ex": "Parliamentarians fought against him.",
+   "lessons": [
+    "odyssey_charles_i"
+   ]
+  },
+  "trial": {
+   "w": "trial",
+   "pos": "n",
+   "def": "a court case.",
+   "ex": "The school ran a small trial with two classes before changing the timetable for everyone.",
+   "lessons": [
+    "odyssey_charles_i",
+    "short_history_ned_kelly",
+    "tib_pdca_b2",
+    "topic_free_time_b2",
+    "ts_penicillin_b2",
+    "bc_someone_i_admire_idioms_c1",
+    "someone_i_admire_b2c1",
+    "4_day_work_week",
+    "behind_the_screen_the_crucible_a2b1",
+    "bl_03_placebo_lie_heals",
+    "short_history_anne_boleyn_a2b1",
+    "short_history_joan_of_arc_a2b1",
+    "behind_the_screen_bridge_of_spies_a2b1"
+   ]
+  },
+  "scaffold": {
+   "w": "scaffold",
+   "pos": "n",
+   "def": "platform for execution.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_i",
+    "odyssey_jane_grey",
+    "concorso_empire_debate_b2",
+    "ois_14_elizabeth_and_the_armada"
+   ]
+  },
+  "restoration": {
+   "w": "restoration",
+   "pos": "n",
+   "def": "the return of the monarchy.",
+   "ex": "Centuries of candle smoke had darkened the paintings, so a long restoration was carried out to clean them — and the colours that emerged shocked everybody.",
+   "lessons": [
+    "odyssey_charles_ii",
+    "short_history_michelangelo",
+    "ois_16_restoration_and_revolution"
+   ]
+  },
+  "merry": {
+   "w": "merry",
+   "pos": "adj",
+   "def": "happy and fun-loving.",
+   "ex": "He was called the Merry Monarch.",
+   "lessons": [
+    "odyssey_charles_ii",
+    "ois_16_restoration_and_revolution"
+   ]
+  },
+  "great plague": {
+   "w": "great plague",
+   "pos": "n",
+   "def": "a disease outbreak in 1665.",
+   "ex": "The Great Plague killed many Londoners.",
+   "lessons": [
+    "odyssey_charles_ii"
+   ]
+  },
+  "great fire": {
+   "w": "great fire",
+   "pos": "n",
+   "def": "the fire of 1666.",
+   "ex": "The Great Fire destroyed much of London.",
+   "lessons": [
+    "odyssey_charles_ii"
+   ]
+  },
+  "bakery": {
+   "w": "bakery",
+   "pos": "n",
+   "def": "a shop that makes bread.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_ii",
+    "short_history_great_fire_of_london_a2b1",
+    "grammar_a1_08_adjectives_adverbs_comparatives"
+   ]
+  },
+  "rebuild": {
+   "w": "rebuild",
+   "pos": "v",
+   "def": "to build again.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_ii",
+    "odyssey_henry_iii",
+    "short_history_great_fire_of_london",
+    "tib_fishbone_b2",
+    "short_history_great_fire_of_london_a2b1"
+   ]
+  },
+  "mistress": {
+   "w": "mistress",
+   "pos": "n",
+   "def": "a woman in a relationship with a married man.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_ii",
+    "odyssey_george_iv"
+   ]
+  },
+  "royal society": {
+   "w": "royal society",
+   "pos": "n",
+   "def": "a scientific society.",
+   "ex": "He gave a charter to the Royal Society.",
+   "lessons": [
+    "odyssey_charles_ii"
+   ]
+  },
+  "theatre": {
+   "w": "theatre",
+   "pos": "n",
+   "def": "a place for plays.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_ii"
+   ]
+  },
+  "oak tree": {
+   "w": "oak tree",
+   "pos": "n",
+   "def": "a large tree.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_ii"
+   ]
+  },
+  "heir apparent": {
+   "w": "heir apparent",
+   "pos": "n",
+   "def": "the certain heir.",
+   "ex": "He was heir apparent for 70 years.",
+   "lessons": [
+    "odyssey_charles_iii"
+   ]
+  },
+  "environment": {
+   "w": "environment",
+   "pos": "n",
+   "def": "the natural world.",
+   "ex": "The environment includes what happens before birth, as well as upbringing and culture.",
+   "lessons": [
+    "odyssey_charles_iii",
+    "psy_05_born_or_made_a2b1",
+    "psy_05_born_or_made_b2c1",
+    "gr_warmup_a2_hot_takes_holidays",
+    "gr_warmup_a2_hot_takes_transport",
+    "ielts_spelling_master_v2",
+    "talk_eating_less_meat_a2b1"
+   ]
+  },
+  "organic": {
+   "w": "organic",
+   "pos": "adj",
+   "def": "farming without chemicals.",
+   "ex": "He promoted organic farming.",
+   "lessons": [
+    "odyssey_charles_iii"
+   ]
+  },
+  "coronation": {
+   "w": "coronation",
+   "pos": "n",
+   "def": "the crowning ceremony.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_iii",
+    "odyssey_eadwig",
+    "odyssey_edward_vii",
+    "odyssey_elizabeth_ii",
+    "odyssey_george_iv",
+    "short_history_charlemagne",
+    "short_history_joan_of_arc",
+    "short_history_napoleon",
+    "short_history_the_conquest_of_everest",
+    "ois_14_elizabeth_and_the_armada"
+   ]
+  },
+  "slim down": {
+   "w": "slim down",
+   "pos": "v",
+   "def": "to make smaller.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_iii"
+   ]
+  },
+  "diagnosis": {
+   "w": "diagnosis",
+   "pos": "n",
+   "def": "identification of an illness.",
+   "ex": "The doctor gave her a diagnosis: depression.",
+   "lessons": [
+    "odyssey_charles_iii",
+    "psyp_10_who_decides_whats_normal_a2b1",
+    "nq_07_mixed_c1",
+    "wk_26_the_consultation",
+    "sp_b1_21_extended_thinking"
+   ]
+  },
+  "campaign": {
+   "w": "campaign",
+   "pos": "v",
+   "def": "to work for a cause.",
+   "ex": "",
+   "lessons": [
+    "odyssey_charles_iii",
+    "odyssey_edward_the_elder",
+    "odyssey_gruffydd_ap_llywelyn",
+    "odyssey_henry_v",
+    "short_history_charlemagne",
+    "short_history_hannibal",
+    "short_history_nellie_bly",
+    "short_history_the_suffragettes",
+    "ts_smallpox_b2",
+    "world_la_time",
+    "c1_pro_24_marketing_campaigns",
+    "bc_advertising_defend_creative_c1",
+    "cae_essay_practice_4"
+   ]
+  },
+  "reign": {
+   "w": "reign",
+   "pos": "n",
+   "def": "period as monarch.",
+   "ex": "a reign — from Queen VictoriaUse it about a king or queen you know of.",
+   "lessons": [
+    "odyssey_charles_iii",
+    "short_history_queen_victoria",
+    "short_history_the_industrial_revolution",
+    "ois_14_elizabeth_and_the_armada"
+   ]
+  },
+  "empire": {
+   "w": "empire",
+   "pos": "n",
+   "def": "a group of countries ruled by one person.",
+   "ex": "an empire — from The East India CompanyName one empire and one thing it took from elsewhere.",
+   "lessons": [
+    "odyssey_cnut",
+    "odyssey_george_ii",
+    "odyssey_george_v",
+    "odyssey_george_vi",
+    "odyssey_henry_ii",
+    "odyssey_victoria",
+    "short_history_boudica",
+    "short_history_catherine_the_great",
+    "short_history_charlemagne",
+    "short_history_ching_shih",
+    "short_history_hannibal",
+    "short_history_julius_caesar",
+    "short_history_machu_picchu",
+    "short_history_mansa_musa",
+    "short_history_napoleon",
+    "short_history_queen_victoria",
+    "short_history_the_antikythera_mechanism",
+    "short_history_the_conquistadors",
+    "short_history_the_east_india_company",
+    "short_history_the_industrial_revolution",
+    "short_history_the_knights_templar",
+    "short_history_the_olympic_games",
+    "short_history_the_partition_of_india",
+    "short_history_the_pyramids",
+    "short_history_the_silk_road",
+    "short_history_the_space_race",
+    "short_history_vlad_the_impaler",
+    "concorso_british_empire_ab24",
+    "short_history_alexander_the_great_a2b1",
+    "short_history_machu_picchu_a2b1",
+    "short_history_napoleon_a2b1",
+    "short_history_the_scramble_for_africa_a2b1"
+   ]
+  },
+  "purge": {
+   "w": "purge",
+   "pos": "v",
+   "def": "to remove enemies, often violently.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cnut",
+    "short_history_the_dancing_plague"
+   ]
+  },
+  "marry": {
+   "w": "marry",
+   "pos": "verb",
+   "def": "to become someone's husband or wife.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cnut",
+    "odyssey_edward_viii",
+    "techniques_desirees_baby_a2b1",
+    "behind_the_screen_the_theory_of_everything_a2b1",
+    "short_history_the_tudors_a2b1"
+   ]
+  },
+  "pilgrimage": {
+   "w": "pilgrimage",
+   "pos": "n",
+   "def": "a journey to a holy place.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cnut",
+    "odyssey_hywel_dda",
+    "odyssey_macbeth",
+    "short_history_mansa_musa",
+    "rs_y10_spr2_22_01",
+    "rs_y11_aut1_25_01",
+    "rs_y7_aut1_01_03",
+    "rs_y8_sum2_12_02",
+    "rs_y10_spr2_22_06",
+    "rs_y8_sum2_12_06"
+   ]
+  },
+  "earl": {
+   "w": "earl",
+   "pos": "n",
+   "def": "(earl) a powerful noble ruling a large region.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cnut",
+    "odyssey_edward_the_confessor"
+   ]
+  },
+  "humble": {
+   "w": "humble",
+   "pos": "adj",
+   "def": "not proud; aware of your limits.",
+   "ex": "A legend shows him as a humble king.",
+   "lessons": [
+    "odyssey_cnut",
+    "memory_arts_part1",
+    "sp_a2_03_simple_opinions"
+   ]
+  },
+  "tide": {
+   "w": "tide",
+   "pos": "n",
+   "def": "the regular rise and fall of the sea.",
+   "ex": "He sat by the sea and commanded the tide not to rise.",
+   "lessons": [
+    "odyssey_cnut",
+    "piranesi_bc_house",
+    "ois_07_danes_and_last_saxons"
+   ]
+  },
+  "flatterers": {
+   "w": "flatterers",
+   "pos": "n",
+   "def": "people who praise others too much to win favour.",
+   "ex": "He wanted to teach his flatterers a lesson.",
+   "lessons": [
+    "odyssey_cnut"
+   ]
+  },
+  "generous": {
+   "w": "generous",
+   "pos": "adj",
+   "def": "giving freely.",
+   "ex": "She had a warm heart and gave money freely to anyone in trouble; everyone agreed she was remarkably generous.",
+   "lessons": [
+    "odyssey_cnut",
+    "odyssey_david_i",
+    "odyssey_eadwig",
+    "techniques_the_model_millionaire",
+    "gr_warmup_c1_hot_takes_steelman",
+    "talk_volunteering_a2b1",
+    "grammar_c1_02_advanced_aspect"
+   ]
+  },
+  "obey": {
+   "w": "obey",
+   "pos": "v",
+   "def": "to do what you are told.",
+   "ex": "Many people obeyed the researcher.",
+   "lessons": [
+    "odyssey_cnut",
+    "psyp_08_should_this_study_run_a2b1",
+    "rs_y8_sum1_11_04",
+    "ois_16_restoration_and_revolution",
+    "short_history_mutiny_on_the_bounty_a2b1",
+    "short_history_the_tudors_a2b1"
+   ]
+  },
+  "commonwealth": {
+   "w": "commonwealth",
+   "pos": "n",
+   "def": "(here) a republic.",
+   "ex": "He became head of the Commonwealth.",
+   "lessons": [
+    "odyssey_cromwell",
+    "odyssey_elizabeth_ii",
+    "odyssey_george_vi",
+    "concorso_british_empire_ab24"
+   ]
+  },
+  "lord protector": {
+   "w": "lord protector",
+   "pos": "n",
+   "def": "head of state in the republic.",
+   "ex": "Cromwell became Lord Protector.",
+   "lessons": [
+    "odyssey_cromwell"
+   ]
+  },
+  "puritans": {
+   "w": "puritans",
+   "pos": "n",
+   "def": "strict Protestants.",
+   "ex": "The Puritans wanted stricter religion.",
+   "lessons": [
+    "odyssey_cromwell"
+   ]
+  },
+  "readmit": {
+   "w": "readmit",
+   "pos": "v",
+   "def": "to allow back.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cromwell"
+   ]
+  },
+  "warts and all": {
+   "w": "warts and all",
+   "pos": "phrase",
+   "def": "honestly, including faults.",
+   "ex": "He asked to be painted \"warts and all\".",
+   "lessons": [
+    "odyssey_cromwell"
+   ]
+  },
+  "dictator": {
+   "w": "dictator",
+   "pos": "n",
+   "def": "a ruler with total power.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cromwell",
+    "short_history_julius_caesar",
+    "short_history_the_roman_republic",
+    "short_history_julius_caesar_a2b1",
+    "short_history_the_roman_republic_a2b1"
+   ]
+  },
+  "exhume": {
+   "w": "exhume",
+   "pos": "v",
+   "def": "to dig up.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cromwell"
+   ]
+  },
+  "statue": {
+   "w": "statue",
+   "pos": "n",
+   "def": "a sculpture.",
+   "ex": "",
+   "lessons": [
+    "odyssey_cromwell",
+    "piranesi_bc_house",
+    "techniques_the_happy_prince",
+    "short_history_boudica_a2b1",
+    "short_history_the_medici_a2b1",
+    "short_history_the_terracotta_army_a2b1",
+    "techniques_the_happy_prince_a2b1",
+    "short_history_easter_island_a2b1"
+   ]
+  },
+  "half-brother": {
+   "w": "half-brother",
+   "pos": "n",
+   "def": "a brother with one shared parent.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "imprison": {
+   "w": "imprison",
+   "pos": "v",
+   "def": "to put in prison.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_george_i"
+   ]
+  },
+  "rope": {
+   "w": "rope",
+   "pos": "noun",
+   "def": "a thick cord.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "techniques_a_jury_of_her_peers_a2b1",
+    "techniques_in_a_grove_a2b1",
+    "techniques_the_adventure_of_the_speckled_band_a2b1",
+    "short_history_the_hindenburg_a2b1",
+    "short_history_the_mary_celeste_a2b1"
+   ]
+  },
+  "recognise": {
+   "w": "recognise",
+   "pos": "v",
+   "def": "to accept officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_llywelyn_ap_gruffydd",
+    "world_la_party",
+    "b1_31_flexible_communication",
+    "rp_07_at_the_bank",
+    "the-people-we-used-to-be",
+    "b2_90_lost_in_translation",
+    "ielts_spelling_finding_her_voice",
+    "lesson-20-learning-review",
+    "grammar_b1_02_past_tense_mastery"
+   ]
+  },
+  "hostage": {
+   "w": "hostage",
+   "pos": "n",
+   "def": "a person held to make someone keep a promise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_david_ii",
+    "odyssey_ire_kingship",
+    "odyssey_ire_ui_neill",
+    "short_history_blackbeard",
+    "short_history_vlad_the_impaler",
+    "short_history_blackbeard_a2b1"
+   ]
+  },
+  "heir": {
+   "w": "heir",
+   "pos": "n",
+   "def": "a person who inherits.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn",
+    "odyssey_donald_iii",
+    "odyssey_edward_the_confessor",
+    "odyssey_edward_vii",
+    "odyssey_henry_i",
+    "odyssey_henry_v",
+    "odyssey_james_ii",
+    "odyssey_william_iv",
+    "short_history_alexander_the_great",
+    "short_history_charlemagne",
+    "short_history_hiroshima",
+    "short_history_joan_of_arc",
+    "short_history_magna_carta",
+    "short_history_mary_queen_of_scots",
+    "short_history_queen_victoria",
+    "short_history_the_battle_of_hastings",
+    "short_history_the_maya",
+    "short_history_the_romanovs",
+    "short_history_the_spanish_flu",
+    "short_history_the_trojan_war",
+    "short_history_the_tudors",
+    "short_history_the_romanovs_a2b1",
+    "techniques_the_brazilian_cat"
+   ]
+  },
+  "title": {
+   "w": "title",
+   "pos": "n",
+   "def": "a name showing rank.",
+   "ex": "",
+   "lessons": [
+    "odyssey_dafydd_ap_llywelyn"
+   ]
+  },
+  "burgh": {
+   "w": "burgh",
+   "pos": "n",
+   "def": "a Scottish town with special trading rights.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_i"
+   ]
+  },
+  "abbey": {
+   "w": "abbey",
+   "pos": "n",
+   "def": "a large church and community of monks.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_i",
+    "odyssey_edward_the_confessor"
+   ]
+  },
+  "coinage": {
+   "w": "coinage",
+   "pos": "n",
+   "def": "the coins used in a country.",
+   "ex": "He introduced Scotland's first royal coinage.",
+   "lessons": [
+    "odyssey_david_i"
+   ]
+  },
+  "reform": {
+   "w": "reform",
+   "pos": "n/v",
+   "def": "to improve by changing.",
+   "ex": "reform — from The SuffragettesName a reform your country has seen.",
+   "lessons": [
+    "odyssey_david_i",
+    "odyssey_edgar",
+    "odyssey_ire_seven",
+    "odyssey_william_iv",
+    "short_history_catherine_the_great",
+    "short_history_florence_nightingale",
+    "world_na_english",
+    "bc_four_day_week_c1"
+   ]
+  },
+  "knight": {
+   "w": "knight",
+   "pos": "n",
+   "def": "a mounted soldier of noble rank.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_i",
+    "short_history_king_arthur_a2b1",
+    "short_history_the_crusades_a2b1",
+    "memory_arts_p1_05"
+   ]
+  },
+  "sheriff": {
+   "w": "sheriff",
+   "pos": "noun",
+   "def": "a royal officer in a region.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_i",
+    "short_history_the_wild_west",
+    "techniques_a_jury_of_her_peers_a2b1",
+    "short_history_the_wild_west_a2b1"
+   ]
+  },
+  "ransom": {
+   "w": "ransom",
+   "pos": "n",
+   "def": "money paid to free a prisoner.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_ii",
+    "odyssey_edward_iii",
+    "odyssey_james_i_scot",
+    "odyssey_richard_i",
+    "short_history_blackbeard",
+    "short_history_ching_shih",
+    "short_history_db_cooper",
+    "techniques_the_ransom_of_red_chief",
+    "techniques_the_ransom_of_red_chief_a2b1",
+    "short_history_blackbeard_a2b1"
+   ]
+  },
+  "minority": {
+   "w": "minority",
+   "pos": "n",
+   "def": "the time when a king is a child.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_ii",
+    "world_na_english"
+   ]
+  },
+  "negotiate": {
+   "w": "negotiate",
+   "pos": "v",
+   "def": "to discuss to reach agreement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_david_ii",
+    "short_history_ching_shih",
+    "short_history_the_partition_of_india",
+    "techniques_the_ransom_of_red_chief",
+    "Business-Bootcamp-Lesson2-The-Negotiation",
+    "books_changed_world_lesson",
+    "grammar_b2_20_making_plans",
+    "b2_anchoring",
+    "lf_06_the_house",
+    "b2_35_getting_a_pay_rise"
+   ]
+  },
+  "childless": {
+   "w": "childless",
+   "pos": "adj",
+   "def": "without children.",
+   "ex": "The king remained childless.",
+   "lessons": [
+    "odyssey_david_ii",
+    "odyssey_edward_the_confessor"
+   ]
+  },
+  "wounded": {
+   "w": "wounded",
+   "pos": "adj",
+   "def": "injured.",
+   "ex": "He was wounded in the battle.",
+   "lessons": [
+    "odyssey_david_ii"
+   ]
+  },
+  "seize": {
+   "w": "seize",
+   "pos": "v",
+   "def": "to take by force.",
+   "ex": "",
+   "lessons": [
+    "odyssey_donald_iii",
+    "odyssey_harold_harefoot",
+    "odyssey_macbeth",
+    "odyssey_william_ii",
+    "short_history_the_dancing_plague",
+    "short_history_the_french_revolution",
+    "c2_pro_29_innovation_culture"
+   ]
+  },
+  "nephew": {
+   "w": "nephew",
+   "pos": "n",
+   "def": "the son of your brother or sister.",
+   "ex": "",
+   "lessons": [
+    "odyssey_donald_iii",
+    "grammar_b2_12_articles_in_depth"
+   ]
+  },
+  "depose": {
+   "w": "depose",
+   "pos": "v",
+   "def": "to remove a ruler.",
+   "ex": "",
+   "lessons": [
+    "odyssey_donald_iii",
+    "odyssey_edward_ii",
+    "short_history_the_spanish_armada"
+   ]
+  },
+  "traditional": {
+   "w": "traditional",
+   "pos": "adj",
+   "def": "following old customs.",
+   "ex": "He represented traditional Gaelic Scotland.",
+   "lessons": [
+    "odyssey_donald_iii",
+    "ts_tu_youyou_b2",
+    "su_a2_14_online_or_offline",
+    "su_a2_28_a_good_holiday",
+    "bc_citizenship_test_c1",
+    "lesson_37_education_learning"
+   ]
+  },
+  "foreign": {
+   "w": "foreign",
+   "pos": "adj",
+   "def": "from another country.",
+   "ex": "Some disliked foreign influence at court.",
+   "lessons": [
+    "odyssey_donald_iii",
+    "a1p_28_have_you_ever",
+    "lesson_03_present_perfect"
+   ]
+  },
+  "blind": {
+   "w": "blind",
+   "pos": "v",
+   "def": "to make someone unable to see.",
+   "ex": "",
+   "lessons": [
+    "odyssey_donald_iii",
+    "odyssey_harold_harefoot",
+    "techniques_the_country_of_the_blind_a2b1"
+   ]
+  },
+  "grandson": {
+   "w": "grandson",
+   "pos": "n",
+   "def": "the son of your son or daughter.",
+   "ex": "",
+   "lessons": [
+    "odyssey_duncan_i"
+   ]
+  },
+  "mormaer": {
+   "w": "mormaer",
+   "pos": "n",
+   "def": "a Gaelic regional lord, like an earl.",
+   "ex": "",
+   "lessons": [
+    "odyssey_duncan_i"
+   ]
+  },
+  "casualty": {
+   "w": "casualty",
+   "pos": "n",
+   "def": "a person killed or injured.",
+   "ex": "",
+   "lessons": [
+    "odyssey_duncan_i",
+    "short_history_florence_nightingale"
+   ]
+  },
+  "playwright": {
+   "w": "playwright",
+   "pos": "n",
+   "def": "a person who writes plays.",
+   "ex": "",
+   "lessons": [
+    "odyssey_duncan_i",
+    "odyssey_elizabeth_i"
+   ]
+  },
+  "reputation": {
+   "w": "reputation",
+   "pos": "n",
+   "def": "what people believe about someone.",
+   "ex": "The hotel's reputation was so good that it was fully booked for a year.",
+   "lessons": [
+    "odyssey_duncan_i",
+    "odyssey_eadwig",
+    "odyssey_richard_iii",
+    "techniques_luck",
+    "tib_fishbone_b2",
+    "acad_b2_06_referencing",
+    "wk_33_the_deadline",
+    "b2_47_handling_complaints",
+    "bc_building_your_brand_c1",
+    "editor_dilemmas_game"
+   ]
+  },
+  "frail": {
+   "w": "frail",
+   "pos": "adj",
+   "def": "weak and in poor health.",
+   "ex": "Eadred was a frail man who suffered from a long illness.",
+   "lessons": [
+    "odyssey_eadred",
+    "ib_lesson_06_timed_essay"
+   ]
+  },
+  "pledge": {
+   "w": "pledge",
+   "pos": "v",
+   "def": "to make a formal promise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadred",
+    "odyssey_elizabeth_ii",
+    "odyssey_james_iii_scot",
+    "techniques_yuki_onna"
+   ]
+  },
+  "expel": {
+   "w": "expel",
+   "pos": "v",
+   "def": "to force someone to leave a place.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadred",
+    "odyssey_edward_i"
+   ]
+  },
+  "ravage": {
+   "w": "ravage",
+   "pos": "v",
+   "def": "to cause great damage and destruction.",
+   "ex": "Pneumonia ravaged the little colony of artists that November.",
+   "lessons": [
+    "odyssey_eadred",
+    "techniques_the_last_leaf",
+    "techniques_the_masque_of_the_red_death"
+   ]
+  },
+  "archbishop": {
+   "w": "archbishop",
+   "pos": "n",
+   "def": "a senior bishop who leads the Church in a large area.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadred",
+    "ois_09_plantagenets_and_magna_carta"
+   ]
+  },
+  "famine": {
+   "w": "famine",
+   "pos": "n",
+   "def": "a serious shortage of food in an area.",
+   "ex": "Some of his gold was to be used to protect his people against famine or invasion.",
+   "lessons": [
+    "odyssey_eadred",
+    "odyssey_william_i",
+    "short_history_the_dancing_plague",
+    "short_history_the_east_india_company",
+    "short_history_the_french_revolution",
+    "short_history_the_irish_potato_famine_a2b1"
+   ]
+  },
+  "persistent": {
+   "w": "persistent",
+   "pos": "adj",
+   "def": "continuing firmly despite difficulties.",
+   "ex": "He was persistent: every time the north rebelled, he returned.",
+   "lessons": [
+    "odyssey_eadred",
+    "techniques_the_last_leaf",
+    "c2_pro_12_difficult_conversations"
+   ]
+  },
+  "retain": {
+   "w": "retain",
+   "pos": "v",
+   "def": "to keep possession of something.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadred",
+    "c1_pro_04_active_listening",
+    "c1_pro_06_managing_upwards",
+    "grammar_c1_16_formal_style_word_formation"
+   ]
+  },
+  "banish": {
+   "w": "banish",
+   "pos": "v",
+   "def": "to send someone away as a punishment.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadwig",
+    "odyssey_edward_ii"
+   ]
+  },
+  "annul": {
+   "w": "annul",
+   "pos": "v",
+   "def": "to declare officially that something (e.g. a marriage) is not valid.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadwig",
+    "odyssey_john",
+    "short_history_anne_boleyn",
+    "short_history_magna_carta",
+    "short_history_the_tudors"
+   ]
+  },
+  "hostile": {
+   "w": "hostile",
+   "pos": "adj",
+   "def": "unfriendly; opposed.",
+   "ex": "The crowd turned hostile the moment the referee blew his whistle, booing, jeering and hurling cups onto the pitch.",
+   "lessons": [
+    "odyssey_eadwig",
+    "short_history_emperor_nero",
+    "gr_c1_the_boardroom",
+    "gr_warmup_c1_hot_takes_apology_tour",
+    "ml_25_the_review_they_want_down",
+    "b2_77_cope_with_unexpected",
+    "sp_c1_06_high_stakes_communication"
+   ]
+  },
+  "divide": {
+   "w": "divide",
+   "pos": "v",
+   "def": "to split into parts.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadwig",
+    "rs_y8_aut1_07_05",
+    "rs_y8_sum2_12_05",
+    "short_history_the_berlin_wall_a2b1"
+   ]
+  },
+  "reunite": {
+   "w": "reunite",
+   "pos": "v",
+   "def": "to bring together again.",
+   "ex": "",
+   "lessons": [
+    "odyssey_eadwig"
+   ]
+  },
+  "peaceful": {
+   "w": "peaceful",
+   "pos": "adj",
+   "def": "without war or violence.",
+   "ex": "Edgar's reign was so peaceful that no major invasion is recorded.",
+   "lessons": [
+    "odyssey_edgar",
+    "su_a2_89_holiday_planning",
+    "discuss_a2_taking_to_the_streets",
+    "talk_city_or_countryside_a2b1"
+   ]
+  },
+  "monastery": {
+   "w": "monastery",
+   "pos": "n",
+   "def": "a building where monks live and pray.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar",
+    "odyssey_henry_viii",
+    "short_history_the_printing_press",
+    "short_history_the_vikings",
+    "rs_y10_spr2_22_01",
+    "epicurean_22_rediscovery",
+    "short_history_the_vikings_a2b1"
+   ]
+  },
+  "currency": {
+   "w": "currency",
+   "pos": "n",
+   "def": "the money used in a country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar"
+   ]
+  },
+  "mint": {
+   "w": "mint",
+   "pos": "v",
+   "def": "to make coins.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar",
+    "odyssey_hywel_dda"
+   ]
+  },
+  "anointing": {
+   "w": "anointing",
+   "pos": "n",
+   "def": "putting holy oil on someone as part of a religious ceremony.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar",
+    "rs_y10_spr1_21_05",
+    "rs_y8_spr1_09_01"
+   ]
+  },
+  "row": {
+   "w": "row",
+   "pos": "v",
+   "def": "to move a boat through water using oars.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar",
+    "lf_01_the_car_keys",
+    "lf_03_the_sibling_who_never_comes"
+   ]
+  },
+  "symbolic": {
+   "w": "symbolic",
+   "pos": "adj",
+   "def": "representing an idea rather than being practical.",
+   "ex": "The boat trip was symbolic: it showed that the other kings accepted his power.",
+   "lessons": [
+    "odyssey_edgar",
+    "rs_y10_spr1_21_04"
+   ]
+  },
+  "stable": {
+   "w": "stable",
+   "pos": "adj",
+   "def": "not likely to change or collapse.",
+   "ex": "England was more stable than at any time for a century.",
+   "lessons": [
+    "odyssey_edgar",
+    "odyssey_macbeth",
+    "speaking_naturally_06_parents_were_right",
+    "equestrian_life_horse_riding_interactive",
+    "making_the_leap"
+   ]
+  },
+  "commemorate": {
+   "w": "commemorate",
+   "pos": "v",
+   "def": "to remember and honour someone or something.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edgar",
+    "short_history_the_taj_mahal",
+    "rs_y10_spr1_21_05",
+    "rs_y11_aut2_26_04",
+    "rs_y10_spr2_22_06"
+   ]
+  },
+  "five boroughs": {
+   "w": "five boroughs",
+   "pos": "n",
+   "def": "five fortified Danish towns in the East Midlands.",
+   "ex": "In 942 he won back the Five Boroughs: Derby, Leicester, Lincoln, Nottingham and Stamford.",
+   "lessons": [
+    "odyssey_edmund_i"
+   ]
+  },
+  "exile": {
+   "w": "exile",
+   "pos": "noun",
+   "def": "a person forced to live away from their home or country.",
+   "ex": "When the president seized total power, the poet called him a traitor and left the country. Years later he was offered the chance to come home quietly — and refused. He preferred to stay in exile.",
+   "lessons": [
+    "odyssey_edmund_i",
+    "odyssey_edward_iv",
+    "odyssey_edward_the_confessor",
+    "odyssey_edward_viii",
+    "odyssey_harold_harefoot",
+    "odyssey_malcolm_iii",
+    "odyssey_rhodri_mawr",
+    "persepolis_worlds",
+    "short_history_hadrians_wall",
+    "short_history_hannibal",
+    "short_history_mary_queen_of_scots",
+    "short_history_napoleon",
+    "short_history_the_haitian_revolution",
+    "topic_dreams_a2b1",
+    "topic_dreams_b2c1",
+    "short_history_the_battle_of_waterloo_a2b1"
+   ]
+  },
+  "feast": {
+   "w": "feast",
+   "pos": "n",
+   "def": "a large meal celebrating a special occasion.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_i",
+    "techniques_the_little_match_girl",
+    "rs_y8_spr1_09_03",
+    "family_celebrations_interactive",
+    "rs_y8_spr1_09_06"
+   ]
+  },
+  "stab": {
+   "w": "stab",
+   "pos": "v",
+   "def": "to push a knife or sharp weapon into someone.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_i",
+    "odyssey_robert_i"
+   ]
+  },
+  "intervene": {
+   "w": "intervene",
+   "pos": "v",
+   "def": "to become involved in a situation to change it.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_i",
+    "topic_human_nature_b2",
+    "rs_y7_spr2_04_01",
+    "lesson_world_war_2_speaking",
+    "wp_15_the_garden",
+    "epicurean_06_atoms_and_void"
+   ]
+  },
+  "reformer": {
+   "w": "reformer",
+   "pos": "n",
+   "def": "someone who works to improve a system.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_i"
+   ]
+  },
+  "abbot": {
+   "w": "abbot",
+   "pos": "n",
+   "def": "the head of a monastery.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_i"
+   ]
+  },
+  "abrupt": {
+   "w": "abrupt",
+   "pos": "adj",
+   "def": "sudden and unexpected.",
+   "ex": "His reign came to an abrupt end when he was only about twenty-five.",
+   "lessons": [
+    "odyssey_edmund_i",
+    "su_a2_49_communication_styles"
+   ]
+  },
+  "ironside": {
+   "w": "ironside",
+   "pos": "n",
+   "def": "(nickname) someone strong and hard as iron.",
+   "ex": "His nickname Ironside came from his toughness in battle.",
+   "lessons": [
+    "odyssey_edmund_ironside"
+   ]
+  },
+  "besiege": {
+   "w": "besiege",
+   "pos": "v",
+   "def": "to surround a place with an army to force it to surrender.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_ironside",
+    "odyssey_stephen",
+    "short_history_hannibal",
+    "short_history_the_crusades"
+   ]
+  },
+  "partition": {
+   "w": "partition",
+   "pos": "v",
+   "def": "to divide a country into parts.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edmund_ironside",
+    "short_history_the_berlin_wall",
+    "short_history_the_partition_of_india",
+    "short_history_the_scramble_for_africa"
+   ]
+  },
+  "suspicious": {
+   "w": "suspicious",
+   "pos": "adj",
+   "def": "causing a feeling that something is wrong.",
+   "ex": "His death only weeks later seemed suspicious to some.",
+   "lessons": [
+    "odyssey_edmund_ironside",
+    "gr_b2_the_conspiracy",
+    "ml_16_the_scam_call"
+   ]
+  },
+  "valiant": {
+   "w": "valiant",
+   "pos": "adj",
+   "def": "very brave.",
+   "ex": "a valiant last stand against the invaders.",
+   "lessons": [
+    "odyssey_edmund_ironside",
+    "short_history_king_arthur"
+   ]
+  },
+  "in vain": {
+   "w": "in vain",
+   "pos": "phrase",
+   "def": "without success.",
+   "ex": "The Nightingale gave her life in vain — the rose ended in the gutter.",
+   "lessons": [
+    "odyssey_edmund_ironside",
+    "techniques_how_much_land",
+    "techniques_the_last_leaf",
+    "techniques_the_nightingale_and_the_rose",
+    "techniques_the_ransom_of_red_chief"
+   ]
+  },
+  "longshanks": {
+   "w": "longshanks",
+   "pos": "n",
+   "def": "long legs.",
+   "ex": "His nickname Longshanks referred to his long legs.",
+   "lessons": [
+    "odyssey_edward_i"
+   ]
+  },
+  "conquer": {
+   "w": "conquer",
+   "pos": "v",
+   "def": "to take control by force.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i",
+    "odyssey_sweyn",
+    "short_history_boudica",
+    "short_history_christopher_columbus",
+    "short_history_hannibal",
+    "short_history_the_battle_of_hastings",
+    "ois_04_the_saxon_shore",
+    "short_history_alexander_the_great_a2b1",
+    "short_history_the_aztecs_a2b1"
+   ]
+  },
+  "statute": {
+   "w": "statute",
+   "pos": "n",
+   "def": "a written law.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i"
+   ]
+  },
+  "fortress": {
+   "w": "fortress",
+   "pos": "n",
+   "def": "a strong building for defence.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i",
+    "short_history_the_french_revolution_a2b1",
+    "wp_17_the_painted_porch"
+   ]
+  },
+  "hammer": {
+   "w": "hammer",
+   "pos": "n",
+   "def": "a tool; here, a crushing force.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i"
+   ]
+  },
+  "execute": {
+   "w": "execute",
+   "pos": "v",
+   "def": "to kill as punishment.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i",
+    "odyssey_elizabeth_i",
+    "odyssey_james_i_scot",
+    "c1_pro_19_agile_scrum",
+    "short_history_anne_boleyn_a2b1"
+   ]
+  },
+  "stone of scone": {
+   "w": "stone of scone",
+   "pos": "n",
+   "def": "the stone on which Scottish kings were crowned.",
+   "ex": "He took the Stone of Scone to Westminster.",
+   "lessons": [
+    "odyssey_edward_i"
+   ]
+  },
+  "grieve": {
+   "w": "grieve",
+   "pos": "v",
+   "def": "to feel deep sadness.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i",
+    "rs_y8_aut2_08_05",
+    "lf_04_telling_mum"
+   ]
+  },
+  "cross": {
+   "w": "cross",
+   "pos": "n",
+   "def": "a monument in the shape of a cross.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_i",
+    "lf_45_the_late_friend",
+    "short_history_julius_caesar_a2b1"
+   ]
+  },
+  "resent": {
+   "w": "resent",
+   "pos": "v",
+   "def": "to feel angry about unfair treatment.",
+   "ex": "She resented the implication that her grammar wasn't quite right because she wasn't a native speaker.",
+   "lessons": [
+    "odyssey_edward_ii",
+    "techniques_a_vendetta",
+    "techniques_the_country_of_the_blind",
+    "techniques_the_verger",
+    "techniques_the_verger_english_teacher",
+    "techniques_the_verger_jobseeker",
+    "ml_15_the_big_favour"
+   ]
+  },
+  "rout": {
+   "w": "rout",
+   "pos": "n",
+   "def": "a complete defeat.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_ii",
+    "odyssey_james_v_scot",
+    "short_history_alexander_the_great",
+    "short_history_boudica",
+    "short_history_the_battle_of_waterloo"
+   ]
+  },
+  "she-wolf": {
+   "w": "she-wolf",
+   "pos": "n",
+   "def": "an insulting nickname for a fierce woman.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_ii"
+   ]
+  },
+  "captive": {
+   "w": "captive",
+   "pos": "n",
+   "def": "a prisoner.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_ii"
+   ]
+  },
+  "gruesome": {
+   "w": "gruesome",
+   "pos": "adj",
+   "def": "horrible.",
+   "ex": "A gruesome story of his death spread later.",
+   "lessons": [
+    "odyssey_edward_ii"
+   ]
+  },
+  "unproven": {
+   "w": "unproven",
+   "pos": "adj",
+   "def": "not shown to be true.",
+   "ex": "That story is unproven.",
+   "lessons": [
+    "odyssey_edward_ii",
+    "wp_19_the_suspension_of_judgement",
+    "bc_theories_mixed_conditionals_b2c1"
+   ]
+  },
+  "coup": {
+   "w": "coup",
+   "pos": "n",
+   "def": "a sudden seizure of power.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii",
+    "short_history_catherine_the_great",
+    "short_history_napoleon"
+   ]
+  },
+  "longbow": {
+   "w": "longbow",
+   "pos": "n",
+   "def": "a tall bow that shoots arrows far.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii",
+    "ois_11_hundred_years_war"
+   ]
+  },
+  "chivalry": {
+   "w": "chivalry",
+   "pos": "n",
+   "def": "the medieval code of knightly behaviour.",
+   "ex": "Even his enemies praised the sultan's chivalry — the courtesy, mercy and honour he showed to those he had defeated.",
+   "lessons": [
+    "odyssey_edward_iii",
+    "short_history_the_crusades"
+   ]
+  },
+  "plague": {
+   "w": "plague",
+   "pos": "n",
+   "def": "a deadly disease spreading widely.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii",
+    "short_history_the_black_death",
+    "short_history_the_silk_road",
+    "ois_11_hundred_years_war",
+    "ois_16_restoration_and_revolution",
+    "short_history_the_black_death_a2b1"
+   ]
+  },
+  "wipe out": {
+   "w": "wipe out",
+   "pos": "v",
+   "def": "to destroy completely.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii"
+   ]
+  },
+  "labourer": {
+   "w": "labourer",
+   "pos": "n",
+   "def": "a worker who does physical work.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii",
+    "short_history_the_great_wall_of_china",
+    "short_history_the_panama_canal",
+    "short_history_the_pyramids"
+   ]
+  },
+  "wage": {
+   "w": "wage",
+   "pos": "n",
+   "def": "money paid for work.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iii",
+    "world_na_tipping",
+    "lesson_46_globalization_economics"
+   ]
+  },
+  "senile": {
+   "w": "senile",
+   "pos": "adj",
+   "def": "mentally weak from old age.",
+   "ex": "In old age he became weak and perhaps senile.",
+   "lessons": [
+    "odyssey_edward_iii"
+   ]
+  },
+  "kingmaker": {
+   "w": "kingmaker",
+   "pos": "n",
+   "def": "a powerful person who decides who rules.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iv"
+   ]
+  },
+  "secret marriage": {
+   "w": "secret marriage",
+   "pos": "n",
+   "def": "a marriage done without announcement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iv"
+   ]
+  },
+  "switch sides": {
+   "w": "switch sides",
+   "pos": "v",
+   "def": "to join the opposing group.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iv"
+   ]
+  },
+  "printing press": {
+   "w": "printing press",
+   "pos": "n",
+   "def": "a machine for printing books.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_iv",
+    "odyssey_james_iv_scot"
+   ]
+  },
+  "charming": {
+   "w": "charming",
+   "pos": "adj",
+   "def": "pleasant and attractive.",
+   "ex": "Edward was charming and popular.",
+   "lessons": [
+    "odyssey_edward_iv",
+    "sp_b2_46_nuanced_description",
+    "grammar_c1_11_sophisticated_modification"
+   ]
+  },
+  "sudden": {
+   "w": "sudden",
+   "pos": "adj",
+   "def": "unexpected.",
+   "ex": "His death in February 1014 was sudden.",
+   "lessons": [
+    "odyssey_edward_iv",
+    "odyssey_sweyn"
+   ]
+  },
+  "pious": {
+   "w": "pious",
+   "pos": "adj",
+   "def": "deeply religious.",
+   "ex": "The pious old clergyman had, in fact, cheated to push the boy through.",
+   "lessons": [
+    "odyssey_edward_the_confessor",
+    "odyssey_henry_vi",
+    "odyssey_malcolm_iii",
+    "techniques_luck",
+    "techniques_mateo_falcone",
+    "ois_07_danes_and_last_saxons"
+   ]
+  },
+  "deathbed": {
+   "w": "deathbed",
+   "pos": "n",
+   "def": "the bed in which a person dies.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_confessor",
+    "wp_37_the_gentle_sceptic"
+   ]
+  },
+  "canonised": {
+   "w": "canonised",
+   "pos": "adj",
+   "def": "officially declared a saint.",
+   "ex": "He was canonised as a saint in 1161.",
+   "lessons": [
+    "odyssey_edward_the_confessor",
+    "odyssey_malcolm_iii"
+   ]
+  },
+  "consecrated": {
+   "w": "consecrated",
+   "pos": "adj",
+   "def": "made holy in a religious ceremony.",
+   "ex": "Westminster Abbey was consecrated in December 1065.",
+   "lessons": [
+    "odyssey_edward_the_confessor"
+   ]
+  },
+  "revolt": {
+   "w": "revolt",
+   "pos": "v",
+   "def": "to rise up against the people in power.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_elder",
+    "odyssey_llywelyn_ap_gruffydd",
+    "odyssey_richard_ii",
+    "short_history_the_gladiators",
+    "short_history_boudica_a2b1",
+    "short_history_the_gladiators_a2b1"
+   ]
+  },
+  "fortify": {
+   "w": "fortify",
+   "pos": "v",
+   "def": "to make a place stronger against attack.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_elder",
+    "sp_prep_c1_02",
+    "gr_c1_english_conquest"
+   ]
+  },
+  "submit": {
+   "w": "submit",
+   "pos": "v",
+   "def": "to accept someone else's authority.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_elder",
+    "odyssey_ire_dynasties",
+    "odyssey_llywelyn_ap_iorwerth",
+    "odyssey_malcolm_iii",
+    "short_history_sparta",
+    "crowds_and_madness",
+    "lesson_35_subjunctive_formal",
+    "grammar_c2_04_subjunctive_formal_conditionals"
+   ]
+  },
+  "chronicle": {
+   "w": "chronicle",
+   "pos": "n",
+   "def": "a written record of events in the order they happened.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_elder",
+    "odyssey_lulach",
+    "short_history_king_arthur"
+   ]
+  },
+  "overshadowed": {
+   "w": "overshadowed",
+   "pos": "adj",
+   "def": "made to seem less important by someone else.",
+   "ex": "Edward has long been overshadowed by his famous father and his famous son.",
+   "lessons": [
+    "odyssey_edward_the_elder"
+   ]
+  },
+  "absorb": {
+   "w": "absorb",
+   "pos": "v",
+   "def": "to take something in so that it becomes part of you.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_elder",
+    "bc_procurement_price_increase_c1",
+    "deep_space_05_dark",
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "faction": {
+   "w": "faction",
+   "pos": "n",
+   "def": "a small group within a larger one, with its own aims.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr",
+    "odyssey_henry_vi",
+    "short_history_cleopatra",
+    "short_history_mary_queen_of_scots",
+    "prof_c2_10_future_of_work"
+   ]
+  },
+  "disputed": {
+   "w": "disputed",
+   "pos": "adj",
+   "def": "argued about; not agreed.",
+   "ex": "Edward's right to the throne was disputed, because his mother's status was unclear.",
+   "lessons": [
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "ambush": {
+   "w": "ambush",
+   "pos": "v",
+   "def": "to attack someone by surprise from a hidden position.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr",
+    "odyssey_llywelyn_ap_gruffydd",
+    "odyssey_lulach",
+    "short_history_ned_kelly",
+    "short_history_vlad_the_impaler"
+   ]
+  },
+  "stepmother": {
+   "w": "stepmother",
+   "pos": "n",
+   "def": "the wife of your father who is not your mother.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "hastily": {
+   "w": "hastily",
+   "pos": "adv",
+   "def": "quickly and without care.",
+   "ex": "His body was hastily buried without royal honours.",
+   "lessons": [
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "cult": {
+   "w": "cult",
+   "pos": "n",
+   "def": "the worship or admiration of a particular person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "suspect": {
+   "w": "suspect",
+   "pos": "noun",
+   "def": "a person thought to be guilty of a crime.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr",
+    "odyssey_edward_v",
+    "short_history_db_cooper",
+    "tib_prisoners_b2",
+    "ts_dna_fingerprint_b2",
+    "gr_b2_alibi",
+    "lesson_19_passive_advanced"
+   ]
+  },
+  "venerate": {
+   "w": "venerate",
+   "pos": "v",
+   "def": "to treat with deep religious respect.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_the_martyr"
+   ]
+  },
+  "protector": {
+   "w": "protector",
+   "pos": "n",
+   "def": "a regent.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v",
+    "odyssey_edward_vi",
+    "odyssey_henry_vi",
+    "ois_12_wars_of_the_roses"
+   ]
+  },
+  "lodge": {
+   "w": "lodge",
+   "pos": "v",
+   "def": "to stay somewhere.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v"
+   ]
+  },
+  "illegitimate": {
+   "w": "illegitimate",
+   "pos": "adj",
+   "def": "(here) not legally born, so without rights.",
+   "ex": "His enemies said he was illegitimate — not truly Cnut's son.",
+   "lessons": [
+    "odyssey_edward_v",
+    "odyssey_harold_harefoot",
+    "odyssey_llywelyn_ap_iorwerth",
+    "odyssey_robert_ii"
+   ]
+  },
+  "precontract": {
+   "w": "precontract",
+   "pos": "n",
+   "def": "an earlier marriage promise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v"
+   ]
+  },
+  "vanish": {
+   "w": "vanish",
+   "pos": "v",
+   "def": "to disappear.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v",
+    "odyssey_owain_glyndwr",
+    "short_history_db_cooper",
+    "short_history_the_conquest_of_everest",
+    "topic_food_b2",
+    "deep_space_01_stars",
+    "lesson_hms_erebus_mystery",
+    "curious_conversations_11_time_perception",
+    "gr_b2_collocation_clash"
+   ]
+  },
+  "remains": {
+   "w": "remains",
+   "pos": "n, plural",
+   "def": "parts of a dead body.",
+   "ex": "Scientists can compare remains found in a hidden grave with living relatives to confirm exactly who lies buried there.",
+   "lessons": [
+    "odyssey_edward_v",
+    "short_history_the_romanovs"
+   ]
+  },
+  "urn": {
+   "w": "urn",
+   "pos": "n",
+   "def": "a decorative container.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v"
+   ]
+  },
+  "theory": {
+   "w": "theory",
+   "pos": "n",
+   "def": "an idea that explains something.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_v",
+    "short_history_stonehenge",
+    "rs_y10_aut2_20_05",
+    "behind_the_screen_everything_everywhere_all_at_once_a2b1",
+    "short_history_easter_island_a2b1"
+   ]
+  },
+  "protestant": {
+   "w": "protestant",
+   "pos": "adj",
+   "def": "belonging to the churches that broke from Rome.",
+   "ex": "England became more Protestant.",
+   "lessons": [
+    "odyssey_edward_vi"
+   ]
+  },
+  "prayer book": {
+   "w": "prayer book",
+   "pos": "n",
+   "def": "a book of church services.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vi"
+   ]
+  },
+  "rebel": {
+   "w": "rebel",
+   "pos": "v",
+   "def": "to fight authority.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vi",
+    "odyssey_henry_ii",
+    "odyssey_henry_iii",
+    "odyssey_henry_iv",
+    "odyssey_richard_ii",
+    "odyssey_william_i",
+    "short_history_mutiny_on_the_bounty",
+    "speaking_naturally_teens_bonus_camus_absurd_hero"
+   ]
+  },
+  "tuberculosis": {
+   "w": "tuberculosis",
+   "pos": "n",
+   "def": "a lung disease.",
+   "ex": "He may have died of tuberculosis.",
+   "lessons": [
+    "odyssey_edward_vi"
+   ]
+  },
+  "devise": {
+   "w": "devise",
+   "pos": "n",
+   "def": "(old) a plan or will.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vi"
+   ]
+  },
+  "exclude": {
+   "w": "exclude",
+   "pos": "v",
+   "def": "to leave out.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vi",
+    "techniques_the_dolls_house"
+   ]
+  },
+  "precocious": {
+   "w": "precocious",
+   "pos": "adj",
+   "def": "clever beyond his age.",
+   "ex": "He was a precocious child.",
+   "lessons": [
+    "odyssey_edward_vi",
+    "wp_37_the_gentle_sceptic"
+   ]
+  },
+  "dominate": {
+   "w": "dominate",
+   "pos": "v",
+   "def": "to control.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vi",
+    "odyssey_ire_seven",
+    "acad_b2_05_seminar_discussions",
+    "bc_win_win_negotiations_b2c1",
+    "c2_pro_29_innovation_culture",
+    "sp_b1_37_turn_taking",
+    "sp_prep_b1_37"
+   ]
+  },
+  "diplomacy": {
+   "w": "diplomacy",
+   "pos": "n",
+   "def": "managing relations between countries.",
+   "ex": "The whole system depended on diplomacy — patient talks and agreements between empires that kept the roads open and the traders safe.",
+   "lessons": [
+    "odyssey_edward_vii",
+    "short_history_the_silk_road",
+    "gr_warmup_b2_hot_takes_conflict"
+   ]
+  },
+  "entente": {
+   "w": "entente",
+   "pos": "n",
+   "def": "a friendly understanding.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vii"
+   ]
+  },
+  "peacemaker": {
+   "w": "peacemaker",
+   "pos": "n",
+   "def": "someone who brings peace.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vii",
+    "rs_y11_spr2_28_01",
+    "rs_y8_spr2_10_02",
+    "rs_y8_spr2_10_06"
+   ]
+  },
+  "appendicitis": {
+   "w": "appendicitis",
+   "pos": "n",
+   "def": "inflammation of the appendix.",
+   "ex": "He had appendicitis.",
+   "lessons": [
+    "odyssey_edward_vii"
+   ]
+  },
+  "edwardian": {
+   "w": "edwardian",
+   "pos": "adj",
+   "def": "relating to his reign.",
+   "ex": "The Edwardian era followed.",
+   "lessons": [
+    "odyssey_edward_vii"
+   ]
+  },
+  "modernise": {
+   "w": "modernise",
+   "pos": "v",
+   "def": "to make modern.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_vii",
+    "odyssey_elizabeth_ii",
+    "grammar_c1_16_formal_style_word_formation"
+   ]
+  },
+  "divorcee": {
+   "w": "divorcee",
+   "pos": "n",
+   "def": "a divorced person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_viii"
+   ]
+  },
+  "church": {
+   "w": "church",
+   "pos": "n",
+   "def": "the Church of England.",
+   "ex": "Albert worked at the church.\" / \"We go to church on Sunday.",
+   "lessons": [
+    "odyssey_edward_viii",
+    "techniques_sweat_a2b1",
+    "techniques_the_verger_a2b1"
+   ]
+  },
+  "duty": {
+   "w": "duty",
+   "pos": "n",
+   "def": "what you must do.",
+   "ex": "He chose love over duty.",
+   "lessons": [
+    "odyssey_edward_viii",
+    "rs_y11_aut1_25_01"
+   ]
+  },
+  "broadcast": {
+   "w": "broadcast",
+   "pos": "n",
+   "def": "a radio speech.",
+   "ex": "",
+   "lessons": [
+    "odyssey_edward_viii",
+    "odyssey_george_v",
+    "c2_pro_08_thought_leadership"
+   ]
+  },
+  "sympathy": {
+   "w": "sympathy",
+   "pos": "n",
+   "def": "support or feelings for.",
+   "ex": "He had sympathy for Nazi Germany.",
+   "lessons": [
+    "odyssey_edward_viii",
+    "b2_79_making_a_complaint",
+    "lf_63_at_the_wake"
+   ]
+  },
+  "duke of windsor": {
+   "w": "duke of windsor",
+   "pos": "n",
+   "def": "his title after abdication.",
+   "ex": "He became Duke of Windsor.",
+   "lessons": [
+    "odyssey_edward_viii"
+   ]
+  },
+  "armada": {
+   "w": "armada",
+   "pos": "n",
+   "def": "a fleet of warships.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_i",
+    "short_history_ching_shih",
+    "short_history_pearl_harbor",
+    "short_history_the_spanish_armada"
+   ]
+  },
+  "fireships": {
+   "w": "fireships",
+   "pos": "n",
+   "def": "ships set on fire to damage enemies.",
+   "ex": "Under cover of darkness they filled eight old boats with tar and powder, set them alight, and let the fireships drift down the wind straight into the crowded enemy anchorage.",
+   "lessons": [
+    "odyssey_elizabeth_i",
+    "short_history_the_spanish_armada"
+   ]
+  },
+  "plot": {
+   "w": "plot",
+   "pos": "n",
+   "def": "a secret plan.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_i",
+    "odyssey_mary_qos",
+    "short_history_mary_queen_of_scots",
+    "gr_b1_story_chain",
+    "short_history_rasputin_a2b1",
+    "short_history_the_gunpowder_plot_a2b1",
+    "b2_93_talking_about_books"
+   ]
+  },
+  "golden age": {
+   "w": "golden age",
+   "pos": "n",
+   "def": "a time of great success.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_i"
+   ]
+  },
+  "virgin queen": {
+   "w": "virgin queen",
+   "pos": "n",
+   "def": "a queen who never married.",
+   "ex": "She was called the Virgin Queen.",
+   "lessons": [
+    "odyssey_elizabeth_i"
+   ]
+  },
+  "portrait": {
+   "w": "portrait",
+   "pos": "n",
+   "def": "a painting of a person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_i",
+    "odyssey_james_iii_scot",
+    "techniques_the_model_millionaire"
+   ]
+  },
+  "televised": {
+   "w": "televised",
+   "pos": "adj",
+   "def": "shown on TV.",
+   "ex": "It was televised.",
+   "lessons": [
+    "odyssey_elizabeth_ii"
+   ]
+  },
+  "decolonisation": {
+   "w": "decolonisation",
+   "pos": "n",
+   "def": "colonies becoming independent.",
+   "ex": "Her reign saw decolonisation.",
+   "lessons": [
+    "odyssey_elizabeth_ii"
+   ]
+  },
+  "annus horribilis": {
+   "w": "annus horribilis",
+   "pos": "phrase",
+   "def": "(Latin) horrible year.",
+   "ex": "1992 was her annus horribilis.",
+   "lessons": [
+    "odyssey_elizabeth_ii"
+   ]
+  },
+  "jubilee": {
+   "w": "jubilee",
+   "pos": "n",
+   "def": "an anniversary celebration.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_ii",
+    "odyssey_george_v",
+    "odyssey_victoria",
+    "short_history_queen_victoria"
+   ]
+  },
+  "mourner": {
+   "w": "mourner",
+   "pos": "n",
+   "def": "people grieving.",
+   "ex": "",
+   "lessons": [
+    "odyssey_elizabeth_ii"
+   ]
+  },
+  "elector": {
+   "w": "elector",
+   "pos": "n",
+   "def": "a German prince who elected the emperor.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_i"
+   ]
+  },
+  "jacobite rising": {
+   "w": "jacobite rising",
+   "pos": "n",
+   "def": "a rebellion to restore the Stuarts.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_i"
+   ]
+  },
+  "cabinet": {
+   "w": "cabinet",
+   "pos": "n",
+   "def": "a group of top ministers.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_i",
+    "qf_falsefriend_spanish_carpeta"
+   ]
+  },
+  "prime minister": {
+   "w": "prime minister",
+   "pos": "n",
+   "def": "the head of government.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_i"
+   ]
+  },
+  "ruin": {
+   "w": "ruin",
+   "pos": "noun / verb",
+   "def": "to lose everything.",
+   "ex": "Paying the bet would have meant his total ruin.",
+   "lessons": [
+    "odyssey_george_i",
+    "techniques_the_bet",
+    "su_a2_20_it_was_a_disaster",
+    "short_history_machu_picchu_a2b1",
+    "short_history_the_seven_wonders_a2b1",
+    "grammar_c1_14_sentence_architecture"
+   ]
+  },
+  "unpopular": {
+   "w": "unpopular",
+   "pos": "adj",
+   "def": "not liked.",
+   "ex": "His heavy taxes made him unpopular.",
+   "lessons": [
+    "odyssey_george_i",
+    "odyssey_harthacnut",
+    "odyssey_james_iii_scot",
+    "grammar_b2_23_disagreeing_nicely"
+   ]
+  },
+  "lead": {
+   "w": "lead",
+   "pos": "v",
+   "def": "to command.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_ii",
+    "skills_b1b2_trade_fair_followup"
+   ]
+  },
+  "young pretender": {
+   "w": "young pretender",
+   "pos": "n",
+   "def": "the Jacobite claimant.",
+   "ex": "Charles Edward Stuart was the Young Pretender.",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "bonnie prince charlie": {
+   "w": "bonnie prince charlie",
+   "pos": "n",
+   "def": "a nickname for Charles Stuart.",
+   "ex": "He is remembered as Bonnie Prince Charlie.",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "culloden": {
+   "w": "culloden",
+   "pos": "n",
+   "def": "a battlefield near Inverness.",
+   "ex": "The Jacobites were defeated at Culloden.",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "suppress": {
+   "w": "suppress",
+   "pos": "v",
+   "def": "to stop by force.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_ii",
+    "odyssey_henry_vii",
+    "short_history_chernobyl",
+    "short_history_nelson_mandela",
+    "topic_dreams_b2c1",
+    "epicurean_21_hidden_currents"
+   ]
+  },
+  "tartan": {
+   "w": "tartan",
+   "pos": "n",
+   "def": "patterned cloth of Scottish clans.",
+   "ex": "Tartan was banned for a time.",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "anthem": {
+   "w": "anthem",
+   "pos": "n",
+   "def": "a national song.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_ii",
+    "techniques_the_cop_and_the_anthem"
+   ]
+  },
+  "seven years' war": {
+   "w": "seven years' war",
+   "pos": "n",
+   "def": "a global war 1756–63.",
+   "ex": "Britain won much in the Seven Years' War.",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "hallelujah": {
+   "w": "hallelujah",
+   "pos": "n",
+   "def": "a song of praise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_ii"
+   ]
+  },
+  "colony": {
+   "w": "colony",
+   "pos": "n",
+   "def": "a land ruled by another country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_iii",
+    "short_history_the_boston_tea_party",
+    "short_history_the_east_india_company",
+    "short_history_the_haitian_revolution",
+    "short_history_the_partition_of_india",
+    "concorso_empire_debate_b2",
+    "short_history_the_boston_tea_party_a2b1",
+    "short_history_the_scramble_for_africa_a2b1"
+   ]
+  },
+  "taxation": {
+   "w": "taxation",
+   "pos": "n",
+   "def": "the system of taxes.",
+   "ex": "\"No taxation without representation.\"",
+   "lessons": [
+    "odyssey_george_iii"
+   ]
+  },
+  "declare": {
+   "w": "declare",
+   "pos": "v",
+   "def": "to state officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_iii",
+    "bc_honesty_dishonesty_b2c1"
+   ]
+  },
+  "independence": {
+   "w": "independence",
+   "pos": "n",
+   "def": "freedom from control.",
+   "ex": "Most countries won independence in the 1800s.",
+   "lessons": [
+    "odyssey_george_iii",
+    "odyssey_robert_i",
+    "short_history_the_panama_canal",
+    "short_history_the_partition_of_india",
+    "ts_montessori_b2",
+    "world_la_background",
+    "world_la_family"
+   ]
+  },
+  "porphyria": {
+   "w": "porphyria",
+   "pos": "n",
+   "def": "a blood disorder.",
+   "ex": "Some think he had porphyria.",
+   "lessons": [
+    "odyssey_george_iii"
+   ]
+  },
+  "mental illness": {
+   "w": "mental illness",
+   "pos": "n",
+   "def": "an illness affecting the mind.",
+   "ex": "He suffered from mental illness.",
+   "lessons": [
+    "odyssey_george_iii",
+    "behind_the_screen_shutter_island_a2b1"
+   ]
+  },
+  "regency": {
+   "w": "regency",
+   "pos": "n",
+   "def": "rule by a regent.",
+   "ex": "The Regency gave its name to a style.",
+   "lessons": [
+    "odyssey_george_iii",
+    "odyssey_george_iv"
+   ]
+  },
+  "farmer george": {
+   "w": "farmer george",
+   "pos": "n",
+   "def": "a nickname for his love of agriculture.",
+   "ex": "He was nicknamed Farmer George.",
+   "lessons": [
+    "odyssey_george_iii"
+   ]
+  },
+  "napoleon": {
+   "w": "napoleon",
+   "pos": "n",
+   "def": "the French emperor.",
+   "ex": "Britain fought Napoleon.",
+   "lessons": [
+    "odyssey_george_iii"
+   ]
+  },
+  "waterloo": {
+   "w": "waterloo",
+   "pos": "n",
+   "def": "a battle in 1815.",
+   "ex": "Napoleon was defeated at Waterloo.",
+   "lessons": [
+    "odyssey_george_iii"
+   ]
+  },
+  "extravagant": {
+   "w": "extravagant",
+   "pos": "adj",
+   "def": "spending too much.",
+   "ex": "His spending was extravagant.",
+   "lessons": [
+    "odyssey_george_iv",
+    "odyssey_henry_iii",
+    "talk_gift_giving_b2c1"
+   ]
+  },
+  "pavilion": {
+   "w": "pavilion",
+   "pos": "n",
+   "def": "a decorative building.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_iv"
+   ]
+  },
+  "lock out": {
+   "w": "lock out",
+   "pos": "v",
+   "def": "prevented from entering.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_iv"
+   ]
+  },
+  "dandy": {
+   "w": "dandy",
+   "pos": "n",
+   "def": "a fashionable man.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_iv"
+   ]
+  },
+  "obese": {
+   "w": "obese",
+   "pos": "adj",
+   "def": "very overweight.",
+   "ex": "In later life he was obese.",
+   "lessons": [
+    "odyssey_george_iv"
+   ]
+  },
+  "dynasty": {
+   "w": "dynasty",
+   "pos": "n",
+   "def": "a royal family.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_v",
+    "odyssey_henry_vii",
+    "odyssey_ire_ui_neill",
+    "odyssey_malcolm_iii",
+    "odyssey_sweyn",
+    "odyssey_victoria",
+    "short_history_angkor",
+    "short_history_charlemagne",
+    "short_history_cleopatra",
+    "short_history_hiroshima",
+    "short_history_machu_picchu",
+    "short_history_mary_queen_of_scots",
+    "short_history_michelangelo",
+    "short_history_the_forbidden_city",
+    "short_history_the_library_of_alexandria",
+    "short_history_the_maya",
+    "short_history_the_romanovs",
+    "short_history_the_spanish_flu",
+    "short_history_the_trojan_war",
+    "short_history_the_tudors",
+    "short_history_the_world_cup",
+    "ois_09_plantagenets_and_magna_carta",
+    "short_history_the_romanovs_a2b1"
+   ]
+  },
+  "anti-german": {
+   "w": "anti-german",
+   "pos": "adj",
+   "def": "hostile to Germany.",
+   "ex": "Anti-German feeling was strong.",
+   "lessons": [
+    "odyssey_george_v"
+   ]
+  },
+  "rename": {
+   "w": "rename",
+   "pos": "v",
+   "def": "to give a new name.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_v"
+   ]
+  },
+  "cousin": {
+   "w": "cousin",
+   "pos": "n",
+   "def": "child of your aunt or uncle.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_v",
+    "qf_falsefriend_italian_parenti",
+    "grammar_a1_07_nouns_pronouns"
+   ]
+  },
+  "asylum": {
+   "w": "asylum",
+   "pos": "n",
+   "def": "protection for a refugee.",
+   "ex": "He refused to offer asylum.",
+   "lessons": [
+    "odyssey_george_v",
+    "short_history_nellie_bly",
+    "short_history_vincent_van_gogh",
+    "rs_y11_spr2_28_03"
+   ]
+  },
+  "dutiful": {
+   "w": "dutiful",
+   "pos": "adj",
+   "def": "doing what is expected.",
+   "ex": "He was dutiful.",
+   "lessons": [
+    "odyssey_george_v"
+   ]
+  },
+  "stamp": {
+   "w": "stamp",
+   "pos": "n",
+   "def": "small paper for postage.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_v",
+    "rp_32_at_passport_control",
+    "grammar_b1_16_gerunds_infinitives_semantic"
+   ]
+  },
+  "stammer": {
+   "w": "stammer",
+   "pos": "n",
+   "def": "a speech difficulty.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_vi",
+    "techniques_the_garden_party",
+    "lego_quest"
+   ]
+  },
+  "reluctant": {
+   "w": "reluctant",
+   "pos": "adj",
+   "def": "unwilling.",
+   "ex": "New team members are often reluctant to criticise the boss in public.",
+   "lessons": [
+    "odyssey_george_vi",
+    "odyssey_jane_grey",
+    "tib_johari_b2",
+    "gr_c1_the_negotiator",
+    "ml_15_the_big_favour",
+    "paper_1_practice"
+   ]
+  },
+  "speech therapist": {
+   "w": "speech therapist",
+   "pos": "n",
+   "def": "someone who helps with speech.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_vi"
+   ]
+  },
+  "blitz": {
+   "w": "blitz",
+   "pos": "n",
+   "def": "German air raids.",
+   "ex": "The Blitz bombed London.",
+   "lessons": [
+    "odyssey_george_vi"
+   ]
+  },
+  "bomb": {
+   "w": "bomb",
+   "pos": "v",
+   "def": "to attack with bombs.",
+   "ex": "",
+   "lessons": [
+    "odyssey_george_vi",
+    "behind_the_screen_oppenheimer_a2b1",
+    "short_history_hiroshima_a2b1",
+    "behind_the_screen_pearl_harbor_a2b1"
+   ]
+  },
+  "morale": {
+   "w": "morale",
+   "pos": "n",
+   "def": "spirit and confidence.",
+   "ex": "His visits raised morale.",
+   "lessons": [
+    "odyssey_george_vi",
+    "short_history_the_christmas_truce",
+    "gr_c1_the_negotiator",
+    "bc_staff_morale_c1",
+    "keeping_teams_motivated",
+    "leading_under_pressure"
+   ]
+  },
+  "lung cancer": {
+   "w": "lung cancer",
+   "pos": "n",
+   "def": "a disease of the lungs.",
+   "ex": "He died of lung cancer.",
+   "lessons": [
+    "odyssey_george_vi"
+   ]
+  },
+  "idle": {
+   "w": "idle",
+   "pos": "adj",
+   "def": "lazy, not working.",
+   "ex": "With the mills shut and the docks silent, hundreds of men who had always earned their own keep now stood idle on the street corners from dawn to dusk.",
+   "lessons": [
+    "odyssey_gruffydd_ap_llywelyn",
+    "short_history_the_great_depression",
+    "gr_warmup_b2_hot_takes_boredom",
+    "komorebi_03_the_power_of_boredom",
+    "aviation_eapt_11"
+   ]
+  },
+  "ambitious": {
+   "w": "ambitious",
+   "pos": "adj",
+   "def": "wanting success and power.",
+   "ex": "He became ambitious.",
+   "lessons": [
+    "odyssey_gruffydd_ap_llywelyn",
+    "gr_c1_the_negotiator",
+    "su_a2_47_making_decisions",
+    "short_history_emperor_nero_a2b1",
+    "ml_06_the_collab"
+   ]
+  },
+  "unify": {
+   "w": "unify",
+   "pos": "v",
+   "def": "to make into one.",
+   "ex": "",
+   "lessons": [
+    "odyssey_gruffydd_ap_llywelyn",
+    "rs_y11_aut1_25_03"
+   ]
+  },
+  "burn": {
+   "w": "burn",
+   "pos": "verb",
+   "def": "to destroy by fire.",
+   "ex": "",
+   "lessons": [
+    "odyssey_gruffydd_ap_llywelyn",
+    "techniques_desirees_baby_a2b1",
+    "grammar_a1_13_zero_conditional"
+   ]
+  },
+  "widow": {
+   "w": "widow",
+   "pos": "n",
+   "def": "a woman whose husband has died.",
+   "ex": "",
+   "lessons": [
+    "odyssey_gruffydd_ap_llywelyn",
+    "odyssey_mary_qos",
+    "odyssey_victoria",
+    "techniques_the_garden_party",
+    "techniques_the_garden_party_a2b1"
+   ]
+  },
+  "regent": {
+   "w": "regent",
+   "pos": "n",
+   "def": "a person who rules on behalf of an absent or young monarch.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_harefoot",
+    "odyssey_henry_iii",
+    "odyssey_robert_iii"
+   ]
+  },
+  "brutal": {
+   "w": "brutal",
+   "pos": "adj",
+   "def": "very cruel.",
+   "ex": "It was a brutal crime that shocked England.",
+   "lessons": [
+    "odyssey_harold_harefoot"
+   ]
+  },
+  "dig up": {
+   "w": "dig up",
+   "pos": "verb",
+   "def": "to remove from the ground.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_harefoot",
+    "short_history_pompeii_a2b1"
+   ]
+  },
+  "swift": {
+   "w": "swift",
+   "pos": "adj",
+   "def": "fast.",
+   "ex": "The nickname Harefoot may refer to his swift running.",
+   "lessons": [
+    "odyssey_harold_harefoot"
+   ]
+  },
+  "claimant": {
+   "w": "claimant",
+   "pos": "n",
+   "def": "a person who claims a right to something.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_harefoot"
+   ]
+  },
+  "propaganda": {
+   "w": "propaganda",
+   "pos": "noun",
+   "def": "information used to promote a particular view.",
+   "ex": "By morning the city walls were covered in posters and pamphlets, all of them propaganda painting the general as a hero and his enemy as a monster.",
+   "lessons": [
+    "odyssey_harold_harefoot",
+    "odyssey_macbeth",
+    "odyssey_mary_i",
+    "odyssey_richard_iii",
+    "persepolis_child",
+    "short_history_cleopatra",
+    "short_history_the_space_race",
+    "soft_power_hard_world",
+    "lesson_world_war_2_speaking",
+    "short_history_cleopatra_a2b1",
+    "lesson_45_media_manipulation"
+   ]
+  },
+  "oath": {
+   "w": "oath",
+   "pos": "n",
+   "def": "a solemn promise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii",
+    "odyssey_stephen",
+    "doctor_heist_b2c1"
+   ]
+  },
+  "forfeit": {
+   "w": "forfeit",
+   "pos": "v",
+   "def": "to lose a right as a punishment.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii"
+   ]
+  },
+  "march": {
+   "w": "march",
+   "pos": "n",
+   "def": "a long walk by soldiers.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii",
+    "short_history_alexander_the_great_a2b1",
+    "short_history_the_battle_of_hastings_a2b1",
+    "discuss_a2_taking_to_the_streets"
+   ]
+  },
+  "exhausted": {
+   "w": "exhausted",
+   "pos": "adj",
+   "def": "extremely tired.",
+   "ex": "His troops were exhausted.",
+   "lessons": [
+    "odyssey_harold_ii",
+    "behind_the_screen_fight_club_a2b1",
+    "hobbies_free_time_a2",
+    "a1p_48_giving_advice",
+    "lesson_27_past_perfect_continuous",
+    "qf_falsefriend_french_rester",
+    "grammar_a2_06_reported_speech_tags"
+   ]
+  },
+  "shield wall": {
+   "w": "shield wall",
+   "pos": "n",
+   "def": "a line of soldiers with shields locked together.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii",
+    "short_history_the_battle_of_hastings"
+   ]
+  },
+  "pursue": {
+   "w": "pursue",
+   "pos": "v",
+   "def": "to chase.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii",
+    "speaking_naturally_06_parents_were_right",
+    "c1_pro_30_entrepreneurial_mindset",
+    "ielts_lesson_11_vocabulary_collocations"
+   ]
+  },
+  "tapestry": {
+   "w": "tapestry",
+   "pos": "n",
+   "def": "a cloth with a picture sewn into it.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii",
+    "short_history_the_battle_of_hastings",
+    "techniques_the_lumber_room"
+   ]
+  },
+  "slay": {
+   "w": "slay",
+   "pos": "v",
+   "def": "to kill (old, literary).",
+   "ex": "",
+   "lessons": [
+    "odyssey_harold_ii"
+   ]
+  },
+  "collect": {
+   "w": "collect",
+   "pos": "v",
+   "def": "(collect) to gather money owed.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut"
+   ]
+  },
+  "riot": {
+   "w": "riot",
+   "pos": "v",
+   "def": "to behave violently in a public protest.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut"
+   ]
+  },
+  "punish": {
+   "w": "punish",
+   "pos": "v",
+   "def": "to make someone suffer for a crime.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut",
+    "short_history_mutiny_on_the_bounty",
+    "behind_the_screen_dracula_a2b1",
+    "behind_the_screen_the_imitation_game_a2b1",
+    "short_history_the_boston_tea_party_a2b1"
+   ]
+  },
+  "invite": {
+   "w": "invite",
+   "pos": "v",
+   "def": "to ask someone to come.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut",
+    "odyssey_james_ii",
+    "techniques_the_dolls_house_a2b1",
+    "rp_26_a_wedding_invitation_a2b1",
+    "sf_a1_14_the_phone_call",
+    "a1p_44_making_invitations",
+    "ml_20_the_group_admin",
+    "qf_falsefriend_italian_parenti",
+    "talk_adult_friendships_a2b1"
+   ]
+  },
+  "convulsion": {
+   "w": "convulsion",
+   "pos": "n",
+   "def": "a sudden, violent shaking of the body.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut"
+   ]
+  },
+  "toast": {
+   "w": "toast",
+   "pos": "v",
+   "def": "to raise a drink in honour of someone.",
+   "ex": "",
+   "lessons": [
+    "odyssey_harthacnut",
+    "sf_a1_15_the_visit"
+   ]
+  },
+  "exchequer": {
+   "w": "exchequer",
+   "pos": "n",
+   "def": "the government department dealing with money.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_i"
+   ]
+  },
+  "tally": {
+   "w": "tally",
+   "pos": "n",
+   "def": "a stick marked to record a payment.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_i"
+   ]
+  },
+  "capsize": {
+   "w": "capsize",
+   "pos": "v",
+   "def": "to turn over in the water.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_i",
+    "techniques_to_build_a_fire",
+    "short_history_shackleton"
+   ]
+  },
+  "drunk": {
+   "w": "drunk",
+   "pos": "adj",
+   "def": "affected by too much alcohol.",
+   "ex": "The crew were said to be drunk.",
+   "lessons": [
+    "odyssey_henry_i"
+   ]
+  },
+  "survivor": {
+   "w": "survivor",
+   "pos": "n",
+   "def": "a person who stays alive after an accident.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_i",
+    "behind_the_screen_schindlers_list_a2b1",
+    "lesson_hms_erebus_mystery",
+    "short_history_hiroshima_a2b1",
+    "short_history_the_titanic_a2b1"
+   ]
+  },
+  "swear": {
+   "w": "swear",
+   "pos": "v",
+   "def": "to make a formal promise.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_i",
+    "rp_36_giving_a_statement",
+    "grammar_b2_24_passing_on_the_news"
+   ]
+  },
+  "grief": {
+   "w": "grief",
+   "pos": "n",
+   "def": "deep sadness.",
+   "ex": "His grief was legendary.",
+   "lessons": [
+    "odyssey_henry_i",
+    "short_history_queen_victoria",
+    "lf_06_the_house",
+    "ib_lesson_techniques_story_of_an_hour"
+   ]
+  },
+  "jury": {
+   "w": "jury",
+   "pos": "n",
+   "def": "a group who decide facts in a court.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_ii",
+    "behind_the_screen_12_angry_men_a2b1"
+   ]
+  },
+  "common law": {
+   "w": "common law",
+   "pos": "n",
+   "def": "law based on court decisions applied everywhere.",
+   "ex": "His reforms helped create English common law.",
+   "lessons": [
+    "odyssey_henry_ii"
+   ]
+  },
+  "turbulent": {
+   "w": "turbulent",
+   "pos": "adj",
+   "def": "causing trouble.",
+   "ex": "He supposedly called Becket a turbulent priest.",
+   "lessons": [
+    "odyssey_henry_ii",
+    "ois_09_plantagenets_and_magna_carta"
+   ]
+  },
+  "penance": {
+   "w": "penance",
+   "pos": "n",
+   "def": "an act to show you are sorry.",
+   "ex": "He wore an iron chain as penance.",
+   "lessons": [
+    "odyssey_henry_ii",
+    "odyssey_james_iv_scot",
+    "rs_y10_spr2_22_01"
+   ]
+  },
+  "restless": {
+   "w": "restless",
+   "pos": "adj",
+   "def": "unable to stay still.",
+   "ex": "Each success left him restless rather than content.",
+   "lessons": [
+    "odyssey_henry_ii",
+    "techniques_how_much_land",
+    "wp_22_the_restless_heart",
+    "grammar_b2_05_third_mixed_conditionals"
+   ]
+  },
+  "clergy": {
+   "w": "clergy",
+   "pos": "n",
+   "def": "(clergy) priests and church officials.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_ii",
+    "short_history_charlemagne"
+   ]
+  },
+  "flog": {
+   "w": "flog",
+   "pos": "v",
+   "def": "to beat with a whip.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_ii"
+   ]
+  },
+  "summon": {
+   "w": "summon",
+   "pos": "v",
+   "def": "to officially call people to come.",
+   "ex": "He could not summon help against a danger he could not name.",
+   "lessons": [
+    "odyssey_henry_iii",
+    "techniques_a_vendetta",
+    "techniques_the_signal_man"
+   ]
+  },
+  "provision": {
+   "w": "provision",
+   "pos": "n",
+   "def": "(provision) a condition in an agreement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iii",
+    "concorso_unit_overview"
+   ]
+  },
+  "burgess": {
+   "w": "burgess",
+   "pos": "n",
+   "def": "a citizen representative of a town.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iii"
+   ]
+  },
+  "defeat": {
+   "w": "defeat",
+   "pos": "v",
+   "def": "to win against.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iii",
+    "short_history_alexander_the_great_a2b1",
+    "short_history_cleopatra_a2b1"
+   ]
+  },
+  "devout": {
+   "w": "devout",
+   "pos": "adj",
+   "def": "deeply religious.",
+   "ex": "He was a deeply devout man who prayed daily, read the Bible closely, and came to see his last great building as an offering to God rather than a job.",
+   "lessons": [
+    "odyssey_henry_iii",
+    "odyssey_mary_i",
+    "short_history_michelangelo",
+    "rs_y9_aut2_14_01"
+   ]
+  },
+  "usurper": {
+   "w": "usurper",
+   "pos": "n",
+   "def": "someone who takes power illegally.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv"
+   ]
+  },
+  "legitimacy": {
+   "w": "legitimacy",
+   "pos": "n",
+   "def": "the right to rule.",
+   "ex": "He worried about his legitimacy.",
+   "lessons": [
+    "odyssey_henry_iv",
+    "short_history_mary_queen_of_scots",
+    "c2_pro_01_boardroom_rhetoric",
+    "sp_b2_42_strong_hedging",
+    "sp_prep_c1_72"
+   ]
+  },
+  "uprising": {
+   "w": "uprising",
+   "pos": "n",
+   "def": "a rebellion.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv",
+    "short_history_nelson_mandela",
+    "short_history_the_french_revolution",
+    "short_history_the_haitian_revolution",
+    "topic_dreams_b2c1"
+   ]
+  },
+  "ally": {
+   "w": "ally",
+   "pos": "n",
+   "def": "a supporter.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv",
+    "psy_03_follow_the_crowd_b2c1",
+    "short_history_bletchley_park",
+    "greenland_tariffs_c1",
+    "short_history_the_conquistadors_a2b1",
+    "discuss_b2_iran_us_europe_reacts"
+   ]
+  },
+  "skin disease": {
+   "w": "skin disease",
+   "pos": "n",
+   "def": "an illness of the skin.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv"
+   ]
+  },
+  "prophecy": {
+   "w": "prophecy",
+   "pos": "n",
+   "def": "a prediction.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv",
+    "odyssey_macbeth",
+    "short_history_the_aztecs",
+    "rs_y7_spr1_03_02",
+    "rs_y10_aut2_20_01"
+   ]
+  },
+  "uneasy": {
+   "w": "uneasy",
+   "pos": "adj",
+   "def": "worried, nervous.",
+   "ex": "He was an uneasy king.",
+   "lessons": [
+    "odyssey_henry_iv",
+    "boredom_is_a_superpower_lesson",
+    "wk_08_chairing_the_meeting",
+    "b2_19_awkward_situations"
+   ]
+  },
+  "crush": {
+   "w": "crush",
+   "pos": "v",
+   "def": "to defeat completely.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv",
+    "techniques_araby_a2b1",
+    "grammar_b2_09_negative_adverbials_inversion"
+   ]
+  },
+  "chamber": {
+   "w": "chamber",
+   "pos": "n",
+   "def": "a room.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_iv"
+   ]
+  },
+  "dysentery": {
+   "w": "dysentery",
+   "pos": "n",
+   "def": "a serious stomach illness.",
+   "ex": "Dysentery weakened his army.",
+   "lessons": [
+    "odyssey_henry_v",
+    "odyssey_john"
+   ]
+  },
+  "outnumbered": {
+   "w": "outnumbered",
+   "pos": "adj",
+   "def": "fewer than the enemy.",
+   "ex": "On one side stood a few hundred men. On the other stood an army many, many times their size. The defenders were badly outnumbered.",
+   "lessons": [
+    "odyssey_henry_v",
+    "short_history_the_alamo"
+   ]
+  },
+  "mud": {
+   "w": "mud",
+   "pos": "n",
+   "def": "soft wet earth.",
+   "ex": "Heavy mud trapped French knights.",
+   "lessons": [
+    "odyssey_henry_v"
+   ]
+  },
+  "archer": {
+   "w": "archer",
+   "pos": "n",
+   "def": "a person who shoots arrows.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_v",
+    "lesson-22-dates-historical"
+   ]
+  },
+  "prisoner": {
+   "w": "prisoner",
+   "pos": "n",
+   "def": "someone captured.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_v",
+    "behind_the_screen_ex_machina_a2b1",
+    "short_history_alcatraz_a2b1",
+    "short_history_the_romanovs_a2b1",
+    "short_history_vlad_the_impaler_a2b1"
+   ]
+  },
+  "inspiring": {
+   "w": "inspiring",
+   "pos": "adj",
+   "def": "making people want to act.",
+   "ex": "The speech is inspiring.",
+   "lessons": [
+    "odyssey_henry_v",
+    "bc_inspiring_women_b2c1"
+   ]
+  },
+  "infant": {
+   "w": "infant",
+   "pos": "n",
+   "def": "a baby.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_vi",
+    "odyssey_james_v_scot",
+    "rs_y10_spr1_21_03",
+    "rs_y8_spr1_09_04",
+    "rs_y11_sum1_29_02"
+   ]
+  },
+  "stupor": {
+   "w": "stupor",
+   "pos": "n",
+   "def": "a state of near-unconsciousness.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_vi"
+   ]
+  },
+  "found": {
+   "w": "found",
+   "pos": "v",
+   "def": "to start an institution.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_vi",
+    "odyssey_robert_ii"
+   ]
+  },
+  "tower": {
+   "w": "tower",
+   "pos": "n",
+   "def": "the royal fortress and prison.",
+   "ex": "He died in the Tower of London.",
+   "lessons": [
+    "odyssey_henry_vi",
+    "short_history_nikola_tesla_a2b1",
+    "short_history_the_great_wall_of_china_a2b1"
+   ]
+  },
+  "rose": {
+   "w": "rose",
+   "pos": "n",
+   "def": "a flower; here, a badge.",
+   "ex": "He gave her a red rose.\" / \"Roses smell very nice.",
+   "lessons": [
+    "odyssey_henry_vi",
+    "techniques_dr_heideggers_experiment_a2b1",
+    "techniques_the_nightingale_and_the_rose_a2b1"
+   ]
+  },
+  "pretender": {
+   "w": "pretender",
+   "pos": "n",
+   "def": "someone claiming a title falsely.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_vii"
+   ]
+  },
+  "treasury": {
+   "w": "treasury",
+   "pos": "n",
+   "def": "the place where money is kept.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_vii"
+   ]
+  },
+  "frugal": {
+   "w": "frugal",
+   "pos": "adj",
+   "def": "careful with money.",
+   "ex": "After the loss, they were forced into a brutally frugal existence.",
+   "lessons": [
+    "odyssey_henry_vii",
+    "techniques_the_gift_of_the_magi",
+    "techniques_the_necklace",
+    "gr_warmup_b2_hot_takes_money",
+    "talk_money_and_happiness_b2c1",
+    "grammar_c2_10_evaluative_language"
+   ]
+  },
+  "bond": {
+   "w": "bond",
+   "pos": "verb",
+   "def": "a written promise to pay if you break a rule.",
+   "ex": "Spending the first weeks at home helps a parent bond with the baby — to build a close, loving relationship.",
+   "lessons": [
+    "odyssey_henry_vii",
+    "story_b2_use_it_or_lose_it",
+    "topic_good_life_b2",
+    "b1_46_family_traditions",
+    "ielts_interactive_lesson"
+   ]
+  },
+  "annulment": {
+   "w": "annulment",
+   "pos": "n",
+   "def": "an official statement that a marriage was never valid.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii",
+    "rs_y11_spr1_27_01",
+    "ois_13_henry_viii",
+    "rs_y11_sum2_30_01"
+   ]
+  },
+  "male heir": {
+   "w": "male heir",
+   "pos": "n",
+   "def": "a son to inherit.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii"
+   ]
+  },
+  "break with": {
+   "w": "break with",
+   "pos": "v",
+   "def": "to end a relationship.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii"
+   ]
+  },
+  "supreme head": {
+   "w": "supreme head",
+   "pos": "n",
+   "def": "the highest leader.",
+   "ex": "He became Supreme Head of the Church.",
+   "lessons": [
+    "odyssey_henry_viii"
+   ]
+  },
+  "behead": {
+   "w": "behead",
+   "pos": "v",
+   "def": "to cut off the head.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii",
+    "odyssey_james_ii_scot",
+    "odyssey_mary_qos"
+   ]
+  },
+  "navy": {
+   "w": "navy",
+   "pos": "n",
+   "def": "a country's warships.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii",
+    "short_history_pearl_harbor_a2b1"
+   ]
+  },
+  "tyrannical": {
+   "w": "tyrannical",
+   "pos": "adj",
+   "def": "cruel and unfair.",
+   "ex": "His later rule became tyrannical.",
+   "lessons": [
+    "odyssey_henry_viii",
+    "odyssey_richard_ii"
+   ]
+  },
+  "rhyme": {
+   "w": "rhyme",
+   "pos": "n",
+   "def": "a short poem with matching sounds.",
+   "ex": "",
+   "lessons": [
+    "odyssey_henry_viii",
+    "limerick_laboratory",
+    "qf_pronunciation_would_wood",
+    "lesson-06-simple-number-systems"
+   ]
+  },
+  "law code": {
+   "w": "law code",
+   "pos": "n",
+   "def": "a collection of laws.",
+   "ex": "",
+   "lessons": [
+    "odyssey_hywel_dda"
+   ]
+  },
+  "assembly": {
+   "w": "assembly",
+   "pos": "n",
+   "def": "a meeting of many people.",
+   "ex": "",
+   "lessons": [
+    "odyssey_hywel_dda",
+    "short_history_the_roman_republic"
+   ]
+  },
+  "divorce": {
+   "w": "divorce",
+   "pos": "n",
+   "def": "the legal end of a marriage.",
+   "ex": "",
+   "lessons": [
+    "odyssey_hywel_dda",
+    "rs_y11_spr1_27_01",
+    "behind_the_screen_her_a2b1",
+    "rs_y9_spr2_16_03"
+   ]
+  },
+  "upstart": {
+   "w": "upstart",
+   "pos": "n",
+   "def": "a newcomer who rises fast.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_dynasties"
+   ]
+  },
+  "high king": {
+   "w": "high king",
+   "pos": "n",
+   "def": "the most powerful king in Ireland.",
+   "ex": "He became High King of Ireland.",
+   "lessons": [
+    "odyssey_ire_dynasties"
+   ]
+  },
+  "alliance": {
+   "w": "alliance",
+   "pos": "n",
+   "def": "an agreement to work together.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_dynasties",
+    "odyssey_james_iv_scot",
+    "short_history_angkor",
+    "short_history_easter_island",
+    "short_history_the_conquistadors",
+    "short_history_the_terracotta_army",
+    "short_history_the_tudors",
+    "short_history_cleopatra_a2b1"
+   ]
+  },
+  "tent": {
+   "w": "tent",
+   "pos": "n",
+   "def": "a shelter made of cloth.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_dynasties",
+    "techniques_the_garden_party_a2b1",
+    "short_history_genghis_khan_a2b1",
+    "short_history_the_gold_rush_a2b1"
+   ]
+  },
+  "surname": {
+   "w": "surname",
+   "pos": "n",
+   "def": "a family name.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_dynasties"
+   ]
+  },
+  "emperor": {
+   "w": "emperor",
+   "pos": "n",
+   "def": "a ruler of many lands.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_dynasties",
+    "short_history_the_forbidden_city",
+    "short_history_the_terracotta_army",
+    "behind_the_screen_gladiator_a2b1",
+    "behind_the_screen_the_last_emperor_a2b1",
+    "ois_03_roman_britain",
+    "short_history_emperor_nero_a2b1",
+    "short_history_the_great_wall_of_china_a2b1",
+    "short_history_the_taj_mahal_a2b1",
+    "short_history_hadrians_wall_a2b1",
+    "short_history_the_forbidden_city_a2b1"
+   ]
+  },
+  "be exiled": {
+   "w": "be exiled",
+   "pos": "v",
+   "def": "to be forced to leave your country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_end"
+   ]
+  },
+  "mercenary": {
+   "w": "mercenary",
+   "pos": "n",
+   "def": "a soldier paid to fight.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_end"
+   ]
+  },
+  "lordship": {
+   "w": "lordship",
+   "pos": "n",
+   "def": "land ruled by a lord.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_end"
+   ]
+  },
+  "province": {
+   "w": "province",
+   "pos": "n",
+   "def": "a large region of a country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht",
+    "odyssey_ire_seven",
+    "world_na_background"
+   ]
+  },
+  "rock": {
+   "w": "rock",
+   "pos": "n",
+   "def": "a large hill of stone.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht"
+   ]
+  },
+  "bishop-king": {
+   "w": "bishop-king",
+   "pos": "n",
+   "def": "a king who was also a churchman.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht"
+   ]
+  },
+  "rotate": {
+   "w": "rotate",
+   "pos": "v",
+   "def": "to move in turn.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht",
+    "bc_appliance_of_science_c1"
+   ]
+  },
+  "decline": {
+   "w": "decline",
+   "pos": "v",
+   "def": "to become weaker.",
+   "ex": "Tormented by the injustice, he declined rapidly and wasted away.",
+   "lessons": [
+    "odyssey_ire_eoganacht",
+    "techniques_a_piece_of_string",
+    "techniques_the_yellow_wallpaper",
+    "rs_y10_spr2_22_05",
+    "rs_y7_aut1_01_05",
+    "bc_tourism_alternative_holidays_b2c1",
+    "rp_26_a_wedding_invitation",
+    "epicurean_19_the_decline",
+    "the-art-of-growing-older",
+    "b2_97_retail_banking_loan_decline",
+    "a1p_29_making_suggestions",
+    "a1p_44_making_invitations",
+    "IELTS-Reading-Practice-Test-1",
+    "ielts_task_1_complete_interactive",
+    "lf_39_the_subscription_trap",
+    "grammar_c2_01_register_style_shifting"
+   ]
+  },
+  "chapel": {
+   "w": "chapel",
+   "pos": "n",
+   "def": "a small church.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht"
+   ]
+  },
+  "glossary": {
+   "w": "glossary",
+   "pos": "n",
+   "def": "a list of words with meanings.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_eoganacht",
+    "acad_b1_03_reading_textbooks"
+   ]
+  },
+  "kingdom": {
+   "w": "kingdom",
+   "pos": "n",
+   "def": "a land ruled by a king.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_kingship",
+    "odyssey_rhodri_mawr"
+   ]
+  },
+  "overking": {
+   "w": "overking",
+   "pos": "n",
+   "def": "a king above other kings.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_kingship"
+   ]
+  },
+  "sacred": {
+   "w": "sacred",
+   "pos": "adj",
+   "def": "holy, connected with the gods.",
+   "ex": "For centuries, the city of Jerusalem was sacred to Jews, Christians and Muslims alike — a place each faith regarded as blessed and set apart from all others.",
+   "lessons": [
+    "odyssey_ire_kingship",
+    "short_history_stonehenge",
+    "short_history_the_crusades",
+    "short_history_the_olympic_games",
+    "short_history_the_pyramids",
+    "rs_y10_spr1_21_04",
+    "rs_y7_aut1_01_04",
+    "su_a2_82_religious_art_and_history",
+    "qf_pronunciation_ed_adjectives",
+    "rs_y11_sum2_30_02"
+   ]
+  },
+  "elect": {
+   "w": "elect",
+   "pos": "v",
+   "def": "to choose by agreement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_kingship",
+    "qf_falsefriend_french_actual"
+   ]
+  },
+  "blemish": {
+   "w": "blemish",
+   "pos": "n",
+   "def": "a mark or defect.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_kingship"
+   ]
+  },
+  "synod": {
+   "w": "synod",
+   "pos": "n",
+   "def": "a church council.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_seven"
+   ]
+  },
+  "fifth": {
+   "w": "fifth",
+   "pos": "n",
+   "def": "one of five parts.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_seven"
+   ]
+  },
+  "descendant": {
+   "w": "descendant",
+   "pos": "n",
+   "def": "a person born later in a family line.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_ui_neill",
+    "odyssey_lulach",
+    "short_history_easter_island",
+    "rs_y10_sum2_24_02",
+    "rs_y8_aut1_07_01",
+    "rs_y8_aut1_07_06"
+   ]
+  },
+  "semi-legendary": {
+   "w": "semi-legendary",
+   "pos": "adj",
+   "def": "partly historical, partly legend.",
+   "ex": "Niall is a semi-legendary figure.",
+   "lessons": [
+    "odyssey_ire_ui_neill"
+   ]
+  },
+  "alternate": {
+   "w": "alternate",
+   "pos": "v",
+   "def": "to take turns.",
+   "ex": "",
+   "lessons": [
+    "odyssey_ire_ui_neill",
+    "aviation_eapt_11"
+   ]
+  },
+  "gunpowder": {
+   "w": "gunpowder",
+   "pos": "n",
+   "def": "an explosive powder.",
+   "ex": "They packed the wooden kegs tight with gunpowder, the same black powder that loaded the cannons of every army in Europe, knowing a single spark could level a building.",
+   "lessons": [
+    "odyssey_james_i_england",
+    "short_history_great_fire_of_london",
+    "short_history_the_gunpowder_plot",
+    "ois_15_stuarts_and_civil_war"
+   ]
+  },
+  "cellar": {
+   "w": "cellar",
+   "pos": "n",
+   "def": "a room under a building.",
+   "ex": "The wine was in the cellar.\" / \"They went down into the cellar.",
+   "lessons": [
+    "odyssey_james_i_england",
+    "techniques_the_cask_of_amontillado_a2b1",
+    "ois_15_stuarts_and_civil_war",
+    "short_history_the_gunpowder_plot_a2b1"
+   ]
+  },
+  "conspirator": {
+   "w": "conspirator",
+   "pos": "n",
+   "def": "someone who plots secretly.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_england",
+    "short_history_the_gunpowder_plot"
+   ]
+  },
+  "torture": {
+   "w": "torture",
+   "pos": "v",
+   "def": "to cause great pain to get information.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_england",
+    "short_history_the_gunpowder_plot",
+    "rs_y9_spr1_15_01",
+    "christmas_conversations_compass_teens"
+   ]
+  },
+  "translation": {
+   "w": "translation",
+   "pos": "n",
+   "def": "a version in another language.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_england",
+    "rs_y7_spr1_03_03"
+   ]
+  },
+  "divine right": {
+   "w": "divine right",
+   "pos": "n",
+   "def": "the idea that kings get power from God.",
+   "ex": "James believed in the divine right of kings.",
+   "lessons": [
+    "odyssey_james_i_england"
+   ]
+  },
+  "bonfire": {
+   "w": "bonfire",
+   "pos": "n",
+   "def": "a large outdoor fire.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_england",
+    "short_history_the_gunpowder_plot_a2b1"
+   ]
+  },
+  "scholar": {
+   "w": "scholar",
+   "pos": "n",
+   "def": "a learned person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_england",
+    "odyssey_jane_grey",
+    "short_history_charlemagne",
+    "short_history_the_library_of_alexandria",
+    "techniques_kong_yiji",
+    "techniques_kong_yiji_a2b1",
+    "short_history_the_library_of_alexandria_a2b1",
+    "b2_92_language_of_historical_debate",
+    "memory_arts_p1_08"
+   ]
+  },
+  "poem": {
+   "w": "poem",
+   "pos": "n",
+   "def": "a piece of writing in verse.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_scot",
+    "behind_the_screen_troy_a2b1",
+    "short_history_homers_epics_a2b1"
+   ]
+  },
+  "assassin": {
+   "w": "assassin",
+   "pos": "n",
+   "def": "a person who kills an important person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_scot"
+   ]
+  },
+  "drain": {
+   "w": "drain",
+   "pos": "n",
+   "def": "a pipe or channel for waste water.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_scot",
+    "techniques_the_feather_pillow",
+    "teacher_conversations_01_why_i_quit_ana"
+   ]
+  },
+  "bolt": {
+   "w": "bolt",
+   "pos": "n",
+   "def": "a bar to lock a door.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_i_scot",
+    "techniques_the_open_window"
+   ]
+  },
+  "catholic": {
+   "w": "catholic",
+   "pos": "adj",
+   "def": "belonging to the Roman Catholic Church.",
+   "ex": "James was openly Catholic.",
+   "lessons": [
+    "odyssey_james_ii"
+   ]
+  },
+  "declaration": {
+   "w": "declaration",
+   "pos": "n",
+   "def": "an official statement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii",
+    "odyssey_robert_i",
+    "short_history_the_french_revolution",
+    "rs_y11_aut1_25_02",
+    "rs_y11_aut1_25_06",
+    "rs_y9_sum2_18_03"
+   ]
+  },
+  "toleration": {
+   "w": "toleration",
+   "pos": "n",
+   "def": "allowing different beliefs.",
+   "ex": "He offered religious toleration.",
+   "lessons": [
+    "odyssey_james_ii"
+   ]
+  },
+  "great seal": {
+   "w": "great seal",
+   "pos": "n",
+   "def": "the seal used on official documents.",
+   "ex": "He threw the Great Seal into the Thames.",
+   "lessons": [
+    "odyssey_james_ii"
+   ]
+  },
+  "jacobite": {
+   "w": "jacobite",
+   "pos": "n",
+   "def": "supporters of James and his heirs.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii"
+   ]
+  },
+  "glorious": {
+   "w": "glorious",
+   "pos": "adj",
+   "def": "wonderful, worthy of praise.",
+   "ex": "Supporters called it the Glorious Revolution.",
+   "lessons": [
+    "odyssey_james_ii"
+   ]
+  },
+  "birthmark": {
+   "w": "birthmark",
+   "pos": "n",
+   "def": "a coloured mark on the skin from birth.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii_scot"
+   ]
+  },
+  "banquet": {
+   "w": "banquet",
+   "pos": "n",
+   "def": "a big formal meal.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii_scot",
+    "memory_arts_p1_07",
+    "lesson-04-memory-palace"
+   ]
+  },
+  "safe-conduct": {
+   "w": "safe-conduct",
+   "pos": "n",
+   "def": "a promise of safe travel.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii_scot"
+   ]
+  },
+  "artillery": {
+   "w": "artillery",
+   "pos": "n",
+   "def": "large guns, cannons.",
+   "ex": "The Ottoman army had assembled artillery on a scale no earlier attacker had ever possessed; the largest piece was so heavy that sixty oxen were needed to drag it into firing position.",
+   "lessons": [
+    "odyssey_james_ii_scot",
+    "short_history_the_alamo",
+    "short_history_the_battle_of_waterloo",
+    "short_history_the_fall_of_constantinople"
+   ]
+  },
+  "explode": {
+   "w": "explode",
+   "pos": "v",
+   "def": "to burst violently.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_ii_scot",
+    "short_history_the_gunpowder_plot_a2b1"
+   ]
+  },
+  "overmighty": {
+   "w": "overmighty",
+   "pos": "adj",
+   "def": "too powerful for safety.",
+   "ex": "The Douglases were overmighty.",
+   "lessons": [
+    "odyssey_james_ii_scot"
+   ]
+  },
+  "dowry": {
+   "w": "dowry",
+   "pos": "n",
+   "def": "property a bride's family gives at marriage.",
+   "ex": "She had no dowry, no expectations, and so married a humble clerk.",
+   "lessons": [
+    "odyssey_james_iii_scot",
+    "techniques_the_necklace"
+   ]
+  },
+  "hang": {
+   "w": "hang",
+   "pos": "v",
+   "def": "to kill with a rope around the neck.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_iii_scot",
+    "short_history_the_salem_witch_trials_a2b1",
+    "discuss_b2c1_animal_trials"
+   ]
+  },
+  "rebellion": {
+   "w": "rebellion",
+   "pos": "noun",
+   "def": "an armed fight against a ruler.",
+   "ex": "A teenager's rebellion can be loud, like shouting, or quiet, like refusing to say what you are told to say.",
+   "lessons": [
+    "odyssey_james_iii_scot",
+    "odyssey_jane_grey",
+    "persepolis_worlds",
+    "short_history_boudica",
+    "short_history_magna_carta",
+    "short_history_the_boston_tea_party",
+    "short_history_the_irish_potato_famine",
+    "ois_02_the_romans_come",
+    "short_history_emperor_nero_a2b1",
+    "wp_31_the_renaissance_mind",
+    "curious_conversations_nietzsche_metamorphoses",
+    "lesson_48_art_literature_creativity"
+   ]
+  },
+  "renaissance": {
+   "w": "renaissance",
+   "pos": "adj",
+   "def": "relating to the revival of art and learning.",
+   "ex": "He had Renaissance tastes.",
+   "lessons": [
+    "odyssey_james_iii_scot",
+    "short_history_the_medici",
+    "memory-books"
+   ]
+  },
+  "warship": {
+   "w": "warship",
+   "pos": "n",
+   "def": "a ship built for war.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_iv_scot",
+    "short_history_pearl_harbor_a2b1"
+   ]
+  },
+  "slaughter": {
+   "w": "slaughter",
+   "pos": "n",
+   "def": "killing of many people.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_iv_scot"
+   ]
+  },
+  "lament": {
+   "w": "lament",
+   "pos": "n",
+   "def": "a song of sorrow.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_iv_scot"
+   ]
+  },
+  "curious": {
+   "w": "curious",
+   "pos": "adj",
+   "def": "wanting to know things.",
+   "ex": "He was curious about science.",
+   "lessons": [
+    "odyssey_james_iv_scot",
+    "explore_all_first_lesson_intro",
+    "short_history_leonardo_da_vinci_a2b1",
+    "lesson_21_reported_questions_commands"
+   ]
+  },
+  "stepfather": {
+   "w": "stepfather",
+   "pos": "noun",
+   "def": "the husband of your mother, not your father.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_v_scot",
+    "techniques_the_adventure_of_the_speckled_band_a2b1",
+    "ts_erikson_b2"
+   ]
+  },
+  "escape": {
+   "w": "escape",
+   "pos": "verb",
+   "def": "to get free.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_v_scot",
+    "odyssey_stephen",
+    "short_history_pompeii_a2b1",
+    "techniques_the_most_dangerous_game_a2b1",
+    "techniques_the_ransom_of_red_chief_a2b1",
+    "techniques_the_three_strangers_a2b1",
+    "techniques_the_two_labyrinths_a2b1",
+    "behind_the_screen_escape_from_alcatraz_a2b1",
+    "short_history_alcatraz_a2b1",
+    "short_history_houdini_a2b1",
+    "short_history_pablo_escobar_a2b1",
+    "short_history_the_battle_of_waterloo_a2b1",
+    "behind_the_screen_the_truman_show_a2b1"
+   ]
+  },
+  "disguise": {
+   "w": "disguise",
+   "pos": "n",
+   "def": "clothes to hide who you are.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_v_scot",
+    "short_history_the_boston_tea_party",
+    "c2_pro_23_merger_acquisition",
+    "short_history_the_boston_tea_party_a2b1"
+   ]
+  },
+  "lass": {
+   "w": "lass",
+   "pos": "n",
+   "def": "(Scots) a girl.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_v_scot"
+   ]
+  },
+  "tutor": {
+   "w": "tutor",
+   "pos": "n",
+   "def": "a private teacher.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot",
+    "grammar_b2_18_quantifiers_linking_conventions"
+   ]
+  },
+  "kidnap": {
+   "w": "kidnap",
+   "pos": "v",
+   "def": "to take someone by force.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot",
+    "techniques_the_ransom_of_red_chief",
+    "techniques_the_ransom_of_red_chief_a2b1"
+   ]
+  },
+  "treatise": {
+   "w": "treatise",
+   "pos": "n",
+   "def": "a formal written work on a subject.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot",
+    "memory-books",
+    "wp_35_the_blank_slate",
+    "memory_arts_part1"
+   ]
+  },
+  "witch hunt": {
+   "w": "witch hunt",
+   "pos": "n",
+   "def": "searching for and punishing \"witches\".",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot"
+   ]
+  },
+  "union": {
+   "w": "union",
+   "pos": "n",
+   "def": "joining together.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot",
+    "epicurean_27_gassendi_ethics"
+   ]
+  },
+  "absolute": {
+   "w": "absolute",
+   "pos": "adj",
+   "def": "complete, unlimited.",
+   "ex": "He believed in absolute royal rights.",
+   "lessons": [
+    "odyssey_james_vi_scot",
+    "rs_y7_sum2_06_01"
+   ]
+  },
+  "pacific": {
+   "w": "pacific",
+   "pos": "adj",
+   "def": "peace-loving.",
+   "ex": "He was pacific by nature.",
+   "lessons": [
+    "odyssey_james_vi_scot"
+   ]
+  },
+  "pen": {
+   "w": "pen",
+   "pos": "n",
+   "def": "writing, as a tool of power.",
+   "ex": "",
+   "lessons": [
+    "odyssey_james_vi_scot"
+   ]
+  },
+  "proclaim": {
+   "w": "proclaim",
+   "pos": "v",
+   "def": "to announce officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey",
+    "odyssey_owain_glyndwr"
+   ]
+  },
+  "desert": {
+   "w": "desert",
+   "pos": "v",
+   "def": "to leave.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey",
+    "techniques_the_two_labyrinths_a2b1",
+    "behind_the_screen_oppenheimer_a2b1",
+    "short_history_petra_a2b1",
+    "short_history_the_pyramids_a2b1",
+    "behind_the_screen_dune_a2b1"
+   ]
+  },
+  "traitor": {
+   "w": "traitor",
+   "pos": "n",
+   "def": "someone who betrays their country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey",
+    "short_history_anne_boleyn_a2b1"
+   ]
+  },
+  "spare": {
+   "w": "spare",
+   "pos": "v",
+   "def": "to not kill.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey",
+    "techniques_mateo_falcone",
+    "techniques_the_spiders_thread",
+    "ml_15_the_big_favour",
+    "curious_conversations_10_polite_lies",
+    "grammar_b2_16_complex_gerund_infinitive"
+   ]
+  },
+  "pawn": {
+   "w": "pawn",
+   "pos": "n",
+   "def": "someone used by others.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey"
+   ]
+  },
+  "condemn": {
+   "w": "condemn",
+   "pos": "v",
+   "def": "to sentence to punishment.",
+   "ex": "",
+   "lessons": [
+    "odyssey_jane_grey",
+    "rs_y11_spr1_27_02",
+    "epicurean_21_hidden_currents"
+   ]
+  },
+  "baron": {
+   "w": "baron",
+   "pos": "n",
+   "def": "a powerful noble.",
+   "ex": "",
+   "lessons": [
+    "odyssey_john"
+   ]
+  },
+  "excommunicated": {
+   "w": "excommunicated",
+   "pos": "adj",
+   "def": "excluded from the Church.",
+   "ex": "He was excommunicated by the Pope.",
+   "lessons": [
+    "odyssey_john",
+    "odyssey_robert_i"
+   ]
+  },
+  "interdict": {
+   "w": "interdict",
+   "pos": "n",
+   "def": "a ban on religious services.",
+   "ex": "",
+   "lessons": [
+    "odyssey_john"
+   ]
+  },
+  "lawful": {
+   "w": "lawful",
+   "pos": "adj",
+   "def": "allowed by law.",
+   "ex": "No free man was to be punished except by lawful judgement.",
+   "lessons": [
+    "odyssey_john",
+    "rs_y7_sum2_06_04"
+   ]
+  },
+  "clause": {
+   "w": "clause",
+   "pos": "n",
+   "def": "a section of a document.",
+   "ex": "",
+   "lessons": [
+    "odyssey_john",
+    "odyssey_llywelyn_ap_iorwerth",
+    "short_history_magna_carta",
+    "c2_pro_21_contract_negotiation",
+    "lesson_34_participle_clauses",
+    "qf_collocation_say_tell"
+   ]
+  },
+  "homage": {
+   "w": "homage",
+   "pos": "n",
+   "def": "a public promise of loyalty to a lord.",
+   "ex": "The villagers filed in and took the empty benches at the back with their hats on their knees, looking round the schoolroom as though seeing it for the last time — which they were. They came in homage.",
+   "lessons": [
+    "odyssey_llywelyn_ap_gruffydd",
+    "techniques_the_last_class"
+   ]
+  },
+  "nunnery": {
+   "w": "nunnery",
+   "pos": "n",
+   "def": "a community of nuns.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_gruffydd"
+   ]
+  },
+  "memorial": {
+   "w": "memorial",
+   "pos": "n",
+   "def": "something that helps people remember.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_gruffydd",
+    "cpe_read_c2_05_dark_tourism"
+   ]
+  },
+  "son-in-law": {
+   "w": "son-in-law",
+   "pos": "n",
+   "def": "your daughter's husband.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_iorwerth"
+   ]
+  },
+  "affair": {
+   "w": "affair",
+   "pos": "n",
+   "def": "a secret romantic relationship.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_iorwerth",
+    "behind_the_screen_the_crucible_a2b1"
+   ]
+  },
+  "forgive": {
+   "w": "forgive",
+   "pos": "v",
+   "def": "to stop being angry about a wrong.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_iorwerth",
+    "odyssey_richard_i",
+    "techniques_the_selfish_giant",
+    "tib_prisoners_b2",
+    "behind_the_screen_the_imitation_game_a2b1",
+    "behind_the_screen_the_tree_of_life_a2b1",
+    "short_history_nelson_mandela_a2b1"
+   ]
+  },
+  "hound": {
+   "w": "hound",
+   "pos": "n",
+   "def": "a hunting dog.",
+   "ex": "",
+   "lessons": [
+    "odyssey_llywelyn_ap_iorwerth"
+   ]
+  },
+  "dominant": {
+   "w": "dominant",
+   "pos": "adj",
+   "def": "most powerful.",
+   "ex": "He was dominant in Wales.",
+   "lessons": [
+    "odyssey_llywelyn_ap_iorwerth",
+    "epicurean_19_the_decline"
+   ]
+  },
+  "stepson": {
+   "w": "stepson",
+   "pos": "n",
+   "def": "the son of your wife or husband from an earlier relationship.",
+   "ex": "",
+   "lessons": [
+    "odyssey_lulach"
+   ]
+  },
+  "brief": {
+   "w": "brief",
+   "pos": "adj",
+   "def": "short in time.",
+   "ex": "His reign was very brief.",
+   "lessons": [
+    "odyssey_lulach",
+    "wk_12_the_changing_brief"
+   ]
+  },
+  "nickname": {
+   "w": "nickname",
+   "pos": "n",
+   "def": "an informal name.",
+   "ex": "",
+   "lessons": [
+    "odyssey_lulach"
+   ]
+  },
+  "install": {
+   "w": "install",
+   "pos": "v",
+   "def": "to put someone in an official position.",
+   "ex": "",
+   "lessons": [
+    "odyssey_lulach"
+   ]
+  },
+  "scarce": {
+   "w": "scarce",
+   "pos": "adj",
+   "def": "not enough.",
+   "ex": "Evidence is scarce.",
+   "lessons": [
+    "odyssey_lulach"
+   ]
+  },
+  "alms": {
+   "w": "alms",
+   "pos": "n",
+   "def": "money or food given to the poor.",
+   "ex": "He gave alms to the poor.",
+   "lessons": [
+    "odyssey_macbeth",
+    "rs_y11_aut2_26_05"
+   ]
+  },
+  "invasion": {
+   "w": "invasion",
+   "pos": "n",
+   "def": "an army entering another country.",
+   "ex": "More than 150,000 soldiers crossed the sea on the first day of the invasion.",
+   "lessons": [
+    "odyssey_macbeth",
+    "tib_eisenhower_b2",
+    "lesson_world_war_2_interactive",
+    "ois_04_the_saxon_shore",
+    "short_history_the_spanish_armada_a2b1"
+   ]
+  },
+  "tyrant": {
+   "w": "tyrant",
+   "pos": "n",
+   "def": "a cruel ruler.",
+   "ex": "",
+   "lessons": [
+    "odyssey_macbeth",
+    "short_history_the_french_revolution",
+    "short_history_vlad_the_impaler"
+   ]
+  },
+  "avenge": {
+   "w": "avenge",
+   "pos": "v",
+   "def": "to punish someone for a wrong done to you.",
+   "ex": "He vowed to avenge the insult.\" / \"A wrong is unredressed when the avenger is caught.",
+   "lessons": [
+    "odyssey_malcolm_iii",
+    "techniques_a_vendetta",
+    "techniques_the_cask_of_amontillado"
+   ]
+  },
+  "refugee": {
+   "w": "refugee",
+   "pos": "n",
+   "def": "a person who has fled danger.",
+   "ex": "",
+   "lessons": [
+    "odyssey_malcolm_iii",
+    "short_history_the_manhattan_project",
+    "rs_y11_spr2_28_03",
+    "rs_y9_spr1_15_05",
+    "discuss_b2_who_belongs_here",
+    "rs_y11_spr2_28_06"
+   ]
+  },
+  "in her own right": {
+   "w": "in her own right",
+   "pos": "phrase",
+   "def": "by her own authority, not as a king's wife.",
+   "ex": "She ruled in her own right.",
+   "lessons": [
+    "odyssey_mary_i"
+   ]
+  },
+  "heresy": {
+   "w": "heresy",
+   "pos": "n",
+   "def": "beliefs against official religion.",
+   "ex": "The preacher's enemies whispered that his strange teachings strayed from everything the Church held true, and soon he was dragged before the bishops to answer a charge of heresy.",
+   "lessons": [
+    "odyssey_mary_i",
+    "short_history_joan_of_arc",
+    "short_history_the_printing_press",
+    "short_history_the_renaissance",
+    "rs_y10_aut1_19_02"
+   ]
+  },
+  "burn at the stake": {
+   "w": "burn at the stake",
+   "pos": "v",
+   "def": "to be killed by fire tied to a post.",
+   "ex": "",
+   "lessons": [
+    "odyssey_mary_i"
+   ]
+  },
+  "phantom pregnancy": {
+   "w": "phantom pregnancy",
+   "pos": "n",
+   "def": "a false pregnancy.",
+   "ex": "",
+   "lessons": [
+    "odyssey_mary_i"
+   ]
+  },
+  "abdication": {
+   "w": "abdication",
+   "pos": "n",
+   "def": "giving up the throne.",
+   "ex": "",
+   "lessons": [
+    "odyssey_mary_qos"
+   ]
+  },
+  "secretary": {
+   "w": "secretary",
+   "pos": "n",
+   "def": "a person who handles letters and business.",
+   "ex": "",
+   "lessons": [
+    "odyssey_mary_qos"
+   ]
+  },
+  "explosion": {
+   "w": "explosion",
+   "pos": "n",
+   "def": "a sudden violent burst.",
+   "ex": "",
+   "lessons": [
+    "odyssey_mary_qos",
+    "ts_apollo13_b2",
+    "behind_the_screen_apollo_13_a2b1",
+    "short_history_hiroshima_a2b1",
+    "short_history_chernobyl_a2b1"
+   ]
+  },
+  "dispute": {
+   "w": "dispute",
+   "pos": "n",
+   "def": "a disagreement.",
+   "ex": "",
+   "lessons": [
+    "odyssey_owain_glyndwr",
+    "c2_pro_19_conflict_transformation",
+    "rp_07_at_the_bank",
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "rising": {
+   "w": "rising",
+   "pos": "n",
+   "def": "a rebellion.",
+   "ex": "",
+   "lessons": [
+    "odyssey_owain_glyndwr"
+   ]
+  },
+  "guerrilla": {
+   "w": "guerrilla",
+   "pos": "adj",
+   "def": "fighting with small surprise attacks.",
+   "ex": "He fought a guerrilla war.",
+   "lessons": [
+    "odyssey_owain_glyndwr",
+    "odyssey_robert_i"
+   ]
+  },
+  "pardon": {
+   "w": "pardon",
+   "pos": "n/v",
+   "def": "official forgiveness.",
+   "ex": "",
+   "lessons": [
+    "odyssey_owain_glyndwr",
+    "odyssey_richard_ii",
+    "short_history_blackbeard",
+    "short_history_ching_shih",
+    "techniques_a_retrieved_reformation",
+    "techniques_god_sees_the_truth",
+    "short_history_blackbeard_a2b1",
+    "sp_b1_24_clarification"
+   ]
+  },
+  "legend": {
+   "w": "legend",
+   "pos": "n",
+   "def": "a story about a famous person, partly true.",
+   "ex": "",
+   "lessons": [
+    "odyssey_owain_glyndwr",
+    "odyssey_sweyn",
+    "short_history_alexander_the_great",
+    "short_history_db_cooper",
+    "short_history_napoleon",
+    "short_history_ned_kelly",
+    "short_history_the_bermuda_triangle",
+    "short_history_king_arthur_a2b1",
+    "short_history_the_knights_templar_a2b1",
+    "short_history_the_bermuda_triangle_a2b1"
+   ]
+  },
+  "raider": {
+   "w": "raider",
+   "pos": "n",
+   "def": "a person who attacks quickly and steals.",
+   "ex": "",
+   "lessons": [
+    "odyssey_rhodri_mawr"
+   ]
+  },
+  "drive off": {
+   "w": "drive off",
+   "pos": "phr v",
+   "def": "to force to leave.",
+   "ex": "",
+   "lessons": [
+    "odyssey_rhodri_mawr"
+   ]
+  },
+  "ancestor": {
+   "w": "ancestor",
+   "pos": "n",
+   "def": "a person in your family long ago.",
+   "ex": "",
+   "lessons": [
+    "odyssey_rhodri_mawr",
+    "rs_y8_aut1_07_01",
+    "rs_y9_aut2_14_03",
+    "cpe_read_c2_06_cooking_human",
+    "acad_b1_17_academic_vocabulary"
+   ]
+  },
+  "mawr": {
+   "w": "mawr",
+   "pos": "adj",
+   "def": "(Welsh) great, big.",
+   "ex": "Mawr means \"great\" in Welsh.",
+   "lessons": [
+    "odyssey_rhodri_mawr"
+   ]
+  },
+  "crusade": {
+   "w": "crusade",
+   "pos": "n",
+   "def": "a medieval military expedition to the Holy Land.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_i",
+    "short_history_the_crusades",
+    "ois_09_plantagenets_and_magna_carta"
+   ]
+  },
+  "absent": {
+   "w": "absent",
+   "pos": "adj",
+   "def": "not present.",
+   "ex": "He was absent from England for most of his reign.",
+   "lessons": [
+    "odyssey_richard_i"
+   ]
+  },
+  "crossbow": {
+   "w": "crossbow",
+   "pos": "n",
+   "def": "a weapon that fires short arrows.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_i"
+   ]
+  },
+  "poll tax": {
+   "w": "poll tax",
+   "pos": "n",
+   "def": "a tax on every person.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_ii"
+   ]
+  },
+  "serfdom": {
+   "w": "serfdom",
+   "pos": "n",
+   "def": "a system where peasants were tied to a lord's land.",
+   "ex": "They demanded an end to serfdom.",
+   "lessons": [
+    "odyssey_richard_ii"
+   ]
+  },
+  "confiscate": {
+   "w": "confiscate",
+   "pos": "v",
+   "def": "to take property officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_ii",
+    "techniques_a_chameleon"
+   ]
+  },
+  "starve": {
+   "w": "starve",
+   "pos": "v",
+   "def": "to die from lack of food.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_ii",
+    "odyssey_robert_iii",
+    "short_history_the_irish_potato_famine_a2b1"
+   ]
+  },
+  "wilton diptych": {
+   "w": "wilton diptych",
+   "pos": "n",
+   "def": "a two-panelled painting.",
+   "ex": "The Wilton Diptych is a beautiful painting of him.",
+   "lessons": [
+    "odyssey_richard_ii"
+   ]
+  },
+  "villain": {
+   "w": "villain",
+   "pos": "n",
+   "def": "an evil character.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_iii",
+    "epicurean_20_epicurus_as_villain",
+    "lego_quest"
+   ]
+  },
+  "scoliosis": {
+   "w": "scoliosis",
+   "pos": "n",
+   "def": "a sideways curve of the spine.",
+   "ex": "His skeleton showed scoliosis.",
+   "lessons": [
+    "odyssey_richard_iii"
+   ]
+  },
+  "hunchback": {
+   "w": "hunchback",
+   "pos": "n",
+   "def": "a person with a hump on the back.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_iii"
+   ]
+  },
+  "charge": {
+   "w": "charge",
+   "pos": "n",
+   "def": "a fast attack.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_iii",
+    "su_a2_33_mistakes_and_misadventures",
+    "sb_03_handling_a_complaint_a2b1",
+    "discuss_b2c1_animal_trials"
+   ]
+  },
+  "car park": {
+   "w": "car park",
+   "pos": "n",
+   "def": "a place to park cars.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_iii"
+   ]
+  },
+  "dna": {
+   "w": "dna",
+   "pos": "n",
+   "def": "genetic material.",
+   "ex": "DNA tests helped confirm his identity.",
+   "lessons": [
+    "odyssey_richard_iii"
+   ]
+  },
+  "rebury": {
+   "w": "rebury",
+   "pos": "v",
+   "def": "to bury again.",
+   "ex": "",
+   "lessons": [
+    "odyssey_richard_iii"
+   ]
+  },
+  "casket": {
+   "w": "casket",
+   "pos": "n",
+   "def": "a small box for precious things.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_i"
+   ]
+  },
+  "steward": {
+   "w": "steward",
+   "pos": "n",
+   "def": "a royal official who runs the household.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_ii",
+    "rs_y11_spr1_27_04"
+   ]
+  },
+  "guardian": {
+   "w": "guardian",
+   "pos": "n",
+   "def": "a person who rules for a king.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_ii",
+    "rs_y10_sum1_23_04"
+   ]
+  },
+  "elderly": {
+   "w": "elderly",
+   "pos": "adj",
+   "def": "old.",
+   "ex": "He was elderly by medieval standards.",
+   "lessons": [
+    "odyssey_robert_ii",
+    "grammar_c1_09_advanced_articles_determiners"
+   ]
+  },
+  "lieutenant": {
+   "w": "lieutenant",
+   "pos": "n",
+   "def": "a person acting for a leader.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_ii",
+    "short_history_mutiny_on_the_bounty"
+   ]
+  },
+  "unlucky": {
+   "w": "unlucky",
+   "pos": "adj",
+   "def": "bringing bad luck.",
+   "ex": "The name John seemed unlucky.",
+   "lessons": [
+    "odyssey_robert_iii",
+    "rp_22_talking_about_sport_a2b1",
+    "b2_85_superstitions"
+   ]
+  },
+  "injury": {
+   "w": "injury",
+   "pos": "n",
+   "def": "physical harm.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_iii"
+   ]
+  },
+  "custody": {
+   "w": "custody",
+   "pos": "n",
+   "def": "being kept by authorities.",
+   "ex": "His son died in custody.",
+   "lessons": [
+    "odyssey_robert_iii"
+   ]
+  },
+  "wretched": {
+   "w": "wretched",
+   "pos": "adj",
+   "def": "very unhappy.",
+   "ex": "The last time they saw him he was a wretched sight: thin, black-faced, dragging himself along on his hands.",
+   "lessons": [
+    "odyssey_robert_iii",
+    "techniques_kong_yiji"
+   ]
+  },
+  "midden": {
+   "w": "midden",
+   "pos": "n",
+   "def": "a rubbish heap.",
+   "ex": "",
+   "lessons": [
+    "odyssey_robert_iii"
+   ]
+  },
+  "empress": {
+   "w": "empress",
+   "pos": "n",
+   "def": "the wife of an emperor, or a female ruler of an empire.",
+   "ex": "",
+   "lessons": [
+    "odyssey_stephen",
+    "short_history_catherine_the_great",
+    "short_history_catherine_the_great_a2b1"
+   ]
+  },
+  "anarchy": {
+   "w": "anarchy",
+   "pos": "n",
+   "def": "a state of disorder without effective government.",
+   "ex": "Later historians called the civil war the Anarchy.",
+   "lessons": [
+    "odyssey_stephen"
+   ]
+  },
+  "chivalrous": {
+   "w": "chivalrous",
+   "pos": "adj",
+   "def": "polite and generous, especially to enemies.",
+   "ex": "Stephen was chivalrous, sometimes too much so.",
+   "lessons": [
+    "odyssey_stephen"
+   ]
+  },
+  "stalemate": {
+   "w": "stalemate",
+   "pos": "n",
+   "def": "a situation where neither side can win.",
+   "ex": "",
+   "lessons": [
+    "odyssey_stephen"
+   ]
+  },
+  "compromise": {
+   "w": "compromise",
+   "pos": "n",
+   "def": "an agreement where both sides give something.",
+   "ex": "",
+   "lessons": [
+    "odyssey_stephen",
+    "gr_b2_the_pressure_cooker",
+    "gr_c1_the_negotiator",
+    "bc_negotiating_c1",
+    "acad_b1_09_working_in_pairs",
+    "b1_25_career_development",
+    "c2_pro_19_conflict_transformation",
+    "epicurean_29_legacy_tensions",
+    "prof_c2_10_future_of_work",
+    "skills_b1_sharing_opinions_politely",
+    "b2_24_clarity_is_key",
+    "sp_c1_64_negotiation",
+    "sp_prep_b1_31",
+    "b2_35_getting_a_pay_rise"
+   ]
+  },
+  "adopt": {
+   "w": "adopt",
+   "pos": "v",
+   "def": "(here) to formally accept as your heir.",
+   "ex": "",
+   "lessons": [
+    "odyssey_stephen",
+    "tib_diffusion_b2",
+    "tib_hypecycle_b2",
+    "gr_warmup_a2_hot_takes_animals",
+    "prof_c1_04_influencing_without_authority",
+    "writing_lesson_01"
+   ]
+  },
+  "forked beard": {
+   "w": "forked beard",
+   "pos": "n",
+   "def": "a beard divided into two parts.",
+   "ex": "",
+   "lessons": [
+    "odyssey_sweyn"
+   ]
+  },
+  "sail up": {
+   "w": "sail up",
+   "pos": "v",
+   "def": "to travel by ship along a river into a country.",
+   "ex": "",
+   "lessons": [
+    "odyssey_sweyn"
+   ]
+  },
+  "acknowledge": {
+   "w": "acknowledge",
+   "pos": "v",
+   "def": "to accept or recognise officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_sweyn",
+    "acad_b1_25_understanding_feedback",
+    "gr_c1_devils_advocate",
+    "bc_navigating_misunderstandings_c1",
+    "gr_warmup_c1_hot_takes_apology_tour",
+    "skills_b1b2_trade_fair_objections",
+    "st_pro_09_the_crisis_story",
+    "su_a2_52_handling_questions",
+    "c2_pro_17_organisational_politics",
+    "ct_b1_30_combining_skills",
+    "kuba_lesson_1_professional_presence",
+    "prof_c1_01_managing_difficult_conversations",
+    "workplace_conflict_resolution_interactive",
+    "cambridge_cae_writing_essay",
+    "lesson_49_advanced_fluency_challenge",
+    "lf_23_the_receptionist",
+    "sp_b1_27_acknowledging_views",
+    "sp_prep_b1_27",
+    "bc_academic_reading_phd_c1"
+   ]
+  },
+  "hostages": {
+   "w": "hostages",
+   "pos": "n",
+   "def": "people held as a guarantee that a promise will be kept.",
+   "ex": "He demanded hostages from each region to guarantee loyalty.",
+   "lessons": [
+    "odyssey_sweyn"
+   ]
+  },
+  "industry": {
+   "w": "industry",
+   "pos": "n",
+   "def": "making goods in factories.",
+   "ex": "Industry grew quickly.",
+   "lessons": [
+    "odyssey_victoria",
+    "short_history_queen_victoria",
+    "b2_49_networking_events",
+    "discuss_c1_advice_industry"
+   ]
+  },
+  "railway": {
+   "w": "railway",
+   "pos": "n",
+   "def": "a system of trains.",
+   "ex": "He was walking near the railway.\" / \"The railway goes to London.",
+   "lessons": [
+    "odyssey_victoria",
+    "techniques_the_signal_man_a2b1"
+   ]
+  },
+  "mourn": {
+   "w": "mourn",
+   "pos": "v",
+   "def": "to feel sadness after a death.",
+   "ex": "",
+   "lessons": [
+    "odyssey_victoria",
+    "short_history_the_christmas_truce",
+    "rs_y11_aut2_26_05",
+    "lesson-30-certification"
+   ]
+  },
+  "great exhibition": {
+   "w": "great exhibition",
+   "pos": "n",
+   "def": "a show of industry.",
+   "ex": "The Great Exhibition opened in 1851.",
+   "lessons": [
+    "odyssey_victoria"
+   ]
+  },
+  "empress of india": {
+   "w": "empress of india",
+   "pos": "n",
+   "def": "a title from 1876.",
+   "ex": "She became Empress of India.",
+   "lessons": [
+    "odyssey_victoria"
+   ]
+  },
+  "reclusive": {
+   "w": "reclusive",
+   "pos": "adj",
+   "def": "avoiding people.",
+   "ex": "She became reclusive.",
+   "lessons": [
+    "odyssey_victoria"
+   ]
+  },
+  "harrying": {
+   "w": "harrying",
+   "pos": "n",
+   "def": "(harry) to attack and destroy repeatedly.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_i",
+    "ois_08_1066"
+   ]
+  },
+  "survey": {
+   "w": "survey",
+   "pos": "n",
+   "def": "a careful examination and record.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_i",
+    "world_eu_stereotypes",
+    "b2_62_culture_humour_language",
+    "epicurean_03_primary_sources"
+   ]
+  },
+  "landowner": {
+   "w": "landowner",
+   "pos": "n",
+   "def": "a person who owns land.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_i"
+   ]
+  },
+  "feudal": {
+   "w": "feudal",
+   "pos": "adj",
+   "def": "(feudal) a system where land is given in return for service.",
+   "ex": "Land was held in a feudal system of loyalty and service.",
+   "lessons": [
+    "odyssey_william_i",
+    "short_history_magna_carta",
+    "ois_08_1066"
+   ]
+  },
+  "census": {
+   "w": "census",
+   "pos": "n",
+   "def": "an official count of people and property.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_i",
+    "rs_y7_aut1_01_05"
+   ]
+  },
+  "rufus": {
+   "w": "rufus",
+   "pos": "n",
+   "def": "(Latin) \"the red\".",
+   "ex": "He was called Rufus, perhaps for his red face or hair.",
+   "lessons": [
+    "odyssey_william_ii"
+   ]
+  },
+  "chronicler": {
+   "w": "chronicler",
+   "pos": "n",
+   "def": "a person who writes a record of events.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_ii"
+   ]
+  },
+  "hunting party": {
+   "w": "hunting party",
+   "pos": "n",
+   "def": "a group hunting animals.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_ii"
+   ]
+  },
+  "glance off": {
+   "w": "glance off",
+   "pos": "v",
+   "def": "to hit something at an angle and bounce away.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_ii"
+   ]
+  },
+  "abandon": {
+   "w": "abandon",
+   "pos": "v",
+   "def": "to leave something completely.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_ii",
+    "short_history_petra",
+    "short_history_the_mary_celeste",
+    "lesson_hms_erebus_mystery",
+    "short_history_angkor_a2b1",
+    "short_history_the_maya_a2b1",
+    "bc_books_that_changed_the_world_c1",
+    "sp_b2_47_counterarguments"
+   ]
+  },
+  "convenient": {
+   "w": "convenient",
+   "pos": "adj",
+   "def": "suitable; helping someone's plans.",
+   "ex": "His death was very convenient for his brother.",
+   "lessons": [
+    "odyssey_william_ii",
+    "su_a2_32_places_i_have_visited",
+    "ielts_spelling_a_place_of_her_own",
+    "qf_falsefriend_german_handy",
+    "talk_cars_in_cities_a2b1",
+    "grammar_b2_15_correlative_conjunctions_concession"
+   ]
+  },
+  "conspiracy": {
+   "w": "conspiracy",
+   "pos": "n",
+   "def": "a secret plan by a group.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_ii",
+    "short_history_catherine_the_great",
+    "short_history_julius_caesar",
+    "short_history_mary_queen_of_scots",
+    "short_history_the_gunpowder_plot",
+    "short_history_the_knights_templar",
+    "short_history_watergate"
+   ]
+  },
+  "ambiguous": {
+   "w": "ambiguous",
+   "pos": "adjective",
+   "def": "unclear; able to be understood in more than one way.",
+   "ex": "The poem is deliberately ambiguous: it can be read as a love poem or as a poem about grief.",
+   "lessons": [
+    "odyssey_william_ii",
+    "piranesi_bc_meaning",
+    "gr_b2_the_courtroom",
+    "bc_navigating_misunderstandings_c1",
+    "c2_pro_21_contract_negotiation",
+    "wp_46_the_will_to_believe",
+    "b2_39_best_email_replies",
+    "sp_b1_32_speculating_images",
+    "sp_prep_b1_24",
+    "ct_b1_32_speculation_language",
+    "grammar_c2_07_academic_precision"
+   ]
+  },
+  "sailor king": {
+   "w": "sailor king",
+   "pos": "n",
+   "def": "a nickname from his navy career.",
+   "ex": "He was called the Sailor King.",
+   "lessons": [
+    "odyssey_william_iv"
+   ]
+  },
+  "rotten borough": {
+   "w": "rotten borough",
+   "pos": "n",
+   "def": "a tiny constituency with an MP.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_iv"
+   ]
+  },
+  "extend": {
+   "w": "extend",
+   "pos": "v",
+   "def": "to make larger.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_iv",
+    "b1_26_ielts_speaking_practice"
+   ]
+  },
+  "abolish": {
+   "w": "abolish",
+   "pos": "v",
+   "def": "to end officially.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_iv",
+    "short_history_the_olympic_games",
+    "short_history_the_samurai",
+    "world_na_tipping",
+    "talk_death_penalty_b2c1",
+    "grammar_c1_15_gerunds_infinitives_phrasal"
+   ]
+  },
+  "peer": {
+   "w": "peer",
+   "pos": "n",
+   "def": "a noble.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_iv",
+    "techniques_a_jury_of_her_peers",
+    "tib_diffusion_b2",
+    "prof_c1_04_influencing_without_authority",
+    "sp_b2_49_register"
+   ]
+  },
+  "constituency": {
+   "w": "constituency",
+   "pos": "n",
+   "def": "an electoral area.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_iv"
+   ]
+  },
+  "joint": {
+   "w": "joint",
+   "pos": "adj",
+   "def": "shared.",
+   "ex": "They were joint monarchs.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "bill of rights": {
+   "w": "bill of rights",
+   "pos": "n",
+   "def": "a document listing rights.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_mary",
+    "bc_ethics_of_ai_c1"
+   ]
+  },
+  "free elections": {
+   "w": "free elections",
+   "pos": "n",
+   "def": "votes without interference.",
+   "ex": "It promised free elections.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "free speech": {
+   "w": "free speech",
+   "pos": "n",
+   "def": "the right to speak freely.",
+   "ex": "It protected free speech in Parliament.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "standing army": {
+   "w": "standing army",
+   "pos": "n",
+   "def": "a permanent army.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "boyne": {
+   "w": "boyne",
+   "pos": "n",
+   "def": "a river battle in Ireland.",
+   "ex": "William won at the Boyne in 1690.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "glencoe": {
+   "w": "glencoe",
+   "pos": "n",
+   "def": "a valley in Scotland.",
+   "ex": "The massacre at Glencoe happened in 1692.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "smallpox": {
+   "w": "smallpox",
+   "pos": "n",
+   "def": "a deadly disease.",
+   "ex": "Mary died of smallpox.",
+   "lessons": [
+    "odyssey_william_mary"
+   ]
+  },
+  "molehill": {
+   "w": "molehill",
+   "pos": "n",
+   "def": "a small mound made by a mole.",
+   "ex": "",
+   "lessons": [
+    "odyssey_william_mary"
    ]
   },
   "uproot": {
@@ -61373,21 +69712,6 @@ window.WORDBANK={
     "short_history_the_romanovs_a2b1"
    ]
   },
-  "propaganda": {
-   "w": "propaganda",
-   "pos": "noun",
-   "def": "information, often biased or misleading, used to promote a political cause.",
-   "ex": "By morning the city walls were covered in posters and pamphlets, all of them propaganda painting the general as a hero and his enemy as a monster.",
-   "lessons": [
-    "persepolis_child",
-    "short_history_cleopatra",
-    "short_history_the_space_race",
-    "soft_power_hard_world",
-    "lesson_world_war_2_speaking",
-    "short_history_cleopatra_a2b1",
-    "lesson_45_media_manipulation"
-   ]
-  },
   "bewildered": {
    "w": "bewildered",
    "pos": "adjective",
@@ -61535,29 +69859,13 @@ window.WORDBANK={
     "techniques_a_retrieved_reformation",
     "tib_acculturation_b2",
     "ts_erikson_b2",
+    "world_na_canadians",
     "behind_the_screen_gattaca_a2b1",
     "b1_51_music_and_identity",
     "bc_high_performers_workaholism_b2c1",
     "lesson_38_work_career",
     "lv_alevel_01_two_texts_one_essay",
     "rs_y9_spr2_16_06"
-   ]
-  },
-  "exile": {
-   "w": "exile",
-   "pos": "noun",
-   "def": "a long period of living away from your own country, usually because you cannot or should not return.",
-   "ex": "When the president seized total power, the poet called him a traitor and left the country. Years later he was offered the chance to come home quietly — and refused. He preferred to stay in exile.",
-   "lessons": [
-    "persepolis_worlds",
-    "short_history_hadrians_wall",
-    "short_history_hannibal",
-    "short_history_mary_queen_of_scots",
-    "short_history_napoleon",
-    "short_history_the_haitian_revolution",
-    "topic_dreams_a2b1",
-    "topic_dreams_b2c1",
-    "short_history_the_battle_of_waterloo_a2b1"
    ]
   },
   "assimilate": {
@@ -61567,6 +69875,7 @@ window.WORDBANK={
    "ex": "Many newcomers try to assimilate: they copy the clothes and manners of the new country so that they stand out less.",
    "lessons": [
     "persepolis_worlds",
+    "world_na_mosaic",
     "gr_warmup_b2_hot_takes_identity",
     "talk_living_abroad_b2c1"
    ]
@@ -61600,24 +69909,6 @@ window.WORDBANK={
     "persepolis_worlds"
    ]
   },
-  "rebellion": {
-   "w": "rebellion",
-   "pos": "noun",
-   "def": "an act of resisting authority or the rules, often by a young person.",
-   "ex": "A teenager's rebellion can be loud, like shouting, or quiet, like refusing to say what you are told to say.",
-   "lessons": [
-    "persepolis_worlds",
-    "short_history_boudica",
-    "short_history_magna_carta",
-    "short_history_the_boston_tea_party",
-    "short_history_the_irish_potato_famine",
-    "ois_02_the_romans_come",
-    "short_history_emperor_nero_a2b1",
-    "wp_31_the_renaissance_mind",
-    "curious_conversations_nietzsche_metamorphoses",
-    "lesson_48_art_literature_creativity"
-   ]
-  },
   "labyrinth": {
    "w": "labyrinth",
    "pos": "noun",
@@ -61649,6 +69940,8 @@ window.WORDBANK={
     "piranesi_bc_house",
     "short_history_the_forbidden_city",
     "short_history_the_maya",
+    "world_eu_coffee",
+    "world_na_friendly",
     "rs_y10_spr1_21_01",
     "rs_y11_aut2_26_02",
     "rs_y7_aut1_01_03",
@@ -61696,31 +69989,6 @@ window.WORDBANK={
     "editor_dilemmas_game",
     "b1_26_ielts_speaking_practice",
     "ielts_reading_lesson_1_test_overview"
-   ]
-  },
-  "tide": {
-   "w": "tide",
-   "pos": "",
-   "def": "the regular rise and fall of the sea. Also: the tide turns, go against the tide.",
-   "ex": "",
-   "lessons": [
-    "piranesi_bc_house",
-    "ois_07_danes_and_last_saxons"
-   ]
-  },
-  "statue": {
-   "w": "statue",
-   "pos": "n",
-   "def": "a figure of a person or animal made from stone, metal or another hard material.",
-   "ex": "",
-   "lessons": [
-    "piranesi_bc_house",
-    "techniques_the_happy_prince",
-    "short_history_boudica_a2b1",
-    "short_history_the_medici_a2b1",
-    "short_history_the_terracotta_army_a2b1",
-    "techniques_the_happy_prince_a2b1",
-    "short_history_easter_island_a2b1"
    ]
   },
   "entry": {
@@ -61794,24 +70062,6 @@ window.WORDBANK={
     "piranesi_bc_journals",
     "short_history_the_seven_wonders",
     "bc_advertising_defend_creative_c1"
-   ]
-  },
-  "ambiguous": {
-   "w": "ambiguous",
-   "pos": "adjective",
-   "def": "having more than one possible meaning. Noun: ambiguity.",
-   "ex": "The poem is deliberately ambiguous: it can be read as a love poem or as a poem about grief.",
-   "lessons": [
-    "piranesi_bc_meaning",
-    "gr_b2_the_courtroom",
-    "bc_navigating_misunderstandings_c1",
-    "c2_pro_21_contract_negotiation",
-    "wp_46_the_will_to_believe",
-    "b2_39_best_email_replies",
-    "sp_b1_32_speculating_images",
-    "sp_prep_b1_24",
-    "ct_b1_32_speculation_language",
-    "grammar_c2_07_academic_precision"
    ]
   },
   "interpretation": {
@@ -61914,6 +70164,7 @@ window.WORDBANK={
    "ex": "He was always courteous to the staff, thanking them and holding the door, even when he was in a hurry.",
    "lessons": [
     "piranesi_bc_other",
+    "world_na_canadians",
     "su_a2_54_managing_time_with_others",
     "b2_36_awkward_situations"
    ]
@@ -62129,6 +70380,8 @@ window.WORDBANK={
    "lessons": [
     "psy_01_marshmallow_b2c1",
     "techniques_luck",
+    "world_eu_nordic",
+    "world_na_canadians",
     "bc_someone_i_admire_idioms_c1",
     "someone_i_admire_b2c1",
     "grammar_b1_06_conditionals"
@@ -62316,11 +70569,12 @@ window.WORDBANK={
   },
   "stand out": {
    "w": "stand out",
-   "pos": "",
+   "pos": "phr v",
    "def": "to be different from other people in a way that people notice. Opposite: fit in.",
    "ex": "",
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
+    "world_na_canadians",
     "b2_20_sporting_events",
     "bc_broadening_horizons_b2c1",
     "lesson-02-vivid-imagery"
@@ -62370,19 +70624,6 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_b2c1",
     "behind_the_screen_12_angry_men_a2b1",
     "b2_67_making_a_decision"
-   ]
-  },
-  "ally": {
-   "w": "ally",
-   "pos": "n",
-   "def": "a person who supports you in a conflict or disagreement.",
-   "ex": "",
-   "lessons": [
-    "psy_03_follow_the_crowd_b2c1",
-    "short_history_bletchley_park",
-    "greenland_tariffs_c1",
-    "short_history_the_conquistadors_a2b1",
-    "discuss_b2_iran_us_europe_reacts"
    ]
   },
   "nonconformists": {
@@ -62590,20 +70831,6 @@ window.WORDBANK={
    "ex": "I am different from my brother.",
    "lessons": [
     "psy_05_born_or_made_a2b1"
-   ]
-  },
-  "environment": {
-   "w": "environment",
-   "pos": "n",
-   "def": "answer (b). Everything around you that can change you.",
-   "ex": "The environment includes what happens before birth, as well as upbringing and culture.",
-   "lessons": [
-    "psy_05_born_or_made_a2b1",
-    "psy_05_born_or_made_b2c1",
-    "gr_warmup_a2_hot_takes_holidays",
-    "gr_warmup_a2_hot_takes_transport",
-    "ielts_spelling_master_v2",
-    "talk_eating_less_meat_a2b1"
    ]
   },
   "heritability": {
@@ -62822,10 +71049,11 @@ window.WORDBANK={
   "income": {
    "w": "income",
    "pos": "n",
-   "def": "",
-   "ex": "Household income is a common measure.",
+   "def": "money earned.",
+   "ex": "Tips are a large part of servers' income.",
    "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1"
+    "psy_06_does_money_buy_happiness_b2c1",
+    "world_na_tipping"
    ]
   },
   "plateau": {
@@ -63015,17 +71243,6 @@ window.WORDBANK={
     "leading_international_teams"
    ]
   },
-  "withdraw": {
-   "w": "withdraw",
-   "pos": "v",
-   "def": "to stop taking part and leave the study.",
-   "ex": "The participant was told that he could withdraw at any time.",
-   "lessons": [
-    "psyp_08_should_this_study_run_a2b1",
-    "psyp_08_should_this_study_run_b2c1",
-    "grammar_c2_01_register_style_shifting"
-   ]
-  },
   "deceive": {
    "w": "deceive",
    "pos": "v",
@@ -63035,19 +71252,6 @@ window.WORDBANK={
     "psyp_08_should_this_study_run_a2b1",
     "bl_02_honest_truth_lying",
     "wp_32_i_think_therefore"
-   ]
-  },
-  "obey": {
-   "w": "obey",
-   "pos": "v",
-   "def": "The noun is obedience",
-   "ex": "Many people obeyed the researcher.",
-   "lessons": [
-    "psyp_08_should_this_study_run_a2b1",
-    "rs_y8_sum1_11_04",
-    "ois_16_restoration_and_revolution",
-    "short_history_mutiny_on_the_bounty_a2b1",
-    "short_history_the_tudors_a2b1"
    ]
   },
   "ethics board": {
@@ -63361,18 +71565,6 @@ window.WORDBANK={
     "wp_33_the_leviathan"
    ]
   },
-  "diagnosis": {
-   "w": "diagnosis",
-   "pos": "n",
-   "def": "the name that a doctor gives to an illness or problem. The verb is diagnose.",
-   "ex": "The doctor gave her a diagnosis: depression.",
-   "lessons": [
-    "psyp_10_who_decides_whats_normal_a2b1",
-    "nq_07_mixed_c1",
-    "wk_26_the_consultation",
-    "sp_b1_21_extended_thinking"
-   ]
-  },
   "pretend": {
    "w": "pretend",
    "pos": "v",
@@ -63548,6 +71740,7 @@ window.WORDBANK={
     "tib_johari_a2b1",
     "tib_johari_b2",
     "tib_pdca_b2",
+    "world_eu_directness",
     "su_a2_63_mapping_the_customer_journey",
     "acad_b1_15_learning_from_mistakes",
     "bc_market_research_c1",
@@ -63591,6 +71784,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "psyp_11_judgment_or_formula_b2c1",
+    "world_eu_coffee",
     "c1_the_british_pub",
     "a1_simple_present_vs_present_continuous_interactive"
    ]
@@ -63693,10 +71887,11 @@ window.WORDBANK={
   "diversity": {
    "w": "diversity",
    "pos": "n",
-   "def": "",
+   "def": "a wide variety of different things or people.",
    "ex": "Little diversity in the samples limits the conclusions.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
+    "world_eu_background",
     "lesson_39_culture_identity"
    ]
   },
@@ -63856,6 +72051,7 @@ window.WORDBANK={
    "lessons": [
     "reading_the_room_c2",
     "techniques_metamorphosis_2",
+    "world_eu_directness",
     "sp_prep_b2_58"
    ]
   },
@@ -64410,44 +72606,6 @@ window.WORDBANK={
     "duolingo_det_practice_5"
    ]
   },
-  "heir": {
-   "w": "heir",
-   "pos": "n",
-   "def": "a person legally entitled to inherit a title, position or property when its holder dies.",
-   "ex": "",
-   "lessons": [
-    "short_history_alexander_the_great",
-    "short_history_charlemagne",
-    "short_history_hiroshima",
-    "short_history_joan_of_arc",
-    "short_history_magna_carta",
-    "short_history_mary_queen_of_scots",
-    "short_history_queen_victoria",
-    "short_history_the_battle_of_hastings",
-    "short_history_the_maya",
-    "short_history_the_romanovs",
-    "short_history_the_spanish_flu",
-    "short_history_the_trojan_war",
-    "short_history_the_tudors",
-    "short_history_the_romanovs_a2b1",
-    "techniques_the_brazilian_cat"
-   ]
-  },
-  "annex": {
-   "w": "annex",
-   "pos": "v",
-   "def": "to take control of a territory and add it permanently to your own state, usually by force. (noun: annexation)",
-   "ex": "",
-   "lessons": [
-    "short_history_alexander_the_great",
-    "short_history_catherine_the_great",
-    "short_history_charlemagne",
-    "short_history_cleopatra",
-    "short_history_petra",
-    "short_history_the_east_india_company",
-    "short_history_the_roman_republic"
-   ]
-  },
   "be outnumbered": {
    "w": "be outnumbered",
    "pos": "v",
@@ -64456,17 +72614,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_alexander_the_great",
     "short_history_sparta"
-   ]
-  },
-  "rout": {
-   "w": "rout",
-   "pos": "n",
-   "def": "a crushing, disorderly defeat in which the losing side breaks and flees. (also v: to rout an enemy)",
-   "ex": "",
-   "lessons": [
-    "short_history_alexander_the_great",
-    "short_history_boudica",
-    "short_history_the_battle_of_waterloo"
    ]
   },
   "mutiny": {
@@ -64489,22 +72636,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_alexander_the_great",
     "wp_25_the_house_of_wisdom"
-   ]
-  },
-  "legend": {
-   "w": "legend",
-   "pos": "n",
-   "def": "a famous story from the past, often part true and part exaggerated; or a person who becomes the subject of such stories.",
-   "ex": "",
-   "lessons": [
-    "short_history_alexander_the_great",
-    "short_history_db_cooper",
-    "short_history_napoleon",
-    "short_history_ned_kelly",
-    "short_history_the_bermuda_triangle",
-    "short_history_king_arthur_a2b1",
-    "short_history_the_knights_templar_a2b1",
-    "short_history_the_bermuda_triangle_a2b1"
    ]
   },
   "prosperous": {
@@ -64619,20 +72750,6 @@ window.WORDBANK={
     "wp_01_the_birth_of_wonder"
    ]
   },
-  "alliance": {
-   "w": "alliance",
-   "pos": "n",
-   "def": "an agreement to support or cooperate with someone, often against a shared enemy.",
-   "ex": "",
-   "lessons": [
-    "short_history_angkor",
-    "short_history_easter_island",
-    "short_history_the_conquistadors",
-    "short_history_the_terracotta_army",
-    "short_history_the_tudors",
-    "short_history_cleopatra_a2b1"
-   ]
-  },
   "envoy": {
    "w": "envoy",
    "pos": "n",
@@ -64656,19 +72773,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_angkor"
-   ]
-  },
-  "tribute": {
-   "w": "tribute",
-   "pos": "n",
-   "def": "a payment made by one state or people to a more powerful one, often as a sign of submission or for protection.",
-   "ex": "Every conquered town had to send goods to the capital each year — baskets of cotton, feathers, gold and grain — and a town that refused to pay its tribute could expect an army at its gates.",
-   "lessons": [
-    "short_history_angkor",
-    "short_history_genghis_khan",
-    "short_history_the_aztecs",
-    "short_history_the_aztecs_a2b1",
-    "b2_77_cope_with_unexpected"
    ]
   },
   "irrigation": {
@@ -64728,31 +72832,6 @@ window.WORDBANK={
     "short_history_angkor"
    ]
   },
-  "dynasty": {
-   "w": "dynasty",
-   "pos": "n",
-   "def": "a line of rulers who all belong to the same family, passing power down the generations.",
-   "ex": "",
-   "lessons": [
-    "short_history_angkor",
-    "short_history_charlemagne",
-    "short_history_cleopatra",
-    "short_history_hiroshima",
-    "short_history_machu_picchu",
-    "short_history_mary_queen_of_scots",
-    "short_history_michelangelo",
-    "short_history_the_forbidden_city",
-    "short_history_the_library_of_alexandria",
-    "short_history_the_maya",
-    "short_history_the_romanovs",
-    "short_history_the_spanish_flu",
-    "short_history_the_trojan_war",
-    "short_history_the_tudors",
-    "short_history_the_world_cup",
-    "ois_09_plantagenets_and_magna_carta",
-    "short_history_the_romanovs_a2b1"
-   ]
-  },
   "refinement": {
    "w": "refinement",
    "pos": "n",
@@ -64772,32 +72851,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_anne_boleyn",
     "techniques_araby"
-   ]
-  },
-  "annul": {
-   "w": "annul",
-   "pos": "v",
-   "def": "to declare officially that a marriage was never legally valid.",
-   "ex": "",
-   "lessons": [
-    "short_history_anne_boleyn",
-    "short_history_magna_carta",
-    "short_history_the_tudors"
-   ]
-  },
-  "treason": {
-   "w": "treason",
-   "pos": "n",
-   "def": "the crime of betraying your country or attacking the authority of its ruler. e.g. She was condemned to death for treason.",
-   "ex": "To speak against the king, to plot his death, or even to deny his authority was the gravest crime of all — treason — and the punishment was death.",
-   "lessons": [
-    "short_history_anne_boleyn",
-    "short_history_julius_caesar",
-    "short_history_mary_queen_of_scots",
-    "short_history_the_gunpowder_plot",
-    "short_history_the_tudors",
-    "short_history_marie_antoinette",
-    "wp_24_the_consolation"
    ]
   },
   "adultery": {
@@ -64829,23 +72882,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_anne_boleyn"
-   ]
-  },
-  "flee": {
-   "w": "flee",
-   "pos": "v",
-   "def": "to run away from danger. flee – fled – fled.",
-   "ex": "",
-   "lessons": [
-    "short_history_anne_frank",
-    "short_history_pompeii",
-    "short_history_the_berlin_wall",
-    "short_history_the_black_death",
-    "techniques_the_ransom_of_red_chief",
-    "short_history_marie_antoinette",
-    "short_history_the_black_death_a2b1",
-    "memory_arts_p1_04",
-    "qf_pronunciation_minimal_pairs_i"
    ]
   },
   "decree": {
@@ -65102,31 +73138,6 @@ window.WORDBANK={
     "short_history_the_spanish_armada"
    ]
   },
-  "hostage": {
-   "w": "hostage",
-   "pos": "n",
-   "def": "a person held prisoner so that the captor can demand something in exchange.",
-   "ex": "",
-   "lessons": [
-    "short_history_blackbeard",
-    "short_history_vlad_the_impaler",
-    "short_history_blackbeard_a2b1"
-   ]
-  },
-  "ransom": {
-   "w": "ransom",
-   "pos": "n",
-   "def": "money or goods demanded in return for releasing a prisoner.",
-   "ex": "",
-   "lessons": [
-    "short_history_blackbeard",
-    "short_history_ching_shih",
-    "short_history_db_cooper",
-    "techniques_the_ransom_of_red_chief",
-    "techniques_the_ransom_of_red_chief_a2b1",
-    "short_history_blackbeard_a2b1"
-   ]
-  },
   "cultivate": {
    "w": "cultivate",
    "pos": "an image",
@@ -65145,20 +73156,6 @@ window.WORDBANK={
    "ex": "His whole performance was pure theatrics — the smoke, the pistols, the slow grin — designed to frighten crews into giving up before a shot was fired.",
    "lessons": [
     "short_history_blackbeard"
-   ]
-  },
-  "pardon": {
-   "w": "pardon",
-   "pos": "n/v",
-   "def": "an official decision to forgive a crime and cancel the punishment.",
-   "ex": "",
-   "lessons": [
-    "short_history_blackbeard",
-    "short_history_ching_shih",
-    "techniques_a_retrieved_reformation",
-    "techniques_god_sees_the_truth",
-    "short_history_blackbeard_a2b1",
-    "sp_b1_24_clarification"
    ]
   },
   "aground": {
@@ -65253,55 +73250,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_bletchley_park"
-   ]
-  },
-  "empire": {
-   "w": "empire",
-   "pos": "n",
-   "def": "a large group of lands and peoples ruled by a single state or ruler.",
-   "ex": "an empire — from The East India CompanyName one empire and one thing it took from elsewhere.",
-   "lessons": [
-    "short_history_boudica",
-    "short_history_catherine_the_great",
-    "short_history_charlemagne",
-    "short_history_ching_shih",
-    "short_history_hannibal",
-    "short_history_julius_caesar",
-    "short_history_machu_picchu",
-    "short_history_mansa_musa",
-    "short_history_napoleon",
-    "short_history_queen_victoria",
-    "short_history_the_antikythera_mechanism",
-    "short_history_the_conquistadors",
-    "short_history_the_east_india_company",
-    "short_history_the_industrial_revolution",
-    "short_history_the_knights_templar",
-    "short_history_the_olympic_games",
-    "short_history_the_partition_of_india",
-    "short_history_the_pyramids",
-    "short_history_the_silk_road",
-    "short_history_the_space_race",
-    "short_history_vlad_the_impaler",
-    "concorso_british_empire_ab24",
-    "short_history_alexander_the_great_a2b1",
-    "short_history_machu_picchu_a2b1",
-    "short_history_napoleon_a2b1",
-    "short_history_the_scramble_for_africa_a2b1"
-   ]
-  },
-  "conquer": {
-   "w": "conquer",
-   "pos": "v",
-   "def": "to take control of a country or people by military force.",
-   "ex": "",
-   "lessons": [
-    "short_history_boudica",
-    "short_history_christopher_columbus",
-    "short_history_hannibal",
-    "short_history_the_battle_of_hastings",
-    "ois_04_the_saxon_shore",
-    "short_history_alexander_the_great_a2b1",
-    "short_history_the_aztecs_a2b1"
    ]
   },
   "confederation": {
@@ -65423,40 +73371,6 @@ window.WORDBANK={
     "short_history_the_salem_witch_trials_a2b1"
    ]
   },
-  "empress": {
-   "w": "empress",
-   "pos": "n",
-   "def": "a woman who rules an empire in her own right, or the wife of an emperor.",
-   "ex": "",
-   "lessons": [
-    "short_history_catherine_the_great",
-    "short_history_catherine_the_great_a2b1"
-   ]
-  },
-  "coup": {
-   "w": "coup",
-   "pos": "n",
-   "def": "a sudden, often illegal seizure of power from a government, usually by a small group.",
-   "ex": "",
-   "lessons": [
-    "short_history_catherine_the_great",
-    "short_history_napoleon"
-   ]
-  },
-  "conspiracy": {
-   "w": "conspiracy",
-   "pos": "n",
-   "def": "a secret plan by a group to do something unlawful or harmful, such as to seize power.",
-   "ex": "",
-   "lessons": [
-    "short_history_catherine_the_great",
-    "short_history_julius_caesar",
-    "short_history_mary_queen_of_scots",
-    "short_history_the_gunpowder_plot",
-    "short_history_the_knights_templar",
-    "short_history_watergate"
-   ]
-  },
   "serf": {
    "w": "serf",
    "pos": "n",
@@ -65486,32 +73400,6 @@ window.WORDBANK={
     "rs_y7_aut1_01_02"
    ]
   },
-  "reform": {
-   "w": "reform",
-   "pos": "n/v",
-   "def": "to change an institution or system in order to improve it.",
-   "ex": "reform — from The SuffragettesName a reform your country has seen.",
-   "lessons": [
-    "short_history_catherine_the_great",
-    "short_history_florence_nightingale",
-    "bc_four_day_week_c1"
-   ]
-  },
-  "scholar": {
-   "w": "scholar",
-   "pos": "n",
-   "def": "a person of deep learning who studies and teaches a subject seriously.",
-   "ex": "",
-   "lessons": [
-    "short_history_charlemagne",
-    "short_history_the_library_of_alexandria",
-    "techniques_kong_yiji",
-    "techniques_kong_yiji_a2b1",
-    "short_history_the_library_of_alexandria_a2b1",
-    "b2_92_language_of_historical_debate",
-    "memory_arts_p1_08"
-   ]
-  },
   "realm": {
    "w": "realm",
    "pos": "n",
@@ -65522,31 +73410,6 @@ window.WORDBANK={
     "short_history_marco_polo",
     "rs_y9_aut2_14_01",
     "memory_arts_p1_06"
-   ]
-  },
-  "campaign": {
-   "w": "campaign",
-   "pos": "n",
-   "def": "a connected series of military operations directed at one aim. Field: war and conquest.",
-   "ex": "",
-   "lessons": [
-    "short_history_charlemagne",
-    "short_history_hannibal",
-    "short_history_nellie_bly",
-    "short_history_the_suffragettes",
-    "ts_smallpox_b2",
-    "c1_pro_24_marketing_campaigns",
-    "bc_advertising_defend_creative_c1",
-    "cae_essay_practice_4"
-   ]
-  },
-  "clergy": {
-   "w": "clergy",
-   "pos": "",
-   "def": "(n, plural in use) — priests, bishops, abbots and monks taken together as a body. Field: faith and learning.",
-   "ex": "",
-   "lessons": [
-    "short_history_charlemagne"
    ]
   },
   "literacy": {
@@ -65572,19 +73435,6 @@ window.WORDBANK={
     "cpe_read_c1_01_sleep_science",
     "lesson-30-certification",
     "diagnostic_focus_c1_inverted_formal"
-   ]
-  },
-  "coronation": {
-   "w": "coronation",
-   "pos": "n",
-   "def": "the ceremony at which a crown is placed on a new monarch's head. Field: rule and administration — but also faith, since a medieval crowning was a church service and the crown came from a churchman's hands. That double life is the point of today's story.",
-   "ex": "",
-   "lessons": [
-    "short_history_charlemagne",
-    "short_history_joan_of_arc",
-    "short_history_napoleon",
-    "short_history_the_conquest_of_everest",
-    "ois_14_elizabeth_and_the_armada"
    ]
   },
   "piety": {
@@ -65677,18 +73527,6 @@ window.WORDBANK={
     "short_history_chernobyl"
    ]
   },
-  "suppress": {
-   "w": "suppress",
-   "pos": "v",
-   "def": "to deliberately prevent information from being seen, published or spoken about.",
-   "ex": "",
-   "lessons": [
-    "short_history_chernobyl",
-    "short_history_nelson_mandela",
-    "topic_dreams_b2c1",
-    "epicurean_21_hidden_currents"
-   ]
-  },
   "exposure": {
    "w": "exposure",
    "pos": "n",
@@ -65720,23 +73558,6 @@ window.WORDBANK={
     "short_history_chernobyl"
    ]
   },
-  "negotiate": {
-   "w": "negotiate",
-   "pos": "v",
-   "def": "to discuss something in order to reach an agreement.",
-   "ex": "",
-   "lessons": [
-    "short_history_ching_shih",
-    "short_history_the_partition_of_india",
-    "techniques_the_ransom_of_red_chief",
-    "Business-Bootcamp-Lesson2-The-Negotiation",
-    "books_changed_world_lesson",
-    "grammar_b2_20_making_plans",
-    "b2_anchoring",
-    "lf_06_the_house",
-    "b2_35_getting_a_pay_rise"
-   ]
-  },
   "command": {
    "w": "command",
    "pos": "n",
@@ -65757,17 +73578,6 @@ window.WORDBANK={
     "short_history_ching_shih",
     "short_history_the_samurai",
     "behind_the_screen_arrival_a2b1"
-   ]
-  },
-  "armada": {
-   "w": "armada",
-   "pos": "n",
-   "def": "a large fleet of warships assembled for battle.",
-   "ex": "",
-   "lessons": [
-    "short_history_ching_shih",
-    "short_history_pearl_harbor",
-    "short_history_the_spanish_armada"
    ]
   },
   "amnesty": {
@@ -65867,9 +73677,11 @@ window.WORDBANK={
    "w": "indigenous",
    "pos": "adj",
    "def": "native to a particular place, especially of peoples living there before colonists arrived. Formal and precise; it carries a claim about who came first.",
-   "ex": "",
+   "ex": "Indigenous peoples lived there for thousands of years.",
    "lessons": [
     "short_history_christopher_columbus",
+    "world_la_background",
+    "world_na_mosaic",
     "lesson_famous_explorers_speaking",
     "cpe_read_c1_09_language_death"
    ]
@@ -65881,17 +73693,6 @@ window.WORDBANK={
    "ex": "Her accession was not smooth: for months the court argued over whether the young queen had any right to take her dead father's place at all.",
    "lessons": [
     "short_history_cleopatra"
-   ]
-  },
-  "faction": {
-   "w": "faction",
-   "pos": "n",
-   "def": "a smaller group within a larger one that acts together against the rest, usually in a struggle for power.",
-   "ex": "",
-   "lessons": [
-    "short_history_cleopatra",
-    "short_history_mary_queen_of_scots",
-    "prof_c2_10_future_of_work"
    ]
   },
   "outmanoeuvre": {
@@ -65934,7 +73735,8 @@ window.WORDBANK={
    "def": "the long period of hostility (roughly 1947–1991) between the United States and the Soviet Union, fought through threats and proxies rather than open battle.",
    "ex": "For forty years the two rivals glared at each other across the globe, building bombs and spies and trading threats, yet their armies never once met on a battlefield — and historians came to call those tense decades the Cold War.",
    "lessons": [
-    "short_history_cuban_missile_crisis"
+    "short_history_cuban_missile_crisis",
+    "world_eu_east"
    ]
   },
   "superpower": {
@@ -65976,34 +73778,6 @@ window.WORDBANK={
     "bc_ielts_paragraphs_examples_b2c1",
     "sp_b2_48_concession",
     "b2_44_negotiation_skills"
-   ]
-  },
-  "vanish": {
-   "w": "vanish",
-   "pos": "v",
-   "def": "to disappear suddenly and completely, leaving no trace and no explanation.",
-   "ex": "",
-   "lessons": [
-    "short_history_db_cooper",
-    "short_history_the_conquest_of_everest",
-    "topic_food_b2",
-    "deep_space_01_stars",
-    "lesson_hms_erebus_mystery",
-    "curious_conversations_11_time_perception",
-    "gr_b2_collocation_clash"
-   ]
-  },
-  "suspect": {
-   "w": "suspect",
-   "pos": "noun",
-   "def": "a person who is thought, but not proved, to have committed a crime.",
-   "ex": "",
-   "lessons": [
-    "short_history_db_cooper",
-    "tib_prisoners_b2",
-    "ts_dna_fingerprint_b2",
-    "gr_b2_alibi",
-    "lesson_19_passive_advanced"
    ]
   },
   "hijack": {
@@ -66097,18 +73871,6 @@ window.WORDBANK={
     "acad_b1_06_understanding_instructions"
    ]
   },
-  "descendant": {
-   "w": "descendant",
-   "pos": "n",
-   "def": "a person related to someone who lived earlier; a member of a later generation of the same family.",
-   "ex": "",
-   "lessons": [
-    "short_history_easter_island",
-    "rs_y10_sum2_24_02",
-    "rs_y8_aut1_07_01",
-    "rs_y8_aut1_07_06"
-   ]
-  },
   "topple": {
    "w": "topple",
    "pos": "v",
@@ -66169,20 +73931,6 @@ window.WORDBANK={
     "short_history_emperor_nero"
    ]
   },
-  "hostile": {
-   "w": "hostile",
-   "pos": "adj",
-   "def": "unfriendly and opposed; showing strong dislike or enmity.",
-   "ex": "The crowd turned hostile the moment the referee blew his whistle, booing, jeering and hurling cups onto the pitch.",
-   "lessons": [
-    "short_history_emperor_nero",
-    "gr_c1_the_boardroom",
-    "gr_warmup_c1_hot_takes_apology_tour",
-    "ml_25_the_review_they_want_down",
-    "b2_77_cope_with_unexpected",
-    "sp_c1_06_high_stakes_communication"
-   ]
-  },
   "insurrection": {
    "w": "insurrection",
    "pos": "n",
@@ -66200,15 +73948,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_emperor_nero"
-   ]
-  },
-  "casualty": {
-   "w": "casualty",
-   "pos": "n",
-   "def": "a person killed or injured in a war or an accident — not only the dead.",
-   "ex": "",
-   "lessons": [
-    "short_history_florence_nightingale"
    ]
   },
   "establishment": {
@@ -66416,17 +74155,6 @@ window.WORDBANK={
     "duolingo_det_practice_6"
    ]
   },
-  "gunpowder": {
-   "w": "gunpowder",
-   "pos": "n",
-   "def": "an explosive powder; here, used to demolish buildings deliberately.",
-   "ex": "They packed the wooden kegs tight with gunpowder, the same black powder that loaded the cannons of every army in Europe, knowing a single spark could level a building.",
-   "lessons": [
-    "short_history_great_fire_of_london",
-    "short_history_the_gunpowder_plot",
-    "ois_15_stuarts_and_civil_war"
-   ]
-  },
   "ruins": {
    "w": "ruins",
    "pos": "n, plural",
@@ -66438,17 +74166,6 @@ window.WORDBANK={
     "techniques_there_will_come_soft_rains_a2b1",
     "tib_fishbone_b2",
     "short_history_the_colosseum_a2b1"
-   ]
-  },
-  "rebuild": {
-   "w": "rebuild",
-   "pos": "v",
-   "def": "to build something again after it has been destroyed or damaged.",
-   "ex": "",
-   "lessons": [
-    "short_history_great_fire_of_london",
-    "tib_fishbone_b2",
-    "short_history_great_fire_of_london_a2b1"
    ]
   },
   "monument": {
@@ -66562,30 +74279,6 @@ window.WORDBANK={
     "short_history_hannibal"
    ]
   },
-  "besiege": {
-   "w": "besiege",
-   "pos": "v",
-   "def": "to surround a city or fort with an army in order to force it to surrender.",
-   "ex": "",
-   "lessons": [
-    "short_history_hannibal",
-    "short_history_the_crusades"
-   ]
-  },
-  "raid": {
-   "w": "raid",
-   "pos": "n",
-   "def": "a sudden surprise attack on a place, usually quick and then over.",
-   "ex": "",
-   "lessons": [
-    "short_history_hiroshima",
-    "short_history_the_maya",
-    "short_history_the_spanish_flu",
-    "short_history_the_trojan_war",
-    "short_history_the_vikings_a2b1",
-    "english_at_work_phrase_bank"
-   ]
-  },
   "grudge": {
    "w": "grudge",
    "pos": "n",
@@ -66611,6 +74304,7 @@ window.WORDBANK={
     "short_history_the_maya",
     "short_history_the_spanish_flu",
     "short_history_the_trojan_war",
+    "world_eu_stereotypes",
     "chatterbox_4_ridiculous_ventures",
     "ml_25_the_review_they_want_down",
     "ielts_spelling_finding_her_feet",
@@ -66848,18 +74542,6 @@ window.WORDBANK={
     "short_history_joan_of_arc"
    ]
   },
-  "heresy": {
-   "w": "heresy",
-   "pos": "n",
-   "def": "a belief or opinion that contradicts official religious teaching. (adj/n: a heretic)",
-   "ex": "The preacher's enemies whispered that his strange teachings strayed from everything the Church held true, and soon he was dragged before the bishops to answer a charge of heresy.",
-   "lessons": [
-    "short_history_joan_of_arc",
-    "short_history_the_printing_press",
-    "short_history_the_renaissance",
-    "rs_y10_aut1_19_02"
-   ]
-  },
   "tribunal": {
    "w": "tribunal",
    "pos": "n",
@@ -66887,26 +74569,6 @@ window.WORDBANK={
     "short_history_joan_of_arc"
    ]
   },
-  "betray": {
-   "w": "betray",
-   "pos": "verb",
-   "def": "to harm or turn against someone who trusts you.",
-   "ex": "",
-   "lessons": [
-    "short_history_julius_caesar",
-    "short_history_napoleon",
-    "short_history_the_gunpowder_plot",
-    "short_history_watergate",
-    "techniques_mateo_falcone",
-    "techniques_mateo_falcone_a2b1",
-    "tib_prisoners_b2",
-    "gr_warmup_c1_hot_takes_loyalty",
-    "rs_y10_aut2_20_01",
-    "short_history_king_arthur_a2b1",
-    "short_history_the_gunpowder_plot_a2b1",
-    "behind_the_screen_dune_a2b1"
-   ]
-  },
   "ambition": {
    "w": "ambition",
    "pos": "n",
@@ -66929,18 +74591,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_julius_caesar",
     "short_history_the_roman_republic"
-   ]
-  },
-  "dictator": {
-   "w": "dictator",
-   "pos": "n",
-   "def": "a ruler with total power over a state; in Rome, originally a temporary emergency office.",
-   "ex": "",
-   "lessons": [
-    "short_history_julius_caesar",
-    "short_history_the_roman_republic",
-    "short_history_julius_caesar_a2b1",
-    "short_history_the_roman_republic_a2b1"
    ]
   },
   "republic": {
@@ -66977,15 +74627,6 @@ window.WORDBANK={
     "short_history_the_trojan_war"
    ]
   },
-  "chronicle": {
-   "w": "chronicle",
-   "pos": "n",
-   "def": "a written record of historical events, set down in the order they happened.",
-   "ex": "",
-   "lessons": [
-    "short_history_king_arthur"
-   ]
-  },
   "warlord": {
    "w": "warlord",
    "pos": "n",
@@ -67011,15 +74652,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "well known and often retold, but probably invented and not genuinely authentic",
    "ex": "The tale of the sword in the stone is almost certainly apocryphal.",
-   "lessons": [
-    "short_history_king_arthur"
-   ]
-  },
-  "valiant": {
-   "w": "valiant",
-   "pos": "adj",
-   "def": "brave and determined, especially in battle. A synonym of courageous",
-   "ex": "a valiant last stand against the invaders.",
    "lessons": [
     "short_history_king_arthur"
    ]
@@ -67336,18 +74968,6 @@ window.WORDBANK={
     "short_history_the_taj_mahal"
    ]
   },
-  "treaty": {
-   "w": "treaty",
-   "pos": "n",
-   "def": "a formal agreement between states or opposing sides, especially one ending a conflict.",
-   "ex": "",
-   "lessons": [
-    "short_history_magna_carta",
-    "short_history_the_panama_canal",
-    "short_history_the_scramble_for_africa",
-    "short_history_the_scramble_for_africa_a2b1"
-   ]
-  },
   "excommunicate": {
    "w": "excommunicate",
    "pos": "v",
@@ -67356,52 +74976,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_magna_carta",
     "wp_34_god_or_nature"
-   ]
-  },
-  "charter": {
-   "w": "charter",
-   "pos": "n",
-   "def": "a formal document by which a ruler grants rights, freedoms or powers to a group of people.",
-   "ex": "",
-   "lessons": [
-    "short_history_magna_carta",
-    "short_history_the_east_india_company",
-    "Rhetorical Devices in British Literary History",
-    "ois_09_plantagenets_and_magna_carta"
-   ]
-  },
-  "levy": {
-   "w": "levy",
-   "pos": "v",
-   "def": "to officially demand and collect a tax, fine or payment. Also a noun: a levy on imports.",
-   "ex": "",
-   "lessons": [
-    "short_history_magna_carta",
-    "short_history_petra",
-    "short_history_the_boston_tea_party",
-    "cae_essay_practice_4"
-   ]
-  },
-  "clause": {
-   "w": "clause",
-   "pos": "n",
-   "def": "one numbered section of a legal document, setting out a single rule or condition.",
-   "ex": "",
-   "lessons": [
-    "short_history_magna_carta",
-    "c2_pro_21_contract_negotiation",
-    "lesson_34_participle_clauses",
-    "qf_collocation_say_tell"
-   ]
-  },
-  "feudal": {
-   "w": "feudal",
-   "pos": "adj",
-   "def": "of the medieval system in which land was held from a lord in return for service, loyalty and payments.",
-   "ex": "",
-   "lessons": [
-    "short_history_magna_carta",
-    "ois_08_1066"
    ]
   },
   "pilgrim": {
@@ -67416,21 +74990,6 @@ window.WORDBANK={
     "rs_y10_spr2_22_01",
     "rs_y11_aut2_26_01",
     "short_history_the_knights_templar_a2b1"
-   ]
-  },
-  "pilgrimage": {
-   "w": "pilgrimage",
-   "pos": "n",
-   "def": "a journey to a sacred place, made for religious devotion.",
-   "ex": "",
-   "lessons": [
-    "short_history_mansa_musa",
-    "rs_y10_spr2_22_01",
-    "rs_y11_aut1_25_01",
-    "rs_y7_aut1_01_03",
-    "rs_y8_sum2_12_02",
-    "rs_y10_spr2_22_06",
-    "rs_y8_sum2_12_06"
    ]
   },
   "bullion": {
@@ -67509,20 +75068,6 @@ window.WORDBANK={
     "short_history_mansa_musa"
    ]
   },
-  "prestige": {
-   "w": "prestige",
-   "pos": "n",
-   "def": "the widespread respect and admiration earned through status, wealth or achievement.",
-   "ex": "To rule such vast lands, the sovereign needed prestige: ambassadors bowed lower, rival kings sent gifts, and doors opened at the mere mention of his name.",
-   "lessons": [
-    "short_history_mansa_musa",
-    "short_history_the_renaissance",
-    "short_history_the_space_race",
-    "acad_c2_05_academic_publishing",
-    "cpe_read_c1_09_language_death",
-    "lv_alevel_02_the_identity_toolkit"
-   ]
-  },
   "haggle": {
    "w": "haggle",
    "pos": "v",
@@ -67584,6 +75129,7 @@ window.WORDBANK={
    "ex": "Some inventors guard their methods jealously; others give them away freely, believing knowledge should be for the benefit of all humanity.",
    "lessons": [
     "short_history_marie_curie",
+    "world_na_work",
     "skills_b1b2_trade_fair_features_benefits",
     "b1_39_joining_a_club",
     "ielts_interactive_lesson",
@@ -67621,19 +75167,6 @@ window.WORDBANK={
     "short_history_the_space_race"
    ]
   },
-  "plot": {
-   "w": "plot",
-   "pos": "n",
-   "def": "a secret plan to do something illegal, especially against a ruler.",
-   "ex": "",
-   "lessons": [
-    "short_history_mary_queen_of_scots",
-    "gr_b1_story_chain",
-    "short_history_rasputin_a2b1",
-    "short_history_the_gunpowder_plot_a2b1",
-    "b2_93_talking_about_books"
-   ]
-  },
   "execution": {
    "w": "execution",
    "pos": "n",
@@ -67644,18 +75177,6 @@ window.WORDBANK={
     "rs_y11_spr2_28_05",
     "ois_14_elizabeth_and_the_armada",
     "rs_y11_sum2_30_04"
-   ]
-  },
-  "legitimacy": {
-   "w": "legitimacy",
-   "pos": "n",
-   "def": "the quality of being lawful and accepted; a ruler's right to rule. Family: legitimate (adj) · illegitimate (adj) · to legitimise (v).",
-   "ex": "",
-   "lessons": [
-    "short_history_mary_queen_of_scots",
-    "c2_pro_01_boardroom_rhetoric",
-    "sp_b2_42_strong_hedging",
-    "sp_prep_c1_72"
    ]
   },
   "implicate": {
@@ -67777,16 +75298,6 @@ window.WORDBANK={
     "concorso_ab24_english_teacher"
    ]
   },
-  "devout": {
-   "w": "devout",
-   "pos": "adj",
-   "def": "sincerely and seriously religious; committed to one's faith in practice, not just in name.",
-   "ex": "He was a deeply devout man who prayed daily, read the Bible closely, and came to see his last great building as an offering to God rather than a job.",
-   "lessons": [
-    "short_history_michelangelo",
-    "rs_y9_aut2_14_01"
-   ]
-  },
   "unveil": {
    "w": "unveil",
    "pos": "v",
@@ -67794,29 +75305,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_michelangelo"
-   ]
-  },
-  "restoration": {
-   "w": "restoration",
-   "pos": "n",
-   "def": "the careful work of cleaning and repairing an old artwork or building to bring it closer to its original state.",
-   "ex": "Centuries of candle smoke had darkened the paintings, so a long restoration was carried out to clean them — and the colours that emerged shocked everybody.",
-   "lessons": [
-    "short_history_michelangelo",
-    "ois_16_restoration_and_revolution"
-   ]
-  },
-  "persecution": {
-   "w": "persecution",
-   "pos": "n",
-   "def": "cruel, unfair treatment of people, often for their race, religion or beliefs.",
-   "ex": "",
-   "lessons": [
-    "short_history_muhammad_ali",
-    "rs_y10_spr2_22_05",
-    "rs_y8_spr2_10_04",
-    "ois_03_roman_britain",
-    "rs_y10_spr2_22_06"
    ]
   },
   "triumph": {
@@ -67905,37 +75393,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_muhammad_ali"
-   ]
-  },
-  "punish": {
-   "w": "punish",
-   "pos": "v",
-   "def": "to make someone suffer for something wrong they have done.",
-   "ex": "",
-   "lessons": [
-    "short_history_mutiny_on_the_bounty",
-    "behind_the_screen_dracula_a2b1",
-    "behind_the_screen_the_imitation_game_a2b1",
-    "short_history_the_boston_tea_party_a2b1"
-   ]
-  },
-  "rebel": {
-   "w": "rebel",
-   "pos": "v",
-   "def": "to fight against or refuse to obey a leader, government or rule.",
-   "ex": "",
-   "lessons": [
-    "short_history_mutiny_on_the_bounty",
-    "speaking_naturally_teens_bonus_camus_absurd_hero"
-   ]
-  },
-  "lieutenant": {
-   "w": "lieutenant",
-   "pos": "n",
-   "def": "a junior naval or army officer, ranking just below a captain.",
-   "ex": "",
-   "lessons": [
-    "short_history_mutiny_on_the_bounty"
    ]
   },
   "consignment": {
@@ -68051,26 +75508,6 @@ window.WORDBANK={
     "short_history_the_kray_twins_a2b1"
    ]
   },
-  "trial": {
-   "w": "trial",
-   "pos": "n",
-   "def": "the formal examination of evidence in court to decide whether someone is guilty.",
-   "ex": "The school ran a small trial with two classes before changing the timetable for everyone.",
-   "lessons": [
-    "short_history_ned_kelly",
-    "tib_pdca_b2",
-    "topic_free_time_b2",
-    "ts_penicillin_b2",
-    "bc_someone_i_admire_idioms_c1",
-    "someone_i_admire_b2c1",
-    "4_day_work_week",
-    "behind_the_screen_the_crucible_a2b1",
-    "bl_03_placebo_lie_heals",
-    "short_history_anne_boleyn_a2b1",
-    "short_history_joan_of_arc_a2b1",
-    "behind_the_screen_bridge_of_spies_a2b1"
-   ]
-  },
   "transport": {
    "w": "transport",
    "pos": "v",
@@ -68092,16 +75529,6 @@ window.WORDBANK={
     "short_history_nellie_bly",
     "short_history_the_irish_potato_famine",
     "techniques_the_cop_and_the_anthem"
-   ]
-  },
-  "ambush": {
-   "w": "ambush",
-   "pos": "v",
-   "def": "to attack by surprise from concealment; also a noun, an ambush.",
-   "ex": "",
-   "lessons": [
-    "short_history_ned_kelly",
-    "short_history_vlad_the_impaler"
    ]
   },
   "harbour": {
@@ -68148,17 +75575,6 @@ window.WORDBANK={
     "epicurean_15_the_canonic"
    ]
   },
-  "asylum": {
-   "w": "asylum",
-   "pos": "n",
-   "def": "an old-fashioned institution where people considered mentally ill were kept and cared for.",
-   "ex": "",
-   "lessons": [
-    "short_history_nellie_bly",
-    "short_history_vincent_van_gogh",
-    "rs_y11_spr2_28_03"
-   ]
-  },
   "exposé": {
    "w": "exposé",
    "pos": "n",
@@ -68167,18 +75583,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_nellie_bly",
     "short_history_the_match_girls_strike"
-   ]
-  },
-  "uprising": {
-   "w": "uprising",
-   "pos": "n",
-   "def": "an act of resistance or rebellion by ordinary people against those in power.",
-   "ex": "",
-   "lessons": [
-    "short_history_nelson_mandela",
-    "short_history_the_french_revolution",
-    "short_history_the_haitian_revolution",
-    "topic_dreams_b2c1"
    ]
   },
   "apartheid": {
@@ -68233,18 +75637,6 @@ window.WORDBANK={
     "short_history_nelson_mandela"
    ]
   },
-  "boycott": {
-   "w": "boycott",
-   "pos": "n",
-   "def": "a refusal to buy from, deal with or take part in something, used as a form of protest.",
-   "ex": "",
-   "lessons": [
-    "short_history_nelson_mandela",
-    "short_history_the_boston_tea_party",
-    "rs_y8_spr2_10_02",
-    "cancel_culture_interactive"
-   ]
-  },
   "liberate": {
    "w": "liberate",
    "pos": "v",
@@ -68272,7 +75664,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_nikola_tesla",
     "ts_forssmann_b2",
-    "ts_marie_curie_b2"
+    "ts_marie_curie_b2",
+    "world_eu_east"
    ]
   },
   "alternating current": {
@@ -68464,35 +75857,6 @@ window.WORDBANK={
     "short_history_pearl_harbor"
    ]
   },
-  "flourish": {
-   "w": "flourish",
-   "pos": "v",
-   "def": "to grow strongly and successfully; to thrive at the height of one's power.",
-   "ex": "",
-   "lessons": [
-    "short_history_petra",
-    "short_history_the_aztecs",
-    "short_history_the_olympic_games",
-    "short_history_the_silk_road",
-    "tib_ninebox_b2",
-    "lesson_ancient_greece_interactive"
-   ]
-  },
-  "abandon": {
-   "w": "abandon",
-   "pos": "v",
-   "def": "to leave a place, person or thing completely, with no intention of returning.",
-   "ex": "",
-   "lessons": [
-    "short_history_petra",
-    "short_history_the_mary_celeste",
-    "lesson_hms_erebus_mystery",
-    "short_history_angkor_a2b1",
-    "short_history_the_maya_a2b1",
-    "bc_books_that_changed_the_world_c1",
-    "sp_b2_47_counterarguments"
-   ]
-  },
   "nabataeans": {
    "w": "nabataeans",
    "pos": "n",
@@ -68618,15 +75982,6 @@ window.WORDBANK={
     "lesson_dinosaurs_speaking_EXPANDED"
    ]
   },
-  "dig up": {
-   "w": "dig up",
-   "pos": "verb",
-   "def": "— to take away earth or ash and find something below the ground.",
-   "ex": "",
-   "lessons": [
-    "short_history_pompeii_a2b1"
-   ]
-  },
   "ash": {
    "w": "ash",
    "pos": "noun",
@@ -68634,58 +75989,6 @@ window.WORDBANK={
    "ex": "Ash is the soft grey powder that comes out of a fire or a volcano.",
    "lessons": [
     "short_history_pompeii_a2b1"
-   ]
-  },
-  "escape": {
-   "w": "escape",
-   "pos": "verb",
-   "def": "— to run away from danger to a safe place.",
-   "ex": "",
-   "lessons": [
-    "short_history_pompeii_a2b1",
-    "techniques_the_most_dangerous_game_a2b1",
-    "techniques_the_ransom_of_red_chief_a2b1",
-    "techniques_the_three_strangers_a2b1",
-    "techniques_the_two_labyrinths_a2b1",
-    "behind_the_screen_escape_from_alcatraz_a2b1",
-    "short_history_alcatraz_a2b1",
-    "short_history_houdini_a2b1",
-    "short_history_pablo_escobar_a2b1",
-    "short_history_the_battle_of_waterloo_a2b1",
-    "behind_the_screen_the_truman_show_a2b1"
-   ]
-  },
-  "reign": {
-   "w": "reign",
-   "pos": "v",
-   "def": "to rule as king or queen; the noun (a reign) is the period a monarch rules.",
-   "ex": "a reign — from Queen VictoriaUse it about a king or queen you know of.",
-   "lessons": [
-    "short_history_queen_victoria",
-    "short_history_the_industrial_revolution",
-    "ois_14_elizabeth_and_the_armada"
-   ]
-  },
-  "grief": {
-   "w": "grief",
-   "pos": "n",
-   "def": "deep sadness, especially after someone you love has died.",
-   "ex": "",
-   "lessons": [
-    "short_history_queen_victoria",
-    "lf_06_the_house",
-    "ib_lesson_techniques_story_of_an_hour"
-   ]
-  },
-  "industry": {
-   "w": "industry",
-   "pos": "n",
-   "def": "the making of goods in factories, and the businesses that do this on a large scale.",
-   "ex": "",
-   "lessons": [
-    "short_history_queen_victoria",
-    "b2_49_networking_events",
-    "discuss_c1_advice_industry"
    ]
   },
   "monarch": {
@@ -68739,15 +76042,6 @@ window.WORDBANK={
    "w": "assassination",
    "pos": "n",
    "def": "the murder of an important or famous person, often for political reasons.",
-   "ex": "",
-   "lessons": [
-    "short_history_queen_victoria"
-   ]
-  },
-  "jubilee": {
-   "w": "jubilee",
-   "pos": "n",
-   "def": "a special anniversary of an important event, especially of a monarch's reign (e.g. 50 or 60 years).",
    "ex": "",
    "lessons": [
     "short_history_queen_victoria"
@@ -68894,18 +76188,6 @@ window.WORDBANK={
     "short_history_sparta"
    ]
   },
-  "submit": {
-   "w": "submit",
-   "pos": "v",
-   "def": "to stop resisting and accept the control or authority of someone stronger; to yield. Closer to to give in. (To resist is its opposite.)",
-   "ex": "",
-   "lessons": [
-    "short_history_sparta",
-    "crowds_and_madness",
-    "lesson_35_subjunctive_formal",
-    "grammar_c2_04_subjunctive_formal_conditionals"
-   ]
-  },
   "endurance": {
    "w": "endurance",
    "pos": "n",
@@ -68979,23 +76261,6 @@ window.WORDBANK={
     "short_history_stonehenge"
    ]
   },
-  "sacred": {
-   "w": "sacred",
-   "pos": "adj",
-   "def": "holy; connected with religion and deserving deep respect.",
-   "ex": "For centuries, the city of Jerusalem was sacred to Jews, Christians and Muslims alike — a place each faith regarded as blessed and set apart from all others.",
-   "lessons": [
-    "short_history_stonehenge",
-    "short_history_the_crusades",
-    "short_history_the_olympic_games",
-    "short_history_the_pyramids",
-    "rs_y10_spr1_21_04",
-    "rs_y7_aut1_01_04",
-    "su_a2_82_religious_art_and_history",
-    "qf_pronunciation_ed_adjectives",
-    "rs_y11_sum2_30_02"
-   ]
-  },
   "necropolis": {
    "w": "necropolis",
    "pos": "n",
@@ -69015,18 +76280,6 @@ window.WORDBANK={
     "short_history_the_mary_celeste"
    ]
   },
-  "theory": {
-   "w": "theory",
-   "pos": "n",
-   "def": "a proposed explanation. speculation (n) — forming opinions without firm evidence; guessing.",
-   "ex": "",
-   "lessons": [
-    "short_history_stonehenge",
-    "rs_y10_aut2_20_05",
-    "behind_the_screen_everything_everywhere_all_at_once_a2b1",
-    "short_history_easter_island_a2b1"
-   ]
-  },
   "bombardment": {
    "w": "bombardment",
    "pos": "n",
@@ -69037,26 +76290,6 @@ window.WORDBANK={
     "short_history_the_christmas_truce",
     "short_history_the_fall_of_constantinople",
     "cpe_read_c2_08_noise_pollution"
-   ]
-  },
-  "outnumbered": {
-   "w": "outnumbered",
-   "pos": "adj",
-   "def": "having far fewer people or forces than the other side.",
-   "ex": "On one side stood a few hundred men. On the other stood an army many, many times their size. The defenders were badly outnumbered.",
-   "lessons": [
-    "short_history_the_alamo"
-   ]
-  },
-  "artillery": {
-   "w": "artillery",
-   "pos": "n",
-   "def": "the large, heavy guns of an army, and the branch that operates them. Example: Santa Anna's artillery hammered the fort day and night.",
-   "ex": "The Ottoman army had assembled artillery on a scale no earlier attacker had ever possessed; the largest piece was so heavy that sixty oxen were needed to drag it into firing position.",
-   "lessons": [
-    "short_history_the_alamo",
-    "short_history_the_battle_of_waterloo",
-    "short_history_the_fall_of_constantinople"
    ]
   },
   "storming": {
@@ -69220,17 +76453,6 @@ window.WORDBANK={
     "short_history_the_aztecs"
    ]
   },
-  "prophecy": {
-   "w": "prophecy",
-   "pos": "n",
-   "def": "a statement that says what will happen in the future, often claimed to come from a god.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_aztecs",
-    "rs_y7_spr1_03_02",
-    "rs_y10_aut2_20_01"
-   ]
-  },
   "maize": {
    "w": "maize",
    "pos": "n",
@@ -69238,6 +76460,7 @@ window.WORDBANK={
    "ex": "In the fields around the city, farmers planted row upon row of maize, and from its golden cobs they ground the flour for the flat bread that fed almost everyone.",
    "lessons": [
     "short_history_the_aztecs",
+    "world_la_food",
     "short_history_the_aztecs_a2b1"
    ]
   },
@@ -69265,15 +76488,6 @@ window.WORDBANK={
     "ois_07_danes_and_last_saxons"
    ]
   },
-  "shield wall": {
-   "w": "shield wall",
-   "pos": "n",
-   "def": "a defensive line in which soldiers stand shoulder to shoulder and overlap their shields.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_battle_of_hastings"
-   ]
-  },
   "ranks": {
    "w": "ranks",
    "pos": "n, plural",
@@ -69299,16 +76513,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_battle_of_hastings"
-   ]
-  },
-  "tapestry": {
-   "w": "tapestry",
-   "pos": "n",
-   "def": "a heavy cloth with pictures or scenes woven or embroidered into it. (The Bayeux Tapestry tells this story.)",
-   "ex": "",
-   "lessons": [
-    "short_history_the_battle_of_hastings",
-    "techniques_the_lumber_room"
    ]
   },
   "watershed": {
@@ -69347,30 +76551,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_battle_of_waterloo"
-   ]
-  },
-  "decisive": {
-   "w": "decisive",
-   "pos": "adjective",
-   "def": "settling something firmly and finally; producing a clear, definite result",
-   "ex": "The last detail was not just frightening; it was the decisive piece of evidence that settled what had happened.",
-   "lessons": [
-    "short_history_the_battle_of_waterloo",
-    "techniques_the_boarded_window",
-    "bc_women_political_leaders_c1",
-    "Business-Bootcamp-Lesson3-The-Project-Manager",
-    "cae_essay_practice_3"
-   ]
-  },
-  "partition": {
-   "w": "partition",
-   "pos": "n",
-   "def": "the division of a single country or territory into separate parts or states, usually imposed from outside.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_berlin_wall",
-    "short_history_the_partition_of_india",
-    "short_history_the_scramble_for_africa"
    ]
   },
   "standoff": {
@@ -69433,19 +76613,6 @@ window.WORDBANK={
     "lesson_02_speaking_naturally_interactive",
     "b2_101_design_brand_stretch",
     "qf_pronunciation_minimal_pairs_i"
-   ]
-  },
-  "plague": {
-   "w": "plague",
-   "pos": "n",
-   "def": "a deadly infectious disease that spreads quickly and kills very large numbers of people.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_black_death",
-    "short_history_the_silk_road",
-    "ois_11_hundred_years_war",
-    "ois_16_restoration_and_revolution",
-    "short_history_the_black_death_a2b1"
    ]
   },
   "vermin": {
@@ -69516,41 +76683,6 @@ window.WORDBANK={
     "b2_26_modern_medicine"
    ]
   },
-  "colony": {
-   "w": "colony",
-   "pos": "n",
-   "def": "a territory controlled and settled by a more powerful country, usually a long way away.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_boston_tea_party",
-    "short_history_the_east_india_company",
-    "short_history_the_haitian_revolution",
-    "short_history_the_partition_of_india",
-    "concorso_empire_debate_b2",
-    "short_history_the_boston_tea_party_a2b1",
-    "short_history_the_scramble_for_africa_a2b1"
-   ]
-  },
-  "representation": {
-   "w": "representation",
-   "pos": "n",
-   "def": "having someone in a government or assembly who speaks and votes on your behalf.",
-   "ex": "The colonists had no representation in Parliament — not a single member spoke or voted for them — yet Parliament taxed them anyway.",
-   "lessons": [
-    "short_history_the_boston_tea_party"
-   ]
-  },
-  "disguise": {
-   "w": "disguise",
-   "pos": "n",
-   "def": "a change of appearance worn to hide who you really are.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_boston_tea_party",
-    "c2_pro_23_merger_acquisition",
-    "short_history_the_boston_tea_party_a2b1"
-   ]
-  },
   "wharf": {
    "w": "wharf",
    "pos": "n",
@@ -69558,16 +76690,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_boston_tea_party"
-   ]
-  },
-  "reprisal": {
-   "w": "reprisal",
-   "pos": "n",
-   "def": "an act of punishment or revenge taken in response to something.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_boston_tea_party",
-    "short_history_the_partition_of_india"
    ]
   },
   "front line": {
@@ -69589,19 +76711,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_conflict"
    ]
   },
-  "morale": {
-   "w": "morale",
-   "pos": "n",
-   "def": "the level of confidence, hope and spirit within a group of people.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_christmas_truce",
-    "gr_c1_the_negotiator",
-    "bc_staff_morale_c1",
-    "keeping_teams_motivated",
-    "leading_under_pressure"
-   ]
-  },
   "foe": {
    "w": "foe",
    "pos": "n",
@@ -69610,17 +76719,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_christmas_truce",
     "b1_04_technology_friend_or_foe"
-   ]
-  },
-  "mourn": {
-   "w": "mourn",
-   "pos": "v",
-   "def": "to feel and show deep sadness because someone has died.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_christmas_truce",
-    "rs_y11_aut2_26_05",
-    "lesson-30-certification"
    ]
   },
   "trench": {
@@ -69866,16 +76964,6 @@ window.WORDBANK={
     "rs_y10_sum1_23_02"
    ]
   },
-  "crusade": {
-   "w": "crusade",
-   "pos": "n",
-   "def": "a medieval military campaign undertaken in the name of religion; (more widely) a determined campaign for a cause.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_crusades",
-    "ois_09_plantagenets_and_magna_carta"
-   ]
-  },
   "citadel": {
    "w": "citadel",
    "pos": "n",
@@ -69892,15 +76980,6 @@ window.WORDBANK={
    "pos": "n, plural",
    "def": "the conditions that both sides accept in an agreement, such as a surrender or peace deal.",
    "ex": "When at last the defenders opened the gates, the two sides agreed on the terms of the surrender — who could leave, and what they could take.",
-   "lessons": [
-    "short_history_the_crusades"
-   ]
-  },
-  "chivalry": {
-   "w": "chivalry",
-   "pos": "n",
-   "def": "the medieval code of honour, courage and courtesy expected of a knight, especially towards the weak or defeated.",
-   "ex": "Even his enemies praised the sultan's chivalry — the courtesy, mercy and honour he showed to those he had defeated.",
    "lessons": [
     "short_history_the_crusades"
    ]
@@ -69928,18 +77007,6 @@ window.WORDBANK={
     "short_history_the_dancing_plague"
    ]
   },
-  "famine": {
-   "w": "famine",
-   "pos": "n",
-   "def": "an extreme, widespread shortage of food, often causing starvation and death.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_dancing_plague",
-    "short_history_the_east_india_company",
-    "short_history_the_french_revolution",
-    "short_history_the_irish_potato_famine_a2b1"
-   ]
-  },
   "compulsively": {
    "w": "compulsively",
    "pos": "adv",
@@ -69947,17 +77014,6 @@ window.WORDBANK={
    "ex": "There was no music and no celebration; she simply stepped into the street and began to dance compulsively, as if her body were moving without her permission.",
    "lessons": [
     "short_history_the_dancing_plague"
-   ]
-  },
-  "seize": {
-   "w": "seize",
-   "pos": "v",
-   "def": "to take hold of someone or something suddenly and with force; (of a feeling or affliction) to grip a person powerfully and without warning.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_dancing_plague",
-    "short_history_the_french_revolution",
-    "c2_pro_29_innovation_culture"
    ]
   },
   "afflicted": {
@@ -69976,15 +77032,6 @@ window.WORDBANK={
    "pos": "n, plural",
    "def": "sudden, violent, uncontrollable shaking or jerking of the body, caused by illness or poison.",
    "ex": "Some scholars blame poisoned rye bread, whose toxins can throw the body into violent convulsions long before any dancing begins.",
-   "lessons": [
-    "short_history_the_dancing_plague"
-   ]
-  },
-  "purge": {
-   "w": "purge",
-   "pos": "v",
-   "def": "to force something harmful out of the body or system, to cleanse it completely.",
-   "ex": "",
    "lessons": [
     "short_history_the_dancing_plague"
    ]
@@ -70150,24 +77197,6 @@ window.WORDBANK={
     "rs_y9_aut2_14_02"
    ]
   },
-  "emperor": {
-   "w": "emperor",
-   "pos": "n",
-   "def": "the male ruler of an empire; a monarch of the highest rank. (his realm: an empire)",
-   "ex": "",
-   "lessons": [
-    "short_history_the_forbidden_city",
-    "short_history_the_terracotta_army",
-    "behind_the_screen_gladiator_a2b1",
-    "behind_the_screen_the_last_emperor_a2b1",
-    "ois_03_roman_britain",
-    "short_history_emperor_nero_a2b1",
-    "short_history_the_great_wall_of_china_a2b1",
-    "short_history_the_taj_mahal_a2b1",
-    "short_history_hadrians_wall_a2b1",
-    "short_history_the_forbidden_city_a2b1"
-   ]
-  },
   "splendour": {
    "w": "splendour",
    "pos": "n",
@@ -70227,16 +77256,6 @@ window.WORDBANK={
     "short_history_the_french_revolution"
    ]
   },
-  "tyrant": {
-   "w": "tyrant",
-   "pos": "n",
-   "def": "a cruel ruler who holds absolute power and uses it unjustly.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_french_revolution",
-    "short_history_vlad_the_impaler"
-   ]
-  },
   "absolute power": {
    "w": "absolute power",
    "pos": "n",
@@ -70263,18 +77282,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_french_revolution"
-   ]
-  },
-  "declaration": {
-   "w": "declaration",
-   "pos": "n",
-   "def": "a formal, public statement of principle or intent.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_french_revolution",
-    "rs_y11_aut1_25_02",
-    "rs_y11_aut1_25_06",
-    "rs_y9_sum2_18_03"
    ]
   },
   "terror": {
@@ -70354,17 +77361,6 @@ window.WORDBANK={
     "short_history_the_library_of_alexandria",
     "short_history_the_medici",
     "short_history_the_renaissance"
-   ]
-  },
-  "revolt": {
-   "w": "revolt",
-   "pos": "n",
-   "def": "an organised uprising against those in power. (verb: to revolt)",
-   "ex": "",
-   "lessons": [
-    "short_history_the_gladiators",
-    "short_history_boudica_a2b1",
-    "short_history_the_gladiators_a2b1"
    ]
   },
   "misconception": {
@@ -70561,18 +77557,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_great_depression"
-   ]
-  },
-  "idle": {
-   "w": "idle",
-   "pos": "adj",
-   "def": "not working or in use; without employment or activity.",
-   "ex": "With the mills shut and the docks silent, hundreds of men who had always earned their own keep now stood idle on the street corners from dawn to dusk.",
-   "lessons": [
-    "short_history_the_great_depression",
-    "gr_warmup_b2_hot_takes_boredom",
-    "komorebi_03_the_power_of_boredom",
-    "aviation_eapt_11"
    ]
   },
   "drought": {
@@ -70791,17 +77775,6 @@ window.WORDBANK={
     "short_history_the_great_wall_of_china"
    ]
   },
-  "labourer": {
-   "w": "labourer",
-   "pos": "n",
-   "def": "a worker who does hard physical work, usually with their hands.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_great_wall_of_china",
-    "short_history_the_panama_canal",
-    "short_history_the_pyramids"
-   ]
-  },
   "rammed earth": {
    "w": "rammed earth",
    "pos": "n",
@@ -70849,20 +77822,13 @@ window.WORDBANK={
     "short_history_the_olympic_games",
     "short_history_the_rosetta_stone",
     "tib_acculturation_b2",
+    "world_eu_coffee",
+    "world_na_mosaic",
     "bc_the_lottery_grants_b2c1",
     "gr_warmup_b2_hot_takes_identity",
     "c2_pro_27_brand_strategy",
     "talk_tourism_b2c1",
     "lesson_39_culture_identity"
-   ]
-  },
-  "conspirator": {
-   "w": "conspirator",
-   "pos": "n",
-   "def": "one of a group of people who secretly plan something illegal or harmful together.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_gunpowder_plot"
    ]
   },
   "undercroft": {
@@ -70882,17 +77848,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_gunpowder_plot",
     "techniques_the_sniper"
-   ]
-  },
-  "torture": {
-   "w": "torture",
-   "pos": "v",
-   "def": "to cause someone severe pain on purpose, often to force them to give information or confess.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_gunpowder_plot",
-    "rs_y9_spr1_15_01",
-    "christmas_conversations_compass_teens"
    ]
   },
   "cask": {
@@ -71447,19 +78402,6 @@ window.WORDBANK={
     "short_history_the_manhattan_project"
    ]
   },
-  "refugee": {
-   "w": "refugee",
-   "pos": "n",
-   "def": "a person forced to leave their country to escape war or persecution. Example: many brilliant physicists arrived in America as refugees from Europe.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_manhattan_project",
-    "rs_y11_spr2_28_03",
-    "rs_y9_spr1_15_05",
-    "discuss_b2_who_belongs_here",
-    "rs_y11_spr2_28_06"
-   ]
-  },
   "armaments": {
    "w": "armaments",
    "pos": "n, plural",
@@ -71704,16 +78646,6 @@ window.WORDBANK={
     "short_history_the_medici"
    ]
   },
-  "renaissance": {
-   "w": "renaissance",
-   "pos": "n",
-   "def": "the \"rebirth\" of art and learning in Europe, roughly the 14th–16th centuries. Example: Florence is called the birthplace of the Renaissance.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_medici",
-    "memory-books"
-   ]
-  },
   "revival": {
    "w": "revival",
    "pos": "n",
@@ -71763,18 +78695,6 @@ window.WORDBANK={
     "dewey_palace_architecture"
    ]
   },
-  "abolish": {
-   "w": "abolish",
-   "pos": "v",
-   "def": "to end or get rid of a law, custom or institution officially.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_olympic_games",
-    "short_history_the_samurai",
-    "talk_death_penalty_b2c1",
-    "grammar_c1_15_gerunds_infinitives_phrasal"
-   ]
-  },
   "revive": {
    "w": "revive",
    "pos": "v",
@@ -71782,6 +78702,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_olympic_games",
+    "world_la_language",
     "epicurean_25_gassendi_life"
    ]
   },
@@ -71792,17 +78713,6 @@ window.WORDBANK={
    "ex": "Winning was not enough on its own; what the champions truly hungered for was renown — to be spoken of with awe in their home city long after they themselves were gone.",
    "lessons": [
     "short_history_the_olympic_games"
-   ]
-  },
-  "independence": {
-   "w": "independence",
-   "pos": "n",
-   "def": "freedom from the rule of another country or power.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_panama_canal",
-    "short_history_the_partition_of_india",
-    "ts_montessori_b2"
    ]
   },
   "isthmus": {
@@ -71844,15 +78754,6 @@ window.WORDBANK={
     "short_history_houdini_a2b1"
    ]
   },
-  "ratify": {
-   "w": "ratify",
-   "pos": "v",
-   "def": "to approve a signed agreement officially, bringing it into force.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_panama_canal"
-   ]
-  },
   "in perpetuity": {
    "w": "in perpetuity",
    "pos": "",
@@ -71869,7 +78770,8 @@ window.WORDBANK={
    "ex": "The board gave her a clear mandate: halve the delivery time and she would have a free hand to restructure the department.",
    "lessons": [
     "short_history_the_partition_of_india",
-    "skills_c1_senior_interview_1_your_story"
+    "skills_c1_senior_interview_1_your_story",
+    "world_na_work"
    ]
   },
   "accede": {
@@ -71921,19 +78823,6 @@ window.WORDBANK={
     "rs_y11_aut2_26_04",
     "rp_13_talking_about_the_weather",
     "wp_09_the_just_city"
-   ]
-  },
-  "monastery": {
-   "w": "monastery",
-   "pos": "n",
-   "def": "a community where monks live, work and pray, cut off from ordinary life.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_printing_press",
-    "short_history_the_vikings",
-    "rs_y10_spr2_22_01",
-    "epicurean_22_rediscovery",
-    "short_history_the_vikings_a2b1"
    ]
   },
   "scribe": {
@@ -72227,15 +79116,6 @@ window.WORDBANK={
     "short_history_the_roman_republic_a2b1"
    ]
   },
-  "assembly": {
-   "w": "assembly",
-   "pos": "n",
-   "def": "a large gathering of citizens who meet to vote on laws and choose their leaders.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_roman_republic"
-   ]
-  },
   "civil war": {
    "w": "civil war",
    "pos": "n",
@@ -72277,15 +79157,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to pretend to be another person in order to deceive others.",
    "ex": "",
-   "lessons": [
-    "short_history_the_romanovs"
-   ]
-  },
-  "remains": {
-   "w": "remains",
-   "pos": "n, plural",
-   "def": "the body, or parts of the body, of a person who has died.",
-   "ex": "Scientists can compare remains found in a hidden grave with living relatives to confirm exactly who lies buried there.",
    "lessons": [
     "short_history_the_romanovs"
    ]
@@ -72382,19 +79253,6 @@ window.WORDBANK={
     "b2_35_getting_a_pay_rise"
    ]
   },
-  "discipline": {
-   "w": "discipline",
-   "pos": "n",
-   "def": "controlled, trained behaviour; the ability to make yourself do hard things.",
-   "ex": "To lose a battle without shame, a warrior had to show great discipline, controlling his fear and following the rules he had trained into himself.",
-   "lessons": [
-    "short_history_the_samurai",
-    "rs_y7_spr2_04_02",
-    "gr_warmup_b2_hot_takes_parenting",
-    "acad_c2_07_interdisciplinary",
-    "ielts_spelling_a_fresh_start"
-   ]
-  },
   "honour": {
    "w": "honour",
    "pos": "noun",
@@ -72403,6 +79261,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_samurai",
     "techniques_mateo_falcone_a2b1",
+    "world_la_dead",
     "rs_y9_spr2_16_02",
     "short_history_the_olympic_games_a2b1",
     "short_history_the_samurai_a2b1"
@@ -72537,16 +79396,6 @@ window.WORDBANK={
     "short_history_the_silk_road"
    ]
   },
-  "diplomacy": {
-   "w": "diplomacy",
-   "pos": "n",
-   "def": "the art of managing relations between states through discussion and agreement rather than war.",
-   "ex": "The whole system depended on diplomacy — patient talks and agreements between empires that kept the roads open and the traders safe.",
-   "lessons": [
-    "short_history_the_silk_road",
-    "gr_warmup_b2_hot_takes_conflict"
-   ]
-  },
   "satellite": {
    "w": "satellite",
    "pos": "n",
@@ -72567,15 +79416,6 @@ window.WORDBANK={
     "short_history_the_space_race"
    ]
   },
-  "depose": {
-   "w": "depose",
-   "pos": "v",
-   "def": "to remove a ruler or leader from power, especially suddenly or by force.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_spanish_armada"
-   ]
-  },
   "galleon": {
    "w": "galleon",
    "pos": "n",
@@ -72590,15 +79430,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to drive back or force away an attack or an enemy.",
    "ex": "",
-   "lessons": [
-    "short_history_the_spanish_armada"
-   ]
-  },
-  "fireships": {
-   "w": "fireships",
-   "pos": "n",
-   "def": "boats deliberately set on fire and steered or floated into an enemy fleet to burn and scatter it.",
-   "ex": "Under cover of darkness they filled eight old boats with tar and powder, set them alight, and let the fireships drift down the wind straight into the crowded enemy anchorage.",
    "lessons": [
     "short_history_the_spanish_armada"
    ]
@@ -72771,18 +79602,6 @@ window.WORDBANK={
     "short_history_the_terracotta_army"
    ]
   },
-  "commemorate": {
-   "w": "commemorate",
-   "pos": "v",
-   "def": "to honour and keep alive the memory of a person or event, often through a ceremony or a memorial.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_taj_mahal",
-    "rs_y10_spr1_21_05",
-    "rs_y11_aut2_26_04",
-    "rs_y10_spr2_22_06"
-   ]
-  },
   "immortality": {
    "w": "immortality",
    "pos": "n",
@@ -72941,16 +79760,6 @@ window.WORDBANK={
     "ois_13_henry_viii"
    ]
   },
-  "supremacy": {
-   "w": "supremacy",
-   "pos": "n",
-   "def": "the state of holding the highest power or authority, standing above all others.",
-   "ex": "When the old ruler died, his eldest son climbed the steps, sat down, and claimed supremacy over every rival lord in the realm, bending them all to his will.",
-   "lessons": [
-    "short_history_the_tudors",
-    "ois_13_henry_viii"
-   ]
-  },
   "courtier": {
    "w": "courtier",
    "pos": "n",
@@ -72995,17 +79804,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_vikings",
     "acad_c2_06_research_ethics"
-   ]
-  },
-  "sheriff": {
-   "w": "sheriff",
-   "pos": "noun",
-   "def": "a law officer responsible for keeping order and enforcing the law in a town or district.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_wild_west",
-    "techniques_a_jury_of_her_peers_a2b1",
-    "short_history_the_wild_west_a2b1"
    ]
   },
   "saloon": {
@@ -73277,16 +80075,6 @@ window.WORDBANK={
    "ex": "Even at his lowest, his ambition did not die; he kept painting with a strange, burning zeal, as if each canvas might be his last.",
    "lessons": [
     "short_history_vincent_van_gogh"
-   ]
-  },
-  "invade": {
-   "w": "invade",
-   "pos": "v",
-   "def": "to enter a country or region with an armed force in order to conquer it.",
-   "ex": "",
-   "lessons": [
-    "short_history_vlad_the_impaler",
-    "rs_y8_spr2_10_02"
    ]
   },
   "principality": {
@@ -73849,18 +80637,6 @@ window.WORDBANK={
     "story_b2_use_it_or_lose_it"
    ]
   },
-  "bond": {
-   "w": "bond",
-   "pos": "verb",
-   "def": "to form a close emotional connection with someone: bond with, bond over.",
-   "ex": "Spending the first weeks at home helps a parent bond with the baby — to build a close, loving relationship.",
-   "lessons": [
-    "story_b2_use_it_or_lose_it",
-    "topic_good_life_b2",
-    "b1_46_family_traditions",
-    "ielts_interactive_lesson"
-   ]
-  },
   "be due": {
    "w": "be due",
    "pos": "adjective",
@@ -73960,15 +80736,6 @@ window.WORDBANK={
     "story_c1_the_needham_question",
     "bc_nine_team_roles_belbin_b2c1",
     "grammar_c2_03_complex_modality"
-   ]
-  },
-  "confiscate": {
-   "w": "confiscate",
-   "pos": "v",
-   "def": "when someone in authority officially takes your property away, often as a punishment: the teacher confiscated his phone, customs confiscated the goods. Noun: confiscation.",
-   "ex": "",
-   "lessons": [
-    "techniques_a_chameleon"
    ]
   },
   "sycophantic": {
@@ -74203,31 +80970,6 @@ window.WORDBANK={
     "sp_prep_b2_47"
    ]
   },
-  "peer": {
-   "w": "peer",
-   "pos": "n",
-   "def": "an equal; a person of the same standing, group or experience as you.",
-   "ex": "",
-   "lessons": [
-    "techniques_a_jury_of_her_peers",
-    "tib_diffusion_b2",
-    "prof_c1_04_influencing_without_authority",
-    "sp_b2_49_register"
-   ]
-  },
-  "rope": {
-   "w": "rope",
-   "pos": "noun",
-   "def": "a very thick, strong string.",
-   "ex": "",
-   "lessons": [
-    "techniques_a_jury_of_her_peers_a2b1",
-    "techniques_in_a_grove_a2b1",
-    "techniques_the_adventure_of_the_speckled_band_a2b1",
-    "short_history_the_hindenburg_a2b1",
-    "short_history_the_mary_celeste_a2b1"
-   ]
-  },
   "lonely": {
    "w": "lonely",
    "pos": "adjective",
@@ -74326,29 +81068,6 @@ window.WORDBANK={
    "ex": "He was scrupulous to the point of producing the actual string as evidence.",
    "lessons": [
     "techniques_a_piece_of_string"
-   ]
-  },
-  "decline": {
-   "w": "decline",
-   "pos": "v",
-   "def": "To grow gradually weaker in health, strength or spirits until near death.",
-   "ex": "Tormented by the injustice, he declined rapidly and wasted away.",
-   "lessons": [
-    "techniques_a_piece_of_string",
-    "techniques_the_yellow_wallpaper",
-    "rs_y10_spr2_22_05",
-    "rs_y7_aut1_01_05",
-    "bc_tourism_alternative_holidays_b2c1",
-    "rp_26_a_wedding_invitation",
-    "epicurean_19_the_decline",
-    "the-art-of-growing-older",
-    "b2_97_retail_banking_loan_decline",
-    "a1p_29_making_suggestions",
-    "a1p_44_making_invitations",
-    "IELTS-Reading-Practice-Test-1",
-    "ielts_task_1_complete_interactive",
-    "lf_39_the_subscription_trap",
-    "grammar_c2_01_register_style_shifting"
    ]
   },
   "farmer": {
@@ -74455,16 +81174,6 @@ window.WORDBANK={
     "techniques_a_retrieved_reformation_a2b1"
    ]
   },
-  "summon": {
-   "w": "summon",
-   "pos": "v",
-   "def": "to officially order or call someone to come to you; also, to gather (courage, strength) from within yourself.",
-   "ex": "He could not summon help against a danger he could not name.",
-   "lessons": [
-    "techniques_a_vendetta",
-    "techniques_the_signal_man"
-   ]
-  },
   "despise": {
    "w": "despise",
    "pos": "v",
@@ -74476,20 +81185,6 @@ window.WORDBANK={
     "wp_45_the_abyss"
    ]
   },
-  "resent": {
-   "w": "resent",
-   "pos": "v",
-   "def": "to feel bitter or angry about something you believe is unfair.",
-   "ex": "She resented the implication that her grammar wasn't quite right because she wasn't a native speaker.",
-   "lessons": [
-    "techniques_a_vendetta",
-    "techniques_the_country_of_the_blind",
-    "techniques_the_verger",
-    "techniques_the_verger_english_teacher",
-    "techniques_the_verger_jobseeker",
-    "ml_15_the_big_favour"
-   ]
-  },
   "vendetta": {
    "w": "vendetta",
    "pos": "n",
@@ -74497,16 +81192,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_a_vendetta"
-   ]
-  },
-  "avenge": {
-   "w": "avenge",
-   "pos": "v",
-   "def": "to harm or punish someone in return for a wrong done to a person you love.",
-   "ex": "He vowed to avenge the insult.\" / \"A wrong is unredressed when the avenger is caught.",
-   "lessons": [
-    "techniques_a_vendetta",
-    "techniques_the_cask_of_amontillado"
    ]
   },
   "treacherously": {
@@ -74915,6 +81600,7 @@ window.WORDBANK={
    "ex": "I have an appointment with him tonight.\" / \"a doctor's appointment",
    "lessons": [
     "techniques_appointment_in_samarra_a2b1",
+    "world_la_time",
     "su_a2_87_at_the_doctor",
     "wk_28_the_first_sales_call",
     "a1p_32_phone_calls",
@@ -74979,16 +81665,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_araby"
-   ]
-  },
-  "crush": {
-   "w": "crush",
-   "pos": "",
-   "def": "strong romantic feelings for someone, usually when you are young. You \"have a crush on\" someone.",
-   "ex": "",
-   "lessons": [
-    "techniques_araby_a2b1",
-    "grammar_b2_09_negative_adverbials_inversion"
    ]
   },
   "shy": {
@@ -75264,17 +81940,6 @@ window.WORDBANK={
     "techniques_desirees_baby"
    ]
   },
-  "marry": {
-   "w": "marry",
-   "pos": "verb",
-   "def": "to become husband and wife.",
-   "ex": "",
-   "lessons": [
-    "techniques_desirees_baby_a2b1",
-    "behind_the_screen_the_theory_of_everything_a2b1",
-    "short_history_the_tudors_a2b1"
-   ]
-  },
   "skin": {
    "w": "skin",
    "pos": "noun",
@@ -75303,16 +81968,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_desirees_baby_a2b1"
-   ]
-  },
-  "burn": {
-   "w": "burn",
-   "pos": "verb",
-   "def": "to destroy something with fire.",
-   "ex": "",
-   "lessons": [
-    "techniques_desirees_baby_a2b1",
-    "grammar_a1_13_zero_conditional"
    ]
   },
   "melancholy": {
@@ -75377,16 +82032,6 @@ window.WORDBANK={
     "anansi_and_turtle",
     "c2_pro_18_mentoring_language",
     "curious_conversations_04_best_advice"
-   ]
-  },
-  "rose": {
-   "w": "rose",
-   "pos": "n",
-   "def": "a beautiful flower, often red. This rose is very important in the story.",
-   "ex": "He gave her a red rose.\" / \"Roses smell very nice.",
-   "lessons": [
-    "techniques_dr_heideggers_experiment_a2b1",
-    "techniques_the_nightingale_and_the_rose_a2b1"
    ]
   },
   "cretonne": {
@@ -75740,17 +82385,6 @@ window.WORDBANK={
     "duolingo_det_practice_6"
    ]
   },
-  "restless": {
-   "w": "restless",
-   "pos": "adj",
-   "def": "Unable to stay still or be satisfied; always wanting change or more.",
-   "ex": "Each success left him restless rather than content.",
-   "lessons": [
-    "techniques_how_much_land",
-    "wp_22_the_restless_heart",
-    "grammar_b2_05_third_mixed_conditionals"
-   ]
-  },
   "tract": {
    "w": "tract",
    "pos": "n",
@@ -75796,18 +82430,6 @@ window.WORDBANK={
     "rs_y8_spr2_10_03",
     "cae_c1_the_ulysses_contract",
     "ielts_b2c1_the_ulysses_contract"
-   ]
-  },
-  "in vain": {
-   "w": "in vain",
-   "pos": "phrase",
-   "def": "Without success; with no useful result.",
-   "ex": "The Nightingale gave her life in vain — the rose ended in the gutter.",
-   "lessons": [
-    "techniques_how_much_land",
-    "techniques_the_last_leaf",
-    "techniques_the_nightingale_and_the_rose",
-    "techniques_the_ransom_of_red_chief"
    ]
   },
   "land": {
@@ -76604,15 +83226,6 @@ window.WORDBANK={
     "techniques_kong_yiji"
    ]
   },
-  "wretched": {
-   "w": "wretched",
-   "pos": "adj",
-   "def": "in a very unhappy or pitiful state; miserable.",
-   "ex": "The last time they saw him he was a wretched sight: thin, black-faced, dragging himself along on his hands.",
-   "lessons": [
-    "techniques_kong_yiji"
-   ]
-  },
   "dignity": {
    "w": "dignity",
    "pos": "n",
@@ -76710,21 +83323,6 @@ window.WORDBANK={
     "techniques_the_ransom_of_red_chief"
    ]
   },
-  "reputation": {
-   "w": "reputation",
-   "pos": "n",
-   "def": "The opinion that people in general have about someone — what they are believed to be.",
-   "ex": "The hotel's reputation was so good that it was fully booked for a year.",
-   "lessons": [
-    "techniques_luck",
-    "tib_fishbone_b2",
-    "acad_b2_06_referencing",
-    "wk_33_the_deadline",
-    "b2_47_handling_complaints",
-    "bc_building_your_brand_c1",
-    "editor_dilemmas_game"
-   ]
-  },
   "eminent": {
    "w": "eminent",
    "pos": "adjective (formal)",
@@ -76733,17 +83331,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_luck",
     "techniques_the_adventure_of_the_speckled_band"
-   ]
-  },
-  "pious": {
-   "w": "pious",
-   "pos": "adj",
-   "def": "Deeply religious; devout. Sometimes used ironically of showy virtue.",
-   "ex": "The pious old clergyman had, in fact, cheated to push the boy through.",
-   "lessons": [
-    "techniques_luck",
-    "techniques_mateo_falcone",
-    "ois_07_danes_and_last_saxons"
    ]
   },
   "sublime": {
@@ -76908,19 +83495,6 @@ window.WORDBANK={
    "ex": "The old shepherd was a stern man — fair, but hard as the rocks he lived among, and nobody could remember ever seeing him smile.",
    "lessons": [
     "techniques_mateo_falcone"
-   ]
-  },
-  "spare": {
-   "w": "spare",
-   "pos": "v",
-   "def": "to decide not to harm or punish someone, even though you have the power to.",
-   "ex": "",
-   "lessons": [
-    "techniques_mateo_falcone",
-    "techniques_the_spiders_thread",
-    "ml_15_the_big_favour",
-    "curious_conversations_10_polite_lies",
-    "grammar_b2_16_complex_gerund_infinitive"
    ]
   },
   "hay": {
@@ -77625,16 +84199,6 @@ window.WORDBANK={
     "lf_10_your_father_s_silence"
    ]
   },
-  "church": {
-   "w": "church",
-   "pos": "n",
-   "def": ". Delia went to church every Sunday.",
-   "ex": "Albert worked at the church.\" / \"We go to church on Sunday.",
-   "lessons": [
-    "techniques_sweat_a2b1",
-    "techniques_the_verger_a2b1"
-   ]
-  },
   "dilapidated": {
    "w": "dilapidated",
    "pos": "adj",
@@ -77720,16 +84284,6 @@ window.WORDBANK={
     "grammar_b1_19_modals_deduction"
    ]
   },
-  "stepfather": {
-   "w": "stepfather",
-   "pos": "noun",
-   "def": "the husband of your mother, who is not your father.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_adventure_of_the_speckled_band_a2b1",
-    "ts_erikson_b2"
-   ]
-  },
   "poisonous": {
    "w": "poisonous",
    "pos": "adjective",
@@ -77764,19 +84318,6 @@ window.WORDBANK={
    "ex": "He renounced the two million to prove how little he valued it.",
    "lessons": [
     "techniques_the_bet"
-   ]
-  },
-  "ruin": {
-   "w": "ruin",
-   "pos": "noun / verb",
-   "def": "The complete loss of money, position or reputation; financial collapse.",
-   "ex": "Paying the bet would have meant his total ruin.",
-   "lessons": [
-    "techniques_the_bet",
-    "su_a2_20_it_was_a_disaster",
-    "short_history_machu_picchu_a2b1",
-    "short_history_the_seven_wonders_a2b1",
-    "grammar_c1_14_sentence_architecture"
    ]
   },
   "banker": {
@@ -78004,17 +84545,6 @@ window.WORDBANK={
     "techniques_the_cask_of_amontillado_a2b1"
    ]
   },
-  "cellar": {
-   "w": "cellar",
-   "pos": "n",
-   "def": "A room under a house, often used to keep wine.",
-   "ex": "The wine was in the cellar.\" / \"They went down into the cellar.",
-   "lessons": [
-    "techniques_the_cask_of_amontillado_a2b1",
-    "ois_15_stuarts_and_civil_war",
-    "short_history_the_gunpowder_plot_a2b1"
-   ]
-  },
   "follow": {
    "w": "follow",
    "pos": "v",
@@ -78057,15 +84587,6 @@ window.WORDBANK={
     "grammar_a1_10_can_ability"
    ]
   },
-  "refuge": {
-   "w": "refuge",
-   "pos": "n",
-   "def": "a safe place that gives shelter or protection from danger or hardship.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_cop_and_the_anthem"
-   ]
-  },
   "misdemeanour": {
    "w": "misdemeanour",
    "pos": "n",
@@ -78092,15 +84613,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_cop_and_the_anthem",
     "cpe_read_c1_13_urban_legends"
-   ]
-  },
-  "anthem": {
-   "w": "anthem",
-   "pos": "n",
-   "def": "a solemn or uplifting song, often religious, sung by a choir or congregation.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_cop_and_the_anthem"
    ]
   },
   "valley": {
@@ -78190,15 +84702,6 @@ window.WORDBANK={
     "b2_89_you_have_to_apply_for_that"
    ]
   },
-  "exclude": {
-   "w": "exclude",
-   "pos": "v",
-   "def": "to shut someone out of a group or activity; the opposite of include.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_dolls_house"
-   ]
-  },
   "courtyard": {
    "w": "courtyard",
    "pos": "n",
@@ -78257,21 +84760,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_dolls_house_a2b1"
-   ]
-  },
-  "invite": {
-   "w": "invite",
-   "pos": "",
-   "def": "\"The girls invited two friends every day to see the house.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_the_dolls_house_a2b1",
-    "rp_26_a_wedding_invitation_a2b1",
-    "sf_a1_14_the_phone_call",
-    "a1p_44_making_invitations",
-    "ml_20_the_group_admin",
-    "qf_falsefriend_italian_parenti",
-    "talk_adult_friendships_a2b1"
    ]
   },
   "gate": {
@@ -78495,16 +84983,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_feather_pillow",
     "techniques_to_build_a_fire"
-   ]
-  },
-  "drain": {
-   "w": "drain",
-   "pos": "v",
-   "def": "to empty gradually of liquid or strength; to be drained of blood / energy.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_feather_pillow",
-    "teacher_conversations_01_why_i_quit_ana"
    ]
   },
   "hallucinations": {
@@ -78748,26 +85226,6 @@ window.WORDBANK={
     "techniques_the_garden_party_a2b1"
    ]
   },
-  "widow": {
-   "w": "widow",
-   "pos": "n",
-   "def": "\"He left a widow and five little children.\" (A man in the same position is a widower.)",
-   "ex": "",
-   "lessons": [
-    "techniques_the_garden_party",
-    "techniques_the_garden_party_a2b1"
-   ]
-  },
-  "stammer": {
-   "w": "stammer",
-   "pos": "v",
-   "def": "\"'Forgive my hat,' she stammered.\" The words come out in pieces.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_garden_party",
-    "lego_quest"
-   ]
-  },
   "tactless": {
    "w": "tactless",
    "pos": "",
@@ -78784,17 +85242,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_garden_party"
-   ]
-  },
-  "tent": {
-   "w": "tent",
-   "pos": "n",
-   "def": "a house made of cloth. You sleep in a small one; you have a party in a big one.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_garden_party_a2b1",
-    "short_history_genghis_khan_a2b1",
-    "short_history_the_gold_rush_a2b1"
    ]
   },
   "leftovers": {
@@ -78818,19 +85265,6 @@ window.WORDBANK={
     "rs_y8_spr1_09_03",
     "lego_quest",
     "talk_quiet_and_noise_a2b1"
-   ]
-  },
-  "frugal": {
-   "w": "frugal",
-   "pos": "adj",
-   "def": "very careful with money; spending as little as possible.",
-   "ex": "After the loss, they were forced into a brutally frugal existence.",
-   "lessons": [
-    "techniques_the_gift_of_the_magi",
-    "techniques_the_necklace",
-    "gr_warmup_b2_hot_takes_money",
-    "talk_money_and_happiness_b2c1",
-    "grammar_c2_10_evaluative_language"
    ]
   },
   "amass": {
@@ -78972,15 +85406,6 @@ window.WORDBANK={
     "techniques_the_interlopers"
    ]
   },
-  "quarrel": {
-   "w": "quarrel",
-   "pos": "noun / verb",
-   "def": "An angry argument or disagreement.",
-   "ex": "We have quarrelled like devils all our lives over this strip of forest.",
-   "lessons": [
-    "techniques_the_interlopers"
-   ]
-  },
   "hereditary": {
    "w": "hereditary",
    "pos": "adj",
@@ -79072,15 +85497,6 @@ window.WORDBANK={
     "ml_04_back_in_touch"
    ]
   },
-  "homage": {
-   "w": "homage",
-   "pos": "n",
-   "def": "public respect shown to something or someone. To pay homage to. A slightly formal, ceremonial word — exactly what the scene requires.",
-   "ex": "The villagers filed in and took the empty benches at the back with their hats on their knees, looking round the schoolroom as though seeing it for the last time — which they were. They came in homage.",
-   "lessons": [
-    "techniques_the_last_class"
-   ]
-  },
   "mother tongue": {
    "w": "mother tongue",
    "pos": "",
@@ -79149,16 +85565,6 @@ window.WORDBANK={
     "techniques_the_last_leaf"
    ]
   },
-  "persistent": {
-   "w": "persistent",
-   "pos": "adj",
-   "def": "Continuing firmly, refusing to stop or give up despite difficulty.",
-   "ex": "The leaf was persistent; the storm could not tear it down.",
-   "lessons": [
-    "techniques_the_last_leaf",
-    "c2_pro_12_difficult_conversations"
-   ]
-  },
   "acute": {
    "w": "acute",
    "pos": "adjective (medical)",
@@ -79185,16 +85591,6 @@ window.WORDBANK={
    "ex": "He scoffed at the idea that anyone would die when a leaf fell.",
    "lessons": [
     "techniques_the_last_leaf"
-   ]
-  },
-  "ravage": {
-   "w": "ravage",
-   "pos": "v",
-   "def": "To cause severe and widespread damage to something.",
-   "ex": "Pneumonia ravaged the little colony of artists that November.",
-   "lessons": [
-    "techniques_the_last_leaf",
-    "techniques_the_masque_of_the_red_death"
    ]
   },
   "painter": {
@@ -79252,18 +85648,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_little_match_girl"
-   ]
-  },
-  "feast": {
-   "w": "feast",
-   "pos": "n",
-   "def": "a large, special meal with a great deal of good food.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_little_match_girl",
-    "rs_y8_spr1_09_03",
-    "family_celebrations_interactive",
-    "rs_y8_spr1_09_06"
    ]
   },
   "ragged": {
@@ -79510,18 +85894,6 @@ window.WORDBANK={
     "techniques_the_model_millionaire"
    ]
   },
-  "generous": {
-   "w": "generous",
-   "pos": "adj",
-   "def": "willing to give money, help or time freely and kindly.",
-   "ex": "She had a warm heart and gave money freely to anyone in trouble; everyone agreed she was remarkably generous.",
-   "lessons": [
-    "techniques_the_model_millionaire",
-    "gr_warmup_c1_hot_takes_steelman",
-    "talk_volunteering_a2b1",
-    "grammar_c1_02_advanced_aspect"
-   ]
-  },
   "beggar": {
    "w": "beggar",
    "pos": "n",
@@ -79530,15 +85902,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_model_millionaire",
     "techniques_the_model_millionaire_a2b1"
-   ]
-  },
-  "portrait": {
-   "w": "portrait",
-   "pos": "n",
-   "def": "a painting, drawing or photograph of a particular person.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_model_millionaire"
    ]
   },
   "model": {
@@ -79701,15 +86064,6 @@ window.WORDBANK={
     "topic_free_time_c1c2"
    ]
   },
-  "dowry": {
-   "w": "dowry",
-   "pos": "n",
-   "def": "Money or property a bride brings to a marriage; historically, what gave a woman value in a match.",
-   "ex": "She had no dowry, no expectations, and so married a humble clerk.",
-   "lessons": [
-    "techniques_the_necklace"
-   ]
-  },
   "necklace": {
    "w": "necklace",
    "pos": "n",
@@ -79868,15 +86222,6 @@ window.WORDBANK={
     "ib_lesson_techniques_open_window"
    ]
   },
-  "bolt": {
-   "w": "bolt",
-   "pos": "v",
-   "def": "to run away suddenly and uncontrollably, like a frightened animal. Compare the calmer to dash off and the formal to flee.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_open_window"
-   ]
-  },
   "at short notice": {
    "w": "at short notice",
    "pos": "",
@@ -79992,16 +86337,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_queen_of_spades_a2b1",
     "rp_11_a_job_interview_a2b1"
-   ]
-  },
-  "kidnap": {
-   "w": "kidnap",
-   "pos": "v",
-   "def": "to take a person away illegally and demand money for their return.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_ransom_of_red_chief",
-    "techniques_the_ransom_of_red_chief_a2b1"
    ]
   },
   "scheme": {
@@ -80268,19 +86603,6 @@ window.WORDBANK={
     "grammar_a1_13_zero_conditional"
    ]
   },
-  "forgive": {
-   "w": "forgive",
-   "pos": "v",
-   "def": "to stop feeling angry with someone for a wrong they have done to you.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_selfish_giant",
-    "tib_prisoners_b2",
-    "behind_the_screen_the_imitation_game_a2b1",
-    "behind_the_screen_the_tree_of_life_a2b1",
-    "short_history_nelson_mandela_a2b1"
-   ]
-  },
   "grace": {
    "w": "grace",
    "pos": "n",
@@ -80298,7 +86620,8 @@ window.WORDBANK={
    "def": "to stay in a place longer than necessary, as if unwilling to leave.",
    "ex": "",
    "lessons": [
-    "techniques_the_selfish_giant"
+    "techniques_the_selfish_giant",
+    "world_eu_coffee"
    ]
   },
   "spectre": {
@@ -80341,15 +86664,6 @@ window.WORDBANK={
     "rp_24_a_noisy_neighbour",
     "curious_conversations_07_phone_addiction",
     "qf_pronunciation_h_sound"
-   ]
-  },
-  "railway": {
-   "w": "railway",
-   "pos": "n",
-   "def": "The track and trains; the way that trains travel on.",
-   "ex": "He was walking near the railway.\" / \"The railway goes to London.",
-   "lessons": [
-    "techniques_the_signal_man_a2b1"
    ]
   },
   "worker": {
@@ -80840,19 +87154,6 @@ window.WORDBANK={
     "techniques_the_two_labyrinths_a2b1"
    ]
   },
-  "desert": {
-   "w": "desert",
-   "pos": "n",
-   "def": "a very large, dry place with sand and almost no water.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_two_labyrinths_a2b1",
-    "behind_the_screen_oppenheimer_a2b1",
-    "short_history_petra_a2b1",
-    "short_history_the_pyramids_a2b1",
-    "behind_the_screen_dune_a2b1"
-   ]
-  },
   "resignation": {
    "w": "resignation",
    "pos": "n",
@@ -81243,16 +87544,6 @@ window.WORDBANK={
     "techniques_to_build_a_fire"
    ]
   },
-  "capsize": {
-   "w": "capsize",
-   "pos": "v",
-   "def": "to turn over or tip out its load (a boat, a sled — or a snow-laden branch).",
-   "ex": "",
-   "lessons": [
-    "techniques_to_build_a_fire",
-    "short_history_shackleton"
-   ]
-  },
   "drowse": {
    "w": "drowse",
    "pos": "v",
@@ -81489,15 +87780,6 @@ window.WORDBANK={
    "w": "betrothed",
    "pos": "adj",
    "def": "engaged to be married. She was already betrothed to a merchant's son.",
-   "ex": "",
-   "lessons": [
-    "techniques_yuki_onna"
-   ]
-  },
-  "pledge": {
-   "w": "pledge",
-   "pos": "v",
-   "def": "to promise solemnly; pledged to marry, pledged to silence.",
    "ex": "",
    "lessons": [
     "techniques_yuki_onna"
@@ -82043,19 +88325,6 @@ window.WORDBANK={
     "tib_diffusion_b2"
    ]
   },
-  "adopt": {
-   "w": "adopt",
-   "pos": "",
-   "def": "to start using something new; to take a child legally into your family. The people who start using something are adopters.",
-   "ex": "",
-   "lessons": [
-    "tib_diffusion_b2",
-    "tib_hypecycle_b2",
-    "gr_warmup_a2_hot_takes_animals",
-    "prof_c1_04_influencing_without_authority",
-    "writing_lesson_01"
-   ]
-  },
   "gamble": {
    "w": "gamble",
    "pos": "",
@@ -82120,18 +88389,6 @@ window.WORDBANK={
     "qf_collocation_make_do"
    ]
   },
-  "invasion": {
-   "w": "invasion",
-   "pos": "",
-   "def": "an attack in which an army enters another country or area to take control of it.",
-   "ex": "More than 150,000 soldiers crossed the sea on the first day of the invasion.",
-   "lessons": [
-    "tib_eisenhower_b2",
-    "lesson_world_war_2_interactive",
-    "ois_04_the_saxon_shore",
-    "short_history_the_spanish_armada_a2b1"
-   ]
-  },
   "pressing": {
    "w": "pressing",
    "pos": "",
@@ -82140,22 +88397,6 @@ window.WORDBANK={
    "lessons": [
     "tib_eisenhower_b2",
     "b2_80_in_the_news"
-   ]
-  },
-  "delegate": {
-   "w": "delegate",
-   "pos": "",
-   "def": "“A good manager knows what to delegate and what to keep.”",
-   "ex": "",
-   "lessons": [
-    "tib_eisenhower_b2",
-    "bc_team_leader_delegation_c1",
-    "Business-Bootcamp-Lesson3-The-Project-Manager",
-    "b1_25_career_development",
-    "su_a2_44_working_smarter",
-    "c1_pro_11_delegation",
-    "leading_under_pressure",
-    "wk_06_the_interview"
    ]
   },
   "trivial": {
@@ -82388,11 +88629,12 @@ window.WORDBANK={
   },
   "staple": {
    "w": "staple",
-   "pos": "",
+   "pos": "n",
    "def": "a basic food that people eat regularly. (also an adjective: a staple diet)",
    "ex": "Rice is the staple food there: cheap, filling and eaten every day.",
    "lessons": [
-    "tib_foodpyramid_b2"
+    "tib_foodpyramid_b2",
+    "world_la_food"
    ]
   },
   "controversial": {
@@ -82438,11 +88680,12 @@ window.WORDBANK={
   },
   "portion": {
    "w": "portion",
-   "pos": "",
+   "pos": "n",
    "def": "“The portions in that restaurant are enormous.”",
    "ex": "",
    "lessons": [
     "tib_foodpyramid_b2",
+    "world_na_food",
     "su_a2_78_choosing_a_restaurant",
     "b1_34_food_and_drink"
    ]
@@ -82532,18 +88775,6 @@ window.WORDBANK={
    "ex": "Behind his cheerful façade, he was worried about money all the time.",
    "lessons": [
     "tib_johari_b2"
-   ]
-  },
-  "reluctant": {
-   "w": "reluctant",
-   "pos": "",
-   "def": "not wanting to do something, and so slow to do it.",
-   "ex": "New team members are often reluctant to criticise the boss in public.",
-   "lessons": [
-    "tib_johari_b2",
-    "gr_c1_the_negotiator",
-    "ml_15_the_big_favour",
-    "paper_1_practice"
    ]
   },
   "insight": {
@@ -82733,12 +88964,13 @@ window.WORDBANK={
   },
   "overlap": {
    "w": "overlap",
-   "pos": "",
+   "pos": "v",
    "def": "to cover part of the same area or time, so that two things are partly the same.",
    "ex": "The two courses overlap: both cover statistics, but only one includes programming.",
    "lessons": [
     "tib_maslow_b2",
     "tib_venn_b2",
+    "world_eu_background",
     "skills_b1b2_trade_fair_networking"
    ]
   },
@@ -82858,16 +89090,6 @@ window.WORDBANK={
    "lessons": [
     "tib_ninebox_b2",
     "bc_nine_team_roles_belbin_b2c1"
-   ]
-  },
-  "successor": {
-   "w": "successor",
-   "pos": "",
-   "def": "the person who takes over a job or role after someone else leaves it.",
-   "ex": "The chief executive was 64, so the board started looking for his successor.",
-   "lessons": [
-    "tib_ninebox_b2",
-    "rs_y10_sum2_24_04"
    ]
   },
   "pigeonhole": {
@@ -83334,11 +89556,12 @@ window.WORDBANK={
   },
   "norm": {
    "w": "norm",
-   "pos": "",
+   "pos": "n",
    "def": "an accepted way of behaving in a group.",
    "ex": "",
    "lessons": [
     "tib_tuckman_b2",
+    "world_eu_greetings",
     "bc_four_day_week_c1",
     "curious_conversations_12_social_rules",
     "lesson_31_semi_modals"
@@ -83599,6 +89822,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "topic_english_language_b2",
+    "world_la_language",
+    "world_na_english",
     "gr_warmup_b2_hot_takes_language",
     "everyone_has_an_accent_b1b2",
     "b2_55_telephone_skills",
@@ -83670,6 +89895,7 @@ window.WORDBANK={
    "ex": "After months of long days, broken sleep and no real rest, she wasn't just tired — she was empty, cynical about work she used to love, unable to care. Doctors call that state burnout.",
    "lessons": [
     "topic_free_time_b2",
+    "world_na_work",
     "gr_warmup_b2_hot_takes_work",
     "acad_b1_14_exam_preparation",
     "c1_pro_05_assertive_communication",
@@ -83788,9 +90014,10 @@ window.WORDBANK={
    "w": "well-being",
    "pos": "n",
    "def": "physical, mental and social health together. Mental well-being, employee well-being. A useful word precisely because it refuses to separate the body from the life around it — which turned out to be the study's headline.",
-   "ex": "",
+   "ex": "The report measures well-being.",
    "lessons": [
     "topic_good_life_b2",
+    "world_eu_nordic",
     "bc_mind_over_body_health_b2c1",
     "speaking_naturally_05_money_happiness",
     "talk_homework_b2c1"
@@ -83929,19 +90156,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "topic_human_nature_b2"
-   ]
-  },
-  "intervene": {
-   "w": "intervene",
-   "pos": "v",
-   "def": "The police intervened to stop the fight. The noun is an intervention.",
-   "ex": "",
-   "lessons": [
-    "topic_human_nature_b2",
-    "rs_y7_spr2_04_01",
-    "lesson_world_war_2_speaking",
-    "wp_15_the_garden",
-    "epicurean_06_atoms_and_void"
    ]
   },
   "doubt": {
@@ -84096,6 +90310,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "topic_strangers_b2",
+    "world_na_friendly",
     "talk_adult_friendships_b2c1",
     "b2_19_awkward_situations",
     "memory_arts_p1_08",
@@ -84115,9 +90330,10 @@ window.WORDBANK={
    "w": "awkward",
    "pos": "adj",
    "def": "an awkward silence; an awkward question; I felt awkward.",
-   "ex": "",
+   "ex": "A missed cheek kiss feels awkward.",
    "lessons": [
     "topic_strangers_b2",
+    "world_eu_greetings",
     "acad_b1_25_understanding_feedback",
     "speaking_naturally_04_small_talk_fillers",
     "skills_a2_trade_fair_small_talk",
@@ -84134,9 +90350,11 @@ window.WORDBANK={
    "w": "small talk",
    "pos": "n",
    "def": "to make small talk. Many people say they hate it — but the story suggests it can lead somewhere big.",
-   "ex": "",
+   "ex": "Small talk is less common in Finland.",
    "lessons": [
     "topic_strangers_b2",
+    "world_eu_nordic",
+    "world_na_friendly",
     "b1_17_casual_conversation",
     "b1_23_business_travel_socialising",
     "speaking_naturally_04_small_talk_fillers",
@@ -84290,18 +90508,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "trial_beyond_small_talk_guide_b1b2"
-   ]
-  },
-  "explosion": {
-   "w": "explosion",
-   "pos": "n",
-   "def": "verb to explode. Damaged wiring ignited inside oxygen tank two; the blast tore open the spacecraft's side and its supplies of air, water and power began to die together.",
-   "ex": "",
-   "lessons": [
-    "ts_apollo13_b2",
-    "behind_the_screen_apollo_13_a2b1",
-    "short_history_hiroshima_a2b1",
-    "short_history_chernobyl_a2b1"
    ]
   },
   "lifeboat": {
@@ -85041,19 +91247,6 @@ window.WORDBANK={
     "prof_c1_04_influencing_without_authority"
    ]
   },
-  "traditional": {
-   "w": "traditional",
-   "pos": "",
-   "def": "medicine · a traditional healer · handed down. Also: to draw on tradition — what her project was created to do, systematically.",
-   "ex": "",
-   "lessons": [
-    "ts_tu_youyou_b2",
-    "su_a2_14_online_or_offline",
-    "su_a2_28_a_good_holiday",
-    "bc_citizenship_test_c1",
-    "lesson_37_education_learning"
-   ]
-  },
   "screen": {
    "w": "screen",
    "pos": "",
@@ -85102,6 +91295,1161 @@ window.WORDBANK={
     "work_story_first_person_to_say_red"
    ]
   },
+  "continent": {
+   "w": "continent",
+   "pos": "n",
+   "def": "one of the large land masses of the world.",
+   "ex": "",
+   "lessons": [
+    "world_eu_background"
+   ]
+  },
+  "member state": {
+   "w": "member state",
+   "pos": "n",
+   "def": "a country that belongs to an organisation.",
+   "ex": "",
+   "lessons": [
+    "world_eu_background"
+   ]
+  },
+  "official language": {
+   "w": "official language",
+   "pos": "n",
+   "def": "a language used by a government for laws and documents.",
+   "ex": "",
+   "lessons": [
+    "world_eu_background"
+   ]
+  },
+  "custom": {
+   "w": "custom",
+   "pos": "n",
+   "def": "a traditional way of doing things.",
+   "ex": "",
+   "lessons": [
+    "world_eu_coffee",
+    "su_a2_39_my_celebrations",
+    "b1_46_family_traditions",
+    "b2_52_cross_cultural_business",
+    "curious_conversations_christmas_special",
+    "talk_traditions_a2b1"
+   ]
+  },
+  "frown on": {
+   "w": "frown on",
+   "pos": "phr v",
+   "def": "to disapprove of.",
+   "ex": "",
+   "lessons": [
+    "world_eu_coffee"
+   ]
+  },
+  "debate": {
+   "w": "debate",
+   "pos": "v",
+   "def": "to discuss opposing opinions.",
+   "ex": "",
+   "lessons": [
+    "world_eu_coffee",
+    "rs_y7_aut2_02_06",
+    "4_day_work_week",
+    "b2_07_is_tv_bad_for_us",
+    "b2_84_no_free_lunch",
+    "general_lesson_36_technology_society_interactive",
+    "lesson_36_technology_society"
+   ]
+  },
+  "pastry": {
+   "w": "pastry",
+   "pos": "n",
+   "def": "a small sweet baked food.",
+   "ex": "",
+   "lessons": [
+    "world_eu_coffee"
+   ]
+  },
+  "blunt": {
+   "w": "blunt",
+   "pos": "adj",
+   "def": "very direct, without trying to be polite.",
+   "ex": "Some visitors find Dutch feedback blunt.",
+   "lessons": [
+    "world_eu_directness",
+    "bp_c2_01_where_your_words_come_from",
+    "grammar_b2_23_disagreeing_nicely",
+    "skills_b1b2_being_a_landlord",
+    "memory_arts_p1_05",
+    "sp_b1_31_managing_disagreement",
+    "grammar_c2_10_evaluative_language"
+   ]
+  },
+  "understatement": {
+   "w": "understatement",
+   "pos": "n",
+   "def": "saying something is less important than it is.",
+   "ex": "British understatement can confuse foreigners.",
+   "lessons": [
+    "world_eu_directness",
+    "bc_rhetorical_devices_c1",
+    "everyday_echoes_phrase_bank",
+    "sp_c1_63_irony_understatement",
+    "sp_prep_c1_65",
+    "gr_b2_tone_shift"
+   ]
+  },
+  "soften": {
+   "w": "soften",
+   "pos": "v",
+   "def": "to make less strong.",
+   "ex": "",
+   "lessons": [
+    "world_eu_directness",
+    "bp_c2_04_the_power_of_imprecision",
+    "grammar_b2_23_disagreeing_nicely",
+    "ct_b1_31_diplomatic_disagreement",
+    "ml_34_the_bad_recommendation",
+    "sp_a2_18_agreeing_disagreeing",
+    "sp_b2_58_diplomatic",
+    "sp_prep_b1_22",
+    "b1_33_cause_and_effect",
+    "grammar_b1_comparative_language"
+   ]
+  },
+  "high-context": {
+   "w": "high-context",
+   "pos": "adj",
+   "def": "relying on shared understanding rather than words.",
+   "ex": "In high-context cultures, much meaning is unspoken.",
+   "lessons": [
+    "world_eu_directness",
+    "b2_52_cross_cultural_business"
+   ]
+  },
+  "low-context": {
+   "w": "low-context",
+   "pos": "adj",
+   "def": "relying on clear, direct words.",
+   "ex": "In low-context cultures, people say things explicitly.",
+   "lessons": [
+    "world_eu_directness"
+   ]
+  },
+  "misinterpret": {
+   "w": "misinterpret",
+   "pos": "v",
+   "def": "to understand wrongly.",
+   "ex": "",
+   "lessons": [
+    "world_eu_directness"
+   ]
+  },
+  "iron curtain": {
+   "w": "iron curtain",
+   "pos": "n",
+   "def": "the Cold War border between East and West.",
+   "ex": "",
+   "lessons": [
+    "world_eu_east"
+   ]
+  },
+  "rebrand": {
+   "w": "rebrand",
+   "pos": "v",
+   "def": "to change how something is seen.",
+   "ex": "",
+   "lessons": [
+    "world_eu_east"
+   ]
+  },
+  "digital": {
+   "w": "digital",
+   "pos": "adj",
+   "def": "using computers and the internet.",
+   "ex": "Estonia is a digital pioneer.",
+   "lessons": [
+    "world_eu_east",
+    "b1_45_social_media_life",
+    "general_lesson_36_technology_society_interactive",
+    "lesson_36_technology_society"
+   ]
+  },
+  "transform": {
+   "w": "transform",
+   "pos": "v",
+   "def": "to change completely.",
+   "ex": "",
+   "lessons": [
+    "world_eu_east",
+    "rs_y10_aut2_20_02",
+    "books_changed_world_lesson",
+    "epicurean_27_gassendi_ethics",
+    "b2_66_impact_of_technology",
+    "general_lesson_36_technology_society_interactive",
+    "lesson_36_technology_society_interactive",
+    "ielts_task1_gauntlet_b2",
+    "qf_falsefriend_german_bekommen"
+   ]
+  },
+  "cliché": {
+   "w": "cliché",
+   "pos": "n",
+   "def": "an idea used so often it's no longer true or interesting.",
+   "ex": "",
+   "lessons": [
+    "world_eu_east",
+    "world_na_canadians",
+    "bc_broadening_horizons_advanced_c1",
+    "discuss_b2c1_endings_and_after"
+   ]
+  },
+  "greeting": {
+   "w": "greeting",
+   "pos": "n",
+   "def": "something you say or do when you meet someone.",
+   "ex": "",
+   "lessons": [
+    "world_eu_greetings",
+    "skills_a2_trade_fair_first_contact",
+    "a1p_01_introductions"
+   ]
+  },
+  "la bise": {
+   "w": "la bise",
+   "pos": "n",
+   "def": "a light kiss on each cheek.",
+   "ex": "La bise is the French cheek kiss.",
+   "lessons": [
+    "world_eu_greetings"
+   ]
+  },
+  "personal space": {
+   "w": "personal space",
+   "pos": "n",
+   "def": "the distance you like to keep from others.",
+   "ex": "Personal space is smaller in some cultures.",
+   "lessons": [
+    "world_eu_greetings",
+    "world_la_warmth",
+    "curious_conversations_03_cultural_quirks"
+   ]
+  },
+  "formal": {
+   "w": "formal",
+   "pos": "adj",
+   "def": "following official or serious rules.",
+   "ex": "A handshake is more formal than a hug.",
+   "lessons": [
+    "world_eu_greetings",
+    "world_la_warmth",
+    "su_a2_42_travel_problems",
+    "bp_c2_01_where_your_words_come_from",
+    "skills_a2_trade_fair_simulation",
+    "a1p_01_introductions"
+   ]
+  },
+  "vary": {
+   "w": "vary",
+   "pos": "v",
+   "def": "to be different in different situations.",
+   "ex": "",
+   "lessons": [
+    "world_eu_greetings",
+    "b1_31_flexible_communication",
+    "c2_pro_13_cross_cultural_leadership"
+   ]
+  },
+  "intimate": {
+   "w": "intimate",
+   "pos": "adj",
+   "def": "close and personal.",
+   "ex": "A hug is more intimate than a nod.",
+   "lessons": [
+    "world_eu_greetings"
+   ]
+  },
+  "reserved": {
+   "w": "reserved",
+   "pos": "adj",
+   "def": "not showing feelings or opinions openly.",
+   "ex": "Highland cultures can be more reserved.",
+   "lessons": [
+    "world_eu_nordic",
+    "world_la_warmth"
+   ]
+  },
+  "ranking": {
+   "w": "ranking",
+   "pos": "n",
+   "def": "a list ordered by position.",
+   "ex": "",
+   "lessons": [
+    "world_eu_nordic",
+    "bc_books_changed_world_part2_c1"
+   ]
+  },
+  "satisfaction": {
+   "w": "satisfaction",
+   "pos": "n",
+   "def": "the feeling of being pleased.",
+   "ex": "Life satisfaction is high.",
+   "lessons": [
+    "world_eu_nordic",
+    "su_a2_63_mapping_the_customer_journey",
+    "the-art-of-simple-pleasures",
+    "b2_09_happiness",
+    "bc_ielts_paragraphs_examples_b2c1"
+   ]
+  },
+  "equality": {
+   "w": "equality",
+   "pos": "n",
+   "def": "the same rights and chances for everyone.",
+   "ex": "Equality is a core Nordic value.",
+   "lessons": [
+    "world_eu_nordic",
+    "gr_warmup_b2_hot_takes_gender",
+    "epicurean_04_the_garden_community",
+    "rs_y11_aut2_26_06",
+    "rs_y9_spr2_16_06"
+   ]
+  },
+  "punctual": {
+   "w": "punctual",
+   "pos": "adj",
+   "def": "arriving at the agreed time.",
+   "ex": "Business meetings are usually punctual.",
+   "lessons": [
+    "world_eu_punctuality",
+    "world_la_time",
+    "rp_30_first_day_at_work",
+    "lf_45_the_late_friend"
+   ]
+  },
+  "time zone": {
+   "w": "time zone",
+   "pos": "n",
+   "def": "an area with the same official time.",
+   "ex": "",
+   "lessons": [
+    "world_eu_punctuality",
+    "leading_international_teams",
+    "prof_c1_08_remote_leadership"
+   ]
+  },
+  "siesta": {
+   "w": "siesta",
+   "pos": "n",
+   "def": "a short sleep after lunch.",
+   "ex": "",
+   "lessons": [
+    "world_eu_punctuality"
+   ]
+  },
+  "flexible": {
+   "w": "flexible",
+   "pos": "adj",
+   "def": "able to change easily.",
+   "ex": "Social plans are often flexible in Spain.",
+   "lessons": [
+    "world_eu_punctuality",
+    "world_la_time",
+    "su_a2_64_adapting_communication",
+    "c2_pro_03_diplomatic_negotiation",
+    "bc_ielts_paragraphs_examples_b2c1",
+    "ielts_lesson_1_FIXED",
+    "rs_y11_sum1_29_02",
+    "talk_working_from_home_a2b1",
+    "grammar_b1_10_relative_clauses_extended"
+   ]
+  },
+  "monochronic": {
+   "w": "monochronic",
+   "pos": "adj",
+   "def": "treating time as a straight line of tasks.",
+   "ex": "Monochronic cultures do one thing at a time.",
+   "lessons": [
+    "world_eu_punctuality"
+   ]
+  },
+  "polychronic": {
+   "w": "polychronic",
+   "pos": "adj",
+   "def": "treating time as flexible, with many things together.",
+   "ex": "Polychronic cultures juggle many things at once.",
+   "lessons": [
+    "world_eu_punctuality"
+   ]
+  },
+  "kernel of truth": {
+   "w": "kernel of truth",
+   "pos": "phr",
+   "def": "a small part that is true.",
+   "ex": "",
+   "lessons": [
+    "world_eu_stereotypes"
+   ]
+  },
+  "average": {
+   "w": "average",
+   "pos": "n",
+   "def": "a typical or middle amount.",
+   "ex": "",
+   "lessons": [
+    "world_eu_stereotypes",
+    "ielts_lesson_2_marking_criteria"
+   ]
+  },
+  "confirmation bias": {
+   "w": "confirmation bias",
+   "pos": "n",
+   "def": "the tendency to look for evidence that agrees with us.",
+   "ex": "Confirmation bias makes us notice what fits our beliefs.",
+   "lessons": [
+    "world_eu_stereotypes"
+   ]
+  },
+  "region": {
+   "w": "region",
+   "pos": "n",
+   "def": "a large area.",
+   "ex": "",
+   "lessons": [
+    "world_la_background",
+    "bc_andy_burnham_c1",
+    "bc_black_holes_cosmology_c1",
+    "ielts_task_1_lesson_2_line_graphs"
+   ]
+  },
+  "diverse": {
+   "w": "diverse",
+   "pos": "adj",
+   "def": "very varied.",
+   "ex": "The region is ethnically diverse.",
+   "lessons": [
+    "world_la_background",
+    "rs_y7_aut1_01_05",
+    "c1_pro_20_diversity_inclusion"
+   ]
+  },
+  "descent": {
+   "w": "descent",
+   "pos": "n",
+   "def": "family origin.",
+   "ex": "Many Brazilians are of African descent.",
+   "lessons": [
+    "world_la_background"
+   ]
+  },
+  "diaspora": {
+   "w": "diaspora",
+   "pos": "n",
+   "def": "people living away from their ancestors' homeland.",
+   "ex": "",
+   "lessons": [
+    "world_la_background"
+   ]
+  },
+  "altar": {
+   "w": "altar",
+   "pos": "n",
+   "def": "a table for offerings.",
+   "ex": "",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "offering": {
+   "w": "offering",
+   "pos": "n",
+   "def": "something given as a gift or sign of respect.",
+   "ex": "",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "marigold": {
+   "w": "marigold",
+   "pos": "n",
+   "def": "a bright orange flower.",
+   "ex": "",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "skull": {
+   "w": "skull",
+   "pos": "n",
+   "def": "the bones of the head.",
+   "ex": "",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "cemetery": {
+   "w": "cemetery",
+   "pos": "n",
+   "def": "a place where the dead are buried.",
+   "ex": "",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "syncretism": {
+   "w": "syncretism",
+   "pos": "n",
+   "def": "the mixing of different beliefs.",
+   "ex": "The festival is an example of syncretism.",
+   "lessons": [
+    "world_la_dead"
+   ]
+  },
+  "satire": {
+   "w": "satire",
+   "pos": "n",
+   "def": "humour that criticises.",
+   "ex": "La Catrina began as satire.",
+   "lessons": [
+    "world_la_dead",
+    "ib_lesson_techniques_open_window"
+   ]
+  },
+  "extended family": {
+   "w": "extended family",
+   "pos": "n",
+   "def": "relatives beyond parents and children.",
+   "ex": "The extended family meets on Sundays.",
+   "lessons": [
+    "world_la_family",
+    "qf_falsefriend_italian_parenti"
+   ]
+  },
+  "godparent": {
+   "w": "godparent",
+   "pos": "n",
+   "def": "a person who promises to support a child.",
+   "ex": "",
+   "lessons": [
+    "world_la_family",
+    "rs_y10_spr1_21_03",
+    "rs_y8_spr1_09_04"
+   ]
+  },
+  "birth rate": {
+   "w": "birth rate",
+   "pos": "n",
+   "def": "the number of births in a population.",
+   "ex": "",
+   "lessons": [
+    "world_la_family",
+    "bc_population_change_c1"
+   ]
+  },
+  "gathering": {
+   "w": "gathering",
+   "pos": "n",
+   "def": "a meeting of people.",
+   "ex": "",
+   "lessons": [
+    "world_la_family",
+    "b1_03_talking_about_events",
+    "su_a2_39_my_celebrations"
+   ]
+  },
+  "network": {
+   "w": "network",
+   "pos": "n",
+   "def": "a group of connected people.",
+   "ex": "",
+   "lessons": [
+    "world_la_family",
+    "b1_17_casual_conversation",
+    "epicurean_28_gassendist_circle"
+   ]
+  },
+  "asado": {
+   "w": "asado",
+   "pos": "n",
+   "def": "a social barbecue in the Southern Cone.",
+   "ex": "",
+   "lessons": [
+    "world_la_family"
+   ]
+  },
+  "domesticate": {
+   "w": "domesticate",
+   "pos": "v",
+   "def": "to grow and change a wild plant for farming.",
+   "ex": "",
+   "lessons": [
+    "world_la_food"
+   ]
+  },
+  "ceviche": {
+   "w": "ceviche",
+   "pos": "n",
+   "def": "a Peruvian dish of fish and citrus.",
+   "ex": "Ceviche is raw fish cured in lime.",
+   "lessons": [
+    "world_la_food"
+   ]
+  },
+  "intangible heritage": {
+   "w": "intangible heritage",
+   "pos": "n",
+   "def": "traditions recognised as cultural treasure.",
+   "ex": "Mexican cuisine is UNESCO intangible heritage.",
+   "lessons": [
+    "world_la_food"
+   ]
+  },
+  "mild": {
+   "w": "mild",
+   "pos": "adj",
+   "def": "not spicy.",
+   "ex": "Many dishes are quite mild.",
+   "lessons": [
+    "world_la_food",
+    "rp_39_at_the_optician"
+   ]
+  },
+  "stew": {
+   "w": "stew",
+   "pos": "n",
+   "def": "food cooked slowly in liquid.",
+   "ex": "",
+   "lessons": [
+    "world_la_food"
+   ]
+  },
+  "fusion": {
+   "w": "fusion",
+   "pos": "n",
+   "def": "a mix of styles.",
+   "ex": "Nikkei food is a fusion of Peruvian and Japanese.",
+   "lessons": [
+    "world_la_food",
+    "su_a2_40_designing_a_restaurant"
+   ]
+  },
+  "mutually intelligible": {
+   "w": "mutually intelligible",
+   "pos": "adj",
+   "def": "understandable to speakers of both.",
+   "ex": "Spanish and Portuguese are partly mutually intelligible.",
+   "lessons": [
+    "world_la_language"
+   ]
+  },
+  "co-official": {
+   "w": "co-official",
+   "pos": "adj",
+   "def": "official together with another language.",
+   "ex": "Guaraní is co-official in Paraguay.",
+   "lessons": [
+    "world_la_language"
+   ]
+  },
+  "variety": {
+   "w": "variety",
+   "pos": "n",
+   "def": "a form of a language.",
+   "ex": "",
+   "lessons": [
+    "world_la_language",
+    "su_a2_38_interesting_stories",
+    "the_paradox_of_choice"
+   ]
+  },
+  "endangered": {
+   "w": "endangered",
+   "pos": "adj",
+   "def": "at risk of disappearing.",
+   "ex": "Many Indigenous languages are endangered.",
+   "lessons": [
+    "world_la_language",
+    "bc_travel_c1",
+    "talk_zoos_a2b1",
+    "bc_endangered_species_b2c1",
+    "cpe_read_c1_09_language_death"
+   ]
+  },
+  "slang": {
+   "w": "slang",
+   "pos": "n",
+   "def": "informal words.",
+   "ex": "Every city has its own slang.",
+   "lessons": [
+    "world_la_language",
+    "gr_warmup_b2_hot_takes_language",
+    "acad_b1_19_writing_introductions",
+    "ct_b1_25_review_integration"
+   ]
+  },
+  "carnival": {
+   "w": "carnival",
+   "pos": "n",
+   "def": "a festival before Lent with parades and music.",
+   "ex": "Rio's carnival is famous worldwide.",
+   "lessons": [
+    "world_la_party"
+   ]
+  },
+  "samba school": {
+   "w": "samba school",
+   "pos": "n",
+   "def": "a community group that prepares a carnival parade.",
+   "ex": "",
+   "lessons": [
+    "world_la_party"
+   ]
+  },
+  "afro-brazilian": {
+   "w": "afro-brazilian",
+   "pos": "adj",
+   "def": "from African and Brazilian culture.",
+   "ex": "Samba has Afro-Brazilian roots.",
+   "lessons": [
+    "world_la_party"
+   ]
+  },
+  "parade": {
+   "w": "parade",
+   "pos": "n",
+   "def": "a procession through the streets.",
+   "ex": "",
+   "lessons": [
+    "world_la_party",
+    "su_a2_11_cultural_celebrations"
+   ]
+  },
+  "working-class": {
+   "w": "working-class",
+   "pos": "adj",
+   "def": "relating to manual workers.",
+   "ex": "Tango was born in working-class neighbourhoods.",
+   "lessons": [
+    "world_la_party"
+   ]
+  },
+  "rhythm": {
+   "w": "rhythm",
+   "pos": "n",
+   "def": "a regular pattern of beats.",
+   "ex": "",
+   "lessons": [
+    "world_la_party",
+    "skills_c1_analysing_poetry",
+    "c1_the_british_pub",
+    "a1p_49_connected_speech",
+    "b2_91_ielts_spelling_mnemonics",
+    "pron_c1_01_rhythm_engine"
+   ]
+  },
+  "relationship-oriented": {
+   "w": "relationship-oriented",
+   "pos": "adj",
+   "def": "focusing on people more than schedules.",
+   "ex": "Many cultures are relationship-oriented.",
+   "lessons": [
+    "world_la_time"
+   ]
+  },
+  "traffic": {
+   "w": "traffic",
+   "pos": "n",
+   "def": "vehicles on the road.",
+   "ex": "Traffic in big cities causes delays.",
+   "lessons": [
+    "world_la_time",
+    "sf_a1_04_a_working_day",
+    "talk_city_or_countryside_a2b1",
+    "qf_collocation_heavy_strong_rain"
+   ]
+  },
+  "keep someone waiting": {
+   "w": "keep someone waiting",
+   "pos": "phr",
+   "def": "to make someone wait.",
+   "ex": "",
+   "lessons": [
+    "world_la_time"
+   ]
+  },
+  "la hora latina": {
+   "w": "la hora latina",
+   "pos": "n",
+   "def": "\"Latin time\": arriving late for social events.",
+   "ex": "",
+   "lessons": [
+    "world_la_time"
+   ]
+  },
+  "cheek kiss": {
+   "w": "cheek kiss",
+   "pos": "n",
+   "def": "a light kiss on the cheek.",
+   "ex": "",
+   "lessons": [
+    "world_la_warmth"
+   ]
+  },
+  "expressive": {
+   "w": "expressive",
+   "pos": "adj",
+   "def": "showing feelings openly.",
+   "ex": "Some cultures are more expressive.",
+   "lessons": [
+    "world_la_warmth",
+    "bc_mask_we_wear_c1"
+   ]
+  },
+  "overlapping": {
+   "w": "overlapping",
+   "pos": "adj",
+   "def": "happening at the same time.",
+   "ex": "Overlapping talk can show interest.",
+   "lessons": [
+    "world_la_warmth"
+   ]
+  },
+  "bilingual": {
+   "w": "bilingual",
+   "pos": "adj",
+   "def": "using two languages.",
+   "ex": "Canada is officially bilingual.",
+   "lessons": [
+    "world_na_background",
+    "su_a2_47_making_decisions",
+    "curious_conversations_language_shapes_thought",
+    "diagnostic_focus_b2_mixed_conditionals"
+   ]
+  },
+  "federation": {
+   "w": "federation",
+   "pos": "n",
+   "def": "a group of states with a central government.",
+   "ex": "",
+   "lessons": [
+    "world_na_background"
+   ]
+  },
+  "identify with": {
+   "w": "identify with",
+   "pos": "phr v",
+   "def": "to feel you belong to something.",
+   "ex": "",
+   "lessons": [
+    "world_na_background"
+   ]
+  },
+  "influence": {
+   "w": "influence",
+   "pos": "n",
+   "def": "the power to affect something.",
+   "ex": "",
+   "lessons": [
+    "world_na_background",
+    "gr_warmup_b2_hot_takes_power",
+    "stoicism_lesson_1_dichotomy_of_control",
+    "acad_c2_10_academic_leadership",
+    "su_a2_32_places_i_have_visited"
+   ]
+  },
+  "distinct": {
+   "w": "distinct",
+   "pos": "adj",
+   "def": "clearly different.",
+   "ex": "Canadians often insist they are distinct from Americans.",
+   "lessons": [
+    "world_na_background",
+    "rs_y7_aut2_02_02",
+    "rs_y10_aut1_19_02",
+    "bc_building_your_brand_c1",
+    "ielts_lesson_10_two_part_questions",
+    "lesson-04-memory-palace"
+   ]
+  },
+  "self-deprecating": {
+   "w": "self-deprecating",
+   "pos": "adj",
+   "def": "making fun of yourself.",
+   "ex": "Canadian humour is often self-deprecating.",
+   "lessons": [
+    "world_na_canadians",
+    "new_year_plans_lesson",
+    "ml_04_back_in_touch",
+    "sp_c1_71_humor_wordplay",
+    "sp_prep_c1_71"
+   ]
+  },
+  "spelling": {
+   "w": "spelling",
+   "pos": "n",
+   "def": "how words are written.",
+   "ex": "American spelling differs from British.",
+   "lessons": [
+    "world_na_english",
+    "a1p_02_where_are_you_from",
+    "qf_pronunciation_homophones",
+    "lesson-18-alphabet-pegs"
+   ]
+  },
+  "dictionary": {
+   "w": "dictionary",
+   "pos": "n",
+   "def": "a book of words and meanings.",
+   "ex": "",
+   "lessons": [
+    "world_na_english"
+   ]
+  },
+  "vocabulary": {
+   "w": "vocabulary",
+   "pos": "n",
+   "def": "the words of a language.",
+   "ex": "Canadian vocabulary mixes British and American.",
+   "lessons": [
+    "world_na_english",
+    "a1p_05_review_foundation"
+   ]
+  },
+  "dialect": {
+   "w": "dialect",
+   "pos": "n",
+   "def": "a regional form of a language.",
+   "ex": "",
+   "lessons": [
+    "world_na_english",
+    "gr_warmup_b2_hot_takes_language",
+    "writing_poetry_slam",
+    "lv_alevel_01_two_texts_one_essay"
+   ]
+  },
+  "drive-through": {
+   "w": "drive-through",
+   "pos": "n",
+   "def": "a place where you're served in your car.",
+   "ex": "",
+   "lessons": [
+    "world_na_food"
+   ]
+  },
+  "diner": {
+   "w": "diner",
+   "pos": "n",
+   "def": "a simple American restaurant.",
+   "ex": "",
+   "lessons": [
+    "world_na_food",
+    "rp_12_at_the_restaurant"
+   ]
+  },
+  "regional": {
+   "w": "regional",
+   "pos": "adj",
+   "def": "belonging to a particular area.",
+   "ex": "American food is very regional.",
+   "lessons": [
+    "world_na_food"
+   ]
+  },
+  "leftover": {
+   "w": "leftover",
+   "pos": "n",
+   "def": "food not eaten at a meal.",
+   "ex": "",
+   "lessons": [
+    "world_na_food",
+    "grammar_a2_07_relatives_determiners"
+   ]
+  },
+  "farmers' market": {
+   "w": "farmers' market",
+   "pos": "n",
+   "def": "a market where farmers sell directly.",
+   "ex": "",
+   "lessons": [
+    "world_na_food"
+   ]
+  },
+  "comfort food": {
+   "w": "comfort food",
+   "pos": "n",
+   "def": "food that makes you feel good.",
+   "ex": "Mac and cheese is classic comfort food.",
+   "lessons": [
+    "world_na_food"
+   ]
+  },
+  "superficial": {
+   "w": "superficial",
+   "pos": "adj",
+   "def": "only on the surface, not deep.",
+   "ex": "Some visitors call it superficial.",
+   "lessons": [
+    "world_na_friendly",
+    "talk_adult_friendships_b2c1",
+    "c2_pro_25_sustainability_reporting",
+    "sp_b2_60b_the_keyword_method"
+   ]
+  },
+  "warm up": {
+   "w": "warm up",
+   "pos": "phr v",
+   "def": "to become friendlier.",
+   "ex": "",
+   "lessons": [
+    "world_na_friendly"
+   ]
+  },
+  "peach": {
+   "w": "peach",
+   "pos": "n",
+   "def": "a soft fruit with a hard stone.",
+   "ex": "",
+   "lessons": [
+    "world_na_friendly"
+   ]
+  },
+  "melting pot": {
+   "w": "melting pot",
+   "pos": "n",
+   "def": "a place where cultures mix into one.",
+   "ex": "",
+   "lessons": [
+    "world_na_mosaic"
+   ]
+  },
+  "mosaic": {
+   "w": "mosaic",
+   "pos": "n",
+   "def": "a picture made of many small pieces.",
+   "ex": "",
+   "lessons": [
+    "world_na_mosaic"
+   ]
+  },
+  "multiculturalism": {
+   "w": "multiculturalism",
+   "pos": "n",
+   "def": "support for many cultures in one society.",
+   "ex": "Canada adopted multiculturalism as policy.",
+   "lessons": [
+    "world_na_mosaic"
+   ]
+  },
+  "foreign-born": {
+   "w": "foreign-born",
+   "pos": "adj",
+   "def": "born in another country.",
+   "ex": "About a quarter of Canadians are foreign-born.",
+   "lessons": [
+    "world_na_mosaic"
+   ]
+  },
+  "newcomer": {
+   "w": "newcomer",
+   "pos": "n",
+   "def": "a person who has recently arrived.",
+   "ex": "",
+   "lessons": [
+    "world_na_mosaic",
+    "rp_18_joining_a_gym"
+   ]
+  },
+  "tip": {
+   "w": "tip",
+   "pos": "n",
+   "def": "extra money for good service.",
+   "ex": "",
+   "lessons": [
+    "world_na_tipping",
+    "talk_tipping_a2b1"
+   ]
+  },
+  "gratuity": {
+   "w": "gratuity",
+   "pos": "n",
+   "def": "a tip, often added to a bill.",
+   "ex": "",
+   "lessons": [
+    "world_na_tipping",
+    "talk_tipping_b2c1"
+   ]
+  },
+  "obligatory": {
+   "w": "obligatory",
+   "pos": "adj",
+   "def": "required by rule or custom.",
+   "ex": "Tipping feels obligatory.",
+   "lessons": [
+    "world_na_tipping",
+    "rs_y11_aut1_25_01",
+    "rs_y11_aut1_25_05",
+    "rs_y7_spr2_04_02",
+    "rs_y11_aut1_25_06",
+    "gr_b2_stress_shift"
+   ]
+  },
+  "screen prompt": {
+   "w": "screen prompt",
+   "pos": "n",
+   "def": "a message on a payment screen.",
+   "ex": "",
+   "lessons": [
+    "world_na_tipping"
+   ]
+  },
+  "paid leave": {
+   "w": "paid leave",
+   "pos": "n",
+   "def": "time off work with pay.",
+   "ex": "",
+   "lessons": [
+    "world_na_work"
+   ]
+  },
+  "vacation": {
+   "w": "vacation",
+   "pos": "n",
+   "def": "time away from work or school.",
+   "ex": "Americans say \"vacation\"; the British say \"holiday\".",
+   "lessons": [
+    "world_na_work",
+    "travel_holidays_a2",
+    "qf_falsefriend_italian_estate",
+    "qf_falsefriend_portuguese_pretender"
+   ]
+  },
+  "hustle": {
+   "w": "hustle",
+   "pos": "n",
+   "def": "energetic, busy work.",
+   "ex": "",
+   "lessons": [
+    "world_na_work"
+   ]
+  },
+  "employer": {
+   "w": "employer",
+   "pos": "n",
+   "def": "a company or person that hires workers.",
+   "ex": "",
+   "lessons": [
+    "world_na_work"
+   ]
+  },
+  "unplug": {
+   "w": "unplug",
+   "pos": "v",
+   "def": "to stop using work devices.",
+   "ex": "",
+   "lessons": [
+    "world_na_work",
+    "grammar_b2_17_pronouns_compounds_dummy_it"
+   ]
+  },
   "constructive criticism": {
    "w": "constructive criticism",
    "pos": "n",
@@ -85139,32 +92487,6 @@ window.WORDBANK={
     "acad_b1_25_understanding_feedback",
     "c2_pro_14_performance_reviews",
     "IELTS-Reading-Practice-Test-2"
-   ]
-  },
-  "acknowledge": {
-   "w": "acknowledge",
-   "pos": "v",
-   "def": "to accept or admit that something is true or good",
-   "ex": "She acknowledged that my idea was useful before suggesting changes.",
-   "lessons": [
-    "acad_b1_25_understanding_feedback",
-    "gr_c1_devils_advocate",
-    "bc_navigating_misunderstandings_c1",
-    "gr_warmup_c1_hot_takes_apology_tour",
-    "skills_b1b2_trade_fair_objections",
-    "st_pro_09_the_crisis_story",
-    "su_a2_52_handling_questions",
-    "c2_pro_17_organisational_politics",
-    "ct_b1_30_combining_skills",
-    "kuba_lesson_1_professional_presence",
-    "prof_c1_01_managing_difficult_conversations",
-    "workplace_conflict_resolution_interactive",
-    "cambridge_cae_writing_essay",
-    "lesson_49_advanced_fluency_challenge",
-    "lf_23_the_receptionist",
-    "sp_b1_27_acknowledging_views",
-    "sp_prep_b1_27",
-    "bc_academic_reading_phd_c1"
    ]
   },
   "manageable": {
@@ -85394,29 +92716,6 @@ window.WORDBANK={
     "acad_b2_12_literature_reviews"
    ]
   },
-  "assumption": {
-   "w": "assumption",
-   "pos": "n",
-   "def": "something you believe is true without proof",
-   "ex": "Your plan is based on the assumption that prices will stay low.",
-   "lessons": [
-    "acad_b2_03_critical_thinking",
-    "bc_reframing_conflict_c1",
-    "gr_warmup_c1_hot_takes_iceberg",
-    "rp_36_giving_a_statement",
-    "bp_c2_03_why_they_dont_understand_you",
-    "epicurean_29_legacy_tensions",
-    "the-power-of-accents",
-    "wp_30_the_razor",
-    "b2_39_best_email_replies",
-    "qf_vocab_actually_currently",
-    "sp_c1_03_diplomatic_disagreement",
-    "sp_prep_c1_04",
-    "sp_prep_c1_70",
-    "su_a2_58_preparing_for_new_cultures",
-    "grammar_b2_11_cleft_sentences_emphasis"
-   ]
-  },
   "pessimistic": {
    "w": "pessimistic",
    "pos": "adj",
@@ -85482,19 +92781,6 @@ window.WORDBANK={
     "religions_c1_functional",
     "a1p_25_review_expressing_ideas",
     "sp_prep_b1_31"
-   ]
-  },
-  "dominate": {
-   "w": "dominate",
-   "pos": "v",
-   "def": "to control a situation or have the most influence",
-   "ex": "One person tends to dominate every team meeting.",
-   "lessons": [
-    "acad_b2_05_seminar_discussions",
-    "bc_win_win_negotiations_b2c1",
-    "c2_pro_29_innovation_culture",
-    "sp_b1_37_turn_taking",
-    "sp_prep_b1_37"
    ]
   },
   "anxiety": {
@@ -86759,16 +94045,6 @@ window.WORDBANK={
     "gr_b2_the_conspiracy"
    ]
   },
-  "suspicious": {
-   "w": "suspicious",
-   "pos": "adj",
-   "def": "making you feel something is wrong or dishonest",
-   "ex": "There was a suspicious car outside our house all night.",
-   "lessons": [
-    "gr_b2_the_conspiracy",
-    "ml_16_the_scam_call"
-   ]
-  },
   "guilt": {
    "w": "guilt",
    "pos": "n",
@@ -86910,27 +94186,6 @@ window.WORDBANK={
    "ex": "The two teams have opposing ideas about the plan.",
    "lessons": [
     "gr_b2_the_pressure_cooker"
-   ]
-  },
-  "compromise": {
-   "w": "compromise",
-   "pos": "n",
-   "def": "an agreement where each side gives up something",
-   "ex": "After an hour we reached a compromise on the price.",
-   "lessons": [
-    "gr_b2_the_pressure_cooker",
-    "gr_c1_the_negotiator",
-    "bc_negotiating_c1",
-    "acad_b1_09_working_in_pairs",
-    "b1_25_career_development",
-    "c2_pro_19_conflict_transformation",
-    "epicurean_29_legacy_tensions",
-    "prof_c2_10_future_of_work",
-    "skills_b1_sharing_opinions_politely",
-    "b2_24_clarity_is_key",
-    "sp_c1_64_negotiation",
-    "sp_prep_b1_31",
-    "b2_35_getting_a_pay_rise"
    ]
   },
   "confront": {
@@ -87362,18 +94617,6 @@ window.WORDBANK={
     "gr_c1_the_negotiator",
     "bestiary",
     "lesson-26-speeches-performance"
-   ]
-  },
-  "ambitious": {
-   "w": "ambitious",
-   "pos": "adj",
-   "def": "aiming for something difficult and large",
-   "ex": "Their sales target for next year is very ambitious.",
-   "lessons": [
-    "gr_c1_the_negotiator",
-    "su_a2_47_making_decisions",
-    "short_history_emperor_nero_a2b1",
-    "ml_06_the_collab"
    ]
   },
   "imbalance": {
@@ -88240,17 +95483,6 @@ window.WORDBANK={
     "rs_y10_spr1_21_06"
    ]
   },
-  "infant": {
-   "w": "infant",
-   "pos": "n",
-   "def": "a baby or very young child",
-   "ex": "Many churches practise infant baptism soon after birth.",
-   "lessons": [
-    "rs_y10_spr1_21_03",
-    "rs_y8_spr1_09_04",
-    "rs_y11_sum1_29_02"
-   ]
-  },
   "immersion": {
    "w": "immersion",
    "pos": "n",
@@ -88261,16 +95493,6 @@ window.WORDBANK={
     "rs_y8_spr1_09_04",
     "talk_ai_and_language_learning_b2c1",
     "bc_academic_reading_phd_c1"
-   ]
-  },
-  "godparent": {
-   "w": "godparent",
-   "pos": "n",
-   "def": "an adult who promises to help raise a child in the faith",
-   "ex": "My aunt agreed to be my son's godparent.",
-   "lessons": [
-    "rs_y10_spr1_21_03",
-    "rs_y8_spr1_09_04"
    ]
   },
   "sacrament": {
@@ -88348,15 +95570,6 @@ window.WORDBANK={
     "rs_y10_spr1_21_04"
    ]
   },
-  "symbolic": {
-   "w": "symbolic",
-   "pos": "adj",
-   "def": "representing an idea rather than being real",
-   "ex": "For some, the bread is only symbolic.",
-   "lessons": [
-    "rs_y10_spr1_21_04"
-   ]
-  },
   "communion": {
    "w": "communion",
    "pos": "n",
@@ -88400,16 +95613,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_spr1_21_05",
     "rs_y11_spr1_27_03"
-   ]
-  },
-  "anointing": {
-   "w": "anointing",
-   "pos": "n",
-   "def": "putting holy oil on someone in a ceremony",
-   "ex": "Anointing of the sick brings comfort to the ill.",
-   "lessons": [
-    "rs_y10_spr1_21_05",
-    "rs_y8_spr1_09_01"
    ]
   },
   "outward": {
@@ -88461,15 +95664,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_spr2_22_01",
     "lesson_50_mastery_celebration_finale"
-   ]
-  },
-  "penance": {
-   "w": "penance",
-   "pos": "n",
-   "def": "an action you do to show you are sorry",
-   "ex": "Walking barefoot was once done as penance.",
-   "lessons": [
-    "rs_y10_spr2_22_01"
    ]
   },
   "celebration": {
@@ -88602,16 +95796,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y10_spr2_22_04",
     "rs_y10_spr2_22_06"
-   ]
-  },
-  "convert": {
-   "w": "convert",
-   "pos": "v",
-   "def": "to change from one religion or belief to another",
-   "ex": "He converted to Christianity at the age of thirty.",
-   "lessons": [
-    "rs_y10_spr2_22_04",
-    "skills_b1b2_trade_fair_followup"
    ]
   },
   "proselytise": {
@@ -88914,15 +96098,6 @@ window.WORDBANK={
     "rs_y10_sum2_24_06"
    ]
   },
-  "guardian": {
-   "w": "guardian",
-   "pos": "n",
-   "def": "a person or being who protects someone",
-   "ex": "Some believe guardian angels watch over people.",
-   "lessons": [
-    "rs_y10_sum1_23_04"
-   ]
-  },
   "archangel": {
    "w": "archangel",
    "pos": "n",
@@ -89211,19 +96386,6 @@ window.WORDBANK={
     "rs_y10_sum2_24_06"
    ]
   },
-  "obligatory": {
-   "w": "obligatory",
-   "pos": "adj",
-   "def": "required by a rule or law",
-   "ex": "Prayer five times a day is obligatory.",
-   "lessons": [
-    "rs_y11_aut1_25_01",
-    "rs_y11_aut1_25_05",
-    "rs_y7_spr2_04_02",
-    "rs_y11_aut1_25_06",
-    "gr_b2_stress_shift"
-   ]
-  },
   "zakah": {
    "w": "zakah",
    "pos": "n",
@@ -89232,15 +96394,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y11_aut1_25_01",
     "rs_y11_aut1_25_05"
-   ]
-  },
-  "duty": {
-   "w": "duty",
-   "pos": "n",
-   "def": "something you must do because it is right",
-   "ex": "Each pillar is a religious duty.",
-   "lessons": [
-    "rs_y11_aut1_25_01"
    ]
   },
   "shahadah": {
@@ -89354,15 +96507,6 @@ window.WORDBANK={
     "rs_y11_aut1_25_03",
     "rs_y9_sum1_17_02",
     "rs_y11_aut1_25_06"
-   ]
-  },
-  "unify": {
-   "w": "unify",
-   "pos": "v",
-   "def": "to bring people together as one",
-   "ex": "Praying the same way unifies Muslims everywhere.",
-   "lessons": [
-    "rs_y11_aut1_25_03"
    ]
   },
   "sawm": {
@@ -89638,28 +96782,6 @@ window.WORDBANK={
     "grammar_a2_04_modals_obligation_request"
    ]
   },
-  "alms": {
-   "w": "alms",
-   "pos": "n",
-   "def": "money or food given to poor people",
-   "ex": "Zakat-ul-Fitr is alms given before the Id prayer.",
-   "lessons": [
-    "rs_y11_aut2_26_05"
-   ]
-  },
-  "covenant": {
-   "w": "covenant",
-   "pos": "n",
-   "def": "a serious promise or agreement, especially with God",
-   "ex": "Christians see marriage as a covenant before God.",
-   "lessons": [
-    "rs_y11_spr1_27_01",
-    "rs_y7_aut1_01_02",
-    "rs_y8_aut1_07_01",
-    "rs_y11_spr1_27_06",
-    "rs_y8_aut1_07_06"
-   ]
-  },
   "cohabitation": {
    "w": "cohabitation",
    "pos": "n",
@@ -89667,17 +96789,6 @@ window.WORDBANK={
    "ex": "Attitudes to cohabitation have changed a lot.",
    "lessons": [
     "rs_y11_spr1_27_01",
-    "rs_y11_sum2_30_01"
-   ]
-  },
-  "annulment": {
-   "w": "annulment",
-   "pos": "n",
-   "def": "an official statement that a marriage was never valid",
-   "ex": "The Catholic Church allows an annulment in some cases.",
-   "lessons": [
-    "rs_y11_spr1_27_01",
-    "ois_13_henry_viii",
     "rs_y11_sum2_30_01"
    ]
   },
@@ -89714,17 +96825,6 @@ window.WORDBANK={
     "b1_52_true_friendship",
     "rs_y11_sum2_30_01",
     "sp_prep_b2_58"
-   ]
-  },
-  "divorce": {
-   "w": "divorce",
-   "pos": "n",
-   "def": "the legal ending of a marriage",
-   "ex": "Islam permits divorce, but it is strongly disliked.",
-   "lessons": [
-    "rs_y11_spr1_27_01",
-    "behind_the_screen_her_a2b1",
-    "rs_y9_spr2_16_03"
    ]
   },
   "companionship": {
@@ -89785,16 +96885,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y11_spr1_27_02",
     "rs_y11_spr1_27_06"
-   ]
-  },
-  "condemn": {
-   "w": "condemn",
-   "pos": "v",
-   "def": "to say very strongly that something is wrong",
-   "ex": "Many religious leaders condemn violence in relationships.",
-   "lessons": [
-    "rs_y11_spr1_27_02",
-    "epicurean_21_hidden_currents"
    ]
   },
   "gender equality": {
@@ -89908,15 +96998,6 @@ window.WORDBANK={
     "rs_y11_spr1_27_05"
    ]
   },
-  "steward": {
-   "w": "steward",
-   "pos": "n",
-   "def": "a person who looks after something for someone else",
-   "ex": "Humans are called to be stewards of the earth.",
-   "lessons": [
-    "rs_y11_spr1_27_04"
-   ]
-  },
   "abortion": {
    "w": "abortion",
    "pos": "n",
@@ -89984,17 +97065,6 @@ window.WORDBANK={
    "ex": "Some religions allow violence in self-defence.",
    "lessons": [
     "rs_y11_spr2_28_01"
-   ]
-  },
-  "peacemaker": {
-   "w": "peacemaker",
-   "pos": "n",
-   "def": "a person who helps others end a conflict",
-   "ex": "Blessed are the peacemakers is a famous Bible verse.",
-   "lessons": [
-    "rs_y11_spr2_28_01",
-    "rs_y8_spr2_10_02",
-    "rs_y8_spr2_10_06"
    ]
   },
   "just": {
@@ -90396,15 +97466,6 @@ window.WORDBANK={
     "wp_45_the_abyss"
    ]
   },
-  "census": {
-   "w": "census",
-   "pos": "n",
-   "def": "an official count of the people in a country",
-   "ex": "The census asks people about their religion.",
-   "lessons": [
-    "rs_y7_aut1_01_05"
-   ]
-  },
   "pluralism": {
    "w": "pluralism",
    "pos": "n",
@@ -90441,16 +97502,6 @@ window.WORDBANK={
    "ex": "What percentage of people are Christian?",
    "lessons": [
     "rs_y7_aut1_01_05"
-   ]
-  },
-  "diverse": {
-   "w": "diverse",
-   "pos": "adj",
-   "def": "including many different types of people",
-   "ex": "Our city is very diverse, with many languages.",
-   "lessons": [
-    "rs_y7_aut1_01_05",
-    "c1_pro_20_diversity_inclusion"
    ]
   },
   "morality": {
@@ -90536,33 +97587,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y7_aut2_02_02",
     "rs_y10_aut1_19_02"
-   ]
-  },
-  "distinct": {
-   "w": "distinct",
-   "pos": "adj",
-   "def": "clearly separate and different from each other",
-   "ex": "Father, Son and Spirit are distinct persons.",
-   "lessons": [
-    "rs_y7_aut2_02_02",
-    "rs_y10_aut1_19_02",
-    "bc_building_your_brand_c1",
-    "ielts_lesson_10_two_part_questions",
-    "lesson-04-memory-palace"
-   ]
-  },
-  "contradiction": {
-   "w": "contradiction",
-   "pos": "n",
-   "def": "two ideas that cannot both be true",
-   "ex": "Some say the Trinity seems like a contradiction.",
-   "lessons": [
-    "rs_y7_aut2_02_02",
-    "gr_warmup_c1_hot_takes_iceberg",
-    "acad_c2_11_thesis_defence",
-    "c2_pro_06_media_interviews",
-    "wp_03_the_way_of_truth",
-    "grammar_b1_21_sentence_building"
    ]
   },
   "incarnate": {
@@ -90752,20 +97776,6 @@ window.WORDBANK={
     "epicurean_07_the_swerve"
    ]
   },
-  "debate": {
-   "w": "debate",
-   "pos": "n",
-   "def": "a discussion in which people give different opinions",
-   "ex": "The class held a debate about whether God exists.",
-   "lessons": [
-    "rs_y7_aut2_02_06",
-    "4_day_work_week",
-    "b2_07_is_tv_bad_for_us",
-    "b2_84_no_free_lunch",
-    "general_lesson_36_technology_society_interactive",
-    "lesson_36_technology_society"
-   ]
-  },
   "empiricism": {
    "w": "empiricism",
    "pos": "n",
@@ -90899,15 +97909,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "beautiful handwriting made with a pen or brush",
    "ex": "Mosques are often decorated with calligraphy.",
-   "lessons": [
-    "rs_y7_spr1_03_03"
-   ]
-  },
-  "translation": {
-   "w": "translation",
-   "pos": "n",
-   "def": "words changed from one language into another",
-   "ex": "Muslims say a translation is not the true Qur'an.",
    "lessons": [
     "rs_y7_spr1_03_03"
    ]
@@ -91481,15 +98482,6 @@ window.WORDBANK={
     "lesson-29-practice-system"
    ]
   },
-  "absolute": {
-   "w": "absolute",
-   "pos": "adj",
-   "def": "true in every single situation",
-   "ex": "An absolute rule never changes for anyone.",
-   "lessons": [
-    "rs_y7_sum2_06_01"
-   ]
-  },
   "immoral": {
    "w": "immoral",
    "pos": "adj",
@@ -91642,15 +98634,6 @@ window.WORDBANK={
    "pos": "adv",
    "def": "in a way that does not attract attention",
    "ex": "Muslims are encouraged to dress modestly.",
-   "lessons": [
-    "rs_y7_sum2_06_04"
-   ]
-  },
-  "lawful": {
-   "w": "lawful",
-   "pos": "adj",
-   "def": "allowed by the rules and the law",
-   "ex": "Trade is lawful, but cheating is not.",
    "lessons": [
     "rs_y7_sum2_06_04"
    ]
@@ -92435,15 +99418,6 @@ window.WORDBANK={
     "qf_collocation_strong_opinion"
    ]
   },
-  "birth rate": {
-   "w": "birth rate",
-   "pos": "phr",
-   "def": "the number of babies born per thousand people each year",
-   "ex": "The birth rate has fallen sharply in many European countries.",
-   "lessons": [
-    "bc_population_change_c1"
-   ]
-  },
   "life expectancy": {
    "w": "life expectancy",
    "pos": "phr",
@@ -92569,17 +99543,6 @@ window.WORDBANK={
     "bc_presentation_structure_c1",
     "b2_82_problems_at_work",
     "grammar_a2_16_conjunctions_time_contrast"
-   ]
-  },
-  "absorb": {
-   "w": "absorb",
-   "pos": "v",
-   "def": "to accept a cost without passing it on to others",
-   "ex": "The business cannot absorb another rise in energy costs.",
-   "lessons": [
-    "bc_procurement_price_increase_c1",
-    "deep_space_05_dark",
-    "bc_consulting_reset_expectations_c1"
    ]
   },
   "ceiling": {
@@ -92747,19 +99710,6 @@ window.WORDBANK={
     "wp_04_atoms_in_the_void",
     "b1_38_telling_effective_anecdotes",
     "ib_adichie_analysis_lesson"
-   ]
-  },
-  "understatement": {
-   "w": "understatement",
-   "pos": "n",
-   "def": "describing something as less important or serious than it is",
-   "ex": "Calling the flood a little inconvenient was a huge understatement.",
-   "lessons": [
-    "bc_rhetorical_devices_c1",
-    "everyday_echoes_phrase_bank",
-    "sp_c1_63_irony_understatement",
-    "sp_prep_c1_65",
-    "gr_b2_tone_shift"
    ]
   },
   "heavy-handed": {
@@ -93482,18 +100432,6 @@ window.WORDBANK={
     "sp_b2_57_persuasion"
    ]
   },
-  "endangered": {
-   "w": "endangered",
-   "pos": "adj",
-   "def": "at risk of disappearing completely from the world",
-   "ex": "The mountain gorilla is still an endangered animal.",
-   "lessons": [
-    "bc_travel_c1",
-    "talk_zoos_a2b1",
-    "bc_endangered_species_b2c1",
-    "cpe_read_c1_09_language_death"
-   ]
-  },
   "habitat": {
    "w": "habitat",
    "pos": "n",
@@ -93829,15 +100767,6 @@ window.WORDBANK={
     "grammar_b2_14_complex_prepositions_cohesion"
    ]
   },
-  "jury": {
-   "w": "jury",
-   "pos": "n",
-   "def": "a group of ordinary people who decide a court case",
-   "ex": "The jury listened to both sides for three days.",
-   "lessons": [
-    "behind_the_screen_12_angry_men_a2b1"
-   ]
-  },
   "prove": {
    "w": "prove",
    "pos": "v",
@@ -94135,32 +101064,6 @@ window.WORDBANK={
     "ielts_speaking_part3"
    ]
   },
-  "prisoner": {
-   "w": "prisoner",
-   "pos": "n",
-   "def": "a person who is kept somewhere and cannot leave",
-   "ex": "The prisoner wrote letters to his mother every week.",
-   "lessons": [
-    "behind_the_screen_ex_machina_a2b1",
-    "short_history_alcatraz_a2b1",
-    "short_history_the_romanovs_a2b1",
-    "short_history_vlad_the_impaler_a2b1"
-   ]
-  },
-  "exhausted": {
-   "w": "exhausted",
-   "pos": "adj",
-   "def": "so tired that you have no energy left",
-   "ex": "After the long walk, we were completely exhausted.",
-   "lessons": [
-    "behind_the_screen_fight_club_a2b1",
-    "hobbies_free_time_a2",
-    "a1p_48_giving_advice",
-    "lesson_27_past_perfect_continuous",
-    "qf_falsefriend_french_rester",
-    "grammar_a2_06_reported_speech_tags"
-   ]
-  },
   "consumerism": {
    "w": "consumerism",
    "pos": "n",
@@ -94449,17 +101352,6 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_moneyball_a2b1",
     "b1_30_bringing_ideas_together"
-   ]
-  },
-  "bomb": {
-   "w": "bomb",
-   "pos": "n",
-   "def": "a weapon that explodes and causes great damage",
-   "ex": "An old bomb was found under the road last week.",
-   "lessons": [
-    "behind_the_screen_oppenheimer_a2b1",
-    "short_history_hiroshima_a2b1",
-    "behind_the_screen_pearl_harbor_a2b1"
    ]
   },
   "weapon": {
@@ -95120,18 +102012,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_forgiveness"
    ]
   },
-  "equality": {
-   "w": "equality",
-   "pos": "n",
-   "def": "treating everyone the same and giving the same rights",
-   "ex": "The campaign fights for equality at work.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_gender",
-    "epicurean_04_the_garden_community",
-    "rs_y11_aut2_26_06",
-    "rs_y9_spr2_16_06"
-   ]
-  },
   "equity": {
    "w": "equity",
    "pos": "n",
@@ -95291,28 +102171,6 @@ window.WORDBANK={
     "lesson_10_a2_review_fluency_challenge",
     "acad_b2_04_academic_vocabulary",
     "duolingo_det_practice"
-   ]
-  },
-  "dialect": {
-   "w": "dialect",
-   "pos": "n",
-   "def": "a regional form of a language with its own words",
-   "ex": "My grandmother speaks a local dialect I barely understand.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_language",
-    "writing_poetry_slam",
-    "lv_alevel_01_two_texts_one_essay"
-   ]
-  },
-  "slang": {
-   "w": "slang",
-   "pos": "n",
-   "def": "very informal words used by particular groups",
-   "ex": "Teenage slang changes almost every year.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_language",
-    "acad_b1_19_writing_introductions",
-    "ct_b1_25_review_integration"
    ]
   },
   "prescriptivism": {
@@ -95534,18 +102392,6 @@ window.WORDBANK={
    "ex": "Everyone knows the owner pulls the strings, not the coach.",
    "lessons": [
     "gr_warmup_b2_hot_takes_power"
-   ]
-  },
-  "influence": {
-   "w": "influence",
-   "pos": "n",
-   "def": "the ability to affect what people do or think",
-   "ex": "Parents have a huge influence on their children.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_power",
-    "stoicism_lesson_1_dichotomy_of_control",
-    "acad_c2_10_academic_leadership",
-    "su_a2_32_places_i_have_visited"
    ]
   },
   "opt out": {
@@ -96417,15 +103263,6 @@ window.WORDBANK={
     "rp_12_at_the_restaurant_a2b1"
    ]
   },
-  "diner": {
-   "w": "diner",
-   "pos": "n",
-   "def": "a person eating a meal in a restaurant",
-   "ex": "The diners at the next table were celebrating a birthday.",
-   "lessons": [
-    "rp_12_at_the_restaurant"
-   ]
-  },
   "torn between": {
    "w": "torn between",
    "pos": "phr",
@@ -96909,15 +103746,6 @@ window.WORDBANK={
     "rp_18_joining_a_gym"
    ]
   },
-  "newcomer": {
-   "w": "newcomer",
-   "pos": "n",
-   "def": "a person who has just arrived or started",
-   "ex": "Newcomers get a free class with a trainer.",
-   "lessons": [
-    "rp_18_joining_a_gym"
-   ]
-  },
   "on a whim": {
    "w": "on a whim",
    "pos": "phr",
@@ -97225,28 +104053,6 @@ window.WORDBANK={
     "rp_22_talking_about_sport",
     "b2_41_celebrity_debate",
     "bc_books_that_changed_the_world_c1"
-   ]
-  },
-  "favourite": {
-   "w": "favourite",
-   "pos": "adj",
-   "def": "liked more than all the others",
-   "ex": "My favourite sport to watch is tennis.",
-   "lessons": [
-    "rp_22_talking_about_sport_a2b1",
-    "explore_all_first_lesson_intro",
-    "sf_a1_03_my_home",
-    "grammar_a1_05_wh_questions_negation"
-   ]
-  },
-  "unlucky": {
-   "w": "unlucky",
-   "pos": "adj",
-   "def": "having bad things happen by chance",
-   "ex": "The team was unlucky to lose in the last minute.",
-   "lessons": [
-    "rp_22_talking_about_sport_a2b1",
-    "b2_85_superstitions"
    ]
   },
   "exciting": {
@@ -97885,16 +104691,6 @@ window.WORDBANK={
     "rp_29_a_leaving_party_a2b1"
    ]
   },
-  "punctual": {
-   "w": "punctual",
-   "pos": "adj",
-   "def": "arriving at the right time, not late",
-   "ex": "Being punctual on your first day makes a good impression.",
-   "lessons": [
-    "rp_30_first_day_at_work",
-    "lf_45_the_late_friend"
-   ]
-  },
   "lanyard": {
    "w": "lanyard",
    "pos": "n",
@@ -98081,16 +104877,6 @@ window.WORDBANK={
     "grammar_b2_22_explaining_a_problem",
     "lf_21_at_the_dentist",
     "discuss_b2c1_photography"
-   ]
-  },
-  "stamp": {
-   "w": "stamp",
-   "pos": "n",
-   "def": "a mark printed in a passport at a border",
-   "ex": "The officer put a stamp in my passport.",
-   "lessons": [
-    "rp_32_at_passport_control",
-    "grammar_b1_16_gerunds_infinitives_semantic"
    ]
   },
   "flustered": {
@@ -98376,16 +105162,6 @@ window.WORDBANK={
     "rp_36_giving_a_statement"
    ]
   },
-  "swear": {
-   "w": "swear",
-   "pos": "v",
-   "def": "to promise that something is true",
-   "ex": "I swear the light was red.",
-   "lessons": [
-    "rp_36_giving_a_statement",
-    "grammar_b2_24_passing_on_the_news"
-   ]
-  },
   "consulate": {
    "w": "consulate",
    "pos": "n",
@@ -98545,15 +105321,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "stopping bright light reflecting from a surface",
    "ex": "Anti-glare lenses help when I use a screen all day.",
-   "lessons": [
-    "rp_39_at_the_optician"
-   ]
-  },
-  "mild": {
-   "w": "mild",
-   "pos": "adj",
-   "def": "not strong, serious or severe",
-   "ex": "You have a mild problem with distance vision.",
    "lessons": [
     "rp_39_at_the_optician"
    ]
@@ -98783,22 +105550,6 @@ window.WORDBANK={
     "rs_y10_aut2_20_02"
    ]
   },
-  "transform": {
-   "w": "transform",
-   "pos": "v",
-   "def": "to change something or someone completely",
-   "ex": "The news transformed the frightened followers.",
-   "lessons": [
-    "rs_y10_aut2_20_02",
-    "books_changed_world_lesson",
-    "epicurean_27_gassendi_ethics",
-    "b2_66_impact_of_technology",
-    "general_lesson_36_technology_society_interactive",
-    "lesson_36_technology_society_interactive",
-    "ielts_task1_gauntlet_b2",
-    "qf_falsefriend_german_bekommen"
-   ]
-  },
   "creed": {
    "w": "creed",
    "pos": "n",
@@ -98866,15 +105617,6 @@ window.WORDBANK={
    "ex": "Is this meeting really worth my time this afternoon?",
    "lessons": [
     "skills_b1b2_trade_fair_features_benefits"
-   ]
-  },
-  "lead": {
-   "w": "lead",
-   "pos": "n",
-   "def": "a person or company that might become a customer",
-   "ex": "We collected forty good leads at the fair this year.",
-   "lessons": [
-    "skills_b1b2_trade_fair_followup"
    ]
   },
   "specificity": {
@@ -99092,19 +105834,6 @@ window.WORDBANK={
    "ex": "His clipped replies showed he was annoyed.",
    "lessons": [
     "skills_c1_analysing_poetry"
-   ]
-  },
-  "rhythm": {
-   "w": "rhythm",
-   "pos": "n",
-   "def": "a regular pattern of strong and weak sounds",
-   "ex": "The rhythm slows down in the final line.",
-   "lessons": [
-    "skills_c1_analysing_poetry",
-    "c1_the_british_pub",
-    "a1p_49_connected_speech",
-    "b2_91_ielts_spelling_mnemonics",
-    "pron_c1_01_rhythm_engine"
    ]
   },
   "poetic device": {
@@ -100303,18 +107032,6 @@ window.WORDBANK={
     "sp_a2_01_buying_time"
    ]
   },
-  "satisfaction": {
-   "w": "satisfaction",
-   "pos": "n",
-   "def": "a feeling of being pleased with something",
-   "ex": "Customer satisfaction went up after the changes.",
-   "lessons": [
-    "su_a2_63_mapping_the_customer_journey",
-    "the-art-of-simple-pleasures",
-    "b2_09_happiness",
-    "bc_ielts_paragraphs_examples_b2c1"
-   ]
-  },
   "improvement": {
    "w": "improvement",
    "pos": "n",
@@ -100361,21 +107078,6 @@ window.WORDBANK={
     "a1p_10_review_unit1",
     "sp_prep_a2_14",
     "grammar_a2_17_gerunds_after_verbs"
-   ]
-  },
-  "flexible": {
-   "w": "flexible",
-   "pos": "adj",
-   "def": "able to change easily when needed",
-   "ex": "My boss is flexible about working hours.",
-   "lessons": [
-    "su_a2_64_adapting_communication",
-    "c2_pro_03_diplomatic_negotiation",
-    "bc_ielts_paragraphs_examples_b2c1",
-    "ielts_lesson_1_FIXED",
-    "rs_y11_sum1_29_02",
-    "talk_working_from_home_a2b1",
-    "grammar_b1_10_relative_clauses_extended"
    ]
   },
   "straight to the point": {
@@ -102175,15 +108877,6 @@ window.WORDBANK={
     "acad_c2_06_research_ethics"
    ]
   },
-  "interdisciplinary": {
-   "w": "interdisciplinary",
-   "pos": "adj",
-   "def": "involving two or more different subjects or fields of study",
-   "ex": "The interdisciplinary team included engineers and artists.",
-   "lessons": [
-    "acad_c2_07_interdisciplinary"
-   ]
-  },
   "oversimplify": {
    "w": "oversimplify",
    "pos": "v",
@@ -102995,16 +109688,6 @@ window.WORDBANK={
     "grammar_c1_08_advanced_relative_clauses"
    ]
   },
-  "gathering": {
-   "w": "gathering",
-   "pos": "n",
-   "def": "a group of people meeting together for a purpose",
-   "ex": "We had a small gathering at home for her birthday.",
-   "lessons": [
-    "b1_03_talking_about_events",
-    "su_a2_39_my_celebrations"
-   ]
-  },
   "occasion": {
    "w": "occasion",
    "pos": "n",
@@ -103466,16 +110149,6 @@ window.WORDBANK={
     "b1_16_strengths_and_weaknesses"
    ]
   },
-  "network": {
-   "w": "network",
-   "pos": "v",
-   "def": "to meet people who may be useful for your work",
-   "ex": "Conferences are a great place to network.",
-   "lessons": [
-    "b1_17_casual_conversation",
-    "epicurean_28_gassendist_circle"
-   ]
-  },
   "crazy about": {
    "w": "crazy about",
    "pos": "phr",
@@ -103520,16 +110193,6 @@ window.WORDBANK={
    "ex": "I need to cut back on coffee.",
    "lessons": [
     "b1_18_brainstorming_and_problem_solving"
-   ]
-  },
-  "counsellor": {
-   "w": "counsellor",
-   "pos": "n",
-   "def": "a person trained to listen and give advice about problems",
-   "ex": "She spoke to a counsellor after her father died.",
-   "lessons": [
-    "b1_18_brainstorming_and_problem_solving",
-    "qf_falsefriend_polish_sympathyczny"
    ]
   },
   "fast-paced": {
@@ -103754,21 +110417,6 @@ window.WORDBANK={
     "b1_31_flexible_communication"
    ]
   },
-  "recognise": {
-   "w": "recognise",
-   "pos": "v",
-   "def": "to know or notice something because you have seen it before",
-   "ex": "It is useful to recognise when a colleague is stressed.",
-   "lessons": [
-    "b1_31_flexible_communication",
-    "rp_07_at_the_bank",
-    "the-people-we-used-to-be",
-    "b2_90_lost_in_translation",
-    "ielts_spelling_finding_her_voice",
-    "lesson-20-learning-review",
-    "grammar_b1_02_past_tense_mastery"
-   ]
-  },
   "flex": {
    "w": "flex",
    "pos": "v",
@@ -103776,16 +110424,6 @@ window.WORDBANK={
    "ex": "Good managers flex their style for each person.",
    "lessons": [
     "b1_31_flexible_communication"
-   ]
-  },
-  "vary": {
-   "w": "vary",
-   "pos": "v",
-   "def": "to be different in different situations",
-   "ex": "Prices vary from shop to shop.",
-   "lessons": [
-    "b1_31_flexible_communication",
-    "c2_pro_13_cross_cultural_leadership"
    ]
   },
   "absolutely": {
@@ -104250,17 +110888,6 @@ window.WORDBANK={
     "talk_money_and_happiness_b2c1"
    ]
   },
-  "stable": {
-   "w": "stable",
-   "pos": "adj",
-   "def": "steady and not likely to change suddenly",
-   "ex": "She wanted a stable career before starting a family.",
-   "lessons": [
-    "speaking_naturally_06_parents_were_right",
-    "equestrian_life_horse_riding_interactive",
-    "making_the_leap"
-   ]
-  },
   "paycheck to paycheck": {
    "w": "paycheck to paycheck",
    "pos": "phr",
@@ -104268,17 +110895,6 @@ window.WORDBANK={
    "ex": "Many young workers live paycheck to paycheck.",
    "lessons": [
     "speaking_naturally_06_parents_were_right"
-   ]
-  },
-  "pursue": {
-   "w": "pursue",
-   "pos": "v",
-   "def": "to try hard to achieve something over time",
-   "ex": "He decided to pursue his passion for music.",
-   "lessons": [
-    "speaking_naturally_06_parents_were_right",
-    "c1_pro_30_entrepreneurial_mindset",
-    "ielts_lesson_11_vocabulary_collocations"
    ]
   },
   "generational": {
@@ -105512,15 +112128,6 @@ window.WORDBANK={
     "talk_traditions_a2b1"
    ]
   },
-  "parade": {
-   "w": "parade",
-   "pos": "n",
-   "def": "a line of people or vehicles moving through streets to celebrate",
-   "ex": "There is a big parade in the city centre today.",
-   "lessons": [
-    "su_a2_11_cultural_celebrations"
-   ]
-  },
   "colourful": {
    "w": "colourful",
    "pos": "adj",
@@ -106374,19 +112981,6 @@ window.WORDBANK={
     "su_a2_30_ordering_food"
    ]
   },
-  "convenient": {
-   "w": "convenient",
-   "pos": "adj",
-   "def": "useful and easy, often because it is close",
-   "ex": "The hotel is in a convenient spot near the station.",
-   "lessons": [
-    "su_a2_32_places_i_have_visited",
-    "ielts_spelling_a_place_of_her_own",
-    "qf_falsefriend_german_handy",
-    "talk_cars_in_cities_a2b1",
-    "grammar_b2_15_correlative_conjunctions_concession"
-   ]
-  },
   "rude": {
    "w": "rude",
    "pos": "adj",
@@ -106442,17 +113036,6 @@ window.WORDBANK={
    "ex": "I'll pay you back next week, I promise.",
    "lessons": [
     "su_a2_33_mistakes_and_misadventures"
-   ]
-  },
-  "charge": {
-   "w": "charge",
-   "pos": "v",
-   "def": "to ask someone to pay an amount of money",
-   "ex": "The hotel charged us for the drinks in the fridge.",
-   "lessons": [
-    "su_a2_33_mistakes_and_misadventures",
-    "sb_03_handling_a_complaint_a2b1",
-    "discuss_b2c1_animal_trials"
    ]
   },
   "i'm calling about": {
@@ -106661,16 +113244,6 @@ window.WORDBANK={
     "su_a2_86_interesting_narratives"
    ]
   },
-  "variety": {
-   "w": "variety",
-   "pos": "n",
-   "def": "several different types of something",
-   "ex": "The café has a variety of cakes.",
-   "lessons": [
-    "su_a2_38_interesting_stories",
-    "the_paradox_of_choice"
-   ]
-  },
   "what happened next": {
    "w": "what happened next",
    "pos": "phr",
@@ -106714,19 +113287,6 @@ window.WORDBANK={
     "su_a2_39_my_celebrations",
     "first_lesson_v4",
     "cambridge_cae_lesson1_multiple_choice_cloze"
-   ]
-  },
-  "custom": {
-   "w": "custom",
-   "pos": "n",
-   "def": "a way of doing something that is usual in a culture",
-   "ex": "It is a custom to give money at weddings here.",
-   "lessons": [
-    "su_a2_39_my_celebrations",
-    "b1_46_family_traditions",
-    "b2_52_cross_cultural_business",
-    "curious_conversations_christmas_special",
-    "talk_traditions_a2b1"
    ]
   },
   "owe": {
@@ -106783,18 +113343,6 @@ window.WORDBANK={
    "ex": "Would it be possible to change my room?",
    "lessons": [
     "su_a2_42_travel_problems"
-   ]
-  },
-  "formal": {
-   "w": "formal",
-   "pos": "adj",
-   "def": "serious and polite, used in official situations",
-   "ex": "Use formal language when you write to a hotel manager.",
-   "lessons": [
-    "su_a2_42_travel_problems",
-    "bp_c2_01_where_your_words_come_from",
-    "skills_a2_trade_fair_simulation",
-    "a1p_01_introductions"
    ]
   },
   "request": {
@@ -106986,17 +113534,6 @@ window.WORDBANK={
    "ex": "We need a well-qualified engineer for this project.",
    "lessons": [
     "su_a2_47_making_decisions"
-   ]
-  },
-  "bilingual": {
-   "w": "bilingual",
-   "pos": "adj",
-   "def": "able to speak two languages very well",
-   "ex": "Our receptionist is bilingual in English and French.",
-   "lessons": [
-    "su_a2_47_making_decisions",
-    "curious_conversations_language_shapes_thought",
-    "diagnostic_focus_b2_mixed_conditionals"
    ]
   },
   "sociable": {
@@ -107375,18 +113912,6 @@ window.WORDBANK={
     "behind_the_screen_schindlers_list_a2b1"
    ]
   },
-  "survivor": {
-   "w": "survivor",
-   "pos": "n",
-   "def": "a person who stays alive after something dangerous",
-   "ex": "Rescue teams found three survivors in the snow.",
-   "lessons": [
-    "behind_the_screen_schindlers_list_a2b1",
-    "lesson_hms_erebus_mystery",
-    "short_history_hiroshima_a2b1",
-    "short_history_the_titanic_a2b1"
-   ]
-  },
   "missing": {
    "w": "missing",
    "pos": "adj",
@@ -107395,15 +113920,6 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_shutter_island_a2b1",
     "qf_vocab_miss_meaning"
-   ]
-  },
-  "mental illness": {
-   "w": "mental illness",
-   "pos": "phr",
-   "def": "an illness that affects how a person thinks or feels",
-   "ex": "Talking openly about mental illness helps many people get support.",
-   "lessons": [
-    "behind_the_screen_shutter_island_a2b1"
    ]
   },
   "reporter": {
@@ -107478,15 +113994,6 @@ window.WORDBANK={
     "talk_competition_a2b1"
    ]
   },
-  "affair": {
-   "w": "affair",
-   "pos": "n",
-   "def": "a secret romantic relationship with someone who is not your partner",
-   "ex": "The newspaper story was about a politician's affair.",
-   "lessons": [
-    "behind_the_screen_the_crucible_a2b1"
-   ]
-  },
   "crime": {
    "w": "crime",
    "pos": "n",
@@ -107519,18 +114026,6 @@ window.WORDBANK={
    "ex": "It took the team weeks to break the code.",
    "lessons": [
     "behind_the_screen_the_imitation_game_a2b1"
-   ]
-  },
-  "palace": {
-   "w": "palace",
-   "pos": "n",
-   "def": "a very large house where a king or queen lives",
-   "ex": "Tourists can visit some rooms of the palace in summer.",
-   "lessons": [
-    "behind_the_screen_the_last_emperor_a2b1",
-    "short_history_marie_antoinette_a2b1",
-    "short_history_queen_victoria_a2b1",
-    "short_history_the_forbidden_city_a2b1"
    ]
   },
   "gardener": {
@@ -107731,16 +114226,6 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_troy_a2b1",
     "short_history_anne_boleyn_a2b1"
-   ]
-  },
-  "poem": {
-   "w": "poem",
-   "pos": "n",
-   "def": "a piece of writing in short lines, often with rhythm",
-   "ex": "She wrote a poem for her mother's birthday.",
-   "lessons": [
-    "behind_the_screen_troy_a2b1",
-    "short_history_homers_epics_a2b1"
    ]
   },
   "poet": {
@@ -108255,17 +114740,6 @@ window.WORDBANK={
     "b1_45_social_media_life"
    ]
   },
-  "digital": {
-   "w": "digital",
-   "pos": "adj",
-   "def": "using or connected with computers and the internet",
-   "ex": "Most banks now offer digital services.",
-   "lessons": [
-    "b1_45_social_media_life",
-    "general_lesson_36_technology_society_interactive",
-    "lesson_36_technology_society"
-   ]
-  },
   "sense of belonging": {
    "w": "sense of belonging",
    "pos": "n",
@@ -108700,17 +115174,6 @@ window.WORDBANK={
     "books_changed_world_lesson"
    ]
   },
-  "uneasy": {
-   "w": "uneasy",
-   "pos": "adj",
-   "def": "slightly worried or uncomfortable about a situation",
-   "ex": "I felt uneasy walking home alone in the dark.",
-   "lessons": [
-    "boredom_is_a_superpower_lesson",
-    "wk_08_chairing_the_meeting",
-    "b2_19_awkward_situations"
-   ]
-  },
   "boredom": {
    "w": "boredom",
    "pos": "n",
@@ -108746,20 +115209,6 @@ window.WORDBANK={
     "grammar_b1_comparative_language"
    ]
   },
-  "blunt": {
-   "w": "blunt",
-   "pos": "adj",
-   "def": "saying exactly what you think without trying to be polite",
-   "ex": "His blunt feedback upset some of the team.",
-   "lessons": [
-    "bp_c2_01_where_your_words_come_from",
-    "grammar_b2_23_disagreeing_nicely",
-    "skills_b1b2_being_a_landlord",
-    "memory_arts_p1_05",
-    "sp_b1_31_managing_disagreement",
-    "grammar_c2_10_evaluative_language"
-   ]
-  },
   "punchy": {
    "w": "punchy",
    "pos": "adj",
@@ -108786,23 +115235,6 @@ window.WORDBANK={
    "ex": "There was an implicit criticism in her comment.",
    "lessons": [
     "bp_c2_03_why_they_dont_understand_you"
-   ]
-  },
-  "soften": {
-   "w": "soften",
-   "pos": "v",
-   "def": "to make something less strong or severe",
-   "ex": "She softened the criticism with a few kind words.",
-   "lessons": [
-    "bp_c2_04_the_power_of_imprecision",
-    "grammar_b2_23_disagreeing_nicely",
-    "ct_b1_31_diplomatic_disagreement",
-    "ml_34_the_bad_recommendation",
-    "sp_a2_18_agreeing_disagreeing",
-    "sp_b2_58_diplomatic",
-    "sp_prep_b1_22",
-    "b1_33_cause_and_effect",
-    "grammar_b1_comparative_language"
    ]
   },
   "in real time": {
@@ -109078,17 +115510,6 @@ window.WORDBANK={
    "lessons": [
     "c1_pro_03_delivering_bad_news",
     "lf_04_telling_mum"
-   ]
-  },
-  "retain": {
-   "w": "retain",
-   "pos": "v",
-   "def": "to keep or continue to have something, such as information",
-   "ex": "Children retain new words better through songs.",
-   "lessons": [
-    "c1_pro_04_active_listening",
-    "c1_pro_06_managing_upwards",
-    "grammar_c1_16_formal_style_word_formation"
    ]
   },
   "judgment": {
@@ -109540,15 +115961,6 @@ window.WORDBANK={
    "ex": "The printer jams every time I use thick paper.",
    "lessons": [
     "grammar_b2_22_explaining_a_problem"
-   ]
-  },
-  "unpopular": {
-   "w": "unpopular",
-   "pos": "adj",
-   "def": "not liked or agreed with by many people",
-   "ex": "It might be an unpopular view, but I hate summer.",
-   "lessons": [
-    "grammar_b2_23_disagreeing_nicely"
    ]
   },
   "remake": {
@@ -110078,18 +116490,6 @@ window.WORDBANK={
     "rs_y7_sum2_06_05"
    ]
   },
-  "ancestor": {
-   "w": "ancestor",
-   "pos": "n",
-   "def": "a family member who lived long before you",
-   "ex": "Three faiths see the same prophet as their spiritual ancestor.",
-   "lessons": [
-    "rs_y8_aut1_07_01",
-    "rs_y9_aut2_14_03",
-    "cpe_read_c2_06_cooking_human",
-    "acad_b1_17_academic_vocabulary"
-   ]
-  },
   "circumcision": {
    "w": "circumcision",
    "pos": "n",
@@ -110206,27 +116606,6 @@ window.WORDBANK={
    "ex": "Muslims come from every ethnicity and nation.",
    "lessons": [
     "rs_y8_aut1_07_04"
-   ]
-  },
-  "unite": {
-   "w": "unite",
-   "pos": "v",
-   "def": "to join together as one group",
-   "ex": "Shared beliefs can unite people of different faiths.",
-   "lessons": [
-    "rs_y8_aut1_07_05",
-    "ois_10_edward_wales_scotland"
-   ]
-  },
-  "divide": {
-   "w": "divide",
-   "pos": "v",
-   "def": "to separate people into opposing groups",
-   "ex": "Disagreements about prophets can divide religious communities.",
-   "lessons": [
-    "rs_y8_aut1_07_05",
-    "rs_y8_sum2_12_05",
-    "short_history_the_berlin_wall_a2b1"
    ]
   },
   "dietary": {
@@ -110448,16 +116827,6 @@ window.WORDBANK={
    "ex": "Buddhism is often described as a non-theistic religion.",
    "lessons": [
     "rs_y8_aut2_08_05"
-   ]
-  },
-  "grieve": {
-   "w": "grieve",
-   "pos": "v",
-   "def": "to feel great sadness after a loss",
-   "ex": "It is natural to grieve when someone dies.",
-   "lessons": [
-    "rs_y8_aut2_08_05",
-    "lf_04_telling_mum"
    ]
   },
   "unsatisfying": {
@@ -111542,15 +117911,6 @@ window.WORDBANK={
     "ielts-spelling-gym"
    ]
   },
-  "relic": {
-   "w": "relic",
-   "pos": "n",
-   "def": "an object linked to a holy person and kept as sacred",
-   "ex": "Pilgrims travel to see the relic.",
-   "lessons": [
-    "rs_y9_aut2_14_04"
-   ]
-  },
   "medically": {
    "w": "medically",
    "pos": "adv",
@@ -112079,17 +118439,6 @@ window.WORDBANK={
     "sf_a1_06_the_airport"
    ]
   },
-  "peaceful": {
-   "w": "peaceful",
-   "pos": "adj",
-   "def": "quiet and calm, without noise or trouble",
-   "ex": "The village was very peaceful in the evening.",
-   "lessons": [
-    "su_a2_89_holiday_planning",
-    "discuss_a2_taking_to_the_streets",
-    "talk_city_or_countryside_a2b1"
-   ]
-  },
   "hang out": {
    "w": "hang out",
    "pos": "phr v",
@@ -112255,17 +118604,6 @@ window.WORDBANK={
    "lessons": [
     "talk_adult_friendships_b2c1",
     "cla_alevel_05_the_adults_half"
-   ]
-  },
-  "superficial": {
-   "w": "superficial",
-   "pos": "adj",
-   "def": "not deep or serious; only on the surface",
-   "ex": "Their conversation stayed superficial all evening.",
-   "lessons": [
-    "talk_adult_friendships_b2c1",
-    "c2_pro_25_sustainability_reporting",
-    "sp_b2_60b_the_keyword_method"
    ]
   },
   "support network": {
@@ -112540,15 +118878,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to respond to a kind action with a similar one",
    "ex": "They invited us to dinner, so we want to reciprocate.",
-   "lessons": [
-    "talk_gift_giving_b2c1"
-   ]
-  },
-  "extravagant": {
-   "w": "extravagant",
-   "pos": "adj",
-   "def": "costing much more money than is reasonable",
-   "ex": "Buying a car for his birthday was extravagant.",
    "lessons": [
     "talk_gift_giving_b2c1"
    ]
@@ -113074,16 +119403,6 @@ window.WORDBANK={
     "essay_practice_advantages_disadvantages"
    ]
   },
-  "execute": {
-   "w": "execute",
-   "pos": "v",
-   "def": "to carry out a plan or task",
-   "ex": "The team executed the plan perfectly.",
-   "lessons": [
-    "c1_pro_19_agile_scrum",
-    "short_history_anne_boleyn_a2b1"
-   ]
-  },
   "component": {
    "w": "component",
    "pos": "n",
@@ -113489,16 +119808,6 @@ window.WORDBANK={
     "c2_pro_03_diplomatic_negotiation"
    ]
   },
-  "coalition": {
-   "w": "coalition",
-   "pos": "n",
-   "def": "a group of people or organisations working together for a goal",
-   "ex": "A coalition of parents campaigned for a safer crossing.",
-   "lessons": [
-    "c2_pro_04_stakeholder_influence",
-    "prof_c1_04_influencing_without_authority"
-   ]
-  },
   "mediocre": {
    "w": "mediocre",
    "pos": "adj",
@@ -113639,15 +119948,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the process of breaking into many separate parts",
    "ex": "The fragmentation of the market makes advertising harder.",
-   "lessons": [
-    "c2_pro_08_thought_leadership"
-   ]
-  },
-  "broadcast": {
-   "w": "broadcast",
-   "pos": "v",
-   "def": "to send out a message widely to many people",
-   "ex": "He broadcasts his opinions on every topic online.",
    "lessons": [
     "c2_pro_08_thought_leadership"
    ]
@@ -113900,26 +120200,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "to agree on an amount halfway between two offers",
    "ex": "He wanted forty, I offered thirty, so we split the difference.",
-   "lessons": [
-    "c2_pro_19_conflict_transformation"
-   ]
-  },
-  "dispute": {
-   "w": "dispute",
-   "pos": "n",
-   "def": "a serious disagreement between people or groups",
-   "ex": "The dispute over the land lasted ten years.",
-   "lessons": [
-    "c2_pro_19_conflict_transformation",
-    "rp_07_at_the_bank",
-    "bc_healthcare_billing_c1"
-   ]
-  },
-  "restore": {
-   "w": "restore",
-   "pos": "v",
-   "def": "to bring something back to an earlier good condition",
-   "ex": "The new owners restored the old house beautifully.",
    "lessons": [
     "c2_pro_19_conflict_transformation"
    ]
@@ -114626,25 +120906,6 @@ window.WORDBANK={
     "concorso_british_empire_ab24"
    ]
   },
-  "commonwealth": {
-   "w": "commonwealth",
-   "pos": "n",
-   "def": "an organisation of countries that were once part of an empire",
-   "ex": "Canada and India are members of the Commonwealth.",
-   "lessons": [
-    "concorso_british_empire_ab24"
-   ]
-  },
-  "scaffold": {
-   "w": "scaffold",
-   "pos": "v",
-   "def": "to support learning with structured steps that are later removed",
-   "ex": "Sentence starters help scaffold speaking for weaker groups.",
-   "lessons": [
-    "concorso_empire_debate_b2",
-    "ois_14_elizabeth_and_the_armada"
-   ]
-  },
   "pedagogy": {
    "w": "pedagogy",
    "pos": "n",
@@ -114672,15 +120933,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "involving people working together for a shared purpose",
    "ex": "Cooperative learning helps shy learners speak more.",
-   "lessons": [
-    "concorso_unit_overview"
-   ]
-  },
-  "provision": {
-   "w": "provision",
-   "pos": "n",
-   "def": "the act of supplying something that is needed",
-   "ex": "The school improved its provision for special needs.",
    "lessons": [
     "concorso_unit_overview"
    ]
@@ -115532,25 +121784,6 @@ window.WORDBANK={
     "epicurean_19_the_decline"
    ]
   },
-  "dominant": {
-   "w": "dominant",
-   "pos": "adj",
-   "def": "more powerful or important than all the others",
-   "ex": "English is the dominant language of the internet.",
-   "lessons": [
-    "epicurean_19_the_decline"
-   ]
-  },
-  "villain": {
-   "w": "villain",
-   "pos": "n",
-   "def": "a bad person who harms others, especially in a story",
-   "ex": "The villain in the film is a corrupt businessman.",
-   "lessons": [
-    "epicurean_20_epicurus_as_villain",
-    "lego_quest"
-   ]
-  },
   "withdrawal": {
    "w": "withdrawal",
    "pos": "n",
@@ -115753,15 +121986,6 @@ window.WORDBANK={
    "lessons": [
     "epicurean_27_gassendi_ethics",
     "rs_y9_sum1_17_05"
-   ]
-  },
-  "union": {
-   "w": "union",
-   "pos": "n",
-   "def": "the act of joining together to form one thing",
-   "ex": "The wedding celebrated the union of two families.",
-   "lessons": [
-    "epicurean_27_gassendi_ethics"
    ]
   },
   "collaborator": {
@@ -116007,17 +122231,6 @@ window.WORDBANK={
    "ex": "We spent the whole weekend in the mountains.",
    "lessons": [
     "explore_a2b1_perfect_day_off"
-   ]
-  },
-  "curious": {
-   "w": "curious",
-   "pos": "adj",
-   "def": "wanting to know or learn about something",
-   "ex": "Children are naturally curious about the world.",
-   "lessons": [
-    "explore_all_first_lesson_intro",
-    "short_history_leonardo_da_vinci_a2b1",
-    "lesson_21_reported_questions_commands"
    ]
   },
   "excited": {
@@ -116911,16 +123124,6 @@ window.WORDBANK={
     "sat_lesson_1_interactive"
    ]
   },
-  "time zone": {
-   "w": "time zone",
-   "pos": "n",
-   "def": "a region of the world that shares the same clock hour",
-   "ex": "Our team works across four time zones.",
-   "lessons": [
-    "leading_international_teams",
-    "prof_c1_08_remote_leadership"
-   ]
-  },
   "sugarcoat": {
    "w": "sugarcoat",
    "pos": "v",
@@ -117470,16 +123673,6 @@ window.WORDBANK={
    "ex": "I usually cook and he cleans, but tonight it is the other way round.",
    "lessons": [
     "lf_01_the_car_keys"
-   ]
-  },
-  "row": {
-   "w": "row",
-   "pos": "n",
-   "def": "a noisy argument, in informal British English",
-   "ex": "My neighbours had a loud row about parking.",
-   "lessons": [
-    "lf_01_the_car_keys",
-    "lf_03_the_sibling_who_never_comes"
    ]
   },
   "braced": {
@@ -118050,16 +124243,6 @@ window.WORDBANK={
     "lf_33_the_washing_up"
    ]
   },
-  "cross": {
-   "w": "cross",
-   "pos": "adj",
-   "def": "annoyed or angry, in British English",
-   "ex": "Mum was cross when I came home late.",
-   "lessons": [
-    "lf_45_the_late_friend",
-    "short_history_julius_caesar_a2b1"
-   ]
-  },
   "half": {
    "w": "half",
    "pos": "n",
@@ -118114,17 +124297,6 @@ window.WORDBANK={
    "ex": "My nephew wrote a silly limerick about a cat.",
    "lessons": [
     "limerick_laboratory"
-   ]
-  },
-  "rhyme": {
-   "w": "rhyme",
-   "pos": "v",
-   "def": "to end with the same sound as another word",
-   "ex": "Cat rhymes with hat and mat.",
-   "lessons": [
-    "limerick_laboratory",
-    "qf_pronunciation_would_wood",
-    "lesson-06-simple-number-systems"
    ]
   },
   "syllable": {
@@ -118229,17 +124401,6 @@ window.WORDBANK={
    "ex": "Her reinvention from banker to painter surprised everyone.",
    "lessons": [
     "making_the_leap_full"
-   ]
-  },
-  "treatise": {
-   "w": "treatise",
-   "pos": "n",
-   "def": "a long, serious piece of writing on one subject",
-   "ex": "He wrote a treatise on the history of music.",
-   "lessons": [
-    "memory-books",
-    "wp_35_the_blank_slate",
-    "memory_arts_part1"
    ]
   },
   "practitioner": {
@@ -119224,18 +125385,6 @@ window.WORDBANK={
     "new_year_plans_lesson"
    ]
   },
-  "self-deprecating": {
-   "w": "self-deprecating",
-   "pos": "adj",
-   "def": "making fun of yourself in a modest, humorous way",
-   "ex": "His self-deprecating jokes made everyone in the room relax.",
-   "lessons": [
-    "new_year_plans_lesson",
-    "ml_04_back_in_touch",
-    "sp_c1_71_humor_wordplay",
-    "sp_prep_c1_71"
-   ]
-  },
   "swimmer": {
    "w": "swimmer",
    "pos": "n",
@@ -119536,38 +125685,11 @@ window.WORDBANK={
     "ois_08_1066"
    ]
   },
-  "harrying": {
-   "w": "harrying",
-   "pos": "v",
-   "def": "repeatedly attacking and destroying an area",
-   "ex": "The army spent winter harrying the northern villages.",
-   "lessons": [
-    "ois_08_1066"
-   ]
-  },
   "barons": {
    "w": "barons",
    "pos": "n",
    "def": "powerful landowning nobles of the past",
    "ex": "The barons demanded more rights from the king.",
-   "lessons": [
-    "ois_09_plantagenets_and_magna_carta"
-   ]
-  },
-  "turbulent": {
-   "w": "turbulent",
-   "pos": "adj",
-   "def": "full of confusion, conflict and sudden change",
-   "ex": "The country went through a turbulent decade of protests.",
-   "lessons": [
-    "ois_09_plantagenets_and_magna_carta"
-   ]
-  },
-  "archbishop": {
-   "w": "archbishop",
-   "pos": "n",
-   "def": "a senior church leader in charge of a large area",
-   "ex": "The archbishop led the service in the cathedral.",
    "lessons": [
     "ois_09_plantagenets_and_magna_carta"
    ]
@@ -119598,15 +125720,6 @@ window.WORDBANK={
    "lessons": [
     "ois_10_edward_wales_scotland",
     "ois_17_georgian_age"
-   ]
-  },
-  "longbow": {
-   "w": "longbow",
-   "pos": "n",
-   "def": "a large bow used for shooting arrows long distances",
-   "ex": "The archers practised with the longbow every Sunday.",
-   "lessons": [
-    "ois_11_hundred_years_war"
    ]
   },
   "armour": {
@@ -119655,15 +125768,6 @@ window.WORDBANK={
    "lessons": [
     "ois_12_wars_of_the_roses",
     "techniques_the_brazilian_cat"
-   ]
-  },
-  "protector": {
-   "w": "protector",
-   "pos": "n",
-   "def": "someone who keeps another person or thing safe",
-   "ex": "The older brother acted as protector of the family.",
-   "lessons": [
-    "ois_12_wars_of_the_roses"
    ]
   },
   "symbols": {
@@ -119762,15 +125866,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "escaped quickly from a dangerous place",
    "ex": "Thousands fled the city when the fire spread.",
-   "lessons": [
-    "ois_16_restoration_and_revolution"
-   ]
-  },
-  "merry": {
-   "w": "merry",
-   "pos": "adj",
-   "def": "happy, cheerful and full of fun",
-   "ex": "We had a merry evening singing songs by the fire.",
    "lessons": [
     "ois_16_restoration_and_revolution"
    ]
@@ -122523,17 +128618,6 @@ window.WORDBANK={
     "grammar_b1_17_quantifiers_distributive"
    ]
   },
-  "traffic": {
-   "w": "traffic",
-   "pos": "n",
-   "def": "cars, buses and lorries moving on the road",
-   "ex": "There is a lot of traffic in the morning.",
-   "lessons": [
-    "sf_a1_04_a_working_day",
-    "talk_city_or_countryside_a2b1",
-    "qf_collocation_heavy_strong_rain"
-   ]
-  },
   "slow": {
    "w": "slow",
    "pos": "adj",
@@ -122648,36 +128732,6 @@ window.WORDBANK={
     "sf_a1_14_the_phone_call"
    ]
   },
-  "toast": {
-   "w": "toast",
-   "pos": "n",
-   "def": "a drink and a few kind words for a happy moment",
-   "ex": "He raised his glass and made a toast to his friend.",
-   "lessons": [
-    "sf_a1_15_the_visit"
-   ]
-  },
-  "defeat": {
-   "w": "defeat",
-   "pos": "v",
-   "def": "to win against someone in a fight or game",
-   "ex": "The small army managed to defeat a much bigger one.",
-   "lessons": [
-    "short_history_alexander_the_great_a2b1",
-    "short_history_cleopatra_a2b1"
-   ]
-  },
-  "march": {
-   "w": "march",
-   "pos": "v",
-   "def": "to walk a long way as a group of soldiers",
-   "ex": "The army marched for thousands of kilometres.",
-   "lessons": [
-    "short_history_alexander_the_great_a2b1",
-    "short_history_the_battle_of_hastings_a2b1",
-    "discuss_a2_taking_to_the_streets"
-   ]
-  },
   "channel": {
    "w": "channel",
    "pos": "n",
@@ -122708,15 +128762,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_anne_boleyn_a2b1",
     "short_history_napoleon_a2b1"
-   ]
-  },
-  "traitor": {
-   "w": "traitor",
-   "pos": "n",
-   "def": "a person who acts against their own country or leader",
-   "ex": "Her enemies called her a traitor.",
-   "lessons": [
-    "short_history_anne_boleyn_a2b1"
    ]
   },
   "landing": {
@@ -122814,16 +128859,6 @@ window.WORDBANK={
     "short_history_genghis_khan_a2b1"
    ]
   },
-  "bakery": {
-   "w": "bakery",
-   "pos": "n",
-   "def": "a shop or place where bread and cakes are made",
-   "ex": "The fire started in a small bakery.",
-   "lessons": [
-    "short_history_great_fire_of_london_a2b1",
-    "grammar_a1_08_adjectives_adverbs_comparatives"
-   ]
-  },
   "flame": {
    "w": "flame",
    "pos": "n",
@@ -122901,17 +128936,6 @@ window.WORDBANK={
    "ex": "He trained himself to breathe very slowly.",
    "lessons": [
     "short_history_houdini_a2b1"
-   ]
-  },
-  "knight": {
-   "w": "knight",
-   "pos": "n",
-   "def": "a soldier of high rank who rode a horse",
-   "ex": "The brave knights sat at a round table.",
-   "lessons": [
-    "short_history_king_arthur_a2b1",
-    "short_history_the_crusades_a2b1",
-    "memory_arts_p1_05"
    ]
   },
   "artist": {
@@ -123036,16 +129060,6 @@ window.WORDBANK={
    "ex": "He dreamed of wireless power for the whole world.",
    "lessons": [
     "short_history_nikola_tesla_a2b1"
-   ]
-  },
-  "tower": {
-   "w": "tower",
-   "pos": "n",
-   "def": "a tall, narrow building or structure",
-   "ex": "His giant tower was never finished.",
-   "lessons": [
-    "short_history_nikola_tesla_a2b1",
-    "short_history_the_great_wall_of_china_a2b1"
    ]
   },
   "richest": {
@@ -123208,15 +129222,6 @@ window.WORDBANK={
     "short_history_the_conquistadors_a2b1"
    ]
   },
-  "massacre": {
-   "w": "massacre",
-   "pos": "n",
-   "def": "the cruel killing of many people at one time",
-   "ex": "The massacre in the city shocked people for centuries.",
-   "lessons": [
-    "short_history_the_crusades_a2b1"
-   ]
-  },
   "defender": {
    "w": "defender",
    "pos": "n",
@@ -123233,16 +129238,6 @@ window.WORDBANK={
    "ex": "The great church was turned into a mosque.",
    "lessons": [
     "short_history_the_fall_of_constantinople_a2b1"
-   ]
-  },
-  "fortress": {
-   "w": "fortress",
-   "pos": "n",
-   "def": "a strong building made to protect people inside",
-   "ex": "An angry crowd attacked the old fortress.",
-   "lessons": [
-    "short_history_the_french_revolution_a2b1",
-    "wp_17_the_painted_porch"
    ]
   },
   "helmet": {
@@ -123274,24 +129269,6 @@ window.WORDBANK={
     "short_history_the_gunpowder_plot_a2b1"
    ]
   },
-  "explode": {
-   "w": "explode",
-   "pos": "v",
-   "def": "to burst violently with a loud noise",
-   "ex": "In the end, the hidden gunpowder never exploded.",
-   "lessons": [
-    "short_history_the_gunpowder_plot_a2b1"
-   ]
-  },
-  "bonfire": {
-   "w": "bonfire",
-   "pos": "n",
-   "def": "a large fire made outside for a celebration",
-   "ex": "People still light a bonfire every November.",
-   "lessons": [
-    "short_history_the_gunpowder_plot_a2b1"
-   ]
-  },
   "harvest": {
    "w": "harvest",
    "pos": "n",
@@ -123309,15 +129286,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to force someone to leave their home",
    "ex": "Families were evicted and their homes destroyed.",
-   "lessons": [
-    "short_history_the_irish_potato_famine_a2b1"
-   ]
-  },
-  "starve": {
-   "w": "starve",
-   "pos": "v",
-   "def": "to suffer or die because you have no food",
-   "ex": "About a million people starved or died of disease.",
    "lessons": [
     "short_history_the_irish_potato_famine_a2b1"
    ]
@@ -123389,16 +129357,6 @@ window.WORDBANK={
     "short_history_the_rosetta_stone_a2b1",
     "short_history_the_seven_wonders_a2b1",
     "talk_traditions_a2b1"
-   ]
-  },
-  "hang": {
-   "w": "hang",
-   "pos": "v",
-   "def": "to kill someone with a rope around the neck",
-   "ex": "Nineteen people were hanged in 1692.",
-   "lessons": [
-    "short_history_the_salem_witch_trials_a2b1",
-    "discuss_b2c1_animal_trials"
    ]
   },
   "apology": {
@@ -123475,15 +129433,6 @@ window.WORDBANK={
    "ex": "Believers on both sides suffered terribly.",
    "lessons": [
     "short_history_the_tudors_a2b1"
-   ]
-  },
-  "settler": {
-   "w": "settler",
-   "pos": "n",
-   "def": "a person who goes to live in a new area",
-   "ex": "Settlers farmed land in Iceland and Greenland.",
-   "lessons": [
-    "short_history_the_vikings_a2b1"
    ]
   },
   "cowboy": {
@@ -123577,16 +129526,6 @@ window.WORDBANK={
     "skills_a2_trade_fair_first_contact",
     "a1p_01_introductions",
     "grammar_a2_10_sentence_structure_word_formation"
-   ]
-  },
-  "greeting": {
-   "w": "greeting",
-   "pos": "n",
-   "def": "words you say when you meet someone",
-   "ex": "A friendly greeting makes a good start.",
-   "lessons": [
-    "skills_a2_trade_fair_first_contact",
-    "a1p_01_introductions"
    ]
   },
   "booth": {
@@ -123747,15 +129686,6 @@ window.WORDBANK={
    "lessons": [
     "skills_b1b2_trade_fair_elevator_pitch",
     "b2_70_fair_trade"
-   ]
-  },
-  "gratuity": {
-   "w": "gratuity",
-   "pos": "n",
-   "def": "money given to a worker as thanks for good service",
-   "ex": "A ten percent gratuity was left for the waiter.",
-   "lessons": [
-    "talk_tipping_b2c1"
    ]
   },
   "service charge": {
@@ -123976,15 +129906,6 @@ window.WORDBANK={
    "ex": "Moving to the countryside changed my life.",
    "lessons": [
     "techniques_the_cop_and_the_anthem_a2b1"
-   ]
-  },
-  "blind": {
-   "w": "blind",
-   "pos": "adj",
-   "def": "not able to see with your eyes",
-   "ex": "My neighbour is blind and has a guide dog.",
-   "lessons": [
-    "techniques_the_country_of_the_blind_a2b1"
    ]
   },
   "fit in": {
@@ -124912,17 +130833,6 @@ window.WORDBANK={
     "travel_holidays_a2"
    ]
   },
-  "vacation": {
-   "w": "vacation",
-   "pos": "n",
-   "def": "time spent away from work or home for rest or travel",
-   "ex": "We take a two-week vacation every August.",
-   "lessons": [
-    "travel_holidays_a2",
-    "qf_falsefriend_italian_estate",
-    "qf_falsefriend_portuguese_pretender"
-   ]
-  },
   "resort": {
    "w": "resort",
    "pos": "n",
@@ -125411,15 +131321,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "to publicly state a firm opinion and defend it",
    "ex": "The mayor took a stand against the new road.",
-   "lessons": [
-    "wk_12_the_changing_brief"
-   ]
-  },
-  "brief": {
-   "w": "brief",
-   "pos": "n",
-   "def": "instructions explaining what a job or project should achieve",
-   "ex": "The designer followed the brief closely.",
    "lessons": [
     "wk_12_the_changing_brief"
    ]
@@ -126878,16 +132779,6 @@ window.WORDBANK={
     "wp_19_the_suspension_of_judgement"
    ]
   },
-  "unproven": {
-   "w": "unproven",
-   "pos": "adj",
-   "def": "not yet shown to be true",
-   "ex": "The new treatment is still unproven.",
-   "lessons": [
-    "wp_19_the_suspension_of_judgement",
-    "bc_theories_mixed_conditionals_b2c1"
-   ]
-  },
   "escapism": {
    "w": "escapism",
    "pos": "n",
@@ -126994,15 +132885,6 @@ window.WORDBANK={
    "ex": "The confiscated phones were returned at the end of the day.",
    "lessons": [
     "wp_24_the_consolation"
-   ]
-  },
-  "self-evident": {
-   "w": "self-evident",
-   "pos": "adj",
-   "def": "clearly true without needing any proof",
-   "ex": "The benefits of clean water are self-evident.",
-   "lessons": [
-    "wp_26_the_flying_man"
    ]
   },
   "undeniable": {
@@ -127287,24 +133169,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "insisting that your beliefs are right without considering others",
    "ex": "He is too dogmatic to listen to new ideas.",
-   "lessons": [
-    "wp_37_the_gentle_sceptic"
-   ]
-  },
-  "precocious": {
-   "w": "precocious",
-   "pos": "adj",
-   "def": "showing adult abilities at a very young age",
-   "ex": "The precocious child was reading novels at five.",
-   "lessons": [
-    "wp_37_the_gentle_sceptic"
-   ]
-  },
-  "deathbed": {
-   "w": "deathbed",
-   "pos": "n",
-   "def": "the bed where someone is dying",
-   "ex": "On his deathbed, he asked to see his brother.",
    "lessons": [
     "wp_37_the_gentle_sceptic"
    ]
@@ -129048,15 +134912,6 @@ window.WORDBANK={
     "essay_practice_discussion_3"
    ]
   },
-  "high-context": {
-   "w": "high-context",
-   "pos": "adj",
-   "def": "relying on shared understanding and hints rather than direct words",
-   "ex": "In a high-context culture, much meaning is left unsaid.",
-   "lessons": [
-    "b2_52_cross_cultural_business"
-   ]
-  },
   "hesitant": {
    "w": "hesitant",
    "pos": "adj",
@@ -129210,16 +135065,6 @@ window.WORDBANK={
    "ex": "We watched an art-house film at the small cinema.",
    "lessons": [
     "b2_60_film_criticism"
-   ]
-  },
-  "survey": {
-   "w": "survey",
-   "pos": "n",
-   "def": "a set of questions asked to many people to gather information",
-   "ex": "The survey showed that most people want more parks.",
-   "lessons": [
-    "b2_62_culture_humour_language",
-    "epicurean_03_primary_sources"
    ]
   },
   "findings": {
@@ -129604,16 +135449,6 @@ window.WORDBANK={
    "ex": "We left no tip because of the poor service.",
    "lessons": [
     "b2_78_bad_restaurant"
-   ]
-  },
-  "sympathy": {
-   "w": "sympathy",
-   "pos": "n",
-   "def": "a feeling of sadness for someone else's problems",
-   "ex": "We sent flowers to show our sympathy.",
-   "lessons": [
-    "b2_79_making_a_complaint",
-    "lf_63_at_the_wake"
    ]
   },
   "look into": {
@@ -130539,15 +136374,6 @@ window.WORDBANK={
     "bc_ethics_of_ai_c1"
    ]
   },
-  "bill of rights": {
-   "w": "bill of rights",
-   "pos": "n",
-   "def": "a formal list of the basic rights of people",
-   "ex": "The country adopted a new bill of rights.",
-   "lessons": [
-    "bc_ethics_of_ai_c1"
-   ]
-  },
   "click": {
    "w": "click",
    "pos": "v",
@@ -130983,15 +136809,6 @@ window.WORDBANK={
     "bc_honesty_dishonesty_b2c1"
    ]
   },
-  "declare": {
-   "w": "declare",
-   "pos": "v",
-   "def": "to officially tell the authorities about something",
-   "ex": "You must declare any income from renting rooms.",
-   "lessons": [
-    "bc_honesty_dishonesty_b2c1"
-   ]
-  },
   "interactivity": {
    "w": "interactivity",
    "pos": "n",
@@ -131030,15 +136847,6 @@ window.WORDBANK={
    "lessons": [
     "bc_humour_in_presentations_c1",
     "epicurean_06_atoms_and_void"
-   ]
-  },
-  "inspiring": {
-   "w": "inspiring",
-   "pos": "adj",
-   "def": "making people feel they want to do something good",
-   "ex": "Her speech at the ceremony was truly inspiring.",
-   "lessons": [
-    "bc_inspiring_women_b2c1"
    ]
   },
   "cheer on": {
@@ -131287,15 +137095,6 @@ window.WORDBANK={
     "bc_mask_we_wear_c1"
    ]
   },
-  "expressive": {
-   "w": "expressive",
-   "pos": "adj",
-   "def": "clearly showing thoughts and feelings",
-   "ex": "She has very expressive eyes and hands.",
-   "lessons": [
-    "bc_mask_we_wear_c1"
-   ]
-  },
   "dig in": {
    "w": "dig in",
    "pos": "phr v",
@@ -131396,17 +137195,6 @@ window.WORDBANK={
     "lesson_05_present_perfect_continuous"
    ]
   },
-  "region": {
-   "w": "region",
-   "pos": "n",
-   "def": "a large area of a country",
-   "ex": "This region is famous for its cheese.",
-   "lessons": [
-    "bc_andy_burnham_c1",
-    "bc_black_holes_cosmology_c1",
-    "ielts_task_1_lesson_2_line_graphs"
-   ]
-  },
   "housing": {
    "w": "housing",
    "pos": "n",
@@ -131421,15 +137209,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a thin layer of something that covers a surface",
    "ex": "The pan has a coating that stops food sticking.",
-   "lessons": [
-    "bc_appliance_of_science_c1"
-   ]
-  },
-  "rotate": {
-   "w": "rotate",
-   "pos": "v",
-   "def": "to turn around a central point",
-   "ex": "The wheels rotate faster as the car speeds up.",
    "lessons": [
     "bc_appliance_of_science_c1"
    ]
@@ -131506,15 +137285,6 @@ window.WORDBANK={
     "bc_being_green_c1"
    ]
   },
-  "ranking": {
-   "w": "ranking",
-   "pos": "n",
-   "def": "a list showing the position of things in order",
-   "ex": "The university rose in the world rankings.",
-   "lessons": [
-    "bc_books_changed_world_part2_c1"
-   ]
-  },
   "blurb": {
    "w": "blurb",
    "pos": "n",
@@ -131576,16 +137346,6 @@ window.WORDBANK={
    "ex": "Good communication is one of the most transferrable skills.",
    "lessons": [
     "bc_broadening_horizons_advanced_c1"
-   ]
-  },
-  "cliché": {
-   "w": "cliché",
-   "pos": "n",
-   "def": "a phrase or idea that has been used too often",
-   "ex": "His speech was full of tired clichés.",
-   "lessons": [
-    "bc_broadening_horizons_advanced_c1",
-    "discuss_b2c1_endings_and_after"
    ]
   },
   "revision techniques": {
@@ -132114,15 +137874,6 @@ window.WORDBANK={
     "discuss_c1_endings_and_fresh_starts"
    ]
   },
-  "oath": {
-   "w": "oath",
-   "pos": "n",
-   "def": "a formal promise, often made in public",
-   "ex": "Doctors take an oath to protect their patients.",
-   "lessons": [
-    "doctor_heist_b2c1"
-   ]
-  },
   "refrigerated": {
    "w": "refrigerated",
    "pos": "adj",
@@ -132296,17 +138047,6 @@ window.WORDBANK={
     "a1p_02_where_are_you_from"
    ]
   },
-  "spelling": {
-   "w": "spelling",
-   "pos": "n",
-   "def": "the way letters are put together to make a word",
-   "ex": "Check the spelling of your city before you send it.",
-   "lessons": [
-    "a1p_02_where_are_you_from",
-    "qf_pronunciation_homophones",
-    "lesson-18-alphabet-pegs"
-   ]
-  },
   "software developer": {
    "w": "software developer",
    "pos": "n",
@@ -132377,15 +138117,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a formal word for the work someone does",
    "ex": "Please write your occupation on the hotel form.",
-   "lessons": [
-    "a1p_05_review_foundation"
-   ]
-  },
-  "vocabulary": {
-   "w": "vocabulary",
-   "pos": "n",
-   "def": "all the words you know in a language",
-   "ex": "Reading every day helps you build your vocabulary.",
    "lessons": [
     "a1p_05_review_foundation"
    ]
@@ -132797,16 +138528,6 @@ window.WORDBANK={
    "ex": "Use a sequencing word to make your story easy to follow.",
    "lessons": [
     "a1p_27_telling_stories"
-   ]
-  },
-  "foreign": {
-   "w": "foreign",
-   "pos": "adj",
-   "def": "from or in a country that is not your own",
-   "ex": "Do you like watching foreign films with subtitles?",
-   "lessons": [
-    "a1p_28_have_you_ever",
-    "lesson_03_present_perfect"
    ]
   },
   "participle": {
@@ -133295,15 +139016,6 @@ window.WORDBANK={
    "pos": "phr v",
    "def": "to stop landing and climb to try again",
    "ex": "Strong wind forced the crew to go around.",
-   "lessons": [
-    "aviation_eapt_11"
-   ]
-  },
-  "alternate": {
-   "w": "alternate",
-   "pos": "n",
-   "def": "another airport a plane can use if it cannot land",
-   "ex": "Our alternate tonight is a small field to the south.",
    "lessons": [
     "aviation_eapt_11"
    ]
@@ -134554,15 +140266,6 @@ window.WORDBANK={
     "cpe_read_c2_04_moral_luck"
    ]
   },
-  "memorial": {
-   "w": "memorial",
-   "pos": "n",
-   "def": "a structure built to remember people who died",
-   "ex": "We laid flowers at the war memorial.",
-   "lessons": [
-    "cpe_read_c2_05_dark_tourism"
-   ]
-  },
   "voyeurism": {
    "w": "voyeurism",
    "pos": "n",
@@ -135155,15 +140858,6 @@ window.WORDBANK={
     "curious_conversations_03_cultural_quirks"
    ]
   },
-  "personal space": {
-   "w": "personal space",
-   "pos": "n",
-   "def": "the area around you that you want others to stay out of",
-   "ex": "Standing too close can invade your personal space.",
-   "lessons": [
-    "curious_conversations_03_cultural_quirks"
-   ]
-  },
   "maturity": {
    "w": "maturity",
    "pos": "n",
@@ -135744,15 +141438,6 @@ window.WORDBANK={
     "ielts_b2c1_the_lost_art_of_wayfinding"
    ]
   },
-  "conditions": {
-   "w": "conditions",
-   "pos": "n",
-   "def": "the weather and sea situation at a time",
-   "ex": "Conditions were perfect for sailing this morning.",
-   "lessons": [
-    "lesson_11_can_could_australia_surfing"
-   ]
-  },
   "prohibited": {
    "w": "prohibited",
    "pos": "adj",
@@ -136229,15 +141914,6 @@ window.WORDBANK={
     "lesson_45_media_manipulation"
    ]
   },
-  "wage": {
-   "w": "wage",
-   "pos": "n",
-   "def": "money paid to a worker, usually per hour or week",
-   "ex": "The minimum wage rose again this year.",
-   "lessons": [
-    "lesson_46_globalization_economics"
-   ]
-  },
   "optimism": {
    "w": "optimism",
    "pos": "n",
@@ -136611,15 +142287,6 @@ window.WORDBANK={
    "lessons": [
     "Ielts1",
     "essay_practice_opinion_3"
-   ]
-  },
-  "extend": {
-   "w": "extend",
-   "pos": "v",
-   "def": "to make something longer or bigger",
-   "ex": "Try to extend each reply with a reason.",
-   "lessons": [
-    "b1_26_ielts_speaking_practice"
    ]
   },
   "possession": {
@@ -137181,15 +142848,6 @@ window.WORDBANK={
    "ex": "Junk food can crowd out healthy meals in your diet.",
    "lessons": [
     "ielts_lesson_20_final_strategies"
-   ]
-  },
-  "average": {
-   "w": "average",
-   "pos": "n",
-   "def": "the number found by adding amounts and dividing by how many",
-   "ex": "The average of five, six and seven is six.",
-   "lessons": [
-    "ielts_lesson_2_marking_criteria"
    ]
   },
   "pull down": {
@@ -138522,16 +144180,6 @@ window.WORDBANK={
     "memory_arts_p1_07"
    ]
   },
-  "banquet": {
-   "w": "banquet",
-   "pos": "n",
-   "def": "a large formal meal for many people",
-   "ex": "The mayor gave a banquet for the visiting team.",
-   "lessons": [
-    "memory_arts_p1_07",
-    "lesson-04-memory-palace"
-   ]
-  },
   "neigh": {
    "w": "neigh",
    "pos": "v",
@@ -138639,16 +144287,6 @@ window.WORDBANK={
    "ex": "The comedian's catchphrase was on everyone's lips.",
    "lessons": [
     "memory_arts_part1"
-   ]
-  },
-  "humble": {
-   "w": "humble",
-   "pos": "adj",
-   "def": "not proud; simple and modest",
-   "ex": "Despite his success, he stayed humble.",
-   "lessons": [
-    "memory_arts_part1",
-    "sp_a2_03_simple_opinions"
    ]
   },
   "telling-off": {
@@ -139125,30 +144763,11 @@ window.WORDBANK={
     "qf_falsefriend_italian_parenti"
    ]
   },
-  "cousin": {
-   "w": "cousin",
-   "pos": "n",
-   "def": "the child of your aunt or uncle",
-   "ex": "My cousin is getting married next month.",
-   "lessons": [
-    "qf_falsefriend_italian_parenti",
-    "grammar_a1_07_nouns_pronouns"
-   ]
-  },
   "grandparents": {
    "w": "grandparents",
    "pos": "n",
    "def": "the parents of your mother or father",
    "ex": "My grandparents grew up in the countryside.",
-   "lessons": [
-    "qf_falsefriend_italian_parenti"
-   ]
-  },
-  "extended family": {
-   "w": "extended family",
-   "pos": "phr",
-   "def": "a family including aunts, uncles, cousins and grandparents",
-   "ex": "Our whole extended family met for the wedding.",
    "lessons": [
     "qf_falsefriend_italian_parenti"
    ]
@@ -139349,15 +144968,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a cover for keeping loose papers together",
    "ex": "Put the papers in the blue folder, please.",
-   "lessons": [
-    "qf_falsefriend_spanish_carpeta"
-   ]
-  },
-  "cabinet": {
-   "w": "cabinet",
-   "pos": "n",
-   "def": "a piece of furniture with shelves or drawers",
-   "ex": "The files are in the cabinet by the door.",
    "lessons": [
     "qf_falsefriend_spanish_carpeta"
    ]
@@ -140367,24 +145977,6 @@ window.WORDBANK={
     "short_history_easter_island_a2b1"
    ]
   },
-  "navy": {
-   "w": "navy",
-   "pos": "n",
-   "def": "the part of the armed forces that fights at sea",
-   "ex": "Her brother is an engineer in the navy.",
-   "lessons": [
-    "short_history_pearl_harbor_a2b1"
-   ]
-  },
-  "warship": {
-   "w": "warship",
-   "pos": "n",
-   "def": "a ship with weapons that is used for fighting",
-   "ex": "A grey warship sailed slowly past the island.",
-   "lessons": [
-    "short_history_pearl_harbor_a2b1"
-   ]
-  },
   "surprise attack": {
    "w": "surprise attack",
    "pos": "n",
@@ -140892,16 +146484,6 @@ window.WORDBANK={
     "sp_b2_46_nuanced_description",
     "b2_105_the_flow_state",
     "grammar_b2_13_advanced_adjective_adverb"
-   ]
-  },
-  "charming": {
-   "w": "charming",
-   "pos": "adj",
-   "def": "pleasant and attractive in a way that people like",
-   "ex": "We stayed in a charming little hotel by the river.",
-   "lessons": [
-    "sp_b2_46_nuanced_description",
-    "grammar_c1_11_sophisticated_modification"
    ]
   },
   "narrow-minded": {
@@ -141793,16 +147375,6 @@ window.WORDBANK={
     "sp_prep_c1_72"
    ]
   },
-  "fortify": {
-   "w": "fortify",
-   "pos": "v",
-   "def": "to make something stronger and harder to attack",
-   "ex": "More data would fortify your argument.",
-   "lessons": [
-    "sp_prep_c1_02",
-    "gr_c1_english_conquest"
-   ]
-  },
   "evidential": {
    "w": "evidential",
    "pos": "adj",
@@ -142537,15 +148109,6 @@ window.WORDBANK={
     "talk_quiet_and_noise_a2b1"
    ]
   },
-  "tip": {
-   "w": "tip",
-   "pos": "n",
-   "def": "extra money you give a worker for good service",
-   "ex": "We left a small tip for the friendly waiter.",
-   "lessons": [
-    "talk_tipping_a2b1"
-   ]
-  },
   "service": {
    "w": "service",
    "pos": "n",
@@ -142642,15 +148205,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a story told inside another story",
    "ex": "The novel uses a framed narrative, with a sailor telling tales.",
-   "lessons": [
-    "ib_lesson_techniques_open_window"
-   ]
-  },
-  "satire": {
-   "w": "satire",
-   "pos": "n",
-   "def": "humour used to criticise people or society",
-   "ex": "The play is a sharp satire on wealthy, idle families.",
    "lessons": [
     "ib_lesson_techniques_open_window"
    ]
@@ -143166,15 +148720,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "coming next after the tenth",
    "ex": "My office is on the eleventh floor.",
-   "lessons": [
-    "lesson-22-dates-historical"
-   ]
-  },
-  "archer": {
-   "w": "archer",
-   "pos": "n",
-   "def": "a person who shoots arrows with a bow",
-   "ex": "The archer hit the target from fifty metres.",
    "lessons": [
     "lesson-22-dates-historical"
    ]
@@ -143921,24 +149466,6 @@ window.WORDBANK={
    "ex": "We ate at a jungle themed restaurant.",
    "lessons": [
     "su_a2_40_designing_a_restaurant"
-   ]
-  },
-  "fusion": {
-   "w": "fusion",
-   "pos": "n",
-   "def": "a mix of different cooking styles",
-   "ex": "They serve Asian and Italian fusion dishes.",
-   "lessons": [
-    "su_a2_40_designing_a_restaurant"
-   ]
-  },
-  "abrupt": {
-   "w": "abrupt",
-   "pos": "adj",
-   "def": "short and rude in speaking",
-   "ex": "His abrupt reply upset his colleague.",
-   "lessons": [
-    "su_a2_49_communication_styles"
    ]
   },
   "norms": {
@@ -145646,15 +151173,6 @@ window.WORDBANK={
     "grammar_a2_05_conditional_basic_passive"
    ]
   },
-  "leftover": {
-   "w": "leftover",
-   "pos": "adj",
-   "def": "remaining after the rest has been used or eaten",
-   "ex": "We had leftover pizza for lunch the next day.",
-   "lessons": [
-    "grammar_a2_07_relatives_determiners"
-   ]
-  },
   "cracked": {
    "w": "cracked",
    "pos": "adj",
@@ -146279,15 +151797,6 @@ window.WORDBANK={
     "grammar_b2_12_articles_in_depth"
    ]
   },
-  "nephew": {
-   "w": "nephew",
-   "pos": "n",
-   "def": "the son of your brother or sister",
-   "ex": "My nephew turns six next month.",
-   "lessons": [
-    "grammar_b2_12_articles_in_depth"
-   ]
-  },
   "shattered": {
    "w": "shattered",
    "pos": "adj",
@@ -146360,15 +151869,6 @@ window.WORDBANK={
     "grammar_b2_17_pronouns_compounds_dummy_it"
    ]
   },
-  "unplug": {
-   "w": "unplug",
-   "pos": "v",
-   "def": "to remove the electric cable of a machine from the wall",
-   "ex": "Unplug the toaster before you clean it.",
-   "lessons": [
-    "grammar_b2_17_pronouns_compounds_dummy_it"
-   ]
-  },
   "cupboard": {
    "w": "cupboard",
    "pos": "n",
@@ -146392,15 +151892,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "money or goods given to help a person or organisation",
    "ex": "The charity received donations from all over the country.",
-   "lessons": [
-    "grammar_b2_18_quantifiers_linking_conventions"
-   ]
-  },
-  "tutor": {
-   "w": "tutor",
-   "pos": "n",
-   "def": "a person who gives private classes to one or a few people",
-   "ex": "She hired a maths tutor for her son.",
    "lessons": [
     "grammar_b2_18_quantifiers_linking_conventions"
    ]
@@ -146520,15 +152011,6 @@ window.WORDBANK={
    "ex": "All my holiday photos came out blurry.",
    "lessons": [
     "grammar_c1_08_advanced_relative_clauses"
-   ]
-  },
-  "elderly": {
-   "w": "elderly",
-   "pos": "adj",
-   "def": "old, used as a polite word",
-   "ex": "She helps her elderly neighbour with the shopping.",
-   "lessons": [
-    "grammar_c1_09_advanced_articles_determiners"
    ]
   },
   "unemployed": {
@@ -146692,15 +152174,6 @@ window.WORDBANK={
    "ex": "I cannot tolerate rude behaviour at work.",
    "lessons": [
     "grammar_c1_15_gerunds_infinitives_phrasal"
-   ]
-  },
-  "modernise": {
-   "w": "modernise",
-   "pos": "v",
-   "def": "to make something more suitable for the present time",
-   "ex": "The hospital plans to modernise its equipment.",
-   "lessons": [
-    "grammar_c1_16_formal_style_word_formation"
    ]
   },
   "irritated": {
@@ -146971,15 +152444,6 @@ window.WORDBANK={
    "ex": "The camera stays static for the whole scene.",
    "lessons": [
     "ib_lesson_05_comparing_not_stapling"
-   ]
-  },
-  "frail": {
-   "w": "frail",
-   "pos": "adj",
-   "def": "weak and easily broken or hurt",
-   "ex": "Her grandfather is now very frail.",
-   "lessons": [
-    "ib_lesson_06_timed_essay"
    ]
   },
   "diminutive": {
@@ -147477,15 +152941,6 @@ window.WORDBANK={
     "qf_collocation_take_make_photo"
    ]
   },
-  "elect": {
-   "w": "elect",
-   "pos": "v",
-   "def": "to choose someone for a job by voting",
-   "ex": "The president was elected last year.",
-   "lessons": [
-    "qf_falsefriend_french_actual"
-   ]
-  },
   "pregnant": {
    "w": "pregnant",
    "pos": "adj",
@@ -147556,15 +153011,6 @@ window.WORDBANK={
    "ex": "Burning fossil fuels warms the planet.",
    "lessons": [
     "acad_b1_02_taking_notes"
-   ]
-  },
-  "glossary": {
-   "w": "glossary",
-   "pos": "n",
-   "def": "a list of difficult words with their meanings at the back of a book",
-   "ex": "Check the glossary if you do not know a term.",
-   "lessons": [
-    "acad_b1_03_reading_textbooks"
    ]
   },
   "concluding sentence": {
