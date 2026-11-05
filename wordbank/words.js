@@ -13136,6 +13136,230 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_mena_background",
+   "title": "The Middle East and North Africa: One Region, Many Worlds",
+   "level": "",
+   "words": [
+    "crossroads",
+    "cradle",
+    "dialect",
+    "oasis",
+    "nomadic",
+    "minority",
+    "empire",
+    "label"
+   ]
+  },
+  {
+   "id": "world_mena_background_a2",
+   "title": "The Middle East and North Africa: One Region, Many Worlds",
+   "level": "",
+   "words": [
+    "desert",
+    "coast",
+    "river",
+    "language",
+    "library",
+    "city"
+   ]
+  },
+  {
+   "id": "world_mena_desert",
+   "title": "Camels or Skyscrapers? Desert and City",
+   "level": "",
+   "words": [
+    "dune",
+    "caravan",
+    "urban",
+    "skyline",
+    "irrigation",
+    "pasture",
+    "metro",
+    "settlement"
+   ]
+  },
+  {
+   "id": "world_mena_desert_a2",
+   "title": "Camels or Skyscrapers? Desert and City",
+   "level": "",
+   "words": [
+    "sand",
+    "camel",
+    "tower",
+    "traffic",
+    "water",
+    "hot"
+   ]
+  },
+  {
+   "id": "world_mena_hospitality",
+   "title": "Guests, Tea and Dates: What Hospitality Really Means",
+   "level": "",
+   "words": [
+    "host",
+    "generous",
+    "etiquette",
+    "refuse",
+    "insist",
+    "custom",
+    "gesture",
+    "obligation"
+   ]
+  },
+  {
+   "id": "world_mena_hospitality_a2",
+   "title": "Guests, Tea and Dates: What Hospitality Really Means",
+   "level": "",
+   "words": [
+    "guest",
+    "tea",
+    "date",
+    "shoes",
+    "gift",
+    "polite"
+   ]
+  },
+  {
+   "id": "world_mena_languages",
+   "title": "“Everyone Speaks Arabic” — Or Do They?",
+   "level": "",
+   "words": [
+    "dialect",
+    "standard",
+    "mother tongue",
+    "script",
+    "fluent",
+    "loanword",
+    "bilingual",
+    "accent"
+   ]
+  },
+  {
+   "id": "world_mena_languages_a2",
+   "title": "“Everyone Speaks Arabic” — Or Do They?",
+   "level": "",
+   "words": [
+    "speak",
+    "understand",
+    "write",
+    "letter",
+    "word",
+    "film"
+   ]
+  },
+  {
+   "id": "world_mena_oil",
+   "title": "Beyond Oil: A Region That Is Changing",
+   "level": "",
+   "words": [
+    "reserves",
+    "diversify",
+    "renewable",
+    "remittances",
+    "inequality",
+    "startup",
+    "export",
+    "sustainable"
+   ]
+  },
+  {
+   "id": "world_mena_oil_a2",
+   "title": "Beyond Oil: A Region That Is Changing",
+   "level": "",
+   "words": [
+    "oil",
+    "sun",
+    "job",
+    "university",
+    "factory",
+    "future"
+   ]
+  },
+  {
+   "id": "world_mena_ramadan",
+   "title": "More Than Fasting: What Ramadan Is Really Like",
+   "level": "",
+   "words": [
+    "fast",
+    "dawn",
+    "sunset",
+    "charity",
+    "lantern",
+    "gathering",
+    "exempt",
+    "festival"
+   ]
+  },
+  {
+   "id": "world_mena_ramadan_a2",
+   "title": "More Than Fasting: What Ramadan Is Really Like",
+   "level": "",
+   "words": [
+    "fast",
+    "sunset",
+    "family",
+    "meal",
+    "lantern",
+    "gift"
+   ]
+  },
+  {
+   "id": "world_mena_souk",
+   "title": "Haggling in the Souk: A Friendly Art, Not a Trap",
+   "level": "",
+   "words": [
+    "souk",
+    "bazaar",
+    "bargain",
+    "stallholder",
+    "fixed price",
+    "overcharge",
+    "counteroffer",
+    "rapport"
+   ]
+  },
+  {
+   "id": "world_mena_souk_a2",
+   "title": "Haggling in the Souk: A Friendly Art, Not a Trap",
+   "level": "",
+   "words": [
+    "market",
+    "price",
+    "spice",
+    "cheap",
+    "expensive",
+    "smile"
+   ]
+  },
+  {
+   "id": "world_mena_women",
+   "title": "Women in the Middle East and North Africa: Beyond One Picture",
+   "level": "",
+   "words": [
+    "stereotype",
+    "legislation",
+    "guardianship",
+    "workforce",
+    "graduate",
+    "activist",
+    "headscarf",
+    "equality"
+   ]
+  },
+  {
+   "id": "world_mena_women_a2",
+   "title": "Women in the Middle East and North Africa: Beyond One Picture",
+   "level": "",
+   "words": [
+    "doctor",
+    "pilot",
+    "student",
+    "farmer",
+    "law",
+    "choice"
+   ]
+  },
+  {
    "id": "world_na_background",
    "title": "North America: Two Neighbours, One Continent",
    "level": "",
@@ -46209,20 +46433,22 @@ window.WORDBANK={
   },
   "tea": {
    "w": "tea",
-   "pos": "",
+   "pos": "n",
    "def": "a hot drink",
-   "ex": "",
+   "ex": "Moroccan mint tea is sweet.",
    "lessons": [
-    "a1s_02_coffee"
+    "a1s_02_coffee",
+    "world_mena_hospitality_a2"
    ]
   },
   "water": {
    "w": "water",
-   "pos": "",
+   "pos": "n",
    "def": "you drink it — no colour",
-   "ex": "",
+   "ex": "People live near water.",
    "lessons": [
     "a1s_02_coffee",
+    "world_mena_desert_a2",
     "grammar_a2_03_present_perfect_intro"
    ]
   },
@@ -46347,10 +46573,11 @@ window.WORDBANK={
    "w": "family",
    "pos": "n",
    "def": "the people close to you",
-   "ex": "Her family came to the wedding.",
+   "ex": "The whole family sits together.",
    "lessons": [
     "a1s_04_family",
     "world_la_family_a2",
+    "world_mena_ramadan_a2",
     "world_sa_marriage_a2"
    ]
   },
@@ -46542,12 +46769,13 @@ window.WORDBANK={
    "w": "film",
    "pos": "noun (uncountable)",
    "def": "a movie you watch",
-   "ex": "Kodak sold film all over the world.",
+   "ex": "Egyptian films are popular in many countries.",
    "lessons": [
     "a1s_06_like",
     "a1s_34_will",
     "bc_kodak_a2b1",
     "world_ea_popculture_a2",
+    "world_mena_languages_a2",
     "world_sa_bollywood_a2"
    ]
   },
@@ -46595,6 +46823,7 @@ window.WORDBANK={
     "techniques_a_piece_of_string_a2b1",
     "techniques_appointment_in_samarra_a2b1",
     "techniques_araby_a2b1",
+    "world_mena_souk_a2",
     "world_na_food_a2",
     "gr_warmup_a2_hot_takes_shopping"
    ]
@@ -46646,6 +46875,7 @@ window.WORDBANK={
     "a1s_07_market",
     "bc_china_challenge_a2b1",
     "bc_rivian_ev_a2b1",
+    "world_mena_souk_a2",
     "gr_warmup_a2_hot_takes_clothes",
     "behind_the_screen_moneyball_a2b1",
     "rp_17_haggling_at_a_market_a2b1",
@@ -46662,6 +46892,7 @@ window.WORDBANK={
     "a1s_07_market",
     "bc_orsted_bet_the_company_a2",
     "world_ea_gifts_a2",
+    "world_mena_souk_a2",
     "rp_19_planning_a_holiday_a2b1",
     "sf_a1_12_a_present_for_carla",
     "a1p_13_going_shopping",
@@ -46708,11 +46939,12 @@ window.WORDBANK={
   },
   "river": {
    "w": "river",
-   "pos": "",
+   "pos": "n",
    "def": "long water — it moves through the town",
-   "ex": "",
+   "ex": "The Nile is a famous river.",
    "lessons": [
     "a1s_08_town",
+    "world_mena_background_a2",
     "short_history_the_gold_rush_a2b1"
    ]
   },
@@ -47036,11 +47268,12 @@ window.WORDBANK={
   },
   "sand": {
    "w": "sand",
-   "pos": "",
+   "pos": "n",
    "def": "soft yellow ground — you walk on it at the beach",
-   "ex": "",
+   "ex": "The desert has a lot of sand.",
    "lessons": [
-    "a1s_12_sea"
+    "a1s_12_sea",
+    "world_mena_desert_a2"
    ]
   },
   "bus": {
@@ -48584,11 +48817,12 @@ window.WORDBANK={
   },
   "festival": {
    "w": "festival",
-   "pos": "",
+   "pos": "n",
    "def": "a big happy town party",
-   "ex": "",
+   "ex": "The festival of Eid al-Fitr ends the month.",
    "lessons": [
     "a1s_32_festival",
+    "world_mena_ramadan",
     "rs_y7_aut1_01_03",
     "su_a2_05_comparing_cultures",
     "rs_y11_aut2_26_06",
@@ -48615,12 +48849,14 @@ window.WORDBANK={
   },
   "lantern": {
    "w": "lantern",
-   "pos": "",
+   "pos": "n",
    "def": "a light in a paper cover",
-   "ex": "",
+   "ex": "Children carry a colourful lantern in the streets.",
    "lessons": [
     "a1s_32_festival",
     "a1s_50_home",
+    "world_mena_ramadan",
+    "world_mena_ramadan_a2",
     "su_a2_11_cultural_celebrations",
     "duolingo_det_practice_2"
    ]
@@ -49169,10 +49405,11 @@ window.WORDBANK={
    "w": "doctor",
    "pos": "n",
    "def": "they help you when you are ill",
-   "ex": "",
+   "ex": "A doctor works in a hospital.",
    "lessons": [
     "a1s_39_sick",
-    "techniques_the_feather_pillow_a2b1"
+    "techniques_the_feather_pillow_a2b1",
+    "world_mena_women_a2"
    ]
   },
   "inspection": {
@@ -49359,13 +49596,15 @@ window.WORDBANK={
    "w": "gift",
    "pos": "noun",
    "def": "a present you give someone",
-   "ex": "He brought a gift for the host.",
+   "ex": "Bring a small gift for the host.",
    "lessons": [
     "a1s_42_gift",
     "techniques_araby_a2b1",
     "techniques_before_the_law_a2b1",
     "techniques_the_gift_of_the_magi_a2b1",
     "world_ea_gifts_a2",
+    "world_mena_hospitality_a2",
+    "world_mena_ramadan_a2",
     "qf_falsefriend_german_gift"
    ]
   },
@@ -49555,7 +49794,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_44_gone",
     "short_history_the_manhattan_project_a2b1",
-    "world_eu_east_a2"
+    "world_eu_east_a2",
+    "world_mena_background_a2"
    ]
   },
   "soon": {
@@ -50253,6 +50493,7 @@ window.WORDBANK={
     "bc_online_therapy_c1",
     "bc_vw_dieselgate_c1",
     "odyssey_elizabeth_i",
+    "world_mena_desert",
     "behind_the_screen_the_social_network_a2b1",
     "lesson_space_advanced_EXPANDED"
    ]
@@ -51344,6 +51585,7 @@ window.WORDBANK={
    "ex": "The price fell by three quarters.",
    "lessons": [
     "bc_airace_a2b1",
+    "world_mena_souk_a2",
     "sf_a1_11_the_meeting",
     "short_history_the_great_depression_a2b1",
     "techniques_the_bottle_imp_a2b1",
@@ -51505,11 +51747,12 @@ window.WORDBANK={
    "w": "host",
    "pos": "n",
    "def": "A person who invites other people to stay in their home, or who welcomes guests.",
-   "ex": "Our host made us tea when we arrived.",
+   "ex": "The host poured tea before anyone asked.",
    "lessons": [
     "bc_airbnb_a2b1",
     "short_history_the_world_cup_a2b1",
     "world_la_time_a2",
+    "world_mena_hospitality",
     "sf_a1_15_the_visit"
    ]
   },
@@ -51522,6 +51765,7 @@ window.WORDBANK={
     "bc_airbnb_a2b1",
     "bc_bicester_a2b1",
     "techniques_dr_heideggers_experiment_a2b1",
+    "world_mena_hospitality_a2",
     "su_a2_19_a_special_occasion",
     "sf_a1_15_the_visit",
     "rp_24_a_noisy_neighbour_a2b1"
@@ -52381,12 +52625,13 @@ window.WORDBANK={
    "w": "refuse",
    "pos": "v",
    "def": "To say no to something.",
-   "ex": "It can be rude to refuse a gift too quickly.",
+   "ex": "It can be rude to refuse a cup of coffee at first.",
    "lessons": [
     "bc_blockbuster_a2b1",
     "ts_montessori_b2",
     "world_ea_politeness",
     "world_ea_politeness_a2",
+    "world_mena_hospitality",
     "behind_the_screen_chariots_of_fire_a2b1",
     "su_a2_54_managing_time_with_others",
     "short_history_muhammad_ali_a2b1",
@@ -52523,7 +52768,8 @@ window.WORDBANK={
     "world_eu_east",
     "world_eu_east_a2",
     "world_eu_stereotypes",
-    "world_la_background"
+    "world_la_background",
+    "world_mena_background"
    ]
   },
   "ingredient": {
@@ -52896,6 +53142,7 @@ window.WORDBANK={
     "bc_menufoods_a2b1",
     "bc_novo_a2b1",
     "bc_zara_a2b1",
+    "world_mena_oil_a2",
     "behind_the_screen_schindlers_list_a2b1",
     "short_history_queen_victoria_a2b1"
    ]
@@ -52907,7 +53154,8 @@ window.WORDBANK={
    "ex": "Entertainment is now one of South Korea's most important exports.",
    "lessons": [
     "bc_china_challenge_a2b1",
-    "world_ea_popculture"
+    "world_ea_popculture",
+    "world_mena_oil"
    ]
   },
   "import": {
@@ -53106,6 +53354,7 @@ window.WORDBANK={
     "world_eu_stereotypes",
     "world_eu_stereotypes_a2",
     "world_la_party",
+    "world_mena_women",
     "gr_warmup_b2_hot_takes_gender",
     "c1_pro_28_consulting_frameworks",
     "cpe_read_c1_15_impostor_syndrome",
@@ -55542,6 +55791,7 @@ window.WORDBANK={
    "lessons": [
     "bc_may_might_could_a2",
     "techniques_the_story_of_an_hour_a2b1",
+    "world_mena_oil_a2",
     "a1p_14_making_plans"
    ]
   },
@@ -56784,6 +57034,7 @@ window.WORDBANK={
     "bc_patagonia_a2b1",
     "odyssey_charles_iii",
     "techniques_the_cop_and_the_anthem",
+    "world_mena_ramadan",
     "rs_y9_spr1_15_05",
     "b2_18_dealing_with_problems",
     "b2_87_organising_event",
@@ -64102,11 +64353,12 @@ window.WORDBANK={
   },
   "pilot": {
    "w": "pilot",
-   "pos": "",
+   "pos": "n",
    "def": "a small trial of something new, run before a full launch. Verb too: to pilot a scheme.",
    "ex": "The company ran a pilot in two offices before it decided whether to introduce the new system everywhere.",
    "lessons": [
     "nq_01_should_we_c1",
+    "world_mena_women_a2",
     "behind_the_screen_thirteen_days_a2b1",
     "bc_four_day_week_c1",
     "short_history_amelia_earhart_a2b1"
@@ -64293,11 +64545,12 @@ window.WORDBANK={
   },
   "diversify": {
    "w": "diversify",
-   "pos": "",
+   "pos": "v",
    "def": "to expand into a range of different products, markets or activities. Noun: diversification.",
    "ex": "The toy maker tried to diversify into clothes, theme parks and video games all at once, and lost sight of what it did best.",
    "lessons": [
-    "nq_03_what_first_c1"
+    "nq_03_what_first_c1",
+    "world_mena_oil"
    ]
   },
   "survival first": {
@@ -64574,12 +64827,13 @@ window.WORDBANK={
    "w": "law",
    "pos": "n",
    "def": "the rules a country or community enforces. above the law means not bound by the rules that apply to others.",
-   "ex": "The law says you must have a day off.",
+   "ex": "The law is different in each country.",
    "lessons": [
     "nq_06_is_it_right_c1",
     "odyssey_ire_kingship",
     "pol_01_power_a2",
     "techniques_before_the_law_a2b1",
+    "world_mena_women_a2",
     "world_na_canadians_a2",
     "world_na_work_a2",
     "behind_the_screen_suffragette_a2b1",
@@ -65408,6 +65662,7 @@ window.WORDBANK={
     "short_history_the_silk_road",
     "short_history_the_space_race",
     "short_history_vlad_the_impaler",
+    "world_mena_background",
     "concorso_british_empire_ab24",
     "short_history_alexander_the_great_a2b1",
     "short_history_machu_picchu_a2b1",
@@ -65507,6 +65762,7 @@ window.WORDBANK={
     "odyssey_david_i",
     "odyssey_eadwig",
     "techniques_the_model_millionaire",
+    "world_mena_hospitality",
     "gr_warmup_c1_hot_takes_steelman",
     "talk_volunteering_a2b1",
     "grammar_c1_02_advanced_aspect"
@@ -65811,9 +66067,10 @@ window.WORDBANK={
    "w": "minority",
    "pos": "n",
    "def": "the time when a king is a child.",
-   "ex": "",
+   "ex": "Christians form a minority in Egypt, but a large one.",
    "lessons": [
     "odyssey_david_ii",
+    "world_mena_background",
     "world_na_english"
    ]
   },
@@ -68496,6 +68753,7 @@ window.WORDBANK={
    "ex": "He died in the Tower of London.",
    "lessons": [
     "odyssey_henry_vi",
+    "world_mena_desert_a2",
     "short_history_nikola_tesla_a2b1",
     "short_history_the_great_wall_of_china_a2b1"
    ]
@@ -69455,10 +69713,11 @@ window.WORDBANK={
    "w": "desert",
    "pos": "v",
    "def": "to leave.",
-   "ex": "",
+   "ex": "The Sahara is a big desert.",
    "lessons": [
     "odyssey_jane_grey",
     "techniques_the_two_labyrinths_a2b1",
+    "world_mena_background_a2",
     "behind_the_screen_oppenheimer_a2b1",
     "short_history_petra_a2b1",
     "short_history_the_pyramids_a2b1",
@@ -72025,10 +72284,11 @@ window.WORDBANK={
    "w": "inequality",
    "pos": "n",
    "def": "a big difference in wealth or opportunity",
-   "ex": "The country has relatively low inequality.",
+   "ex": "Income inequality is large within the region.",
    "lessons": [
     "pol_06_nordics",
     "tib_pareto_b2",
+    "world_mena_oil",
     "gr_warmup_b2_hot_takes_money",
     "rs_y9_spr1_15_03",
     "talk_homework_b2c1",
@@ -72162,6 +72422,7 @@ window.WORDBANK={
     "tib_tuckman_b2",
     "world_ea_politeness_a2",
     "world_eu_directness_a2",
+    "world_mena_hospitality_a2",
     "world_na_canadians_a2",
     "rp_16_reporting_something_lost_a2b1",
     "su_a2_32_places_i_have_visited",
@@ -72711,10 +72972,12 @@ window.WORDBANK={
    "w": "fast",
    "pos": "adj/adv",
    "def": "The opposite is slow",
-   "ex": "The car was going very fast.",
+   "ex": "Many Muslims fast from dawn until sunset in Ramadan.",
    "lessons": [
     "psy_04_can_you_trust_memory_a2b1",
     "world_ea_technology_a2",
+    "world_mena_ramadan",
+    "world_mena_ramadan_a2",
     "a1p_22_bigger_better"
    ]
   },
@@ -73365,10 +73628,11 @@ window.WORDBANK={
   "exempt": {
    "w": "exempt",
    "pos": "adj",
-   "def": "",
-   "ex": "Some low-risk studies are exempt from full review.",
+   "def": "free from a duty that others have to follow",
+   "ex": "Young children and sick people are exempt from fasting.",
    "lessons": [
     "psyp_08_should_this_study_run_b2c1",
+    "world_mena_ramadan",
     "rs_y11_aut1_25_04"
    ]
   },
@@ -74009,6 +74273,7 @@ window.WORDBANK={
    "ex": "Once there's rapport, you can disagree hard and the room stays warm.",
    "lessons": [
     "reading_the_room_c2",
+    "world_mena_souk",
     "bc_negotiating_c1",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "b1_23_business_travel_socialising",
@@ -74746,7 +75011,8 @@ window.WORDBANK={
    "ex": "Without rain for months, the farmers depended entirely on irrigation: a network of channels that carried river water out across the dry fields so the rice could grow.",
    "lessons": [
     "short_history_angkor",
-    "short_history_petra"
+    "short_history_petra",
+    "world_mena_desert"
    ]
   },
   "reservoir": {
@@ -75155,11 +75421,12 @@ window.WORDBANK={
    "w": "script",
    "pos": "n",
    "def": "a system of written characters, such as the Latin, Arabic or Greek script; also, the written text of a play or film.",
-   "ex": "Japanese is written with more than one script.",
+   "ex": "Persian and Urdu use a version of the Arabic script.",
    "lessons": [
     "short_history_bletchley_park",
     "short_history_the_printing_press",
     "world_ea_background",
+    "world_mena_languages",
     "short_history_the_rosetta_stone_a2b1",
     "lesson-13-presentations"
    ]
@@ -76038,7 +76305,8 @@ window.WORDBANK={
    "def": "moving from place to place rather than living in one fixed home. A nomad (n) is a person who lives this way.",
    "ex": "The family was nomadic: they owned no house and no fixed land, but moved their tents across the open grassland with the seasons, following the grass and the water their animals needed.",
    "lessons": [
-    "short_history_genghis_khan"
+    "short_history_genghis_khan",
+    "world_mena_background"
    ]
   },
   "feigned": {
@@ -76974,12 +77242,13 @@ window.WORDBANK={
    "w": "caravan",
    "pos": "n",
    "def": "a large group of people and pack animals travelling together, especially across a desert.",
-   "ex": "",
+   "ex": "A caravan of camels carried salt and spices.",
    "lessons": [
     "short_history_mansa_musa",
     "short_history_marco_polo",
     "short_history_petra",
     "short_history_the_silk_road",
+    "world_mena_desert",
     "short_history_marco_polo_a2b1"
    ]
   },
@@ -79397,11 +79666,12 @@ window.WORDBANK={
   },
   "reserves": {
    "w": "reserves",
-   "pos": "",
+   "pos": "n",
    "def": "(n, usually plural) — the money, gold or supplies a country or organisation keeps in hand for when it needs them. \"foreign-currency reserves\" · \"oil reserves\" · \"she spoke with reserves of patience I didn't have.\"",
    "ex": "The country's reserves had fallen dangerously low: it no longer held enough foreign currency to pay for the food and fuel it needed to import.",
    "lessons": [
-    "short_history_the_gold_that_came_home"
+    "short_history_the_gold_that_came_home",
+    "world_mena_oil"
    ]
   },
   "custodian": {
@@ -79595,10 +79865,11 @@ window.WORDBANK={
    "w": "legislation",
    "pos": "n",
    "def": "laws as a group; what a parliament passes. A single one is an Act.",
-   "ex": "",
+   "ex": "New legislation in several countries has changed family law.",
    "lessons": [
     "short_history_the_great_smog",
-    "tib_pestle_b2"
+    "tib_pestle_b2",
+    "world_mena_women"
    ]
   },
   "death toll": {
@@ -80046,9 +80317,10 @@ window.WORDBANK={
    "w": "workforce",
    "pos": "n",
    "def": "all the people who work for one company, industry or country, taken together.",
-   "ex": "",
+   "ex": "Women are still a small part of the workforce in several countries.",
    "lessons": [
     "short_history_the_industrial_revolution",
+    "world_mena_women",
     "prof_c2_10_future_of_work"
    ]
   },
@@ -81323,9 +81595,10 @@ window.WORDBANK={
    "w": "oasis",
    "pos": "n",
    "def": "a fertile, watered place in a desert where plants grow and travellers can stop.",
-   "ex": "",
+   "ex": "Farmers have grown dates around the oasis for centuries.",
    "lessons": [
-    "short_history_the_silk_road"
+    "short_history_the_silk_road",
+    "world_mena_background"
    ]
   },
   "confluence": {
@@ -81475,9 +81748,10 @@ window.WORDBANK={
    "w": "activist",
    "pos": "n",
    "def": "a person who works energetically to bring about political or social change.",
-   "ex": "",
+   "ex": "Women activists have campaigned for equal rights for decades.",
    "lessons": [
     "short_history_the_suffragettes",
+    "world_mena_women",
     "bc_inspiring_women_b2c1"
    ]
   },
@@ -82391,11 +82665,12 @@ window.WORDBANK={
   },
   "counteroffer": {
    "w": "counteroffer",
-   "pos": "",
+   "pos": "n",
    "def": "(n; also counter-offer) — to make / receive a counteroffer. Also used when a current employer tries to keep you. Verb: to counter.",
-   "ex": "",
+   "ex": "She made a counteroffer of half the price.",
    "lessons": [
     "skills_c1_senior_interview_5_closing",
+    "world_mena_souk",
     "gr_c1_the_negotiator",
     "b2_44_negotiation_skills"
    ]
@@ -83006,6 +83281,7 @@ window.WORDBANK={
    "ex": "The old farmer walked through the town.\" / \"My uncle is a farmer.",
    "lessons": [
     "techniques_a_piece_of_string_a2b1",
+    "world_mena_women_a2",
     "short_history_the_terracotta_army_a2b1"
    ]
   },
@@ -83552,9 +83828,10 @@ window.WORDBANK={
    "w": "bazaar",
    "pos": "n",
    "def": "\"Araby\" is the name of a charity bazaar visiting Dublin — stalls, lights, music.",
-   "ex": "",
+   "ex": "The Grand Bazaar in Istanbul has thousands of shops.",
    "lessons": [
     "techniques_araby",
+    "world_mena_souk",
     "dewey_palace_architecture"
    ]
   },
@@ -84335,6 +84612,7 @@ window.WORDBANK={
     "techniques_how_much_land",
     "techniques_the_bottle_imp",
     "techniques_the_ransom_of_red_chief",
+    "world_mena_souk",
     "rp_17_haggling_at_a_market",
     "su_a2_17_getting_a_bargain"
    ]
@@ -84420,6 +84698,8 @@ window.WORDBANK={
    "ex": "He had to be back before sunset.\" / \"a beautiful sunset.",
    "lessons": [
     "techniques_how_much_land_a2b1",
+    "world_mena_ramadan",
+    "world_mena_ramadan_a2",
     "grammar_b1_11_articles_zero_article"
    ]
   },
@@ -86995,9 +87275,10 @@ window.WORDBANK={
    "w": "letter",
    "pos": "n",
    "def": "a written message that you send to someone.",
-   "ex": "",
+   "ex": "The Arabic alphabet has 28 letters.",
    "lessons": [
     "techniques_the_fortune_teller_a2b1",
+    "world_mena_languages_a2",
     "short_history_vincent_van_gogh_a2b1"
    ]
   },
@@ -87375,11 +87656,12 @@ window.WORDBANK={
   },
   "mother tongue": {
    "w": "mother tongue",
-   "pos": "",
+   "pos": "n",
    "def": "also native language, first language. Related: a minority language, to pass a language on, language loss.",
-   "ex": "",
+   "ex": "For many people in North Africa, an Amazigh language is their mother tongue.",
    "lessons": [
-    "techniques_the_last_class"
+    "techniques_the_last_class",
+    "world_mena_languages"
    ]
   },
   "regrettable": {
@@ -88059,7 +88341,8 @@ window.WORDBANK={
    "ex": "The young student read many books.\" / \"I am a student of English.",
    "lessons": [
     "techniques_the_nightingale_and_the_rose_a2b1",
-    "world_ea_exams_a2"
+    "world_ea_exams_a2",
+    "world_mena_women_a2"
    ]
   },
   "give": {
@@ -89032,9 +89315,10 @@ window.WORDBANK={
    "w": "camel",
    "pos": "n",
    "def": "a large desert animal that people ride.",
-   "ex": "",
+   "ex": "A camel can live a long time without water.",
    "lessons": [
-    "techniques_the_two_labyrinths_a2b1"
+    "techniques_the_two_labyrinths_a2b1",
+    "world_mena_desert_a2"
    ]
   },
   "resignation": {
@@ -89105,7 +89389,8 @@ window.WORDBANK={
    "def": "To put words on paper with a pen.",
    "ex": "He could not write his name.\" / \"Please write your name here.",
    "lessons": [
-    "techniques_the_verger_a2b1"
+    "techniques_the_verger_a2b1",
+    "world_mena_languages_a2"
    ]
   },
   "idea": {
@@ -89471,9 +89756,10 @@ window.WORDBANK={
    "w": "dawn",
    "pos": "n",
    "def": "\"He was woken before dawn to rock the master's baby.\"",
-   "ex": "",
+   "ex": "The family eats before dawn.",
    "lessons": [
     "techniques_vanka",
+    "world_mena_ramadan",
     "rs_y11_aut1_25_06"
    ]
   },
@@ -91673,9 +91959,10 @@ window.WORDBANK={
    "w": "fluent",
    "pos": "adj",
    "def": "fluent in English; fluency. Note what it doesn't mean: native, or accent-free. Fluency is flow, not disguise.",
-   "ex": "",
+   "ex": "She is fluent in Arabic, French and English.",
    "lessons": [
     "topic_english_language_b2",
+    "world_mena_languages",
     "concorso_unit_overview",
     "ml_31_speaking_for_two",
     "a1p_30_review_unit3_complete",
@@ -91688,11 +91975,12 @@ window.WORDBANK={
    "w": "accent",
    "pos": "n",
    "def": "everyone has one, including every native speaker. The story will ask who decided which accents count as \"good\".",
-   "ex": "He has an Argentine accent.",
+   "ex": "I could hear a Cairo accent as soon as he spoke.",
    "lessons": [
     "topic_english_language_b2",
     "world_la_language",
     "world_la_language_a2",
+    "world_mena_languages",
     "world_na_english",
     "world_na_english_a2",
     "gr_warmup_b2_hot_takes_language",
@@ -93214,6 +93502,8 @@ window.WORDBANK={
    "ex": "People in different parts of China speak different dialects, some so different that speakers cannot understand each other.",
    "lessons": [
     "world_ea_background",
+    "world_mena_background",
+    "world_mena_languages",
     "world_na_english",
     "gr_warmup_b2_hot_takes_language",
     "writing_poetry_slam",
@@ -93251,10 +93541,11 @@ window.WORDBANK={
    "w": "language",
    "pos": "n",
    "def": "the words people speak in a country",
-   "ex": "There are two official languages in Canada.",
+   "ex": "People speak many languages in this region.",
    "lessons": [
     "world_ea_background_a2",
     "world_eu_background_a2",
+    "world_mena_background_a2",
     "world_na_english_a2",
     "world_sa_background_a2",
     "world_sa_bollywood_a2"
@@ -93455,6 +93746,7 @@ window.WORDBANK={
    "ex": "A small gesture can matter more than the price of a gift.",
    "lessons": [
     "world_ea_gifts",
+    "world_mena_hospitality",
     "world_sa_gestures_a2",
     "Jane_Performance_STUDENT",
     "su_a2_46_body_language",
@@ -93481,6 +93773,7 @@ window.WORDBANK={
    "lessons": [
     "world_ea_gifts",
     "world_ea_politeness",
+    "world_mena_hospitality",
     "acad_b2_14_academic_emails",
     "curious_conversations_12_social_rules",
     "b2_06_cultural_differences"
@@ -93549,6 +93842,7 @@ window.WORDBANK={
    "ex": "Family obligations often come before personal plans.",
    "lessons": [
     "world_ea_group",
+    "world_mena_hospitality",
     "rs_y7_sum2_06_02",
     "b1_22_childhood_experiences",
     "talk_gift_giving_b2c1",
@@ -93832,6 +94126,7 @@ window.WORDBANK={
    "lessons": [
     "world_eu_coffee",
     "world_eu_coffee_a2",
+    "world_mena_hospitality",
     "world_sa_gestures",
     "su_a2_39_my_celebrations",
     "b1_46_family_traditions",
@@ -94203,10 +94498,11 @@ window.WORDBANK={
    "w": "equality",
    "pos": "n",
    "def": "the same rights and chances for everyone.",
-   "ex": "Equality is a core Nordic value.",
+   "ex": "Legal equality varies widely across the region.",
    "lessons": [
     "world_eu_nordic",
     "world_eu_nordic_a2",
+    "world_mena_women",
     "gr_warmup_b2_hot_takes_gender",
     "epicurean_04_the_garden_community",
     "rs_y11_aut2_26_06",
@@ -94482,9 +94778,10 @@ window.WORDBANK={
    "w": "gathering",
    "pos": "n",
    "def": "a meeting of people.",
-   "ex": "",
+   "ex": "A large family gathering takes place most evenings.",
    "lessons": [
     "world_la_family",
+    "world_mena_ramadan",
     "b1_03_talking_about_events",
     "su_a2_39_my_celebrations"
    ]
@@ -94774,6 +95071,7 @@ window.WORDBANK={
    "lessons": [
     "world_la_time",
     "world_la_time_a2",
+    "world_mena_desert_a2",
     "world_sa_cities_a2",
     "sf_a1_04_a_working_day",
     "talk_city_or_countryside_a2b1",
@@ -94854,16 +95152,404 @@ window.WORDBANK={
     "world_la_warmth_a2"
    ]
   },
+  "crossroads": {
+   "w": "crossroads",
+   "pos": "n",
+   "def": "a place where different routes, people or ideas meet",
+   "ex": "The region has always been a crossroads between Africa, Asia and Europe.",
+   "lessons": [
+    "world_mena_background",
+    "curious_conversations_nietzsche_metamorphoses"
+   ]
+  },
+  "cradle": {
+   "w": "cradle",
+   "pos": "n",
+   "def": "the place where something important first began",
+   "ex": "Mesopotamia is often called the cradle of writing and cities.",
+   "lessons": [
+    "world_mena_background"
+   ]
+  },
+  "coast": {
+   "w": "coast",
+   "pos": "n",
+   "def": "the land next to the sea",
+   "ex": "Many people live on the coast.",
+   "lessons": [
+    "world_mena_background_a2",
+    "gr_warmup_c1_hot_takes_meritocracy"
+   ]
+  },
+  "library": {
+   "w": "library",
+   "pos": "n",
+   "def": "a place with many books",
+   "ex": "There was a famous library in Baghdad.",
+   "lessons": [
+    "world_mena_background_a2",
+    "gr_warmup_a2_hot_takes_books",
+    "rp_20_at_the_library_a2b1",
+    "short_history_the_library_of_alexandria_a2b1",
+    "qf_falsefriend_french_librairie",
+    "qf_collocation_lend_borrow"
+   ]
+  },
+  "dune": {
+   "w": "dune",
+   "pos": "n",
+   "def": "a hill of sand made by the wind",
+   "ex": "Wind slowly moves the dunes across the desert.",
+   "lessons": [
+    "world_mena_desert"
+   ]
+  },
+  "urban": {
+   "w": "urban",
+   "pos": "adj",
+   "def": "connected with towns and cities",
+   "ex": "Most of the region's population is urban.",
+   "lessons": [
+    "world_mena_desert",
+    "talk_city_or_countryside_b2c1",
+    "b2_104_greener_cities_solutions",
+    "IELTS-Reading-Practice-Test-1"
+   ]
+  },
+  "skyline": {
+   "w": "skyline",
+   "pos": "n",
+   "def": "the shape of a city's buildings against the sky",
+   "ex": "The Dubai skyline is full of towers.",
+   "lessons": [
+    "world_mena_desert"
+   ]
+  },
+  "pasture": {
+   "w": "pasture",
+   "pos": "n",
+   "def": "land with grass where animals feed",
+   "ex": "The herders moved to new pasture after the rains.",
+   "lessons": [
+    "world_mena_desert"
+   ]
+  },
+  "metro": {
+   "w": "metro",
+   "pos": "n",
+   "def": "an underground train system in a city",
+   "ex": "Cairo and Dubai both have a metro.",
+   "lessons": [
+    "world_mena_desert"
+   ]
+  },
+  "hot": {
+   "w": "hot",
+   "pos": "adj",
+   "def": "with a high temperature",
+   "ex": "The desert is very hot in summer.",
+   "lessons": [
+    "world_mena_desert_a2"
+   ]
+  },
+  "insist": {
+   "w": "insist",
+   "pos": "v",
+   "def": "to ask again and again because you really want something",
+   "ex": "Hosts often insist that guests take a second helping.",
+   "lessons": [
+    "world_mena_hospitality",
+    "cambridge_cae_kwt_past_papers",
+    "lesson_35_subjunctive",
+    "qf_falsefriend_french_demander",
+    "grammar_b2_08_reporting_verbs_patterns"
+   ]
+  },
+  "date": {
+   "w": "date",
+   "pos": "n",
+   "def": "a small, sweet brown fruit",
+   "ex": "The host offers a date and coffee.",
+   "lessons": [
+    "world_mena_hospitality_a2",
+    "sf_a1_14_the_phone_call"
+   ]
+  },
+  "shoes": {
+   "w": "shoes",
+   "pos": "n",
+   "def": "things you wear on your feet",
+   "ex": "Take off your shoes at the door.",
+   "lessons": [
+    "world_mena_hospitality_a2",
+    "world_sa_temples_a2"
+   ]
+  },
+  "standard": {
+   "w": "standard",
+   "pos": "adj",
+   "def": "accepted as normal and used in formal situations",
+   "ex": "News readers use standard Arabic across the region.",
+   "lessons": [
+    "world_mena_languages",
+    "ml_31_speaking_for_two"
+   ]
+  },
+  "loanword": {
+   "w": "loanword",
+   "pos": "n",
+   "def": "a word taken from one language into another.  and “algebra” are loanwords from Arabic.”",
+   "ex": "“Sugar",
+   "lessons": [
+    "world_mena_languages"
+   ]
+  },
   "bilingual": {
    "w": "bilingual",
    "pos": "adj",
-   "def": "using two languages.",
-   "ex": "Canada is officially bilingual.",
+   "def": "able to speak two languages equally well",
+   "ex": "Many children in Morocco grow up bilingual.",
    "lessons": [
+    "world_mena_languages",
     "world_na_background",
     "su_a2_47_making_decisions",
     "curious_conversations_language_shapes_thought",
     "diagnostic_focus_b2_mixed_conditionals"
+   ]
+  },
+  "speak": {
+   "w": "speak",
+   "pos": "v",
+   "def": "to say words with your voice",
+   "ex": "She can speak three languages.",
+   "lessons": [
+    "world_mena_languages_a2",
+    "first_lesson_v3"
+   ]
+  },
+  "understand": {
+   "w": "understand",
+   "pos": "v",
+   "def": "to know what someone means",
+   "ex": "I can't understand that accent.",
+   "lessons": [
+    "world_mena_languages_a2",
+    "rp_07_at_the_bank_a2b1",
+    "sp_prep_a2_06"
+   ]
+  },
+  "word": {
+   "w": "word",
+   "pos": "n",
+   "def": "a group of letters with a meaning.  is an Arabic word in English.”",
+   "ex": "I do not know that word.",
+   "lessons": [
+    "world_mena_languages_a2",
+    "world_na_english_a2"
+   ]
+  },
+  "renewable": {
+   "w": "renewable",
+   "pos": "adj",
+   "def": "able to be used again and again without running out, like sun or wind",
+   "ex": "Morocco has invested heavily in renewable energy.",
+   "lessons": [
+    "world_mena_oil",
+    "bc_solar_uptake_schemes_c1",
+    "gr_warmup_b2_hot_takes_climate",
+    "talk_climate_action_b2c1",
+    "IELTS-Reading-Practice-Test-1",
+    "sentence_powerups",
+    "acad_b1_02_taking_notes"
+   ]
+  },
+  "remittances": {
+   "w": "remittances",
+   "pos": "n",
+   "def": "money that workers abroad send home to their families",
+   "ex": "Remittances are very important in Egypt and Lebanon.",
+   "lessons": [
+    "world_mena_oil"
+   ]
+  },
+  "startup": {
+   "w": "startup",
+   "pos": "n",
+   "def": "a new company, often based on a new idea or technology",
+   "ex": "Cairo and Beirut have a growing number of tech startups.",
+   "lessons": [
+    "world_mena_oil"
+   ]
+  },
+  "sustainable": {
+   "w": "sustainable",
+   "pos": "adj",
+   "def": "able to continue without damaging the environment or running out",
+   "ex": "Cities are building more sustainable transport.",
+   "lessons": [
+    "world_mena_oil",
+    "gr_warmup_b2_hot_takes_environment",
+    "speed_reading_masterclass",
+    "talk_eating_less_meat_b2c1",
+    "prof_c1_14_workplace_wellbeing",
+    "skills_b1b2_trade_fair_elevator_pitch"
+   ]
+  },
+  "oil": {
+   "w": "oil",
+   "pos": "n",
+   "def": "a thick liquid from under the ground, used for fuel",
+   "ex": "Some countries have a lot of oil.",
+   "lessons": [
+    "world_mena_oil_a2"
+   ]
+  },
+  "sun": {
+   "w": "sun",
+   "pos": "n",
+   "def": "the bright star that gives us light and heat",
+   "ex": "The sun gives energy for solar panels.",
+   "lessons": [
+    "world_mena_oil_a2"
+   ]
+  },
+  "job": {
+   "w": "job",
+   "pos": "n",
+   "def": "the work that you do to earn money",
+   "ex": "Young people want a good job.",
+   "lessons": [
+    "world_mena_oil_a2",
+    "explore_a2_garden_plans",
+    "first_lesson_a2",
+    "sf_a1_01_name_and_job",
+    "a1p_03_what_do_you_do",
+    "qf_vocab_job_work"
+   ]
+  },
+  "university": {
+   "w": "university",
+   "pos": "n",
+   "def": "a place where you study after school",
+   "ex": "The new university is very modern.",
+   "lessons": [
+    "world_mena_oil_a2"
+   ]
+  },
+  "meal": {
+   "w": "meal",
+   "pos": "n",
+   "def": "food that you eat at one time",
+   "ex": "A big meal comes after sunset.",
+   "lessons": [
+    "world_mena_ramadan_a2",
+    "anansi_and_turtle",
+    "a1_food_eating_out_interactive"
+   ]
+  },
+  "souk": {
+   "w": "souk",
+   "pos": "n",
+   "def": "a traditional market in the Arab world",
+   "ex": "We walked through the souk and smelled the spices.",
+   "lessons": [
+    "world_mena_souk"
+   ]
+  },
+  "stallholder": {
+   "w": "stallholder",
+   "pos": "n",
+   "def": "a person who sells goods from a stall in a market",
+   "ex": "The stallholder offered us tea.",
+   "lessons": [
+    "world_mena_souk"
+   ]
+  },
+  "fixed price": {
+   "w": "fixed price",
+   "pos": "n",
+   "def": "a price that cannot be negotiated",
+   "ex": "Most shops and restaurants have a fixed price.",
+   "lessons": [
+    "world_mena_souk"
+   ]
+  },
+  "overcharge": {
+   "w": "overcharge",
+   "pos": "v",
+   "def": "to ask for more money than something is really worth",
+   "ex": "A dishonest seller might overcharge a visitor.",
+   "lessons": [
+    "world_mena_souk",
+    "grammar_b2_21_what_went_wrong"
+   ]
+  },
+  "spice": {
+   "w": "spice",
+   "pos": "n",
+   "def": "a plant that gives strong flavour to food",
+   "ex": "Cardamom is a spice used in both sweet and savoury dishes.",
+   "lessons": [
+    "world_mena_souk_a2",
+    "world_sa_background_a2",
+    "world_sa_food",
+    "rp_17_haggling_at_a_market_a2b1"
+   ]
+  },
+  "smile": {
+   "w": "smile",
+   "pos": "n",
+   "def": "a happy look on your face",
+   "ex": "A smile helps in a market.",
+   "lessons": [
+    "world_mena_souk_a2",
+    "world_na_friendly_a2",
+    "world_sa_smiles_a2"
+   ]
+  },
+  "guardianship": {
+   "w": "guardianship",
+   "pos": "n",
+   "def": "a system where a relative has legal power to make decisions for another person",
+   "ex": "Saudi Arabia reduced male guardianship rules in 2019.",
+   "lessons": [
+    "world_mena_women",
+    "rs_y11_spr1_27_03"
+   ]
+  },
+  "graduate": {
+   "w": "graduate",
+   "pos": "n",
+   "def": "a person who has finished a university degree",
+   "ex": "Women are now the majority of university graduates in many countries.",
+   "lessons": [
+    "world_mena_women",
+    "su_a2_59_applying_for_a_job",
+    "lesson_28_future_perfect"
+   ]
+  },
+  "headscarf": {
+   "w": "headscarf",
+   "pos": "n",
+   "def": "a piece of cloth that a woman wears over her hair",
+   "ex": "Some women choose a headscarf, others do not, and some countries have rules.",
+   "lessons": [
+    "world_mena_women"
+   ]
+  },
+  "choice": {
+   "w": "choice",
+   "pos": "n",
+   "def": "a decision between two or more things",
+   "ex": "Many women wear a headscarf by choice.",
+   "lessons": [
+    "world_mena_women_a2",
+    "behind_the_screen_everything_everywhere_all_at_once_a2b1",
+    "b1_34_food_and_drink",
+    "christmas_would_you_rather",
+    "curious_conversations_science_of_love",
+    "sp_prep_a2_14",
+    "talk_eating_less_meat_a2b1"
    ]
   },
   "federation": {
@@ -95010,15 +95696,6 @@ window.WORDBANK={
     "a1p_05_review_foundation"
    ]
   },
-  "word": {
-   "w": "word",
-   "pos": "n",
-   "def": "a group of letters with a meaning",
-   "ex": "I do not know that word.",
-   "lessons": [
-    "world_na_english_a2"
-   ]
-  },
   "hat": {
    "w": "hat",
    "pos": "n",
@@ -95126,16 +95803,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "world_na_friendly"
-   ]
-  },
-  "smile": {
-   "w": "smile",
-   "pos": "n",
-   "def": "a happy look on your face",
-   "ex": "She gave me a big smile.",
-   "lessons": [
-    "world_na_friendly_a2",
-    "world_sa_smiles_a2"
    ]
   },
   "fake": {
@@ -95385,17 +96052,6 @@ window.WORDBANK={
    "ex": "Ancient trade routes carried spices to Europe.",
    "lessons": [
     "world_sa_background"
-   ]
-  },
-  "spice": {
-   "w": "spice",
-   "pos": "n",
-   "def": "a strong-tasting plant that gives flavour to food",
-   "ex": "Cardamom is a spice used in both sweet and savoury dishes.",
-   "lessons": [
-    "world_sa_background_a2",
-    "world_sa_food",
-    "rp_17_haggling_at_a_market_a2b1"
    ]
   },
   "temple": {
@@ -95816,15 +96472,6 @@ window.WORDBANK={
     "rs_y10_spr2_22_04",
     "ct_b1_27_acknowledging_views",
     "a1p_35_review_social_skills"
-   ]
-  },
-  "shoes": {
-   "w": "shoes",
-   "pos": "n",
-   "def": "things you wear on your feet",
-   "ex": "Take off your shoes at the door.",
-   "lessons": [
-    "world_sa_temples_a2"
    ]
   },
   "constructive criticism": {
@@ -98035,19 +98682,6 @@ window.WORDBANK={
     "gr_warmup_a2_hot_takes_animals"
    ]
   },
-  "library": {
-   "w": "library",
-   "pos": "n",
-   "def": "a building where you can borrow books for free",
-   "ex": "I go to the library every Saturday to get new books.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_books",
-    "rp_20_at_the_library_a2b1",
-    "short_history_the_library_of_alexandria_a2b1",
-    "qf_falsefriend_french_librairie",
-    "qf_collocation_lend_borrow"
-   ]
-  },
   "e-book": {
    "w": "e-book",
    "pos": "n",
@@ -100161,15 +100795,6 @@ window.WORDBANK={
    "lessons": [
     "rs_y11_spr1_27_03",
     "rs_y11_spr1_27_06"
-   ]
-  },
-  "guardianship": {
-   "w": "guardianship",
-   "pos": "n",
-   "def": "the role of protecting and caring for someone",
-   "ex": "Some Muslim scholars describe men's guardianship within the family.",
-   "lessons": [
-    "rs_y11_spr1_27_03"
    ]
   },
   "inclusion": {
@@ -103057,20 +103682,6 @@ window.WORDBANK={
     "bc_solar_uptake_schemes_c1"
    ]
   },
-  "renewable": {
-   "w": "renewable",
-   "pos": "adj",
-   "def": "coming from a natural source that does not run out",
-   "ex": "The town now gets half its electricity from renewable sources.",
-   "lessons": [
-    "bc_solar_uptake_schemes_c1",
-    "gr_warmup_b2_hot_takes_climate",
-    "talk_climate_action_b2c1",
-    "IELTS-Reading-Practice-Test-1",
-    "sentence_powerups",
-    "acad_b1_02_taking_notes"
-   ]
-  },
   "overpromise": {
    "w": "overpromise",
    "pos": "v",
@@ -104147,20 +104758,6 @@ window.WORDBANK={
     "behind_the_screen_everything_everywhere_all_at_once_a2b1"
    ]
   },
-  "choice": {
-   "w": "choice",
-   "pos": "n",
-   "def": "a decision between two or more things",
-   "ex": "Moving to the city was a difficult choice.",
-   "lessons": [
-    "behind_the_screen_everything_everywhere_all_at_once_a2b1",
-    "b1_34_food_and_drink",
-    "christmas_would_you_rather",
-    "curious_conversations_science_of_love",
-    "sp_prep_a2_14",
-    "talk_eating_less_meat_a2b1"
-   ]
-  },
   "version": {
    "w": "version",
    "pos": "n",
@@ -104830,19 +105427,6 @@ window.WORDBANK={
     "bc_advanced_life_skills_c1",
     "general_lesson_37_education_learning_interactive",
     "lesson_37_education_learning_interactive"
-   ]
-  },
-  "sustainable": {
-   "w": "sustainable",
-   "pos": "adj",
-   "def": "able to continue without harming nature",
-   "ex": "We need more sustainable ways to produce food.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_environment",
-    "speed_reading_masterclass",
-    "talk_eating_less_meat_b2c1",
-    "prof_c1_14_workplace_wellbeing",
-    "skills_b1b2_trade_fair_elevator_pitch"
    ]
   },
   "carbon emissions": {
@@ -106156,15 +106740,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a competition where conditions are not equal for everyone",
    "ex": "Private tutoring creates an uneven playing field for exams.",
-   "lessons": [
-    "gr_warmup_c1_hot_takes_meritocracy"
-   ]
-  },
-  "coast": {
-   "w": "coast",
-   "pos": "v",
-   "def": "to make progress with little effort because of an advantage",
-   "ex": "He coasted through school on charm alone.",
    "lessons": [
     "gr_warmup_c1_hot_takes_meritocracy"
    ]
@@ -109729,16 +110304,6 @@ window.WORDBANK={
     "b2_31_job_interview"
    ]
   },
-  "graduate": {
-   "w": "graduate",
-   "pos": "v",
-   "def": "to finish a university degree successfully",
-   "ex": "She graduated from university in Madrid.",
-   "lessons": [
-    "su_a2_59_applying_for_a_job",
-    "lesson_28_future_perfect"
-   ]
-  },
   "yours faithfully": {
    "w": "yours faithfully",
    "pos": "phr",
@@ -112193,16 +112758,6 @@ window.WORDBANK={
     "anansi_and_the_pot_of_wisdom",
     "anansi_and_turtle",
     "qf_pronunciation_h_sound"
-   ]
-  },
-  "meal": {
-   "w": "meal",
-   "pos": "n",
-   "def": "the food you eat at one time, such as lunch",
-   "ex": "We had a big family meal on the weekend.",
-   "lessons": [
-    "anansi_and_turtle",
-    "a1_food_eating_out_interactive"
    ]
   },
   "confide in": {
@@ -118554,15 +119109,6 @@ window.WORDBANK={
     "wp_24_the_consolation"
    ]
   },
-  "overcharge": {
-   "w": "overcharge",
-   "pos": "v",
-   "def": "to ask someone to pay more than the correct price",
-   "ex": "The taxi driver tried to overcharge us.",
-   "lessons": [
-    "grammar_b2_21_what_went_wrong"
-   ]
-  },
   "overheat": {
    "w": "overheat",
    "pos": "v",
@@ -121321,17 +121867,6 @@ window.WORDBANK={
    "ex": "The new estate has few local amenities.",
    "lessons": [
     "talk_city_or_countryside_b2c1"
-   ]
-  },
-  "urban": {
-   "w": "urban",
-   "pos": "adj",
-   "def": "connected with towns and cities",
-   "ex": "Urban areas often have better public transport.",
-   "lessons": [
-    "talk_city_or_countryside_b2c1",
-    "b2_104_greener_cities_solutions",
-    "IELTS-Reading-Practice-Test-1"
    ]
   },
   "rural": {
@@ -124669,19 +125204,6 @@ window.WORDBANK={
     "b2_04_telling_a_funny_story"
    ]
   },
-  "job": {
-   "w": "job",
-   "pos": "n",
-   "def": "a piece of work that needs to be done",
-   "ex": "Cutting the hedge is a big job for one person.",
-   "lessons": [
-    "explore_a2_garden_plans",
-    "first_lesson_a2",
-    "sf_a1_01_name_and_job",
-    "a1p_03_what_do_you_do",
-    "qf_vocab_job_work"
-   ]
-  },
   "grass": {
    "w": "grass",
    "pos": "n",
@@ -125033,15 +125555,6 @@ window.WORDBANK={
    "lessons": [
     "first_lesson_v3",
     "a1p_14_making_plans"
-   ]
-  },
-  "speak": {
-   "w": "speak",
-   "pos": "v",
-   "def": "to say words using your voice",
-   "ex": "Please speak more slowly so I can understand.",
-   "lessons": [
-    "first_lesson_v3"
    ]
   },
   "seconds": {
@@ -127514,15 +128027,6 @@ window.WORDBANK={
    "lessons": [
     "ml_31_speaking_for_two",
     "wp_27_the_decisive_treatise"
-   ]
-  },
-  "standard": {
-   "w": "standard",
-   "pos": "adj",
-   "def": "normal, usual and expected in a situation",
-   "ex": "Two weeks of notice is standard here.",
-   "lessons": [
-    "ml_31_speaking_for_two"
    ]
   },
   "properly": {
@@ -130262,16 +130766,6 @@ window.WORDBANK={
     "short_history_the_great_depression_a2b1"
    ]
   },
-  "understand": {
-   "w": "understand",
-   "pos": "v",
-   "def": "to know the meaning or reason for something",
-   "ex": "I do not understand the question.",
-   "lessons": [
-    "rp_07_at_the_bank_a2b1",
-    "sp_prep_a2_06"
-   ]
-  },
   "browse": {
    "w": "browse",
    "pos": "n",
@@ -131214,15 +131708,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to post or email something to a person",
    "ex": "I will send you the photos tomorrow.",
-   "lessons": [
-    "sf_a1_14_the_phone_call"
-   ]
-  },
-  "date": {
-   "w": "date",
-   "pos": "n",
-   "def": "a particular day of the month and year",
-   "ex": "What is the date of the meeting?",
    "lessons": [
     "sf_a1_14_the_phone_call"
    ]
@@ -141876,18 +142361,6 @@ window.WORDBANK={
     "grammar_b1_04_modals_obligation_deduction"
    ]
   },
-  "insist": {
-   "w": "insist",
-   "pos": "v",
-   "def": "to say firmly that something must happen or is true",
-   "ex": "My father insisted on paying for dinner.",
-   "lessons": [
-    "cambridge_cae_kwt_past_papers",
-    "lesson_35_subjunctive",
-    "qf_falsefriend_french_demander",
-    "grammar_b2_08_reporting_verbs_patterns"
-   ]
-  },
   "lexis": {
    "w": "lexis",
    "pos": "n",
@@ -143458,15 +143931,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a complete change in form or character",
    "ex": "The caterpillar's metamorphosis into a butterfly is amazing.",
-   "lessons": [
-    "curious_conversations_nietzsche_metamorphoses"
-   ]
-  },
-  "crossroads": {
-   "w": "crossroads",
-   "pos": "n",
-   "def": "a point where you must make an important decision",
-   "ex": "At thirty I was at a crossroads in my career.",
    "lessons": [
     "curious_conversations_nietzsche_metamorphoses"
    ]
