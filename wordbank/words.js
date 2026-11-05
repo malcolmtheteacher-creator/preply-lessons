@@ -13360,6 +13360,230 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_sa_background",
+   "title": "South and Southeast Asia: Two Regions, Hundreds of Cultures",
+   "level": "",
+   "words": [
+    "subcontinent",
+    "archipelago",
+    "monsoon",
+    "colonial",
+    "multilingual",
+    "trade route",
+    "majority",
+    "diversity"
+   ]
+  },
+  {
+   "id": "world_sa_background_a2",
+   "title": "South and Southeast Asia: Two Regions, Hundreds of Cultures",
+   "level": "",
+   "words": [
+    "island",
+    "spice",
+    "rice",
+    "language",
+    "temple",
+    "rain"
+   ]
+  },
+  {
+   "id": "world_sa_bollywood",
+   "title": "Bollywood: Song, Dance and So Much More",
+   "level": "",
+   "words": [
+    "choreography",
+    "masala",
+    "blockbuster",
+    "lip-sync",
+    "dub",
+    "interval",
+    "industry",
+    "audience"
+   ]
+  },
+  {
+   "id": "world_sa_bollywood_a2",
+   "title": "Bollywood: Song, Dance and So Much More",
+   "level": "",
+   "words": [
+    "film",
+    "song",
+    "dance",
+    "star",
+    "language",
+    "director"
+   ]
+  },
+  {
+   "id": "world_sa_cities",
+   "title": "Chaos or Order? Life in Busy Asian Cities",
+   "level": "",
+   "words": [
+    "congestion",
+    "commute",
+    "vendor",
+    "informal",
+    "overcrowded",
+    "pollution",
+    "urbanisation",
+    "resilient"
+   ]
+  },
+  {
+   "id": "world_sa_cities_a2",
+   "title": "Chaos or Order? Life in Busy Asian Cities",
+   "level": "",
+   "words": [
+    "traffic",
+    "crowded",
+    "vendor",
+    "air",
+    "lunch box",
+    "clean"
+   ]
+  },
+  {
+   "id": "world_sa_food",
+   "title": "Is It All Curry? Food from India to Indonesia",
+   "level": "",
+   "words": [
+    "umbrella term",
+    "ingredient",
+    "spice",
+    "vegetarian",
+    "herb",
+    "balance",
+    "street food",
+    "coconut"
+   ]
+  },
+  {
+   "id": "world_sa_food_a2",
+   "title": "Is It All Curry? Food from India to Indonesia",
+   "level": "",
+   "words": [
+    "curry",
+    "spicy",
+    "herb",
+    "coconut",
+    "vegetarian",
+    "street food"
+   ]
+  },
+  {
+   "id": "world_sa_gestures",
+   "title": "The Head Wobble and Other Gestures",
+   "level": "",
+   "words": [
+    "wobble",
+    "ambiguous",
+    "acknowledge",
+    "offensive",
+    "custom",
+    "palm",
+    "sacred",
+    "convey"
+   ]
+  },
+  {
+   "id": "world_sa_gestures_a2",
+   "title": "The Head Wobble and Other Gestures",
+   "level": "",
+   "words": [
+    "gesture",
+    "greet",
+    "palm",
+    "head",
+    "foot",
+    "respect"
+   ]
+  },
+  {
+   "id": "world_sa_marriage",
+   "title": "Arranged Marriage: Forced or Family-Guided?",
+   "level": "",
+   "words": [
+    "consent",
+    "matchmaker",
+    "compatible",
+    "dowry",
+    "expectation",
+    "in-laws",
+    "forced",
+    "approve"
+   ]
+  },
+  {
+   "id": "world_sa_marriage_a2",
+   "title": "Arranged Marriage: Forced or Family-Guided?",
+   "level": "",
+   "words": [
+    "marriage",
+    "family",
+    "choose",
+    "agree",
+    "introduce",
+    "crime"
+   ]
+  },
+  {
+   "id": "world_sa_smiles",
+   "title": "Land of Smiles: Is Every Smile the Same?",
+   "level": "",
+   "words": [
+    "embarrassment",
+    "conflict",
+    "composure",
+    "genuine",
+    "reluctant",
+    "impose",
+    "tourism",
+    "calm"
+   ]
+  },
+  {
+   "id": "world_sa_smiles_a2",
+   "title": "Land of Smiles: Is Every Smile the Same?",
+   "level": "",
+   "words": [
+    "smile",
+    "sorry",
+    "calm",
+    "angry",
+    "problem",
+    "visitor"
+   ]
+  },
+  {
+   "id": "world_sa_temples",
+   "title": "Temple Manners: Shoes Off, Feet Down",
+   "level": "",
+   "words": [
+    "sacred",
+    "shrine",
+    "monk",
+    "incense",
+    "sarong",
+    "pilgrim",
+    "remove",
+    "respectful"
+   ]
+  },
+  {
+   "id": "world_sa_temples_a2",
+   "title": "Temple Manners: Shoes Off, Feet Down",
+   "level": "",
+   "words": [
+    "temple",
+    "shoes",
+    "monk",
+    "pray",
+    "quiet",
+    "cover"
+   ]
+  },
+  {
    "id": "acad_b1_25_understanding_feedback",
    "title": "Understanding Teacher Feedback",
    "level": "B1",
@@ -46123,10 +46347,11 @@ window.WORDBANK={
    "w": "family",
    "pos": "n",
    "def": "the people close to you",
-   "ex": "I have a big family.",
+   "ex": "Her family came to the wedding.",
    "lessons": [
     "a1s_04_family",
-    "world_la_family_a2"
+    "world_la_family_a2",
+    "world_sa_marriage_a2"
    ]
   },
   "mother": {
@@ -46322,7 +46547,8 @@ window.WORDBANK={
     "a1s_06_like",
     "a1s_34_will",
     "bc_kodak_a2b1",
-    "world_ea_popculture_a2"
+    "world_ea_popculture_a2",
+    "world_sa_bollywood_a2"
    ]
   },
   "book": {
@@ -46701,11 +46927,12 @@ window.WORDBANK={
   },
   "rain": {
    "w": "rain",
-   "pos": "",
+   "pos": "n",
    "def": "water that falls from the sky",
-   "ex": "",
+   "ex": "The heavy rain comes in summer.",
    "lessons": [
     "a1s_11_rain",
+    "world_sa_background_a2",
     "short_history_the_battle_of_waterloo_a2b1"
    ]
   },
@@ -47650,7 +47877,8 @@ window.WORDBANK={
    "ex": "Rice is a main food in southern China.",
    "lessons": [
     "a1s_23_shopping",
-    "world_ea_food_a2"
+    "world_ea_food_a2",
+    "world_sa_background_a2"
    ]
   },
   "till": {
@@ -47763,12 +47991,13 @@ window.WORDBANK={
    "w": "choose",
    "pos": "v",
    "def": "to pick the one you want",
-   "ex": "Voters choose a new president.",
+   "ex": "Young people can choose their partner.",
    "lessons": [
     "a1s_24_compare",
     "a1s_42_gift",
     "discuss_a2_will_to_believe",
-    "pol_02_pm_president_a2"
+    "pol_02_pm_president_a2",
+    "world_sa_marriage_a2"
    ]
   },
   "best": {
@@ -48215,11 +48444,12 @@ window.WORDBANK={
   },
   "clean": {
    "w": "clean",
-   "pos": "",
+   "pos": "adj",
    "def": "to make something not dirty",
-   "ex": "",
+   "ex": "Singapore is a very clean city.",
    "lessons": [
     "a1s_30_work",
+    "world_sa_cities_a2",
     "a1_simple_past_yesterday_interactive"
    ]
   },
@@ -48403,7 +48633,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_32_festival",
     "techniques_the_nightingale_and_the_rose_a2b1",
-    "world_la_party_a2"
+    "world_la_party_a2",
+    "world_sa_bollywood_a2"
    ]
   },
   "at": {
@@ -51994,6 +52225,7 @@ window.WORDBANK={
    "lessons": [
     "bc_bicester_a2b1",
     "techniques_the_open_window_a2b1",
+    "world_sa_smiles_a2",
     "skills_b1b2_trade_fair_features_benefits"
    ]
   },
@@ -52298,11 +52530,12 @@ window.WORDBANK={
    "w": "ingredient",
    "pos": "n",
    "def": "One of the things you use to make food.",
-   "ex": "Chicken is the first ingredient in this recipe.",
+   "ex": "Fresh herbs are the key ingredient in many Vietnamese meals.",
    "lessons": [
     "bc_bluebuffalo_a2b1",
     "topic_food_b2",
     "ts_tu_youyou_b2",
+    "world_sa_food",
     "b1_48_street_food",
     "su_a2_88_cooking_at_home",
     "ct_a2_19_explaining_processes",
@@ -52823,7 +53056,8 @@ window.WORDBANK={
    "ex": "Okonkwo's village is changed for ever when the colonial administration arrives.",
    "lessons": [
     "bc_chinua_achebe_c1",
-    "world_la_background"
+    "world_la_background",
+    "world_sa_background"
    ]
   },
   "narrative": {
@@ -54432,6 +54666,7 @@ window.WORDBANK={
    "lessons": [
     "bc_kintsugi_b2",
     "bc_marie_curie_c1",
+    "world_sa_cities",
     "techniques_the_machine_stops",
     "bc_inspiring_women_b2c1",
     "cambridge_cae_test_paper_3",
@@ -55947,9 +56182,10 @@ window.WORDBANK={
    "w": "blockbuster",
    "pos": "n",
    "def": "borrowed from cinema. A blockbuster drug. This case concerns arguably the biggest one ever launched.",
-   "ex": "",
+   "ex": "The blockbuster broke records at the box office.",
    "lessons": [
     "bc_novo_nordisk_c1",
+    "world_sa_bollywood",
     "b2_60_film_criticism"
    ]
   },
@@ -57691,9 +57927,10 @@ window.WORDBANK={
    "w": "remove",
    "pos": "v",
    "def": "To take something away from a place.",
-   "ex": "The shops removed every bottle.",
+   "ex": "Please remove your shoes before you enter.",
    "lessons": [
     "bc_tylenol_a2b1",
+    "world_sa_temples",
     "lesson_23_non_defining_relative_clauses"
    ]
   },
@@ -57923,12 +58160,13 @@ window.WORDBANK={
   },
   "cover": {
    "w": "cover",
-   "pos": "",
+   "pos": "v",
    "def": "to cover up · to cover for someone · the cover-up. The proverb in the third slot is Washington's oldest, and this case tested it at industrial scale: the device ran for years after questions were first asked.",
-   "ex": "",
+   "ex": "Cover your shoulders and knees.",
    "lessons": [
     "bc_vw_dieselgate_c1",
     "topic_human_nature_b2",
+    "world_sa_temples_a2",
     "ielts_speaking_part1_lesson2_topics"
    ]
   },
@@ -58751,10 +58989,11 @@ window.WORDBANK={
    "w": "genuine",
    "pos": "adj",
    "def": "authentic (adj) means real, true, and not a copy or imitation.",
-   "ex": "Their warmth is usually genuine.",
+   "ex": "Her smile was genuine, not just polite.",
    "lessons": [
     "behind_the_screen_blade_runner",
     "world_na_friendly",
+    "world_sa_smiles",
     "rs_y7_aut1_01_06",
     "skills_b1b2_trade_fair_networking",
     "su_a2_83_talk_about_travel",
@@ -59583,6 +59822,7 @@ window.WORDBANK={
     "end_beat_c1",
     "say_bridge_c1",
     "short_history_db_cooper",
+    "world_sa_smiles",
     "gr_c1_the_press_conference",
     "Business-Bootcamp-Lesson6-The-Boardroom",
     "bestiary_discourse_frame",
@@ -61978,6 +62218,7 @@ window.WORDBANK={
    "lessons": [
     "bq_06_free_will_c1",
     "discuss_c1_future_fixed",
+    "world_sa_marriage",
     "rs_y11_spr1_27_04",
     "rs_y9_aut2_14_02",
     "epicurean_25_gassendi_life"
@@ -63381,6 +63622,7 @@ window.WORDBANK={
    "lessons": [
     "end_point_c1",
     "persepolis_words",
+    "world_sa_gestures",
     "rs_y10_spr1_21_05",
     "lesson_48_art_gallery",
     "sp_prep_b1_29"
@@ -63614,10 +63856,11 @@ window.WORDBANK={
    "w": "commute",
    "pos": "v",
    "def": "the sentence was commuted to six months' imprisonment. Noun commutation. Distinguish a pardon (which cancels the conviction or its effect) and a reprieve (which postpones). The distinction matters here: commutation left the conviction — and therefore the rule — untouched.",
-   "ex": "",
+   "ex": "Millions of people commute by train every day.",
    "lessons": [
     "lw_dudley_stephens_c1",
     "topic_strangers_b2",
+    "world_sa_cities",
     "b1_13_the_green_workplace",
     "talk_cars_in_cities_b2c1",
     "talk_working_from_home_b2c1",
@@ -64019,11 +64262,12 @@ window.WORDBANK={
   },
   "balance": {
    "w": "balance",
-   "pos": "",
+   "pos": "v",
    "def": "tip the balance means to decide the outcome; strike a balance means to find a fair compromise.",
-   "ex": "",
+   "ex": "Thai chefs balance sweet, sour, salty and hot flavours.",
    "lessons": [
-    "nq_02_which_c1"
+    "nq_02_which_c1",
+    "world_sa_food"
    ]
   },
   "triage": {
@@ -64290,6 +64534,7 @@ window.WORDBANK={
     "odyssey_william_mary",
     "psyp_08_should_this_study_run_a2b1",
     "techniques_eveline",
+    "world_sa_marriage",
     "rs_y11_spr1_27_02",
     "gr_warmup_b2_hot_takes_privacy",
     "rs_y8_spr1_09_03",
@@ -67507,6 +67752,7 @@ window.WORDBANK={
     "odyssey_george_vi",
     "odyssey_jane_grey",
     "tib_johari_b2",
+    "world_sa_smiles",
     "gr_c1_the_negotiator",
     "ml_15_the_big_favour",
     "paper_1_practice"
@@ -68637,6 +68883,8 @@ window.WORDBANK={
     "short_history_the_crusades",
     "short_history_the_olympic_games",
     "short_history_the_pyramids",
+    "world_sa_gestures",
+    "world_sa_temples",
     "rs_y10_spr1_21_04",
     "rs_y7_aut1_01_04",
     "su_a2_82_religious_art_and_history",
@@ -68971,10 +69219,11 @@ window.WORDBANK={
    "w": "dowry",
    "pos": "n",
    "def": "property a bride's family gives at marriage.",
-   "ex": "She had no dowry, no expectations, and so married a humble clerk.",
+   "ex": "Giving a dowry is illegal in India, though the custom has not completely disappeared.",
    "lessons": [
     "odyssey_james_iii_scot",
-    "techniques_the_necklace"
+    "techniques_the_necklace",
+    "world_sa_marriage"
    ]
   },
   "hang": {
@@ -70016,9 +70265,10 @@ window.WORDBANK={
    "w": "acknowledge",
    "pos": "v",
    "def": "to accept or recognise officially.",
-   "ex": "",
+   "ex": "The tilt of the head can acknowledge what someone says without agreeing to it.",
    "lessons": [
     "odyssey_sweyn",
+    "world_sa_gestures",
     "acad_b1_25_understanding_feedback",
     "gr_c1_devils_advocate",
     "bc_navigating_misunderstandings_c1",
@@ -70052,10 +70302,11 @@ window.WORDBANK={
    "w": "industry",
    "pos": "n",
    "def": "making goods in factories.",
-   "ex": "Industry grew quickly.",
+   "ex": "The film industry employs hundreds of thousands of people.",
    "lessons": [
     "odyssey_victoria",
     "short_history_queen_victoria",
+    "world_sa_bollywood",
     "b2_49_networking_events",
     "discuss_c1_advice_industry"
    ]
@@ -70250,6 +70501,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_william_ii",
     "piranesi_bc_meaning",
+    "world_sa_gestures",
     "gr_b2_the_courtroom",
     "bc_navigating_misunderstandings_c1",
     "c2_pro_21_contract_negotiation",
@@ -71476,12 +71728,13 @@ window.WORDBANK={
    "w": "majority",
    "pos": "n",
    "def": "more than half of the votes or seats",
-   "ex": "The party needs a majority to pass its laws easily.",
+   "ex": "Buddhists are the majority in Thailand, but other religions are practised too.",
    "lessons": [
     "pol_02_pm_president",
     "pol_03_parties",
     "pol_03_parties_a2",
     "psyp_12_whose_psychology_a2b1",
+    "world_sa_background",
     "ielts_task1_phrase_cheatsheet"
    ]
   },
@@ -72314,6 +72567,7 @@ window.WORDBANK={
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
     "world_ea_group_a2",
+    "world_sa_marriage_a2",
     "rp_22_talking_about_sport_a2b1",
     "behind_the_screen_the_social_network_a2b1",
     "sf_a1_11_the_meeting",
@@ -73628,10 +73882,11 @@ window.WORDBANK={
    "w": "diversity",
    "pos": "n",
    "def": "a wide variety of different things or people.",
-   "ex": "Little diversity in the samples limits the conclusions.",
+   "ex": "The diversity of the region makes any single label misleading.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
     "world_eu_background",
+    "world_sa_background",
     "lesson_39_culture_identity"
    ]
   },
@@ -74517,9 +74772,10 @@ window.WORDBANK={
    "w": "monsoon",
    "pos": "n",
    "def": "a seasonal wind in South and Southeast Asia that brings a period of very heavy rain.",
-   "ex": "",
+   "ex": "The monsoon brings the rain that farmers depend on.",
    "lessons": [
     "short_history_angkor",
+    "world_sa_background",
     "bc_worst_holiday_c1"
    ]
   },
@@ -76606,9 +76862,10 @@ window.WORDBANK={
    "w": "shrine",
    "pos": "n",
    "def": "a holy place dedicated to a god, a saint or the sacred dead.",
-   "ex": "",
+   "ex": "Small shrines stand outside many homes and shops.",
    "lessons": [
     "short_history_machu_picchu",
+    "world_sa_temples",
     "rs_y7_spr2_04_04"
    ]
   },
@@ -76681,11 +76938,12 @@ window.WORDBANK={
    "w": "pilgrim",
    "pos": "n",
    "def": "a person who travels a long way to a holy place for religious reasons.",
-   "ex": "",
+   "ex": "Thousands of pilgrims arrive during the festival.",
    "lessons": [
     "short_history_mansa_musa",
     "short_history_the_crusades",
     "short_history_the_knights_templar",
+    "world_sa_temples",
     "rs_y10_spr2_22_01",
     "rs_y11_aut2_26_01",
     "short_history_the_knights_templar_a2b1"
@@ -77586,6 +77844,7 @@ window.WORDBANK={
    "ex": "Precious incense such as frankincense and myrrh was burned in temples across the ancient world, and the trade in it made whole cities rich.",
    "lessons": [
     "short_history_petra",
+    "world_sa_temples",
     "rs_y7_spr2_04_03"
    ]
   },
@@ -79797,9 +80056,10 @@ window.WORDBANK={
    "w": "urbanisation",
    "pos": "n",
    "def": "the process by which more of a population comes to live in towns rather than the countryside. Adjective: urban.",
-   "ex": "",
+   "ex": "Rapid urbanisation brings jobs and also new problems.",
    "lessons": [
     "short_history_the_industrial_revolution",
+    "world_sa_cities",
     "bc_population_change_c1",
     "gr_warmup_b2_hot_takes_cities"
    ]
@@ -82971,7 +83231,8 @@ window.WORDBANK={
    "ex": "Montresor was angry with Fortunato.\" / \"She was angry at the news.",
    "lessons": [
     "techniques_a_vendetta_a2b1",
-    "techniques_the_cask_of_amontillado_a2b1"
+    "techniques_the_cask_of_amontillado_a2b1",
+    "world_sa_smiles_a2"
    ]
   },
   "weak": {
@@ -84717,10 +84978,11 @@ window.WORDBANK={
    "w": "sorry",
    "pos": "adj",
    "def": "(1) sorry (that) / sorry for doing: you feel bad about something you did; (2) feel sorry for somebody: you feel sad for them because they have problems.",
-   "ex": "I am sorry that I am late.",
+   "ex": "A smile can mean “I'm sorry",
    "lessons": [
     "techniques_jekyll_and_hyde_4_a2b1",
-    "world_na_canadians_a2"
+    "world_na_canadians_a2",
+    "world_sa_smiles_a2"
    ]
   },
   "unfurl": {
@@ -86482,6 +86744,7 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_egg_a2b1",
     "world_eu_nordic_a2",
+    "world_sa_temples_a2",
     "sf_a1_03_my_home"
    ]
   },
@@ -87533,7 +87796,8 @@ window.WORDBANK={
    "def": "the uncomfortable, self-conscious feeling of having done something foolish.",
    "ex": "When he learned who the \"beggar\" really was, Hughie went scarlet with embarrassment, wishing the floor would swallow him.",
    "lessons": [
-    "techniques_the_model_millionaire"
+    "techniques_the_model_millionaire",
+    "world_sa_smiles"
    ]
   },
   "talisman": {
@@ -88072,9 +88336,10 @@ window.WORDBANK={
    "w": "audience",
    "pos": "n",
    "def": "\"The audience clapped.\" (One word for many people.)",
-   "ex": "",
+   "ex": "Films are made for a different audience in each region.",
    "lessons": [
     "techniques_the_remarkable_rocket_a2b1",
+    "world_sa_bollywood",
     "gr_b2_the_register",
     "acad_b1_07_basic_presentations",
     "su_a2_52_handling_questions",
@@ -88757,9 +89022,10 @@ window.WORDBANK={
    "w": "pray",
    "pos": "v",
    "def": "to speak to God, often to ask for help.",
-   "ex": "",
+   "ex": "People pray every day.",
    "lessons": [
-    "techniques_the_two_labyrinths_a2b1"
+    "techniques_the_two_labyrinths_a2b1",
+    "world_sa_temples_a2"
    ]
   },
   "camel": {
@@ -90569,6 +90835,7 @@ window.WORDBANK={
    "lessons": [
     "tib_maslow_a2b1",
     "world_ea_politeness_a2",
+    "world_sa_gestures_a2",
     "behind_the_screen_the_last_samurai_a2b1",
     "short_history_the_crusades_a2b1",
     "talk_traditions_a2b1",
@@ -90830,11 +91097,12 @@ window.WORDBANK={
   },
   "problem": {
    "w": "problem",
-   "pos": "",
+   "pos": "n",
    "def": "something that is wrong or not working.",
-   "ex": "",
+   "ex": "A smile can hide a problem.",
    "lessons": [
     "tib_pareto_a2b1",
+    "world_sa_smiles_a2",
     "rp_07_at_the_bank_a2b1"
    ]
   },
@@ -90975,11 +91243,12 @@ window.WORDBANK={
   },
   "informal": {
    "w": "informal",
-   "pos": "",
+   "pos": "adj",
    "def": "relaxed and unofficial. (opposite formal; adv. informally)",
    "ex": "She heard about the job through informal chats at a conference, not from an advert.",
    "lessons": [
     "tib_pestle_b2",
+    "world_sa_cities",
     "su_a2_50_getting_in_touch",
     "c2_pro_18_mentoring_language",
     "b2_40_informal_email_writing",
@@ -92763,11 +93032,12 @@ window.WORDBANK={
   },
   "impose": {
    "w": "impose",
-   "pos": "",
+   "pos": "v",
    "def": "to make something compulsory by authority. To impose a rule / a requirement / discipline. Semmelweis could impose handwashing only inside his own clinic — and that boundary is the whole tragedy.",
-   "ex": "",
+   "ex": "She did not want to impose on her neighbour.",
    "lessons": [
     "ts_semmelweis_b2",
+    "world_sa_smiles",
     "greenland_tariffs_c1",
     "wp_39_the_starry_heavens"
    ]
@@ -92931,9 +93201,10 @@ window.WORDBANK={
    "w": "archipelago",
    "pos": "n",
    "def": "a group of many islands",
-   "ex": "Japan is an archipelago of about 14,000 islands.",
+   "ex": "Indonesia is an archipelago of more than seventeen thousand islands.",
    "lessons": [
-    "world_ea_background"
+    "world_ea_background",
+    "world_sa_background"
    ]
   },
   "dialect": {
@@ -92968,9 +93239,10 @@ window.WORDBANK={
    "w": "island",
    "pos": "n",
    "def": "land with water all around it",
-   "ex": "Japan has thousands of islands.",
+   "ex": "Indonesia has thousands of islands.",
    "lessons": [
     "world_ea_background_a2",
+    "world_sa_background_a2",
     "behind_the_screen_jurassic_park_a2b1",
     "short_history_the_bermuda_triangle_a2b1"
    ]
@@ -92983,7 +93255,9 @@ window.WORDBANK={
    "lessons": [
     "world_ea_background_a2",
     "world_eu_background_a2",
-    "world_na_english_a2"
+    "world_na_english_a2",
+    "world_sa_background_a2",
+    "world_sa_bollywood_a2"
    ]
   },
   "writing": {
@@ -93159,6 +93433,7 @@ window.WORDBANK={
    "lessons": [
     "world_ea_food_a2",
     "world_la_food_a2",
+    "world_sa_food_a2",
     "gr_warmup_a2_hot_takes_food",
     "a1p_08_food_drinks",
     "grammar_a1_04_conditionals_questions"
@@ -93180,6 +93455,7 @@ window.WORDBANK={
    "ex": "A small gesture can matter more than the price of a gift.",
    "lessons": [
     "world_ea_gifts",
+    "world_sa_gestures_a2",
     "Jane_Performance_STUDENT",
     "su_a2_46_body_language",
     "talk_gift_giving_b2c1",
@@ -93335,6 +93611,7 @@ window.WORDBANK={
    "ex": "People greet each other at the door.",
    "lessons": [
     "world_ea_politeness_a2",
+    "world_sa_gestures_a2",
     "lesson-11-names-faces"
    ]
   },
@@ -93427,7 +93704,8 @@ window.WORDBANK={
    "def": "words and music",
    "ex": "This song is very famous.",
    "lessons": [
-    "world_ea_popculture_a2"
+    "world_ea_popculture_a2",
+    "world_sa_bollywood_a2"
    ]
   },
   "cutting-edge": {
@@ -93550,10 +93828,11 @@ window.WORDBANK={
    "w": "custom",
    "pos": "n",
    "def": "a traditional way of doing things.",
-   "ex": "It is a custom to drink coffee standing up.",
+   "ex": "Taking off your shoes is a custom in many homes and temples.",
    "lessons": [
     "world_eu_coffee",
     "world_eu_coffee_a2",
+    "world_sa_gestures",
     "su_a2_39_my_celebrations",
     "b1_46_family_traditions",
     "b2_52_cross_cultural_business",
@@ -94495,6 +94774,7 @@ window.WORDBANK={
    "lessons": [
     "world_la_time",
     "world_la_time_a2",
+    "world_sa_cities_a2",
     "sf_a1_04_a_working_day",
     "talk_city_or_countryside_a2b1",
     "qf_collocation_heavy_strong_rain"
@@ -94679,9 +94959,10 @@ window.WORDBANK={
    "w": "crowded",
    "pos": "adj",
    "def": "with a lot of people",
-   "ex": "The shop was crowded.",
+   "ex": "The train is very crowded.",
    "lessons": [
     "world_na_canadians_a2",
+    "world_sa_cities_a2",
     "b1_06_a_memorable_holiday",
     "talk_tourism_a2b1",
     "grammar_b1_13_adjectives_adverbs_intermediate"
@@ -94853,7 +95134,8 @@ window.WORDBANK={
    "def": "a happy look on your face",
    "ex": "She gave me a big smile.",
    "lessons": [
-    "world_na_friendly_a2"
+    "world_na_friendly_a2",
+    "world_sa_smiles_a2"
    ]
   },
   "fake": {
@@ -95076,6 +95358,473 @@ window.WORDBANK={
     "world_na_work_a2",
     "rp_19_planning_a_holiday_a2b1",
     "a1_going_to_future_plans_interactive"
+   ]
+  },
+  "subcontinent": {
+   "w": "subcontinent",
+   "pos": "n",
+   "def": "a large part of a continent that has its own character and geography",
+   "ex": "India, Pakistan and Bangladesh lie on the Indian subcontinent.",
+   "lessons": [
+    "world_sa_background"
+   ]
+  },
+  "multilingual": {
+   "w": "multilingual",
+   "pos": "adj",
+   "def": "using or speaking several languages",
+   "ex": "India is a multilingual country with many official languages.",
+   "lessons": [
+    "world_sa_background"
+   ]
+  },
+  "trade route": {
+   "w": "trade route",
+   "pos": "n",
+   "def": "a path or sea lane along which goods travel between places",
+   "ex": "Ancient trade routes carried spices to Europe.",
+   "lessons": [
+    "world_sa_background"
+   ]
+  },
+  "spice": {
+   "w": "spice",
+   "pos": "n",
+   "def": "a strong-tasting plant that gives flavour to food",
+   "ex": "Cardamom is a spice used in both sweet and savoury dishes.",
+   "lessons": [
+    "world_sa_background_a2",
+    "world_sa_food",
+    "rp_17_haggling_at_a_market_a2b1"
+   ]
+  },
+  "temple": {
+   "w": "temple",
+   "pos": "n",
+   "def": "a building for prayer",
+   "ex": "There is a beautiful temple in Bangkok.",
+   "lessons": [
+    "world_sa_background_a2",
+    "world_sa_temples_a2",
+    "rs_y7_aut1_01_03",
+    "su_a2_08_holidays",
+    "short_history_angkor_a2b1",
+    "short_history_the_seven_wonders_a2b1"
+   ]
+  },
+  "choreography": {
+   "w": "choreography",
+   "pos": "n",
+   "def": "the planned movements of a dance",
+   "ex": "The choreography of a film song can take weeks to prepare.",
+   "lessons": [
+    "world_sa_bollywood",
+    "grammar_a2_26_kpop"
+   ]
+  },
+  "masala": {
+   "w": "masala",
+   "pos": "n",
+   "def": "a mixture of spices; a film style that mixes several genres",
+   "ex": "A masala film mixes romance, comedy, action and drama.",
+   "lessons": [
+    "world_sa_bollywood"
+   ]
+  },
+  "lip-sync": {
+   "w": "lip-sync",
+   "pos": "v",
+   "def": "to move the lips in time with recorded words",
+   "ex": "Actors often lip-sync to a recorded singer's voice.",
+   "lessons": [
+    "world_sa_bollywood"
+   ]
+  },
+  "dub": {
+   "w": "dub",
+   "pos": "v",
+   "def": "to replace the original speech in a film with another language",
+   "ex": "Studios dub films so audiences in other regions can enjoy them.",
+   "lessons": [
+    "world_sa_bollywood"
+   ]
+  },
+  "interval": {
+   "w": "interval",
+   "pos": "n",
+   "def": "a break in the middle of a film or play",
+   "ex": "Many cinemas in India have an interval after the first half.",
+   "lessons": [
+    "world_sa_bollywood"
+   ]
+  },
+  "star": {
+   "w": "star",
+   "pos": "n",
+   "def": "a very famous actor or singer",
+   "ex": "He is a famous star.",
+   "lessons": [
+    "world_sa_bollywood_a2"
+   ]
+  },
+  "director": {
+   "w": "director",
+   "pos": "n",
+   "def": "the person who leads a film",
+   "ex": "The director won a prize.",
+   "lessons": [
+    "world_sa_bollywood_a2",
+    "behind_the_screen_the_tree_of_life_a2b1"
+   ]
+  },
+  "congestion": {
+   "w": "congestion",
+   "pos": "n",
+   "def": "a situation in which a place is too full of traffic or people",
+   "ex": "Traffic congestion can make a short trip take hours.",
+   "lessons": [
+    "world_sa_cities",
+    "gr_warmup_b2_hot_takes_cities",
+    "talk_cars_in_cities_b2c1",
+    "cae_essay_practice_2",
+    "bc_ielts_problem_solution_b2c1"
+   ]
+  },
+  "vendor": {
+   "w": "vendor",
+   "pos": "n",
+   "def": "a person who sells things, especially on the street",
+   "ex": "A vendor sells fruit from a cart.",
+   "lessons": [
+    "world_sa_cities",
+    "world_sa_cities_a2",
+    "bc_supplier_analysis_c1",
+    "production_sme_interview_guide"
+   ]
+  },
+  "overcrowded": {
+   "w": "overcrowded",
+   "pos": "adj",
+   "def": "containing too many people or things",
+   "ex": "The train was overcrowded at rush hour.",
+   "lessons": [
+    "world_sa_cities",
+    "talk_city_or_countryside_b2c1",
+    "essay_practice_problem_solution_3"
+   ]
+  },
+  "pollution": {
+   "w": "pollution",
+   "pos": "n",
+   "def": "dirty or harmful substances in the air, water or land",
+   "ex": "Air pollution is a serious problem in several big cities.",
+   "lessons": [
+    "world_sa_cities",
+    "su_a2_77_budget",
+    "b1_32_environmental_reading",
+    "cae_essay_practice_2",
+    "IELTS-Reading-Practice-Test-2",
+    "talk_cars_in_cities_a2b1",
+    "talk_climate_action_a2b1"
+   ]
+  },
+  "air": {
+   "w": "air",
+   "pos": "n",
+   "def": "what we breathe",
+   "ex": "The air is not clean in some cities.",
+   "lessons": [
+    "world_sa_cities_a2"
+   ]
+  },
+  "lunch box": {
+   "w": "lunch box",
+   "pos": "n",
+   "def": "a box with a meal inside",
+   "ex": "A lunch box arrives at the office at noon.",
+   "lessons": [
+    "world_sa_cities_a2"
+   ]
+  },
+  "umbrella term": {
+   "w": "umbrella term",
+   "pos": "n",
+   "def": "a word that covers many different things.  is an umbrella term for hundreds of different dishes.”",
+   "ex": "“Curry",
+   "lessons": [
+    "world_sa_food"
+   ]
+  },
+  "vegetarian": {
+   "w": "vegetarian",
+   "pos": "adj",
+   "def": "containing no meat or fish",
+   "ex": "Many Indian meals are vegetarian for religious and personal reasons.",
+   "lessons": [
+    "world_sa_food",
+    "world_sa_food_a2",
+    "bc_debate_defend_view_c1",
+    "talk_eating_less_meat_a2b1",
+    "grammar_b2_18_quantifiers_linking_conventions"
+   ]
+  },
+  "herb": {
+   "w": "herb",
+   "pos": "n",
+   "def": "a leafy plant used to add flavour to food",
+   "ex": "Thai cooks add fresh basil and mint, which are herbs, at the end.",
+   "lessons": [
+    "world_sa_food",
+    "world_sa_food_a2"
+   ]
+  },
+  "street food": {
+   "w": "street food",
+   "pos": "n",
+   "def": "food that is cooked and sold on the street",
+   "ex": "Street food is often the freshest and cheapest meal in the city.",
+   "lessons": [
+    "world_sa_food",
+    "world_sa_food_a2"
+   ]
+  },
+  "coconut": {
+   "w": "coconut",
+   "pos": "n",
+   "def": "a large nut with white flesh and sweet liquid inside",
+   "ex": "Southern Indian and Thai dishes often use coconut milk.",
+   "lessons": [
+    "world_sa_food",
+    "world_sa_food_a2"
+   ]
+  },
+  "curry": {
+   "w": "curry",
+   "pos": "n",
+   "def": "a dish with a sauce and spices",
+   "ex": "I ate a vegetable curry.",
+   "lessons": [
+    "world_sa_food_a2"
+   ]
+  },
+  "wobble": {
+   "w": "wobble",
+   "pos": "v",
+   "def": "to move from side to side in an unsteady or loose way. .”",
+   "ex": "A gentle head wobble can mean “yes, I understand",
+   "lessons": [
+    "world_sa_gestures",
+    "lf_04_telling_mum",
+    "grammar_b2_10_advanced_relative_clauses"
+   ]
+  },
+  "offensive": {
+   "w": "offensive",
+   "pos": "adj",
+   "def": "rude or insulting to people",
+   "ex": "Pointing your foot at a person is considered offensive.",
+   "lessons": [
+    "world_sa_gestures",
+    "cancel_culture_interactive",
+    "b2_36_awkward_situations",
+    "lesson_48_art_literature_creativity"
+   ]
+  },
+  "palm": {
+   "w": "palm",
+   "pos": "n",
+   "def": "the inside surface of the hand",
+   "ex": "In a wai, people put their palms together in front of the chest.",
+   "lessons": [
+    "world_sa_gestures",
+    "world_sa_gestures_a2",
+    "memory_arts_p1_09"
+   ]
+  },
+  "head": {
+   "w": "head",
+   "pos": "n",
+   "def": "the top part of your body",
+   "ex": "Do not touch a child's head in Thailand.",
+   "lessons": [
+    "world_sa_gestures_a2"
+   ]
+  },
+  "foot": {
+   "w": "foot",
+   "pos": "n",
+   "def": "the part at the bottom of your leg",
+   "ex": "Do not point your foot at a person.",
+   "lessons": [
+    "world_sa_gestures_a2"
+   ]
+  },
+  "matchmaker": {
+   "w": "matchmaker",
+   "pos": "n",
+   "def": "a person who introduces people who might marry",
+   "ex": "A matchmaker suggested several families to meet.",
+   "lessons": [
+    "world_sa_marriage"
+   ]
+  },
+  "expectation": {
+   "w": "expectation",
+   "pos": "n",
+   "def": "a belief that something should happen",
+   "ex": "Young people sometimes feel the weight of family expectations.",
+   "lessons": [
+    "world_sa_marriage",
+    "su_a2_79_mistakes_and_misadventures",
+    "Jane_Birdcage_STUDENT",
+    "bp_c2_06_the_consultants_edge",
+    "komorebi_02_the_placebo_effect",
+    "scenario-lessons",
+    "sp_c1_62_expert_hedging"
+   ]
+  },
+  "in-laws": {
+   "w": "in-laws",
+   "pos": "n",
+   "def": "the family of your husband or wife",
+   "ex": "A marriage also joins two sets of in-laws.",
+   "lessons": [
+    "world_sa_marriage"
+   ]
+  },
+  "forced": {
+   "w": "forced",
+   "pos": "adj",
+   "def": "done against a person's will",
+   "ex": "A forced marriage is a crime in many countries.",
+   "lessons": [
+    "world_sa_marriage"
+   ]
+  },
+  "approve": {
+   "w": "approve",
+   "pos": "v",
+   "def": "to say that something is good enough or acceptable",
+   "ex": "Parents often have to approve a partner before the wedding.",
+   "lessons": [
+    "world_sa_marriage",
+    "b2_54_persuasion_at_work"
+   ]
+  },
+  "marriage": {
+   "w": "marriage",
+   "pos": "n",
+   "def": "the legal union of two people",
+   "ex": "Their marriage was a big family event.",
+   "lessons": [
+    "world_sa_marriage_a2",
+    "short_history_the_tudors_a2b1"
+   ]
+  },
+  "introduce": {
+   "w": "introduce",
+   "pos": "v",
+   "def": "to help two people meet",
+   "ex": "A cousin can introduce two people.",
+   "lessons": [
+    "world_sa_marriage_a2",
+    "skills_a2_trade_fair_first_contact",
+    "a1p_01_introductions",
+    "grammar_a2_10_sentence_structure_word_formation"
+   ]
+  },
+  "crime": {
+   "w": "crime",
+   "pos": "n",
+   "def": "something the law says is wrong",
+   "ex": "A forced marriage is a crime.",
+   "lessons": [
+    "world_sa_marriage_a2",
+    "behind_the_screen_the_imitation_game_a2b1",
+    "short_history_agatha_christie_a2b1",
+    "short_history_the_knights_templar_a2b1",
+    "short_history_the_tudors_a2b1",
+    "lesson_27_past_perfect_continuous",
+    "talk_death_penalty_a2b1"
+   ]
+  },
+  "conflict": {
+   "w": "conflict",
+   "pos": "n",
+   "def": "an angry disagreement between people",
+   "ex": "Calm manners help people avoid conflict.",
+   "lessons": [
+    "world_sa_smiles",
+    "rs_y9_aut2_14_01",
+    "c2_pro_17_organisational_politics",
+    "b2_12_workplace_ethics",
+    "discuss_b2_iran_us_europe_reacts",
+    "qf_pronunciation_noun_verb_stress",
+    "sp_prep_b1_31"
+   ]
+  },
+  "tourism": {
+   "w": "tourism",
+   "pos": "n",
+   "def": "the business of providing services for visitors",
+   "ex": "Tourism uses the nickname to attract visitors.",
+   "lessons": [
+    "world_sa_smiles"
+   ]
+  },
+  "calm": {
+   "w": "calm",
+   "pos": "adj",
+   "def": "quiet and not worried",
+   "ex": "A calm manner is greatly admired.",
+   "lessons": [
+    "world_sa_smiles",
+    "world_sa_smiles_a2",
+    "rp_25_at_the_vet_a2b1",
+    "talk_quiet_and_noise_a2b1"
+   ]
+  },
+  "monk": {
+   "w": "monk",
+   "pos": "n",
+   "def": "a man who lives in a religious community",
+   "ex": "A monk in orange robes walked through the market.",
+   "lessons": [
+    "world_sa_temples",
+    "world_sa_temples_a2",
+    "epicurean_21_hidden_currents",
+    "short_history_the_knights_templar_a2b1",
+    "lesson-27-books-articles"
+   ]
+  },
+  "sarong": {
+   "w": "sarong",
+   "pos": "n",
+   "def": "a long piece of cloth worn around the body",
+   "ex": "Visitors to some temples borrow a sarong to cover their legs.",
+   "lessons": [
+    "world_sa_temples"
+   ]
+  },
+  "respectful": {
+   "w": "respectful",
+   "pos": "adj",
+   "def": "showing consideration and good manners",
+   "ex": "Quiet voices and modest clothes are respectful.",
+   "lessons": [
+    "world_sa_temples",
+    "rs_y10_spr2_22_04",
+    "ct_b1_27_acknowledging_views",
+    "a1p_35_review_social_skills"
+   ]
+  },
+  "shoes": {
+   "w": "shoes",
+   "pos": "n",
+   "def": "things you wear on your feet",
+   "ex": "Take off your shoes at the door.",
+   "lessons": [
+    "world_sa_temples_a2"
    ]
   },
   "constructive criticism": {
@@ -98342,17 +99091,6 @@ window.WORDBANK={
     "pron_c1_03_consonant_signatures"
    ]
   },
-  "respectful": {
-   "w": "respectful",
-   "pos": "adj",
-   "def": "showing care for the feelings and beliefs of others",
-   "ex": "Evangelism should always be gentle and respectful.",
-   "lessons": [
-    "rs_y10_spr2_22_04",
-    "ct_b1_27_acknowledging_views",
-    "a1p_35_review_social_skills"
-   ]
-  },
   "multi-faith": {
    "w": "multi-faith",
    "pos": "adj",
@@ -99875,18 +100613,6 @@ window.WORDBANK={
     "bc_multicultural_teams_c1",
     "c2_pro_13_cross_cultural_leadership",
     "bc_culture_shock_b2c1"
-   ]
-  },
-  "temple": {
-   "w": "temple",
-   "pos": "n",
-   "def": "a building used for worship in some religions",
-   "ex": "We visited a Hindu temple last week.",
-   "lessons": [
-    "rs_y7_aut1_01_03",
-    "su_a2_08_holidays",
-    "short_history_angkor_a2b1",
-    "short_history_the_seven_wonders_a2b1"
    ]
   },
   "synagogue": {
@@ -102545,16 +103271,6 @@ window.WORDBANK={
     "bc_supplier_analysis_c1"
    ]
   },
-  "vendor": {
-   "w": "vendor",
-   "pos": "n",
-   "def": "a company or person that sells something",
-   "ex": "The vendor agreed to deliver the printers by Monday.",
-   "lessons": [
-    "bc_supplier_analysis_c1",
-    "production_sme_interview_guide"
-   ]
-  },
   "escalation": {
    "w": "escalation",
    "pos": "n",
@@ -103996,18 +104712,6 @@ window.WORDBANK={
    "ex": "Gentrification has pushed many families out of the old district.",
    "lessons": [
     "gr_warmup_b2_hot_takes_cities"
-   ]
-  },
-  "congestion": {
-   "w": "congestion",
-   "pos": "n",
-   "def": "too much traffic or too many people in one place",
-   "ex": "Congestion in the city centre is worst at rush hour.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_cities",
-    "talk_cars_in_cities_b2c1",
-    "cae_essay_practice_2",
-    "bc_ielts_problem_solution_b2c1"
    ]
   },
   "pedestrianised": {
@@ -106015,15 +106719,6 @@ window.WORDBANK={
     "talk_gift_giving_a2b1"
    ]
   },
-  "spice": {
-   "w": "spice",
-   "pos": "n",
-   "def": "a dried plant used to give food more taste",
-   "ex": "The market smells of spices and fresh fruit.",
-   "lessons": [
-    "rp_17_haggling_at_a_market_a2b1"
-   ]
-  },
   "silk": {
    "w": "silk",
    "pos": "n",
@@ -106589,16 +107284,6 @@ window.WORDBANK={
    "ex": "I feed my dog twice a day.",
    "lessons": [
     "rp_25_at_the_vet_a2b1"
-   ]
-  },
-  "calm": {
-   "w": "calm",
-   "pos": "adj",
-   "def": "quiet and not worried or excited",
-   "ex": "Try to stay calm while the vet checks him.",
-   "lessons": [
-    "rp_25_at_the_vet_a2b1",
-    "talk_quiet_and_noise_a2b1"
    ]
   },
   "thrilled": {
@@ -109878,20 +110563,6 @@ window.WORDBANK={
     "sp_a2_17_simple_narratives"
    ]
   },
-  "pollution": {
-   "w": "pollution",
-   "pos": "n",
-   "def": "damage to air, water or land from harmful substances",
-   "ex": "Traffic pollution is a big problem in the city.",
-   "lessons": [
-    "su_a2_77_budget",
-    "b1_32_environmental_reading",
-    "cae_essay_practice_2",
-    "IELTS-Reading-Practice-Test-2",
-    "talk_cars_in_cities_a2b1",
-    "talk_climate_action_a2b1"
-   ]
-  },
   "healthcare": {
    "w": "healthcare",
    "pos": "n",
@@ -109974,20 +110645,6 @@ window.WORDBANK={
     "wk_23_the_truce",
     "curious_conversations_10_polite_lies",
     "ml_04_back_in_touch"
-   ]
-  },
-  "expectation": {
-   "w": "expectation",
-   "pos": "n",
-   "def": "a belief that something will happen",
-   "ex": "I had high expectations for the new job.",
-   "lessons": [
-    "su_a2_79_mistakes_and_misadventures",
-    "Jane_Birdcage_STUDENT",
-    "bp_c2_06_the_consultants_edge",
-    "komorebi_02_the_placebo_effect",
-    "scenario-lessons",
-    "sp_c1_62_expert_hedging"
    ]
   },
   "luckily": {
@@ -116084,20 +116741,6 @@ window.WORDBANK={
     "talk_competition_a2b1"
    ]
   },
-  "crime": {
-   "w": "crime",
-   "pos": "n",
-   "def": "an action that is against the law",
-   "ex": "Stealing a bike is a crime.",
-   "lessons": [
-    "behind_the_screen_the_imitation_game_a2b1",
-    "short_history_agatha_christie_a2b1",
-    "short_history_the_knights_templar_a2b1",
-    "short_history_the_tudors_a2b1",
-    "lesson_27_past_perfect_continuous",
-    "talk_death_penalty_a2b1"
-   ]
-  },
   "brilliant": {
    "w": "brilliant",
    "pos": "adj",
@@ -116223,15 +116866,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "tricks used in films to show things that are not real",
    "ex": "The special effects in the new space film are amazing.",
-   "lessons": [
-    "behind_the_screen_the_tree_of_life_a2b1"
-   ]
-  },
-  "director": {
-   "w": "director",
-   "pos": "n",
-   "def": "the person who tells actors and crew what to do in a film",
-   "ex": "The director asked the actors to try the scene again.",
    "lessons": [
     "behind_the_screen_the_tree_of_life_a2b1"
    ]
@@ -117816,15 +118450,6 @@ window.WORDBANK={
    "lessons": [
     "grammar_a2_26_kpop",
     "the_media_pattern_recognition_c1"
-   ]
-  },
-  "choreography": {
-   "w": "choreography",
-   "pos": "n",
-   "def": "the planned dance moves for a song or show",
-   "ex": "The choreography in this video is amazing.",
-   "lessons": [
-    "grammar_a2_26_kpop"
    ]
   },
   "debut": {
@@ -119794,20 +120419,6 @@ window.WORDBANK={
     "rs_y9_aut1_13_05"
    ]
   },
-  "conflict": {
-   "w": "conflict",
-   "pos": "n",
-   "def": "a serious disagreement between people or ideas",
-   "ex": "Some people see a conflict between science and faith.",
-   "lessons": [
-    "rs_y9_aut2_14_01",
-    "c2_pro_17_organisational_politics",
-    "b2_12_workplace_ethics",
-    "discuss_b2_iran_us_europe_reacts",
-    "qf_pronunciation_noun_verb_stress",
-    "sp_prep_b1_31"
-   ]
-  },
   "heliocentric": {
    "w": "heliocentric",
    "pos": "adj",
@@ -120739,16 +121350,6 @@ window.WORDBANK={
    "ex": "The cost of living in the capital keeps rising.",
    "lessons": [
     "talk_city_or_countryside_b2c1"
-   ]
-  },
-  "overcrowded": {
-   "w": "overcrowded",
-   "pos": "adj",
-   "def": "containing too many people for the space",
-   "ex": "The trains are overcrowded during rush hour.",
-   "lessons": [
-    "talk_city_or_countryside_b2c1",
-    "essay_practice_problem_solution_3"
    ]
   },
   "anonymity": {
@@ -122453,17 +123054,6 @@ window.WORDBANK={
     "rs_y9_sum1_17_05"
    ]
   },
-  "offensive": {
-   "w": "offensive",
-   "pos": "adj",
-   "def": "rude or likely to upset people",
-   "ex": "He apologised for his offensive comments.",
-   "lessons": [
-    "cancel_culture_interactive",
-    "b2_36_awkward_situations",
-    "lesson_48_art_literature_creativity"
-   ]
-  },
   "celebrity": {
    "w": "celebrity",
    "pos": "n",
@@ -123769,17 +124359,6 @@ window.WORDBANK={
    "ex": "The theologian wrote a book about faith and science.",
    "lessons": [
     "epicurean_20_epicurus_as_villain"
-   ]
-  },
-  "monk": {
-   "w": "monk",
-   "pos": "n",
-   "def": "a man who lives in a religious community away from society",
-   "ex": "The monks make cheese in the old abbey.",
-   "lessons": [
-    "epicurean_21_hidden_currents",
-    "short_history_the_knights_templar_a2b1",
-    "lesson-27-books-articles"
    ]
   },
   "hidden": {
@@ -125664,16 +126243,6 @@ window.WORDBANK={
    "ex": "My uncle gave a running commentary on my driving.",
    "lessons": [
     "lf_02_your_mother_s_advice"
-   ]
-  },
-  "wobble": {
-   "w": "wobble",
-   "pos": "n",
-   "def": "a short period of doubt or difficulty that passes",
-   "ex": "After a small wobble, the team won the match easily.",
-   "lessons": [
-    "lf_04_telling_mum",
-    "grammar_b2_10_advanced_relative_clauses"
    ]
   },
   "been coming": {
@@ -131321,15 +131890,6 @@ window.WORDBANK={
     "short_history_the_titanic_a2b1"
    ]
   },
-  "marriage": {
-   "w": "marriage",
-   "pos": "n",
-   "def": "the legal relationship between a husband and wife",
-   "ex": "The king had six marriages in his life.",
-   "lessons": [
-    "short_history_the_tudors_a2b1"
-   ]
-  },
   "believer": {
    "w": "believer",
    "pos": "n",
@@ -131419,17 +131979,6 @@ window.WORDBANK={
    "ex": "I want to thank you for your time today.",
    "lessons": [
     "skills_a2_trade_fair_contacts"
-   ]
-  },
-  "introduce": {
-   "w": "introduce",
-   "pos": "v",
-   "def": "to tell someone your name for the first time",
-   "ex": "Let me introduce myself and my company.",
-   "lessons": [
-    "skills_a2_trade_fair_first_contact",
-    "a1p_01_introductions",
-    "grammar_a2_10_sentence_structure_word_formation"
    ]
   },
   "booth": {
@@ -136808,15 +137357,6 @@ window.WORDBANK={
     "su_a2_49_communication_styles"
    ]
   },
-  "approve": {
-   "w": "approve",
-   "pos": "v",
-   "def": "to officially agree to a plan or request",
-   "ex": "The council approved the plans for a new park.",
-   "lessons": [
-    "b2_54_persuasion_at_work"
-   ]
-  },
   "gain support": {
    "w": "gain support",
    "pos": "phr",
@@ -138032,17 +138572,6 @@ window.WORDBANK={
     "bc_debate_defend_view_c1",
     "cambridge_cpe_introduction",
     "sentence_powerups"
-   ]
-  },
-  "vegetarian": {
-   "w": "vegetarian",
-   "pos": "n",
-   "def": "a person who does not eat meat or fish",
-   "ex": "She has been a vegetarian since childhood.",
-   "lessons": [
-    "bc_debate_defend_view_c1",
-    "talk_eating_less_meat_a2b1",
-    "grammar_b2_18_quantifiers_linking_conventions"
    ]
   },
   "measure": {
@@ -146031,15 +146560,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a person who claims to predict events using the stars",
    "ex": "The astrologer said it would be a lucky year.",
-   "lessons": [
-    "memory_arts_p1_09"
-   ]
-  },
-  "palm": {
-   "w": "palm",
-   "pos": "n",
-   "def": "the inside surface of your hand",
-   "ex": "She wrote the number on her palm.",
    "lessons": [
     "memory_arts_p1_09"
    ]
