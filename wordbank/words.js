@@ -12465,6 +12465,230 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_ea_background",
+   "title": "East Asia: Three Countries, Three Cultures",
+   "level": "",
+   "words": [
+    "dynasty",
+    "script",
+    "mandarin",
+    "peninsula",
+    "confucianism",
+    "archipelago",
+    "dialect",
+    "tension"
+   ]
+  },
+  {
+   "id": "world_ea_background_a2",
+   "title": "East Asia: Three Countries, Three Cultures",
+   "level": "",
+   "words": [
+    "island",
+    "language",
+    "writing",
+    "alphabet",
+    "million",
+    "different"
+   ]
+  },
+  {
+   "id": "world_ea_exams",
+   "title": "Exam Hell: Do East Asian Students Only Study?",
+   "level": "",
+   "words": [
+    "competitive",
+    "curriculum",
+    "tutoring",
+    "pressure",
+    "candidate",
+    "rank",
+    "reform",
+    "curfew"
+   ]
+  },
+  {
+   "id": "world_ea_exams_a2",
+   "title": "Exam Hell: Do East Asian Students Only Study?",
+   "level": "",
+   "words": [
+    "exam",
+    "student",
+    "class",
+    "hard",
+    "club",
+    "stress"
+   ]
+  },
+  {
+   "id": "world_ea_food",
+   "title": "Is It All Sushi and Dumplings?",
+   "level": "",
+   "words": [
+    "cuisine",
+    "staple",
+    "ferment",
+    "regional",
+    "broth",
+    "takeaway",
+    "adapt",
+    "heritage"
+   ]
+  },
+  {
+   "id": "world_ea_food_a2",
+   "title": "Is It All Sushi and Dumplings?",
+   "level": "",
+   "words": [
+    "rice",
+    "noodle",
+    "dumpling",
+    "chopsticks",
+    "spicy",
+    "kimchi"
+   ]
+  },
+  {
+   "id": "world_ea_gifts",
+   "title": "Gifts, Face and Red Envelopes",
+   "level": "",
+   "words": [
+    "gesture",
+    "reciprocate",
+    "face",
+    "superstition",
+    "modest",
+    "bribe",
+    "wrap",
+    "etiquette"
+   ]
+  },
+  {
+   "id": "world_ea_gifts_a2",
+   "title": "Gifts, Face and Red Envelopes",
+   "level": "",
+   "words": [
+    "gift",
+    "envelope",
+    "lucky",
+    "both hands",
+    "wrap",
+    "expensive"
+   ]
+  },
+  {
+   "id": "world_ea_group",
+   "title": "Group Harmony or Individual Voices?",
+   "level": "",
+   "words": [
+    "conform",
+    "harmony",
+    "collective",
+    "assertive",
+    "consensus",
+    "obligation",
+    "loyalty",
+    "tendency"
+   ]
+  },
+  {
+   "id": "world_ea_group_a2",
+   "title": "Group Harmony or Individual Voices?",
+   "level": "",
+   "words": [
+    "group",
+    "harmony",
+    "agree",
+    "individual",
+    "proverb",
+    "duty"
+   ]
+  },
+  {
+   "id": "world_ea_politeness",
+   "title": "Bowing Everywhere? Politeness in East Asia",
+   "level": "",
+   "words": [
+    "bow",
+    "etiquette",
+    "honorific",
+    "hierarchy",
+    "indirect",
+    "refuse",
+    "context",
+    "subtle"
+   ]
+  },
+  {
+   "id": "world_ea_politeness_a2",
+   "title": "Bowing Everywhere? Politeness in East Asia",
+   "level": "",
+   "words": [
+    "bow",
+    "polite",
+    "greet",
+    "respect",
+    "refuse",
+    "formal"
+   ]
+  },
+  {
+   "id": "world_ea_popculture",
+   "title": "Pop Culture Power: K-pop, Anime and Beyond",
+   "level": "",
+   "words": [
+    "fandom",
+    "craze",
+    "export",
+    "subtitle",
+    "streaming",
+    "trainee",
+    "genre",
+    "soft power"
+   ]
+  },
+  {
+   "id": "world_ea_popculture_a2",
+   "title": "Pop Culture Power: K-pop, Anime and Beyond",
+   "level": "",
+   "words": [
+    "fan",
+    "song",
+    "film",
+    "game",
+    "subtitle",
+    "comic"
+   ]
+  },
+  {
+   "id": "world_ea_technology",
+   "title": "Robots and Neon: Is East Asia the Future?",
+   "level": "",
+   "words": [
+    "cutting-edge",
+    "bullet train",
+    "cashless",
+    "vending machine",
+    "robotics",
+    "ageing",
+    "infrastructure",
+    "adopt"
+   ]
+  },
+  {
+   "id": "world_ea_technology_a2",
+   "title": "Robots and Neon: Is East Asia the Future?",
+   "level": "",
+   "words": [
+    "train",
+    "robot",
+    "phone",
+    "cash",
+    "village",
+    "fast"
+   ]
+  },
+  {
    "id": "world_eu_background",
    "title": "Europe: One Continent, Many Cultures",
    "level": "",
@@ -46097,7 +46321,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_06_like",
     "a1s_34_will",
-    "bc_kodak_a2b1"
+    "bc_kodak_a2b1",
+    "world_ea_popculture_a2"
    ]
   },
   "book": {
@@ -46206,10 +46431,11 @@ window.WORDBANK={
    "w": "expensive",
    "pos": "adj",
    "def": "it costs a LOT of money",
-   "ex": "Wind farms were very expensive.",
+   "ex": "A very expensive gift can feel strange.",
    "lessons": [
     "a1s_07_market",
     "bc_orsted_bet_the_company_a2",
+    "world_ea_gifts_a2",
     "rp_19_planning_a_holiday_a2b1",
     "sf_a1_12_a_present_for_carla",
     "a1p_13_going_shopping",
@@ -46824,7 +47050,7 @@ window.WORDBANK={
    "w": "train",
    "pos": "a program",
    "def": "it takes you from town to town",
-   "ex": "",
+   "ex": "The fast train was on time.",
    "lessons": [
     "a1s_15_sister",
     "bc_ai_screening_c1",
@@ -46832,6 +47058,7 @@ window.WORDBANK={
     "techniques_araby_a2b1",
     "techniques_hills_like_white_elephants_a2b1",
     "tib_mindmap_b2",
+    "world_ea_technology_a2",
     "behind_the_screen_the_last_samurai_a2b1"
    ]
   },
@@ -47418,11 +47645,12 @@ window.WORDBANK={
   },
   "rice": {
    "w": "rice",
-   "pos": "",
+   "pos": "n",
    "def": "small white grains you cook",
-   "ex": "",
+   "ex": "Rice is a main food in southern China.",
    "lessons": [
-    "a1s_23_shopping"
+    "a1s_23_shopping",
+    "world_ea_food_a2"
    ]
   },
   "till": {
@@ -48217,11 +48445,12 @@ window.WORDBANK={
   },
   "class": {
    "w": "class",
-   "pos": "",
+   "pos": "n",
    "def": "a group who learn together",
-   "ex": "",
+   "ex": "He has a private class in the evening.",
    "lessons": [
     "a1s_33_nextweek",
+    "world_ea_exams_a2",
     "rp_18_joining_a_gym_a2b1"
    ]
   },
@@ -48396,11 +48625,12 @@ window.WORDBANK={
   },
   "club": {
    "w": "club",
-   "pos": "",
+   "pos": "n",
    "def": "a group who do something together",
-   "ex": "",
+   "ex": "She is in the music club.",
    "lessons": [
-    "a1s_36_walkclub"
+    "a1s_36_walkclub",
+    "world_ea_exams_a2"
    ]
   },
   "how often": {
@@ -48898,12 +49128,13 @@ window.WORDBANK={
    "w": "gift",
    "pos": "noun",
    "def": "a present you give someone",
-   "ex": "",
+   "ex": "He brought a gift for the host.",
    "lessons": [
     "a1s_42_gift",
     "techniques_araby_a2b1",
     "techniques_before_the_law_a2b1",
     "techniques_the_gift_of_the_magi_a2b1",
+    "world_ea_gifts_a2",
     "qf_falsefriend_german_gift"
    ]
   },
@@ -48927,11 +49158,13 @@ window.WORDBANK={
   },
   "wrap": {
    "w": "wrap",
-   "pos": "",
+   "pos": "v",
    "def": "to cover a gift in paper",
-   "ex": "",
+   "ex": "In Japan, the way a present is wrapped is part of the gift.",
    "lessons": [
     "a1s_42_gift",
+    "world_ea_gifts",
+    "world_ea_gifts_a2",
     "qf_pronunciation_silent_letters",
     "talk_gift_giving_a2b1"
    ]
@@ -50165,6 +50398,7 @@ window.WORDBANK={
    "ex": "You can't run electric robotaxis without charging infrastructure.",
    "lessons": [
     "b2_robotaxi_revolution",
+    "world_ea_technology",
     "spain_rail_disaster",
     "talk_cars_in_cities_b2c1",
     "bc_complex_situations_c1",
@@ -50831,11 +51065,12 @@ window.WORDBANK={
   },
   "candidate": {
    "w": "candidate",
-   "pos": "",
+   "pos": "n",
    "def": "a person who is applying for a job.",
-   "ex": "",
+   "ex": "Over thirteen million candidates take the national exam in China.",
    "lessons": [
     "bc_ai_screening_c1",
+    "world_ea_exams",
     "b1_16_strengths_and_weaknesses",
     "su_a2_47_making_decisions",
     "interview_essentials",
@@ -51914,10 +52149,12 @@ window.WORDBANK={
    "w": "refuse",
    "pos": "v",
    "def": "To say no to something.",
-   "ex": "Blockbuster refused the offer.",
+   "ex": "It can be rude to refuse a gift too quickly.",
    "lessons": [
     "bc_blockbuster_a2b1",
     "ts_montessori_b2",
+    "world_ea_politeness",
+    "world_ea_politeness_a2",
     "behind_the_screen_chariots_of_fire_a2b1",
     "su_a2_54_managing_time_with_others",
     "short_history_muhammad_ali_a2b1",
@@ -52434,9 +52671,10 @@ window.WORDBANK={
    "w": "export",
    "pos": "v",
    "def": "To sell things to another country.",
-   "ex": "China exports phones, solar panels and clothes.",
+   "ex": "Entertainment is now one of South Korea's most important exports.",
    "lessons": [
-    "bc_china_challenge_a2b1"
+    "bc_china_challenge_a2b1",
+    "world_ea_popculture"
    ]
   },
   "import": {
@@ -52667,7 +52905,8 @@ window.WORDBANK={
    "def": "A short traditional saying that expresses a general truth.",
    "ex": "In Umuofia, a well-chosen proverb wins an argument faster than a shout.",
    "lessons": [
-    "bc_chinua_achebe_c1"
+    "bc_chinua_achebe_c1",
+    "world_ea_group_a2"
    ]
   },
   "marginalise": {
@@ -53229,6 +53468,7 @@ window.WORDBANK={
     "tib_acculturation_b2",
     "tib_kolb_b2",
     "tib_ooda_b2",
+    "world_ea_food",
     "gr_b2_the_pressure_cooker",
     "bc_multicultural_teams_c1",
     "st_pro_10_reading_the_room",
@@ -53321,6 +53561,7 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_a2b1",
     "psy_03_follow_the_crowd_b2c1",
     "say_bridge_c1",
+    "world_ea_exams",
     "c1_pro_06_managing_upwards",
     "talk_influencers_a2b1"
    ]
@@ -54371,6 +54612,7 @@ window.WORDBANK={
    "ex": "Adult Lego fans were invited to help design new sets.",
    "lessons": [
     "bc_lego_a2b1",
+    "world_ea_popculture_a2",
     "behind_the_screen_moneyball_a2b1"
    ]
   },
@@ -54898,7 +55140,8 @@ window.WORDBANK={
    "def": "A magazine or book that tells a story with pictures in boxes.",
    "ex": "Marvel sold millions of comics in the 1990s.",
    "lessons": [
-    "bc_marvel_a2b1"
+    "bc_marvel_a2b1",
+    "world_ea_popculture_a2"
    ]
   },
   "character": {
@@ -55074,6 +55317,7 @@ window.WORDBANK={
    "ex": "A robot could clean my house one day!",
    "lessons": [
     "bc_may_might_could_a2",
+    "world_ea_technology_a2",
     "behind_the_screen_blade_runner_a2b1",
     "su_a2_48_solving_problems"
    ]
@@ -58776,11 +59020,13 @@ window.WORDBANK={
   },
   "bow": {
    "w": "bow",
-   "pos": "",
+   "pos": "n",
    "def": "to bow to pressure — to give in and do what powerful people want. A fixed collocation: you bow to pressure, to demands, to the inevitable.",
-   "ex": "",
+   "ex": "A deep bow shows great respect in Japan.",
    "lessons": [
-    "behind_the_screen_chariots_of_fire"
+    "behind_the_screen_chariots_of_fire",
+    "world_ea_politeness",
+    "world_ea_politeness_a2"
    ]
   },
   "catastrophic": {
@@ -62620,12 +62866,13 @@ window.WORDBANK={
   },
   "face": {
    "w": "face",
-   "pos": "",
+   "pos": "n",
    "def": "face the truth / a challenge / the future. Also: face up to something you would rather avoid.",
-   "ex": "",
+   "ex": "Giving a generous but modest gift helps both people keep face.",
    "lessons": [
     "discuss_c1_frankl_meaning",
     "tib_fiveforces_b2",
+    "world_ea_gifts",
     "ml_03_the_honest_review"
    ]
   },
@@ -65268,6 +65515,7 @@ window.WORDBANK={
     "odyssey_william_iv",
     "short_history_catherine_the_great",
     "short_history_florence_nightingale",
+    "world_ea_exams",
     "world_na_english",
     "bc_four_day_week_c1"
    ]
@@ -66688,6 +66936,7 @@ window.WORDBANK={
     "odyssey_edward_viii",
     "pol_05_compulsory",
     "pol_05_compulsory_a2",
+    "world_ea_group_a2",
     "rs_y11_aut1_25_01"
    ]
   },
@@ -67149,7 +67398,7 @@ window.WORDBANK={
    "w": "dynasty",
    "pos": "n",
    "def": "a royal family.",
-   "ex": "",
+   "ex": "The Tang dynasty ruled China for almost three centuries.",
    "lessons": [
     "odyssey_george_v",
     "odyssey_henry_vii",
@@ -67172,6 +67421,7 @@ window.WORDBANK={
     "short_history_the_trojan_war",
     "short_history_the_tudors",
     "short_history_the_world_cup",
+    "world_ea_background",
     "ois_09_plantagenets_and_magna_carta",
     "short_history_the_romanovs_a2b1"
    ]
@@ -69733,11 +69983,12 @@ window.WORDBANK={
    "w": "adopt",
    "pos": "v",
    "def": "(here) to formally accept as your heir.",
-   "ex": "",
+   "ex": "Many shops were slow to adopt card payments.",
    "lessons": [
     "odyssey_stephen",
     "tib_diffusion_b2",
     "tib_hypecycle_b2",
+    "world_ea_technology",
     "gr_warmup_a2_hot_takes_animals",
     "prof_c1_04_influencing_without_authority",
     "writing_lesson_01"
@@ -71656,6 +71907,7 @@ window.WORDBANK={
     "pol_07_debate_a2",
     "techniques_the_cask_of_amontillado_a2b1",
     "tib_tuckman_b2",
+    "world_ea_politeness_a2",
     "world_eu_directness_a2",
     "world_na_canadians_a2",
     "rp_16_reporting_something_lost_a2b1",
@@ -71906,6 +72158,7 @@ window.WORDBANK={
    "lessons": [
     "psy_01_marshmallow_b2c1",
     "techniques_luck",
+    "world_ea_gifts",
     "world_eu_nordic",
     "world_eu_nordic_a2",
     "world_na_canadians",
@@ -72049,7 +72302,8 @@ window.WORDBANK={
    "def": "a number of people together.",
    "ex": "The whole group said 'A', so I said 'A', too.",
    "lessons": [
-    "psy_03_follow_the_crowd_a2b1"
+    "psy_03_follow_the_crowd_a2b1",
+    "world_ea_group_a2"
    ]
   },
   "agree": {
@@ -72059,6 +72313,7 @@ window.WORDBANK={
    "ex": "He didn't agree with the others, but he stayed quiet.",
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
+    "world_ea_group_a2",
     "rp_22_talking_about_sport_a2b1",
     "behind_the_screen_the_social_network_a2b1",
     "sf_a1_11_the_meeting",
@@ -72131,10 +72386,11 @@ window.WORDBANK={
   "consensus": {
    "w": "consensus",
    "pos": "n",
-   "def": "",
-   "ex": "The group reached a consensus quickly.",
+   "def": "an agreement reached by a whole group",
+   "ex": "The team worked until it reached a consensus.",
    "lessons": [
     "psy_03_follow_the_crowd_b2c1",
+    "world_ea_group",
     "bc_negotiating_c1",
     "skills_c1_trade_fair_cross_cultural",
     "acad_b1_09_working_in_pairs",
@@ -72204,6 +72460,7 @@ window.WORDBANK={
    "ex": "The car was going very fast.",
    "lessons": [
     "psy_04_can_you_trust_memory_a2b1",
+    "world_ea_technology_a2",
     "a1p_22_bigger_better"
    ]
   },
@@ -72780,6 +73037,7 @@ window.WORDBANK={
    "ex": "Researchers must avoid causing harm.",
    "lessons": [
     "psyp_08_should_this_study_run_a2b1",
+    "world_ea_exams_a2",
     "gr_warmup_a2_hot_takes_health",
     "su_a2_46_body_language",
     "qf_pronunciation_noun_verb_stress",
@@ -73400,9 +73658,10 @@ window.WORDBANK={
    "w": "context",
    "pos": "n",
    "def": "the circumstances that surround a behaviour or idea.",
-   "ex": "",
+   "ex": "What counts as polite depends on the context.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
+    "world_ea_politeness",
     "b1_42_star_interview_technique",
     "bp_c2_03_why_they_dont_understand_you",
     "b2_82_problems_at_work",
@@ -74640,10 +74899,11 @@ window.WORDBANK={
    "w": "script",
    "pos": "n",
    "def": "a system of written characters, such as the Latin, Arabic or Greek script; also, the written text of a play or film.",
-   "ex": "",
+   "ex": "Japanese is written with more than one script.",
    "lessons": [
     "short_history_bletchley_park",
     "short_history_the_printing_press",
+    "world_ea_background",
     "short_history_the_rosetta_stone_a2b1",
     "lesson-13-presentations"
    ]
@@ -77190,6 +77450,7 @@ window.WORDBANK={
     "short_history_the_east_india_company",
     "techniques_before_the_law",
     "techniques_mateo_falcone",
+    "world_ea_gifts",
     "short_history_pablo_escobar_a2b1"
    ]
   },
@@ -78410,6 +78671,7 @@ window.WORDBANK={
     "short_history_tutankhamun",
     "techniques_the_monkeys_paw",
     "techniques_the_monkeys_paw_a2b1",
+    "world_ea_gifts",
     "rs_y10_sum1_23_02",
     "b2_85_superstitions"
    ]
@@ -79238,6 +79500,7 @@ window.WORDBANK={
     "short_history_the_olympic_games",
     "short_history_the_rosetta_stone",
     "tib_acculturation_b2",
+    "world_ea_food",
     "world_eu_coffee",
     "world_na_mosaic",
     "bc_the_lottery_grants_b2c1",
@@ -80659,6 +80922,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_samurai",
     "techniques_after_twenty_years",
+    "world_ea_group",
     "su_a2_63_mapping_the_customer_journey",
     "b1_52_true_friendship",
     "c1_pro_23_customer_experience",
@@ -82135,9 +82399,10 @@ window.WORDBANK={
    "w": "tendency",
    "pos": "n",
    "def": "an inclination towards a particular kind of behaviour or result. a tendency to… (v: to tend to)",
-   "ex": "",
+   "ex": "Researchers talk about tendencies, not rules.",
    "lessons": [
     "story_c1_the_needham_question",
+    "world_ea_group",
     "bc_nine_team_roles_belbin_b2c1",
     "grammar_c2_03_complex_modality"
    ]
@@ -84807,6 +85072,7 @@ window.WORDBANK={
    "ex": "He could not pass his exams.\" / \"I have an exam tomorrow.",
    "lessons": [
     "techniques_luck_a2b1",
+    "world_ea_exams_a2",
     "lesson-20-learning-review",
     "qf_collocation_do_take_exam"
    ]
@@ -85472,10 +85738,11 @@ window.WORDBANK={
    "w": "village",
    "pos": "n",
    "def": "Rip's village is small and quiet — at least, it was…",
-   "ex": "",
+   "ex": "He lives in a quiet village.",
    "lessons": [
     "techniques_rip_van_winkle_a2b1",
     "techniques_the_last_class_a2b1",
+    "world_ea_technology_a2",
     "behind_the_screen_the_last_samurai_a2b1"
    ]
   },
@@ -85720,7 +85987,8 @@ window.WORDBANK={
    "def": "A very big number: 1,000,000.",
    "ex": "The bet was for two million.\" / \"A million people live in this city.",
    "lessons": [
-    "techniques_the_bet_a2b1"
+    "techniques_the_bet_a2b1",
+    "world_ea_background_a2"
    ]
   },
   "free": {
@@ -87526,7 +87794,8 @@ window.WORDBANK={
    "def": "A person who studies and learns, often at a school or university.",
    "ex": "The young student read many books.\" / \"I am a student of English.",
    "lessons": [
-    "techniques_the_nightingale_and_the_rose_a2b1"
+    "techniques_the_nightingale_and_the_rose_a2b1",
+    "world_ea_exams_a2"
    ]
   },
   "give": {
@@ -87726,9 +87995,10 @@ window.WORDBANK={
    "w": "game",
    "pos": "n",
    "def": "a fun activity with rules that you play.",
-   "ex": "",
+   "ex": "He plays a game from China.",
    "lessons": [
-    "techniques_the_ransom_of_red_chief_a2b1"
+    "techniques_the_ransom_of_red_chief_a2b1",
+    "world_ea_popculture_a2"
    ]
   },
   "terrible": {
@@ -87867,11 +88137,12 @@ window.WORDBANK={
   },
   "lucky": {
    "w": "lucky",
-   "pos": "",
+   "pos": "adj",
    "def": "· unlucky · luckily. The story turns on one sentence: \"Then I am lucky.\" Keep the whole family ready.",
-   "ex": "",
+   "ex": "Red is a lucky colour.",
    "lessons": [
-    "techniques_the_rocking_horse_winner"
+    "techniques_the_rocking_horse_winner",
+    "world_ea_gifts_a2"
    ]
   },
   "rocking-horse": {
@@ -88983,11 +89254,12 @@ window.WORDBANK={
   },
   "envelope": {
    "w": "envelope",
-   "pos": "",
+   "pos": "n",
    "def": "\"He put the letter in an envelope.\"",
-   "ex": "",
+   "ex": "She put money in a red envelope.",
    "lessons": [
-    "techniques_vanka_a2b1"
+    "techniques_vanka_a2b1",
+    "world_ea_gifts_a2"
    ]
   },
   "address": {
@@ -89977,9 +90249,10 @@ window.WORDBANK={
    "w": "staple",
    "pos": "n",
    "def": "a basic food that people eat regularly. (also an adjective: a staple diet)",
-   "ex": "Rice is the staple food there: cheap, filling and eaten every day.",
+   "ex": "Rice is the staple in the south, but wheat is more common in the north.",
    "lessons": [
     "tib_foodpyramid_b2",
+    "world_ea_food",
     "world_la_food"
    ]
   },
@@ -90290,11 +90563,12 @@ window.WORDBANK={
   },
   "respect": {
    "w": "respect",
-   "pos": "",
+   "pos": "n",
    "def": "“He has the respect of his team.”",
-   "ex": "",
+   "ex": "We show respect to older people.",
    "lessons": [
     "tib_maslow_a2b1",
+    "world_ea_politeness_a2",
     "behind_the_screen_the_last_samurai_a2b1",
     "short_history_the_crusades_a2b1",
     "talk_traditions_a2b1",
@@ -90325,12 +90599,13 @@ window.WORDBANK={
   },
   "hierarchy": {
    "w": "hierarchy",
-   "pos": "",
+   "pos": "n",
    "def": "“In the army, the hierarchy is very clear.”",
-   "ex": "",
+   "ex": "A strong hierarchy decides who speaks first at a meeting.",
    "lessons": [
     "tib_maslow_b2",
     "tib_mindmap_b2",
+    "world_ea_politeness",
     "gr_warmup_c1_hot_takes_ambition",
     "skills_c1_trade_fair_cross_cultural",
     "acad_c2_10_academic_leadership",
@@ -91392,11 +91667,12 @@ window.WORDBANK={
   },
   "hard": {
    "w": "hard",
-   "pos": "",
+   "pos": "adj",
    "def": "it is very difficult to stop doing something you have done for a long time.",
-   "ex": "",
+   "ex": "The exam is very hard.",
    "lessons": [
-    "topic_habits_b2"
+    "topic_habits_b2",
+    "world_ea_exams_a2"
    ]
   },
   "habit": {
@@ -92389,9 +92665,10 @@ window.WORDBANK={
    "w": "craze",
    "pos": "n",
    "def": "the latest craze; a dance craze; a fitness craze.",
-   "ex": "",
+   "ex": "Many people said the Korean Wave was just a craze.",
    "lessons": [
-    "ts_rubik_cube_b2"
+    "ts_rubik_cube_b2",
+    "world_ea_popculture"
    ]
   },
   "in order to": {
@@ -92623,6 +92900,613 @@ window.WORDBANK={
     "work_story_first_person_to_say_red"
    ]
   },
+  "mandarin": {
+   "w": "mandarin",
+   "pos": "n",
+   "def": "the most widely spoken form of Chinese",
+   "ex": "Mandarin is the official language of mainland China and Taiwan.",
+   "lessons": [
+    "world_ea_background"
+   ]
+  },
+  "peninsula": {
+   "w": "peninsula",
+   "pos": "n",
+   "def": "a long piece of land almost surrounded by water",
+   "ex": "Korea sits on a peninsula between China and Japan.",
+   "lessons": [
+    "world_ea_background"
+   ]
+  },
+  "confucianism": {
+   "w": "confucianism",
+   "pos": "n",
+   "def": "a system of ideas about family, duty and respect, from the thinker Confucius",
+   "ex": "Ideas from Confucianism spread across the region over many centuries.",
+   "lessons": [
+    "world_ea_background"
+   ]
+  },
+  "archipelago": {
+   "w": "archipelago",
+   "pos": "n",
+   "def": "a group of many islands",
+   "ex": "Japan is an archipelago of about 14,000 islands.",
+   "lessons": [
+    "world_ea_background"
+   ]
+  },
+  "dialect": {
+   "w": "dialect",
+   "pos": "n",
+   "def": "a form of a language spoken in one area",
+   "ex": "People in different parts of China speak different dialects, some so different that speakers cannot understand each other.",
+   "lessons": [
+    "world_ea_background",
+    "world_na_english",
+    "gr_warmup_b2_hot_takes_language",
+    "writing_poetry_slam",
+    "lv_alevel_01_two_texts_one_essay"
+   ]
+  },
+  "tension": {
+   "w": "tension",
+   "pos": "n",
+   "def": "a feeling of worry and unfriendliness between groups",
+   "ex": "Old tensions still affect how the three countries see each other.",
+   "lessons": [
+    "world_ea_background",
+    "c1_pro_16_remote_teams",
+    "prof_c1_09_stakeholder_management",
+    "b2_75_managing_stress",
+    "qf_pronunciation_minimal_pairs_i",
+    "sp_prep_b1_31",
+    "ib_lesson_02_naming_techniques"
+   ]
+  },
+  "island": {
+   "w": "island",
+   "pos": "n",
+   "def": "land with water all around it",
+   "ex": "Japan has thousands of islands.",
+   "lessons": [
+    "world_ea_background_a2",
+    "behind_the_screen_jurassic_park_a2b1",
+    "short_history_the_bermuda_triangle_a2b1"
+   ]
+  },
+  "language": {
+   "w": "language",
+   "pos": "n",
+   "def": "the words people speak in a country",
+   "ex": "There are two official languages in Canada.",
+   "lessons": [
+    "world_ea_background_a2",
+    "world_eu_background_a2",
+    "world_na_english_a2"
+   ]
+  },
+  "writing": {
+   "w": "writing",
+   "pos": "n",
+   "def": "letters and words on paper",
+   "ex": "Korean writing looks very different from Chinese.",
+   "lessons": [
+    "world_ea_background_a2"
+   ]
+  },
+  "alphabet": {
+   "w": "alphabet",
+   "pos": "n",
+   "def": "a set of letters",
+   "ex": "Korea has its own alphabet.",
+   "lessons": [
+    "world_ea_background_a2",
+    "lesson-18-alphabet-pegs"
+   ]
+  },
+  "different": {
+   "w": "different",
+   "pos": "adj",
+   "def": "not the same",
+   "ex": "The three countries are very different.",
+   "lessons": [
+    "world_ea_background_a2",
+    "world_eu_background_a2",
+    "world_la_background_a2"
+   ]
+  },
+  "competitive": {
+   "w": "competitive",
+   "pos": "adj",
+   "def": "involving people trying to do better than each other",
+   "ex": "The university entrance system is highly competitive.",
+   "lessons": [
+    "world_ea_exams",
+    "lesson_37_education_learning_interactive"
+   ]
+  },
+  "curriculum": {
+   "w": "curriculum",
+   "pos": "n",
+   "def": "the subjects taught in a school or course",
+   "ex": "The national curriculum is heavy on maths and science.",
+   "lessons": [
+    "world_ea_exams",
+    "gr_warmup_b2_hot_takes_education",
+    "teacher_conversations_01_why_i_quit_ana"
+   ]
+  },
+  "tutoring": {
+   "w": "tutoring",
+   "pos": "n",
+   "def": "private teaching, often given outside school",
+   "ex": "Many families spend a large part of their income on tutoring.",
+   "lessons": [
+    "world_ea_exams",
+    "rp_38_at_the_school_office"
+   ]
+  },
+  "rank": {
+   "w": "rank",
+   "pos": "v",
+   "def": "to give or have a position in a list",
+   "ex": "Countries are often ranked by their students' test results.",
+   "lessons": [
+    "world_ea_exams",
+    "b2_106_status_games",
+    "lesson-12-playing-cards"
+   ]
+  },
+  "curfew": {
+   "w": "curfew",
+   "pos": "n",
+   "def": "a rule that says people must be home or stop an activity by a certain time",
+   "ex": "Seoul introduced a curfew for private classes at ten o'clock.",
+   "lessons": [
+    "world_ea_exams"
+   ]
+  },
+  "cuisine": {
+   "w": "cuisine",
+   "pos": "n",
+   "def": "a style of cooking",
+   "ex": "Sichuan cuisine is famous for its hot, numbing flavours.",
+   "lessons": [
+    "world_ea_food",
+    "su_a2_30_ordering_food",
+    "b1_34_food_and_drink",
+    "su_a2_22_dream_retirement"
+   ]
+  },
+  "ferment": {
+   "w": "ferment",
+   "pos": "v",
+   "def": "to let food change slowly with bacteria so that it develops a sour, strong flavour",
+   "ex": "Koreans ferment cabbage with chilli to make kimchi.",
+   "lessons": [
+    "world_ea_food"
+   ]
+  },
+  "regional": {
+   "w": "regional",
+   "pos": "adj",
+   "def": "from or connected with a particular area",
+   "ex": "Regional dishes can be completely different even within one country.",
+   "lessons": [
+    "world_ea_food",
+    "world_na_food"
+   ]
+  },
+  "broth": {
+   "w": "broth",
+   "pos": "n",
+   "def": "a thin soup made by boiling meat, bones or vegetables",
+   "ex": "Ramen is served in a rich broth.",
+   "lessons": [
+    "world_ea_food"
+   ]
+  },
+  "takeaway": {
+   "w": "takeaway",
+   "pos": "n",
+   "def": "a meal that you buy in a restaurant and eat elsewhere",
+   "ex": "A Chinese takeaway abroad often serves dishes invented there.",
+   "lessons": [
+    "world_ea_food",
+    "bestiary_discourse_command",
+    "ielts_lesson_15_common_mistakes",
+    "ielts_writing_guides",
+    "sp_c1_06_high_stakes_communication",
+    "bc_academic_notetaking_for_phd_c1",
+    "grammar_a1_08_adjectives_adverbs_comparatives",
+    "grammar_b2_02_future_tenses_advanced"
+   ]
+  },
+  "noodle": {
+   "w": "noodle",
+   "pos": "n",
+   "def": "long thin food made from flour",
+   "ex": "She ate a bowl of noodles.",
+   "lessons": [
+    "world_ea_food_a2"
+   ]
+  },
+  "dumpling": {
+   "w": "dumpling",
+   "pos": "n",
+   "def": "a small piece of dough with filling",
+   "ex": "We made dumplings at New Year.",
+   "lessons": [
+    "world_ea_food_a2",
+    "grammar_b1_14_prepositions_advanced"
+   ]
+  },
+  "chopsticks": {
+   "w": "chopsticks",
+   "pos": "n",
+   "def": "two thin sticks for eating",
+   "ex": "Korean chopsticks are flat and metal.",
+   "lessons": [
+    "world_ea_food_a2"
+   ]
+  },
+  "spicy": {
+   "w": "spicy",
+   "pos": "adj",
+   "def": "hot with chilli",
+   "ex": "Sichuan food is very spicy.",
+   "lessons": [
+    "world_ea_food_a2",
+    "world_la_food_a2",
+    "gr_warmup_a2_hot_takes_food",
+    "a1p_08_food_drinks",
+    "grammar_a1_04_conditionals_questions"
+   ]
+  },
+  "kimchi": {
+   "w": "kimchi",
+   "pos": "n",
+   "def": "a Korean food of cabbage and chilli",
+   "ex": "Kimchi is on the table at every meal.",
+   "lessons": [
+    "world_ea_food_a2"
+   ]
+  },
+  "gesture": {
+   "w": "gesture",
+   "pos": "n",
+   "def": "an action that shows a feeling or an attitude",
+   "ex": "A small gesture can matter more than the price of a gift.",
+   "lessons": [
+    "world_ea_gifts",
+    "Jane_Performance_STUDENT",
+    "su_a2_46_body_language",
+    "talk_gift_giving_b2c1",
+    "b2_64_voice_and_body_language",
+    "lesson-13-presentations"
+   ]
+  },
+  "reciprocate": {
+   "w": "reciprocate",
+   "pos": "v",
+   "def": "to give or do something in return",
+   "ex": "In many cultures people feel they should reciprocate a favour.",
+   "lessons": [
+    "world_ea_gifts",
+    "talk_gift_giving_b2c1"
+   ]
+  },
+  "etiquette": {
+   "w": "etiquette",
+   "pos": "n",
+   "def": "the accepted rules of polite behaviour",
+   "ex": "Gift etiquette tells you when and how to offer something.",
+   "lessons": [
+    "world_ea_gifts",
+    "world_ea_politeness",
+    "acad_b2_14_academic_emails",
+    "curious_conversations_12_social_rules",
+    "b2_06_cultural_differences"
+   ]
+  },
+  "both hands": {
+   "w": "both hands",
+   "pos": "n",
+   "def": "the left hand and the right hand",
+   "ex": "Give the gift with both hands.",
+   "lessons": [
+    "world_ea_gifts_a2"
+   ]
+  },
+  "conform": {
+   "w": "conform",
+   "pos": "v",
+   "def": "to behave in the way that other people expect",
+   "ex": "Some workers feel pressure to conform to the group's style.",
+   "lessons": [
+    "world_ea_group",
+    "wp_39_the_starry_heavens"
+   ]
+  },
+  "harmony": {
+   "w": "harmony",
+   "pos": "n",
+   "def": "a situation in which people live and work together without conflict",
+   "ex": "In Japanese culture, harmony is a high value.",
+   "lessons": [
+    "world_ea_group",
+    "world_ea_group_a2",
+    "bc_multicultural_teams_c1",
+    "fusion-interactive",
+    "su_a2_49_communication_styles"
+   ]
+  },
+  "collective": {
+   "w": "collective",
+   "pos": "adj",
+   "def": "shared by a group of people",
+   "ex": "Collective decisions can take longer to reach.",
+   "lessons": [
+    "world_ea_group",
+    "talk_climate_action_b2c1",
+    "crowds_and_madness",
+    "cpe_read_c2_14_collective_memory"
+   ]
+  },
+  "assertive": {
+   "w": "assertive",
+   "pos": "adj",
+   "def": "confident and willing to say what you want",
+   "ex": "An assertive manager says clearly what she needs.",
+   "lessons": [
+    "world_ea_group",
+    "bc_women_political_leaders_c1",
+    "speaking_naturally_05_complaining_problems",
+    "c1_pro_05_assertive_communication"
+   ]
+  },
+  "obligation": {
+   "w": "obligation",
+   "pos": "n",
+   "def": "something you must do because it is your duty",
+   "ex": "Family obligations often come before personal plans.",
+   "lessons": [
+    "world_ea_group",
+    "rs_y7_sum2_06_02",
+    "b1_22_childhood_experiences",
+    "talk_gift_giving_b2c1",
+    "a1p_26_must_should",
+    "curious_conversations_nietzsche_metamorphoses",
+    "lesson_12_must_have_to_should",
+    "grammar_a2_04_modals_obligation_request"
+   ]
+  },
+  "individual": {
+   "w": "individual",
+   "pos": "adj",
+   "def": "one person, not a group",
+   "ex": "She has an individual style.",
+   "lessons": [
+    "world_ea_group_a2",
+    "gr_warmup_a2_hot_takes_sport",
+    "b2_14_alternative_sports",
+    "ielts_language_accuracy_clinic_v2"
+   ]
+  },
+  "honorific": {
+   "w": "honorific",
+   "pos": "adj",
+   "def": "showing respect, used about words and endings",
+   "ex": "Japanese and Korean have honorific forms of speech.",
+   "lessons": [
+    "world_ea_politeness"
+   ]
+  },
+  "indirect": {
+   "w": "indirect",
+   "pos": "adj",
+   "def": "not saying something in a clear, straight way",
+   "ex": "An indirect answer can be a polite refusal.",
+   "lessons": [
+    "world_ea_politeness",
+    "su_a2_64_adapting_communication",
+    "prof_c1_12_cross_cultural_communication",
+    "su_a2_49_communication_styles"
+   ]
+  },
+  "subtle": {
+   "w": "subtle",
+   "pos": "adj",
+   "def": "small and not obvious",
+   "ex": "The meaning was subtle, so I missed it.",
+   "lessons": [
+    "world_ea_politeness",
+    "su_a2_64_adapting_communication",
+    "lesson_41_nuances_tense_aspect",
+    "sp_b2_46_nuanced_description",
+    "sp_prep_b2_46"
+   ]
+  },
+  "greet": {
+   "w": "greet",
+   "pos": "v",
+   "def": "to say hello to someone",
+   "ex": "People greet each other at the door.",
+   "lessons": [
+    "world_ea_politeness_a2",
+    "lesson-11-names-faces"
+   ]
+  },
+  "formal": {
+   "w": "formal",
+   "pos": "adj",
+   "def": "serious and following the rules",
+   "ex": "A handshake is more formal than a hug.",
+   "lessons": [
+    "world_ea_politeness_a2",
+    "world_eu_greetings",
+    "world_la_warmth",
+    "world_la_warmth_a2",
+    "su_a2_42_travel_problems",
+    "bp_c2_01_where_your_words_come_from",
+    "skills_a2_trade_fair_simulation",
+    "a1p_01_introductions"
+   ]
+  },
+  "fandom": {
+   "w": "fandom",
+   "pos": "n",
+   "def": "a community of fans of a person, group or show",
+   "ex": "The K-pop fandom organises events all over the world.",
+   "lessons": [
+    "world_ea_popculture",
+    "grammar_a2_26_kpop"
+   ]
+  },
+  "subtitle": {
+   "w": "subtitle",
+   "pos": "n",
+   "def": "words at the bottom of a screen that show what people say in a film",
+   "ex": "Many viewers learned to enjoy films with subtitles.",
+   "lessons": [
+    "world_ea_popculture",
+    "world_ea_popculture_a2"
+   ]
+  },
+  "streaming": {
+   "w": "streaming",
+   "pos": "n",
+   "def": "playing music or video over the internet, without downloading it",
+   "ex": "Streaming helped films cross borders quickly.",
+   "lessons": [
+    "world_ea_popculture",
+    "gr_warmup_b2_hot_takes_music",
+    "breaking_news_netflix_warner_bros_jan_2026",
+    "b2_59_digital_wellbeing"
+   ]
+  },
+  "trainee": {
+   "w": "trainee",
+   "pos": "n",
+   "def": "a person who is learning a job by doing it",
+   "ex": "K-pop trainees practise singing and dancing for years.",
+   "lessons": [
+    "world_ea_popculture"
+   ]
+  },
+  "genre": {
+   "w": "genre",
+   "pos": "n",
+   "def": "a type of music, film or writing",
+   "ex": "Manga covers every genre, from sport to cooking.",
+   "lessons": [
+    "world_ea_popculture",
+    "althist_history_c1_part1",
+    "su_a2_07_the_silver_screen",
+    "b1_51_music_and_identity",
+    "horror_history_c1_part1",
+    "crime_history_c1_part2",
+    "fantasy_history_c1_part1",
+    "lesson_gaming_world_interactive"
+   ]
+  },
+  "soft power": {
+   "w": "soft power",
+   "pos": "n",
+   "def": "the ability of a country to influence others through culture rather than force",
+   "ex": "Pop culture gives a country soft power.",
+   "lessons": [
+    "world_ea_popculture",
+    "soft_power_hard_world"
+   ]
+  },
+  "song": {
+   "w": "song",
+   "pos": "n",
+   "def": "words and music",
+   "ex": "This song is very famous.",
+   "lessons": [
+    "world_ea_popculture_a2"
+   ]
+  },
+  "cutting-edge": {
+   "w": "cutting-edge",
+   "pos": "adj",
+   "def": "using the newest and most advanced ideas",
+   "ex": "Some factories use cutting-edge robots.",
+   "lessons": [
+    "world_ea_technology",
+    "bc_science_space_tech_c1",
+    "fusion-interactive"
+   ]
+  },
+  "bullet train": {
+   "w": "bullet train",
+   "pos": "n",
+   "def": "a very fast passenger train",
+   "ex": "The first bullet train opened in Japan in 1964.",
+   "lessons": [
+    "world_ea_technology"
+   ]
+  },
+  "cashless": {
+   "w": "cashless",
+   "pos": "adj",
+   "def": "using cards or phones instead of money",
+   "ex": "China became a nearly cashless society in many cities.",
+   "lessons": [
+    "world_ea_technology",
+    "discuss_c1_ai_future_humanity"
+   ]
+  },
+  "vending machine": {
+   "w": "vending machine",
+   "pos": "n",
+   "def": "a machine that sells drinks or snacks when you put in money",
+   "ex": "Japan has millions of vending machines.",
+   "lessons": [
+    "world_ea_technology"
+   ]
+  },
+  "robotics": {
+   "w": "robotics",
+   "pos": "n",
+   "def": "the science of designing and using robots",
+   "ex": "Robotics is one of South Korea's strongest industries.",
+   "lessons": [
+    "world_ea_technology"
+   ]
+  },
+  "ageing": {
+   "w": "ageing",
+   "pos": "adj",
+   "def": "having a growing share of older people",
+   "ex": "An ageing population means fewer young workers.",
+   "lessons": [
+    "world_ea_technology",
+    "ct_b1_22_hedging_language"
+   ]
+  },
+  "phone": {
+   "w": "phone",
+   "pos": "n",
+   "def": "a small device for calls and apps",
+   "ex": "People pay with a phone.",
+   "lessons": [
+    "world_ea_technology_a2"
+   ]
+  },
+  "cash": {
+   "w": "cash",
+   "pos": "n",
+   "def": "coins and notes",
+   "ex": "Many shops in Japan take cash.",
+   "lessons": [
+    "world_ea_technology_a2",
+    "gr_warmup_a2_hot_takes_money"
+   ]
+  },
   "continent": {
    "w": "continent",
    "pos": "n",
@@ -92651,16 +93535,6 @@ window.WORDBANK={
     "world_eu_background"
    ]
   },
-  "language": {
-   "w": "language",
-   "pos": "n",
-   "def": "the words people speak in a country",
-   "ex": "There are two official languages in Canada.",
-   "lessons": [
-    "world_eu_background_a2",
-    "world_na_english_a2"
-   ]
-  },
   "member": {
    "w": "member",
    "pos": "n",
@@ -92670,16 +93544,6 @@ window.WORDBANK={
     "world_eu_background_a2",
     "rp_20_at_the_library_a2b1",
     "b1_39_joining_a_club"
-   ]
-  },
-  "different": {
-   "w": "different",
-   "pos": "adj",
-   "def": "not the same",
-   "ex": "Every country is different.",
-   "lessons": [
-    "world_eu_background_a2",
-    "world_la_background_a2"
    ]
   },
   "custom": {
@@ -92971,21 +93835,6 @@ window.WORDBANK={
     "world_eu_greetings",
     "world_la_warmth",
     "curious_conversations_03_cultural_quirks"
-   ]
-  },
-  "formal": {
-   "w": "formal",
-   "pos": "adj",
-   "def": "following official or serious rules.",
-   "ex": "A handshake is more formal than a hug.",
-   "lessons": [
-    "world_eu_greetings",
-    "world_la_warmth",
-    "world_la_warmth_a2",
-    "su_a2_42_travel_problems",
-    "bp_c2_01_where_your_words_come_from",
-    "skills_a2_trade_fair_simulation",
-    "a1p_01_introductions"
    ]
   },
   "vary": {
@@ -93467,18 +94316,6 @@ window.WORDBANK={
     "world_la_food_a2"
    ]
   },
-  "spicy": {
-   "w": "spicy",
-   "pos": "adj",
-   "def": "hot with chilli",
-   "ex": "This sauce is very spicy.",
-   "lessons": [
-    "world_la_food_a2",
-    "gr_warmup_a2_hot_takes_food",
-    "a1p_08_food_drinks",
-    "grammar_a1_04_conditionals_questions"
-   ]
-  },
   "beef": {
    "w": "beef",
    "pos": "n",
@@ -93892,18 +94729,6 @@ window.WORDBANK={
     "a1p_05_review_foundation"
    ]
   },
-  "dialect": {
-   "w": "dialect",
-   "pos": "n",
-   "def": "a regional form of a language.",
-   "ex": "",
-   "lessons": [
-    "world_na_english",
-    "gr_warmup_b2_hot_takes_language",
-    "writing_poetry_slam",
-    "lv_alevel_01_two_texts_one_essay"
-   ]
-  },
   "word": {
    "w": "word",
    "pos": "n",
@@ -93940,15 +94765,6 @@ window.WORDBANK={
     "world_na_food",
     "world_na_food_a2",
     "rp_12_at_the_restaurant"
-   ]
-  },
-  "regional": {
-   "w": "regional",
-   "pos": "adj",
-   "def": "belonging to a particular area.",
-   "ex": "American food is very regional.",
-   "lessons": [
-    "world_na_food"
    ]
   },
   "leftover": {
@@ -94846,17 +95662,6 @@ window.WORDBANK={
    "ex": "The new test format has fewer but longer questions.",
    "lessons": [
     "acad_b2_13_exam_strategies"
-   ]
-  },
-  "etiquette": {
-   "w": "etiquette",
-   "pos": "n",
-   "def": "rules for polite behaviour in a particular situation",
-   "ex": "Good email etiquette includes a clear subject line.",
-   "lessons": [
-    "acad_b2_14_academic_emails",
-    "curious_conversations_12_social_rules",
-    "b2_06_cultural_differences"
    ]
   },
   "extension": {
@@ -96782,15 +97587,6 @@ window.WORDBANK={
     "gr_warmup_a2_hot_takes_holidays"
    ]
   },
-  "cash": {
-   "w": "cash",
-   "pos": "n",
-   "def": "money in coins and notes, not on a card",
-   "ex": "This little cafe only takes cash.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_money"
-   ]
-  },
   "instrument": {
    "w": "instrument",
    "pos": "n",
@@ -96902,17 +97698,6 @@ window.WORDBANK={
    "ex": "Football and basketball are popular team sports.",
    "lessons": [
     "gr_warmup_a2_hot_takes_sport"
-   ]
-  },
-  "individual": {
-   "w": "individual",
-   "pos": "adj",
-   "def": "done by one person alone, not in a group",
-   "ex": "Tennis can be an individual sport.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_sport",
-    "b2_14_alternative_sports",
-    "ielts_language_accuracy_clinic_v2"
    ]
   },
   "social": {
@@ -100187,21 +100972,6 @@ window.WORDBANK={
     "b2_62_culture_humour_language"
    ]
   },
-  "obligation": {
-   "w": "obligation",
-   "pos": "n",
-   "def": "something you must do because of a rule",
-   "ex": "Jewish ethics stress obligation to others.",
-   "lessons": [
-    "rs_y7_sum2_06_02",
-    "b1_22_childhood_experiences",
-    "talk_gift_giving_b2c1",
-    "a1p_26_must_should",
-    "curious_conversations_nietzsche_metamorphoses",
-    "lesson_12_must_have_to_should",
-    "grammar_a2_04_modals_obligation_request"
-   ]
-  },
   "sanctify": {
    "w": "sanctify",
    "pos": "v",
@@ -100500,17 +101270,6 @@ window.WORDBANK={
    "lessons": [
     "bc_multicultural_teams_c1",
     "talk_traditions_b2c1"
-   ]
-  },
-  "harmony": {
-   "w": "harmony",
-   "pos": "n",
-   "def": "a peaceful situation where people agree and work well together",
-   "ex": "The new leader valued team harmony more than personal success.",
-   "lessons": [
-    "bc_multicultural_teams_c1",
-    "fusion-interactive",
-    "su_a2_49_communication_styles"
    ]
   },
   "collaborate": {
@@ -101428,16 +102187,6 @@ window.WORDBANK={
     "beat_the_clock_writing_full"
    ]
   },
-  "cutting-edge": {
-   "w": "cutting-edge",
-   "pos": "adj",
-   "def": "using the newest and most advanced technology",
-   "ex": "The factory uses cutting-edge robots to pack every order.",
-   "lessons": [
-    "bc_science_space_tech_c1",
-    "fusion-interactive"
-   ]
-  },
   "discreet": {
    "w": "discreet",
    "pos": "adj",
@@ -102274,17 +103023,6 @@ window.WORDBANK={
     "curious_conversations_10_polite_lies"
    ]
   },
-  "assertive": {
-   "w": "assertive",
-   "pos": "adj",
-   "def": "confident and direct in stating opinions",
-   "ex": "She learned to be more assertive in meetings.",
-   "lessons": [
-    "bc_women_political_leaders_c1",
-    "speaking_naturally_05_complaining_problems",
-    "c1_pro_05_assertive_communication"
-   ]
-  },
   "pragmatic": {
    "w": "pragmatic",
    "pos": "adj",
@@ -102910,16 +103648,6 @@ window.WORDBANK={
     "behind_the_screen_jurassic_park_a2b1"
    ]
   },
-  "island": {
-   "w": "island",
-   "pos": "n",
-   "def": "a piece of land with water all around it",
-   "ex": "We took a boat to a small island for lunch.",
-   "lessons": [
-    "behind_the_screen_jurassic_park_a2b1",
-    "short_history_the_bermuda_triangle_a2b1"
-   ]
-  },
   "mosquito": {
    "w": "mosquito",
    "pos": "n",
@@ -103348,16 +104076,6 @@ window.WORDBANK={
    "lessons": [
     "gr_warmup_b2_hot_takes_climate",
     "speaking_naturally_teens_03_climate_change"
-   ]
-  },
-  "curriculum": {
-   "w": "curriculum",
-   "pos": "n",
-   "def": "the subjects taught in a school or course",
-   "ex": "Coding is now part of the national curriculum.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_education",
-    "teacher_conversations_01_why_i_quit_ana"
    ]
   },
   "rote learning": {
@@ -103876,17 +104594,6 @@ window.WORDBANK={
    "lessons": [
     "gr_warmup_b2_hot_takes_money",
     "discuss_b2c1_power_and_accountability"
-   ]
-  },
-  "streaming": {
-   "w": "streaming",
-   "pos": "n",
-   "def": "listening to music online without downloading it first",
-   "ex": "Streaming has replaced CDs for most young listeners.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_music",
-    "breaking_news_netflix_warner_bros_jan_2026",
-    "b2_59_digital_wellbeing"
    ]
   },
   "autotune": {
@@ -106828,15 +107535,6 @@ window.WORDBANK={
     "rp_38_at_the_school_office"
    ]
   },
-  "tutoring": {
-   "w": "tutoring",
-   "pos": "n",
-   "def": "extra private help with school subjects",
-   "ex": "They offer free tutoring in English after school.",
-   "lessons": [
-    "rp_38_at_the_school_office"
-   ]
-  },
   "shyness": {
    "w": "shyness",
    "pos": "n",
@@ -107728,15 +108426,6 @@ window.WORDBANK={
     "lesson_36_technology_society_interactive"
    ]
   },
-  "soft power": {
-   "w": "soft power",
-   "pos": "n",
-   "def": "influence a country gains through culture and ideas, not force",
-   "ex": "Films and music are a big source of soft power.",
-   "lessons": [
-    "soft_power_hard_world"
-   ]
-  },
   "cultural diplomacy": {
    "w": "cultural diplomacy",
    "pos": "n",
@@ -108592,17 +109281,6 @@ window.WORDBANK={
     "su_a2_63_mapping_the_customer_journey"
    ]
   },
-  "indirect": {
-   "w": "indirect",
-   "pos": "adj",
-   "def": "not saying things openly or clearly",
-   "ex": "An indirect answer can sometimes seem polite.",
-   "lessons": [
-    "su_a2_64_adapting_communication",
-    "prof_c1_12_cross_cultural_communication",
-    "su_a2_49_communication_styles"
-   ]
-  },
   "preference": {
    "w": "preference",
    "pos": "n",
@@ -108626,18 +109304,6 @@ window.WORDBANK={
    "ex": "Let me get straight to the point: we need more money.",
    "lessons": [
     "su_a2_64_adapting_communication"
-   ]
-  },
-  "subtle": {
-   "w": "subtle",
-   "pos": "adj",
-   "def": "not obvious and difficult to notice",
-   "ex": "She gave me a subtle hint that she was bored.",
-   "lessons": [
-    "su_a2_64_adapting_communication",
-    "lesson_41_nuances_tense_aspect",
-    "sp_b2_46_nuanced_description",
-    "sp_prep_b2_46"
    ]
   },
   "signpost": {
@@ -109813,19 +110479,6 @@ window.WORDBANK={
     "Jane_Performance_STUDENT"
    ]
   },
-  "gesture": {
-   "w": "gesture",
-   "pos": "n",
-   "def": "a movement of the hands or body that shows meaning",
-   "ex": "She made a small gesture with her hand to calm the crowd.",
-   "lessons": [
-    "Jane_Performance_STUDENT",
-    "su_a2_46_body_language",
-    "talk_gift_giving_b2c1",
-    "b2_64_voice_and_body_language",
-    "lesson-13-presentations"
-   ]
-  },
   "pick something up": {
    "w": "pick something up",
    "pos": "phr v",
@@ -110796,21 +111449,6 @@ window.WORDBANK={
    "ex": "To some critics, guessing the past is only a parlour game.",
    "lessons": [
     "althist_history_c1_part1"
-   ]
-  },
-  "genre": {
-   "w": "genre",
-   "pos": "n",
-   "def": "a particular type of art, writing or music",
-   "ex": "Crime fiction is my favourite genre.",
-   "lessons": [
-    "althist_history_c1_part1",
-    "su_a2_07_the_silver_screen",
-    "b1_51_music_and_identity",
-    "horror_history_c1_part1",
-    "crime_history_c1_part2",
-    "fantasy_history_c1_part1",
-    "lesson_gaming_world_interactive"
    ]
   },
   "meddle": {
@@ -114416,17 +115054,6 @@ window.WORDBANK={
     "su_a2_29_describing_future_technology"
    ]
   },
-  "cuisine": {
-   "w": "cuisine",
-   "pos": "n",
-   "def": "a style of cooking from a particular country or region",
-   "ex": "I really love Mexican cuisine, especially the spicy dishes.",
-   "lessons": [
-    "su_a2_30_ordering_food",
-    "b1_34_food_and_drink",
-    "su_a2_22_dream_retirement"
-   ]
-  },
   "take an order": {
    "w": "take an order",
    "pos": "phr",
@@ -115723,21 +116350,6 @@ window.WORDBANK={
     "bestiary_memory_lesson",
     "lesson_ocean_speaking_EXPANDED",
     "bestiary_ielts_phrases"
-   ]
-  },
-  "takeaway": {
-   "w": "takeaway",
-   "pos": "n",
-   "def": "a key idea or fact that you remember from something",
-   "ex": "My main takeaway from the meeting was to plan earlier.",
-   "lessons": [
-    "bestiary_discourse_command",
-    "ielts_lesson_15_common_mistakes",
-    "ielts_writing_guides",
-    "sp_c1_06_high_stakes_communication",
-    "bc_academic_notetaking_for_phd_c1",
-    "grammar_a1_08_adjectives_adverbs_comparatives",
-    "grammar_b2_02_future_tenses_advanced"
    ]
   },
   "circle back": {
@@ -117211,15 +117823,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the planned dance moves for a song or show",
    "ex": "The choreography in this video is amazing.",
-   "lessons": [
-    "grammar_a2_26_kpop"
-   ]
-  },
-  "fandom": {
-   "w": "fandom",
-   "pos": "n",
-   "def": "all the fans of a group or person together",
-   "ex": "The fandom raised money for a local hospital.",
    "lessons": [
     "grammar_a2_26_kpop"
    ]
@@ -120170,17 +120773,6 @@ window.WORDBANK={
     "lesson_35_subjunctive"
    ]
   },
-  "collective": {
-   "w": "collective",
-   "pos": "adj",
-   "def": "done or shared by a whole group of people",
-   "ex": "Real change needs collective action, not just individual effort.",
-   "lessons": [
-    "talk_climate_action_b2c1",
-    "crowds_and_madness",
-    "cpe_read_c2_14_collective_memory"
-   ]
-  },
   "cut-throat": {
    "w": "cut-throat",
    "pos": "adj",
@@ -120280,15 +120872,6 @@ window.WORDBANK={
     "talk_gift_giving_b2c1",
     "sp_prep_a2_01",
     "talk_gift_giving_a2b1"
-   ]
-  },
-  "reciprocate": {
-   "w": "reciprocate",
-   "pos": "v",
-   "def": "to respond to a kind action with a similar one",
-   "ex": "They invited us to dinner, so we want to reciprocate.",
-   "lessons": [
-    "talk_gift_giving_b2c1"
    ]
   },
   "assignment": {
@@ -120702,20 +121285,6 @@ window.WORDBANK={
    "ex": "We have an in-person meeting once a month.",
    "lessons": [
     "c1_pro_16_remote_teams"
-   ]
-  },
-  "tension": {
-   "w": "tension",
-   "pos": "n",
-   "def": "a feeling of conflict between different needs or people",
-   "ex": "There is tension between saving money and hiring staff.",
-   "lessons": [
-    "c1_pro_16_remote_teams",
-    "prof_c1_09_stakeholder_management",
-    "b2_75_managing_stress",
-    "qf_pronunciation_minimal_pairs_i",
-    "sp_prep_b1_31",
-    "ib_lesson_02_naming_techniques"
    ]
   },
   "red flag": {
@@ -134535,15 +135104,6 @@ window.WORDBANK={
     "wp_38_the_social_contract"
    ]
   },
-  "conform": {
-   "w": "conform",
-   "pos": "v",
-   "def": "to follow accepted rules, patterns or standards",
-   "ex": "New buildings must conform to safety standards.",
-   "lessons": [
-    "wp_39_the_starry_heavens"
-   ]
-  },
   "informative": {
    "w": "informative",
    "pos": "adj",
@@ -135355,16 +135915,6 @@ window.WORDBANK={
    "lessons": [
     "b2_104_greener_cities_solutions",
     "ielts_route"
-   ]
-  },
-  "rank": {
-   "w": "rank",
-   "pos": "n",
-   "def": "a position in an organisation or society",
-   "ex": "He rose to the rank of captain.",
-   "lessons": [
-    "b2_106_status_games",
-    "lesson-12-playing-cards"
    ]
   },
   "talk over": {
@@ -143010,15 +143560,6 @@ window.WORDBANK={
     "lesson_37_education_learning"
    ]
   },
-  "competitive": {
-   "w": "competitive",
-   "pos": "adj",
-   "def": "wanting very much to win or be the best",
-   "ex": "The entrance exams are very competitive.",
-   "lessons": [
-    "lesson_37_education_learning_interactive"
-   ]
-  },
   "elaboration": {
    "w": "elaboration",
    "pos": "n",
@@ -149748,15 +150289,6 @@ window.WORDBANK={
     "lesson-10-number-review"
    ]
   },
-  "greet": {
-   "w": "greet",
-   "pos": "v",
-   "def": "to say hello to someone when you meet",
-   "ex": "The host greeted every guest at the door.",
-   "lessons": [
-    "lesson-11-names-faces"
-   ]
-  },
   "dimples": {
    "w": "dimples",
    "pos": "n",
@@ -149882,15 +150414,6 @@ window.WORDBANK={
    "ex": "You ought to check your answers before you finish.",
    "lessons": [
     "lesson-17-grammar"
-   ]
-  },
-  "alphabet": {
-   "w": "alphabet",
-   "pos": "n",
-   "def": "the set of letters used to write a language",
-   "ex": "There are twenty-six letters in the English alphabet.",
-   "lessons": [
-    "lesson-18-alphabet-pegs"
    ]
   },
   "mispronounced": {
@@ -150561,15 +151084,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "based on guesses rather than facts",
    "ex": "These predictions about the year 2084 are highly speculative.",
-   "lessons": [
-    "discuss_c1_ai_future_humanity"
-   ]
-  },
-  "cashless": {
-   "w": "cashless",
-   "pos": "adj",
-   "def": "using cards or phones instead of coins and notes",
-   "ex": "Many shops in big cities are becoming cashless.",
    "lessons": [
     "discuss_c1_ai_future_humanity"
    ]
@@ -151359,15 +151873,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "able to be swapped without changing the result",
    "ex": "These two words are almost interchangeable.",
-   "lessons": [
-    "ct_b1_22_hedging_language"
-   ]
-  },
-  "ageing": {
-   "w": "ageing",
-   "pos": "adj",
-   "def": "growing older, especially in years or population",
-   "ex": "Many countries have an ageing population.",
    "lessons": [
     "ct_b1_22_hedging_language"
    ]
@@ -152720,15 +153225,6 @@ window.WORDBANK={
    "ex": "She lost one of her silver earrings at the party.",
    "lessons": [
     "grammar_b1_12_pronouns_substitution"
-   ]
-  },
-  "dumpling": {
-   "w": "dumpling",
-   "pos": "n",
-   "def": "a small ball of dough, sometimes filled, cooked in liquid",
-   "ex": "We ordered pork dumplings at the Chinese restaurant.",
-   "lessons": [
-    "grammar_b1_14_prepositions_advanced"
    ]
   },
   "pottery": {
