@@ -12480,6 +12480,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_eu_background_a2",
+   "title": "Europe: One Continent, Many Cultures",
+   "level": "",
+   "words": [
+    "continent",
+    "border",
+    "language",
+    "member",
+    "different",
+    "myth"
+   ]
+  },
+  {
    "id": "world_eu_coffee",
    "title": "Coffee Snobs and Cake Breaks",
    "level": "",
@@ -12492,6 +12505,19 @@ window.WORDBANK={
     "debate",
     "pastry",
     "heritage"
+   ]
+  },
+  {
+   "id": "world_eu_coffee_a2",
+   "title": "Coffee Snobs and Cake Breaks",
+   "level": "",
+   "words": [
+    "coffee house",
+    "break",
+    "custom",
+    "bar",
+    "pastry",
+    "fika"
    ]
   },
   {
@@ -12510,6 +12536,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_eu_directness_a2",
+   "title": "Blunt Dutch, Polite British?",
+   "level": "",
+   "words": [
+    "direct",
+    "polite",
+    "feedback",
+    "honest",
+    "hint",
+    "meeting"
+   ]
+  },
+  {
    "id": "world_eu_east",
    "title": "'Eastern Europe' Beyond the Clichés",
    "level": "",
@@ -12522,6 +12561,19 @@ window.WORDBANK={
     "pioneer",
     "transform",
     "cliché"
+   ]
+  },
+  {
+   "id": "world_eu_east_a2",
+   "title": "“Eastern Europe” Beyond the Clichés",
+   "level": "",
+   "words": [
+    "label",
+    "curtain",
+    "city",
+    "online",
+    "change",
+    "modern"
    ]
   },
   {
@@ -12540,6 +12592,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_eu_greetings_a2",
+   "title": "Kisses, Handshakes and Personal Space",
+   "level": "",
+   "words": [
+    "greeting",
+    "kiss",
+    "handshake",
+    "space",
+    "stranger",
+    "close"
+   ]
+  },
+  {
    "id": "world_eu_nordic",
    "title": "Cold Nordics, Happy Nordics?",
    "level": "",
@@ -12551,6 +12616,19 @@ window.WORDBANK={
     "modest",
     "ranking",
     "satisfaction",
+    "equality"
+   ]
+  },
+  {
+   "id": "world_eu_nordic_a2",
+   "title": "Cold Nordics, Happy Nordics?",
+   "level": "",
+   "words": [
+    "quiet",
+    "happy",
+    "trust",
+    "shy",
+    "modest",
     "equality"
    ]
   },
@@ -12570,6 +12648,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_eu_punctuality_a2",
+   "title": "Punctual Germans, Late Spaniards?",
+   "level": "",
+   "words": [
+    "punctual",
+    "delay",
+    "time zone",
+    "siesta",
+    "flexible",
+    "deadline"
+   ]
+  },
+  {
    "id": "world_eu_stereotypes",
    "title": "Where Do Stereotypes Come From?",
    "level": "",
@@ -12582,6 +12673,18 @@ window.WORDBANK={
     "confirmation bias",
     "label",
     "nuance"
+   ]
+  },
+  {
+   "id": "world_eu_stereotypes_a2",
+   "title": "Where Do Stereotypes Come From?",
+   "level": "",
+   "words": [
+    "stereotype",
+    "joke",
+    "study",
+    "average",
+    "example"
    ]
   },
   {
@@ -12600,6 +12703,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_la_background_a2",
+   "title": "Latin America: One Name, Many Worlds",
+   "level": "",
+   "words": [
+    "region",
+    "indigenous",
+    "independence",
+    "different",
+    "capital",
+    "immigrant"
+   ]
+  },
+  {
    "id": "world_la_dead",
    "title": "Day of the Dead: Mexican Halloween?",
    "level": "",
@@ -12612,6 +12728,19 @@ window.WORDBANK={
     "cemetery",
     "syncretism",
     "satire"
+   ]
+  },
+  {
+   "id": "world_la_dead_a2",
+   "title": "Day of the Dead: Mexican Halloween?",
+   "level": "",
+   "words": [
+    "altar",
+    "offering",
+    "marigold",
+    "honour",
+    "skull",
+    "cemetery"
    ]
   },
   {
@@ -12630,6 +12759,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_la_family_a2",
+   "title": "Family Comes First?",
+   "level": "",
+   "words": [
+    "family",
+    "grandparent",
+    "godparent",
+    "lunch",
+    "child",
+    "alone"
+   ]
+  },
+  {
    "id": "world_la_food",
    "title": "Is It All Tacos and Chilli?",
    "level": "",
@@ -12642,6 +12784,19 @@ window.WORDBANK={
     "mild",
     "stew",
     "fusion"
+   ]
+  },
+  {
+   "id": "world_la_food_a2",
+   "title": "Is It All Tacos and Chilli?",
+   "level": "",
+   "words": [
+    "maize",
+    "potato",
+    "spicy",
+    "mild",
+    "beef",
+    "stew"
    ]
   },
   {
@@ -12660,6 +12815,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_la_language_a2",
+   "title": "Everyone Speaks Spanish?",
+   "level": "",
+   "words": [
+    "portuguese",
+    "spanish",
+    "indigenous",
+    "accent",
+    "border",
+    "official"
+   ]
+  },
+  {
    "id": "world_la_party",
    "title": "Always Dancing? Carnival, Samba and Tango",
    "level": "",
@@ -12672,6 +12840,19 @@ window.WORDBANK={
     "working-class",
     "rhythm",
     "stereotype"
+   ]
+  },
+  {
+   "id": "world_la_party_a2",
+   "title": "Always Dancing? Carnival, Samba and Tango",
+   "level": "",
+   "words": [
+    "carnival",
+    "dance",
+    "parade",
+    "rhythm",
+    "tango",
+    "neighbourhood"
    ]
   },
   {
@@ -12690,6 +12871,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_la_time_a2",
+   "title": "Mañana, Mañana? Time in Latin America",
+   "level": "",
+   "words": [
+    "punctual",
+    "late",
+    "traffic",
+    "appointment",
+    "host",
+    "business"
+   ]
+  },
+  {
    "id": "world_la_warmth",
    "title": "Warm, Loud and Touchy?",
    "level": "",
@@ -12702,6 +12896,19 @@ window.WORDBANK={
     "formal",
     "interrupt",
     "overlapping"
+   ]
+  },
+  {
+   "id": "world_la_warmth_a2",
+   "title": "Warm, Loud and Touchy?",
+   "level": "",
+   "words": [
+    "kiss",
+    "hug",
+    "cheek",
+    "loud",
+    "formal",
+    "title"
    ]
   },
   {
@@ -12720,6 +12927,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_na_background_a2",
+   "title": "North America: Two Neighbours, One Continent",
+   "level": "",
+   "words": [
+    "neighbour",
+    "border",
+    "french",
+    "province",
+    "population",
+    "king"
+   ]
+  },
+  {
    "id": "world_na_canadians",
    "title": "Polite Canadians: Sorry, Not Sorry?",
    "level": "",
@@ -12732,6 +12952,19 @@ window.WORDBANK={
     "stand out",
     "cliché",
     "self-deprecating"
+   ]
+  },
+  {
+   "id": "world_na_canadians_a2",
+   "title": "Polite Canadians: Sorry, Not Sorry?",
+   "level": "",
+   "words": [
+    "sorry",
+    "apology",
+    "polite",
+    "law",
+    "crowded",
+    "hockey"
    ]
   },
   {
@@ -12750,6 +12983,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_na_english_a2",
+   "title": "Same Language, Different Words?",
+   "level": "",
+   "words": [
+    "spelling",
+    "dictionary",
+    "accent",
+    "word",
+    "hat",
+    "language"
+   ]
+  },
+  {
    "id": "world_na_food",
    "title": "Big Portions and Fast Food?",
    "level": "",
@@ -12762,6 +13008,19 @@ window.WORDBANK={
     "farmers' market",
     "grow",
     "comfort food"
+   ]
+  },
+  {
+   "id": "world_na_food_a2",
+   "title": "Big Portions and Fast Food?",
+   "level": "",
+   "words": [
+    "portion",
+    "fast food",
+    "diner",
+    "leftover",
+    "market",
+    "local"
    ]
   },
   {
@@ -12780,6 +13039,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_na_friendly_a2",
+   "title": "Friendly Americans, Fake Smiles?",
+   "level": "",
+   "words": [
+    "smile",
+    "small talk",
+    "fake",
+    "friendly",
+    "stranger",
+    "answer"
+   ]
+  },
+  {
    "id": "world_na_mosaic",
    "title": "Melting Pot or Mosaic?",
    "level": "",
@@ -12792,6 +13064,19 @@ window.WORDBANK={
     "heritage",
     "newcomer",
     "indigenous"
+   ]
+  },
+  {
+   "id": "world_na_mosaic_a2",
+   "title": "Melting Pot or Mosaic?",
+   "level": "",
+   "words": [
+    "immigrant",
+    "melting pot",
+    "mosaic",
+    "culture",
+    "newcomer",
+    "traditional"
    ]
   },
   {
@@ -12810,6 +13095,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_na_tipping_a2",
+   "title": "Tipping: Generous or Obligatory?",
+   "level": "",
+   "words": [
+    "tip",
+    "waiter",
+    "bill",
+    "wage",
+    "service",
+    "percent"
+   ]
+  },
+  {
    "id": "world_na_work",
    "title": "Live to Work? Vacation and the Hustle",
    "level": "",
@@ -12822,6 +13120,19 @@ window.WORDBANK={
     "employer",
     "benefit",
     "unplug"
+   ]
+  },
+  {
+   "id": "world_na_work_a2",
+   "title": "Live to Work? Vacation and the Hustle",
+   "level": "",
+   "words": [
+    "vacation",
+    "paid",
+    "law",
+    "employer",
+    "holiday",
+    "tired"
    ]
   },
   {
@@ -45586,11 +45897,12 @@ window.WORDBANK={
   },
   "family": {
    "w": "family",
-   "pos": "",
+   "pos": "n",
    "def": "the people close to you",
-   "ex": "",
+   "ex": "I have a big family.",
    "lessons": [
-    "a1s_04_family"
+    "a1s_04_family",
+    "world_la_family_a2"
    ]
   },
   "mother": {
@@ -45694,11 +46006,12 @@ window.WORDBANK={
   },
   "lunch": {
    "w": "lunch",
-   "pos": "",
+   "pos": "n",
    "def": "the meal in the middle of the day",
-   "ex": "",
+   "ex": "We have a long lunch on Sunday.",
    "lessons": [
-    "a1s_05_day"
+    "a1s_05_day",
+    "world_la_family_a2"
    ]
   },
   "go home": {
@@ -45831,6 +46144,7 @@ window.WORDBANK={
     "techniques_a_piece_of_string_a2b1",
     "techniques_appointment_in_samarra_a2b1",
     "techniques_araby_a2b1",
+    "world_na_food_a2",
     "gr_warmup_a2_hot_takes_shopping"
    ]
   },
@@ -46548,11 +46862,12 @@ window.WORDBANK={
   },
   "hug": {
    "w": "hug",
-   "pos": "",
+   "pos": "n",
    "def": "you put your arms around someone",
-   "ex": "",
+   "ex": "He gave me a big hug.",
    "lessons": [
-    "a1s_15_sister"
+    "a1s_15_sister",
+    "world_la_warmth_a2"
    ]
   },
   "suitcase": {
@@ -46721,6 +47036,7 @@ window.WORDBANK={
     "a1s_35_because",
     "techniques_metamorphosis_3_a2b1",
     "techniques_the_ransom_of_red_chief_a2b1",
+    "world_na_work_a2",
     "rp_25_at_the_vet_a2b1",
     "sf_a1_04_a_working_day",
     "a1p_12_yesterdays_story"
@@ -47697,6 +48013,7 @@ window.WORDBANK={
     "techniques_jekyll_and_hyde_1_a2b1",
     "tib_johari_a2b1",
     "world_eu_nordic",
+    "world_eu_nordic_a2",
     "behind_the_screen_2001_a_space_odyssey_a2b1",
     "b1_52_true_friendship",
     "epicurean_15_the_canonic",
@@ -47857,7 +48174,8 @@ window.WORDBANK={
    "ex": "She will dance with him.\" / \"We love to dance at parties.",
    "lessons": [
     "a1s_32_festival",
-    "techniques_the_nightingale_and_the_rose_a2b1"
+    "techniques_the_nightingale_and_the_rose_a2b1",
+    "world_la_party_a2"
    ]
   },
   "at": {
@@ -48013,6 +48331,7 @@ window.WORDBANK={
     "a1s_35_because",
     "bc_intel_foundry_a2b1",
     "bc_nokia_a2b1",
+    "world_la_time_a2",
     "a1p_12_yesterdays_story"
    ]
   },
@@ -48149,10 +48468,11 @@ window.WORDBANK={
    "w": "neighbour",
    "pos": "n",
    "def": "a person who lives near you",
-   "ex": "",
+   "ex": "Canada is a neighbour of the USA.",
    "lessons": [
     "a1s_36_walkclub",
     "world_na_background",
+    "world_na_background_a2",
     "rs_y7_sum2_06_02",
     "rp_13_talking_about_the_weather_a2b1",
     "behind_the_screen_the_crucible_a2b1",
@@ -48765,12 +49085,13 @@ window.WORDBANK={
   },
   "city": {
    "w": "city",
-   "pos": "",
+   "pos": "n",
    "def": "a very big town",
-   "ex": "",
+   "ex": "Prague is a beautiful city.",
    "lessons": [
     "a1s_44_gone",
-    "short_history_the_manhattan_project_a2b1"
+    "short_history_the_manhattan_project_a2b1",
+    "world_eu_east_a2"
    ]
   },
   "soon": {
@@ -49038,11 +49359,12 @@ window.WORDBANK={
   },
   "answer": {
    "w": "answer",
-   "pos": "",
+   "pos": "n",
    "def": "what you say to a question",
-   "ex": "",
+   "ex": "He did not wait for my answer.",
    "lessons": [
-    "a1s_48_quiz"
+    "a1s_48_quiz",
+    "world_na_friendly_a2"
    ]
   },
   "question": {
@@ -49367,6 +49689,7 @@ window.WORDBANK={
     "tib_swot_b2",
     "topic_habits_b2",
     "world_eu_background",
+    "world_eu_background_a2",
     "gr_b2_fact_or_bluff",
     "fantasy_history_c1_part1",
     "ois_01_coming_of_the_britons",
@@ -50720,6 +51043,7 @@ window.WORDBANK={
    "lessons": [
     "bc_airbnb_a2b1",
     "short_history_the_world_cup_a2b1",
+    "world_la_time_a2",
     "sf_a1_15_the_visit"
    ]
   },
@@ -50761,6 +51085,8 @@ window.WORDBANK={
     "bc_airbnb_a2b1",
     "techniques_rip_van_winkle_a2b1",
     "techniques_the_three_strangers_a2b1",
+    "world_eu_greetings_a2",
+    "world_na_friendly_a2",
     "gr_b1_story_chain",
     "rp_13_talking_about_the_weather_a2b1",
     "rp_06_asking_for_directions",
@@ -51038,11 +51364,12 @@ window.WORDBANK={
   },
   "close": {
    "w": "close",
-   "pos": "v",
+   "pos": "adj",
    "def": "To stop a business or project for ever — or to shut a door or shop.",
    "ex": "Alphabet closed the balloon project in 2021.",
    "lessons": [
-    "bc_alphabet_a2b1"
+    "bc_alphabet_a2b1",
+    "world_eu_greetings_a2"
    ]
   },
   "project": {
@@ -51725,6 +52052,7 @@ window.WORDBANK={
     "psyp_10_who_decides_whats_normal_b2c1",
     "topic_food_b2",
     "world_eu_east",
+    "world_eu_east_a2",
     "world_eu_stereotypes",
     "world_la_background"
    ]
@@ -51841,6 +52169,7 @@ window.WORDBANK={
     "bc_boeing_a2b1",
     "bc_golive_a2b1",
     "world_eu_punctuality",
+    "world_eu_punctuality_a2",
     "acad_b1_26_time_management",
     "rp_37_at_the_consulate",
     "b1_25_career_development",
@@ -51944,6 +52273,7 @@ window.WORDBANK={
     "bc_boeing_a2b1",
     "bc_microsoft_a2b1",
     "psyp_12_whose_psychology_a2b1",
+    "world_na_mosaic_a2",
     "su_a2_05_comparing_cultures",
     "c1_pro_18_onboarding",
     "talk_ai_and_language_learning_a2b1"
@@ -52302,6 +52632,7 @@ window.WORDBANK={
    "lessons": [
     "bc_chinua_achebe_c1",
     "world_eu_stereotypes",
+    "world_eu_stereotypes_a2",
     "world_la_party",
     "gr_warmup_b2_hot_takes_gender",
     "c1_pro_28_consulting_frameworks",
@@ -53149,6 +53480,7 @@ window.WORDBANK={
     "bc_kodak_a2b1",
     "tib_eisenhower_a2b1",
     "world_eu_punctuality",
+    "world_eu_punctuality_a2",
     "su_a2_20_it_was_a_disaster",
     "c1_pro_22_supply_chain",
     "rp_05_at_the_airport_a2b1",
@@ -54777,6 +55109,7 @@ window.WORDBANK={
     "bc_may_might_could_a2",
     "bc_naguib_mahfouz_b1b2",
     "techniques_the_bet_a2b1",
+    "world_eu_east_a2",
     "rp_10_at_the_train_station_a2b1",
     "sf_a1_07_welcome_to_london",
     "a1p_13_going_shopping",
@@ -55015,6 +55348,7 @@ window.WORDBANK={
    "ex": "I grew up in a quiet neighbourhood near the river.",
    "lessons": [
     "bc_naguib_mahfouz_b1b2",
+    "world_la_party_a2",
     "grammar_c1_09_advanced_articles_determiners"
    ]
   },
@@ -55905,7 +56239,10 @@ window.WORDBANK={
     "bc_overview_effect_b2",
     "short_history_the_partition_of_india",
     "world_eu_background",
+    "world_eu_background_a2",
+    "world_la_language_a2",
     "world_na_background",
+    "world_na_background_a2",
     "short_history_the_berlin_wall_a2b1",
     "short_history_the_scramble_for_africa_a2b1",
     "behind_the_screen_bridge_of_spies_a2b1",
@@ -57303,6 +57640,7 @@ window.WORDBANK={
     "bc_vw_a2b1",
     "bc_wework_a2b1",
     "tib_johari_a2b1",
+    "world_eu_directness_a2",
     "behind_the_screen_the_untouchables_a2b1",
     "epicurean_14_death_full_treatment",
     "techniques_a_retrieved_reformation_a2b1"
@@ -63744,12 +64082,14 @@ window.WORDBANK={
    "w": "law",
    "pos": "n",
    "def": "the rules a country or community enforces. above the law means not bound by the rules that apply to others.",
-   "ex": "It is a law to stop at a red light.",
+   "ex": "The law says you must have a day off.",
    "lessons": [
     "nq_06_is_it_right_c1",
     "odyssey_ire_kingship",
     "pol_01_power_a2",
     "techniques_before_the_law_a2b1",
+    "world_na_canadians_a2",
+    "world_na_work_a2",
     "behind_the_screen_suffragette_a2b1",
     "short_history_genghis_khan_a2b1",
     "short_history_napoleon_a2b1",
@@ -64882,9 +65222,10 @@ window.WORDBANK={
    "w": "title",
    "pos": "n",
    "def": "a name showing rank.",
-   "ex": "",
+   "ex": "Use a title at a business meeting.",
    "lessons": [
-    "odyssey_dafydd_ap_llywelyn"
+    "odyssey_dafydd_ap_llywelyn",
+    "world_la_warmth_a2"
    ]
   },
   "burgh": {
@@ -65064,6 +65405,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_donald_iii",
     "ts_tu_youyou_b2",
+    "world_na_mosaic_a2",
     "su_a2_14_online_or_offline",
     "su_a2_28_a_good_holiday",
     "bc_citizenship_test_c1",
@@ -65801,10 +66143,11 @@ window.WORDBANK={
    "w": "wage",
    "pos": "n",
    "def": "money paid for work.",
-   "ex": "",
+   "ex": "A server's wage can be low.",
    "lessons": [
     "odyssey_edward_iii",
     "world_na_tipping",
+    "world_na_tipping_a2",
     "lesson_46_globalization_economics"
    ]
   },
@@ -66695,6 +67038,7 @@ window.WORDBANK={
     "short_history_the_partition_of_india",
     "ts_montessori_b2",
     "world_la_background",
+    "world_la_background_a2",
     "world_la_family"
    ]
   },
@@ -67934,11 +68278,12 @@ window.WORDBANK={
    "w": "province",
    "pos": "n",
    "def": "a large region of a country.",
-   "ex": "",
+   "ex": "Ontario is a province.",
    "lessons": [
     "odyssey_ire_eoganacht",
     "odyssey_ire_seven",
-    "world_na_background"
+    "world_na_background",
+    "world_na_background_a2"
    ]
   },
   "rock": {
@@ -70837,10 +71182,11 @@ window.WORDBANK={
    "w": "king",
    "pos": "n",
    "def": "a man who is the head of a country, from a royal family",
-   "ex": "The king lives in a big palace.",
+   "ex": "Canada's head of state is a king.",
    "lessons": [
     "pol_01_power_a2",
-    "topic_dreams_a2b1"
+    "topic_dreams_a2b1",
+    "world_na_background_a2"
    ]
   },
   "president": {
@@ -71310,6 +71656,8 @@ window.WORDBANK={
     "pol_07_debate_a2",
     "techniques_the_cask_of_amontillado_a2b1",
     "tib_tuckman_b2",
+    "world_eu_directness_a2",
+    "world_na_canadians_a2",
     "rp_16_reporting_something_lost_a2b1",
     "su_a2_32_places_i_have_visited",
     "ct_b1_24_clarification_building_blocks",
@@ -71538,13 +71886,14 @@ window.WORDBANK={
   },
   "break": {
    "w": "break",
-   "pos": "",
+   "pos": "n",
    "def": "a promise (v) — to fail to do what you said you would do.",
-   "ex": "",
+   "ex": "Let's have a break.",
    "lessons": [
     "psy_01_marshmallow_b2c1",
     "techniques_the_lumber_room",
     "techniques_the_lumber_room_a2b1",
+    "world_eu_coffee_a2",
     "anansi_and_the_pot_of_wisdom",
     "qf_collocation_have_shower"
    ]
@@ -71558,6 +71907,7 @@ window.WORDBANK={
     "psy_01_marshmallow_b2c1",
     "techniques_luck",
     "world_eu_nordic",
+    "world_eu_nordic_a2",
     "world_na_canadians",
     "bc_someone_i_admire_idioms_c1",
     "someone_i_admire_b2c1",
@@ -72144,7 +72494,8 @@ window.WORDBANK={
    "ex": "Miss Brill is happy in the park.\" / \"I am happy to see you.",
    "lessons": [
     "psy_06_does_money_buy_happiness_a2b1",
-    "techniques_miss_brill_a2b1"
+    "techniques_miss_brill_a2b1",
+    "world_eu_nordic_a2"
    ]
   },
   "salary": {
@@ -72177,9 +72528,10 @@ window.WORDBANK={
    "w": "study",
    "pos": "n",
    "def": "answer (b). A careful piece of research. Study is also a verb: to learn.",
-   "ex": "",
+   "ex": "A study asked people about their country.",
    "lessons": [
     "psy_06_does_money_buy_happiness_a2b1",
+    "world_eu_stereotypes_a2",
     "a1_present_continuous_interactive"
    ]
   },
@@ -72899,6 +73251,7 @@ window.WORDBANK={
     "tib_johari_b2",
     "tib_pdca_b2",
     "world_eu_directness",
+    "world_eu_directness_a2",
     "su_a2_63_mapping_the_customer_journey",
     "acad_b1_15_learning_from_mistakes",
     "bc_market_research_c1",
@@ -74778,6 +75131,8 @@ window.WORDBANK={
    "lessons": [
     "short_history_christopher_columbus",
     "world_la_background",
+    "world_la_background_a2",
+    "world_la_language_a2",
     "world_na_mosaic",
     "lesson_famous_explorers_speaking",
     "cpe_read_c1_09_language_death"
@@ -77521,6 +77876,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_aztecs",
     "world_la_food",
+    "world_la_food_a2",
     "short_history_the_aztecs_a2b1"
    ]
   },
@@ -80322,6 +80678,7 @@ window.WORDBANK={
     "short_history_the_samurai",
     "techniques_mateo_falcone_a2b1",
     "world_la_dead",
+    "world_la_dead_a2",
     "rs_y9_spr2_16_02",
     "short_history_the_olympic_games_a2b1",
     "short_history_the_samurai_a2b1"
@@ -82648,6 +83005,7 @@ window.WORDBANK={
    "lessons": [
     "techniques_appointment_in_samarra_a2b1",
     "world_la_time",
+    "world_la_time_a2",
     "su_a2_87_at_the_doctor",
     "wk_28_the_first_sales_call",
     "a1p_32_phone_calls",
@@ -82723,6 +83081,7 @@ window.WORDBANK={
     "techniques_araby_a2b1",
     "techniques_hands_a2b1",
     "tib_johari_a2b1",
+    "world_eu_nordic_a2",
     "talk_adult_friendships_a2b1"
    ]
   },
@@ -84093,9 +84452,10 @@ window.WORDBANK={
    "w": "sorry",
    "pos": "adj",
    "def": "(1) sorry (that) / sorry for doing: you feel bad about something you did; (2) feel sorry for somebody: you feel sad for them because they have problems.",
-   "ex": "",
+   "ex": "I am sorry that I am late.",
    "lessons": [
-    "techniques_jekyll_and_hyde_4_a2b1"
+    "techniques_jekyll_and_hyde_4_a2b1",
+    "world_na_canadians_a2"
    ]
   },
   "unfurl": {
@@ -84801,6 +85161,7 @@ window.WORDBANK={
     "techniques_the_signal_man_a2b1",
     "techniques_the_story_of_an_hour_a2b1",
     "techniques_to_build_a_fire_a2b1",
+    "world_la_family_a2",
     "behind_the_screen_gravity_a2b1",
     "epicurean_28_gassendist_circle",
     "a1_who_do_you_do_it_with_interactive"
@@ -85516,9 +85877,10 @@ window.WORDBANK={
    "w": "joke",
    "pos": "n",
    "def": ". They had the same two jokes every day.",
-   "ex": "",
+   "ex": "He told a joke about Italians.",
    "lessons": [
-    "techniques_the_cabuliwallah_a2b1"
+    "techniques_the_cabuliwallah_a2b1",
+    "world_eu_stereotypes_a2"
    ]
   },
   "connoisseur": {
@@ -85851,6 +86213,7 @@ window.WORDBANK={
    "ex": "He spoke in a quiet voice.\" / \"The room was very quiet.",
    "lessons": [
     "techniques_the_egg_a2b1",
+    "world_eu_nordic_a2",
     "sf_a1_03_my_home"
    ]
   },
@@ -87522,11 +87885,12 @@ window.WORDBANK={
   },
   "bill": {
    "w": "bill",
-   "pos": "",
+   "pos": "n",
    "def": "a paper that says how much money you must pay for something.",
-   "ex": "",
+   "ex": "Please bring the bill.",
    "lessons": [
     "techniques_the_rocking_horse_winner_a2b1",
+    "world_na_tipping_a2",
     "sf_a1_10_dinner_with_the_customer",
     "a1p_31_restaurant",
     "a1_food_eating_out_interactive",
@@ -89664,10 +90028,11 @@ window.WORDBANK={
    "w": "portion",
    "pos": "n",
    "def": "“The portions in that restaurant are enormous.”",
-   "ex": "",
+   "ex": "The portion was very big.",
    "lessons": [
     "tib_foodpyramid_b2",
     "world_na_food",
+    "world_na_food_a2",
     "su_a2_78_choosing_a_restaurant",
     "b1_34_food_and_drink"
    ]
@@ -89894,12 +90259,14 @@ window.WORDBANK={
   },
   "immigrant": {
    "w": "immigrant",
-   "pos": "",
+   "pos": "n",
    "def": "a person who comes to live in a new country.",
-   "ex": "",
+   "ex": "Many Italian immigrants went to Argentina.",
    "lessons": [
     "tib_maslow_a2b1",
     "tib_maslow_b2",
+    "world_la_background_a2",
+    "world_na_mosaic_a2",
     "discuss_b2_who_belongs_here"
    ]
   },
@@ -90777,11 +91144,13 @@ window.WORDBANK={
    "w": "accent",
    "pos": "n",
    "def": "everyone has one, including every native speaker. The story will ask who decided which accents count as \"good\".",
-   "ex": "",
+   "ex": "He has an Argentine accent.",
    "lessons": [
     "topic_english_language_b2",
     "world_la_language",
+    "world_la_language_a2",
     "world_na_english",
+    "world_na_english_a2",
     "gr_warmup_b2_hot_takes_language",
     "everyone_has_an_accent_b1b2",
     "b2_55_telephone_skills",
@@ -91313,6 +91682,7 @@ window.WORDBANK={
     "topic_strangers_b2",
     "world_eu_nordic",
     "world_na_friendly",
+    "world_na_friendly_a2",
     "b1_17_casual_conversation",
     "b1_23_business_travel_socialising",
     "speaking_naturally_04_small_talk_fillers",
@@ -92257,9 +92627,10 @@ window.WORDBANK={
    "w": "continent",
    "pos": "n",
    "def": "one of the large land masses of the world.",
-   "ex": "",
+   "ex": "Europe is a continent.",
    "lessons": [
-    "world_eu_background"
+    "world_eu_background",
+    "world_eu_background_a2"
    ]
   },
   "member state": {
@@ -92280,13 +92651,45 @@ window.WORDBANK={
     "world_eu_background"
    ]
   },
+  "language": {
+   "w": "language",
+   "pos": "n",
+   "def": "the words people speak in a country",
+   "ex": "There are two official languages in Canada.",
+   "lessons": [
+    "world_eu_background_a2",
+    "world_na_english_a2"
+   ]
+  },
+  "member": {
+   "w": "member",
+   "pos": "n",
+   "def": "a person or country in a group",
+   "ex": "Spain is a member of the European Union.",
+   "lessons": [
+    "world_eu_background_a2",
+    "rp_20_at_the_library_a2b1",
+    "b1_39_joining_a_club"
+   ]
+  },
+  "different": {
+   "w": "different",
+   "pos": "adj",
+   "def": "not the same",
+   "ex": "Every country is different.",
+   "lessons": [
+    "world_eu_background_a2",
+    "world_la_background_a2"
+   ]
+  },
   "custom": {
    "w": "custom",
    "pos": "n",
    "def": "a traditional way of doing things.",
-   "ex": "",
+   "ex": "It is a custom to drink coffee standing up.",
    "lessons": [
     "world_eu_coffee",
+    "world_eu_coffee_a2",
     "su_a2_39_my_celebrations",
     "b1_46_family_traditions",
     "b2_52_cross_cultural_business",
@@ -92307,9 +92710,37 @@ window.WORDBANK={
    "w": "pastry",
    "pos": "n",
    "def": "a small sweet baked food.",
-   "ex": "",
+   "ex": "I ate a pastry with my coffee.",
    "lessons": [
-    "world_eu_coffee"
+    "world_eu_coffee",
+    "world_eu_coffee_a2"
+   ]
+  },
+  "coffee house": {
+   "w": "coffee house",
+   "pos": "n",
+   "def": "a place where people drink coffee and talk",
+   "ex": "The coffee house was full of writers.",
+   "lessons": [
+    "world_eu_coffee_a2"
+   ]
+  },
+  "bar": {
+   "w": "bar",
+   "pos": "n",
+   "def": "a place to buy a drink",
+   "ex": "He drinks espresso at the bar.",
+   "lessons": [
+    "world_eu_coffee_a2"
+   ]
+  },
+  "fika": {
+   "w": "fika",
+   "pos": "n",
+   "def": "a Swedish break with coffee and a sweet snack",
+   "ex": "We have fika at three o'clock.",
+   "lessons": [
+    "world_eu_coffee_a2"
    ]
   },
   "blunt": {
@@ -92387,6 +92818,41 @@ window.WORDBANK={
     "world_eu_directness"
    ]
   },
+  "direct": {
+   "w": "direct",
+   "pos": "adj",
+   "def": "saying things clearly and honestly",
+   "ex": "My boss is very direct.",
+   "lessons": [
+    "world_eu_directness_a2",
+    "su_a2_64_adapting_communication",
+    "b1_20_flexible_communication",
+    "bestiary_discourse_command",
+    "su_a2_49_communication_styles"
+   ]
+  },
+  "hint": {
+   "w": "hint",
+   "pos": "n",
+   "def": "a small sign about what you really mean",
+   "ex": "His hint was easy to miss.",
+   "lessons": [
+    "world_eu_directness_a2",
+    "gr_b2_stress_shift"
+   ]
+  },
+  "meeting": {
+   "w": "meeting",
+   "pos": "n",
+   "def": "a time when people talk about work",
+   "ex": "The meeting starts at nine.",
+   "lessons": [
+    "world_eu_directness_a2",
+    "behind_the_screen_thirteen_days_a2b1",
+    "sf_a1_04_a_working_day",
+    "qf_falsefriend_french_attendre"
+   ]
+  },
   "iron curtain": {
    "w": "iron curtain",
    "pos": "n",
@@ -92446,13 +92912,43 @@ window.WORDBANK={
     "discuss_b2c1_endings_and_after"
    ]
   },
+  "curtain": {
+   "w": "curtain",
+   "pos": "n",
+   "def": "cloth that covers a window; or a division between two areas.  in Europe.”",
+   "ex": "There was an “iron curtain",
+   "lessons": [
+    "world_eu_east_a2",
+    "grammar_a1_09_prepositions_conjunctions_sentence_structure"
+   ]
+  },
+  "online": {
+   "w": "online",
+   "pos": "adj",
+   "def": "on the internet",
+   "ex": "You can vote online in Estonia.",
+   "lessons": [
+    "world_eu_east_a2"
+   ]
+  },
+  "modern": {
+   "w": "modern",
+   "pos": "adj",
+   "def": "new and up to date",
+   "ex": "The office is very modern.",
+   "lessons": [
+    "world_eu_east_a2",
+    "talk_traditions_a2b1"
+   ]
+  },
   "greeting": {
    "w": "greeting",
    "pos": "n",
    "def": "something you say or do when you meet someone.",
-   "ex": "",
+   "ex": "A handshake is a common greeting.",
    "lessons": [
     "world_eu_greetings",
+    "world_eu_greetings_a2",
     "skills_a2_trade_fair_first_contact",
     "a1p_01_introductions"
    ]
@@ -92485,6 +92981,7 @@ window.WORDBANK={
    "lessons": [
     "world_eu_greetings",
     "world_la_warmth",
+    "world_la_warmth_a2",
     "su_a2_42_travel_problems",
     "bp_c2_01_where_your_words_come_from",
     "skills_a2_trade_fair_simulation",
@@ -92509,6 +93006,36 @@ window.WORDBANK={
    "ex": "A hug is more intimate than a nod.",
    "lessons": [
     "world_eu_greetings"
+   ]
+  },
+  "kiss": {
+   "w": "kiss",
+   "pos": "n",
+   "def": "a touch with the lips, often on the cheek",
+   "ex": "In France, friends often give a kiss on each cheek.",
+   "lessons": [
+    "world_eu_greetings_a2",
+    "world_la_warmth_a2"
+   ]
+  },
+  "handshake": {
+   "w": "handshake",
+   "pos": "n",
+   "def": "a greeting where you hold hands for a moment",
+   "ex": "He gave me a firm handshake.",
+   "lessons": [
+    "world_eu_greetings_a2",
+    "rp_17_haggling_at_a_market"
+   ]
+  },
+  "space": {
+   "w": "space",
+   "pos": "n",
+   "def": "the area around you",
+   "ex": "Please give me some space.",
+   "lessons": [
+    "world_eu_greetings_a2",
+    "behind_the_screen_titanic_a2b1"
    ]
   },
   "reserved": {
@@ -92551,6 +93078,7 @@ window.WORDBANK={
    "ex": "Equality is a core Nordic value.",
    "lessons": [
     "world_eu_nordic",
+    "world_eu_nordic_a2",
     "gr_warmup_b2_hot_takes_gender",
     "epicurean_04_the_garden_community",
     "rs_y11_aut2_26_06",
@@ -92564,7 +93092,9 @@ window.WORDBANK={
    "ex": "Business meetings are usually punctual.",
    "lessons": [
     "world_eu_punctuality",
+    "world_eu_punctuality_a2",
     "world_la_time",
+    "world_la_time_a2",
     "rp_30_first_day_at_work",
     "lf_45_the_late_friend"
    ]
@@ -92573,9 +93103,10 @@ window.WORDBANK={
    "w": "time zone",
    "pos": "n",
    "def": "an area with the same official time.",
-   "ex": "",
+   "ex": "New York is in a different time zone.",
    "lessons": [
     "world_eu_punctuality",
+    "world_eu_punctuality_a2",
     "leading_international_teams",
     "prof_c1_08_remote_leadership"
    ]
@@ -92584,9 +93115,10 @@ window.WORDBANK={
    "w": "siesta",
    "pos": "n",
    "def": "a short sleep after lunch.",
-   "ex": "",
+   "ex": "I have a siesta on hot days.",
    "lessons": [
-    "world_eu_punctuality"
+    "world_eu_punctuality",
+    "world_eu_punctuality_a2"
    ]
   },
   "flexible": {
@@ -92596,6 +93128,7 @@ window.WORDBANK={
    "ex": "Social plans are often flexible in Spain.",
    "lessons": [
     "world_eu_punctuality",
+    "world_eu_punctuality_a2",
     "world_la_time",
     "su_a2_64_adapting_communication",
     "c2_pro_03_diplomatic_negotiation",
@@ -92637,9 +93170,10 @@ window.WORDBANK={
    "w": "average",
    "pos": "n",
    "def": "a typical or middle amount.",
-   "ex": "",
+   "ex": "The average is 20.",
    "lessons": [
     "world_eu_stereotypes",
+    "world_eu_stereotypes_a2",
     "ielts_lesson_2_marking_criteria"
    ]
   },
@@ -92652,13 +93186,25 @@ window.WORDBANK={
     "world_eu_stereotypes"
    ]
   },
+  "example": {
+   "w": "example",
+   "pos": "n",
+   "def": "one thing that shows what a group is like",
+   "ex": "Give me an example.",
+   "lessons": [
+    "world_eu_stereotypes_a2",
+    "rp_11_a_job_interview_a2b1",
+    "sp_prep_a2_12"
+   ]
+  },
   "region": {
    "w": "region",
    "pos": "n",
    "def": "a large area.",
-   "ex": "",
+   "ex": "Latin America is a region.",
    "lessons": [
     "world_la_background",
+    "world_la_background_a2",
     "bc_andy_burnham_c1",
     "bc_black_holes_cosmology_c1",
     "ielts_task_1_lesson_2_line_graphs"
@@ -92693,49 +93239,64 @@ window.WORDBANK={
     "world_la_background"
    ]
   },
+  "capital": {
+   "w": "capital",
+   "pos": "n",
+   "def": "the main city of a country",
+   "ex": "Lima is the capital of Peru.",
+   "lessons": [
+    "world_la_background_a2",
+    "lesson_23_non_defining_relative_clauses"
+   ]
+  },
   "altar": {
    "w": "altar",
    "pos": "n",
    "def": "a table for offerings.",
-   "ex": "",
+   "ex": "The family built an altar at home.",
    "lessons": [
-    "world_la_dead"
+    "world_la_dead",
+    "world_la_dead_a2"
    ]
   },
   "offering": {
    "w": "offering",
    "pos": "n",
    "def": "something given as a gift or sign of respect.",
-   "ex": "",
+   "ex": "They put food on the altar as an offering.",
    "lessons": [
-    "world_la_dead"
+    "world_la_dead",
+    "world_la_dead_a2"
    ]
   },
   "marigold": {
    "w": "marigold",
    "pos": "n",
    "def": "a bright orange flower.",
-   "ex": "",
+   "ex": "The marigold is the flower of the dead.",
    "lessons": [
-    "world_la_dead"
+    "world_la_dead",
+    "world_la_dead_a2"
    ]
   },
   "skull": {
    "w": "skull",
    "pos": "n",
    "def": "the bones of the head.",
-   "ex": "",
+   "ex": "People paint a skull on their faces.",
    "lessons": [
-    "world_la_dead"
+    "world_la_dead",
+    "world_la_dead_a2"
    ]
   },
   "cemetery": {
    "w": "cemetery",
    "pos": "n",
    "def": "a place where the dead are buried.",
-   "ex": "",
+   "ex": "Families spend the night in the cemetery.",
    "lessons": [
-    "world_la_dead"
+    "world_la_dead",
+    "world_la_dead_a2"
    ]
   },
   "syncretism": {
@@ -92771,9 +93332,10 @@ window.WORDBANK={
    "w": "godparent",
    "pos": "n",
    "def": "a person who promises to support a child.",
-   "ex": "",
+   "ex": "My godparent gave me a gift.",
    "lessons": [
     "world_la_family",
+    "world_la_family_a2",
     "rs_y10_spr1_21_03",
     "rs_y8_spr1_09_04"
    ]
@@ -92819,6 +93381,25 @@ window.WORDBANK={
     "world_la_family"
    ]
   },
+  "grandparent": {
+   "w": "grandparent",
+   "pos": "n",
+   "def": "your mother's or father's parent",
+   "ex": "My grandparents live near us.",
+   "lessons": [
+    "world_la_family_a2",
+    "gr_warmup_a2_hot_takes_family"
+   ]
+  },
+  "child": {
+   "w": "child",
+   "pos": "n",
+   "def": "a young person",
+   "ex": "They have two children.",
+   "lessons": [
+    "world_la_family_a2"
+   ]
+  },
   "domesticate": {
    "w": "domesticate",
    "pos": "v",
@@ -92850,9 +93431,10 @@ window.WORDBANK={
    "w": "mild",
    "pos": "adj",
    "def": "not spicy.",
-   "ex": "Many dishes are quite mild.",
+   "ex": "Argentine food is quite mild.",
    "lessons": [
     "world_la_food",
+    "world_la_food_a2",
     "rp_39_at_the_optician"
    ]
   },
@@ -92860,9 +93442,10 @@ window.WORDBANK={
    "w": "stew",
    "pos": "n",
    "def": "food cooked slowly in liquid.",
-   "ex": "",
+   "ex": "Feijoada is a bean stew.",
    "lessons": [
-    "world_la_food"
+    "world_la_food",
+    "world_la_food_a2"
    ]
   },
   "fusion": {
@@ -92873,6 +93456,36 @@ window.WORDBANK={
    "lessons": [
     "world_la_food",
     "su_a2_40_designing_a_restaurant"
+   ]
+  },
+  "potato": {
+   "w": "potato",
+   "pos": "n",
+   "def": "a vegetable that grows in the ground",
+   "ex": "Potatoes come from the Andes.",
+   "lessons": [
+    "world_la_food_a2"
+   ]
+  },
+  "spicy": {
+   "w": "spicy",
+   "pos": "adj",
+   "def": "hot with chilli",
+   "ex": "This sauce is very spicy.",
+   "lessons": [
+    "world_la_food_a2",
+    "gr_warmup_a2_hot_takes_food",
+    "a1p_08_food_drinks",
+    "grammar_a1_04_conditionals_questions"
+   ]
+  },
+  "beef": {
+   "w": "beef",
+   "pos": "n",
+   "def": "meat from a cow",
+   "ex": "They grill beef on Sundays.",
+   "lessons": [
+    "world_la_food_a2"
    ]
   },
   "mutually intelligible": {
@@ -92929,13 +93542,41 @@ window.WORDBANK={
     "ct_b1_25_review_integration"
    ]
   },
+  "portuguese": {
+   "w": "portuguese",
+   "pos": "n",
+   "def": "the language of Brazil and Portugal",
+   "ex": "Brazilians speak Portuguese.",
+   "lessons": [
+    "world_la_language_a2"
+   ]
+  },
+  "spanish": {
+   "w": "spanish",
+   "pos": "n",
+   "def": "the language of Spain and many American countries",
+   "ex": "I study Spanish.",
+   "lessons": [
+    "world_la_language_a2"
+   ]
+  },
+  "official": {
+   "w": "official",
+   "pos": "adj",
+   "def": "used by the government",
+   "ex": "Spanish is an official language of Peru.",
+   "lessons": [
+    "world_la_language_a2"
+   ]
+  },
   "carnival": {
    "w": "carnival",
    "pos": "n",
    "def": "a festival before Lent with parades and music.",
    "ex": "Rio's carnival is famous worldwide.",
    "lessons": [
-    "world_la_party"
+    "world_la_party",
+    "world_la_party_a2"
    ]
   },
   "samba school": {
@@ -92960,9 +93601,10 @@ window.WORDBANK={
    "w": "parade",
    "pos": "n",
    "def": "a procession through the streets.",
-   "ex": "",
+   "ex": "The parade lasted all night.",
    "lessons": [
     "world_la_party",
+    "world_la_party_a2",
     "su_a2_11_cultural_celebrations"
    ]
   },
@@ -92979,14 +93621,24 @@ window.WORDBANK={
    "w": "rhythm",
    "pos": "n",
    "def": "a regular pattern of beats.",
-   "ex": "",
+   "ex": "I love the rhythm of samba.",
    "lessons": [
     "world_la_party",
+    "world_la_party_a2",
     "skills_c1_analysing_poetry",
     "c1_the_british_pub",
     "a1p_49_connected_speech",
     "b2_91_ielts_spelling_mnemonics",
     "pron_c1_01_rhythm_engine"
+   ]
+  },
+  "tango": {
+   "w": "tango",
+   "pos": "n",
+   "def": "a dance from Argentina and Uruguay",
+   "ex": "Many people tango in Buenos Aires.",
+   "lessons": [
+    "world_la_party_a2"
    ]
   },
   "relationship-oriented": {
@@ -93005,6 +93657,7 @@ window.WORDBANK={
    "ex": "Traffic in big cities causes delays.",
    "lessons": [
     "world_la_time",
+    "world_la_time_a2",
     "sf_a1_04_a_working_day",
     "talk_city_or_countryside_a2b1",
     "qf_collocation_heavy_strong_rain"
@@ -93026,6 +93679,16 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "world_la_time"
+   ]
+  },
+  "business": {
+   "w": "business",
+   "pos": "n",
+   "def": "work that earns money",
+   "ex": "In business, meetings start on time.",
+   "lessons": [
+    "world_la_time_a2",
+    "su_a2_48_solving_problems"
    ]
   },
   "cheek kiss": {
@@ -93054,6 +93717,24 @@ window.WORDBANK={
    "ex": "Overlapping talk can show interest.",
    "lessons": [
     "world_la_warmth"
+   ]
+  },
+  "cheek": {
+   "w": "cheek",
+   "pos": "n",
+   "def": "the soft side of your face",
+   "ex": "She kissed me on the cheek.",
+   "lessons": [
+    "world_la_warmth_a2"
+   ]
+  },
+  "loud": {
+   "w": "loud",
+   "pos": "adj",
+   "def": "making a lot of noise",
+   "ex": "The party was very loud.",
+   "lessons": [
+    "world_la_warmth_a2"
    ]
   },
   "bilingual": {
@@ -93113,6 +93794,25 @@ window.WORDBANK={
     "lesson-04-memory-palace"
    ]
   },
+  "french": {
+   "w": "french",
+   "pos": "adj",
+   "def": "from France, or the language of France",
+   "ex": "Quebec speaks French.",
+   "lessons": [
+    "world_na_background_a2"
+   ]
+  },
+  "population": {
+   "w": "population",
+   "pos": "n",
+   "def": "the number of people who live in a place",
+   "ex": "The population is 340 million.",
+   "lessons": [
+    "world_na_background_a2",
+    "bc_de_extinction_c1"
+   ]
+  },
   "self-deprecating": {
    "w": "self-deprecating",
    "pos": "adj",
@@ -93126,6 +93826,39 @@ window.WORDBANK={
     "sp_prep_c1_71"
    ]
   },
+  "apology": {
+   "w": "apology",
+   "pos": "n",
+   "def": "words that say you are sorry",
+   "ex": "He made an apology to the customer.",
+   "lessons": [
+    "world_na_canadians_a2",
+    "short_history_the_salem_witch_trials_a2b1",
+    "b2_47_handling_complaints",
+    "grammar_b2_08_reporting_verbs_patterns"
+   ]
+  },
+  "crowded": {
+   "w": "crowded",
+   "pos": "adj",
+   "def": "with a lot of people",
+   "ex": "The shop was crowded.",
+   "lessons": [
+    "world_na_canadians_a2",
+    "b1_06_a_memorable_holiday",
+    "talk_tourism_a2b1",
+    "grammar_b1_13_adjectives_adverbs_intermediate"
+   ]
+  },
+  "hockey": {
+   "w": "hockey",
+   "pos": "n",
+   "def": "a fast sport on ice",
+   "ex": "Canadians love hockey.",
+   "lessons": [
+    "world_na_canadians_a2"
+   ]
+  },
   "spelling": {
    "w": "spelling",
    "pos": "n",
@@ -93133,6 +93866,7 @@ window.WORDBANK={
    "ex": "American spelling differs from British.",
    "lessons": [
     "world_na_english",
+    "world_na_english_a2",
     "a1p_02_where_are_you_from",
     "qf_pronunciation_homophones",
     "lesson-18-alphabet-pegs"
@@ -93142,9 +93876,10 @@ window.WORDBANK={
    "w": "dictionary",
    "pos": "n",
    "def": "a book of words and meanings.",
-   "ex": "",
+   "ex": "Look it up in the dictionary.",
    "lessons": [
-    "world_na_english"
+    "world_na_english",
+    "world_na_english_a2"
    ]
   },
   "vocabulary": {
@@ -93169,6 +93904,24 @@ window.WORDBANK={
     "lv_alevel_01_two_texts_one_essay"
    ]
   },
+  "word": {
+   "w": "word",
+   "pos": "n",
+   "def": "a group of letters with a meaning",
+   "ex": "I do not know that word.",
+   "lessons": [
+    "world_na_english_a2"
+   ]
+  },
+  "hat": {
+   "w": "hat",
+   "pos": "n",
+   "def": "something you wear on your head.  is a warm hat.”",
+   "ex": "A “toque",
+   "lessons": [
+    "world_na_english_a2"
+   ]
+  },
   "drive-through": {
    "w": "drive-through",
    "pos": "n",
@@ -93182,9 +93935,10 @@ window.WORDBANK={
    "w": "diner",
    "pos": "n",
    "def": "a simple American restaurant.",
-   "ex": "",
+   "ex": "We had breakfast at a diner.",
    "lessons": [
     "world_na_food",
+    "world_na_food_a2",
     "rp_12_at_the_restaurant"
    ]
   },
@@ -93201,9 +93955,10 @@ window.WORDBANK={
    "w": "leftover",
    "pos": "n",
    "def": "food not eaten at a meal.",
-   "ex": "",
+   "ex": "I took my leftovers home.",
    "lessons": [
     "world_na_food",
+    "world_na_food_a2",
     "grammar_a2_07_relatives_determiners"
    ]
   },
@@ -93223,6 +93978,27 @@ window.WORDBANK={
    "ex": "Mac and cheese is classic comfort food.",
    "lessons": [
     "world_na_food"
+   ]
+  },
+  "fast food": {
+   "w": "fast food",
+   "pos": "n",
+   "def": "food that is quick to make and buy",
+   "ex": "He ate fast food for lunch.",
+   "lessons": [
+    "world_na_food_a2",
+    "gr_warmup_a2_hot_takes_food",
+    "su_a2_23_staying_healthy"
+   ]
+  },
+  "local": {
+   "w": "local",
+   "pos": "adj",
+   "def": "from your area",
+   "ex": "They buy local food.",
+   "lessons": [
+    "world_na_food_a2",
+    "talk_tourism_a2b1"
    ]
   },
   "superficial": {
@@ -93255,22 +94031,60 @@ window.WORDBANK={
     "world_na_friendly"
    ]
   },
+  "smile": {
+   "w": "smile",
+   "pos": "n",
+   "def": "a happy look on your face",
+   "ex": "She gave me a big smile.",
+   "lessons": [
+    "world_na_friendly_a2"
+   ]
+  },
+  "fake": {
+   "w": "fake",
+   "pos": "adj",
+   "def": "not real",
+   "ex": "His smile is fake.",
+   "lessons": [
+    "world_na_friendly_a2",
+    "behind_the_screen_the_matrix_a2b1",
+    "short_history_alcatraz_a2b1",
+    "bc_mask_we_wear_c1",
+    "behind_the_screen_the_truman_show_a2b1",
+    "qf_falsefriend_portuguese_pretender"
+   ]
+  },
+  "friendly": {
+   "w": "friendly",
+   "pos": "adj",
+   "def": "kind and open with people",
+   "ex": "The shop assistant was very friendly.",
+   "lessons": [
+    "world_na_friendly_a2",
+    "rp_13_talking_about_the_weather_a2b1",
+    "rp_11_a_job_interview_a2b1",
+    "a1p_35_review_social_skills",
+    "qf_falsefriend_polish_sympathyczny"
+   ]
+  },
   "melting pot": {
    "w": "melting pot",
    "pos": "n",
    "def": "a place where cultures mix into one.",
-   "ex": "",
+   "ex": "The USA is called a melting pot.",
    "lessons": [
-    "world_na_mosaic"
+    "world_na_mosaic",
+    "world_na_mosaic_a2"
    ]
   },
   "mosaic": {
    "w": "mosaic",
    "pos": "n",
    "def": "a picture made of many small pieces.",
-   "ex": "",
+   "ex": "Canada is called a mosaic.",
    "lessons": [
-    "world_na_mosaic"
+    "world_na_mosaic",
+    "world_na_mosaic_a2"
    ]
   },
   "multiculturalism": {
@@ -93295,9 +94109,10 @@ window.WORDBANK={
    "w": "newcomer",
    "pos": "n",
    "def": "a person who has recently arrived.",
-   "ex": "",
+   "ex": "The school welcomes every newcomer.",
    "lessons": [
     "world_na_mosaic",
+    "world_na_mosaic_a2",
     "rp_18_joining_a_gym"
    ]
   },
@@ -93305,9 +94120,10 @@ window.WORDBANK={
    "w": "tip",
    "pos": "n",
    "def": "extra money for good service.",
-   "ex": "",
+   "ex": "He left a tip for the waiter.",
    "lessons": [
     "world_na_tipping",
+    "world_na_tipping_a2",
     "talk_tipping_a2b1"
    ]
   },
@@ -93344,6 +94160,37 @@ window.WORDBANK={
     "world_na_tipping"
    ]
   },
+  "waiter": {
+   "w": "waiter",
+   "pos": "n",
+   "def": "a person who brings food in a restaurant",
+   "ex": "The waiter brought the bill.",
+   "lessons": [
+    "world_na_tipping_a2",
+    "a1p_08_food_drinks",
+    "rp_12_at_the_restaurant_a2b1"
+   ]
+  },
+  "service": {
+   "w": "service",
+   "pos": "n",
+   "def": "help from a worker",
+   "ex": "The service was very good.",
+   "lessons": [
+    "world_na_tipping_a2",
+    "talk_tipping_a2b1",
+    "grammar_b2_06_advanced_passive"
+   ]
+  },
+  "percent": {
+   "w": "percent",
+   "pos": "n",
+   "def": "a part of 100",
+   "ex": "A tip is 15 to 20 percent.",
+   "lessons": [
+    "world_na_tipping_a2"
+   ]
+  },
   "paid leave": {
    "w": "paid leave",
    "pos": "n",
@@ -93360,6 +94207,7 @@ window.WORDBANK={
    "ex": "Americans say \"vacation\"; the British say \"holiday\".",
    "lessons": [
     "world_na_work",
+    "world_na_work_a2",
     "travel_holidays_a2",
     "qf_falsefriend_italian_estate",
     "qf_falsefriend_portuguese_pretender"
@@ -93378,9 +94226,10 @@ window.WORDBANK={
    "w": "employer",
    "pos": "n",
    "def": "a company or person that hires workers.",
-   "ex": "",
+   "ex": "My employer is a big company.",
    "lessons": [
-    "world_na_work"
+    "world_na_work",
+    "world_na_work_a2"
    ]
   },
   "unplug": {
@@ -93391,6 +94240,26 @@ window.WORDBANK={
    "lessons": [
     "world_na_work",
     "grammar_b2_17_pronouns_compounds_dummy_it"
+   ]
+  },
+  "paid": {
+   "w": "paid",
+   "pos": "adj",
+   "def": "with money for the time",
+   "ex": "He has two weeks of paid holiday.",
+   "lessons": [
+    "world_na_work_a2"
+   ]
+  },
+  "holiday": {
+   "w": "holiday",
+   "pos": "n",
+   "def": "a day with no work, for a special reason",
+   "ex": "1 July is a holiday in Canada.",
+   "lessons": [
+    "world_na_work_a2",
+    "rp_19_planning_a_holiday_a2b1",
+    "a1_going_to_future_plans_interactive"
    ]
   },
   "constructive criticism": {
@@ -95728,15 +96597,6 @@ window.WORDBANK={
     "qf_collocation_make_do"
    ]
   },
-  "grandparent": {
-   "w": "grandparent",
-   "pos": "n",
-   "def": "the mother or father of your mother or father",
-   "ex": "My grandparents tell me stories about the past.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_family"
-   ]
-  },
   "come first": {
    "w": "come first",
    "pos": "phr",
@@ -95784,17 +96644,6 @@ window.WORDBANK={
     "gr_warmup_a2_hot_takes_films"
    ]
   },
-  "spicy": {
-   "w": "spicy",
-   "pos": "adj",
-   "def": "with a hot, strong taste from pepper",
-   "ex": "This curry is too spicy for me.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_food",
-    "a1p_08_food_drinks",
-    "grammar_a1_04_conditionals_questions"
-   ]
-  },
   "dessert": {
    "w": "dessert",
    "pos": "n",
@@ -95803,16 +96652,6 @@ window.WORDBANK={
    "lessons": [
     "gr_warmup_a2_hot_takes_food",
     "sf_a1_10_dinner_with_the_customer"
-   ]
-  },
-  "fast food": {
-   "w": "fast food",
-   "pos": "n",
-   "def": "quick, cheap meals like burgers and chips",
-   "ex": "I try not to eat fast food more than once a week.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_food",
-    "su_a2_23_staying_healthy"
    ]
   },
   "lend": {
@@ -104152,18 +104991,6 @@ window.WORDBANK={
     "grammar_a2_13_question_tags"
    ]
   },
-  "friendly": {
-   "w": "friendly",
-   "pos": "adj",
-   "def": "kind and pleasant to other people",
-   "ex": "The man at the shop is always very friendly.",
-   "lessons": [
-    "rp_13_talking_about_the_weather_a2b1",
-    "rp_11_a_job_interview_a2b1",
-    "a1p_35_review_social_skills",
-    "qf_falsefriend_polish_sympathyczny"
-   ]
-  },
   "pharmacist": {
    "w": "pharmacist",
    "pos": "n",
@@ -104452,15 +105279,6 @@ window.WORDBANK={
     "may_might_could_professional"
    ]
   },
-  "handshake": {
-   "w": "handshake",
-   "pos": "n",
-   "def": "holding and shaking someone's hand to agree",
-   "ex": "They closed the deal with a handshake.",
-   "lessons": [
-    "rp_17_haggling_at_a_market"
-   ]
-  },
   "hand-woven": {
    "w": "hand-woven",
    "pos": "adj",
@@ -104615,16 +105433,6 @@ window.WORDBANK={
     "ml_27_the_better_deal"
    ]
   },
-  "holiday": {
-   "w": "holiday",
-   "pos": "n",
-   "def": "a time when you travel or rest and do not work",
-   "ex": "We go on holiday to the sea every summer.",
-   "lessons": [
-    "rp_19_planning_a_holiday_a2b1",
-    "a1_going_to_future_plans_interactive"
-   ]
-  },
   "travel agent": {
    "w": "travel agent",
    "pos": "n",
@@ -104745,16 +105553,6 @@ window.WORDBANK={
    "lessons": [
     "rp_20_at_the_library",
     "sp_c1_71_humor_wordplay"
-   ]
-  },
-  "member": {
-   "w": "member",
-   "pos": "n",
-   "def": "a person who has joined a club or group",
-   "ex": "You need a card to become a member.",
-   "lessons": [
-    "rp_20_at_the_library_a2b1",
-    "b1_39_joining_a_club"
    ]
   },
   "fare": {
@@ -107794,18 +108592,6 @@ window.WORDBANK={
     "su_a2_63_mapping_the_customer_journey"
    ]
   },
-  "direct": {
-   "w": "direct",
-   "pos": "adj",
-   "def": "saying exactly what you mean in a clear way",
-   "ex": "She is very direct and always says what she thinks.",
-   "lessons": [
-    "su_a2_64_adapting_communication",
-    "b1_20_flexible_communication",
-    "bestiary_discourse_command",
-    "su_a2_49_communication_styles"
-   ]
-  },
   "indirect": {
    "w": "indirect",
    "pos": "adj",
@@ -110524,17 +111310,6 @@ window.WORDBANK={
    "ex": "My neighbour's dog barks constantly at night.",
    "lessons": [
     "b1_05_emotions_and_feelings"
-   ]
-  },
-  "crowded": {
-   "w": "crowded",
-   "pos": "adj",
-   "def": "full of too many people in one place",
-   "ex": "The beach was so crowded that we left early.",
-   "lessons": [
-    "b1_06_a_memorable_holiday",
-    "talk_tourism_a2b1",
-    "grammar_b1_13_adjectives_adverbs_intermediate"
    ]
   },
   "boiling": {
@@ -114300,15 +115075,6 @@ window.WORDBANK={
     "su_a2_48_solving_problems"
    ]
   },
-  "business": {
-   "w": "business",
-   "pos": "n",
-   "def": "a company that sells goods or services",
-   "ex": "My aunt runs a small business selling flowers.",
-   "lessons": [
-    "su_a2_48_solving_problems"
-   ]
-  },
   "solution": {
    "w": "solution",
    "pos": "n",
@@ -114744,19 +115510,6 @@ window.WORDBANK={
     "short_history_the_samurai_a2b1"
    ]
   },
-  "fake": {
-   "w": "fake",
-   "pos": "adj",
-   "def": "not real, but made to look real",
-   "ex": "The bag looked expensive, but it was fake.",
-   "lessons": [
-    "behind_the_screen_the_matrix_a2b1",
-    "short_history_alcatraz_a2b1",
-    "bc_mask_we_wear_c1",
-    "behind_the_screen_the_truman_show_a2b1",
-    "qf_falsefriend_portuguese_pretender"
-   ]
-  },
   "philosophy": {
    "w": "philosophy",
    "pos": "n",
@@ -114882,26 +115635,6 @@ window.WORDBANK={
    "ex": "We have an old photograph of my great-grandparents.",
    "lessons": [
     "behind_the_screen_thirteen_days_a2b1"
-   ]
-  },
-  "meeting": {
-   "w": "meeting",
-   "pos": "n",
-   "def": "an event where people come together to talk",
-   "ex": "We have a team meeting every Monday at nine.",
-   "lessons": [
-    "behind_the_screen_thirteen_days_a2b1",
-    "sf_a1_04_a_working_day",
-    "qf_falsefriend_french_attendre"
-   ]
-  },
-  "space": {
-   "w": "space",
-   "pos": "n",
-   "def": "an empty area that can be used",
-   "ex": "There is no space in my bag for another book.",
-   "lessons": [
-    "behind_the_screen_titanic_a2b1"
    ]
   },
   "arrow": {
@@ -128616,16 +129349,6 @@ window.WORDBANK={
     "diagnostic_focus_b2_mixed_conditionals"
    ]
   },
-  "example": {
-   "w": "example",
-   "pos": "n",
-   "def": "something that shows what you mean",
-   "ex": "Can you give me an example of your work?",
-   "lessons": [
-    "rp_11_a_job_interview_a2b1",
-    "sp_prep_a2_12"
-   ]
-  },
   "hear from you": {
    "w": "hear from you",
    "pos": "phr",
@@ -129980,17 +130703,6 @@ window.WORDBANK={
     "short_history_the_rosetta_stone_a2b1",
     "short_history_the_seven_wonders_a2b1",
     "talk_traditions_a2b1"
-   ]
-  },
-  "apology": {
-   "w": "apology",
-   "pos": "n",
-   "def": "words that say you are sorry",
-   "ex": "Years later the state made an official apology.",
-   "lessons": [
-    "short_history_the_salem_witch_trials_a2b1",
-    "b2_47_handling_complaints",
-    "grammar_b2_08_reporting_verbs_patterns"
    ]
   },
   "lord": {
@@ -136752,15 +137464,6 @@ window.WORDBANK={
     "bc_de_extinction_c1"
    ]
   },
-  "population": {
-   "w": "population",
-   "pos": "n",
-   "def": "all the animals of a particular kind in an area",
-   "ex": "The local population of wolves is growing.",
-   "lessons": [
-    "bc_de_extinction_c1"
-   ]
-  },
   "volcanic": {
    "w": "volcanic",
    "pos": "adj",
@@ -138749,16 +139452,6 @@ window.WORDBANK={
    "ex": "Would you like some orange juice with your breakfast?",
    "lessons": [
     "a1p_08_food_drinks"
-   ]
-  },
-  "waiter": {
-   "w": "waiter",
-   "pos": "n",
-   "def": "a person who brings food to tables in a restaurant",
-   "ex": "The waiter brought our soup very quickly.",
-   "lessons": [
-    "a1p_08_food_drinks",
-    "rp_12_at_the_restaurant_a2b1"
    ]
   },
   "between": {
@@ -142133,15 +142826,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a punctuation mark used to separate parts of a sentence",
    "ex": "Put a comma before the extra information.",
-   "lessons": [
-    "lesson_23_non_defining_relative_clauses"
-   ]
-  },
-  "capital": {
-   "w": "capital",
-   "pos": "n",
-   "def": "the main city where a country's government is",
-   "ex": "The capital is busy and very expensive.",
    "lessons": [
     "lesson_23_non_defining_relative_clauses"
    ]
@@ -148676,34 +149360,6 @@ window.WORDBANK={
     "talk_quiet_and_noise_a2b1"
    ]
   },
-  "service": {
-   "w": "service",
-   "pos": "n",
-   "def": "the help that a worker gives to customers",
-   "ex": "The service at that cafe is always quick and friendly.",
-   "lessons": [
-    "talk_tipping_a2b1",
-    "grammar_b2_06_advanced_passive"
-   ]
-  },
-  "local": {
-   "w": "local",
-   "pos": "n",
-   "def": "a person who lives in a particular place",
-   "ex": "Ask a local where to find the best food in town.",
-   "lessons": [
-    "talk_tourism_a2b1"
-   ]
-  },
-  "modern": {
-   "w": "modern",
-   "pos": "adj",
-   "def": "new and up to date",
-   "ex": "Some young people prefer modern music to traditional songs.",
-   "lessons": [
-    "talk_traditions_a2b1"
-   ]
-  },
   "unreliable narrator": {
    "w": "unreliable narrator",
    "pos": "n",
@@ -151361,15 +152017,6 @@ window.WORDBANK={
     "grammar_c1_07_questions_for_effect"
    ]
   },
-  "hint": {
-   "w": "hint",
-   "pos": "v",
-   "def": "to suggest something in an indirect way",
-   "ex": "She hinted that she wanted a new phone.",
-   "lessons": [
-    "gr_b2_stress_shift"
-   ]
-  },
   "scrawny": {
    "w": "scrawny",
    "pos": "adj",
@@ -151576,15 +152223,6 @@ window.WORDBANK={
    "ex": "Put your coat on a hanger in the cupboard.",
    "lessons": [
     "grammar_a1_06_articles_demonstratives"
-   ]
-  },
-  "curtain": {
-   "w": "curtain",
-   "pos": "n",
-   "def": "a piece of cloth that hangs across a window",
-   "ex": "Close the curtains, it is getting dark.",
-   "lessons": [
-    "grammar_a1_09_prepositions_conjunctions_sentence_structure"
    ]
   },
   "letterbox": {
