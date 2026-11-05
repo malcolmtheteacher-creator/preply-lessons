@@ -5416,6 +5416,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "pol_01_power_a2",
+   "title": "Who Is the Boss of a Country?",
+   "level": "",
+   "words": [
+    "king",
+    "president",
+    "prime minister",
+    "parliament",
+    "law",
+    "vote"
+   ]
+  },
+  {
    "id": "pol_02_pm_president",
    "title": "Prime Minister or President?",
    "level": "",
@@ -5428,6 +5441,19 @@ window.WORDBANK={
     "term",
     "veto",
     "confidence"
+   ]
+  },
+  {
+   "id": "pol_02_pm_president_a2",
+   "title": "President or Prime Minister?",
+   "level": "",
+   "words": [
+    "leader",
+    "election",
+    "party",
+    "choose",
+    "term",
+    "cabinet"
    ]
   },
   {
@@ -5446,6 +5472,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "pol_03_parties_a2",
+   "title": "Two Parties or Many?",
+   "level": "",
+   "words": [
+    "party",
+    "seat",
+    "win",
+    "majority",
+    "coalition",
+    "compromise"
+   ]
+  },
+  {
    "id": "pol_04_referendum",
    "title": "Should Everyone Vote on Everything?",
    "level": "",
@@ -5458,6 +5497,19 @@ window.WORDBANK={
     "representative",
     "binding",
     "campaign"
+   ]
+  },
+  {
+   "id": "pol_04_referendum_a2",
+   "title": "Do People Vote on Everything?",
+   "level": "",
+   "words": [
+    "referendum",
+    "signature",
+    "proposal",
+    "result",
+    "campaign",
+    "citizen"
    ]
   },
   {
@@ -5476,6 +5528,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "pol_05_compulsory_a2",
+   "title": "Is Voting a Duty?",
+   "level": "",
+   "words": [
+    "fine",
+    "duty",
+    "register",
+    "polling station",
+    "turnout",
+    "compulsory"
+   ]
+  },
+  {
    "id": "pol_06_nordics",
    "title": "Are the Nordics Socialist?",
    "level": "",
@@ -5488,6 +5553,19 @@ window.WORDBANK={
     "universal",
     "privatise",
     "inequality"
+   ]
+  },
+  {
+   "id": "pol_06_nordics_a2",
+   "title": "Are the Nordic Countries Socialist?",
+   "level": "",
+   "words": [
+    "tax",
+    "public",
+    "private",
+    "company",
+    "trust",
+    "benefit"
    ]
   },
   {
@@ -5506,6 +5584,19 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "pol_07_debate_a2",
+   "title": "How Do Politicians Argue?",
+   "level": "",
+   "words": [
+    "debate",
+    "interrupt",
+    "shout",
+    "polite",
+    "moderator",
+    "opinion"
+   ]
+  },
+  {
    "id": "pol_08_news",
    "title": "Who Tells Us the News?",
    "level": "",
@@ -5518,6 +5609,19 @@ window.WORDBANK={
     "source",
     "framing",
     "journalist"
+   ]
+  },
+  {
+   "id": "pol_08_news_a2",
+   "title": "Who Tells Us the News?",
+   "level": "",
+   "words": [
+    "headline",
+    "journalist",
+    "newspaper",
+    "source",
+    "fair",
+    "advertisement"
    ]
   },
   {
@@ -46255,6 +46359,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_13_party",
     "a1s_50_home",
+    "pol_02_pm_president_a2",
+    "pol_03_parties_a2",
     "techniques_the_masque_of_the_red_death_a2b1",
     "techniques_the_necklace_a2b1",
     "bc_win_win_negotiations_b2c1"
@@ -47111,13 +47217,14 @@ window.WORDBANK={
   },
   "choose": {
    "w": "choose",
-   "pos": "",
+   "pos": "v",
    "def": "to pick the one you want",
-   "ex": "",
+   "ex": "Voters choose a new president.",
    "lessons": [
     "a1s_24_compare",
     "a1s_42_gift",
-    "discuss_a2_will_to_believe"
+    "discuss_a2_will_to_believe",
+    "pol_02_pm_president_a2"
    ]
   },
   "best": {
@@ -47163,11 +47270,12 @@ window.WORDBANK={
   },
   "newspaper": {
    "w": "newspaper",
-   "pos": "",
+   "pos": "n",
    "def": "you read the news in it",
-   "ex": "",
+   "ex": "He reads the newspaper every morning.",
    "lessons": [
     "a1s_25_best",
+    "pol_08_news_a2",
     "behind_the_screen_spotlight_a2b1"
    ]
   },
@@ -47585,6 +47693,7 @@ window.WORDBANK={
     "bc_tylenol_a2b1",
     "piranesi_bc_other",
     "pol_06_nordics",
+    "pol_06_nordics_a2",
     "techniques_jekyll_and_hyde_1_a2b1",
     "tib_johari_a2b1",
     "world_eu_nordic",
@@ -48950,12 +49059,13 @@ window.WORDBANK={
   },
   "win": {
    "w": "win",
-   "pos": "",
+   "pos": "v",
    "def": "to be the best in a game",
-   "ex": "",
+   "ex": "She wants to win the election.",
    "lessons": [
     "a1s_48_quiz",
     "a2_lesson_tennis",
+    "pol_03_parties_a2",
     "topic_free_time_b2",
     "ts_marie_curie_b2"
    ]
@@ -50252,6 +50362,7 @@ window.WORDBANK={
    "lessons": [
     "bc_ai_report_c1",
     "pol_08_news",
+    "pol_08_news_a2",
     "the_art_of_the_analogy_c2",
     "deep_space_03_universe",
     "epicurean_15_the_canonic",
@@ -52407,6 +52518,7 @@ window.WORDBANK={
    "ex": "Pixar's leaders started to run Disney's animation too.",
    "lessons": [
     "bc_disneypixar_a2b1",
+    "pol_02_pm_president_a2",
     "behind_the_screen_the_last_samurai_a2b1",
     "short_history_julius_caesar_a2b1",
     "short_history_napoleon_a2b1"
@@ -55382,7 +55494,8 @@ window.WORDBANK={
    "def": "Only for you; not for other people to see. The noun is privacy.",
    "ex": "People believed the conversations were completely private.",
    "lessons": [
-    "bc_onlinetherapy_a2b1"
+    "bc_onlinetherapy_a2b1",
+    "pol_06_nordics_a2"
    ]
   },
   "data": {
@@ -55905,6 +56018,7 @@ window.WORDBANK={
     "odyssey_harthacnut",
     "odyssey_richard_i",
     "pol_06_nordics",
+    "pol_06_nordics_a2",
     "behind_the_screen_everything_everywhere_all_at_once_a2b1",
     "short_history_the_boston_tea_party_a2b1"
    ]
@@ -57162,6 +57276,7 @@ window.WORDBANK={
     "bc_vw_a2b1",
     "odyssey_henry_vii",
     "pol_05_compulsory",
+    "pol_05_compulsory_a2",
     "short_history_the_match_girls_strike_a2b1",
     "rp_20_at_the_library"
    ]
@@ -57373,7 +57488,8 @@ window.WORDBANK={
    "ex": "A journalist at the Financial Times reported the story for five years.",
    "lessons": [
     "bc_wirecard_a2b1",
-    "pol_08_news"
+    "pol_08_news",
+    "pol_08_news_a2"
    ]
   },
   "deny": {
@@ -62410,6 +62526,7 @@ window.WORDBANK={
    "lessons": [
     "end_beat_c1",
     "pol_07_debate",
+    "pol_07_debate_a2",
     "world_la_warmth",
     "b1_05_emotions_and_feelings",
     "b1_28_study_advice",
@@ -63627,10 +63744,11 @@ window.WORDBANK={
    "w": "law",
    "pos": "n",
    "def": "the rules a country or community enforces. above the law means not bound by the rules that apply to others.",
-   "ex": "",
+   "ex": "It is a law to stop at a red light.",
    "lessons": [
     "nq_06_is_it_right_c1",
     "odyssey_ire_kingship",
+    "pol_01_power_a2",
     "techniques_before_the_law_a2b1",
     "behind_the_screen_suffragette_a2b1",
     "short_history_genghis_khan_a2b1",
@@ -64000,6 +64118,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_athelstan",
     "pol_03_parties",
+    "pol_03_parties_a2",
     "c2_pro_04_stakeholder_influence",
     "prof_c1_04_influencing_without_authority"
    ]
@@ -64143,7 +64262,8 @@ window.WORDBANK={
     "odyssey_charles_i",
     "odyssey_henry_iii",
     "odyssey_owain_glyndwr",
-    "pol_01_power"
+    "pol_01_power",
+    "pol_01_power_a2"
    ]
   },
   "personal rule": {
@@ -64399,6 +64519,7 @@ window.WORDBANK={
     "odyssey_gruffydd_ap_llywelyn",
     "odyssey_henry_v",
     "pol_04_referendum",
+    "pol_04_referendum_a2",
     "short_history_charlemagne",
     "short_history_hannibal",
     "short_history_nellie_bly",
@@ -66219,10 +66340,11 @@ window.WORDBANK={
    "w": "duty",
    "pos": "n",
    "def": "what you must do.",
-   "ex": "Many see voting as a civic duty.",
+   "ex": "Voting is a duty in some countries.",
    "lessons": [
     "odyssey_edward_viii",
     "pol_05_compulsory",
+    "pol_05_compulsory_a2",
     "rs_y11_aut1_25_01"
    ]
   },
@@ -66397,6 +66519,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_george_i",
     "pol_02_pm_president",
+    "pol_02_pm_president_a2",
     "qf_falsefriend_spanish_carpeta"
    ]
   },
@@ -66407,6 +66530,7 @@ window.WORDBANK={
    "ex": "The prime minister answers questions in parliament every week.",
    "lessons": [
     "odyssey_george_i",
+    "pol_01_power_a2",
     "pol_02_pm_president"
    ]
   },
@@ -69244,6 +69368,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_stephen",
     "pol_03_parties",
+    "pol_03_parties_a2",
     "gr_b2_the_pressure_cooker",
     "gr_c1_the_negotiator",
     "bc_negotiating_c1",
@@ -70545,11 +70670,12 @@ window.WORDBANK={
   },
   "opinion": {
    "w": "opinion",
-   "pos": "",
+   "pos": "n",
    "def": "a belief or view that is not necessarily based on fact.",
-   "ex": "",
+   "ex": "What is your opinion?",
    "lessons": [
     "piranesi_bc_meaning",
+    "pol_07_debate_a2",
     "gr_warmup_a2_hot_takes_animals",
     "gr_warmup_a2_hot_takes_books",
     "gr_warmup_a2_hot_takes_cities",
@@ -70707,14 +70833,37 @@ window.WORDBANK={
     "sp_prep_c1_01"
    ]
   },
+  "king": {
+   "w": "king",
+   "pos": "n",
+   "def": "a man who is the head of a country, from a royal family",
+   "ex": "The king lives in a big palace.",
+   "lessons": [
+    "pol_01_power_a2",
+    "topic_dreams_a2b1"
+   ]
+  },
   "president": {
    "w": "president",
    "pos": "n",
-   "def": "an elected leader of a republic",
-   "ex": "The president signs the bill into law.",
+   "def": "the leader of a country with no king or queen",
+   "ex": "The president was chosen by the voters.",
    "lessons": [
+    "pol_01_power_a2",
     "pol_02_pm_president",
     "behind_the_screen_invictus_a2b1"
+   ]
+  },
+  "vote": {
+   "w": "vote",
+   "pos": "v",
+   "def": "to choose someone or something in an election",
+   "ex": "Adults vote in many countries.",
+   "lessons": [
+    "pol_01_power_a2",
+    "behind_the_screen_suffragette_a2b1",
+    "discuss_b1_french_elections",
+    "short_history_the_suffragettes_a2b1"
    ]
   },
   "electoral college": {
@@ -70734,6 +70883,7 @@ window.WORDBANK={
    "lessons": [
     "pol_02_pm_president",
     "pol_03_parties",
+    "pol_03_parties_a2",
     "psyp_12_whose_psychology_a2b1",
     "ielts_task1_phrase_cheatsheet"
    ]
@@ -70745,6 +70895,7 @@ window.WORDBANK={
    "ex": "A US president can serve at most two four-year terms.",
    "lessons": [
     "pol_02_pm_president",
+    "pol_02_pm_president_a2",
     "discuss_b1_french_elections"
    ]
   },
@@ -70760,6 +70911,18 @@ window.WORDBANK={
     "ielts_lesson_17_timed_practice_2",
     "sp_a2_11_cause_and_effect",
     "sp_prep_b1_39"
+   ]
+  },
+  "election": {
+   "w": "election",
+   "pos": "n",
+   "def": "a time when people vote",
+   "ex": "The election is in November.",
+   "lessons": [
+    "pol_02_pm_president_a2",
+    "su_a2_77_budget",
+    "su_a2_37_budget",
+    "discuss_b1_french_elections"
    ]
   },
   "proportional": {
@@ -70787,6 +70950,7 @@ window.WORDBANK={
    "ex": "The party gained ten seats at the last election.",
    "lessons": [
     "pol_03_parties",
+    "pol_03_parties_a2",
     "rp_23_buying_tickets_for_a_show_a2b1"
    ]
   },
@@ -70796,7 +70960,8 @@ window.WORDBANK={
    "def": "a vote in which citizens decide a single question",
    "ex": "The government held a referendum on the new treaty.",
    "lessons": [
-    "pol_04_referendum"
+    "pol_04_referendum",
+    "pol_04_referendum_a2"
    ]
   },
   "initiative": {
@@ -70819,6 +70984,7 @@ window.WORDBANK={
    "ex": "They collected 100,000 signatures in eighteen months.",
    "lessons": [
     "pol_04_referendum",
+    "pol_04_referendum_a2",
     "rp_34_at_the_town_hall"
    ]
   },
@@ -70829,7 +70995,8 @@ window.WORDBANK={
    "ex": "Turnout was low because of the bad weather.",
    "lessons": [
     "pol_04_referendum",
-    "pol_05_compulsory"
+    "pol_05_compulsory",
+    "pol_05_compulsory_a2"
    ]
   },
   "proposal": {
@@ -70839,6 +71006,7 @@ window.WORDBANK={
    "ex": "Voters rejected the proposal by a narrow margin.",
    "lessons": [
     "pol_04_referendum",
+    "pol_04_referendum_a2",
     "acad_c2_02_grant_proposals",
     "c1_pro_09_business_writing",
     "b2_10_getting_a_pay_rise",
@@ -70858,6 +71026,28 @@ window.WORDBANK={
     "sp_prep_b2_56"
    ]
   },
+  "result": {
+   "w": "result",
+   "pos": "n",
+   "def": "the answer at the end of a vote",
+   "ex": "The result was very close.",
+   "lessons": [
+    "pol_04_referendum_a2",
+    "a1p_33_first_conditional"
+   ]
+  },
+  "citizen": {
+   "w": "citizen",
+   "pos": "n",
+   "def": "a person who belongs to a country",
+   "ex": "Every citizen over 18 can vote.",
+   "lessons": [
+    "pol_04_referendum_a2",
+    "short_history_the_roman_republic_a2b1",
+    "bc_citizenship_test_c1",
+    "ielts_language_accuracy_clinic_v2"
+   ]
+  },
   "compulsory": {
    "w": "compulsory",
    "pos": "adj",
@@ -70865,6 +71055,7 @@ window.WORDBANK={
    "ex": "Voting is compulsory in Australia.",
    "lessons": [
     "pol_05_compulsory",
+    "pol_05_compulsory_a2",
     "rs_y11_aut1_25_03",
     "bc_cycling_built_for_speed_c1",
     "cae_exam_overview",
@@ -70876,9 +71067,10 @@ window.WORDBANK={
    "w": "polling station",
    "pos": "n",
    "def": "a place where people go to vote",
-   "ex": "The polling station opens at eight.",
+   "ex": "The polling station is at the school.",
    "lessons": [
-    "pol_05_compulsory"
+    "pol_05_compulsory",
+    "pol_05_compulsory_a2"
    ]
   },
   "eligible": {
@@ -70908,6 +71100,7 @@ window.WORDBANK={
    "ex": "She switched register effortlessly — chatty with the students, crisp with the trustees.",
    "lessons": [
     "pol_05_compulsory",
+    "pol_05_compulsory_a2",
     "reading_the_room_c2",
     "gr_b2_the_register",
     "bc_supply_chain_disruptions_c1",
@@ -70950,6 +71143,7 @@ window.WORDBANK={
    "ex": "Some inventors guard their methods jealously; others give them away freely, believing knowledge should be for the benefit of all humanity.",
    "lessons": [
     "pol_06_nordics",
+    "pol_06_nordics_a2",
     "short_history_marie_curie",
     "world_na_work",
     "skills_b1b2_trade_fair_features_benefits",
@@ -70993,6 +71187,25 @@ window.WORDBANK={
     "rs_y9_spr1_15_06"
    ]
   },
+  "public": {
+   "w": "public",
+   "pos": "adj",
+   "def": "owned or paid for by the state, for everyone",
+   "ex": "The library is public.",
+   "lessons": [
+    "pol_06_nordics_a2"
+   ]
+  },
+  "company": {
+   "w": "company",
+   "pos": "n",
+   "def": "a business",
+   "ex": "The company makes furniture.",
+   "lessons": [
+    "pol_06_nordics_a2",
+    "sf_a1_01_name_and_job"
+   ]
+  },
   "debate": {
    "w": "debate",
    "pos": "n",
@@ -71000,6 +71213,7 @@ window.WORDBANK={
    "ex": "The two candidates took part in a televised debate.",
    "lessons": [
     "pol_07_debate",
+    "pol_07_debate_a2",
     "world_eu_coffee",
     "rs_y7_aut2_02_06",
     "4_day_work_week",
@@ -71025,6 +71239,7 @@ window.WORDBANK={
    "ex": "The result may depend on a moderator that the original authors did not measure.(a) a person who leads a discussion (b) a variable that changes the strength or direction of an effect (c) a kind of statistical error",
    "lessons": [
     "pol_07_debate",
+    "pol_07_debate_a2",
     "psyp_07_replication_crisis_b2c1"
    ]
   },
@@ -71075,6 +71290,38 @@ window.WORDBANK={
     "ml_28_selling_your_sofa"
    ]
   },
+  "shout": {
+   "w": "shout",
+   "pos": "v",
+   "def": "to say something very loudly",
+   "ex": "They shouted loudly for help.\" / \"Please do not shout at me.",
+   "lessons": [
+    "pol_07_debate_a2",
+    "techniques_the_interlopers_a2b1",
+    "short_history_the_alamo_a2b1"
+   ]
+  },
+  "polite": {
+   "w": "polite",
+   "pos": "adj",
+   "def": "kind and with good manners",
+   "ex": "In the first week, everyone was extremely polite and nobody said what they really thought.",
+   "lessons": [
+    "pol_07_debate_a2",
+    "techniques_the_cask_of_amontillado_a2b1",
+    "tib_tuckman_b2",
+    "rp_16_reporting_something_lost_a2b1",
+    "su_a2_32_places_i_have_visited",
+    "ct_b1_24_clarification_building_blocks",
+    "ml_03_the_honest_review",
+    "sb_01_the_first_enquiry_a2b1",
+    "a1p_16_can_you_help",
+    "a1p_35_review_social_skills",
+    "a1p_39_could_would",
+    "sp_a2_18_agreeing_disagreeing",
+    "grammar_a1_10_can_ability"
+   ]
+  },
   "headline": {
    "w": "headline",
    "pos": "n",
@@ -71082,6 +71329,7 @@ window.WORDBANK={
    "ex": "Instead of reciting her career in order, she opened with a single headline: “I turn ambitious strategies into results that a board can measure.”",
    "lessons": [
     "pol_08_news",
+    "pol_08_news_a2",
     "skills_c1_senior_interview_1_your_story",
     "gr_b2_the_headline",
     "c2_pro_06_media_interviews",
@@ -71124,6 +71372,31 @@ window.WORDBANK={
    "lessons": [
     "pol_08_news",
     "sp_prep_c1_06"
+   ]
+  },
+  "fair": {
+   "w": "fair",
+   "pos": "adj",
+   "def": "right for everyone, with no favourite",
+   "ex": "The report is fair.",
+   "lessons": [
+    "pol_08_news_a2",
+    "techniques_idgah_a2b1",
+    "ml_19_the_comment_row",
+    "sb_02_giving_a_quote_a2b1",
+    "short_history_the_french_revolution_a2b1",
+    "behind_the_screen_bridge_of_spies_a2b1",
+    "talk_death_penalty_a2b1",
+    "talk_tipping_a2b1"
+   ]
+  },
+  "advertisement": {
+   "w": "advertisement",
+   "pos": "n",
+   "def": "a message to sell something",
+   "ex": "There is an advertisement on the page.",
+   "lessons": [
+    "pol_08_news_a2"
    ]
   },
   "self-control": {
@@ -83313,21 +83586,6 @@ window.WORDBANK={
     "techniques_vanka"
    ]
   },
-  "fair": {
-   "w": "fair",
-   "pos": "n",
-   "def": "an event outside with rides, games and things to buy. Careful: the adjective fair means \"right and equal\".",
-   "ex": "",
-   "lessons": [
-    "techniques_idgah_a2b1",
-    "ml_19_the_comment_row",
-    "sb_02_giving_a_quote_a2b1",
-    "short_history_the_french_revolution_a2b1",
-    "behind_the_screen_bridge_of_spies_a2b1",
-    "talk_death_penalty_a2b1",
-    "talk_tipping_a2b1"
-   ]
-  },
   "tease": {
    "w": "tease",
    "pos": "v",
@@ -85332,26 +85590,6 @@ window.WORDBANK={
     "epicurean_12_ataraxia_aponia"
    ]
   },
-  "polite": {
-   "w": "polite",
-   "pos": "adj",
-   "def": "Speaking and acting in a kind, friendly, correct way.",
-   "ex": "In the first week, everyone was extremely polite and nobody said what they really thought.",
-   "lessons": [
-    "techniques_the_cask_of_amontillado_a2b1",
-    "tib_tuckman_b2",
-    "rp_16_reporting_something_lost_a2b1",
-    "su_a2_32_places_i_have_visited",
-    "ct_b1_24_clarification_building_blocks",
-    "ml_03_the_honest_review",
-    "sb_01_the_first_enquiry_a2b1",
-    "a1p_16_can_you_help",
-    "a1p_35_review_social_skills",
-    "a1p_39_could_would",
-    "sp_a2_18_agreeing_disagreeing",
-    "grammar_a1_10_can_ability"
-   ]
-  },
   "misdemeanour": {
    "w": "misdemeanour",
    "pos": "n",
@@ -86218,16 +86456,6 @@ window.WORDBANK={
     "short_history_shackleton_a2b1",
     "think_inside_the_box_your_problem",
     "b2_03_making_your_opinion_heard"
-   ]
-  },
-  "shout": {
-   "w": "shout",
-   "pos": "v",
-   "def": "To say something in a very loud voice.",
-   "ex": "They shouted loudly for help.\" / \"Please do not shout at me.",
-   "lessons": [
-    "techniques_the_interlopers_a2b1",
-    "short_history_the_alamo_a2b1"
    ]
   },
   "wolves": {
@@ -90455,15 +90683,6 @@ window.WORDBANK={
     "short_history_agatha_christie_a2b1",
     "qf_vocab_historic_historical",
     "talk_books_and_screens_a2b1"
-   ]
-  },
-  "king": {
-   "w": "king",
-   "pos": "n",
-   "def": "a woman is a queen. A country with no king or queen, where people choose their leader, is a republic.",
-   "ex": "",
-   "lessons": [
-    "topic_dreams_a2b1"
    ]
   },
   "dreams": {
@@ -108207,17 +108426,6 @@ window.WORDBANK={
     "sp_a2_17_simple_narratives"
    ]
   },
-  "election": {
-   "w": "election",
-   "pos": "n",
-   "def": "a time when people vote to choose a leader or government",
-   "ex": "Who won the last election in your country?",
-   "lessons": [
-    "su_a2_77_budget",
-    "su_a2_37_budget",
-    "discuss_b1_french_elections"
-   ]
-  },
   "pollution": {
    "w": "pollution",
    "pos": "n",
@@ -114450,17 +114658,6 @@ window.WORDBANK={
    "ex": "I want to find out why the shop was closed today.",
    "lessons": [
     "behind_the_screen_spotlight_a2b1"
-   ]
-  },
-  "vote": {
-   "w": "vote",
-   "pos": "v",
-   "def": "to choose someone or something in an election",
-   "ex": "Everyone over eighteen can vote in the election.",
-   "lessons": [
-    "behind_the_screen_suffragette_a2b1",
-    "discuss_b1_french_elections",
-    "short_history_the_suffragettes_a2b1"
    ]
   },
   "fight for": {
@@ -128981,15 +129178,6 @@ window.WORDBANK={
     "lesson-15-applications-review"
    ]
   },
-  "company": {
-   "w": "company",
-   "pos": "n",
-   "def": "a business where people work together",
-   "ex": "She works for a small company in the city.",
-   "lessons": [
-    "sf_a1_01_name_and_job"
-   ]
-  },
   "nurse": {
    "w": "nurse",
    "pos": "n",
@@ -129781,17 +129969,6 @@ window.WORDBANK={
    "ex": "For thousands of years it was the tallest building in the world.",
    "lessons": [
     "short_history_the_pyramids_a2b1"
-   ]
-  },
-  "citizen": {
-   "w": "citizen",
-   "pos": "n",
-   "def": "a person who has rights in a country",
-   "ex": "Only some people in Rome were citizens.",
-   "lessons": [
-    "short_history_the_roman_republic_a2b1",
-    "bc_citizenship_test_c1",
-    "ielts_language_accuracy_clinic_v2"
    ]
   },
   "ancient": {
@@ -138986,15 +139163,6 @@ window.WORDBANK={
    "ex": "I am busy now, can I call you back later?",
    "lessons": [
     "a1p_32_phone_calls"
-   ]
-  },
-  "result": {
-   "w": "result",
-   "pos": "n",
-   "def": "what happens because of something else",
-   "ex": "The result of the late train was a missed meeting.",
-   "lessons": [
-    "a1p_33_first_conditional"
    ]
   },
   "possibility": {
