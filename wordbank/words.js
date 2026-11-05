@@ -5405,14 +5405,14 @@ window.WORDBANK={
    "title": "Where Does Power Sit?",
    "level": "",
    "words": [
-    "monarch",
+    "legislature",
+    "executive",
+    "judiciary",
+    "checks and balances",
+    "judicial review",
     "head of state",
-    "constitution",
-    "ceremonial",
-    "republic",
-    "elect",
-    "parliament",
-    "authority"
+    "federal",
+    "unitary"
    ]
   },
   {
@@ -5433,14 +5433,14 @@ window.WORDBANK={
    "title": "Prime Minister or President?",
    "level": "",
    "words": [
-    "prime minister",
-    "president",
-    "electoral college",
-    "majority",
-    "cabinet",
-    "term",
-    "veto",
-    "confidence"
+    "semi-presidential",
+    "cohabitation",
+    "dissolve",
+    "censure",
+    "bicameral",
+    "override",
+    "impeach",
+    "mandate"
    ]
   },
   {
@@ -50729,8 +50729,7 @@ window.WORDBANK={
    "def": "to officially refuse to approve a proposed law.",
    "ex": "The president can veto a bill, refusing to sign it so that it cannot become law unless Congress overrides him.",
    "lessons": [
-    "amst_04_the_constitution",
-    "pol_02_pm_president"
+    "amst_04_the_constitution"
    ]
   },
   "enact": {
@@ -50748,7 +50747,8 @@ window.WORDBANK={
    "def": "the power of courts to decide whether a law or action is allowed by the constitution.",
    "ex": "The principle of judicial review lets courts strike down laws that conflict with the constitution.",
    "lessons": [
-    "amst_04_the_constitution"
+    "amst_04_the_constitution",
+    "pol_01_power"
    ]
   },
   "federal": {
@@ -50757,7 +50757,8 @@ window.WORDBANK={
    "def": "relating to a system in which power is divided between a central government and regional governments.",
    "ex": "Power in the United States is federal, shared between a central government and the individual states.",
    "lessons": [
-    "amst_04_the_constitution"
+    "amst_04_the_constitution",
+    "pol_01_power"
    ]
   },
   "robotaxi": {
@@ -57539,6 +57540,7 @@ window.WORDBANK={
     "bc_rumi_c1",
     "odyssey_charles_i",
     "odyssey_henry_viii",
+    "pol_02_pm_president",
     "short_history_the_east_india_company"
    ]
   },
@@ -57690,7 +57692,8 @@ window.WORDBANK={
    "def": "To criticise someone formally and severely, especially from a position of authority.",
    "ex": "By 1693 she seems to have stopped writing to avoid the risk of official censure.",
    "lessons": [
-    "bc_sor_juana_c1"
+    "bc_sor_juana_c1",
+    "pol_02_pm_president"
    ]
   },
   "double standard": {
@@ -65343,12 +65346,11 @@ window.WORDBANK={
    "w": "parliament",
    "pos": "n",
    "def": "the assembly that makes laws.",
-   "ex": "The parliament debated the new law for a week.",
+   "ex": "The parliament meets in a big building.",
    "lessons": [
     "odyssey_charles_i",
     "odyssey_henry_iii",
     "odyssey_owain_glyndwr",
-    "pol_01_power",
     "pol_01_power_a2"
    ]
   },
@@ -67609,10 +67611,9 @@ window.WORDBANK={
    "w": "cabinet",
    "pos": "n",
    "def": "a group of top ministers.",
-   "ex": "The cabinet meets every Tuesday morning.",
+   "ex": "The cabinet meets every week.",
    "lessons": [
     "odyssey_george_i",
-    "pol_02_pm_president",
     "pol_02_pm_president_a2",
     "qf_falsefriend_spanish_carpeta"
    ]
@@ -67621,11 +67622,10 @@ window.WORDBANK={
    "w": "prime minister",
    "pos": "n",
    "def": "the head of government.",
-   "ex": "The prime minister answers questions in parliament every week.",
+   "ex": "The prime minister works with the parliament.",
    "lessons": [
     "odyssey_george_i",
-    "pol_01_power_a2",
-    "pol_02_pm_president"
+    "pol_01_power_a2"
    ]
   },
   "ruin": {
@@ -69154,10 +69154,9 @@ window.WORDBANK={
    "w": "elect",
    "pos": "v",
    "def": "to choose by agreement.",
-   "ex": "Citizens elect their representatives every few years.",
+   "ex": "",
    "lessons": [
     "odyssey_ire_kingship",
-    "pol_01_power",
     "qf_falsefriend_french_actual"
    ]
   },
@@ -71875,69 +71874,58 @@ window.WORDBANK={
     "piranesi_bc_other"
    ]
   },
-  "monarch": {
-   "w": "monarch",
+  "legislature": {
+   "w": "legislature",
    "pos": "n",
-   "def": "a king or queen who is the head of a country",
-   "ex": "Britain's monarch opens parliament each year.",
+   "def": "the body that makes the laws of a country",
+   "ex": "The legislature debated the bill for three weeks.",
    "lessons": [
-    "pol_01_power",
-    "short_history_queen_victoria",
-    "ois_14_elizabeth_and_the_armada"
+    "pol_01_power"
+   ]
+  },
+  "executive": {
+   "w": "executive",
+   "pos": "n",
+   "def": "the part of government that carries out the laws and runs the country day to day",
+   "ex": "The executive includes the prime minister and the ministers.",
+   "lessons": [
+    "pol_01_power"
+   ]
+  },
+  "judiciary": {
+   "w": "judiciary",
+   "pos": "n",
+   "def": "the courts and judges of a country, taken together",
+   "ex": "An independent judiciary can rule against the government.",
+   "lessons": [
+    "pol_01_power"
+   ]
+  },
+  "checks and balances": {
+   "w": "checks and balances",
+   "pos": "n",
+   "def": "rules that let each part of government limit the power of the others",
+   "ex": "The system of checks and balances stops any one branch from dominating.",
+   "lessons": [
+    "pol_01_power"
    ]
   },
   "head of state": {
    "w": "head of state",
    "pos": "n",
-   "def": "the official top representative of a country",
+   "def": "the official top representative of a country, who may have little real power",
    "ex": "In many countries the head of state has mostly ceremonial duties.",
    "lessons": [
     "pol_01_power"
    ]
   },
-  "constitution": {
-   "w": "constitution",
-   "pos": "n",
-   "def": "the basic rules a country is governed by",
-   "ex": "The constitution limits what the government can do.",
+  "unitary": {
+   "w": "unitary",
+   "pos": "adj",
+   "def": "describing a country in which the central government holds the main power",
+   "ex": "France is a unitary state, although it has local authorities.",
    "lessons": [
     "pol_01_power"
-   ]
-  },
-  "ceremonial": {
-   "w": "ceremonial",
-   "pos": "adj",
-   "def": "for official occasions, with little real power",
-   "ex": "The president's role is largely ceremonial.",
-   "lessons": [
-    "pol_01_power",
-    "rs_y7_spr1_03_05"
-   ]
-  },
-  "republic": {
-   "w": "republic",
-   "pos": "n",
-   "def": "a country with no monarch, usually led by a president",
-   "ex": "France became a republic after its revolution.",
-   "lessons": [
-    "pol_01_power",
-    "short_history_julius_caesar",
-    "short_history_the_french_revolution",
-    "short_history_the_roman_republic",
-    "short_history_the_french_revolution_a2b1",
-    "short_history_the_roman_republic_a2b1"
-   ]
-  },
-  "authority": {
-   "w": "authority",
-   "pos": "n",
-   "def": "the official right to make decisions and give orders",
-   "ex": "Only the courts have the authority to change that decision.",
-   "lessons": [
-    "pol_01_power",
-    "rs_y7_spr1_03_06",
-    "c2_pro_01_boardroom_rhetoric",
-    "sp_prep_c1_01"
    ]
   },
   "king": {
@@ -71958,7 +71946,6 @@ window.WORDBANK={
    "ex": "The president was chosen by the voters.",
    "lessons": [
     "pol_01_power_a2",
-    "pol_02_pm_president",
     "behind_the_screen_invictus_a2b1"
    ]
   },
@@ -71974,52 +71961,64 @@ window.WORDBANK={
     "short_history_the_suffragettes_a2b1"
    ]
   },
-  "electoral college": {
-   "w": "electoral college",
-   "pos": "n",
-   "def": "the group of state representatives who formally choose the US president",
-   "ex": "The Electoral College decides the winner, not the national vote.",
+  "semi-presidential": {
+   "w": "semi-presidential",
+   "pos": "adj",
+   "def": "describing a system with both a directly elected president and a prime minister answerable to parliament",
+   "ex": "France has a semi-presidential system.",
    "lessons": [
     "pol_02_pm_president"
    ]
   },
-  "majority": {
-   "w": "majority",
+  "cohabitation": {
+   "w": "cohabitation",
    "pos": "n",
-   "def": "more than half of the votes or seats",
-   "ex": "Buddhists are the majority in Thailand, but other religions are practised too.",
+   "def": "in France, a period when the president and the prime minister belong to opposing camps",
+   "ex": "Cohabitation forced President Mitterrand to work with a rival government.",
    "lessons": [
     "pol_02_pm_president",
-    "pol_03_parties",
-    "pol_03_parties_a2",
-    "psyp_12_whose_psychology_a2b1",
-    "world_sa_background",
-    "ielts_task1_phrase_cheatsheet"
+    "rs_y11_spr1_27_01",
+    "rs_y11_sum2_30_01"
    ]
   },
-  "term": {
-   "w": "term",
-   "pos": "n",
-   "def": "the length of time a leader is allowed to serve",
-   "ex": "A US president can serve at most two four-year terms.",
+  "bicameral": {
+   "w": "bicameral",
+   "pos": "adj",
+   "def": "having two separate chambers in a parliament",
+   "ex": "Poland has a bicameral parliament made up of the Sejm and the Senate.",
    "lessons": [
-    "pol_02_pm_president",
-    "pol_02_pm_president_a2",
-    "discuss_b1_french_elections"
+    "pol_02_pm_president"
    ]
   },
-  "confidence": {
-   "w": "confidence",
-   "pos": "n",
-   "def": "support from parliament that a government needs to stay in office",
-   "ex": "If it loses a vote of confidence, the government must resign.",
+  "override": {
+   "w": "override",
+   "pos": "v",
+   "def": "to cancel a veto or decision with a stronger vote",
+   "ex": "A three-fifths majority in the Sejm can override a presidential veto.",
    "lessons": [
     "pol_02_pm_president",
-    "explore_b1_need_for_speed",
-    "a1p_01_introductions",
-    "ielts_lesson_17_timed_practice_2",
-    "sp_a2_11_cause_and_effect",
-    "sp_prep_b1_39"
+    "rs_y7_sum2_06_06"
+   ]
+  },
+  "impeach": {
+   "w": "impeach",
+   "pos": "v",
+   "def": "to accuse a leader formally of serious wrongdoing, which can lead to removal",
+   "ex": "The House of Representatives can impeach a US president.",
+   "lessons": [
+    "pol_02_pm_president"
+   ]
+  },
+  "mandate": {
+   "w": "mandate",
+   "pos": "n",
+   "def": "the authority to govern that is claimed after winning an election",
+   "ex": "The board gave her a clear mandate: halve the delivery time and she would have a free hand to restructure the department.",
+   "lessons": [
+    "pol_02_pm_president",
+    "short_history_the_partition_of_india",
+    "skills_c1_senior_interview_1_your_story",
+    "world_na_work"
    ]
   },
   "election": {
@@ -72032,6 +72031,29 @@ window.WORDBANK={
     "su_a2_77_budget",
     "su_a2_37_budget",
     "discuss_b1_french_elections"
+   ]
+  },
+  "term": {
+   "w": "term",
+   "pos": "n",
+   "def": "the time a leader stays in the job",
+   "ex": "One term is four years.",
+   "lessons": [
+    "pol_02_pm_president_a2",
+    "discuss_b1_french_elections"
+   ]
+  },
+  "majority": {
+   "w": "majority",
+   "pos": "n",
+   "def": "more than half of the votes or seats",
+   "ex": "Buddhists are the majority in Thailand, but other religions are practised too.",
+   "lessons": [
+    "pol_03_parties",
+    "pol_03_parties_a2",
+    "psyp_12_whose_psychology_a2b1",
+    "world_sa_background",
+    "ielts_task1_phrase_cheatsheet"
    ]
   },
   "proportional": {
@@ -76829,6 +76851,19 @@ window.WORDBANK={
     "short_history_the_roman_republic"
    ]
   },
+  "republic": {
+   "w": "republic",
+   "pos": "n",
+   "def": "a state with no king or monarch, in which elected representatives hold power only for fixed terms.",
+   "ex": "",
+   "lessons": [
+    "short_history_julius_caesar",
+    "short_history_the_french_revolution",
+    "short_history_the_roman_republic",
+    "short_history_the_french_revolution_a2b1",
+    "short_history_the_roman_republic_a2b1"
+   ]
+  },
   "orator": {
    "w": "orator",
    "pos": "n",
@@ -78203,6 +78238,16 @@ window.WORDBANK={
    "ex": "Ash is the soft grey powder that comes out of a fire or a volcano.",
    "lessons": [
     "short_history_pompeii_a2b1"
+   ]
+  },
+  "monarch": {
+   "w": "monarch",
+   "pos": "n",
+   "def": "a king or queen; the single hereditary head of a state.",
+   "ex": "",
+   "lessons": [
+    "short_history_queen_victoria",
+    "ois_14_elizabeth_and_the_armada"
    ]
   },
   "confidant": {
@@ -80972,17 +81017,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_panama_canal"
-   ]
-  },
-  "mandate": {
-   "w": "mandate",
-   "pos": "n",
-   "def": "the authority to act for others, especially what an election gives a party. Field: politics and negotiation.",
-   "ex": "The board gave her a clear mandate: halve the delivery time and she would have a free hand to restructure the department.",
-   "lessons": [
-    "short_history_the_partition_of_india",
-    "skills_c1_senior_interview_1_your_story",
-    "world_na_work"
    ]
   },
   "accede": {
@@ -100655,16 +100689,6 @@ window.WORDBANK={
     "grammar_a2_04_modals_obligation_request"
    ]
   },
-  "cohabitation": {
-   "w": "cohabitation",
-   "pos": "n",
-   "def": "living together as a couple without being married",
-   "ex": "Attitudes to cohabitation have changed a lot.",
-   "lessons": [
-    "rs_y11_spr1_27_01",
-    "rs_y11_sum2_30_01"
-   ]
-  },
   "procreation": {
    "w": "procreation",
    "pos": "n",
@@ -101818,6 +101842,15 @@ window.WORDBANK={
     "gr_b1_speed_definitions"
    ]
   },
+  "ceremonial": {
+   "w": "ceremonial",
+   "pos": "adj",
+   "def": "used for or connected with a formal ritual",
+   "ex": "Each evening there is a ceremonial closing of the book.",
+   "lessons": [
+    "rs_y7_spr1_03_05"
+   ]
+  },
   "permanence": {
    "w": "permanence",
    "pos": "n",
@@ -101827,6 +101860,17 @@ window.WORDBANK={
     "rs_y7_spr1_03_05",
     "cpe_read_c2_11_cathedral_thinking",
     "gr_b2_collocation_clash"
+   ]
+  },
+  "authority": {
+   "w": "authority",
+   "pos": "n",
+   "def": "the power or right to be obeyed",
+   "ex": "For many believers, scripture has great authority.",
+   "lessons": [
+    "rs_y7_spr1_03_06",
+    "c2_pro_01_boardroom_rhetoric",
+    "sp_prep_c1_01"
    ]
   },
   "fundamentalist": {
@@ -125310,6 +125354,19 @@ window.WORDBANK={
     "explore_all_first_lesson_intro"
    ]
   },
+  "confidence": {
+   "w": "confidence",
+   "pos": "n",
+   "def": "the feeling that you can do something well",
+   "ex": "Speaking every day gave her more confidence.",
+   "lessons": [
+    "explore_b1_need_for_speed",
+    "a1p_01_introductions",
+    "ielts_lesson_17_timed_practice_2",
+    "sp_a2_11_cause_and_effect",
+    "sp_prep_b1_39"
+   ]
+  },
   "put on trial": {
    "w": "put on trial",
    "pos": "phr",
@@ -148602,15 +148659,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a sense of right and wrong that guides behaviour",
    "ex": "Her strong moral compass made her refuse the bribe.",
-   "lessons": [
-    "rs_y7_sum2_06_06"
-   ]
-  },
-  "override": {
-   "w": "override",
-   "pos": "v",
-   "def": "to be more important than something else",
-   "ex": "Safety must override every other concern on a building site.",
    "lessons": [
     "rs_y7_sum2_06_06"
    ]
