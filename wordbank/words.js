@@ -3411,6 +3411,74 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_more_is_different",
+   "title": "More Is Different",
+   "level": "",
+   "words": [
+    "emerge",
+    "component",
+    "collective",
+    "reductionism",
+    "property",
+    "complexity",
+    "organise",
+    "local",
+    "phenomenon",
+    "consciousness"
+   ]
+  },
+  {
+   "id": "discuss_c1_universal_now",
+   "title": "Is There a Universal Now?",
+   "level": "",
+   "words": [
+    "relative",
+    "absolute",
+    "observer",
+    "simultaneous",
+    "frame",
+    "dilation",
+    "invariant",
+    "paradox",
+    "causal",
+    "synchronise"
+   ]
+  },
+  {
+   "id": "discuss_c1_waves_or_particles",
+   "title": "Waves or Particles?",
+   "level": "",
+   "words": [
+    "wave",
+    "particle",
+    "interference",
+    "probability",
+    "measurement",
+    "superposition",
+    "detect",
+    "interpretation",
+    "collapse",
+    "counterintuitive"
+   ]
+  },
+  {
+   "id": "discuss_c1_what_is_energy",
+   "title": "What Actually Is Energy?",
+   "level": "",
+   "words": [
+    "energy",
+    "conserve",
+    "convert",
+    "kinetic",
+    "potential",
+    "thermal",
+    "quantity",
+    "transfer",
+    "symmetry",
+    "tally"
+   ]
+  },
+  {
    "id": "discuss_c1_why_risk_it",
    "title": "Why Risk It? The Philosophy of Dangerous Sports",
    "level": "",
@@ -5317,6 +5385,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "physics_a2b1_01_hot_and_cold",
+   "title": "Hot and Cold",
+   "level": "",
+   "words": [
+    "hot",
+    "cold",
+    "warm",
+    "heat",
+    "temperature",
+    "thermometer",
+    "melt",
+    "freeze",
+    "boil",
+    "lid"
+   ]
+  },
+  {
    "id": "physics_a2b1_02_forces_motion",
    "title": "Forces and Motion",
    "level": "",
@@ -5331,6 +5416,74 @@ window.WORDBANK={
     "slide",
     "seatbelt",
     "heavy"
+   ]
+  },
+  {
+   "id": "physics_a2b1_03_light_and_colour",
+   "title": "Light and Colour",
+   "level": "",
+   "words": [
+    "light",
+    "shadow",
+    "mirror",
+    "reflect",
+    "colour",
+    "rainbow",
+    "bright",
+    "dark",
+    "torch",
+    "shine"
+   ]
+  },
+  {
+   "id": "physics_a2b1_04_sound",
+   "title": "Sound",
+   "level": "",
+   "words": [
+    "sound",
+    "loud",
+    "quiet",
+    "high",
+    "low",
+    "echo",
+    "vibrate",
+    "thunder",
+    "lightning",
+    "hear"
+   ]
+  },
+  {
+   "id": "physics_a2b1_05_electricity",
+   "title": "Electricity at Home",
+   "level": "",
+   "words": [
+    "electricity",
+    "battery",
+    "circuit",
+    "switch",
+    "bulb",
+    "wire",
+    "plug",
+    "socket",
+    "save",
+    "waste"
+   ]
+  },
+  {
+   "id": "physics_a2b1_06_solid_liquid_gas",
+   "title": "Solid, Liquid, Gas",
+   "level": "",
+   "words": [
+    "solid",
+    "liquid",
+    "gas",
+    "ice",
+    "steam",
+    "particle",
+    "evaporate",
+    "shape",
+    "fill",
+    "cool"
    ]
   },
   {
@@ -47238,6 +47391,7 @@ window.WORDBANK={
    "lessons": [
     "a1s_11_rain",
     "a1s_39_sick",
+    "physics_a2b1_01_hot_and_cold",
     "techniques_the_cask_of_amontillado_a2b1",
     "qf_falsefriend_portuguese_constipado",
     "qf_falsefriend_spanish_constipated"
@@ -47245,11 +47399,12 @@ window.WORDBANK={
   },
   "warm": {
    "w": "warm",
-   "pos": "",
+   "pos": "adj",
    "def": "a little hot — nice and cosy",
-   "ex": "",
+   "ex": "The room is warm.",
    "lessons": [
     "a1s_11_rain",
+    "physics_a2b1_01_hot_and_cold",
     "techniques_the_little_match_girl_a2b1"
    ]
   },
@@ -48240,11 +48395,12 @@ window.WORDBANK={
   },
   "bright": {
    "w": "bright",
-   "pos": "",
+   "pos": "adj",
    "def": "full of light",
-   "ex": "",
+   "ex": "The sun is very bright.",
    "lessons": [
     "a1s_24_compare",
+    "physics_a2b1_03_light_and_colour",
     "topic_optimism_b2"
    ]
   },
@@ -48649,6 +48805,7 @@ window.WORDBANK={
    "lessons": [
     "a1s_29_wish",
     "bc_ikea_a2b1",
+    "physics_a2b1_05_electricity",
     "gr_warmup_a2_hot_takes_money",
     "behind_the_screen_schindlers_list_a2b1",
     "skills_a2_trade_fair_your_product",
@@ -49252,9 +49409,10 @@ window.WORDBANK={
    "w": "shadow",
    "pos": "n",
    "def": "a dark shape from a light",
-   "ex": "",
+   "ex": "My shadow is long in the evening.",
    "lessons": [
     "a1s_37_noise",
+    "physics_a2b1_03_light_and_colour",
     "techniques_there_will_come_soft_rains_a2b1",
     "behind_the_screen_dracula_a2b1"
    ]
@@ -49353,6 +49511,7 @@ window.WORDBANK={
    "ex": "He worked in a deep, dark place.\" / \"The room was dark at night.",
    "lessons": [
     "a1s_38_storm",
+    "physics_a2b1_03_light_and_colour",
     "techniques_the_cask_of_amontillado_a2b1",
     "techniques_the_signal_man_a2b1"
    ]
@@ -49513,11 +49672,12 @@ window.WORDBANK={
   },
   "shine": {
    "w": "shine",
-   "pos": "",
+   "pos": "v",
    "def": "to be very bright and clean",
-   "ex": "",
+   "ex": "The sun shines in summer.",
    "lessons": [
-    "a1s_40_inspection"
+    "a1s_40_inspection",
+    "physics_a2b1_03_light_and_colour"
    ]
   },
   "pass": {
@@ -54865,6 +55025,7 @@ window.WORDBANK={
     "bc_italo_calvino_c1",
     "bc_zhuangzi_c1",
     "bq_02_same_ship_c1",
+    "discuss_c1_universal_now",
     "rs_y10_aut1_19_01",
     "acad_c2_08_keynote_academic",
     "speaking_naturally_teens_bonus_camus_absurd_hero",
@@ -55169,6 +55330,7 @@ window.WORDBANK={
    "ex": "Each new set added new specialised pieces; the moulds multiplied, the warehouse choked, and almost nobody asked what one extra piece cost the whole system. Complexity had become the silent product.",
    "lessons": [
     "bc_lego_turnaround_c1",
+    "discuss_c1_more_is_different",
     "bp_c2_06_the_consultants_edge",
     "rs_y9_aut1_13_02",
     "bc_high_performers_workaholism_b2c1",
@@ -56740,6 +56902,7 @@ window.WORDBANK={
    "ex": "After thirty kilometres he was very tired. His legs felt empty. He had no more energy, and every step was hard.",
    "lessons": [
     "bc_orsted_bet_the_company_a2",
+    "discuss_c1_what_is_energy",
     "story_a2b1_dorando_marathon",
     "behind_the_screen_the_matrix_a2b1",
     "talk_climate_action_a2b1"
@@ -57968,6 +58131,7 @@ window.WORDBANK={
    "ex": "He saw the alien as a mirror of his own fears.",
    "lessons": [
     "bc_stanislaw_lem_b1b2",
+    "physics_a2b1_03_light_and_colour",
     "techniques_jekyll_and_hyde_3_a2b1",
     "rp_28_at_the_hairdressers_a2b1",
     "st_pro_01_architecture_of_story",
@@ -58657,9 +58821,10 @@ window.WORDBANK={
    "w": "collapse",
    "pos": "verb",
    "def": "To fall down suddenly and completely.",
-   "ex": "The company collapsed one week later.",
+   "ex": "On one account, the wave function collapses when we measure.",
    "lessons": [
     "bc_wirecard_a2b1",
+    "discuss_c1_waves_or_particles",
     "short_history_the_maya",
     "story_a2b1_dorando_marathon",
     "story_b2_dorando_marathon",
@@ -58759,6 +58924,7 @@ window.WORDBANK={
    "ex": "We make too much food waste at home.",
    "lessons": [
     "bc_zara_a2b1",
+    "physics_a2b1_05_electricity",
     "techniques_the_last_class_a2b1",
     "tib_eisenhower_a2b1",
     "b1_13_the_green_workplace",
@@ -58805,6 +58971,7 @@ window.WORDBANK={
    "ex": "Big and small are relative: a pond is huge to a minnow and tiny to a heron.",
    "lessons": [
     "bc_zhuangzi_c1",
+    "discuss_c1_universal_now",
     "rs_y7_aut1_01_06",
     "rs_y7_sum2_06_01",
     "christmas_conversations_compass_teens"
@@ -63482,6 +63649,393 @@ window.WORDBANK={
     "duolingo_det_practice_6"
    ]
   },
+  "emerge": {
+   "w": "emerge",
+   "pos": "v",
+   "def": "to appear or develop from something simpler",
+   "ex": "A flock emerges from simple rules followed by each bird.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "are_we_forgetting_how_to_be_friends",
+    "wp_49_the_garden_and_the_kingdom",
+    "bc_future_of_work_c1",
+    "may_might_could_professional"
+   ]
+  },
+  "component": {
+   "w": "component",
+   "pos": "n",
+   "def": "one of the parts that something is made of",
+   "ex": "Each component is simple; the whole is not.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "c1_pro_22_supply_chain",
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "collective": {
+   "w": "collective",
+   "pos": "adj",
+   "def": "done or shared by a group rather than one individual",
+   "ex": "Collective decisions can take longer to reach.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "world_ea_group",
+    "talk_climate_action_b2c1",
+    "crowds_and_madness",
+    "cpe_read_c2_14_collective_memory"
+   ]
+  },
+  "reductionism": {
+   "w": "reductionism",
+   "pos": "n",
+   "def": "the view that a whole is fully explained by its smallest parts",
+   "ex": "Reductionism says chemistry follows from physics.",
+   "lessons": [
+    "discuss_c1_more_is_different"
+   ]
+  },
+  "property": {
+   "w": "property",
+   "pos": "n",
+   "def": "a quality or characteristic that something has",
+   "ex": "Temperature is a property of many particles together.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "techniques_the_emperors_new_clothes",
+    "bc_solutions_c1",
+    "epicurean_07_the_swerve",
+    "qf_falsefriend_italian_estate"
+   ]
+  },
+  "organise": {
+   "w": "organise",
+   "pos": "v",
+   "def": "to arrange or form into an ordered pattern",
+   "ex": "Ants organise themselves without a leader.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "bc_presentation_structure_c1",
+    "b2_82_problems_at_work",
+    "grammar_a2_16_conjunctions_time_contrast"
+   ]
+  },
+  "local": {
+   "w": "local",
+   "pos": "adj",
+   "def": "limited to a small area or to the nearest neighbours",
+   "ex": "Each bird responds only to local information.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "world_na_food_a2",
+    "talk_tourism_a2b1"
+   ]
+  },
+  "phenomenon": {
+   "w": "phenomenon",
+   "pos": "n",
+   "def": "an observable event or pattern",
+   "ex": "A traffic jam is a striking phenomenon.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "short_history_the_world_cup",
+    "gr_b2_the_black_box",
+    "rs_y9_aut1_13_05",
+    "cambridge_cae_exam_simulation"
+   ]
+  },
+  "consciousness": {
+   "w": "consciousness",
+   "pos": "n",
+   "def": "the experience of being aware of yourself and the world",
+   "ex": "Consciousness is a famous puzzle for emergence.",
+   "lessons": [
+    "discuss_c1_more_is_different",
+    "rs_y7_sum1_05_05",
+    "rs_y9_aut2_14_05",
+    "rs_y9_sum1_17_01",
+    "wp_04_atoms_in_the_void",
+    "IELTS-Reading-Practice-Test-1"
+   ]
+  },
+  "absolute": {
+   "w": "absolute",
+   "pos": "adj",
+   "def": "the same for everyone, whatever their position or motion",
+   "ex": "Is there an absolute standard of time?",
+   "lessons": [
+    "discuss_c1_universal_now",
+    "odyssey_james_vi_scot",
+    "rs_y7_sum2_06_01"
+   ]
+  },
+  "observer": {
+   "w": "observer",
+   "pos": "n",
+   "def": "a person or instrument that measures events",
+   "ex": "Two observers moving differently can record different times.",
+   "lessons": [
+    "discuss_c1_universal_now"
+   ]
+  },
+  "simultaneous": {
+   "w": "simultaneous",
+   "pos": "adj",
+   "def": "happening at exactly the same time",
+   "ex": "The two flashes seemed simultaneous to the person on the platform.",
+   "lessons": [
+    "discuss_c1_universal_now"
+   ]
+  },
+  "frame": {
+   "w": "frame",
+   "pos": "n",
+   "def": "the point of view, with its own motion, from which measurements are made",
+   "ex": "In the train's frame, the clock is at rest.",
+   "lessons": [
+    "discuss_c1_universal_now",
+    "rp_39_at_the_optician",
+    "st_pro_05_the_reframe",
+    "bestiary_discourse_frame",
+    "bc_cycling_c1",
+    "discuss_b2c1_photography",
+    "curious_conversations_language_shapes_thought",
+    "ielts_task1_intro_gauntlet_b2"
+   ]
+  },
+  "dilation": {
+   "w": "dilation",
+   "pos": "n",
+   "def": "a stretching or expanding; in physics, the slowing of a moving clock",
+   "ex": "Time dilation has been confirmed with atomic clocks.",
+   "lessons": [
+    "discuss_c1_universal_now"
+   ]
+  },
+  "invariant": {
+   "w": "invariant",
+   "pos": "adj",
+   "def": "not changing, whatever the observer",
+   "ex": "The speed of light is invariant.",
+   "lessons": [
+    "discuss_c1_universal_now"
+   ]
+  },
+  "causal": {
+   "w": "causal",
+   "pos": "adj",
+   "def": "relating to cause and effect",
+   "ex": "A causal order is one on which every observer agrees.",
+   "lessons": [
+    "discuss_c1_universal_now",
+    "cpe_read_c1_04_synesthesia"
+   ]
+  },
+  "synchronise": {
+   "w": "synchronise",
+   "pos": "v",
+   "def": "to make clocks show the same time",
+   "ex": "You cannot synchronise distant clocks without sending a signal.",
+   "lessons": [
+    "discuss_c1_universal_now"
+   ]
+  },
+  "wave": {
+   "w": "wave",
+   "pos": "n",
+   "def": "a pattern that spreads out, with repeating high and low parts",
+   "ex": "Sound and light both behave like waves in some experiments.",
+   "lessons": [
+    "discuss_c1_waves_or_particles",
+    "short_history_the_spanish_flu",
+    "short_history_the_spanish_flu_a2b1",
+    "grammar_a1_07_nouns_pronouns"
+   ]
+  },
+  "particle": {
+   "w": "particle",
+   "pos": "n",
+   "def": "a very small piece of matter or energy at one location",
+   "ex": "An electron is detected as a single particle.",
+   "lessons": [
+    "discuss_c1_waves_or_particles",
+    "physics_a2b1_06_solid_liquid_gas",
+    "deep_space_05_dark"
+   ]
+  },
+  "interference": {
+   "w": "interference",
+   "pos": "n",
+   "def": "the effect of two overlapping waves adding or cancelling each other",
+   "ex": "The bands on the screen are a sign of interference.",
+   "lessons": [
+    "discuss_c1_waves_or_particles"
+   ]
+  },
+  "probability": {
+   "w": "probability",
+   "pos": "n",
+   "def": "how likely something is to happen",
+   "ex": "Quantum theory gives the probability of each outcome.",
+   "lessons": [
+    "discuss_c1_waves_or_particles",
+    "su_a2_29_describing_future_technology",
+    "making_the_leap_full",
+    "bc_aliens_probability_b2c1",
+    "sp_b1_22_hedging",
+    "sp_prep_b1_39"
+   ]
+  },
+  "measurement": {
+   "w": "measurement",
+   "pos": "n",
+   "def": "the process of finding out a value, usually with an instrument",
+   "ex": "The result depends on how the measurement is made.",
+   "lessons": [
+    "discuss_c1_waves_or_particles"
+   ]
+  },
+  "superposition": {
+   "w": "superposition",
+   "pos": "n",
+   "def": "a state that combines several possibilities at once",
+   "ex": "The electron is described as a superposition of two paths.",
+   "lessons": [
+    "discuss_c1_waves_or_particles"
+   ]
+  },
+  "detect": {
+   "w": "detect",
+   "pos": "v",
+   "def": "to find or record that something is present",
+   "ex": "The screen detects each electron as a dot.",
+   "lessons": [
+    "discuss_c1_waves_or_particles"
+   ]
+  },
+  "interpretation": {
+   "w": "interpretation",
+   "pos": "noun",
+   "def": "a particular way of explaining what a theory means",
+   "ex": "Her interpretation of the ending was very different from mine, and she had good reasons for it.",
+   "lessons": [
+    "discuss_c1_waves_or_particles",
+    "piranesi_bc_meaning",
+    "gr_b2_the_courtroom",
+    "rs_y7_spr1_03_06",
+    "rs_y10_aut1_19_04",
+    "rs_y9_aut2_14_02",
+    "playing_the_room",
+    "ib_lesson_04_pacer_framework"
+   ]
+  },
+  "counterintuitive": {
+   "w": "counterintuitive",
+   "pos": "adj",
+   "def": "opposite to what common sense would expect",
+   "ex": "The result is deeply counterintuitive.",
+   "lessons": [
+    "discuss_c1_waves_or_particles",
+    "rs_y9_sum1_17_04"
+   ]
+  },
+  "conserve": {
+   "w": "conserve",
+   "pos": "v",
+   "def": "to keep a quantity unchanged in total over time",
+   "ex": "In an isolated system, energy is conserved.",
+   "lessons": [
+    "discuss_c1_what_is_energy"
+   ]
+  },
+  "convert": {
+   "w": "convert",
+   "pos": "v",
+   "def": "to change from one form into another",
+   "ex": "A battery converts chemical energy into electrical energy.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "odyssey_background",
+    "rs_y10_spr2_22_04",
+    "skills_b1b2_trade_fair_followup"
+   ]
+  },
+  "kinetic": {
+   "w": "kinetic",
+   "pos": "adj",
+   "def": "relating to movement",
+   "ex": "A moving car has kinetic energy.",
+   "lessons": [
+    "discuss_c1_what_is_energy"
+   ]
+  },
+  "potential": {
+   "w": "potential",
+   "pos": "adj",
+   "def": "stored and able to be released later",
+   "ex": "A ball held high has potential energy.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "tib_ninebox_b2",
+    "b2_01_truth_and_lies",
+    "boredom_is_a_superpower_lesson",
+    "think_inside_the_box_toolbox"
+   ]
+  },
+  "thermal": {
+   "w": "thermal",
+   "pos": "adj",
+   "def": "relating to heat",
+   "ex": "Friction turns motion into thermal energy.",
+   "lessons": [
+    "discuss_c1_what_is_energy"
+   ]
+  },
+  "quantity": {
+   "w": "quantity",
+   "pos": "n",
+   "def": "an amount that can be measured or calculated",
+   "ex": "Energy is a quantity we calculate, not a substance we can see.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "su_a2_36_buying_and_shopping",
+    "ielts_task1_intro_gauntlet_b2"
+   ]
+  },
+  "transfer": {
+   "w": "transfer",
+   "pos": "v",
+   "def": "to move something from one place or object to another",
+   "ex": "Heat transfers from the hot cup to the cool air.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "gr_warmup_b2_hot_takes_sport",
+    "ielts_reading_lesson_1_test_overview",
+    "qf_collocation_take_make_photo"
+   ]
+  },
+  "symmetry": {
+   "w": "symmetry",
+   "pos": "n",
+   "def": "a property of staying the same when something is changed",
+   "ex": "A butterfly's wings have a striking symmetry: whatever pattern appears on the left appears again on the right, an exact mirror image.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "short_history_the_taj_mahal",
+    "story_c1_the_left_handed_universe",
+    "epicurean_09_epicurean_gods"
+   ]
+  },
+  "tally": {
+   "w": "tally",
+   "pos": "n",
+   "def": "a running total",
+   "ex": "The accountant kept a tally of every pound.",
+   "lessons": [
+    "discuss_c1_what_is_energy",
+    "odyssey_henry_i"
+   ]
+  },
   "gratuitous": {
    "w": "gratuitous",
    "pos": "adj",
@@ -65325,17 +65879,6 @@ window.WORDBANK={
    "lessons": [
     "odyssey_background",
     "short_history_the_vikings_a2b1"
-   ]
-  },
-  "convert": {
-   "w": "convert",
-   "pos": "v",
-   "def": "to change someone's religion or beliefs.",
-   "ex": "",
-   "lessons": [
-    "odyssey_background",
-    "rs_y10_spr2_22_04",
-    "skills_b1b2_trade_fair_followup"
    ]
   },
   "earthwork": {
@@ -68395,15 +68938,6 @@ window.WORDBANK={
     "odyssey_henry_i"
    ]
   },
-  "tally": {
-   "w": "tally",
-   "pos": "n",
-   "def": "a stick marked to record a payment.",
-   "ex": "",
-   "lessons": [
-    "odyssey_henry_i"
-   ]
-  },
   "capsize": {
    "w": "capsize",
    "pos": "v",
@@ -69703,16 +70237,6 @@ window.WORDBANK={
    "lessons": [
     "odyssey_james_vi_scot",
     "epicurean_27_gassendi_ethics"
-   ]
-  },
-  "absolute": {
-   "w": "absolute",
-   "pos": "adj",
-   "def": "complete, unlimited.",
-   "ex": "He believed in absolute royal rights.",
-   "lessons": [
-    "odyssey_james_vi_scot",
-    "rs_y7_sum2_06_01"
    ]
   },
   "pacific": {
@@ -71525,6 +72049,94 @@ window.WORDBANK={
     "persepolis_worlds"
    ]
   },
+  "hot": {
+   "w": "hot",
+   "pos": "adj",
+   "def": "with a high temperature",
+   "ex": "The desert is very hot in summer.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold",
+    "world_mena_desert_a2"
+   ]
+  },
+  "heat": {
+   "w": "heat",
+   "pos": "n",
+   "def": "the energy that makes things hot",
+   "ex": "Heat moves from the fire to your hands.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold"
+   ]
+  },
+  "temperature": {
+   "w": "temperature",
+   "pos": "n",
+   "def": "how hot or cold something is",
+   "ex": "The temperature of boiling water is 100 degrees.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold",
+    "su_a2_62_raising_an_issue",
+    "b1_13_the_green_workplace",
+    "a1p_36_weather",
+    "rp_03_at_the_doctors_a2b1"
+   ]
+  },
+  "thermometer": {
+   "w": "thermometer",
+   "pos": "n",
+   "def": "a tool for measuring temperature",
+   "ex": "The doctor used a thermometer.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold"
+   ]
+  },
+  "melt": {
+   "w": "melt",
+   "pos": "v",
+   "def": "to change from solid to liquid because of heat",
+   "ex": "The ice cream melts in the sun.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold",
+    "techniques_the_selfish_giant",
+    "lesson_14_zero_first_conditional",
+    "grammar_a1_13_zero_conditional"
+   ]
+  },
+  "freeze": {
+   "w": "freeze",
+   "pos": "verb",
+   "def": "to change from liquid to solid because of cold",
+   "ex": "Water freezes at zero degrees.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold",
+    "techniques_to_build_a_fire_a2b1",
+    "ct_a2_20_mastery_prep",
+    "ielts_lesson_4b_generating_ideas",
+    "duolingo_det_practice_4",
+    "grammar_a1_13_zero_conditional"
+   ]
+  },
+  "boil": {
+   "w": "boil",
+   "pos": "v",
+   "def": "to heat a liquid until it bubbles",
+   "ex": "I boil water for tea.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold",
+    "su_a2_88_cooking_at_home",
+    "food_cooking_a2b1",
+    "lesson_14_zero_first_conditional"
+   ]
+  },
+  "lid": {
+   "w": "lid",
+   "pos": "n",
+   "def": "a cover for a cup, pan or box",
+   "ex": "Put a lid on the pan.",
+   "lessons": [
+    "physics_a2b1_01_hot_and_cold"
+   ]
+  },
   "force": {
    "w": "force",
    "pos": "n",
@@ -71593,6 +72205,319 @@ window.WORDBANK={
    "lessons": [
     "physics_a2b1_02_forces_motion",
     "grammar_b1_19_modals_deduction"
+   ]
+  },
+  "light": {
+   "w": "light",
+   "pos": "n",
+   "def": "what lets us see; it comes from the sun, lamps and fires",
+   "ex": "There was a red light near the tunnel.\" / \"Please turn on the light.",
+   "lessons": [
+    "physics_a2b1_03_light_and_colour",
+    "techniques_the_signal_man_a2b1"
+   ]
+  },
+  "reflect": {
+   "w": "reflect",
+   "pos": "on",
+   "def": "to send light back",
+   "ex": "After the match, the coach asked the players to reflect on what had gone wrong.",
+   "lessons": [
+    "physics_a2b1_03_light_and_colour",
+    "tib_kolb_b2",
+    "rs_y7_spr2_04_01",
+    "acad_b1_15_learning_from_mistakes",
+    "b1_51_music_and_identity",
+    "discuss_c1_endings_and_fresh_starts"
+   ]
+  },
+  "colour": {
+   "w": "colour",
+   "pos": "n",
+   "def": "red, blue, green and so on",
+   "ex": "What is your favourite colour?",
+   "lessons": [
+    "physics_a2b1_03_light_and_colour"
+   ]
+  },
+  "rainbow": {
+   "w": "rainbow",
+   "pos": "n",
+   "def": "an arch of many colours in the sky",
+   "ex": "We saw a rainbow after the rain.",
+   "lessons": [
+    "physics_a2b1_03_light_and_colour"
+   ]
+  },
+  "torch": {
+   "w": "torch",
+   "pos": "n",
+   "def": "a small lamp you hold in your hand",
+   "ex": "I use a torch in the dark.",
+   "lessons": [
+    "physics_a2b1_03_light_and_colour"
+   ]
+  },
+  "sound": {
+   "w": "sound",
+   "pos": "n",
+   "def": "what you hear",
+   "ex": "I heard a strange sound.",
+   "lessons": [
+    "physics_a2b1_04_sound"
+   ]
+  },
+  "loud": {
+   "w": "loud",
+   "pos": "adj",
+   "def": "with a lot of sound",
+   "ex": "The party was very loud.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "world_la_warmth_a2"
+   ]
+  },
+  "quiet": {
+   "w": "quiet",
+   "pos": "adj",
+   "def": "with little or no sound",
+   "ex": "He spoke in a quiet voice.\" / \"The room was very quiet.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "techniques_the_egg_a2b1",
+    "world_eu_nordic_a2",
+    "world_sa_temples_a2",
+    "sf_a1_03_my_home"
+   ]
+  },
+  "high": {
+   "w": "high",
+   "pos": "adj",
+   "def": "at the top of the range, like a whistle",
+   "ex": "A bird makes a high sound.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "qf_collocation_high_tall"
+   ]
+  },
+  "low": {
+   "w": "low",
+   "pos": "adj",
+   "def": "at the bottom of the range, like a drum",
+   "ex": "A bear makes a low sound.",
+   "lessons": [
+    "physics_a2b1_04_sound"
+   ]
+  },
+  "echo": {
+   "w": "echo",
+   "pos": "n",
+   "def": "a sound that hits a wall and comes back",
+   "ex": "I heard an echo in the cave.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "cla_alevel_05_the_adults_half",
+    "grammar_b1_12_pronouns_substitution"
+   ]
+  },
+  "vibrate": {
+   "w": "vibrate",
+   "pos": "v",
+   "def": "to move back and forth very fast",
+   "ex": "A guitar string vibrates.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "qf_pronunciation_th_sounds"
+   ]
+  },
+  "thunder": {
+   "w": "thunder",
+   "pos": "n",
+   "def": "the loud noise after lightning",
+   "ex": "The thunder was very loud.",
+   "lessons": [
+    "physics_a2b1_04_sound"
+   ]
+  },
+  "lightning": {
+   "w": "lightning",
+   "pos": "n",
+   "def": "a bright flash of light in a storm",
+   "ex": "We saw lightning in the sky.",
+   "lessons": [
+    "physics_a2b1_04_sound"
+   ]
+  },
+  "hear": {
+   "w": "hear",
+   "pos": "v",
+   "def": "to receive sound with your ears",
+   "ex": "I can hear the rain.",
+   "lessons": [
+    "physics_a2b1_04_sound",
+    "qf_vocab_listen_hear"
+   ]
+  },
+  "electricity": {
+   "w": "electricity",
+   "pos": "n",
+   "def": "the energy that makes lights and machines work",
+   "ex": "Electricity comes through the wires in the wall.",
+   "lessons": [
+    "physics_a2b1_05_electricity",
+    "short_history_nikola_tesla_a2b1"
+   ]
+  },
+  "battery": {
+   "w": "battery",
+   "pos": "n",
+   "def": "a small thing that stores electricity",
+   "ex": "The torch needs a new battery.",
+   "lessons": [
+    "physics_a2b1_05_electricity",
+    "su_a2_72_mobile_phones",
+    "b1_10_comparing_situations"
+   ]
+  },
+  "circuit": {
+   "w": "circuit",
+   "pos": "n",
+   "def": "a complete path for electricity",
+   "ex": "A circuit goes from the battery, round the wires and back.",
+   "lessons": [
+    "physics_a2b1_05_electricity"
+   ]
+  },
+  "switch": {
+   "w": "switch",
+   "pos": "n",
+   "def": "a button that turns electricity on or off",
+   "ex": "Press the switch to turn on the light.",
+   "lessons": [
+    "physics_a2b1_05_electricity",
+    "grammar_a2_13_question_tags"
+   ]
+  },
+  "bulb": {
+   "w": "bulb",
+   "pos": "n",
+   "def": "the glass part of a lamp that gives light",
+   "ex": "The bulb is broken.",
+   "lessons": [
+    "physics_a2b1_05_electricity"
+   ]
+  },
+  "wire": {
+   "w": "wire",
+   "pos": "n",
+   "def": "a thin piece of metal that carries electricity",
+   "ex": "Do not touch the wire.",
+   "lessons": [
+    "physics_a2b1_05_electricity"
+   ]
+  },
+  "plug": {
+   "w": "plug",
+   "pos": "n",
+   "def": "the part you put in the wall to get electricity",
+   "ex": "Take the plug out of the wall.",
+   "lessons": [
+    "physics_a2b1_05_electricity"
+   ]
+  },
+  "socket": {
+   "w": "socket",
+   "pos": "n",
+   "def": "the place in the wall where you put a plug",
+   "ex": "There is a socket near the bed.",
+   "lessons": [
+    "physics_a2b1_05_electricity"
+   ]
+  },
+  "solid": {
+   "w": "solid",
+   "pos": "n",
+   "def": "something that keeps its shape, like ice or wood",
+   "ex": "Ice is a solid.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas"
+   ]
+  },
+  "liquid": {
+   "w": "liquid",
+   "pos": "n",
+   "def": "something that flows, like water or milk",
+   "ex": "Water is a liquid.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas"
+   ]
+  },
+  "gas": {
+   "w": "gas",
+   "pos": "n",
+   "def": "something that spreads out to fill all the space, like air",
+   "ex": "Steam is a gas.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas"
+   ]
+  },
+  "ice": {
+   "w": "ice",
+   "pos": "n",
+   "def": "water that is frozen",
+   "ex": "Put some ice in my drink.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas",
+    "short_history_the_great_serum_run_a2b1",
+    "topic_strangers_b2"
+   ]
+  },
+  "steam": {
+   "w": "steam",
+   "pos": "n",
+   "def": "water as a hot gas",
+   "ex": "Steam comes out of the kettle.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas",
+    "ois_18_nelson_and_wellington"
+   ]
+  },
+  "evaporate": {
+   "w": "evaporate",
+   "pos": "v",
+   "def": "to change from a liquid into a gas",
+   "ex": "Water evaporates from the sea.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas",
+    "bc_seminar_viva_language_phd"
+   ]
+  },
+  "shape": {
+   "w": "shape",
+   "pos": "n",
+   "def": "the form of something, like round or square",
+   "ex": "A ball has a round shape.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas",
+    "lesson-06-simple-number-systems"
+   ]
+  },
+  "fill": {
+   "w": "fill",
+   "pos": "v",
+   "def": "to take all the space in something",
+   "ex": "Air fills the balloon.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas"
+   ]
+  },
+  "cool": {
+   "w": "cool",
+   "pos": "v",
+   "def": "to become less hot",
+   "ex": "Let the soup cool.",
+   "lessons": [
+    "physics_a2b1_06_solid_liquid_gas"
    ]
   },
   "labyrinth": {
@@ -71748,21 +72673,6 @@ window.WORDBANK={
     "piranesi_bc_journals",
     "short_history_the_seven_wonders",
     "bc_advertising_defend_creative_c1"
-   ]
-  },
-  "interpretation": {
-   "w": "interpretation",
-   "pos": "noun",
-   "def": "a particular way of understanding something. Verb: interpret.",
-   "ex": "Her interpretation of the ending was very different from mine, and she had good reasons for it.",
-   "lessons": [
-    "piranesi_bc_meaning",
-    "gr_b2_the_courtroom",
-    "rs_y7_spr1_03_06",
-    "rs_y10_aut1_19_04",
-    "rs_y9_aut2_14_02",
-    "playing_the_room",
-    "ib_lesson_04_pacer_framework"
    ]
   },
   "read into": {
@@ -79983,16 +80893,6 @@ window.WORDBANK={
     "rs_y8_spr1_09_02"
    ]
   },
-  "ice": {
-   "w": "ice",
-   "pos": "",
-   "def": "water that has frozen and become hard because it is so cold.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_great_serum_run_a2b1",
-    "topic_strangers_b2"
-   ]
-  },
   "not afraid of danger": {
    "w": "not afraid of danger",
    "pos": "",
@@ -81816,17 +82716,6 @@ window.WORDBANK={
     "cae_essay_practice_5"
    ]
   },
-  "wave": {
-   "w": "wave",
-   "pos": "n",
-   "def": "a period when a disease rises and spreads rapidly, often one of several such surges.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_spanish_flu",
-    "short_history_the_spanish_flu_a2b1",
-    "grammar_a1_07_nouns_pronouns"
-   ]
-  },
   "ward": {
    "w": "ward",
    "pos": "n",
@@ -81924,17 +82813,6 @@ window.WORDBANK={
     "short_history_the_taj_mahal",
     "deep_space_02_blackholes",
     "short_history_the_taj_mahal_a2b1"
-   ]
-  },
-  "symmetry": {
-   "w": "symmetry",
-   "pos": "n",
-   "def": "the quality of having matching, balanced parts on either side of a centre. (adj: symmetrical)",
-   "ex": "A butterfly's wings have a striking symmetry: whatever pattern appears on the left appears again on the right, an exact mirror image.",
-   "lessons": [
-    "short_history_the_taj_mahal",
-    "story_c1_the_left_handed_universe",
-    "epicurean_09_epicurean_gods"
    ]
   },
   "artisan": {
@@ -82212,18 +83090,6 @@ window.WORDBANK={
    "ex": "So far from any judge, court or jail, the mining camp was utterly lawless: every man carried a gun, and disputes were settled however the strongest saw fit.",
    "lessons": [
     "short_history_the_wild_west"
-   ]
-  },
-  "phenomenon": {
-   "w": "phenomenon",
-   "pos": "n",
-   "def": "a remarkable thing or event, especially one that attracts great attention.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_world_cup",
-    "gr_b2_the_black_box",
-    "rs_y9_aut1_13_05",
-    "cambridge_cae_exam_simulation"
    ]
   },
   "prowess": {
@@ -87146,18 +88012,6 @@ window.WORDBANK={
     "techniques_the_masque_of_the_red_death_a2b1"
    ]
   },
-  "quiet": {
-   "w": "quiet",
-   "pos": "adj",
-   "def": "Making little or no noise; calm.",
-   "ex": "He spoke in a quiet voice.\" / \"The room was very quiet.",
-   "lessons": [
-    "techniques_the_egg_a2b1",
-    "world_eu_nordic_a2",
-    "world_sa_temples_a2",
-    "sf_a1_03_my_home"
-   ]
-  },
   "born": {
    "w": "born",
    "pos": "v",
@@ -87207,18 +88061,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_emperors_new_clothes",
     "short_history_emperor_nero_a2b1"
-   ]
-  },
-  "property": {
-   "w": "property",
-   "pos": "n",
-   "def": "a special quality or characteristic that something has.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_emperors_new_clothes",
-    "bc_solutions_c1",
-    "epicurean_07_the_swerve",
-    "qf_falsefriend_italian_estate"
    ]
   },
   "flatter": {
@@ -88887,17 +89729,6 @@ window.WORDBANK={
     "techniques_the_selfish_giant"
    ]
   },
-  "melt": {
-   "w": "melt",
-   "pos": "v",
-   "def": "to turn from solid to liquid through warmth; figuratively, for a hard feeling to soften.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_selfish_giant",
-    "lesson_14_zero_first_conditional",
-    "grammar_a1_13_zero_conditional"
-   ]
-  },
   "grace": {
    "w": "grace",
    "pos": "n",
@@ -88971,15 +89802,6 @@ window.WORDBANK={
     "behind_the_screen_schindlers_list_a2b1",
     "short_history_the_great_wall_of_china_a2b1",
     "short_history_the_pyramids_a2b1"
-   ]
-  },
-  "light": {
-   "w": "light",
-   "pos": "n",
-   "def": "A thing that shines and helps you see; here, a red lamp by the tunnel.",
-   "ex": "There was a red light near the tunnel.\" / \"Please turn on the light.",
-   "lessons": [
-    "techniques_the_signal_man_a2b1"
    ]
   },
   "figure": {
@@ -89849,19 +90671,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_to_build_a_fire"
-   ]
-  },
-  "freeze": {
-   "w": "freeze",
-   "pos": "verb",
-   "def": "to become ice; to become very, very cold.",
-   "ex": "",
-   "lessons": [
-    "techniques_to_build_a_fire_a2b1",
-    "ct_a2_20_mastery_prep",
-    "ielts_lesson_4b_generating_ideas",
-    "duolingo_det_practice_4",
-    "grammar_a1_13_zero_conditional"
    ]
   },
   "camp": {
@@ -91104,19 +91913,6 @@ window.WORDBANK={
     "tib_johari_b2"
    ]
   },
-  "reflect": {
-   "w": "reflect",
-   "pos": "on",
-   "def": "to think carefully and seriously about something. (noun reflection; adj. reflective)",
-   "ex": "After the match, the coach asked the players to reflect on what had gone wrong.",
-   "lessons": [
-    "tib_kolb_b2",
-    "rs_y7_spr2_04_01",
-    "acad_b1_15_learning_from_mistakes",
-    "b1_51_music_and_identity",
-    "discuss_c1_endings_and_fresh_starts"
-   ]
-  },
   "hands-on": {
    "w": "hands-on",
    "pos": "",
@@ -91406,18 +92202,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_ninebox_b2"
-   ]
-  },
-  "potential": {
-   "w": "potential",
-   "pos": "",
-   "def": "the ability to develop and succeed in the future.",
-   "ex": "",
-   "lessons": [
-    "tib_ninebox_b2",
-    "b2_01_truth_and_lies",
-    "boredom_is_a_superpower_lesson",
-    "think_inside_the_box_toolbox"
    ]
   },
   "talent": {
@@ -93941,18 +94725,6 @@ window.WORDBANK={
     "su_a2_49_communication_styles"
    ]
   },
-  "collective": {
-   "w": "collective",
-   "pos": "adj",
-   "def": "shared by a group of people",
-   "ex": "Collective decisions can take longer to reach.",
-   "lessons": [
-    "world_ea_group",
-    "talk_climate_action_b2c1",
-    "crowds_and_madness",
-    "cpe_read_c2_14_collective_memory"
-   ]
-  },
   "assertive": {
    "w": "assertive",
    "pos": "adj",
@@ -95273,15 +96045,6 @@ window.WORDBANK={
     "world_la_warmth_a2"
    ]
   },
-  "loud": {
-   "w": "loud",
-   "pos": "adj",
-   "def": "making a lot of noise",
-   "ex": "The party was very loud.",
-   "lessons": [
-    "world_la_warmth_a2"
-   ]
-  },
   "crossroads": {
    "w": "crossroads",
    "pos": "n",
@@ -95371,15 +96134,6 @@ window.WORDBANK={
    "ex": "Cairo and Dubai both have a metro.",
    "lessons": [
     "world_mena_desert"
-   ]
-  },
-  "hot": {
-   "w": "hot",
-   "pos": "adj",
-   "def": "with a high temperature",
-   "ex": "The desert is very hot in summer.",
-   "lessons": [
-    "world_mena_desert_a2"
    ]
   },
   "insist": {
@@ -95893,16 +96647,6 @@ window.WORDBANK={
     "world_na_food_a2",
     "gr_warmup_a2_hot_takes_food",
     "su_a2_23_staying_healthy"
-   ]
-  },
-  "local": {
-   "w": "local",
-   "pos": "adj",
-   "def": "from your area",
-   "ex": "They buy local food.",
-   "lessons": [
-    "world_na_food_a2",
-    "talk_tourism_a2b1"
    ]
   },
   "superficial": {
@@ -102379,19 +103123,6 @@ window.WORDBANK={
     "rs_y7_sum1_05_04"
    ]
   },
-  "consciousness": {
-   "w": "consciousness",
-   "pos": "n",
-   "def": "the state of being awake and aware",
-   "ex": "Buddhists believe consciousness continues after death.",
-   "lessons": [
-    "rs_y7_sum1_05_05",
-    "rs_y9_aut2_14_05",
-    "rs_y9_sum1_17_01",
-    "wp_04_atoms_in_the_void",
-    "IELTS-Reading-Practice-Test-1"
-   ]
-  },
   "craving": {
    "w": "craving",
    "pos": "n",
@@ -103460,17 +104191,6 @@ window.WORDBANK={
     "acad_b1_04_writing_paragraphs"
    ]
   },
-  "organise": {
-   "w": "organise",
-   "pos": "v",
-   "def": "to arrange things in a clear and useful order",
-   "ex": "I organise my notes into three sections before every talk.",
-   "lessons": [
-    "bc_presentation_structure_c1",
-    "b2_82_problems_at_work",
-    "grammar_a2_16_conjunctions_time_contrast"
-   ]
-  },
   "ceiling": {
    "w": "ceiling",
    "pos": "n",
@@ -103745,15 +104465,6 @@ window.WORDBANK={
     "pets_c1_collocations",
     "pron_c1_02_vowel_map",
     "sp_prep_b2_46"
-   ]
-  },
-  "evaporate": {
-   "w": "evaporate",
-   "pos": "v",
-   "def": "to disappear quickly, like water turning into air",
-   "ex": "My confidence evaporated when the first question was about statistics.",
-   "lessons": [
-    "bc_seminar_viva_language_phd"
    ]
   },
   "technical debt": {
@@ -106242,17 +106953,6 @@ window.WORDBANK={
    "ex": "The cyclist was banned for two years for doping.",
    "lessons": [
     "gr_warmup_b2_hot_takes_sport"
-   ]
-  },
-  "transfer": {
-   "w": "transfer",
-   "pos": "n",
-   "def": "a player moving from one team to another",
-   "ex": "The club paid a record fee for the transfer.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_sport",
-    "ielts_reading_lesson_1_test_overview",
-    "qf_collocation_take_make_photo"
    ]
   },
   "e-sports": {
@@ -108959,21 +109659,6 @@ window.WORDBANK={
     "rp_39_at_the_optician"
    ]
   },
-  "frame": {
-   "w": "frame",
-   "pos": "n",
-   "def": "the part of glasses that holds the glass",
-   "ex": "I really like these black frames on you.",
-   "lessons": [
-    "rp_39_at_the_optician",
-    "st_pro_05_the_reframe",
-    "bestiary_discourse_frame",
-    "bc_cycling_c1",
-    "discuss_b2c1_photography",
-    "curious_conversations_language_shapes_thought",
-    "ielts_task1_intro_gauntlet_b2"
-   ]
-  },
   "anti-glare": {
    "w": "anti-glare",
    "pos": "adj",
@@ -110574,18 +111259,6 @@ window.WORDBANK={
     "su_a2_62_raising_an_issue"
    ]
   },
-  "temperature": {
-   "w": "temperature",
-   "pos": "n",
-   "def": "how hot or cold something is",
-   "ex": "The temperature in the office is too high.",
-   "lessons": [
-    "su_a2_62_raising_an_issue",
-    "b1_13_the_green_workplace",
-    "a1p_36_weather",
-    "rp_03_at_the_doctors_a2b1"
-   ]
-  },
   "natural light": {
    "w": "natural light",
    "pos": "n",
@@ -111063,16 +111736,6 @@ window.WORDBANK={
    "lessons": [
     "su_a2_72_mobile_phones",
     "b2_08_great_achievements"
-   ]
-  },
-  "battery": {
-   "w": "battery",
-   "pos": "n",
-   "def": "the part that gives power to a phone or machine",
-   "ex": "My phone battery dies by four o'clock every day.",
-   "lessons": [
-    "su_a2_72_mobile_phones",
-    "b1_10_comparing_situations"
    ]
   },
   "staff": {
@@ -112893,18 +113556,6 @@ window.WORDBANK={
    "ex": "I can confide in my sister about anything.",
    "lessons": [
     "are_we_forgetting_how_to_be_friends"
-   ]
-  },
-  "emerge": {
-   "w": "emerge",
-   "pos": "v",
-   "def": "to appear or become known",
-   "ex": "New problems emerged after the first week.",
-   "lessons": [
-    "are_we_forgetting_how_to_be_friends",
-    "wp_49_the_garden_and_the_kingdom",
-    "bc_future_of_work_c1",
-    "may_might_could_professional"
    ]
   },
   "struggle": {
@@ -116370,19 +117021,6 @@ window.WORDBANK={
     "a1p_36_weather"
    ]
   },
-  "probability": {
-   "w": "probability",
-   "pos": "n",
-   "def": "how likely it is that something will happen",
-   "ex": "The probability of rain tomorrow is very high.",
-   "lessons": [
-    "su_a2_29_describing_future_technology",
-    "making_the_leap_full",
-    "bc_aliens_probability_b2c1",
-    "sp_b1_22_hedging",
-    "sp_prep_b1_39"
-   ]
-  },
   "air conditioning": {
    "w": "air conditioning",
    "pos": "n",
@@ -116643,16 +117281,6 @@ window.WORDBANK={
    "lessons": [
     "su_a2_36_buying_and_shopping",
     "qf_falsefriend_russian_magazine"
-   ]
-  },
-  "quantity": {
-   "w": "quantity",
-   "pos": "n",
-   "def": "an amount or number of something",
-   "ex": "What quantity of flour do we need for the cake?",
-   "lessons": [
-    "su_a2_36_buying_and_shopping",
-    "ielts_task1_intro_gauntlet_b2"
    ]
   },
   "altogether": {
@@ -121703,17 +122331,6 @@ window.WORDBANK={
     "memory_arts_p1_10"
    ]
   },
-  "boil": {
-   "w": "boil",
-   "pos": "v",
-   "def": "to heat liquid until it bubbles and produces steam",
-   "ex": "Boil the pasta for about ten minutes.",
-   "lessons": [
-    "su_a2_88_cooking_at_home",
-    "food_cooking_a2b1",
-    "lesson_14_zero_first_conditional"
-   ]
-  },
   "fry": {
    "w": "fry",
    "pos": "v",
@@ -122630,16 +123247,6 @@ window.WORDBANK={
     "c1_pro_19_agile_scrum",
     "b2_51_presenting_data",
     "essay_practice_advantages_disadvantages"
-   ]
-  },
-  "component": {
-   "w": "component",
-   "pos": "n",
-   "def": "one of the parts of a machine or system",
-   "ex": "The factory is waiting for a key component from Japan.",
-   "lessons": [
-    "c1_pro_22_supply_chain",
-    "b2_102_manufacturing_supplier_quality"
    ]
   },
   "expedite": {
@@ -124679,15 +125286,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "invisible material in space that we know about from its gravity",
    "ex": "Scientists believe dark matter holds galaxies together.",
-   "lessons": [
-    "deep_space_05_dark"
-   ]
-  },
-  "particle": {
-   "w": "particle",
-   "pos": "n",
-   "def": "an extremely small piece of matter",
-   "ex": "Tiny particles of dust floated in the sunlight.",
    "lessons": [
     "deep_space_05_dark"
    ]
@@ -129100,15 +129698,6 @@ window.WORDBANK={
     "ois_18_nelson_and_wellington"
    ]
   },
-  "steam": {
-   "w": "steam",
-   "pos": "n",
-   "def": "hot gas from boiling water, once used to power machines",
-   "ex": "Early trains were powered by steam.",
-   "lessons": [
-    "ois_18_nelson_and_wellington"
-   ]
-  },
   "mines": {
    "w": "mines",
    "pos": "n",
@@ -131350,15 +131939,6 @@ window.WORDBANK={
     "wp_19_the_suspension_of_judgement"
    ]
   },
-  "counterintuitive": {
-   "w": "counterintuitive",
-   "pos": "adj",
-   "def": "different from what you would naturally expect",
-   "ex": "The idea of rebirth without a soul seems counterintuitive.",
-   "lessons": [
-    "rs_y9_sum1_17_04"
-   ]
-  },
   "existentialist": {
    "w": "existentialist",
    "pos": "n",
@@ -132161,15 +132741,6 @@ window.WORDBANK={
    "ex": "They sailed thousands of kilometres in a tiny boat.",
    "lessons": [
     "short_history_mutiny_on_the_bounty_a2b1"
-   ]
-  },
-  "electricity": {
-   "w": "electricity",
-   "pos": "n",
-   "def": "a form of energy used for light and machines",
-   "ex": "Most homes today use his system of electricity.",
-   "lessons": [
-    "short_history_nikola_tesla_a2b1"
    ]
   },
   "wireless": {
@@ -142890,15 +143461,6 @@ window.WORDBANK={
     "qf_collocation_remember_remind"
    ]
   },
-  "causal": {
-   "w": "causal",
-   "pos": "adj",
-   "def": "showing that one thing makes another happen",
-   "ex": "There is no causal link between the two events.",
-   "lessons": [
-    "cpe_read_c1_04_synesthesia"
-   ]
-  },
   "perpetual": {
    "w": "perpetual",
    "pos": "adj",
@@ -143657,16 +144219,6 @@ window.WORDBANK={
    "ex": "It is cold, is it not, is a type of tag question.",
    "lessons": [
     "cla_alevel_05_the_adults_half"
-   ]
-  },
-  "echo": {
-   "w": "echo",
-   "pos": "v",
-   "def": "to repeat what someone has just said",
-   "ex": "The toddler echoed every word his sister said.",
-   "lessons": [
-    "cla_alevel_05_the_adults_half",
-    "grammar_b1_12_pronouns_substitution"
    ]
   },
   "topic management": {
@@ -148194,15 +148746,6 @@ window.WORDBANK={
     "qf_pronunciation_silent_letters"
    ]
   },
-  "vibrate": {
-   "w": "vibrate",
-   "pos": "v",
-   "def": "to shake with small, fast movements",
-   "ex": "My phone began to vibrate in my pocket during the film.",
-   "lessons": [
-    "qf_pronunciation_th_sounds"
-   ]
-  },
   "thick": {
    "w": "thick",
    "pos": "adj",
@@ -148415,15 +148958,6 @@ window.WORDBANK={
    "ex": "My first task this morning is to answer all my emails.",
    "lessons": [
     "qf_vocab_job_work"
-   ]
-  },
-  "hear": {
-   "w": "hear",
-   "pos": "v",
-   "def": "to notice sounds with your ears without trying",
-   "ex": "I can hear the rain on the roof.",
-   "lessons": [
-    "qf_vocab_listen_hear"
    ]
   },
   "podcast": {
@@ -151276,15 +151810,6 @@ window.WORDBANK={
     "lesson-05-linking-story"
    ]
   },
-  "shape": {
-   "w": "shape",
-   "pos": "n",
-   "def": "the outer form or outline of something",
-   "ex": "The number two has the shape of a swan.",
-   "lessons": [
-    "lesson-06-simple-number-systems"
-   ]
-  },
   "phonetic": {
    "w": "phonetic",
    "pos": "adj",
@@ -154088,15 +154613,6 @@ window.WORDBANK={
     "grammar_a2_13_question_tags"
    ]
   },
-  "switch": {
-   "w": "switch",
-   "pos": "v",
-   "def": "to change from one thing to another",
-   "ex": "She switched to a different phone company.",
-   "lessons": [
-    "grammar_a2_13_question_tags"
-   ]
-  },
   "biscuit": {
    "w": "biscuit",
    "pos": "n",
@@ -155655,15 +156171,6 @@ window.WORDBANK={
    "ex": "The heat in the desert was intense.",
    "lessons": [
     "qf_collocation_heavy_strong_rain"
-   ]
-  },
-  "high": {
-   "w": "high",
-   "pos": "adj",
-   "def": "far above the ground, or large in level or amount",
-   "ex": "The prices in that shop are too high.",
-   "lessons": [
-    "qf_collocation_high_tall"
    ]
   },
   "vertical": {
