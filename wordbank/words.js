@@ -13867,6 +13867,230 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_oce_background",
+   "title": "Oceania: Oceans, Islands and the World's Oldest Living Cultures",
+   "level": "",
+   "words": [
+    "archipelago",
+    "atoll",
+    "indigenous",
+    "navigator",
+    "colony",
+    "settler",
+    "sovereign",
+    "endemic"
+   ]
+  },
+  {
+   "id": "world_oce_background_a2",
+   "title": "Oceania: Oceans, Islands and the World's Oldest Living Cultures",
+   "level": "",
+   "words": [
+    "island",
+    "ocean",
+    "boat",
+    "star",
+    "language",
+    "independent"
+   ]
+  },
+  {
+   "id": "world_oce_coffee",
+   "title": "The Flat White and the Café: A Surprising Coffee Culture",
+   "level": "",
+   "words": [
+    "barista",
+    "espresso",
+    "flat white",
+    "migrant",
+    "laneway",
+    "specialty",
+    "roast",
+    "multicultural"
+   ]
+  },
+  {
+   "id": "world_oce_coffee_a2",
+   "title": "The Flat White and the Café: A Surprising Coffee Culture",
+   "level": "",
+   "words": [
+    "coffee",
+    "milk",
+    "café",
+    "cake",
+    "migrant",
+    "order"
+   ]
+  },
+  {
+   "id": "world_oce_islands",
+   "title": "Paradise Under Pressure: Life on a Pacific Island",
+   "level": "",
+   "words": [
+    "lagoon",
+    "sea level",
+    "remittance",
+    "subsistence",
+    "relocate",
+    "resilience",
+    "sovereignty",
+    "adaptation"
+   ]
+  },
+  {
+   "id": "world_oce_islands_a2",
+   "title": "Paradise Under Pressure: Life on a Pacific Island",
+   "level": "",
+   "words": [
+    "island",
+    "sea",
+    "fish",
+    "village",
+    "school",
+    "storm"
+   ]
+  },
+  {
+   "id": "world_oce_laidback",
+   "title": "Laid-Back or Lazy? Work, Fairness and “She'll Be Right”",
+   "level": "",
+   "words": [
+    "laid-back",
+    "egalitarian",
+    "fair go",
+    "tall poppy",
+    "volunteer",
+    "work-life balance",
+    "workforce",
+    "informal"
+   ]
+  },
+  {
+   "id": "world_oce_laidback_a2",
+   "title": "Laid-Back or Lazy? Work, Fairness and “She'll Be Right”",
+   "level": "",
+   "words": [
+    "relaxed",
+    "work",
+    "volunteer",
+    "fair",
+    "beach",
+    "humble"
+   ]
+  },
+  {
+   "id": "world_oce_maori",
+   "title": "More Than the Haka: Māori Culture Today",
+   "level": "",
+   "words": [
+    "te reo",
+    "marae",
+    "hongi",
+    "whānau",
+    "treaty",
+    "revitalise",
+    "sovereignty",
+    "guardianship"
+   ]
+  },
+  {
+   "id": "world_oce_maori_a2",
+   "title": "More Than the Haka: Māori Culture Today",
+   "level": "",
+   "words": [
+    "haka",
+    "greeting",
+    "family",
+    "language",
+    "history",
+    "holiday"
+   ]
+  },
+  {
+   "id": "world_oce_slang",
+   "title": "“No Worries, Mate”: The Real Aussie and Kiwi English",
+   "level": "",
+   "words": [
+    "slang",
+    "abbreviation",
+    "accent",
+    "dialect",
+    "understatement",
+    "informal",
+    "loanword",
+    "banter"
+   ]
+  },
+  {
+   "id": "world_oce_slang_a2",
+   "title": "“No Worries, Mate”: The Real Aussie and Kiwi English",
+   "level": "",
+   "words": [
+    "afternoon",
+    "breakfast",
+    "friend",
+    "barbecue",
+    "worry",
+    "joke"
+   ]
+  },
+  {
+   "id": "world_oce_sport",
+   "title": "Sport as a Way of Life: More Than Cricket and Surfing",
+   "level": "",
+   "words": [
+    "rugby",
+    "cricket",
+    "grassroots",
+    "rivalry",
+    "talent",
+    "squad",
+    "anthem",
+    "participation"
+   ]
+  },
+  {
+   "id": "world_oce_sport_a2",
+   "title": "Sport as a Way of Life: More Than Cricket and Surfing",
+   "level": "",
+   "words": [
+    "rugby",
+    "cricket",
+    "team",
+    "match",
+    "fan",
+    "player"
+   ]
+  },
+  {
+   "id": "world_oce_wildlife",
+   "title": "Deadly Animals and Cuddly Koalas: The Real Wildlife Story",
+   "level": "",
+   "words": [
+    "marsupial",
+    "endangered",
+    "introduced species",
+    "predator",
+    "bushfire",
+    "reef",
+    "bleaching",
+    "sanctuary"
+   ]
+  },
+  {
+   "id": "world_oce_wildlife_a2",
+   "title": "Deadly Animals and Cuddly Koalas: The Real Wildlife Story",
+   "level": "",
+   "words": [
+    "kangaroo",
+    "koala",
+    "bird",
+    "fire",
+    "danger",
+    "protect"
+   ]
+  },
+  {
    "id": "world_sa_background",
    "title": "South and Southeast Asia: Two Regions, Hundreds of Cultures",
    "level": "",
@@ -46963,9 +47187,10 @@ window.WORDBANK={
    "w": "coffee",
    "pos": "n",
    "def": "a hot drink",
-   "ex": "Coffee comes from Ethiopia.",
+   "ex": "I drink a cup of coffee in the morning.",
    "lessons": [
     "a1s_02_coffee",
+    "world_oce_coffee_a2",
     "world_ssa_food_a2"
    ]
   },
@@ -47111,11 +47336,12 @@ window.WORDBANK={
    "w": "family",
    "pos": "n",
    "def": "the people close to you",
-   "ex": "The whole family sits together.",
+   "ex": "The whole family came to the meeting.",
    "lessons": [
     "a1s_04_family",
     "world_la_family_a2",
     "world_mena_ramadan_a2",
+    "world_oce_maori_a2",
     "world_sa_marriage_a2",
     "world_ssa_greetings_a2"
    ]
@@ -47200,11 +47426,12 @@ window.WORDBANK={
   },
   "breakfast": {
    "w": "breakfast",
-   "pos": "",
+   "pos": "n",
    "def": "the first meal of the day",
-   "ex": "",
+   "ex": "People say brekkie for breakfast.",
    "lessons": [
     "a1s_05_day",
+    "world_oce_slang_a2",
     "daily_routines_a2",
     "a1p_07_daily_routines",
     "qf_collocation_have_shower"
@@ -47653,12 +47880,13 @@ window.WORDBANK={
   },
   "cake": {
    "w": "cake",
-   "pos": "",
+   "pos": "n",
    "def": "sweet food for happy days",
-   "ex": "",
+   "ex": "She has a piece of cake with her coffee.",
    "lessons": [
     "a1s_10_bake",
-    "a1s_31_birthday"
+    "a1s_31_birthday",
+    "world_oce_coffee_a2"
    ]
   },
   "egg": {
@@ -47798,20 +48026,22 @@ window.WORDBANK={
   },
   "sea": {
    "w": "sea",
-   "pos": "",
+   "pos": "n",
    "def": "big blue water — waves and salt",
-   "ex": "",
+   "ex": "The sea is rising.",
    "lessons": [
-    "a1s_12_sea"
+    "a1s_12_sea",
+    "world_oce_islands_a2"
    ]
   },
   "beach": {
    "w": "beach",
-   "pos": "",
+   "pos": "n",
    "def": "the sand next to the sea",
-   "ex": "",
+   "ex": "After work, many people walk on the beach.",
    "lessons": [
-    "a1s_12_sea"
+    "a1s_12_sea",
+    "world_oce_laidback_a2"
    ]
   },
   "sand": {
@@ -48593,7 +48823,8 @@ window.WORDBANK={
    "ex": "The baby is hungry, so her father gives her some warm milk in a bottle.",
    "lessons": [
     "a1s_22_fridge",
-    "techniques_metamorphosis_2_a2b1"
+    "techniques_metamorphosis_2_a2b1",
+    "world_oce_coffee_a2"
    ]
   },
   "bread": {
@@ -49838,6 +50069,7 @@ window.WORDBANK={
     "short_history_the_great_serum_run_a2b1",
     "techniques_the_last_leaf_a2b1",
     "techniques_yuki_onna_a2b1",
+    "world_oce_islands_a2",
     "behind_the_screen_jurassic_park_a2b1",
     "short_history_the_spanish_armada_a2b1",
     "behind_the_screen_the_martian_a2b1",
@@ -50594,11 +50826,12 @@ window.WORDBANK={
   },
   "team": {
    "w": "team",
-   "pos": "",
+   "pos": "n",
    "def": "a group who play together",
-   "ex": "",
+   "ex": "The team wins many games.",
    "lessons": [
     "a1s_48_quiz",
+    "world_oce_sport_a2",
     "rp_22_talking_about_sport_a2b1",
     "sf_a1_11_the_meeting",
     "talk_competition_a2b1"
@@ -50758,7 +50991,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_50_home",
     "techniques_the_interlopers_a2b1",
-    "techniques_the_necklace_a2b1"
+    "techniques_the_necklace_a2b1",
+    "world_oce_slang_a2"
    ]
   },
   "belong": {
@@ -50822,11 +51056,12 @@ window.WORDBANK={
   },
   "player": {
    "w": "player",
-   "pos": "",
+   "pos": "n",
    "def": "a person who plays the game",
-   "ex": "",
+   "ex": "The best player comes from Fiji.",
    "lessons": [
     "a2_lesson_tennis",
+    "world_oce_sport_a2",
     "behind_the_screen_moneyball_a2b1"
    ]
   },
@@ -50834,12 +51069,13 @@ window.WORDBANK={
    "w": "match",
    "pos": "noun",
    "def": "a complete game between two players",
-   "ex": "",
+   "ex": "The match starts at three o'clock.",
    "lessons": [
     "a2_lesson_tennis",
     "techniques_the_little_match_girl",
     "techniques_the_model_millionaire",
     "techniques_to_build_a_fire_a2b1",
+    "world_oce_sport_a2",
     "behind_the_screen_invictus_a2b1",
     "bestiary_memory_lesson",
     "dating_apps_c1_vocabulary",
@@ -54149,6 +54385,7 @@ window.WORDBANK={
    "lessons": [
     "bc_disneypixar_a2b1",
     "techniques_rikki_tikki_tavi",
+    "world_oce_wildlife_a2",
     "behind_the_screen_contagion_a2b1",
     "talk_zoos_a2b1",
     "techniques_rikki_tikki_tavi_a2b1"
@@ -54473,6 +54710,7 @@ window.WORDBANK={
    "lessons": [
     "bc_golive_a2b1",
     "short_history_the_knights_templar",
+    "world_oce_coffee_a2",
     "su_a2_91_online_shopping",
     "rp_02_ordering_at_a_cafe_a2b1",
     "a1p_08_food_drinks",
@@ -55665,6 +55903,7 @@ window.WORDBANK={
    "lessons": [
     "bc_lego_a2b1",
     "world_ea_popculture_a2",
+    "world_oce_sport_a2",
     "behind_the_screen_moneyball_a2b1"
    ]
   },
@@ -56001,6 +56240,7 @@ window.WORDBANK={
     "behind_the_screen_a_beautiful_mind",
     "short_history_nelson_mandela",
     "techniques_the_verger_ielts",
+    "world_oce_islands",
     "rs_y10_sum1_23_05",
     "bc_world_of_tomorrow_c1",
     "gr_warmup_b2_hot_takes_failure",
@@ -57202,6 +57442,7 @@ window.WORDBANK={
    "ex": "In 2023 the board fired Sam Altman.",
    "lessons": [
     "bc_openai_agi_a2b1",
+    "world_oce_wildlife_a2",
     "lesson_30_modals_criticism_advice"
    ]
   },
@@ -60010,10 +60251,12 @@ window.WORDBANK={
    "w": "volunteer",
    "pos": "n/v",
    "def": "a volunteer chooses freely. a bargaining chip (n) is a person or thing you hold on to precisely because the other side wants it, so that you can trade it for something you want.",
-   "ex": "",
+   "ex": "Thousands of volunteers patrol the beaches each summer.",
    "lessons": [
     "behind_the_screen_bridge_of_spies",
     "topic_sleep_b2",
+    "world_oce_laidback",
+    "world_oce_laidback_a2",
     "rs_y10_spr2_22_03",
     "b1_50_volunteering",
     "talk_volunteering_a2b1"
@@ -66263,9 +66506,10 @@ window.WORDBANK={
    "w": "settler",
    "pos": "n",
    "def": "a person who goes to live in a new land.",
-   "ex": "",
+   "ex": "British settlers arrived in Australia from 1788.",
    "lessons": [
     "odyssey_background",
+    "world_oce_background",
     "short_history_the_vikings_a2b1"
    ]
   },
@@ -66293,7 +66537,7 @@ window.WORDBANK={
    "w": "treaty",
    "pos": "n",
    "def": "a formal agreement between rulers.",
-   "ex": "",
+   "ex": "The Treaty of Waitangi was signed in 1840.",
    "lessons": [
     "odyssey_background",
     "odyssey_edmund_ironside",
@@ -66305,6 +66549,7 @@ window.WORDBANK={
     "short_history_the_panama_canal",
     "short_history_the_scramble_for_africa",
     "world_la_language",
+    "world_oce_maori",
     "short_history_the_scramble_for_africa_a2b1"
    ]
   },
@@ -66696,6 +66941,7 @@ window.WORDBANK={
    "ex": "A legend shows him as a humble king.",
    "lessons": [
     "odyssey_cnut",
+    "world_oce_laidback_a2",
     "memory_arts_part1",
     "sp_a2_03_simple_opinions"
    ]
@@ -68686,10 +68932,11 @@ window.WORDBANK={
    "w": "anthem",
    "pos": "n",
    "def": "a national song.",
-   "ex": "",
+   "ex": "The crowd sang the national anthem before kick-off.",
    "lessons": [
     "odyssey_george_ii",
-    "techniques_the_cop_and_the_anthem"
+    "techniques_the_cop_and_the_anthem",
+    "world_oce_sport"
    ]
   },
   "seven years' war": {
@@ -68714,13 +68961,14 @@ window.WORDBANK={
    "w": "colony",
    "pos": "n",
    "def": "a land ruled by another country.",
-   "ex": "",
+   "ex": "New Zealand was a British colony before it became independent.",
    "lessons": [
     "odyssey_george_iii",
     "short_history_the_boston_tea_party",
     "short_history_the_east_india_company",
     "short_history_the_haitian_revolution",
     "short_history_the_partition_of_india",
+    "world_oce_background",
     "concorso_empire_debate_b2",
     "short_history_the_boston_tea_party_a2b1",
     "short_history_the_scramble_for_africa_a2b1"
@@ -73857,6 +74105,7 @@ window.WORDBANK={
     "pol_08_news_a2",
     "pol_09_checks_a2",
     "techniques_idgah_a2b1",
+    "world_oce_laidback_a2",
     "ml_19_the_comment_row",
     "sb_02_giving_a_quote_a2b1",
     "short_history_the_french_revolution_a2b1",
@@ -74747,6 +74996,7 @@ window.WORDBANK={
    "ex": "Adaptation to a new car or salary is quick; within months it becomes the new normal.",
    "lessons": [
     "psy_06_does_money_buy_happiness_b2c1",
+    "world_oce_islands",
     "gr_warmup_b2_hot_takes_climate",
     "komorebi_09_the_hedonic_treadmill"
    ]
@@ -76347,10 +76597,11 @@ window.WORDBANK={
    "w": "navigator",
    "pos": "n",
    "def": "the person who works out the route and direction of a ship or aircraft.",
-   "ex": "",
+   "ex": "Polynesian navigators crossed thousands of kilometres of open sea.",
    "lessons": [
     "short_history_amelia_earhart",
-    "short_history_the_vikings"
+    "short_history_the_vikings",
+    "world_oce_background"
    ]
   },
   "circumnavigate": {
@@ -77330,13 +77581,14 @@ window.WORDBANK={
    "w": "indigenous",
    "pos": "adj",
    "def": "native to a particular place, especially of peoples living there before colonists arrived. Formal and precise; it carries a claim about who came first.",
-   "ex": "Many indigenous languages are now taught in primary school.",
+   "ex": "Aboriginal Australians are the indigenous people of the continent.",
    "lessons": [
     "short_history_christopher_columbus",
     "world_la_background",
     "world_la_background_a2",
     "world_la_language_a2",
     "world_na_mosaic",
+    "world_oce_background",
     "world_ssa_languages",
     "lesson_famous_explorers_speaking",
     "cpe_read_c1_09_language_death"
@@ -77913,6 +78165,7 @@ window.WORDBANK={
     "short_history_the_rosetta_stone",
     "tib_fiveforces_b2",
     "ts_rosalind_franklin_b2",
+    "world_oce_sport",
     "talk_competition_b2c1",
     "epicurean_18_vs_stoicism"
    ]
@@ -78662,12 +78915,13 @@ window.WORDBANK={
   },
   "sovereign": {
    "w": "sovereign",
-   "pos": "n",
+   "pos": "adj",
    "def": "a supreme ruler, such as a monarch or emperor, holding the highest authority in a realm.",
-   "ex": "",
+   "ex": "Samoa became the first sovereign Pacific state in 1962.",
    "lessons": [
     "short_history_mansa_musa",
     "techniques_the_model_millionaire",
+    "world_oce_background",
     "wp_33_the_leviathan"
    ]
   },
@@ -81565,10 +81819,12 @@ window.WORDBANK={
    "w": "sovereignty",
    "pos": "n",
    "def": "supreme authority over a territory; freedom from external control. Adjective: sovereign.",
-   "ex": "",
+   "ex": "The two versions of the treaty differ in how they describe sovereignty.",
    "lessons": [
     "short_history_the_haitian_revolution",
-    "short_history_the_panama_canal"
+    "short_history_the_panama_canal",
+    "world_oce_islands",
+    "world_oce_maori"
    ]
   },
   "indemnity": {
@@ -81755,6 +82011,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_industrial_revolution",
     "world_mena_women",
+    "world_oce_laidback",
     "prof_c2_10_future_of_work"
    ]
   },
@@ -81796,11 +82053,12 @@ window.WORDBANK={
   },
   "subsistence": {
    "w": "subsistence",
-   "pos": "n",
+   "pos": "adj",
    "def": "survival on the bare minimum. Subsistence farming = growing food to eat, not to sell.",
-   "ex": "",
+   "ex": "Many families practise subsistence farming and fishing.",
    "lessons": [
-    "short_history_the_irish_potato_famine"
+    "short_history_the_irish_potato_famine",
+    "world_oce_islands"
    ]
   },
   "smallholding": {
@@ -82324,9 +82582,10 @@ window.WORDBANK={
    "w": "sanctuary",
    "pos": "n",
    "def": "a sacred place; a holy site dedicated to a god.",
-   "ex": "",
+   "ex": "The island is a sanctuary for rare birds.",
    "lessons": [
-    "short_history_the_olympic_games"
+    "short_history_the_olympic_games",
+    "world_oce_wildlife"
    ]
   },
   "procession": {
@@ -83520,9 +83779,10 @@ window.WORDBANK={
    "w": "squad",
    "pos": "n",
    "def": "the full group of players a team chooses for a competition.",
-   "ex": "",
+   "ex": "Several players in the national squad have Samoan or Tongan parents.",
    "lessons": [
-    "short_history_the_world_cup_a2b1"
+    "short_history_the_world_cup_a2b1",
+    "world_oce_sport"
    ]
   },
   "striker": {
@@ -84952,9 +85212,10 @@ window.WORDBANK={
    "w": "boat",
    "pos": "n",
    "def": "a small ship for travelling on water.",
-   "ex": "",
+   "ex": "People travelled on a boat across the sea.",
    "lessons": [
-    "techniques_a_vendetta_a2b1"
+    "techniques_a_vendetta_a2b1",
+    "world_oce_background_a2"
    ]
   },
   "sap": {
@@ -87813,11 +88074,12 @@ window.WORDBANK={
    "w": "village",
    "pos": "n",
    "def": "Rip's village is small and quiet — at least, it was…",
-   "ex": "His family lives in a village.",
+   "ex": "The village is next to the sea.",
    "lessons": [
     "techniques_rip_van_winkle_a2b1",
     "techniques_the_last_class_a2b1",
     "world_ea_technology_a2",
+    "world_oce_islands_a2",
     "world_ssa_cities_a2",
     "world_ssa_safari_a2",
     "behind_the_screen_the_last_samurai_a2b1"
@@ -88216,7 +88478,8 @@ window.WORDBANK={
    "ex": "He told a joke about Italians.",
    "lessons": [
     "techniques_the_cabuliwallah_a2b1",
-    "world_eu_stereotypes_a2"
+    "world_eu_stereotypes_a2",
+    "world_oce_slang_a2"
    ]
   },
   "connoisseur": {
@@ -89704,9 +89967,10 @@ window.WORDBANK={
    "w": "danger",
    "pos": "n",
    "def": "→ adjective dangerous. Opposite: safe (noun: safety). \"Is it safe to swim here?\"",
-   "ex": "",
+   "ex": "Cars are a bigger danger than snakes.",
    "lessons": [
     "techniques_the_most_dangerous_game_a2b1",
+    "world_oce_wildlife_a2",
     "short_history_homers_epics_a2b1"
    ]
   },
@@ -89847,7 +90111,8 @@ window.WORDBANK={
    "def": "A small animal with wings and feathers that can fly.",
    "ex": "The little bird sang in the tree.\" / \"I can see a bird in the sky.",
    "lessons": [
-    "techniques_the_nightingale_and_the_rose_a2b1"
+    "techniques_the_nightingale_and_the_rose_a2b1",
+    "world_oce_wildlife_a2"
    ]
   },
   "red": {
@@ -92916,10 +93181,11 @@ window.WORDBANK={
    "w": "talent",
    "pos": "n",
    "def": "people with skill; a talent review is a meeting where managers discuss the skills and future of their staff.",
-   "ex": "",
+   "ex": "Pacific islands produce rugby talent far beyond their size.",
    "lessons": [
     "tib_ninebox_b2",
     "topic_expertise_b2",
+    "world_oce_sport",
     "b2c1_the_art_of_questioning"
    ]
   },
@@ -93156,6 +93422,8 @@ window.WORDBANK={
    "ex": "She heard about the job through informal chats at a conference, not from an advert.",
    "lessons": [
     "tib_pestle_b2",
+    "world_oce_laidback",
+    "world_oce_slang",
     "world_sa_cities",
     "su_a2_50_getting_in_touch",
     "c2_pro_18_mentoring_language",
@@ -93608,6 +93876,7 @@ window.WORDBANK={
     "world_mena_languages",
     "world_na_english",
     "world_na_english_a2",
+    "world_oce_slang",
     "gr_warmup_b2_hot_takes_language",
     "everyone_has_an_accent_b1b2",
     "b2_55_telephone_skills",
@@ -95118,6 +95387,7 @@ window.WORDBANK={
    "ex": "Indonesia is an archipelago of more than seventeen thousand islands.",
    "lessons": [
     "world_ea_background",
+    "world_oce_background",
     "world_sa_background"
    ]
   },
@@ -95131,6 +95401,7 @@ window.WORDBANK={
     "world_mena_background",
     "world_mena_languages",
     "world_na_english",
+    "world_oce_slang",
     "gr_warmup_b2_hot_takes_language",
     "writing_poetry_slam",
     "lv_alevel_01_two_texts_one_essay"
@@ -95155,9 +95426,11 @@ window.WORDBANK={
    "w": "island",
    "pos": "n",
    "def": "land with water all around it",
-   "ex": "Indonesia has thousands of islands.",
+   "ex": "Fiji has more than three hundred islands.",
    "lessons": [
     "world_ea_background_a2",
+    "world_oce_background_a2",
+    "world_oce_islands_a2",
     "world_sa_background_a2",
     "behind_the_screen_jurassic_park_a2b1",
     "short_history_the_bermuda_triangle_a2b1"
@@ -95173,6 +95446,8 @@ window.WORDBANK={
     "world_eu_background_a2",
     "world_mena_background_a2",
     "world_na_english_a2",
+    "world_oce_background_a2",
+    "world_oce_maori_a2",
     "world_sa_background_a2",
     "world_sa_bollywood_a2",
     "world_ssa_background_a2"
@@ -95827,6 +96102,7 @@ window.WORDBANK={
    "ex": "British understatement can confuse foreigners.",
    "lessons": [
     "world_eu_directness",
+    "world_oce_slang",
     "bc_rhetorical_devices_c1",
     "everyday_echoes_phrase_bank",
     "sp_c1_63_irony_understatement",
@@ -96011,6 +96287,7 @@ window.WORDBANK={
    "lessons": [
     "world_eu_greetings",
     "world_eu_greetings_a2",
+    "world_oce_maori_a2",
     "world_ssa_greetings",
     "skills_a2_trade_fair_first_contact",
     "a1p_01_introductions"
@@ -96562,9 +96839,10 @@ window.WORDBANK={
    "w": "endangered",
    "pos": "adj",
    "def": "at risk of disappearing.",
-   "ex": "Many Indigenous languages are endangered.",
+   "ex": "The koala is now listed as endangered in parts of Australia.",
    "lessons": [
     "world_la_language",
+    "world_oce_wildlife",
     "bc_travel_c1",
     "talk_zoos_a2b1",
     "bc_endangered_species_b2c1",
@@ -96575,9 +96853,10 @@ window.WORDBANK={
    "w": "slang",
    "pos": "n",
    "def": "informal words.",
-   "ex": "Every city has its own slang.",
+   "ex": "Slang changes quickly and varies from one place to another.",
    "lessons": [
     "world_la_language",
+    "world_oce_slang",
     "gr_warmup_b2_hot_takes_language",
     "acad_b1_19_writing_introductions",
     "ct_b1_25_review_integration"
@@ -96911,9 +97190,10 @@ window.WORDBANK={
    "w": "loanword",
    "pos": "n",
    "def": "a word taken from one language into another.  and “algebra” are loanwords from Arabic.”",
-   "ex": "“Sugar",
+   "ex": "“Kia ora",
    "lessons": [
-    "world_mena_languages"
+    "world_mena_languages",
+    "world_oce_slang"
    ]
   },
   "bilingual": {
@@ -97129,6 +97409,7 @@ window.WORDBANK={
    "ex": "Saudi Arabia reduced male guardianship rules in 2019.",
    "lessons": [
     "world_mena_women",
+    "world_oce_maori",
     "rs_y11_spr1_27_03"
    ]
   },
@@ -97617,11 +97898,511 @@ window.WORDBANK={
    "w": "holiday",
    "pos": "n",
    "def": "a day with no work, for a special reason",
-   "ex": "1 July is a holiday in Canada.",
+   "ex": "Matariki is now a public holiday.",
    "lessons": [
     "world_na_work_a2",
+    "world_oce_maori_a2",
     "rp_19_planning_a_holiday_a2b1",
     "a1_going_to_future_plans_interactive"
+   ]
+  },
+  "atoll": {
+   "w": "atoll",
+   "pos": "n",
+   "def": "a ring-shaped coral island around a lagoon",
+   "ex": "Many Pacific countries are made up of low atolls.",
+   "lessons": [
+    "world_oce_background"
+   ]
+  },
+  "endemic": {
+   "w": "endemic",
+   "pos": "adj",
+   "def": "found naturally in one particular place and nowhere else",
+   "ex": "Most of Australia's mammals are endemic.",
+   "lessons": [
+    "world_oce_background"
+   ]
+  },
+  "ocean": {
+   "w": "ocean",
+   "pos": "n",
+   "def": "a very large area of sea",
+   "ex": "The Pacific Ocean is very big.",
+   "lessons": [
+    "world_oce_background_a2"
+   ]
+  },
+  "star": {
+   "w": "star",
+   "pos": "n",
+   "def": "a bright light in the night sky",
+   "ex": "Sailors used the stars to find the way.",
+   "lessons": [
+    "world_oce_background_a2",
+    "world_sa_bollywood_a2"
+   ]
+  },
+  "independent": {
+   "w": "independent",
+   "pos": "adj",
+   "def": "not ruled by another country",
+   "ex": "Samoa became independent in 1962.",
+   "lessons": [
+    "world_oce_background_a2"
+   ]
+  },
+  "barista": {
+   "w": "barista",
+   "pos": "n",
+   "def": "a person who makes and serves coffee in a café",
+   "ex": "The barista poured the milk with great care.",
+   "lessons": [
+    "world_oce_coffee",
+    "grammar_b1_09_reported_speech_advanced"
+   ]
+  },
+  "espresso": {
+   "w": "espresso",
+   "pos": "n",
+   "def": "a small, strong coffee made by forcing steam through ground beans",
+   "ex": "Every other drink on the menu starts with espresso.",
+   "lessons": [
+    "world_oce_coffee"
+   ]
+  },
+  "flat white": {
+   "w": "flat white",
+   "pos": "n",
+   "def": "a coffee made with espresso and smooth, velvety milk",
+   "ex": "A flat white has less foam than a cappuccino.",
+   "lessons": [
+    "world_oce_coffee"
+   ]
+  },
+  "migrant": {
+   "w": "migrant",
+   "pos": "n",
+   "def": "a person who moves from one country to another to live there",
+   "ex": "Italian migrants opened many of the first espresso bars.",
+   "lessons": [
+    "world_oce_coffee",
+    "world_oce_coffee_a2"
+   ]
+  },
+  "laneway": {
+   "w": "laneway",
+   "pos": "n",
+   "def": "a narrow street or passage between buildings",
+   "ex": "Melbourne's cafés fill the laneways of the city centre.",
+   "lessons": [
+    "world_oce_coffee"
+   ]
+  },
+  "specialty": {
+   "w": "specialty",
+   "pos": "adj",
+   "def": "of high quality and made with great care, often in small amounts",
+   "ex": "Specialty coffee uses carefully selected beans.",
+   "lessons": [
+    "world_oce_coffee"
+   ]
+  },
+  "roast": {
+   "w": "roast",
+   "pos": "v",
+   "def": "to heat coffee beans so that they develop flavour",
+   "ex": "Many cafés roast their own beans.",
+   "lessons": [
+    "world_oce_coffee",
+    "lesson_18_passive_voice_present_past"
+   ]
+  },
+  "multicultural": {
+   "w": "multicultural",
+   "pos": "adj",
+   "def": "including people of many different cultures",
+   "ex": "Australia is a multicultural society.",
+   "lessons": [
+    "world_oce_coffee",
+    "ois_20_the_modern_age"
+   ]
+  },
+  "café": {
+   "w": "café",
+   "pos": "n",
+   "def": "a small place where people drink coffee",
+   "ex": "The café is busy at breakfast.",
+   "lessons": [
+    "world_oce_coffee_a2"
+   ]
+  },
+  "lagoon": {
+   "w": "lagoon",
+   "pos": "n",
+   "def": "a shallow body of seawater separated from the ocean by a reef or a ring of coral",
+   "ex": "The village stands beside a calm lagoon.",
+   "lessons": [
+    "world_oce_islands"
+   ]
+  },
+  "sea level": {
+   "w": "sea level",
+   "pos": "n",
+   "def": "the average height of the surface of the sea",
+   "ex": "Rising sea level is a serious threat to low islands.",
+   "lessons": [
+    "world_oce_islands",
+    "bc_climate_change_c1"
+   ]
+  },
+  "remittance": {
+   "w": "remittance",
+   "pos": "n",
+   "def": "money that a person living abroad sends home to relatives",
+   "ex": "A remittance from a brother in the city paid the school fees.",
+   "lessons": [
+    "world_oce_islands",
+    "world_ssa_mobile"
+   ]
+  },
+  "relocate": {
+   "w": "relocate",
+   "pos": "v",
+   "def": "to move to a new place to live",
+   "ex": "Some villages have had to relocate to higher ground.",
+   "lessons": [
+    "world_oce_islands",
+    "grammar_c1_12_prepositions_abstract"
+   ]
+  },
+  "fish": {
+   "w": "fish",
+   "pos": "n",
+   "def": "an animal that lives and swims in water",
+   "ex": "Many families catch fish every day.",
+   "lessons": [
+    "world_oce_islands_a2"
+   ]
+  },
+  "school": {
+   "w": "school",
+   "pos": "n",
+   "def": "a place where children learn",
+   "ex": "At school, they learn in English.",
+   "lessons": [
+    "world_oce_islands_a2",
+    "world_ssa_languages_a2"
+   ]
+  },
+  "laid-back": {
+   "w": "laid-back",
+   "pos": "adj",
+   "def": "relaxed and not easily worried",
+   "ex": "Her laid-back manager never shouts, but the work always gets done.",
+   "lessons": [
+    "world_oce_laidback"
+   ]
+  },
+  "egalitarian": {
+   "w": "egalitarian",
+   "pos": "adj",
+   "def": "believing that all people should be treated as equals",
+   "ex": "An egalitarian culture avoids formal titles and special treatment.",
+   "lessons": [
+    "world_oce_laidback",
+    "rs_y11_spr1_27_03",
+    "rs_y11_spr1_27_06"
+   ]
+  },
+  "fair go": {
+   "w": "fair go",
+   "pos": "n",
+   "def": "an equal chance to succeed, regardless of background",
+   "ex": "Most people believe that everybody deserves a fair go.",
+   "lessons": [
+    "world_oce_laidback"
+   ]
+  },
+  "tall poppy": {
+   "w": "tall poppy",
+   "pos": "n",
+   "def": "a successful person who is criticised or cut down for standing out",
+   "ex": "The tall poppy idea means boasting is not welcome.",
+   "lessons": [
+    "world_oce_laidback"
+   ]
+  },
+  "work-life balance": {
+   "w": "work-life balance",
+   "pos": "n",
+   "def": "a good balance between paid work and personal time",
+   "ex": "Many employees value work-life balance highly.",
+   "lessons": [
+    "world_oce_laidback",
+    "gr_warmup_b2_hot_takes_work",
+    "4_day_work_week",
+    "b2_71_work_life_balance",
+    "general_lesson_38_work_career_interactive"
+   ]
+  },
+  "relaxed": {
+   "w": "relaxed",
+   "pos": "adj",
+   "def": "calm and not worried",
+   "ex": "The manager is relaxed but works hard.",
+   "lessons": [
+    "world_oce_laidback_a2",
+    "rp_26_a_wedding_invitation_a2b1",
+    "su_a2_90_weekend_activities",
+    "explore_all_first_lesson_intro",
+    "skills_a2_trade_fair_simulation",
+    "pron_c1_02_vowel_map",
+    "qf_falsefriend_french_rester",
+    "qf_pronunciation_minimal_pairs_i"
+   ]
+  },
+  "work": {
+   "w": "work",
+   "pos": "v",
+   "def": "to do a job",
+   "ex": "People work about 35 or 40 hours a week.",
+   "lessons": [
+    "world_oce_laidback_a2",
+    "qf_vocab_job_work"
+   ]
+  },
+  "te reo": {
+   "w": "te reo",
+   "pos": "n",
+   "def": "the Māori language",
+   "ex": "Te reo became an official language of New Zealand in 1987.",
+   "lessons": [
+    "world_oce_maori"
+   ]
+  },
+  "marae": {
+   "w": "marae",
+   "pos": "n",
+   "def": "a community meeting place with a carved house, used for gatherings and ceremonies",
+   "ex": "Guests are welcomed onto the marae with a formal greeting.",
+   "lessons": [
+    "world_oce_maori"
+   ]
+  },
+  "hongi": {
+   "w": "hongi",
+   "pos": "n",
+   "def": "a traditional greeting in which two people press their noses together",
+   "ex": "The hongi shares the breath of life between two people.",
+   "lessons": [
+    "world_oce_maori"
+   ]
+  },
+  "whānau": {
+   "w": "whānau",
+   "pos": "n",
+   "def": "an extended family group",
+   "ex": "The whole whānau gathered for the celebration.",
+   "lessons": [
+    "world_oce_maori"
+   ]
+  },
+  "revitalise": {
+   "w": "revitalise",
+   "pos": "v",
+   "def": "to give new strength and life to something",
+   "ex": "Language nests helped to revitalise te reo Māori.",
+   "lessons": [
+    "world_oce_maori"
+   ]
+  },
+  "haka": {
+   "w": "haka",
+   "pos": "n",
+   "def": "a strong Māori chant with movements",
+   "ex": "The rugby players did a haka.",
+   "lessons": [
+    "world_oce_maori_a2"
+   ]
+  },
+  "history": {
+   "w": "history",
+   "pos": "n",
+   "def": "the story of the past",
+   "ex": "New Zealand has a long history.",
+   "lessons": [
+    "world_oce_maori_a2",
+    "world_ssa_background_a2"
+   ]
+  },
+  "abbreviation": {
+   "w": "abbreviation",
+   "pos": "n",
+   "def": "a shortened form of a word or phrase.  is an abbreviation of “afternoon”.”",
+   "ex": "“Arvo",
+   "lessons": [
+    "world_oce_slang",
+    "bc_english_as_medium_instruction_c1",
+    "lesson-23-ben-system",
+    "acad_b1_02_taking_notes"
+   ]
+  },
+  "banter": {
+   "w": "banter",
+   "pos": "n",
+   "def": "friendly, playful teasing between people",
+   "ex": "A bit of banter is a sign of friendship.",
+   "lessons": [
+    "world_oce_slang"
+   ]
+  },
+  "afternoon": {
+   "w": "afternoon",
+   "pos": "n",
+   "def": "the time after lunch and before evening",
+   "ex": "People say arvo for afternoon.",
+   "lessons": [
+    "world_oce_slang_a2",
+    "a1p_01_introductions",
+    "a1_when_do_you_do_it_part2_interactive"
+   ]
+  },
+  "barbecue": {
+   "w": "barbecue",
+   "pos": "n",
+   "def": "a meal cooked outside over a fire",
+   "ex": "A barbecue is a popular weekend meal.",
+   "lessons": [
+    "world_oce_slang_a2",
+    "grammar_a2_05_conditional_basic_passive"
+   ]
+  },
+  "worry": {
+   "w": "worry",
+   "pos": "v",
+   "def": "to think about problems and feel afraid. .”",
+   "ex": "No worries means “it's all right",
+   "lessons": [
+    "world_oce_slang_a2",
+    "gr_warmup_a2_hot_takes_health",
+    "epicurean_20_epicurus_as_villain"
+   ]
+  },
+  "rugby": {
+   "w": "rugby",
+   "pos": "n",
+   "def": "a team sport played with an oval ball that players carry, pass and kick",
+   "ex": "Rugby is the national passion in New Zealand and Fiji.",
+   "lessons": [
+    "world_oce_sport",
+    "world_oce_sport_a2"
+   ]
+  },
+  "cricket": {
+   "w": "cricket",
+   "pos": "n",
+   "def": "a bat-and-ball game played by two teams of eleven players",
+   "ex": "A Test match of cricket can last five days.",
+   "lessons": [
+    "world_oce_sport",
+    "world_oce_sport_a2"
+   ]
+  },
+  "grassroots": {
+   "w": "grassroots",
+   "pos": "adj",
+   "def": "involving ordinary people in local communities rather than professionals",
+   "ex": "Grassroots clubs give children their first chance to play.",
+   "lessons": [
+    "world_oce_sport",
+    "talk_volunteering_b2c1"
+   ]
+  },
+  "participation": {
+   "w": "participation",
+   "pos": "n",
+   "def": "the act of taking part in an activity",
+   "ex": "Sport participation is high among children.",
+   "lessons": [
+    "world_oce_sport",
+    "acad_b1_01_classroom_english"
+   ]
+  },
+  "marsupial": {
+   "w": "marsupial",
+   "pos": "n",
+   "def": "a mammal that carries its young in a pouch",
+   "ex": "A kangaroo is a marsupial, and so is a koala.",
+   "lessons": [
+    "world_oce_wildlife"
+   ]
+  },
+  "introduced species": {
+   "w": "introduced species",
+   "pos": "n",
+   "def": "an animal or plant brought by humans to a place where it did not live before",
+   "ex": "Rabbits and foxes are introduced species in Australia.",
+   "lessons": [
+    "world_oce_wildlife"
+   ]
+  },
+  "predator": {
+   "w": "predator",
+   "pos": "n",
+   "def": "an animal that hunts and eats other animals",
+   "ex": "Stoats are a serious predator of New Zealand's birds.",
+   "lessons": [
+    "world_oce_wildlife",
+    "lesson_ocean_speaking_EXPANDED",
+    "path_of_titans_lesson",
+    "techniques_the_most_dangerous_game"
+   ]
+  },
+  "bushfire": {
+   "w": "bushfire",
+   "pos": "n",
+   "def": "a large, uncontrolled fire in the countryside",
+   "ex": "The 2019–20 bushfires burned millions of hectares.",
+   "lessons": [
+    "world_oce_wildlife"
+   ]
+  },
+  "reef": {
+   "w": "reef",
+   "pos": "n",
+   "def": "a long line of coral or rock near the surface of the sea",
+   "ex": "The Great Barrier Reef is the largest coral system on Earth.",
+   "lessons": [
+    "world_oce_wildlife",
+    "lesson_ocean_speaking_EXPANDED"
+   ]
+  },
+  "bleaching": {
+   "w": "bleaching",
+   "pos": "n",
+   "def": "the loss of colour in coral when the water becomes too warm",
+   "ex": "Marine heatwaves have caused repeated bleaching.",
+   "lessons": [
+    "world_oce_wildlife"
+   ]
+  },
+  "kangaroo": {
+   "w": "kangaroo",
+   "pos": "n",
+   "def": "an Australian animal that jumps and has a pouch",
+   "ex": "A kangaroo can jump very far.",
+   "lessons": [
+    "world_oce_wildlife_a2"
+   ]
+  },
+  "koala": {
+   "w": "koala",
+   "pos": "n",
+   "def": "a small grey Australian animal that lives in trees",
+   "ex": "A koala sleeps for many hours.",
+   "lessons": [
+    "world_oce_wildlife_a2"
    ]
   },
   "subcontinent": {
@@ -97710,15 +98491,6 @@ window.WORDBANK={
    "ex": "Many cinemas in India have an interval after the first half.",
    "lessons": [
     "world_sa_bollywood"
-   ]
-  },
-  "star": {
-   "w": "star",
-   "pos": "n",
-   "def": "a very famous actor or singer",
-   "ex": "He is a famous star.",
-   "lessons": [
-    "world_sa_bollywood_a2"
    ]
   },
   "director": {
@@ -98120,15 +98892,6 @@ window.WORDBANK={
     "world_ssa_background_a2"
    ]
   },
-  "history": {
-   "w": "history",
-   "pos": "n",
-   "def": "the story of the past",
-   "ex": "Africa has a long history.",
-   "lessons": [
-    "world_ssa_background_a2"
-   ]
-  },
   "informal settlement": {
    "w": "informal settlement",
    "pos": "n",
@@ -98282,15 +99045,6 @@ window.WORDBANK={
     "world_ssa_languages"
    ]
   },
-  "school": {
-   "w": "school",
-   "pos": "n",
-   "def": "a place where children learn",
-   "ex": "At school, they learn in English.",
-   "lessons": [
-    "world_ssa_languages_a2"
-   ]
-  },
   "mix": {
    "w": "mix",
    "pos": "v",
@@ -98330,15 +99084,6 @@ window.WORDBANK={
     "su_a2_34_getting_the_right_information",
     "behind_the_screen_the_untouchables_a2b1",
     "rp_15_renting_a_flat_a2b1"
-   ]
-  },
-  "remittance": {
-   "w": "remittance",
-   "pos": "n",
-   "def": "money sent home by a person working somewhere else",
-   "ex": "A remittance from a brother in the city paid the school fees.",
-   "lessons": [
-    "world_ssa_mobile"
    ]
   },
   "transaction": {
@@ -100942,16 +101687,6 @@ window.WORDBANK={
     "su_a2_23_staying_healthy"
    ]
   },
-  "worry": {
-   "w": "worry",
-   "pos": "v",
-   "def": "to keep thinking about problems or bad things that may happen",
-   "ex": "Please do not worry, everything will be fine.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_health",
-    "epicurean_20_epicurus_as_villain"
-   ]
-  },
   "creative": {
    "w": "creative",
    "pos": "adj",
@@ -102816,16 +103551,6 @@ window.WORDBANK={
    "ex": "Many feminists have challenged religious traditions.",
    "lessons": [
     "rs_y11_spr1_27_03"
-   ]
-  },
-  "egalitarian": {
-   "w": "egalitarian",
-   "pos": "adj",
-   "def": "believing that all people are equal",
-   "ex": "Some Christians hold an egalitarian view of marriage.",
-   "lessons": [
-    "rs_y11_spr1_27_03",
-    "rs_y11_spr1_27_06"
    ]
   },
   "inclusion": {
@@ -108349,18 +109074,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_travel"
    ]
   },
-  "work-life balance": {
-   "w": "work-life balance",
-   "pos": "n",
-   "def": "a healthy split between your job and your private life",
-   "ex": "Remote work improved my work-life balance.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_work",
-    "4_day_work_week",
-    "b2_71_work_life_balance",
-    "general_lesson_38_work_career_interactive"
-   ]
-  },
   "climb the ladder": {
    "w": "climb the ladder",
    "pos": "phr",
@@ -109923,21 +110636,6 @@ window.WORDBANK={
    "lessons": [
     "rp_26_a_wedding_invitation_a2b1",
     "skills_b1_friendly_chat_at_work"
-   ]
-  },
-  "relaxed": {
-   "w": "relaxed",
-   "pos": "adj",
-   "def": "calm and not worried or formal",
-   "ex": "It is a relaxed party in a garden.",
-   "lessons": [
-    "rp_26_a_wedding_invitation_a2b1",
-    "su_a2_90_weekend_activities",
-    "explore_all_first_lesson_intro",
-    "skills_a2_trade_fair_simulation",
-    "pron_c1_02_vowel_map",
-    "qf_falsefriend_french_rester",
-    "qf_pronunciation_minimal_pairs_i"
    ]
   },
   "mechanic": {
@@ -128419,31 +129117,11 @@ window.WORDBANK={
     "lesson_human_body_systems_interactive"
    ]
   },
-  "predator": {
-   "w": "predator",
-   "pos": "n",
-   "def": "an animal that hunts and eats other animals",
-   "ex": "The shark is a powerful predator.",
-   "lessons": [
-    "lesson_ocean_speaking_EXPANDED",
-    "path_of_titans_lesson",
-    "techniques_the_most_dangerous_game"
-   ]
-  },
   "tentacles": {
    "w": "tentacles",
    "pos": "n",
    "def": "long, bendy arms of animals like an octopus",
    "ex": "The octopus wrapped its tentacles around the rock.",
-   "lessons": [
-    "lesson_ocean_speaking_EXPANDED"
-   ]
-  },
-  "reef": {
-   "w": "reef",
-   "pos": "n",
-   "def": "a line of rock or coral near the surface of the sea",
-   "ex": "We snorkelled over a colourful reef.",
    "lessons": [
     "lesson_ocean_speaking_EXPANDED"
    ]
@@ -130891,15 +131569,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "weapons that explode to cause damage",
    "ex": "Many houses were destroyed by bombs during the war.",
-   "lessons": [
-    "ois_20_the_modern_age"
-   ]
-  },
-  "multicultural": {
-   "w": "multicultural",
-   "pos": "adj",
-   "def": "including people of many different cultures and backgrounds",
-   "ex": "The city has a lively multicultural food scene.",
    "lessons": [
     "ois_20_the_modern_age"
    ]
@@ -134497,15 +135166,6 @@ window.WORDBANK={
    "pos": "phr v",
    "def": "to do good for others in return for what you received",
    "ex": "He coaches young players to give back to the club.",
-   "lessons": [
-    "talk_volunteering_b2c1"
-   ]
-  },
-  "grassroots": {
-   "w": "grassroots",
-   "pos": "adj",
-   "def": "organised by ordinary people in a community, not leaders",
-   "ex": "A grassroots campaign saved the local park.",
    "lessons": [
     "talk_volunteering_b2c1"
    ]
@@ -141264,17 +141924,6 @@ window.WORDBANK={
     "bc_english_as_medium_instruction_c1"
    ]
   },
-  "abbreviation": {
-   "w": "abbreviation",
-   "pos": "n",
-   "def": "a short form of a word or phrase",
-   "ex": "Etc is an abbreviation for et cetera.",
-   "lessons": [
-    "bc_english_as_medium_instruction_c1",
-    "lesson-23-ben-system",
-    "acad_b1_02_taking_notes"
-   ]
-  },
   "imminent": {
    "w": "imminent",
    "pos": "adj",
@@ -142573,15 +143222,6 @@ window.WORDBANK={
     "bc_climate_change_c1"
    ]
   },
-  "sea level": {
-   "w": "sea level",
-   "pos": "n",
-   "def": "the average height of the sea's surface",
-   "ex": "Rising sea level threatens many coastal towns.",
-   "lessons": [
-    "bc_climate_change_c1"
-   ]
-  },
   "land clearance": {
    "w": "land clearance",
    "pos": "n",
@@ -142988,16 +143628,6 @@ window.WORDBANK={
    "ex": "A sudden swerve saved the driver from hitting the dog.",
    "lessons": [
     "epicurean_07_the_swerve"
-   ]
-  },
-  "afternoon": {
-   "w": "afternoon",
-   "pos": "n",
-   "def": "the time of day between twelve o'clock and evening",
-   "ex": "We usually have coffee together in the afternoon.",
-   "lessons": [
-    "a1p_01_introductions",
-    "a1_when_do_you_do_it_part2_interactive"
    ]
   },
   "nationality": {
@@ -146441,15 +147071,6 @@ window.WORDBANK={
    "pos": "v",
    "def": "to make goods in large numbers in a factory",
    "ex": "These bikes are manufactured in a small town.",
-   "lessons": [
-    "lesson_18_passive_voice_present_past"
-   ]
-  },
-  "roast": {
-   "w": "roast",
-   "pos": "v",
-   "def": "to cook in an oven or over a fire",
-   "ex": "The beans are roasted to bring out the flavour.",
    "lessons": [
     "lesson_18_passive_voice_present_past"
    ]
@@ -150370,15 +150991,6 @@ window.WORDBANK={
    "ex": "We bulk-buy rice and pasta because it is cheaper.",
    "lessons": [
     "qf_vocab_economic_economical"
-   ]
-  },
-  "work": {
-   "w": "work",
-   "pos": "n",
-   "def": "the activity you do to earn money, or the place you do it",
-   "ex": "I usually start work at eight in the morning.",
-   "lessons": [
-    "qf_vocab_job_work"
    ]
   },
   "task": {
@@ -155915,15 +156527,6 @@ window.WORDBANK={
     "grammar_a2_04_modals_obligation_request"
    ]
   },
-  "barbecue": {
-   "w": "barbecue",
-   "pos": "n",
-   "def": "an outdoor meal where food is cooked over a fire",
-   "ex": "We are having a barbecue in the garden on Saturday.",
-   "lessons": [
-    "grammar_a2_05_conditional_basic_passive"
-   ]
-  },
   "technician": {
    "w": "technician",
    "pos": "n",
@@ -156221,15 +156824,6 @@ window.WORDBANK={
    "ex": "My driving instructor is very calm and patient.",
    "lessons": [
     "grammar_b1_08_reported_speech_core"
-   ]
-  },
-  "barista": {
-   "w": "barista",
-   "pos": "n",
-   "def": "a person whose job is making and serving coffee",
-   "ex": "The barista drew a heart on my cappuccino.",
-   "lessons": [
-    "grammar_b1_09_reported_speech_advanced"
    ]
   },
   "overhear": {
@@ -156833,15 +157427,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the money spent on something",
    "ex": "They redecorated the house at great expense.",
-   "lessons": [
-    "grammar_c1_12_prepositions_abstract"
-   ]
-  },
-  "relocate": {
-   "w": "relocate",
-   "pos": "v",
-   "def": "to move to a new place to live or work",
-   "ex": "The company is relocating its office to Leeds.",
    "lessons": [
     "grammar_c1_12_prepositions_abstract"
    ]
@@ -157717,15 +158302,6 @@ window.WORDBANK={
    "ex": "I was gobsmacked when I heard the price.",
    "lessons": [
     "Effective-Pronunciation-Lesson"
-   ]
-  },
-  "participation": {
-   "w": "participation",
-   "pos": "n",
-   "def": "the act of taking part in an activity",
-   "ex": "Active participation in class discussions helps you learn faster.",
-   "lessons": [
-    "acad_b1_01_classroom_english"
    ]
   },
   "considerate": {
