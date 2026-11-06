@@ -5625,6 +5625,34 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "pol_09_checks",
+   "title": "Who Can Say No? Checks on Power",
+   "level": "",
+   "words": [
+    "constitutional court",
+    "judicial independence",
+    "accountability",
+    "oversight",
+    "emergency powers",
+    "amendment",
+    "supranational",
+    "backsliding"
+   ]
+  },
+  {
+   "id": "pol_09_checks_a2",
+   "title": "Who Can Say No to a Government?",
+   "level": "",
+   "words": [
+    "judge",
+    "court",
+    "fair",
+    "stop",
+    "power",
+    "emergency"
+   ]
+  },
+  {
    "id": "psy_01_marshmallow_a2b1",
    "title": "The Marshmallow Test",
    "level": "A2/B1",
@@ -49290,11 +49318,12 @@ window.WORDBANK={
   },
   "power": {
    "w": "power",
-   "pos": "",
+   "pos": "n",
    "def": "the electricity for lights",
-   "ex": "",
+   "ex": "Too much power in one place is dangerous.",
    "lessons": [
-    "a1s_38_storm"
+    "a1s_38_storm",
+    "pol_09_checks_a2"
    ]
   },
   "cards": {
@@ -50225,6 +50254,7 @@ window.WORDBANK={
    "lessons": [
     "a2_lesson_tennis",
     "discuss_c1_why_risk_it",
+    "pol_09_checks_a2",
     "short_history_rasputin",
     "behind_the_screen_spotlight_a2b1"
    ]
@@ -50720,7 +50750,8 @@ window.WORDBANK={
    "def": "a formal change or addition made to a law or constitution.",
    "ex": "Every amendment added since 1791 has been a formal change to the text, passed only after a long and difficult process.",
    "lessons": [
-    "amst_04_the_constitution"
+    "amst_04_the_constitution",
+    "pol_09_checks"
    ]
   },
   "veto": {
@@ -51665,6 +51696,7 @@ window.WORDBANK={
    "ex": "Why don’t the AI companies stop?",
    "lessons": [
     "bc_airace_a2b1",
+    "pol_09_checks_a2",
     "techniques_hills_like_white_elephants_a2b1"
    ]
   },
@@ -53019,9 +53051,10 @@ window.WORDBANK={
    "w": "oversight",
    "pos": "n",
    "def": "supervisory control (regulatory oversight, congressional oversight). Note the trap: an oversight also means a thing accidentally missed — English's darkest pun, and this case contains both meanings.",
-   "ex": "",
+   "ex": "Parliamentary committees provide oversight of the ministries.",
    "lessons": [
     "bc_boeing_max_c1",
+    "pol_09_checks",
     "b2_57_medical_ethics",
     "grammar_c2_01_register_style_shifting"
    ]
@@ -61138,6 +61171,7 @@ window.WORDBANK={
    "ex": "After the bridge collapsed, the public didn't only want compensation; they wanted accountability — someone named, and something changed, so it couldn't happen again.",
    "lessons": [
     "behind_the_screen_spotlight",
+    "pol_09_checks",
     "rs_y10_sum1_23_01",
     "rs_y7_sum1_05_04",
     "bc_passion_for_danger_c1",
@@ -61768,11 +61802,12 @@ window.WORDBANK={
   },
   "judge": {
    "w": "judge",
-   "pos": "",
+   "pos": "n",
    "def": "the other three all make or move drink. a bootlegger (n) — someone who makes, transports or sells alcohol illegally. The activity is bootlegging.",
-   "ex": "",
+   "ex": "The judge read the decision to the court.",
    "lessons": [
     "behind_the_screen_the_untouchables",
+    "pol_09_checks_a2",
     "ts_noise_b2",
     "behind_the_screen_the_crucible_a2b1"
    ]
@@ -72514,9 +72549,10 @@ window.WORDBANK={
    "w": "fair",
    "pos": "adj",
    "def": "right for everyone, with no favourite",
-   "ex": "The report is fair.",
+   "ex": "A good law is fair to everyone.",
    "lessons": [
     "pol_08_news_a2",
+    "pol_09_checks_a2",
     "techniques_idgah_a2b1",
     "ml_19_the_comment_row",
     "sb_02_giving_a_quote_a2b1",
@@ -72533,6 +72569,66 @@ window.WORDBANK={
    "ex": "There is an advertisement on the page.",
    "lessons": [
     "pol_08_news_a2"
+   ]
+  },
+  "constitutional court": {
+   "w": "constitutional court",
+   "pos": "n",
+   "def": "a special court that tests laws and government actions against a country's basic rules",
+   "ex": "The constitutional court cancelled part of the new law.",
+   "lessons": [
+    "pol_09_checks"
+   ]
+  },
+  "judicial independence": {
+   "w": "judicial independence",
+   "pos": "n",
+   "def": "the principle that judges can decide cases without pressure from politicians",
+   "ex": "Judicial independence depends on how judges are chosen, paid and protected.",
+   "lessons": [
+    "pol_09_checks"
+   ]
+  },
+  "emergency powers": {
+   "w": "emergency powers",
+   "pos": "n",
+   "def": "extra authority that a government may use during a crisis such as war or disaster",
+   "ex": "Emergency powers should be temporary and open to review.",
+   "lessons": [
+    "pol_09_checks"
+   ]
+  },
+  "supranational": {
+   "w": "supranational",
+   "pos": "adj",
+   "def": "with authority above individual countries, over several of them at once",
+   "ex": "The European Union is a supranational organisation, and its courts can overrule national law.",
+   "lessons": [
+    "pol_09_checks"
+   ]
+  },
+  "backsliding": {
+   "w": "backsliding",
+   "pos": "n",
+   "def": "a slow movement away from democratic standards",
+   "ex": "Researchers use the term democratic backsliding for gradual weakening of checks.",
+   "lessons": [
+    "pol_09_checks"
+   ]
+  },
+  "emergency": {
+   "w": "emergency",
+   "pos": "n",
+   "def": "a very serious and sudden problem",
+   "ex": "A government can use special rules in an emergency.",
+   "lessons": [
+    "pol_09_checks_a2",
+    "behind_the_screen_chernobyl_a2b1",
+    "rp_37_at_the_consulate",
+    "rs_y9_spr1_15_05",
+    "short_history_the_roman_republic_a2b1",
+    "aviation_eapt_06",
+    "qf_falsefriend_spanish_exito"
    ]
   },
   "self-control": {
@@ -104692,20 +104788,6 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_chernobyl_a2b1",
     "short_history_cuban_missile_crisis_a2b1"
-   ]
-  },
-  "emergency": {
-   "w": "emergency",
-   "pos": "n",
-   "def": "a sudden dangerous situation that needs fast action",
-   "ex": "In an emergency, call this number right away.",
-   "lessons": [
-    "behind_the_screen_chernobyl_a2b1",
-    "rp_37_at_the_consulate",
-    "rs_y9_spr1_15_05",
-    "short_history_the_roman_republic_a2b1",
-    "aviation_eapt_06",
-    "qf_falsefriend_spanish_exito"
    ]
   },
   "infect": {
