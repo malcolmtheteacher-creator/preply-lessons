@@ -16612,12 +16612,13 @@ window.WORDBANK={
    "level": "C1",
    "words": [
     "off-label",
+    "licence",
     "indication",
+    "promote",
+    "unsolicited",
+    "medical information",
     "compliance",
-    "regulatory",
-    "clinician",
-    "breach",
-    "boundary"
+    "route (v)"
    ]
   },
   {
@@ -16681,13 +16682,14 @@ window.WORDBANK={
    "title": "Negotiating a Price Increase Down",
    "level": "C1",
    "words": [
-    "leverage",
-    "supplier",
-    "absorb",
-    "ceiling",
-    "haggle",
-    "margin",
-    "transparency"
+    "price increase",
+    "pass-through",
+    "volume leverage",
+    "framework agreement",
+    "indexation",
+    "benchmark",
+    "counter-proposal",
+    "walk away"
    ]
   },
   {
@@ -16766,12 +16768,13 @@ window.WORDBANK={
    "level": "C1",
    "words": [
     "technical debt",
-    "sprint",
-    "ship",
-    "analogy",
-    "deliberately",
-    "stakeholder",
-    "pay down"
+    "pay down",
+    "bottleneck",
+    "velocity",
+    "brittle",
+    "workaround",
+    "scope creep",
+    "proof of concept"
    ]
   },
   {
@@ -32021,13 +32024,14 @@ window.WORDBANK={
    "title": "Giving Feedback to an Author",
    "level": "B2",
    "words": [
-    "commission",
-    "first draft",
+    "draft",
     "pacing",
-    "sag",
-    "motivation",
-    "climax",
-    "dig back in"
+    "character arc",
+    "developmental feedback",
+    "revision (n)",
+    "tighten",
+    "plot hole",
+    "land (v)"
    ]
   },
   {
@@ -32035,12 +32039,14 @@ window.WORDBANK={
    "title": "Presenting a Bolder Design Concept",
    "level": "B2",
    "words": [
+    "brand (n)",
     "brand refresh",
-    "route",
-    "stretch",
-    "reckless",
-    "agenda",
-    "concept"
+    "route (n)",
+    "brand equity",
+    "stretch (n)",
+    "modular",
+    "design system",
+    "tonal shift"
    ]
   },
   {
@@ -32048,13 +32054,14 @@ window.WORDBANK={
    "title": "Raising a Quality Issue with a Supplier",
    "level": "B2",
    "words": [
-    "supplier",
     "batch",
+    "out of spec",
     "defect",
-    "component",
-    "reliable",
-    "nudge",
-    "on the record"
+    "root cause",
+    "corrective action",
+    "tolerance",
+    "non-conformance report",
+    "quality audit"
    ]
   },
   {
@@ -32062,12 +32069,14 @@ window.WORDBANK={
    "title": "Explaining a Late Delivery",
    "level": "B2",
    "words": [
-    "logistics",
-    "paperwork",
-    "at the earliest",
-    "production line",
-    "furious",
-    "depend on"
+    "consignment",
+    "ETA",
+    "delay",
+    "customs clearance",
+    "re-route",
+    "contingency",
+    "expedite",
+    "update (n)"
    ]
   },
   {
@@ -33064,12 +33073,14 @@ window.WORDBANK={
    "title": "Handling Pushback on Fees",
    "level": "B2",
    "words": [
-    "pushback",
-    "fee",
-    "hold the line",
-    "client",
-    "audit",
-    "structured"
+    "justify",
+    "scope",
+    "quote (n)",
+    "push back",
+    "value for money",
+    "line item",
+    "goodwill",
+    "stand behind"
    ]
   },
   {
@@ -33078,11 +33089,13 @@ window.WORDBANK={
    "level": "B2",
    "words": [
     "outage",
-    "jargon",
-    "investigate",
-    "core system",
-    "informed",
-    "panicked"
+    "downtime",
+    "affected",
+    "root cause",
+    "workaround",
+    "restore",
+    "ETA",
+    "post-mortem"
    ]
   },
   {
@@ -33090,12 +33103,14 @@ window.WORDBANK={
    "title": "Raising Safety Concerns With a Client Under Pressure",
    "level": "B2",
    "words": [
-    "safety concern",
-    "deadline",
-    "raise",
-    "on site",
-    "negative",
-    "properly"
+    "hazard",
+    "risk",
+    "raise a concern",
+    "non-negotiable",
+    "site inspection",
+    "sign-off",
+    "escalate",
+    "near-miss"
    ]
   },
   {
@@ -33103,12 +33118,14 @@ window.WORDBANK={
    "title": "Explaining a Declined Loan Application",
    "level": "B2",
    "words": [
-    "decline",
-    "loan",
-    "missed payment",
-    "debt",
-    "application",
-    "ratio"
+    "decline (v)",
+    "creditworthiness",
+    "credit score",
+    "debt-to-income ratio",
+    "reapply",
+    "affordability check",
+    "soft search",
+    "signpost (v)"
    ]
   },
   {
@@ -33116,12 +33133,14 @@ window.WORDBANK={
    "title": "Explaining a Partially Covered Claim",
    "level": "B2",
    "words": [
+    "policy (n)",
+    "exclusion (n)",
     "claim",
-    "payout",
-    "small print",
-    "portable",
-    "covered",
-    "burst"
+    "excess (n)",
+    "buildings cover",
+    "contents cover",
+    "settle",
+    "like-for-like"
    ]
   },
   {
@@ -33298,12 +33317,14 @@ window.WORDBANK={
    "title": "Resetting Expectations When a Project Slips",
    "level": "C1",
    "words": [
-    "slip",
-    "engagement",
-    "anticipate",
-    "absorb",
-    "steering committee",
-    "realistic"
+    "reset expectations",
+    "slippage",
+    "out of scope",
+    "surface (v)",
+    "material",
+    "pre-empt",
+    "flag",
+    "realign"
    ]
   },
   {
@@ -33701,12 +33722,14 @@ window.WORDBANK={
    "title": "Mediating a Clinical-Billing Dispute",
    "level": "C1",
    "words": [
-    "dispute",
-    "mediate",
-    "documentation",
-    "inpatient",
-    "necessity",
-    "invoice"
+    "medical necessity",
+    "reconcile",
+    "triangulate",
+    "clinical coding",
+    "escalate",
+    "submission (n)",
+    "without prejudice",
+    "clinical justification"
    ]
   },
   {
@@ -33779,12 +33802,14 @@ window.WORDBANK={
    "title": "Pushing Back on an Unrealistic Deadline",
    "level": "C1",
    "words": [
-    "unrealistic",
-    "valuation",
-    "preliminary",
-    "analyst",
-    "burn out",
-    "deal"
+    "pitch (v)",
+    "mandate (n)",
+    "bandwidth",
+    "re-prioritise",
+    "runway",
+    "deliverable",
+    "sandbag",
+    "staggered"
    ]
   },
   {
@@ -33792,12 +33817,14 @@ window.WORDBANK={
    "title": "Delivering Unwelcome Legal Advice",
    "level": "C1",
    "words": [
-    "unwelcome",
-    "underestimate",
-    "footnote",
-    "lawyer",
-    "advisory",
-    "potentially"
+    "carve out",
+    "exposure",
+    "mitigate",
+    "material risk",
+    "precedent",
+    "on the record",
+    "ring-fence",
+    "red flag"
    ]
   },
   {
@@ -33896,12 +33923,14 @@ window.WORDBANK={
    "title": "Defending the Creative Work",
    "level": "C1",
    "words": [
-    "campaign",
-    "cave",
-    "dig in",
-    "flatly",
-    "defensively",
-    "account"
+    "brief (n)",
+    "insight",
+    "land (v)",
+    "on-brief",
+    "standout",
+    "safe",
+    "stress-test",
+    "rationale"
    ]
   },
   {
@@ -43739,14 +43768,14 @@ window.WORDBANK={
    "title": "Reassuring an Anxious Patient",
    "level": "B2",
    "words": [
+    "procedure (n)",
     "reassure",
-    "reassurance",
+    "side effect",
     "anaesthetic",
-    "sedation",
-    "procedure",
-    "dismissive",
-    "drowsy",
-    "understandable"
+    "consent",
+    "recovery",
+    "talk through",
+    "drip"
    ]
   },
   {
@@ -51625,7 +51654,6 @@ window.WORDBANK={
     "bc_ada_lovelace_c1",
     "tib_pestle_b2",
     "Business-Bootcamp-Lesson6-The-Boardroom",
-    "bc_consulting_reset_expectations_c1",
     "dinosaur_heist",
     "cambridge_cae_test_paper_3",
     "sp_prep_b2_47",
@@ -51721,9 +51749,9 @@ window.WORDBANK={
   },
   "claim": {
    "w": "claim",
-   "pos": "n, here",
-   "def": "a request for something that you believe you have a right to, such as money.",
-   "ex": "",
+   "pos": "n",
+   "def": "a request to be paid for a loss",
+   "ex": "We have accepted part of your claim.",
    "lessons": [
     "bc_ai_chatbot_c1",
     "odyssey_edward_iii",
@@ -51865,8 +51893,7 @@ window.WORDBANK={
    "def": "a note at the bottom of a page that tells you where a fact or quotation comes from.",
    "ex": "",
    "lessons": [
-    "bc_ai_report_c1",
-    "bc_legal_unwelcome_advice_c1"
+    "bc_ai_report_c1"
    ]
   },
   "instalment": {
@@ -52179,8 +52206,8 @@ window.WORDBANK={
   "safe": {
    "w": "safe",
    "pos": "adj",
-   "def": "Not dangerous; protected from harm.",
-   "ex": "The old bridge was not safe. A child could fall into the river.",
+   "def": "unlikely to offend anyone, and often forgettable",
+   "ex": "Safe work is easy to approve and easy to forget.",
    "lessons": [
     "bc_airace_a2b1",
     "discuss_a2_will_to_believe",
@@ -52191,6 +52218,7 @@ window.WORDBANK={
     "behind_the_screen_jurassic_park_a2b1",
     "business_heist_a2b1",
     "techniques_rikki_tikki_tavi_a2b1",
+    "bc_advertising_defend_creative_c1",
     "techniques_a_retrieved_reformation_a2b1"
    ]
   },
@@ -52254,8 +52282,7 @@ window.WORDBANK={
     "bc_openai_agi_c1",
     "gr_b2_the_upgrade",
     "chatterbox_4_ridiculous_ventures",
-    "prof_c2_01_boardroom_english",
-    "bc_investment_banking_pitch_c1"
+    "prof_c2_01_boardroom_english"
    ]
   },
   "arms race": {
@@ -52499,8 +52526,8 @@ window.WORDBANK={
   "reconcile": {
    "w": "reconcile",
    "pos": "v",
-   "def": "To come to accept something difficult or unwelcome.",
-   "ex": "She spent years trying to reconcile the faith she had grown up with and the physics she taught every morning.To reconcile two things is: (a) to keep them completely apart; (b) to prove that one of them is false; (c) to make them fit together without contradiction.",
+   "def": "to find where two positions can both be accepted",
+   "ex": "We need to reconcile the record with the insurer's criteria.",
    "lessons": [
     "bc_albert_camus_c1",
     "behind_the_screen_everything_everywhere_all_at_once",
@@ -52511,6 +52538,7 @@ window.WORDBANK={
     "rs_y9_aut2_14_03",
     "epicurean_24_humanist_epicureans",
     "wp_27_the_decisive_treatise",
+    "bc_healthcare_billing_c1",
     "rs_y9_aut2_14_06"
    ]
   },
@@ -52580,8 +52608,8 @@ window.WORDBANK={
   "risk": {
    "w": "risk",
    "pos": "n",
-   "def": "The chance that something bad will happen.",
-   "ex": "Building a factory with no customers is a big risk.",
+   "def": "the chance that a hazard causes harm",
+   "ex": "The risk of a fall from height is high.",
    "lessons": [
     "bc_alphabet_a2b1",
     "bc_china_challenge_a2b1",
@@ -52594,6 +52622,7 @@ window.WORDBANK={
     "tib_riskmatrix_b2",
     "skills_b1_numbers_deadlines_risks_meetings",
     "b2_07_is_tv_bad_for_us",
+    "b2_96_engineering_safety_concerns",
     "discuss_b2c1_dealing_with_uncertainty"
    ]
   },
@@ -53113,8 +53142,7 @@ window.WORDBANK={
    "def": "Money you pay for a service. A late fee is money you pay when you are late.",
    "ex": "Blockbuster charged a late fee if you kept the film too long.",
    "lessons": [
-    "bc_blockbuster_a2b1",
-    "b2_94_accounting_fee_pushback"
+    "bc_blockbuster_a2b1"
    ]
   },
   "customer": {
@@ -53358,12 +53386,10 @@ window.WORDBANK={
     "bc_bluebuffalo_a2b1",
     "bc_china_challenge_a2b1",
     "tib_fiveforces_b2",
-    "bc_procurement_price_increase_c1",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "c1_pro_22_supply_chain",
     "nq_07_mixed_c1",
     "skills_b1_numbers_deadlines_risks_meetings",
-    "b2_102_manufacturing_supplier_quality",
     "b2_44_negotiation_skills",
     "grammar_b2_10_advanced_relative_clauses",
     "modals_for_business_decisions"
@@ -53431,7 +53457,6 @@ window.WORDBANK={
     "su_a2_44_working_smarter",
     "c1_pro_03_delivering_bad_news",
     "skills_b1_numbers_deadlines_risks_meetings",
-    "b2_96_engineering_safety_concerns",
     "sp_b1_24_clarification",
     "talk_homework_a2b1",
     "grammar_b1_04_modals_obligation_deduction",
@@ -53727,18 +53752,18 @@ window.WORDBANK={
     "bc_china_challenge_a2b1",
     "grammar_b2_20_making_plans",
     "su_a2_89_holiday_planning",
-    "b2_103_logistics_late_delivery",
     "sp_prep_b1_21",
     "grammar_b1_14_prepositions_advanced"
    ]
   },
   "licence": {
    "w": "licence",
-   "pos": "noun (US: license)",
-   "def": "An official paper that says you are allowed to do something.",
-   "ex": "Companies need a licence to export these metals.",
+   "pos": "n",
+   "def": "the regulator's approval defining how a drug may be used",
+   "ex": "The licence covers adults only.",
    "lessons": [
     "bc_china_challenge_a2b1",
+    "bc_pharma_off_label_c1",
     "lf_55_the_car_park_scrape",
     "qf_vocab_advice_advise"
    ]
@@ -53798,7 +53823,6 @@ window.WORDBANK={
     "c1_pro_21_financial_literacy",
     "skills_b2c1_playing_a_different_game",
     "skills_c1_senior_interview_5_closing",
-    "bc_procurement_price_increase_c1",
     "c2_pro_03_diplomatic_negotiation",
     "prof_c1_02_negotiation_tactics",
     "sp_prep_b2_44",
@@ -54101,8 +54125,7 @@ window.WORDBANK={
     "bc_disneypixar_a2b1",
     "techniques_how_much_land_a2b1",
     "breaking_news_netflix_warner_bros_jan_2026",
-    "first_impressions_small_talk",
-    "bc_investment_banking_pitch_c1"
+    "first_impressions_small_talk"
    ]
   },
   "leader": {
@@ -54171,11 +54194,12 @@ window.WORDBANK={
   },
   "walk away": {
    "w": "walk away",
-   "pos": "phrasal v",
-   "def": "to leave a negotiation or relationship, choosing no deal over a bad one. To walk away from the table, a walk-away price (the point at which you stop negotiating). Your willingness to walk away is often your strongest bargaining power.",
-   "ex": "",
+   "pos": "phr v",
+   "def": "to end a negotiation because terms are unworkable",
+   "ex": "We'd rather not walk away, but we will if we must.",
    "lessons": [
     "bc_disneypixar_c1",
+    "bc_procurement_price_increase_c1",
     "rp_17_haggling_at_a_market",
     "wk_05_negotiating"
    ]
@@ -54738,8 +54762,8 @@ window.WORDBANK={
   "delay": {
    "w": "delay",
    "pos": "n",
-   "def": "When something happens later than planned. The verb is to delay.",
-   "ex": "A delay of three months destroyed the Christmas season.",
+   "def": "a slip from the planned timing",
+   "ex": "We expect a delay of two days.",
    "lessons": [
     "bc_hanjin_a2b1",
     "bc_kodak_a2b1",
@@ -54750,6 +54774,7 @@ window.WORDBANK={
     "c1_pro_22_supply_chain",
     "rp_05_at_the_airport_a2b1",
     "skills_a2_trade_fair_problems",
+    "b2_103_logistics_late_delivery",
     "aviation_eapt_10"
    ]
   },
@@ -55574,7 +55599,6 @@ window.WORDBANK={
     "say_number_c1",
     "tib_fiveforces_b2",
     "gr_b2_the_upgrade",
-    "bc_procurement_price_increase_c1",
     "skills_b1b2_trade_fair_negotiating",
     "Business-Bootcamp-Lesson4-The-Numbers",
     "may_might_could_professional",
@@ -55621,7 +55645,6 @@ window.WORDBANK={
     "bc_lego_a2b1",
     "odyssey_george_iv",
     "speaking_naturally_teens_06_generation_vs_parents",
-    "b2_97_retail_banking_loan_decline",
     "behind_the_screen_the_big_short_a2b1"
    ]
   },
@@ -55749,7 +55772,6 @@ window.WORDBANK={
    "lessons": [
     "bc_lost_in_translation_b2",
     "ct_b1_26_abstract_concepts",
-    "b2_101_design_brand_stretch",
     "sp_prep_b1_26"
    ]
   },
@@ -55949,20 +55971,23 @@ window.WORDBANK={
   "downtime": {
    "w": "downtime",
    "pos": "n",
-   "def": "measured, feared, priced. Collocations: unplanned downtime, to minimise downtime, an hour of downtime costs…",
-   "ex": "",
+   "def": "the total time a system cannot be used",
+   "ex": "Last month's downtime was under two hours.",
    "lessons": [
-    "bc_maersk_notpetya_c1"
+    "bc_maersk_notpetya_c1",
+    "b2_95_it_outage_communication"
    ]
   },
   "workaround": {
    "w": "workaround",
    "pos": "n",
-   "def": "from to work around a problem. In this case: WhatsApp groups, personal Gmail, paper manifests and people who remembered how the pre-computer processes worked.",
-   "ex": "",
+   "def": "a temporary way to keep working until the fix",
+   "ex": "Use the shared spreadsheet as a workaround.",
    "lessons": [
     "bc_maersk_notpetya_c1",
-    "problem_solving_under_pressure"
+    "bc_software_technical_debt_c1",
+    "problem_solving_under_pressure",
+    "b2_95_it_outage_communication"
    ]
   },
   "resilience": {
@@ -56214,7 +56239,6 @@ window.WORDBANK={
     "bc_marvel_a2b1",
     "rp_20_at_the_library_a2b1",
     "su_a2_33_mistakes_and_misadventures",
-    "b2_97_retail_banking_loan_decline",
     "behind_the_screen_the_big_short_a2b1"
    ]
   },
@@ -57137,7 +57161,6 @@ window.WORDBANK={
    "ex": "Who sets the boundaries now?",
    "lessons": [
     "bc_onlinetherapy_a2b1",
-    "bc_pharma_off_label_c1",
     "gr_warmup_b2_hot_takes_parenting",
     "su_a2_54_managing_time_with_others",
     "b2_75_managing_stress"
@@ -58602,11 +58625,12 @@ window.WORDBANK={
   "draft": {
    "w": "draft",
    "pos": "n",
-   "def": "A first version of a text, before it is finished.",
-   "ex": "Now the machine writes the draft and a person corrects it.",
+   "def": "a version of a piece of writing, not yet final",
+   "ex": "This is a strong first draft.",
    "lessons": [
     "bc_translation_a2b1",
-    "writing_poetry_revision"
+    "writing_poetry_revision",
+    "b2_100_publishing_author_feedback"
    ]
   },
   "responsible": {
@@ -58804,7 +58828,6 @@ window.WORDBANK={
     "bc_tylenol_c1",
     "gr_c1_spotting_the_spin",
     "bc_organising_client_events_c1",
-    "bc_software_technical_debt_c1",
     "bp_c2_06_the_consultants_edge",
     "leading_international_teams",
     "prof_c1_09_stakeholder_management",
@@ -58952,8 +58975,8 @@ window.WORDBANK={
   "compliance": {
    "w": "compliance",
    "pos": "n",
-   "def": "compliance department, compliance culture, non-compliance. The case's bitter joke: the test was passed in perfect compliance with its letter.",
-   "ex": "",
+   "def": "following the rules a company must follow",
+   "ex": "Compliance requires me to record every request.",
    "lessons": [
     "bc_vw_dieselgate_c1",
     "gr_c1_the_boardroom",
@@ -59058,9 +59081,9 @@ window.WORDBANK={
   },
   "justify": {
    "w": "justify",
-   "pos": "",
-   "def": "or one register up: to substantiate. \"Nothing in the filing substantiated the valuation.\" The S-1's fatal property: it invited exactly this verb.",
-   "ex": "",
+   "pos": "v",
+   "def": "to explain why something is fair or reasonable",
+   "ex": "I had to justify the increase line by line.",
    "lessons": [
     "bc_wework_c1",
     "gr_b2_split_second",
@@ -59072,6 +59095,7 @@ window.WORDBANK={
     "concorso_unit_overview",
     "operation_absolute_resolve_lesson",
     "b2_15_celebrity_opinions",
+    "b2_94_accounting_fee_pushback",
     "sp_b1_33_justifying_examples",
     "sp_prep_b1_33"
    ]
@@ -59145,7 +59169,6 @@ window.WORDBANK={
     "bc_wirecard_a2b1",
     "su_a2_57_investigating_a_problem",
     "behind_the_screen_spotlight_a2b1",
-    "b2_95_it_outage_communication",
     "grammar_b2_06_advanced_passive"
    ]
   },
@@ -59223,7 +59246,6 @@ window.WORDBANK={
     "ts_noise_b2",
     "skills_b2c1_compliance_manager_role",
     "st_pro_12_storytellers_toolkit",
-    "b2_94_accounting_fee_pushback",
     "may_might_could_finance"
    ]
   },
@@ -59659,14 +59681,15 @@ window.WORDBANK={
   "contingency": {
    "w": "contingency",
    "pos": "n",
-   "def": "a possible future event or situation that is planned for in case it happens; a backup plan for the unexpected.",
-   "ex": "Whatever happens, we have a contingency for it.",
+   "def": "a backup plan if something goes wrong",
+   "ex": "We have a contingency for critical parts.",
    "lessons": [
     "behind_the_screen_apollo_13",
     "behind_the_screen_first_man",
     "short_history_apollo_13",
     "skills_b2c1_playing_a_different_game",
     "art_museum_heist_c1c2",
+    "b2_103_logistics_late_delivery",
     "bc_adapt_presentation_c1"
    ]
   },
@@ -60656,8 +60679,8 @@ window.WORDBANK={
   "defect": {
    "w": "defect",
    "pos": "n",
-   "def": "a fault or imperfection in something, often one that stops it working perfectly.",
-   "ex": "",
+   "def": "a fault in a part or product",
+   "ex": "The defect rate has doubled this month.",
    "lessons": [
     "behind_the_screen_gattaca",
     "short_history_the_berlin_wall",
@@ -61110,8 +61133,7 @@ window.WORDBANK={
     "ts_forssmann_b2",
     "art_museum_heist_c1c2",
     "techniques_the_stolen_bacillus",
-    "wp_07_the_last_day",
-    "b2_101_design_brand_stretch"
+    "wp_07_the_last_day"
    ]
   },
   "highly profitable": {
@@ -61724,9 +61746,9 @@ window.WORDBANK={
   },
   "escalate": {
    "w": "escalate",
-   "pos": "verb",
-   "def": "to become, or make something become, more intense, more serious or more violent by stages.",
-   "ex": "",
+   "pos": "v",
+   "def": "to raise an issue with a higher authority",
+   "ex": "If they refuse, we'll escalate to their medical director.",
    "lessons": [
     "behind_the_screen_suffragette",
     "discuss_b2c1_hinge_moments",
@@ -61737,6 +61759,8 @@ window.WORDBANK={
     "speaking_naturally_05_complaining_problems",
     "rp_07_at_the_bank",
     "wk_29_the_front_desk",
+    "b2_96_engineering_safety_concerns",
+    "bc_healthcare_billing_c1",
     "sp_b1_31_managing_disagreement",
     "essay_practice_problem_solution_2"
    ]
@@ -63156,11 +63180,12 @@ window.WORDBANK={
   "runway": {
    "w": "runway",
    "pos": "n",
-   "def": ": cash ÷ burn rate, which is how long the company can survive before it runs out of money. We have 18 months of runway; we're running out of runway.",
-   "ex": "With $800,000 in the bank and a burn rate of $200,000 a month, the company has a runway of four months.",
+   "def": "enough time and resources to do work properly",
+   "ex": "Give us a realistic runway and you'll get better work.",
    "lessons": [
     "c1_pro_21_financial_literacy",
     "aviation_eapt_08",
+    "bc_investment_banking_pitch_c1",
     "aviation_eapt_02",
     "grammar_b2_01_past_perfect_continuous_narrative"
    ]
@@ -64026,8 +64051,7 @@ window.WORDBANK={
    "ex": "Each component is simple; the whole is not.",
    "lessons": [
     "discuss_c1_more_is_different",
-    "c1_pro_22_supply_chain",
-    "b2_102_manufacturing_supplier_quality"
+    "c1_pro_22_supply_chain"
    ]
   },
   "collective": {
@@ -64631,7 +64655,6 @@ window.WORDBANK={
     "tib_fivewhys_b2",
     "tib_tuckman_b2",
     "skills_b1b2_trade_fair_objections",
-    "b2_96_engineering_safety_concerns",
     "ml_02_the_screen_time_talk",
     "sp_prep_b1_27"
    ]
@@ -64685,9 +64708,9 @@ window.WORDBANK={
   },
   "push back": {
    "w": "push back",
-   "pos": "",
-   "def": "She pushed back on the deadline. Noun: pushback. More: Diplomatic Disagreement · Handling Pushback on Fees.",
-   "ex": "",
+   "pos": "phr v",
+   "def": "to disagree politely and ask for a change",
+   "ex": "The client pushed back on the extra hours.",
    "lessons": [
     "end_hold_c1",
     "skills_c1_senior_interview_2_leadership",
@@ -64695,7 +64718,8 @@ window.WORDBANK={
     "rp_22_talking_about_sport",
     "bestiary_discourse_navigate",
     "when_yes_doesnt_mean_yes_c1",
-    "wk_01_speaking_up_in_the_meeting"
+    "wk_01_speaking_up_in_the_meeting",
+    "b2_94_accounting_fee_pushback"
    ]
   },
   "stand your ground": {
@@ -64988,8 +65012,8 @@ window.WORDBANK={
   "precedent": {
    "w": "precedent",
    "pos": "n",
-   "def": "binding on lower courts, persuasive otherwise. The doctrine is stare decisis. Verbs to collect: to set a precedent, to follow, to distinguish (say it doesn't apply here), to overrule (kill it).",
-   "ex": "",
+   "def": "an earlier case that guides current decisions",
+   "ex": "There is no precedent for this approach.",
    "lessons": [
     "lw_donoghue_c1",
     "nq_06_is_it_right_c1",
@@ -64997,7 +65021,8 @@ window.WORDBANK={
     "short_history_queen_victoria",
     "bc_supervisor_communication_phd",
     "skills_b1b2_trade_fair_negotiating",
-    "operation_absolute_resolve_lesson"
+    "operation_absolute_resolve_lesson",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "duty of care": {
@@ -65018,7 +65043,6 @@ window.WORDBANK={
     "lw_dudley_stephens_c1",
     "nq_06_is_it_right_c1",
     "rs_y9_aut1_13_03",
-    "bc_healthcare_billing_c1",
     "qf_spelling_necessary"
    ]
   },
@@ -65482,11 +65506,12 @@ window.WORDBANK={
   },
   "bottleneck": {
    "w": "bottleneck",
-   "pos": "",
-   "def": "a point where progress is held up, limiting how fast everything else can move.",
-   "ex": "The slow approval step was the bottleneck: every other part of the project had to wait for it.",
+   "pos": "n",
+   "def": "a point where progress is slowed",
+   "ex": "The build system is the main bottleneck.",
    "lessons": [
     "nq_03_what_first_c1",
+    "bc_software_technical_debt_c1",
     "scenario-lessons",
     "lesson-21-speed-memorization",
     "academic_writing_error_correction_interactive"
@@ -65513,11 +65538,12 @@ window.WORDBANK={
   },
   "scope creep": {
    "w": "scope creep",
-   "pos": "",
-   "def": "The brief began as one report and, through scope creep, became a whole programme.",
-   "ex": "",
+   "pos": "n",
+   "def": "slow growth of work beyond what was agreed",
+   "ex": "Scope creep made the project late.",
    "lessons": [
-    "nq_03_what_first_c1"
+    "nq_03_what_first_c1",
+    "bc_software_technical_debt_c1"
    ]
   },
   "vital few": {
@@ -65639,13 +65665,15 @@ window.WORDBANK={
   },
   "root cause": {
    "w": "root cause",
-   "pos": "",
-   "def": "the basic, underlying reason why something happens. Also: to get to the root of a problem.",
-   "ex": "When they traced the delays back, the root cause turned out to be a single missing signature at the start of the process.",
+   "pos": "n",
+   "def": "the real reason behind a problem",
+   "ex": "We will share the root cause on Friday.",
    "lessons": [
     "nq_05_why_c1",
     "tib_fishbone_b2",
+    "b2_102_manufacturing_supplier_quality",
     "b2_39_best_email_replies",
+    "b2_95_it_outage_communication",
     "sp_prep_b1_34"
    ]
   },
@@ -65728,9 +65756,9 @@ window.WORDBANK={
   },
   "consent": {
    "w": "consent",
-   "pos": "verb / noun",
-   "def": "permission freely given, usually after being told what will happen. Verb: to consent to.",
-   "ex": "The patients had given consent to treatment, but not to having their private answers shared with advertisers.",
+   "pos": "n",
+   "def": "a patient's formal agreement to go ahead",
+   "ex": "We need your consent before we begin.",
    "lessons": [
     "nq_06_is_it_right_c1",
     "odyssey_william_mary",
@@ -65740,7 +65768,8 @@ window.WORDBANK={
     "rs_y11_spr1_27_02",
     "gr_warmup_b2_hot_takes_privacy",
     "rs_y8_spr1_09_03",
-    "lesson_44_ethics_moral_dilemmas"
+    "lesson_44_ethics_moral_dilemmas",
+    "b2_99_clinical_anxious_patient"
    ]
   },
   "lesser evil": {
@@ -65906,14 +65935,15 @@ window.WORDBANK={
   "restore": {
    "w": "restore",
    "pos": "v",
-   "def": "to bring back to a former position.",
-   "ex": "",
+   "def": "to bring something back to normal working order",
+   "ex": "Engineers restored the service at 11:40.",
    "lessons": [
     "odyssey_aethelred",
     "odyssey_edward_iv",
     "odyssey_henry_vi",
     "odyssey_mary_i",
-    "c2_pro_19_conflict_transformation"
+    "c2_pro_19_conflict_transformation",
+    "b2_95_it_outage_communication"
    ]
   },
   "conditions": {
@@ -66551,7 +66581,6 @@ window.WORDBANK={
     "ts_smallpox_b2",
     "world_la_time",
     "c1_pro_24_marketing_campaigns",
-    "bc_advertising_defend_creative_c1",
     "cae_essay_practice_4"
    ]
   },
@@ -68021,9 +68050,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "odyssey_edward_the_elder",
-    "bc_procurement_price_increase_c1",
-    "deep_space_05_dark",
-    "bc_consulting_reset_expectations_c1"
+    "deep_space_05_dark"
    ]
   },
   "faction": {
@@ -70017,7 +70044,6 @@ window.WORDBANK={
     "rp_26_a_wedding_invitation",
     "epicurean_19_the_decline",
     "the-art-of-growing-older",
-    "b2_97_retail_banking_loan_decline",
     "a1p_29_making_suggestions",
     "a1p_44_making_invitations",
     "IELTS-Reading-Practice-Test-1",
@@ -71011,8 +71037,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_owain_glyndwr",
     "c2_pro_19_conflict_transformation",
-    "rp_07_at_the_bank",
-    "bc_healthcare_billing_c1"
+    "rp_07_at_the_bank"
    ]
   },
   "rising": {
@@ -73039,8 +73064,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "piranesi_bc_journals",
-    "short_history_the_seven_wonders",
-    "bc_advertising_defend_creative_c1"
+    "short_history_the_seven_wonders"
    ]
   },
   "read into": {
@@ -74455,7 +74479,6 @@ window.WORDBANK={
     "acad_b1_16_finding_information",
     "bl_01_memory_liar",
     "first_lesson_b2c1",
-    "b2_102_manufacturing_supplier_quality",
     "talk_adult_friendships_a2b1",
     "may_might_could_finance"
    ]
@@ -75072,8 +75095,7 @@ window.WORDBANK={
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
     "ml_23_the_ai_mistake",
-    "skills_a2_trade_fair_your_product",
-    "b2_94_accounting_fee_pushback"
+    "skills_a2_trade_fair_your_product"
    ]
   },
   "relationship": {
@@ -75712,8 +75734,8 @@ window.WORDBANK={
   "reassure": {
    "w": "reassure",
    "pos": "v",
-   "def": "to say or do something that makes someone feel less worried.",
-   "ex": "A quick, honest statement did more to reassure the public than a long defence.",
+   "def": "to help someone feel calmer and more confident",
+   "ex": "I tried to reassure her without hiding the risks.",
    "lessons": [
     "say_bridge_c1",
     "techniques_hills_like_white_elephants",
@@ -77161,13 +77183,14 @@ window.WORDBANK={
   "exposure": {
    "w": "exposure",
    "pos": "n",
-   "def": "the state of being unprotected against something harmful, such as radiation, cold or danger.",
-   "ex": "Doctors warned that even a few minutes of exposure to the leak could harm the body — and the men who had stood closest to it for hours fell ill within days.",
+   "def": "the degree to which someone is at risk of loss",
+   "ex": "The board's personal exposure is significant.",
    "lessons": [
     "short_history_chernobyl",
     "ts_marie_curie_b2",
     "b1_36_awareness_campaign",
     "wk_40_two_floors_with_the_ceo",
+    "bc_legal_unwelcome_advice_c1",
     "cae_essay_practice_1"
    ]
   },
@@ -77279,7 +77302,6 @@ window.WORDBANK={
     "techniques_the_verger_ielts",
     "topic_strangers_b2",
     "gr_b2_the_ranking_game",
-    "bc_legal_unwelcome_advice_c1",
     "sp_b2_44_building_on_ideas",
     "grammar_c1_16_formal_style_word_formation"
    ]
@@ -77694,7 +77716,6 @@ window.WORDBANK={
     "short_history_the_renaissance",
     "short_history_the_taj_mahal",
     "gr_warmup_b2_hot_takes_art",
-    "b2_100_publishing_author_feedback",
     "b2_24_clarity_is_key"
    ]
   },
@@ -78715,7 +78736,6 @@ window.WORDBANK={
     "short_history_marco_polo",
     "techniques_idgah",
     "techniques_the_gift_of_the_magi",
-    "bc_procurement_price_increase_c1",
     "rp_17_haggling_at_a_market",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "ml_28_selling_your_sofa"
@@ -79022,11 +79042,12 @@ window.WORDBANK={
   "consignment": {
    "w": "consignment",
    "pos": "n",
-   "def": "a quantity of goods sent or delivered together as a single load.",
-   "ex": "",
+   "def": "a shipment being moved",
+   "ex": "Your consignment is held at customs.",
    "lessons": [
     "short_history_mutiny_on_the_bounty",
-    "short_history_the_mary_celeste"
+    "short_history_the_mary_celeste",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "flogging": {
@@ -80239,7 +80260,6 @@ window.WORDBANK={
     "short_history_the_bermuda_triangle",
     "rp_15_renting_a_flat",
     "lesson_02_speaking_naturally_interactive",
-    "b2_101_design_brand_stretch",
     "qf_pronunciation_minimal_pairs_i"
    ]
   },
@@ -80803,8 +80823,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_fall_of_constantinople",
-    "gr_c1_the_press_conference",
-    "bc_pharma_off_label_c1"
+    "gr_c1_the_press_conference"
    ]
   },
   "sultan": {
@@ -83869,11 +83888,12 @@ window.WORDBANK={
   },
   "bandwidth": {
    "w": "bandwidth",
-   "pos": "",
-   "def": "(n, uncountable) — informal for the time, attention and capacity available to take on work. “I don’t have the bandwidth for that right now.” Borrowed from engineering; very common in offices.",
-   "ex": "She was working at full stretch: the team simply had no bandwidth for a second project this quarter.",
+   "pos": "n",
+   "def": "the time and capacity a team has for more work",
+   "ex": "We don't have the bandwidth for three models.",
    "lessons": [
-    "skills_c1_senior_interview_2_leadership"
+    "skills_c1_senior_interview_2_leadership",
+    "bc_investment_banking_pitch_c1"
    ]
   },
   "sponsor": {
@@ -85727,7 +85747,6 @@ window.WORDBANK={
    "ex": "The big ship was ready to leave the port.",
    "lessons": [
     "techniques_eveline_a2b1",
-    "bc_software_technical_debt_c1",
     "lesson_18_passive_voice_present_past"
    ]
   },
@@ -86330,7 +86349,6 @@ window.WORDBANK={
     "techniques_jekyll_and_hyde_1_a2b1",
     "techniques_the_bet_a2b1",
     "behind_the_screen_dracula_a2b1",
-    "bc_legal_unwelcome_advice_c1",
     "a1p_03_what_do_you_do",
     "behind_the_screen_bridge_of_spies_a2b1"
    ]
@@ -91664,7 +91682,6 @@ window.WORDBANK={
     "the_art_of_the_analogy_c2",
     "the_curse_of_knowledge_c2",
     "rs_y7_aut2_02_02",
-    "bc_software_technical_debt_c1",
     "rs_y10_aut1_19_02",
     "rhetorical_devices_british_texts_interactive",
     "bc_explain_intuitively_c1",
@@ -91770,7 +91787,6 @@ window.WORDBANK={
     "c1_pro_07_cross_functional",
     "scenario-lessons",
     "skills_b1b2_trade_fair_elevator_pitch",
-    "b2_95_it_outage_communication",
     "IELTS Writing Quick Reference Guides",
     "sp_c1_67_technical_explanation",
     "acad_b2_01_academic_reading"
@@ -92579,9 +92595,9 @@ window.WORDBANK={
   },
   "insight": {
    "w": "insight",
-   "pos": "",
-   "def": "“The course gave me real insight into how I work with others.”",
-   "ex": "",
+   "pos": "n",
+   "def": "a human truth that a campaign is built on",
+   "ex": "The insight is that people hate being managed.",
    "lessons": [
     "tib_johari_b2",
     "tib_kolb_b2",
@@ -92589,6 +92605,7 @@ window.WORDBANK={
     "bc_powerful_presentations_c1",
     "c1_pro_02_executive_summaries",
     "b2_49_networking_events",
+    "bc_advertising_defend_creative_c1",
     "lesson_17_mixed_conditionals_wishes",
     "sp_c1_66_reformulation_mastery"
    ]
@@ -93203,12 +93220,13 @@ window.WORDBANK={
   },
   "hazard": {
    "w": "hazard",
-   "pos": "",
-   "def": "something that could cause harm or damage.",
-   "ex": "The engineers listed every hazard on the site: deep water, moving vehicles, electricity.",
+   "pos": "n",
+   "def": "something that could cause harm",
+   "ex": "A loose board is a serious hazard.",
    "lessons": [
     "tib_riskmatrix_b2",
-    "bc_passion_for_danger_c1"
+    "bc_passion_for_danger_c1",
+    "b2_96_engineering_safety_concerns"
    ]
   },
   "reduce": {
@@ -93348,12 +93366,13 @@ window.WORDBANK={
   },
   "settle": {
    "w": "settle",
-   "pos": "",
-   "def": "“After a month, the team settled and the arguments stopped.”",
-   "ex": "",
+   "pos": "v",
+   "def": "to agree and pay a final amount on a claim",
+   "ex": "We aim to settle claims within ten days.",
    "lessons": [
     "tib_tuckman_b2",
-    "short_history_the_vikings_a2b1"
+    "short_history_the_vikings_a2b1",
+    "b2_98_insurance_partial_claim"
    ]
   },
   "stage": {
@@ -94020,7 +94039,6 @@ window.WORDBANK={
     "topic_optimism_b2",
     "b1_12_life_coaching",
     "b1_25_career_development",
-    "bc_consulting_reset_expectations_c1",
     "bc_ielts_problem_solution_b2c1",
     "ielts_lesson_9_problem_solution"
    ]
@@ -94425,8 +94443,8 @@ window.WORDBANK={
   "anaesthetic": {
    "w": "anaesthetic",
    "pos": "n",
-   "def": "a drug that stops you feeling pain. Local = one small area, you stay awake; general = you are asleep. US spelling: anesthetic.",
-   "ex": "",
+   "def": "a medicine that stops you feeling pain",
+   "ex": "You'll have a local anaesthetic, so you'll be awake.",
    "lessons": [
     "ts_forssmann_b2",
     "b2_99_clinical_anxious_patient"
@@ -95040,11 +95058,12 @@ window.WORDBANK={
   },
   "flag": {
    "w": "flag",
-   "pos": "",
-   "def": "something (v) — to draw attention to an issue so others can see it. \"I want to flag a risk.\" · \"Flagging this early.\" Useful neighbours: to raise an issue, to surface a problem, to escalate (send it upward).",
-   "ex": "",
+   "pos": "v",
+   "def": "to raise something for attention",
+   "ex": "I'm flagging this now so you can plan.",
    "lessons": [
-    "work_story_first_person_to_say_red"
+    "work_story_first_person_to_say_red",
+    "bc_consulting_reset_expectations_c1"
    ]
   },
   "psychological safety": {
@@ -99560,8 +99579,7 @@ window.WORDBANK={
    "def": "coming early, before the main or final part",
    "ex": "These are preliminary results, so we cannot be sure yet.",
    "lessons": [
-    "acad_c1_09_hedging_in_academia",
-    "bc_investment_banking_pitch_c1"
+    "acad_c1_09_hedging_in_academia"
    ]
   },
   "distorted": {
@@ -99579,8 +99597,7 @@ window.WORDBANK={
    "def": "to refuse to change your position under pressure",
    "ex": "Despite the pressure, she managed to hold the line on the budget.",
    "lessons": [
-    "acad_c1_09_hedging_in_academia",
-    "b2_94_accounting_fee_pushback"
+    "acad_c1_09_hedging_in_academia"
    ]
   },
   "submission": {
@@ -100314,7 +100331,6 @@ window.WORDBANK={
     "gr_b2_the_upgrade",
     "prof_c1_15_innovation_and_disruption",
     "scenario-lessons",
-    "b2_94_accounting_fee_pushback",
     "aviation_eapt_03",
     "sp_c1_03_diplomatic_disagreement"
    ]
@@ -100516,10 +100532,11 @@ window.WORDBANK={
   "pre-empt": {
    "w": "pre-empt",
    "pos": "v",
-   "def": "to deal with something before it happens or is raised",
-   "ex": "She pre-empted their questions by sharing the figures first.",
+   "def": "to act before a problem is raised by someone else",
+   "ex": "I wanted to pre-empt any surprises.",
    "lessons": [
     "gr_c1_the_boardroom",
+    "bc_consulting_reset_expectations_c1",
     "lf_39_the_subscription_trap"
    ]
   },
@@ -103973,8 +103990,7 @@ window.WORDBANK={
    "ex": "Catholic services are highly structured and follow set words.",
    "lessons": [
     "rs_y7_spr2_04_03",
-    "professional_interview_prep_interactive",
-    "b2_94_accounting_fee_pushback"
+    "professional_interview_prep_interactive"
    ]
   },
   "puja": {
@@ -104710,8 +104726,7 @@ window.WORDBANK={
    "lessons": [
     "bc_navigating_misunderstandings_c1",
     "ct_b1_27_acknowledging_views",
-    "sp_b1_27_acknowledging_views",
-    "b2_99_clinical_anxious_patient"
+    "sp_b1_27_acknowledging_views"
    ]
   },
   "sarcasm": {
@@ -104817,8 +104832,7 @@ window.WORDBANK={
     "bc_off_to_a_great_start_c1",
     "lf_13_saying_it_first",
     "prof_c1_05_crisis_communication",
-    "wk_09_the_performance_review",
-    "b2_99_clinical_anxious_patient"
+    "wk_09_the_performance_review"
    ]
   },
   "forgettable": {
@@ -104867,8 +104881,7 @@ window.WORDBANK={
    "lessons": [
     "bc_organising_client_events_c1",
     "rp_26_a_wedding_invitation",
-    "skills_a2_trade_fair_your_product",
-    "b2_103_logistics_late_delivery"
+    "skills_a2_trade_fair_your_product"
    ]
   },
   "risk assessment": {
@@ -105130,8 +105143,8 @@ window.WORDBANK={
   "off-label": {
    "w": "off-label",
    "pos": "adj",
-   "def": "used for a purpose that a medicine is not officially approved for",
-   "ex": "The doctor asked whether the drug had any off-label uses.",
+   "def": "outside the uses a drug is officially licensed for",
+   "ex": "Off-label use is not something I can discuss.",
    "lessons": [
     "bc_pharma_off_label_c1"
    ]
@@ -105139,28 +105152,46 @@ window.WORDBANK={
   "indication": {
    "w": "indication",
    "pos": "n",
-   "def": "a medical condition that a drug is approved to treat",
-   "ex": "The medicine is licensed for only one indication in Europe.",
+   "def": "a medical condition a drug is approved to treat",
+   "ex": "This drug has one approved indication.",
    "lessons": [
     "bc_pharma_off_label_c1"
    ]
   },
-  "regulatory": {
-   "w": "regulatory",
-   "pos": "adj",
-   "def": "connected with official rules and the bodies that enforce them",
-   "ex": "Promoting unapproved uses could lead to serious regulatory problems.",
+  "promote": {
+   "w": "promote",
+   "pos": "v",
+   "def": "to actively encourage the use of a product",
+   "ex": "We may not promote beyond the licence.",
    "lessons": [
     "bc_pharma_off_label_c1",
-    "breaking_news_netflix_warner_bros_jan_2026",
-    "IELTS-Reading-Practice-Test-3"
+    "wk_20_promoted_over_a_friend",
+    "sentence_architecture"
    ]
   },
-  "clinician": {
-   "w": "clinician",
+  "unsolicited": {
+   "w": "unsolicited",
+   "pos": "adj",
+   "def": "asked for by the other person, not by you",
+   "ex": "This is an unsolicited enquiry from a clinician.",
+   "lessons": [
+    "bc_pharma_off_label_c1"
+   ]
+  },
+  "medical information": {
+   "w": "medical information",
    "pos": "n",
-   "def": "a doctor or nurse who treats patients directly",
-   "ex": "The clinician wanted data from patients rather than marketing claims.",
+   "def": "a separate team that answers clinical questions",
+   "ex": "I'll pass your question to medical information.",
+   "lessons": [
+    "bc_pharma_off_label_c1"
+   ]
+  },
+  "route (v)": {
+   "w": "route (v)",
+   "pos": "v",
+   "def": "to pass an enquiry to the right team",
+   "ex": "I'll route your question today.",
    "lessons": [
     "bc_pharma_off_label_c1"
    ]
@@ -105341,28 +105372,68 @@ window.WORDBANK={
     "acad_b1_04_writing_paragraphs"
    ]
   },
-  "ceiling": {
-   "w": "ceiling",
+  "price increase": {
+   "w": "price increase",
    "pos": "n",
-   "def": "the highest limit that something is allowed to reach",
-   "ex": "The finance team set a ceiling of five per cent on any increase.",
+   "def": "a rise in the price a supplier charges",
+   "ex": "A nine per cent price increase is too high.",
    "lessons": [
-    "bc_procurement_price_increase_c1",
-    "ml_10_the_holiday_budget",
-    "qf_collocation_high_tall"
+    "bc_procurement_price_increase_c1"
    ]
   },
-  "transparency": {
-   "w": "transparency",
+  "pass-through": {
+   "w": "pass-through",
+   "pos": "adj",
+   "def": "passed on directly to the customer",
+   "ex": "These are pass-through costs, not margin.",
+   "lessons": [
+    "bc_procurement_price_increase_c1"
+   ]
+  },
+  "volume leverage": {
+   "w": "volume leverage",
    "pos": "n",
-   "def": "being open and honest about information",
-   "ex": "More transparency about costs helped both companies trust each other.",
+   "def": "bargaining power from the size of your orders",
+   "ex": "Our volume leverage should count for something.",
+   "lessons": [
+    "bc_procurement_price_increase_c1"
+   ]
+  },
+  "framework agreement": {
+   "w": "framework agreement",
+   "pos": "n",
+   "def": "a long-term deal setting prices and terms",
+   "ex": "Let's discuss a two-year framework agreement.",
+   "lessons": [
+    "bc_procurement_price_increase_c1"
+   ]
+  },
+  "indexation": {
+   "w": "indexation",
+   "pos": "n",
+   "def": "linking a price to an external measure",
+   "ex": "Indexation makes future increases transparent.",
+   "lessons": [
+    "bc_procurement_price_increase_c1"
+   ]
+  },
+  "benchmark": {
+   "w": "benchmark",
+   "pos": "v",
+   "def": "to compare prices against the market",
+   "ex": "We benchmarked you against three suppliers.",
    "lessons": [
     "bc_procurement_price_increase_c1",
-    "c2_pro_02_crisis_communication",
-    "bc_company_culture_c1",
-    "sp_b2_44_building_on_ideas",
-    "sp_prep_c1_06"
+    "b2_89_you_have_to_apply_for_that"
+   ]
+  },
+  "counter-proposal": {
+   "w": "counter-proposal",
+   "pos": "n",
+   "def": "a structured response to an offer",
+   "ex": "Here is our counter-proposal.",
+   "lessons": [
+    "bc_procurement_price_increase_c1"
    ]
   },
   "soft spot": {
@@ -105619,39 +105690,45 @@ window.WORDBANK={
   },
   "technical debt": {
    "w": "technical debt",
-   "pos": "phr",
-   "def": "future work caused by choosing a quick, easy solution now",
-   "ex": "Years of rushed releases left the company with huge technical debt.",
+   "pos": "n",
+   "def": "unfinished work that slows every future change",
+   "ex": "Technical debt is slowing every release.",
    "lessons": [
     "bc_software_technical_debt_c1"
-   ]
-  },
-  "sprint": {
-   "w": "sprint",
-   "pos": "n",
-   "def": "a short fixed period in which a software team completes work",
-   "ex": "We plan to fix the login problems in the next sprint.",
-   "lessons": [
-    "bc_software_technical_debt_c1",
-    "presenting_online_project_manager"
-   ]
-  },
-  "deliberately": {
-   "w": "deliberately",
-   "pos": "adv",
-   "def": "on purpose, after thinking about it",
-   "ex": "We deliberately chose the simple design to meet the deadline.",
-   "lessons": [
-    "bc_software_technical_debt_c1",
-    "wk_13_the_mistake",
-    "ib_lesson_02_naming_techniques"
    ]
   },
   "pay down": {
    "w": "pay down",
    "pos": "phr v",
-   "def": "to reduce a debt by paying part of it",
-   "ex": "This quarter we will pay down some of the debt in our old code.",
+   "def": "to reduce a debt by doing the cleanup work",
+   "ex": "We want to pay down the worst debt first.",
+   "lessons": [
+    "bc_software_technical_debt_c1"
+   ]
+  },
+  "velocity": {
+   "w": "velocity",
+   "pos": "n",
+   "def": "the speed at which a team delivers value",
+   "ex": "Our velocity has dropped by a third.",
+   "lessons": [
+    "bc_software_technical_debt_c1"
+   ]
+  },
+  "brittle": {
+   "w": "brittle",
+   "pos": "adj",
+   "def": "working, but easily broken when touched",
+   "ex": "The old payment code is brittle.",
+   "lessons": [
+    "bc_software_technical_debt_c1"
+   ]
+  },
+  "proof of concept": {
+   "w": "proof of concept",
+   "pos": "n",
+   "def": "a small test of whether an approach works",
+   "ex": "Let's build a proof of concept first.",
    "lessons": [
     "bc_software_technical_debt_c1"
    ]
@@ -105725,8 +105802,7 @@ window.WORDBANK={
    "def": "a practical use for an idea or technology",
    "ex": "The new material has many applications in medicine.",
    "lessons": [
-    "bc_solutions_c1",
-    "b2_97_retail_banking_loan_decline"
+    "bc_solutions_c1"
    ]
   },
   "sense of mission": {
@@ -108931,8 +109007,7 @@ window.WORDBANK={
    "ex": "This medicine might make you drowsy, so do not drive.",
    "lessons": [
     "rp_14_at_the_pharmacy",
-    "b2_26_modern_medicine",
-    "b2_99_clinical_anxious_patient"
+    "b2_26_modern_medicine"
    ]
   },
   "chesty": {
@@ -108959,11 +109034,12 @@ window.WORDBANK={
   "side effect": {
    "w": "side effect",
    "pos": "n",
-   "def": "an extra, often unwanted result of taking a medicine",
-   "ex": "Feeling sick is a common side effect of these tablets.",
+   "def": "an unwanted effect of a treatment",
+   "ex": "The most common side effect is mild drowsiness.",
    "lessons": [
     "rp_14_at_the_pharmacy",
-    "b1_40_alternative_medicine_wellness"
+    "b1_40_alternative_medicine_wellness",
+    "b2_99_clinical_anxious_patient"
    ]
   },
   "lingering": {
@@ -109719,8 +109795,7 @@ window.WORDBANK={
    "def": "giving a drug to make someone calm or sleepy",
    "ex": "The cat needs sedation before the X-ray.",
    "lessons": [
-    "rp_25_at_the_vet",
-    "b2_99_clinical_anxious_patient"
+    "rp_25_at_the_vet"
    ]
   },
   "unwell": {
@@ -110489,7 +110564,6 @@ window.WORDBANK={
    "ex": "Bring all your paperwork to the appointment.",
    "lessons": [
     "rp_34_at_the_town_hall",
-    "b2_103_logistics_late_delivery",
     "lf_06_the_house"
    ]
   },
@@ -110650,8 +110724,7 @@ window.WORDBANK={
     "rp_37_at_the_consulate",
     "acad_c2_13_methodology",
     "bc_business_rules_innovation_c1",
-    "aviation_eapt_02",
-    "b2_99_clinical_anxious_patient"
+    "aviation_eapt_02"
    ]
   },
   "stranded": {
@@ -112604,8 +112677,7 @@ window.WORDBANK={
     "su_a2_68_joining_instructions",
     "c1_pro_10_meeting_facilitation",
     "skills_b1_simple_small_talk_for_work",
-    "wk_08_chairing_the_meeting",
-    "b2_101_design_brand_stretch"
+    "wk_08_chairing_the_meeting"
    ]
   },
   "conference": {
@@ -112936,12 +113008,13 @@ window.WORDBANK={
   "rationale": {
    "w": "rationale",
    "pos": "n",
-   "def": "the reasons or logic behind a decision",
-   "ex": "Explain the rationale for your plan in one slide.",
+   "def": "the reasoning behind a creative choice",
+   "ex": "Our rationale is in the first three slides.",
    "lessons": [
     "su_a2_75_presentation_structure",
     "acad_c2_09_systematic_reviews",
     "prof_c1_03_executive_presence",
+    "bc_advertising_defend_creative_c1",
     "sp_prep_c1_03",
     "concorso_ab24_english_teacher"
    ]
@@ -113799,7 +113872,6 @@ window.WORDBANK={
     "acad_b1_07_basic_presentations",
     "c1_pro_13_employee_engagement",
     "b2_76_creating_connections",
-    "bc_consulting_reset_expectations_c1",
     "cae_essay_practice_3",
     "IELTS-Reading-Practice-Test-7"
    ]
@@ -113847,8 +113919,7 @@ window.WORDBANK={
    "def": "to help two sides end a disagreement",
    "ex": "A neighbour offered to mediate between the two families.",
    "lessons": [
-    "acad_b1_09_working_in_pairs",
-    "bc_healthcare_billing_c1"
+    "acad_b1_09_working_in_pairs"
    ]
   },
   "turn-taking": {
@@ -114870,7 +114941,6 @@ window.WORDBANK={
     "ml_13_the_apology",
     "wk_07_asking_to_work_from_home",
     "wk_33_the_deadline",
-    "bc_consulting_reset_expectations_c1",
     "ielts_lesson_20_final_strategies"
    ]
   },
@@ -114953,7 +115023,6 @@ window.WORDBANK={
    "ex": "We took a portable speaker to the picnic.",
    "lessons": [
     "b1_04_technology_friend_or_foe",
-    "b2_98_insurance_partial_claim",
     "ml_26_the_holiday_rental",
     "qf_falsefriend_german_handy",
     "lesson-03-body-pegs"
@@ -119176,8 +119245,7 @@ window.WORDBANK={
    "ex": "We explored a dark cave with torches.",
    "lessons": [
     "behind_the_screen_the_matrix_a2b1",
-    "lesson_dinosaurs_speaking_EXPANDED",
-    "bc_advertising_defend_creative_c1"
+    "lesson_dinosaurs_speaking_EXPANDED"
    ]
   },
   "website": {
@@ -120371,8 +120439,7 @@ window.WORDBANK={
    "lessons": [
     "breaking_news_milan_cortina_jan_2026",
     "prof_c1_11_corporate_storytelling",
-    "wk_04_the_difficult_conversation",
-    "b2_103_logistics_late_delivery"
+    "wk_04_the_difficult_conversation"
    ]
   },
   "overtime": {
@@ -120383,6 +120450,16 @@ window.WORDBANK={
    "lessons": [
     "breaking_news_milan_cortina_jan_2026",
     "b2_35_getting_a_pay_rise"
+   ]
+  },
+  "regulatory": {
+   "w": "regulatory",
+   "pos": "adj",
+   "def": "connected with official rules that control an activity",
+   "ex": "The merger still needs regulatory approval.",
+   "lessons": [
+    "breaking_news_netflix_warner_bros_jan_2026",
+    "IELTS-Reading-Practice-Test-3"
    ]
   },
   "approval": {
@@ -121101,12 +121178,13 @@ window.WORDBANK={
   "non-negotiable": {
    "w": "non-negotiable",
    "pos": "adj",
-   "def": "not open to discussion or change",
-   "ex": "Safety rules on this site are non-negotiable.",
+   "def": "impossible to change or trade",
+   "ex": "Safety requirements are non-negotiable.",
    "lessons": [
     "greenland_tariffs_c1",
     "leading_under_pressure",
     "prof_c1_01_managing_difficult_conversations",
+    "b2_96_engineering_safety_concerns",
     "bc_academic_notetaking_for_phd_c1"
    ]
   },
@@ -122053,7 +122131,6 @@ window.WORDBANK={
    "ex": "We should look carefully at the motivation for the violence.",
    "lessons": [
     "rs_y8_spr2_10_01",
-    "b2_100_publishing_author_feedback",
     "lesson_47_psychology_behavior",
     "essay_practice_two_part"
    ]
@@ -122438,7 +122515,6 @@ window.WORDBANK={
    "ex": "The day at Arafat is the climax of the journey.",
    "lessons": [
     "rs_y8_sum2_12_02",
-    "b2_100_publishing_author_feedback",
     "sp_a2_04_telling_stories"
    ]
   },
@@ -123836,8 +123912,7 @@ window.WORDBANK={
    "def": "to become exhausted from working too hard for too long",
    "ex": "If you never rest, you will burn out.",
    "lessons": [
-    "talk_homework_b2c1",
-    "bc_investment_banking_pitch_c1"
+    "talk_homework_b2c1"
    ]
   },
   "endorsement": {
@@ -123874,7 +123949,6 @@ window.WORDBANK={
    "ex": "Edited photos create unrealistic beauty standards.",
    "lessons": [
     "talk_influencers_b2c1",
-    "bc_investment_banking_pitch_c1",
     "sp_b1_38_hypotheticals"
    ]
   },
@@ -124038,8 +124112,7 @@ window.WORDBANK={
    "def": "official written information about how something works",
    "ex": "The software comes with clear documentation.",
    "lessons": [
-    "c1_pro_09_business_writing",
-    "bc_healthcare_billing_c1"
+    "c1_pro_09_business_writing"
    ]
   },
   "relevant": {
@@ -124093,12 +124166,13 @@ window.WORDBANK={
   "scope": {
    "w": "scope",
    "pos": "n",
-   "def": "the range of things a project deals with",
-   "ex": "The scope of the study is limited to young adults.",
+   "def": "the amount and type of work that has been agreed",
+   "ex": "The scope of the audit grew after the acquisition.",
    "lessons": [
     "c1_pro_12_project_management",
     "prof_c1_09_stakeholder_management",
     "wk_05_negotiating",
+    "b2_94_accounting_fee_pushback",
     "grammar_c2_07_academic_precision"
    ]
   },
@@ -124215,12 +124289,13 @@ window.WORDBANK={
   },
   "red flag": {
    "w": "red flag",
-   "pos": "phr",
-   "def": "a sign that there may be a problem",
-   "ex": "Arriving late to the interview was a red flag.",
+   "pos": "n",
+   "def": "a strong warning sign of risk",
+   "ex": "The missing approval is a red flag.",
    "lessons": [
     "c1_pro_17_recruitment",
-    "when_yes_doesnt_mean_yes_c1"
+    "when_yes_doesnt_mean_yes_c1",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "hire": {
@@ -124299,10 +124374,11 @@ window.WORDBANK={
   "expedite": {
    "w": "expedite",
    "pos": "v",
-   "def": "to make a process happen more quickly",
-   "ex": "We paid extra to expedite the delivery.",
+   "def": "to make something happen faster",
+   "ex": "I've asked them to expedite the paperwork.",
    "lessons": [
-    "c1_pro_22_supply_chain"
+    "c1_pro_22_supply_chain",
+    "b2_103_logistics_late_delivery"
    ]
   },
   "interaction": {
@@ -124556,10 +124632,11 @@ window.WORDBANK={
   "ring-fence": {
    "w": "ring-fence",
    "pos": "v",
-   "def": "to protect something so it can only be used for one purpose",
-   "ex": "The council ring-fenced the money for school repairs.",
+   "def": "to protect something from the rest of the business",
+   "ex": "We could ring-fence the liability in a subsidiary.",
    "lessons": [
-    "c1c2_the_ulysses_contract_for_leaders"
+    "c1c2_the_ulysses_contract_for_leaders",
+    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "conflict of interest": {
@@ -124643,6 +124720,18 @@ window.WORDBANK={
    "ex": "The old paper disintegrated when I touched it.",
    "lessons": [
     "c2_pro_02_crisis_communication"
+   ]
+  },
+  "transparency": {
+   "w": "transparency",
+   "pos": "n",
+   "def": "the quality of being open and honest about actions",
+   "ex": "Voters want more transparency about party funding.",
+   "lessons": [
+    "c2_pro_02_crisis_communication",
+    "bc_company_culture_c1",
+    "sp_b2_44_building_on_ideas",
+    "sp_prep_c1_06"
    ]
   },
   "swiftly": {
@@ -129800,7 +129889,6 @@ window.WORDBANK={
    "ex": "Can we sit down and talk properly this weekend?",
    "lessons": [
     "ml_32_the_house_guest",
-    "b2_96_engineering_safety_concerns",
     "aviation_eapt_01",
     "lf_18_i_m_fine"
    ]
@@ -129950,7 +130038,6 @@ window.WORDBANK={
    "lessons": [
     "ml_34_the_bad_recommendation",
     "wk_12_the_changing_brief",
-    "bc_healthcare_billing_c1",
     "gr_b1_speed_definitions",
     "grammar_c1_02_advanced_aspect"
    ]
@@ -131128,6 +131215,15 @@ window.WORDBANK={
     "gr_b2_stress_shift"
    ]
   },
+  "sprint": {
+   "w": "sprint",
+   "pos": "n",
+   "def": "a short fixed period of focused team work",
+   "ex": "We plan the next sprint every second Monday.",
+   "lessons": [
+    "presenting_online_project_manager"
+   ]
+  },
   "sector": {
    "w": "sector",
    "pos": "n",
@@ -131456,10 +131552,11 @@ window.WORDBANK={
   "post-mortem": {
    "w": "post-mortem",
    "pos": "n",
-   "def": "a review after a project to learn what went wrong",
-   "ex": "We held a post-mortem after the failed launch.",
+   "def": "a written review of what went wrong afterwards",
+   "ex": "The post-mortem will be ready by Friday.",
    "lessons": [
-    "prof_c1_13_building_high_performance_teams"
+    "prof_c1_13_building_high_performance_teams",
+    "b2_95_it_outage_communication"
    ]
   },
   "handoff": {
@@ -133100,8 +133197,8 @@ window.WORDBANK={
   "outage": {
    "w": "outage",
    "pos": "n",
-   "def": "a period when a system or service stops working",
-   "ex": "The outage affected thousands of online customers.",
+   "def": "a period when a system is not working",
+   "ex": "The outage affected every office in Europe.",
    "lessons": [
     "scenario-lessons",
     "b2_95_it_outage_communication"
@@ -135188,8 +135285,7 @@ window.WORDBANK={
    "def": "to gently push someone toward a choice without forcing them",
    "ex": "The app nudges users to drink more water.",
    "lessons": [
-    "the_invisible_hand",
-    "b2_102_manufacturing_supplier_quality"
+    "the_invisible_hand"
    ]
   },
   "choice architecture": {
@@ -135960,6 +136056,16 @@ window.WORDBANK={
     "wk_12_the_changing_brief"
    ]
   },
+  "deliberately": {
+   "w": "deliberately",
+   "pos": "adv",
+   "def": "on purpose, not by accident",
+   "ex": "He deliberately left the door open for the cat.",
+   "lessons": [
+    "wk_13_the_mistake",
+    "ib_lesson_02_naming_techniques"
+   ]
+  },
   "pre-emptively": {
    "w": "pre-emptively",
    "pos": "adv",
@@ -136139,16 +136245,6 @@ window.WORDBANK={
     "wk_19_the_reference"
    ]
   },
-  "promote": {
-   "w": "promote",
-   "pos": "v",
-   "def": "to give someone a higher position at work",
-   "ex": "They promoted her to head of sales.",
-   "lessons": [
-    "wk_20_promoted_over_a_friend",
-    "sentence_architecture"
-   ]
-  },
   "play down": {
    "w": "play down",
    "pos": "phr v",
@@ -136245,10 +136341,11 @@ window.WORDBANK={
   "goodwill": {
    "w": "goodwill",
    "pos": "n",
-   "def": "friendly feelings and trust between people or companies",
-   "ex": "Fixing the error quickly created a lot of goodwill.",
+   "def": "the positive feeling between a client and a firm",
+   "ex": "A clear explanation protects the goodwill we have built.",
    "lessons": [
     "wk_22_the_unpaid_invoice",
+    "b2_94_accounting_fee_pushback",
     "editor_dilemmas_game"
    ]
   },
@@ -138547,93 +138644,230 @@ window.WORDBANK={
     "epicurean_02_tetrapharmakos"
    ]
   },
-  "first draft": {
-   "w": "first draft",
-   "pos": "n",
-   "def": "the first version of a piece of writing",
-   "ex": "My first draft was far too long.",
-   "lessons": [
-    "b2_100_publishing_author_feedback"
-   ]
-  },
   "pacing": {
    "w": "pacing",
    "pos": "n",
-   "def": "the speed at which a story develops",
-   "ex": "The film's slow pacing made me fall asleep.",
+   "def": "how quickly or slowly a story moves",
+   "ex": "The pacing slows in the middle of the book.",
    "lessons": [
     "b2_100_publishing_author_feedback"
    ]
   },
-  "sag": {
-   "w": "sag",
+  "character arc": {
+   "w": "character arc",
+   "pos": "n",
+   "def": "the way a character changes during a story",
+   "ex": "Maria's character arc loses direction after chapter ten.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "developmental feedback": {
+   "w": "developmental feedback",
+   "pos": "n",
+   "def": "big-picture notes on structure, pace and characters",
+   "ex": "Developmental feedback comes before line editing.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "revision (n)": {
+   "w": "revision (n)",
+   "pos": "n",
+   "def": "a substantial rewrite based on feedback",
+   "ex": "The revision should take about six weeks.",
+   "lessons": [
+    "b2_100_publishing_author_feedback"
+   ]
+  },
+  "tighten": {
+   "w": "tighten",
    "pos": "v",
-   "def": "to become weaker or less interesting in the middle",
-   "ex": "The conversation began to sag after an hour.",
+   "def": "to cut and sharpen writing so it moves faster",
+   "ex": "Try to tighten the opening chapters.",
    "lessons": [
     "b2_100_publishing_author_feedback"
    ]
   },
-  "dig back in": {
-   "w": "dig back in",
-   "pos": "phr v",
-   "def": "to start working hard on something again",
-   "ex": "After a short rest, it is time to dig back in.",
+  "plot hole": {
+   "w": "plot hole",
+   "pos": "n",
+   "def": "a gap in the logic of a story",
+   "ex": "The letter appears twice, which creates a plot hole.",
    "lessons": [
     "b2_100_publishing_author_feedback"
+   ]
+  },
+  "land (v)": {
+   "w": "land (v)",
+   "pos": "v",
+   "def": "to connect with an audience as intended",
+   "ex": "The joke didn't land with older viewers.",
+   "lessons": [
+    "b2_100_publishing_author_feedback",
+    "bc_advertising_defend_creative_c1"
+   ]
+  },
+  "brand (n)": {
+   "w": "brand (n)",
+   "pos": "n",
+   "def": "the full identity of a business, not just its logo",
+   "ex": "A brand is how a company looks, sounds and feels.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
    ]
   },
   "brand refresh": {
    "w": "brand refresh",
    "pos": "n",
-   "def": "an update to the look of a company's name and image",
-   "ex": "The bank had a brand refresh with a new logo and colours.",
+   "def": "an update that keeps the core of a brand but modernises it",
+   "ex": "They asked for a refresh, not a complete rebrand.",
    "lessons": [
     "b2_101_design_brand_stretch"
    ]
   },
-  "route": {
-   "w": "route",
+  "route (n)": {
+   "w": "route (n)",
    "pos": "n",
-   "def": "one possible way or plan for doing something",
-   "ex": "We considered three routes for the new marketing plan.",
+   "def": "one creative direction shown to a client",
+   "ex": "We'll present three routes.",
    "lessons": [
-    "b2_101_design_brand_stretch",
-    "lesson-24-palace-architecture"
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "brand equity": {
+   "w": "brand equity",
+   "pos": "n",
+   "def": "the value a brand has built up through trust and recognition",
+   "ex": "The new logo must protect our brand equity.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "stretch (n)": {
+   "w": "stretch (n)",
+   "pos": "n",
+   "def": "a design that pushes the brand further than before",
+   "ex": "Route C is a deliberate stretch.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "modular": {
+   "w": "modular",
+   "pos": "adj",
+   "def": "made of parts that can be rearranged",
+   "ex": "A modular system works well on social media.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "design system": {
+   "w": "design system",
+   "pos": "n",
+   "def": "the rules, colours, type and components that keep a brand consistent",
+   "ex": "The design system keeps every page looking the same.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
+   ]
+  },
+  "tonal shift": {
+   "w": "tonal shift",
+   "pos": "n",
+   "def": "a change in the feel or voice of a brand",
+   "ex": "The tonal shift moves us from formal to friendly.",
+   "lessons": [
+    "b2_101_design_brand_stretch"
    ]
   },
   "batch": {
    "w": "batch",
    "pos": "n",
-   "def": "a group of things produced at the same time",
-   "ex": "The bakery makes a fresh batch of bread every hour.",
+   "def": "a group of products made together",
+   "ex": "The fault was traced to a single batch.",
    "lessons": [
     "b2_102_manufacturing_supplier_quality"
    ]
   },
-  "on the record": {
-   "w": "on the record",
-   "pos": "phr",
-   "def": "officially written down or stated in public",
-   "ex": "The mayor would not comment on the record.",
+  "out of spec": {
+   "w": "out of spec",
+   "pos": "adj",
+   "def": "not meeting the agreed technical standard",
+   "ex": "Three parts in the batch were out of spec.",
    "lessons": [
     "b2_102_manufacturing_supplier_quality"
    ]
   },
-  "at the earliest": {
-   "w": "at the earliest",
-   "pos": "phr",
-   "def": "not before the time mentioned",
-   "ex": "The repairs will be done next month at the earliest.",
+  "corrective action": {
+   "w": "corrective action",
+   "pos": "n",
+   "def": "what a supplier does to fix and prevent a problem",
+   "ex": "Please send a corrective action plan by Friday.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "tolerance": {
+   "w": "tolerance",
+   "pos": "n",
+   "def": "the acceptable range of variation in a measurement",
+   "ex": "The part is outside tolerance by 0.2 mm.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality",
+    "bc_education_and_training_c1"
+   ]
+  },
+  "non-conformance report": {
+   "w": "non-conformance report",
+   "pos": "n",
+   "def": "a formal record that a part failed its standard",
+   "ex": "I'm raising a non-conformance report today.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "quality audit": {
+   "w": "quality audit",
+   "pos": "n",
+   "def": "a structured review of a supplier's processes",
+   "ex": "We may need a quality audit at your site.",
+   "lessons": [
+    "b2_102_manufacturing_supplier_quality"
+   ]
+  },
+  "ETA": {
+   "w": "ETA",
+   "pos": "n",
+   "def": "the time you expect something to be finished",
+   "ex": "The ETA for the fix is 11:15.",
+   "lessons": [
+    "b2_103_logistics_late_delivery",
+    "b2_95_it_outage_communication"
+   ]
+  },
+  "customs clearance": {
+   "w": "customs clearance",
+   "pos": "n",
+   "def": "official permission for goods to cross a border",
+   "ex": "Customs clearance is the cause of the delay.",
    "lessons": [
     "b2_103_logistics_late_delivery"
    ]
   },
-  "production line": {
-   "w": "production line",
+  "re-route": {
+   "w": "re-route",
+   "pos": "v",
+   "def": "to change the planned path of a delivery",
+   "ex": "We can re-route part of the load by air.",
+   "lessons": [
+    "b2_103_logistics_late_delivery"
+   ]
+  },
+  "update (n)": {
+   "w": "update (n)",
    "pos": "n",
-   "def": "a system where products are made step by step in a factory",
-   "ex": "The car moves slowly along the production line.",
+   "def": "a short message saying what is happening now",
+   "ex": "I'll send you an update at 2 pm.",
    "lessons": [
     "b2_103_logistics_late_delivery"
    ]
@@ -140212,110 +140446,209 @@ window.WORDBANK={
     "b2_93_talking_about_books"
    ]
   },
-  "core system": {
-   "w": "core system",
+  "quote (n)": {
+   "w": "quote (n)",
    "pos": "n",
-   "def": "the main computer system that a business depends on",
-   "ex": "The core system crashed during the busiest hour.",
+   "def": "a price given before the work starts",
+   "ex": "Your quote said £4,000, but the invoice says £5,200.",
    "lessons": [
-    "b2_95_it_outage_communication"
+    "b2_94_accounting_fee_pushback"
    ]
   },
-  "informed": {
-   "w": "informed",
-   "pos": "adj",
-   "def": "having knowledge about a situation",
-   "ex": "We will keep you informed of any changes.",
-   "lessons": [
-    "b2_95_it_outage_communication"
-   ]
-  },
-  "panicked": {
-   "w": "panicked",
-   "pos": "adj",
-   "def": "feeling sudden strong fear that stops clear thinking",
-   "ex": "The panicked crowd rushed towards the exits.",
-   "lessons": [
-    "b2_95_it_outage_communication"
-   ]
-  },
-  "safety concern": {
-   "w": "safety concern",
+  "value for money": {
+   "w": "value for money",
    "pos": "n",
-   "def": "a worry that something could cause harm or injury",
-   "ex": "Workers raised a safety concern about the old ladder.",
+   "def": "the feeling that what you paid was worth it",
+   "ex": "Clients want to see value for money, not just a lower fee.",
    "lessons": [
-    "b2_96_engineering_safety_concerns"
+    "b2_94_accounting_fee_pushback"
    ]
   },
-  "on site": {
-   "w": "on site",
+  "line item": {
+   "w": "line item",
+   "pos": "n",
+   "def": "one separate cost or task on an invoice",
+   "ex": "Can you explain this line item for tax advice?",
+   "lessons": [
+    "b2_94_accounting_fee_pushback"
+   ]
+  },
+  "stand behind": {
+   "w": "stand behind",
+   "pos": "phr v",
+   "def": "to defend a decision because you believe it is right",
+   "ex": "I'm happy to stand behind this fee.",
+   "lessons": [
+    "b2_94_accounting_fee_pushback"
+   ]
+  },
+  "affected": {
+   "w": "affected",
+   "pos": "adj",
+   "def": "feeling the impact of a problem",
+   "ex": "Only users in London are affected.",
+   "lessons": [
+    "b2_95_it_outage_communication"
+   ]
+  },
+  "raise a concern": {
+   "w": "raise a concern",
    "pos": "phr",
-   "def": "at the place where building work is happening",
-   "ex": "Hard hats must be worn at all times on site.",
+   "def": "to formally bring a problem to someone's attention",
+   "ex": "I want to raise a concern about the east scaffold.",
    "lessons": [
     "b2_96_engineering_safety_concerns"
    ]
   },
-  "negative": {
-   "w": "negative",
-   "pos": "adj",
-   "def": "thinking only about the bad side of things",
-   "ex": "Try not to be so negative about the changes.",
+  "site inspection": {
+   "w": "site inspection",
+   "pos": "n",
+   "def": "a formal check of conditions on a work site",
+   "ex": "The site inspection found two problems.",
    "lessons": [
     "b2_96_engineering_safety_concerns"
    ]
   },
-  "missed payment": {
-   "w": "missed payment",
+  "sign-off": {
+   "w": "sign-off",
    "pos": "n",
-   "def": "a payment that was not made on time",
-   "ex": "One missed payment can hurt your credit score.",
+   "def": "formal approval that something is acceptable",
+   "ex": "I can't give sign-off until it is corrected.",
    "lessons": [
-    "b2_97_retail_banking_loan_decline"
+    "b2_96_engineering_safety_concerns"
    ]
   },
-  "ratio": {
-   "w": "ratio",
+  "near-miss": {
+   "w": "near-miss",
    "pos": "n",
-   "def": "the relationship between two amounts shown as numbers",
-   "ex": "The ratio of staff to customers is too low.",
+   "def": "an event where something nearly went wrong",
+   "ex": "Report every near-miss, even a small one.",
    "lessons": [
-    "b2_97_retail_banking_loan_decline"
+    "b2_96_engineering_safety_concerns"
    ]
   },
-  "payout": {
-   "w": "payout",
-   "pos": "n",
-   "def": "a large amount of money paid to someone",
-   "ex": "The insurance payout covered the new kitchen.",
-   "lessons": [
-    "b2_98_insurance_partial_claim"
-   ]
-  },
-  "small print": {
-   "w": "small print",
-   "pos": "n",
-   "def": "the details in a contract that are easy to miss",
-   "ex": "Always read the small print before you sign.",
-   "lessons": [
-    "b2_98_insurance_partial_claim"
-   ]
-  },
-  "covered": {
-   "w": "covered",
-   "pos": "adj",
-   "def": "protected by an insurance policy",
-   "ex": "Is water damage covered by your policy?",
-   "lessons": [
-    "b2_98_insurance_partial_claim"
-   ]
-  },
-  "burst": {
-   "w": "burst",
+  "decline (v)": {
+   "w": "decline (v)",
    "pos": "v",
-   "def": "to break open suddenly because of pressure",
-   "ex": "A pipe burst and flooded the basement.",
+   "def": "to formally refuse a request",
+   "ex": "We've had to decline the application on this occasion.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "creditworthiness": {
+   "w": "creditworthiness",
+   "pos": "n",
+   "def": "how likely someone is to repay a loan",
+   "ex": "Your creditworthiness is assessed on your payment history.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "credit score": {
+   "w": "credit score",
+   "pos": "n",
+   "def": "a number showing how reliably someone repays debt",
+   "ex": "Missed payments can lower your credit score.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "debt-to-income ratio": {
+   "w": "debt-to-income ratio",
+   "pos": "n",
+   "def": "the share of income that goes on existing debt",
+   "ex": "Your debt-to-income ratio is above our limit.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "reapply": {
+   "w": "reapply",
+   "pos": "v",
+   "def": "to make a new application later",
+   "ex": "You're welcome to reapply in three months.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "affordability check": {
+   "w": "affordability check",
+   "pos": "n",
+   "def": "a review of whether someone can repay a loan",
+   "ex": "The affordability check looks at income and spending.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "soft search": {
+   "w": "soft search",
+   "pos": "n",
+   "def": "a credit check that leaves no mark on your file",
+   "ex": "A soft search won't affect your credit file.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "signpost (v)": {
+   "w": "signpost (v)",
+   "pos": "v",
+   "def": "to guide someone to another source of help",
+   "ex": "I can signpost you to a free debt-advice service.",
+   "lessons": [
+    "b2_97_retail_banking_loan_decline"
+   ]
+  },
+  "policy (n)": {
+   "w": "policy (n)",
+   "pos": "n",
+   "def": "the insurance contract that sets out what is covered",
+   "ex": "Your policy covers the floor but not the laptop.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "exclusion (n)": {
+   "w": "exclusion (n)",
+   "pos": "n",
+   "def": "something the policy specifically does not cover",
+   "ex": "Portable electronics are an exclusion in this policy.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "excess (n)": {
+   "w": "excess (n)",
+   "pos": "n",
+   "def": "the amount you pay before the insurer pays",
+   "ex": "You'll pay a £250 excess on the repair.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "buildings cover": {
+   "w": "buildings cover",
+   "pos": "n",
+   "def": "insurance for the structure of a home",
+   "ex": "Buildings cover includes the fitted kitchen.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "contents cover": {
+   "w": "contents cover",
+   "pos": "n",
+   "def": "insurance for the things inside a home",
+   "ex": "Contents cover protects your furniture.",
+   "lessons": [
+    "b2_98_insurance_partial_claim"
+   ]
+  },
+  "like-for-like": {
+   "w": "like-for-like",
+   "pos": "adj",
+   "def": "of the same type and similar value",
+   "ex": "We'll offer a like-for-like replacement.",
    "lessons": [
     "b2_98_insurance_partial_claim"
    ]
@@ -140618,11 +140951,56 @@ window.WORDBANK={
     "bc_conspiracy_theories_b2c1"
    ]
   },
-  "steering committee": {
-   "w": "steering committee",
+  "reset expectations": {
+   "w": "reset expectations",
+   "pos": "phr",
+   "def": "to adjust what a client expects so everyone is aligned",
+   "ex": "We need to reset expectations on the timeline.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "slippage": {
+   "w": "slippage",
    "pos": "n",
-   "def": "a group that guides the direction of a project",
-   "ex": "The steering committee meets once a month.",
+   "def": "a delay against the original plan",
+   "ex": "The slippage is about four weeks.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "out of scope": {
+   "w": "out of scope",
+   "pos": "adj",
+   "def": "outside the work that was agreed",
+   "ex": "The extra data cleaning is out of scope.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "surface (v)": {
+   "w": "surface (v)",
+   "pos": "v",
+   "def": "to make a hidden problem visible",
+   "ex": "I'd like to surface the risks early.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "material": {
+   "w": "material",
+   "pos": "adj",
+   "def": "large enough to matter to a decision",
+   "ex": "The delay has a material impact on the launch.",
+   "lessons": [
+    "bc_consulting_reset_expectations_c1"
+   ]
+  },
+  "realign": {
+   "w": "realign",
+   "pos": "v",
+   "def": "to bring plans back into agreement",
+   "ex": "We should realign on priorities this week.",
    "lessons": [
     "bc_consulting_reset_expectations_c1"
    ]
@@ -140820,15 +141198,6 @@ window.WORDBANK={
    "ex": "The region is economically weaker than the capital.",
    "lessons": [
     "bc_economic_issues_c1"
-   ]
-  },
-  "tolerance": {
-   "w": "tolerance",
-   "pos": "n",
-   "def": "willingness to accept beliefs or behaviour different from yours",
-   "ex": "We should teach children tolerance and respect.",
-   "lessons": [
-    "bc_education_and_training_c1"
    ]
   },
   "extrovert": {
@@ -141332,11 +141701,56 @@ window.WORDBANK={
     "bc_handling_intercultural_c1"
    ]
   },
-  "inpatient": {
-   "w": "inpatient",
-   "pos": "adj",
-   "def": "staying in hospital while being treated",
-   "ex": "He needed two weeks of inpatient care.",
+  "medical necessity": {
+   "w": "medical necessity",
+   "pos": "n",
+   "def": "the test of whether a treatment was clinically needed",
+   "ex": "The insurer questioned medical necessity for nights two and three.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "triangulate": {
+   "w": "triangulate",
+   "pos": "v",
+   "def": "to check a claim against more than one source",
+   "ex": "I triangulated the notes, the consultant and the criteria.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "clinical coding": {
+   "w": "clinical coding",
+   "pos": "n",
+   "def": "translating care into codes used to calculate payment",
+   "ex": "Clinical coding affects what the insurer pays.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "submission (n)": {
+   "w": "submission (n)",
+   "pos": "n",
+   "def": "a formal written case sent to an insurer",
+   "ex": "Our submission sets out the clinical reasons.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "without prejudice": {
+   "w": "without prejudice",
+   "pos": "phr",
+   "def": "said so that it cannot be used as evidence later",
+   "ex": "The offer is made without prejudice.",
+   "lessons": [
+    "bc_healthcare_billing_c1"
+   ]
+  },
+  "clinical justification": {
+   "w": "clinical justification",
+   "pos": "n",
+   "def": "a documented clinical reason for a decision",
+   "ex": "We need a clinical justification for the extra night.",
    "lessons": [
     "bc_healthcare_billing_c1"
    ]
@@ -141453,38 +141867,94 @@ window.WORDBANK={
     "bc_international_presentations_c1"
    ]
   },
-  "analyst": {
-   "w": "analyst",
-   "pos": "n",
-   "def": "a person whose job is to study data in detail",
-   "ex": "The analyst predicted a fall in prices.",
+  "pitch (v)": {
+   "w": "pitch (v)",
+   "pos": "v",
+   "def": "to present a proposal to win a client's business",
+   "ex": "We're pitching for the sale mandate on Tuesday.",
    "lessons": [
     "bc_investment_banking_pitch_c1"
    ]
   },
-  "unwelcome": {
-   "w": "unwelcome",
+  "mandate (n)": {
+   "w": "mandate (n)",
+   "pos": "n",
+   "def": "a formal appointment to act for a client on a deal",
+   "ex": "Winning the mandate depends on this pitch.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "re-prioritise": {
+   "w": "re-prioritise",
+   "pos": "v",
+   "def": "to reorder tasks so the most important is protected",
+   "ex": "We'll re-prioritise to protect the valuation work.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "deliverable": {
+   "w": "deliverable",
+   "pos": "n",
+   "def": "a specific output a team is expected to produce",
+   "ex": "The first deliverable is the pitch book.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "sandbag": {
+   "w": "sandbag",
+   "pos": "v",
+   "def": "to add hidden buffer to a deadline",
+   "ex": "I'm not sandbagging; the model really needs two days.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "staggered": {
+   "w": "staggered",
    "pos": "adj",
-   "def": "not wanted or not pleasant to receive",
-   "ex": "The rain was an unwelcome surprise at the picnic.",
+   "def": "spread out in stages rather than all at once",
+   "ex": "A staggered delivery gets you the key piece first.",
+   "lessons": [
+    "bc_investment_banking_pitch_c1"
+   ]
+  },
+  "carve out": {
+   "w": "carve out",
+   "pos": "phr v",
+   "def": "to keep something separate from a general rule or deal",
+   "ex": "We could carve out the third market from the launch.",
    "lessons": [
     "bc_legal_unwelcome_advice_c1"
    ]
   },
-  "advisory": {
-   "w": "advisory",
-   "pos": "adj",
-   "def": "giving advice rather than making decisions",
-   "ex": "She has an advisory role on the board.",
+  "mitigate": {
+   "w": "mitigate",
+   "pos": "v",
+   "def": "to reduce the seriousness or likelihood of a risk",
+   "ex": "A phased launch would mitigate the risk.",
+   "lessons": [
+    "bc_legal_unwelcome_advice_c1",
+    "sp_prep_b2_42",
+    "essay_practice_problem_solution_2"
+   ]
+  },
+  "material risk": {
+   "w": "material risk",
+   "pos": "n",
+   "def": "a risk big enough to affect a decision",
+   "ex": "This is a material risk in at least two markets.",
    "lessons": [
     "bc_legal_unwelcome_advice_c1"
    ]
   },
-  "potentially": {
-   "w": "potentially",
-   "pos": "adv",
-   "def": "possibly, though not certainly, in the future",
-   "ex": "The situation is potentially very dangerous.",
+  "on the record": {
+   "w": "on the record",
+   "pos": "phr",
+   "def": "said formally so it can be referred to later",
+   "ex": "I want my advice on the record.",
    "lessons": [
     "bc_legal_unwelcome_advice_c1"
    ]
@@ -141654,29 +142124,38 @@ window.WORDBANK={
     "bc_mask_we_wear_c1"
    ]
   },
-  "dig in": {
-   "w": "dig in",
-   "pos": "phr v",
-   "def": "to refuse to change your opinion or position",
-   "ex": "Both sides decided to dig in and the talks failed.",
+  "brief (n)": {
+   "w": "brief (n)",
+   "pos": "n",
+   "def": "the agreed statement of what a campaign must achieve",
+   "ex": "The work answers the brief.",
    "lessons": [
     "bc_advertising_defend_creative_c1"
    ]
   },
-  "flatly": {
-   "w": "flatly",
-   "pos": "adv",
-   "def": "in a firm and direct way without any emotion",
-   "ex": "She flatly refused to discuss the matter.",
+  "on-brief": {
+   "w": "on-brief",
+   "pos": "adj",
+   "def": "answering what the brief asked for",
+   "ex": "Is this on-brief, or has it drifted?",
    "lessons": [
     "bc_advertising_defend_creative_c1"
    ]
   },
-  "defensively": {
-   "w": "defensively",
-   "pos": "adv",
-   "def": "in a way that shows you feel criticised or attacked",
-   "ex": "He answered defensively when asked about the delay.",
+  "standout": {
+   "w": "standout",
+   "pos": "n",
+   "def": "the quality of being noticed in a crowded market",
+   "ex": "Without standout, the money is wasted.",
+   "lessons": [
+    "bc_advertising_defend_creative_c1"
+   ]
+  },
+  "stress-test": {
+   "w": "stress-test",
+   "pos": "v",
+   "def": "to push hard on an idea to find its weaknesses",
+   "ex": "Let's stress-test it with real customers.",
    "lessons": [
     "bc_advertising_defend_creative_c1"
    ]
@@ -148778,6 +149257,16 @@ window.WORDBANK={
     "ml_08_the_delivery_gone_wrong"
    ]
   },
+  "ceiling": {
+   "w": "ceiling",
+   "pos": "n",
+   "def": "an upper limit on how much can be spent",
+   "ex": "Let's set a ceiling of fifty pounds on gifts.",
+   "lessons": [
+    "ml_10_the_holiday_budget",
+    "qf_collocation_high_tall"
+   ]
+  },
   "rooftop": {
    "w": "rooftop",
    "pos": "n",
@@ -151516,16 +152005,6 @@ window.WORDBANK={
     "sp_prep_b2_42"
    ]
   },
-  "mitigate": {
-   "w": "mitigate",
-   "pos": "v",
-   "def": "to make something bad less serious or harmful",
-   "ex": "Trees help mitigate the effects of heat in cities.",
-   "lessons": [
-    "sp_prep_b2_42",
-    "essay_practice_problem_solution_2"
-   ]
-  },
   "stall for time": {
    "w": "stall for time",
    "pos": "phr",
@@ -153095,6 +153574,15 @@ window.WORDBANK={
     "lesson-24-palace-architecture"
    ]
   },
+  "route": {
+   "w": "route",
+   "pos": "n",
+   "def": "a fixed path you follow from one place to another",
+   "ex": "My mental route starts at the front door and ends in the garden.",
+   "lessons": [
+    "lesson-24-palace-architecture"
+   ]
+  },
   "hourglass": {
    "w": "hourglass",
    "pos": "n",
@@ -153614,15 +154102,6 @@ window.WORDBANK={
     "b2_89_you_have_to_apply_for_that"
    ]
   },
-  "benchmark": {
-   "w": "benchmark",
-   "pos": "n",
-   "def": "a standard used to compare or judge things",
-   "ex": "Sales figures are our main benchmark for success.",
-   "lessons": [
-    "b2_89_you_have_to_apply_for_that"
-   ]
-  },
   "suitability": {
    "w": "suitability",
    "pos": "n",
@@ -153632,11 +154111,38 @@ window.WORDBANK={
     "b2_89_you_have_to_apply_for_that"
    ]
   },
-  "understandable": {
-   "w": "understandable",
-   "pos": "adj",
-   "def": "normal and easy to accept in the situation",
-   "ex": "It is completely understandable to feel nervous.",
+  "procedure (n)": {
+   "w": "procedure (n)",
+   "pos": "n",
+   "def": "a planned medical action such as a scan or operation",
+   "ex": "It's a routine procedure and takes about twenty minutes.",
+   "lessons": [
+    "b2_99_clinical_anxious_patient"
+   ]
+  },
+  "recovery": {
+   "w": "recovery",
+   "pos": "n",
+   "def": "the period of rest after a procedure",
+   "ex": "Recovery usually takes about an hour.",
+   "lessons": [
+    "b2_99_clinical_anxious_patient"
+   ]
+  },
+  "talk through": {
+   "w": "talk through",
+   "pos": "phr v",
+   "def": "to explain each step so someone knows what to expect",
+   "ex": "Let me talk you through what will happen.",
+   "lessons": [
+    "b2_99_clinical_anxious_patient"
+   ]
+  },
+  "drip": {
+   "w": "drip",
+   "pos": "n",
+   "def": "a tube that gives fluid or medicine through a vein",
+   "ex": "The nurse will put in a drip before the procedure.",
    "lessons": [
     "b2_99_clinical_anxious_patient"
    ]
