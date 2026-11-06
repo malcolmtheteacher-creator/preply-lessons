@@ -10072,6 +10072,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "techniques_misery",
+   "title": "Short Stories, Long Shadows: Misery",
+   "level": "",
+   "words": [
+    "fare",
+    "huddled",
+    "altercation",
+    "heedless",
+    "insignificant",
+    "jocosely",
+    "grief",
+    "disinclined",
+    "lament",
+    "confide"
+   ]
+  },
+  {
    "id": "techniques_miss_brill",
    "title": "Short Stories, Long Shadows: Miss Brill (Mansfield)",
    "level": "",
@@ -10103,6 +10120,23 @@ window.WORDBANK={
     "happy",
     "unkind",
     "box"
+   ]
+  },
+  {
+   "id": "techniques_my_financial_career",
+   "title": "Short Stories, Long Shadows: My Financial Career",
+   "level": "",
+   "words": [
+    "rattled",
+    "timid",
+    "sepulchral",
+    "wicket",
+    "convulsive",
+    "ghastly",
+    "deposit",
+    "withdraw",
+    "reckless",
+    "astonished"
    ]
   },
   {
@@ -10380,6 +10414,23 @@ window.WORDBANK={
     "keen",
     "adapted",
     "resent"
+   ]
+  },
+  {
+   "id": "techniques_the_devoted_friend",
+   "title": "Short Stories, Long Shadows: The Devoted Friend",
+   "level": "",
+   "words": [
+    "devoted",
+    "flatter",
+    "envious",
+    "sluggish",
+    "procession",
+    "moral",
+    "generous",
+    "hypocrite",
+    "exploit",
+    "mourn"
    ]
   },
   {
@@ -11093,6 +11144,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "techniques_the_romance_of_a_busy_broker",
+   "title": "Short Stories, Long Shadows: The Romance of a Busy Broker",
+   "level": "",
+   "words": [
+    "broker",
+    "expressionless",
+    "irresolute",
+    "curt",
+    "hustle",
+    "secret",
+    "stenographer",
+    "employ",
+    "countermand",
+    "absent-minded"
+   ]
+  },
+  {
    "id": "techniques_the_selfish_giant",
    "title": "Short Stories, Long Shadows: The Selfish Giant",
    "level": "",
@@ -11445,6 +11513,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "techniques_three_questions",
+   "title": "Short Stories, Long Shadows: Three Questions",
+   "level": "",
+   "words": [
+    "hermit",
+    "renowned",
+    "proclaim",
+    "ambush",
+    "bandage",
+    "repent",
+    "wound",
+    "faint",
+    "revenge",
+    "seize"
+   ]
+  },
+  {
    "id": "techniques_to_build_a_fire",
    "title": "Short Stories, Long Shadows: To Build a Fire",
    "level": "",
@@ -11479,6 +11564,23 @@ window.WORDBANK={
     "alone",
     "instinct",
     "camp"
+   ]
+  },
+  {
+   "id": "techniques_tobermory",
+   "title": "Short Stories, Long Shadows: Tobermory",
+   "level": "",
+   "words": [
+    "sceptical",
+    "disconcerting",
+    "discomfited",
+    "crestfallen",
+    "vindictive",
+    "hush-money",
+    "gossip",
+    "scandal",
+    "reputation",
+    "indiscreet"
    ]
   },
   {
@@ -54591,6 +54693,7 @@ window.WORDBANK={
    "ex": "It takes moral courage to refuse an order everyone else obeys.",
    "lessons": [
     "bc_hannah_arendt_c1",
+    "techniques_the_devoted_friend",
     "chatterbox_6_once_upon",
     "lesson_31_semi_modals",
     "memory_arts_p1_01"
@@ -54716,6 +54819,7 @@ window.WORDBANK={
     "short_history_the_spanish_armada",
     "short_history_the_wright_brothers",
     "techniques_the_fortune_teller",
+    "techniques_tobermory",
     "tib_diffusion_b2",
     "gr_b2_the_upgrade",
     "rs_y8_aut2_08_02",
@@ -58533,6 +58637,7 @@ window.WORDBANK={
     "short_history_queen_victoria",
     "short_history_rasputin",
     "short_history_watergate",
+    "techniques_tobermory",
     "lesson_48_art_literature_creativity"
    ]
   },
@@ -59982,6 +60087,7 @@ window.WORDBANK={
     "techniques_the_fortune_teller_a2b1",
     "techniques_the_queen_of_spades",
     "techniques_the_queen_of_spades_a2b1",
+    "techniques_the_romance_of_a_busy_broker",
     "techniques_the_yellow_wallpaper_a2b1",
     "techniques_yuki_onna_a2b1",
     "tib_johari_a2b1",
@@ -60161,9 +60267,10 @@ window.WORDBANK={
    "w": "confide",
    "pos": "v",
    "def": "to tell someone something private or secret because you trust them.",
-   "ex": "",
+   "ex": "She confided in her sister.",
    "lessons": [
-    "behind_the_screen_ex_machina"
+    "behind_the_screen_ex_machina",
+    "techniques_misery"
    ]
   },
   "believable": {
@@ -60747,6 +60854,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_jurassic_park",
     "short_history_apollo_11",
+    "techniques_my_financial_career",
     "techniques_the_bet",
     "techniques_the_bottle_imp",
     "techniques_the_monkeys_paw",
@@ -61753,9 +61861,10 @@ window.WORDBANK={
    "w": "vindictive",
    "pos": "adj",
    "def": "having a strong, spiteful desire for revenge, beyond what the situation requires.",
-   "ex": "",
+   "ex": "Her vindictive silence at dinner made it clear that she had not forgiven the insult.",
    "lessons": [
-    "behind_the_screen_the_social_network"
+    "behind_the_screen_the_social_network",
+    "techniques_tobermory"
    ]
   },
   "take credit for something": {
@@ -65868,6 +65977,7 @@ window.WORDBANK={
     "odyssey_eadwig",
     "psyp_08_should_this_study_run_a2b1",
     "psyp_08_should_this_study_run_b2c1",
+    "techniques_my_financial_career",
     "grammar_c2_01_register_style_shifting"
    ]
   },
@@ -66341,6 +66451,7 @@ window.WORDBANK={
     "odyssey_cnut",
     "odyssey_david_i",
     "odyssey_eadwig",
+    "techniques_the_devoted_friend",
     "techniques_the_model_millionaire",
     "world_mena_hospitality",
     "gr_warmup_c1_hot_takes_steelman",
@@ -66695,7 +66806,7 @@ window.WORDBANK={
    "w": "seize",
    "pos": "v",
    "def": "to take by force.",
-   "ex": "",
+   "ex": "The government seized their property.",
    "lessons": [
     "odyssey_donald_iii",
     "odyssey_harold_harefoot",
@@ -66703,6 +66814,7 @@ window.WORDBANK={
     "odyssey_william_ii",
     "short_history_the_dancing_plague",
     "short_history_the_french_revolution",
+    "techniques_three_questions",
     "c2_pro_29_innovation_culture"
    ]
   },
@@ -66812,6 +66924,7 @@ window.WORDBANK={
     "odyssey_eadwig",
     "odyssey_richard_iii",
     "techniques_luck",
+    "techniques_tobermory",
     "tib_fishbone_b2",
     "acad_b2_06_referencing",
     "wk_33_the_deadline",
@@ -67688,15 +67801,16 @@ window.WORDBANK={
   },
   "ambush": {
    "w": "ambush",
-   "pos": "v",
+   "pos": "n, v",
    "def": "to attack someone by surprise from a hidden position.",
-   "ex": "",
+   "ex": "They were ambushed on the road.",
    "lessons": [
     "odyssey_edward_the_martyr",
     "odyssey_llywelyn_ap_gruffydd",
     "odyssey_lulach",
     "short_history_ned_kelly",
-    "short_history_vlad_the_impaler"
+    "short_history_vlad_the_impaler",
+    "techniques_three_questions"
    ]
   },
   "stepmother": {
@@ -68986,10 +69100,11 @@ window.WORDBANK={
    "w": "grief",
    "pos": "n",
    "def": "deep sadness.",
-   "ex": "His grief was legendary.",
+   "ex": "She was overcome with grief.",
    "lessons": [
     "odyssey_henry_i",
     "short_history_queen_victoria",
+    "techniques_misery",
     "lf_06_the_house",
     "ib_lesson_techniques_story_of_an_hour"
    ]
@@ -70115,11 +70230,12 @@ window.WORDBANK={
   },
   "lament": {
    "w": "lament",
-   "pos": "n",
+   "pos": "v, n",
    "def": "a song of sorrow.",
-   "ex": "",
+   "ex": "They lamented the loss of the old village.",
    "lessons": [
-    "odyssey_james_iv_scot"
+    "odyssey_james_iv_scot",
+    "techniques_misery"
    ]
   },
   "curious": {
@@ -70264,7 +70380,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "odyssey_jane_grey",
-    "odyssey_owain_glyndwr"
+    "odyssey_owain_glyndwr",
+    "techniques_three_questions"
    ]
   },
   "desert": {
@@ -71146,6 +71263,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_victoria",
     "short_history_the_christmas_truce",
+    "techniques_the_devoted_friend",
     "rs_y11_aut2_26_05",
     "lesson-30-certification"
    ]
@@ -81127,6 +81245,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_haitian_revolution",
     "short_history_the_scramble_for_africa",
+    "techniques_the_devoted_friend",
     "talk_volunteering_b2c1",
     "b2_57_medical_ethics",
     "lesson_47_psychology_human_behavior"
@@ -81939,9 +82058,10 @@ window.WORDBANK={
    "w": "procession",
    "pos": "n",
    "def": "a line of people moving forward together in an orderly, often ceremonial, way.",
-   "ex": "",
+   "ex": "The mourners walked in a slow procession behind the coffin, all dressed in black.",
    "lessons": [
     "short_history_the_olympic_games",
+    "techniques_the_devoted_friend",
     "techniques_the_emperors_new_clothes",
     "rs_y11_aut2_26_05",
     "dewey_palace_architecture"
@@ -84480,6 +84600,7 @@ window.WORDBANK={
    "ex": "When her son was killed, the woman wanted revenge — to pay back the man who did it.",
    "lessons": [
     "techniques_a_vendetta_a2b1",
+    "techniques_three_questions",
     "rs_y11_spr2_28_05",
     "behind_the_screen_gladiator_a2b1",
     "behind_the_screen_kill_bill_a2b1",
@@ -84753,6 +84874,7 @@ window.WORDBANK={
    "ex": "I was astonished to see him in Baghdad.\" / \"She was astonished by the result.",
    "lessons": [
     "techniques_appointment_in_samarra",
+    "techniques_my_financial_career",
     "grammar_c1_11_sophisticated_modification"
    ]
   },
@@ -85133,6 +85255,7 @@ window.WORDBANK={
    "lessons": [
     "techniques_desirees_baby",
     "techniques_sweat",
+    "techniques_the_devoted_friend",
     "monday_morning_ep1"
    ]
   },
@@ -86839,9 +86962,10 @@ window.WORDBANK={
    "w": "faint",
    "pos": "v",
    "def": "It was very hot and she fainted.",
-   "ex": "",
+   "ex": "She fainted at the sight of blood.",
    "lessons": [
     "techniques_metamorphosis_2_a2b1",
+    "techniques_three_questions",
     "deep_space_04_exoplanets",
     "wk_26_the_consultation"
    ]
@@ -86971,6 +87095,71 @@ window.WORDBANK={
     "a1_who_do_you_do_it_with_interactive"
    ]
   },
+  "fare": {
+   "w": "fare",
+   "pos": "n",
+   "def": "a passenger in a taxi or cab; also, the money paid for the journey",
+   "ex": "The fare to the airport is thirty euros.",
+   "lessons": [
+    "techniques_misery",
+    "rp_21_taking_a_taxi"
+   ]
+  },
+  "huddled": {
+   "w": "huddled",
+   "pos": "adj",
+   "def": "pressed close together or curled up small, for warmth or comfort. (v: huddle)",
+   "ex": "She sat huddled in her coat on the bench, her knees pulled up and her arms wrapped round them against the cold.",
+   "lessons": [
+    "techniques_misery"
+   ]
+  },
+  "altercation": {
+   "w": "altercation",
+   "pos": "n",
+   "def": "a noisy argument or quarrel",
+   "ex": "a heated altercation in the street",
+   "lessons": [
+    "techniques_misery"
+   ]
+  },
+  "heedless": {
+   "w": "heedless",
+   "pos": "adj",
+   "def": "not paying attention to; not noticing",
+   "ex": "heedless of the danger",
+   "lessons": [
+    "techniques_misery"
+   ]
+  },
+  "insignificant": {
+   "w": "insignificant",
+   "pos": "adj",
+   "def": "small and unimportant; hardly worth noticing",
+   "ex": "an insignificant detail",
+   "lessons": [
+    "techniques_misery",
+    "acad_b2_04_academic_vocabulary"
+   ]
+  },
+  "jocosely": {
+   "w": "jocosely",
+   "pos": "adv",
+   "def": "in a joking, playful way. (adj: jocose)",
+   "ex": "he said it jocosely, to lighten the mood",
+   "lessons": [
+    "techniques_misery"
+   ]
+  },
+  "disinclined": {
+   "w": "disinclined",
+   "pos": "adj",
+   "def": "unwilling; with no wish to do something",
+   "ex": "He was disinclined to listen.",
+   "lessons": [
+    "techniques_misery"
+   ]
+  },
   "necklet": {
    "w": "necklet",
    "pos": "noun (dated)",
@@ -87085,6 +87274,78 @@ window.WORDBANK={
    "ex": "The young man says unkind words.\" / \"That was unkind.",
    "lessons": [
     "techniques_miss_brill_a2b1"
+   ]
+  },
+  "rattled": {
+   "w": "rattled",
+   "pos": "adj",
+   "def": "nervous, shaken, unable to think clearly",
+   "ex": "The loud question left her completely rattled.",
+   "lessons": [
+    "techniques_my_financial_career",
+    "wk_03_the_presentation"
+   ]
+  },
+  "timid": {
+   "w": "timid",
+   "pos": "adj",
+   "def": "shy and nervous; easily frightened. (adv: timidly)",
+   "ex": "She was so timid that a knock at the door could make her hide, and every noise in the street was a thief or a tiger.",
+   "lessons": [
+    "techniques_my_financial_career",
+    "techniques_the_cabuliwallah"
+   ]
+  },
+  "sepulchral": {
+   "w": "sepulchral",
+   "pos": "adj",
+   "def": "gloomy and deep, like a voice from a grave",
+   "ex": "The sepulchral silence of the empty church.",
+   "lessons": [
+    "techniques_my_financial_career"
+   ]
+  },
+  "wicket": {
+   "w": "wicket",
+   "pos": "n",
+   "def": "a small window or opening in a counter, door or gate. In the story, the clerk’s window at the bank.",
+   "ex": "In old banks the clerks sat behind a little window called a wicket, and you had to push your money through a slot.",
+   "lessons": [
+    "techniques_my_financial_career"
+   ]
+  },
+  "convulsive": {
+   "w": "convulsive",
+   "pos": "adj",
+   "def": "sudden, jerky and uncontrolled",
+   "ex": "A convulsive laugh shook her shoulders.",
+   "lessons": [
+    "techniques_my_financial_career"
+   ]
+  },
+  "ghastly": {
+   "w": "ghastly",
+   "pos": "adj",
+   "def": "horrible; looking very pale and ill",
+   "ex": "By candlelight the old portrait took on a ghastly look, its face as pale and hollow as a corpse's.",
+   "lessons": [
+    "techniques_my_financial_career",
+    "techniques_the_masque_of_the_red_death"
+   ]
+  },
+  "deposit": {
+   "w": "deposit",
+   "pos": "noun (banking)",
+   "def": "to put money into an account (or the money you put in)",
+   "ex": "She deposited her wages every Friday.",
+   "lessons": [
+    "techniques_my_financial_career",
+    "techniques_the_verger",
+    "rp_15_renting_a_flat",
+    "speaking_naturally_05_complaining_problems",
+    "lf_08_your_brother_s_debt",
+    "ml_10_the_holiday_budget",
+    "grammar_c2_04_subjunctive_formal_conditionals"
    ]
   },
   "loyal": {
@@ -87606,15 +87867,6 @@ window.WORDBANK={
     "techniques_the_cabuliwallah"
    ]
   },
-  "timid": {
-   "w": "timid",
-   "pos": "adj",
-   "def": "easily frightened; lacking courage or confidence.",
-   "ex": "She was so timid that a knock at the door could make her hide, and every noise in the street was a thief or a tiger.",
-   "lessons": [
-    "techniques_the_cabuliwallah"
-   ]
-  },
   "wistfully": {
    "w": "wistfully",
    "pos": "adv",
@@ -87852,6 +88104,44 @@ window.WORDBANK={
     "techniques_the_country_of_the_blind"
    ]
   },
+  "devoted": {
+   "w": "devoted",
+   "pos": "adj",
+   "def": "very loving and loyal; giving a lot of time and care. (n: devotion)",
+   "ex": "She was so devoted to her grandmother that she visited every day for twenty years.",
+   "lessons": [
+    "techniques_the_devoted_friend"
+   ]
+  },
+  "flatter": {
+   "w": "flatter",
+   "pos": "v",
+   "def": "to praise someone more than they deserve, usually to please them or to get something. (n: flattery)",
+   "ex": "Don’t flatter me — if you think the report is poor, tell me so.",
+   "lessons": [
+    "techniques_the_devoted_friend",
+    "techniques_the_emperors_new_clothes"
+   ]
+  },
+  "envious": {
+   "w": "envious",
+   "pos": "adj",
+   "def": "wanting what someone else has. (n: envy)",
+   "ex": "He was envious of her success.",
+   "lessons": [
+    "techniques_the_devoted_friend",
+    "gr_b1_speed_definitions"
+   ]
+  },
+  "hypocrite": {
+   "w": "hypocrite",
+   "pos": "n",
+   "def": "a person who says one thing and does another. (n: hypocrisy; adj: hypocritical)",
+   "ex": "",
+   "lessons": [
+    "techniques_the_devoted_friend"
+   ]
+  },
   "snobbery": {
    "w": "snobbery",
    "pos": "n",
@@ -87873,11 +88163,12 @@ window.WORDBANK={
   },
   "gossip": {
    "w": "gossip",
-   "pos": "n/v",
+   "pos": "n, v",
    "def": "\"The mothers traded gossip about the washerwoman and her daughters.\"",
-   "ex": "",
+   "ex": "office gossip",
    "lessons": [
     "techniques_the_dolls_house",
+    "techniques_tobermory",
     "ml_13_the_apology",
     "lesson_20_reported_speech",
     "su_a2_31_social_networking",
@@ -88061,15 +88352,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_emperors_new_clothes",
     "short_history_emperor_nero_a2b1"
-   ]
-  },
-  "flatter": {
-   "w": "flatter",
-   "pos": "v",
-   "def": "to praise someone too much or insincerely, often to please them or gain an advantage.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_emperors_new_clothes"
    ]
   },
   "contradict": {
@@ -88949,15 +89231,6 @@ window.WORDBANK={
     "techniques_the_masque_of_the_red_death"
    ]
   },
-  "ghastly": {
-   "w": "ghastly",
-   "pos": "adj",
-   "def": "horrifying and frightening; deathly pale, like a corpse or a ghost.",
-   "ex": "By candlelight the old portrait took on a ghastly look, its face as pale and hollow as a corpse's.",
-   "lessons": [
-    "techniques_the_masque_of_the_red_death"
-   ]
-  },
   "dominion": {
    "w": "dominion",
    "pos": "n",
@@ -89689,6 +89962,90 @@ window.WORDBANK={
     "talk_tipping_a2b1"
    ]
   },
+  "broker": {
+   "w": "broker",
+   "pos": "n",
+   "def": "a person who buys and sells shares, property or insurance on behalf of others, for a fee.",
+   "ex": "The stock broker bought and sold shares for his clients all day, on the phone and across the floor of the exchange.",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker",
+    "sp_prep_c1_64"
+   ]
+  },
+  "expressionless": {
+   "w": "expressionless",
+   "pos": "adj",
+   "def": "showing no feeling on the face",
+   "ex": "An expressionless official stamped the form.",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "irresolute": {
+   "w": "irresolute",
+   "pos": "adj",
+   "def": "uncertain; not able to make up your mind",
+   "ex": "He stood irresolute at the crossroads.",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "curt": {
+   "w": "curt",
+   "pos": "adj/adv",
+   "def": "rudely short and sharp in the way you speak",
+   "ex": "a curt reply",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "hustle": {
+   "w": "hustle",
+   "pos": "n",
+   "def": "busy, noisy activity. (v: to push or hurry)",
+   "ex": "the hustle of the city centre",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker",
+    "world_na_work"
+   ]
+  },
+  "stenographer": {
+   "w": "stenographer",
+   "pos": "n",
+   "def": "a person who writes down speech in shorthand and types it up; an old word for a secretary.",
+   "ex": "",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "employ": {
+   "w": "employ",
+   "pos": "v",
+   "def": "to give paid work to someone. (n: an employer, an employee)",
+   "ex": "The company employs two hundred people.",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker",
+    "bc_making_deductions_c1"
+   ]
+  },
+  "countermand": {
+   "w": "countermand",
+   "pos": "v",
+   "def": "to cancel an earlier order",
+   "ex": "He countermanded the order to sell.",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "absent-minded": {
+   "w": "absent-minded",
+   "pos": "adj",
+   "def": "forgetful; thinking about something else",
+   "ex": "an absent-minded professor",
+   "lessons": [
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
   "trespass": {
    "w": "trespass",
    "pos": "v",
@@ -89901,11 +90258,12 @@ window.WORDBANK={
   },
   "wound": {
    "w": "wound",
-   "pos": "",
+   "pos": "n, v",
    "def": "\"The wound in his arm hurt badly.\" We say it /wuund/.",
-   "ex": "",
+   "ex": "a deep wound in the stomach",
    "lessons": [
-    "techniques_the_sniper_a2b1"
+    "techniques_the_sniper_a2b1",
+    "techniques_three_questions"
    ]
   },
   "cap": {
@@ -90299,20 +90657,6 @@ window.WORDBANK={
     "ielts_lesson_11_vocabulary_collocations"
    ]
   },
-  "deposit": {
-   "w": "deposit",
-   "pos": "noun (banking)",
-   "def": "Money placed in a bank account, especially money left there to earn interest.",
-   "ex": "She has substantial cash on deposit.",
-   "lessons": [
-    "techniques_the_verger",
-    "rp_15_renting_a_flat",
-    "speaking_naturally_05_complaining_problems",
-    "lf_08_your_brother_s_debt",
-    "ml_10_the_holiday_budget",
-    "grammar_c2_04_subjunctive_formal_conditionals"
-   ]
-  },
   "gilt-edged": {
    "w": "gilt-edged",
    "pos": "adjective (finance)",
@@ -90617,6 +90961,43 @@ window.WORDBANK={
     "grammar_b1_09_reported_speech_advanced"
    ]
   },
+  "hermit": {
+   "w": "hermit",
+   "pos": "n",
+   "def": "a person who lives alone, away from other people, often for religious reasons.",
+   "ex": "The hermit lived alone in a hut in the forest and rarely spoke to anyone.",
+   "lessons": [
+    "techniques_three_questions"
+   ]
+  },
+  "renowned": {
+   "w": "renowned",
+   "pos": "adj",
+   "def": "famous and respected for a particular quality or skill",
+   "ex": "a renowned scientist",
+   "lessons": [
+    "techniques_three_questions"
+   ]
+  },
+  "bandage": {
+   "w": "bandage",
+   "pos": "v, n",
+   "def": "to cover a wound with a strip of cloth; the cloth itself",
+   "ex": "a clean bandage",
+   "lessons": [
+    "techniques_three_questions",
+    "knowledge_b1_cuts_injuries_first_aid"
+   ]
+  },
+  "repent": {
+   "w": "repent",
+   "pos": "v",
+   "def": "to feel sorry for something you have done, and wish you had acted differently. (n: repentance)",
+   "ex": "If you refuse to help him now, you may repent it for the rest of your life.",
+   "lessons": [
+    "techniques_three_questions"
+   ]
+  },
   "scoff at": {
    "w": "scoff at",
    "pos": "v",
@@ -90680,6 +91061,51 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_to_build_a_fire_a2b1"
+   ]
+  },
+  "disconcerting": {
+   "w": "disconcerting",
+   "pos": "adj",
+   "def": "making you feel uneasy or confused. (v: disconcert)",
+   "ex": "a disconcerting silence",
+   "lessons": [
+    "techniques_tobermory"
+   ]
+  },
+  "discomfited": {
+   "w": "discomfited",
+   "pos": "adj",
+   "def": "embarrassed, uneasy and confused. (v: discomfit)",
+   "ex": "The Major, discomfited by the question, looked at his plate and went red.",
+   "lessons": [
+    "techniques_tobermory"
+   ]
+  },
+  "crestfallen": {
+   "w": "crestfallen",
+   "pos": "adj",
+   "def": "sad and disappointed after a failure or a refusal.",
+   "ex": "The inventor looked crestfallen: all his hard work had been welcomed with horror, not applause.",
+   "lessons": [
+    "techniques_tobermory"
+   ]
+  },
+  "hush-money": {
+   "w": "hush-money",
+   "pos": "n",
+   "def": "money paid to someone to stop them revealing a secret.",
+   "ex": "He started calculating how much hush-money he would need to keep the cat quiet.",
+   "lessons": [
+    "techniques_tobermory"
+   ]
+  },
+  "indiscreet": {
+   "w": "indiscreet",
+   "pos": "adj",
+   "def": "not careful about what you reveal. (n: indiscretion)",
+   "ex": "",
+   "lessons": [
+    "techniques_tobermory"
    ]
   },
   "beating": {
@@ -96850,15 +97276,6 @@ window.WORDBANK={
     "travel_holidays_a2",
     "qf_falsefriend_italian_estate",
     "qf_falsefriend_portuguese_pretender"
-   ]
-  },
-  "hustle": {
-   "w": "hustle",
-   "pos": "n",
-   "def": "energetic, busy work.",
-   "ex": "",
-   "lessons": [
-    "world_na_work"
    ]
   },
   "employer": {
@@ -108356,15 +108773,6 @@ window.WORDBANK={
    "lessons": [
     "rp_20_at_the_library",
     "sp_c1_71_humor_wordplay"
-   ]
-  },
-  "fare": {
-   "w": "fare",
-   "pos": "n",
-   "def": "the money you pay for a journey",
-   "ex": "The taxi fare to the airport was very high.",
-   "lessons": [
-    "rp_21_taking_a_taxi"
    ]
   },
   "detour": {
@@ -120300,15 +120708,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "hurt by suddenly twisting a joint too far",
    "ex": "She has a sprained wrist from tennis.",
-   "lessons": [
-    "knowledge_b1_cuts_injuries_first_aid"
-   ]
-  },
-  "bandage": {
-   "w": "bandage",
-   "pos": "n",
-   "def": "a long strip of cloth wrapped around an injury",
-   "ex": "The nurse wrapped a bandage around his arm.",
    "lessons": [
     "knowledge_b1_cuts_injuries_first_aid"
    ]
@@ -134733,15 +135132,6 @@ window.WORDBANK={
     "wk_02_working_the_room"
    ]
   },
-  "rattled": {
-   "w": "rattled",
-   "pos": "adj",
-   "def": "nervous or upset because something unexpected happened",
-   "ex": "The tough question clearly rattled him.",
-   "lessons": [
-    "wk_03_the_presentation"
-   ]
-  },
   "poise": {
    "w": "poise",
    "pos": "n",
@@ -140556,15 +140946,6 @@ window.WORDBANK={
    "ex": "This time tomorrow, I will be flying uses the future continuous.",
    "lessons": [
     "bc_looking_ahead_c1"
-   ]
-  },
-  "employ": {
-   "w": "employ",
-   "pos": "v",
-   "def": "to pay someone to work for you",
-   "ex": "The factory employs over five hundred people.",
-   "lessons": [
-    "bc_making_deductions_c1"
    ]
   },
   "occur": {
@@ -151062,15 +151443,6 @@ window.WORDBANK={
     "sp_prep_c1_63"
    ]
   },
-  "broker": {
-   "w": "broker",
-   "pos": "v",
-   "def": "to arrange an agreement between two sides",
-   "ex": "The mayor helped broker a deal between the two groups.",
-   "lessons": [
-    "sp_prep_c1_64"
-   ]
-  },
   "zero-sum": {
    "w": "zero-sum",
    "pos": "adj",
@@ -153081,15 +153453,6 @@ window.WORDBANK={
     "acad_b2_01_academic_reading"
    ]
   },
-  "insignificant": {
-   "w": "insignificant",
-   "pos": "adj",
-   "def": "too small or unimportant to matter",
-   "ex": "The difference in price was insignificant.",
-   "lessons": [
-    "acad_b2_04_academic_vocabulary"
-   ]
-  },
   "precipitate": {
    "w": "precipitate",
    "pos": "v",
@@ -154082,15 +154445,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "describing a word in other ways when you cannot remember it",
    "ex": "When I forgot the word, I used circumlocution to explain it.",
-   "lessons": [
-    "gr_b1_speed_definitions"
-   ]
-  },
-  "envious": {
-   "w": "envious",
-   "pos": "adj",
-   "def": "wanting something that another person has",
-   "ex": "She was envious of her friend's new job.",
    "lessons": [
     "gr_b1_speed_definitions"
    ]
