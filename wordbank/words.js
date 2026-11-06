@@ -14091,6 +14091,230 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_ssa_background",
+   "title": "Sub-Saharan Africa: Nearly Fifty Countries, Not One",
+   "level": "",
+   "words": [
+    "continent",
+    "savannah",
+    "empire",
+    "colonial",
+    "independence",
+    "median age",
+    "sub-saharan",
+    "diversity"
+   ]
+  },
+  {
+   "id": "world_ssa_background_a2",
+   "title": "Sub-Saharan Africa: Nearly Fifty Countries, Not One",
+   "level": "",
+   "words": [
+    "country",
+    "river",
+    "language",
+    "young",
+    "city",
+    "history"
+   ]
+  },
+  {
+   "id": "world_ssa_cities",
+   "title": "Huts or High-Rises? Africa's Fast-Growing Cities",
+   "level": "",
+   "words": [
+    "urbanisation",
+    "informal settlement",
+    "congestion",
+    "hub",
+    "entrepreneur",
+    "housing",
+    "public transport",
+    "growth"
+   ]
+  },
+  {
+   "id": "world_ssa_cities_a2",
+   "title": "Huts or High-Rises? Africa's Fast-Growing Cities",
+   "level": "",
+   "words": [
+    "city",
+    "village",
+    "job",
+    "bus",
+    "traffic",
+    "grow"
+   ]
+  },
+  {
+   "id": "world_ssa_food",
+   "title": "Sharing the Plate: Food Across a Continent",
+   "level": "",
+   "words": [
+    "staple",
+    "stew",
+    "cassava",
+    "ferment",
+    "communal",
+    "spice",
+    "harvest",
+    "tradition"
+   ]
+  },
+  {
+   "id": "world_ssa_food_a2",
+   "title": "Sharing the Plate: Food Across a Continent",
+   "level": "",
+   "words": [
+    "rice",
+    "maize",
+    "bread",
+    "stew",
+    "coffee",
+    "share"
+   ]
+  },
+  {
+   "id": "world_ssa_greetings",
+   "title": "Never Rush a Greeting",
+   "level": "",
+   "words": [
+    "greeting",
+    "etiquette",
+    "elder",
+    "respect",
+    "ubuntu",
+    "gesture",
+    "customary",
+    "rude"
+   ]
+  },
+  {
+   "id": "world_ssa_greetings_a2",
+   "title": "Never Rush a Greeting",
+   "level": "",
+   "words": [
+    "hello",
+    "family",
+    "hand",
+    "elder",
+    "polite",
+    "respect"
+   ]
+  },
+  {
+   "id": "world_ssa_languages",
+   "title": "Thousands of Languages: Multilingual by Default",
+   "level": "",
+   "words": [
+    "multilingual",
+    "mother tongue",
+    "lingua franca",
+    "code-switching",
+    "pidgin",
+    "tonal",
+    "official language",
+    "indigenous"
+   ]
+  },
+  {
+   "id": "world_ssa_languages_a2",
+   "title": "Thousands of Languages: Multilingual by Default",
+   "level": "",
+   "words": [
+    "speak",
+    "home",
+    "school",
+    "market",
+    "mix",
+    "learn"
+   ]
+  },
+  {
+   "id": "world_ssa_mobile",
+   "title": "Behind the Times? Mobile Money in Africa",
+   "level": "",
+   "words": [
+    "mobile money",
+    "bank account",
+    "agent",
+    "remittance",
+    "transaction",
+    "leapfrog",
+    "infrastructure",
+    "access"
+   ]
+  },
+  {
+   "id": "world_ssa_mobile_a2",
+   "title": "Behind the Times? Mobile Money in Africa",
+   "level": "",
+   "words": [
+    "phone",
+    "money",
+    "market",
+    "bank",
+    "text",
+    "solar"
+   ]
+  },
+  {
+   "id": "world_ssa_music",
+   "title": "More Than Drums: Africa's Music Goes Global",
+   "level": "",
+   "words": [
+    "rhythm",
+    "genre",
+    "griot",
+    "kora",
+    "fusion",
+    "influence",
+    "streaming",
+    "chart"
+   ]
+  },
+  {
+   "id": "world_ssa_music_a2",
+   "title": "More Than Drums: Africa's Music Goes Global",
+   "level": "",
+   "words": [
+    "music",
+    "song",
+    "singer",
+    "drum",
+    "dance",
+    "famous"
+   ]
+  },
+  {
+   "id": "world_ssa_safari",
+   "title": "Is It All Safaris and Wild Animals?",
+   "level": "",
+   "words": [
+    "safari",
+    "conservation",
+    "poaching",
+    "habitat",
+    "ranger",
+    "revenue",
+    "community",
+    "conflict"
+   ]
+  },
+  {
+   "id": "world_ssa_safari_a2",
+   "title": "Is It All Safaris and Wild Animals?",
+   "level": "",
+   "words": [
+    "elephant",
+    "lion",
+    "park",
+    "guide",
+    "farmer",
+    "village"
+   ]
+  },
+  {
    "id": "acad_b1_25_understanding_feedback",
    "title": "Understanding Teacher Feedback",
    "level": "B1",
@@ -46622,11 +46846,12 @@ window.WORDBANK={
  "words": {
   "hello": {
    "w": "hello",
-   "pos": "",
+   "pos": "n",
    "def": "you say this to greet someone",
-   "ex": "",
+   "ex": "Say hello to everyone.",
    "lessons": [
-    "a1s_01_hello"
+    "a1s_01_hello",
+    "world_ssa_greetings_a2"
    ]
   },
   "my name is": {
@@ -46707,11 +46932,12 @@ window.WORDBANK={
   },
   "coffee": {
    "w": "coffee",
-   "pos": "",
+   "pos": "n",
    "def": "a hot drink",
-   "ex": "",
+   "ex": "Coffee comes from Ethiopia.",
    "lessons": [
-    "a1s_02_coffee"
+    "a1s_02_coffee",
+    "world_ssa_food_a2"
    ]
   },
   "tea": {
@@ -46861,7 +47087,8 @@ window.WORDBANK={
     "a1s_04_family",
     "world_la_family_a2",
     "world_mena_ramadan_a2",
-    "world_sa_marriage_a2"
+    "world_sa_marriage_a2",
+    "world_ssa_greetings_a2"
    ]
   },
   "mother": {
@@ -47045,7 +47272,8 @@ window.WORDBANK={
    "lessons": [
     "a1s_06_like",
     "a1s_13_party",
-    "techniques_miss_brill_a2b1"
+    "techniques_miss_brill_a2b1",
+    "world_ssa_music_a2"
    ]
   },
   "film": {
@@ -47108,6 +47336,8 @@ window.WORDBANK={
     "techniques_araby_a2b1",
     "world_mena_souk_a2",
     "world_na_food_a2",
+    "world_ssa_languages_a2",
+    "world_ssa_mobile_a2",
     "gr_warmup_a2_hot_takes_shopping"
    ]
   },
@@ -47146,7 +47376,8 @@ window.WORDBANK={
    "ex": "There was a lot of money in the wallet.\" / \"I have no money.",
    "lessons": [
     "a1s_07_market",
-    "techniques_a_piece_of_string_a2b1"
+    "techniques_a_piece_of_string_a2b1",
+    "world_ssa_mobile_a2"
    ]
   },
   "cheap": {
@@ -47217,6 +47448,7 @@ window.WORDBANK={
    "lessons": [
     "a1s_08_town",
     "techniques_miss_brill_a2b1",
+    "world_ssa_safari_a2",
     "wk_08_chairing_the_meeting"
    ]
   },
@@ -47228,6 +47460,7 @@ window.WORDBANK={
    "lessons": [
     "a1s_08_town",
     "world_mena_background_a2",
+    "world_ssa_background_a2",
     "short_history_the_gold_rush_a2b1"
    ]
   },
@@ -47427,7 +47660,8 @@ window.WORDBANK={
     "a1s_10_bake",
     "bc_microsoft_a2b1",
     "techniques_dr_heideggers_experiment",
-    "tib_pdca_b2"
+    "tib_pdca_b2",
+    "world_ssa_languages_a2"
    ]
   },
   "try": {
@@ -47563,11 +47797,12 @@ window.WORDBANK={
   },
   "bus": {
    "w": "bus",
-   "pos": "",
+   "pos": "n",
    "def": "a big car for many people",
-   "ex": "",
+   "ex": "The new bus lane is very fast.",
    "lessons": [
-    "a1s_12_sea"
+    "a1s_12_sea",
+    "world_ssa_cities_a2"
    ]
   },
   "swim": {
@@ -48334,11 +48569,12 @@ window.WORDBANK={
   },
   "bread": {
    "w": "bread",
-   "pos": "",
+   "pos": "n",
    "def": "you make sandwiches with it",
-   "ex": "",
+   "ex": "Injera is a flat bread.",
    "lessons": [
     "a1s_22_fridge",
+    "world_ssa_food_a2",
     "short_history_the_french_revolution_a2b1"
    ]
   },
@@ -48392,11 +48628,12 @@ window.WORDBANK={
    "w": "rice",
    "pos": "n",
    "def": "small white grains you cook",
-   "ex": "Rice is a main food in southern China.",
+   "ex": "People in Nigeria and Ghana cook rice with tomato.",
    "lessons": [
     "a1s_23_shopping",
     "world_ea_food_a2",
-    "world_sa_background_a2"
+    "world_sa_background_a2",
+    "world_ssa_food_a2"
    ]
   },
   "till": {
@@ -49157,7 +49394,8 @@ window.WORDBANK={
     "a1s_32_festival",
     "techniques_the_nightingale_and_the_rose_a2b1",
     "world_la_party_a2",
-    "world_sa_bollywood_a2"
+    "world_sa_bollywood_a2",
+    "world_ssa_music_a2"
    ]
   },
   "at": {
@@ -49427,11 +49665,12 @@ window.WORDBANK={
   },
   "chart": {
    "w": "chart",
-   "pos": "",
+   "pos": "n",
    "def": "a paper that shows your progress",
-   "ex": "",
+   "ex": "The song went to the top of the chart in several countries.",
    "lessons": [
-    "a1s_36_walkclub"
+    "a1s_36_walkclub",
+    "world_ssa_music"
    ]
   },
   "exercise": {
@@ -50086,7 +50325,9 @@ window.WORDBANK={
     "a1s_44_gone",
     "short_history_the_manhattan_project_a2b1",
     "world_eu_east_a2",
-    "world_mena_background_a2"
+    "world_mena_background_a2",
+    "world_ssa_background_a2",
+    "world_ssa_cities_a2"
    ]
   },
   "soon": {
@@ -50466,7 +50707,8 @@ window.WORDBANK={
     "a1s_49_year",
     "a1s_50_home",
     "techniques_eveline_a2b1",
-    "ts_apollo13_b2"
+    "ts_apollo13_b2",
+    "world_ssa_languages_a2"
    ]
   },
   "speech": {
@@ -51165,6 +51407,7 @@ window.WORDBANK={
    "lessons": [
     "b2_robotaxi_revolution",
     "world_ea_technology",
+    "world_ssa_mobile",
     "spain_rail_disaster",
     "talk_cars_in_cities_b2c1",
     "bc_complex_situations_c1",
@@ -52364,7 +52607,8 @@ window.WORDBANK={
     "bc_lego_a2b1",
     "techniques_the_egg_a2b1",
     "tib_maslow_a2b1",
-    "world_na_food"
+    "world_na_food",
+    "world_ssa_cities_a2"
    ]
   },
   "close": {
@@ -53601,7 +53845,8 @@ window.WORDBANK={
    "lessons": [
     "bc_chinua_achebe_c1",
     "world_la_background",
-    "world_sa_background"
+    "world_sa_background",
+    "world_ssa_background"
    ]
   },
   "narrative": {
@@ -54963,6 +55208,7 @@ window.WORDBANK={
     "bc_rivian_ev_a2b1",
     "odyssey_harthacnut",
     "ts_rosalind_franklin_b2",
+    "world_ssa_food_a2",
     "anansi_and_the_moss_covered_rock",
     "behind_the_screen_the_social_network_a2b1",
     "short_history_the_roman_republic_a2b1"
@@ -55980,6 +56226,7 @@ window.WORDBANK={
    "lessons": [
     "bc_marvel_a2b1",
     "techniques_luck_a2b1",
+    "world_ssa_music_a2",
     "short_history_vincent_van_gogh_a2b1"
    ]
   },
@@ -56395,9 +56642,10 @@ window.WORDBANK={
    "w": "tradition",
    "pos": "n",
    "def": "An old custom or way of doing things that people keep for many years.",
-   "ex": "Cooking together on Friday is a family tradition.",
+   "ex": "Roasting coffee is an important tradition in Ethiopia.",
    "lessons": [
     "bc_naguib_mahfouz_b1b2",
+    "world_ssa_food",
     "su_a2_05_comparing_cultures",
     "b1_46_family_traditions",
     "epicurean_19_the_decline",
@@ -66353,6 +66601,7 @@ window.WORDBANK={
     "short_history_the_space_race",
     "short_history_vlad_the_impaler",
     "world_mena_background",
+    "world_ssa_background",
     "concorso_british_empire_ab24",
     "short_history_alexander_the_great_a2b1",
     "short_history_machu_picchu_a2b1",
@@ -68473,7 +68722,7 @@ window.WORDBANK={
    "w": "independence",
    "pos": "n",
    "def": "freedom from control.",
-   "ex": "Most countries won independence in the 1800s.",
+   "ex": "Ghana won independence in 1957, and many others followed.",
    "lessons": [
     "odyssey_george_iii",
     "odyssey_robert_i",
@@ -68482,7 +68731,8 @@ window.WORDBANK={
     "ts_montessori_b2",
     "world_la_background",
     "world_la_background_a2",
-    "world_la_family"
+    "world_la_family",
+    "world_ssa_background"
    ]
   },
   "porphyria": {
@@ -73509,6 +73759,7 @@ window.WORDBANK={
     "world_eu_directness_a2",
     "world_mena_hospitality_a2",
     "world_na_canadians_a2",
+    "world_ssa_greetings_a2",
     "rp_16_reporting_something_lost_a2b1",
     "su_a2_32_places_i_have_visited",
     "ct_b1_24_clarification_building_blocks",
@@ -75292,11 +75543,12 @@ window.WORDBANK={
    "w": "diversity",
    "pos": "n",
    "def": "a wide variety of different things or people.",
-   "ex": "The diversity of the region makes any single label misleading.",
+   "ex": "The diversity of languages is one of the continent's great strengths.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
     "world_eu_background",
     "world_sa_background",
+    "world_ssa_background",
     "lesson_39_culture_identity"
    ]
   },
@@ -77056,13 +77308,14 @@ window.WORDBANK={
    "w": "indigenous",
    "pos": "adj",
    "def": "native to a particular place, especially of peoples living there before colonists arrived. Formal and precise; it carries a claim about who came first.",
-   "ex": "Indigenous peoples lived there for thousands of years.",
+   "ex": "Many indigenous languages are now taught in primary school.",
    "lessons": [
     "short_history_christopher_columbus",
     "world_la_background",
     "world_la_background_a2",
     "world_la_language_a2",
     "world_na_mosaic",
+    "world_ssa_languages",
     "lesson_famous_explorers_speaking",
     "cpe_read_c1_09_language_death"
    ]
@@ -79835,6 +80088,7 @@ window.WORDBANK={
     "short_history_the_aztecs",
     "world_la_food",
     "world_la_food_a2",
+    "world_ssa_food_a2",
     "short_history_the_aztecs_a2b1"
    ]
   },
@@ -80484,6 +80738,7 @@ window.WORDBANK={
    "ex": "After 1765 the Company did not merely buy and sell: it collected the land tax of Bengal, and that revenue — money from millions of farmers — paid for its armies.",
    "lessons": [
     "short_history_the_east_india_company",
+    "world_ssa_safari",
     "st_pro_05_the_reframe",
     "Business-Bootcamp-Lesson4-The-Numbers",
     "discuss_c1_advice_industry"
@@ -81492,6 +81747,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_industrial_revolution",
     "world_sa_cities",
+    "world_ssa_cities",
     "bc_population_change_c1",
     "gr_warmup_b2_hot_takes_cities"
    ]
@@ -82178,9 +82434,10 @@ window.WORDBANK={
    "w": "communal",
    "pos": "adj",
    "def": "in South Asian history, relating to conflict between religious communities: communal violence. (Elsewhere it means \"shared\".) Field: violence and its aftermath.",
-   "ex": "",
+   "ex": "A communal plate brings the whole family together.",
    "lessons": [
     "short_history_the_partition_of_india",
+    "world_ssa_food",
     "rs_y11_aut2_26_04",
     "rp_13_talking_about_the_weather",
     "wp_09_the_just_city"
@@ -84398,6 +84655,7 @@ window.WORDBANK={
    "lessons": [
     "techniques_a_piece_of_string_a2b1",
     "world_mena_women_a2",
+    "world_ssa_safari_a2",
     "short_history_the_terracotta_army_a2b1"
    ]
   },
@@ -87537,11 +87795,13 @@ window.WORDBANK={
    "w": "village",
    "pos": "n",
    "def": "Rip's village is small and quiet — at least, it was…",
-   "ex": "He lives in a quiet village.",
+   "ex": "His family lives in a village.",
    "lessons": [
     "techniques_rip_van_winkle_a2b1",
     "techniques_the_last_class_a2b1",
     "world_ea_technology_a2",
+    "world_ssa_cities_a2",
+    "world_ssa_safari_a2",
     "behind_the_screen_the_last_samurai_a2b1"
    ]
   },
@@ -88815,6 +89075,7 @@ window.WORDBANK={
    "ex": "He accused his neighbour of poaching across the disputed border.",
    "lessons": [
     "techniques_the_interlopers",
+    "world_ssa_safari",
     "bc_travel_c1"
    ]
   },
@@ -88915,7 +89176,8 @@ window.WORDBANK={
    "ex": "For many people in North Africa, an Amazigh language is their mother tongue.",
    "lessons": [
     "techniques_the_last_class",
-    "world_mena_languages"
+    "world_mena_languages",
+    "world_ssa_languages"
    ]
   },
   "regrettable": {
@@ -92170,7 +92432,8 @@ window.WORDBANK={
    "lessons": [
     "tib_foodpyramid_b2",
     "world_ea_food",
-    "world_la_food"
+    "world_la_food",
+    "world_ssa_food"
    ]
   },
   "controversial": {
@@ -92469,11 +92732,13 @@ window.WORDBANK={
    "w": "respect",
    "pos": "n",
    "def": "“He has the respect of his team.”",
-   "ex": "We show respect to older people.",
+   "ex": "The greeting shows respect for the person's age.",
    "lessons": [
     "tib_maslow_a2b1",
     "world_ea_politeness_a2",
     "world_sa_gestures_a2",
+    "world_ssa_greetings",
+    "world_ssa_greetings_a2",
     "behind_the_screen_the_last_samurai_a2b1",
     "short_history_the_crusades_a2b1",
     "talk_traditions_a2b1",
@@ -93271,9 +93536,10 @@ window.WORDBANK={
    "w": "lingua franca",
    "pos": "n",
    "def": "a language used between people who share no mother tongue. The term itself is Italian — from an earlier trade language — which is the story in miniature.",
-   "ex": "",
+   "ex": "Swahili is a lingua franca in much of East Africa.",
    "lessons": [
     "topic_english_language_b2",
+    "world_ssa_languages",
     "gr_warmup_b2_hot_takes_language"
    ]
   },
@@ -93353,11 +93619,12 @@ window.WORDBANK={
   },
   "hand": {
    "w": "hand",
-   "pos": "",
+   "pos": "n",
    "def": "to know something like the back of your hand = to know a place or thing extremely well.",
-   "ex": "",
+   "ex": "Shake with your right hand.",
    "lessons": [
-    "topic_expertise_b2"
+    "topic_expertise_b2",
+    "world_ssa_greetings_a2"
    ]
   },
   "bliss point": {
@@ -94888,7 +95155,8 @@ window.WORDBANK={
     "world_mena_background_a2",
     "world_na_english_a2",
     "world_sa_background_a2",
-    "world_sa_bollywood_a2"
+    "world_sa_bollywood_a2",
+    "world_ssa_background_a2"
    ]
   },
   "writing": {
@@ -94988,9 +95256,10 @@ window.WORDBANK={
    "w": "ferment",
    "pos": "v",
    "def": "to let food change slowly with bacteria so that it develops a sour, strong flavour",
-   "ex": "Koreans ferment cabbage with chilli to make kimchi.",
+   "ex": "Teff batter is left to ferment for several days before cooking.",
    "lessons": [
-    "world_ea_food"
+    "world_ea_food",
+    "world_ssa_food"
    ]
   },
   "regional": {
@@ -95088,6 +95357,7 @@ window.WORDBANK={
     "world_ea_gifts",
     "world_mena_hospitality",
     "world_sa_gestures_a2",
+    "world_ssa_greetings",
     "Jane_Performance_STUDENT",
     "su_a2_46_body_language",
     "talk_gift_giving_b2c1",
@@ -95114,6 +95384,7 @@ window.WORDBANK={
     "world_ea_gifts",
     "world_ea_politeness",
     "world_mena_hospitality",
+    "world_ssa_greetings",
     "acad_b2_14_academic_emails",
     "curious_conversations_12_social_rules",
     "b2_06_cultural_differences"
@@ -95277,9 +95548,10 @@ window.WORDBANK={
    "w": "streaming",
    "pos": "n",
    "def": "playing music or video over the internet, without downloading it",
-   "ex": "Streaming helped films cross borders quickly.",
+   "ex": "Streaming has helped African artists reach new audiences.",
    "lessons": [
     "world_ea_popculture",
+    "world_ssa_music",
     "gr_warmup_b2_hot_takes_music",
     "breaking_news_netflix_warner_bros_jan_2026",
     "b2_59_digital_wellbeing"
@@ -95301,6 +95573,7 @@ window.WORDBANK={
    "ex": "Manga covers every genre, from sport to cooking.",
    "lessons": [
     "world_ea_popculture",
+    "world_ssa_music",
     "althist_history_c1_part1",
     "su_a2_07_the_silver_screen",
     "b1_51_music_and_identity",
@@ -95327,7 +95600,8 @@ window.WORDBANK={
    "ex": "This song is very famous.",
    "lessons": [
     "world_ea_popculture_a2",
-    "world_sa_bollywood_a2"
+    "world_sa_bollywood_a2",
+    "world_ssa_music_a2"
    ]
   },
   "cutting-edge": {
@@ -95394,7 +95668,8 @@ window.WORDBANK={
    "def": "a small device for calls and apps",
    "ex": "People pay with a phone.",
    "lessons": [
-    "world_ea_technology_a2"
+    "world_ea_technology_a2",
+    "world_ssa_mobile_a2"
    ]
   },
   "cash": {
@@ -95411,10 +95686,11 @@ window.WORDBANK={
    "w": "continent",
    "pos": "n",
    "def": "one of the large land masses of the world.",
-   "ex": "Europe is a continent.",
+   "ex": "Africa is the second-largest continent in both size and population.",
    "lessons": [
     "world_eu_background",
-    "world_eu_background_a2"
+    "world_eu_background_a2",
+    "world_ssa_background"
    ]
   },
   "member state": {
@@ -95430,9 +95706,10 @@ window.WORDBANK={
    "w": "official language",
    "pos": "n",
    "def": "a language used by a government for laws and documents.",
-   "ex": "",
+   "ex": "South Africa has twelve official languages.",
    "lessons": [
-    "world_eu_background"
+    "world_eu_background",
+    "world_ssa_languages"
    ]
   },
   "member": {
@@ -95711,10 +95988,11 @@ window.WORDBANK={
    "w": "greeting",
    "pos": "n",
    "def": "something you say or do when you meet someone.",
-   "ex": "A handshake is a common greeting.",
+   "ex": "A warm greeting can last a minute or more.",
    "lessons": [
     "world_eu_greetings",
     "world_eu_greetings_a2",
+    "world_ssa_greetings",
     "skills_a2_trade_fair_first_contact",
     "a1p_01_introductions"
    ]
@@ -96195,19 +96473,22 @@ window.WORDBANK={
    "w": "stew",
    "pos": "n",
    "def": "food cooked slowly in liquid.",
-   "ex": "Feijoada is a bean stew.",
+   "ex": "The stew was made with groundnuts and chicken.",
    "lessons": [
     "world_la_food",
-    "world_la_food_a2"
+    "world_la_food_a2",
+    "world_ssa_food",
+    "world_ssa_food_a2"
    ]
   },
   "fusion": {
    "w": "fusion",
    "pos": "n",
    "def": "a mix of styles.",
-   "ex": "Nikkei food is a fusion of Peruvian and Japanese.",
+   "ex": "Highlife is a fusion of local rhythms and imported instruments.",
    "lessons": [
     "world_la_food",
+    "world_ssa_music",
     "su_a2_40_designing_a_restaurant"
    ]
   },
@@ -96362,10 +96643,11 @@ window.WORDBANK={
    "w": "rhythm",
    "pos": "n",
    "def": "a regular pattern of beats.",
-   "ex": "I love the rhythm of samba.",
+   "ex": "A complex rhythm underlies the song.",
    "lessons": [
     "world_la_party",
     "world_la_party_a2",
+    "world_ssa_music",
     "skills_c1_analysing_poetry",
     "c1_the_british_pub",
     "a1p_49_connected_speech",
@@ -96401,6 +96683,7 @@ window.WORDBANK={
     "world_la_time_a2",
     "world_mena_desert_a2",
     "world_sa_cities_a2",
+    "world_ssa_cities_a2",
     "sf_a1_04_a_working_day",
     "talk_city_or_countryside_a2b1",
     "qf_collocation_heavy_strong_rain"
@@ -96634,6 +96917,7 @@ window.WORDBANK={
    "ex": "She can speak three languages.",
    "lessons": [
     "world_mena_languages_a2",
+    "world_ssa_languages_a2",
     "first_lesson_v3"
    ]
   },
@@ -96727,9 +97011,10 @@ window.WORDBANK={
    "w": "job",
    "pos": "n",
    "def": "the work that you do to earn money",
-   "ex": "Young people want a good job.",
+   "ex": "Many people move to the city to find a job.",
    "lessons": [
     "world_mena_oil_a2",
+    "world_ssa_cities_a2",
     "explore_a2_garden_plans",
     "first_lesson_a2",
     "sf_a1_01_name_and_job",
@@ -96803,6 +97088,7 @@ window.WORDBANK={
     "world_mena_souk_a2",
     "world_sa_background_a2",
     "world_sa_food",
+    "world_ssa_food",
     "rp_17_haggling_at_a_market_a2b1"
    ]
   },
@@ -96884,9 +97170,10 @@ window.WORDBANK={
    "w": "influence",
    "pos": "n",
    "def": "the power to affect something.",
-   "ex": "",
+   "ex": "Fela Kuti had a huge influence on later musicians.",
    "lessons": [
     "world_na_background",
+    "world_ssa_music",
     "gr_warmup_b2_hot_takes_power",
     "stoicism_lesson_1_dichotomy_of_control",
     "acad_c2_10_academic_leadership",
@@ -97333,7 +97620,8 @@ window.WORDBANK={
    "def": "using or speaking several languages",
    "ex": "India is a multilingual country with many official languages.",
    "lessons": [
-    "world_sa_background"
+    "world_sa_background",
+    "world_ssa_languages"
    ]
   },
   "trade route": {
@@ -97431,6 +97719,7 @@ window.WORDBANK={
    "ex": "Traffic congestion can make a short trip take hours.",
    "lessons": [
     "world_sa_cities",
+    "world_ssa_cities",
     "gr_warmup_b2_hot_takes_cities",
     "talk_cars_in_cities_b2c1",
     "cae_essay_practice_2",
@@ -97699,9 +97988,10 @@ window.WORDBANK={
    "w": "conflict",
    "pos": "n",
    "def": "an angry disagreement between people",
-   "ex": "Calm manners help people avoid conflict.",
+   "ex": "Elephants that eat crops cause conflict with farmers.",
    "lessons": [
     "world_sa_smiles",
+    "world_ssa_safari",
     "rs_y9_aut2_14_01",
     "c2_pro_17_organisational_politics",
     "b2_12_workplace_ethics",
@@ -97763,6 +98053,460 @@ window.WORDBANK={
     "rs_y10_spr2_22_04",
     "ct_b1_27_acknowledging_views",
     "a1p_35_review_social_skills"
+   ]
+  },
+  "savannah": {
+   "w": "savannah",
+   "pos": "n",
+   "def": "a flat area of grassland with few trees",
+   "ex": "Herds of grazing animals cross the savannah in East Africa.",
+   "lessons": [
+    "world_ssa_background"
+   ]
+  },
+  "median age": {
+   "w": "median age",
+   "pos": "n",
+   "def": "the age that divides a population into a younger half and an older half",
+   "ex": "The median age in many African countries is under twenty.",
+   "lessons": [
+    "world_ssa_background"
+   ]
+  },
+  "sub-saharan": {
+   "w": "sub-saharan",
+   "pos": "adj",
+   "def": "south of the Sahara desert",
+   "ex": "Nigeria is the most populous sub-Saharan country.",
+   "lessons": [
+    "world_ssa_background"
+   ]
+  },
+  "country": {
+   "w": "country",
+   "pos": "n",
+   "def": "a land with its own government",
+   "ex": "Nigeria is a big country.",
+   "lessons": [
+    "world_ssa_background_a2",
+    "a1p_02_where_are_you_from"
+   ]
+  },
+  "young": {
+   "w": "young",
+   "pos": "adj",
+   "def": "not old",
+   "ex": "Many people in Africa are young.",
+   "lessons": [
+    "world_ssa_background_a2"
+   ]
+  },
+  "history": {
+   "w": "history",
+   "pos": "n",
+   "def": "the story of the past",
+   "ex": "Africa has a long history.",
+   "lessons": [
+    "world_ssa_background_a2"
+   ]
+  },
+  "informal settlement": {
+   "w": "informal settlement",
+   "pos": "n",
+   "def": "an area of homes built without official planning or permission",
+   "ex": "Many newcomers first live in an informal settlement.",
+   "lessons": [
+    "world_ssa_cities"
+   ]
+  },
+  "hub": {
+   "w": "hub",
+   "pos": "n",
+   "def": "a place that is the busy centre of an activity",
+   "ex": "Nairobi is a technology hub for the region.",
+   "lessons": [
+    "world_ssa_cities"
+   ]
+  },
+  "entrepreneur": {
+   "w": "entrepreneur",
+   "pos": "n",
+   "def": "a person who starts a business and takes financial risks",
+   "ex": "Many young entrepreneurs start in the informal market.",
+   "lessons": [
+    "world_ssa_cities"
+   ]
+  },
+  "housing": {
+   "w": "housing",
+   "pos": "n",
+   "def": "buildings where people live, and the supply of them",
+   "ex": "Affordable housing is one of the greatest needs.",
+   "lessons": [
+    "world_ssa_cities",
+    "bc_andy_burnham_c1"
+   ]
+  },
+  "public transport": {
+   "w": "public transport",
+   "pos": "n",
+   "def": "buses, trains and other vehicles that anyone can use for a fee",
+   "ex": "Lagos built a bus lane to improve public transport.",
+   "lessons": [
+    "world_ssa_cities",
+    "gr_warmup_a2_hot_takes_transport",
+    "a1p_38_travel_transport",
+    "talk_city_or_countryside_a2b1"
+   ]
+  },
+  "growth": {
+   "w": "growth",
+   "pos": "n",
+   "def": "an increase in size, number or amount",
+   "ex": "Population growth is fastest in the cities.",
+   "lessons": [
+    "world_ssa_cities",
+    "bc_handling_intercultural_c1",
+    "lesson_50_mastery_celebration_finale"
+   ]
+  },
+  "cassava": {
+   "w": "cassava",
+   "pos": "n",
+   "def": "a plant with a starchy root that is a staple food in many tropical countries",
+   "ex": "Cassava is pounded to make fufu.",
+   "lessons": [
+    "world_ssa_food"
+   ]
+  },
+  "harvest": {
+   "w": "harvest",
+   "pos": "n",
+   "def": "the gathering of crops, or the amount that is gathered",
+   "ex": "A good harvest means a big celebration.",
+   "lessons": [
+    "world_ssa_food",
+    "short_history_the_irish_potato_famine_a2b1",
+    "b2_70_fair_trade",
+    "lesson_18_passive_voice_present_past",
+    "ielts_task_1_lesson_4_process_maps"
+   ]
+  },
+  "elder": {
+   "w": "elder",
+   "pos": "n",
+   "def": "an older person who is respected in a community",
+   "ex": "You should greet the elder first.",
+   "lessons": [
+    "world_ssa_greetings",
+    "world_ssa_greetings_a2"
+   ]
+  },
+  "ubuntu": {
+   "w": "ubuntu",
+   "pos": "n",
+   "def": "a southern African idea that a person is a person through other people. .”",
+   "ex": "Ubuntu means “I am because we are",
+   "lessons": [
+    "world_ssa_greetings"
+   ]
+  },
+  "customary": {
+   "w": "customary",
+   "pos": "adj",
+   "def": "usual in a particular society or place",
+   "ex": "It is customary to ask about the family before business.",
+   "lessons": [
+    "world_ssa_greetings"
+   ]
+  },
+  "rude": {
+   "w": "rude",
+   "pos": "adj",
+   "def": "not polite",
+   "ex": "Walking into a room without greeting anyone is considered rude.",
+   "lessons": [
+    "world_ssa_greetings",
+    "su_a2_32_places_i_have_visited",
+    "ct_b1_24_clarification_building_blocks",
+    "a1p_31_restaurant",
+    "talk_tipping_a2b1"
+   ]
+  },
+  "code-switching": {
+   "w": "code-switching",
+   "pos": "n",
+   "def": "moving between two or more languages in one conversation",
+   "ex": "Code-switching is natural for many city speakers.",
+   "lessons": [
+    "world_ssa_languages",
+    "gr_warmup_b2_hot_takes_identity",
+    "curious_conversations_language_shapes_thought",
+    "sp_prep_c1_73"
+   ]
+  },
+  "pidgin": {
+   "w": "pidgin",
+   "pos": "n",
+   "def": "a simple mixed language used for communication between groups",
+   "ex": "Nigerian Pidgin is spoken by millions of people.",
+   "lessons": [
+    "world_ssa_languages"
+   ]
+  },
+  "tonal": {
+   "w": "tonal",
+   "pos": "adj",
+   "def": "using the pitch of the voice to change the meaning of a word",
+   "ex": "Yoruba is a tonal language with three tones.",
+   "lessons": [
+    "world_ssa_languages"
+   ]
+  },
+  "school": {
+   "w": "school",
+   "pos": "n",
+   "def": "a place where children learn",
+   "ex": "At school, they learn in English.",
+   "lessons": [
+    "world_ssa_languages_a2"
+   ]
+  },
+  "mix": {
+   "w": "mix",
+   "pos": "v",
+   "def": "to put different things together",
+   "ex": "Young people mix English and Swahili.",
+   "lessons": [
+    "world_ssa_languages_a2",
+    "ct_a2_19_explaining_processes",
+    "ielts_route"
+   ]
+  },
+  "mobile money": {
+   "w": "mobile money",
+   "pos": "n",
+   "def": "a service that lets people store and send money using a mobile phone",
+   "ex": "Mobile money lets a farmer be paid without a bank.",
+   "lessons": [
+    "world_ssa_mobile"
+   ]
+  },
+  "bank account": {
+   "w": "bank account",
+   "pos": "n",
+   "def": "an arrangement with a bank that lets you keep and use your money",
+   "ex": "Many adults in the region do not have a bank account.",
+   "lessons": [
+    "world_ssa_mobile"
+   ]
+  },
+  "agent": {
+   "w": "agent",
+   "pos": "n",
+   "def": "a person or shop that handles cash for a mobile money service",
+   "ex": "She gave the cash to a local agent and the money appeared on her phone.",
+   "lessons": [
+    "world_ssa_mobile",
+    "su_a2_34_getting_the_right_information",
+    "behind_the_screen_the_untouchables_a2b1",
+    "rp_15_renting_a_flat_a2b1"
+   ]
+  },
+  "remittance": {
+   "w": "remittance",
+   "pos": "n",
+   "def": "money sent home by a person working somewhere else",
+   "ex": "A remittance from a brother in the city paid the school fees.",
+   "lessons": [
+    "world_ssa_mobile"
+   ]
+  },
+  "transaction": {
+   "w": "transaction",
+   "pos": "n",
+   "def": "an act of buying, selling or moving money",
+   "ex": "Every transaction is recorded by text message.",
+   "lessons": [
+    "world_ssa_mobile",
+    "c1_pro_23_customer_experience",
+    "rp_07_at_the_bank"
+   ]
+  },
+  "leapfrog": {
+   "w": "leapfrog",
+   "pos": "v",
+   "def": "to jump past a stage of development that others went through",
+   "ex": "Some countries leapfrog landlines and go straight to mobile phones.",
+   "lessons": [
+    "world_ssa_mobile"
+   ]
+  },
+  "access": {
+   "w": "access",
+   "pos": "n",
+   "def": "the ability or opportunity to use something",
+   "ex": "Better access to finance helps small businesses grow.",
+   "lessons": [
+    "world_ssa_mobile",
+    "academic_publishing_open_access_interactive",
+    "epicurean_21_hidden_currents",
+    "lesson_36_technology_society",
+    "lesson_36_technology_society_interactive"
+   ]
+  },
+  "bank": {
+   "w": "bank",
+   "pos": "n",
+   "def": "a place that keeps your money",
+   "ex": "There is no bank in the village.",
+   "lessons": [
+    "world_ssa_mobile_a2",
+    "rp_07_at_the_bank_a2b1",
+    "short_history_the_great_depression_a2b1"
+   ]
+  },
+  "text": {
+   "w": "text",
+   "pos": "n",
+   "def": "a short message on a phone",
+   "ex": "He sends a text to a friend.",
+   "lessons": [
+    "world_ssa_mobile_a2"
+   ]
+  },
+  "solar": {
+   "w": "solar",
+   "pos": "adj",
+   "def": "using energy from the sun",
+   "ex": "The solar lamp gives light at night.",
+   "lessons": [
+    "world_ssa_mobile_a2"
+   ]
+  },
+  "griot": {
+   "w": "griot",
+   "pos": "n",
+   "def": "a West African poet, singer and storyteller who keeps history alive",
+   "ex": "A griot sings the history of a family.",
+   "lessons": [
+    "world_ssa_music"
+   ]
+  },
+  "kora": {
+   "w": "kora",
+   "pos": "n",
+   "def": "a West African instrument with 21 strings, played like a harp",
+   "ex": "The kora sounds like a guitar and a harp together.",
+   "lessons": [
+    "world_ssa_music"
+   ]
+  },
+  "singer": {
+   "w": "singer",
+   "pos": "n",
+   "def": "a person who sings",
+   "ex": "The singer has a beautiful voice.",
+   "lessons": [
+    "world_ssa_music_a2"
+   ]
+  },
+  "drum": {
+   "w": "drum",
+   "pos": "n",
+   "def": "an instrument that you hit",
+   "ex": "He plays the drum.",
+   "lessons": [
+    "world_ssa_music_a2"
+   ]
+  },
+  "safari": {
+   "w": "safari",
+   "pos": "n",
+   "def": "a trip to see wild animals in their natural home, especially in Africa",
+   "ex": "A safari in Kenya can last several days.",
+   "lessons": [
+    "world_ssa_safari"
+   ]
+  },
+  "conservation": {
+   "w": "conservation",
+   "pos": "n",
+   "def": "the protection of nature and wild animals",
+   "ex": "Conservation works best when local people share the benefits.",
+   "lessons": [
+    "world_ssa_safari",
+    "gr_warmup_b2_hot_takes_animals",
+    "gr_warmup_b2_hot_takes_environment",
+    "b1_32_environmental_reading",
+    "talk_zoos_b2c1",
+    "bc_endangered_species_b2c1"
+   ]
+  },
+  "habitat": {
+   "w": "habitat",
+   "pos": "n",
+   "def": "the natural home of an animal or plant",
+   "ex": "Farming has taken over much of the elephants' habitat.",
+   "lessons": [
+    "world_ssa_safari",
+    "bc_travel_c1",
+    "b1_32_environmental_reading",
+    "talk_zoos_a2b1",
+    "bc_environmental_science_c1",
+    "cpe_read_c2_08_noise_pollution",
+    "IELTS-Reading-Practice-Test-7"
+   ]
+  },
+  "ranger": {
+   "w": "ranger",
+   "pos": "n",
+   "def": "a person whose job is to look after a park and its wildlife",
+   "ex": "The ranger checks the park for illegal traps.",
+   "lessons": [
+    "world_ssa_safari"
+   ]
+  },
+  "community": {
+   "w": "community",
+   "pos": "n",
+   "def": "the people who live in a particular place",
+   "ex": "The local community receives a share of the park fees.",
+   "lessons": [
+    "world_ssa_safari",
+    "b1_50_volunteering",
+    "bc_making_world_better_c1",
+    "epicurean_04_the_garden_community",
+    "talk_volunteering_a2b1"
+   ]
+  },
+  "elephant": {
+   "w": "elephant",
+   "pos": "n",
+   "def": "a very big grey animal with a long nose",
+   "ex": "An elephant eats plants all day.",
+   "lessons": [
+    "world_ssa_safari_a2",
+    "short_history_hannibal_a2b1"
+   ]
+  },
+  "lion": {
+   "w": "lion",
+   "pos": "n",
+   "def": "a large wild cat that lives in Africa",
+   "ex": "The lion sleeps in the shade.",
+   "lessons": [
+    "world_ssa_safari_a2"
+   ]
+  },
+  "guide": {
+   "w": "guide",
+   "pos": "n",
+   "def": "a person who shows visitors around",
+   "ex": "The guide knows every animal.",
+   "lessons": [
+    "world_ssa_safari_a2",
+    "bc_follow_the_rules_c1"
    ]
   },
   "constructive criticism": {
@@ -100399,17 +101143,6 @@ window.WORDBANK={
    "ex": "It is nicer to talk in person than by email.",
    "lessons": [
     "gr_warmup_a2_hot_takes_technology"
-   ]
-  },
-  "public transport": {
-   "w": "public transport",
-   "pos": "n",
-   "def": "buses and trains that everyone can use",
-   "ex": "Public transport in my city is cheap and fast.",
-   "lessons": [
-    "gr_warmup_a2_hot_takes_transport",
-    "a1p_38_travel_transport",
-    "talk_city_or_countryside_a2b1"
    ]
   },
   "underground": {
@@ -105429,20 +106162,6 @@ window.WORDBANK={
     "sp_b2_57_persuasion"
    ]
   },
-  "habitat": {
-   "w": "habitat",
-   "pos": "n",
-   "def": "the natural home of an animal or plant",
-   "ex": "New roads are destroying the tigers' habitat.",
-   "lessons": [
-    "bc_travel_c1",
-    "b1_32_environmental_reading",
-    "talk_zoos_a2b1",
-    "bc_environmental_science_c1",
-    "cpe_read_c2_08_noise_pollution",
-    "IELTS-Reading-Practice-Test-7"
-   ]
-  },
   "endearing": {
    "w": "endearing",
    "pos": "adj",
@@ -106425,19 +107144,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_animals"
    ]
   },
-  "conservation": {
-   "w": "conservation",
-   "pos": "n",
-   "def": "protecting wild animals, plants and natural places",
-   "ex": "The charity works on tiger conservation in India.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_animals",
-    "gr_warmup_b2_hot_takes_environment",
-    "b1_32_environmental_reading",
-    "talk_zoos_b2c1",
-    "bc_endangered_species_b2c1"
-   ]
-  },
   "humane": {
    "w": "humane",
    "pos": "adj",
@@ -106989,17 +107695,6 @@ window.WORDBANK={
    "ex": "Fans often put singers on a pedestal.",
    "lessons": [
     "gr_warmup_b2_hot_takes_heroes"
-   ]
-  },
-  "code-switching": {
-   "w": "code-switching",
-   "pos": "n",
-   "def": "changing how you speak depending on who is around",
-   "ex": "Code-switching between home and work is normal for many people.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_identity",
-    "curious_conversations_language_shapes_thought",
-    "sp_prep_c1_73"
    ]
   },
   "mandatory": {
@@ -113768,18 +114463,6 @@ window.WORDBANK={
     "academic_publishing_open_access_interactive"
    ]
   },
-  "access": {
-   "w": "access",
-   "pos": "n",
-   "def": "the right or chance to use or see something",
-   "ex": "All residents have free access to the swimming pool.",
-   "lessons": [
-    "academic_publishing_open_access_interactive",
-    "epicurean_21_hidden_currents",
-    "lesson_36_technology_society",
-    "lesson_36_technology_society_interactive"
-   ]
-  },
   "knowledge sharing": {
    "w": "knowledge sharing",
    "pos": "n",
@@ -117495,18 +118178,6 @@ window.WORDBANK={
     "su_a2_30_ordering_food"
    ]
   },
-  "rude": {
-   "w": "rude",
-   "pos": "adj",
-   "def": "not polite; showing bad manners",
-   "ex": "The waiter was rude when we asked for water.",
-   "lessons": [
-    "su_a2_32_places_i_have_visited",
-    "ct_b1_24_clarification_building_blocks",
-    "a1p_31_restaurant",
-    "talk_tipping_a2b1"
-   ]
-  },
   "awful": {
    "w": "awful",
    "pos": "adj",
@@ -117586,17 +118257,6 @@ window.WORDBANK={
    "ex": "The caller wanted information about train times.",
    "lessons": [
     "su_a2_34_getting_the_right_information"
-   ]
-  },
-  "agent": {
-   "w": "agent",
-   "pos": "n",
-   "def": "a person whose job is to help customers, often by phone",
-   "ex": "The agent changed my booking in two minutes.",
-   "lessons": [
-    "su_a2_34_getting_the_right_information",
-    "behind_the_screen_the_untouchables_a2b1",
-    "rp_15_renting_a_flat_a2b1"
    ]
   },
   "provide": {
@@ -119213,18 +119873,6 @@ window.WORDBANK={
    "lessons": [
     "b1_50_volunteering",
     "b2_87_organising_event"
-   ]
-  },
-  "community": {
-   "w": "community",
-   "pos": "n",
-   "def": "the people who live in one area",
-   "ex": "The whole community helped clean the park.",
-   "lessons": [
-    "b1_50_volunteering",
-    "bc_making_world_better_c1",
-    "epicurean_04_the_garden_community",
-    "talk_volunteering_a2b1"
    ]
   },
   "soundtrack": {
@@ -123657,16 +124305,6 @@ window.WORDBANK={
     "c1_pro_22_supply_chain"
    ]
   },
-  "transaction": {
-   "w": "transaction",
-   "pos": "n",
-   "def": "an act of buying, selling or moving money",
-   "ex": "Every card transaction appears on your monthly statement.",
-   "lessons": [
-    "c1_pro_23_customer_experience",
-    "rp_07_at_the_bank"
-   ]
-  },
   "interaction": {
    "w": "interaction",
    "pos": "n",
@@ -125240,16 +125878,6 @@ window.WORDBANK={
     "ct_a2_19_explaining_processes",
     "sp_a2_19_explaining_processes",
     "sp_prep_a2_19"
-   ]
-  },
-  "mix": {
-   "w": "mix",
-   "pos": "v",
-   "def": "to combine different things together",
-   "ex": "Mix the sugar and butter in a large bowl.",
-   "lessons": [
-    "ct_a2_19_explaining_processes",
-    "ielts_route"
    ]
   },
   "confidently": {
@@ -131883,16 +132511,6 @@ window.WORDBANK={
     "a1p_13_going_shopping"
    ]
   },
-  "bank": {
-   "w": "bank",
-   "pos": "n",
-   "def": "a business that keeps and lends money",
-   "ex": "I opened an account at a local bank.",
-   "lessons": [
-    "rp_07_at_the_bank_a2b1",
-    "short_history_the_great_depression_a2b1"
-   ]
-  },
   "browse": {
    "w": "browse",
    "pos": "n",
@@ -132978,15 +133596,6 @@ window.WORDBANK={
     "short_history_the_great_wall_of_china_a2b1"
    ]
   },
-  "elephant": {
-   "w": "elephant",
-   "pos": "n",
-   "def": "a very large grey animal with a long nose",
-   "ex": "He took elephants across the snowy mountains.",
-   "lessons": [
-    "short_history_hannibal_a2b1"
-   ]
-  },
   "victory": {
    "w": "victory",
    "pos": "n",
@@ -133356,18 +133965,6 @@ window.WORDBANK={
    "ex": "Thirty-six barrels were hidden under the building.",
    "lessons": [
     "short_history_the_gunpowder_plot_a2b1"
-   ]
-  },
-  "harvest": {
-   "w": "harvest",
-   "pos": "n",
-   "def": "the time when farmers collect their crops",
-   "ex": "The harvest turned black and rotten in the fields.",
-   "lessons": [
-    "short_history_the_irish_potato_famine_a2b1",
-    "b2_70_fair_trade",
-    "lesson_18_passive_voice_present_past",
-    "ielts_task_1_lesson_4_process_maps"
    ]
   },
   "evict": {
@@ -140438,15 +141035,6 @@ window.WORDBANK={
     "bc_follow_the_rules_c1"
    ]
   },
-  "guide": {
-   "w": "guide",
-   "pos": "v",
-   "def": "to help someone understand or move in a direction",
-   "ex": "Clear headings guide the reader through the report.",
-   "lessons": [
-    "bc_follow_the_rules_c1"
-   ]
-  },
   "hack": {
    "w": "hack",
    "pos": "n",
@@ -140733,16 +141321,6 @@ window.WORDBANK={
    "ex": "Working abroad helps you develop strong intercultural awareness.",
    "lessons": [
     "bc_handling_intercultural_c1"
-   ]
-  },
-  "growth": {
-   "w": "growth",
-   "pos": "n",
-   "def": "the process of developing or improving",
-   "ex": "Travel can lead to real personal growth.",
-   "lessons": [
-    "bc_handling_intercultural_c1",
-    "lesson_50_mastery_celebration_finale"
    ]
   },
   "response strategy": {
@@ -141174,15 +141752,6 @@ window.WORDBANK={
    "lessons": [
     "bc_andy_burnham_c1",
     "lesson_05_present_perfect_continuous"
-   ]
-  },
-  "housing": {
-   "w": "housing",
-   "pos": "n",
-   "def": "buildings that people live in",
-   "ex": "The city needs more affordable housing.",
-   "lessons": [
-    "bc_andy_burnham_c1"
    ]
   },
   "coating": {
@@ -141950,15 +142519,6 @@ window.WORDBANK={
    "lessons": [
     "a1p_01_introductions",
     "a1_when_do_you_do_it_part2_interactive"
-   ]
-  },
-  "country": {
-   "w": "country",
-   "pos": "n",
-   "def": "a land with its own government, like Spain or Japan",
-   "ex": "Which country would you most like to visit next year?",
-   "lessons": [
-    "a1p_02_where_are_you_from"
    ]
   },
   "nationality": {
