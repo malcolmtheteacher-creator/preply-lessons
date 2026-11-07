@@ -5810,12 +5810,10 @@ window.WORDBANK={
    "title": "The Marshmallow Test",
    "level": "A2/B1",
    "words": [
+    "experiment",
     "wait",
     "self-control",
     "reward",
-    "now",
-    "experiment",
-    "watch",
     "successful"
    ]
   },
@@ -5825,15 +5823,12 @@ window.WORDBANK={
    "level": "B2/C1",
    "words": [
     "delayed gratification",
-    "unrepresentative",
-    "correlation",
-    "replicate",
-    "confounding",
-    "self-regulation",
     "distract",
-    "decades",
+    "unrepresentative",
+    "confounding",
     "break",
-    "modest"
+    "modest",
+    "correlation"
    ]
   },
   {
@@ -5841,14 +5836,12 @@ window.WORDBANK={
    "title": "The Invisible Gorilla",
    "level": "A2/B1",
    "words": [
-    "pay attention",
-    "notice",
     "gorilla",
     "count",
-    "pass",
-    "amazing",
-    "see",
-    "busy"
+    "pay attention",
+    "notice",
+    "busy",
+    "pass"
    ]
   },
   {
@@ -5856,15 +5849,14 @@ window.WORDBANK={
    "title": "The Invisible Gorilla",
    "level": "B2/C1",
    "words": [
-    "inattentional blindness",
+    "selective",
     "demanding",
-    "conspicuous",
-    "oblivious",
+    "inattentional blindness",
     "capacity",
     "overconfident",
-    "selective",
+    "oblivious",
+    "conspicuous",
     "distracted",
-    "notice",
     "salient"
    ]
   },
@@ -5873,14 +5865,13 @@ window.WORDBANK={
    "title": "Follow the Crowd?",
    "level": "A2/B1",
    "words": [
-    "group",
-    "pressure",
-    "agree",
-    "wrong",
     "line",
+    "group",
+    "wrong",
     "confident",
-    "stand out",
-    "afraid"
+    "pressure",
+    "afraid",
+    "stand out"
    ]
   },
   {
@@ -5889,15 +5880,13 @@ window.WORDBANK={
    "level": "B2/C1",
    "words": [
     "conformity",
-    "sceptical",
-    "comply",
     "confederate",
-    "consensus",
     "unanimous",
-    "ally",
-    "pressure",
+    "comply",
+    "consensus",
     "nonconformists",
-    "influential"
+    "ally",
+    "pressure"
    ]
   },
   {
@@ -5905,12 +5894,12 @@ window.WORDBANK={
    "title": "Can You Trust Your Memory?",
    "level": "A2/B1",
    "words": [
-    "remember",
-    "forget",
-    "witness",
     "accident",
+    "witness",
     "fast",
     "glass",
+    "remember",
+    "forget",
     "question"
    ]
   },
@@ -5919,16 +5908,14 @@ window.WORDBANK={
    "title": "Can You Trust Your Memory?",
    "level": "B2/C1",
    "words": [
-    "reconstructive",
     "leading",
-    "fabricated",
     "eyewitness",
     "misinformation",
+    "fabricated",
     "reliable",
-    "credible",
     "convicted",
-    "implant",
-    "vivid"
+    "reconstructive",
+    "implant"
    ]
   },
   {
@@ -5937,11 +5924,9 @@ window.WORDBANK={
    "level": "A2/B1",
    "words": [
     "twins",
+    "identical",
     "genes",
     "personality",
-    "identical",
-    "scientist",
-    "different from",
     "environment"
    ]
   },
@@ -5950,16 +5935,15 @@ window.WORDBANK={
    "title": "Born or Made?",
    "level": "B2/C1",
    "words": [
-    "heritability",
-    "nature versus nurture",
-    "environment",
     "monozygotic",
-    "variation",
-    "control",
-    "compromised",
-    "inherited",
     "separated",
-    "dichotomy"
+    "heritability",
+    "variation",
+    "compromised",
+    "dichotomy",
+    "environment",
+    "control",
+    "inherited"
    ]
   },
   {
@@ -5968,12 +5952,12 @@ window.WORDBANK={
    "level": "A2/B1",
    "words": [
     "lottery",
-    "rich",
+    "study",
     "get used to",
     "happy",
     "salary",
     "savings",
-    "study"
+    "rich"
    ]
   },
   {
@@ -5983,14 +5967,11 @@ window.WORDBANK={
    "words": [
     "hedonic treadmill",
     "adaptation",
-    "wellbeing",
-    "income",
     "plateau",
     "inconclusive",
-    "reports",
-    "status",
     "generalise",
-    "lasting"
+    "lasting",
+    "wellbeing"
    ]
   },
   {
@@ -5998,13 +5979,12 @@ window.WORDBANK={
    "title": "Can We Repeat the Result?",
    "level": "A2/B1",
    "words": [
+    "hypothesis",
+    "significant",
     "replicate",
     "sample",
-    "significant",
-    "hypothesis",
-    "bias",
     "preregister",
-    "smaller",
+    "bias",
     "fluke"
    ]
   },
@@ -6013,14 +5993,13 @@ window.WORDBANK={
    "title": "Can We Repeat the Result?",
    "level": "B2/C1",
    "words": [
-    "p-hacking",
     "publication bias",
-    "registered report",
     "effect size",
-    "confirmatory",
-    "reproducible",
     "hold up",
-    "encourages",
+    "registered report",
+    "confirmatory",
+    "p-hacking",
+    "reproducible",
     "moderator"
    ]
   },
@@ -6029,14 +6008,14 @@ window.WORDBANK={
    "title": "Should This Study Be Allowed?",
    "level": "A2/B1",
    "words": [
-    "consent",
-    "debrief",
-    "withdraw",
-    "deceive",
     "obey",
-    "ethics board",
+    "deceive",
     "stress",
-    "require"
+    "require",
+    "ethics board",
+    "debrief",
+    "consent",
+    "withdraw"
    ]
   },
   {
@@ -6044,16 +6023,13 @@ window.WORDBANK={
    "title": "Should This Study Be Allowed?",
    "level": "B2/C1",
    "words": [
-    "informed consent",
-    "deception",
-    "risk–benefit ratio",
     "obedience",
-    "non-maleficence",
-    "exempt",
+    "deception",
     "withdraw",
-    "required",
-    "obliged",
-    "proportionate"
+    "informed consent",
+    "risk–benefit ratio",
+    "non-maleficence",
+    "obliged"
    ]
   },
   {
@@ -6061,14 +6037,12 @@ window.WORDBANK={
    "title": "Does the Method Matter?",
    "level": "A2/B1",
    "words": [
-    "client",
-    "relationship",
-    "outcome",
-    "method",
     "equal",
+    "method",
     "improve",
-    "carefully",
-    "randomly"
+    "outcome",
+    "relationship",
+    "client"
    ]
   },
   {
@@ -6076,16 +6050,14 @@ window.WORDBANK={
    "title": "Does the Method Matter?",
    "level": "B2/C1",
    "words": [
-    "therapeutic alliance",
-    "common factors",
     "dodo bird verdict",
     "controlled trial",
+    "therapeutic alliance",
     "meta-analysis",
-    "therapist effects",
     "disorders",
     "committed",
-    "adapt",
-    "premature"
+    "common factors",
+    "therapist effects"
    ]
   },
   {
@@ -6093,14 +6065,14 @@ window.WORDBANK={
    "title": "Who Decides What Is Normal?",
    "level": "A2/B1",
    "words": [
-    "diagnosis",
-    "symptom",
-    "patient",
     "pretend",
+    "healthy",
+    "diagnosis",
+    "discharge",
     "label",
     "ordinary",
-    "healthy",
-    "discharge"
+    "symptom",
+    "patient"
    ]
   },
   {
@@ -6108,16 +6080,13 @@ window.WORDBANK={
    "title": "Who Decides What Is Normal?",
    "level": "B2/C1",
    "words": [
-    "symptom",
+    "pseudopatient",
+    "pathologise",
     "label",
     "stigma",
-    "pseudopatient",
     "reliability",
-    "pathologise",
-    "evidence",
     "verified",
-    "operational",
-    "socially constructed"
+    "symptom"
    ]
   },
   {
@@ -6126,12 +6095,10 @@ window.WORDBANK={
    "level": "A2/B1",
    "words": [
     "prediction",
-    "intuition",
     "formula",
     "accurate",
     "consistent",
-    "assess",
-    "confident",
+    "intuition",
     "feedback"
    ]
   },
@@ -6140,16 +6107,13 @@ window.WORDBANK={
    "title": "Expert or Formula?",
    "level": "B2/C1",
    "words": [
-    "statistical",
-    "noise",
-    "overconfident",
     "algorithm",
     "predictor",
-    "valid",
+    "noise",
+    "overconfident",
     "regular",
     "feedback",
-    "entrench",
-    "parsimonious"
+    "entrench"
    ]
   },
   {
@@ -6157,12 +6121,12 @@ window.WORDBANK={
    "title": "Whose Psychology Is It?",
    "level": "A2/B1",
    "words": [
+    "undergraduate",
+    "sample",
+    "western",
     "representative",
     "culture",
-    "undergraduate",
     "generalise",
-    "western",
-    "sample",
     "majority"
    ]
   },
@@ -6172,15 +6136,13 @@ window.WORDBANK={
    "level": "B2/C1",
    "words": [
     "weird",
-    "universal",
-    "ecological validity",
     "generalise",
-    "imported",
-    "diversity",
+    "outlier",
     "homogeneous",
-    "linguistic",
+    "imported",
     "context",
-    "outlier"
+    "universal",
+    "diversity"
    ]
   },
   {
@@ -7805,6 +7767,29 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "short_history_the_first_stock_market",
+   "title": "Short History, Long Echoes: The First Stock Market",
+   "level": "",
+   "words": [
+    "speculation",
+    "lucrative",
+    "stampede",
+    "finance",
+    "output",
+    "mob",
+    "cargo",
+    "pool",
+    "share",
+    "dividend",
+    "speculate",
+    "volatile",
+    "bubble",
+    "frenzy",
+    "hindsight",
+    "diversify"
+   ]
+  },
+  {
    "id": "short_history_the_forbidden_city",
    "title": "Short History, Long Echoes: The Forbidden City",
    "level": "",
@@ -8664,6 +8649,29 @@ window.WORDBANK={
     "overwhelmed",
     "ward",
     "censorship"
+   ]
+  },
+  {
+   "id": "short_history_the_stories_we_agree_on",
+   "title": "Short History, Long Echoes: The Stories We Agree On",
+   "level": "",
+   "words": [
+    "charter",
+    "insolvency",
+    "arbitrary",
+    "sway",
+    "disseminate",
+    "harness",
+    "entity",
+    "guardian",
+    "grant",
+    "liable",
+    "creditor",
+    "tangible",
+    "fiction",
+    "consensus",
+    "institution",
+    "take for granted"
    ]
   },
   {
@@ -47786,12 +47794,11 @@ window.WORDBANK={
   },
   "now": {
    "w": "now",
-   "pos": "adv",
+   "pos": "",
    "def": "at this moment — not before, not after",
-   "ex": "I want it now!",
+   "ex": "",
    "lessons": [
-    "a1s_09_call",
-    "psy_01_marshmallow_a2b1"
+    "a1s_09_call"
    ]
   },
   "busy": {
@@ -50869,7 +50876,7 @@ window.WORDBANK={
    "w": "question",
    "pos": "n",
    "def": "something you ask",
-   "ex": "",
+   "ex": "question",
    "lessons": [
     "a1s_48_quiz",
     "psy_04_can_you_trust_memory_a2b1",
@@ -51278,6 +51285,7 @@ window.WORDBANK={
     "odyssey_john",
     "short_history_magna_carta",
     "short_history_the_east_india_company",
+    "short_history_the_stories_we_agree_on",
     "Rhetorical Devices in British Literary History",
     "ois_09_plantagenets_and_magna_carta"
    ]
@@ -51922,11 +51930,12 @@ window.WORDBANK={
   },
   "liable": {
    "w": "liable",
-   "pos": "",
+   "pos": "adj",
    "def": "legally responsible, and so required to pay if something goes wrong. The noun is liability.",
    "ex": "The tribunal decided that the airline was liable for what its own website said.",
    "lessons": [
     "bc_ai_chatbot_c1",
+    "short_history_the_stories_we_agree_on",
     "grammar_c2_03_complex_modality"
    ]
   },
@@ -53121,7 +53130,8 @@ window.WORDBANK={
     "bc_apple1997_c1",
     "bc_lego_turnaround_c1",
     "bc_wirecard_c1",
-    "short_history_the_french_revolution"
+    "short_history_the_french_revolution",
+    "short_history_the_stories_we_agree_on"
    ]
   },
   "turnaround": {
@@ -54534,7 +54544,6 @@ window.WORDBANK={
     "discuss_c1_will_to_believe",
     "nq_05_why_c1",
     "piranesi_bc_journals",
-    "psyp_10_who_decides_whats_normal_b2c1",
     "short_history_al_capone",
     "short_history_watergate",
     "techniques_a_jury_of_her_peers_a2b1",
@@ -54750,7 +54759,6 @@ window.WORDBANK={
    "ex": "Should the company adapt to the software, or the software to the company?",
    "lessons": [
     "bc_golive_a2b1",
-    "psyp_09_does_the_method_matter_b2c1",
     "tib_acculturation_b2",
     "tib_kolb_b2",
     "tib_ooda_b2",
@@ -54954,6 +54962,7 @@ window.WORDBANK={
    "ex": "The cargo was worth about fourteen billion dollars.",
    "lessons": [
     "bc_hanjin_a2b1",
+    "short_history_the_first_stock_market",
     "su_a2_81_travel_plans"
    ]
   },
@@ -55311,7 +55320,6 @@ window.WORDBANK={
    "ex": "When the salesman promised the pills would cure everything, the old farmer folded his arms, raised one eyebrow, and gave him a long sceptical look.",
    "lessons": [
     "bc_ibn_khaldun_c1",
-    "psy_03_follow_the_crowd_b2c1",
     "short_history_agatha_christie",
     "short_history_chernobyl",
     "short_history_homers_epics",
@@ -55470,6 +55478,7 @@ window.WORDBANK={
     "bc_onlinetherapy_a2b1",
     "bc_rivian_ev_a2b1",
     "odyssey_harthacnut",
+    "short_history_the_first_stock_market",
     "ts_rosalind_franklin_b2",
     "world_ssa_food_a2",
     "anansi_and_the_moss_covered_rock",
@@ -56044,7 +56053,6 @@ window.WORDBANK={
     "bc_lost_in_translation_b2",
     "bc_psychology_of_colour_b2",
     "persepolis_bc_pictures",
-    "psy_04_can_you_trust_memory_b2c1",
     "topic_memory_b2",
     "gr_b2_alibi",
     "bc_rhetorical_devices_c1",
@@ -56521,10 +56529,11 @@ window.WORDBANK={
    "w": "bubble",
    "pos": "n",
    "def": "a period when prices rise far above real value because people expect them to keep rising, followed by a sudden collapse. A speculative bubble, the bubble burst, the dot-com bubble.",
-   "ex": "",
+   "ex": "Many people believe there was a housing bubble before 2008.",
    "lessons": [
     "bc_marvel_c1",
     "odyssey_george_i",
+    "short_history_the_first_stock_market",
     "tib_hypecycle_b2"
    ]
   },
@@ -56532,9 +56541,10 @@ window.WORDBANK={
    "w": "creditor",
    "pos": "n",
    "def": "a person or organisation that is owed money. The opposite is a debtor. Collocations: to repay creditors, creditor protection, a meeting of creditors.",
-   "ex": "",
+   "ex": "The creditors met to decide what to do about the unpaid bills.",
    "lessons": [
-    "bc_marvel_c1"
+    "bc_marvel_c1",
+    "short_history_the_stories_we_agree_on"
    ]
   },
   "collateral": {
@@ -57689,6 +57699,7 @@ window.WORDBANK={
     "nq_01_should_we_c1",
     "persepolis_bc_revolution",
     "persepolis_child",
+    "short_history_the_first_stock_market",
     "ts_thinking_in_bets_b2",
     "lesson_world_war_2_speaking",
     "curious_conversations_04_best_advice",
@@ -57950,9 +57961,10 @@ window.WORDBANK={
    "w": "dividend",
    "pos": "n",
    "def": "to pay / declare / reinvest a dividend. In this structure, every dividend flows to a climate organisation instead of a family — roughly a hundred million dollars a year, in the company's own estimate.",
-   "ex": "",
+   "ex": "The company paid a dividend of two euros per share.",
    "lessons": [
     "bc_patagonia_c1",
+    "short_history_the_first_stock_market",
     "topic_free_time_c1c2",
     "c1c2_the_ulysses_contract_for_leaders"
    ]
@@ -58030,7 +58042,6 @@ window.WORDBANK={
    "ex": "A scientist found a new kind of plastic.",
    "lessons": [
     "bc_postit_a2b1",
-    "psy_05_born_or_made_a2b1",
     "techniques_jekyll_and_hyde_4_a2b1",
     "short_history_marie_curie_a2b1"
    ]
@@ -60451,6 +60462,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_contagion",
     "behind_the_screen_whiplash",
+    "short_history_the_first_stock_market",
     "short_history_the_kray_twins",
     "acad_b1_10_describing_graphs"
    ]
@@ -60685,6 +60697,7 @@ window.WORDBANK={
    "ex": "Over the years the true account was buried under speculation — endless guesses, wild theories and invented \"facts\" that no one could prove.",
    "lessons": [
     "behind_the_screen_escape_from_alcatraz",
+    "short_history_the_first_stock_market",
     "short_history_the_great_depression",
     "short_history_the_mary_celeste",
     "althist_history_c1_part1",
@@ -63013,6 +63026,7 @@ window.WORDBANK={
    "ex": "After a year of promises, the villagers wanted tangible results: a working well and a repaired road, not another speech.",
    "lessons": [
     "bq_03_plug_in_c1",
+    "short_history_the_stories_we_agree_on",
     "talk_books_and_screens_b2c1",
     "sp_b1_26_abstract_concepts",
     "sp_prep_b1_26"
@@ -63379,6 +63393,7 @@ window.WORDBANK={
     "bq_07_is_luck_fair_c1",
     "short_history_magna_carta",
     "short_history_the_partition_of_india",
+    "short_history_the_stories_we_agree_on",
     "cpe_read_c2_02_cognitive_biases"
    ]
   },
@@ -63933,10 +63948,11 @@ window.WORDBANK={
    "w": "speculate",
    "pos": "v",
    "def": "to speculate about the future / about what happened. The noun is speculation. We practise this in the Grammar tab.",
-   "ex": "",
+   "ex": "Many people speculated on the price of the new stock.",
    "lessons": [
     "discuss_b2c1_golden_record",
     "odyssey_george_i",
+    "short_history_the_first_stock_market",
     "gr_b2_the_black_box",
     "gr_b2_the_headline",
     "bestiary_discourse_qualify",
@@ -65767,6 +65783,7 @@ window.WORDBANK={
    "ex": "The toy maker tried to diversify into clothes, theme parks and video games all at once, and lost sight of what it did best.",
    "lessons": [
     "nq_03_what_first_c1",
+    "short_history_the_first_stock_market",
     "world_mena_oil"
    ]
   },
@@ -66492,7 +66509,7 @@ window.WORDBANK={
    "w": "withdraw",
    "pos": "v",
    "def": "to leave or pull back.",
-   "ex": "The participant was told that he could withdraw at any time.",
+   "ex": "You can withdraw up to two hundred a day.",
    "lessons": [
     "odyssey_background",
     "odyssey_eadwig",
@@ -66747,7 +66764,7 @@ window.WORDBANK={
    "w": "environment",
    "pos": "n",
    "def": "the natural world.",
-   "ex": "The environment includes what happens before birth, as well as upbringing and culture.",
+   "ex": "He campaigned for the environment.",
    "lessons": [
     "odyssey_charles_iii",
     "psy_05_born_or_made_a2b1",
@@ -69797,7 +69814,7 @@ window.WORDBANK={
    "w": "ally",
    "pos": "n",
    "def": "a supporter.",
-   "ex": "",
+   "ex": "ally",
    "lessons": [
     "odyssey_henry_iv",
     "psy_03_follow_the_crowd_b2c1",
@@ -71549,9 +71566,10 @@ window.WORDBANK={
    "w": "guardian",
    "pos": "n",
    "def": "a person who rules for a king.",
-   "ex": "",
+   "ex": "The court named her uncle as the child's guardian.",
    "lessons": [
     "odyssey_robert_ii",
+    "short_history_the_stories_we_agree_on",
     "rs_y10_sum1_23_04"
    ]
   },
@@ -72407,7 +72425,6 @@ window.WORDBANK={
    "lessons": [
     "persepolis_bc_story",
     "persepolis_truth",
-    "psy_04_can_you_trust_memory_b2c1",
     "Business-Bootcamp-Lesson2-The-Negotiation",
     "acad_b1_16_finding_information",
     "the_art_of_the_impression",
@@ -73872,7 +73889,7 @@ window.WORDBANK={
    "w": "universal",
    "pos": "adj",
    "def": "available to everyone",
-   "ex": "A finding is universal if it holds across humanity, not only in one population.",
+   "ex": "Healthcare is universal.",
    "lessons": [
     "pol_06_nordics",
     "psyp_12_whose_psychology_b2c1"
@@ -73953,7 +73970,7 @@ window.WORDBANK={
    "w": "moderator",
    "pos": "n",
    "def": "a person who controls a discussion and keeps it fair",
-   "ex": "The result may depend on a moderator that the original authors did not measure.(a) a person who leads a discussion (b) a variable that changes the strength or direction of an effect (c) a kind of statistical error",
+   "ex": "The moderator asked both candidates the same question.",
    "lessons": [
     "pol_07_debate",
     "pol_07_debate_a2",
@@ -74183,6 +74200,20 @@ window.WORDBANK={
     "qf_falsefriend_spanish_exito"
    ]
   },
+  "experiment": {
+   "w": "experiment",
+   "pos": "n",
+   "def": "a test that helps people learn something",
+   "ex": "The scientist did an experiment.",
+   "lessons": [
+    "psy_01_marshmallow_a2b1",
+    "techniques_dr_heideggers_experiment",
+    "techniques_dr_heideggers_experiment_a2b1",
+    "general_listening_b2_pitch_drop_interactive",
+    "short_history_the_wright_brothers_a2b1",
+    "lesson-29-practice-system"
+   ]
+  },
   "self-control": {
    "w": "self-control",
    "pos": "n",
@@ -74210,33 +74241,6 @@ window.WORDBANK={
     "ielts_lesson_4b_generating_ideas"
    ]
   },
-  "experiment": {
-   "w": "experiment",
-   "pos": "n",
-   "def": "a test that helps people learn something",
-   "ex": "The scientist did an experiment.",
-   "lessons": [
-    "psy_01_marshmallow_a2b1",
-    "techniques_dr_heideggers_experiment",
-    "techniques_dr_heideggers_experiment_a2b1",
-    "general_listening_b2_pitch_drop_interactive",
-    "short_history_the_wright_brothers_a2b1",
-    "lesson-29-practice-system"
-   ]
-  },
-  "watch": {
-   "w": "watch",
-   "pos": "noun",
-   "def": "a small clock. A silver watch was a very expensive thing.",
-   "ex": "She likes to watch the people.\" / \"We watch the children play.",
-   "lessons": [
-    "psy_01_marshmallow_a2b1",
-    "techniques_mateo_falcone_a2b1",
-    "techniques_miss_brill_a2b1",
-    "techniques_the_gift_of_the_magi_a2b1",
-    "qf_collocation_look_watch_see"
-   ]
-  },
   "delayed gratification": {
    "w": "delayed gratification",
    "pos": "n",
@@ -74244,61 +74248,6 @@ window.WORDBANK={
    "ex": "Economists call it delayed gratification: choosing a larger reward later over a smaller one now.",
    "lessons": [
     "psy_01_marshmallow_b2c1"
-   ]
-  },
-  "unrepresentative": {
-   "w": "unrepresentative",
-   "pos": "adj",
-   "def": "not typical of the larger group you want to draw conclusions about.",
-   "ex": "The study was widely cited, but its sample was small and unrepresentative: almost all the children came from one university nursery.",
-   "lessons": [
-    "psy_01_marshmallow_b2c1"
-   ]
-  },
-  "correlation": {
-   "w": "correlation",
-   "pos": "n",
-   "def": "a link between two things; when one changes, the other tends to change too.",
-   "ex": "Early results suggested a strong correlation between waiting and later success, though correlation is not the same as cause.",
-   "lessons": [
-    "psy_01_marshmallow_b2c1",
-    "say_so_what_c1",
-    "acad_c1_06_peer_review",
-    "gr_b2_the_conspiracy",
-    "speaking_naturally_teens_01_social_media",
-    "prof_c1_07_data_driven_decisions",
-    "the_numbers_game"
-   ]
-  },
-  "replicate": {
-   "w": "replicate",
-   "pos": "v",
-   "def": "to repeat a study to see if you get the same result. The noun is replication.",
-   "ex": "To replicate a study means to do it again in the same way.",
-   "lessons": [
-    "psy_01_marshmallow_b2c1",
-    "psyp_07_replication_crisis_a2b1",
-    "prof_c1_13_building_high_performance_teams",
-    "essay_practice_advantages_disadvantages_3"
-   ]
-  },
-  "confounding": {
-   "w": "confounding",
-   "pos": "adj",
-   "def": "a confounding variable is a third factor, e.g. family income, that muddies the conclusion.",
-   "ex": "",
-   "lessons": [
-    "psy_01_marshmallow_b2c1"
-   ]
-  },
-  "self-regulation": {
-   "w": "self-regulation",
-   "pos": "n",
-   "def": "",
-   "ex": "Self-regulation can be practised and improved.",
-   "lessons": [
-    "psy_01_marshmallow_b2c1",
-    "ielts_b2c1_the_ulysses_contract"
    ]
   },
   "distract": {
@@ -74311,10 +74260,19 @@ window.WORDBANK={
     "talk_books_and_screens_a2b1"
    ]
   },
-  "decades": {
-   "w": "decades",
-   "pos": "n",
-   "def": "periods of ten years. Longitudinal studies follow the same people over a long time.",
+  "unrepresentative": {
+   "w": "unrepresentative",
+   "pos": "adj",
+   "def": "not typical of the larger group you want to draw conclusions about.",
+   "ex": "The study was widely cited, but its sample was small and unrepresentative: almost all the children came from one university nursery.",
+   "lessons": [
+    "psy_01_marshmallow_b2c1"
+   ]
+  },
+  "confounding": {
+   "w": "confounding",
+   "pos": "adj",
+   "def": "a confounding variable is a third factor, e.g. family income, that muddies the conclusion.",
    "ex": "",
    "lessons": [
     "psy_01_marshmallow_b2c1"
@@ -74351,32 +74309,19 @@ window.WORDBANK={
     "grammar_b1_06_conditionals"
    ]
   },
-  "pay attention": {
-   "w": "pay attention",
-   "pos": "",
-   "def": "to listen or look carefully at something.",
-   "ex": "Please pay attention. This is important.",
+  "correlation": {
+   "w": "correlation",
+   "pos": "n",
+   "def": "a link between two things; when one changes, the other tends to change too.",
+   "ex": "The data showed a clear correlation between the temperature on the day and the amount of damage to the seals.",
    "lessons": [
-    "psy_02_invisible_gorilla_a2b1",
-    "su_a2_56_seeing_is_believing",
-    "qf_vocab_listen_hear"
-   ]
-  },
-  "notice": {
-   "w": "notice",
-   "pos": "v",
-   "def": "to see or realise something.",
-   "ex": "I didn't notice that my friend was sad until she started crying.",
-   "lessons": [
-    "psy_02_invisible_gorilla_a2b1",
-    "psy_02_invisible_gorilla_b2c1",
-    "techniques_the_last_class",
-    "techniques_the_last_class_a2b1",
-    "tib_johari_a2b1",
-    "ct_b1_21_complex_questions",
-    "first_lesson_b1",
-    "the-joy-of-small-things",
-    "qf_collocation_look_watch_see"
+    "psy_01_marshmallow_b2c1",
+    "say_so_what_c1",
+    "acad_c1_06_peer_review",
+    "gr_b2_the_conspiracy",
+    "speaking_naturally_teens_01_social_media",
+    "prof_c1_07_data_driven_decisions",
+    "the_numbers_game"
    ]
   },
   "gorilla": {
@@ -74397,33 +74342,31 @@ window.WORDBANK={
     "psy_02_invisible_gorilla_a2b1"
    ]
   },
-  "amazing": {
-   "w": "amazing",
-   "pos": "adj",
-   "def": "",
-   "ex": "The result was amazing.",
+  "pay attention": {
+   "w": "pay attention",
+   "pos": "",
+   "def": "to listen or look carefully at something.",
+   "ex": "Please pay attention. This is important.",
    "lessons": [
     "psy_02_invisible_gorilla_a2b1",
-    "a1p_42_describing_experiences",
-    "sp_prep_a2_13"
+    "su_a2_56_seeing_is_believing",
+    "qf_vocab_listen_hear"
    ]
   },
-  "see": {
-   "w": "see",
-   "pos": "",
-   "def": "didn't see the gorilla. Also: miss (didn't see) is common: \"They missed it.\"",
-   "ex": "",
+  "notice": {
+   "w": "notice",
+   "pos": "v",
+   "def": "to see or realise something.",
+   "ex": "I didn't notice that my friend was sad until she started crying.",
    "lessons": [
-    "psy_02_invisible_gorilla_a2b1"
-   ]
-  },
-  "inattentional blindness": {
-   "w": "inattentional blindness",
-   "pos": "n",
-   "def": "failing to see something clearly in view because your attention is on something else.",
-   "ex": "Researchers call it inattentional blindness: failing to notice a fully visible object because attention is focused elsewhere.",
-   "lessons": [
-    "psy_02_invisible_gorilla_b2c1"
+    "psy_02_invisible_gorilla_a2b1",
+    "techniques_the_last_class",
+    "techniques_the_last_class_a2b1",
+    "tib_johari_a2b1",
+    "ct_b1_21_complex_questions",
+    "first_lesson_b1",
+    "the-joy-of-small-things",
+    "qf_collocation_look_watch_see"
    ]
   },
   "demanding": {
@@ -74438,11 +74381,11 @@ window.WORDBANK={
     "sp_b2_58_diplomatic"
    ]
   },
-  "conspicuous": {
-   "w": "conspicuous",
-   "pos": "adj",
-   "def": "easy to see; attracting attention.",
-   "ex": "The gorilla was conspicuous: dark, large and in the centre of the screen for nine seconds.",
+  "inattentional blindness": {
+   "w": "inattentional blindness",
+   "pos": "n",
+   "def": "failing to see something clearly in view because your attention is on something else.",
+   "ex": "Researchers call it inattentional blindness: failing to notice a fully visible object because attention is focused elsewhere.",
    "lessons": [
     "psy_02_invisible_gorilla_b2c1"
    ]
@@ -74456,6 +74399,15 @@ window.WORDBANK={
     "psy_02_invisible_gorilla_b2c1",
     "psyp_11_judgment_or_formula_b2c1",
     "why_smart_people_get_it_wrong"
+   ]
+  },
+  "conspicuous": {
+   "w": "conspicuous",
+   "pos": "adj",
+   "def": "easy to see; attracting attention.",
+   "ex": "conspicuous",
+   "lessons": [
+    "psy_02_invisible_gorilla_b2c1"
    ]
   },
   "distracted": {
@@ -74475,7 +74427,7 @@ window.WORDBANK={
    "w": "salient",
    "pos": "adj",
    "def": "answer (b). Standing out as important or obvious. A salient point is the one that deserves attention.",
-   "ex": "Many radiologists missed a salient image of a gorilla on a scan, even though their eyes had passed over it.(a) very small (b) obvious and noticeable (c) blurred",
+   "ex": "salient",
    "lessons": [
     "psy_02_invisible_gorilla_b2c1"
    ]
@@ -74488,21 +74440,6 @@ window.WORDBANK={
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
     "world_ea_group_a2"
-   ]
-  },
-  "agree": {
-   "w": "agree",
-   "pos": "v",
-   "def": "to have the same opinion as someone.",
-   "ex": "He didn't agree with the others, but he stayed quiet.",
-   "lessons": [
-    "psy_03_follow_the_crowd_a2b1",
-    "world_ea_group_a2",
-    "world_sa_marriage_a2",
-    "rp_22_talking_about_sport_a2b1",
-    "behind_the_screen_the_social_network_a2b1",
-    "sf_a1_11_the_meeting",
-    "a1p_23_giving_opinions"
    ]
   },
   "wrong": {
@@ -74519,11 +74456,10 @@ window.WORDBANK={
   "confident": {
    "w": "confident",
    "pos": "adj",
-   "def": "very sure. Overconfident means more sure than you should be.",
+   "def": "",
    "ex": "I am confident that the answer is B.",
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
-    "psyp_11_judgment_or_formula_a2b1",
     "b1_14_the_art_of_conversation",
     "su_a2_03_getting_around_town",
     "talk_it_through_b1b2",
@@ -74538,13 +74474,33 @@ window.WORDBANK={
    "w": "stand out",
    "pos": "phr v",
    "def": "to be different from other people in a way that people notice. Opposite: fit in.",
-   "ex": "",
+   "ex": "stand out",
    "lessons": [
     "psy_03_follow_the_crowd_a2b1",
     "world_na_canadians",
     "b2_20_sporting_events",
     "bc_broadening_horizons_b2c1",
     "lesson-02-vivid-imagery"
+   ]
+  },
+  "confederate": {
+   "w": "confederate",
+   "pos": "n",
+   "def": "",
+   "ex": "Seven of the eight people in the room were confederates.",
+   "lessons": [
+    "psy_03_follow_the_crowd_b2c1"
+   ]
+  },
+  "unanimous": {
+   "w": "unanimous",
+   "pos": "adj",
+   "def": "",
+   "ex": "The confederates' answers were unanimous.",
+   "lessons": [
+    "psy_03_follow_the_crowd_b2c1",
+    "behind_the_screen_12_angry_men_a2b1",
+    "b2_67_making_a_decision"
    ]
   },
   "comply": {
@@ -74559,39 +74515,20 @@ window.WORDBANK={
     "aviation_eapt_10"
    ]
   },
-  "confederate": {
-   "w": "confederate",
-   "pos": "n",
-   "def": "",
-   "ex": "Seven of the eight people in the room were confederates.",
-   "lessons": [
-    "psy_03_follow_the_crowd_b2c1"
-   ]
-  },
   "consensus": {
    "w": "consensus",
    "pos": "n",
-   "def": "an agreement reached by a whole group",
-   "ex": "The team worked until it reached a consensus.",
+   "def": "general agreement among a group of people",
+   "ex": "After a long meeting, the committee reached a consensus.",
    "lessons": [
     "psy_03_follow_the_crowd_b2c1",
+    "short_history_the_stories_we_agree_on",
     "world_ea_group",
     "bc_negotiating_c1",
     "skills_c1_trade_fair_cross_cultural",
     "acad_b1_09_working_in_pairs",
     "b2_23_chairing_the_meeting",
     "b2_24_clarity_is_key"
-   ]
-  },
-  "unanimous": {
-   "w": "unanimous",
-   "pos": "adj",
-   "def": "",
-   "ex": "The confederates' answers were unanimous.",
-   "lessons": [
-    "psy_03_follow_the_crowd_b2c1",
-    "behind_the_screen_12_angry_men_a2b1",
-    "b2_67_making_a_decision"
    ]
   },
   "nonconformists": {
@@ -74601,27 +74538,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "psy_03_follow_the_crowd_b2c1"
-   ]
-  },
-  "influential": {
-   "w": "influential",
-   "pos": "adj",
-   "def": "answer (a). Having great power to change opinions or actions. The noun is influence.",
-   "ex": "The study was influential, and it appears in nearly every introductory psychology textbook.(a) having a strong effect on how people think (b) very long (c) controversial",
-   "lessons": [
-    "psy_03_follow_the_crowd_b2c1"
-   ]
-  },
-  "forget": {
-   "w": "forget",
-   "pos": "v",
-   "def": "the opposite of remember. Past: forgot.",
-   "ex": "",
-   "lessons": [
-    "psy_04_can_you_trust_memory_a2b1",
-    "behind_the_screen_memento_a2b1",
-    "rp_13_talking_about_the_weather_a2b1",
-    "lesson_26_past_perfect"
    ]
   },
   "accident": {
@@ -74661,13 +74577,16 @@ window.WORDBANK={
     "techniques_dr_heideggers_experiment_a2b1"
    ]
   },
-  "reconstructive": {
-   "w": "reconstructive",
-   "pos": "adj",
-   "def": "rebuilding something from separate parts; here, memory is rebuilt each time we recall.",
-   "ex": "Memory is reconstructive: each time we recall an event, we rebuild it from pieces rather than playing back a recording.",
+  "forget": {
+   "w": "forget",
+   "pos": "v",
+   "def": "the opposite of remember. Past: forgot.",
+   "ex": "",
    "lessons": [
-    "psy_04_can_you_trust_memory_b2c1"
+    "psy_04_can_you_trust_memory_a2b1",
+    "behind_the_screen_memento_a2b1",
+    "rp_13_talking_about_the_weather_a2b1",
+    "lesson_26_past_perfect"
    ]
   },
   "leading": {
@@ -74675,15 +74594,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "a leading question suggests the answer the questioner wants.",
    "ex": "The question contained a leading word that pushed participants toward a certain answer.",
-   "lessons": [
-    "psy_04_can_you_trust_memory_b2c1"
-   ]
-  },
-  "fabricated": {
-   "w": "fabricated",
-   "pos": "adj",
-   "def": "invented, not real. The verb is to fabricate; a person who fabricates isn't necessarily lying on purpose.",
-   "ex": "Weeks later, several students recalled details that had never existed: a fabricated memory, though they were sincere.",
    "lessons": [
     "psy_04_can_you_trust_memory_b2c1"
    ]
@@ -74717,6 +74627,15 @@ window.WORDBANK={
     "acad_b1_27_cause_and_effect"
    ]
   },
+  "fabricated": {
+   "w": "fabricated",
+   "pos": "adj",
+   "def": "invented, not real. The verb is to fabricate; a person who fabricates isn't necessarily lying on purpose.",
+   "ex": "Weeks later, several students recalled details that had never existed: a fabricated memory, though they were sincere.",
+   "lessons": [
+    "psy_04_can_you_trust_memory_b2c1"
+   ]
+  },
   "reliable": {
    "w": "reliable",
    "pos": "adj",
@@ -74741,11 +74660,20 @@ window.WORDBANK={
     "psy_04_can_you_trust_memory_b2c1"
    ]
   },
+  "reconstructive": {
+   "w": "reconstructive",
+   "pos": "adj",
+   "def": "rebuilding something from separate parts; here, memory is rebuilt each time we recall.",
+   "ex": "reconstructive",
+   "lessons": [
+    "psy_04_can_you_trust_memory_b2c1"
+   ]
+  },
   "implant": {
    "w": "implant",
    "pos": "v",
    "def": "to put an idea or memory firmly into someone's mind.",
-   "ex": "",
+   "ex": "to implant",
    "lessons": [
     "psy_04_can_you_trust_memory_b2c1",
     "bc_talking_about_it_c1"
@@ -74758,6 +74686,19 @@ window.WORDBANK={
    "ex": "Twins are two children who are born from the same mother at the same time.",
    "lessons": [
     "psy_05_born_or_made_a2b1"
+   ]
+  },
+  "identical": {
+   "w": "identical",
+   "pos": "adj",
+   "def": "",
+   "ex": "They are identical twins. They look exactly the same.",
+   "lessons": [
+    "psy_05_born_or_made_a2b1",
+    "c2_pro_27_brand_strategy",
+    "ielts_task1_compare_flip_b2",
+    "qf_pronunciation_homophones",
+    "grammar_a2_08_pronouns_adjectives"
    ]
   },
   "genes": {
@@ -74781,89 +74722,10 @@ window.WORDBANK={
     "qf_falsefriend_polish_sympathyczny"
    ]
   },
-  "identical": {
-   "w": "identical",
-   "pos": "adj",
-   "def": "",
-   "ex": "They are identical twins. They look exactly the same.",
-   "lessons": [
-    "psy_05_born_or_made_a2b1",
-    "c2_pro_27_brand_strategy",
-    "ielts_task1_compare_flip_b2",
-    "qf_pronunciation_homophones",
-    "grammar_a2_08_pronouns_adjectives"
-   ]
-  },
-  "different from": {
-   "w": "different from",
-   "pos": "",
-   "def": "Also: similar to, the same as",
-   "ex": "I am different from my brother.",
-   "lessons": [
-    "psy_05_born_or_made_a2b1"
-   ]
-  },
-  "heritability": {
-   "w": "heritability",
-   "pos": "n",
-   "def": "the proportion of differences between people in a trait that can be explained by genes. It does not say how much of one person's trait is genetic.",
-   "ex": "Heritability is a statistic describing how much of the variation in a trait across a population is due to genetic differences.",
-   "lessons": [
-    "psy_05_born_or_made_b2c1"
-   ]
-  },
-  "nature versus nurture": {
-   "w": "nature versus nurture",
-   "pos": "",
-   "def": "the debate about whether genes (nature) or environment (nurture) shape a person more.",
-   "ex": "Researchers have long argued about nature versus nurture: biology on the one hand, upbringing and experience on the other.",
-   "lessons": [
-    "psy_05_born_or_made_b2c1"
-   ]
-  },
   "monozygotic": {
    "w": "monozygotic",
    "pos": "adj",
    "def": "usually called identical twins; they share almost all their DNA.",
-   "ex": "",
-   "lessons": [
-    "psy_05_born_or_made_b2c1"
-   ]
-  },
-  "variation": {
-   "w": "variation",
-   "pos": "n",
-   "def": "",
-   "ex": "There is wide variation in height.",
-   "lessons": [
-    "psy_05_born_or_made_b2c1",
-    "lv_alevel_01_two_texts_one_essay"
-   ]
-  },
-  "control": {
-   "w": "control",
-   "pos": "",
-   "def": "for (v)",
-   "ex": "Researchers controlled for family income.",
-   "lessons": [
-    "psy_05_born_or_made_b2c1",
-    "tib_pdca_b2",
-    "behind_the_screen_the_matrix_a2b1"
-   ]
-  },
-  "compromised": {
-   "w": "compromised",
-   "pos": "adj",
-   "def": "weakened or damaged. Compromised evidence can't be fully trusted.",
-   "ex": "",
-   "lessons": [
-    "psy_05_born_or_made_b2c1"
-   ]
-  },
-  "inherited": {
-   "w": "inherited",
-   "pos": "adj",
-   "def": "passed from parents to children through genes. The noun is inheritance.",
    "ex": "",
    "lessons": [
     "psy_05_born_or_made_b2c1"
@@ -74879,6 +74741,34 @@ window.WORDBANK={
     "lf_04_telling_mum"
    ]
   },
+  "heritability": {
+   "w": "heritability",
+   "pos": "n",
+   "def": "the proportion of differences between people in a trait that can be explained by genes. It does not say how much of one person's trait is genetic.",
+   "ex": "Heritability is a statistic describing how much of the variation in a trait across a population is due to genetic differences.",
+   "lessons": [
+    "psy_05_born_or_made_b2c1"
+   ]
+  },
+  "variation": {
+   "w": "variation",
+   "pos": "n",
+   "def": "",
+   "ex": "There is wide variation in height.",
+   "lessons": [
+    "psy_05_born_or_made_b2c1",
+    "lv_alevel_01_two_texts_one_essay"
+   ]
+  },
+  "compromised": {
+   "w": "compromised",
+   "pos": "adj",
+   "def": "weakened or damaged. Compromised evidence can't be fully trusted.",
+   "ex": "",
+   "lessons": [
+    "psy_05_born_or_made_b2c1"
+   ]
+  },
   "dichotomy": {
    "w": "dichotomy",
    "pos": "n",
@@ -74889,6 +74779,26 @@ window.WORDBANK={
     "stoicism_lesson_1_dichotomy_of_control",
     "wp_18_the_inner_citadel",
     "sp_prep_c1_69"
+   ]
+  },
+  "control": {
+   "w": "control",
+   "pos": "",
+   "def": "for (v)",
+   "ex": "Researchers controlled for family income.",
+   "lessons": [
+    "psy_05_born_or_made_b2c1",
+    "tib_pdca_b2",
+    "behind_the_screen_the_matrix_a2b1"
+   ]
+  },
+  "inherited": {
+   "w": "inherited",
+   "pos": "adj",
+   "def": "passed from parents to children through genes. The noun is inheritance.",
+   "ex": "inherited",
+   "lessons": [
+    "psy_05_born_or_made_b2c1"
    ]
   },
   "lottery": {
@@ -74904,21 +74814,15 @@ window.WORDBANK={
     "grammar_b1_06_conditionals"
    ]
   },
-  "rich": {
-   "w": "rich",
-   "pos": "adj",
-   "def": "having a lot of money. The opposite is poor.",
-   "ex": "The prince was very rich — he had a lot of money and a big castle.",
+  "study": {
+   "w": "study",
+   "pos": "n",
+   "def": "answer (b). A careful piece of research. Study is also a verb: to learn.",
+   "ex": "A study asked people about their country.",
    "lessons": [
     "psy_06_does_money_buy_happiness_a2b1",
-    "techniques_the_masque_of_the_red_death_a2b1",
-    "techniques_the_necklace_a2b1",
-    "techniques_the_queen_of_spades_a2b1",
-    "techniques_the_verger_a2b1",
-    "techniques_winter_dreams_a2b1",
-    "tib_pareto_a2b1",
-    "short_history_the_gold_rush_a2b1",
-    "techniques_the_model_millionaire_a2b1"
+    "world_eu_stereotypes_a2",
+    "a1_present_continuous_interactive"
    ]
   },
   "get used to": {
@@ -74967,15 +74871,21 @@ window.WORDBANK={
     "b2_the_ulysses_contract"
    ]
   },
-  "study": {
-   "w": "study",
-   "pos": "n",
-   "def": "answer (b). A careful piece of research. Study is also a verb: to learn.",
-   "ex": "A study asked people about their country.",
+  "rich": {
+   "w": "rich",
+   "pos": "adj",
+   "def": "having a lot of money. The opposite is poor.",
+   "ex": "The prince was very rich — he had a lot of money and a big castle.",
    "lessons": [
     "psy_06_does_money_buy_happiness_a2b1",
-    "world_eu_stereotypes_a2",
-    "a1_present_continuous_interactive"
+    "techniques_the_masque_of_the_red_death_a2b1",
+    "techniques_the_necklace_a2b1",
+    "techniques_the_queen_of_spades_a2b1",
+    "techniques_the_verger_a2b1",
+    "techniques_winter_dreams_a2b1",
+    "tib_pareto_a2b1",
+    "short_history_the_gold_rush_a2b1",
+    "techniques_the_model_millionaire_a2b1"
    ]
   },
   "hedonic treadmill": {
@@ -75001,34 +74911,6 @@ window.WORDBANK={
     "komorebi_09_the_hedonic_treadmill"
    ]
   },
-  "wellbeing": {
-   "w": "wellbeing",
-   "pos": "n",
-   "def": "the state of being comfortable, healthy and happy. Researchers often separate emotional wellbeing and life satisfaction.",
-   "ex": "Wellbeing can be measured in two ways: day-to-day emotional experience, and an overall evaluation of how life is going.",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1",
-    "acad_c1_06_peer_review",
-    "gr_warmup_b2_hot_takes_health",
-    "b1_49_mental_health",
-    "rs_y8_sum1_11_03",
-    "prof_c1_14_workplace_wellbeing",
-    "bc_four_day_week_c1",
-    "sp_b2_41_academic_structure",
-    "acad_b1_20_writing_conclusions",
-    "duolingo_det_practice_5"
-   ]
-  },
-  "income": {
-   "w": "income",
-   "pos": "n",
-   "def": "money earned.",
-   "ex": "Tips are a large part of servers' income.",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1",
-    "world_na_tipping"
-   ]
-  },
   "plateau": {
    "w": "plateau",
    "pos": "v/n",
@@ -75040,25 +74922,6 @@ window.WORDBANK={
     "bc_trends_c1",
     "cpe_read_c1_02_feral_children",
     "acad_b1_10_describing_graphs"
-   ]
-  },
-  "reports": {
-   "w": "reports",
-   "pos": "n",
-   "def": "self-reports are what people say about themselves. Self-reported data can be biased.",
-   "ex": "",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1"
-   ]
-  },
-  "status": {
-   "w": "status",
-   "pos": "n",
-   "def": "your position compared with others. Relative income is one's income compared with others.",
-   "ex": "",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1",
-    "b2_106_status_games"
    ]
   },
   "generalise": {
@@ -75083,6 +74946,24 @@ window.WORDBANK={
     "grammar_b2_05_third_mixed_conditionals"
    ]
   },
+  "wellbeing": {
+   "w": "wellbeing",
+   "pos": "n",
+   "def": "the state of being comfortable, healthy and happy. Researchers often separate emotional wellbeing and life satisfaction.",
+   "ex": "wellbeing",
+   "lessons": [
+    "psy_06_does_money_buy_happiness_b2c1",
+    "acad_c1_06_peer_review",
+    "gr_warmup_b2_hot_takes_health",
+    "b1_49_mental_health",
+    "rs_y8_sum1_11_03",
+    "prof_c1_14_workplace_wellbeing",
+    "bc_four_day_week_c1",
+    "sp_b2_41_academic_structure",
+    "acad_b1_20_writing_conclusions",
+    "duolingo_det_practice_5"
+   ]
+  },
   "significant": {
    "w": "significant",
    "pos": "adj",
@@ -75096,6 +74977,17 @@ window.WORDBANK={
     "ielts_task1_phrase_cheatsheet"
    ]
   },
+  "replicate": {
+   "w": "replicate",
+   "pos": "v",
+   "def": "to repeat a study to see if you get the same result. The noun is replication.",
+   "ex": "To replicate a study means to do it again in the same way.",
+   "lessons": [
+    "psyp_07_replication_crisis_a2b1",
+    "prof_c1_13_building_high_performance_teams",
+    "essay_practice_advantages_disadvantages_3"
+   ]
+  },
   "preregister": {
    "w": "preregister",
    "pos": "v",
@@ -75105,38 +74997,11 @@ window.WORDBANK={
     "psyp_07_replication_crisis_a2b1"
    ]
   },
-  "smaller": {
-   "w": "smaller",
-   "pos": "",
-   "def": "Compare: effect size = how big the difference is.",
-   "ex": "",
-   "lessons": [
-    "psyp_07_replication_crisis_a2b1"
-   ]
-  },
-  "p-hacking": {
-   "w": "p-hacking",
-   "pos": "n",
-   "def": "adjusting analyses, exclusions or outcomes until p researcher degrees of freedom.",
-   "ex": "P-hacking is the practice of trying different analyses until a result crosses the threshold for significance.",
-   "lessons": [
-    "psyp_07_replication_crisis_b2c1"
-   ]
-  },
   "publication bias": {
    "w": "publication bias",
    "pos": "n",
    "def": "the tendency for significant results to be published more than null ones. Also the file-drawer problem.",
    "ex": "Publication bias means that journals favour positive findings, so the literature overstates the effects.",
-   "lessons": [
-    "psyp_07_replication_crisis_b2c1"
-   ]
-  },
-  "registered report": {
-   "w": "registered report",
-   "pos": "n",
-   "def": "a journal format that judges the question and method before the results are known.",
-   "ex": "A registered report is peer-reviewed and accepted in principle before the data are collected, so the result cannot affect publication.",
    "lessons": [
     "psyp_07_replication_crisis_b2c1"
    ]
@@ -75150,24 +75015,6 @@ window.WORDBANK={
     "psyp_07_replication_crisis_b2c1"
    ]
   },
-  "confirmatory": {
-   "w": "confirmatory",
-   "pos": "adj",
-   "def": "a confirmatory analysis tests a pre-specified hypothesis; exploratory analyses generate new ones.",
-   "ex": "",
-   "lessons": [
-    "psyp_07_replication_crisis_b2c1"
-   ]
-  },
-  "reproducible": {
-   "w": "reproducible",
-   "pos": "adj",
-   "def": "Reproducibility (same data, same analysis) differs from replicability (new data, same question).",
-   "ex": "",
-   "lessons": [
-    "psyp_07_replication_crisis_b2c1"
-   ]
-  },
   "hold up": {
    "w": "hold up",
    "pos": "v",
@@ -75177,24 +75024,40 @@ window.WORDBANK={
     "psyp_07_replication_crisis_b2c1"
    ]
   },
-  "encourages": {
-   "w": "encourages",
-   "pos": "v",
-   "def": "to give support or incentive. Compare requires, mandates.",
+  "registered report": {
+   "w": "registered report",
+   "pos": "n",
+   "def": "a journal format that judges the question and method before the results are known.",
+   "ex": "A registered report is peer-reviewed and accepted in principle before the data are collected, so the result cannot affect publication.",
+   "lessons": [
+    "psyp_07_replication_crisis_b2c1"
+   ]
+  },
+  "confirmatory": {
+   "w": "confirmatory",
+   "pos": "adj",
+   "def": "a confirmatory analysis tests a pre-specified hypothesis; exploratory analyses generate new ones.",
    "ex": "",
    "lessons": [
     "psyp_07_replication_crisis_b2c1"
    ]
   },
-  "debrief": {
-   "w": "debrief",
-   "pos": "n/v",
-   "def": "a talk after the study where you explain what really happened.",
-   "ex": "At the end, the researcher explained the real aim in a debrief.",
+  "p-hacking": {
+   "w": "p-hacking",
+   "pos": "n",
+   "def": "adjusting analyses, exclusions or outcomes until p researcher degrees of freedom.",
+   "ex": "p-hacking",
    "lessons": [
-    "psyp_08_should_this_study_run_a2b1",
-    "gr_b2_split_second",
-    "leading_international_teams"
+    "psyp_07_replication_crisis_b2c1"
+   ]
+  },
+  "reproducible": {
+   "w": "reproducible",
+   "pos": "adj",
+   "def": "Reproducibility (same data, same analysis) differs from replicability (new data, same question).",
+   "ex": "reproducible",
+   "lessons": [
+    "psyp_07_replication_crisis_b2c1"
    ]
   },
   "deceive": {
@@ -75206,15 +75069,6 @@ window.WORDBANK={
     "psyp_08_should_this_study_run_a2b1",
     "bl_02_honest_truth_lying",
     "wp_32_i_think_therefore"
-   ]
-  },
-  "ethics board": {
-   "w": "ethics board",
-   "pos": "n",
-   "def": "also ethics committee or IRB",
-   "ex": "The ethics board must approve the plan.",
-   "lessons": [
-    "psyp_08_should_this_study_run_a2b1"
    ]
   },
   "stress": {
@@ -75240,35 +75094,24 @@ window.WORDBANK={
     "psyp_08_should_this_study_run_a2b1"
    ]
   },
-  "informed consent": {
-   "w": "informed consent",
+  "ethics board": {
+   "w": "ethics board",
    "pos": "n",
-   "def": "agreement to take part given with full understanding of the purpose, procedures and risks.",
-   "ex": "Informed consent requires that a person understand the risks and purpose of a study and agree freely.",
+   "def": "also ethics committee or IRB",
+   "ex": "The ethics board must approve the plan.",
    "lessons": [
-    "psyp_08_should_this_study_run_b2c1",
-    "bc_passion_for_danger_c1"
+    "psyp_08_should_this_study_run_a2b1"
    ]
   },
-  "deception": {
-   "w": "deception",
-   "pos": "n",
-   "def": "withholding or falsifying information about a study. Compare omission and active deception.",
-   "ex": "Deception is allowed only when no alternative method exists and participants are fully debriefed afterwards.",
+  "debrief": {
+   "w": "debrief",
+   "pos": "n/v",
+   "def": "a talk after the study where you explain what really happened.",
+   "ex": "At the end, the researcher explained the real aim in a debrief.",
    "lessons": [
-    "psyp_08_should_this_study_run_b2c1",
-    "b2_01_truth_and_lies",
-    "playing_the_room",
-    "cpe_read_c1_03_placebo_effect"
-   ]
-  },
-  "risk–benefit ratio": {
-   "w": "risk–benefit ratio",
-   "pos": "n",
-   "def": "the weighing of possible harm against the value of the knowledge gained.",
-   "ex": "The risk–benefit ratio must favour benefit: the knowledge gained must justify any harm.",
-   "lessons": [
-    "psyp_08_should_this_study_run_b2c1"
+    "psyp_08_should_this_study_run_a2b1",
+    "gr_b2_split_second",
+    "leading_international_teams"
    ]
   },
   "obedience": {
@@ -75286,6 +75129,37 @@ window.WORDBANK={
     "rs_y8_aut1_07_06"
    ]
   },
+  "deception": {
+   "w": "deception",
+   "pos": "n",
+   "def": "withholding or falsifying information about a study. Compare omission and active deception.",
+   "ex": "Deception is allowed only when no alternative method exists and participants are fully debriefed afterwards.",
+   "lessons": [
+    "psyp_08_should_this_study_run_b2c1",
+    "b2_01_truth_and_lies",
+    "playing_the_room",
+    "cpe_read_c1_03_placebo_effect"
+   ]
+  },
+  "informed consent": {
+   "w": "informed consent",
+   "pos": "n",
+   "def": "agreement to take part given with full understanding of the purpose, procedures and risks.",
+   "ex": "Informed consent requires that a person understand the risks and purpose of a study and agree freely.",
+   "lessons": [
+    "psyp_08_should_this_study_run_b2c1",
+    "bc_passion_for_danger_c1"
+   ]
+  },
+  "risk–benefit ratio": {
+   "w": "risk–benefit ratio",
+   "pos": "n",
+   "def": "the weighing of possible harm against the value of the knowledge gained.",
+   "ex": "The risk–benefit ratio must favour benefit: the knowledge gained must justify any harm.",
+   "lessons": [
+    "psyp_08_should_this_study_run_b2c1"
+   ]
+  },
   "non-maleficence": {
    "w": "non-maleficence",
    "pos": "n",
@@ -75295,68 +75169,47 @@ window.WORDBANK={
     "psyp_08_should_this_study_run_b2c1"
    ]
   },
-  "exempt": {
-   "w": "exempt",
-   "pos": "adj",
-   "def": "free from a duty that others have to follow",
-   "ex": "Young children and sick people are exempt from fasting.",
-   "lessons": [
-    "psyp_08_should_this_study_run_b2c1",
-    "world_mena_ramadan",
-    "rs_y11_aut1_25_04"
-   ]
-  },
-  "required": {
-   "w": "required",
-   "pos": "adj",
-   "def": "obliged by a rule or law. be required to + verb.",
-   "ex": "",
-   "lessons": [
-    "psyp_08_should_this_study_run_b2c1",
-    "epicurean_13_virtues_as_means"
-   ]
-  },
   "obliged": {
    "w": "obliged",
    "pos": "adj",
    "def": "having a duty. be obliged to + verb; stronger than should.",
-   "ex": "",
+   "ex": "obliged",
    "lessons": [
     "psyp_08_should_this_study_run_b2c1"
    ]
   },
-  "proportionate": {
-   "w": "proportionate",
+  "equal": {
+   "w": "equal",
    "pos": "adj",
-   "def": "answer (a). Of a suitable size in relation to something else. The opposite is disproportionate.",
-   "ex": "The question is whether the findings are proportionate to the distress that some participants experienced.(a) in a reasonable balance with it (b) very large (c) unpredictable",
-   "lessons": [
-    "psyp_08_should_this_study_run_b2c1",
-    "rs_y11_aut2_26_03",
-    "talk_death_penalty_b2c1",
-    "rs_y11_sum2_30_04"
-   ]
-  },
-  "client": {
-   "w": "client",
-   "pos": "n",
-   "def": "a person who goes to a therapist for help. Also patient.",
-   "ex": "The client came to therapy because she felt very sad.",
+   "def": "",
+   "ex": "The two therapies gave equal results.",
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
-    "ml_23_the_ai_mistake",
-    "skills_a2_trade_fair_your_product"
+    "behind_the_screen_suffragette_a2b1",
+    "short_history_the_french_revolution_a2b1",
+    "short_history_the_suffragettes_a2b1"
    ]
   },
-  "relationship": {
-   "w": "relationship",
+  "method": {
+   "w": "method",
    "pos": "n",
-   "def": "the way two people feel and behave with each other.",
-   "ex": "Therapist and client need a good relationship to work together.",
+   "def": "the Montessori Method became one of the most famous book titles in education. Adjective: methodical.",
+   "ex": "Each therapist uses a different method.",
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
-    "epicurean_25_gassendi_life",
-    "a1p_06_family_people"
+    "ts_montessori_b2",
+    "lesson_37_education_learning_interactive"
+   ]
+  },
+  "improve": {
+   "w": "improve",
+   "pos": "v",
+   "def": "",
+   "ex": "Most clients improve after twelve sessions.",
+   "lessons": [
+    "psyp_09_does_the_method_matter_a2b1",
+    "a1p_33_first_conditional",
+    "pron_c1_06_full_picture"
    ]
   },
   "outcome": {
@@ -75380,78 +75233,26 @@ window.WORDBANK={
     "b1_33_cause_and_effect"
    ]
   },
-  "method": {
-   "w": "method",
+  "relationship": {
+   "w": "relationship",
    "pos": "n",
-   "def": "the Montessori Method became one of the most famous book titles in education. Adjective: methodical.",
-   "ex": "Each therapist uses a different method.",
+   "def": "the way two people feel and behave with each other.",
+   "ex": "Therapist and client need a good relationship to work together.",
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
-    "ts_montessori_b2",
-    "lesson_37_education_learning_interactive"
+    "epicurean_25_gassendi_life",
+    "a1p_06_family_people"
    ]
   },
-  "equal": {
-   "w": "equal",
-   "pos": "adj",
-   "def": "",
-   "ex": "The two therapies gave equal results.",
-   "lessons": [
-    "psyp_09_does_the_method_matter_a2b1",
-    "behind_the_screen_suffragette_a2b1",
-    "short_history_the_french_revolution_a2b1",
-    "short_history_the_suffragettes_a2b1"
-   ]
-  },
-  "improve": {
-   "w": "improve",
-   "pos": "v",
-   "def": "",
-   "ex": "Most clients improve after twelve sessions.",
-   "lessons": [
-    "psyp_09_does_the_method_matter_a2b1",
-    "a1p_33_first_conditional",
-    "pron_c1_06_full_picture"
-   ]
-  },
-  "carefully": {
-   "w": "carefully",
-   "pos": "adv",
-   "def": "Also: empathy = understanding another person's feelings",
-   "ex": "Listen carefully.",
-   "lessons": [
-    "psyp_09_does_the_method_matter_a2b1",
-    "su_a2_80_surprising_stories",
-    "short_history_alcatraz_a2b1",
-    "a1p_11_what_did_you_do",
-    "grammar_a1_02_past_simple_intro"
-   ]
-  },
-  "randomly": {
-   "w": "randomly",
-   "pos": "adv",
-   "def": "answer (a). Without a plan; by chance. Random (adj).",
-   "ex": "",
-   "lessons": [
-    "psyp_09_does_the_method_matter_a2b1"
-   ]
-  },
-  "therapeutic alliance": {
-   "w": "therapeutic alliance",
+  "client": {
+   "w": "client",
    "pos": "n",
-   "def": "the working relationship: agreement on goals and tasks, and an emotional bond.",
-   "ex": "The therapeutic alliance, the collaborative bond between therapist and client, is among the best-studied predictors of outcome.",
+   "def": "a person who goes to a therapist for help. Also patient.",
+   "ex": "The client came to therapy because she felt very sad.",
    "lessons": [
-    "psyp_09_does_the_method_matter_b2c1"
-   ]
-  },
-  "common factors": {
-   "w": "common factors",
-   "pos": "n",
-   "def": "features shared by different therapies that may explain their effects.",
-   "ex": "Common factors are the ingredients that all therapies share, such as empathy, hope and a rationale for treatment.",
-   "lessons": [
-    "psyp_09_does_the_method_matter_b2c1"
+    "psyp_09_does_the_method_matter_a2b1",
+    "ml_23_the_ai_mistake",
+    "skills_a2_trade_fair_your_product"
    ]
   },
   "dodo bird verdict": {
@@ -75472,6 +75273,15 @@ window.WORDBANK={
     "psyp_09_does_the_method_matter_b2c1"
    ]
   },
+  "therapeutic alliance": {
+   "w": "therapeutic alliance",
+   "pos": "n",
+   "def": "the working relationship: agreement on goals and tasks, and an emotional bond.",
+   "ex": "The therapeutic alliance, the collaborative bond between therapist and client, is among the best-studied predictors of outcome.",
+   "lessons": [
+    "psyp_09_does_the_method_matter_b2c1"
+   ]
+  },
   "meta-analysis": {
    "w": "meta-analysis",
    "pos": "n",
@@ -75480,15 +75290,6 @@ window.WORDBANK={
    "lessons": [
     "psyp_09_does_the_method_matter_b2c1",
     "acad_c1_02_synthesising_sources"
-   ]
-  },
-  "therapist effects": {
-   "w": "therapist effects",
-   "pos": "n",
-   "def": "the share of outcome variance attributable to who delivers the treatment, not the method.",
-   "ex": "",
-   "lessons": [
-    "psyp_09_does_the_method_matter_b2c1"
    ]
   },
   "disorders": {
@@ -75510,14 +75311,22 @@ window.WORDBANK={
     "b2_20_sporting_events"
    ]
   },
-  "premature": {
-   "w": "premature",
-   "pos": "adj",
-   "def": "answer (a). Happening or done too soon. A premature conclusion goes beyond the evidence.",
-   "ex": "Critics argue that the verdict is premature: for specific conditions, the evidence does favour particular treatments.(a) happening too early, before there is enough evidence (b) very old (c) clearly wrong",
+  "common factors": {
+   "w": "common factors",
+   "pos": "n",
+   "def": "features shared by different therapies that may explain their effects.",
+   "ex": "common factors",
    "lessons": [
-    "psyp_09_does_the_method_matter_b2c1",
-    "wp_33_the_leviathan"
+    "psyp_09_does_the_method_matter_b2c1"
+   ]
+  },
+  "therapist effects": {
+   "w": "therapist effects",
+   "pos": "n",
+   "def": "the share of outcome variance attributable to who delivers the treatment, not the method.",
+   "ex": "therapist effects",
+   "lessons": [
+    "psyp_09_does_the_method_matter_b2c1"
    ]
   },
   "pretend": {
@@ -75557,6 +75366,24 @@ window.WORDBANK={
     "techniques_the_verger_jobseeker"
    ]
   },
+  "pseudopatient": {
+   "w": "pseudopatient",
+   "pos": "n",
+   "def": "",
+   "ex": "Eight pseudopatients sought admission.",
+   "lessons": [
+    "psyp_10_who_decides_whats_normal_b2c1"
+   ]
+  },
+  "pathologise": {
+   "w": "pathologise",
+   "pos": "v",
+   "def": "to treat ordinary behaviour as a sign of illness",
+   "ex": "Writing notes was pathologised as 'writing behaviour'.",
+   "lessons": [
+    "psyp_10_who_decides_whats_normal_b2c1"
+   ]
+  },
   "stigma": {
    "w": "stigma",
    "pos": "noun",
@@ -75565,15 +75392,6 @@ window.WORDBANK={
    "lessons": [
     "psyp_10_who_decides_whats_normal_b2c1",
     "story_b2_use_it_or_lose_it"
-   ]
-  },
-  "pseudopatient": {
-   "w": "pseudopatient",
-   "pos": "n",
-   "def": "",
-   "ex": "Eight pseudopatients sought admission.",
-   "lessons": [
-    "psyp_10_who_decides_whats_normal_b2c1"
    ]
   },
   "reliability": {
@@ -75587,38 +75405,11 @@ window.WORDBANK={
     "wk_19_the_reference"
    ]
   },
-  "pathologise": {
-   "w": "pathologise",
-   "pos": "v",
-   "def": "to treat ordinary behaviour as a sign of illness",
-   "ex": "Writing notes was pathologised as 'writing behaviour'.",
-   "lessons": [
-    "psyp_10_who_decides_whats_normal_b2c1"
-   ]
-  },
   "verified": {
    "w": "verified",
    "pos": "adj",
    "def": "checked and confirmed. The verb is verify; the noun verification.",
    "ex": "",
-   "lessons": [
-    "psyp_10_who_decides_whats_normal_b2c1"
-   ]
-  },
-  "operational": {
-   "w": "operational",
-   "pos": "adj",
-   "def": "clearly defined so that it can be applied the same way each time. Operational criteria.",
-   "ex": "",
-   "lessons": [
-    "psyp_10_who_decides_whats_normal_b2c1"
-   ]
-  },
-  "socially constructed": {
-   "w": "socially constructed",
-   "pos": "",
-   "def": "answer (b). Shaped, in part, by social agreement, though that does not mean that the suffering is not real.",
-   "ex": "Diagnoses are socially constructed to some degree: what counts as a disorder has changed over time and differs between cultures.(a) invented without any basis (b) shaped by the beliefs and practices of a society (c) built by committees of doctors",
    "lessons": [
     "psyp_10_who_decides_whats_normal_b2c1"
    ]
@@ -75674,16 +75465,6 @@ window.WORDBANK={
     "st_pro_10_reading_the_room"
    ]
   },
-  "assess": {
-   "w": "assess",
-   "pos": "v",
-   "def": "The noun is assessment",
-   "ex": "We assess the risk.",
-   "lessons": [
-    "psyp_11_judgment_or_formula_a2b1",
-    "bc_grow_model_c1"
-   ]
-  },
   "feedback": {
    "w": "feedback",
    "pos": "n",
@@ -75704,15 +75485,6 @@ window.WORDBANK={
     "ielts_lesson_17_timed_practice_2"
    ]
   },
-  "statistical": {
-   "w": "statistical",
-   "pos": "n",
-   "def": "combining information by an explicit rule, whatever the formula.",
-   "ex": "",
-   "lessons": [
-    "psyp_11_judgment_or_formula_b2c1"
-   ]
-  },
   "predictor": {
    "w": "predictor",
    "pos": "n",
@@ -75720,17 +75492,6 @@ window.WORDBANK={
    "ex": "Past behaviour is the best predictor of future behaviour.",
    "lessons": [
     "psyp_11_judgment_or_formula_b2c1"
-   ]
-  },
-  "valid": {
-   "w": "valid",
-   "pos": "adj",
-   "def": "a predictive validity measure says how well scores forecast the outcome.",
-   "ex": "",
-   "lessons": [
-    "psyp_11_judgment_or_formula_b2c1",
-    "sp_b1_31_managing_disagreement",
-    "sp_prep_b1_27"
    ]
   },
   "regular": {
@@ -75749,16 +75510,7 @@ window.WORDBANK={
    "w": "entrench",
    "pos": "v",
    "def": "to fix something so firmly that it is hard to change. Also perpetuate.",
-   "ex": "",
-   "lessons": [
-    "psyp_11_judgment_or_formula_b2c1"
-   ]
-  },
-  "parsimonious": {
-   "w": "parsimonious",
-   "pos": "adj",
-   "def": "answer (b). Using as few elements as possible. A parsimonious model is simple but effective.",
-   "ex": "The Apgar score is a parsimonious tool: five quick checks that predict a newborn's need for care.(a) expensive (b) simple and economical, using few elements (c) very slow",
+   "ex": "entrench",
    "lessons": [
     "psyp_11_judgment_or_formula_b2c1"
    ]
@@ -75793,35 +75545,13 @@ window.WORDBANK={
     "bestiary_ielts_phrases"
    ]
   },
-  "ecological validity": {
-   "w": "ecological validity",
+  "outlier": {
+   "w": "outlier",
    "pos": "n",
-   "def": "the extent to which findings from a study apply to everyday life.",
-   "ex": "Ecological validity asks whether a result applies to people in real-world settings.",
-   "lessons": [
-    "psyp_12_whose_psychology_b2c1"
-   ]
-  },
-  "imported": {
-   "w": "imported",
-   "pos": "adj",
-   "def": "an imported measure may not mean the same in a new culture. Related: etic (outsider) and emic (insider) approaches.",
+   "def": "answer (b). A value or group that lies far from the typical pattern. WEIRD populations are said to be outliers.",
    "ex": "",
    "lessons": [
     "psyp_12_whose_psychology_b2c1"
-   ]
-  },
-  "diversity": {
-   "w": "diversity",
-   "pos": "n",
-   "def": "a wide variety of different things or people.",
-   "ex": "The diversity of languages is one of the continent's great strengths.",
-   "lessons": [
-    "psyp_12_whose_psychology_b2c1",
-    "world_eu_background",
-    "world_sa_background",
-    "world_ssa_background",
-    "lesson_39_culture_identity"
    ]
   },
   "homogeneous": {
@@ -75833,14 +75563,13 @@ window.WORDBANK={
     "psyp_12_whose_psychology_b2c1"
    ]
   },
-  "linguistic": {
-   "w": "linguistic",
-   "pos": "",
-   "def": "equivalence — the same meaning in different languages; measurement invariance is the statistical test.",
+  "imported": {
+   "w": "imported",
+   "pos": "adj",
+   "def": "an imported measure may not mean the same in a new culture. Related: etic (outsider) and emic (insider) approaches.",
    "ex": "",
    "lessons": [
-    "psyp_12_whose_psychology_b2c1",
-    "IELTS-Reading-Practice-Test-5"
+    "psyp_12_whose_psychology_b2c1"
    ]
   },
   "context": {
@@ -75857,13 +75586,17 @@ window.WORDBANK={
     "qf_pronunciation_final_consonant_clusters"
    ]
   },
-  "outlier": {
-   "w": "outlier",
+  "diversity": {
+   "w": "diversity",
    "pos": "n",
-   "def": "answer (b). A value or group that lies far from the typical pattern. WEIRD populations are said to be outliers.",
-   "ex": "",
+   "def": "a wide variety of different things or people.",
+   "ex": "The diversity of languages is one of the continent's great strengths.",
    "lessons": [
-    "psyp_12_whose_psychology_b2c1"
+    "psyp_12_whose_psychology_b2c1",
+    "world_eu_background",
+    "world_sa_background",
+    "world_ssa_background",
+    "lesson_39_culture_identity"
    ]
   },
   "pitch": {
@@ -79583,7 +79316,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_nikola_tesla",
-    "short_history_the_industrial_revolution"
+    "short_history_the_industrial_revolution",
+    "short_history_the_stories_we_agree_on"
    ]
   },
   "transmit": {
@@ -79982,6 +79716,7 @@ window.WORDBANK={
     "short_history_rasputin",
     "short_history_the_medici",
     "short_history_the_romanovs",
+    "short_history_the_stories_we_agree_on",
     "Afraid of Computers"
    ]
   },
@@ -80016,9 +79751,10 @@ window.WORDBANK={
    "w": "frenzy",
    "pos": "n",
    "def": "a state of wild, uncontrolled excitement, fear or activity.",
-   "ex": "",
+   "ex": "The crowd worked itself into a frenzy of buying.",
    "lessons": [
     "short_history_rasputin",
+    "short_history_the_first_stock_market",
     "techniques_there_will_come_soft_rains"
    ]
   },
@@ -81002,7 +80738,8 @@ window.WORDBANK={
    "def": "producing a great deal of money; highly profitable.",
    "ex": "A single voyage could return several times what it had cost, which made the eastern trade extraordinarily lucrative for those who invested in it.",
    "lessons": [
-    "short_history_the_east_india_company"
+    "short_history_the_east_india_company",
+    "short_history_the_first_stock_market"
    ]
   },
   "revenue": {
@@ -81100,6 +80837,59 @@ window.WORDBANK={
     "rs_y9_aut2_14_02"
    ]
   },
+  "stampede": {
+   "w": "stampede",
+   "pos": "n",
+   "def": "a sudden rush of a large crowd (or herd), all moving fast in the same direction, often out of excitement or panic.",
+   "ex": "",
+   "lessons": [
+    "short_history_the_first_stock_market",
+    "short_history_the_gold_rush",
+    "rs_y11_aut2_26_01"
+   ]
+  },
+  "finance": {
+   "w": "finance",
+   "pos": "n",
+   "def": "the management of large sums of money, especially by banks, governments or companies; high-level dealing in loans, credit and capital.",
+   "ex": "The family lent to kings and popes, held their gold in vaults across Europe, and charged for every loan; a mastery of finance made them the richest name in Florence.",
+   "lessons": [
+    "short_history_the_first_stock_market",
+    "short_history_the_medici"
+   ]
+  },
+  "output": {
+   "w": "output",
+   "pos": "n",
+   "def": "the amount a person, machine or country produces in a given time.",
+   "ex": "",
+   "lessons": [
+    "short_history_the_first_stock_market",
+    "short_history_the_industrial_revolution"
+   ]
+  },
+  "mob": {
+   "w": "mob",
+   "pos": "n",
+   "def": "a large, angry and disorganised crowd, often close to violence.",
+   "ex": "",
+   "lessons": [
+    "short_history_the_first_stock_market",
+    "short_history_the_french_revolution"
+   ]
+  },
+  "pool": {
+   "w": "pool",
+   "pos": "v",
+   "def": "to put money or resources together so that a group can use them",
+   "ex": "The neighbours pooled their money to buy a boat.",
+   "lessons": [
+    "short_history_the_first_stock_market",
+    "acad_b2_09_group_projects",
+    "acad_c1_02_synthesising_sources",
+    "qf_pronunciation_would_wood"
+   ]
+  },
   "splendour": {
    "w": "splendour",
    "pos": "n",
@@ -81148,15 +80938,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_forbidden_city"
-   ]
-  },
-  "mob": {
-   "w": "mob",
-   "pos": "n",
-   "def": "a large, angry and disorganised crowd, often close to violence.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_french_revolution"
    ]
   },
   "absolute power": {
@@ -81294,16 +81075,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_gold_rush"
-   ]
-  },
-  "stampede": {
-   "w": "stampede",
-   "pos": "n",
-   "def": "a sudden rush of a large crowd (or herd), all moving fast in the same direction, often out of excitement or panic.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_gold_rush",
-    "rs_y11_aut2_26_01"
    ]
   },
   "vein": {
@@ -81994,15 +81765,6 @@ window.WORDBANK={
     "short_history_the_industrial_revolution"
    ]
   },
-  "output": {
-   "w": "output",
-   "pos": "n",
-   "def": "the amount a person, machine or country produces in a given time. Opposite idea: input.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_industrial_revolution"
-   ]
-  },
   "workforce": {
    "w": "workforce",
    "pos": "n",
@@ -82523,15 +82285,6 @@ window.WORDBANK={
     "short_history_the_maya"
    ]
   },
-  "finance": {
-   "w": "finance",
-   "pos": "n",
-   "def": "the management of large sums of money, especially by banks, governments or companies; high-level dealing in loans, credit and capital.",
-   "ex": "The family lent to kings and popes, held their gold in vaults across Europe, and charged for every loan; a mastery of finance made them the richest name in Florence.",
-   "lessons": [
-    "short_history_the_medici"
-   ]
-  },
   "magnum opus": {
    "w": "magnum opus",
    "pos": "n",
@@ -82766,7 +82519,8 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_the_printing_press",
-    "short_history_the_silk_road"
+    "short_history_the_silk_road",
+    "short_history_the_stories_we_agree_on"
    ]
   },
   "pamphlet": {
@@ -83380,6 +83134,62 @@ window.WORDBANK={
     "short_history_the_spanish_flu",
     "techniques_the_queen_of_spades",
     "ts_semmelweis_b2"
+   ]
+  },
+  "entity": {
+   "w": "entity",
+   "pos": "n",
+   "def": "something that exists as a separate unit, especially an organisation treated as one body by the law",
+   "ex": "The charity is a legal entity in its own right.",
+   "lessons": [
+    "short_history_the_stories_we_agree_on"
+   ]
+  },
+  "grant": {
+   "w": "grant",
+   "pos": "verb (formal)",
+   "def": "to give or allow something officially, especially a right or permission",
+   "ex": "The government granted the town the right to hold a market.",
+   "lessons": [
+    "short_history_the_stories_we_agree_on",
+    "techniques_before_the_law",
+    "techniques_the_bottle_imp",
+    "ts_kariko_b2",
+    "acad_c2_02_grant_proposals",
+    "bc_the_lottery_c1",
+    "techniques_the_bottle_imp_a2b1",
+    "ib_lesson_techniques_monkeys_paw"
+   ]
+  },
+  "fiction": {
+   "w": "fiction",
+   "pos": "n",
+   "def": "something invented or imagined rather than real",
+   "ex": "The idea that the company 'wants' anything is a useful fiction.",
+   "lessons": [
+    "short_history_the_stories_we_agree_on"
+   ]
+  },
+  "institution": {
+   "w": "institution",
+   "pos": "n",
+   "def": "a large, established organisation or system with its own rules, such as a bank, a court or a university",
+   "ex": "The university is one of the oldest institutions in the country.",
+   "lessons": [
+    "short_history_the_stories_we_agree_on",
+    "qf_falsefriend_french_attendre"
+   ]
+  },
+  "take for granted": {
+   "w": "take for granted",
+   "pos": "phr v",
+   "def": "to expect something to always be there, without thinking about it or valuing it",
+   "ex": "She took her good health for granted until she became ill.",
+   "lessons": [
+    "short_history_the_stories_we_agree_on",
+    "acad_c1_07_critical_analysis",
+    "komorebi_09_the_hedonic_treadmill",
+    "the-art-of-simple-pleasures"
    ]
   },
   "cause": {
@@ -85601,21 +85411,6 @@ window.WORDBANK={
     "techniques_august_heat"
    ]
   },
-  "grant": {
-   "w": "grant",
-   "pos": "verb (formal)",
-   "def": "To officially give or allow something that has been requested.",
-   "ex": "Only the doorkeeper can grant entry, and he never does.",
-   "lessons": [
-    "techniques_before_the_law",
-    "techniques_the_bottle_imp",
-    "ts_kariko_b2",
-    "acad_c2_02_grant_proposals",
-    "bc_the_lottery_c1",
-    "techniques_the_bottle_imp_a2b1",
-    "ib_lesson_techniques_monkeys_paw"
-   ]
-  },
   "accessible": {
    "w": "accessible",
    "pos": "adj",
@@ -87363,6 +87158,18 @@ window.WORDBANK={
     "behind_the_screen_braveheart_a2b1",
     "short_history_alexander_the_great_a2b1",
     "short_history_napoleon_a2b1"
+   ]
+  },
+  "watch": {
+   "w": "watch",
+   "pos": "noun",
+   "def": "a small clock. A silver watch was a very expensive thing.",
+   "ex": "She likes to watch the people.\" / \"We watch the children play.",
+   "lessons": [
+    "techniques_mateo_falcone_a2b1",
+    "techniques_miss_brill_a2b1",
+    "techniques_the_gift_of_the_magi_a2b1",
+    "qf_collocation_look_watch_see"
    ]
   },
   "recoil": {
@@ -95745,6 +95552,20 @@ window.WORDBANK={
     "grammar_a2_04_modals_obligation_request"
    ]
   },
+  "agree": {
+   "w": "agree",
+   "pos": "v",
+   "def": "to have the same idea",
+   "ex": "Both people must agree.",
+   "lessons": [
+    "world_ea_group_a2",
+    "world_sa_marriage_a2",
+    "rp_22_talking_about_sport_a2b1",
+    "behind_the_screen_the_social_network_a2b1",
+    "sf_a1_11_the_meeting",
+    "a1p_23_giving_opinions"
+   ]
+  },
   "individual": {
    "w": "individual",
    "pos": "adj",
@@ -97330,6 +97151,16 @@ window.WORDBANK={
     "world_mena_oil_a2"
    ]
   },
+  "exempt": {
+   "w": "exempt",
+   "pos": "adj",
+   "def": "free from a duty that others have to follow",
+   "ex": "Young children and sick people are exempt from fasting.",
+   "lessons": [
+    "world_mena_ramadan",
+    "rs_y11_aut1_25_04"
+   ]
+  },
   "meal": {
    "w": "meal",
    "pos": "n",
@@ -97808,6 +97639,15 @@ window.WORDBANK={
    "pos": "n",
    "def": "a message on a payment screen.",
    "ex": "",
+   "lessons": [
+    "world_na_tipping"
+   ]
+  },
+  "income": {
+   "w": "income",
+   "pos": "n",
+   "def": "money earned.",
+   "ex": "Tips are a large part of servers' income.",
    "lessons": [
     "world_na_tipping"
    ]
@@ -99716,17 +99556,6 @@ window.WORDBANK={
     "acad_b2_09_group_projects"
    ]
   },
-  "pool": {
-   "w": "pool",
-   "pos": "v",
-   "def": "to put money, ideas or things together for shared use",
-   "ex": "The neighbours pooled their money to buy a lawnmower.",
-   "lessons": [
-    "acad_b2_09_group_projects",
-    "acad_c1_02_synthesising_sources",
-    "qf_pronunciation_would_wood"
-   ]
-  },
   "fundamental": {
    "w": "fundamental",
    "pos": "adj",
@@ -100224,17 +100053,6 @@ window.WORDBANK={
    "ex": "The minister met her counterpart from the neighbouring country.",
    "lessons": [
     "acad_c1_07_critical_analysis"
-   ]
-  },
-  "take for granted": {
-   "w": "take for granted",
-   "pos": "phr",
-   "def": "to accept something without questioning it",
-   "ex": "We often take clean water for granted.",
-   "lessons": [
-    "acad_c1_07_critical_analysis",
-    "komorebi_09_the_hedonic_treadmill",
-    "the-art-of-simple-pleasures"
    ]
   },
   "colloquial": {
@@ -103335,6 +103153,17 @@ window.WORDBANK={
    "ex": "Greater jihad is the inner struggle to be a good Muslim.",
    "lessons": [
     "rs_y11_aut2_26_03"
+   ]
+  },
+  "proportionate": {
+   "w": "proportionate",
+   "pos": "adj",
+   "def": "matching in size or strength, not too much",
+   "ex": "Any force used must be proportionate.",
+   "lessons": [
+    "rs_y11_aut2_26_03",
+    "talk_death_penalty_b2c1",
+    "rs_y11_sum2_30_04"
    ]
   },
   "civilian": {
@@ -113892,6 +113721,18 @@ window.WORDBANK={
    "lessons": [
     "su_a2_80_surprising_stories",
     "ielts_spelling_a_place_of_her_own"
+   ]
+  },
+  "carefully": {
+   "w": "carefully",
+   "pos": "adv",
+   "def": "with great attention to avoid mistakes",
+   "ex": "She carefully packed the glasses in paper.",
+   "lessons": [
+    "su_a2_80_surprising_stories",
+    "short_history_alcatraz_a2b1",
+    "a1p_11_what_did_you_do",
+    "grammar_a1_02_past_simple_intro"
    ]
   },
   "sense of humor": {
@@ -127274,6 +127115,15 @@ window.WORDBANK={
     "qf_falsefriend_french_actuellement"
    ]
   },
+  "required": {
+   "w": "required",
+   "pos": "adj",
+   "def": "needed or demanded by rules or a situation",
+   "ex": "A passport is required for international flights.",
+   "lessons": [
+    "epicurean_13_virtues_as_means"
+   ]
+  },
   "means": {
    "w": "means",
    "pos": "n",
@@ -138474,6 +138324,15 @@ window.WORDBANK={
     "wp_33_the_leviathan"
    ]
   },
+  "premature": {
+   "w": "premature",
+   "pos": "adj",
+   "def": "happening too early or before the right time",
+   "ex": "It's premature to celebrate before the votes are counted.",
+   "lessons": [
+    "wp_33_the_leviathan"
+   ]
+  },
   "royalist": {
    "w": "royalist",
    "pos": "n",
@@ -139540,6 +139399,15 @@ window.WORDBANK={
    "lessons": [
     "b2_104_greener_cities_solutions",
     "ielts_route"
+   ]
+  },
+  "status": {
+   "w": "status",
+   "pos": "n",
+   "def": "the level of respect and importance someone has in a group",
+   "ex": "Owning a big car is a sign of status for some people.",
+   "lessons": [
+    "b2_106_status_games"
    ]
   },
   "talk over": {
@@ -142283,6 +142151,15 @@ window.WORDBANK={
     "bc_ielts_two_part_questions_b2c1"
    ]
   },
+  "assess": {
+   "w": "assess",
+   "pos": "v",
+   "def": "to judge the quality or nature of something",
+   "ex": "The doctor assessed the injury carefully.",
+   "lessons": [
+    "bc_grow_model_c1"
+   ]
+  },
   "reality": {
    "w": "reality",
    "pos": "n",
@@ -144257,6 +144134,16 @@ window.WORDBANK={
    "lessons": [
     "a1p_40_review_unit4_complete",
     "cambridge_cae_test_paper_2"
+   ]
+  },
+  "amazing": {
+   "w": "amazing",
+   "pos": "adj",
+   "def": "very surprising and good in a way you enjoy",
+   "ex": "The view from the top of the hill was amazing.",
+   "lessons": [
+    "a1p_42_describing_experiences",
+    "sp_prep_a2_13"
    ]
   },
   "wonderful": {
@@ -147768,6 +147655,15 @@ window.WORDBANK={
     "IELTS-Reading-Practice-Test-5"
    ]
   },
+  "linguistic": {
+   "w": "linguistic",
+   "pos": "adj",
+   "def": "connected with language and how it works",
+   "ex": "The country has great linguistic variety.",
+   "lessons": [
+    "IELTS-Reading-Practice-Test-5"
+   ]
+  },
   "disorder": {
    "w": "disorder",
    "pos": "n",
@@ -150108,15 +150004,6 @@ window.WORDBANK={
     "qf_falsefriend_french_actual"
    ]
   },
-  "institution": {
-   "w": "institution",
-   "pos": "n",
-   "def": "a large organisation such as a university or bank",
-   "ex": "He works for a financial institution in London.",
-   "lessons": [
-    "qf_falsefriend_french_attendre"
-   ]
-  },
   "forceful": {
    "w": "forceful",
    "pos": "adj",
@@ -151166,6 +151053,15 @@ window.WORDBANK={
     "ielts_b2c1_the_ulysses_contract"
    ]
   },
+  "self-regulation": {
+   "w": "self-regulation",
+   "pos": "n",
+   "def": "the ability to control your own feelings and behaviour",
+   "ex": "Young children are still developing their self-regulation skills.",
+   "lessons": [
+    "ielts_b2c1_the_ulysses_contract"
+   ]
+  },
   "sanctity of life": {
    "w": "sanctity of life",
    "pos": "n",
@@ -151834,6 +151730,16 @@ window.WORDBANK={
    "ex": "The internet created a new paradigm for shopping.",
    "lessons": [
     "sp_b1_29_reformulation"
+   ]
+  },
+  "valid": {
+   "w": "valid",
+   "pos": "adj",
+   "def": "based on good reasons and therefore acceptable",
+   "ex": "That is a valid concern, and we should discuss it.",
+   "lessons": [
+    "sp_b1_31_managing_disagreement",
+    "sp_prep_b1_27"
    ]
   },
   "educated guess": {
