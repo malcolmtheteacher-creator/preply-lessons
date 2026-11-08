@@ -3426,6 +3426,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_ib_poetry_my_last_duchess",
+   "title": "Power and Control: My Last Duchess",
+   "level": "",
+   "words": [
+    "dramatic monologue",
+    "dramatic irony",
+    "caesura",
+    "couplet",
+    "euphemism",
+    "possessive",
+    "sinister",
+    "imply"
+   ]
+  },
+  {
    "id": "discuss_c1_more_is_different",
    "title": "More Is Different",
    "level": "",
@@ -64403,6 +64418,88 @@ window.WORDBANK={
     "sp_prep_b1_29"
    ]
   },
+  "dramatic monologue": {
+   "w": "dramatic monologue",
+   "pos": "noun",
+   "def": "a poem in which one character speaks to a silent listener and reveals their true nature",
+   "ex": "The poem is a dramatic monologue spoken by a duke.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess"
+   ]
+  },
+  "dramatic irony": {
+   "w": "dramatic irony",
+   "pos": "noun",
+   "def": "when the reader understands more than the character or listener does",
+   "ex": "Dramatic irony makes the duke's boast sound sinister.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "sp_prep_c1_63",
+    "ib_lesson_techniques_open_window"
+   ]
+  },
+  "caesura": {
+   "w": "caesura",
+   "pos": "noun",
+   "def": "a pause in the middle of a line of verse",
+   "ex": "The caesura makes him sound as if he is choosing his words.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess"
+   ]
+  },
+  "couplet": {
+   "w": "couplet",
+   "pos": "noun",
+   "def": "two lines of verse that rhyme and follow each other",
+   "ex": "The couplets are hidden by the long sentences.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "writing_poetry_forms"
+   ]
+  },
+  "euphemism": {
+   "w": "euphemism",
+   "pos": "noun",
+   "def": "a mild phrase used instead of a harsh one",
+   "ex": "Passed away is a common euphemism for died.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "rp_35_the_house_viewing"
+   ]
+  },
+  "possessive": {
+   "w": "possessive",
+   "pos": "adjective",
+   "def": "wanting to own or control another person completely",
+   "ex": "His possessive attitude shows in how he talks about her.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "qf_spelling_their_they_re",
+    "grammar_a2_08_pronouns_adjectives"
+   ]
+  },
+  "sinister": {
+   "w": "sinister",
+   "pos": "adjective",
+   "def": "seeming evil or threatening",
+   "ex": "Every other house on the street had bright paint and polished brass. This one had no windows, no bell, and a door that nobody had cleaned in twenty years — there was something sinister about it.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "techniques_jekyll_and_hyde_1",
+    "techniques_the_adventure_of_the_speckled_band"
+   ]
+  },
+  "imply": {
+   "w": "imply",
+   "pos": "verb",
+   "def": "to suggest something without saying it directly",
+   "ex": "The poet implies that the duke ordered her death.",
+   "lessons": [
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "gr_b2_stress_shift",
+    "grammar_c1_07_questions_for_effect"
+   ]
+  },
   "emerge": {
    "w": "emerge",
    "pos": "v",
@@ -86500,16 +86597,6 @@ window.WORDBANK={
     "techniques_the_open_window_a2b1",
     "techniques_the_queen_of_spades_a2b1",
     "ib_lesson_techniques_overcoat"
-   ]
-  },
-  "sinister": {
-   "w": "sinister",
-   "pos": "adj",
-   "def": "making you feel that something evil or harmful is going to happen. A sinister smile; a sinister figure in the doorway. From the Latin for \"left-hand side\", which was once thought unlucky.",
-   "ex": "Every other house on the street had bright paint and polished brass. This one had no windows, no bell, and a door that nobody had cleaned in twenty years — there was something sinister about it.",
-   "lessons": [
-    "techniques_jekyll_and_hyde_1",
-    "techniques_the_adventure_of_the_speckled_band"
    ]
   },
   "trample": {
@@ -111242,15 +111329,6 @@ window.WORDBANK={
     "rp_34_at_the_town_hall",
     "lf_21_at_the_dentist",
     "rp_03_at_the_doctors"
-   ]
-  },
-  "euphemism": {
-   "w": "euphemism",
-   "pos": "n",
-   "def": "a soft word used to avoid saying something unpleasant",
-   "ex": "Cosy is often a euphemism for very small.",
-   "lessons": [
-    "rp_35_the_house_viewing"
    ]
   },
   "characterful": {
@@ -138904,15 +138982,6 @@ window.WORDBANK={
     "writing_poetry_forms"
    ]
   },
-  "couplet": {
-   "w": "couplet",
-   "pos": "n",
-   "def": "two lines of poetry next to each other that usually rhyme",
-   "ex": "The poem ends with a clever rhyming couplet.",
-   "lessons": [
-    "writing_poetry_forms"
-   ]
-  },
   "iambic pentameter": {
    "w": "iambic pentameter",
    "pos": "n",
@@ -150862,16 +150931,6 @@ window.WORDBANK={
     "qf_spelling_necessary"
    ]
   },
-  "possessive": {
-   "w": "possessive",
-   "pos": "adj",
-   "def": "showing that something belongs to someone",
-   "ex": "My, your and its are all possessive words.",
-   "lessons": [
-    "qf_spelling_their_they_re",
-    "grammar_a2_08_pronouns_adjectives"
-   ]
-  },
   "apostrophe": {
    "w": "apostrophe",
    "pos": "n",
@@ -153019,16 +153078,6 @@ window.WORDBANK={
    "ex": "The opacity of the contract worried us.",
    "lessons": [
     "sp_prep_c1_62"
-   ]
-  },
-  "dramatic irony": {
-   "w": "dramatic irony",
-   "pos": "n",
-   "def": "when the audience knows something a character does not",
-   "ex": "Dramatic irony keeps the audience nervous throughout the play.",
-   "lessons": [
-    "sp_prep_c1_63",
-    "ib_lesson_techniques_open_window"
    ]
   },
   "meiosis": {
@@ -156145,16 +156194,6 @@ window.WORDBANK={
    "ex": "Let's sit down and have a cuppa.",
    "lessons": [
     "gr_b2_sound_alike"
-   ]
-  },
-  "imply": {
-   "w": "imply",
-   "pos": "v",
-   "def": "to suggest something without saying it directly",
-   "ex": "Are you implying that I am lying?",
-   "lessons": [
-    "gr_b2_stress_shift",
-    "grammar_c1_07_questions_for_effect"
    ]
   },
   "scrawny": {
