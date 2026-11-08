@@ -3428,6 +3428,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_time_travellers_argument",
+   "title": "The Time Traveller's Argument",
+   "level": "",
+   "words": [
+    "abstraction",
+    "extension",
+    "duration",
+    "consciousness",
+    "analogy",
+    "speculative",
+    "anticipate",
+    "plausible",
+    "concede",
+    "premise"
+   ]
+  },
+  {
    "id": "discuss_c1_universal_now",
    "title": "Is There a Universal Now?",
    "level": "",
@@ -51896,6 +51913,7 @@ window.WORDBANK={
    "ex": "She anticipated general-purpose computing long before the technology existed.",
    "lessons": [
     "bc_ada_lovelace_c1",
+    "discuss_c1_time_travellers_argument",
     "tib_pestle_b2",
     "Business-Bootcamp-Lesson6-The-Boardroom",
     "dinosaur_heist",
@@ -59702,6 +59720,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_12_angry_men",
     "calibrated_certainty_c2",
+    "discuss_c1_time_travellers_argument",
     "grammar_c1_17_counterfactual_conditionals",
     "short_history_db_cooper",
     "techniques_the_fortune_teller",
@@ -64391,11 +64410,109 @@ window.WORDBANK={
    "ex": "Consciousness is a famous puzzle for emergence.",
    "lessons": [
     "discuss_c1_more_is_different",
+    "discuss_c1_time_travellers_argument",
     "rs_y7_sum1_05_05",
     "rs_y9_aut2_14_05",
     "rs_y9_sum1_17_01",
     "wp_04_atoms_in_the_void",
     "IELTS-Reading-Practice-Test-1"
+   ]
+  },
+  "abstraction": {
+   "w": "abstraction",
+   "pos": "n",
+   "def": "an idea or concept that has no physical existence",
+   "ex": "A perfect circle is an abstraction; no real object is one.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "lesson_48_art_gallery"
+   ]
+  },
+  "extension": {
+   "w": "extension",
+   "pos": "n",
+   "def": "the amount that something stretches in a direction; in older scientific writing, how far a body occupies space",
+   "ex": "Length is extension in one direction.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "acad_b2_14_academic_emails",
+    "sp_prep_b2_44",
+    "acad_b1_08_writing_emails_teachers"
+   ]
+  },
+  "duration": {
+   "w": "duration",
+   "pos": "n",
+   "def": "the length of time something lasts or continues",
+   "ex": "The duration of the experiment was three weeks.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "cpe_read_c1_11_time_perception",
+    "lesson_27_past_perfect_continuous",
+    "qf_pronunciation_minimal_pairs_i",
+    "grammar_b1_01_perfect_tenses_aspect"
+   ]
+  },
+  "analogy": {
+   "w": "analogy",
+   "pos": "n",
+   "def": "a comparison between two things that shows how they are alike, used to explain an idea",
+   "ex": "He used an analogy with water flowing in a pipe to explain electric current.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "the_art_of_the_analogy_c2",
+    "the_curse_of_knowledge_c2",
+    "rs_y7_aut2_02_02",
+    "rs_y10_aut1_19_02",
+    "rhetorical_devices_british_texts_interactive",
+    "bc_explain_intuitively_c1",
+    "sp_b1_29_reformulation",
+    "sp_c1_67_technical_explanation"
+   ]
+  },
+  "speculative": {
+   "w": "speculative",
+   "pos": "adj",
+   "def": "based on guesses or possibilities rather than proof",
+   "ex": "The article was interesting but highly speculative.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "discuss_c1_ai_future_humanity"
+   ]
+  },
+  "concede": {
+   "w": "concede",
+   "pos": "verb / noun",
+   "def": "to admit that something is true or valid, often unwillingly",
+   "ex": "She opened by conceding that the costs were real — and was twice as convincing for it.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "the_rhetoric_of_persuasion_c2",
+    "gr_warmup_b2_hot_takes",
+    "rp_22_talking_about_sport",
+    "acad_b1_05_giving_opinions",
+    "gr_warmup_c1_hot_takes_steelman",
+    "ml_29_the_one_star_review",
+    "lf_15_a_row_about_nothing",
+    "sp_b2_48_concession",
+    "sp_prep_b1_27",
+    "sp_prep_b2_48",
+    "sp_prep_c1_64",
+    "b1_19_giving_a_presentation",
+    "essay_practice_opinion_2",
+    "grammar_c1_06_reported_speech_nuance"
+   ]
+  },
+  "premise": {
+   "w": "premise",
+   "pos": "n",
+   "def": "a statement that an argument starts from",
+   "ex": "If the premise is false, the conclusion falls with it.",
+   "lessons": [
+    "discuss_c1_time_travellers_argument",
+    "sp_b2_52_difficult_questions",
+    "sp_prep_b2_47",
+    "sp_prep_c1_02"
    ]
   },
   "absolute": {
@@ -91745,22 +91862,6 @@ window.WORDBANK={
     "techniques_yuki_onna_a2b1"
    ]
   },
-  "analogy": {
-   "w": "analogy",
-   "pos": "n",
-   "def": "A comparison that explains an unfamiliar thing by mapping the structure of a familiar one onto it — the relationships, not just the surface, line up.",
-   "ex": "The best analogy in the talk did the work of an entire chapter.",
-   "lessons": [
-    "the_art_of_the_analogy_c2",
-    "the_curse_of_knowledge_c2",
-    "rs_y7_aut2_02_02",
-    "rs_y10_aut1_19_02",
-    "rhetorical_devices_british_texts_interactive",
-    "bc_explain_intuitively_c1",
-    "sp_b1_29_reformulation",
-    "sp_c1_67_technical_explanation"
-   ]
-  },
   "metaphor": {
    "w": "metaphor",
    "pos": "n",
@@ -91926,28 +92027,6 @@ window.WORDBANK={
    "ex": "A great speech runs all three appeals at once — you trust the speaker, you feel the stakes, and the reasoning holds.",
    "lessons": [
     "the_rhetoric_of_persuasion_c2"
-   ]
-  },
-  "concede": {
-   "w": "concede",
-   "pos": "verb / noun",
-   "def": "To grant that a point made by the other side is true or fair. A concession is the point so granted — a deliberate yielding of ground that builds credibility.",
-   "ex": "She opened by conceding that the costs were real — and was twice as convincing for it.",
-   "lessons": [
-    "the_rhetoric_of_persuasion_c2",
-    "gr_warmup_b2_hot_takes",
-    "rp_22_talking_about_sport",
-    "acad_b1_05_giving_opinions",
-    "gr_warmup_c1_hot_takes_steelman",
-    "ml_29_the_one_star_review",
-    "lf_15_a_row_about_nothing",
-    "sp_b2_48_concession",
-    "sp_prep_b1_27",
-    "sp_prep_b2_48",
-    "sp_prep_c1_64",
-    "b1_19_giving_a_presentation",
-    "essay_practice_opinion_2",
-    "grammar_c1_06_reported_speech_nuance"
    ]
   },
   "straw man": {
@@ -99686,17 +99765,6 @@ window.WORDBANK={
    "ex": "The new test format has fewer but longer questions.",
    "lessons": [
     "acad_b2_13_exam_strategies"
-   ]
-  },
-  "extension": {
-   "w": "extension",
-   "pos": "n",
-   "def": "extra time given to finish something",
-   "ex": "I asked my boss for an extension on the deadline.",
-   "lessons": [
-    "acad_b2_14_academic_emails",
-    "sp_prep_b2_44",
-    "acad_b1_08_writing_emails_teachers"
    ]
   },
   "clarification": {
@@ -145526,18 +145594,6 @@ window.WORDBANK={
     "cpe_read_c1_10_gut_brain"
    ]
   },
-  "duration": {
-   "w": "duration",
-   "pos": "n",
-   "def": "the length of time that something lasts",
-   "ex": "The duration of the flight is about four hours.",
-   "lessons": [
-    "cpe_read_c1_11_time_perception",
-    "lesson_27_past_perfect_continuous",
-    "qf_pronunciation_minimal_pairs_i",
-    "grammar_b1_01_perfect_tenses_aspect"
-   ]
-  },
   "habituation": {
    "w": "habituation",
    "pos": "n",
@@ -147340,15 +147396,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a mark made by a paintbrush on a surface",
    "ex": "You can see every brushstroke up close.",
-   "lessons": [
-    "lesson_48_art_gallery"
-   ]
-  },
-  "abstraction": {
-   "w": "abstraction",
-   "pos": "n",
-   "def": "art that uses shapes and colours, not real objects",
-   "ex": "Her later work moved towards pure abstraction.",
    "lessons": [
     "lesson_48_art_gallery"
    ]
@@ -151968,17 +152015,6 @@ window.WORDBANK={
     "acad_b2_07_essay_structure"
    ]
   },
-  "premise": {
-   "w": "premise",
-   "pos": "n",
-   "def": "an idea that an argument or theory is based on",
-   "ex": "I disagree with the premise of your question.",
-   "lessons": [
-    "sp_b2_52_difficult_questions",
-    "sp_prep_b2_47",
-    "sp_prep_c1_02"
-   ]
-  },
   "theoretically": {
    "w": "theoretically",
    "pos": "adv",
@@ -154670,15 +154706,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "very unlikely to be true or to happen",
    "ex": "The idea of robots ruling us seems far-fetched.",
-   "lessons": [
-    "discuss_c1_ai_future_humanity"
-   ]
-  },
-  "speculative": {
-   "w": "speculative",
-   "pos": "adj",
-   "def": "based on guesses rather than facts",
-   "ex": "These predictions about the year 2084 are highly speculative.",
    "lessons": [
     "discuss_c1_ai_future_humanity"
    ]
