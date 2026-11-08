@@ -3441,6 +3441,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_ib_poetry_ozymandias",
+   "title": "Power Fades: Ozymandias",
+   "level": "",
+   "words": [
+    "irony",
+    "sonnet",
+    "visage",
+    "colossal",
+    "hubris",
+    "transience",
+    "juxtaposition",
+    "undermine"
+   ]
+  },
+  {
    "id": "discuss_c1_more_is_different",
    "title": "More Is Different",
    "level": "",
@@ -58595,6 +58610,7 @@ window.WORDBANK={
    "ex": "There was a bitter irony in it: the fire chief's own house was the one that burned to the ground while he was away fighting another blaze.",
    "lessons": [
     "bc_sor_juana_c1",
+    "discuss_c1_ib_poetry_ozymandias",
     "persepolis_child",
     "short_history_vincent_van_gogh",
     "techniques_the_gift_of_the_magi",
@@ -58860,6 +58876,7 @@ window.WORDBANK={
     "bc_stanislaw_lem_c1",
     "behind_the_screen_jurassic_park",
     "behind_the_screen_titanic",
+    "discuss_c1_ib_poetry_ozymandias",
     "discuss_c1_why_risk_it",
     "techniques_the_two_labyrinths",
     "techniques_to_build_a_fire"
@@ -63314,11 +63331,12 @@ window.WORDBANK={
   },
   "undermine": {
    "w": "undermine",
-   "pos": "v",
+   "pos": "verb",
    "def": "to weaken something gradually, especially someone's confidence or authority.",
-   "ex": "",
+   "ex": "The setting undermines the king's claim.",
    "lessons": [
     "bq_06_free_will_c1",
+    "discuss_c1_ib_poetry_ozymandias",
     "bp_c2_04_the_power_of_imprecision",
     "wp_30_the_razor",
     "b2_17_a_captivating_structure",
@@ -64398,6 +64416,7 @@ window.WORDBANK={
    "ex": "The juxtaposition of a child's toy and a burned building in one image makes the viewer uncomfortable.",
    "lessons": [
     "discuss_c1_ib_poetry_mary_oliver",
+    "discuss_c1_ib_poetry_ozymandias",
     "persepolis_words",
     "IB_English_Techniques_Lesson",
     "ib_lesson_01_three_levels"
@@ -64498,6 +64517,44 @@ window.WORDBANK={
     "discuss_c1_ib_poetry_my_last_duchess",
     "gr_b2_stress_shift",
     "grammar_c1_07_questions_for_effect"
+   ]
+  },
+  "sonnet": {
+   "w": "sonnet",
+   "pos": "noun",
+   "def": "a poem of fourteen lines with a fixed rhyme pattern",
+   "ex": "The sonnet form is compact, but the last line opens out.",
+   "lessons": [
+    "discuss_c1_ib_poetry_ozymandias",
+    "writing_poetry_forms"
+   ]
+  },
+  "visage": {
+   "w": "visage",
+   "pos": "noun",
+   "def": "a person's face, especially in a literary style",
+   "ex": "The shattered visage still shows contempt.",
+   "lessons": [
+    "discuss_c1_ib_poetry_ozymandias"
+   ]
+  },
+  "colossal": {
+   "w": "colossal",
+   "pos": "adjective",
+   "def": "extremely large",
+   "ex": "The colossal statue is now a ruin.",
+   "lessons": [
+    "discuss_c1_ib_poetry_ozymandias",
+    "short_history_the_colosseum"
+   ]
+  },
+  "transience": {
+   "w": "transience",
+   "pos": "noun",
+   "def": "the quality of lasting only a short time",
+   "ex": "The poem explores the transience of power.",
+   "lessons": [
+    "discuss_c1_ib_poetry_ozymandias"
    ]
   },
   "emerge": {
@@ -80737,15 +80794,6 @@ window.WORDBANK={
    "w": "inaugurate",
    "pos": "v",
    "def": "to open or begin something officially, often with a ceremony. (n: inauguration)",
-   "ex": "",
-   "lessons": [
-    "short_history_the_colosseum"
-   ]
-  },
-  "colossal": {
-   "w": "colossal",
-   "pos": "adj",
-   "def": "extremely large; enormous in size or scale.",
    "ex": "",
    "lessons": [
     "short_history_the_colosseum"
@@ -138962,15 +139010,6 @@ window.WORDBANK={
    "ex": "Buzz and crash are good examples of onomatopoeia.",
    "lessons": [
     "writers_weapons"
-   ]
-  },
-  "sonnet": {
-   "w": "sonnet",
-   "pos": "n",
-   "def": "a poem of fourteen lines with a fixed rhyme pattern",
-   "ex": "He wrote a sonnet for his wife's birthday.",
-   "lessons": [
-    "writing_poetry_forms"
    ]
   },
   "quatrain": {
