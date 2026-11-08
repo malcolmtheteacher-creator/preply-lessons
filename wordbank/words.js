@@ -3411,6 +3411,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_ib_poetry_mary_oliver",
+   "title": "Paying Attention: Reading Mary Oliver",
+   "level": "",
+   "words": [
+    "imagery",
+    "tone",
+    "enjambment",
+    "speaker",
+    "juxtaposition",
+    "evoke",
+    "convey",
+    "stewardship"
+   ]
+  },
+  {
    "id": "discuss_c1_more_is_different",
    "title": "More Is Different",
    "level": "",
@@ -55607,12 +55622,13 @@ window.WORDBANK={
   },
   "evoke": {
    "w": "evoke",
-   "pos": "v",
+   "pos": "verb",
    "def": "To call up a feeling, image or memory in someone's mind.",
    "ex": "A single sentence can evoke a whole imaginary city.",
    "lessons": [
     "bc_italo_calvino_c1",
     "bc_psychology_of_colour_b2",
+    "discuss_c1_ib_poetry_mary_oliver",
     "ib_lesson_03_effect_on_reader"
    ]
   },
@@ -57999,12 +58015,13 @@ window.WORDBANK={
   },
   "stewardship": {
    "w": "stewardship",
-   "pos": "n",
+   "pos": "noun",
    "def": "of capital · a steward owner. The steward-ownership movement — companies owned by foundations or trusts so they cannot be sold — is well established in Germany and Denmark (several household names are structured this way); this case is its most famous American convert.",
    "ex": "For Carson, the land was not ours to conquer but ours to look after — a question of stewardship.",
    "lessons": [
     "bc_patagonia_c1",
     "bc_rachel_carson_c1",
+    "discuss_c1_ib_poetry_mary_oliver",
     "rs_y7_sum1_05_01",
     "rs_y10_aut1_19_04",
     "rs_y9_spr2_16_05",
@@ -64309,6 +64326,83 @@ window.WORDBANK={
     "duolingo_det_practice_6"
    ]
   },
+  "imagery": {
+   "w": "imagery",
+   "pos": "noun",
+   "def": "descriptive language that appeals to the senses",
+   "ex": "The imagery of the poem lets us see every movement.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver",
+    "rs_y7_sum1_05_03",
+    "IB_English_Techniques_Lesson",
+    "writing_poetry_foundations",
+    "sp_b2_57_persuasion",
+    "ib_lesson_techniques_owl_creek_bridge",
+    "paper_1_practice"
+   ]
+  },
+  "tone": {
+   "w": "tone",
+   "pos": "noun",
+   "def": "the attitude of the speaker toward the subject",
+   "ex": "The tone of the caption is calm and factual, even though the event it describes is frightening.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver",
+    "persepolis_words",
+    "piranesi_bc_other",
+    "skills_b1_sharing_opinions_politely",
+    "b2_37_formal_emails",
+    "b2_86_email_problems",
+    "a1p_45_review_advanced_integration",
+    "sp_prep_b2_49"
+   ]
+  },
+  "enjambment": {
+   "w": "enjambment",
+   "pos": "noun",
+   "def": "a sentence that runs over the end of a line without a pause",
+   "ex": "Enjambment makes the poem feel like a slow walk.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver"
+   ]
+  },
+  "speaker": {
+   "w": "speaker",
+   "pos": "noun",
+   "def": "the voice that talks in a poem, not necessarily the poet",
+   "ex": "The speaker admits what she does not know.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver",
+    "rp_24_a_noisy_neighbour_a2b1"
+   ]
+  },
+  "juxtaposition": {
+   "w": "juxtaposition",
+   "pos": "noun",
+   "def": "placing two different things side by side for contrast",
+   "ex": "The juxtaposition of a child's toy and a burned building in one image makes the viewer uncomfortable.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver",
+    "persepolis_words",
+    "IB_English_Techniques_Lesson",
+    "ib_lesson_01_three_levels"
+   ]
+  },
+  "convey": {
+   "w": "convey",
+   "pos": "verb",
+   "def": "to communicate an idea or feeling",
+   "ex": "A single image can convey fear without using a word, simply through the size and position of a figure.",
+   "lessons": [
+    "discuss_c1_ib_poetry_mary_oliver",
+    "end_point_c1",
+    "persepolis_words",
+    "world_sa_gestures",
+    "rs_y10_spr1_21_05",
+    "lesson_48_art_gallery",
+    "sp_prep_b1_29"
+   ]
+  },
   "emerge": {
    "w": "emerge",
    "pos": "v",
@@ -65212,20 +65306,6 @@ window.WORDBANK={
     "end_point_c1",
     "lf_11_the_first_date",
     "lf_18_i_m_fine"
-   ]
-  },
-  "convey": {
-   "w": "convey",
-   "pos": "verb",
-   "def": "to communicate an idea, feeling or piece of information so that it is understood.",
-   "ex": "A single image can convey fear without using a word, simply through the size and position of a figure.",
-   "lessons": [
-    "end_point_c1",
-    "persepolis_words",
-    "world_sa_gestures",
-    "rs_y10_spr1_21_05",
-    "lesson_48_art_gallery",
-    "sp_prep_b1_29"
    ]
   },
   "remarks": {
@@ -72707,17 +72787,6 @@ window.WORDBANK={
     "persepolis_words"
    ]
   },
-  "juxtaposition": {
-   "w": "juxtaposition",
-   "pos": "",
-   "def": "placing two very different things side by side so that the contrast creates meaning.",
-   "ex": "The juxtaposition of a child's toy and a burned building in one image makes the viewer uncomfortable.",
-   "lessons": [
-    "persepolis_words",
-    "IB_English_Techniques_Lesson",
-    "ib_lesson_01_three_levels"
-   ]
-  },
   "stylised": {
    "w": "stylised",
    "pos": "adjective",
@@ -72725,21 +72794,6 @@ window.WORDBANK={
    "ex": "The faces are stylised: a few lines for the eyes and mouth, rather than a realistic portrait.",
    "lessons": [
     "persepolis_words"
-   ]
-  },
-  "tone": {
-   "w": "tone",
-   "pos": "noun",
-   "def": "the attitude or feeling in the way something is expressed: calm, bitter, playful, cold.",
-   "ex": "The tone of the caption is calm and factual, even though the event it describes is frightening.",
-   "lessons": [
-    "persepolis_words",
-    "piranesi_bc_other",
-    "skills_b1_sharing_opinions_politely",
-    "b2_37_formal_emails",
-    "b2_86_email_problems",
-    "a1p_45_review_advanced_integration",
-    "sp_prep_b2_49"
    ]
   },
   "symbolise": {
@@ -104886,20 +104940,6 @@ window.WORDBANK={
    "ex": "A universalist believes all people reach heaven.",
    "lessons": [
     "rs_y7_sum1_05_03"
-   ]
-  },
-  "imagery": {
-   "w": "imagery",
-   "pos": "n",
-   "def": "words that create pictures in the mind",
-   "ex": "The Bible uses strong imagery of fire.",
-   "lessons": [
-    "rs_y7_sum1_05_03",
-    "IB_English_Techniques_Lesson",
-    "writing_poetry_foundations",
-    "sp_b2_57_persuasion",
-    "ib_lesson_techniques_owl_creek_bridge",
-    "paper_1_practice"
    ]
   },
   "answerable": {
@@ -146715,15 +146755,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "not thick, so sound or light passes through",
    "ex": "The walls are so thin I can hear every word.",
-   "lessons": [
-    "rp_24_a_noisy_neighbour_a2b1"
-   ]
-  },
-  "speaker": {
-   "w": "speaker",
-   "pos": "n",
-   "def": "a device that makes music or sound louder",
-   "ex": "He bought a huge speaker for his parties.",
    "lessons": [
     "rp_24_a_noisy_neighbour_a2b1"
    ]
