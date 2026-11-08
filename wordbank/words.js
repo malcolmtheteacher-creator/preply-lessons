@@ -13355,6 +13355,34 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "world_eu_swiss",
+   "title": "Neutral, Tidy, Perfect? The Swiss Reality",
+   "level": "",
+   "words": [
+    "neutral",
+    "canton",
+    "referendum",
+    "federal",
+    "dialect",
+    "precision",
+    "consensus",
+    "diverse"
+   ]
+  },
+  {
+   "id": "world_eu_swiss_a2",
+   "title": "Neutral, Tidy, Perfect? The Swiss Reality",
+   "level": "",
+   "words": [
+    "neutral",
+    "vote",
+    "language",
+    "region",
+    "tidy",
+    "safe"
+   ]
+  },
+  {
    "id": "world_la_background",
    "title": "Latin America: One Name, Many Worlds",
    "level": "",
@@ -51718,7 +51746,8 @@ window.WORDBANK={
    "ex": "Power in the United States is federal, shared between a central government and the individual states.",
    "lessons": [
     "amst_04_the_constitution",
-    "pol_01_power"
+    "pol_01_power",
+    "world_eu_swiss"
    ]
   },
   "robotaxi": {
@@ -52414,6 +52443,8 @@ window.WORDBANK={
    "lessons": [
     "bc_ai_screening_c1",
     "odyssey_charles_iii",
+    "world_eu_swiss",
+    "world_eu_swiss_a2",
     "gr_b2_the_register",
     "everyone_has_an_accent_b1b2",
     "bc_education_and_training_c1",
@@ -52613,6 +52644,7 @@ window.WORDBANK={
     "short_history_the_great_serum_run_a2b1",
     "techniques_a_retrieved_reformation",
     "techniques_jekyll_and_hyde_2_a2b1",
+    "world_eu_swiss_a2",
     "gr_warmup_a2_hot_takes_cities",
     "behind_the_screen_jurassic_park_a2b1",
     "business_heist_a2b1",
@@ -74346,6 +74378,7 @@ window.WORDBANK={
    "ex": "Adults vote in many countries.",
    "lessons": [
     "pol_01_power_a2",
+    "world_eu_swiss_a2",
     "behind_the_screen_suffragette_a2b1",
     "discuss_b1_french_elections",
     "short_history_the_suffragettes_a2b1"
@@ -74482,7 +74515,8 @@ window.WORDBANK={
    "ex": "The government held a referendum on the new treaty.",
    "lessons": [
     "pol_04_referendum",
-    "pol_04_referendum_a2"
+    "pol_04_referendum_a2",
+    "world_eu_swiss"
    ]
   },
   "initiative": {
@@ -75312,6 +75346,7 @@ window.WORDBANK={
     "psy_03_follow_the_crowd_b2c1",
     "short_history_the_stories_we_agree_on",
     "world_ea_group",
+    "world_eu_swiss",
     "bc_negotiating_c1",
     "skills_c1_trade_fair_cross_cultural",
     "acad_b1_09_working_in_pairs",
@@ -95852,6 +95887,7 @@ window.WORDBANK={
    "ex": "People in different parts of China speak different dialects, some so different that speakers cannot understand each other.",
    "lessons": [
     "world_ea_background",
+    "world_eu_swiss",
     "world_mena_background",
     "world_mena_languages",
     "world_na_english",
@@ -95898,6 +95934,7 @@ window.WORDBANK={
    "lessons": [
     "world_ea_background_a2",
     "world_eu_background_a2",
+    "world_eu_swiss_a2",
     "world_mena_background_a2",
     "world_na_english_a2",
     "world_oce_background_a2",
@@ -96976,12 +97013,49 @@ window.WORDBANK={
     "sp_prep_a2_12"
    ]
   },
+  "canton": {
+   "w": "canton",
+   "pos": "n",
+   "def": "one of the 26 self-governing regions of Switzerland",
+   "ex": "Zurich is both a city and a canton.",
+   "lessons": [
+    "world_eu_swiss"
+   ]
+  },
+  "precision": {
+   "w": "precision",
+   "pos": "n",
+   "def": "exact accuracy, with no small mistakes",
+   "ex": "The surgeon worked with great precision.",
+   "lessons": [
+    "world_eu_swiss",
+    "bp_c2_01_where_your_words_come_from",
+    "knowledge_c1_three_layers_of_english",
+    "lesson_25_b1_review_fluency",
+    "sp_b2_46_nuanced_description",
+    "sp_prep_b2_46",
+    "grammar_b1_comparative_language"
+   ]
+  },
+  "diverse": {
+   "w": "diverse",
+   "pos": "adj",
+   "def": "made up of many different kinds of people or things",
+   "ex": "London is one of the most diverse cities in Europe.",
+   "lessons": [
+    "world_eu_swiss",
+    "world_la_background",
+    "rs_y7_aut1_01_05",
+    "c1_pro_20_diversity_inclusion"
+   ]
+  },
   "region": {
    "w": "region",
    "pos": "n",
-   "def": "a large area.",
-   "ex": "Latin America is a region.",
+   "def": "a part of a country",
+   "ex": "Which region of your country do you like best?",
    "lessons": [
+    "world_eu_swiss_a2",
     "world_la_background",
     "world_la_background_a2",
     "bc_andy_burnham_c1",
@@ -96989,15 +97063,15 @@ window.WORDBANK={
     "ielts_task_1_lesson_2_line_graphs"
    ]
   },
-  "diverse": {
-   "w": "diverse",
+  "tidy": {
+   "w": "tidy",
    "pos": "adj",
-   "def": "very varied.",
-   "ex": "The region is ethnically diverse.",
+   "def": "clean and in good order",
+   "ex": "My room is always tidy.",
    "lessons": [
-    "world_la_background",
-    "rs_y7_aut1_01_05",
-    "c1_pro_20_diversity_inclusion"
+    "world_eu_swiss_a2",
+    "rp_28_at_the_hairdressers_a2b1",
+    "grammar_a1_12_conjunctions_basic"
    ]
   },
   "descent": {
@@ -111243,16 +111317,6 @@ window.WORDBANK={
     "rp_28_at_the_hairdressers_a2b1"
    ]
   },
-  "tidy": {
-   "w": "tidy",
-   "pos": "adj",
-   "def": "neat and in good order",
-   "ex": "I want my hair to look tidy for work.",
-   "lessons": [
-    "rp_28_at_the_hairdressers_a2b1",
-    "grammar_a1_12_conjunctions_basic"
-   ]
-  },
   "leaver": {
    "w": "leaver",
    "pos": "n",
@@ -121380,20 +121444,6 @@ window.WORDBANK={
     "boredom_is_a_superpower_lesson",
     "bc_honesty_dishonesty_b2c1",
     "lesson_42_advanced_passive_causative"
-   ]
-  },
-  "precision": {
-   "w": "precision",
-   "pos": "n",
-   "def": "the quality of being exact and accurate",
-   "ex": "Surgeons must work with great precision.",
-   "lessons": [
-    "bp_c2_01_where_your_words_come_from",
-    "knowledge_c1_three_layers_of_english",
-    "lesson_25_b1_review_fluency",
-    "sp_b2_46_nuanced_description",
-    "sp_prep_b2_46",
-    "grammar_b1_comparative_language"
    ]
   },
   "punchy": {
