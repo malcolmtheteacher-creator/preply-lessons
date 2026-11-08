@@ -3641,6 +3641,96 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "ib_poetry_01_reading_an_unseen_poem",
+   "title": "IB Poetry 1: Reading an Unseen Poem",
+   "level": "",
+   "words": [
+    "tone",
+    "speaker",
+    "personification",
+    "anaphora",
+    "caesura",
+    "shift",
+    "stanza",
+    "position"
+   ]
+  },
+  {
+   "id": "ib_poetry_02_imagery_and_symbol",
+   "title": "IB Poetry 2: Imagery and Symbol",
+   "level": "",
+   "words": [
+    "imagery",
+    "image cluster",
+    "symbol",
+    "rhetorical question",
+    "juxtaposition",
+    "sublime",
+    "imply",
+    "unsettle"
+   ]
+  },
+  {
+   "id": "ib_poetry_03_sound_and_rhythm",
+   "title": "IB Poetry 3: Sound and Rhythm",
+   "level": "",
+   "words": [
+    "onomatopoeia",
+    "sibilance",
+    "assonance",
+    "plosive",
+    "octave",
+    "sestet",
+    "elegy",
+    "imitate"
+   ]
+  },
+  {
+   "id": "ib_poetry_04_structure_and_form",
+   "title": "IB Poetry 4: Structure and Form",
+   "level": "",
+   "words": [
+    "sonnet",
+    "quatrain",
+    "volta",
+    "couplet",
+    "convention",
+    "parody",
+    "subvert",
+    "iambic pentameter"
+   ]
+  },
+  {
+   "id": "ib_poetry_05_writing_the_poetry_paragraph",
+   "title": "IB Poetry 5: Writing the Poetry Paragraph",
+   "level": "",
+   "words": [
+    "guiding question",
+    "thesis",
+    "coinage",
+    "inevitable",
+    "undercut",
+    "evaluate",
+    "blunt",
+    "elegiac"
+   ]
+  },
+  {
+   "id": "ib_poetry_06_timed_poem_commentary",
+   "title": "IB Poetry 6: Timed Poem Commentary",
+   "level": "",
+   "words": [
+    "gyre",
+    "anarchy",
+    "antithesis",
+    "apocalyptic",
+    "revelation",
+    "menace",
+    "inversion",
+    "commentary"
+   ]
+  },
+  {
    "id": "lw_carlill_c1",
    "title": "The Advert That Became a Promise: Carlill v Carbolic Smoke Ball",
    "level": "",
@@ -51830,11 +51920,12 @@ window.WORDBANK={
   },
   "symbol": {
    "w": "symbol",
-   "pos": "n",
+   "pos": "noun",
    "def": "A sign that stands for something, like a letter or a number.",
-   "ex": "A machine can work with many kinds of symbol.",
+   "ex": "The tiger is a symbol of fierce, dangerous energy.",
    "lessons": [
     "bc_ada_lovelace_b1b2",
+    "ib_poetry_02_imagery_and_symbol",
     "short_history_the_colosseum_a2b1",
     "short_history_the_taj_mahal_a2b1",
     "lesson-19-formulas",
@@ -57841,6 +57932,7 @@ window.WORDBANK={
    "ex": "There has been a shift in attitudes: ten years ago most people disagreed, but now most agree.",
    "lessons": [
     "bc_overview_effect_b2",
+    "ib_poetry_01_reading_an_unseen_poem",
     "story_b2_use_it_or_lose_it",
     "topic_free_time_b2",
     "ct_b1_30_combining_skills",
@@ -59693,11 +59785,12 @@ window.WORDBANK={
   },
   "unsettle": {
    "w": "unsettle",
-   "pos": "v",
+   "pos": "verb",
    "def": "To make someone feel less certain or comfortable.",
    "ex": "The butterfly story is meant to unsettle you, not to give you an answer.",
    "lessons": [
     "bc_zhuangzi_c1",
+    "ib_poetry_02_imagery_and_symbol",
     "ib_lesson_03_effect_on_reader"
    ]
   },
@@ -63268,11 +63361,12 @@ window.WORDBANK={
   },
   "subvert": {
    "w": "subvert",
-   "pos": "v",
-   "def": "",
+   "pos": "verb",
+   "def": "to undermine an expected pattern or authority",
    "ex": "The film subverts the usual idea of a hero.",
    "lessons": [
     "bq_05_is_it_art_c1",
+    "ib_poetry_04_structure_and_form",
     "ib_lesson_03_effect_on_reader"
    ]
   },
@@ -63317,12 +63411,13 @@ window.WORDBANK={
   },
   "inevitable": {
    "w": "inevitable",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "certain to happen; impossible to avoid.",
    "ex": "Once the dam cracked and the rain kept falling, the flood was inevitable; there was nothing anyone in the valley could do except leave.",
    "lessons": [
     "bq_06_free_will_c1",
     "discuss_c1_future_fixed",
+    "ib_poetry_05_writing_the_poetry_paragraph",
     "techniques_appointment_in_samarra",
     "techniques_the_masque_of_the_red_death",
     "st_pro_11_thought_leadership",
@@ -64366,6 +64461,7 @@ window.WORDBANK={
    "ex": "The imagery of the poem lets us see every movement.",
    "lessons": [
     "discuss_c1_ib_poetry_mary_oliver",
+    "ib_poetry_02_imagery_and_symbol",
     "rs_y7_sum1_05_03",
     "IB_English_Techniques_Lesson",
     "writing_poetry_foundations",
@@ -64381,6 +64477,7 @@ window.WORDBANK={
    "ex": "The tone of the caption is calm and factual, even though the event it describes is frightening.",
    "lessons": [
     "discuss_c1_ib_poetry_mary_oliver",
+    "ib_poetry_01_reading_an_unseen_poem",
     "persepolis_words",
     "piranesi_bc_other",
     "skills_b1_sharing_opinions_politely",
@@ -64406,6 +64503,7 @@ window.WORDBANK={
    "ex": "The speaker admits what she does not know.",
    "lessons": [
     "discuss_c1_ib_poetry_mary_oliver",
+    "ib_poetry_01_reading_an_unseen_poem",
     "rp_24_a_noisy_neighbour_a2b1"
    ]
   },
@@ -64417,6 +64515,7 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_ib_poetry_mary_oliver",
     "discuss_c1_ib_poetry_ozymandias",
+    "ib_poetry_02_imagery_and_symbol",
     "persepolis_words",
     "IB_English_Techniques_Lesson",
     "ib_lesson_01_three_levels"
@@ -64463,7 +64562,8 @@ window.WORDBANK={
    "def": "a pause in the middle of a line of verse",
    "ex": "The caesura makes him sound as if he is choosing his words.",
    "lessons": [
-    "discuss_c1_ib_poetry_my_last_duchess"
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "ib_poetry_01_reading_an_unseen_poem"
    ]
   },
   "couplet": {
@@ -64473,6 +64573,7 @@ window.WORDBANK={
    "ex": "The couplets are hidden by the long sentences.",
    "lessons": [
     "discuss_c1_ib_poetry_my_last_duchess",
+    "ib_poetry_04_structure_and_form",
     "writing_poetry_forms"
    ]
   },
@@ -64512,9 +64613,10 @@ window.WORDBANK={
    "w": "imply",
    "pos": "verb",
    "def": "to suggest something without saying it directly",
-   "ex": "The poet implies that the duke ordered her death.",
+   "ex": "The forge imagery implies deliberate, violent creation.",
    "lessons": [
     "discuss_c1_ib_poetry_my_last_duchess",
+    "ib_poetry_02_imagery_and_symbol",
     "gr_b2_stress_shift",
     "grammar_c1_07_questions_for_effect"
    ]
@@ -64526,6 +64628,7 @@ window.WORDBANK={
    "ex": "The sonnet form is compact, but the last line opens out.",
    "lessons": [
     "discuss_c1_ib_poetry_ozymandias",
+    "ib_poetry_04_structure_and_form",
     "writing_poetry_forms"
    ]
   },
@@ -65519,6 +65622,384 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "grammar_c1_17_counterfactual_conditionals"
+   ]
+  },
+  "personification": {
+   "w": "personification",
+   "pos": "noun",
+   "def": "giving human qualities to something that is not human",
+   "ex": "Death is personified as a gentleman caller.",
+   "lessons": [
+    "ib_poetry_01_reading_an_unseen_poem",
+    "IB_English_Techniques_Lesson",
+    "writing_poetry_image",
+    "ib_lesson_techniques_overcoat",
+    "lesson-25-abstract-information"
+   ]
+  },
+  "anaphora": {
+   "w": "anaphora",
+   "pos": "noun",
+   "def": "repeating the same words at the start of successive lines.  builds a sense of routine.\"",
+   "ex": "The anaphora of “We passed",
+   "lessons": [
+    "ib_poetry_01_reading_an_unseen_poem",
+    "Rhetorical Devices in British Literary History",
+    "writing_poetry_foundations"
+   ]
+  },
+  "stanza": {
+   "w": "stanza",
+   "pos": "noun",
+   "def": "a group of lines forming a unit in a poem",
+   "ex": "Each stanza has four lines.",
+   "lessons": [
+    "ib_poetry_01_reading_an_unseen_poem",
+    "writing_poetry_revision"
+   ]
+  },
+  "position": {
+   "w": "position",
+   "pos": "verb",
+   "def": "to guide how the reader responds to something",
+   "ex": "The calm tone positions the reader to feel uneasy.",
+   "lessons": [
+    "ib_poetry_01_reading_an_unseen_poem",
+    "bestiary_discourse_position",
+    "a1p_09_where_is_it",
+    "Ielts1",
+    "ielts_lesson_1_academic_paragraphs",
+    "qf_vocab_job_work"
+   ]
+  },
+  "image cluster": {
+   "w": "image cluster",
+   "pos": "noun",
+   "def": "a group of related images that recurs in a poem",
+   "ex": "The image cluster of metalwork builds the idea of a craftsman.",
+   "lessons": [
+    "ib_poetry_02_imagery_and_symbol"
+   ]
+  },
+  "rhetorical question": {
+   "w": "rhetorical question",
+   "pos": "noun",
+   "def": "a question asked for effect, not to get an answer",
+   "ex": "The poem is built from rhetorical questions.",
+   "lessons": [
+    "ib_poetry_02_imagery_and_symbol",
+    "bc_memorable_language_c1"
+   ]
+  },
+  "sublime": {
+   "w": "sublime",
+   "pos": "adjective",
+   "def": "inspiring awe that mixes beauty and fear",
+   "ex": "His stupidity was almost sublime — perfect, complete, unimprovable.",
+   "lessons": [
+    "ib_poetry_02_imagery_and_symbol",
+    "techniques_luck"
+   ]
+  },
+  "onomatopoeia": {
+   "w": "onomatopoeia",
+   "pos": "noun",
+   "def": "a word that imitates the sound it names",
+   "ex": "Rattle is an example of onomatopoeia.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm",
+    "writers_weapons"
+   ]
+  },
+  "sibilance": {
+   "w": "sibilance",
+   "pos": "noun",
+   "def": "repeated s or sh sounds",
+   "ex": "The sibilance imitates the hiss of shells.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "assonance": {
+   "w": "assonance",
+   "pos": "noun",
+   "def": "repetition of vowel sounds in nearby words",
+   "ex": "The assonance of long vowels slows the line.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm",
+    "writing_poetry_foundations"
+   ]
+  },
+  "plosive": {
+   "w": "plosive",
+   "pos": "noun",
+   "def": "a consonant made with a sudden burst of air, such as p, t or k",
+   "ex": "The plosives sound like gunshots.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "octave": {
+   "w": "octave",
+   "pos": "noun",
+   "def": "the first eight lines of a sonnet",
+   "ex": "The octave is loud and public.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "sestet": {
+   "w": "sestet",
+   "pos": "noun",
+   "def": "the last six lines of a sonnet",
+   "ex": "The sestet is quiet and private.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "elegy": {
+   "w": "elegy",
+   "pos": "noun",
+   "def": "a poem of mourning for the dead",
+   "ex": "The poem is an elegy for soldiers.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "imitate": {
+   "w": "imitate",
+   "pos": "verb",
+   "def": "to copy the sound or form of something",
+   "ex": "The sounds imitate gunfire.",
+   "lessons": [
+    "ib_poetry_03_sound_and_rhythm"
+   ]
+  },
+  "quatrain": {
+   "w": "quatrain",
+   "pos": "noun",
+   "def": "a unit of four lines in a poem",
+   "ex": "The first quatrain lists comparisons.",
+   "lessons": [
+    "ib_poetry_04_structure_and_form",
+    "writing_poetry_forms"
+   ]
+  },
+  "volta": {
+   "w": "volta",
+   "pos": "noun",
+   "def": "the turn in thought or tone, especially in a sonnet. .\"",
+   "ex": "The volta arrives at “And yet",
+   "lessons": [
+    "ib_poetry_04_structure_and_form",
+    "writing_poetry_forms"
+   ]
+  },
+  "convention": {
+   "w": "convention",
+   "pos": "noun",
+   "def": "an accepted pattern or expectation in a genre or form",
+   "ex": "Praise of the beloved was a convention of love poetry.",
+   "lessons": [
+    "ib_poetry_04_structure_and_form"
+   ]
+  },
+  "parody": {
+   "w": "parody",
+   "pos": "noun",
+   "def": "an imitation of a style that exaggerates it for mockery",
+   "ex": "The poem is a parody of love sonnets.",
+   "lessons": [
+    "ib_poetry_04_structure_and_form"
+   ]
+  },
+  "iambic pentameter": {
+   "w": "iambic pentameter",
+   "pos": "noun",
+   "def": "a line of ten syllables with five alternating weak and strong beats",
+   "ex": "The sonnet is written in iambic pentameter.",
+   "lessons": [
+    "ib_poetry_04_structure_and_form",
+    "writing_poetry_forms"
+   ]
+  },
+  "guiding question": {
+   "w": "guiding question",
+   "pos": "noun",
+   "def": "a question that directs your analysis of a text",
+   "ex": "The guiding question focuses on loss.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph"
+   ]
+  },
+  "thesis": {
+   "w": "thesis",
+   "pos": "noun",
+   "def": "the central argument of an essay or paragraph",
+   "ex": "Your Position is the thesis of the paragraph.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "acad_c2_03_viva_preparation",
+    "bc_critical_evaluation_sources_phd",
+    "cpe_read_c2_06_cooking_human",
+    "IELTS Writing Quick Reference Guides",
+    "ielts_lesson_4_time_management",
+    "rs_y11_sum1_29_05",
+    "sp_b2_41_academic_structure"
+   ]
+  },
+  "coinage": {
+   "w": "coinage",
+   "pos": "noun",
+   "def": "a new word invented by a writer",
+   "ex": "He introduced Scotland's first royal coinage.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "odyssey_david_i"
+   ]
+  },
+  "undercut": {
+   "w": "undercut",
+   "pos": "verb",
+   "def": "to weaken something by contradicting it",
+   "ex": "The blunt ending undercuts the earlier tenderness.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "skills_b2c1_playing_a_different_game",
+    "ielts_writing_advantages_disadvantages_essay",
+    "sp_prep_c1_71",
+    "may_might_could_professional"
+   ]
+  },
+  "evaluate": {
+   "w": "evaluate",
+   "pos": "verb",
+   "def": "to judge the overall effect or value of something",
+   "ex": "Evaluate the combined effect of the two choices.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "tib_blooms_b2",
+    "acad_b2_03_critical_thinking",
+    "gr_b2_time_auction",
+    "c1c2_the_ulysses_contract_for_leaders",
+    "epicurean_29_legacy_tensions",
+    "b2_92_language_of_historical_debate",
+    "ielts_writing_two_part_essay"
+   ]
+  },
+  "blunt": {
+   "w": "blunt",
+   "pos": "adjective",
+   "def": "direct and unsoftened",
+   "ex": "Some visitors find Dutch feedback blunt.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "world_eu_directness",
+    "bp_c2_01_where_your_words_come_from",
+    "grammar_b2_23_disagreeing_nicely",
+    "skills_b1b2_being_a_landlord",
+    "memory_arts_p1_05",
+    "sp_b1_31_managing_disagreement",
+    "grammar_c2_10_evaluative_language"
+   ]
+  },
+  "elegiac": {
+   "w": "elegiac",
+   "pos": "adjective",
+   "def": "sad and reflective, like a poem of mourning",
+   "ex": "The tone is elegiac.",
+   "lessons": [
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "scifi_history_c1_part1"
+   ]
+  },
+  "gyre": {
+   "w": "gyre",
+   "pos": "noun",
+   "def": "a spiral or circular movement",
+   "ex": "The widening gyre suggests loss of control.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary"
+   ]
+  },
+  "anarchy": {
+   "w": "anarchy",
+   "pos": "noun",
+   "def": "a state of disorder without authority",
+   "ex": "Later historians called the civil war the Anarchy.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary",
+    "odyssey_stephen"
+   ]
+  },
+  "antithesis": {
+   "w": "antithesis",
+   "pos": "noun (rhetorical device)",
+   "def": "a sharp contrast of ideas in balanced phrases",
+   "ex": "'Ask not what your country can do for you' is pure antithesis — the balance is what makes it stick.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary",
+    "the_rhetoric_of_persuasion_c2",
+    "rhetorical_devices_british_texts_interactive",
+    "wp_41_the_world_spirit"
+   ]
+  },
+  "apocalyptic": {
+   "w": "apocalyptic",
+   "pos": "adjective",
+   "def": "describing the end of the world or great destruction",
+   "ex": "The tone is apocalyptic.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary"
+   ]
+  },
+  "revelation": {
+   "w": "revelation",
+   "pos": "noun",
+   "def": "a sudden disclosure of something hidden",
+   "ex": "The revelation arrives one careful step at a time.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary",
+    "techniques_the_egg",
+    "rs_y10_sum1_23_04",
+    "rs_y10_sum2_24_02",
+    "rs_y7_spr1_03_03",
+    "rs_y10_sum1_23_06"
+   ]
+  },
+  "menace": {
+   "w": "menace",
+   "pos": "noun",
+   "def": "a sense of threat",
+   "ex": "The ending leaves a sense of menace.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary"
+   ]
+  },
+  "inversion": {
+   "w": "inversion",
+   "pos": "noun",
+   "def": "a reversal of the usual order",
+   "ex": "The poem presents an inversion of values.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary",
+    "short_history_the_great_smog",
+    "bc_global_branding_c1",
+    "cambridge_cae_kwt_past_papers",
+    "lesson_32_inversion",
+    "grammar_b2_09_negative_adverbials_inversion"
+   ]
+  },
+  "commentary": {
+   "w": "commentary",
+   "pos": "noun",
+   "def": "a piece of writing that analyses a text",
+   "ex": "You wrote a timed commentary.",
+   "lessons": [
+    "ib_poetry_06_timed_poem_commentary",
+    "short_history_the_library_of_alexandria",
+    "rs_y7_spr1_03_04",
+    "wp_25_the_house_of_wisdom"
    ]
   },
   "consideration": {
@@ -67576,15 +68057,6 @@ window.WORDBANK={
    "lessons": [
     "odyssey_david_i",
     "odyssey_edward_the_confessor"
-   ]
-  },
-  "coinage": {
-   "w": "coinage",
-   "pos": "n",
-   "def": "the coins used in a country.",
-   "ex": "He introduced Scotland's first royal coinage.",
-   "lessons": [
-    "odyssey_david_i"
    ]
   },
   "reform": {
@@ -72001,15 +72473,6 @@ window.WORDBANK={
     "odyssey_stephen",
     "short_history_catherine_the_great",
     "short_history_catherine_the_great_a2b1"
-   ]
-  },
-  "anarchy": {
-   "w": "anarchy",
-   "pos": "n",
-   "def": "a state of disorder without effective government.",
-   "ex": "Later historians called the civil war the Anarchy.",
-   "lessons": [
-    "odyssey_stephen"
    ]
   },
   "chivalrous": {
@@ -81655,19 +82118,6 @@ window.WORDBANK={
     "short_history_the_great_smog"
    ]
   },
-  "inversion": {
-   "w": "inversion",
-   "pos": "n",
-   "def": "a reversal of the normal order; in weather, a lid of warm air trapping cold air near the ground.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_great_smog",
-    "bc_global_branding_c1",
-    "cambridge_cae_kwt_past_papers",
-    "lesson_32_inversion",
-    "grammar_b2_09_negative_adverbials_inversion"
-   ]
-  },
   "sulphurous": {
    "w": "sulphurous",
    "pos": "adj",
@@ -82344,17 +82794,6 @@ window.WORDBANK={
     "short_history_the_library_of_alexandria",
     "st_pro_07_the_boardroom_story",
     "lesson_50_c1_final_mastery"
-   ]
-  },
-  "commentary": {
-   "w": "commentary",
-   "pos": "n",
-   "def": "a written explanation or set of notes that helps a reader understand a difficult text.",
-   "ex": "",
-   "lessons": [
-    "short_history_the_library_of_alexandria",
-    "rs_y7_spr1_03_04",
-    "wp_25_the_house_of_wisdom"
    ]
   },
   "irretrievable": {
@@ -84122,18 +84561,6 @@ window.WORDBANK={
    "ex": "an informanta confidential informant · an anonymous informant · to protect an informant",
    "lessons": [
     "short_history_watergate"
-   ]
-  },
-  "undercut": {
-   "w": "undercut",
-   "pos": "v",
-   "def": "to sell at a lower price than a competitor",
-   "ex": "They undercut every rival, whatever it cost them.",
-   "lessons": [
-    "skills_b2c1_playing_a_different_game",
-    "ielts_writing_advantages_disadvantages_essay",
-    "sp_prep_c1_71",
-    "may_might_could_professional"
    ]
   },
   "niche": {
@@ -87280,15 +87707,6 @@ window.WORDBANK={
     "techniques_the_adventure_of_the_speckled_band"
    ]
   },
-  "sublime": {
-   "w": "sublime",
-   "pos": "adj",
-   "def": "So great or beautiful as to inspire awe; of the very highest degree.",
-   "ex": "His stupidity was almost sublime — perfect, complete, unimprovable.",
-   "lessons": [
-    "techniques_luck"
-   ]
-  },
   "ascend": {
    "w": "ascend",
    "pos": "v",
@@ -88912,19 +89330,6 @@ window.WORDBANK={
     "epicurean_08_soul_and_death",
     "techniques_the_bottle_imp_a2b1",
     "rs_y11_sum1_29_03"
-   ]
-  },
-  "revelation": {
-   "w": "revelation",
-   "pos": "n",
-   "def": "A surprising and previously unknown fact, especially one suddenly made clear.",
-   "ex": "The revelation arrives one careful step at a time.",
-   "lessons": [
-    "techniques_the_egg",
-    "rs_y10_sum1_23_04",
-    "rs_y10_sum2_24_02",
-    "rs_y7_spr1_03_03",
-    "rs_y10_sum1_23_06"
    ]
   },
   "mortal": {
@@ -92250,17 +92655,6 @@ window.WORDBANK={
     "lesson-13-presentations"
    ]
   },
-  "antithesis": {
-   "w": "antithesis",
-   "pos": "noun (rhetorical device)",
-   "def": "Setting two opposed ideas against each other in balanced phrasing — \"not X, but Y\" — so the contrast itself carries persuasive force.",
-   "ex": "'Ask not what your country can do for you' is pure antithesis — the balance is what makes it stick.",
-   "lessons": [
-    "the_rhetoric_of_persuasion_c2",
-    "rhetorical_devices_british_texts_interactive",
-    "wp_41_the_world_spirit"
-   ]
-  },
   "rule of three": {
    "w": "rule of three",
    "pos": "noun phrase",
@@ -92394,21 +92788,6 @@ window.WORDBANK={
     "bc_explain_intuitively_c1",
     "sp_a2_07_comparing_things",
     "lesson-05-linking-story"
-   ]
-  },
-  "evaluate": {
-   "w": "evaluate",
-   "pos": "",
-   "def": "“Evaluate the two plans and recommend one.” (noun evaluation)",
-   "ex": "",
-   "lessons": [
-    "tib_blooms_b2",
-    "acad_b2_03_critical_thinking",
-    "gr_b2_time_auction",
-    "c1c2_the_ulysses_contract_for_leaders",
-    "epicurean_29_legacy_tensions",
-    "b2_92_language_of_historical_debate",
-    "ielts_writing_two_part_essay"
    ]
   },
   "thinking": {
@@ -96167,21 +96546,6 @@ window.WORDBANK={
    "ex": "We have fika at three o'clock.",
    "lessons": [
     "world_eu_coffee_a2"
-   ]
-  },
-  "blunt": {
-   "w": "blunt",
-   "pos": "adj",
-   "def": "very direct, without trying to be polite.",
-   "ex": "Some visitors find Dutch feedback blunt.",
-   "lessons": [
-    "world_eu_directness",
-    "bp_c2_01_where_your_words_come_from",
-    "grammar_b2_23_disagreeing_nicely",
-    "skills_b1b2_being_a_landlord",
-    "memory_arts_p1_05",
-    "sp_b1_31_managing_disagreement",
-    "grammar_c2_10_evaluative_language"
    ]
   },
   "understatement": {
@@ -100509,21 +100873,6 @@ window.WORDBANK={
    "ex": "Each reviewer gave the application a score out of ten.",
    "lessons": [
     "acad_c2_02_grant_proposals"
-   ]
-  },
-  "thesis": {
-   "w": "thesis",
-   "pos": "n",
-   "def": "a long piece of writing on one topic for a university degree",
-   "ex": "She spent three years writing her thesis on river pollution.",
-   "lessons": [
-    "acad_c2_03_viva_preparation",
-    "bc_critical_evaluation_sources_phd",
-    "cpe_read_c2_06_cooking_human",
-    "IELTS Writing Quick Reference Guides",
-    "ielts_lesson_4_time_management",
-    "rs_y11_sum1_29_05",
-    "sp_b2_41_academic_structure"
    ]
   },
   "examiner": {
@@ -105323,15 +105672,6 @@ window.WORDBANK={
    "ex": "A surprising fact can disrupt what the audience expects to hear next.",
    "lessons": [
     "bc_master_storytelling_c1"
-   ]
-  },
-  "rhetorical question": {
-   "w": "rhetorical question",
-   "pos": "phr",
-   "def": "a question asked to make a point, not to get an answer",
-   "ex": "She opened with a rhetorical question that made everyone think about their careers.",
-   "lessons": [
-    "bc_memorable_language_c1"
    ]
   },
   "emphatic": {
@@ -114378,18 +114718,6 @@ window.WORDBANK={
     "b2_76_creating_connections"
    ]
   },
-  "personification": {
-   "w": "personification",
-   "pos": "n",
-   "def": "giving human qualities to objects, animals or ideas",
-   "ex": "Saying the wind cried is an example of personification.",
-   "lessons": [
-    "IB_English_Techniques_Lesson",
-    "writing_poetry_image",
-    "ib_lesson_techniques_overcoat",
-    "lesson-25-abstract-information"
-   ]
-  },
   "alliteration": {
    "w": "alliteration",
    "pos": "n",
@@ -114507,16 +114835,6 @@ window.WORDBANK={
     "Rhetorical Devices in British Literary History",
     "rhetorical_devices_british_texts_interactive",
     "sp_prep_c1_05"
-   ]
-  },
-  "anaphora": {
-   "w": "anaphora",
-   "pos": "n",
-   "def": "repeating the same words at the start of several sentences",
-   "ex": "The poet uses anaphora to build a strong rhythm.",
-   "lessons": [
-    "Rhetorical Devices in British Literary History",
-    "writing_poetry_foundations"
    ]
   },
   "dystopian": {
@@ -120239,19 +120557,6 @@ window.WORDBANK={
    "ex": "Leave politely so you do not burn bridges with your old boss.",
    "lessons": [
     "bestiary_discourse_navigate"
-   ]
-  },
-  "position": {
-   "w": "position",
-   "pos": "n",
-   "def": "an opinion or attitude about a subject",
-   "ex": "My position on remote working has changed this year.",
-   "lessons": [
-    "bestiary_discourse_position",
-    "a1p_09_where_is_it",
-    "Ielts1",
-    "ielts_lesson_1_academic_paragraphs",
-    "qf_vocab_job_work"
    ]
   },
   "in practice": {
@@ -134025,15 +134330,6 @@ window.WORDBANK={
     "scifi_history_c1_part1"
    ]
   },
-  "elegiac": {
-   "w": "elegiac",
-   "pos": "adj",
-   "def": "sad and full of feeling for something lost",
-   "ex": "The final chapter has an elegiac, quiet tone.",
-   "lessons": [
-    "scifi_history_c1_part1"
-   ]
-  },
   "mimetic": {
    "w": "mimetic",
    "pos": "adj",
@@ -139003,51 +139299,6 @@ window.WORDBANK={
     "wp_50_the_purest_way_to_see"
    ]
   },
-  "onomatopoeia": {
-   "w": "onomatopoeia",
-   "pos": "n",
-   "def": "words that sound like the noise they describe",
-   "ex": "Buzz and crash are good examples of onomatopoeia.",
-   "lessons": [
-    "writers_weapons"
-   ]
-  },
-  "quatrain": {
-   "w": "quatrain",
-   "pos": "n",
-   "def": "a group of four lines in a poem",
-   "ex": "The poem has three quatrains and a final couplet.",
-   "lessons": [
-    "writing_poetry_forms"
-   ]
-  },
-  "iambic pentameter": {
-   "w": "iambic pentameter",
-   "pos": "n",
-   "def": "a rhythm of ten syllables with five stressed beats",
-   "ex": "Many old plays are written in iambic pentameter.",
-   "lessons": [
-    "writing_poetry_forms"
-   ]
-  },
-  "volta": {
-   "w": "volta",
-   "pos": "n",
-   "def": "a turn in thought or feeling within a poem",
-   "ex": "The volta comes in line nine and changes the mood.",
-   "lessons": [
-    "writing_poetry_forms"
-   ]
-  },
-  "assonance": {
-   "w": "assonance",
-   "pos": "n",
-   "def": "repeating vowel sounds in nearby words",
-   "ex": "The poet used assonance in the line about rain.",
-   "lessons": [
-    "writing_poetry_foundations"
-   ]
-  },
   "line break": {
    "w": "line break",
    "pos": "n",
@@ -139107,15 +139358,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "remove parts you love if they do not help the work",
    "ex": "Kill your darlings and delete that pretty but useless paragraph.",
-   "lessons": [
-    "writing_poetry_revision"
-   ]
-  },
-  "stanza": {
-   "w": "stanza",
-   "pos": "n",
-   "def": "a group of lines forming a unit in a poem",
-   "ex": "The second stanza describes the winter.",
    "lessons": [
     "writing_poetry_revision"
    ]
