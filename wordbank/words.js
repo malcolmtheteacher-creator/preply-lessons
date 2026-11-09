@@ -3541,6 +3541,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_when_the_story_stops_holding",
+   "title": "When the Story Stops Holding",
+   "level": "",
+   "words": [
+    "overbuild",
+    "stranded asset",
+    "exposure",
+    "hedge",
+    "due diligence",
+    "red flag",
+    "scrutiny",
+    "contingency",
+    "substantiate",
+    "reportedly"
+   ]
+  },
+  {
    "id": "discuss_c1_why_risk_it",
    "title": "Why Risk It? The Philosophy of Dangerous Sports",
    "level": "",
@@ -57824,9 +57841,10 @@ window.WORDBANK={
    "w": "stranded asset",
    "pos": "n",
    "def": "an asset that loses its value before the end of its expected life, typically because markets, technology or regulation have moved. Central to every energy-transition conversation.",
-   "ex": "",
+   "ex": "The empty station became a stranded asset.",
    "lessons": [
-    "bc_orsted_bet_the_company_c1"
+    "bc_orsted_bet_the_company_c1",
+    "discuss_c1_when_the_story_stops_holding"
    ]
   },
   "capital-intensive": {
@@ -59505,9 +59523,10 @@ window.WORDBANK={
    "w": "due diligence",
    "pos": "n",
    "def": "to conduct / perform due diligence on. The case's running joke is how little of it forty-seven billion dollars required.",
-   "ex": "",
+   "ex": "The buyer spent months on due diligence.",
    "lessons": [
     "bc_wework_c1",
+    "discuss_c1_when_the_story_stops_holding",
     "bc_supplier_analysis_c1",
     "prof_c2_01_boardroom_english"
    ]
@@ -60131,6 +60150,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_apollo_13",
     "behind_the_screen_first_man",
+    "discuss_c1_when_the_story_stops_holding",
     "short_history_apollo_13",
     "skills_b2c1_playing_a_different_game",
     "art_museum_heist_c1c2",
@@ -60949,6 +60969,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_ex_machina",
     "behind_the_screen_gattaca",
+    "discuss_c1_when_the_story_stops_holding",
     "news_desk_who_said_that",
     "short_history_the_berlin_wall",
     "Business-Bootcamp-Lesson8-The-Final-Interview",
@@ -63791,6 +63812,7 @@ window.WORDBANK={
    "lessons": [
     "calibrated_certainty_c2",
     "discuss_c1_arrow_of_time",
+    "discuss_c1_when_the_story_stops_holding",
     "short_history_the_gold_that_came_home",
     "the_curse_of_knowledge_c2",
     "bestiary_discourse_qualify",
@@ -65174,6 +65196,63 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_what_is_energy",
     "odyssey_henry_i"
+   ]
+  },
+  "overbuild": {
+   "w": "overbuild",
+   "pos": "v",
+   "def": "build more than the market will ever use",
+   "ex": "Investors overbuilt the network, and half of it sat empty.",
+   "lessons": [
+    "discuss_c1_when_the_story_stops_holding"
+   ]
+  },
+  "exposure": {
+   "w": "exposure",
+   "pos": "n",
+   "def": "the degree to which someone is at risk of loss",
+   "ex": "The board's personal exposure is significant.",
+   "lessons": [
+    "discuss_c1_when_the_story_stops_holding",
+    "short_history_chernobyl",
+    "ts_marie_curie_b2",
+    "b1_36_awareness_campaign",
+    "wk_40_two_floors_with_the_ceo",
+    "bc_legal_unwelcome_advice_c1",
+    "cae_essay_practice_1"
+   ]
+  },
+  "red flag": {
+   "w": "red flag",
+   "pos": "n",
+   "def": "a strong warning sign of risk",
+   "ex": "The missing approval is a red flag.",
+   "lessons": [
+    "discuss_c1_when_the_story_stops_holding",
+    "c1_pro_17_recruitment",
+    "when_yes_doesnt_mean_yes_c1",
+    "bc_legal_unwelcome_advice_c1"
+   ]
+  },
+  "substantiate": {
+   "w": "substantiate",
+   "pos": "v",
+   "def": "support a claim with evidence",
+   "ex": "She could not substantiate the rumour.",
+   "lessons": [
+    "discuss_c1_when_the_story_stops_holding",
+    "acad_b1_05_giving_opinions",
+    "sp_prep_b2_41"
+   ]
+  },
+  "reportedly": {
+   "w": "reportedly",
+   "pos": "adv",
+   "def": "according to what has been said, though not proven",
+   "ex": "The director has reportedly resigned.",
+   "lessons": [
+    "discuss_c1_when_the_story_stops_holding",
+    "lesson-10-number-review"
    ]
   },
   "gratuitous": {
@@ -77985,20 +78064,6 @@ window.WORDBANK={
    "ex": "Inspectors closed the beach because of contamination: the water and the sand had been poisoned by waste, and were no longer safe to touch.",
    "lessons": [
     "short_history_chernobyl"
-   ]
-  },
-  "exposure": {
-   "w": "exposure",
-   "pos": "n",
-   "def": "the degree to which someone is at risk of loss",
-   "ex": "The board's personal exposure is significant.",
-   "lessons": [
-    "short_history_chernobyl",
-    "ts_marie_curie_b2",
-    "b1_36_awareness_campaign",
-    "wk_40_two_floors_with_the_ceo",
-    "bc_legal_unwelcome_advice_c1",
-    "cae_essay_practice_1"
    ]
   },
   "exclusion zone": {
@@ -114989,16 +115054,6 @@ window.WORDBANK={
     "sp_b2_56_exemplification"
    ]
   },
-  "substantiate": {
-   "w": "substantiate",
-   "pos": "v",
-   "def": "to support a claim with evidence or proof",
-   "ex": "Can you substantiate that statement with any figures?",
-   "lessons": [
-    "acad_b1_05_giving_opinions",
-    "sp_prep_b2_41"
-   ]
-  },
   "visual aid": {
    "w": "visual aid",
    "pos": "n",
@@ -125413,17 +125468,6 @@ window.WORDBANK={
    "ex": "We have an in-person meeting once a month.",
    "lessons": [
     "c1_pro_16_remote_teams"
-   ]
-  },
-  "red flag": {
-   "w": "red flag",
-   "pos": "n",
-   "def": "a strong warning sign of risk",
-   "ex": "The missing approval is a red flag.",
-   "lessons": [
-    "c1_pro_17_recruitment",
-    "when_yes_doesnt_mean_yes_c1",
-    "bc_legal_unwelcome_advice_c1"
    ]
   },
   "hire": {
@@ -154282,15 +154326,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the distance all the way around a circle",
    "ex": "Measure the circumference of the plate with a string.",
-   "lessons": [
-    "lesson-10-number-review"
-   ]
-  },
-  "reportedly": {
-   "w": "reportedly",
-   "pos": "adv",
-   "def": "according to what people say, though not proven",
-   "ex": "The singer reportedly owns over fifty cars.",
    "lessons": [
     "lesson-10-number-review"
    ]
