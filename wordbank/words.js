@@ -3473,6 +3473,24 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "discuss_c1_the_steady_voice",
+   "title": "The Steady Voice",
+   "level": "",
+   "words": [
+    "overstate",
+    "accountable",
+    "candid",
+    "blunt",
+    "reassure",
+    "placate",
+    "complacent",
+    "robust",
+    "resilient",
+    "credibility",
+    "fallout"
+   ]
+  },
+  {
    "id": "discuss_c1_time_travellers_argument",
    "title": "The Time Traveller's Argument",
    "level": "",
@@ -52426,6 +52444,7 @@ window.WORDBANK={
    "ex": "After it came out that she had faked data twice, the scientist lost all credibility, and the journals stopped printing her work.",
    "lessons": [
     "bc_ai_report_c1",
+    "discuss_c1_the_steady_voice",
     "news_desk_who_said_that",
     "bc_off_to_a_great_start_c1",
     "bc_rhetorical_devices_c1",
@@ -55936,6 +55955,7 @@ window.WORDBANK={
    "lessons": [
     "bc_kintsugi_b2",
     "bc_marie_curie_c1",
+    "discuss_c1_the_steady_voice",
     "world_sa_cities",
     "techniques_the_machine_stops",
     "bc_inspiring_women_b2c1",
@@ -59114,6 +59134,7 @@ window.WORDBANK={
    "lessons": [
     "bc_translation_a2b1",
     "bq_06_free_will_c1",
+    "discuss_c1_the_steady_voice",
     "rs_y10_sum1_23_05",
     "Business-Bootcamp-Lesson3-The-Project-Manager",
     "operation_absolute_resolve_lesson",
@@ -61325,6 +61346,7 @@ window.WORDBANK={
    "ex": "Instead of the polite, rehearsed answer he usually gave in interviews, the actor was suddenly candid, admitting on camera that he had once been terrified of failing.",
    "lessons": [
     "behind_the_screen_her",
+    "discuss_c1_the_steady_voice",
     "persepolis_bc_pictures",
     "tib_ninebox_b2",
     "discuss_b2c1_photography",
@@ -63563,6 +63585,7 @@ window.WORDBANK={
    "ex": "After three good years, the firm grew complacent: nobody checked the figures, nobody questioned the plan, and then the market changed.",
    "lessons": [
     "bq_07_is_luck_fair_c1",
+    "discuss_c1_the_steady_voice",
     "talk_climate_action_b2c1"
    ]
   },
@@ -63851,6 +63874,7 @@ window.WORDBANK={
    "ex": "He overstated the result to win the room, then spent a year living it down.",
    "lessons": [
     "calibrated_certainty_c2",
+    "discuss_c1_the_steady_voice",
     "acad_c1_09_hedging_in_academia",
     "cae_essay_practice_5"
    ]
@@ -64821,6 +64845,72 @@ window.WORDBANK={
     "rs_y9_sum1_17_01",
     "wp_04_atoms_in_the_void",
     "IELTS-Reading-Practice-Test-1"
+   ]
+  },
+  "blunt": {
+   "w": "blunt",
+   "pos": "adjective",
+   "def": "honest with no care for how it lands",
+   "ex": "Some visitors find Dutch feedback blunt.",
+   "lessons": [
+    "discuss_c1_the_steady_voice",
+    "ib_poetry_05_writing_the_poetry_paragraph",
+    "world_eu_directness",
+    "bp_c2_01_where_your_words_come_from",
+    "grammar_b2_23_disagreeing_nicely",
+    "skills_b1b2_being_a_landlord",
+    "memory_arts_p1_05",
+    "sp_b1_31_managing_disagreement",
+    "grammar_c2_10_evaluative_language"
+   ]
+  },
+  "reassure": {
+   "w": "reassure",
+   "pos": "v",
+   "def": "to help someone feel calmer and more confident",
+   "ex": "I tried to reassure her without hiding the risks.",
+   "lessons": [
+    "discuss_c1_the_steady_voice",
+    "say_bridge_c1",
+    "techniques_hills_like_white_elephants",
+    "bc_powerful_presentations_c1",
+    "rp_14_at_the_pharmacy",
+    "techniques_the_red_room",
+    "wk_21_the_colleague_who_cries",
+    "ml_04_back_in_touch",
+    "b2_99_clinical_anxious_patient",
+    "duolingo_det_practice_6",
+    "grammar_a1_03_commands_ability"
+   ]
+  },
+  "placate": {
+   "w": "placate",
+   "pos": "v",
+   "def": "calm someone down without dealing with the cause",
+   "ex": "A free month won't placate angry clients.",
+   "lessons": [
+    "discuss_c1_the_steady_voice"
+   ]
+  },
+  "robust": {
+   "w": "robust",
+   "pos": "adj",
+   "def": "strong from the start, built to take pressure",
+   "ex": "A robust plan survives a bad quarter.",
+   "lessons": [
+    "discuss_c1_the_steady_voice"
+   ]
+  },
+  "fallout": {
+   "w": "fallout",
+   "pos": "n",
+   "def": "the damaging consequences that spread after an event",
+   "ex": "Days after the eruption, fine grey fallout was still drifting down on towns hundreds of miles away, settling on roofs, fields and washing lines like a dirty snow.",
+   "lessons": [
+    "discuss_c1_the_steady_voice",
+    "short_history_chernobyl",
+    "short_history_the_great_smog",
+    "prof_c2_03_corporate_governance"
    ]
   },
   "abstraction": {
@@ -65996,22 +66086,6 @@ window.WORDBANK={
     "epicurean_29_legacy_tensions",
     "b2_92_language_of_historical_debate",
     "ielts_writing_two_part_essay"
-   ]
-  },
-  "blunt": {
-   "w": "blunt",
-   "pos": "adjective",
-   "def": "direct and unsoftened",
-   "ex": "Some visitors find Dutch feedback blunt.",
-   "lessons": [
-    "ib_poetry_05_writing_the_poetry_paragraph",
-    "world_eu_directness",
-    "bp_c2_01_where_your_words_come_from",
-    "grammar_b2_23_disagreeing_nicely",
-    "skills_b1b2_being_a_landlord",
-    "memory_arts_p1_05",
-    "sp_b1_31_managing_disagreement",
-    "grammar_c2_10_evaluative_language"
    ]
   },
   "elegiac": {
@@ -76616,24 +76690,6 @@ window.WORDBANK={
     "essay_practice_problem_solution_2"
    ]
   },
-  "reassure": {
-   "w": "reassure",
-   "pos": "v",
-   "def": "to help someone feel calmer and more confident",
-   "ex": "I tried to reassure her without hiding the risks.",
-   "lessons": [
-    "say_bridge_c1",
-    "techniques_hills_like_white_elephants",
-    "bc_powerful_presentations_c1",
-    "rp_14_at_the_pharmacy",
-    "techniques_the_red_room",
-    "wk_21_the_colleague_who_cries",
-    "ml_04_back_in_touch",
-    "b2_99_clinical_anxious_patient",
-    "duolingo_det_practice_6",
-    "grammar_a1_03_commands_ability"
-   ]
-  },
   "dodge the question": {
    "w": "dodge the question",
    "pos": "",
@@ -78044,17 +78100,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_chernobyl",
     "short_history_tutankhamun"
-   ]
-  },
-  "fallout": {
-   "w": "fallout",
-   "pos": "n",
-   "def": "radioactive (or other harmful) particles that fall from the air after an explosion or accident.",
-   "ex": "Days after the eruption, fine grey fallout was still drifting down on towns hundreds of miles away, settling on roofs, fields and washing lines like a dirty snow.",
-   "lessons": [
-    "short_history_chernobyl",
-    "short_history_the_great_smog",
-    "prof_c2_03_corporate_governance"
    ]
   },
   "contamination": {
