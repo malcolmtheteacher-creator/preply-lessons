@@ -9154,6 +9154,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "skills_a2_interview_starter",
+   "title": "Your First Interview Answers",
+   "level": "",
+   "words": [
+    "strength",
+    "weakness",
+    "experience",
+    "skill",
+    "team",
+    "reliable",
+    "improve",
+    "goal"
+   ]
+  },
+  {
    "id": "skills_b2c1_playing_a_different_game",
    "title": "Playing a Different Game",
    "level": "",
@@ -9166,6 +9181,23 @@ window.WORDBANK={
     "pivot",
     "niche",
     "concession"
+   ]
+  },
+  {
+   "id": "skills_c1_interview_starter",
+   "title": "The Interview Conversation",
+   "level": "",
+   "words": [
+    "track record",
+    "transferable",
+    "tangible",
+    "candid",
+    "setback",
+    "rapport",
+    "hands-on",
+    "articulate",
+    "pivot",
+    "learning curve"
    ]
   },
   {
@@ -9309,6 +9341,19 @@ window.WORDBANK={
     "bond",
     "be due",
     "caregiver"
+   ]
+  },
+  {
+   "id": "story_c1_the_body",
+   "title": "The Body",
+   "level": "",
+   "words": [
+    "intricate",
+    "staggering",
+    "indispensable",
+    "minuscule",
+    "regenerate",
+    "improbable"
    ]
   },
   {
@@ -12878,6 +12923,20 @@ window.WORDBANK={
     "surveillance",
     "strain",
     "wipe"
+   ]
+  },
+  {
+   "id": "ts_the_body_b2",
+   "title": "You Are a Walking Galaxy",
+   "level": "",
+   "words": [
+    "harbour",
+    "microbe",
+    "outnumber",
+    "metabolise",
+    "neuron",
+    "thrive",
+    "diversity"
    ]
   },
   {
@@ -51050,9 +51109,10 @@ window.WORDBANK={
    "w": "team",
    "pos": "n",
    "def": "a group who play together",
-   "ex": "The team wins many games.",
+   "ex": "I like working in a small team.",
    "lessons": [
     "a1s_48_quiz",
+    "skills_a2_interview_starter",
     "world_oce_sport_a2",
     "rp_22_talking_about_sport_a2b1",
     "sf_a1_11_the_meeting",
@@ -54107,9 +54167,10 @@ window.WORDBANK={
    "w": "setback",
    "pos": "n",
    "def": "A problem that stops or slows down your progress.",
-   "ex": "He saw every setback as a lesson, not a defeat.",
+   "ex": "The biggest setback of my career taught me to ask for help earlier.",
    "lessons": [
     "bc_breaking_the_barrier_b2",
+    "skills_c1_interview_starter",
     "topic_optimism_b2",
     "ts_kariko_b2",
     "gr_warmup_b2_hot_takes_failure",
@@ -55124,9 +55185,10 @@ window.WORDBANK={
    "w": "experience",
    "pos": "n",
    "def": "The knowledge and skill you build up by doing something for many years.",
-   "ex": "Nothing can replace years of real experience.",
+   "ex": "I have three years of experience in a restaurant.",
    "lessons": [
     "bc_grace_under_pressure_b1b2",
+    "skills_a2_interview_starter",
     "su_a2_25_important_events",
     "ct_a2_20_mastery_prep",
     "first_lesson_b1",
@@ -55828,6 +55890,7 @@ window.WORDBANK={
    "ex": "His later novels have an intricate, almost mathematical structure.",
    "lessons": [
     "bc_italo_calvino_c1",
+    "story_c1_the_body",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_two_labyrinths",
     "fusion-interactive"
@@ -57903,6 +57966,7 @@ window.WORDBANK={
    "lessons": [
     "bc_orsted_bet_the_company_c1",
     "skills_b2c1_playing_a_different_game",
+    "skills_c1_interview_starter",
     "techniques_the_verger_english_teacher",
     "techniques_the_verger_jobseeker",
     "chatterbox_4_ridiculous_ventures",
@@ -61348,6 +61412,7 @@ window.WORDBANK={
     "behind_the_screen_her",
     "discuss_c1_the_steady_voice",
     "persepolis_bc_pictures",
+    "skills_c1_interview_starter",
     "tib_ninebox_b2",
     "discuss_b2c1_photography",
     "sp_b2_51_idiomatic"
@@ -63263,6 +63328,7 @@ window.WORDBANK={
    "lessons": [
     "bq_03_plug_in_c1",
     "short_history_the_stories_we_agree_on",
+    "skills_c1_interview_starter",
     "talk_books_and_screens_b2c1",
     "sp_b1_26_abstract_concepts",
     "sp_prep_b1_26"
@@ -64342,6 +64408,7 @@ window.WORDBANK={
    "ex": "The film run backwards shows something astronomically improbable.",
    "lessons": [
     "discuss_c1_arrow_of_time",
+    "story_c1_the_body",
     "su_a2_48_solving_problems",
     "rs_y9_aut1_13_02"
    ]
@@ -75615,10 +75682,11 @@ window.WORDBANK={
   "reliable": {
    "w": "reliable",
    "pos": "adj",
-   "def": "a reliable colleague; a reliable train service. The opposite is unreliable. The noun is reliability.",
-   "ex": "Confidence is not a reliable guide to accuracy.",
+   "def": "always doing what you say you will do",
+   "ex": "I am reliable. I come to work on time every day.",
    "lessons": [
     "psy_04_can_you_trust_memory_b2c1",
+    "skills_a2_interview_starter",
     "topic_willpower_b2",
     "acad_b1_16_finding_information",
     "bl_01_memory_liar",
@@ -76180,10 +76248,11 @@ window.WORDBANK={
   "improve": {
    "w": "improve",
    "pos": "v",
-   "def": "",
+   "def": "to get better at something",
    "ex": "Most clients improve after twelve sessions.",
    "lessons": [
     "psyp_09_does_the_method_matter_a2b1",
+    "skills_a2_interview_starter",
     "a1p_33_first_conditional",
     "pron_c1_06_full_picture"
    ]
@@ -76565,10 +76634,11 @@ window.WORDBANK={
   "diversity": {
    "w": "diversity",
    "pos": "n",
-   "def": "a wide variety of different things or people.",
+   "def": "· diversify · the diversity of species. All from the same Latin root. The adjective diverse and the noun diversity are common in science writing: a diverse microbiome · microbial diversity · gut diversity.",
    "ex": "The diversity of languages is one of the continent's great strengths.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
+    "ts_the_body_b2",
     "world_eu_background",
     "world_sa_background",
     "world_ssa_background",
@@ -76652,6 +76722,7 @@ window.WORDBANK={
    "ex": "Once there's rapport, you can disagree hard and the room stays warm.",
    "lessons": [
     "reading_the_room_c2",
+    "skills_c1_interview_starter",
     "world_mena_souk",
     "bc_negotiating_c1",
     "Business-Bootcamp-Lesson2-The-Negotiation",
@@ -76938,7 +77009,8 @@ window.WORDBANK={
    "def": "so large or surprising that it is hard to believe; astonishing.",
    "ex": "Sales of her books were so staggering that, by some counts, only the Bible and Shakespeare have ever outsold her.",
    "lessons": [
-    "short_history_agatha_christie"
+    "short_history_agatha_christie",
+    "story_c1_the_body"
    ]
   },
   "prohibition": {
@@ -78462,6 +78534,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_easter_island",
     "topic_good_life_b2",
+    "ts_the_body_b2",
     "bc_nine_team_roles_belbin_b2c1",
     "talk_competition_b2c1",
     "c2_pro_30_legacy_leadership",
@@ -80103,6 +80176,7 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_ned_kelly",
+    "ts_the_body_b2",
     "short_history_the_boston_tea_party_a2b1",
     "behind_the_screen_pearl_harbor_a2b1",
     "short_history_pearl_harbor_a2b1",
@@ -84708,6 +84782,52 @@ window.WORDBANK={
     "short_history_watergate"
    ]
   },
+  "strength": {
+   "w": "strength",
+   "pos": "n",
+   "def": "something you are very good at",
+   "ex": "My strength is working with people.",
+   "lessons": [
+    "skills_a2_interview_starter",
+    "b1_16_strengths_and_weaknesses",
+    "ielts_task1_phrase_vault_b2"
+   ]
+  },
+  "weakness": {
+   "w": "weakness",
+   "pos": "n",
+   "def": "something you are not good at yet",
+   "ex": "My weakness is that I am sometimes late.",
+   "lessons": [
+    "skills_a2_interview_starter",
+    "b1_16_strengths_and_weaknesses",
+    "lesson_dinosaurs_speaking_EXPANDED",
+    "wk_06_the_interview",
+    "ielts_lesson_19_feedback_analysis",
+    "sp_a2_01_buying_time"
+   ]
+  },
+  "skill": {
+   "w": "skill",
+   "pos": "n",
+   "def": "something you can do well because you learned it",
+   "ex": "Cooking is my best skill.",
+   "lessons": [
+    "skills_a2_interview_starter",
+    "a1p_16_can_you_help",
+    "lesson-29-practice-system"
+   ]
+  },
+  "goal": {
+   "w": "goal",
+   "pos": "n",
+   "def": "something you want to do in the future",
+   "ex": "My goal is to work in a big hotel.",
+   "lessons": [
+    "skills_a2_interview_starter",
+    "lesson_07_future_plans"
+   ]
+  },
   "niche": {
    "w": "niche",
    "pos": "n",
@@ -84718,6 +84838,70 @@ window.WORDBANK={
     "techniques_the_cask_of_amontillado",
     "curious_conversations_06_passionate_obsessions",
     "memory_arts_p1_03"
+   ]
+  },
+  "track record": {
+   "w": "track record",
+   "pos": "n",
+   "def": "everything a person has achieved or failed at in the past, taken together as evidence",
+   "ex": "He has a track record of turning struggling teams around.",
+   "lessons": [
+    "skills_c1_interview_starter",
+    "skills_c1_senior_interview_1_your_story",
+    "gr_c1_the_boardroom",
+    "presenting_your_business"
+   ]
+  },
+  "transferable": {
+   "w": "transferable",
+   "pos": "adj",
+   "def": "able to be used in a different job or setting from the one where it was learned",
+   "ex": "Lesson planning, classroom management, and the patience to listen — these are highly transferable skills.",
+   "lessons": [
+    "skills_c1_interview_starter",
+    "techniques_the_verger_english_teacher",
+    "techniques_the_verger_jobseeker",
+    "b2_53_career_transitions"
+   ]
+  },
+  "hands-on": {
+   "w": "hands-on",
+   "pos": "adj",
+   "def": "directly involved in doing the practical work, not only directing it",
+   "ex": "The course was very hands-on: we spent most of the day building things.",
+   "lessons": [
+    "skills_c1_interview_starter",
+    "tib_kolb_b2",
+    "st_pro_04_show_dont_tell",
+    "Learning Experiences",
+    "learning_review_sheet"
+   ]
+  },
+  "articulate": {
+   "w": "articulate",
+   "pos": "v",
+   "def": "to express an idea clearly in words",
+   "ex": "She struggled to articulate what made the team so effective.",
+   "lessons": [
+    "skills_c1_interview_starter",
+    "gr_warmup_c1_hot_takes_iceberg",
+    "st_pro_08_stories_that_change_minds",
+    "st_pro_11_thought_leadership",
+    "Business-Bootcamp-Lesson8-The-Final-Interview",
+    "c2_pro_10_public_speaking",
+    "curious_conversations_language_shapes_thought",
+    "sp_b2_43_sophisticated_stalling",
+    "bc_academic_notetaking_for_phd_c1"
+   ]
+  },
+  "learning curve": {
+   "w": "learning curve",
+   "pos": "n",
+   "def": "the rate at which someone has to pick up new knowledge in an unfamiliar situation",
+   "ex": "Moving into management was a steep learning curve.",
+   "lessons": [
+    "skills_c1_interview_starter",
+    "gr_warmup_b2_hot_takes_failure"
    ]
   },
   "explain": {
@@ -84781,17 +84965,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "skills_c1_senior_interview_1_your_story"
-   ]
-  },
-  "track record": {
-   "w": "track record",
-   "pos": "",
-   "def": "usually “a proven / strong / solid track record of (doing) something”. Preposition: of + noun or -ing. “A strong track record of delivering on time.”",
-   "ex": "",
-   "lessons": [
-    "skills_c1_senior_interview_1_your_story",
-    "gr_c1_the_boardroom",
-    "presenting_your_business"
    ]
   },
   "lateral move": {
@@ -85207,6 +85380,33 @@ window.WORDBANK={
    "ex": "A caregiver looks after someone who cannot look after themselves, such as a baby or an elderly relative.",
    "lessons": [
     "story_b2_use_it_or_lose_it"
+   ]
+  },
+  "indispensable": {
+   "w": "indispensable",
+   "pos": "adj",
+   "def": "so necessary that you cannot manage without it",
+   "ex": "A good map is indispensable on a long hike.",
+   "lessons": [
+    "story_c1_the_body"
+   ]
+  },
+  "minuscule": {
+   "w": "minuscule",
+   "pos": "adj",
+   "def": "extremely small",
+   "ex": "The dust was made of minuscule particles.",
+   "lessons": [
+    "story_c1_the_body"
+   ]
+  },
+  "regenerate": {
+   "w": "regenerate",
+   "pos": "v",
+   "def": "to grow again after being damaged or lost",
+   "ex": "Some lizards can regenerate a lost tail.",
+   "lessons": [
+    "story_c1_the_body"
    ]
   },
   "overturn": {
@@ -91936,17 +92136,6 @@ window.WORDBANK={
     "techniques_the_verger_jobseeker"
    ]
   },
-  "transferable": {
-   "w": "transferable",
-   "pos": "adj",
-   "def": "Able to be moved from one role, industry or country to another.",
-   "ex": "Lesson planning, classroom management, and the patience to listen — these are highly transferable skills.",
-   "lessons": [
-    "techniques_the_verger_english_teacher",
-    "techniques_the_verger_jobseeker",
-    "b2_53_career_transitions"
-   ]
-  },
   "formal qualifications": {
    "w": "formal qualifications",
    "pos": "collocation",
@@ -93481,18 +93670,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "tib_johari_b2"
-   ]
-  },
-  "hands-on": {
-   "w": "hands-on",
-   "pos": "",
-   "def": "involving doing something yourself, not just watching or reading. (hands-on experience, a hands-on manager)",
-   "ex": "The course was very hands-on: we spent most of the day building things.",
-   "lessons": [
-    "tib_kolb_b2",
-    "st_pro_04_show_dont_tell",
-    "Learning Experiences",
-    "learning_review_sheet"
    ]
   },
   "draw on": {
@@ -95859,6 +96036,43 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "ts_smallpox_b2"
+   ]
+  },
+  "microbe": {
+   "w": "microbe",
+   "pos": "n",
+   "def": "any microscopic living thing; a micro-organism. The adjective is microbial: microbial diversity · a microbial ecosystem. Related: the microbiome — the full community of microbes in a particular environment (your gut, your skin, the ocean).",
+   "ex": "",
+   "lessons": [
+    "ts_the_body_b2"
+   ]
+  },
+  "outnumber": {
+   "w": "outnumber",
+   "pos": "v",
+   "def": "to be greater in number than something else. Women outnumber men in the profession. Errors outnumber corrections. Stars outnumber grains of sand. The prefix out- often means \"to do more than\": outrun, outperform, outlast.",
+   "ex": "",
+   "lessons": [
+    "ts_the_body_b2",
+    "bc_population_change_c1"
+   ]
+  },
+  "metabolise": {
+   "w": "metabolise",
+   "pos": "v",
+   "def": "to break down a substance through chemical processes. Noun: metabolism. The liver metabolises alcohol · a fast/slow metabolism · metabolic rate.",
+   "ex": "",
+   "lessons": [
+    "ts_the_body_b2"
+   ]
+  },
+  "neuron": {
+   "w": "neuron",
+   "pos": "n",
+   "def": "the basic unit of the nervous system; also spelled neurone (British). The brain contains roughly 86 billion neurons. Adjective: neural — a neural pathway, neural network. Related: neuroscience, neurology.",
+   "ex": "",
+   "lessons": [
+    "ts_the_body_b2"
    ]
   },
   "uncertainty": {
@@ -106587,15 +106801,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_ageing"
    ]
   },
-  "outnumber": {
-   "w": "outnumber",
-   "pos": "v",
-   "def": "to be greater in number than another group",
-   "ex": "In our town, older residents now outnumber young families.",
-   "lessons": [
-    "bc_population_change_c1"
-   ]
-  },
   "population density": {
    "w": "population density",
    "pos": "phr",
@@ -108823,15 +109028,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_failure"
    ]
   },
-  "learning curve": {
-   "w": "learning curve",
-   "pos": "n",
-   "def": "the process of getting better at something through experience",
-   "ex": "The new software has a steep learning curve.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_failure"
-   ]
-  },
   "fall short of": {
    "w": "fall short of",
    "pos": "phr v",
@@ -109973,22 +110169,6 @@ window.WORDBANK={
    "ex": "Investors are cautiously optimistic about next year.",
    "lessons": [
     "gr_warmup_c1_hot_takes_hope"
-   ]
-  },
-  "articulate": {
-   "w": "articulate",
-   "pos": "v",
-   "def": "to express an idea clearly in words",
-   "ex": "She struggled to articulate why the plan worried her.",
-   "lessons": [
-    "gr_warmup_c1_hot_takes_iceberg",
-    "st_pro_08_stories_that_change_minds",
-    "st_pro_11_thought_leadership",
-    "Business-Bootcamp-Lesson8-The-Final-Interview",
-    "c2_pro_10_public_speaking",
-    "curious_conversations_language_shapes_thought",
-    "sp_b2_43_sophisticated_stalling",
-    "bc_academic_notetaking_for_phd_c1"
    ]
   },
   "at stake": {
@@ -116674,29 +116854,6 @@ window.WORDBANK={
    "ex": "Her work style is quick, while mine is slow and careful.",
    "lessons": [
     "b1_15_teamwork"
-   ]
-  },
-  "strength": {
-   "w": "strength",
-   "pos": "n",
-   "def": "a good quality or ability that someone has",
-   "ex": "Her greatest strength is staying calm under pressure.",
-   "lessons": [
-    "b1_16_strengths_and_weaknesses",
-    "ielts_task1_phrase_vault_b2"
-   ]
-  },
-  "weakness": {
-   "w": "weakness",
-   "pos": "n",
-   "def": "a quality or ability that is not good enough",
-   "ex": "My weakness is that I find it hard to say no.",
-   "lessons": [
-    "b1_16_strengths_and_weaknesses",
-    "lesson_dinosaurs_speaking_EXPANDED",
-    "wk_06_the_interview",
-    "ielts_lesson_19_feedback_analysis",
-    "sp_a2_01_buying_time"
    ]
   },
   "costume": {
@@ -144386,16 +144543,6 @@ window.WORDBANK={
     "sp_prep_a2_19"
    ]
   },
-  "skill": {
-   "w": "skill",
-   "pos": "n",
-   "def": "something you can do well because you practised",
-   "ex": "Cooking is a useful skill for everyone.",
-   "lessons": [
-    "a1p_16_can_you_help",
-    "lesson-29-practice-system"
-   ]
-  },
   "excuse me": {
    "w": "excuse me",
    "pos": "phr",
@@ -147377,15 +147524,6 @@ window.WORDBANK={
    "ex": "Yesterday is a past time marker.",
    "lessons": [
     "lesson_06_present_perfect_vs_past_simple"
-   ]
-  },
-  "goal": {
-   "w": "goal",
-   "pos": "n",
-   "def": "something you want to do or get in the future",
-   "ex": "My goal is to run five kilometres without stopping.",
-   "lessons": [
-    "lesson_07_future_plans"
    ]
   },
   "confirmed": {
