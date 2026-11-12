@@ -11,6 +11,10 @@ html,body{margin:0;height:100%;background:var(--night);color:var(--ink);font-fam
 button{font:inherit;color:inherit;cursor:pointer}
 #stageWrap{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#2a1d33,#0d0912 70%)}
 #stageWrap::before{content:'';position:absolute;inset:-40px;background:var(--room,none) center/cover no-repeat;filter:blur(22px) brightness(.6);}
+/* phones: no heavy effects, no browser pinch-zoom (it runs out of memory); the room slides sideways instead */
+html.phone,html.phone body{touch-action:pan-x pan-y}
+html.phone #stageWrap{touch-action:none}
+html.phone #stageWrap::before,html.phone #dust,html.phone #roomGL{display:none!important}
 #stage{position:absolute;left:50%;top:50%;width:1536px;height:1024px;transform-origin:50% 50%;transition:transform .85s cubic-bezier(.6,.05,.25,1)}
 #tilt{position:absolute;inset:0}
 #roomGL,#dust,#glow{position:absolute;inset:0;width:1536px;height:1024px;pointer-events:none}
@@ -42,6 +46,8 @@ body.debug #hot polygon,body.debug #hot rect{stroke:#0f0;fill:rgba(0,255,0,.08)}
 .pill{border:1px solid rgba(246,236,212,.3);background:rgba(255,255,255,.07);border-radius:999px;padding:8px 14px;font-size:.95rem}
 .pill:hover{background:rgba(255,255,255,.16)}
 .pill.on{background:var(--gold);color:#2b1a05;border-color:var(--gold)}
+html.phone #shelfView.on~#musicBtn{display:none!important}
+#hint .ph{display:none}html.phone #hint .ph{display:inline}html.phone #hint .pc{display:none}html.phone #hint{bottom:64px;font-size:.9rem;padding:8px 14px;width:max-content}
 #hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--panel);border:1px solid rgba(246,236,212,.2);padding:10px 18px;border-radius:14px;font-size:1rem;z-index:5;max-width:calc(100vw - 24px);text-align:center;transition:opacity .4s}
 #toast{position:fixed;left:50%;top:84px;transform:translateX(-50%);background:var(--panel);border:1px solid var(--gold);padding:12px 20px;border-radius:12px;z-index:30;opacity:0;pointer-events:none;transition:opacity .3s;max-width:calc(100vw - 24px)}
 #toast.on{opacity:1}
@@ -129,7 +135,7 @@ html.clean #top,html.clean #hint,html.clean #musicBtn,html.clean #toast{display:
   <button class="pill" id="starredAll">&#9733; Starred books</button>
   <span class="pill" id="readCount">0 read</span>
 </div>
-<div id="hint">Tap a bookcase to go closer. Tap a door to go to the next room.</div>
+<div id="hint"><span class="pc">Tap a bookcase to go closer. Tap a door to go to the next room.</span><span class="ph">Tap a bookcase or a door. Slide to look around.</span></div>
 <div id="toast"></div>
 
 <div id="shelfView">
@@ -158,6 +164,8 @@ if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname))fetch('/rh-local/status'
 window.ROOMS_OPEN=['000','100','200','300','400','500','600','700','800'];
 window.RH_MAIN=function(){
 'use strict';
+var PHONE=!!(window.matchMedia&&matchMedia('(pointer:coarse)').matches),panX=0,panMax=0;
+if(PHONE)document.documentElement.classList.add('phone');
 var ROOM=window.ROOM,WING=ROOM.wing,PEGW=ROOM.pegw,BAYS=ROOM.bays,LECTERN=ROOM.lectern,DOORS=ROOM.doors,SUBRULES=ROOM.rules,JUNK=ROOM.junk;
 var DEBUG=/debug=1/.test(location.search);
 if(DEBUG)document.body.classList.add('debug');
@@ -234,9 +242,20 @@ function dims(b){var h=hash(b.id);var w=b.c&&b.c.pages?11+b.c.pages/32:12+Math.l
 
 /* ---------- the room ---------- */
 var stage=$('stage'),k=1;
-function fit(){var kx=innerWidth/1536,ky=innerHeight/1024;k=Math.min(kx,ky);/* stretch a little (max 15%) so the room fills the window; a blurred copy of the room fills whatever is left */
- var sx=Math.min(kx,k*1.15),sy=Math.min(ky,k*1.15);if(!zoomed)stage.style.transform='translate(-50%,-50%) scale('+sx+','+sy+')';
- var w=document.getElementById('stageWrap');if(w&&ROOM&&ROOM.img)w.style.setProperty('--room','url('+ROOM.img+')')}
+function fit(){var kx=innerWidth/1536,ky=innerHeight/1024,sx,sy;k=Math.min(kx,ky);panMax=0;
+ if(PHONE&&innerHeight>innerWidth*1.1){/* upright phone: show the room large and let it slide left and right */
+  k=sx=sy=ky*.68;panMax=Math.max(0,(1536*k-innerWidth)/2);panX=Math.max(-panMax,Math.min(panMax,panX))}
+ else{/* stretch a little (max 15%) so the room fills the window; a blurred copy of the room fills whatever is left */
+  panX=0;sx=Math.min(kx,k*1.15);sy=Math.min(ky,k*1.15)}
+ if(!zoomed)stage.style.transform='translate(calc(-50% + '+panX+'px),-50%) scale('+sx+','+sy+')';
+ var w=document.getElementById('stageWrap');if(w&&ROOM&&ROOM.img&&!PHONE)w.style.setProperty('--room','url('+ROOM.img+')')}
+/* slide the room with a finger */
+(function(){var w=document.getElementById('stageWrap'),x0=null,p0=0,moved=false;
+ w.addEventListener('pointerdown',function(e){if(!panMax||zoomed)return;x0=e.clientX;p0=panX;moved=false});
+ w.addEventListener('pointermove',function(e){if(x0===null)return;var d=e.clientX-x0;if(!moved&&Math.abs(d)<8)return;moved=true;
+  panX=Math.max(-panMax,Math.min(panMax,p0+d));stage.style.transition='none';fit()});
+ function end(){if(x0===null)return;x0=null;stage.style.transition='';if(moved){var stop=function(ev){ev.stopPropagation();ev.preventDefault()};w.addEventListener('click',stop,true);setTimeout(function(){w.removeEventListener('click',stop,true)},60)}}
+ w.addEventListener('pointerup',end);w.addEventListener('pointercancel',end)})();
 var zoomed=false;
 addEventListener('resize',function(){fit();if(shelfOpen)layout()});
 function bySub(sub){return sortBooks(books.filter(function(b){return b.sub===sub}))}
@@ -338,7 +357,7 @@ $('zOut').addEventListener('click',function(){ZM=Math.max(.6,ZM/1.18);layout()})
  /* depth map pixels for the overlays */
  var dimg=new Image();dimg.onload=function(){try{var c=document.createElement('canvas');c.width=dw=dimg.naturalWidth;c.height=dh=dimg.naturalHeight;var x=c.getContext('2d');x.drawImage(dimg,0,0);depth=null}catch(e){depth=null}};/* depth shifting switched off by choice */
  /* WebGL: the painting itself, shifted by depth */
- function startGL(dm){
+ function startGL(dm){if(PHONE)return;
   try{gl=cv.getContext('webgl',{premultipliedAlpha:false});if(!gl)return;
    function sh(t,src){var o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw 1;return o}
    var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec2 p;varying vec2 uv;void main(){uv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}'));
@@ -362,7 +381,7 @@ $('zOut').addEventListener('click',function(){ZM=Math.max(.6,ZM/1.18);layout()})
  var run=true;document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)requestAnimationFrame(frame)});
  $('stageWrap').addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2;lastMove=performance.now()});
  $('stageWrap').addEventListener('pointerleave',function(){tx=0;ty=0});
- function frame(now){if(!run)return;requestAnimationFrame(frame);
+ function frame(now){if(!run||PHONE)return;requestAnimationFrame(frame);
   var off=zoomed||shelfOpen,t=(now-t0)/1000;
   var gx=tx,gy=ty;
   if(now-lastMove>3000){gx=Math.sin(t*.35)*.45;gy=Math.sin(t*.27+1)*.22}  /* slow breathing when idle */
