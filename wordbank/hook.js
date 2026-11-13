@@ -55,3 +55,16 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 })();
+
+/* visit counter: same Google Analytics property as the homepage; one line here covers every lesson */
+(function () {
+  try {
+    if (!/malcolmhyndman\.com$/.test(location.hostname) || window.gtag) return;
+    var g = document.createElement('script'); g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y6FDKSPFLT';
+    document.head.appendChild(g);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', 'G-Y6FDKSPFLT');
+  } catch (e) {}
+})();
