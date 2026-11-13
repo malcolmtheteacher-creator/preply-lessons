@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Reading House: follow the bee</title>
+<style>
+html,body{margin:0;height:100%;background:#120c07;overflow:hidden;font-family:Georgia,'Iowan Old Style','Times New Roman',serif;color:#f6e7bd}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative}
+canvas{display:block;border-radius:6px}
+#cap{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);max-width:86%;text-align:center;background:rgba(28,18,10,.78);border:1px solid rgba(226,184,87,.55);border-radius:14px;padding:10px 20px;opacity:0;transition:opacity .6s;pointer-events:none}
+#cap.on{opacity:1}
+#cap small{display:block;font-size:clamp(12px,1.5vw,16px);letter-spacing:.08em;text-transform:uppercase;color:#e2b857}
+#cap b{display:block;font-size:clamp(16px,2.4vw,28px);font-weight:600;line-height:1.25}
+#cap i{display:block;font-size:clamp(13px,1.7vw,19px);opacity:.9}
+#start,#end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(18,12,7,.45);transition:opacity .7s;text-align:center;padding:16px;box-sizing:border-box}
+#end{opacity:0;pointer-events:none;background:rgba(18,12,7,.25);justify-content:flex-end;padding-bottom:7%}
+#end.on{opacity:1;pointer-events:auto}
+#start.off{opacity:0;pointer-events:none}
+h1{margin:0;font-size:clamp(24px,4.4vw,52px);font-weight:600;text-shadow:0 2px 14px #000}
+p{margin:0;font-size:clamp(15px,2vw,22px);text-shadow:0 2px 10px #000}
+.btn{font:600 clamp(15px,1.9vw,21px) Georgia,serif;color:#2a1a08;background:linear-gradient(#f3d98a,#d9a941);border:1px solid #8a6520;border-radius:999px;padding:12px 26px;cursor:pointer;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+.btn.ghost{background:rgba(28,18,10,.7);color:#f6e7bd;border-color:rgba(226,184,87,.55)}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+#tools{position:absolute;left:12px;top:12px;display:flex;gap:8px}
+#tools button,#tools a{font:600 14px Georgia,serif;color:#f6e7bd;background:rgba(28,18,10,.62);border:1px solid rgba(226,184,87,.55);border-radius:999px;padding:7px 13px;cursor:pointer;text-decoration:none}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+ <canvas id="c"></canvas>
+ <div id="cap"><small id="capS"></small><b id="capT"></b><i id="capA"></i></div>
+ <div id="tools"><a href="index.html?room=100">← Library</a><button id="snd" type="button">♪ Music on</button></div>
+ <div id="end"><div class="row"><a class="btn" href="index.html?room=100">Come in and choose a book</a><button class="btn ghost" id="again" type="button">Watch again</button></div></div>
+ <div id="start"><h1>The Reading House</h1><p>Philosophy &amp; Psychology</p><button class="btn" id="go" type="button">▶ Follow the bee</button></div>
+</div></div>
+<audio id="aud" src="audio/room100.mp3" loop preload="none"></audio>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="data/room_100.js"></script>
+<script src="data/curated_100.js"></script>
+<script>
+(function(){
+var W=1536,H=1024,CX=736,CY=464,F=1100,D=10.7;           /* the painting, its vanishing point and the room depth */
+function wx(x,z){return (x-CX)*z/F} function wy(y,z){return (CY-y)*z/F}
+var XL=wx(320,D),XR=wx(1103,D),YF=wy(640,D),YC=wy(100,D);  /* walls, floor, ceiling */
+var ZL=F*-XL/CX, ZR=F*XR/(W-CX), ZFL=F*-YF/(H-CY), ZC=F*YC/CY;   /* how near each surface is painted */
+var canvas=document.getElementById('c'),stage=document.getElementById('stage');
+var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+var scene=new THREE.Scene();
+var FW=2*Math.max(CX,W-CX),FH=2*Math.max(CY,H-CY);
+var cam=new THREE.PerspectiveCamera(2*Math.atan(FH/2/F)*180/Math.PI,FW/FH,.05,80);
+cam.setViewOffset(FW,FH,FW/2-CX,FH/2-CY,W,H);
+function fit(){var w=window.innerWidth,h=window.innerHeight,s=Math.min(w/W,h/H);var cw=Math.floor(W*s),ch=Math.floor(H*s);renderer.setSize(cw,ch,false);canvas.style.width=cw+'px';canvas.style.height=ch+'px';stage.style.width=cw+'px';stage.style.height=ch+'px'}
+fit();window.addEventListener('resize',fit);
+
+var loader=new THREE.TextureLoader();
+var roomTex=loader.load('img/fly/room100.jpg');roomTex.minFilter=THREE.LinearFilter;roomTex.generateMipmaps=false;
+/* every surface shows the painting exactly as the painter's eye saw it; beyond the picture's edge the room repeats as a mirror */
+var roomMat=new THREE.ShaderMaterial({uniforms:{map:{value:roomTex},kind:{value:0},edge:{value:0}},side:THREE.DoubleSide,
+ vertexShader:'varying vec3 p;void main(){p=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*viewMatrix*vec4(p,1.);}',
+ fragmentShader:'uniform sampler2D map;uniform float kind;uniform float edge;varying vec3 p;'+
+ 'float mir(float t){t=mod(t,2.);return t>1.?2.-t:t;}'+
+ 'void main(){vec3 q=p;float z=-q.z;if(kind>.5&&z<edge)z=2.*edge-z;z=max(z,.2);'+
+ 'float u=('+CX.toFixed(1)+'+'+F.toFixed(1)+'*q.x/z)/'+W.toFixed(1)+';float v=('+CY.toFixed(1)+'-'+F.toFixed(1)+'*q.y/z)/'+H.toFixed(1)+';'+
+ 'gl_FragColor=texture2D(map,vec2(mir(u),1.-mir(v)));}'});
+function quad(a,b,c,d,kind,edge){var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([].concat(a,b,c,a,c,d),3));var m=roomMat.clone();m.uniforms.map.value=roomTex;m.uniforms.kind.value=kind;m.uniforms.edge.value=edge;var o=new THREE.Mesh(g,m);o.frustumCulled=false;scene.add(o);return o}
+var ZN=3;  /* the room carries on a little behind the starting point */
+quad([XL,YF,-D],[XR,YF,-D],[XR,YC,-D],[XL,YC,-D],0,0);
+quad([XL,YF,ZN],[XL,YF,-D],[XL,YC,-D],[XL,YC,ZN],1,ZL);
+quad([XR,YF,-D],[XR,YF,ZN],[XR,YC,ZN],[XR,YC,-D],1,ZR);
+quad([XL,YF,ZN],[XR,YF,ZN],[XR,YF,-D],[XL,YF,-D],1,ZFL);
+quad([XL,YC,-D],[XR,YC,-D],[XR,YC,ZN],[XL,YC,ZN],1,ZC);
+
+/* the lectern stands free on the carpet */
+var LZ=F*-YF/(797-CY);
+function sprite(url,x0,y0,x1,y1,z,order){var t=loader.load(url);t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;var w=wx(x1,z)-wx(x0,z),h=wy(y0,z)-wy(y1,z);
+ var m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false}));m.position.set((wx(x0,z)+wx(x1,z))/2,(wy(y0,z)+wy(y1,z))/2,-z);m.renderOrder=order||1;scene.add(m);return m}
+var lectern=sprite('img/fly/lectern100.png',690,540,846,812,LZ,2);
+var peg=sprite('img/pegs/100.png',732,448,812,528,LZ,3);var pegY=peg.position.y;
+
+/* the bee: four painted poses on one sheet */
+var beeTex=loader.load('img/fly/bee.png');beeTex.repeat.set(.5,.5);
+var POSE=[[0,.5],[.5,.5],[0,0],[.5,0]];
+var bee=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:beeTex,transparent:true,depthWrite:false,depthTest:false}));
+bee.renderOrder=10;scene.add(bee);var BEE=.95;
+function pose(i){beeTex.offset.set(POSE[i][0],POSE[i][1])}
+var sc=document.createElement('canvas');sc.width=sc.height=64;var sg=sc.getContext('2d'),gr=sg.createRadialGradient(32,32,2,32,32,30);gr.addColorStop(0,'rgba(0,0,0,.42)');gr.addColorStop(1,'rgba(0,0,0,0)');sg.fillStyle=gr;sg.fillRect(0,0,64,64);
+var shadow=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.renderOrder=1;scene.add(shadow);
+
+/* a book that slides out of the shelf: cloth cover, gilt lettering, a spine with bands and real page edges */
+scene.add(new THREE.AmbientLight(0xfff1dc,.82));var sun=new THREE.DirectionalLight(0xfff6e6,.62);sun.position.set(-2,3,4);scene.add(sun);
+var COLS=[['#6e2420','#f1d58a'],['#1d4654','#f1d58a'],['#35502a','#f1d58a'],['#4f3170','#f1d58a'],['#7c4f18','#fbe7b0'],['#273862','#f1d58a']];
+function cv(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
+function tex(c){var t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;return t}
+function cloth(g,w,h,col){g.fillStyle=col;g.fillRect(0,0,w,h);var sh=g.createLinearGradient(0,0,w,h);sh.addColorStop(0,'rgba(255,255,255,.10)');sh.addColorStop(.5,'rgba(0,0,0,0)');sh.addColorStop(1,'rgba(0,0,0,.22)');g.fillStyle=sh;g.fillRect(0,0,w,h);
+ for(var i=0;i<w*h/14;i++){g.fillStyle=Math.random()<.5?'rgba(255,255,255,.035)':'rgba(0,0,0,.05)';g.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1)}
+ g.strokeStyle='rgba(0,0,0,.25)';g.lineWidth=6;g.strokeRect(0,0,w,h)}
+function wrap(g,t,max){var words=t.split(' '),lines=[],cur='';words.forEach(function(w){var n=cur?cur+' '+w:w;if(g.measureText(n).width>max&&cur){lines.push(cur);cur=w}else cur=n});if(cur)lines.push(cur);return lines}
+function gilt(g){var gg=g.createLinearGradient(0,0,0,640);gg.addColorStop(0,'#f6e3a1');gg.addColorStop(.5,'#d9aa45');gg.addColorStop(1,'#f1d58a');return gg}
+function coverTex(t,a,col,back){var c=cv(460,640),g=c.getContext('2d');cloth(g,460,640,col[0]);
+ var hx=back?428:32;var hg=g.createLinearGradient(hx-12,0,hx+12,0);hg.addColorStop(0,'rgba(0,0,0,0)');hg.addColorStop(.5,'rgba(0,0,0,.38)');hg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=hg;g.fillRect(hx-12,0,24,640);
+ if(back)return tex(c);
+ g.strokeStyle=gilt(g);g.lineWidth=5;g.strokeRect(62,30,368,580);g.lineWidth=1.5;g.strokeRect(74,42,344,556);
+ [[74,42],[418,42],[74,598],[418,598]].forEach(function(p){g.beginPath();g.arc(p[0],p[1],16,0,7);g.stroke()});
+ g.textAlign='center';g.shadowColor='rgba(0,0,0,.45)';g.shadowOffsetY=2;g.shadowBlur=2;g.fillStyle=gilt(g);
+ var size=t.length>40?36:t.length>24?44:54;g.font='600 '+size+'px Georgia,serif';var lines=wrap(g,t,310),y=250-lines.length*size*.6;lines.forEach(function(l){g.fillText(l,246,y+=size*1.2)});
+ g.fillRect(196,y+34,100,3);g.beginPath();g.moveTo(246,y+58);g.lineTo(258,y+72);g.lineTo(246,y+86);g.lineTo(234,y+72);g.closePath();g.fill();
+ g.font='italic 28px Georgia,serif';g.fillStyle=col[1];if(a)g.fillText(a.length>26?a.slice(0,25)+'…':a,246,548);return tex(c)}
+function spineTex(t,col){var c=cv(90,640),g=c.getContext('2d');cloth(g,90,640,col[0]);var r=g.createLinearGradient(0,0,90,0);r.addColorStop(0,'rgba(0,0,0,.35)');r.addColorStop(.45,'rgba(255,255,255,.12)');r.addColorStop(1,'rgba(0,0,0,.38)');g.fillStyle=r;g.fillRect(0,0,90,640);
+ g.fillStyle=gilt(g);[70,96,520,546].forEach(function(y){g.fillRect(0,y,90,5)});g.save();g.translate(45,308);g.rotate(Math.PI/2);g.textAlign='center';g.textBaseline='middle';g.font='600 30px Georgia,serif';var s=t.length>24?t.slice(0,23)+'…':t;g.fillText(s,0,0,400);g.restore();return tex(c)}
+function pagesTex(v){var c=cv(v?90:460,v?640:90),g=c.getContext('2d');g.fillStyle='#efe4c8';g.fillRect(0,0,c.width,c.height);
+ for(var i=0;i<(v?90:90);i+=2){g.fillStyle='rgba(120,95,60,'+(.10+Math.random()*.16)+')';if(v)g.fillRect(i,0,1,640);else g.fillRect(0,i,460,1)}
+ var sh=v?g.createLinearGradient(0,0,90,0):g.createLinearGradient(0,0,0,90);sh.addColorStop(0,'rgba(0,0,0,.28)');sh.addColorStop(.2,'rgba(0,0,0,0)');sh.addColorStop(.8,'rgba(0,0,0,0)');sh.addColorStop(1,'rgba(0,0,0,.28)');g.fillStyle=sh;g.fillRect(0,0,c.width,c.height);return tex(c)}
+function SM(map){return new THREE.MeshStandardMaterial({map:map||null,roughness:.86,metalness:0})}
+var foreM=SM(pagesTex(true)),topM=SM(pagesTex(false)),spineM=SM(),frontM=SM(),backM=SM();
+var BT=.085,BW=.36,BH=.5;
+var book=new THREE.Group();book.visible=false;scene.add(book);
+var block=new THREE.Mesh(new THREE.BoxGeometry(BW-.02,BH-.024,BT-.016),[foreM,spineM,topM,topM,topM,topM]);block.position.x=.004;book.add(block);
+var fc=new THREE.Mesh(new THREE.BoxGeometry(BW,BH,.008),[frontM,frontM,frontM,frontM,frontM,frontM]);fc.position.z=BT/2-.004;book.add(fc);
+var bc=new THREE.Mesh(new THREE.BoxGeometry(BW,BH,.008),[backM,backM,backM,backM,backM,backM]);bc.position.z=-BT/2+.004;book.add(bc);
+var sp=new THREE.Mesh(new THREE.CylinderGeometry(BT/2,BT/2,BH,14,1,true,Math.PI,Math.PI),spineM);sp.scale.x=.45;sp.position.x=-BW/2+.004;book.add(sp);
+function setBook(b,i){var col=COLS[i%COLS.length];[frontM,backM,spineM].forEach(function(m){if(m.map)m.map.dispose()});frontM.map=coverTex(b.t,b.a,col);backM.map=coverTex('','',col,true);spineM.map=spineTex(b.t,col);[frontM,backM,spineM].forEach(function(m){m.needsUpdate=true})}
+
+/* the bee only picks starred books */
+var STAR=window.CURATED||[];
+function pick(sub){var ok=STAR.filter(function(r){return r.w==='1'&&r.sub===sub});if(!ok.length)return null;var r=ok[Math.floor(Math.random()*ok.length)];return {t:r.t,a:r.a}}
+var SUBS=ROOM.subs;
+
+/* the flight: where the bee hovers, where the book comes from, where we stand and look */
+var Zl=function(x){return F*-XL/(CX-x)},Zr=function(x){return F*XR/(x-CX)};
+var z190=Zr(1300),z130=Zl(280);
+var STOPS=[
+ {sub:'190',bee:[XR-1.25,.45,-z190-.1],from:[XR-.1,.55,-z190],cam:[.2,.1,-4.1],look:[2.0,.3,-8.0],side:-1},
+ {sub:'150',bee:[wx(816,D)-.75,.35,-D+1.5],from:[wx(816,D),.5,-D+.1],cam:[-1.0,.1,-5.9],look:[.45,.2,-D],side:1},
+ {sub:'130',bee:[XL+.85,.8,-z130+.2],from:[XL+.1,wy(350,z130),-z130],cam:[-.7,.2,-6.7],look:[-3.5,.6,-9.5],side:1},
+ {sub:'100',bee:[wx(772,LZ)-.62,.5,-LZ+.05],from:[wx(772,LZ),wy(575,LZ)+.1,-LZ+.1],cam:[-.1,0,-1.5],look:[.1,-.1,-LZ],side:1,last:true}
+];
+var DOOR=[XR-.3,.1,-Zr(1458)];
+var V=function(a){return new THREE.Vector3(a[0],a[1],a[2])};
+var cap=document.getElementById('cap'),capS=document.getElementById('capS'),capT=document.getElementById('capT'),capA=document.getElementById('capA');
+var endEl=document.getElementById('end'),startEl=document.getElementById('start');
+var camPos=new THREE.Vector3(0,0,0),camLook=new THREE.Vector3(0,0,-D),camPosT=camPos.clone(),camLookT=camLook.clone();
+var beePos=V(DOOR),beeFrom=V(DOOR),beeTo=V(DOOR),facing=-1,state='idle',t0=0,dur=1,si=-1,cur=null,bookT=0,playing=false,clock=0;
+function ease(t){return t<0?0:t>1?1:t*t*(3-2*t)}
+function next(){si++;if(si>=STOPS.length){finish();return}var s=STOPS[si];beeFrom.copy(beePos);beeTo=V(s.bee);dur=Math.max(2.6,beeFrom.distanceTo(beeTo)*.95);t0=clock;state='fly';
+ camPosT=V(s.cam);camLookT=V(s.look);cap.classList.remove('on');facing=beeTo.x>=beeFrom.x?1:-1;
+ cur=pick(s.sub);if(cur)setBook(cur,si+Math.floor(Math.random()*6))}
+function arrive(){var s=STOPS[si];state='read';t0=clock;facing=1;
+ capS.textContent=s.sub+' · '+(SUBS[s.sub]?SUBS[s.sub].name:'');capT.textContent=cur?cur.t:'';capA.textContent=cur?cur.a:'';cap.classList.add('on');book.visible=!!cur}
+function finish(){state='end';cap.classList.remove('on');endEl.classList.add('on');camPosT.set(0,0,0);camLookT.set(0,0,-D)}
+function begin(){si=-1;beePos=V(DOOR);book.visible=false;endEl.classList.remove('on');startEl.classList.add('off');playing=true;next()}
+document.getElementById('go').onclick=function(){begin();music(true)};
+document.getElementById('again').onclick=function(){camPosT.set(0,0,0);camLookT.set(0,0,-D);begin()};
+var aud=document.getElementById('aud'),snd=document.getElementById('snd');
+function music(on){if(on){aud.volume=.5;var p=aud.play();if(p&&p.catch)p.catch(function(){})}else aud.pause();snd.textContent=on?'♪ Music off':'♪ Music on'}
+snd.onclick=function(){music(aud.paused)};
+
+var tmp=new THREE.Vector3(),last=performance.now();
+function frame(now){requestAnimationFrame(frame);var dt=Math.max(0,Math.min(.05,(now-last)/1000));last=now;clock+=dt;
+ var hover=Math.sin(clock*2.3)*.045;
+ if(state==='fly'){var k=ease((clock-t0)/dur);beePos.lerpVectors(beeFrom,beeTo,k);beePos.y+=Math.sin(k*Math.PI)*.35+Math.sin(clock*5)*.03;beePos.x+=Math.sin(k*Math.PI*2)*.12;
+  pose(Math.floor(clock*11)%2);if(k>=1)arrive()}
+ else if(state==='read'){var s=STOPS[si],e=clock-t0;beePos.copy(beeTo);beePos.y+=hover;pose(s.last&&e>3.2?3:2);
+  /* the book slides out, turns to face us and floats beside the bee, then goes back */
+  var hold=s.last?5.2:4.6,o=ease(e/1.3),b=ease((e-hold+.2)/1.0),m=o*(1-b);
+  var rest=tmp.set(beeTo.x+s.side*.86,beeTo.y+.02+hover*.6,beeTo.z+.12);book.position.lerpVectors(V(s.from),rest,m);
+  book.scale.setScalar((.25+.75*m)*1.45);book.quaternion.copy(cam.quaternion);book.rotateY((1-m)*1.3*s.side-.38+Math.sin(clock*1.1)*.3);book.rotateX(.1);book.visible=!!cur&&m>.01;
+  if(e>hold+.9)next()}
+ else if(state==='end'){beePos.copy(beeTo);beePos.y+=hover;pose(3)}
+ else{pose(Math.floor(clock*11)%2)}
+ var show=state!=='idle';bee.visible=show;shadow.visible=show;
+ var grow=state==='fly'&&si===0?.35+.65*ease((clock-t0)/1.2):1;
+ bee.position.copy(beePos);bee.quaternion.copy(cam.quaternion);bee.scale.set(BEE*grow*(state==='fly'?facing:1),BEE*grow,1);
+ bee.rotation.z+=state==='fly'?Math.sin(clock*5)*.05*facing:0;
+ var hgt=beePos.y-YF;shadow.position.set(beePos.x,YF+.01,beePos.z);shadow.scale.setScalar(.5+hgt*.12);shadow.material.opacity=Math.max(.25,1-hgt*.22);
+ peg.position.y=pegY+Math.sin(clock*1.6)*.02;
+ var a=1-Math.exp(-dt*1.35);camPos.lerp(camPosT,a);camLook.lerp(camLookT,a);
+ cam.position.copy(camPos);cam.lookAt(camLook);
+ renderer.render(scene,cam)}
+requestAnimationFrame(frame);
+/* for checking a moment of the film: fly.html?at=2 jumps straight to that stop */
+var at=/[?&]at=(\d)/.exec(location.search);if(at){startEl.classList.add('off');playing=true;si=+at[1]-1;var s0=STOPS[si+1];beePos=V(s0.bee);camPos=V(s0.cam);camLook=V(s0.look);next();clock+=30;}
+})();
+</script>
+</body>
+</html>
