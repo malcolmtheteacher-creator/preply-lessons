@@ -71,6 +71,7 @@ html.phone #shelfView.on~#musicBtn{display:none!important}
 .sp.read{box-shadow:0 0 calc(14px*var(--z)) calc(3px*var(--z)) rgba(255,214,120,.9),inset -2px 0 rgba(0,0,0,.3)}
 #empty{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--mute);font-size:1.1rem}
 .sp .sn{text-transform:uppercase;letter-spacing:.04em;opacity:.85;font-weight:700;margin-right:.35em}
+.teach{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.2)}.tbtn{font:inherit;font-size:.85rem;background:none;border:1px solid rgba(0,0,0,.3);border-radius:999px;padding:6px 12px;color:#5a4a2c;cursor:pointer}.tmsg{font-size:.85rem;color:#5a4a2c;margin-top:6px}.tmsg .tp{display:block;margin-top:4px;font-size:.75rem;opacity:.75;word-break:break-all}
 .avail{display:flex;align-items:center;gap:8px;margin:10px 0 2px;font-size:.95rem}.avail .dot{width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(0,0,0,.12)}.avail .dot.g{background:#2e9e4f}.avail .dot.r{background:#c8372d}
 html.clean #top,html.clean #hint,html.clean #musicBtn,html.clean #toast{display:none!important}
 #jump{display:flex;gap:2px;overflow-x:auto;padding:2px 14px;background:rgba(0,0,0,.35);border-top:1px solid rgba(226,184,87,.25);align-items:center}
@@ -441,12 +442,17 @@ function openCard(b){
  h+='<div class="where">Shelf '+esc(b.sub)+' &middot; '+esc(S.name||'')+' &middot; Room '+ROOM.id+'</div>';
  h+='<div class="btns"><button class="btn" id="wantBtn">Ask to borrow this book</button><button class="btn alt" id="readBtn"></button></div>';
  var hv=hasCopy(b);h+='<div class="avail"><i class="dot '+(hv?'g':'r')+'"></i>Ask about borrowing this title.</div>';
- if(window.RH_LOCAL&&hv)h+='<div class="btns"><button class="btn" id="openBtn">Open this book</button></div><div class="ok" id="openMsg"></div>';
+ if(hv)h+='<div class="teach"><button class="tbtn" id="openBtn" type="button">&#128273; Teacher only: open this book</button><div class="tmsg" id="openMsg"></div></div>';
  h+='<div id="req"><input id="myName" placeholder="Your name (optional)" value="'+esc(state.name||'')+'"><textarea id="reqText" readonly></textarea><div class="btns"><button class="btn" id="copyBtn">Copy the message</button></div><div class="ok" id="reqOk"></div></div>';
  $('card').style.setProperty('--c',d.col[0]);$('card').innerHTML=h;$('cardWrap').classList.add('on');setReadBtn();
  $('card').querySelector('.x').onclick=closeCard;
- if($('openBtn')){var oq='?w='+encodeURIComponent(b.w||(c&&c.w)||WING)+'&t='+encodeURIComponent(b.raw||b.t);
-  $('openBtn').onclick=function(){$('openMsg').textContent='Opening…';fetch('/rh-local/open'+oq).then(function(r){return r.json()}).then(function(j){$('openMsg').textContent=j.ok?'Opened on this Mac.':'Could not open it.'}).catch(function(){$('openMsg').textContent='Could not open it.'})}}
+ if($('openBtn')){var bw=b.w||(c&&c.w)||WING,oq='?w='+encodeURIComponent(bw)+'&t='+encodeURIComponent(b.raw||b.t),msg=$('openMsg');
+  $('openBtn').onclick=function(){
+   if(window.RH_LOCAL){msg.textContent='Opening…';fetch('/rh-local/open'+oq).then(function(r){return r.json()}).then(function(j){msg.textContent=j.ok?'Opened on this Mac.':'Could not open it.'}).catch(function(){msg.textContent='Could not open it.'});return}
+   msg.textContent='This opens the teacher’s own copy. To read this book, ask about borrowing it.';
+   teacherPath(bw,b,function(p){if(!p)return;
+    msg.innerHTML='This opens the teacher’s own copy. To read this book, ask about borrowing it.<span class="tp">'+esc(p)+'</span>';
+    location.href='shortcuts://run-shortcut?name='+encodeURIComponent('Open Library Book')+'&input=text&text='+encodeURIComponent(p)})}}
  $('readBtn').onclick=function(){if(state.read[b.id])delete state.read[b.id];else state.read[b.id]=Date.now();save();setReadBtn();updateCount();
   var s=strip.querySelector('.sp[data-i="'+view.items.indexOf(b)+'"]');if(s)s.classList.toggle('read',!!state.read[b.id])};
  $('wantBtn').onclick=function(){$('req').style.display='block';makeReq();$('myName').oninput=function(){state.name=this.value;save();makeReq()};
@@ -456,6 +462,10 @@ function openCard(b){
 function makeReq(){var b=openBook,n=($('myName').value||'').trim();
  $('reqText').value='Hello! I would like to read this book: “'+b.t+'”'+(b.a?' by '+b.a:'')+' (Reading House, shelf '+b.sub+').'+(n?' — '+n:'')}
 function setReadBtn(){var r=!!state.read[openBook.id];$('readBtn').textContent=r?'✓ I have read it':'I have read it';$('readBtn').classList.toggle('done',r)}
+/* teacher's button: the book's place on the teacher's own drive, fetched only when the button is pressed */
+function teacherPath(w,b,cb){function look(){var P=(window.RH_PATHS||{})[w]||{},k=norm(b.raw||b.t).slice(0,60),p=P[k];
+  if(!p&&k.length>9)for(var x in P)if(x.indexOf(k.slice(0,40))>=0||k.indexOf(x)>=0){p=P[x];break}cb(p||'')}
+ if((window.RH_PATHS||{})[w])return look();var t=document.createElement('script');t.src='data/paths_w'+w+'.js';t.onload=look;t.onerror=function(){cb('')};document.head.appendChild(t)}
 function closeCard(){$('cardWrap').classList.remove('on');openBook=null}
 $('cardWrap').addEventListener('click',function(e){if(e.target===this)closeCard()});
 
@@ -469,7 +479,7 @@ function start(){
  addCatalogue();buildRoom();fit();
  if(!privateMode)$('hint').textContent='Tap a bookcase to go closer. Starred books have notes and a question to talk about.';
 }
-var s=document.createElement('script');s.src='data/catalogue_w'+WING+'.js?v=1794503192';var ver=s.src.split('?v=')[1],left=MORE.slice();
+var s=document.createElement('script');s.src='data/catalogue_w'+WING+'.js?v=1794558203';var ver=s.src.split('?v=')[1],left=MORE.slice();
 function next(){var m=left.shift();if(!m)return start();var x=document.createElement('script');x.src='data/catalogue_w'+m.wing+'.js?v='+ver;x.onload=next;x.onerror=next;document.head.appendChild(x)}
 s.onload=next;s.onerror=next;document.head.appendChild(s);
 };
