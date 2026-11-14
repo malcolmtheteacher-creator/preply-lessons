@@ -63,8 +63,8 @@ var PCOL=['#2f8f83','#c98a1e','#d9502f','#2b5d8f'];
 /* places a flag could go: [series, x, value, key?, why] */
 var CAND=[[0,-8,12,1,'The lowest starting point: this is where the big rise begins.'],[0,8,86,1,'The highest figure on the whole chart.'],[0,-1.44,46,1,'Online passes newspapers here, at around 2013. A crossing is always worth a flag.'],
  [0,1.25,61,1,'Online passes television, shortly after 2016: the moment the leader changes.'],[1,-4,72,1,'The peak for television, just before its long fall.'],[2,8,15,1,'The lowest figure at the end: newspapers have lost about three quarters of their readers.'],
- [1,0,65,0,'Walk past. It is one step on the way down: nothing changes direction here.'],[2,-4,55,0,'Walk past. Newspapers were falling before this point and keep falling after it.'],[0,0,55,0,'Walk past. It is halfway up a steady climb. The start, the end and the crossings tell the story better.']];
-var ser=[[],[]],leg=[[],[]],titles=[],posts=[],cover=[],pcount=[],marks=[],flags=[],bin,binLab,cur=0;
+ [1,4,52,0,'Walk past. It is one step on the way down: nothing changes direction here.'],[2,-4,55,0,'Walk past. Newspapers were falling before this point and keep falling after it.'],[0,0,55,0,'Walk past. It is halfway up a steady climb. The start, the end and the crossings tell the story better.']];
+var ser=[[],[]],leg=[[],[]],legHit=[],postHit=[],binHit,titles=[],posts=[],cover=[],pcount=[],marks=[],flags=[],bin,binLab,cur=0;
 var V={all:{x:1,y:1.8,z:-.2,w:29,v:5},chart:{x:.8,y:2.0,z:-1.2,w:27,v:4.0},posts:{x:1.4,y:1.4,z:1.2,w:29,v:3.6,ph:.98},hill:{x:.5,y:1.2,z:-.8,w:24,v:6.2,ph:.5}};
 
 function page(x,k,X,Z,W,Hh){x.beginPath();x.rect(X(-9.3),Z(-3.5),18.6*k,4.3*k);x.fillStyle='#efe3c6';x.fill();x.lineWidth=6;x.strokeStyle='#22304a';x.stroke();
@@ -82,28 +82,28 @@ function build(P){var C=P.C,rr=P.rr,poly=P.poly,circ=P.circ,open=[];
       poly(p.g,upB.concat(loB),C.WHITE,0);poly(p.g,up.concat(lo),d.cols[i],1);
       vals.forEach(function(v,k){rr(p.g,XS[k],0,.07,Y(v),.02,d.cols[i],.5);circ(p.g,XS[k],Y(v)+.12,.2,C.WHITE,2);circ(p.g,XS[k],Y(v)+.12,.11,d.cols[i],3)});
       p.g.position.y=.12;ser[di][i]=p;
-      var l=P.popup(BX-.6,-2.6+i*.95);l.lean=-.35;rr(l.g,0,-.03,2.3,.62,.08,d.cols[i],-.6);P.sign(l.g,0,0,2.16,.56,d.names[i],null);leg[di][i]=l})});
-  [0,1,2].forEach(function(i){P.hit(2.4,1,1,BX-.6,P.PY+.4,-2.6+i*.95,{k:'leg',i:i})});
+      var l=P.popup(BX-.3,-2.5+i*1.45);l.lean=-.3;rr(l.g,0,-.04,3.0,.84,.1,d.cols[i],-.6);P.sign(l.g,0,0,2.84,.76,d.names[i],null);leg[di][i]=l;var lh=P.hit(3.0,.84,.1,0,0,0,{k:'leg',i:i});l.g.add(lh);lh.position.set(0,.4,.05);lh.userData.d=di;legHit.push(lh)})});
   /* flags and question marks on the first chart */
-  CAND.forEach(function(c,i){var z=SZ[c[0]],y=Y(c[2])+.24;marks[i]=P.label('?','#22304a','#ffffff',1.7);marks[i].position.set(c[1],P.PY+y+.5,z+.15);marks[i].visible=false;
-    c.hit=P.hit(1,1.1,1.6,c[1],P.PY+y+.35,z,{k:'cand',i:i});c.hit.userData.off=true;
+  CAND.forEach(function(c,i){var z=SZ[c[0]],y=Y(c[2])+.24;marks[i]=P.label('?','#22304a','#ffffff',.6,true);marks[i].position.set(c[1],P.PY+y+.5,z+.15);marks[i].visible=false;
+    c.hit=P.hit(1.2,1.3,1.6,c[1],P.PY+y+.35,z,{k:'cand',i:i});c.hit.userData.off=true;
     if(c[3]){var f=P.popup(c[1],z+.14);f.outer.position.y=P.PY+y+.12;rr(f.g,0,0,.07,1.0,.02,C.INK,0,true);poly(f.g,[[.035,.98],[.72,.76],[.035,.54]],C.CORAL,1);flags[i]=f}});
   /* four signposts */
   PX.forEach(function(x,i){var p=P.popup(x,PZ);open.push(p);rr(p.g,0,0,.14,1.5,.04,C.WOOD2,0,true);rr(p.g,0,.82,3.84,1.1,.1,PCOL[i],.6);P.sign(p.g,0,.89,3.7,.96,POST[i][0],POST[i][1],PCOL[i],1);
     cover[i]=rr(p.g,0,.89,3.7,.96,.08,C.WHITE,2.4);var q=P.words(p.g,3.7,.96,0,.89,2.6,function(c,Wd,Hd){c.fillStyle=PCOL[i];c.font='400 '+Hd*.6+'px "Abril Fatface", Georgia, serif';c.textAlign='center';c.textBaseline='middle';c.fillText('?',Wd/2,Hd/2)});cover[i].add(q);q.position.set(0,.48,.06);cover[i].visible=false;
-    posts[i]=p;P.hit(3.9,2.2,1.2,x,P.PY+1.1,PZ,{k:'post',i:i});pcount[i]=P.label('',PCOL[i],'#fff',1.6);pcount[i].position.set(x,P.PY+2.35,PZ);pcount[i].visible=false});
+    posts[i]=p;postHit[i]=P.hit(3.9,2.2,1.2,x,P.PY+1.1,PZ,{k:'post',i:i});pcount[i]=P.label('',PCOL[i],'#fff',1.6);pcount[i].position.set(x,P.PY+2.35,PZ);pcount[i].visible=false});
   /* waste-paper basket */
   bin=P.popup(BX,PZ+.3);poly(bin.g,[[-.62,-.02],[.62,-.02],[.8,1.4],[-.8,1.4]],C.WHITE,-.5);poly(bin.g,[[-.56,.03],[.56,.03],[.73,1.34],[-.73,1.34]],C.NAVY,0);for(var j=-2;j<=2;j++){var sl=rr(bin.g,j*.24,.12,.07,1.05,.02,'#46597d',1);sl.rotation.z=-j*.055}rr(bin.g,0,1.18,1.46,.16,.04,'#1b2740',2);
-  binLab=P.label('Leave out','#22304a','#fff',2.1);binLab.position.set(BX,P.PY+2.0,PZ+.3);binLab.visible=false;P.hit(1.8,1.8,1.2,BX,P.PY+.9,PZ+.3,{k:'bin'});
+  binLab=P.label('Leave out','#22304a','#fff',2.1);binLab.position.set(BX,P.PY+2.0,PZ+.3);binLab.visible=false;binHit=P.hit(1.8,1.8,1.2,BX,P.PY+.9,PZ+.3,{k:'bin'});
   open.forEach(function(p,i){P.fold(p,true,350+i*110)});data(P,0,700);
 }
 function data(P,d,delay){cur=d;[0,1].forEach(function(k){var on=k===d;P.fold(titles[k],on,on?(delay||300):0);ser[k].forEach(function(p,i){P.fold(p,on,on?(delay||300)+i*160:0)});leg[k].forEach(function(p,i){P.fold(p,on,on?(delay||300)+i*100:0)})});
   if(d===1)flags.forEach(function(f){if(f)P.fold(f,false)})}
 /* what to show: m = question marks, f = planted flags only, b = basket, c = counters, blank = hide signpost words */
 function dress(P,o){o=o||{};var S=P.S;S.flag=S.flag||{};
-  CAND.forEach(function(c,i){var done=S.flag[i];marks[i].visible=!!o.m&&cur===0;c.hit.userData.off=!o.m;
+  legHit.forEach(function(h){h.userData.off=!o.l||h.userData.d!==cur});postHit.forEach(function(h){h.userData.off=!o.p});binHit.userData.off=!o.b;
+  CAND.forEach(function(c,i){var done=S.flag[i];marks[i].visible=!!o.m&&cur===0&&!(done&&c[3]);c.hit.userData.off=!o.m;
     if(flags[i])P.fold(flags[i],cur===0&&!!done&&(o.m||o.f));
-    if(o.m)P.relabel(marks[i],done?(c[3]?'flag':'walk past'):'?',done?(c[3]?'#2f8f83':'#8a8577'):'#22304a','#ffffff')});
+    if(o.m)P.relabel(marks[i],done?'×':'?',done?'#8a8577':'#22304a','#ffffff')});
   P.fold(bin,!!o.b);binLab.visible=!!o.b;posts.forEach(function(q){P.fold(q,!!o.p)});pcount.forEach(function(l){l.visible=!!o.c});cover.forEach(function(m){m.visible=!!o.blank})}
 function lc(id,t,q){return '<div class="lc" id="'+id+'"><b>'+t+'</b>'+(q||'What is it for? Guess, then click it in the book.')+'</div>'}
 function on(id,html){var e=document.getElementById(id);if(e){e.className='lc on';e.innerHTML=html}}
@@ -160,8 +160,8 @@ var steps=[
 /* ---------- Read the land ---------- */
 {stage:1,html:'<h2>Read the land before the numbers</h2><div class="speak"><b>SAY IT FIRST:</b> What is being measured? Where? Over what period? In what unit?</div>'+rev('r0','Check','The share of households using each source of news; one city; 2005 to 2025; per cent.')+
  '<p>Now look at the three paper lines as if they were hills. <b>Describe the shape of each in three or four words</b>, then click its name tab at the right of the chart.</p><div class="learn">'+lc('l0','Online','Its shape? Say it, then click its tab.')+lc('l1','Television','Its shape? Say it, then click its tab.')+lc('l2','Newspapers','Its shape? Say it, then click its tab.')+'</div>',
- enter:function(P){data(P,0);dress(P);P.view(V.chart);P.hoverText=hov;P.onClick=function(u){if(u.k!=='leg')return;P.wob(leg[0][u.i]);P.wob(ser[0][u.i]);on('l'+u.i,LINE[u.i])}}},
-{stage:1,html:function(P){return '<h2>Six flags to plant</h2><p>There are fifteen figures on this chart. A Band 8 report uses about six of them. <b>Click each question mark</b>: does that spot deserve a flag, or do you walk past? Decide before you click.</p><div class="fb" id="fb"></div><p class="status" id="st"></p>'},
+ enter:function(P){data(P,0);dress(P,{l:1});P.view(V.chart);P.hoverText=hov;P.onClick=function(u){if(u.k!=='leg')return;P.wob(leg[0][u.i]);P.wob(ser[0][u.i]);on('l'+u.i,LINE[u.i])}}},
+{stage:1,html:function(P){return '<h2>Six flags to plant</h2><p>There are fifteen figures on this chart. A Band 8 report uses about six of them. <b>Click each question mark</b>: does that spot deserve a flag, or do you walk past? Decide before you click. A flag goes up, or the mark turns to a grey cross.</p><div class="fb" id="fb"></div><p class="status" id="st"></p>'},
  enter:function(P){data(P,0);dress(P,{m:1});P.view(V.chart);var S=P.S;function st(){var n=0,f=0;CAND.forEach(function(c,i){if(S.flag[i]){n++;if(c[3])f++}});document.getElementById('st').textContent='Flags planted: '+f+' of 6 · Spots checked: '+n+' of 9';
     if(n===9)P.say('fb','good','Six flags: where the lines start and end at their extremes, where one peaks, and where they cross. Those six figures carry the whole report.')}st();
    P.hoverText=hov;P.onClick=function(u){if(u.k!=='cand')return;var c=CAND[u.i];S.flag[u.i]=1;dress(P,{m:1});P.say('fb',c[3]?'good':'note',(c[3]?'A flag. ':'')+c[4]);st()}}},

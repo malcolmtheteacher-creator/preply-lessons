@@ -23,7 +23,7 @@ var PopBook=(function(){
   /* a piece lying flat on the page; shape's y runs away from you */
   function flat(shape,col,x,z,lift){var o=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:false,curveSegments:10}),typeof col==='string'?paperMat(col):col);o.rotation.x=-Math.PI/2;o.position.set(x,P.PY+(lift||0),z);o.receiveShadow=true;o.castShadow=true;scene.add(o);return o}
   function solid(w,h,d,col,x,y,z,rough){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color:lin(col),roughness:rough||.8}));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;scene.add(m);return m}
-  function words(g,w,h,x,y,layer,draw){var cv=mk(Math.round(w*200),Math.round(h*200));draw(cv.getContext('2d'),cv.width,cv.height);
+  function words(g,w,h,x,y,layer,draw){var cv=mk(Math.round(w*320),Math.round(h*320));draw(cv.getContext('2d'),cv.width,cv.height);
     var m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:tex(cv),transparent:true,roughness:.95,alphaTest:.02}));
     m.position.set(x,y+h/2,layer*L+T+.004);g.add(m);m.userData.cv=cv;return m}
   /* a white paper sign with a title and a small line under it */
@@ -35,13 +35,15 @@ var PopBook=(function(){
     var g=new THREE.Group();g.rotation.x=-Math.PI/2;g.visible=false;outer.add(g);var p={g:g,outer:outer,open:false,p:0,t0:0,from:0,lean:0,wob:0};pops.push(p);return p}
   function fold(p,open,delay){if(p.open===open&&(open?p.p>0:p.p===0))return;p.open=open;p.from=p.p;p.t0=performance.now()+(delay||0)}
   function back(k){var c=1.9;return 1+(c+1)*Math.pow(k-1,3)+c*Math.pow(k-1,2)}
-  function drawLabel(cv,text,bg,fg){var x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);if(!text)return;
-    var r=22,w=cv.width-8,h=cv.height-8;x.fillStyle=bg;x.beginPath();x.moveTo(4+r,4);x.arcTo(4+w,4,4+w,4+h,r);x.arcTo(4+w,4+h,4,4+h,r);x.arcTo(4,4+h,4,4,r);x.arcTo(4,4,4+w,4,r);x.fill();
-    var f='px "DM Sans", "Segoe UI", Arial, sans-serif',size=56;x.font='700 '+size+f;while(x.measureText(text).width>w-36&&size>20){size-=2;x.font='700 '+size+f}
-    x.fillStyle=fg;x.textAlign='center';x.textBaseline='middle';x.fillText(text,cv.width/2,cv.height/2+2)}
-  function label(text,bg,fg,width){var cv=mk(512,128);drawLabel(cv,text,bg,fg);var t=new THREE.CanvasTexture(cv);t.minFilter=THREE.LinearFilter;t.encoding=THREE.sRGBEncoding;
-    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthTest:false,toneMapped:false}));s.scale.set(width,width/4,1);s.renderOrder=10;s.userData={cv:cv,tex:t};scene.add(s);return s}
-  function relabel(sp,text,bg,fg){drawLabel(sp.userData.cv,text,bg,fg);sp.userData.tex.needsUpdate=true}
+  function drawLabel(cv,text,bg,fg,round){var x=cv.getContext('2d'),W=cv.width,H=cv.height;x.clearRect(0,0,W,H);if(!text)return;
+    var f='px "DM Sans", "Segoe UI", Arial, sans-serif';x.textAlign='center';x.textBaseline='middle';
+    if(round){x.fillStyle='#fbf6ea';x.beginPath();x.arc(W/2,H/2,W/2-4,0,7);x.fill();x.fillStyle=bg;x.beginPath();x.arc(W/2,H/2,W/2-22,0,7);x.fill();x.fillStyle=fg;x.font='700 '+H*.6+f;x.fillText(text,W/2,H/2+H*.03);return}
+    var r=44,w=W-16,h=H-16;x.fillStyle=bg;x.beginPath();x.moveTo(8+r,8);x.arcTo(8+w,8,8+w,8+h,r);x.arcTo(8+w,8+h,8,8+h,r);x.arcTo(8,8+h,8,8,r);x.arcTo(8,8,8+w,8,r);x.fill();
+    var size=112;x.font='700 '+size+f;while(x.measureText(text).width>w-72&&size>40){size-=4;x.font='700 '+size+f}
+    x.fillStyle=fg;x.fillText(text,W/2,H/2+4)}
+  function label(text,bg,fg,width,round){var cv=round?mk(256,256):mk(1024,256);drawLabel(cv,text,bg,fg,round);var t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthTest:false,toneMapped:false}));s.scale.set(width,round?width:width/4,1);s.renderOrder=10;s.userData={cv:cv,tex:t,round:round};scene.add(s);return s}
+  function relabel(sp,text,bg,fg){drawLabel(sp.userData.cv,text,bg,fg,sp.userData.round);sp.userData.tex.needsUpdate=true}
   function hit(w,h,d,x,y,z,data){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),ghost);m.position.set(x,y,z);m.userData.hit=data;scene.add(m);hits.push(m);return m}
   function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
   function fit(width,v){var a=cam.aspect,t=Math.tan(FOV*Math.PI/360);return Math.max((width/2)/(t*a),(v||vert)/t*.95)}
