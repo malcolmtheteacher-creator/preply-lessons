@@ -6378,6 +6378,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "reading_b2c1_the_unreliable_narrator",
+   "title": "The Unreliable Narrator: Nothing Happened on Thursday",
+   "level": "",
+   "words": [
+    "narrator",
+    "unreliable",
+    "lodger",
+    "account",
+    "insist",
+    "contradict",
+    "imply",
+    "infer",
+    "conceal",
+    "evidence"
+   ]
+  },
+  {
    "id": "reading_the_room_c2",
    "title": "Reading the Room",
    "level": "",
@@ -54889,6 +54906,7 @@ window.WORDBANK={
     "discuss_c1_will_to_believe",
     "nq_05_why_c1",
     "piranesi_bc_journals",
+    "reading_b2c1_the_unreliable_narrator",
     "short_history_al_capone",
     "short_history_watergate",
     "techniques_a_jury_of_her_peers_a2b1",
@@ -62286,11 +62304,12 @@ window.WORDBANK={
   },
   "conceal": {
    "w": "conceal",
-   "pos": "v",
+   "pos": "verb",
    "def": "to hide something deliberately, especially wrongdoing, so that others don't discover it.",
-   "ex": "",
+   "ex": "He tried to conceal the letter under a pile of books.",
    "lessons": [
     "behind_the_screen_spotlight",
+    "reading_b2c1_the_unreliable_narrator",
     "techniques_a_jury_of_her_peers",
     "techniques_the_treasure_in_the_forest",
     "ib_lesson_03_techniques_tell_tale_heart"
@@ -64826,10 +64845,11 @@ window.WORDBANK={
    "w": "imply",
    "pos": "verb",
    "def": "to suggest something without saying it directly",
-   "ex": "The forge imagery implies deliberate, violent creation.",
+   "ex": "The empty hanger seems to imply that a coat has been taken.",
    "lessons": [
     "discuss_c1_ib_poetry_my_last_duchess",
     "ib_poetry_02_imagery_and_symbol",
+    "reading_b2c1_the_unreliable_narrator",
     "gr_b2_stress_shift",
     "grammar_c1_07_questions_for_effect"
    ]
@@ -73843,6 +73863,7 @@ window.WORDBANK={
    "ex": "The narrator is an adult looking back, but she tells the story through the eyes of the child she used to be.",
    "lessons": [
     "persepolis_child",
+    "reading_b2c1_the_unreliable_narrator",
     "ib_lesson_techniques_overcoat",
     "ib_lesson_02_naming_techniques"
    ]
@@ -74669,11 +74690,12 @@ window.WORDBANK={
   },
   "account": {
    "w": "account",
-   "pos": "n",
+   "pos": "noun",
    "def": "a description of something that happened, given by someone who was there or who investigated.",
-   "ex": "",
+   "ex": "The two drivers gave very different accounts of the accident.",
    "lessons": [
     "piranesi_bc_journals",
+    "reading_b2c1_the_unreliable_narrator",
     "short_history_the_seven_wonders"
    ]
   },
@@ -76923,6 +76945,73 @@ window.WORDBANK={
     "world_sa_background",
     "world_ssa_background",
     "lesson_39_culture_identity"
+   ]
+  },
+  "unreliable": {
+   "w": "unreliable",
+   "pos": "adjective",
+   "def": "not able to be trusted or believed",
+   "ex": "He is an unreliable witness: his story changes every time.",
+   "lessons": [
+    "reading_b2c1_the_unreliable_narrator",
+    "topic_memory_b2",
+    "skills_b1b2_trade_fair_objections",
+    "c2_01_the_way_things_are_going",
+    "wk_04_the_difficult_conversation"
+   ]
+  },
+  "lodger": {
+   "w": "lodger",
+   "pos": "noun",
+   "def": "a person who pays to live in a room in somebody else's house",
+   "ex": "She took in a lodger to help pay the bills.",
+   "lessons": [
+    "reading_b2c1_the_unreliable_narrator",
+    "techniques_metamorphosis_3",
+    "techniques_metamorphosis_3_a2b1",
+    "techniques_the_furnished_room"
+   ]
+  },
+  "insist": {
+   "w": "insist",
+   "pos": "verb",
+   "def": "say firmly that something is true, especially when others doubt it",
+   "ex": "She continued to insist that she had been at home all evening.",
+   "lessons": [
+    "reading_b2c1_the_unreliable_narrator",
+    "world_mena_hospitality",
+    "cambridge_cae_kwt_past_papers",
+    "lesson_35_subjunctive",
+    "qf_falsefriend_french_demander",
+    "grammar_b2_08_reporting_verbs_patterns"
+   ]
+  },
+  "contradict": {
+   "w": "contradict",
+   "pos": "verb",
+   "def": "say or show the opposite of something, so that both cannot be true",
+   "ex": "The muddy boots contradict her story about staying indoors.",
+   "lessons": [
+    "reading_b2c1_the_unreliable_narrator",
+    "techniques_the_emperors_new_clothes",
+    "gr_b2_the_courtroom",
+    "rs_y9_aut2_14_01",
+    "epicurean_23_lorenzo_valla",
+    "rs_y9_aut2_14_06",
+    "grammar_b1_15_conjunctions_discourse"
+   ]
+  },
+  "infer": {
+   "w": "infer",
+   "pos": "verb",
+   "def": "reach an opinion from the facts you have, although nobody has told you directly",
+   "ex": "From the two glasses we can infer that she was not alone.",
+   "lessons": [
+    "reading_b2c1_the_unreliable_narrator",
+    "rs_y9_aut1_13_02",
+    "sp_prep_b1_32",
+    "acad_b2_08_lecture_skills",
+    "grammar_c1_03_advanced_modals"
    ]
   },
   "pitch": {
@@ -88752,17 +88841,6 @@ window.WORDBANK={
     "techniques_metamorphosis_3"
    ]
   },
-  "lodger": {
-   "w": "lodger",
-   "pos": "n",
-   "def": "They took in a lodger to help pay the rent. Verb: to lodge.",
-   "ex": "",
-   "lessons": [
-    "techniques_metamorphosis_3",
-    "techniques_metamorphosis_3_a2b1",
-    "techniques_the_furnished_room"
-   ]
-  },
   "stubbornness": {
    "w": "stubbornness",
    "pos": "n",
@@ -90076,20 +90154,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_emperors_new_clothes",
     "short_history_emperor_nero_a2b1"
-   ]
-  },
-  "contradict": {
-   "w": "contradict",
-   "pos": "v",
-   "def": "to say the opposite of what someone else has said; to deny or challenge it.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_emperors_new_clothes",
-    "gr_b2_the_courtroom",
-    "rs_y9_aut2_14_01",
-    "epicurean_23_lorenzo_valla",
-    "rs_y9_aut2_14_06",
-    "grammar_b1_15_conjunctions_discourse"
    ]
   },
   "shatter": {
@@ -95313,18 +95377,6 @@ window.WORDBANK={
     "bc_conspiracy_theories_b2c1"
    ]
   },
-  "unreliable": {
-   "w": "unreliable",
-   "pos": "adj",
-   "def": "an unreliable witness, an unreliable car. Build the family: to rely on someone · reliable · reliability. The claim this lesson tests is whether \"unreliable\" is the fair word for human memory.",
-   "ex": "",
-   "lessons": [
-    "topic_memory_b2",
-    "skills_b1b2_trade_fair_objections",
-    "c2_01_the_way_things_are_going",
-    "wk_04_the_difficult_conversation"
-   ]
-  },
   "declarative": {
    "w": "declarative",
    "pos": "",
@@ -98301,19 +98353,6 @@ window.WORDBANK={
    "ex": "Cairo and Dubai both have a metro.",
    "lessons": [
     "world_mena_desert"
-   ]
-  },
-  "insist": {
-   "w": "insist",
-   "pos": "v",
-   "def": "to ask again and again because you really want something",
-   "ex": "Hosts often insist that guests take a second helping.",
-   "lessons": [
-    "world_mena_hospitality",
-    "cambridge_cae_kwt_past_papers",
-    "lesson_35_subjunctive",
-    "qf_falsefriend_french_demander",
-    "grammar_b2_08_reporting_verbs_patterns"
    ]
   },
   "date": {
@@ -124316,18 +124355,6 @@ window.WORDBANK={
    "ex": "Some believers point to the fine-tuning of the universe.",
    "lessons": [
     "rs_y9_aut1_13_02"
-   ]
-  },
-  "infer": {
-   "w": "infer",
-   "pos": "v",
-   "def": "to reach an opinion from the evidence you have",
-   "ex": "We infer that a watch was made by someone.",
-   "lessons": [
-    "rs_y9_aut1_13_02",
-    "sp_prep_b1_32",
-    "acad_b2_08_lecture_skills",
-    "grammar_c1_03_advanced_modals"
    ]
   },
   "mutation": {
