@@ -3659,6 +3659,51 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "exam_c1_ielts_essay_house",
+   "title": "The Essay House: IELTS Writing Task 2",
+   "level": "",
+   "words": [
+    "thesis statement",
+    "topic sentence",
+    "paraphrase",
+    "substantiate",
+    "digress",
+    "reiterate",
+    "cohesion",
+    "over-generalise"
+   ]
+  },
+  {
+   "id": "exam_c1_ielts_paper_landscape",
+   "title": "The Paper Landscape: IELTS Writing Task 1",
+   "level": "",
+   "words": [
+    "overview",
+    "trend",
+    "fluctuate",
+    "plateau",
+    "peak",
+    "overtake",
+    "marginal",
+    "respectively"
+   ]
+  },
+  {
+   "id": "exam_c1_ielts_speaking_journey",
+   "title": "The Speaking Journey: IELTS Speaking Parts 1, 2 and 3",
+   "level": "",
+   "words": [
+    "elaborate",
+    "hesitation",
+    "hedge",
+    "speculate",
+    "generalise",
+    "anecdote",
+    "filler",
+    "idiomatic"
+   ]
+  },
+  {
    "id": "grammar_c1_17_counterfactual_conditionals",
    "title": "The Road Not Taken: Counterfactual Conditionals | C1",
    "level": "",
@@ -55523,6 +55568,7 @@ window.WORDBANK={
    "ex": "Asabiyyah is essentially the social cohesion that lets a group act as one.",
    "lessons": [
     "bc_ibn_khaldun_c1",
+    "exam_c1_ielts_essay_house",
     "bc_team_building_c1",
     "ielts_lesson_13_cohesion_coherence",
     "ielts_lesson_5_conclusions_linking",
@@ -59816,11 +59862,12 @@ window.WORDBANK={
   },
   "trend": {
    "w": "trend",
-   "pos": "n",
+   "pos": "noun",
    "def": "A change that many people follow at the same time.",
-   "ex": "Big sunglasses are a trend this summer.",
+   "ex": "The upward trend in online news continued for twenty years.",
    "lessons": [
     "bc_zara_a2b1",
+    "exam_c1_ielts_paper_landscape",
     "say_number_c1",
     "tib_diffusion_b2",
     "su_a2_72_mobile_phones",
@@ -63902,6 +63949,7 @@ window.WORDBANK={
     "calibrated_certainty_c2",
     "discuss_c1_arrow_of_time",
     "discuss_c1_when_the_story_stops_holding",
+    "exam_c1_ielts_speaking_journey",
     "short_history_the_gold_that_came_home",
     "the_curse_of_knowledge_c2",
     "bestiary_discourse_qualify",
@@ -64254,11 +64302,12 @@ window.WORDBANK={
   },
   "speculate": {
    "w": "speculate",
-   "pos": "v",
+   "pos": "verb",
    "def": "to speculate about the future / about what happened. The noun is speculation. We practise this in the Grammar tab.",
-   "ex": "Many people speculated on the price of the new stock.",
+   "ex": "The examiner asked him to speculate about cities in fifty years' time.",
    "lessons": [
     "discuss_b2c1_golden_record",
+    "exam_c1_ielts_speaking_journey",
     "odyssey_george_i",
     "short_history_the_first_stock_market",
     "gr_b2_the_black_box",
@@ -65395,9 +65444,10 @@ window.WORDBANK={
    "w": "substantiate",
    "pos": "v",
    "def": "support a claim with evidence",
-   "ex": "She could not substantiate the rumour.",
+   "ex": "He made a bold claim but did nothing to substantiate it.",
    "lessons": [
     "discuss_c1_when_the_story_stops_holding",
+    "exam_c1_ielts_essay_house",
     "acad_b1_05_giving_opinions",
     "sp_prep_b2_41"
    ]
@@ -65840,6 +65890,242 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "end_point_c1"
+   ]
+  },
+  "thesis statement": {
+   "w": "thesis statement",
+   "pos": "n",
+   "def": "the line in an introduction that gives your position and the reasons to come",
+   "ex": "Her thesis statement made it clear she disagreed, and why.",
+   "lessons": [
+    "exam_c1_ielts_essay_house",
+    "sp_prep_b2_41",
+    "acad_b2_15_thesis_statements"
+   ]
+  },
+  "topic sentence": {
+   "w": "topic sentence",
+   "pos": "n",
+   "def": "the opening line of a paragraph that announces its one main idea",
+   "ex": "Each topic sentence should match a reason promised in the introduction.",
+   "lessons": [
+    "exam_c1_ielts_essay_house",
+    "ielts_lesson_3_body_paragraphs",
+    "acad_b1_04_writing_paragraphs"
+   ]
+  },
+  "paraphrase": {
+   "w": "paraphrase",
+   "pos": "v",
+   "def": "express the same meaning in different words",
+   "ex": "Paraphrase the question rather than copying it.",
+   "lessons": [
+    "exam_c1_ielts_essay_house",
+    "acad_b2_06_referencing",
+    "c1_pro_04_active_listening",
+    "ct_b1_29_reformulation",
+    "bc_ai_for_phd_research_c1",
+    "cambridge_cae_listening_strategies",
+    "IELTS Writing Task 2 - Complete Course",
+    "ielts_lesson_14_paraphrasing_variety",
+    "ielts_lesson_1_academic_paragraphs",
+    "ielts_task1_intro_flip_b2",
+    "sp_b1_24_clarification",
+    "sp_prep_c1_66",
+    "acad_b1_11_summarising"
+   ]
+  },
+  "digress": {
+   "w": "digress",
+   "pos": "v",
+   "def": "move away from the main subject",
+   "ex": "The second paragraph digresses into the history of the railway.",
+   "lessons": [
+    "exam_c1_ielts_essay_house"
+   ]
+  },
+  "reiterate": {
+   "w": "reiterate",
+   "pos": "v",
+   "def": "say again, usually to make a point clear",
+   "ex": "The conclusion should reiterate your position, not introduce a new one.",
+   "lessons": [
+    "exam_c1_ielts_essay_house",
+    "acad_b1_07_basic_presentations"
+   ]
+  },
+  "over-generalise": {
+   "w": "over-generalise",
+   "pos": "v",
+   "def": "claim something is true in every case when it is only true in some",
+   "ex": "Saying 'all teenagers hate reading' is to over-generalise.",
+   "lessons": [
+    "exam_c1_ielts_essay_house"
+   ]
+  },
+  "overview": {
+   "w": "overview",
+   "pos": "noun",
+   "def": "a short summary of the main patterns, without details",
+   "ex": "Her overview named the two biggest changes and gave no figures.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "IELTS Writing Quick Reference Guides",
+    "ielts_task1_intro_flip_b2",
+    "ielts_task1_intro_vault_b2",
+    "rs_y9_sum2_18_06"
+   ]
+  },
+  "fluctuate": {
+   "w": "fluctuate",
+   "pos": "verb",
+   "def": "go up and down repeatedly, without a clear direction",
+   "ex": "Visitor numbers fluctuate from year to year but stay close to fifty thousand.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "ielts_task_1_lesson_3_bar_pie",
+    "acad_b1_10_describing_graphs"
+   ]
+  },
+  "plateau": {
+   "w": "plateau",
+   "pos": "noun",
+   "def": "a period when a figure stays level after rising",
+   "ex": "Sales reached a plateau in 2015 and hardly moved for five years.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "psy_06_does_money_buy_happiness_b2c1",
+    "tib_hypecycle_b2",
+    "bc_trends_c1",
+    "cpe_read_c1_02_feral_children",
+    "acad_b1_10_describing_graphs"
+   ]
+  },
+  "peak": {
+   "w": "peak",
+   "pos": "noun",
+   "def": "the highest point that a figure reaches",
+   "ex": "House prices reached their peak in the spring and then started to fall.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "tib_hypecycle_b2",
+    "memory_arts_part1",
+    "acad_b1_10_describing_graphs"
+   ]
+  },
+  "overtake": {
+   "w": "overtake",
+   "pos": "verb",
+   "def": "pass something and become bigger than it",
+   "ex": "Online news will overtake television if the lines keep moving this way.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "story_b2_dorando_marathon",
+    "techniques_yuki_onna",
+    "ielts_task_1_complete_interactive"
+   ]
+  },
+  "marginal": {
+   "w": "marginal",
+   "pos": "adjective",
+   "def": "very small, hardly worth noticing",
+   "ex": "There was only a marginal difference between the two years.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape",
+    "cpe_read_c2_03_invented_languages"
+   ]
+  },
+  "respectively": {
+   "w": "respectively",
+   "pos": "adverb",
+   "def": "in the same order as the things just named",
+   "ex": "Newspapers and television stood at 62% and 70% respectively.",
+   "lessons": [
+    "exam_c1_ielts_paper_landscape"
+   ]
+  },
+  "elaborate": {
+   "w": "elaborate",
+   "pos": "verb",
+   "def": "add more detail to what you have just said",
+   "ex": "She gave a short answer and then went on to elaborate with an example.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "bc_mind_over_body_health_b2c1",
+    "acad_b1_21_asking_good_questions",
+    "wp_30_the_razor",
+    "lesson_40_b2_review_fluency_challenge",
+    "sp_a2_08_giving_reasons",
+    "sp_prep_b1_36"
+   ]
+  },
+  "hesitation": {
+   "w": "hesitation",
+   "pos": "noun",
+   "def": "a pause before you speak or continue",
+   "ex": "A short hesitation while you think about an idea is completely natural.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "gr_b2_the_lie_detector",
+    "sp_a2_16_fillers_hesitation",
+    "lesson-10-number-review",
+    "aviation_english_icao_exam_5"
+   ]
+  },
+  "generalise": {
+   "w": "generalise",
+   "pos": "verb",
+   "def": "say something about a whole group, not one person",
+   "ex": "In Part 3 you need to generalise about people, not talk about yourself.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "psy_06_does_money_buy_happiness_b2c1",
+    "psyp_12_whose_psychology_a2b1",
+    "psyp_12_whose_psychology_b2c1",
+    "acad_c1_07_critical_analysis"
+   ]
+  },
+  "anecdote": {
+   "w": "anecdote",
+   "pos": "noun",
+   "def": "a short personal story about something that happened",
+   "ex": "He began his long turn with an anecdote about a delayed train.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "bc_rhetorical_devices_c1",
+    "speaking_naturally_02_storytelling_anecdotes",
+    "b1_35_effective_anecdotes",
+    "wp_04_atoms_in_the_void",
+    "b1_38_telling_effective_anecdotes",
+    "ib_adichie_analysis_lesson"
+   ]
+  },
+  "filler": {
+   "w": "filler",
+   "pos": "noun",
+   "def": "a small word or sound used while you think",
+   "ex": "'Well' and 'I suppose' are more natural than a silent filler like 'erm'.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "speaking_naturally_04_small_talk_fillers",
+    "prof_c1_03_executive_presence",
+    "a1p_49_connected_speech",
+    "lesson_25_b1_review_fluency",
+    "sp_a2_01_buying_time",
+    "sp_a2_16_fillers_hesitation",
+    "sp_prep_a2_16",
+    "sp_prep_c1_74",
+    "diagnostic-assessment-lesson"
+   ]
+  },
+  "idiomatic": {
+   "w": "idiomatic",
+   "pos": "adjective",
+   "def": "sounding natural, the way fluent speakers really say things",
+   "ex": "'It's not my cup of tea' is an idiomatic way to say you do not like something.",
+   "lessons": [
+    "exam_c1_ielts_speaking_journey",
+    "sp_b2_51_idiomatic"
    ]
   },
   "counterfactual": {
@@ -75955,31 +76241,6 @@ window.WORDBANK={
     "komorebi_09_the_hedonic_treadmill"
    ]
   },
-  "plateau": {
-   "w": "plateau",
-   "pos": "v/n",
-   "def": "“After a year of fast progress, my Spanish reached a plateau.”",
-   "ex": "Emotional wellbeing seemed to plateau at higher incomes.",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1",
-    "tib_hypecycle_b2",
-    "bc_trends_c1",
-    "cpe_read_c1_02_feral_children",
-    "acad_b1_10_describing_graphs"
-   ]
-  },
-  "generalise": {
-   "w": "generalise",
-   "pos": "v",
-   "def": "to apply a finding from a small group to a larger population.",
-   "ex": "It is risky to generalise from undergraduates.",
-   "lessons": [
-    "psy_06_does_money_buy_happiness_b2c1",
-    "psyp_12_whose_psychology_a2b1",
-    "psyp_12_whose_psychology_b2c1",
-    "acad_c1_07_critical_analysis"
-   ]
-  },
   "lasting": {
    "w": "lasting",
    "pos": "adj",
@@ -85308,17 +85569,6 @@ window.WORDBANK={
     "keeping_teams_motivated"
    ]
   },
-  "overtake": {
-   "w": "overtake",
-   "pos": "verb",
-   "def": "to pass someone who is moving in the same direction: overtook, overtaken.",
-   "ex": "",
-   "lessons": [
-    "story_b2_dorando_marathon",
-    "techniques_yuki_onna",
-    "ielts_task_1_complete_interactive"
-   ]
-  },
   "take the lead": {
    "w": "take the lead",
    "pos": "phrase",
@@ -93570,17 +93820,6 @@ window.WORDBANK={
     "talk_eating_less_meat_a2b1"
    ]
   },
-  "peak": {
-   "w": "peak",
-   "pos": "",
-   "def": "the highest point. (reach a peak; peak season; peak hours)",
-   "ex": "House prices reached their peak in the spring and then started to fall.",
-   "lessons": [
-    "tib_hypecycle_b2",
-    "memory_arts_part1",
-    "acad_b1_10_describing_graphs"
-   ]
-  },
   "disillusionment": {
    "w": "disillusionment",
    "pos": "",
@@ -100511,26 +100750,6 @@ window.WORDBANK={
     "acad_b1_23_paraphrasing"
    ]
   },
-  "paraphrase": {
-   "w": "paraphrase",
-   "pos": "v",
-   "def": "to express what someone said using different words",
-   "ex": "Try to paraphrase the article instead of copying it.",
-   "lessons": [
-    "acad_b2_06_referencing",
-    "c1_pro_04_active_listening",
-    "ct_b1_29_reformulation",
-    "bc_ai_for_phd_research_c1",
-    "cambridge_cae_listening_strategies",
-    "IELTS Writing Task 2 - Complete Course",
-    "ielts_lesson_14_paraphrasing_variety",
-    "ielts_lesson_1_academic_paragraphs",
-    "ielts_task1_intro_flip_b2",
-    "sp_b1_24_clarification",
-    "sp_prep_c1_66",
-    "acad_b1_11_summarising"
-   ]
-  },
   "cite": {
    "w": "cite",
    "pos": "v",
@@ -101717,18 +101936,6 @@ window.WORDBANK={
     "lesson_02_past_continuous",
     "b1_29_friendship",
     "grammar_a2_11_future_will_going_to"
-   ]
-  },
-  "hesitation": {
-   "w": "hesitation",
-   "pos": "n",
-   "def": "a short pause before you do or say something",
-   "ex": "After a moment of hesitation, she agreed to help.",
-   "lessons": [
-    "gr_b2_the_lie_detector",
-    "sp_a2_16_fillers_hesitation",
-    "lesson-10-number-review",
-    "aviation_english_icao_exam_5"
    ]
   },
   "probe": {
@@ -106109,20 +106316,6 @@ window.WORDBANK={
     "acad_b1_12_comparing_contrasting"
    ]
   },
-  "elaborate": {
-   "w": "elaborate",
-   "pos": "v",
-   "def": "to give more details about something you have said",
-   "ex": "Could you elaborate on why you changed your diet so suddenly?",
-   "lessons": [
-    "bc_mind_over_body_health_b2c1",
-    "acad_b1_21_asking_good_questions",
-    "wp_30_the_razor",
-    "lesson_40_b2_review_fluency_challenge",
-    "sp_a2_08_giving_reasons",
-    "sp_prep_b1_36"
-   ]
-  },
   "incontrovertible": {
    "w": "incontrovertible",
    "pos": "adj",
@@ -107089,20 +107282,6 @@ window.WORDBANK={
     "rp_40_the_ticket_inspector",
     "su_a2_75_presentation_structure",
     "sp_prep_b2_57"
-   ]
-  },
-  "anecdote": {
-   "w": "anecdote",
-   "pos": "n",
-   "def": "a short, interesting story about a real event",
-   "ex": "He began with a funny anecdote about his first job.",
-   "lessons": [
-    "bc_rhetorical_devices_c1",
-    "speaking_naturally_02_storytelling_anecdotes",
-    "b1_35_effective_anecdotes",
-    "wp_04_atoms_in_the_void",
-    "b1_38_telling_effective_anecdotes",
-    "ib_adichie_analysis_lesson"
    ]
   },
   "heavy-handed": {
@@ -115289,15 +115468,6 @@ window.WORDBANK={
     "su_a2_56_seeing_is_believing"
    ]
   },
-  "reiterate": {
-   "w": "reiterate",
-   "pos": "v",
-   "def": "to say something again for emphasis or clarity",
-   "ex": "Let me reiterate the most important safety rule.",
-   "lessons": [
-    "acad_b1_07_basic_presentations"
-   ]
-  },
   "engagement": {
    "w": "engagement",
    "pos": "n",
@@ -117438,23 +117608,6 @@ window.WORDBANK={
    "ex": "By the way, I saw your brother yesterday.",
    "lessons": [
     "speaking_naturally_04_small_talk_fillers"
-   ]
-  },
-  "filler": {
-   "w": "filler",
-   "pos": "n",
-   "def": "a short word or phrase used while you think",
-   "ex": "Well and anyway are common fillers in spoken English.",
-   "lessons": [
-    "speaking_naturally_04_small_talk_fillers",
-    "prof_c1_03_executive_presence",
-    "a1p_49_connected_speech",
-    "lesson_25_b1_review_fluency",
-    "sp_a2_01_buying_time",
-    "sp_a2_16_fillers_hesitation",
-    "sp_prep_a2_16",
-    "sp_prep_c1_74",
-    "diagnostic-assessment-lesson"
    ]
   },
   "i'm afraid there's": {
@@ -146420,15 +146573,6 @@ window.WORDBANK={
     "cpe_read_c2_03_invented_languages"
    ]
   },
-  "marginal": {
-   "w": "marginal",
-   "pos": "adj",
-   "def": "small and not very important",
-   "ex": "The change made only a marginal difference.",
-   "lessons": [
-    "cpe_read_c2_03_invented_languages"
-   ]
-  },
   "circumstantial": {
    "w": "circumstantial",
    "pos": "adj",
@@ -148197,18 +148341,6 @@ window.WORDBANK={
     "lesson_50_mastery_celebration_finale"
    ]
   },
-  "overview": {
-   "w": "overview",
-   "pos": "n",
-   "def": "a short general summary of the main points",
-   "ex": "Start the report with a clear overview of trends.",
-   "lessons": [
-    "IELTS Writing Quick Reference Guides",
-    "ielts_task1_intro_flip_b2",
-    "ielts_task1_intro_vault_b2",
-    "rs_y9_sum2_18_06"
-   ]
-  },
   "criterion": {
    "w": "criterion",
    "pos": "n",
@@ -148976,16 +149108,6 @@ window.WORDBANK={
     "ielts_lesson_2_marking_criteria"
    ]
   },
-  "topic sentence": {
-   "w": "topic sentence",
-   "pos": "phr",
-   "def": "the first sentence of a paragraph that states its main idea",
-   "ex": "Each paragraph in your report needs a clear topic sentence.",
-   "lessons": [
-    "ielts_lesson_3_body_paragraphs",
-    "acad_b1_04_writing_paragraphs"
-   ]
-  },
   "sketch": {
    "w": "sketch",
    "pos": "v",
@@ -149479,16 +149601,6 @@ window.WORDBANK={
    "ex": "Leave out small details and focus on the main points.",
    "lessons": [
     "ielts_task_1_lesson_2_line_graphs"
-   ]
-  },
-  "fluctuate": {
-   "w": "fluctuate",
-   "pos": "v",
-   "def": "to change often between higher and lower levels",
-   "ex": "The price of fuel fluctuates from week to week.",
-   "lessons": [
-    "ielts_task_1_lesson_3_bar_pie",
-    "acad_b1_10_describing_graphs"
    ]
   },
   "usage": {
@@ -152625,15 +152737,6 @@ window.WORDBANK={
     "sp_b2_49_register"
    ]
   },
-  "idiomatic": {
-   "w": "idiomatic",
-   "pos": "adj",
-   "def": "natural and typical of the way native speakers talk",
-   "ex": "Her English is fluent and very idiomatic.",
-   "lessons": [
-    "sp_b2_51_idiomatic"
-   ]
-  },
   "stiff": {
    "w": "stiff",
    "pos": "adj",
@@ -153177,16 +153280,6 @@ window.WORDBANK={
    "ex": "The most probable cause of the fire was a cigarette.",
    "lessons": [
     "sp_prep_b1_39"
-   ]
-  },
-  "thesis statement": {
-   "w": "thesis statement",
-   "pos": "n",
-   "def": "a sentence that states the main argument of a talk or essay",
-   "ex": "Put your thesis statement near the beginning.",
-   "lessons": [
-    "sp_prep_b2_41",
-    "acad_b2_15_thesis_statements"
    ]
   },
   "elaborate on": {

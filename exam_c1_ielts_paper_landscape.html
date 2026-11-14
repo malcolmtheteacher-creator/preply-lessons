@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Paper Landscape: IELTS Writing Task 1 · C1 English</title>
+<meta name="description" content="A 3D pop-up book lesson for IELTS Academic Writing Task 1, Band 7 to 8: read a line graph as a landscape, plant flags on the key features and build the report on four signposts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="popup_kit/popbook.css">
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <h1>The Paper Landscape</h1>
+    <span class="sub">IELTS Writing Task 1 · Band 7 to 8 · C1 Level</span>
+    <p class="crosslink"><a href="ielts_task_1_dashboard.html">← All IELTS Writing Task 1 practice</a></p>
+    <nav id="stages"></nav>
+  </div>
+  <div id="houseWrap">
+    <canvas id="house"></canvas>
+    <div id="vig"></div>
+    <div id="nogl">The 3D book needs a browser with 3D graphics switched on. Try a recent version of Chrome, Edge, Safari or Firefox.</div>
+    <div class="roomsbar" id="views"></div>
+    <div class="tools">
+      <button class="chip sq" id="zin" aria-label="Zoom in">+</button>
+      <button class="chip sq" id="zout" aria-label="Zoom out">−</button>
+      <button class="chip" data-sheet="sh-words">Key words</button>
+      <button class="chip" id="hide">Hide text</button>
+    </div>
+    <div id="hover"></div>
+  </div>
+  <div id="panel">
+    <div id="pbody"></div>
+    <div id="pnav"><button class="btn ghost" id="back">← Back</button><span id="pcount"></span><span class="sp"></span><button class="btn" id="next">Next →</button></div>
+  </div>
+</div>
+<div id="sheet"><div id="sheetIn">
+  <button class="btn small closeb" data-close>Close</button>
+  <div class="sh" id="sh-words">
+    <h2>Key words</h2>
+    <div class="meaning"><b>overview</b> (noun) — a short summary of the main patterns, without details. Example: "Her overview named the two biggest changes and gave no figures."</div>
+    <div class="meaning"><b>trend</b> (noun) — the general direction in which something changes over time. Example: "The upward trend in online news continued for twenty years."</div>
+    <div class="meaning"><b>fluctuate</b> (verb) — go up and down repeatedly, without a clear direction. Example: "Visitor numbers fluctuate from year to year but stay close to fifty thousand."</div>
+    <div class="meaning"><b>plateau</b> (noun) — a period when a figure stays level after rising. Example: "Sales reached a plateau in 2015 and hardly moved for five years."</div>
+    <div class="meaning"><b>peak</b> (noun) — the highest point that a figure reaches. Example: "Television viewing hit its peak in 2010 and fell afterwards."</div>
+    <div class="meaning"><b>overtake</b> (verb) — pass something and become bigger than it. Example: "Online news will overtake television if the lines keep moving this way."</div>
+    <div class="meaning"><b>marginal</b> (adjective) — very small, hardly worth noticing. Example: "There was only a marginal difference between the two years."</div>
+    <div class="meaning"><b>respectively</b> (adverb) — in the same order as the things just named. Example: "Newspapers and television stood at 62% and 70% respectively."</div>
+  </div>
+</div></div>
+
+<script src="philosophy_gallery/three.min.js"></script>
+<script src="popup_kit/popbook.js"></script>
+<script>
+(function(){
+var XS=[-8,-4,0,4,8],YR=[2005,2010,2015,2020,2025],H=4;function Y(v){return v/100*H}
+var D=[{title:'How households in one city got their news',sub:'per cent of households · 2005 to 2025',names:['Online','Television','Newspapers'],cols:['#d9502f','#2b5d8f','#c98a1e'],vals:[[12,30,55,74,86],[70,72,65,52,40],[62,55,41,27,15]]},
+       {title:'Visitors to three attractions in one town',sub:'thousands of visitors a year · 2005 to 2025',names:['Zoo','Castle','Museum'],cols:['#2f8f83','#b9432d','#7a5aa8'],vals:[[30,48,44,66,78],[85,74,60,48,40],[50,52,49,51,50]]}];
+var SZ=[-2.5,-2.0,-1.5],PX=[-7.2,-2.4,2.4,7.2],PZ=2.3,BX=10.4;
+var POST=[['Introduction','what the chart shows'],['Overview','the big picture, no figures'],['Body 1','the line that rose'],['Body 2','the lines that fell']];
+var PCOL=['#2f8f83','#c98a1e','#d9502f','#2b5d8f'];
+/* places a flag could go: [series, x, value, key?, why] */
+var CAND=[[0,-8,12,1,'The lowest starting point: this is where the big rise begins.'],[0,8,86,1,'The highest figure on the whole chart.'],[0,-1.44,46,1,'Online passes newspapers here, at around 2013. A crossing is always worth a flag.'],
+ [0,1.25,61,1,'Online passes television, shortly after 2016: the moment the leader changes.'],[1,-4,72,1,'The peak for television, just before its long fall.'],[2,8,15,1,'The lowest figure at the end: newspapers have lost about three quarters of their readers.'],
+ [1,0,65,0,'Walk past. It is one step on the way down: nothing changes direction here.'],[2,-4,55,0,'Walk past. Newspapers were falling before this point and keep falling after it.'],[0,0,55,0,'Walk past. It is halfway up a steady climb. The start, the end and the crossings tell the story better.']];
+var ser=[[],[]],leg=[[],[]],titles=[],posts=[],cover=[],pcount=[],marks=[],flags=[],bin,binLab,cur=0;
+var V={all:{x:1,y:1.8,z:-.2,w:29,v:5},chart:{x:.8,y:2.0,z:-1.2,w:27,v:4.0},posts:{x:1.4,y:1.4,z:1.2,w:29,v:3.6,ph:.98},hill:{x:.5,y:1.2,z:-.8,w:24,v:6.2,ph:.5}};
+
+function page(x,k,X,Z,W,Hh){x.beginPath();x.rect(X(-9.3),Z(-3.5),18.6*k,4.3*k);x.fillStyle='#efe3c6';x.fill();x.lineWidth=6;x.strokeStyle='#22304a';x.stroke();
+  x.fillStyle='#22304a';x.font='700 46px "DM Sans", sans-serif';x.textAlign='center';x.textBaseline='middle';YR.forEach(function(y,i){x.fillText(y,X(XS[i]),Z(.35))});
+  x.strokeStyle='#8f5a2e';x.lineWidth=12;x.lineCap='round';x.setLineDash([4,28]);x.beginPath();x.moveTo(X(-10.6),Z(3.6));x.lineTo(X(9.2),Z(3.6));x.stroke();x.setLineDash([])}
+
+function build(P){var C=P.C,rr=P.rr,poly=P.poly,circ=P.circ,open=[];
+  /* back wall with the scale */
+  var w=P.popup(0,-3.3);open.push(w);rr(w.g,0,0,18.4,4.75,.15,'#f3e7cf',0,true);for(var v=0;v<=100;v+=20)rr(w.g,.3,Y(v)+.12,17.2,.035,.01,v?'#d6c298':'#22304a',1);
+  P.words(w.g,.8,4.6,-8.75,.02,1,function(c,Wd,Hd){c.fillStyle='#22304a';c.font='700 '+Wd*.34+'px "DM Sans", sans-serif';c.textAlign='center';c.textBaseline='middle';for(var v=0;v<=100;v+=20)c.fillText(v,Wd/2,Hd-(Y(v)+.12)/4.6*Hd)});
+  D.forEach(function(d,di){
+    var t=P.popup(0,3.95);t.lean=-.7;rr(t.g,0,-.03,9.9,1.02,.1,'#22304a',-.6);P.sign(t.g,0,0,9.7,.95,d.title,d.sub,C.CORAL);titles[di]=t;
+    d.vals.forEach(function(vals,i){var p=P.popup(0,SZ[i]),up=[],lo=[],upB=[],loB=[];
+      vals.forEach(function(v,k){up.push([XS[k],Y(v)+.25]);lo.unshift([XS[k],Y(v)-.01]);upB.push([XS[k]+(k?k===4?.08:0:-.08),Y(v)+.33]);loB.unshift([XS[k]+(k?k===4?.08:0:-.08),Y(v)-.09])});
+      poly(p.g,upB.concat(loB),C.WHITE,0);poly(p.g,up.concat(lo),d.cols[i],1);
+      vals.forEach(function(v,k){rr(p.g,XS[k],0,.07,Y(v),.02,d.cols[i],.5);circ(p.g,XS[k],Y(v)+.12,.2,C.WHITE,2);circ(p.g,XS[k],Y(v)+.12,.11,d.cols[i],3)});
+      p.g.position.y=.12;ser[di][i]=p;
+      var l=P.popup(BX-.6,-2.6+i*.95);l.lean=-.35;rr(l.g,0,-.03,2.3,.62,.08,d.cols[i],-.6);P.sign(l.g,0,0,2.16,.56,d.names[i],null);leg[di][i]=l})});
+  [0,1,2].forEach(function(i){P.hit(2.4,1,1,BX-.6,P.PY+.4,-2.6+i*.95,{k:'leg',i:i})});
+  /* flags and question marks on the first chart */
+  CAND.forEach(function(c,i){var z=SZ[c[0]],y=Y(c[2])+.24;marks[i]=P.label('?','#22304a','#ffffff',1.7);marks[i].position.set(c[1],P.PY+y+.5,z+.15);marks[i].visible=false;
+    c.hit=P.hit(1,1.1,1.6,c[1],P.PY+y+.35,z,{k:'cand',i:i});c.hit.userData.off=true;
+    if(c[3]){var f=P.popup(c[1],z+.14);f.outer.position.y=P.PY+y+.12;rr(f.g,0,0,.07,1.0,.02,C.INK,0,true);poly(f.g,[[.035,.98],[.72,.76],[.035,.54]],C.CORAL,1);flags[i]=f}});
+  /* four signposts */
+  PX.forEach(function(x,i){var p=P.popup(x,PZ);open.push(p);rr(p.g,0,0,.14,1.5,.04,C.WOOD2,0,true);rr(p.g,0,.82,3.84,1.1,.1,PCOL[i],.6);P.sign(p.g,0,.89,3.7,.96,POST[i][0],POST[i][1],PCOL[i],1);
+    cover[i]=rr(p.g,0,.89,3.7,.96,.08,C.WHITE,2.4);var q=P.words(p.g,3.7,.96,0,.89,2.6,function(c,Wd,Hd){c.fillStyle=PCOL[i];c.font='400 '+Hd*.6+'px "Abril Fatface", Georgia, serif';c.textAlign='center';c.textBaseline='middle';c.fillText('?',Wd/2,Hd/2)});cover[i].add(q);q.position.set(0,.48,.06);cover[i].visible=false;
+    posts[i]=p;P.hit(3.9,2.2,1.2,x,P.PY+1.1,PZ,{k:'post',i:i});pcount[i]=P.label('',PCOL[i],'#fff',1.6);pcount[i].position.set(x,P.PY+2.35,PZ);pcount[i].visible=false});
+  /* waste-paper basket */
+  bin=P.popup(BX,PZ+.3);poly(bin.g,[[-.62,-.02],[.62,-.02],[.8,1.4],[-.8,1.4]],C.WHITE,-.5);poly(bin.g,[[-.56,.03],[.56,.03],[.73,1.34],[-.73,1.34]],C.NAVY,0);for(var j=-2;j<=2;j++){var sl=rr(bin.g,j*.24,.12,.07,1.05,.02,'#46597d',1);sl.rotation.z=-j*.055}rr(bin.g,0,1.18,1.46,.16,.04,'#1b2740',2);
+  binLab=P.label('Leave out','#22304a','#fff',2.1);binLab.position.set(BX,P.PY+2.0,PZ+.3);binLab.visible=false;P.hit(1.8,1.8,1.2,BX,P.PY+.9,PZ+.3,{k:'bin'});
+  open.forEach(function(p,i){P.fold(p,true,350+i*110)});data(P,0,700);
+}
+function data(P,d,delay){cur=d;[0,1].forEach(function(k){var on=k===d;P.fold(titles[k],on,on?(delay||300):0);ser[k].forEach(function(p,i){P.fold(p,on,on?(delay||300)+i*160:0)});leg[k].forEach(function(p,i){P.fold(p,on,on?(delay||300)+i*100:0)})});
+  if(d===1)flags.forEach(function(f){if(f)P.fold(f,false)})}
+/* what to show: m = question marks, f = planted flags only, b = basket, c = counters, blank = hide signpost words */
+function dress(P,o){o=o||{};var S=P.S;S.flag=S.flag||{};
+  CAND.forEach(function(c,i){var done=S.flag[i];marks[i].visible=!!o.m&&cur===0;c.hit.userData.off=!o.m;
+    if(flags[i])P.fold(flags[i],cur===0&&!!done&&(o.m||o.f));
+    if(o.m)P.relabel(marks[i],done?(c[3]?'flag':'walk past'):'?',done?(c[3]?'#2f8f83':'#8a8577'):'#22304a','#ffffff')});
+  P.fold(bin,!!o.b);binLab.visible=!!o.b;posts.forEach(function(q){P.fold(q,!!o.p)});pcount.forEach(function(l){l.visible=!!o.c});cover.forEach(function(m){m.visible=!!o.blank})}
+function lc(id,t,q){return '<div class="lc" id="'+id+'"><b>'+t+'</b>'+(q||'What is it for? Guess, then click it in the book.')+'</div>'}
+function on(id,html){var e=document.getElementById(id);if(e){e.className='lc on';e.innerHTML=html}}
+function check(k,items){return '<div class="check">'+items.map(function(t,i){return '<label><input type="checkbox" data-keep="'+k+i+'">'+t+'</label>'}).join('')+'</div>'}
+function rev(id,btn,html){return '<button class="btn small ghost" data-reveal="'+id+'">'+btn+'</button><div class="reveal" id="'+id+'">'+html+'</div>'}
+function hov(u){return u.k==='leg'?D[cur].names[u.i]:u.k==='post'?'Signpost '+(u.i+1):u.k==='bin'?'Leave out':u.k==='cand'?'A flag here?':null}
+function table(d){return '<table class="bands"><tr><th></th>'+YR.map(function(y){return '<th>'+y+'</th>'}).join('')+'</tr>'+d.names.map(function(n,i){return '<tr><td>'+n+'</td>'+d.vals[i].map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>'}
+
+var LINE=['<b>Online</b>It starts lowest and ends highest.<i class="x">rose steeply throughout</i>','<b>Television</b>It starts highest, edges up, then slides.<i class="e">peaked early, then fell steadily</i>','<b>Newspapers</b>It never goes up.<i class="t">declined throughout</i>'];
+var TELL=['<b>Introduction</b>One sentence. Say what the chart shows in your own words: what is measured, where, when. No figures yet.<i class="t">The line graph shows the proportion of households in one city that used three different sources of news between 2005 and 2025.</i>',
+ '<b>Overview</b>The view from the hilltop: the two or three biggest patterns, with no figures at all. Examiners look for this first.<i class="e">Overall, online news rose dramatically to become by far the most common source, while both traditional sources lost ground.</i>',
+ '<b>Body 1</b>One group of lines, with the figures from your flags. Here: the line that rose.<i class="x">In 2005, only 12% of households read the news online. This share then climbed steeply, overtaking newspapers in around 2013.</i>',
+ '<b>Body 2</b>The other group, compared with the first. Here: the two lines that fell.<i class="l">Television, by contrast, was the leading source at the start, rising slightly to a peak of 72% in 2010.</i>'];
+var CARDS=[{s:0,t:'The line graph shows the proportion of households in one city that used three different sources of news between 2005 and 2025.',h:'It says what the chart shows, in new words, and gives no figures.'},
+ {s:1,t:'Overall, online news rose dramatically to become by far the most common source, while both traditional sources lost ground.',h:'It names the biggest patterns and contains no figures. Which signpost has the widest view?'},
+ {s:1,t:'It is also clear that newspapers declined more steeply than television over the period.',h:'It is a big-picture comparison with no figures.'},
+ {s:2,t:'In 2005, only 12% of households read the news online, the lowest figure of the three.',h:'It gives figures for the line that rose.'},
+ {s:2,t:'This share then climbed steeply, overtaking newspapers in around 2013 and television shortly after 2016.',h:'"This share" is still the line that rose.'},
+ {s:2,t:'By 2025 it had reached 86%, more than double the figure for television.',h:'"It" is still the line that rose, at its end point.'},
+ {s:3,t:'Television, by contrast, was the leading source at the start, rising slightly to a peak of 72% in 2010.',h:'"By contrast" opens the second group: the lines that fell.'},
+ {s:3,t:'It then fell steadily to 40% by the end of the period.',h:'"It" is television, one of the lines that fell.'},
+ {s:3,t:'Newspaper readership dropped throughout, from 62% to just 15%, a fall of about three quarters.',h:'It gives figures for one of the lines that fell.'},
+ {out:1,t:'This happened because smartphones became cheaper and faster.',why:'The chart shows what happened, not why. A reason you have invented is not in the data, so it cannot go in the report.'},
+ {out:1,t:'In my opinion, people should still buy newspapers to support journalism.',why:'Task 1 is a report. Opinions belong in Task 2.'},
+ {out:1,t:'Television stood at 70% in 2005, 72% in 2010, 65% in 2015, 52% in 2020 and 40% in 2025.',why:'Every figure is correct, but it copies the whole line. A report selects: the start, the peak and the end are enough.'}];
+var NEED=[1,2,3,3];
+var OV=[['A','Overall, online news went from 12% to 86%, television from 70% to 40% and newspapers from 62% to 15%.','That is six figures and no pattern. An overview is the shape of the land, not the heights.'],
+ ['B','Overall, people preferred online news because it is free and always available.','The chart cannot tell you why. That is a guess, and it leaves out the two lines that fell.'],
+ ['C','Overall, online news rose dramatically to become by far the most common source, while both traditional sources lost ground.','Yes. The biggest rise, the two falls and the change of leader, with no figures at all.'],
+ ['D','Overall, the use of online news increased over the period.','True, but it is one line out of three. From the hilltop you can see the whole landscape.']];
+var UP=[{a:'B',n:'the overview',A:'Overall, there were many changes in the three news sources during the period.',B:'Overall, online news became dominant while both traditional sources declined.',why:'It names the actual trends. A could be written about any chart in the world.'},
+ {a:'A',n:'a detail',A:'Newspaper readership fell from 62% to 15%, a drop of about three quarters.',B:'Newspaper readership decreased a lot and was very low in the end.',why:'It gives exact figures and then interprets them ("about three quarters"). B has no data at all.'},
+ {a:'B',n:'a comparison',A:'Online was 86% and television was 40% in 2025.',B:'By 2025, online news was used in more than twice as many households as television.',why:'It compares the two figures instead of placing them side by side. Task 1 asks you to "make comparisons where relevant".'}];
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+var order=shuffle(CARDS.map(function(c,i){return i}));
+
+var steps=[
+/* ---------- Arrive ---------- */
+{stage:0,html:'<h2>What comes to mind?</h2><p>Task 1 gives you a chart and twenty minutes. Before the book opens properly: no notes, no looking anything up. Have a go: <b>what must a good Task 1 answer contain, and what must it leave out?</b> Say it aloud, then jot down a few words.</p><textarea data-keep="retr" placeholder="A good Task 1 answer..."></textarea>',
+ enter:function(P){data(P,0);dress(P,{p:1});P.view(V.all)}},
+{stage:0,html:'<div class="intent">Today we\'re working on reading a chart the way an examiner does, so you can choose the features that matter and report them in a clear four-part answer at Band 8.</div>'+
+ '<table class="bands"><tr><th></th><th>Band 6</th><th>Band 7</th><th>Band 8</th></tr>'+
+ '<tr><td>Task</td><td>Has an overview; covers the key features, but some details are irrelevant or inaccurate</td><td>A clear overview of the main trends; key features are highlighted but could be developed further</td><td>Everything the task needs, and nothing it does not; key features are chosen, highlighted and illustrated with figures</td></tr>'+
+ '<tr><td>Organisation</td><td>Information is arranged, but linking can be mechanical</td><td>Logically organised with clear progression</td><td>Information and ideas are sequenced so that the reader never has to work</td></tr>'+
+ '<tr><td>Language</td><td>Adequate range; some errors in word choice</td><td>Some less common vocabulary; good control of grammar</td><td>Wide, precise vocabulary for change and comparison; most sentences error-free</td></tr></table>'+
+ '<p>The step from 7 to 8 is <b>selection</b>. A Band 8 report says less, and chooses better.</p>',
+ enter:function(P){data(P,0);dress(P,{p:1});P.view(V.all)}},
+{stage:0,html:'<h2>Which opening scores higher?</h2><p>Two students start their report on the chart in the book. Read both, <b>say your reason aloud</b>, then choose.</p><div class="pair">'+
+ '<button class="para" data-a="A"><span class="tag">A</span>In 2005 online news was 12%, television was 70% and newspapers were 62%. In 2010 online news was 30%, television was 72% and newspapers were 55%. In 2015 online news was 55%...</button>'+
+ '<button class="para" data-a="B"><span class="tag">B</span>The graph shows how households in one city got their news between 2005 and 2025. Overall, online news rose dramatically to become the most common source, while television and newspapers both declined.</button></div><div class="fb" id="fb"></div>',
+ enter:function(P){data(P,0);dress(P);P.view(V.chart)},
+ act:function(a,el,P){if(a==='B'){el.classList.add('right');P.say('fb','good','B tells the reader what the chart is and what happened, before a single figure. A reads the chart aloud, year by year: the reader finishes with fifteen numbers and no idea what they mean.')}
+  else{el.classList.add('wrong');P.say('fb','bad','After reading A, could you say in one sentence what happened to news in this city?')}}},
+/* ---------- Read the land ---------- */
+{stage:1,html:'<h2>Read the land before the numbers</h2><div class="speak"><b>SAY IT FIRST:</b> What is being measured? Where? Over what period? In what unit?</div>'+rev('r0','Check','The share of households using each source of news; one city; 2005 to 2025; per cent.')+
+ '<p>Now look at the three paper lines as if they were hills. <b>Describe the shape of each in three or four words</b>, then click its name tab at the right of the chart.</p><div class="learn">'+lc('l0','Online','Its shape? Say it, then click its tab.')+lc('l1','Television','Its shape? Say it, then click its tab.')+lc('l2','Newspapers','Its shape? Say it, then click its tab.')+'</div>',
+ enter:function(P){data(P,0);dress(P);P.view(V.chart);P.hoverText=hov;P.onClick=function(u){if(u.k!=='leg')return;P.wob(leg[0][u.i]);P.wob(ser[0][u.i]);on('l'+u.i,LINE[u.i])}}},
+{stage:1,html:function(P){return '<h2>Six flags to plant</h2><p>There are fifteen figures on this chart. A Band 8 report uses about six of them. <b>Click each question mark</b>: does that spot deserve a flag, or do you walk past? Decide before you click.</p><div class="fb" id="fb"></div><p class="status" id="st"></p>'},
+ enter:function(P){data(P,0);dress(P,{m:1});P.view(V.chart);var S=P.S;function st(){var n=0,f=0;CAND.forEach(function(c,i){if(S.flag[i]){n++;if(c[3])f++}});document.getElementById('st').textContent='Flags planted: '+f+' of 6 · Spots checked: '+n+' of 9';
+    if(n===9)P.say('fb','good','Six flags: where the lines start and end at their extremes, where one peaks, and where they cross. Those six figures carry the whole report.')}st();
+   P.hoverText=hov;P.onClick=function(u){if(u.k!=='cand')return;var c=CAND[u.i];S.flag[u.i]=1;dress(P,{m:1});P.say('fb',c[3]?'good':'note',(c[3]?'A flag. ':'')+c[4]);st()}}},
+{stage:1,html:'<h2>The view from the hilltop</h2><p>Climb above the landscape. From up here you cannot read any figures: you can only see the shape of the land. That view is your <b>overview</b>. Which sentence describes it best?</p><div class="opts" style="display:block">'+
+ OV.map(function(o){return '<button class="para" style="display:block;width:100%;margin-bottom:6px" data-a="'+o[0]+'"><span class="tag">'+o[0]+'</span>'+o[1]+'</button>'}).join('')+'</div><div class="fb" id="fb"></div>',
+ enter:function(P){data(P,0);dress(P,{f:1});P.view(V.hill)},
+ act:function(a,el,P){var o=OV.filter(function(x){return x[0]===a})[0];el.classList.add(a==='C'?'right':'wrong');P.say('fb',a==='C'?'good':'bad',o[2])}},
+/* ---------- Build the report ---------- */
+{stage:2,html:'<h2>Four signposts</h2><p>Every Task 1 report follows the same path past four signposts. <b>Guess the job of each</b>, then click it.</p><div class="learn">'+lc('p0','First signpost')+lc('p1','Second signpost')+lc('p2','Third signpost')+lc('p3','Fourth signpost')+'</div>'+
+ '<div class="speak"><b>DISCUSS:</b> There is no fifth signpost for a conclusion. Why not? What would it repeat?</div>',
+ enter:function(P){data(P,0);dress(P,{f:1,blank:1,p:1});P.view(V.posts);P.hoverText=hov;P.onClick=function(u){if(u.k!=='post')return;cover[u.i].visible=false;P.wob(posts[u.i]);on('p'+u.i,TELL[u.i])}}},
+{stage:2,html:function(P){return '<p>Twelve sentences: <b>nine</b> belong in the report, <b>three</b> are left out. Choose one, then click its signpost, or the basket at the end of the path.</p><div class="fb" id="hfb"></div><p class="status" id="st"></p><div id="cards"></div>'},
+ enter:function(P){data(P,0);dress(P,{f:1,b:1,c:1,p:1});P.view(V.posts);var S=P.S;if(!S.g)S.g={done:{},n:[0,0,0,0],out:0,tries:0,sel:null};var G=S.g;
+   function draw(){var box=document.getElementById('cards');box.innerHTML='';order.forEach(function(i){if(G.done[i])return;var b=document.createElement('button');b.className='scard'+(G.sel===i?' sel':'');b.textContent=CARDS[i].t;b.setAttribute('data-a',i);box.appendChild(b)});
+     PX.forEach(function(x,i){P.relabel(pcount[i],G.n[i]+' of '+NEED[i],PCOL[i],'#ffffff')});P.relabel(binLab,'Leave out: '+G.out+' of 3','#22304a','#ffffff');
+     var left=12-Object.keys(G.done).length;document.getElementById('st').textContent='In the report: '+(G.n[0]+G.n[1]+G.n[2]+G.n[3])+' of 9 · Left out: '+G.out+' of 3 · Tries: '+G.tries;
+     if(!left)P.say('hfb','good','The report is complete: one sentence of introduction, two of overview, three for each body paragraph, and nothing that the chart does not show.')}
+   this.draw=draw;draw();P.hoverText=hov;
+   P.onClick=function(u){if(u.k!=='post'&&u.k!=='bin')return;if(G.sel===null){P.say('hfb','note','Choose a sentence first.');return}var c=CARDS[G.sel];G.tries++;
+     if(u.k==='bin'){if(c.out){G.done[G.sel]=1;G.out++;G.sel=null;P.wob(bin);P.say('hfb','good','Left out. '+c.why)}else P.say('hfb','bad','This one is in the data and belongs in the report. '+c.h)}
+     else if(c.out)P.say('hfb','bad','Check it against the chart. Can you point to this on the paper lines, and does a report need it?')
+     else if(c.s===u.i){G.done[G.sel]=1;G.n[u.i]++;G.sel=null;P.wob(posts[u.i]);P.say('hfb','good','In place under '+POST[u.i][0]+'. '+c.h)}
+     else P.say('hfb','bad',c.h);draw()}},
+ act:function(a,el,P){P.S.g.sel=+a;this.draw();P.say('hfb','note','Now click its signpost in the book, or the basket to leave it out.')}},
+{stage:2,html:'<h2>The Task 1 toolbox</h2><div class="tool">'+
+ '<div><b>Verb + adverb</b><i>rose steeply</i> · <i>climbed steadily</i> · <i>fell sharply</i> · <i>dipped slightly</i> · <i>levelled off</i> · <i>peaked at</i> · <i>fluctuated</i></div>'+
+ '<div><b>Adjective + noun</b><i>a dramatic rise in…</i> · <i>a steady decline in…</i> · <i>a slight dip</i> · <i>a plateau</i> · <i>a marginal change</i></div>'+
+ '<div><b>Compare</b><i>more than double</i> · <i>roughly a third of</i> · <i>by contrast</i> · <i>whereas</i> · <i>overtook</i> · <i>62% and 70% respectively</i></div>'+
+ '<div><b>Approximate</b><i>just under</i> · <i>around</i> · <i>a little over</i> · <i>about three quarters</i></div>'+
+ '<div><b>Time</b>Finished years take the past simple: <i>fell, rose, peaked</i>. For an end point: <i>by 2025 it had reached…</i></div></div>'+
+ '<div class="speak"><b>SPEAK:</b> Say each one a second way, changing verb + adverb into adjective + noun. "Online news rose steeply." · "Television viewing fell steadily." · "The figure dipped slightly."</div>'+
+ rev('r2','Compare with these','<i>There was a steep rise in online news.</i> · <i>There was a steady fall in television viewing.</i> · <i>There was a slight dip in the figure.</i>'),
+ enter:function(P){data(P,0);dress(P,{f:1});P.view(V.chart)}},
+{stage:2,html:function(P){var S=P.S;S.up=S.up||[null,null,null];return '<h2>Good, or Band 8?</h2><p>Each pair does the same job. Choose the stronger sentence and <b>say why</b> before you check.</p>'+UP.map(function(u,i){var d=S.up[i];
+   return '<h3>'+(i+1)+'. '+u.n.charAt(0).toUpperCase()+u.n.slice(1)+'</h3><div class="pair">'+['A','B'].map(function(k){return '<button class="para'+(d&&k===u.a?' right':d===k?' wrong':'')+'" data-a="'+i+k+'"><span class="tag">'+k+'</span>'+u[k]+'</button>'}).join('')+'</div>'+(d?'<div class="fb '+(d===u.a?'good':'bad')+'">'+u.a+' is stronger. '+u.why+'</div>':'')}).join('')},
+ enter:function(P){data(P,0);dress(P,{f:1});P.view(V.chart)},
+ act:function(a,el,P){P.S.up[+a.charAt(0)]=a.charAt(1);var sc=document.getElementById('pbody').scrollTop;P.redraw();document.getElementById('pbody').scrollTop=sc}},
+/* ---------- Your report ---------- */
+{stage:3,html:'<h2>A new landscape: plan in three minutes</h2><p>The page has turned. The lines now show <b>visitors to three attractions in one town</b>, in thousands a year.</p>'+table(D[1])+
+ '<div class="timer"><span class="clock" id="ck1">3:00</span><button class="btn small" data-timer="ck1" data-sec="180">Start three minutes</button></div>'+
+ '<h3>Your flags: four to six figures that matter</h3><input type="text" data-keep="pf" placeholder="e.g. castle 85 in 2005...">'+
+ '<h3>Your overview: two sentences, no figures</h3><textarea data-keep="po" placeholder="Overall,..."></textarea>'+
+ '<h3>How will you group the lines?</h3><input type="text" data-keep="pg" placeholder="Body 1: ...   Body 2: ...">',
+ enter:function(P){data(P,1);dress(P);P.view(V.chart)}},
+{stage:3,html:function(P){var k=P.S.keep;return '<h2>Write the report: twenty minutes, at least 150 words</h2><div class="qbox"><b>The task:</b> The graph shows the number of visitors to three attractions in one town between 2005 and 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>'+
+ (k.po?'<p><b>Your overview:</b> '+String(k.po).replace(/</g,'&lt;')+'</p>':'')+
+ '<div class="timer"><span class="clock" id="ck2">20:00</span><button class="btn small" data-timer="ck2" data-sec="1200">Start twenty minutes</button></div>'+
+ '<textarea data-keep="rep" data-count="wc" style="min-height:150px" placeholder="The line graph..."></textarea><div class="wc" id="wc">0 words</div>'+
+ check('cw',['My introduction says what the chart shows in my own words.','My overview has no figures and covers all three lines.','Every figure I used is one of my flags.','I compared the lines; I did not only describe them one by one.','There is no opinion and no reason that the chart does not show.'])+
+ rev('rm','Compare with a Band 8 report','<p>The line graph compares the number of visitors to three attractions in one town each year between 2005 and 2025.</p><p>Overall, the zoo grew to become the most popular attraction, while the castle lost more than half of its visitors. The museum, by contrast, remained almost unchanged throughout.</p>'+
+ '<p>In 2005, the castle was by far the most visited site, with 85,000 visitors, but this figure fell steadily to 40,000 by 2025. The zoo moved in the opposite direction. Starting at 30,000, it rose to 48,000 in 2010, dipped slightly over the next five years, and then climbed steeply to finish at 78,000. It overtook the castle shortly after 2015.</p>'+
+ '<p>Visitor numbers at the museum fluctuated only marginally, staying close to 50,000 in every year shown. As a result, it was the second most popular attraction at both the start and the end of the period, even though the two sites around it had changed places.</p><p><b>165 words.</b> Find the introduction, the overview and the two groups. Which figures did the writer leave out?</p>')},
+ enter:function(P){data(P,1);dress(P);P.view(V.chart)}},
+/* ---------- Remember ---------- */
+{stage:4,html:'<h2>Recall zone</h2><p>Three quick ones from further back. Without looking anything up, say each answer aloud, then check.</p>'+
+ '<div class="speak"><b>1.</b> When do you write "the number of" and when "the amount of"? Give one example of each.</div>'+rev('z1','Check','"The number of" for things you can count (visitors, cars). "The amount of" for things you cannot (water, traffic, time).')+
+ '<div class="speak"><b>2.</b> What is the difference between "rose by 10%" and "rose to 10%"?</div>'+rev('z2','Check','"By" gives the size of the change. "To" gives the figure it reached.')+
+ '<div class="speak"><b>3.</b> Give three ways to say "about" before a figure.</div>'+rev('z3','Check','For example: approximately, roughly, around, just under, just over, nearly.'),
+ enter:function(P){data(P,0);dress(P,{f:1,p:1});P.view(V.all)}},
+{stage:4,html:'<h2>The signposts without their words</h2><p>The words have gone from the four signposts. <b>Say the name and the job of each one aloud</b>, then click it to check.</p><p class="status" id="st">Checked: 0 of 4</p><div class="fb" id="fb"></div>'+
+ '<div class="speak"><b>FROM MEMORY:</b> Which six kinds of spot deserve a flag on any line graph?</div>'+rev('z4','Check','The highest and lowest figures, the start and end points when they are extreme, any peak or turning point, and every place where two lines cross.'),
+ enter:function(P){data(P,0);dress(P,{f:1,blank:1,p:1});P.view(V.posts);var seen={};P.hoverText=function(u){return u.k==='post'?'Say it, then click':null};P.onClick=function(u){if(u.k!=='post')return;cover[u.i].visible=false;P.wob(posts[u.i]);seen[u.i]=1;var n=Object.keys(seen).length;
+   document.getElementById('st').textContent='Checked: '+n+' of 4';if(n===4)P.say('fb','good','Introduction, overview, two bodies. The same four signposts work for every chart you will meet.')}}},
+{stage:4,html:'<h2>The whole landscape</h2><p>We said you would be able to choose the features that matter and report them in a clear four-part answer. Can you?</p>'+
+ '<div class="speak"><b>REFLECT:</b> What was harder: deciding what to leave out, or writing the overview without figures? What helped?</div>'+
+ '<div class="speak"><b>REFLECT:</b> What will you do in the first three minutes of your next Task 1?</div>'+
+ check('ic',['I can say what a chart shows before I look at any figures.','I can pick the six or so figures that deserve a flag.','I can write an overview with no figures in it.','I can group the data into two body paragraphs and compare.','I can keep reasons and opinions out of a report.']),
+ enter:function(P){data(P,0);dress(P,{f:1,p:1});P.view(V.hill)}}
+];
+PopBook.run({book:{w:24.6,d:10,z:.2,left:'The Paper Landscape',right:'Writing Task 1'},page:page,build:build,home:V.all,
+ stages:['Arrive','Read the land','Build the report','Your report','Remember'],views:[{name:'Whole page',v:V.all},{name:'The chart',v:V.chart},{name:'The signposts',v:V.posts},{name:'From the hilltop',v:V.hill}],steps:steps});
+})();
+</script>
+<script src="wordbank/hook.js"></script>
+</body>
+</html>
