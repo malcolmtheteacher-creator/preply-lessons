@@ -9338,6 +9338,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_b2c1_the_lifeboat",
+   "title": "The Lifeboat: a speaking adventure",
+   "level": "",
+   "words": [
+    "jettison",
+    "overboard",
+    "expendable",
+    "indispensable",
+    "tarpaulin",
+    "flare",
+    "drift",
+    "ration",
+    "hindsight",
+    "stranded"
+   ]
+  },
+  {
    "id": "story_a2b1_dorando_marathon",
    "title": "Dorando: Won and Lost in the Marathon",
    "level": "",
@@ -58035,6 +58052,7 @@ window.WORDBANK={
     "persepolis_bc_revolution",
     "persepolis_child",
     "short_history_the_first_stock_market",
+    "speaking_b2c1_the_lifeboat",
     "ts_thinking_in_bets_b2",
     "lesson_world_war_2_speaking",
     "curious_conversations_04_best_advice",
@@ -61402,11 +61420,12 @@ window.WORDBANK={
   },
   "jettison": {
    "w": "jettison",
-   "pos": "v",
+   "pos": "verb",
    "def": "to throw away or abandon something on purpose, usually to reduce weight or danger.",
-   "ex": "",
+   "ex": "The crew had to jettison half the cargo to stay afloat.",
    "lessons": [
-    "behind_the_screen_gravity"
+    "behind_the_screen_gravity",
+    "speaking_b2c1_the_lifeboat"
    ]
   },
   "momentum": {
@@ -78027,11 +78046,12 @@ window.WORDBANK={
   },
   "ration": {
    "w": "ration",
-   "pos": "v",
+   "pos": "verb",
    "def": "to limit each person to a small measured amount of something scarce; also a noun, a ration.",
-   "ex": "",
+   "ex": "We had to ration the water to one cup each a day.",
    "lessons": [
-    "short_history_apollo_13"
+    "short_history_apollo_13",
+    "speaking_b2c1_the_lifeboat"
    ]
   },
   "jury-rigged": {
@@ -80315,11 +80335,12 @@ window.WORDBANK={
   },
   "drift": {
    "w": "drift",
-   "pos": "v",
+   "pos": "verb",
    "def": "to be carried slowly along by water or air, without steering or power.",
-   "ex": "",
+   "ex": "With no engine, the boat began to drift away from the coast.",
    "lessons": [
     "short_history_mutiny_on_the_bounty",
+    "speaking_b2c1_the_lifeboat",
     "short_history_mutiny_on_the_bounty_a2b1",
     "wk_12_the_changing_brief"
    ]
@@ -85484,6 +85505,64 @@ window.WORDBANK={
     "sp_prep_a2_12"
    ]
   },
+  "overboard": {
+   "w": "overboard",
+   "pos": "adverb",
+   "def": "over the side of a boat and into the water",
+   "ex": "A wave washed two boxes overboard during the night.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat"
+   ]
+  },
+  "expendable": {
+   "w": "expendable",
+   "pos": "adjective",
+   "def": "not needed enough to keep; able to be given up",
+   "ex": "In the end we agreed that the suitcase was expendable.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat"
+   ]
+  },
+  "indispensable": {
+   "w": "indispensable",
+   "pos": "adjective",
+   "def": "so important that you cannot manage without it",
+   "ex": "Fresh water is indispensable on any long voyage.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat",
+    "story_c1_the_body"
+   ]
+  },
+  "tarpaulin": {
+   "w": "tarpaulin",
+   "pos": "noun",
+   "def": "a large sheet of strong waterproof material",
+   "ex": "They stretched a tarpaulin over the boat to keep the sun off.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat"
+   ]
+  },
+  "flare": {
+   "w": "flare",
+   "pos": "noun",
+   "def": "a stick that burns with a very bright light, used to call for help",
+   "ex": "She lit a flare as soon as she saw the ship.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat"
+   ]
+  },
+  "stranded": {
+   "w": "stranded",
+   "pos": "adjective",
+   "def": "stuck in a place with no way of leaving",
+   "ex": "The storm left hundreds of passengers stranded on the island.",
+   "lessons": [
+    "speaking_b2c1_the_lifeboat",
+    "rp_37_at_the_consulate",
+    "short_history_shackleton",
+    "grammar_c1_08_advanced_relative_clauses"
+   ]
+  },
   "runner": {
    "w": "runner",
    "pos": "noun",
@@ -85630,15 +85709,6 @@ window.WORDBANK={
    "ex": "A caregiver looks after someone who cannot look after themselves, such as a baby or an elderly relative.",
    "lessons": [
     "story_b2_use_it_or_lose_it"
-   ]
-  },
-  "indispensable": {
-   "w": "indispensable",
-   "pos": "adj",
-   "def": "so necessary that you cannot manage without it",
-   "ex": "A good map is indispensable on a long hike.",
-   "lessons": [
-    "story_c1_the_body"
    ]
   },
   "minuscule": {
@@ -112359,17 +112429,6 @@ window.WORDBANK={
     "acad_c2_13_methodology",
     "bc_business_rules_innovation_c1",
     "aviation_eapt_02"
-   ]
-  },
-  "stranded": {
-   "w": "stranded",
-   "pos": "adj",
-   "def": "stuck somewhere with no way to leave",
-   "ex": "Without a passport, I was stranded abroad.",
-   "lessons": [
-    "rp_37_at_the_consulate",
-    "short_history_shackleton",
-    "grammar_c1_08_advanced_relative_clauses"
    ]
   },
   "verification": {
