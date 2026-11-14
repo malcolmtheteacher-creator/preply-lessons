@@ -1,6 +1,39 @@
 window.WORDBANK={
  "lessons": [
   {
+   "id": "a1_my_house_furniture_popup",
+   "title": "My House: rooms and furniture",
+   "level": "",
+   "words": [
+    "bed",
+    "wardrobe",
+    "bath",
+    "toilet",
+    "sofa",
+    "tv",
+    "table",
+    "chair",
+    "fridge"
+   ]
+  },
+  {
+   "id": "a1_the_little_boat_popup",
+   "title": "The Little Boat: what do you need?",
+   "level": "",
+   "words": [
+    "water",
+    "bread",
+    "hat",
+    "umbrella",
+    "phone",
+    "ball",
+    "tv",
+    "chair",
+    "need",
+    "heavy"
+   ]
+  },
+  {
    "id": "a1s_01_hello",
    "title": "Mia — Lesson 1 · Hello",
    "level": "A1",
@@ -47458,6 +47491,189 @@ window.WORDBANK={
   }
  ],
  "words": {
+  "bed": {
+   "w": "bed",
+   "pos": "noun",
+   "def": "you sleep on it at night",
+   "ex": "The bed is in the bedroom.",
+   "lessons": [
+    "a1_my_house_furniture_popup"
+   ]
+  },
+  "wardrobe": {
+   "w": "wardrobe",
+   "pos": "noun",
+   "def": "a big, tall box for your clothes",
+   "ex": "My coat is in the wardrobe.",
+   "lessons": [
+    "a1_my_house_furniture_popup",
+    "rp_08_buying_clothes"
+   ]
+  },
+  "bath": {
+   "w": "bath",
+   "pos": "noun",
+   "def": "you sit in it, in warm water, and wash",
+   "ex": "The bath is in the bathroom.",
+   "lessons": [
+    "a1_my_house_furniture_popup"
+   ]
+  },
+  "toilet": {
+   "w": "toilet",
+   "pos": "noun",
+   "def": "a white seat with water in it, next to the shower",
+   "ex": "The toilet is in the bathroom.",
+   "lessons": [
+    "a1_my_house_furniture_popup"
+   ]
+  },
+  "sofa": {
+   "w": "sofa",
+   "pos": "noun",
+   "def": "a long, soft seat for two or three people",
+   "ex": "The sofa is in the living room.",
+   "lessons": [
+    "a1_my_house_furniture_popup",
+    "a1_present_continuous_interactive"
+   ]
+  },
+  "tv": {
+   "w": "tv",
+   "pos": "noun",
+   "def": "you watch films and football on it",
+   "ex": "The TV is in the living room.",
+   "lessons": [
+    "a1_my_house_furniture_popup",
+    "a1_the_little_boat_popup"
+   ]
+  },
+  "table": {
+   "w": "table",
+   "pos": "noun",
+   "def": "you eat your dinner at it",
+   "ex": "The table is in the kitchen.",
+   "lessons": [
+    "a1_my_house_furniture_popup"
+   ]
+  },
+  "chair": {
+   "w": "chair",
+   "pos": "noun",
+   "def": "a seat for one person",
+   "ex": "The chair is in the kitchen.",
+   "lessons": [
+    "a1_my_house_furniture_popup",
+    "a1_the_little_boat_popup",
+    "a1s_47_toomuch",
+    "wk_08_chairing_the_meeting",
+    "sp_c1_72_chairing_discussions",
+    "sp_prep_c1_72"
+   ]
+  },
+  "fridge": {
+   "w": "fridge",
+   "pos": "noun",
+   "def": "a cold box for milk and food",
+   "ex": "The fridge is in the kitchen.",
+   "lessons": [
+    "a1_my_house_furniture_popup",
+    "a1s_22_fridge"
+   ]
+  },
+  "water": {
+   "w": "water",
+   "pos": "noun",
+   "def": "you drink it. It has no colour",
+   "ex": "I am thirsty. I need the water.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a1s_02_coffee",
+    "world_mena_desert_a2",
+    "grammar_a2_03_present_perfect_intro"
+   ]
+  },
+  "bread": {
+   "w": "bread",
+   "pos": "noun",
+   "def": "food. You eat it with butter or cheese",
+   "ex": "I am hungry. I need the bread.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a1s_22_fridge",
+    "world_ssa_food_a2",
+    "short_history_the_french_revolution_a2b1"
+   ]
+  },
+  "hat": {
+   "w": "hat",
+   "pos": "noun",
+   "def": "you wear it on your head",
+   "ex": "The sun is hot. I need the hat.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "world_na_english_a2"
+   ]
+  },
+  "umbrella": {
+   "w": "umbrella",
+   "pos": "noun",
+   "def": "you hold it over your head in the rain",
+   "ex": "It rains. I need the umbrella.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a1s_11_rain",
+    "a1s_34_will",
+    "grammar_a1_06_articles_demonstratives",
+    "qf_collocation_bring_take"
+   ]
+  },
+  "phone": {
+   "w": "phone",
+   "pos": "noun",
+   "def": "you call people with it",
+   "ex": "I need the phone. I want to call my friend.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "world_ea_technology_a2",
+    "world_ssa_mobile_a2"
+   ]
+  },
+  "ball": {
+   "w": "ball",
+   "pos": "noun",
+   "def": "a round thing. You play football with it",
+   "ex": "I don't need the ball.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a2_lesson_tennis"
+   ]
+  },
+  "need": {
+   "w": "need",
+   "pos": "verb",
+   "def": "must have",
+   "ex": "I am thirsty. I need water.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a1s_45_ifitrains"
+   ]
+  },
+  "heavy": {
+   "w": "heavy",
+   "pos": "adjective",
+   "def": "not easy to carry, like a car or a piano",
+   "ex": "A heavy box is hard to push.",
+   "lessons": [
+    "a1_the_little_boat_popup",
+    "a1s_47_toomuch",
+    "physics_a2b1_02_forces_motion",
+    "rp_05_at_the_airport_a2b1",
+    "short_history_stonehenge_a2b1",
+    "a1p_22_bigger_better",
+    "qf_collocation_heavy_strong_rain"
+   ]
+  },
   "hello": {
    "w": "hello",
    "pos": "n",
@@ -47563,17 +47779,6 @@ window.WORDBANK={
    "lessons": [
     "a1s_02_coffee",
     "world_mena_hospitality_a2"
-   ]
-  },
-  "water": {
-   "w": "water",
-   "pos": "n",
-   "def": "you drink it — no colour",
-   "ex": "People live near water.",
-   "lessons": [
-    "a1s_02_coffee",
-    "world_mena_desert_a2",
-    "grammar_a2_03_present_perfect_intro"
    ]
   },
   "sandwich": {
@@ -48372,18 +48577,6 @@ window.WORDBANK={
     "techniques_to_build_a_fire_a2b1"
    ]
   },
-  "umbrella": {
-   "w": "umbrella",
-   "pos": "",
-   "def": "you hold it over your head in the rain",
-   "ex": "",
-   "lessons": [
-    "a1s_11_rain",
-    "a1s_34_will",
-    "grammar_a1_06_articles_demonstratives",
-    "qf_collocation_bring_take"
-   ]
-  },
   "sea": {
    "w": "sea",
    "pos": "n",
@@ -49167,15 +49360,6 @@ window.WORDBANK={
     "a1s_21_flat"
    ]
   },
-  "fridge": {
-   "w": "fridge",
-   "pos": "",
-   "def": "it keeps your food cold",
-   "ex": "",
-   "lessons": [
-    "a1s_22_fridge"
-   ]
-  },
   "milk": {
    "w": "milk",
    "pos": "n",
@@ -49185,17 +49369,6 @@ window.WORDBANK={
     "a1s_22_fridge",
     "techniques_metamorphosis_2_a2b1",
     "world_oce_coffee_a2"
-   ]
-  },
-  "bread": {
-   "w": "bread",
-   "pos": "n",
-   "def": "you make sandwiches with it",
-   "ex": "Injera is a flat bread.",
-   "lessons": [
-    "a1s_22_fridge",
-    "world_ssa_food_a2",
-    "short_history_the_french_revolution_a2b1"
    ]
   },
   "butter": {
@@ -51009,15 +51182,6 @@ window.WORDBANK={
     "techniques_how_much_land_a2b1"
    ]
   },
-  "need": {
-   "w": "need",
-   "pos": "",
-   "def": "to have to have something",
-   "ex": "",
-   "lessons": [
-    "a1s_45_ifitrains"
-   ]
-  },
   "race": {
    "w": "race",
    "pos": "n",
@@ -51138,32 +51302,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "a1s_47_toomuch"
-   ]
-  },
-  "chair": {
-   "w": "chair",
-   "pos": "",
-   "def": "you sit on it",
-   "ex": "",
-   "lessons": [
-    "a1s_47_toomuch",
-    "wk_08_chairing_the_meeting",
-    "sp_c1_72_chairing_discussions",
-    "sp_prep_c1_72"
-   ]
-  },
-  "heavy": {
-   "w": "heavy",
-   "pos": "adj",
-   "def": "hard to carry; not light",
-   "ex": "A heavy box is hard to push.",
-   "lessons": [
-    "a1s_47_toomuch",
-    "physics_a2b1_02_forces_motion",
-    "rp_05_at_the_airport_a2b1",
-    "short_history_stonehenge_a2b1",
-    "a1p_22_bigger_better",
-    "qf_collocation_heavy_strong_rain"
    ]
   },
   "thirsty": {
@@ -51404,15 +51542,6 @@ window.WORDBANK={
    "lessons": [
     "a2_lesson_tennis",
     "su_a2_24_sports_and_games"
-   ]
-  },
-  "ball": {
-   "w": "ball",
-   "pos": "",
-   "def": "yellow, small, round — you hit it with your racket",
-   "ex": "",
-   "lessons": [
-    "a2_lesson_tennis"
    ]
   },
   "player": {
@@ -97146,16 +97275,6 @@ window.WORDBANK={
     "ct_b1_22_hedging_language"
    ]
   },
-  "phone": {
-   "w": "phone",
-   "pos": "n",
-   "def": "a small device for calls and apps",
-   "ex": "People pay with a phone.",
-   "lessons": [
-    "world_ea_technology_a2",
-    "world_ssa_mobile_a2"
-   ]
-  },
   "cash": {
    "w": "cash",
    "pos": "n",
@@ -98800,15 +98919,6 @@ window.WORDBANK={
    "lessons": [
     "world_na_english",
     "a1p_05_review_foundation"
-   ]
-  },
-  "hat": {
-   "w": "hat",
-   "pos": "n",
-   "def": "something you wear on your head.  is a warm hat.”",
-   "ex": "A “toque",
-   "lessons": [
-    "world_na_english_a2"
    ]
   },
   "drive-through": {
@@ -134237,15 +134347,6 @@ window.WORDBANK={
     "rp_08_buying_clothes"
    ]
   },
-  "wardrobe": {
-   "w": "wardrobe",
-   "pos": "n",
-   "def": "a cupboard for clothes or all your clothes",
-   "ex": "My wardrobe is full of old shirts.",
-   "lessons": [
-    "rp_08_buying_clothes"
-   ]
-  },
   "receipt": {
    "w": "receipt",
    "pos": "n",
@@ -145710,15 +145811,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "taking place at this time",
    "ex": "What is happening outside the window?",
-   "lessons": [
-    "a1_present_continuous_interactive"
-   ]
-  },
-  "sofa": {
-   "w": "sofa",
-   "pos": "n",
-   "def": "a long soft seat for two or more people",
-   "ex": "The cat is sitting on the sofa again.",
    "lessons": [
     "a1_present_continuous_interactive"
    ]

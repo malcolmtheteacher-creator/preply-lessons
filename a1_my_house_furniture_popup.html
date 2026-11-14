@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="big side">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My House: rooms and furniture · A1 English</title>
+<meta name="description" content="A 3D pop-up house for beginners: learn four rooms and nine things in a house, and say where they are. A free A1 English lesson.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="popup_kit/popbook.css">
+<style>
+#pbody p,#pbody .speak,#pbody .qbox,#pbody .fb,#pbody .intent{font-size:1.36rem;line-height:1.5}
+.bw{display:block;font-family:"Abril Fatface",Georgia,serif;font-size:3.1rem;line-height:1.15;color:#b8402a}
+.sent{display:block;font-size:1.75rem;font-weight:700;color:#22304a;margin-top:2px}
+.pat{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font-size:1.6rem;font-weight:700}
+.pat span{background:#fff;border:2px solid #22304a;border-radius:9px;padding:3px 12px}
+.pat span.v{background:#fde9cf;border-color:#e2573d}
+.yn{display:flex;gap:10px;margin:8px 0}.yn .btn{font-size:1.3rem;padding:10px 30px}
+#pbody .check label{font-size:1.15rem}
+#pbody .status{font-size:1.15rem}
+.rooms li{font-size:1.15rem;margin:4px 0 4px 20px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <h1>My House</h1>
+    <span class="sub">Rooms and furniture · A1 Level</span>
+    <p class="crosslink"><a href="a1_pathway_dashboard.html">← A1 Pathway</a></p>
+    <nav id="stages"></nav>
+  </div>
+  <div id="houseWrap">
+    <canvas id="house"></canvas>
+    <div id="vig"></div>
+    <div id="nogl">The 3D book needs a browser with 3D graphics switched on. Try a recent version of Chrome, Edge, Safari or Firefox.</div>
+    <div class="roomsbar" id="views"></div>
+    <div class="tools">
+      <button class="chip sq" id="zin" aria-label="Zoom in">+</button>
+      <button class="chip sq" id="zout" aria-label="Zoom out">−</button>
+      <button class="chip" id="snd">Sound: on</button>
+      <button class="chip" data-sheet="sh-words">Words</button>
+      <button class="chip" id="hide">Hide text</button>
+    </div>
+    <div id="hover"></div>
+  </div>
+  <div id="panel">
+    <div id="pbody"></div>
+    <div id="pnav"><button class="btn ghost" id="back">← Back</button><span id="pcount"></span><span class="sp"></span><button class="btn" id="next">Next →</button></div>
+  </div>
+</div>
+<div id="sheet"><div id="sheetIn">
+  <button class="btn small closeb" data-close>Close</button>
+  <div class="sh" id="sh-words">
+    <h2>Words</h2>
+    <div class="meaning"><b>bed</b> (noun) — you sleep on it at night. Example: "The bed is in the bedroom."</div>
+    <div class="meaning"><b>wardrobe</b> (noun) — a big, tall box for your clothes. Example: "My coat is in the wardrobe."</div>
+    <div class="meaning"><b>bath</b> (noun) — you sit in it, in warm water, and wash. Example: "The bath is in the bathroom."</div>
+    <div class="meaning"><b>toilet</b> (noun) — a white seat with water in it, next to the shower. Example: "The toilet is in the bathroom."</div>
+    <div class="meaning"><b>sofa</b> (noun) — a long, soft seat for two or three people. Example: "The sofa is in the living room."</div>
+    <div class="meaning"><b>TV</b> (noun) — you watch films and football on it. Example: "The TV is in the living room."</div>
+    <div class="meaning"><b>table</b> (noun) — you eat your dinner at it. Example: "The table is in the kitchen."</div>
+    <div class="meaning"><b>chair</b> (noun) — a seat for one person. Example: "The chair is in the kitchen."</div>
+    <div class="meaning"><b>fridge</b> (noun) — a cold box for milk and food. Example: "The fridge is in the kitchen."</div>
+    <h2>Rooms</h2>
+    <ul class="rooms"><li><b>bedroom</b>: you sleep here.</li><li><b>bathroom</b>: you wash here.</li><li><b>living room</b>: you sit and watch TV here.</li><li><b>kitchen</b>: you cook here.</li></ul>
+  </div>
+</div></div>
+
+<script src="philosophy_gallery/three.min.js"></script>
+<script src="popup_kit/popbook.js"></script>
+<script>
+(function(){
+var ROOMS=[{id:'bedroom',n:'bedroom',x:-3.25,y:2.9,col:'#bcd9ea'},{id:'bathroom',n:'bathroom',x:3.25,y:2.9,col:'#bfe3d8'},{id:'living',n:'living room',x:-3.25,y:0,col:'#f3cfb3'},{id:'kitchen',n:'kitchen',x:3.25,y:0,col:'#f4e2a4'}];
+var IT=[
+ {id:'bed',n:'bed',room:'bedroom',x:-4.5,h:1.2,w:2.7},{id:'wardrobe',n:'wardrobe',room:'bedroom',x:-1.3,h:2.1,w:1.4,tall:1},
+ {id:'bath',n:'bath',room:'bathroom',x:2.2,h:1.2,w:2.5},{id:'toilet',n:'toilet',room:'bathroom',x:5.1,h:1.3,w:1.1},
+ {id:'sofa',n:'sofa',room:'living',x:-4.5,h:1.3,w:2.7},{id:'tv',n:'TV',room:'living',x:-1.3,h:1.65,w:1.6},
+ {id:'table',n:'table',room:'kitchen',x:1.3,h:1.15,w:1.9},{id:'chair',n:'chair',room:'kitchen',x:3.6,h:1.5,w:.9},{id:'fridge',n:'fridge',room:'kitchen',x:5.4,h:2.1,w:1.2,tall:1}];
+var BY={},RB={};IT.forEach(function(i){BY[i.id]=i});ROOMS.forEach(function(r){RB[r.id]=r});
+var SW=[['bed','fridge'],['sofa','bath'],['toilet','tv']];
+var V={all:{x:0,y:3.75,z:-1.6,w:14.3,v:4.5,ph:1.2,k:1.02}};
+var obj={},rm={},snd=true,PP;
+function $(id){return document.getElementById(id)}
+function st(P){var S=P.S;if(!S.seen){S.seen={};S.rseen={};S.fixed={}}return S}
+function speak(t){if(!snd||!window.speechSynthesis)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.8;speechSynthesis.speak(u)}catch(e){}}
+function sen(it){return 'The '+it.n+' is in the '+RB[it.room].n+'.'}
+function big(w,s){return '<span class="bw">'+w+'</span><span class="sent">'+s+'</span>'}
+function rev(id,btn,html){return '<button class="btn small ghost" data-reveal="'+id+'">'+btn+'</button><div class="reveal" id="'+id+'">'+html+'</div>'}
+function check(k,items){return '<div class="check">'+items.map(function(t,i){return '<label><input type="checkbox" data-keep="'+k+i+'">'+t+'</label>'}).join('')+'</div>'}
+
+function page(x,k,X,Z,W,H){
+  x.fillStyle='#b9d8a0';x.beginPath();var a=X(-7.7),b=Z(-.9),w=15.4*k,h=5*k,r=30;x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.fill();
+  x.fillStyle='rgba(80,140,70,.35)';for(var i=0;i<70;i++){var gx=a+((i*397)%1000)/1000*w,gy=b+((i*631)%1000)/1000*h;x.fillRect(gx,gy,4,14)}
+  x.fillStyle='#ead9b0';x.fillRect(X(-.7),Z(-.9),1.4*k,3.3*k);
+}
+var DRAW={
+ bed:function(g,P){var C=P.C;P.rr(g,-1.25,0,.2,1.2,.06,C.WOOD2,0,true);P.rr(g,1.25,0,.16,.7,.05,C.WOOD2,0,true);P.rr(g,0,.22,2.5,.3,.04,C.WOOD,0,true);P.rr(g,.05,.5,2.3,.3,.1,C.WHITE,1);P.rr(g,-.7,.74,.7,.24,.1,C.SKY,2);P.rr(g,.45,.44,1.5,.42,.1,C.CORAL,2)},
+ wardrobe:function(g,P){var C=P.C;P.rr(g,0,0,1.4,2.1,.06,C.WOOD,0,true);P.rr(g,0,.12,.04,1.86,.01,C.WOOD2,1);P.circ(g,-.14,1.05,.06,C.MUST,1);P.circ(g,.14,1.05,.06,C.MUST,1);P.rr(g,0,0,1.4,.12,.02,C.WOOD2,1)},
+ bath:function(g,P){var C=P.C;P.rr(g,-.85,0,.16,.3,.05,C.STONE,0);P.rr(g,.85,0,.16,.3,.05,C.STONE,0);P.rr(g,1.05,.9,.1,.36,.03,C.STONE,0);P.rr(g,.9,1.16,.36,.1,.03,C.STONE,0);P.rr(g,0,.2,2.5,.8,.32,C.WHITE,0,true);P.rr(g,0,.84,2.1,.1,.04,C.SKY,1);[[-.6,1.0,.13],[-.35,1.08,.1],[-.15,.98,.12]].forEach(function(b){P.circ(g,b[0],b[1],b[2],C.WHITE,2)})},
+ toilet:function(g,P){var C=P.C;P.rr(g,-.3,.45,.46,.85,.07,C.WHITE,0,true);P.rr(g,.12,0,.4,.4,.04,C.WHITE,0,true);P.rr(g,.12,.34,.86,.36,.17,C.WHITE,1,true);P.rr(g,.14,.68,.8,.08,.03,C.STONE,2);P.circ(g,-.3,1.12,.06,C.STONE,1)},
+ sofa:function(g,P){var C=P.C;P.rr(g,0,.4,2.3,.9,.2,C.TEAL,0,true);P.rr(g,0,.12,2.7,.55,.14,'#3aa093',1);P.rr(g,-1.15,.12,.42,.85,.16,'#257a70',2);P.rr(g,1.15,.12,.42,.85,.16,'#257a70',2);P.rr(g,-.45,.62,.6,.42,.1,C.MUST,2);P.rr(g,-.95,0,.14,.14,.03,C.WOOD2,0);P.rr(g,.95,0,.14,.14,.03,C.WOOD2,0)},
+ tv:function(g,P){var C=P.C;P.rr(g,0,0,1.6,.55,.04,C.WOOD,0,true);P.rr(g,0,.2,1.3,.05,.01,C.WOOD2,1);P.rr(g,0,.55,.2,.16,.02,C.INK,0);P.rr(g,0,.68,1.55,.97,.06,C.INK,0,true);P.rr(g,0,.78,1.35,.77,.03,C.SKY,1);P.circ(g,.3,1.3,.13,C.MUST,2);P.poly(g,[[-.67,.78],[-.2,1.15],[.1,.95],[.67,.78]],C.GREEN,2)},
+ table:function(g,P){var C=P.C;P.rr(g,-.75,0,.12,1,.03,C.WOOD2,0,true);P.rr(g,.75,0,.12,1,.03,C.WOOD2,0,true);P.rr(g,0,1,1.9,.15,.05,C.WOOD,1,true)},
+ chair:function(g,P){var C=P.C;P.rr(g,-.3,0,.11,1.5,.03,C.RED2,0,true);P.rr(g,.3,0,.11,.66,.03,C.RED2,0,true);P.rr(g,0,.62,.8,.12,.04,C.CORAL,1,true);P.rr(g,-.3,1.05,.2,.32,.04,C.CORAL,1)},
+ fridge:function(g,P){var C=P.C;P.rr(g,0,0,1.2,2.1,.1,C.WHITE,0,true);P.rr(g,0,1.36,1.2,.05,.01,C.STONE,1);P.rr(g,.42,1.5,.07,.36,.03,C.STONE,1);P.rr(g,.42,.8,.07,.46,.03,C.STONE,1);P.rr(g,-.2,1.7,.3,.22,.03,C.MUST,1)}
+};
+function base(it){return PP.PY+RB[it.room].y+.02}
+function home(it){return {x:it.x,y:base(it),z:RB[it.room].y?-2.02:-1.55}}
+function follow(q){var o=q.p.outer.position,it=q.it;q.h.position.set(o.x,o.y+it.h/2,o.z+.15);q.l.position.set(o.x,o.y+(it.tall?1.15:it.h+.36),o.z+.3)}
+function place(q,pos,instant){q.at=pos;if(instant){q.mv=null;q.p.outer.position.set(pos.x,pos.y,pos.z);follow(q)}else{var o=q.p.outer.position;q.mv={t0:performance.now(),x:o.x,y:o.y,z:o.z}}}
+
+function build(P){PP=P;var C=P.C,rr=P.rr,poly=P.poly,circ=P.circ,PY=P.PY;
+  var w=P.popup(0,-2.4);rr(w.g,4.1,5.9,.8,1.5,.04,C.RED2,-1);poly(w.g,[[-7.3,5.72],[0,7.6],[7.3,5.72]],C.CORAL,0);rr(w.g,0,0,13.3,5.75,.06,C.CREAM,0,true);
+  ROOMS.forEach(function(r){rr(w.g,r.x,r.y+.12,6.25,2.58,.05,r.col,1);rr(w.g,r.x,r.y+.12,6.25,.16,.02,C.WOOD,1.5)});P.fold(w,true,300);
+  P.flat(P.rrShape(13.3,.75,.02),C.WOOD2,0,-1.65,2.88);P.flat(P.rrShape(13.3,1.4,.02),C.WOOD,0,-1,.02);
+  ROOMS.forEach(function(r){var l=P.label(r.n,C.INK,'#ffffff',3.3);l.position.set(r.x,PY+r.y+2.3,-2.2);l.visible=false;
+    var h=P.hit(6.2,2.5,.2,r.x,PY+r.y+1.35,-2.3,{k:'room',id:r.id});rm[r.id]={l:l,h:h}});
+  IT.forEach(function(it,i){var hm=home(it),p=P.popup(hm.x,hm.z);p.outer.position.y=hm.y;DRAW[it.id](p.g,P);
+    var h=P.hit(it.w,it.h,.5,0,0,0,{k:'obj',id:it.id}),l=P.label(it.n,C.WHITE,C.INK,2.3);
+    var q=obj[it.id]={p:p,h:h,l:l,it:it,home:hm,at:hm,mv:null};follow(q);l.visible=false;P.fold(p,true,650+i*70)});
+  [-7.3,7.3].forEach(function(x,i){var b=P.popup(x,.3);circ(b.g,-.3,.45,.5,C.GREEN,0);circ(b.g,.3,.5,.6,C.GREEN2,0);circ(b.g,0,.85,.5,C.GREEN,1);P.fold(b,true,1300+i*100)});
+  var sg=P.popup(0,3.3);sg.lean=-.7;rr(sg.g,0,-.03,5.3,1.02,.1,C.CORAL,-.6);P.sign(sg.g,0,0,5.15,.95,'My House','Rooms and things',C.CORAL);P.fold(sg,true,1500);
+  P.tick(function(now){IT.forEach(function(it){var q=obj[it.id];if(!q.mv)return;var m=q.mv,k=Math.min(1,(now-m.t0)/750),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,a=q.at;
+    q.p.outer.position.set(m.x+(a.x-m.x)*e,m.y+(a.y-m.y)*e+Math.sin(k*Math.PI)*.9,m.z+(a.z-m.z)*e+Math.sin(k*Math.PI)*.8);follow(q);if(k>=1)q.mv=null})});
+  $('snd').addEventListener('click',function(){snd=!snd;this.textContent='Sound: '+(snd?'on':'off');if(!snd&&window.speechSynthesis)speechSynthesis.cancel()});
+}
+/* o.l all thing labels · o.seen only the ones met · o.click things can be clicked · o.rooms rooms can be clicked · o.rl room labels · o.rseen room labels met · o.mix things in the wrong rooms */
+function dress(P,o){o=o||{};var S=st(P),C=P.C,away={};
+  if(o.mix)SW.forEach(function(s,i){if(!S.fixed[i]){away[s[0]]=s[1];away[s[1]]=s[0]}});
+  IT.forEach(function(it){var q=obj[it.id],t=away[it.id]?obj[away[it.id]].home:q.home;place(q,t,q.at===t);
+    q.l.visible=!!o.l||(!!o.seen&&!!S.seen[it.id]);P.relabel(q.l,it.n,C.WHITE,C.INK);q.h.userData.off=!o.click});
+  ROOMS.forEach(function(r){var q=rm[r.id];q.l.visible=!!o.rl||(!!o.rseen&&!!S.rseen[r.id]);q.h.userData.off=!o.rooms});
+  P.view(V.all)}
+var sayClick=function(){return 'Say it, then click'};
+
+var FIND=['sofa','fridge','bed','tv','bath','chair','wardrobe','table','toilet'],RFIND=['bathroom','living','kitchen','bedroom'],fi=0;
+var YN=[['fridge','kitchen'],['bath','bedroom'],['sofa','living'],['bed','bathroom'],['tv','kitchen'],['toilet','bathroom'],['table','living'],['wardrobe','bedroom']];
+
+var steps=[
+/* ---------- Look ---------- */
+{stage:0,html:'<h2>Look at the house</h2><p>What can you see? <b>Say the words you know.</b></p><p>Have a go. All words are good words.</p><textarea data-keep="retr" placeholder="My words: ..."></textarea>',
+ enter:function(P){dress(P,{})}},
+{stage:0,html:'<div class="intent">Today: four rooms and nine things in a house. You can say where things are.</div>'+
+ '<div class="qbox">'+big('The bed is in the bedroom.','')+'</div>'+
+ '<div class="speak"><b>SPEAK:</b> Do you live in a house or a flat?<br>"I live in a house." · "I live in a flat."</div>'+
+ '<div class="speak"><b>SPEAK:</b> Is it big or small?<br>"My house is big." · "My flat is small."</div>',
+ enter:function(P){dress(P,{});P.wob(obj.bed.p)}},
+/* ---------- Rooms ---------- */
+{stage:1,html:function(P){return '<h2>Four rooms</h2><p><b>Click a room.</b> Listen. Say the name.</p><div class="qbox" id="card">Click a room in the house.</div><p class="status" id="stt">Rooms: '+Object.keys(st(P).rseen).length+' of 4</p>'},
+ enter:function(P){var S=st(P);dress(P,{rooms:1,rseen:1});P.hoverText=function(){return 'Click'};
+  P.onClick=function(u){if(u.k!=='room')return;var r=RB[u.id];S.rseen[u.id]=1;rm[u.id].l.visible=true;$('card').innerHTML=big(r.n,'This is the '+r.n+'.');speak('The '+r.n+'. This is the '+r.n+'.');
+    $('stt').textContent='Rooms: '+Object.keys(S.rseen).length+' of 4'}}},
+{stage:1,html:'<h2>Find the room</h2><p>Read. <b>Click the room.</b></p><div class="qbox" id="card"></div><div class="fb" id="fb"></div><div class="speak"><b>SAY IT:</b> "This is the kitchen."</div>',
+ enter:function(P){dress(P,{rooms:1});fi=0;function ask(){$('card').innerHTML=fi<4?big('the '+RB[RFIND[fi]].n,'Where is it? Click.'):big('Four rooms!','Now say all four names.')}ask();
+  P.onClick=function(u){if(u.k!=='room'||fi>=4)return;var r=RB[RFIND[fi]];if(u.id===r.id){rm[u.id].l.visible=true;P.say('fb','good','Yes! This is the '+r.n+'.');speak('Yes. This is the '+r.n+'.');fi++;ask()}
+    else P.say('fb','bad','No. That is the '+RB[u.id].n+'. Try again.')}}},
+/* ---------- Things ---------- */
+{stage:2,html:function(P){return '<h2>Nine things</h2><p><b>Click a thing.</b> Listen. Say the word.</p><div class="qbox" id="card">Click a thing in the house.</div><p class="status" id="stt">Things: '+Object.keys(st(P).seen).length+' of 9</p><div class="speak"><b>SAY IT:</b> "This is a bed."</div>'},
+ enter:function(P){var S=st(P);dress(P,{click:1,seen:1,rl:1});P.hoverText=function(){return 'Click'};
+  P.onClick=function(u){if(u.k!=='obj')return;var it=BY[u.id];S.seen[u.id]=1;obj[u.id].l.visible=true;P.wob(obj[u.id].p);$('card').innerHTML=big(it.n,'This is a '+it.n+'.');speak('A '+it.n+'. This is a '+it.n+'.');
+    $('stt').textContent='Things: '+Object.keys(S.seen).length+' of 9'}}},
+{stage:2,html:'<h2>Find the thing</h2><p>Read. <b>Click the thing</b> in the house.</p><div class="qbox" id="card"></div><div class="fb" id="fb"></div><p class="status" id="stt"></p>',
+ enter:function(P){dress(P,{click:1});fi=0;function ask(){$('card').innerHTML=fi<9?big('the '+BY[FIND[fi]].n,'Where is it? Click.'):big('Nine things!','Now say all nine words.');$('stt').textContent='Found: '+fi+' of 9'}ask();
+  P.onClick=function(u){if(u.k!=='obj'||fi>=9)return;var it=BY[FIND[fi]];if(u.id===it.id){obj[u.id].l.visible=true;P.wob(obj[u.id].p);P.say('fb','good','Yes! This is a '+it.n+'.');speak('Yes. This is a '+it.n+'.');fi++;ask()}
+    else{P.wob(obj[u.id].p);P.say('fb','bad','No. That is a '+BY[u.id].n+'. Try again.')}}}},
+/* ---------- Where? ---------- */
+{stage:3,html:'<h2>Where is the bed?</h2><p>Read A and B. <b>Which one is good English?</b> Click it.</p><div class="pair">'+
+ '<button class="para" data-a="A"><span class="tag">A</span><span class="sent">The bed in bedroom.</span></button>'+
+ '<button class="para" data-a="B"><span class="tag">B</span><span class="sent">The bed is in the bedroom.</span></button></div><div class="fb" id="fb"></div>'+
+ '<div class="pat"><span>The</span><span class="v">bed</span><span>is in the</span><span class="v">bedroom</span>.</div>'+
+ '<div class="pat"><span>The</span><span class="v">sofa</span><span>is in the</span><span class="v">living room</span>.</div>',
+ enter:function(P){dress(P,{l:1,rl:1});P.wob(obj.bed.p)},
+ act:function(a,el,P){if(a==='B'){el.classList.add('right');P.say('fb','good','Yes. We say <b>is</b>, and we say <b>the</b> bedroom.');speak('The bed is in the bedroom.')}else{el.classList.add('wrong');P.say('fb','bad','Two little words are missing. Look at B.')}}},
+{stage:3,html:'<h2>Say it, then click</h2><p>Look at a thing. <b>Say where it is.</b> Then click it and listen.</p><div class="pat"><span>The</span><span class="v">…</span><span>is in the</span><span class="v">…</span>.</div><div class="qbox" id="card">Say it first. Then click the thing.</div><p class="status" id="stt">Said: 0 of 9</p>',
+ enter:function(P){dress(P,{click:1,l:1,rl:1});var done={};P.hoverText=sayClick;
+  P.onClick=function(u){if(u.k!=='obj')return;var it=BY[u.id];done[u.id]=1;P.wob(obj[u.id].p);$('card').innerHTML=big(sen(it),'');speak(sen(it));$('stt').textContent='Said: '+Object.keys(done).length+' of 9'}}},
+{stage:3,html:'<h2>Yes or no?</h2><p>Read. Look at the house. <b>Is it true?</b></p><div class="qbox" id="card"></div><div class="yn"><button class="btn" data-a="y">Yes</button><button class="btn ghost" data-a="n">No</button></div><div class="fb" id="fb"></div><p class="status" id="stt"></p>',
+ enter:function(P){dress(P,{l:1,rl:1});fi=0;this.ask(P)},
+ ask:function(P){var q=YN[fi];$('card').innerHTML=q?big('The '+BY[q[0]].n+' is in the '+RB[q[1]].n+'.',''):big('Good work!','Eight of eight.');$('stt').textContent=(q?fi+1:8)+' of 8';if(q)P.wob(obj[q[0]].p)},
+ act:function(a,el,P){var q=YN[fi];if(!q||(a!=='y'&&a!=='n'))return;var it=BY[q[0]],t=it.room===q[1];
+  if((a==='y')===t){P.say('fb','good',(t?'Yes! ':'No! ')+sen(it)+' <b>Say it.</b>');speak((t?'Yes. ':'No. ')+sen(it));fi++;this.ask(P)}
+  else P.say('fb','bad','Look at the house again. Where is the '+it.n+'?')}},
+/* ---------- Oh no! ---------- */
+{stage:4,html:function(P){return '<h2>Oh no!</h2><p>Look! Six things are in the <b>wrong room</b>.</p><p><b>Say where a thing is.</b> Then click it.</p><div class="speak"><b>SAY IT:</b> "The bed is in the kitchen!"</div><div class="qbox" id="card">Say it first. Then click the thing.</div><p class="status" id="stt"></p>'},
+ enter:function(P){var S=st(P);dress(P,{mix:1,click:1,rl:1});P.hoverText=sayClick;
+  function n(){var c=Object.keys(S.fixed).length;$('stt').textContent=c<3?'Still wrong: '+(6-c*2)+' things':'Everything is at home. Thank you!'}n();
+  P.onClick=function(u){if(u.k!=='obj')return;for(var i=0;i<3;i++){var s=SW[i];if(S.fixed[i]||(s[0]!==u.id&&s[1]!==u.id))continue;S.fixed[i]=1;
+    var a=BY[u.id],b=BY[s[0]===u.id?s[1]:s[0]];place(obj[a.id],obj[a.id].home);place(obj[b.id],obj[b.id].home);
+    $('card').innerHTML='<span class="sent">The '+a.n+' is in the '+RB[b.room].n+'? No!</span>'+big(sen(a),sen(b));speak('No! '+sen(a)+' '+sen(b));n();return}}},
+ act:function(a,el,P){if(a==='mix'){P.S.fixed={};P.redraw()}}},
+{stage:4,html:'<h2>Your home</h2><p>Now talk about <b>your</b> home.</p>'+
+ '<div class="speak"><b>SPEAK:</b> Where are your things?<br>"In my home, the bed is in the …"<br>"The TV is in the …"<br>"The table is in the …"<br>"The fridge is in the …"</div>'+
+ '<div class="speak"><b>SPEAK:</b> Big or small? Old or new?<br>"My bed is big." · "My sofa is old." · "My TV is new."</div>'+
+ '<div class="speak"><b>SPEAK:</b> Yes or no?<br>"Is your sofa green?" · "Is your fridge white?" · "Is your kitchen big?"<br>"Yes, it is." · "No, it isn\'t."</div>'+
+ check('c1',['I said four sentences about my home.','I said "is in the".']),
+ enter:function(P){dress(P,{l:1,rl:1})}},
+/* ---------- Remember ---------- */
+{stage:5,html:'<h2>Do you remember?</h2><p>Three little questions. Say the answers. Then check.</p>'+
+ '<div class="speak"><b>1.</b> Count from 1 to 10.</div>'+rev('z1','Check','one · two · three · four · five · six · seven · eight · nine · ten')+
+ '<div class="speak"><b>2.</b> Say five colours.</div>'+rev('z2','Check','red · blue · green · yellow · black · white · orange · brown')+
+ '<div class="speak"><b>3.</b> What is your name? Where are you from?</div>'+rev('z3','Check','"My name is …" · "I am from …"'),
+ enter:function(P){dress(P,{})}},
+{stage:5,html:'<h2>No names now</h2><p>The names are gone. <b>Say the word.</b> Then click the thing to check.</p><p class="status" id="stt">Checked: 0 of 9</p><div class="fb" id="fb"></div><div class="speak"><b>SPEAK:</b> Now say the four rooms. Then say where three things are.</div>',
+ enter:function(P){dress(P,{click:1});var seen={};P.hoverText=sayClick;
+  P.onClick=function(u){if(u.k!=='obj')return;obj[u.id].l.visible=true;seen[u.id]=1;speak(BY[u.id].n);var n=Object.keys(seen).length;$('stt').textContent='Checked: '+n+' of 9';if(n===9)P.say('fb','good','All nine words. Well remembered: you said each one before you saw it.')}}},
+{stage:5,html:'<h2>Goodbye, house</h2><p>Today: four rooms and nine things. Can you say where things are?</p>'+
+ '<div class="speak"><b>THINK:</b> Which word is new for you? Which word is difficult?</div>'+
+ '<div class="speak"><b>THINK:</b> What helped you today: the pictures, the listening or the speaking?</div>'+
+ check('ic',['I can say four rooms.','I can say nine things in a house.','I can say "The bed is in the bedroom."','I can talk about my home.']),
+ enter:function(P){dress(P,{l:1,rl:1})}}
+];
+PopBook.run({book:{w:16.4,d:9,z:0,folds:[0],left:'My House',right:'Rooms and things',cover:'#1f2c47'},page:page,build:build,home:V.all,
+ stages:['Look','Rooms','Things','Where?','Oh no!','Remember'],views:[{name:'Whole house',v:V.all}],steps:steps});
+})();
+</script>
+<script src="wordbank/hook.js"></script>
+</body>
+</html>
