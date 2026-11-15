@@ -532,14 +532,17 @@
             element.classList.toggle('hidden');
         }
 
-        function checkPractice(num, correctAnswer, feedback) {
+        function qfNorm(s){return String(s).toLowerCase().replace(/[‘’ʼ`]/g,"'").replace(/\bcan't\b/g,'can not').replace(/\bcannot\b/g,'can not').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not').replace(/n't\b/g,' not').replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/[.,!?;:"“”…()]/g,' ').replace(/\s+/g,' ').trim();}
+/* Tolerant answer check: ignores capitals, punctuation and contractions. For "produce" tasks a full sentence that contains the target also counts. */
+function qfMatch(answer,target,loose){var a=qfNorm(answer),t=qfNorm(target);if(t==='')return a===''||/^(ø|-|–|—|x|0|nothing|no article)$/.test(a);if(a===t)return true;if(!loose)return false;var aw=a.split(' ').length,tw=t.split(' ').length;return aw>=3&&aw>tw&&(' '+a+' ').indexOf(' '+t+' ')>-1;}
+function checkPractice(num, correctAnswer, feedback) {
             const input = document.getElementById('practice' + num);
             const feedbackDiv = document.getElementById('feedback' + num);
             const userAnswer = input.value.trim().toLowerCase();
 
             feedbackDiv.classList.remove('correct', 'incorrect');
 
-            if (userAnswer === correctAnswer.toLowerCase()) {
+            if (qfMatch(userAnswer,correctAnswer,false)) {
                 feedbackDiv.classList.add('correct');
                 feedbackDiv.innerHTML = '✓ Correct! ' + feedback;
             } else {
@@ -555,7 +558,7 @@
 
             feedbackDiv.classList.remove('correct', 'incorrect');
 
-            if (userAnswer === correctAnswer.toLowerCase()) {
+            if (qfMatch(userAnswer,correctAnswer,true)) {
                 feedbackDiv.classList.add('correct');
                 feedbackDiv.innerHTML = '✓ Excellent! ' + feedback;
             } else {
