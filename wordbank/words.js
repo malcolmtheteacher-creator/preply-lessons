@@ -17581,7 +17581,7 @@ window.WORDBANK={
   {
    "id": "bc_the_lottery_grants_b2c1",
    "title": "The Lottery: UK Grants & Funding",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "good cause",
     "heritage",
@@ -19663,7 +19663,7 @@ window.WORDBANK={
   {
    "id": "someone_i_admire_b2c1",
    "title": "Someone I Admire",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "trial",
     "welfare",
@@ -20442,7 +20442,7 @@ window.WORDBANK={
   {
    "id": "a_passion_for_danger_b2c1",
    "title": "A Passion for Danger",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "get into",
     "deal with",
@@ -20870,7 +20870,7 @@ window.WORDBANK={
   {
    "id": "asteroids_b2c1",
    "title": "Asteroids and Meteorites",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "asteroid",
     "meteorite",
@@ -26555,7 +26555,7 @@ window.WORDBANK={
   {
    "id": "first_lesson_b2c1",
    "title": "First Lesson: Getting to Know Each Other",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "reliable",
     "appearance",
@@ -28026,7 +28026,7 @@ window.WORDBANK={
   {
    "id": "passion_for_danger_b2c1",
    "title": "Something of a Passion",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "passionate",
     "apathetic",
@@ -33825,7 +33825,7 @@ window.WORDBANK={
   {
    "id": "b2c1_dream_before_the_mast",
    "title": "Dream Before the Mast",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "provocation",
     "lash",
@@ -34375,7 +34375,7 @@ window.WORDBANK={
   {
    "id": "bc_high_performers_workaholism_b2c1",
    "title": "High Performers: Workaholism Debate",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "workaholic",
     "high performer",
@@ -35031,7 +35031,7 @@ window.WORDBANK={
   {
    "id": "discuss_b2c1_power_and_accountability",
    "title": "Power, Privilege & Accountability",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "victim",
     "sentence",
@@ -46997,7 +46997,7 @@ window.WORDBANK={
   {
    "id": "study_work_extended_responses_b2c1",
    "title": "Study and Work: Producing Extended Responses",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "apprentice",
     "pension",
