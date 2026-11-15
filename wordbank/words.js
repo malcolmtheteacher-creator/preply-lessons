@@ -9456,19 +9456,6 @@ window.WORDBANK={
    ]
   },
   {
-   "id": "story_c1_the_body",
-   "title": "The Body",
-   "level": "",
-   "words": [
-    "intricate",
-    "staggering",
-    "indispensable",
-    "minuscule",
-    "regenerate",
-    "improbable"
-   ]
-  },
-  {
    "id": "story_c1_the_left_handed_universe",
    "title": "The Left-Handed Universe",
    "level": "",
@@ -10539,6 +10526,41 @@ window.WORDBANK={
     "beard",
     "village",
     "inn"
+   ]
+  },
+  {
+   "id": "techniques_romeo_and_juliet",
+   "title": "Short Stories, Long Shadows: Romeo and Juliet (Shakespeare)",
+   "level": "",
+   "words": [
+    "vault",
+    "dread",
+    "vigil",
+    "feud",
+    "brawl",
+    "infatuated",
+    "vow",
+    "banish",
+    "potion",
+    "tomb",
+    "rash",
+    "star-crossed",
+    "reconcile"
+   ]
+  },
+  {
+   "id": "techniques_romeo_and_juliet_a2b1",
+   "title": "Short Stories, Long Shadows: Romeo and Juliet (Shakespeare)",
+   "level": "A2/B1",
+   "words": [
+    "enemy",
+    "secret",
+    "balcony",
+    "friar",
+    "banish",
+    "poison",
+    "tomb",
+    "miss"
    ]
   },
   {
@@ -50383,12 +50405,13 @@ window.WORDBANK={
   },
   "miss": {
    "w": "miss",
-   "pos": "",
+   "pos": "verb",
    "def": "to be too late for (a bus)",
-   "ex": "",
+   "ex": "Hurry, or we'll miss the bus!",
    "lessons": [
     "a1s_35_because",
     "techniques_araby",
+    "techniques_romeo_and_juliet_a2b1",
     "rp_29_a_leaving_party_a2b1",
     "b1_57_going_home_trip",
     "qf_vocab_miss_meaning"
@@ -53267,6 +53290,7 @@ window.WORDBANK={
     "bc_albert_camus_c1",
     "behind_the_screen_everything_everywhere_all_at_once",
     "behind_the_screen_the_theory_of_everything",
+    "techniques_romeo_and_juliet",
     "techniques_the_interlopers",
     "rs_y10_aut2_20_05",
     "rs_y8_aut2_08_03",
@@ -56100,7 +56124,6 @@ window.WORDBANK={
    "ex": "His later novels have an intricate, almost mathematical structure.",
    "lessons": [
     "bc_italo_calvino_c1",
-    "story_c1_the_body",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_two_labyrinths",
     "fusion-interactive"
@@ -59475,11 +59498,12 @@ window.WORDBANK={
   },
   "poison": {
    "w": "poison",
-   "pos": "n",
+   "pos": "noun",
    "def": "Something that can make you very ill or kill you if you eat or drink it.",
    "ex": "The police found poison inside the medicine.",
    "lessons": [
     "bc_tylenol_a2b1",
+    "techniques_romeo_and_juliet_a2b1",
     "short_history_agatha_christie_a2b1",
     "short_history_rasputin_a2b1",
     "qf_falsefriend_german_gift"
@@ -61118,6 +61142,7 @@ window.WORDBANK={
     "techniques_desirees_baby_a2b1",
     "techniques_god_sees_the_truth_a2b1",
     "techniques_jekyll_and_hyde_1_a2b1",
+    "techniques_romeo_and_juliet_a2b1",
     "techniques_the_cask_of_amontillado_a2b1",
     "techniques_the_egg_a2b1",
     "techniques_the_fortune_teller_a2b1",
@@ -64624,7 +64649,6 @@ window.WORDBANK={
    "ex": "The film run backwards shows something astronomically improbable.",
    "lessons": [
     "discuss_c1_arrow_of_time",
-    "story_c1_the_body",
     "su_a2_48_solving_problems",
     "rs_y9_aut1_13_02"
    ]
@@ -69095,12 +69119,14 @@ window.WORDBANK={
   },
   "banish": {
    "w": "banish",
-   "pos": "v",
+   "pos": "verb",
    "def": "to send someone away as a punishment.",
-   "ex": "",
+   "ex": "The king banished his brother for plotting against him.",
    "lessons": [
     "odyssey_eadwig",
-    "odyssey_edward_ii"
+    "odyssey_edward_ii",
+    "techniques_romeo_and_juliet",
+    "techniques_romeo_and_juliet_a2b1"
    ]
   },
   "annul": {
@@ -77507,8 +77533,7 @@ window.WORDBANK={
    "def": "so large or surprising that it is hard to believe; astonishing.",
    "ex": "Sales of her books were so staggering that, by some counts, only the Bible and Shakespeare have ever outsold her.",
    "lessons": [
-    "short_history_agatha_christie",
-    "story_c1_the_body"
+    "short_history_agatha_christie"
    ]
   },
   "prohibition": {
@@ -77602,6 +77627,7 @@ window.WORDBANK={
     "short_history_al_capone",
     "short_history_the_medici",
     "techniques_a_vendetta",
+    "techniques_romeo_and_juliet",
     "techniques_the_interlopers"
    ]
   },
@@ -78013,7 +78039,8 @@ window.WORDBANK={
    "ex": "For nearly seven years the king pursued her, and she would not simply yield; her steady refusal only made him more infatuated, until he could think of little else.",
    "lessons": [
     "short_history_anne_boleyn",
-    "techniques_araby"
+    "techniques_araby",
+    "techniques_romeo_and_juliet"
    ]
   },
   "adultery": {
@@ -80368,13 +80395,15 @@ window.WORDBANK={
   },
   "tomb": {
    "w": "tomb",
-   "pos": "n",
+   "pos": "noun",
    "def": "a large grave or monument built to hold and honour the body of a dead person.",
-   "ex": "",
+   "ex": "Tourists queue for hours to see the pharaoh's tomb.",
    "lessons": [
     "short_history_michelangelo",
     "short_history_the_pyramids",
     "short_history_tutankhamun",
+    "techniques_romeo_and_juliet",
+    "techniques_romeo_and_juliet_a2b1",
     "rs_y10_aut2_20_02",
     "short_history_the_pyramids_a2b1",
     "short_history_the_taj_mahal_a2b1",
@@ -82180,6 +82209,7 @@ window.WORDBANK={
    "ex": "In the weeks before, harvests had failed and prices had risen, so the city was already gripped by hunger and dread.",
    "lessons": [
     "short_history_the_dancing_plague",
+    "techniques_romeo_and_juliet",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_bottle_imp",
     "techniques_the_signal_man",
@@ -82623,6 +82653,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_gold_that_came_home",
     "techniques_a_retrieved_reformation",
+    "techniques_romeo_and_juliet",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_cask_of_amontillado",
     "topic_money_b2",
@@ -83387,9 +83418,10 @@ window.WORDBANK={
    "w": "vow",
    "pos": "n",
    "def": "a serious, formal promise, often religious.",
-   "ex": "",
+   "ex": "They wrote their own wedding vows.",
    "lessons": [
     "short_history_the_knights_templar",
+    "techniques_romeo_and_juliet",
     "rs_y7_aut1_01_03",
     "rs_y8_spr1_09_02",
     "rs_y8_spr1_09_06"
@@ -85747,8 +85779,7 @@ window.WORDBANK={
    "def": "so important that you cannot manage without it",
    "ex": "Fresh water is indispensable on any long voyage.",
    "lessons": [
-    "speaking_b2c1_the_lifeboat",
-    "story_c1_the_body"
+    "speaking_b2c1_the_lifeboat"
    ]
   },
   "tarpaulin": {
@@ -85927,24 +85958,6 @@ window.WORDBANK={
    "ex": "A caregiver looks after someone who cannot look after themselves, such as a baby or an elderly relative.",
    "lessons": [
     "story_b2_use_it_or_lose_it"
-   ]
-  },
-  "minuscule": {
-   "w": "minuscule",
-   "pos": "adj",
-   "def": "extremely small",
-   "ex": "The dust was made of minuscule particles.",
-   "lessons": [
-    "story_c1_the_body"
-   ]
-  },
-  "regenerate": {
-   "w": "regenerate",
-   "pos": "v",
-   "def": "to grow again after being damaged or lost",
-   "ex": "Some lizards can regenerate a lost tail.",
-   "lessons": [
-    "story_c1_the_body"
    ]
   },
   "overturn": {
@@ -88263,10 +88276,11 @@ window.WORDBANK={
    "w": "potion",
    "pos": "n",
    "def": "a love potion; a sleeping potion. Mostly in stories, fairy tales and history.",
-   "ex": "",
+   "ex": "In the fairy tale, the witch gives the princess a sleeping potion.",
    "lessons": [
     "techniques_jekyll_and_hyde_4",
-    "techniques_jekyll_and_hyde_4_a2b1"
+    "techniques_jekyll_and_hyde_4_a2b1",
+    "techniques_romeo_and_juliet"
    ]
   },
   "penitence": {
@@ -89497,6 +89511,82 @@ window.WORDBANK={
     "techniques_rip_van_winkle_a2b1"
    ]
   },
+  "vigil": {
+   "w": "vigil",
+   "pos": "noun",
+   "def": "a period of staying awake at night to watch or guard",
+   "ex": "He kept a silent vigil beside the table, watching through the night without sleeping.",
+   "lessons": [
+    "techniques_romeo_and_juliet",
+    "techniques_the_adventure_of_the_speckled_band",
+    "techniques_the_boarded_window"
+   ]
+  },
+  "brawl": {
+   "w": "brawl",
+   "pos": "n",
+   "def": "a rough, noisy fight in a public place, usually involving several people",
+   "ex": "Police were called to a brawl outside the stadium.",
+   "lessons": [
+    "techniques_romeo_and_juliet"
+   ]
+  },
+  "rash": {
+   "w": "rash",
+   "pos": "adj",
+   "def": "done too quickly, without thinking about the results",
+   "ex": "Don't make any rash promises when you're angry.",
+   "lessons": [
+    "techniques_romeo_and_juliet"
+   ]
+  },
+  "star-crossed": {
+   "w": "star-crossed",
+   "pos": "adj",
+   "def": "(of lovers) destined by bad luck or fate to be unhappy; Shakespeare's own phrase",
+   "ex": "The film is about two star-crossed lovers on opposite sides of a war.",
+   "lessons": [
+    "techniques_romeo_and_juliet"
+   ]
+  },
+  "enemy": {
+   "w": "enemy",
+   "pos": "noun",
+   "def": "a person or group who hates you and wants to hurt you",
+   "ex": "Cats and dogs are not always enemies.",
+   "lessons": [
+    "techniques_romeo_and_juliet_a2b1",
+    "techniques_the_sniper_a2b1",
+    "behind_the_screen_kill_bill_a2b1",
+    "short_history_hannibal_a2b1",
+    "short_history_sparta_a2b1",
+    "short_history_the_crusades_a2b1",
+    "short_history_vlad_the_impaler_a2b1",
+    "behind_the_screen_dune_a2b1"
+   ]
+  },
+  "balcony": {
+   "w": "balcony",
+   "pos": "noun",
+   "def": "a small open area on the outside wall of a building, above the ground",
+   "ex": "We had breakfast on the balcony.",
+   "lessons": [
+    "techniques_romeo_and_juliet_a2b1",
+    "sf_a1_03_my_home",
+    "a1_there_is_there_are_interactive",
+    "b1_47_dream_home",
+    "grammar_b1_17_quantifiers_distributive"
+   ]
+  },
+  "friar": {
+   "w": "friar",
+   "pos": "noun",
+   "def": "a kind of Christian holy man, like a monk, who lives simply and helps people",
+   "ex": "The friar listened to their problem.",
+   "lessons": [
+    "techniques_romeo_and_juliet_a2b1"
+   ]
+  },
   "meekness": {
    "w": "meekness",
    "pos": "n",
@@ -89628,16 +89718,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_adventure_of_the_speckled_band"
-   ]
-  },
-  "vigil": {
-   "w": "vigil",
-   "pos": "noun",
-   "def": "a period of staying awake, usually at night, in order to watch or guard.",
-   "ex": "He kept a silent vigil beside the table, watching through the night without sleeping.",
-   "lessons": [
-    "techniques_the_adventure_of_the_speckled_band",
-    "techniques_the_boarded_window"
    ]
   },
   "venomous": {
@@ -92137,21 +92217,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_sniper_a2b1"
-   ]
-  },
-  "enemy": {
-   "w": "enemy",
-   "pos": "",
-   "def": "a person who is against you; in a war, a soldier from the other side.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_sniper_a2b1",
-    "behind_the_screen_kill_bill_a2b1",
-    "short_history_hannibal_a2b1",
-    "short_history_sparta_a2b1",
-    "short_history_the_crusades_a2b1",
-    "short_history_vlad_the_impaler_a2b1",
-    "behind_the_screen_dune_a2b1"
    ]
   },
   "bullet": {
@@ -135111,18 +135176,6 @@ window.WORDBANK={
    "ex": "We eat breakfast together in the kitchen.",
    "lessons": [
     "sf_a1_03_my_home"
-   ]
-  },
-  "balcony": {
-   "w": "balcony",
-   "pos": "n",
-   "def": "a small place outside a high window where you can sit",
-   "ex": "I drink coffee on my balcony in the morning.",
-   "lessons": [
-    "sf_a1_03_my_home",
-    "a1_there_is_there_are_interactive",
-    "b1_47_dream_home",
-    "grammar_b1_17_quantifiers_distributive"
    ]
   },
   "slow": {
