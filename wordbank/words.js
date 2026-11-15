@@ -12093,6 +12093,538 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "thinker_b2_01_thales",
+   "title": "Thales: The First Person to Ask What the World Is Made Of",
+   "level": "",
+   "words": [
+    "speculate",
+    "observe",
+    "substance",
+    "phenomenon",
+    "predict",
+    "theory",
+    "wonder"
+   ]
+  },
+  {
+   "id": "thinker_b2_02_heraclitus",
+   "title": "Heraclitus: You Can't Step into the Same River Twice",
+   "level": "",
+   "words": [
+    "flow",
+    "transform",
+    "constant",
+    "permanent",
+    "identity",
+    "opposite",
+    "gradual"
+   ]
+  },
+  {
+   "id": "thinker_b2_03_parmenides",
+   "title": "Parmenides: The Way of Truth",
+   "level": "",
+   "words": [
+    "logic",
+    "premise",
+    "conclusion",
+    "illusion",
+    "perceive",
+    "deduce",
+    "flaw"
+   ]
+  },
+  {
+   "id": "thinker_b2_04_democritus",
+   "title": "Democritus: The Laughing Philosopher and the Atom",
+   "level": "",
+   "words": [
+    "particle",
+    "invisible",
+    "consist",
+    "combine",
+    "divide",
+    "structure",
+    "void"
+   ]
+  },
+  {
+   "id": "thinker_b2_05_socrates",
+   "title": "Socrates: The Man Who Knew He Knew Nothing",
+   "level": "",
+   "words": [
+    "examine",
+    "assumption",
+    "contradiction",
+    "humble",
+    "wisdom",
+    "provoke",
+    "trial"
+   ]
+  },
+  {
+   "id": "thinker_b2_06_plato",
+   "title": "Plato: Shadows on the Wall",
+   "level": "",
+   "words": [
+    "appearance",
+    "genuine",
+    "deceive",
+    "insight",
+    "ideal",
+    "reluctant",
+    "perspective"
+   ]
+  },
+  {
+   "id": "thinker_b2_07_aristotle",
+   "title": "Aristotle: The Golden Mean",
+   "level": "",
+   "words": [
+    "moderation",
+    "extreme",
+    "excess",
+    "virtue",
+    "habit",
+    "reckless",
+    "flourish"
+   ]
+  },
+  {
+   "id": "thinker_b2_08_diogenes",
+   "title": "Diogenes: The Philosopher Who Lived in a Jar",
+   "level": "",
+   "words": [
+    "convention",
+    "conform",
+    "status",
+    "possession",
+    "self-sufficient",
+    "mock",
+    "absurd"
+   ]
+  },
+  {
+   "id": "thinker_b2_09_epicurus",
+   "title": "Epicurus: A Simple Recipe for Happiness",
+   "level": "",
+   "words": [
+    "necessity",
+    "luxury",
+    "content",
+    "crave",
+    "indulge",
+    "moderation",
+    "anxiety"
+   ]
+  },
+  {
+   "id": "thinker_b2_10_zeno",
+   "title": "Zeno: How a Shipwreck Started Stoicism",
+   "level": "",
+   "words": [
+    "setback",
+    "resilient",
+    "inevitable",
+    "composure",
+    "dwell",
+    "cope",
+    "adversity"
+   ]
+  },
+  {
+   "id": "thinker_b2_11_marcus",
+   "title": "Marcus Aurelius: The Emperor's Notes to Himself",
+   "level": "",
+   "words": [
+    "reminder",
+    "discipline",
+    "judgement",
+    "duty",
+    "resent",
+    "endure",
+    "perspective"
+   ]
+  },
+  {
+   "id": "thinker_b2_12_pyrrho",
+   "title": "Pyrrho: Peace Through Doubt",
+   "level": "",
+   "words": [
+    "sceptical",
+    "certainty",
+    "evidence",
+    "biased",
+    "insist",
+    "tranquil",
+    "perception"
+   ]
+  },
+  {
+   "id": "thinker_b2_13_augustine",
+   "title": "Augustine: The Man Who Wrote Down His Mistakes",
+   "level": "",
+   "words": [
+    "confess",
+    "temptation",
+    "conscience",
+    "restless",
+    "remorse",
+    "flaw",
+    "procrastinate"
+   ]
+  },
+  {
+   "id": "thinker_b2_14_boethius",
+   "title": "Boethius: The Wheel of Fortune",
+   "level": "",
+   "words": [
+    "fortune",
+    "consolation",
+    "adversity",
+    "prosperity",
+    "fleeting",
+    "resilient",
+    "setback"
+   ]
+  },
+  {
+   "id": "thinker_b2_15_avicenna",
+   "title": "Avicenna: The Flying Man",
+   "level": "",
+   "words": [
+    "polymath",
+    "consciousness",
+    "sensation",
+    "perceive",
+    "existence",
+    "hypothetical",
+    "deprive"
+   ]
+  },
+  {
+   "id": "thinker_b2_16_averroes",
+   "title": "Averroes: Truth Does Not Fight Truth",
+   "level": "",
+   "words": [
+    "reconcile",
+    "contradict",
+    "interpret",
+    "literal",
+    "compatible",
+    "commentary",
+    "coexist"
+   ]
+  },
+  {
+   "id": "thinker_b2_17_aquinas",
+   "title": "Aquinas: Hear the Other Side First",
+   "level": "",
+   "words": [
+    "objection",
+    "reasoning",
+    "refute",
+    "concede",
+    "systematic",
+    "devout",
+    "conviction"
+   ]
+  },
+  {
+   "id": "thinker_b2_18_ockham",
+   "title": "Ockham: The Razor",
+   "level": "",
+   "words": [
+    "assume",
+    "plausible",
+    "far-fetched",
+    "eliminate",
+    "principle",
+    "evidence",
+    "exile"
+   ]
+  },
+  {
+   "id": "thinker_b2_19_machiavelli",
+   "title": "Machiavelli: Power as It Really Is",
+   "level": "",
+   "words": [
+    "ruthless",
+    "cunning",
+    "pragmatic",
+    "justify",
+    "manipulate",
+    "ambition",
+    "integrity"
+   ]
+  },
+  {
+   "id": "thinker_b2_20_descartes",
+   "title": "Descartes: The Man Who Doubted Everything",
+   "level": "",
+   "words": [
+    "certainty",
+    "deceive",
+    "illusion",
+    "foundation",
+    "sceptical",
+    "reliable",
+    "evidence"
+   ]
+  },
+  {
+   "id": "thinker_b2_21_hobbes",
+   "title": "Hobbes: Nasty, Brutish and Short",
+   "level": "",
+   "words": [
+    "chaos",
+    "authority",
+    "security",
+    "surrender",
+    "obey",
+    "contract",
+    "brutal"
+   ]
+  },
+  {
+   "id": "thinker_b2_22_spinoza",
+   "title": "Spinoza: Everything Is Connected",
+   "level": "",
+   "words": [
+    "interconnected",
+    "depend",
+    "consequence",
+    "expel",
+    "infinite",
+    "isolated",
+    "cause"
+   ]
+  },
+  {
+   "id": "thinker_b2_23_locke",
+   "title": "Locke: The Rights No One Can Take Away",
+   "level": "",
+   "words": [
+    "liberty",
+    "consent",
+    "entitled",
+    "property",
+    "legitimate",
+    "innate",
+    "abuse"
+   ]
+  },
+  {
+   "id": "thinker_b2_24_leibniz",
+   "title": "Leibniz: The Best of All Possible Worlds",
+   "level": "",
+   "words": [
+    "suffering",
+    "outweigh",
+    "trade-off",
+    "optimistic",
+    "flaw",
+    "mock",
+    "inevitable"
+   ]
+  },
+  {
+   "id": "thinker_b2_25_hume",
+   "title": "Hume: The Gentle Sceptic",
+   "level": "",
+   "words": [
+    "habit",
+    "expectation",
+    "predict",
+    "pattern",
+    "observe",
+    "conclude",
+    "instinct"
+   ]
+  },
+  {
+   "id": "thinker_b2_26_rousseau",
+   "title": "Rousseau: Born Free, Everywhere in Chains",
+   "level": "",
+   "words": [
+    "civilisation",
+    "corrupt",
+    "inequality",
+    "innocence",
+    "contract",
+    "envy",
+    "progress"
+   ]
+  },
+  {
+   "id": "thinker_b2_27_kant",
+   "title": "Kant: What If Everyone Did It?",
+   "level": "",
+   "words": [
+    "duty",
+    "universal",
+    "principle",
+    "dignity",
+    "consequence",
+    "exploit",
+    "exception"
+   ]
+  },
+  {
+   "id": "thinker_b2_28_hegel",
+   "title": "Hegel: History Is Going Somewhere",
+   "level": "",
+   "words": [
+    "conflict",
+    "opposite",
+    "gradual",
+    "resolve",
+    "tension",
+    "evolve",
+    "synthesis"
+   ]
+  },
+  {
+   "id": "thinker_b2_29_schopenhauer",
+   "title": "Schopenhauer: The Will That Never Rests",
+   "level": "",
+   "words": [
+    "desire",
+    "crave",
+    "satisfy",
+    "suffering",
+    "compassion",
+    "pessimistic",
+    "relief"
+   ]
+  },
+  {
+   "id": "thinker_b2_30_marx",
+   "title": "Marx: Who Gains from Our Work?",
+   "level": "",
+   "words": [
+    "class",
+    "wage",
+    "profit",
+    "labour",
+    "alienation",
+    "struggle",
+    "ownership"
+   ]
+  },
+  {
+   "id": "thinker_b2_31_kierkegaard",
+   "title": "Kierkegaard: Taking the Leap",
+   "level": "",
+   "words": [
+    "anxiety",
+    "commitment",
+    "dilemma",
+    "hesitate",
+    "authentic",
+    "regret",
+    "leap"
+   ]
+  },
+  {
+   "id": "thinker_b2_32_nietzsche",
+   "title": "Nietzsche: The Camel, the Lion and the Child",
+   "level": "",
+   "words": [
+    "overcome",
+    "setback",
+    "resilient",
+    "value",
+    "conform",
+    "struggle",
+    "transform"
+   ]
+  },
+  {
+   "id": "thinker_b2_33_james",
+   "title": "William James: Does It Work?",
+   "level": "",
+   "words": [
+    "pragmatic",
+    "consequence",
+    "evidence",
+    "belief",
+    "verify",
+    "abstract",
+    "habit"
+   ]
+  },
+  {
+   "id": "thinker_b2_34_wittgenstein",
+   "title": "Wittgenstein: What Do You Mean?",
+   "level": "",
+   "words": [
+    "clarify",
+    "ambiguous",
+    "context",
+    "definition",
+    "misunderstanding",
+    "interpret",
+    "resemblance"
+   ]
+  },
+  {
+   "id": "thinker_b2_35_sartre",
+   "title": "Sartre: Condemned to Be Free",
+   "level": "",
+   "words": [
+    "responsibility",
+    "excuse",
+    "blame",
+    "authentic",
+    "commitment",
+    "regret",
+    "essence"
+   ]
+  },
+  {
+   "id": "thinker_b2_36_camus",
+   "title": "Camus: Imagine Sisyphus Happy",
+   "level": "",
+   "words": [
+    "absurd",
+    "meaningless",
+    "revolt",
+    "routine",
+    "despair",
+    "embrace",
+    "fulfilling"
+   ]
+  },
+  {
+   "id": "thinker_b2_37_arendt",
+   "title": "Arendt: The Danger of Not Thinking",
+   "level": "",
+   "words": [
+    "obedience",
+    "conscience",
+    "accountable",
+    "complicit",
+    "judgement",
+    "banal",
+    "comply"
+   ]
+  },
+  {
+   "id": "thinker_b2_38_weil",
+   "title": "Simone Weil: The Gift of Attention",
+   "level": "",
+   "words": [
+    "empathy",
+    "attentive",
+    "dignity",
+    "generosity",
+    "distracted",
+    "solidarity",
+    "perspective"
+   ]
+  },
+  {
    "id": "tib_acculturation_b2",
    "title": "Two Questions for Anyone Living Abroad",
    "level": "",
@@ -50254,9 +50786,10 @@ window.WORDBANK={
    "w": "class",
    "pos": "n",
    "def": "a group who learn together",
-   "ex": "He has a private class in the evening.",
+   "ex": "In many countries, the middle class has grown in the last fifty years.",
    "lessons": [
     "a1s_33_nextweek",
+    "thinker_b2_30_marx",
     "world_ea_exams_a2",
     "rp_18_joining_a_gym_a2b1"
    ]
@@ -51662,6 +52195,7 @@ window.WORDBANK={
    "lessons": [
     "amst_01_what_is_american_studies",
     "short_history_the_samurai",
+    "thinker_b2_11_marcus",
     "rs_y7_spr2_04_02",
     "gr_warmup_b2_hot_takes_parenting",
     "acad_c2_07_interdisciplinary",
@@ -51752,6 +52286,7 @@ window.WORDBANK={
    "ex": "Behind every confident claim sits an assumption — something taken to be true without ever being proved.",
    "lessons": [
     "amst_01_what_is_american_studies",
+    "thinker_b2_05_socrates",
     "acad_b2_03_critical_thinking",
     "bc_reframing_conflict_c1",
     "gr_warmup_c1_hot_takes_iceberg",
@@ -51850,6 +52385,7 @@ window.WORDBANK={
     "short_history_the_aztecs",
     "short_history_the_olympic_games",
     "short_history_the_silk_road",
+    "thinker_b2_07_aristotle",
     "tib_ninebox_b2",
     "lesson_ancient_greece_interactive"
    ]
@@ -51973,6 +52509,7 @@ window.WORDBANK={
    "ex": "There is a painful contradiction in a document that declares all men equal, written by a man who owned slaves.",
    "lessons": [
     "amst_03_revolution",
+    "thinker_b2_05_socrates",
     "rs_y7_aut2_02_02",
     "gr_warmup_c1_hot_takes_iceberg",
     "acad_c2_11_thesis_defence",
@@ -52340,6 +52877,7 @@ window.WORDBANK={
    "lessons": [
     "bc_ada_lovelace_c1",
     "piranesi_bc_other",
+    "thinker_b2_19_machiavelli",
     "bc_solutions_c1",
     "st_pro_08_stories_that_change_minds",
     "c1_pro_25_sales_techniques"
@@ -52393,6 +52931,7 @@ window.WORDBANK={
    "ex": "It took a real leap to move from arithmetic to art.",
    "lessons": [
     "bc_ada_lovelace_c1",
+    "thinker_b2_31_kierkegaard",
     "gr_b2_the_conspiracy",
     "making_the_leap"
    ]
@@ -52551,6 +53090,7 @@ window.WORDBANK={
    "ex": "The assistant dealt with the routine questions, such as where an order was.",
    "lessons": [
     "bc_ai_handover_c1",
+    "thinker_b2_36_camus",
     "topic_habits_b2",
     "rs_y7_spr2_04_02",
     "atc_professional_english_interactive",
@@ -52718,12 +53258,13 @@ window.WORDBANK={
   },
   "responsibility": {
    "w": "responsibility",
-   "pos": "",
+   "pos": "n",
    "def": "being the person who has to answer for something, especially when it goes wrong.",
-   "ex": "",
+   "ex": "Parents have a responsibility to keep their children safe.",
    "lessons": [
     "bc_ai_report_c1",
     "bc_translation_industry_c1",
+    "thinker_b2_35_sartre",
     "rs_y8_spr1_09_05",
     "rs_y9_spr2_16_02"
    ]
@@ -53188,6 +53729,8 @@ window.WORDBANK={
    "lessons": [
     "bc_albert_camus_c1",
     "behind_the_screen_everything_everywhere_all_at_once",
+    "thinker_b2_08_diogenes",
+    "thinker_b2_36_camus",
     "gr_b2_chain_reaction",
     "speaking_naturally_teens_bonus_camus_absurd_hero",
     "rs_y9_sum1_17_05",
@@ -53292,6 +53835,7 @@ window.WORDBANK={
     "behind_the_screen_the_theory_of_everything",
     "techniques_romeo_and_juliet",
     "techniques_the_interlopers",
+    "thinker_b2_16_averroes",
     "rs_y10_aut2_20_05",
     "rs_y8_aut2_08_03",
     "rs_y9_aut2_14_03",
@@ -53327,11 +53871,12 @@ window.WORDBANK={
    "w": "profit",
    "pos": "n",
    "def": "The money you keep after you pay all your costs.",
-   "ex": "The search business makes an enormous profit.",
+   "ex": "The café made a small profit in its first year.",
    "lessons": [
     "bc_alphabet_a2b1",
     "bc_apple1997_a2b1",
     "bc_kodak_a2b1",
+    "thinker_b2_30_marx",
     "Business-Bootcamp-Lesson4-The-Numbers",
     "b2_30_a_good_investment"
    ]
@@ -54399,10 +54944,13 @@ window.WORDBANK={
    "w": "setback",
    "pos": "n",
    "def": "A problem that stops or slows down your progress.",
-   "ex": "The biggest setback of my career taught me to ask for help earlier.",
+   "ex": "Losing the contract was a setback, but the company recovered within a year.",
    "lessons": [
     "bc_breaking_the_barrier_b2",
     "skills_c1_interview_starter",
+    "thinker_b2_10_zeno",
+    "thinker_b2_14_boethius",
+    "thinker_b2_32_nietzsche",
     "topic_optimism_b2",
     "ts_kariko_b2",
     "gr_warmup_b2_hot_takes_failure",
@@ -54773,10 +55321,12 @@ window.WORDBANK={
    "w": "regret",
    "pos": "verb / noun",
    "def": "To feel sorry about something you did or did not do.",
-   "ex": "I don't regret it for a second.",
+   "ex": "I regret not learning to swim when I was a child.",
    "lessons": [
     "bc_connecting_the_dots_b2",
     "grammar_c1_17_counterfactual_conditionals",
+    "thinker_b2_31_kierkegaard",
+    "thinker_b2_35_sartre",
     "bc_organising_client_events_c1",
     "short_history_marie_antoinette_a2b1",
     "b2_36_awkward_situations",
@@ -54847,10 +55397,12 @@ window.WORDBANK={
    "w": "contract",
    "pos": "n",
    "def": "An official written agreement between two people or companies.",
-   "ex": "The contract said Disney owned the characters.",
+   "ex": "She read every page carefully before she signed the contract.",
    "lessons": [
     "bc_disneypixar_a2b1",
     "bc_hanjin_a2b1",
+    "thinker_b2_21_hobbes",
+    "thinker_b2_26_rousseau",
     "gr_warmup_b2_hot_takes_sport",
     "sf_a1_11_the_meeting"
    ]
@@ -55063,6 +55615,10 @@ window.WORDBANK={
     "short_history_al_capone",
     "short_history_watergate",
     "techniques_a_jury_of_her_peers_a2b1",
+    "thinker_b2_12_pyrrho",
+    "thinker_b2_18_ockham",
+    "thinker_b2_20_descartes",
+    "thinker_b2_33_james",
     "tib_kolb_b2",
     "tib_swot_b2",
     "gr_b2_the_courtroom",
@@ -55407,6 +55963,7 @@ window.WORDBANK={
    "ex": "How do you cope with such long, hard days?",
    "lessons": [
     "bc_grace_under_pressure_b1b2",
+    "thinker_b2_10_zeno",
     "topic_optimism_b2",
     "wk_21_the_colleague_who_cries",
     "wk_24_not_coping_at_work",
@@ -55441,6 +55998,7 @@ window.WORDBANK={
    "lessons": [
     "bc_grace_under_pressure_b1b2",
     "techniques_to_build_a_fire_a2b1",
+    "thinker_b2_25_hume",
     "tib_ooda_b2",
     "gr_b2_the_black_box",
     "bp_c2_02_the_language_of_not_knowing",
@@ -55687,6 +56245,8 @@ window.WORDBANK={
     "bc_hannah_arendt_c1",
     "short_history_muhammad_ali",
     "short_history_the_manhattan_project",
+    "thinker_b2_13_augustine",
+    "thinker_b2_37_arendt",
     "rs_y7_sum2_06_01",
     "rs_y8_sum1_11_04",
     "rs_y7_sum2_06_06"
@@ -55769,10 +56329,11 @@ window.WORDBANK={
    "w": "solidarity",
    "pos": "n",
    "def": "Unity and mutual support among people with a shared interest.",
-   "ex": "The tribe's solidarity made it far stronger than its numbers suggested.",
+   "ex": "The workers stopped work in solidarity with their colleague who had lost his job.",
    "lessons": [
     "bc_ibn_khaldun_c1",
     "short_history_the_match_girls_strike",
+    "thinker_b2_38_weil",
     "greenland_tariffs_c1",
     "wp_43_the_spectre"
    ]
@@ -55854,6 +56415,8 @@ window.WORDBANK={
     "short_history_the_wright_brothers",
     "techniques_the_fortune_teller",
     "techniques_tobermory",
+    "thinker_b2_12_pyrrho",
+    "thinker_b2_20_descartes",
     "tib_diffusion_b2",
     "gr_b2_the_upgrade",
     "rs_y8_aut2_08_02",
@@ -56203,9 +56766,12 @@ window.WORDBANK={
    "w": "flaw",
    "pos": "n",
    "def": "A fault or weakness; something that is not perfect.",
-   "ex": "He sees his flaws as part of who he is.",
+   "ex": "There's a flaw in your plan: the shop is closed on Mondays.",
    "lessons": [
     "bc_kintsugi_b2",
+    "thinker_b2_03_parmenides",
+    "thinker_b2_13_augustine",
+    "thinker_b2_24_leibniz",
     "tib_fishbone_b2",
     "acad_c1_07_critical_analysis",
     "b2_24_clarity_is_key"
@@ -56247,11 +56813,14 @@ window.WORDBANK={
    "w": "resilient",
    "pos": "adjective / noun",
    "def": "Able to recover quickly after something difficult.",
-   "ex": "Her resilience after Pierre's death astonished even her critics.",
+   "ex": "Children are often stronger and more resilient than adults expect.",
    "lessons": [
     "bc_kintsugi_b2",
     "bc_marie_curie_c1",
     "discuss_c1_the_steady_voice",
+    "thinker_b2_10_zeno",
+    "thinker_b2_14_boethius",
+    "thinker_b2_32_nietzsche",
     "world_sa_cities",
     "techniques_the_machine_stops",
     "bc_inspiring_women_b2c1",
@@ -56267,6 +56836,7 @@ window.WORDBANK={
    "ex": "Kintsugi teaches us to embrace imperfection, not hide it.",
    "lessons": [
     "bc_kintsugi_b2",
+    "thinker_b2_36_camus",
     "world_la_warmth",
     "su_a2_71_a_new_office",
     "epicurean_24_humanist_epicureans",
@@ -56821,9 +57391,10 @@ window.WORDBANK={
    "w": "overcome",
    "pos": "v",
    "def": "To succeed in dealing with a problem or difficulty.",
-   "ex": "She overcame many problems to reach her dream.",
+   "ex": "She overcame her fear of flying by taking a short trip first, and now she travels every summer.",
    "lessons": [
     "bc_marie_curie_b1b2",
+    "thinker_b2_32_nietzsche",
     "acad_b1_15_learning_from_mistakes",
     "lesson-17-grammar"
    ]
@@ -57257,10 +57828,11 @@ window.WORDBANK={
    "w": "blame",
    "pos": "verb — blamed",
    "def": "To say that something bad is someone’s fault.",
-   "ex": "Customers blamed the brand, not the factory.",
+   "ex": "Don't blame the weather; we just left too late.",
    "lessons": [
     "bc_menufoods_a2b1",
     "nq_05_why_c1",
+    "thinker_b2_35_sartre",
     "tib_fivewhys_b2",
     "topic_optimism_b2",
     "ts_thinking_in_bets_b2",
@@ -58263,6 +58835,9 @@ window.WORDBANK={
     "bc_zhuangzi_c1",
     "persepolis_child",
     "short_history_the_renaissance",
+    "thinker_b2_06_plato",
+    "thinker_b2_11_marcus",
+    "thinker_b2_38_weil",
     "rs_y7_aut2_02_06",
     "st_pro_08_stories_that_change_minds",
     "acad_b1_05_giving_opinions",
@@ -58418,9 +58993,10 @@ window.WORDBANK={
    "w": "value",
    "pos": "n",
    "def": "A belief about what is right and important. Usually plural: values.",
-   "ex": "He wanted the company's values to survive him.",
+   "ex": "Honesty and kindness are the values my grandparents gave me.",
    "lessons": [
     "bc_patagonia_a2b1",
+    "thinker_b2_32_nietzsche",
     "gr_warmup_c1_hot_takes_iceberg"
    ]
   },
@@ -58920,12 +59496,13 @@ window.WORDBANK={
    "w": "surrender",
    "pos": "v",
    "def": "To give up control or resistance willingly; to let go.",
-   "ex": "The reed surrenders to the breath; the self surrenders to love.",
+   "ex": "At the border, travellers had to surrender their passports for checking.",
    "lessons": [
     "bc_rumi_c1",
     "odyssey_dafydd_ap_llywelyn",
     "odyssey_sweyn",
     "short_history_the_manhattan_project_a2b1",
+    "thinker_b2_21_hobbes",
     "lesson_world_war_2_interactive",
     "ois_20_the_modern_age",
     "short_history_blackbeard_a2b1",
@@ -58960,13 +59537,14 @@ window.WORDBANK={
    "w": "endure",
    "pos": "v",
    "def": "To suffer something difficult patiently, without giving up.",
-   "ex": "They endured a long, hard winter.",
+   "ex": "The climbers had to endure freezing winds for three days.",
    "lessons": [
     "bc_sisu_b2",
     "discuss_c1_frankl_meaning",
     "short_history_the_forbidden_city",
     "short_history_the_seven_wonders",
     "techniques_metamorphosis_3",
+    "thinker_b2_11_marcus",
     "short_history_shackleton"
    ]
   },
@@ -58974,9 +59552,11 @@ window.WORDBANK={
    "w": "adversity",
    "pos": "n",
    "def": "A difficult or unpleasant situation.",
-   "ex": "He stayed calm in the face of adversity.",
+   "ex": "She showed great courage in the face of adversity.",
    "lessons": [
     "bc_sisu_b2",
+    "thinker_b2_10_zeno",
+    "thinker_b2_14_boethius",
     "cpe_read_c1_08_extreme_survival"
    ]
   },
@@ -59184,6 +59764,7 @@ window.WORDBANK={
    "lessons": [
     "bc_srinivasa_ramanujan_c1",
     "bc_wirecard_c1",
+    "thinker_b2_33_james",
     "acad_b2_06_referencing",
     "skills_b2_lecture_reach",
     "rs_y9_aut1_13_04",
@@ -59382,9 +59963,11 @@ window.WORDBANK={
    "w": "interpret",
    "pos": "v",
    "def": "To translate spoken language, live, as people talk. The person is an interpreter.",
-   "ex": "An interpreter works in hospitals and courts, in real time.",
+   "ex": "How do you interpret the ending of the film? Is it happy or sad?",
    "lessons": [
     "bc_translation_a2b1",
+    "thinker_b2_16_averroes",
+    "thinker_b2_34_wittgenstein",
     "rs_y7_spr1_03_01",
     "bc_theoretical_framing_phd",
     "b2_62_culture_humour_language"
@@ -59433,6 +60016,7 @@ window.WORDBANK={
     "bc_translation_a2b1",
     "bq_06_free_will_c1",
     "discuss_c1_the_steady_voice",
+    "thinker_b2_37_arendt",
     "rs_y10_sum1_23_05",
     "Business-Bootcamp-Lesson3-The-Project-Manager",
     "operation_absolute_resolve_lesson",
@@ -59868,6 +60452,7 @@ window.WORDBANK={
    "ex": "I had to justify the increase line by line.",
    "lessons": [
     "bc_wework_c1",
+    "thinker_b2_19_machiavelli",
     "gr_b2_split_second",
     "bc_team_building_c1",
     "acad_b1_05_giving_opinions",
@@ -60239,6 +60824,7 @@ window.WORDBANK={
     "short_history_db_cooper",
     "techniques_the_fortune_teller",
     "techniques_the_open_window",
+    "thinker_b2_18_ockham",
     "topic_what_if_b2",
     "speaking_naturally_teens_04_ai_jobs",
     "rs_y9_aut1_13_03",
@@ -60511,6 +61097,7 @@ window.WORDBANK={
     "behind_the_screen_arrival",
     "behind_the_screen_gattaca",
     "behind_the_screen_the_matrix",
+    "thinker_b2_23_locke",
     "rs_y7_aut1_01_04",
     "cpe_read_c1_02_feral_children"
    ]
@@ -60605,9 +61192,10 @@ window.WORDBANK={
    "w": "genuine",
    "pos": "adj",
    "def": "authentic (adj) means real, true, and not a copy or imitation.",
-   "ex": "Her smile was genuine, not just polite.",
+   "ex": "Is this a genuine leather bag or a cheap copy?",
    "lessons": [
     "behind_the_screen_blade_runner",
+    "thinker_b2_06_plato",
     "world_na_friendly",
     "world_sa_smiles",
     "rs_y7_aut1_01_06",
@@ -60635,6 +61223,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_blade_runner",
     "techniques_the_egg",
+    "thinker_b2_38_weil",
     "gr_c1_spotting_the_spin",
     "rs_y11_aut1_25_01",
     "rs_y11_aut1_25_04",
@@ -60815,6 +61404,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_chariots_of_fire",
     "short_history_muhammad_ali",
+    "thinker_b2_17_aquinas",
     "gr_warmup_b2_hot_takes_justice",
     "bl_01_memory_liar",
     "rs_y9_spr1_15_05",
@@ -61446,6 +62036,7 @@ window.WORDBANK={
     "end_beat_c1",
     "say_bridge_c1",
     "short_history_db_cooper",
+    "thinker_b2_10_zeno",
     "world_sa_smiles",
     "gr_c1_the_press_conference",
     "Business-Bootcamp-Lesson6-The-Boardroom",
@@ -61925,6 +62516,7 @@ window.WORDBANK={
     "techniques_the_bottle_imp",
     "techniques_the_monkeys_paw",
     "techniques_the_ransom_of_red_chief",
+    "thinker_b2_07_aristotle",
     "ts_forssmann_b2",
     "art_museum_heist_c1c2",
     "techniques_the_stolen_bacillus",
@@ -61974,7 +62566,8 @@ window.WORDBANK={
     "short_history_the_kray_twins",
     "short_history_the_terracotta_army",
     "short_history_the_tudors",
-    "short_history_vlad_the_impaler"
+    "short_history_vlad_the_impaler",
+    "thinker_b2_19_machiavelli"
    ]
   },
   "formidable": {
@@ -62500,6 +63093,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_spotlight",
     "nq_06_is_it_right_c1",
+    "thinker_b2_37_arendt",
     "rs_y9_spr1_15_05",
     "prof_c2_08_ethical_leadership",
     "ib_lesson_04_pacer_framework"
@@ -62654,9 +63248,10 @@ window.WORDBANK={
    "w": "integrity",
    "pos": "n",
    "def": "the quality of being honest and holding firmly to your moral principles, even when it costs you.",
-   "ex": "",
+   "ex": "Even her opponents respected her integrity.",
    "lessons": [
     "behind_the_screen_the_crucible",
+    "thinker_b2_19_machiavelli",
     "acad_b2_06_referencing",
     "prof_c2_03_corporate_governance",
     "bc_ai_for_phd_research_c1",
@@ -62824,9 +63419,11 @@ window.WORDBANK={
    "w": "illusion",
    "pos": "n",
    "def": "a false appearance or belief; something that deceives the senses or the mind into seeing what isn't really there.",
-   "ex": "",
+   "ex": "The two lines look different lengths, but that's just a trick of the eye.",
    "lessons": [
     "behind_the_screen_the_matrix",
+    "thinker_b2_03_parmenides",
+    "thinker_b2_20_descartes",
     "behind_the_screen_the_matrix_a2b1",
     "patterns_that_arent_there",
     "wp_03_the_way_of_truth",
@@ -62837,9 +63434,11 @@ window.WORDBANK={
    "w": "perceive",
    "pos": "v",
    "def": "to become aware of something through the senses; to notice, recognise or understand it.",
-   "ex": "",
+   "ex": "Dogs can perceive sounds that humans cannot hear.",
    "lessons": [
     "behind_the_screen_the_matrix",
+    "thinker_b2_03_parmenides",
+    "thinker_b2_15_avicenna",
     "tib_johari_b2",
     "cpe_read_c1_04_synesthesia"
    ]
@@ -63463,10 +64062,11 @@ window.WORDBANK={
   "essence": {
    "w": "essence",
    "pos": "n",
-   "def": "",
+   "def": "the most basic quality that makes something what it is",
    "ex": "The essence of a good story is a character who wants something.",
    "lessons": [
     "bq_02_same_ship_c1",
+    "thinker_b2_35_sartre",
     "wp_26_the_flying_man",
     "sp_b1_26_abstract_concepts",
     "sp_c1_66_reformulation_mastery",
@@ -63517,6 +64117,8 @@ window.WORDBANK={
    "lessons": [
     "bq_02_same_ship_c1",
     "persepolis_bc_story",
+    "thinker_b2_31_kierkegaard",
+    "thinker_b2_35_sartre",
     "gr_warmup_b2_hot_takes_identity",
     "speaking_naturally_teens_06_who_are_you_really",
     "b1_48_street_food",
@@ -63603,11 +64205,13 @@ window.WORDBANK={
   },
   "crave": {
    "w": "crave",
-   "pos": "",
+   "pos": "v",
    "def": "something (v) — to want it very strongly. \"I crave silence.\"",
-   "ex": "",
+   "ex": "After a long walk in the cold, I always crave hot chocolate.",
    "lessons": [
     "bq_03_plug_in_c1",
+    "thinker_b2_09_epicurus",
+    "thinker_b2_29_schopenhauer",
     "komorebi_05_solitude_vs_loneliness"
    ]
   },
@@ -63717,7 +64321,8 @@ window.WORDBANK={
    "def": "so ordinary and unoriginal that it is boring.",
    "ex": "After the dramatic opening, the rest of the speech was banal: the usual phrases about growth and opportunity that everyone had heard a hundred times.",
    "lessons": [
-    "bq_05_is_it_art_c1"
+    "bq_05_is_it_art_c1",
+    "thinker_b2_37_arendt"
    ]
   },
   "pretentious": {
@@ -63800,6 +64405,8 @@ window.WORDBANK={
     "ib_poetry_05_writing_the_poetry_paragraph",
     "techniques_appointment_in_samarra",
     "techniques_the_masque_of_the_red_death",
+    "thinker_b2_10_zeno",
+    "thinker_b2_24_leibniz",
     "st_pro_11_thought_leadership",
     "wp_43_the_spectre"
    ]
@@ -63856,6 +64463,7 @@ window.WORDBANK={
    "lessons": [
     "bq_06_free_will_c1",
     "discuss_c1_future_fixed",
+    "thinker_b2_16_averroes",
     "world_sa_marriage",
     "rs_y11_spr1_27_04",
     "rs_y9_aut2_14_02",
@@ -64502,6 +65110,7 @@ window.WORDBANK={
     "exam_c1_ielts_speaking_journey",
     "odyssey_george_i",
     "short_history_the_first_stock_market",
+    "thinker_b2_01_thales",
     "gr_b2_the_black_box",
     "gr_b2_the_headline",
     "bestiary_discourse_qualify",
@@ -64679,6 +65288,7 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_arrow_of_time",
     "techniques_the_country_of_the_blind",
+    "thinker_b2_22_spinoza",
     "talk_working_from_home_b2c1",
     "bc_de_extinction_c1"
    ]
@@ -65095,10 +65705,11 @@ window.WORDBANK={
    "w": "property",
    "pos": "n",
    "def": "a quality or characteristic that something has",
-   "ex": "Temperature is a property of many particles together.",
+   "ex": "Please don't leave any personal property on the train.",
    "lessons": [
     "discuss_c1_more_is_different",
     "techniques_the_emperors_new_clothes",
+    "thinker_b2_23_locke",
     "bc_solutions_c1",
     "epicurean_07_the_swerve",
     "qf_falsefriend_italian_estate"
@@ -65131,10 +65742,11 @@ window.WORDBANK={
    "w": "phenomenon",
    "pos": "n",
    "def": "an observable event or pattern",
-   "ex": "A traffic jam is a striking phenomenon.",
+   "ex": "Rainbows are a beautiful natural phenomenon.",
    "lessons": [
     "discuss_c1_more_is_different",
     "short_history_the_world_cup",
+    "thinker_b2_01_thales",
     "gr_b2_the_black_box",
     "rs_y9_aut1_13_05",
     "cambridge_cae_exam_simulation"
@@ -65144,10 +65756,11 @@ window.WORDBANK={
    "w": "consciousness",
    "pos": "n",
    "def": "the experience of being aware of yourself and the world",
-   "ex": "Consciousness is a famous puzzle for emergence.",
+   "ex": "Scientists still don't fully understand how the brain produces consciousness.",
    "lessons": [
     "discuss_c1_more_is_different",
     "discuss_c1_time_travellers_argument",
+    "thinker_b2_15_avicenna",
     "rs_y7_sum1_05_05",
     "rs_y9_aut2_14_05",
     "rs_y9_sum1_17_01",
@@ -65291,6 +65904,7 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_time_travellers_argument",
     "the_rhetoric_of_persuasion_c2",
+    "thinker_b2_17_aquinas",
     "gr_warmup_b2_hot_takes",
     "rp_22_talking_about_sport",
     "acad_b1_05_giving_opinions",
@@ -65310,9 +65924,10 @@ window.WORDBANK={
    "w": "premise",
    "pos": "n",
    "def": "a statement that an argument starts from",
-   "ex": "If the premise is false, the conclusion falls with it.",
+   "ex": "The whole plan rests on the premise that customers want cheaper tickets.",
    "lessons": [
     "discuss_c1_time_travellers_argument",
+    "thinker_b2_03_parmenides",
     "sp_b2_52_difficult_questions",
     "sp_prep_b2_47",
     "sp_prep_c1_02"
@@ -65416,10 +66031,11 @@ window.WORDBANK={
    "w": "particle",
    "pos": "n",
    "def": "a very small piece of matter or energy at one location",
-   "ex": "An electron is detected as a single particle.",
+   "ex": "In the sunlight you could see particles of dust floating in the air.",
    "lessons": [
     "discuss_c1_waves_or_particles",
     "physics_a2b1_06_solid_liquid_gas",
+    "thinker_b2_04_democritus",
     "deep_space_05_dark"
    ]
   },
@@ -65760,6 +66376,7 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_will_to_believe",
     "odyssey_james_v_scot",
+    "thinker_b2_36_camus",
     "wp_24_the_consolation"
    ]
   },
@@ -65772,6 +66389,7 @@ window.WORDBANK={
     "discuss_c1_will_to_believe",
     "techniques_a_white_heron",
     "techniques_the_cop_and_the_anthem",
+    "thinker_b2_28_hegel",
     "c1_pro_23_customer_experience",
     "deep_space_03_universe",
     "b2_12_workplace_ethics",
@@ -66545,9 +67163,10 @@ window.WORDBANK={
    "w": "convention",
    "pos": "noun",
    "def": "an accepted pattern or expectation in a genre or form",
-   "ex": "Praise of the beloved was a convention of love poetry.",
+   "ex": "In many countries, people shake hands when they meet someone for the first time; it's a strong social convention.",
    "lessons": [
-    "ib_poetry_04_structure_and_form"
+    "ib_poetry_04_structure_and_form",
+    "thinker_b2_08_diogenes"
    ]
   },
   "parody": {
@@ -66724,10 +67343,11 @@ window.WORDBANK={
    "w": "commentary",
    "pos": "noun",
    "def": "a piece of writing that analyses a text",
-   "ex": "You wrote a timed commentary.",
+   "ex": "She bought a commentary to help her read Shakespeare.",
    "lessons": [
     "ib_poetry_06_timed_poem_commentary",
     "short_history_the_library_of_alexandria",
+    "thinker_b2_16_averroes",
     "rs_y7_spr1_03_04",
     "wp_25_the_house_of_wisdom"
    ]
@@ -66863,6 +67483,7 @@ window.WORDBANK={
    "lessons": [
     "lw_dudley_stephens_c1",
     "nq_06_is_it_right_c1",
+    "thinker_b2_09_epicurus",
     "rs_y9_aut1_13_03",
     "qf_spelling_necessary"
    ]
@@ -67227,6 +67848,7 @@ window.WORDBANK={
    "lessons": [
     "nq_02_which_c1",
     "skills_c1_senior_interview_4_thinking",
+    "thinker_b2_24_leibniz",
     "gr_b2_the_ranking_game",
     "bc_supply_chain_disruptions_c1",
     "c2_pro_24_intellectual_property",
@@ -67542,11 +68164,12 @@ window.WORDBANK={
   },
   "conclusion": {
    "w": "conclusion",
-   "pos": "",
+   "pos": "n",
    "def": "a judgement you reach after considering evidence. jump to conclusions means to decide too quickly, before you have enough facts.",
-   "ex": "",
+   "ex": "After reading all the reviews, I came to the conclusion that the cheaper phone was better.",
    "lessons": [
     "nq_05_why_c1",
+    "thinker_b2_03_parmenides",
     "tib_venn_b2",
     "lesson_50_c1_final_mastery",
     "ielts_lesson_5_conclusions_linking",
@@ -67556,11 +68179,12 @@ window.WORDBANK={
   },
   "dilemma": {
    "w": "dilemma",
-   "pos": "",
+   "pos": "n",
    "def": "a situation in which you must choose between two options that are both unwelcome or in conflict.",
    "ex": "She faced a dilemma: telling the truth would hurt a colleague, and staying silent would mislead the client.",
    "lessons": [
     "nq_06_is_it_right_c1",
+    "thinker_b2_31_kierkegaard",
     "gr_b2_the_dilemma",
     "rs_y10_sum2_24_05",
     "rs_y7_sum2_06_01",
@@ -67586,6 +68210,7 @@ window.WORDBANK={
     "odyssey_william_mary",
     "psyp_08_should_this_study_run_a2b1",
     "techniques_eveline",
+    "thinker_b2_23_locke",
     "world_sa_marriage",
     "rs_y11_spr1_27_02",
     "gr_warmup_b2_hot_takes_privacy",
@@ -67644,11 +68269,13 @@ window.WORDBANK={
   },
   "principle": {
    "w": "principle",
-   "pos": "",
+   "pos": "n",
    "def": "a basic belief or rule about right and wrong. on principle means because of a belief, whatever the consequences.",
-   "ex": "",
+   "ex": "One principle of good writing is to use short words when you can.",
    "lessons": [
     "nq_06_is_it_right_c1",
+    "thinker_b2_18_ockham",
+    "thinker_b2_27_kant",
     "gr_warmup_c1_hot_takes_reductio",
     "c1_the_ulysses_contract_for_hr",
     "memory_arts_p1_09"
@@ -68188,6 +68815,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_charles_i",
     "short_history_ned_kelly",
+    "thinker_b2_05_socrates",
     "tib_pdca_b2",
     "topic_free_time_b2",
     "ts_penicillin_b2",
@@ -68517,9 +69145,10 @@ window.WORDBANK={
    "w": "humble",
    "pos": "adj",
    "def": "not proud; aware of your limits.",
-   "ex": "A legend shows him as a humble king.",
+   "ex": "Even after winning the prize, she stayed humble and thanked her team.",
    "lessons": [
     "odyssey_cnut",
+    "thinker_b2_05_socrates",
     "world_oce_laidback_a2",
     "memory_arts_part1",
     "sp_a2_03_simple_opinions"
@@ -68566,10 +69195,11 @@ window.WORDBANK={
    "w": "obey",
    "pos": "v",
    "def": "to do what you are told.",
-   "ex": "Many people obeyed the researcher.",
+   "ex": "Most drivers obey the speed limit when they see a camera.",
    "lessons": [
     "odyssey_cnut",
     "psyp_08_should_this_study_run_a2b1",
+    "thinker_b2_21_hobbes",
     "rs_y8_sum1_11_04",
     "ois_16_restoration_and_revolution",
     "short_history_mutiny_on_the_bounty_a2b1",
@@ -69053,10 +69683,11 @@ window.WORDBANK={
    "w": "expel",
    "pos": "v",
    "def": "to force someone to leave a place.",
-   "ex": "",
+   "ex": "Two students were expelled for cheating in their final exams.",
    "lessons": [
     "odyssey_eadred",
-    "odyssey_edward_i"
+    "odyssey_edward_i",
+    "thinker_b2_22_spinoza"
    ]
   },
   "ravage": {
@@ -69161,9 +69792,10 @@ window.WORDBANK={
    "w": "divide",
    "pos": "v",
    "def": "to split into parts.",
-   "ex": "",
+   "ex": "Divide the cake into eight equal pieces.",
    "lessons": [
     "odyssey_eadwig",
+    "thinker_b2_04_democritus",
     "rs_y8_aut1_07_05",
     "rs_y8_sum2_12_05",
     "short_history_the_berlin_wall_a2b1"
@@ -69310,6 +69942,7 @@ window.WORDBANK={
     "short_history_mary_queen_of_scots",
     "short_history_napoleon",
     "short_history_the_haitian_revolution",
+    "thinker_b2_18_ockham",
     "topic_dreams_a2b1",
     "topic_dreams_b2c1",
     "short_history_the_battle_of_waterloo_a2b1"
@@ -69558,6 +70191,7 @@ window.WORDBANK={
     "techniques_the_verger",
     "techniques_the_verger_english_teacher",
     "techniques_the_verger_jobseeker",
+    "thinker_b2_11_marcus",
     "ml_15_the_big_favour"
    ]
   },
@@ -69682,9 +70316,10 @@ window.WORDBANK={
    "w": "wage",
    "pos": "n",
    "def": "money paid for work.",
-   "ex": "A server's wage can be low.",
+   "ex": "The government raised the minimum wage this year.",
    "lessons": [
     "odyssey_edward_iii",
+    "thinker_b2_30_marx",
     "world_na_tipping",
     "world_na_tipping_a2",
     "lesson_46_globalization_economics"
@@ -69804,12 +70439,13 @@ window.WORDBANK={
    "w": "revolt",
    "pos": "v",
    "def": "to rise up against the people in power.",
-   "ex": "",
+   "ex": "The new tax led to a revolt among farmers in the countryside.",
    "lessons": [
     "odyssey_edward_the_elder",
     "odyssey_llywelyn_ap_gruffydd",
     "odyssey_richard_ii",
     "short_history_the_gladiators",
+    "thinker_b2_36_camus",
     "short_history_boudica_a2b1",
     "short_history_the_gladiators_a2b1"
    ]
@@ -70040,10 +70676,11 @@ window.WORDBANK={
    "w": "theory",
    "pos": "n",
    "def": "an idea that explains something.",
-   "ex": "",
+   "ex": "Her theory is that people are kinder when they aren't in a hurry.",
    "lessons": [
     "odyssey_edward_v",
     "short_history_stonehenge",
+    "thinker_b2_01_thales",
     "rs_y10_aut2_20_05",
     "behind_the_screen_everything_everywhere_all_at_once_a2b1",
     "short_history_easter_island_a2b1"
@@ -70221,11 +70858,13 @@ window.WORDBANK={
    "w": "duty",
    "pos": "n",
    "def": "what you must do.",
-   "ex": "Voting is a duty in some countries.",
+   "ex": "In many cultures, looking after elderly parents is seen as a duty.",
    "lessons": [
     "odyssey_edward_viii",
     "pol_05_compulsory",
     "pol_05_compulsory_a2",
+    "thinker_b2_11_marcus",
+    "thinker_b2_27_kant",
     "world_ea_group_a2",
     "rs_y11_aut1_25_01"
    ]
@@ -70797,6 +71436,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_george_vi",
     "odyssey_jane_grey",
+    "thinker_b2_06_plato",
     "tib_johari_b2",
     "world_sa_smiles",
     "gr_c1_the_negotiator",
@@ -70934,7 +71574,8 @@ window.WORDBANK={
    "def": "very cruel.",
    "ex": "It was a brutal crime that shocked England.",
    "lessons": [
-    "odyssey_harold_harefoot"
+    "odyssey_harold_harefoot",
+    "thinker_b2_21_hobbes"
    ]
   },
   "dig up": {
@@ -71250,10 +71891,11 @@ window.WORDBANK={
    "w": "restless",
    "pos": "adj",
    "def": "unable to stay still.",
-   "ex": "Each success left him restless rather than content.",
+   "ex": "After ten years in the same job, she felt restless and wanted a change.",
    "lessons": [
     "odyssey_henry_ii",
     "techniques_how_much_land",
+    "thinker_b2_13_augustine",
     "wp_22_the_restless_heart",
     "grammar_b2_05_third_mixed_conditionals"
    ]
@@ -71327,6 +71969,7 @@ window.WORDBANK={
     "odyssey_henry_iii",
     "odyssey_mary_i",
     "short_history_michelangelo",
+    "thinker_b2_17_aquinas",
     "rs_y9_aut2_14_01"
    ]
   },
@@ -73523,6 +74166,7 @@ window.WORDBANK={
    "lessons": [
     "odyssey_william_ii",
     "piranesi_bc_meaning",
+    "thinker_b2_34_wittgenstein",
     "world_sa_gestures",
     "gr_b2_the_courtroom",
     "bc_navigating_misunderstandings_c1",
@@ -74176,6 +74820,7 @@ window.WORDBANK={
    "lessons": [
     "persepolis_worlds",
     "techniques_a_retrieved_reformation",
+    "thinker_b2_02_heraclitus",
     "tib_acculturation_b2",
     "ts_erikson_b2",
     "world_na_canadians",
@@ -74206,6 +74851,7 @@ window.WORDBANK={
    "ex": "The alienation she felt in the classroom came from being the only one who did not understand the jokes.",
    "lessons": [
     "persepolis_worlds",
+    "thinker_b2_30_marx",
     "rs_y10_aut2_20_05"
    ]
   },
@@ -75413,10 +76059,11 @@ window.WORDBANK={
    "w": "universal",
    "pos": "adj",
    "def": "available to everyone",
-   "ex": "Healthcare is universal.",
+   "ex": "Smiling is an almost universal sign of friendliness.",
    "lessons": [
     "pol_06_nordics",
-    "psyp_12_whose_psychology_b2c1"
+    "psyp_12_whose_psychology_b2c1",
+    "thinker_b2_27_kant"
    ]
   },
   "privatise": {
@@ -75432,9 +76079,10 @@ window.WORDBANK={
    "w": "inequality",
    "pos": "n",
    "def": "a big difference in wealth or opportunity",
-   "ex": "Income inequality is large within the region.",
+   "ex": "The report shows a big gap between rich and poor areas of the city, and that inequality is growing.",
    "lessons": [
     "pol_06_nordics",
+    "thinker_b2_26_rousseau",
     "tib_pareto_b2",
     "world_mena_oil",
     "gr_warmup_b2_hot_takes_money",
@@ -75942,6 +76590,7 @@ window.WORDBANK={
    "lessons": [
     "psy_02_invisible_gorilla_b2c1",
     "techniques_araby",
+    "thinker_b2_38_weil",
     "bc_someone_i_admire_idioms_c1",
     "speaking_naturally_mental_toolkit",
     "grammar_b2_03_modal_deduction"
@@ -76031,11 +76680,12 @@ window.WORDBANK={
    "w": "comply",
    "pos": "v",
    "def": "to do what a group or rule requires, even if you do not agree.",
-   "ex": "",
+   "ex": "All restaurants must comply with the new safety rules by June.",
    "lessons": [
     "psy_03_follow_the_crowd_b2c1",
     "short_history_cuban_missile_crisis",
     "techniques_the_ransom_of_red_chief",
+    "thinker_b2_37_arendt",
     "aviation_eapt_10"
    ]
   },
@@ -76165,10 +76815,11 @@ window.WORDBANK={
    "w": "reliable",
    "pos": "adj",
    "def": "always doing what you say you will do",
-   "ex": "I am reliable. I come to work on time every day.",
+   "ex": "Is this website a good source of information? Is it reliable?",
    "lessons": [
     "psy_04_can_you_trust_memory_b2c1",
     "skills_a2_interview_starter",
+    "thinker_b2_20_descartes",
     "topic_willpower_b2",
     "acad_b1_16_finding_information",
     "bl_01_memory_liar",
@@ -76565,9 +77216,11 @@ window.WORDBANK={
    "w": "deceive",
    "pos": "v",
    "def": "The noun is deception",
-   "ex": "The study used deception.",
+   "ex": "The advert deceived customers into thinking the phone was free.",
    "lessons": [
     "psyp_08_should_this_study_run_a2b1",
+    "thinker_b2_06_plato",
+    "thinker_b2_20_descartes",
     "bl_02_honest_truth_lying",
     "wp_32_i_think_therefore"
    ]
@@ -76618,10 +77271,11 @@ window.WORDBANK={
   "obedience": {
    "w": "obedience",
    "pos": "n",
-   "def": "obedient (adj), to obey (v). The old school's chief product — and the exact thing a dictatorship would later demand her schools deliver.",
-   "ex": "Milgram studied obedience to authority.",
+   "def": "doing what you are told by a person, a law or a rule",
+   "ex": "The army trains soldiers in strict obedience.",
    "lessons": [
     "psyp_08_should_this_study_run_b2c1",
+    "thinker_b2_37_arendt",
     "ts_montessori_b2",
     "rs_y10_sum1_23_04",
     "rs_y11_aut2_26_04",
@@ -77081,6 +77735,7 @@ window.WORDBANK={
    "ex": "What counts as polite depends on the context.",
    "lessons": [
     "psyp_12_whose_psychology_b2c1",
+    "thinker_b2_34_wittgenstein",
     "world_ea_politeness",
     "b1_42_star_interview_technique",
     "bp_c2_03_why_they_dont_understand_you",
@@ -77134,6 +77789,7 @@ window.WORDBANK={
    "ex": "She continued to insist that she had been at home all evening.",
    "lessons": [
     "reading_b2c1_the_unreliable_narrator",
+    "thinker_b2_12_pyrrho",
     "world_mena_hospitality",
     "cambridge_cae_kwt_past_papers",
     "lesson_35_subjunctive",
@@ -77145,10 +77801,11 @@ window.WORDBANK={
    "w": "contradict",
    "pos": "verb",
    "def": "say or show the opposite of something, so that both cannot be true",
-   "ex": "The muddy boots contradict her story about staying indoors.",
+   "ex": "The witness's story contradicts what the driver told the police.",
    "lessons": [
     "reading_b2c1_the_unreliable_narrator",
     "techniques_the_emperors_new_clothes",
+    "thinker_b2_16_averroes",
     "gr_b2_the_courtroom",
     "rs_y9_aut2_14_01",
     "epicurean_23_lorenzo_valla",
@@ -78426,9 +79083,10 @@ window.WORDBANK={
    "w": "eliminate",
    "pos": "v",
    "def": "· elimination (n) · eliminated (adj) — to remove or rule out completely. A process of elimination means finding the answer by discarding everything it cannot be.",
-   "ex": "",
+   "ex": "The new software eliminated most of the errors.",
    "lessons": [
     "short_history_bletchley_park",
+    "thinker_b2_18_ockham",
     "acad_b2_13_exam_strategies",
     "cambridge_cae_lesson1_multiple_choice_cloze",
     "IELTS Writing Quick Reference Guides",
@@ -79316,9 +79974,10 @@ window.WORDBANK={
    "w": "hesitate",
    "pos": "v",
    "def": "to pause or delay because you are uncertain about what to do.",
-   "ex": "",
+   "ex": "He hesitated for a moment before answering the question.",
    "lessons": [
     "short_history_great_fire_of_london",
+    "thinker_b2_31_kierkegaard",
     "su_a2_50_getting_in_touch",
     "wk_27_breaking_the_news",
     "bc_confident_meetings_c1",
@@ -79584,6 +80243,7 @@ window.WORDBANK={
     "short_history_homers_epics",
     "short_history_the_trojan_war",
     "techniques_rikki_tikki_tavi",
+    "thinker_b2_19_machiavelli",
     "odyssey_captain_game"
    ]
   },
@@ -79752,6 +80412,7 @@ window.WORDBANK={
     "short_history_julius_caesar",
     "short_history_napoleon",
     "short_history_the_roman_republic",
+    "thinker_b2_19_machiavelli",
     "gr_warmup_c1_hot_takes_ambition",
     "ois_10_edward_wales_scotland",
     "sp_b1_26_abstract_concepts"
@@ -79994,10 +80655,11 @@ window.WORDBANK={
    "w": "polymath",
    "pos": "n",
    "def": "a person whose knowledge and skill span many very different fields.",
-   "ex": "",
+   "ex": "Leonardo da Vinci was a painter, an engineer and a scientist: a true polymath.",
    "lessons": [
     "short_history_leonardo_da_vinci",
     "short_history_the_rosetta_stone",
+    "thinker_b2_15_avicenna",
     "ts_rosetta_stone_c1",
     "wp_26_the_flying_man"
    ]
@@ -80739,6 +81401,7 @@ window.WORDBANK={
    "lessons": [
     "short_history_nellie_bly",
     "short_history_tutankhamun",
+    "thinker_b2_15_avicenna",
     "rs_y7_spr2_04_05",
     "epicurean_15_the_canonic"
    ]
@@ -82786,6 +83449,7 @@ window.WORDBANK={
     "short_history_the_great_depression",
     "short_history_the_irish_potato_famine",
     "techniques_rikki_tikki_tavi",
+    "thinker_b2_29_schopenhauer",
     "qf_vocab_eventually_finally",
     "ib_lesson_techniques_story_of_an_hour"
    ]
@@ -82914,9 +83578,10 @@ window.WORDBANK={
    "w": "excess",
    "pos": "adj / n",
    "def": "beyond the usual or expected amount. Excess deaths = deaths above the normal figure for that period.",
-   "ex": "",
+   "ex": "An excess of sugar can damage your teeth.",
    "lessons": [
     "short_history_the_great_smog",
+    "thinker_b2_07_aristotle",
     "rp_33_the_car_hire_desk"
    ]
   },
@@ -83056,11 +83721,12 @@ window.WORDBANK={
    "w": "exploit",
    "pos": "v",
    "def": "to use someone or something unfairly for your own profit, giving little or nothing back.",
-   "ex": "",
+   "ex": "The company exploited young workers by paying them almost nothing.",
    "lessons": [
     "short_history_the_haitian_revolution",
     "short_history_the_scramble_for_africa",
     "techniques_the_devoted_friend",
+    "thinker_b2_27_kant",
     "talk_volunteering_b2c1",
     "b2_57_medical_ethics",
     "lesson_47_psychology_human_behavior"
@@ -83137,9 +83803,10 @@ window.WORDBANK={
    "w": "luxury",
    "pos": "n",
    "def": "great comfort and expensive, elegant living.",
-   "ex": "",
+   "ex": "A weekend in a five-star hotel was a luxury they could only afford once.",
    "lessons": [
     "short_history_the_hindenburg",
+    "thinker_b2_09_epicurus",
     "short_history_the_hindenburg_a2b1"
    ]
   },
@@ -83310,10 +83977,11 @@ window.WORDBANK={
    "w": "prosperity",
    "pos": "n",
    "def": "wealth and success, especially when shared widely across a society. Adjective: prosperous.",
-   "ex": "",
+   "ex": "The new factory brought years of prosperity to the town.",
    "lessons": [
     "short_history_the_industrial_revolution",
     "short_history_the_renaissance",
+    "thinker_b2_14_boethius",
     "rs_y8_spr1_09_02"
    ]
   },
@@ -83460,10 +84128,11 @@ window.WORDBANK={
    "w": "confess",
    "pos": "v",
    "def": "to admit, often under pressure, that you have done something wrong.",
-   "ex": "",
+   "ex": "He finally confessed that he had broken the window.",
    "lessons": [
     "short_history_the_knights_templar",
     "techniques_god_sees_the_truth",
+    "thinker_b2_13_augustine",
     "tib_prisoners_b2",
     "ts_dna_fingerprint_b2",
     "wp_22_the_restless_heart"
@@ -84702,9 +85371,10 @@ window.WORDBANK={
    "w": "cause",
    "pos": "n",
    "def": "an aim or principle that people work hard for and strongly believe in.",
-   "ex": "",
+   "ex": "Nobody knows the cause of the fire yet.",
    "lessons": [
     "short_history_the_suffragettes",
+    "thinker_b2_22_spinoza",
     "b1_50_volunteering",
     "bc_charity_b2c1",
     "ielts_lesson_9_problem_solution",
@@ -86213,7 +86883,8 @@ window.WORDBANK={
     "techniques_jekyll_and_hyde_4",
     "techniques_the_bet",
     "techniques_the_selfish_giant",
-    "techniques_the_sniper"
+    "techniques_the_sniper",
+    "thinker_b2_13_augustine"
    ]
   },
   "trifle": {
@@ -87323,11 +87994,12 @@ window.WORDBANK={
   },
   "wisdom": {
    "w": "wisdom",
-   "pos": "",
+   "pos": "n",
    "def": "· unwise. The story's central question: does age actually bring wisdom — or only tiredness?",
-   "ex": "",
+   "ex": "My grandmother's wisdom comes from a long and difficult life.",
    "lessons": [
     "techniques_dr_heideggers_experiment",
+    "thinker_b2_05_socrates",
     "rs_y7_spr1_03_01",
     "anansi_and_the_pot_of_wisdom",
     "anansi_and_turtle",
@@ -87471,9 +88143,10 @@ window.WORDBANK={
    "w": "consolation",
    "pos": "n",
    "def": "something that comforts you in a sad situation. Verb: to console.",
-   "ex": "",
+   "ex": "Losing the final was hard, but the team's great season was some consolation.",
    "lessons": [
     "techniques_god_sees_the_truth",
+    "thinker_b2_14_boethius",
     "wp_24_the_consolation"
    ]
   },
@@ -87725,6 +88398,7 @@ window.WORDBANK={
    "lessons": [
     "techniques_how_much_land",
     "techniques_mateo_falcone",
+    "thinker_b2_13_augustine",
     "topic_willpower_b2",
     "rs_y10_spr1_21_02",
     "rs_y11_aut2_26_03",
@@ -88098,9 +88772,10 @@ window.WORDBANK={
    "w": "resemblance",
    "pos": "n",
    "def": "the fact of looking or being like something. Bear a resemblance to; a striking / passing / family resemblance. Guest's phrase is \"a rather singular resemblance\".",
-   "ex": "",
+   "ex": "There is a strong resemblance between the two sisters; people often confuse them.",
    "lessons": [
-    "techniques_jekyll_and_hyde_2"
+    "techniques_jekyll_and_hyde_2",
+    "thinker_b2_34_wittgenstein"
    ]
   },
   "fog": {
@@ -88501,9 +89176,11 @@ window.WORDBANK={
    "w": "dignity",
    "pos": "n",
    "def": "a calm, serious manner that deserves respect; self-respect.",
-   "ex": "",
+   "ex": "Every worker deserves to be treated with dignity.",
    "lessons": [
     "techniques_kong_yiji",
+    "thinker_b2_27_kant",
+    "thinker_b2_38_weil",
     "rs_y11_spr1_27_04",
     "rs_y10_aut1_19_04",
     "someone_i_admire_b2c1",
@@ -89734,9 +90411,10 @@ window.WORDBANK={
    "w": "deduce",
    "pos": "v",
    "def": "to reach a conclusion by reasoning logically from the evidence.",
-   "ex": "",
+   "ex": "From the muddy boots by the door, she deduced that her son was home.",
    "lessons": [
     "techniques_the_adventure_of_the_speckled_band",
+    "thinker_b2_03_parmenides",
     "sp_b2_54_past_speculation",
     "lesson-16-vocabulary"
    ]
@@ -90789,6 +91467,7 @@ window.WORDBANK={
    "ex": "Moved by the sight, the boy felt a wave of compassion and quietly gave the beggar his own lunch.",
    "lessons": [
     "techniques_the_happy_prince",
+    "thinker_b2_29_schopenhauer",
     "rs_y10_spr2_22_03",
     "rs_y7_aut1_01_01",
     "rs_y7_spr2_04_05",
@@ -91699,10 +92378,11 @@ window.WORDBANK={
    "w": "fortune",
    "pos": "n",
    "def": "\"He hoped the three cards would win him a fortune.\" Also: to inherit a fortune.",
-   "ex": "",
+   "ex": "By good fortune, my train was late too, so I didn't miss it.",
    "lessons": [
     "techniques_the_queen_of_spades",
-    "techniques_the_rocking_horse_winner"
+    "techniques_the_rocking_horse_winner",
+    "thinker_b2_14_boethius"
    ]
   },
   "gambler": {
@@ -92559,10 +93239,12 @@ window.WORDBANK={
    "w": "mock",
    "pos": "v",
    "def": "To laugh at someone in a cruel or contemptuous way; to ridicule.",
-   "ex": "He built the maze only to mock his guest.",
+   "ex": "The comedian mocked politicians who promise everything and do nothing.",
    "lessons": [
     "techniques_the_two_labyrinths",
     "techniques_vanka",
+    "thinker_b2_08_diogenes",
+    "thinker_b2_24_leibniz",
     "rs_y11_sum1_29_06",
     "b1_56_acca_exam_prep"
    ]
@@ -92838,9 +93520,10 @@ window.WORDBANK={
    "w": "pattern",
    "pos": "noun",
    "def": "a design that repeats: lines, shapes or flowers.",
-   "ex": "",
+   "ex": "Doctors noticed a pattern: most of the patients had eaten at the same café.",
    "lessons": [
     "techniques_the_yellow_wallpaper_a2b1",
+    "thinker_b2_25_hume",
     "ts_john_snow_b2",
     "a1p_02_where_are_you_from",
     "ielts_spelling_vocabulary_lesson.Gabriel",
@@ -93597,6 +94280,1225 @@ window.WORDBANK={
     "bc_presentation_structure_c1"
    ]
   },
+  "observe": {
+   "w": "observe",
+   "pos": "v",
+   "def": "to watch something carefully in order to learn about it",
+   "ex": "The scientists observed the birds for six months before writing their report.",
+   "lessons": [
+    "thinker_b2_01_thales",
+    "thinker_b2_25_hume",
+    "sp_prep_b1_32",
+    "qf_collocation_look_watch_see"
+   ]
+  },
+  "substance": {
+   "w": "substance",
+   "pos": "n",
+   "def": "a particular kind of material with its own qualities",
+   "ex": "Honey is a thick, sticky substance made by bees.",
+   "lessons": [
+    "thinker_b2_01_thales"
+   ]
+  },
+  "predict": {
+   "w": "predict",
+   "pos": "v",
+   "def": "to say what will happen in the future, based on knowledge or experience",
+   "ex": "Nobody can predict exactly when the next earthquake will happen.",
+   "lessons": [
+    "thinker_b2_01_thales",
+    "thinker_b2_25_hume",
+    "topic_willpower_b2",
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "wonder": {
+   "w": "wonder",
+   "pos": "n",
+   "def": "a feeling of surprise and admiration when you see something beautiful, strange or new",
+   "ex": "The little boy stared at the falling snow with wonder.",
+   "lessons": [
+    "thinker_b2_01_thales",
+    "short_history_the_seven_wonders_a2b1"
+   ]
+  },
+  "flow": {
+   "w": "flow",
+   "pos": "v",
+   "def": "to move along smoothly and without stopping, like water in a river",
+   "ex": "On Sunday morning, traffic flowed easily through the city centre.",
+   "lessons": [
+    "thinker_b2_02_heraclitus",
+    "lesson_34_participle_clauses"
+   ]
+  },
+  "transform": {
+   "w": "transform",
+   "pos": "v",
+   "def": "to change something completely, so that it becomes very different",
+   "ex": "The new park has transformed an ugly car park into a lovely green space.",
+   "lessons": [
+    "thinker_b2_02_heraclitus",
+    "thinker_b2_32_nietzsche",
+    "world_eu_east",
+    "rs_y10_aut2_20_02",
+    "books_changed_world_lesson",
+    "epicurean_27_gassendi_ethics",
+    "b2_66_impact_of_technology",
+    "general_lesson_36_technology_society_interactive",
+    "lesson_36_technology_society_interactive",
+    "ielts_task1_gauntlet_b2",
+    "qf_falsefriend_german_bekommen"
+   ]
+  },
+  "constant": {
+   "w": "constant",
+   "pos": "adj",
+   "def": "happening all the time, without stopping",
+   "ex": "The constant noise from the road made it hard to sleep.",
+   "lessons": [
+    "thinker_b2_02_heraclitus"
+   ]
+  },
+  "permanent": {
+   "w": "permanent",
+   "pos": "adj",
+   "def": "lasting for a very long time or for ever",
+   "ex": "After six months, she got a permanent job instead of a temporary contract.",
+   "lessons": [
+    "thinker_b2_02_heraclitus",
+    "acad_b1_15_learning_from_mistakes",
+    "b2_69_changes_in_workplace",
+    "cambridge_cae_introduction",
+    "lesson_41_nuances_tense_aspect"
+   ]
+  },
+  "opposite": {
+   "w": "opposite",
+   "pos": "n",
+   "def": "a person or thing that is completely different from another",
+   "ex": "Hot is the opposite of cold.",
+   "lessons": [
+    "thinker_b2_02_heraclitus",
+    "thinker_b2_28_hegel",
+    "su_a2_03_getting_around_town",
+    "su_a2_85_getting_around_city",
+    "epicurean_18_vs_stoicism",
+    "sf_a1_09_a_problem_and_the_way",
+    "a1p_17_asking_directions",
+    "a1p_17_asking_directions_fr",
+    "a1_adjectives_describing_things_interactive",
+    "a1_asking_for_directions_interactive",
+    "qf_falsefriend_german_gift"
+   ]
+  },
+  "gradual": {
+   "w": "gradual",
+   "pos": "adj",
+   "def": "happening slowly, over a long period, in small steps",
+   "ex": "There has been a gradual rise in prices this year.",
+   "lessons": [
+    "thinker_b2_02_heraclitus",
+    "thinker_b2_28_hegel",
+    "ois_03_the_saxon_shore",
+    "discuss_b2c1_endings_and_after",
+    "acad_b1_10_describing_graphs"
+   ]
+  },
+  "logic": {
+   "w": "logic",
+   "pos": "n",
+   "def": "a way of thinking in which each idea follows clearly and correctly from the one before",
+   "ex": "There's no logic in buying a car you can't afford to drive.",
+   "lessons": [
+    "thinker_b2_03_parmenides"
+   ]
+  },
+  "invisible": {
+   "w": "invisible",
+   "pos": "adj",
+   "def": "impossible to see",
+   "ex": "Wi-Fi signals are invisible, but they are all around us.",
+   "lessons": [
+    "thinker_b2_04_democritus",
+    "qf_pronunciation_schwa",
+    "techniques_the_emperors_new_clothes_a2b1",
+    "grammar_c1_09_advanced_articles_determiners"
+   ]
+  },
+  "consist": {
+   "w": "consist",
+   "pos": "v",
+   "def": "to be made of particular parts or things (always followed by 'of')",
+   "ex": "The team consists of four designers and two engineers.",
+   "lessons": [
+    "thinker_b2_04_democritus"
+   ]
+  },
+  "combine": {
+   "w": "combine",
+   "pos": "v",
+   "def": "to join two or more things together so that they form one thing",
+   "ex": "If you combine blue and yellow paint, you get green.",
+   "lessons": [
+    "thinker_b2_04_democritus",
+    "a1p_15_review_past_future",
+    "sp_prep_a2_19"
+   ]
+  },
+  "structure": {
+   "w": "structure",
+   "pos": "n",
+   "def": "the way the parts of something are arranged or organised",
+   "ex": "The structure of the building is strong enough to survive an earthquake.",
+   "lessons": [
+    "thinker_b2_04_democritus",
+    "bc_presentation_structure_c1",
+    "st_pro_01_architecture_of_story",
+    "su_a2_45_presentation_skills",
+    "business_meetings_course_guide",
+    "ct_a2_20_mastery_prep",
+    "a1p_34_questions",
+    "sp_prep_b1_23"
+   ]
+  },
+  "void": {
+   "w": "void",
+   "pos": "n",
+   "def": "a large empty space with nothing in it",
+   "ex": "The astronauts looked out into the black void of space.",
+   "lessons": [
+    "thinker_b2_04_democritus",
+    "wp_04_atoms_in_the_void",
+    "epicurean_06_atoms_and_void"
+   ]
+  },
+  "examine": {
+   "w": "examine",
+   "pos": "v",
+   "def": "to look at or think about something very carefully, to find out the truth",
+   "ex": "The doctor examined the X-ray for a long time before she spoke.",
+   "lessons": [
+    "thinker_b2_05_socrates",
+    "crime_history_c1_part2",
+    "acad_b1_19_writing_introductions"
+   ]
+  },
+  "provoke": {
+   "w": "provoke",
+   "pos": "v",
+   "def": "to cause a strong reaction, often anger or deep thinking, on purpose",
+   "ex": "The film was designed to provoke discussion about money and power.",
+   "lessons": [
+    "thinker_b2_05_socrates",
+    "b2_60_film_criticism"
+   ]
+  },
+  "appearance": {
+   "w": "appearance",
+   "pos": "n",
+   "def": "the way something or someone seems or looks from the outside",
+   "ex": "Don't judge a restaurant by its appearance; the food might be wonderful.",
+   "lessons": [
+    "thinker_b2_06_plato",
+    "first_lesson_b2c1",
+    "cambridge_cae_lesson4_word_formation",
+    "qf_falsefriend_russian_accurate"
+   ]
+  },
+  "insight": {
+   "w": "insight",
+   "pos": "n",
+   "def": "a human truth that a campaign is built on",
+   "ex": "The insight is that people hate being managed.",
+   "lessons": [
+    "thinker_b2_06_plato",
+    "tib_johari_b2",
+    "tib_kolb_b2",
+    "rs_y7_spr2_04_05",
+    "bc_powerful_presentations_c1",
+    "c1_pro_02_executive_summaries",
+    "b2_49_networking_events",
+    "bc_advertising_defend_creative_c1",
+    "lesson_17_mixed_conditionals_wishes",
+    "sp_c1_66_reformulation_mastery"
+   ]
+  },
+  "ideal": {
+   "w": "ideal",
+   "pos": "n",
+   "def": "a perfect example or standard that people try to reach",
+   "ex": "Her ideal is a world where every child can go to school.",
+   "lessons": [
+    "thinker_b2_06_plato"
+   ]
+  },
+  "moderation": {
+   "w": "moderation",
+   "pos": "n",
+   "def": "the quality of not doing too much or too little of something",
+   "ex": "Doctors say that some foods are fine in moderation but harmful in large amounts.",
+   "lessons": [
+    "thinker_b2_07_aristotle",
+    "thinker_b2_09_epicurus",
+    "talk_eating_less_meat_b2c1"
+   ]
+  },
+  "extreme": {
+   "w": "extreme",
+   "pos": "n",
+   "def": "the furthest possible point of something, very far from the middle",
+   "ex": "The weather here goes from one extreme to the other: boiling in summer, freezing in winter.",
+   "lessons": [
+    "thinker_b2_07_aristotle",
+    "rs_y8_sum1_11_02"
+   ]
+  },
+  "virtue": {
+   "w": "virtue",
+   "pos": "n",
+   "def": "a good quality in someone's character, such as honesty or courage",
+   "ex": "Patience is a virtue, especially when your train is late.",
+   "lessons": [
+    "thinker_b2_07_aristotle",
+    "ts_erikson_b2",
+    "rs_y8_aut2_08_04",
+    "rs_y8_sum1_11_01",
+    "epicurean_13_virtues_as_means",
+    "rs_y8_sum1_11_06"
+   ]
+  },
+  "habit": {
+   "w": "habit",
+   "pos": "n",
+   "def": "something you do so often that you do it without thinking",
+   "ex": "Checking my phone first thing in the morning is a habit I'd like to stop.",
+   "lessons": [
+    "thinker_b2_07_aristotle",
+    "thinker_b2_25_hume",
+    "thinker_b2_33_james",
+    "topic_habits_b2",
+    "su_a2_21_being_nostalgic",
+    "b1_54_second_chances",
+    "a1p_18_how_often",
+    "a1p_18_how_often_fr",
+    "a1p_21_right_now",
+    "a1_how_often_interactive",
+    "a1_simple_present_vs_present_continuous_interactive",
+    "lesson_04_used_to_would",
+    "lesson_47_psychology_human_behavior",
+    "lesson-15-applications-review"
+   ]
+  },
+  "conform": {
+   "w": "conform",
+   "pos": "v",
+   "def": "to behave in the way that most people, or the rules, expect",
+   "ex": "Teenagers often feel pressure to conform and dress like their friends.",
+   "lessons": [
+    "thinker_b2_08_diogenes",
+    "thinker_b2_32_nietzsche",
+    "world_ea_group",
+    "wp_39_the_starry_heavens"
+   ]
+  },
+  "status": {
+   "w": "status",
+   "pos": "n",
+   "def": "the position or importance a person has in society compared with others",
+   "ex": "For some people, an expensive car is mainly about status, not about driving.",
+   "lessons": [
+    "thinker_b2_08_diogenes",
+    "b2_106_status_games"
+   ]
+  },
+  "possession": {
+   "w": "possession",
+   "pos": "n",
+   "def": "something that you own",
+   "ex": "When they moved abroad, they sold most of their possessions and took only two suitcases.",
+   "lessons": [
+    "thinker_b2_08_diogenes",
+    "b1_26_ielts_speaking_practice",
+    "qf_pronunciation_homophones"
+   ]
+  },
+  "self-sufficient": {
+   "w": "self-sufficient",
+   "pos": "adj",
+   "def": "able to get everything you need without help from other people",
+   "ex": "The family grows its own vegetables and is almost self-sufficient.",
+   "lessons": [
+    "thinker_b2_08_diogenes",
+    "techniques_the_machine_stops"
+   ]
+  },
+  "content": {
+   "w": "content",
+   "pos": "adj",
+   "def": "happy and satisfied with what you have",
+   "ex": "He doesn't earn much, but he's content with his quiet life by the sea.",
+   "lessons": [
+    "thinker_b2_09_epicurus"
+   ]
+  },
+  "indulge": {
+   "w": "indulge",
+   "pos": "v",
+   "def": "to let yourself have or do something you enjoy, especially more than is good for you",
+   "ex": "On my birthday, I indulge in a huge slice of chocolate cake.",
+   "lessons": [
+    "thinker_b2_09_epicurus",
+    "gr_warmup_b2_hot_takes_food",
+    "techniques_the_lottery_ticket"
+   ]
+  },
+  "anxiety": {
+   "w": "anxiety",
+   "pos": "n",
+   "def": "a feeling of worry and nervousness about what might happen",
+   "ex": "She felt a lot of anxiety before her driving test.",
+   "lessons": [
+    "thinker_b2_09_epicurus",
+    "thinker_b2_31_kierkegaard",
+    "acad_b2_05_seminar_discussions",
+    "stoicism_lesson_1_dichotomy_of_control",
+    "b1_49_mental_health",
+    "c1_pro_03_delivering_bad_news",
+    "bc_managing_nerves_c1",
+    "epicurean_02_tetrapharmakos",
+    "IELTS-Reading-Practice-Test-10",
+    "ielts_lesson_20_final_strategies"
+   ]
+  },
+  "dwell": {
+   "w": "dwell",
+   "pos": "v",
+   "def": "to keep thinking or talking about something unpleasant for too long (used with 'on')",
+   "ex": "Try not to dwell on one bad exam result; there will be other chances.",
+   "lessons": [
+    "thinker_b2_10_zeno"
+   ]
+  },
+  "reminder": {
+   "w": "reminder",
+   "pos": "n",
+   "def": "something that helps you remember a thing, or makes you think about it again",
+   "ex": "I set an alarm on my phone as a reminder to call my mother on Sunday.",
+   "lessons": [
+    "thinker_b2_11_marcus",
+    "wk_22_the_unpaid_invoice"
+   ]
+  },
+  "judgement": {
+   "w": "judgement",
+   "pos": "n",
+   "def": "an opinion you form about something, especially about whether it is good or bad",
+   "ex": "Trust your judgement: you know this situation better than anyone.",
+   "lessons": [
+    "thinker_b2_11_marcus",
+    "thinker_b2_37_arendt",
+    "rs_y7_sum1_05_03",
+    "rs_y10_aut2_20_03"
+   ]
+  },
+  "certainty": {
+   "w": "certainty",
+   "pos": "n",
+   "def": "the state of being completely sure about something",
+   "ex": "Nobody can say with certainty what the world will look like in fifty years.",
+   "lessons": [
+    "thinker_b2_12_pyrrho",
+    "thinker_b2_20_descartes",
+    "su_a2_61_planning_a_project",
+    "bestiary_discourse_qualify",
+    "b2_05_dealing_with_disaster",
+    "bc_making_deductions_c1",
+    "lesson_29_modal_perfects",
+    "sp_b1_22_hedging",
+    "sp_b1_39_degrees_certainty",
+    "sp_prep_b1_39",
+    "grammar_b1_19_modals_deduction",
+    "pron_c1_05_intonation_attitude"
+   ]
+  },
+  "biased": {
+   "w": "biased",
+   "pos": "adj",
+   "def": "unfairly preferring one person, side or idea to another",
+   "ex": "The referee was accused of being biased towards the home team.",
+   "lessons": [
+    "thinker_b2_12_pyrrho"
+   ]
+  },
+  "tranquil": {
+   "w": "tranquil",
+   "pos": "adj",
+   "def": "calm, quiet and peaceful",
+   "ex": "We stayed in a tranquil village in the mountains, far from the traffic.",
+   "lessons": [
+    "thinker_b2_12_pyrrho"
+   ]
+  },
+  "perception": {
+   "w": "perception",
+   "pos": "n",
+   "def": "the way you notice or understand something through your senses or your mind",
+   "ex": "Being tired can change your perception of time.",
+   "lessons": [
+    "thinker_b2_12_pyrrho",
+    "c2_pro_27_brand_strategy",
+    "bc_first_impressions_c1",
+    "cpe_read_c1_11_time_perception",
+    "qf_vocab_listen_hear",
+    "grammar_c1_02_advanced_aspect"
+   ]
+  },
+  "procrastinate": {
+   "w": "procrastinate",
+   "pos": "v",
+   "def": "to keep delaying something you should do, often because it is boring or unpleasant",
+   "ex": "I always procrastinate when I have to fill in official forms.",
+   "lessons": [
+    "thinker_b2_13_augustine",
+    "tib_eisenhower_b2",
+    "su_a2_44_working_smarter",
+    "komorebi_08_why_we_procrastinate",
+    "curious_conversations_08_procrastination"
+   ]
+  },
+  "fleeting": {
+   "w": "fleeting",
+   "pos": "adj",
+   "def": "lasting only a very short time",
+   "ex": "Fame on social media is often fleeting.",
+   "lessons": [
+    "thinker_b2_14_boethius",
+    "b2_105_the_flow_state"
+   ]
+  },
+  "existence": {
+   "w": "existence",
+   "pos": "n",
+   "def": "the fact or state of being real or alive",
+   "ex": "Some people doubt the existence of ghosts.",
+   "lessons": [
+    "thinker_b2_15_avicenna",
+    "rs_y7_aut2_02_05",
+    "rs_y9_aut1_13_01",
+    "epicurean_07_the_swerve"
+   ]
+  },
+  "hypothetical": {
+   "w": "hypothetical",
+   "pos": "adj",
+   "def": "imagined as possible, but not real or not yet happened",
+   "ex": "Nobody is ever going to fill the Solar System with soup. The question is entirely hypothetical — and that is exactly the point of asking it.",
+   "lessons": [
+    "thinker_b2_15_avicenna",
+    "topic_what_if_b2",
+    "acad_b1_21_asking_good_questions",
+    "a1p_39_could_would",
+    "lesson_15_second_conditional",
+    "sp_a2_14_expressing_preferences",
+    "sp_prep_b1_38",
+    "grammar_c1_04_inverted_formal_conditionals"
+   ]
+  },
+  "deprive": {
+   "w": "deprive",
+   "pos": "v",
+   "def": "to take something away from someone, or not let them have it",
+   "ex": "The noise from the party deprived the whole street of sleep.",
+   "lessons": [
+    "thinker_b2_15_avicenna"
+   ]
+  },
+  "literal": {
+   "w": "literal",
+   "pos": "adj",
+   "def": "taking the basic, exact meaning of words, not an imaginative one",
+   "ex": "'It's raining cats and dogs' doesn't have a literal meaning.",
+   "lessons": [
+    "thinker_b2_16_averroes",
+    "gr_b2_the_translator",
+    "rs_y7_spr1_03_01",
+    "rs_y10_aut1_19_04",
+    "talk_ai_and_language_learning_b2c1",
+    "rs_y9_sum1_17_02",
+    "rs_y10_aut2_20_06"
+   ]
+  },
+  "coexist": {
+   "w": "coexist",
+   "pos": "v",
+   "def": "to live or exist together at the same time or in the same place, peacefully",
+   "ex": "Cats and dogs can coexist in the same house if they're introduced slowly.",
+   "lessons": [
+    "thinker_b2_16_averroes",
+    "rs_y7_sum1_05_01"
+   ]
+  },
+  "objection": {
+   "w": "objection",
+   "pos": "n",
+   "def": "a reason that you give for disagreeing with an idea or a plan",
+   "ex": "My main objection to the plan is the cost.",
+   "lessons": [
+    "thinker_b2_17_aquinas",
+    "skills_b1b2_trade_fair_objections",
+    "rs_y9_aut1_13_02",
+    "c1_pro_08_internal_pitching",
+    "prof_c1_04_influencing_without_authority",
+    "wk_07_asking_to_work_from_home",
+    "bc_defending_methodology_phd",
+    "sp_c1_02_argument_structure",
+    "wr_b1_persuasive_peel"
+   ]
+  },
+  "reasoning": {
+   "w": "reasoning",
+   "pos": "n",
+   "def": "the process of thinking about something in a logical way to reach a conclusion",
+   "ex": "I don't agree with her, but I can follow her reasoning.",
+   "lessons": [
+    "thinker_b2_17_aquinas",
+    "gr_b2_fact_or_bluff",
+    "acad_b1_22_understanding_arguments",
+    "rs_y8_sum1_11_05",
+    "bc_alternative_way_c1",
+    "editor_dilemmas_game",
+    "lesson_40_b2_review_fluency_challenge",
+    "sp_b2_53_abstract_reasoning",
+    "lesson-14-mind-mapping"
+   ]
+  },
+  "refute": {
+   "w": "refute",
+   "pos": "v",
+   "def": "to prove that a statement or an argument is wrong",
+   "ex": "The scientist refuted the claim with clear evidence.",
+   "lessons": [
+    "thinker_b2_17_aquinas",
+    "acad_b1_05_giving_opinions",
+    "rs_y9_aut1_13_05",
+    "sp_prep_b2_47",
+    "acad_b2_15_thesis_statements"
+   ]
+  },
+  "systematic": {
+   "w": "systematic",
+   "pos": "adj",
+   "def": "done carefully, following a fixed plan or method",
+   "ex": "The police made a careful, systematic search of the house.",
+   "lessons": [
+    "thinker_b2_17_aquinas",
+    "acad_b2_11_research_basics",
+    "psychology-intro-lesson",
+    "wp_11_the_master_of_logic"
+   ]
+  },
+  "assume": {
+   "w": "assume",
+   "pos": "v",
+   "def": "to believe that something is true without having proof",
+   "ex": "I assumed the train would be on time, but it was an hour late.",
+   "lessons": [
+    "thinker_b2_18_ockham",
+    "tib_fivewhys_b2",
+    "c2_pro_11_coaching_conversations",
+    "sp_prep_b1_38"
+   ]
+  },
+  "far-fetched": {
+   "w": "far-fetched",
+   "pos": "adj",
+   "def": "very unlikely to be true, and difficult to believe",
+   "ex": "The idea that aliens built the pyramids is far-fetched.",
+   "lessons": [
+    "thinker_b2_18_ockham",
+    "discuss_c1_ai_future_humanity"
+   ]
+  },
+  "pragmatic": {
+   "w": "pragmatic",
+   "pos": "adj",
+   "def": "dealing with problems in a practical way, based on what really works rather than on ideals",
+   "ex": "We need a solution that works this month, not a perfect one in five years; let's be pragmatic.",
+   "lessons": [
+    "thinker_b2_19_machiavelli",
+    "thinker_b2_33_james",
+    "bc_women_political_leaders_c1",
+    "bp_c2_06_the_consultants_edge",
+    "wp_46_the_will_to_believe",
+    "sp_prep_c1_01",
+    "essay_practice_discussion",
+    "gr_c1_english_conquest"
+   ]
+  },
+  "foundation": {
+   "w": "foundation",
+   "pos": "n",
+   "def": "the basic idea or fact that something else is built on",
+   "ex": "Trust is the foundation of any good friendship.",
+   "lessons": [
+    "thinker_b2_20_descartes",
+    "c1_pro_18_onboarding",
+    "first_impressions_small_talk",
+    "bc_books_changed_world_part2_c1"
+   ]
+  },
+  "chaos": {
+   "w": "chaos",
+   "pos": "n",
+   "def": "a state of complete confusion and disorder",
+   "ex": "When the traffic lights stopped working, the city centre was in chaos.",
+   "lessons": [
+    "thinker_b2_21_hobbes"
+   ]
+  },
+  "authority": {
+   "w": "authority",
+   "pos": "n",
+   "def": "the power to give orders and make people follow them",
+   "ex": "The new manager doesn't have the authority to change our holidays.",
+   "lessons": [
+    "thinker_b2_21_hobbes",
+    "rs_y7_spr1_03_06",
+    "c2_pro_01_boardroom_rhetoric",
+    "sp_prep_c1_01"
+   ]
+  },
+  "security": {
+   "w": "security",
+   "pos": "n",
+   "def": "the state of being safe and protected from danger",
+   "ex": "Many people choose a job for its security, not its salary.",
+   "lessons": [
+    "thinker_b2_21_hobbes",
+    "lesson_38_work_career"
+   ]
+  },
+  "interconnected": {
+   "w": "interconnected",
+   "pos": "adj",
+   "def": "joined together so that each part affects the others",
+   "ex": "Climate, food and money are all interconnected problems.",
+   "lessons": [
+    "thinker_b2_22_spinoza",
+    "c1_pro_29_digital_transformation",
+    "sp_c1_61_sophisticated_cohesion",
+    "acad_b1_06_understanding_instructions"
+   ]
+  },
+  "depend": {
+   "w": "depend",
+   "pos": "v",
+   "def": "to need something or someone in order to exist, work or succeed (used with 'on')",
+   "ex": "Small shops depend on local customers.",
+   "lessons": [
+    "thinker_b2_22_spinoza",
+    "grammar_a1_13_zero_conditional"
+   ]
+  },
+  "consequence": {
+   "w": "consequence",
+   "pos": "n",
+   "def": "a result of an action or situation, often a bad one",
+   "ex": "One consequence of the new road was that the village became noisier.",
+   "lessons": [
+    "thinker_b2_22_spinoza",
+    "thinker_b2_27_kant",
+    "thinker_b2_33_james",
+    "tib_riskmatrix_b2",
+    "gr_b2_chain_reaction",
+    "su_a2_78_choosing_a_restaurant",
+    "b1_12_life_coaching",
+    "b1_21_cause_and_effect",
+    "rs_y8_sum1_11_01",
+    "lesson_14_zero_first_conditional",
+    "lv_alevel_05_english_through_time",
+    "ml_20_the_group_admin",
+    "sp_a2_11_cause_and_effect",
+    "sp_prep_a2_11",
+    "sp_prep_b1_34",
+    "b1_33_cause_and_effect",
+    "grammar_c1_03_advanced_modals"
+   ]
+  },
+  "infinite": {
+   "w": "infinite",
+   "pos": "adj",
+   "def": "without any limit or end",
+   "ex": "A small child's curiosity can seem infinite.",
+   "lessons": [
+    "thinker_b2_22_spinoza",
+    "rs_y9_aut1_13_03"
+   ]
+  },
+  "liberty": {
+   "w": "liberty",
+   "pos": "n",
+   "def": "the freedom to live, think and act as you choose, within the law",
+   "ex": "The new law protects the liberty of the press.",
+   "lessons": [
+    "thinker_b2_23_locke",
+    "wp_33_the_leviathan"
+   ]
+  },
+  "entitled": {
+   "w": "entitled",
+   "pos": "adj",
+   "def": "having the right to have or do something (used with 'to')",
+   "ex": "Full-time workers are entitled to four weeks' paid holiday.",
+   "lessons": [
+    "thinker_b2_23_locke",
+    "rp_05_at_the_airport",
+    "wk_29_the_front_desk"
+   ]
+  },
+  "legitimate": {
+   "w": "legitimate",
+   "pos": "adj",
+   "def": "fair and acceptable according to the law or to good reasons",
+   "ex": "Is a sick cat a legitimate reason to miss work?",
+   "lessons": [
+    "thinker_b2_23_locke",
+    "gr_c1_devils_advocate",
+    "rs_y11_spr2_28_02",
+    "rs_y8_spr2_10_03",
+    "c2_pro_09_change_management",
+    "wk_29_the_front_desk",
+    "b2_59_digital_wellbeing",
+    "rs_y11_aut2_26_06",
+    "sp_c1_68_devils_advocate"
+   ]
+  },
+  "abuse": {
+   "w": "abuse",
+   "pos": "v",
+   "def": "to use power or a position in a wrong or harmful way",
+   "ex": "The manager abused his position by giving jobs to his friends.",
+   "lessons": [
+    "thinker_b2_23_locke",
+    "gr_warmup_b2_hot_takes_power"
+   ]
+  },
+  "suffering": {
+   "w": "suffering",
+   "pos": "n",
+   "def": "physical or mental pain",
+   "ex": "The new medicine has reduced the pain of many patients and ended years of suffering.",
+   "lessons": [
+    "thinker_b2_24_leibniz",
+    "thinker_b2_29_schopenhauer",
+    "rs_y10_aut1_19_03",
+    "rs_y8_aut2_08_01"
+   ]
+  },
+  "outweigh": {
+   "w": "outweigh",
+   "pos": "v",
+   "def": "to be greater or more important than something else",
+   "ex": "For me, the benefits of living in the city outweigh the noise.",
+   "lessons": [
+    "thinker_b2_24_leibniz",
+    "acad_c1_03_academic_debate",
+    "rs_y8_spr2_10_02",
+    "rs_y8_sum1_11_05",
+    "Ielts1",
+    "ielts_lesson_8_advantages_disadvantages",
+    "ielts_writing_advantages_disadvantages_essay",
+    "sp_b2_48_concession",
+    "sp_prep_b1_28",
+    "explore_b2_would_you_rather",
+    "acad_b2_15_thesis_statements",
+    "essay_practice_advantages_disadvantages",
+    "sentence_powerups"
+   ]
+  },
+  "optimistic": {
+   "w": "optimistic",
+   "pos": "adj",
+   "def": "expecting good things to happen in the future",
+   "ex": "Doctors are optimistic that she'll make a full recovery.",
+   "lessons": [
+    "thinker_b2_24_leibniz"
+   ]
+  },
+  "expectation": {
+   "w": "expectation",
+   "pos": "n",
+   "def": "a strong feeling or belief that something will happen",
+   "ex": "Young people sometimes feel the weight of family expectations.",
+   "lessons": [
+    "thinker_b2_25_hume",
+    "world_sa_marriage",
+    "su_a2_79_mistakes_and_misadventures",
+    "Jane_Birdcage_STUDENT",
+    "bp_c2_06_the_consultants_edge",
+    "komorebi_02_the_placebo_effect",
+    "scenario-lessons",
+    "sp_c1_62_expert_hedging"
+   ]
+  },
+  "conclude": {
+   "w": "conclude",
+   "pos": "v",
+   "def": "to decide that something is true after thinking about the facts",
+   "ex": "After reading the reports, she concluded that the plan was too risky.",
+   "lessons": [
+    "thinker_b2_25_hume",
+    "epicurean_30_epicureanism_today",
+    "sp_b1_23_three_part_structure"
+   ]
+  },
+  "civilisation": {
+   "w": "civilisation",
+   "pos": "n",
+   "def": "an advanced, organised way of life, with cities, laws, arts and science",
+   "ex": "The river valley was home to one of the world's oldest civilisations.",
+   "lessons": [
+    "thinker_b2_26_rousseau"
+   ]
+  },
+  "corrupt": {
+   "w": "corrupt",
+   "pos": "v",
+   "def": "to make someone or something morally worse or dishonest",
+   "ex": "Too much power can corrupt even a kind person.",
+   "lessons": [
+    "thinker_b2_26_rousseau",
+    "wp_38_the_social_contract"
+   ]
+  },
+  "innocence": {
+   "w": "innocence",
+   "pos": "n",
+   "def": "the state of not knowing about, or not having done, anything bad",
+   "ex": "Young children look at the world with a kind of innocence that adults often lose.",
+   "lessons": [
+    "thinker_b2_26_rousseau",
+    "wp_38_the_social_contract"
+   ]
+  },
+  "envy": {
+   "w": "envy",
+   "pos": "n",
+   "def": "the unhappy feeling of wanting what someone else has",
+   "ex": "Scrolling through other people's holiday photos can fill you with envy.",
+   "lessons": [
+    "thinker_b2_26_rousseau"
+   ]
+  },
+  "progress": {
+   "w": "progress",
+   "pos": "n",
+   "def": "movement towards a better or more developed state",
+   "ex": "Medicine has made huge progress in the last hundred years.",
+   "lessons": [
+    "thinker_b2_26_rousseau",
+    "b2_03_making_your_opinion_heard",
+    "a1p_10_review_unit1",
+    "a1p_20_review_unit2_complete",
+    "lesson_10_a2_review_fluency_challenge",
+    "qf_collocation_make_do"
+   ]
+  },
+  "exception": {
+   "w": "exception",
+   "pos": "n",
+   "def": "a case that does not follow the usual rule",
+   "ex": "Everyone has to wear a helmet on the building site, and there are no exceptions.",
+   "lessons": [
+    "thinker_b2_27_kant",
+    "c1_pro_26_startup_ecosystem",
+    "grammar_b2_18_quantifiers_linking_conventions"
+   ]
+  },
+  "conflict": {
+   "w": "conflict",
+   "pos": "n",
+   "def": "a serious disagreement or fight between people, groups or ideas",
+   "ex": "There's a conflict between what the workers want and what the managers want.",
+   "lessons": [
+    "thinker_b2_28_hegel",
+    "world_sa_smiles",
+    "world_ssa_safari",
+    "rs_y9_aut2_14_01",
+    "c2_pro_17_organisational_politics",
+    "b2_12_workplace_ethics",
+    "discuss_b2_iran_us_europe_reacts",
+    "qf_pronunciation_noun_verb_stress",
+    "sp_prep_b1_31"
+   ]
+  },
+  "tension": {
+   "w": "tension",
+   "pos": "n",
+   "def": "a feeling of strain between people or ideas that pull in different directions",
+   "ex": "You could feel the tension in the room before the results were announced.",
+   "lessons": [
+    "thinker_b2_28_hegel",
+    "world_ea_background",
+    "c1_pro_16_remote_teams",
+    "prof_c1_09_stakeholder_management",
+    "b2_75_managing_stress",
+    "qf_pronunciation_minimal_pairs_i",
+    "sp_prep_b1_31",
+    "ib_lesson_02_naming_techniques"
+   ]
+  },
+  "evolve": {
+   "w": "evolve",
+   "pos": "v",
+   "def": "to develop slowly and change into something more advanced",
+   "ex": "Mobile phones have evolved from simple calling devices into small computers.",
+   "lessons": [
+    "thinker_b2_28_hegel",
+    "rs_y9_spr2_16_01"
+   ]
+  },
+  "synthesis": {
+   "w": "synthesis",
+   "pos": "n",
+   "def": "a new whole made by combining different ideas or things",
+   "ex": "Her cooking is a synthesis of Indian and Italian traditions.",
+   "lessons": [
+    "thinker_b2_28_hegel",
+    "gr_warmup_c1_hot_takes_reframe",
+    "c2_pro_08_thought_leadership",
+    "epicurean_26_baptizing_atoms",
+    "wp_25_the_house_of_wisdom",
+    "bc_ai_for_phd_research_c1"
+   ]
+  },
+  "desire": {
+   "w": "desire",
+   "pos": "n",
+   "def": "a strong feeling of wanting something",
+   "ex": "She felt a sudden desire to travel somewhere warm.",
+   "lessons": [
+    "thinker_b2_29_schopenhauer",
+    "epicurean_11_classifying_desires"
+   ]
+  },
+  "satisfy": {
+   "w": "satisfy",
+   "pos": "v",
+   "def": "to give someone what they want or need, so that they feel content",
+   "ex": "The small meal didn't satisfy his hunger.",
+   "lessons": [
+    "thinker_b2_29_schopenhauer",
+    "epicurean_11_classifying_desires"
+   ]
+  },
+  "pessimistic": {
+   "w": "pessimistic",
+   "pos": "adj",
+   "def": "expecting bad things to happen, rather than good ones",
+   "ex": "He's pessimistic about finding a job this year.",
+   "lessons": [
+    "thinker_b2_29_schopenhauer",
+    "acad_b2_03_critical_thinking"
+   ]
+  },
+  "labour": {
+   "w": "labour",
+   "pos": "n",
+   "def": "work, especially hard physical work, or the people who do it",
+   "ex": "Building the bridge took ten years of labour.",
+   "lessons": [
+    "thinker_b2_30_marx",
+    "bc_future_of_work_c1"
+   ]
+  },
+  "struggle": {
+   "w": "struggle",
+   "pos": "n",
+   "def": "a long, hard fight or effort to get or change something",
+   "ex": "Learning to walk again after the accident was a real struggle.",
+   "lessons": [
+    "thinker_b2_30_marx",
+    "thinker_b2_32_nietzsche",
+    "are_we_forgetting_how_to_be_friends",
+    "b2_51_presenting_data",
+    "IELTS-Reading-Practice-Test-2",
+    "ielts_task1_phrase_flip_b2",
+    "qf_pronunciation_would_wood",
+    "qf_vocab_eventually_finally",
+    "sp_a2_02_describing_photos"
+   ]
+  },
+  "ownership": {
+   "w": "ownership",
+   "pos": "n",
+   "def": "the legal right to have and control something, such as land, a house or a business",
+   "ex": "Home ownership is falling among young people in many cities.",
+   "lessons": [
+    "thinker_b2_30_marx",
+    "acad_c2_03_viva_preparation",
+    "wk_13_the_mistake",
+    "ielts_task_1_teacher_answers"
+   ]
+  },
+  "commitment": {
+   "w": "commitment",
+   "pos": "n",
+   "def": "a promise to give your time, energy or loyalty to something or someone",
+   "ex": "Learning an instrument takes years of practice and real commitment.",
+   "lessons": [
+    "thinker_b2_31_kierkegaard",
+    "thinker_b2_35_sartre",
+    "rs_y10_spr1_21_03",
+    "gr_warmup_b2_hot_takes_relationships",
+    "skills_b1b2_trade_fair_networking",
+    "rs_y9_spr2_16_02",
+    "c2_pro_25_sustainability_reporting",
+    "resolution_problem",
+    "talk_volunteering_b2c1",
+    "su_a2_67_effective_meetings"
+   ]
+  },
+  "belief": {
+   "w": "belief",
+   "pos": "n",
+   "def": "a feeling that something is true or real, even without full proof",
+   "ex": "His belief in his team never changed, even after five defeats in a row.",
+   "lessons": [
+    "thinker_b2_33_james",
+    "rs_y7_aut1_01_01",
+    "b2_85_superstitions"
+   ]
+  },
+  "abstract": {
+   "w": "abstract",
+   "pos": "adj",
+   "def": "based on general ideas rather than real, physical things or situations",
+   "ex": "The talk was too abstract; nobody could see how it applied to daily life.",
+   "lessons": [
+    "thinker_b2_33_james",
+    "tib_kolb_b2",
+    "gr_warmup_b2_hot_takes_art",
+    "st_pro_04_show_dont_tell",
+    "acad_c2_12_abstract_writing",
+    "b1_07_discussing_art",
+    "ct_b1_26_abstract_concepts",
+    "epicurean_15_the_canonic",
+    "wp_11_the_master_of_logic",
+    "cambridge_cpe_introduction",
+    "sp_b1_26_abstract_concepts",
+    "sp_prep_b1_26",
+    "lesson-19-formulas",
+    "lesson-25-abstract-information",
+    "acad_b1_29_reading_for_detail",
+    "grammar_c1_09_advanced_articles_determiners"
+   ]
+  },
+  "clarify": {
+   "w": "clarify",
+   "pos": "v",
+   "def": "to make something easier to understand by explaining it in more detail",
+   "ex": "Could you clarify what you mean by 'soon'? Today or next week?",
+   "lessons": [
+    "thinker_b2_34_wittgenstein",
+    "bc_win_win_negotiations_b2c1",
+    "acad_b1_21_asking_good_questions",
+    "su_a2_54_managing_time_with_others",
+    "handling_questions_buying_time",
+    "skills_b1_numbers_deadlines_risks_meetings",
+    "b2_39_best_email_replies",
+    "bc_clarifying_intercultural_c1",
+    "sp_a2_16_fillers_hesitation",
+    "sp_prep_a2_09",
+    "sp_prep_b1_24",
+    "acad_b1_18_listening_lectures"
+   ]
+  },
+  "definition": {
+   "w": "definition",
+   "pos": "n",
+   "def": "a statement that explains exactly what a word or idea means",
+   "ex": "Dictionaries often give several definitions for one word.",
+   "lessons": [
+    "thinker_b2_34_wittgenstein",
+    "ct_b1_26_abstract_concepts"
+   ]
+  },
+  "misunderstanding": {
+   "w": "misunderstanding",
+   "pos": "n",
+   "def": "a failure to get the right meaning, often causing a small problem between people",
+   "ex": "There was a misunderstanding about the date, so half the guests came on Friday.",
+   "lessons": [
+    "thinker_b2_34_wittgenstein",
+    "bc_navigating_misunderstandings_c1",
+    "skills_a2_trade_fair_problems",
+    "b2_29_misunderstandings",
+    "epicurean_05_why_controversial",
+    "lesson_33_cleft_sentences",
+    "qf_vocab_actually_currently",
+    "sp_b2_59_self_monitoring",
+    "b2_06_cultural_differences"
+   ]
+  },
+  "excuse": {
+   "w": "excuse",
+   "pos": "n",
+   "def": "a reason you give to explain why you did something wrong, often not the real reason.  is his excuse every single time.\"",
+   "ex": "\"The bus was late",
+   "lessons": [
+    "thinker_b2_35_sartre",
+    "ml_13_the_apology",
+    "b2_19_awkward_situations",
+    "lesson_27_past_perfect_continuous",
+    "qf_vocab_actual_current"
+   ]
+  },
+  "meaningless": {
+   "w": "meaningless",
+   "pos": "adj",
+   "def": "having no purpose, value or importance",
+   "ex": "Without friends to share it with, the prize felt meaningless.",
+   "lessons": [
+    "thinker_b2_36_camus",
+    "speaking_naturally_teens_bonus_camus_absurd_hero",
+    "bullshit-jobs-ai-hr-c1",
+    "work_jobs_a2"
+   ]
+  },
+  "fulfilling": {
+   "w": "fulfilling",
+   "pos": "adj",
+   "def": "making you feel happy and satisfied because it is worth doing",
+   "ex": "Volunteering at the animal shelter is the most fulfilling part of my week.",
+   "lessons": [
+    "thinker_b2_36_camus",
+    "talk_volunteering_b2c1"
+   ]
+  },
+  "attentive": {
+   "w": "attentive",
+   "pos": "adj",
+   "def": "listening or watching carefully, with your whole mind",
+   "ex": "The waiter was attentive but never annoying.",
+   "lessons": [
+    "thinker_b2_38_weil",
+    "b2_76_creating_connections"
+   ]
+  },
+  "generosity": {
+   "w": "generosity",
+   "pos": "n",
+   "def": "the quality of happily giving time, money or help to others",
+   "ex": "Thanks to the neighbours' generosity, the family had enough food all winter.",
+   "lessons": [
+    "thinker_b2_38_weil",
+    "rs_y7_sum2_06_03",
+    "rp_26_a_wedding_invitation"
+   ]
+  },
   "torn": {
    "w": "torn",
    "pos": "",
@@ -93853,18 +95755,6 @@ window.WORDBANK={
     "curious_conversations_05_food_crimes"
    ]
   },
-  "procrastinate": {
-   "w": "procrastinate",
-   "pos": "",
-   "def": "“I always procrastinate when I have to do my taxes.”",
-   "ex": "",
-   "lessons": [
-    "tib_eisenhower_b2",
-    "su_a2_44_working_smarter",
-    "komorebi_08_why_we_procrastinate",
-    "curious_conversations_08_procrastination"
-   ]
-  },
   "prioritise": {
    "w": "prioritise",
    "pos": "",
@@ -94027,17 +95917,6 @@ window.WORDBANK={
     "c1_pro_16_remote_teams",
     "lesson_05_present_perfect_continuous",
     "lesson_41_nuances_tense_aspect"
-   ]
-  },
-  "assume": {
-   "w": "assume",
-   "pos": "",
-   "def": "“Don't assume the driver was careless — ask.”",
-   "ex": "",
-   "lessons": [
-    "tib_fivewhys_b2",
-    "c2_pro_11_coaching_conversations",
-    "sp_prep_b1_38"
    ]
   },
   "shortcut": {
@@ -94213,23 +96092,6 @@ window.WORDBANK={
     "tib_johari_b2"
    ]
   },
-  "insight": {
-   "w": "insight",
-   "pos": "n",
-   "def": "a human truth that a campaign is built on",
-   "ex": "The insight is that people hate being managed.",
-   "lessons": [
-    "tib_johari_b2",
-    "tib_kolb_b2",
-    "rs_y7_spr2_04_05",
-    "bc_powerful_presentations_c1",
-    "c1_pro_02_executive_summaries",
-    "b2_49_networking_events",
-    "bc_advertising_defend_creative_c1",
-    "lesson_17_mixed_conditionals_wishes",
-    "sp_c1_66_reformulation_mastery"
-   ]
-  },
   "aware": {
    "w": "aware",
    "pos": "",
@@ -94267,29 +96129,6 @@ window.WORDBANK={
     "ielts_lesson_3_body_paragraphs",
     "sp_prep_b2_56",
     "lesson-25-abstract-information"
-   ]
-  },
-  "abstract": {
-   "w": "abstract",
-   "pos": "",
-   "def": "“Her explanation was too abstract; I needed an example.”",
-   "ex": "",
-   "lessons": [
-    "tib_kolb_b2",
-    "gr_warmup_b2_hot_takes_art",
-    "st_pro_04_show_dont_tell",
-    "acad_c2_12_abstract_writing",
-    "b1_07_discussing_art",
-    "ct_b1_26_abstract_concepts",
-    "epicurean_15_the_canonic",
-    "wp_11_the_master_of_logic",
-    "cambridge_cpe_introduction",
-    "sp_b1_26_abstract_concepts",
-    "sp_prep_b1_26",
-    "lesson-19-formulas",
-    "lesson-25-abstract-information",
-    "acad_b1_29_reading_for_detail",
-    "grammar_c1_09_advanced_articles_determiners"
    ]
   },
   "sense": {
@@ -94861,28 +96700,6 @@ window.WORDBANK={
     "think_inside_the_box_your_problem",
     "qf_vocab_possibility_opportunity",
     "sp_c1_04_speculative_language",
-    "grammar_c1_03_advanced_modals"
-   ]
-  },
-  "consequence": {
-   "w": "consequence",
-   "pos": "",
-   "def": "“The consequences of the error were serious.”",
-   "ex": "",
-   "lessons": [
-    "tib_riskmatrix_b2",
-    "gr_b2_chain_reaction",
-    "su_a2_78_choosing_a_restaurant",
-    "b1_12_life_coaching",
-    "b1_21_cause_and_effect",
-    "rs_y8_sum1_11_01",
-    "lesson_14_zero_first_conditional",
-    "lv_alevel_05_english_through_time",
-    "ml_20_the_group_admin",
-    "sp_a2_11_cause_and_effect",
-    "sp_prep_a2_11",
-    "sp_prep_b1_34",
-    "b1_33_cause_and_effect",
     "grammar_c1_03_advanced_modals"
    ]
   },
@@ -95470,25 +97287,6 @@ window.WORDBANK={
     "world_ea_exams_a2"
    ]
   },
-  "habit": {
-   "w": "habit",
-   "pos": "",
-   "def": "a creature of habit = a person who likes to do the same things in the same way.",
-   "ex": "",
-   "lessons": [
-    "topic_habits_b2",
-    "su_a2_21_being_nostalgic",
-    "b1_54_second_chances",
-    "a1p_18_how_often",
-    "a1p_18_how_often_fr",
-    "a1p_21_right_now",
-    "a1_how_often_interactive",
-    "a1_simple_present_vs_present_continuous_interactive",
-    "lesson_04_used_to_would",
-    "lesson_47_psychology_human_behavior",
-    "lesson-15-applications-review"
-   ]
-  },
   "jump scare": {
    "w": "jump scare",
    "pos": "n",
@@ -95761,21 +97559,6 @@ window.WORDBANK={
     "topic_strangers_b2"
    ]
   },
-  "hypothetical": {
-   "w": "hypothetical",
-   "pos": "adj",
-   "def": "imagined, not real; asked in order to explore an idea. A hypothetical situation; purely hypothetical; hypothetically speaking…",
-   "ex": "Nobody is ever going to fill the Solar System with soup. The question is entirely hypothetical — and that is exactly the point of asking it.",
-   "lessons": [
-    "topic_what_if_b2",
-    "acad_b1_21_asking_good_questions",
-    "a1p_39_could_would",
-    "lesson_15_second_conditional",
-    "sp_a2_14_expressing_preferences",
-    "sp_prep_b1_38",
-    "grammar_c1_04_inverted_formal_conditionals"
-   ]
-  },
   "rough estimate": {
    "w": "rough estimate",
    "pos": "n",
@@ -95815,16 +97598,6 @@ window.WORDBANK={
     "explore_b1_need_for_speed",
     "b2_the_ulysses_contract",
     "cae_c1_the_ulysses_contract"
-   ]
-  },
-  "predict": {
-   "w": "predict",
-   "pos": "v",
-   "def": "Nobody can predict the future. The noun is a prediction.",
-   "ex": "",
-   "lessons": [
-    "topic_willpower_b2",
-    "discuss_b2_emotional_intelligence"
    ]
   },
   "bush": {
@@ -95934,19 +97707,6 @@ window.WORDBANK={
    "lessons": [
     "ts_dna_fingerprint_b2",
     "lesson_23_non_defining_relative_clauses"
-   ]
-  },
-  "virtue": {
-   "w": "virtue",
-   "pos": "n",
-   "def": "Erikson gave each stage of life its own virtue: a strength you gain when the stage goes well. Adjective: virtuous.",
-   "ex": "",
-   "lessons": [
-    "ts_erikson_b2",
-    "rs_y8_aut2_08_04",
-    "rs_y8_sum1_11_01",
-    "epicurean_13_virtues_as_means",
-    "rs_y8_sum1_11_06"
    ]
   },
   "degree": {
@@ -96776,21 +98536,6 @@ window.WORDBANK={
     "lv_alevel_01_two_texts_one_essay"
    ]
   },
-  "tension": {
-   "w": "tension",
-   "pos": "n",
-   "def": "a feeling of worry and unfriendliness between groups",
-   "ex": "Old tensions still affect how the three countries see each other.",
-   "lessons": [
-    "world_ea_background",
-    "c1_pro_16_remote_teams",
-    "prof_c1_09_stakeholder_management",
-    "b2_75_managing_stress",
-    "qf_pronunciation_minimal_pairs_i",
-    "sp_prep_b1_31",
-    "ib_lesson_02_naming_techniques"
-   ]
-  },
   "island": {
    "w": "island",
    "pos": "n",
@@ -97061,16 +98806,6 @@ window.WORDBANK={
    "ex": "Give the gift with both hands.",
    "lessons": [
     "world_ea_gifts_a2"
-   ]
-  },
-  "conform": {
-   "w": "conform",
-   "pos": "v",
-   "def": "to behave in the way that other people expect",
-   "ex": "Some workers feel pressure to conform to the group's style.",
-   "lessons": [
-    "world_ea_group",
-    "wp_39_the_starry_heavens"
    ]
   },
   "harmony": {
@@ -97578,23 +99313,6 @@ window.WORDBANK={
     "b1_45_social_media_life",
     "general_lesson_36_technology_society_interactive",
     "lesson_36_technology_society"
-   ]
-  },
-  "transform": {
-   "w": "transform",
-   "pos": "v",
-   "def": "to change completely.",
-   "ex": "",
-   "lessons": [
-    "world_eu_east",
-    "rs_y10_aut2_20_02",
-    "books_changed_world_lesson",
-    "epicurean_27_gassendi_ethics",
-    "b2_66_impact_of_technology",
-    "general_lesson_36_technology_society_interactive",
-    "lesson_36_technology_society_interactive",
-    "ielts_task1_gauntlet_b2",
-    "qf_falsefriend_german_bekommen"
    ]
   },
   "cliché": {
@@ -100088,21 +101806,6 @@ window.WORDBANK={
     "world_sa_marriage"
    ]
   },
-  "expectation": {
-   "w": "expectation",
-   "pos": "n",
-   "def": "a belief that something should happen",
-   "ex": "Young people sometimes feel the weight of family expectations.",
-   "lessons": [
-    "world_sa_marriage",
-    "su_a2_79_mistakes_and_misadventures",
-    "Jane_Birdcage_STUDENT",
-    "bp_c2_06_the_consultants_edge",
-    "komorebi_02_the_placebo_effect",
-    "scenario-lessons",
-    "sp_c1_62_expert_hedging"
-   ]
-  },
   "in-laws": {
    "w": "in-laws",
    "pos": "n",
@@ -100166,22 +101869,6 @@ window.WORDBANK={
     "short_history_the_tudors_a2b1",
     "lesson_27_past_perfect_continuous",
     "talk_death_penalty_a2b1"
-   ]
-  },
-  "conflict": {
-   "w": "conflict",
-   "pos": "n",
-   "def": "an angry disagreement between people",
-   "ex": "Elephants that eat crops cause conflict with farmers.",
-   "lessons": [
-    "world_sa_smiles",
-    "world_ssa_safari",
-    "rs_y9_aut2_14_01",
-    "c2_pro_17_organisational_politics",
-    "b2_12_workplace_ethics",
-    "discuss_b2_iran_us_europe_reacts",
-    "qf_pronunciation_noun_verb_stress",
-    "sp_prep_b1_31"
    ]
   },
   "tourism": {
@@ -100932,15 +102619,6 @@ window.WORDBANK={
     "acad_b2_12_literature_reviews"
    ]
   },
-  "pessimistic": {
-   "w": "pessimistic",
-   "pos": "adj",
-   "def": "expecting bad things to happen",
-   "ex": "He is pessimistic about finding a job this year.",
-   "lessons": [
-    "acad_b2_03_critical_thinking"
-   ]
-  },
   "limitation": {
    "w": "limitation",
    "pos": "n",
@@ -100997,22 +102675,6 @@ window.WORDBANK={
     "religions_c1_functional",
     "a1p_25_review_expressing_ideas",
     "sp_prep_b1_31"
-   ]
-  },
-  "anxiety": {
-   "w": "anxiety",
-   "pos": "n",
-   "def": "a feeling of worry or nervousness",
-   "ex": "He felt anxiety before speaking at the meeting.",
-   "lessons": [
-    "acad_b2_05_seminar_discussions",
-    "stoicism_lesson_1_dichotomy_of_control",
-    "b1_49_mental_health",
-    "c1_pro_03_delivering_bad_news",
-    "bc_managing_nerves_c1",
-    "epicurean_02_tetrapharmakos",
-    "IELTS-Reading-Practice-Test-10",
-    "ielts_lesson_20_final_strategies"
    ]
   },
   "entry point": {
@@ -101152,17 +102814,6 @@ window.WORDBANK={
    "ex": "Most artists are their own harshest critic.",
    "lessons": [
     "acad_b2_10_presentations"
-   ]
-  },
-  "systematic": {
-   "w": "systematic",
-   "pos": "adj",
-   "def": "done in a careful and organised way",
-   "ex": "We made a systematic search of every room for the keys.",
-   "lessons": [
-    "acad_b2_11_research_basics",
-    "psychology-intro-lesson",
-    "wp_11_the_master_of_logic"
    ]
   },
   "quantitative": {
@@ -101365,26 +103016,6 @@ window.WORDBANK={
     "acad_c1_03_academic_debate",
     "chatterbox_3_hot_seat",
     "b2_67_making_a_decision"
-   ]
-  },
-  "outweigh": {
-   "w": "outweigh",
-   "pos": "v",
-   "def": "to be greater or more important than something else",
-   "ex": "The benefits of the new road outweigh the costs.",
-   "lessons": [
-    "acad_c1_03_academic_debate",
-    "rs_y8_spr2_10_02",
-    "rs_y8_sum1_11_05",
-    "Ielts1",
-    "ielts_lesson_8_advantages_disadvantages",
-    "ielts_writing_advantages_disadvantages_essay",
-    "sp_b2_48_concession",
-    "sp_prep_b1_28",
-    "explore_b2_would_you_rather",
-    "acad_b2_15_thesis_statements",
-    "essay_practice_advantages_disadvantages",
-    "sentence_powerups"
    ]
   },
   "opening statement": {
@@ -101802,17 +103433,6 @@ window.WORDBANK={
     "wk_11_saying_no_to_your_boss"
    ]
   },
-  "ownership": {
-   "w": "ownership",
-   "pos": "n",
-   "def": "taking full responsibility for something as your own",
-   "ex": "Taking ownership of mistakes earns respect.",
-   "lessons": [
-    "acad_c2_03_viva_preparation",
-    "wk_13_the_mistake",
-    "ielts_task_1_teacher_answers"
-   ]
-  },
   "oversell": {
    "w": "oversell",
    "pos": "v",
@@ -102019,22 +103639,6 @@ window.WORDBANK={
    "lessons": [
     "gr_b2_fact_or_bluff",
     "acad_b1_06_understanding_instructions"
-   ]
-  },
-  "reasoning": {
-   "w": "reasoning",
-   "pos": "n",
-   "def": "the process of thinking about something to reach an answer",
-   "ex": "Can you explain the reasoning behind your choice?",
-   "lessons": [
-    "gr_b2_fact_or_bluff",
-    "acad_b1_22_understanding_arguments",
-    "rs_y8_sum1_11_05",
-    "bc_alternative_way_c1",
-    "editor_dilemmas_game",
-    "lesson_40_b2_review_fluency_challenge",
-    "sp_b2_53_abstract_reasoning",
-    "lesson-14-mind-mapping"
    ]
   },
   "either or": {
@@ -102345,20 +103949,6 @@ window.WORDBANK={
     "sp_prep_b2_51"
    ]
   },
-  "literal": {
-   "w": "literal",
-   "pos": "adj",
-   "def": "using the most basic meaning of each word",
-   "ex": "The literal meaning of the phrase makes no sense.",
-   "lessons": [
-    "gr_b2_the_translator",
-    "rs_y7_spr1_03_01",
-    "rs_y10_aut1_19_04",
-    "talk_ai_and_language_learning_b2c1",
-    "rs_y9_sum1_17_02",
-    "rs_y10_aut2_20_06"
-   ]
-  },
   "revealing": {
    "w": "revealing",
    "pos": "adj",
@@ -102501,22 +104091,6 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_steelman",
     "rs_y9_sum1_17_06",
     "acad_b1_20_writing_conclusions"
-   ]
-  },
-  "legitimate": {
-   "w": "legitimate",
-   "pos": "adj",
-   "def": "fair and reasonable, so people should accept it",
-   "ex": "She raised a legitimate concern about safety.",
-   "lessons": [
-    "gr_c1_devils_advocate",
-    "rs_y11_spr2_28_02",
-    "rs_y8_spr2_10_03",
-    "c2_pro_09_change_management",
-    "wk_29_the_front_desk",
-    "b2_59_digital_wellbeing",
-    "rs_y11_aut2_26_06",
-    "sp_c1_68_devils_advocate"
    ]
   },
   "spectrum": {
@@ -103511,22 +105085,6 @@ window.WORDBANK={
    "ex": "Baptism is a rite of initiation into the Church.",
    "lessons": [
     "rs_y10_spr1_21_03"
-   ]
-  },
-  "commitment": {
-   "w": "commitment",
-   "pos": "n",
-   "def": "a promise to give your time and loyalty",
-   "ex": "Adult baptism shows a personal commitment to faith.",
-   "lessons": [
-    "rs_y10_spr1_21_03",
-    "gr_warmup_b2_hot_takes_relationships",
-    "skills_b1b2_trade_fair_networking",
-    "rs_y9_spr2_16_02",
-    "c2_pro_25_sustainability_reporting",
-    "resolution_problem",
-    "talk_volunteering_b2c1",
-    "su_a2_67_effective_meetings"
    ]
   },
   "cleanse": {
@@ -105194,16 +106752,6 @@ window.WORDBANK={
     "rs_y9_sum1_17_06"
    ]
   },
-  "belief": {
-   "w": "belief",
-   "pos": "n",
-   "def": "something that you think is true",
-   "ex": "Her belief in God helps her when life is hard.",
-   "lessons": [
-    "rs_y7_aut1_01_01",
-    "b2_85_superstitions"
-   ]
-  },
   "atheist": {
    "w": "atheist",
    "pos": "n",
@@ -105686,17 +107234,6 @@ window.WORDBANK={
     "rs_y7_aut2_02_05"
    ]
   },
-  "existence": {
-   "w": "existence",
-   "pos": "n",
-   "def": "the state of being real",
-   "ex": "Atheists question the existence of any god.",
-   "lessons": [
-    "rs_y7_aut2_02_05",
-    "rs_y9_aut1_13_01",
-    "epicurean_07_the_swerve"
-   ]
-  },
   "empiricism": {
    "w": "empiricism",
    "pos": "n",
@@ -105916,17 +107453,6 @@ window.WORDBANK={
     "rs_y7_spr1_03_05",
     "cpe_read_c2_11_cathedral_thinking",
     "gr_b2_collocation_clash"
-   ]
-  },
-  "authority": {
-   "w": "authority",
-   "pos": "n",
-   "def": "the power or right to be obeyed",
-   "ex": "For many believers, scripture has great authority.",
-   "lessons": [
-    "rs_y7_spr1_03_06",
-    "c2_pro_01_boardroom_rhetoric",
-    "sp_prep_c1_01"
    ]
   },
   "fundamentalist": {
@@ -106208,15 +107734,6 @@ window.WORDBANK={
     "rs_y10_aut2_20_06"
    ]
   },
-  "coexist": {
-   "w": "coexist",
-   "pos": "v",
-   "def": "to exist together at the same time",
-   "ex": "Many people think science and religion can coexist.",
-   "lessons": [
-    "rs_y7_sum1_05_01"
-   ]
-  },
   "physicist": {
    "w": "physicist",
    "pos": "n",
@@ -106283,16 +107800,6 @@ window.WORDBANK={
     "rs_y7_sum1_05_03",
     "rs_y10_aut2_20_03",
     "rs_y9_sum1_17_02"
-   ]
-  },
-  "judgement": {
-   "w": "judgement",
-   "pos": "n",
-   "def": "a decision about whether someone is good or bad",
-   "ex": "Christians believe in a final judgement.",
-   "lessons": [
-    "rs_y7_sum1_05_03",
-    "rs_y10_aut2_20_03"
    ]
   },
   "parable": {
@@ -106450,16 +107957,6 @@ window.WORDBANK={
     "rs_y7_sum2_06_03",
     "rs_y9_spr1_15_02",
     "rs_y9_spr1_15_06"
-   ]
-  },
-  "generosity": {
-   "w": "generosity",
-   "pos": "n",
-   "def": "being willing to give to others",
-   "ex": "Her generosity helped many families in the town.",
-   "lessons": [
-    "rs_y7_sum2_06_03",
-    "rp_26_a_wedding_invitation"
    ]
   },
   "idealistic": {
@@ -106712,22 +108209,6 @@ window.WORDBANK={
    "ex": "The case rested mainly on circumstantial evidence, so the jury hesitated.",
    "lessons": [
     "bc_murder_mystery_c1"
-   ]
-  },
-  "misunderstanding": {
-   "w": "misunderstanding",
-   "pos": "n",
-   "def": "a failure to understand something correctly",
-   "ex": "A small misunderstanding about the date caused a lot of stress.",
-   "lessons": [
-    "bc_navigating_misunderstandings_c1",
-    "skills_a2_trade_fair_problems",
-    "b2_29_misunderstandings",
-    "epicurean_05_why_controversial",
-    "lesson_33_cleft_sentences",
-    "qf_vocab_actually_currently",
-    "sp_b2_59_self_monitoring",
-    "b2_06_cultural_differences"
    ]
   },
   "dismissive": {
@@ -107303,21 +108784,6 @@ window.WORDBANK={
    "ex": "Keep your core message short enough to say in one breath.",
    "lessons": [
     "bc_powerful_presentations_c1"
-   ]
-  },
-  "structure": {
-   "w": "structure",
-   "pos": "n",
-   "def": "the way parts are arranged or organised into a whole",
-   "ex": "A clear structure helps listeners follow your argument easily.",
-   "lessons": [
-    "bc_presentation_structure_c1",
-    "st_pro_01_architecture_of_story",
-    "su_a2_45_presentation_skills",
-    "business_meetings_course_guide",
-    "ct_a2_20_mastery_prep",
-    "a1p_34_questions",
-    "sp_prep_b1_23"
    ]
   },
   "transition": {
@@ -108359,25 +109825,6 @@ window.WORDBANK={
     "bc_win_win_negotiations_b2c1"
    ]
   },
-  "clarify": {
-   "w": "clarify",
-   "pos": "v",
-   "def": "to make something easier to understand by explaining it",
-   "ex": "Could you clarify what you mean by flexible delivery?",
-   "lessons": [
-    "bc_win_win_negotiations_b2c1",
-    "acad_b1_21_asking_good_questions",
-    "su_a2_54_managing_time_with_others",
-    "handling_questions_buying_time",
-    "skills_b1_numbers_deadlines_risks_meetings",
-    "b2_39_best_email_replies",
-    "bc_clarifying_intercultural_c1",
-    "sp_a2_16_fillers_hesitation",
-    "sp_prep_a2_09",
-    "sp_prep_b1_24",
-    "acad_b1_18_listening_lectures"
-   ]
-  },
   "preserve": {
    "w": "preserve",
    "pos": "v",
@@ -108400,20 +109847,6 @@ window.WORDBANK={
    "lessons": [
     "bc_women_political_leaders_c1",
     "curious_conversations_10_polite_lies"
-   ]
-  },
-  "pragmatic": {
-   "w": "pragmatic",
-   "pos": "adj",
-   "def": "dealing with problems in a practical, realistic way",
-   "ex": "He took a pragmatic approach and fixed the cheapest problem first.",
-   "lessons": [
-    "bc_women_political_leaders_c1",
-    "bp_c2_06_the_consultants_edge",
-    "wp_46_the_will_to_believe",
-    "sp_prep_c1_01",
-    "essay_practice_discussion",
-    "gr_c1_english_conquest"
    ]
   },
   "resolute": {
@@ -109584,16 +111017,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_food"
    ]
   },
-  "indulge": {
-   "w": "indulge",
-   "pos": "v",
-   "def": "to allow yourself something you enjoy, like special food",
-   "ex": "On my birthday I indulge in a huge slice of cake.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_food",
-    "techniques_the_lottery_ticket"
-   ]
-  },
   "locavore": {
    "w": "locavore",
    "pos": "n",
@@ -109987,15 +111410,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "to have authority and use it to control others",
    "ex": "The committee wields power over every budget decision.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_power"
-   ]
-  },
-  "abuse": {
-   "w": "abuse",
-   "pos": "v",
-   "def": "to use power or a position wrongly for personal gain",
-   "ex": "The manager abused his position to hire his friends.",
    "lessons": [
     "gr_warmup_b2_hot_takes_power"
    ]
@@ -110750,19 +112164,6 @@ window.WORDBANK={
     "skills_c1_analysing_poetry",
     "nq_07_mixed_c1",
     "sp_c1_69_analytical_frameworks"
-   ]
-  },
-  "synthesis": {
-   "w": "synthesis",
-   "pos": "n",
-   "def": "a combination of different ideas into one clear view",
-   "ex": "Her final essay offered a neat synthesis of both theories.",
-   "lessons": [
-    "gr_warmup_c1_hot_takes_reframe",
-    "c2_pro_08_thought_leadership",
-    "epicurean_26_baptizing_atoms",
-    "wp_25_the_house_of_wisdom",
-    "bc_ai_for_phd_research_c1"
    ]
   },
   "mentorship": {
@@ -112819,16 +114220,6 @@ window.WORDBANK={
     "rs_y10_aut1_19_02"
    ]
   },
-  "suffering": {
-   "w": "suffering",
-   "pos": "n",
-   "def": "pain or great unhappiness that people go through",
-   "ex": "The film shows the suffering caused by war.",
-   "lessons": [
-    "rs_y10_aut1_19_03",
-    "rs_y8_aut2_08_01"
-   ]
-  },
   "theodicy": {
    "w": "theodicy",
    "pos": "n",
@@ -113115,22 +114506,6 @@ window.WORDBANK={
    "ex": "His style is very transactional; he only calls when he wants something.",
    "lessons": [
     "skills_b1b2_trade_fair_networking"
-   ]
-  },
-  "objection": {
-   "w": "objection",
-   "pos": "n",
-   "def": "a reason someone gives for not agreeing or not buying",
-   "ex": "Her main objection was the long delivery time.",
-   "lessons": [
-    "skills_b1b2_trade_fair_objections",
-    "rs_y9_aut1_13_02",
-    "c1_pro_08_internal_pitching",
-    "prof_c1_04_influencing_without_authority",
-    "wk_07_asking_to_work_from_home",
-    "bc_defending_methodology_phd",
-    "sp_c1_02_argument_structure",
-    "wr_b1_persuasive_peel"
    ]
   },
   "validate": {
@@ -114277,24 +115652,6 @@ window.WORDBANK={
    "ex": "They are building a new sports centre near my house.",
    "lessons": [
     "su_a2_61_planning_a_project"
-   ]
-  },
-  "certainty": {
-   "w": "certainty",
-   "pos": "n",
-   "def": "the state of being completely sure",
-   "ex": "I can't say with certainty that the plan will work.",
-   "lessons": [
-    "su_a2_61_planning_a_project",
-    "bestiary_discourse_qualify",
-    "b2_05_dealing_with_disaster",
-    "bc_making_deductions_c1",
-    "lesson_29_modal_perfects",
-    "sp_b1_22_hedging",
-    "sp_b1_39_degrees_certainty",
-    "sp_prep_b1_39",
-    "grammar_b1_19_modals_deduction",
-    "pron_c1_05_intonation_attitude"
    ]
   },
   "quieter": {
@@ -115708,18 +117065,6 @@ window.WORDBANK={
     "b2_14_alternative_sports"
    ]
   },
-  "refute": {
-   "w": "refute",
-   "pos": "v",
-   "def": "to prove that a statement or idea is wrong",
-   "ex": "The scientist refuted the claim with clear data.",
-   "lessons": [
-    "acad_b1_05_giving_opinions",
-    "rs_y9_aut1_13_05",
-    "sp_prep_b2_47",
-    "acad_b2_15_thesis_statements"
-   ]
-  },
   "assert": {
    "w": "assert",
    "pos": "v",
@@ -115949,18 +117294,6 @@ window.WORDBANK={
     "lesson_49_advanced_fluency_challenge",
     "sp_a2_09_self_correction",
     "sp_b2_59_self_monitoring"
-   ]
-  },
-  "permanent": {
-   "w": "permanent",
-   "pos": "adj",
-   "def": "lasting for a very long time or forever",
-   "ex": "The injury was not permanent, and she soon walked again.",
-   "lessons": [
-    "acad_b1_15_learning_from_mistakes",
-    "b2_69_changes_in_workplace",
-    "cambridge_cae_introduction",
-    "lesson_41_nuances_tense_aspect"
    ]
   },
   "peer-reviewed": {
@@ -116596,21 +117929,6 @@ window.WORDBANK={
    "ex": "I can confide in my sister about anything.",
    "lessons": [
     "are_we_forgetting_how_to_be_friends"
-   ]
-  },
-  "struggle": {
-   "w": "struggle",
-   "pos": "v",
-   "def": "to find something very difficult to do",
-   "ex": "Many people struggle to make friends as adults.",
-   "lessons": [
-    "are_we_forgetting_how_to_be_friends",
-    "b2_51_presenting_data",
-    "IELTS-Reading-Practice-Test-2",
-    "ielts_task1_phrase_flip_b2",
-    "qf_pronunciation_would_wood",
-    "qf_vocab_eventually_finally",
-    "sp_a2_02_describing_photos"
    ]
   },
   "close friend": {
@@ -118583,17 +119901,6 @@ window.WORDBANK={
     "b2_18_dealing_with_problems"
    ]
   },
-  "meaningless": {
-   "w": "meaningless",
-   "pos": "adj",
-   "def": "having no purpose or importance",
-   "ex": "The job felt meaningless after a few years.",
-   "lessons": [
-    "speaking_naturally_teens_bonus_camus_absurd_hero",
-    "bullshit-jobs-ai-hr-c1",
-    "work_jobs_a2"
-   ]
-  },
   "boulder": {
    "w": "boulder",
    "pos": "n",
@@ -118936,23 +120243,6 @@ window.WORDBANK={
    "lessons": [
     "su_a2_03_getting_around_town",
     "su_a2_85_getting_around_city"
-   ]
-  },
-  "opposite": {
-   "w": "opposite",
-   "pos": "prep",
-   "def": "on the other side, facing something",
-   "ex": "The pharmacy is opposite the post office.",
-   "lessons": [
-    "su_a2_03_getting_around_town",
-    "su_a2_85_getting_around_city",
-    "epicurean_18_vs_stoicism",
-    "sf_a1_09_a_problem_and_the_way",
-    "a1p_17_asking_directions",
-    "a1p_17_asking_directions_fr",
-    "a1_adjectives_describing_things_interactive",
-    "a1_asking_for_directions_interactive",
-    "qf_falsefriend_german_gift"
    ]
   },
   "directions": {
@@ -124158,15 +125448,6 @@ window.WORDBANK={
     "rs_y8_sum1_11_02"
    ]
   },
-  "extreme": {
-   "w": "extreme",
-   "pos": "n",
-   "def": "the furthest or most intense form of something",
-   "ex": "The path avoids both extremes of living.",
-   "lessons": [
-    "rs_y8_sum1_11_02"
-   ]
-  },
   "layperson": {
    "w": "layperson",
    "pos": "n",
@@ -124546,15 +125827,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the idea that something must have started the universe",
    "ex": "Believers say God is the first cause of everything.",
-   "lessons": [
-    "rs_y9_aut1_13_03"
-   ]
-  },
-  "infinite": {
-   "w": "infinite",
-   "pos": "adj",
-   "def": "without any limits or end",
-   "ex": "Can there be an infinite chain of causes?",
    "lessons": [
     "rs_y9_aut1_13_03"
    ]
@@ -124994,15 +126266,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "limited or controlled by rules",
    "ex": "Some roles are restricted to men in certain faiths.",
-   "lessons": [
-    "rs_y9_spr2_16_01"
-   ]
-  },
-  "evolve": {
-   "w": "evolve",
-   "pos": "v",
-   "def": "to change slowly over time",
-   "ex": "Ideas about gender continue to evolve.",
    "lessons": [
     "rs_y9_spr2_16_01"
    ]
@@ -125637,15 +126900,6 @@ window.WORDBANK={
     "talk_eating_less_meat_b2c1"
    ]
   },
-  "moderation": {
-   "w": "moderation",
-   "pos": "n",
-   "def": "avoiding extremes; doing things in reasonable amounts",
-   "ex": "You can eat chocolate in moderation.",
-   "lessons": [
-    "talk_eating_less_meat_b2c1"
-   ]
-  },
   "cut back on": {
    "w": "cut back on",
    "pos": "phr v",
@@ -126119,17 +127373,6 @@ window.WORDBANK={
     "su_a2_04_describing_experiences"
    ]
   },
-  "foundation": {
-   "w": "foundation",
-   "pos": "n",
-   "def": "the basic part on which something is built",
-   "ex": "Trust is the foundation of a good relationship.",
-   "lessons": [
-    "c1_pro_18_onboarding",
-    "first_impressions_small_talk",
-    "bc_books_changed_world_part2_c1"
-   ]
-  },
   "waterfall": {
    "w": "waterfall",
    "pos": "n",
@@ -126212,16 +127455,6 @@ window.WORDBANK={
     "cpe_read_c1_02_feral_children"
    ]
   },
-  "exception": {
-   "w": "exception",
-   "pos": "n",
-   "def": "something that does not follow the general rule",
-   "ex": "Most shops close on Sundays, but this one is an exception.",
-   "lessons": [
-    "c1_pro_26_startup_ecosystem",
-    "grammar_b2_18_quantifiers_linking_conventions"
-   ]
-  },
   "insofar as": {
    "w": "insofar as",
    "pos": "conj",
@@ -126260,17 +127493,6 @@ window.WORDBANK={
    "lessons": [
     "c1_pro_29_digital_transformation",
     "c2_pro_18_mentoring_language"
-   ]
-  },
-  "interconnected": {
-   "w": "interconnected",
-   "pos": "adj",
-   "def": "linked with each other so that each affects the others",
-   "ex": "All the city's problems are interconnected.",
-   "lessons": [
-    "c1_pro_29_digital_transformation",
-    "sp_c1_61_sophisticated_cohesion",
-    "acad_b1_06_understanding_instructions"
    ]
   },
   "entrepreneurship": {
@@ -127106,19 +128328,6 @@ window.WORDBANK={
     "c2_pro_26_data_driven_persuasion"
    ]
   },
-  "perception": {
-   "w": "perception",
-   "pos": "n",
-   "def": "the way people think about or understand something",
-   "ex": "Public perception of the company improved after the campaign.",
-   "lessons": [
-    "c2_pro_27_brand_strategy",
-    "bc_first_impressions_c1",
-    "cpe_read_c1_11_time_perception",
-    "qf_vocab_listen_hear",
-    "grammar_c1_02_advanced_aspect"
-   ]
-  },
   "fundamentally": {
    "w": "fundamentally",
    "pos": "adv",
@@ -127687,16 +128896,6 @@ window.WORDBANK={
     "short_history_pablo_escobar_a2b1"
    ]
   },
-  "examine": {
-   "w": "examine",
-   "pos": "v",
-   "def": "to look at or consider something carefully",
-   "ex": "The doctor examined my knee and found nothing broken.",
-   "lessons": [
-    "crime_history_c1_part2",
-    "acad_b1_19_writing_introductions"
-   ]
-  },
   "classic": {
    "w": "classic",
    "pos": "adj",
@@ -127834,15 +129033,6 @@ window.WORDBANK={
    "ex": "Could you tell me where you live? This indirect question sounds polite.",
    "lessons": [
     "ct_b1_24_clarification_building_blocks"
-   ]
-  },
-  "definition": {
-   "w": "definition",
-   "pos": "n",
-   "def": "a statement that explains what something means",
-   "ex": "Look up the definition in the dictionary.",
-   "lessons": [
-    "ct_b1_26_abstract_concepts"
    ]
   },
   "define": {
@@ -128271,29 +129461,11 @@ window.WORDBANK={
     "b2_55_telephone_skills"
    ]
   },
-  "desire": {
-   "w": "desire",
-   "pos": "n",
-   "def": "a strong feeling of wanting to have or do something",
-   "ex": "She felt a sudden desire to travel.",
-   "lessons": [
-    "epicurean_11_classifying_desires"
-   ]
-  },
   "categorize": {
    "w": "categorize",
    "pos": "v",
    "def": "to put things into groups according to their type",
    "ex": "The books are categorized by subject and author.",
-   "lessons": [
-    "epicurean_11_classifying_desires"
-   ]
-  },
-  "satisfy": {
-   "w": "satisfy",
-   "pos": "v",
-   "def": "to give someone what they need or want",
-   "ex": "Nothing seems to satisfy my little brother.",
    "lessons": [
     "epicurean_11_classifying_desires"
    ]
@@ -128744,16 +129916,6 @@ window.WORDBANK={
     "epicurean_30_epicureanism_today"
    ]
   },
-  "conclude": {
-   "w": "conclude",
-   "pos": "v",
-   "def": "to bring something to an end",
-   "ex": "The festival concluded with a big fireworks display.",
-   "lessons": [
-    "epicurean_30_epicureanism_today",
-    "sp_b1_23_three_part_structure"
-   ]
-  },
   "canter": {
    "w": "canter",
    "pos": "v",
@@ -129155,17 +130317,6 @@ window.WORDBANK={
     "qf_falsefriend_french_actuellement",
     "qf_vocab_actually_currently",
     "sp_prep_a2_16"
-   ]
-  },
-  "appearance": {
-   "w": "appearance",
-   "pos": "n",
-   "def": "the way someone or something looks to others",
-   "ex": "He changed his appearance by growing a beard.",
-   "lessons": [
-    "first_lesson_b2c1",
-    "cambridge_cae_lesson4_word_formation",
-    "qf_falsefriend_russian_accurate"
    ]
   },
   "judge of character": {
@@ -131299,18 +132450,6 @@ window.WORDBANK={
     "ml_13_the_apology"
    ]
   },
-  "excuse": {
-   "w": "excuse",
-   "pos": "n",
-   "def": "a reason given to explain a mistake or bad behaviour",
-   "ex": "Traffic is always his excuse for being late.",
-   "lessons": [
-    "ml_13_the_apology",
-    "b2_19_awkward_situations",
-    "lesson_27_past_perfect_continuous",
-    "qf_vocab_actual_current"
-   ]
-  },
   "fair enough": {
    "w": "fair enough",
    "pos": "phr",
@@ -132171,17 +133310,6 @@ window.WORDBANK={
    "lessons": [
     "ois_03_the_saxon_shore",
     "ois_04_the_saxon_shore"
-   ]
-  },
-  "gradual": {
-   "w": "gradual",
-   "pos": "adj",
-   "def": "happening slowly over a long period",
-   "ex": "There has been a gradual rise in prices this year.",
-   "lessons": [
-    "ois_03_the_saxon_shore",
-    "discuss_b2c1_endings_and_after",
-    "acad_b1_10_describing_graphs"
    ]
   },
   "burial": {
@@ -134246,16 +135374,6 @@ window.WORDBANK={
     "rp_05_at_the_airport"
    ]
   },
-  "entitled": {
-   "w": "entitled",
-   "pos": "adj",
-   "def": "having a right to have or do something",
-   "ex": "Passengers are entitled to food if flights are very late.",
-   "lessons": [
-    "rp_05_at_the_airport",
-    "wk_29_the_front_desk"
-   ]
-  },
   "voucher": {
    "w": "voucher",
    "pos": "n",
@@ -136239,15 +137357,6 @@ window.WORDBANK={
     "talk_volunteering_b2c1"
    ]
   },
-  "fulfilling": {
-   "w": "fulfilling",
-   "pos": "adj",
-   "def": "making you feel happy and satisfied with what you do",
-   "ex": "Helping at the shelter is really fulfilling.",
-   "lessons": [
-    "talk_volunteering_b2c1"
-   ]
-  },
   "collaboration": {
    "w": "collaboration",
    "pos": "n",
@@ -136431,15 +137540,6 @@ window.WORDBANK={
    "lessons": [
     "techniques_the_judges_house",
     "ib_lesson_techniques_owl_creek_bridge"
-   ]
-  },
-  "self-sufficient": {
-   "w": "self-sufficient",
-   "pos": "adj",
-   "def": "able to operate or live without outside help",
-   "ex": "The farm is almost self-sufficient in energy.",
-   "lessons": [
-    "techniques_the_machine_stops"
    ]
   },
   "malfunction": {
@@ -138078,15 +139178,6 @@ window.WORDBANK={
     "editor_dilemmas_game"
    ]
   },
-  "reminder": {
-   "w": "reminder",
-   "pos": "n",
-   "def": "a message that helps someone remember something",
-   "ex": "The dentist sent me a reminder about my appointment.",
-   "lessons": [
-    "wk_22_the_unpaid_invoice"
-   ]
-  },
   "get on with": {
    "w": "get on with",
    "pos": "phr v",
@@ -138764,16 +139855,6 @@ window.WORDBANK={
    "ex": "The detective built an airtight case.",
    "lessons": [
     "wp_03_the_way_of_truth"
-   ]
-  },
-  "void": {
-   "w": "void",
-   "pos": "n",
-   "def": "a large, completely empty space with nothing in it",
-   "ex": "The rocket disappeared into the void of space.",
-   "lessons": [
-    "wp_04_atoms_in_the_void",
-    "epicurean_06_atoms_and_void"
    ]
   },
   "indestructible": {
@@ -139525,15 +140606,6 @@ window.WORDBANK={
     "acad_b2_01_academic_reading"
    ]
   },
-  "liberty": {
-   "w": "liberty",
-   "pos": "n",
-   "def": "the freedom to live as you choose",
-   "ex": "The protesters marched for liberty and justice.",
-   "lessons": [
-    "wp_33_the_leviathan"
-   ]
-  },
   "unlimited": {
    "w": "unlimited",
    "pos": "adj",
@@ -139648,24 +140720,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "an implied agreement between people and their government",
    "ex": "Paying taxes is part of the social contract.",
-   "lessons": [
-    "wp_38_the_social_contract"
-   ]
-  },
-  "corrupt": {
-   "w": "corrupt",
-   "pos": "v",
-   "def": "to make someone dishonest or morally bad",
-   "ex": "Power can corrupt even good people.",
-   "lessons": [
-    "wp_38_the_social_contract"
-   ]
-  },
-  "innocence": {
-   "w": "innocence",
-   "pos": "n",
-   "def": "the quality of having no experience of evil",
-   "ex": "Children lose their innocence too quickly today.",
    "lessons": [
     "wp_38_the_social_contract"
    ]
@@ -140151,19 +141205,6 @@ window.WORDBANK={
     "b2_03_making_your_opinion_heard"
    ]
   },
-  "progress": {
-   "w": "progress",
-   "pos": "n",
-   "def": "movement towards finishing or improving something",
-   "ex": "We are making good progress with the new kitchen.",
-   "lessons": [
-    "b2_03_making_your_opinion_heard",
-    "a1p_10_review_unit1",
-    "a1p_20_review_unit2_complete",
-    "lesson_10_a2_review_fluency_challenge",
-    "qf_collocation_make_do"
-   ]
-  },
   "multi-word verb": {
    "w": "multi-word verb",
    "pos": "n",
@@ -140546,15 +141587,6 @@ window.WORDBANK={
    "lessons": [
     "b2_104_greener_cities_solutions",
     "ielts_route"
-   ]
-  },
-  "status": {
-   "w": "status",
-   "pos": "n",
-   "def": "the level of respect and importance someone has in a group",
-   "ex": "Owning a big car is a sign of status for some people.",
-   "lessons": [
-    "b2_106_status_games"
    ]
   },
   "talk over": {
@@ -141565,15 +142597,6 @@ window.WORDBANK={
     "b2_60_film_criticism"
    ]
   },
-  "provoke": {
-   "w": "provoke",
-   "pos": "v",
-   "def": "to cause a strong reaction or feeling",
-   "ex": "His comments provoked an angry response.",
-   "lessons": [
-    "b2_60_film_criticism"
-   ]
-  },
   "art-house": {
    "w": "art-house",
    "pos": "adj",
@@ -141909,15 +142932,6 @@ window.WORDBANK={
     "sp_b2_53_abstract_reasoning",
     "b1_47_dream_home",
     "acad_b2_07_essay_structure"
-   ]
-  },
-  "attentive": {
-   "w": "attentive",
-   "pos": "adj",
-   "def": "listening or watching carefully and helping when needed",
-   "ex": "The waiter was very attentive all evening.",
-   "lessons": [
-    "b2_76_creating_connections"
    ]
   },
   "emotional awareness": {
@@ -143100,15 +144114,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "personal qualities that help you work well with others",
    "ex": "Listening is one of the most important soft skills.",
-   "lessons": [
-    "bc_future_of_work_c1"
-   ]
-  },
-  "labour": {
-   "w": "labour",
-   "pos": "n",
-   "def": "physical work, especially hard work",
-   "ex": "The farm relies on cheap seasonal labour.",
    "lessons": [
     "bc_future_of_work_c1"
    ]
@@ -144924,16 +145929,6 @@ window.WORDBANK={
     "a1p_15_review_past_future",
     "a1p_43_present_perfect_vs_past",
     "lesson_26_past_perfect"
-   ]
-  },
-  "combine": {
-   "w": "combine",
-   "pos": "v",
-   "def": "to put two or more things together",
-   "ex": "You can combine these two short sentences into one.",
-   "lessons": [
-    "a1p_15_review_past_future",
-    "sp_prep_a2_19"
    ]
   },
   "excuse me": {
@@ -148202,15 +149197,6 @@ window.WORDBANK={
     "lesson_34_participle_clauses"
    ]
   },
-  "flow": {
-   "w": "flow",
-   "pos": "n",
-   "def": "a smooth and steady movement",
-   "ex": "Linking words improve the flow of your writing.",
-   "lessons": [
-    "lesson_34_participle_clauses"
-   ]
-  },
   "subjunctive": {
    "w": "subjunctive",
    "pos": "n",
@@ -148277,15 +149263,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a very strong interest in something",
    "ex": "Cooking has always been my passion.",
-   "lessons": [
-    "lesson_38_work_career"
-   ]
-  },
-  "security": {
-   "w": "security",
-   "pos": "n",
-   "def": "the feeling of being safe and protected",
-   "ex": "A steady job gives you financial security.",
    "lessons": [
     "lesson_38_work_career"
    ]
@@ -148767,16 +149744,6 @@ window.WORDBANK={
    "lessons": [
     "Ielts1",
     "essay_practice_opinion_3"
-   ]
-  },
-  "possession": {
-   "w": "possession",
-   "pos": "n",
-   "def": "something that you own or have with you",
-   "ex": "My bike is my most useful possession.",
-   "lessons": [
-    "b1_26_ielts_speaking_practice",
-    "qf_pronunciation_homophones"
    ]
   },
   "maintenance": {
@@ -151694,17 +152661,6 @@ window.WORDBANK={
     "Effective-Pronunciation-Lesson"
    ]
   },
-  "invisible": {
-   "w": "invisible",
-   "pos": "adj",
-   "def": "not able to be seen or noticed",
-   "ex": "The weak vowel is almost invisible, but it is everywhere.",
-   "lessons": [
-    "qf_pronunciation_schwa",
-    "techniques_the_emperors_new_clothes_a2b1",
-    "grammar_c1_09_advanced_articles_determiners"
-   ]
-  },
   "knee": {
    "w": "knee",
    "pos": "n",
@@ -152436,15 +153392,6 @@ window.WORDBANK={
    "ex": "Shop owners were afraid to stop paying protection money.",
    "lessons": [
     "short_history_the_kray_twins_a2b1"
-   ]
-  },
-  "wonder": {
-   "w": "wonder",
-   "pos": "n",
-   "def": "an amazing thing that makes people feel surprise and admiration",
-   "ex": "The waterfall is one of the natural wonders of the country.",
-   "lessons": [
-    "short_history_the_seven_wonders_a2b1"
    ]
   },
   "lighthouse": {
@@ -153418,16 +154365,6 @@ window.WORDBANK={
    "ex": "Essentially, we need more time to finish.",
    "lessons": [
     "sp_prep_b1_29"
-   ]
-  },
-  "observe": {
-   "w": "observe",
-   "pos": "v",
-   "def": "to watch something carefully and notice details",
-   "ex": "Scientists observe how the birds build their nests.",
-   "lessons": [
-    "sp_prep_b1_32",
-    "qf_collocation_look_watch_see"
    ]
   },
   "case study": {
@@ -155372,15 +156309,6 @@ window.WORDBANK={
     "b2_105_the_flow_state"
    ]
   },
-  "fleeting": {
-   "w": "fleeting",
-   "pos": "adj",
-   "def": "lasting only a very short time",
-   "ex": "For a fleeting moment, I thought I saw an old friend.",
-   "lessons": [
-    "b2_105_the_flow_state"
-   ]
-  },
   "hallmark": {
    "w": "hallmark",
    "pos": "n",
@@ -155652,15 +156580,6 @@ window.WORDBANK={
    "ex": "The nurse will put in a drip before the procedure.",
    "lessons": [
     "b2_99_clinical_anxious_patient"
-   ]
-  },
-  "far-fetched": {
-   "w": "far-fetched",
-   "pos": "adj",
-   "def": "very unlikely to be true or to happen",
-   "ex": "The idea of robots ruling us seems far-fetched.",
-   "lessons": [
-    "discuss_c1_ai_future_humanity"
    ]
   },
   "fear-mongering": {
@@ -157320,15 +158239,6 @@ window.WORDBANK={
    "ex": "I put mushrooms on my pizza.",
    "lessons": [
     "grammar_a1_12_conjunctions_basic"
-   ]
-  },
-  "depend": {
-   "w": "depend",
-   "pos": "v",
-   "def": "to be decided by something else",
-   "ex": "It depends on the weather tomorrow.",
-   "lessons": [
-    "grammar_a1_13_zero_conditional"
    ]
   },
   "doorbell": {
