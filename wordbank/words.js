@@ -9421,6 +9421,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_b2c1_the_scales",
+   "title": "The Scales: weigh it up, then decide",
+   "level": "",
+   "words": [
+    "weigh up",
+    "outweigh",
+    "drawback",
+    "trade-off",
+    "concede",
+    "compelling",
+    "merit",
+    "sway",
+    "deciding factor",
+    "on balance"
+   ]
+  },
+  {
    "id": "speaking_b2c1_the_tone_desk",
    "title": "The Tone Desk: say it right for the person in front of you",
    "level": "",
@@ -65941,6 +65958,7 @@ window.WORDBANK={
    "ex": "She opened by conceding that the costs were real — and was twice as convincing for it.",
    "lessons": [
     "discuss_c1_time_travellers_argument",
+    "speaking_b2c1_the_scales",
     "the_rhetoric_of_persuasion_c2",
     "thinker_b2_17_aquinas",
     "gr_warmup_b2_hot_takes",
@@ -67880,12 +67898,13 @@ window.WORDBANK={
   },
   "trade-off": {
    "w": "trade-off",
-   "pos": "n",
+   "pos": "noun",
    "def": "a situation in which gaining one thing means losing another. a trade-off between speed and cost.",
    "ex": "Every option involved a trade-off: the faster plan was more expensive, and the cheaper plan was slower.",
    "lessons": [
     "nq_02_which_c1",
     "skills_c1_senior_interview_4_thinking",
+    "speaking_b2c1_the_scales",
     "thinker_b2_24_leibniz",
     "gr_b2_the_ranking_game",
     "bc_supply_chain_disruptions_c1",
@@ -67921,11 +67940,12 @@ window.WORDBANK={
   },
   "on balance": {
    "w": "on balance",
-   "pos": "",
+   "pos": "phrase",
    "def": "On balance, I would choose the more reliable supplier.",
-   "ex": "",
+   "ex": "On balance, I think we made the right choice.",
    "lessons": [
     "nq_02_which_c1",
+    "speaking_b2c1_the_scales",
     "bestiary_discourse_frame"
    ]
   },
@@ -74517,6 +74537,7 @@ window.WORDBANK={
    "ex": "It is a compelling read: you start a chapter meaning to stop and find you cannot.",
    "lessons": [
     "persepolis_bc_pictures",
+    "speaking_b2c1_the_scales",
     "the_rhetoric_of_persuasion_c2",
     "bc_master_storytelling_c1",
     "acad_c2_12_abstract_writing",
@@ -81950,7 +81971,7 @@ window.WORDBANK={
   },
   "sway": {
    "w": "sway",
-   "pos": "n",
+   "pos": "verb",
    "def": "the power to control or influence people and events, especially without holding any formal authority.",
    "ex": "He held no official title and commanded no army, yet his quiet word in the right ear could make or break a minister — such was his sway over those in power.",
    "lessons": [
@@ -81958,6 +81979,7 @@ window.WORDBANK={
     "short_history_the_medici",
     "short_history_the_romanovs",
     "short_history_the_stories_we_agree_on",
+    "speaking_b2c1_the_scales",
     "Afraid of Computers"
    ]
   },
@@ -86616,6 +86638,77 @@ window.WORDBANK={
     "rp_37_at_the_consulate",
     "short_history_shackleton",
     "grammar_c1_08_advanced_relative_clauses"
+   ]
+  },
+  "weigh up": {
+   "w": "weigh up",
+   "pos": "phrasal verb",
+   "def": "think carefully about the good and bad points of something before you decide",
+   "ex": "She weighed up the pros and cons before accepting the offer.",
+   "lessons": [
+    "speaking_b2c1_the_scales",
+    "discuss_b2_taking_to_the_streets",
+    "sp_prep_b1_21",
+    "explore_b2_would_you_rather"
+   ]
+  },
+  "outweigh": {
+   "w": "outweigh",
+   "pos": "verb",
+   "def": "be more important or have more effect than something else",
+   "ex": "For me, the benefits of living in the city outweigh the noise.",
+   "lessons": [
+    "speaking_b2c1_the_scales",
+    "thinker_b2_24_leibniz",
+    "acad_c1_03_academic_debate",
+    "rs_y8_spr2_10_02",
+    "rs_y8_sum1_11_05",
+    "Ielts1",
+    "ielts_lesson_8_advantages_disadvantages",
+    "ielts_writing_advantages_disadvantages_essay",
+    "sp_b2_48_concession",
+    "sp_prep_b1_28",
+    "explore_b2_would_you_rather",
+    "acad_b2_15_thesis_statements",
+    "essay_practice_advantages_disadvantages",
+    "sentence_powerups"
+   ]
+  },
+  "drawback": {
+   "w": "drawback",
+   "pos": "noun",
+   "def": "a disadvantage or problem that makes something less attractive",
+   "ex": "The main drawback of the flat is the noise.",
+   "lessons": [
+    "speaking_b2c1_the_scales",
+    "cambridge_cae_writing_reviews_letters",
+    "bc_ielts_two_part_questions_b2c1",
+    "ielts_lesson_8_advantages_disadvantages",
+    "sp_b1_28_advantages_disadvantages",
+    "sp_prep_b1_28",
+    "essay_practice_advantages_disadvantages"
+   ]
+  },
+  "merit": {
+   "w": "merit",
+   "pos": "noun",
+   "def": "a good quality that deserves attention or praise",
+   "ex": "The idea has some merit, but it is too expensive.",
+   "lessons": [
+    "speaking_b2c1_the_scales",
+    "cambridge_cae_writing_essay",
+    "sp_b1_31_managing_disagreement",
+    "sp_c1_68_devils_advocate",
+    "sp_prep_b1_27"
+   ]
+  },
+  "deciding factor": {
+   "w": "deciding factor",
+   "pos": "noun",
+   "def": "the one reason that finally makes you choose",
+   "ex": "In the end, the price was the deciding factor.",
+   "lessons": [
+    "speaking_b2c1_the_scales"
    ]
   },
   "curt": {
@@ -95274,27 +95367,6 @@ window.WORDBANK={
     "thinker_b2_29_schopenhauer",
     "rs_y10_aut1_19_03",
     "rs_y8_aut2_08_01"
-   ]
-  },
-  "outweigh": {
-   "w": "outweigh",
-   "pos": "v",
-   "def": "to be greater or more important than something else",
-   "ex": "For me, the benefits of living in the city outweigh the noise.",
-   "lessons": [
-    "thinker_b2_24_leibniz",
-    "acad_c1_03_academic_debate",
-    "rs_y8_spr2_10_02",
-    "rs_y8_sum1_11_05",
-    "Ielts1",
-    "ielts_lesson_8_advantages_disadvantages",
-    "ielts_writing_advantages_disadvantages_essay",
-    "sp_b2_48_concession",
-    "sp_prep_b1_28",
-    "explore_b2_would_you_rather",
-    "acad_b2_15_thesis_statements",
-    "essay_practice_advantages_disadvantages",
-    "sentence_powerups"
    ]
   },
   "optimistic": {
@@ -145394,17 +145466,6 @@ window.WORDBANK={
     "discuss_b2_emotional_intelligence"
    ]
   },
-  "weigh up": {
-   "w": "weigh up",
-   "pos": "phr v",
-   "def": "to consider carefully the good and bad sides of something",
-   "ex": "We weighed up the costs before buying the car.",
-   "lessons": [
-    "discuss_b2_taking_to_the_streets",
-    "sp_prep_b1_21",
-    "explore_b2_would_you_rather"
-   ]
-  },
   "marching": {
    "w": "marching",
    "pos": "n",
@@ -147453,18 +147514,6 @@ window.WORDBANK={
     "cambridge_cae_writing_essay"
    ]
   },
-  "merit": {
-   "w": "merit",
-   "pos": "n",
-   "def": "a good quality that deserves praise",
-   "ex": "Both of the proposals have some real merit.",
-   "lessons": [
-    "cambridge_cae_writing_essay",
-    "sp_b1_31_managing_disagreement",
-    "sp_c1_68_devils_advocate",
-    "sp_prep_b1_27"
-   ]
-  },
   "advisable": {
    "w": "advisable",
    "pos": "adj",
@@ -147472,20 +147521,6 @@ window.WORDBANK={
    "ex": "It is advisable to book tickets early.",
    "lessons": [
     "cambridge_cae_writing_reports_proposals"
-   ]
-  },
-  "drawback": {
-   "w": "drawback",
-   "pos": "n",
-   "def": "a disadvantage or problem that makes something less good",
-   "ex": "The only drawback of the flat is the noise.",
-   "lessons": [
-    "cambridge_cae_writing_reviews_letters",
-    "bc_ielts_two_part_questions_b2c1",
-    "ielts_lesson_8_advantages_disadvantages",
-    "sp_b1_28_advantages_disadvantages",
-    "sp_prep_b1_28",
-    "essay_practice_advantages_disadvantages"
    ]
   },
   "impressed": {
