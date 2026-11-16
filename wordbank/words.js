@@ -3248,6 +3248,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "business_c1_the_tone_desk_for_leaders",
+   "title": "The Tone Desk for Leaders: say the hard thing well",
+   "level": "",
+   "words": [
+    "candid",
+    "euphemism",
+    "measured",
+    "accountable",
+    "reassure",
+    "convey",
+    "tone-deaf",
+    "stakeholder",
+    "hedge",
+    "spin"
+   ]
+  },
+  {
    "id": "c1_pro_21_financial_literacy",
    "title": "Financial Literacy for Non-Finance Professionals",
    "level": "",
@@ -60060,12 +60077,13 @@ window.WORDBANK={
   },
   "accountable": {
    "w": "accountable",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "You must explain and answer for your decisions. A machine cannot be accountable.",
    "ex": "Leaders must be accountable to the people they serve.",
    "lessons": [
     "bc_translation_a2b1",
     "bq_06_free_will_c1",
+    "business_c1_the_tone_desk_for_leaders",
     "discuss_c1_the_steady_voice",
     "thinker_b2_37_arendt",
     "rs_y10_sum1_23_05",
@@ -60237,11 +60255,12 @@ window.WORDBANK={
   },
   "stakeholder": {
    "w": "stakeholder",
-   "pos": "",
+   "pos": "noun",
    "def": "anyone affected by, or with an interest in, an organisation's decisions. The noun inside it: a stake (an interest, or money at risk). Contrast shareholder, who owns part of the company. Stakeholder capitalism vs shareholder value is still a live debate.",
-   "ex": "",
+   "ex": "We need to keep every stakeholder informed.",
    "lessons": [
     "bc_tylenol_c1",
+    "business_c1_the_tone_desk_for_leaders",
     "gr_c1_spotting_the_spin",
     "bc_organising_client_events_c1",
     "bp_c2_06_the_consultants_edge",
@@ -62290,6 +62309,7 @@ window.WORDBANK={
    "ex": "Instead of the polite, rehearsed answer he usually gave in interviews, the actor was suddenly candid, admitting on camera that he had once been terrified of failing.",
    "lessons": [
     "behind_the_screen_her",
+    "business_c1_the_tone_desk_for_leaders",
     "discuss_c1_the_steady_voice",
     "persepolis_bc_pictures",
     "skills_c1_interview_starter",
@@ -64630,6 +64650,107 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_meritocracy"
    ]
   },
+  "euphemism": {
+   "w": "euphemism",
+   "pos": "noun",
+   "def": "a gentler word used in place of one that sounds harsh or unpleasant",
+   "ex": "'Restructuring' is often a euphemism for job cuts.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "discuss_c1_ib_poetry_my_last_duchess",
+    "rp_35_the_house_viewing"
+   ]
+  },
+  "measured": {
+   "w": "measured",
+   "pos": "adjective",
+   "def": "careful and controlled, not extreme or emotional",
+   "ex": "She gave a measured response to the criticism.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "b1_20_flexible_communication",
+    "bc_ielts_opinion_essay_b2c1",
+    "sp_c1_62_expert_hedging"
+   ]
+  },
+  "reassure": {
+   "w": "reassure",
+   "pos": "v",
+   "def": "to help someone feel calmer and more confident",
+   "ex": "I tried to reassure her without hiding the risks.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "discuss_c1_the_steady_voice",
+    "say_bridge_c1",
+    "techniques_hills_like_white_elephants",
+    "bc_powerful_presentations_c1",
+    "rp_14_at_the_pharmacy",
+    "techniques_the_red_room",
+    "wk_21_the_colleague_who_cries",
+    "ml_04_back_in_touch",
+    "b2_99_clinical_anxious_patient",
+    "duolingo_det_practice_6",
+    "grammar_a1_03_commands_ability"
+   ]
+  },
+  "convey": {
+   "w": "convey",
+   "pos": "verb",
+   "def": "communicate a feeling, idea or message",
+   "ex": "A single image can convey fear without using a word, simply through the size and position of a figure.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "discuss_c1_ib_poetry_mary_oliver",
+    "end_point_c1",
+    "persepolis_words",
+    "world_sa_gestures",
+    "rs_y10_spr1_21_05",
+    "lesson_48_art_gallery",
+    "sp_prep_b1_29"
+   ]
+  },
+  "tone-deaf": {
+   "w": "tone-deaf",
+   "pos": "adjective",
+   "def": "not noticing how your words or actions will make other people feel",
+   "ex": "Announcing bonuses on the day of the layoffs was tone-deaf.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders"
+   ]
+  },
+  "hedge": {
+   "w": "hedge",
+   "pos": "verb / noun (a hedge)",
+   "def": "avoid making a clear statement or commitment",
+   "ex": "Good hedging isn't weakness; it's calibrating your confidence to the evidence.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "calibrated_certainty_c2",
+    "discuss_c1_arrow_of_time",
+    "discuss_c1_when_the_story_stops_holding",
+    "exam_c1_ielts_speaking_journey",
+    "short_history_the_gold_that_came_home",
+    "speaking_b2c1_the_tone_desk",
+    "the_curse_of_knowledge_c2",
+    "bestiary_discourse_qualify",
+    "bp_c2_02_the_language_of_not_knowing",
+    "grammar_b2_20_making_plans",
+    "sp_prep_b1_22",
+    "discuss_c1_ai_future_humanity",
+    "grammar_c1_03_advanced_modals",
+    "grammar_c1_05_passive_reporting_causative"
+   ]
+  },
+  "spin": {
+   "w": "spin",
+   "pos": "noun",
+   "def": "a way of presenting information that makes it look better than it really is",
+   "ex": "Nobody believed the press release: it was pure spin.",
+   "lessons": [
+    "business_c1_the_tone_desk_for_leaders",
+    "gr_c1_spotting_the_spin"
+   ]
+  },
   "gross margin": {
    "w": "gross margin",
    "pos": "n",
@@ -64789,28 +64910,6 @@ window.WORDBANK={
     "lesson_28_future_perfect",
     "lesson_50_mastery_celebration_finale",
     "grammar_b2_02_future_tenses_advanced"
-   ]
-  },
-  "hedge": {
-   "w": "hedge",
-   "pos": "verb / noun (a hedge)",
-   "def": "To soften or qualify a claim so that it matches your actual certainty — \"tends to\", \"it appears that\", \"broadly\". A hedge is a downtoner.",
-   "ex": "Good hedging isn't weakness; it's calibrating your confidence to the evidence.",
-   "lessons": [
-    "calibrated_certainty_c2",
-    "discuss_c1_arrow_of_time",
-    "discuss_c1_when_the_story_stops_holding",
-    "exam_c1_ielts_speaking_journey",
-    "short_history_the_gold_that_came_home",
-    "speaking_b2c1_the_tone_desk",
-    "the_curse_of_knowledge_c2",
-    "bestiary_discourse_qualify",
-    "bp_c2_02_the_language_of_not_knowing",
-    "grammar_b2_20_making_plans",
-    "sp_prep_b1_22",
-    "discuss_c1_ai_future_humanity",
-    "grammar_c1_03_advanced_modals",
-    "grammar_c1_05_passive_reporting_causative"
    ]
   },
   "booster": {
@@ -65570,21 +65669,6 @@ window.WORDBANK={
     "ib_lesson_01_three_levels"
    ]
   },
-  "convey": {
-   "w": "convey",
-   "pos": "verb",
-   "def": "to communicate an idea or feeling",
-   "ex": "A single image can convey fear without using a word, simply through the size and position of a figure.",
-   "lessons": [
-    "discuss_c1_ib_poetry_mary_oliver",
-    "end_point_c1",
-    "persepolis_words",
-    "world_sa_gestures",
-    "rs_y10_spr1_21_05",
-    "lesson_48_art_gallery",
-    "sp_prep_b1_29"
-   ]
-  },
   "dramatic monologue": {
    "w": "dramatic monologue",
    "pos": "noun",
@@ -65624,16 +65708,6 @@ window.WORDBANK={
     "discuss_c1_ib_poetry_my_last_duchess",
     "ib_poetry_04_structure_and_form",
     "writing_poetry_forms"
-   ]
-  },
-  "euphemism": {
-   "w": "euphemism",
-   "pos": "noun",
-   "def": "a mild phrase used instead of a harsh one",
-   "ex": "Passed away is a common euphemism for died.",
-   "lessons": [
-    "discuss_c1_ib_poetry_my_last_duchess",
-    "rp_35_the_house_viewing"
    ]
   },
   "possessive": {
@@ -65838,25 +65912,6 @@ window.WORDBANK={
     "memory_arts_p1_05",
     "sp_b1_31_managing_disagreement",
     "grammar_c2_10_evaluative_language"
-   ]
-  },
-  "reassure": {
-   "w": "reassure",
-   "pos": "v",
-   "def": "to help someone feel calmer and more confident",
-   "ex": "I tried to reassure her without hiding the risks.",
-   "lessons": [
-    "discuss_c1_the_steady_voice",
-    "say_bridge_c1",
-    "techniques_hills_like_white_elephants",
-    "bc_powerful_presentations_c1",
-    "rp_14_at_the_pharmacy",
-    "techniques_the_red_room",
-    "wk_21_the_colleague_who_cries",
-    "ml_04_back_in_touch",
-    "b2_99_clinical_anxious_patient",
-    "duolingo_det_practice_6",
-    "grammar_a1_03_commands_ability"
    ]
   },
   "placate": {
@@ -104265,15 +104320,6 @@ window.WORDBANK={
     "pron_c1_03_consonant_signatures"
    ]
   },
-  "spin": {
-   "w": "spin",
-   "pos": "n",
-   "def": "presenting information in a way that makes you look good",
-   "ex": "The press release was pure spin, with no real facts.",
-   "lessons": [
-    "gr_c1_spotting_the_spin"
-   ]
-  },
   "redirect": {
    "w": "redirect",
    "pos": "v",
@@ -118826,17 +118872,6 @@ window.WORDBANK={
    "ex": "She enjoys working in a fast-paced environment.",
    "lessons": [
     "b1_20_flexible_communication"
-   ]
-  },
-  "measured": {
-   "w": "measured",
-   "pos": "adj",
-   "def": "careful, slow and controlled in the way you speak",
-   "ex": "He gave a measured reply after thinking for a moment.",
-   "lessons": [
-    "b1_20_flexible_communication",
-    "bc_ielts_opinion_essay_b2c1",
-    "sp_c1_62_expert_hedging"
    ]
   },
   "harassment": {
