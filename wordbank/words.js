@@ -6445,6 +6445,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "reading_c1_the_writers_magic_tricks",
+   "title": "The Writer's Magic Tricks: an introduction to literature",
+   "level": "",
+   "words": [
+    "foreshadowing",
+    "misdirection",
+    "red herring",
+    "twist",
+    "narrator",
+    "unreliable",
+    "suspense",
+    "cliffhanger",
+    "clue",
+    "plot"
+   ]
+  },
+  {
    "id": "reading_the_room_c2",
    "title": "Reading the Room",
    "level": "",
@@ -68278,11 +68295,12 @@ window.WORDBANK={
   },
   "red herring": {
    "w": "red herring",
-   "pos": "",
+   "pos": "noun",
    "def": "The new logo was a red herring; sales had fallen because of delivery.",
-   "ex": "",
+   "ex": "The butler's muddy boots were just a red herring.",
    "lessons": [
-    "nq_05_why_c1"
+    "nq_05_why_c1",
+    "reading_c1_the_writers_magic_tricks"
    ]
   },
   "contributing factor": {
@@ -71056,12 +71074,13 @@ window.WORDBANK={
   },
   "plot": {
    "w": "plot",
-   "pos": "n",
+   "pos": "noun",
    "def": "a secret plan.",
-   "ex": "",
+   "ex": "The plot is simple, but the characters are brilliant.",
    "lessons": [
     "odyssey_elizabeth_i",
     "odyssey_mary_qos",
+    "reading_c1_the_writers_magic_tricks",
     "short_history_mary_queen_of_scots",
     "gr_b1_story_chain",
     "short_history_rasputin_a2b1",
@@ -74797,6 +74816,7 @@ window.WORDBANK={
    "lessons": [
     "persepolis_child",
     "reading_b2c1_the_unreliable_narrator",
+    "reading_c1_the_writers_magic_tricks",
     "ib_lesson_techniques_overcoat",
     "ib_lesson_02_naming_techniques"
    ]
@@ -77897,9 +77917,10 @@ window.WORDBANK={
    "w": "unreliable",
    "pos": "adjective",
    "def": "not able to be trusted or believed",
-   "ex": "He is an unreliable witness: his story changes every time.",
+   "ex": "By chapter three I realised the storyteller was completely unreliable.",
    "lessons": [
     "reading_b2c1_the_unreliable_narrator",
+    "reading_c1_the_writers_magic_tricks",
     "topic_memory_b2",
     "skills_b1b2_trade_fair_objections",
     "c2_01_the_way_things_are_going",
@@ -77960,6 +77981,83 @@ window.WORDBANK={
     "sp_prep_b1_32",
     "acad_b2_08_lecture_skills",
     "grammar_c1_03_advanced_modals"
+   ]
+  },
+  "foreshadowing": {
+   "w": "foreshadowing",
+   "pos": "noun",
+   "def": "a small hint early in a story about something that will happen later",
+   "ex": "The broken lock in chapter one was clever foreshadowing.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks",
+    "ib_lesson_03_techniques_tell_tale_heart"
+   ]
+  },
+  "misdirection": {
+   "w": "misdirection",
+   "pos": "noun",
+   "def": "making somebody look at one thing so that they miss another",
+   "ex": "Magicians and mystery writers both depend on misdirection.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks"
+   ]
+  },
+  "twist": {
+   "w": "twist",
+   "pos": "noun",
+   "def": "a sudden, unexpected change in a story, often near the end",
+   "ex": "Nobody saw the twist coming: the detective was the thief.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks",
+    "topic_horror_films_b2",
+    "gr_b1_story_chain",
+    "gr_b2_split_second",
+    "bc_master_storytelling_c1",
+    "b1_02_life_stories",
+    "grammar_b2_21_what_went_wrong",
+    "crime_history_c1_part1",
+    "lego_quest",
+    "ib_lesson_techniques_open_window",
+    "grammar_c1_01_future_in_past"
+   ]
+  },
+  "suspense": {
+   "w": "suspense",
+   "pos": "noun",
+   "def": "the excited, worried feeling of waiting to find out what will happen",
+   "ex": "The film built the suspense slowly — the ticking clock, the silence, the close-up on the lock — until the audience could hardly bear not knowing what would happen.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks",
+    "short_history_houdini",
+    "techniques_jekyll_and_hyde_3",
+    "topic_horror_films_b2",
+    "vocabulary_memory_palace",
+    "su_a2_76_films_and_entertainment",
+    "su_a2_27_creating_a_story"
+   ]
+  },
+  "cliffhanger": {
+   "w": "cliffhanger",
+   "pos": "noun",
+   "def": "an ending that stops at the most exciting moment, so you must read on",
+   "ex": "Every episode ends on a cliffhanger.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks",
+    "limerick_laboratory"
+   ]
+  },
+  "clue": {
+   "w": "clue",
+   "pos": "noun",
+   "def": "a piece of information that helps you solve a mystery",
+   "ex": "The crumbs on the rug were the real clue.",
+   "lessons": [
+    "reading_c1_the_writers_magic_tricks",
+    "gr_b2_the_black_box",
+    "short_history_agatha_christie_a2b1",
+    "short_history_the_rosetta_stone_a2b1",
+    "sp_b1_32_speculating_images",
+    "grammar_b1_19_modals_deduction"
    ]
   },
   "pitch": {
@@ -80444,20 +80542,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_houdini",
     "vocabulary_memory_palace"
-   ]
-  },
-  "suspense": {
-   "w": "suspense",
-   "pos": "n",
-   "def": "the anxious, excited feeling of waiting to find out what will happen next.",
-   "ex": "The film built the suspense slowly — the ticking clock, the silence, the close-up on the lock — until the audience could hardly bear not knowing what would happen.",
-   "lessons": [
-    "short_history_houdini",
-    "techniques_jekyll_and_hyde_3",
-    "topic_horror_films_b2",
-    "vocabulary_memory_palace",
-    "su_a2_76_films_and_entertainment",
-    "su_a2_27_creating_a_story"
    ]
   },
   "feat": {
@@ -97647,24 +97731,6 @@ window.WORDBANK={
     "topic_horror_films_b2"
    ]
   },
-  "twist": {
-   "w": "twist",
-   "pos": "n",
-   "def": "a plot twist; a twist ending. Some are so famous that cinemas once begged audiences not to reveal them — as you're about to read.",
-   "ex": "",
-   "lessons": [
-    "topic_horror_films_b2",
-    "gr_b1_story_chain",
-    "gr_b2_split_second",
-    "bc_master_storytelling_c1",
-    "b1_02_life_stories",
-    "grammar_b2_21_what_went_wrong",
-    "crime_history_c1_part1",
-    "lego_quest",
-    "ib_lesson_techniques_open_window",
-    "grammar_c1_01_future_in_past"
-   ]
-  },
   "hold": {
    "w": "hold",
    "pos": "",
@@ -103952,19 +104018,6 @@ window.WORDBANK={
     "ct_b1_33_justifying_opinions",
     "epicurean_14_death_full_treatment",
     "b2_54_persuasion_at_work"
-   ]
-  },
-  "clue": {
-   "w": "clue",
-   "pos": "n",
-   "def": "a piece of information that helps you find an answer",
-   "ex": "The detective found an important clue under the table.",
-   "lessons": [
-    "gr_b2_the_black_box",
-    "short_history_agatha_christie_a2b1",
-    "short_history_the_rosetta_stone_a2b1",
-    "sp_b1_32_speculating_images",
-    "grammar_b1_19_modals_deduction"
    ]
   },
   "sealed": {
@@ -132374,15 +132427,6 @@ window.WORDBANK={
     "ib_lesson_03_techniques_tell_tale_heart"
    ]
   },
-  "cliffhanger": {
-   "w": "cliffhanger",
-   "pos": "n",
-   "def": "an exciting ending that leaves you wanting to know more",
-   "ex": "The episode ended on a cliffhanger.",
-   "lessons": [
-    "limerick_laboratory"
-   ]
-  },
   "bound to": {
    "w": "bound to",
    "pos": "phr",
@@ -155601,15 +155645,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "showing or revealing something that someone wants to hide",
    "ex": "Her shaking hands were a tell-tale sign of her fear.",
-   "lessons": [
-    "ib_lesson_03_techniques_tell_tale_heart"
-   ]
-  },
-  "foreshadowing": {
-   "w": "foreshadowing",
-   "pos": "n",
-   "def": "hints early in a story about what will happen later",
-   "ex": "The dark clouds at the start were clever foreshadowing of the storm.",
    "lessons": [
     "ib_lesson_03_techniques_tell_tale_heart"
    ]
