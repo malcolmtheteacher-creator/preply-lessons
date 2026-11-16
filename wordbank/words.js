@@ -9472,6 +9472,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_c1_the_tone_desk_home_and_school",
+   "title": "The Tone Desk: Home and School",
+   "level": "",
+   "words": [
+    "tone",
+    "blunt",
+    "tactful",
+    "come across",
+    "bossy",
+    "persuade",
+    "considerate",
+    "sincere",
+    "offend",
+    "compromise"
+   ]
+  },
+  {
    "id": "story_a2b1_dorando_marathon",
    "title": "Dorando: Won and Lost in the Marathon",
    "level": "",
@@ -57077,7 +57094,7 @@ window.WORDBANK={
    "w": "recover",
    "pos": "v",
    "def": "To become well or successful again after a bad period.",
-   "ex": "The company recovered and became number one.",
+   "ex": "The company took months to recover completely.",
    "lessons": [
     "bc_lego_a2b1",
     "bc_maersk_a2b1",
@@ -65628,6 +65645,7 @@ window.WORDBANK={
     "piranesi_bc_other",
     "speaking_b1_the_tone_desk",
     "speaking_b2c1_the_tone_desk",
+    "speaking_c1_the_tone_desk_home_and_school",
     "skills_b1_sharing_opinions_politely",
     "b2_37_formal_emails",
     "b2_86_email_problems",
@@ -65900,11 +65918,12 @@ window.WORDBANK={
    "w": "blunt",
    "pos": "adjective",
    "def": "honest with no care for how it lands",
-   "ex": "His feedback was blunt, but it was useful.",
+   "ex": "He was so blunt that his friend walked off.",
    "lessons": [
     "discuss_c1_the_steady_voice",
     "ib_poetry_05_writing_the_poetry_paragraph",
     "speaking_b2c1_the_tone_desk",
+    "speaking_c1_the_tone_desk_home_and_school",
     "world_eu_directness",
     "bp_c2_01_where_your_words_come_from",
     "grammar_b2_23_disagreeing_nicely",
@@ -73983,13 +74002,14 @@ window.WORDBANK={
   },
   "compromise": {
    "w": "compromise",
-   "pos": "n",
+   "pos": "noun",
    "def": "an agreement where both sides give something.",
-   "ex": "The parties reached a compromise on taxes.",
+   "ex": "Ten o'clock at weekends was a good compromise.",
    "lessons": [
     "odyssey_stephen",
     "pol_03_parties",
     "pol_03_parties_a2",
+    "speaking_c1_the_tone_desk_home_and_school",
     "gr_b2_the_pressure_cooker",
     "gr_c1_the_negotiator",
     "bc_negotiating_c1",
@@ -78040,6 +78060,7 @@ window.WORDBANK={
    "lessons": [
     "reading_the_room_c2",
     "speaking_b2c1_the_tone_desk",
+    "speaking_c1_the_tone_desk_home_and_school",
     "techniques_metamorphosis_2",
     "world_eu_directness",
     "sp_prep_b2_58"
@@ -86799,9 +86820,10 @@ window.WORDBANK={
    "w": "come across",
    "pos": "phrasal verb",
    "def": "seem to other people in a particular way",
-   "ex": "Your email came across as quite angry.",
+   "ex": "My email came across as bossy, but I didn't mean it.",
    "lessons": [
-    "speaking_b2c1_the_tone_desk"
+    "speaking_b2c1_the_tone_desk",
+    "speaking_c1_the_tone_desk_home_and_school"
    ]
   },
   "pushy": {
@@ -86816,6 +86838,67 @@ window.WORDBANK={
     "everyday_echoes_phrase_bank",
     "sp_a2_03_simple_opinions",
     "grammar_b1_03_future_tenses_nuanced"
+   ]
+  },
+  "bossy": {
+   "w": "bossy",
+   "pos": "adjective",
+   "def": "always telling other people what to do",
+   "ex": "Stop being so bossy with your little sister.",
+   "lessons": [
+    "speaking_c1_the_tone_desk_home_and_school"
+   ]
+  },
+  "persuade": {
+   "w": "persuade",
+   "pos": "verb",
+   "def": "make somebody agree to do something by giving good reasons",
+   "ex": "The salesman couldn't persuade her, but her sister did in five minutes.",
+   "lessons": [
+    "speaking_c1_the_tone_desk_home_and_school",
+    "tib_diffusion_b2",
+    "gr_b2_the_pressure_cooker",
+    "bc_powerful_presentations_c1",
+    "st_pro_08_stories_that_change_minds",
+    "su_a2_75_presentation_structure",
+    "b1_41_giving_presentation",
+    "c1_pro_09_business_writing",
+    "cambridge_cae_writing_reports_proposals",
+    "ielts_spelling_results_day",
+    "sp_prep_b2_57",
+    "lesson-13-presentations",
+    "grammar_b2_08_reporting_verbs_patterns"
+   ]
+  },
+  "considerate": {
+   "w": "considerate",
+   "pos": "adjective",
+   "def": "thinking about other people's feelings and needs",
+   "ex": "It was considerate of you to knock first.",
+   "lessons": [
+    "speaking_c1_the_tone_desk_home_and_school",
+    "acad_b1_01_classroom_english"
+   ]
+  },
+  "sincere": {
+   "w": "sincere",
+   "pos": "adjective",
+   "def": "really meaning what you say",
+   "ex": "Her apology sounded sincere, so I forgave her.",
+   "lessons": [
+    "speaking_c1_the_tone_desk_home_and_school",
+    "rs_y11_aut1_25_02",
+    "b2_79_making_a_complaint"
+   ]
+  },
+  "offend": {
+   "w": "offend",
+   "pos": "verb",
+   "def": "make somebody upset or annoyed, often without meaning to",
+   "ex": "I didn't want to offend her, so I chose my words carefully.",
+   "lessons": [
+    "speaking_c1_the_tone_desk_home_and_school",
+    "sp_b2_58_diplomatic"
    ]
   },
   "runner": {
@@ -95946,26 +96029,6 @@ window.WORDBANK={
    "ex": "With the new seed, the farm's yield rose from forty to fifty bags of corn per field.",
    "lessons": [
     "tib_diffusion_b2"
-   ]
-  },
-  "persuade": {
-   "w": "persuade",
-   "pos": "",
-   "def": "to make someone agree to do or believe something by giving reasons.",
-   "ex": "The salesman couldn't persuade her, but her sister did in five minutes.",
-   "lessons": [
-    "tib_diffusion_b2",
-    "gr_b2_the_pressure_cooker",
-    "bc_powerful_presentations_c1",
-    "st_pro_08_stories_that_change_minds",
-    "su_a2_75_presentation_structure",
-    "b1_41_giving_presentation",
-    "c1_pro_09_business_writing",
-    "cambridge_cae_writing_reports_proposals",
-    "ielts_spelling_results_day",
-    "sp_prep_b2_57",
-    "lesson-13-presentations",
-    "grammar_b2_08_reporting_verbs_patterns"
    ]
   },
   "chasm": {
@@ -106152,16 +106215,6 @@ window.WORDBANK={
    "ex": "The Shahadah is the first pillar of Islam.",
    "lessons": [
     "rs_y11_aut1_25_02"
-   ]
-  },
-  "sincere": {
-   "w": "sincere",
-   "pos": "adj",
-   "def": "honest and really meaning what you say",
-   "ex": "The words must be said in a sincere way.",
-   "lessons": [
-    "rs_y11_aut1_25_02",
-    "b2_79_making_a_complaint"
    ]
   },
   "intention": {
@@ -154119,15 +154172,6 @@ window.WORDBANK={
     "sp_b2_57_persuasion"
    ]
   },
-  "offend": {
-   "w": "offend",
-   "pos": "v",
-   "def": "to make someone upset or annoyed by what you say or do",
-   "ex": "I did not mean to offend you with my joke.",
-   "lessons": [
-    "sp_b2_58_diplomatic"
-   ]
-  },
   "self-monitoring": {
    "w": "self-monitoring",
    "pos": "n",
@@ -160218,15 +160262,6 @@ window.WORDBANK={
    "ex": "I was gobsmacked when I heard the price.",
    "lessons": [
     "Effective-Pronunciation-Lesson"
-   ]
-  },
-  "considerate": {
-   "w": "considerate",
-   "pos": "adj",
-   "def": "thinking about other people's feelings and needs",
-   "ex": "It is considerate to let others finish speaking.",
-   "lessons": [
-    "acad_b1_01_classroom_english"
    ]
   },
   "fossil fuels": {
