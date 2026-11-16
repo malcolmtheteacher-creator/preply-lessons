@@ -9405,6 +9405,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_b2c1_the_tone_desk",
+   "title": "The Tone Desk: say it right for the person in front of you",
+   "level": "",
+   "words": [
+    "tone",
+    "register",
+    "blunt",
+    "tactful",
+    "diplomatic",
+    "curt",
+    "soften",
+    "hedge",
+    "come across",
+    "pushy"
+   ]
+  },
+  {
    "id": "story_a2b1_dorando_marathon",
    "title": "Dorando: Won and Lost in the Marathon",
    "level": "",
@@ -64751,6 +64768,7 @@ window.WORDBANK={
     "discuss_c1_when_the_story_stops_holding",
     "exam_c1_ielts_speaking_journey",
     "short_history_the_gold_that_came_home",
+    "speaking_b2c1_the_tone_desk",
     "the_curse_of_knowledge_c2",
     "bestiary_discourse_qualify",
     "bp_c2_02_the_language_of_not_knowing",
@@ -65475,6 +65493,7 @@ window.WORDBANK={
     "ib_poetry_01_reading_an_unseen_poem",
     "persepolis_words",
     "piranesi_bc_other",
+    "speaking_b2c1_the_tone_desk",
     "skills_b1_sharing_opinions_politely",
     "b2_37_formal_emails",
     "b2_86_email_problems",
@@ -65772,10 +65791,11 @@ window.WORDBANK={
    "w": "blunt",
    "pos": "adjective",
    "def": "honest with no care for how it lands",
-   "ex": "Some visitors find Dutch feedback blunt.",
+   "ex": "His feedback was blunt, but it was useful.",
    "lessons": [
     "discuss_c1_the_steady_voice",
     "ib_poetry_05_writing_the_poetry_paragraph",
+    "speaking_b2c1_the_tone_desk",
     "world_eu_directness",
     "bp_c2_01_where_your_words_come_from",
     "grammar_b2_23_disagreeing_nicely",
@@ -75998,13 +76018,14 @@ window.WORDBANK={
   },
   "register": {
    "w": "register",
-   "pos": "v",
+   "pos": "noun",
    "def": "to put your name on an official list",
    "ex": "She switched register effortlessly — chatty with the students, crisp with the trustees.",
    "lessons": [
     "pol_05_compulsory",
     "pol_05_compulsory_a2",
     "reading_the_room_c2",
+    "speaking_b2c1_the_tone_desk",
     "gr_b2_the_register",
     "bc_supply_chain_disruptions_c1",
     "rp_34_at_the_town_hall",
@@ -77860,11 +77881,12 @@ window.WORDBANK={
   },
   "diplomatic": {
    "w": "diplomatic",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "Handling people and disagreements with tact, so that hard things can be said without giving offence.",
    "ex": "A diplomatic 'I see it slightly differently' opens a door that 'you're wrong' slams shut.",
    "lessons": [
     "reading_the_room_c2",
+    "speaking_b2c1_the_tone_desk",
     "bc_multicultural_teams_c1",
     "speaking_naturally_01_agreement_disagreement",
     "grammar_b2_23_disagreeing_nicely",
@@ -77917,11 +77939,12 @@ window.WORDBANK={
   },
   "tactful": {
    "w": "tactful",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "Showing a careful sense of what to say, and how, to avoid hurting or embarrassing someone while still being honest.",
    "ex": "A tactful speaker can tell you you're wrong and leave you feeling respected.",
    "lessons": [
     "reading_the_room_c2",
+    "speaking_b2c1_the_tone_desk",
     "techniques_metamorphosis_2",
     "world_eu_directness",
     "sp_prep_b2_58"
@@ -86482,6 +86505,58 @@ window.WORDBANK={
     "grammar_c1_08_advanced_relative_clauses"
    ]
   },
+  "curt": {
+   "w": "curt",
+   "pos": "adjective",
+   "def": "rudely short; using very few words",
+   "ex": "I asked for help and got a curt reply: 'No.'",
+   "lessons": [
+    "speaking_b2c1_the_tone_desk",
+    "techniques_the_romance_of_a_busy_broker"
+   ]
+  },
+  "soften": {
+   "w": "soften",
+   "pos": "verb",
+   "def": "make something sound less strong or less unkind",
+   "ex": "Start with 'I'm afraid' to make bad news gentler: it will soften the blow.",
+   "lessons": [
+    "speaking_b2c1_the_tone_desk",
+    "world_eu_directness",
+    "bp_c2_04_the_power_of_imprecision",
+    "grammar_b2_23_disagreeing_nicely",
+    "ct_b1_31_diplomatic_disagreement",
+    "ml_34_the_bad_recommendation",
+    "sp_a2_18_agreeing_disagreeing",
+    "sp_b2_58_diplomatic",
+    "sp_prep_b1_22",
+    "b1_33_cause_and_effect",
+    "grammar_b1_comparative_language"
+   ]
+  },
+  "come across": {
+   "w": "come across",
+   "pos": "phrasal verb",
+   "def": "seem to other people in a particular way",
+   "ex": "Your email came across as quite angry.",
+   "lessons": [
+    "speaking_b2c1_the_tone_desk"
+   ]
+  },
+  "pushy": {
+   "w": "pushy",
+   "pos": "adjective",
+   "def": "trying too hard to make other people do what you want",
+   "ex": "I don't want to sound pushy, but have you read my proposal yet?",
+   "lessons": [
+    "speaking_b2c1_the_tone_desk",
+    "rp_18_joining_a_gym",
+    "speaking_naturally_03_giving_advice",
+    "everyday_echoes_phrase_bank",
+    "sp_a2_03_simple_opinions",
+    "grammar_b1_03_future_tenses_nuanced"
+   ]
+  },
   "runner": {
    "w": "runner",
    "pos": "noun",
@@ -92667,15 +92742,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "uncertain; not able to make up your mind",
    "ex": "He stood irresolute at the crossroads.",
-   "lessons": [
-    "techniques_the_romance_of_a_busy_broker"
-   ]
-  },
-  "curt": {
-   "w": "curt",
-   "pos": "adj/adv",
-   "def": "rudely short and sharp in the way you speak",
-   "ex": "a curt reply",
    "lessons": [
     "techniques_the_romance_of_a_busy_broker"
    ]
@@ -99202,24 +99268,6 @@ window.WORDBANK={
     "sp_c1_63_irony_understatement",
     "sp_prep_c1_65",
     "gr_b2_tone_shift"
-   ]
-  },
-  "soften": {
-   "w": "soften",
-   "pos": "v",
-   "def": "to make less strong.",
-   "ex": "",
-   "lessons": [
-    "world_eu_directness",
-    "bp_c2_04_the_power_of_imprecision",
-    "grammar_b2_23_disagreeing_nicely",
-    "ct_b1_31_diplomatic_disagreement",
-    "ml_34_the_bad_recommendation",
-    "sp_a2_18_agreeing_disagreeing",
-    "sp_b2_58_diplomatic",
-    "sp_prep_b1_22",
-    "b1_33_cause_and_effect",
-    "grammar_b1_comparative_language"
    ]
   },
   "high-context": {
@@ -112678,19 +112726,6 @@ window.WORDBANK={
    "lessons": [
     "rp_18_joining_a_gym",
     "b2_32_living_without_money"
-   ]
-  },
-  "pushy": {
-   "w": "pushy",
-   "pos": "adj",
-   "def": "trying too hard to make people do what you want",
-   "ex": "The salesperson was very pushy about the long contract.",
-   "lessons": [
-    "rp_18_joining_a_gym",
-    "speaking_naturally_03_giving_advice",
-    "everyday_echoes_phrase_bank",
-    "sp_a2_03_simple_opinions",
-    "grammar_b1_03_future_tenses_nuanced"
    ]
   },
   "tactic": {
