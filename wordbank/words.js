@@ -9388,6 +9388,22 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_b1_the_tone_desk",
+   "title": "The Tone Desk: polite, friendly or direct?",
+   "level": "",
+   "words": [
+    "polite",
+    "rude",
+    "formal",
+    "informal",
+    "direct",
+    "friendly",
+    "request",
+    "apologise",
+    "tone"
+   ]
+  },
+  {
    "id": "speaking_b2c1_the_lifeboat",
    "title": "The Lifeboat: a speaking adventure",
    "level": "",
@@ -57866,6 +57882,7 @@ window.WORDBANK={
    "ex": "The company apologised to its customers.",
    "lessons": [
     "bc_menufoods_a2b1",
+    "speaking_b1_the_tone_desk",
     "world_na_canadians",
     "lf_45_the_late_friend",
     "skills_a2_trade_fair_problems",
@@ -65493,6 +65510,7 @@ window.WORDBANK={
     "ib_poetry_01_reading_an_unseen_poem",
     "persepolis_words",
     "piranesi_bc_other",
+    "speaking_b1_the_tone_desk",
     "speaking_b2c1_the_tone_desk",
     "skills_b1_sharing_opinions_politely",
     "b2_37_formal_emails",
@@ -76230,11 +76248,12 @@ window.WORDBANK={
   },
   "polite": {
    "w": "polite",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "kind and with good manners",
    "ex": "In the first week, everyone was extremely polite and nobody said what they really thought.",
    "lessons": [
     "pol_07_debate_a2",
+    "speaking_b1_the_tone_desk",
     "techniques_the_cask_of_amontillado_a2b1",
     "tib_tuckman_b2",
     "world_ea_politeness_a2",
@@ -86446,6 +86465,100 @@ window.WORDBANK={
     "wk_28_the_first_sales_call",
     "sp_a2_12_follow_up_questions",
     "sp_prep_a2_12"
+   ]
+  },
+  "rude": {
+   "w": "rude",
+   "pos": "adjective",
+   "def": "not kind or respectful to other people",
+   "ex": "Walking into a room without greeting anyone is considered rude.",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "world_ssa_greetings",
+    "su_a2_32_places_i_have_visited",
+    "ct_b1_24_clarification_building_blocks",
+    "a1p_31_restaurant",
+    "talk_tipping_a2b1"
+   ]
+  },
+  "formal": {
+   "w": "formal",
+   "pos": "adjective",
+   "def": "careful and serious; used at work or with people you don't know",
+   "ex": "Use formal English in a job interview.",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "world_ea_politeness_a2",
+    "world_eu_greetings",
+    "world_la_warmth",
+    "world_la_warmth_a2",
+    "su_a2_42_travel_problems",
+    "bp_c2_01_where_your_words_come_from",
+    "skills_a2_trade_fair_simulation",
+    "a1p_01_introductions"
+   ]
+  },
+  "informal": {
+   "w": "informal",
+   "pos": "adjective",
+   "def": "relaxed; used with friends and family",
+   "ex": "She heard about the job through informal chats at a conference, not from an advert.",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "tib_pestle_b2",
+    "world_oce_laidback",
+    "world_oce_slang",
+    "world_sa_cities",
+    "su_a2_50_getting_in_touch",
+    "c2_pro_18_mentoring_language",
+    "b2_40_informal_email_writing",
+    "bc_current_issues_c1",
+    "sp_b2_49_register",
+    "qf_collocation_catch_bus"
+   ]
+  },
+  "direct": {
+   "w": "direct",
+   "pos": "adjective",
+   "def": "saying exactly what you want, with no extra words",
+   "ex": "He's very direct: he always says what he thinks.",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "world_eu_directness_a2",
+    "su_a2_64_adapting_communication",
+    "b1_20_flexible_communication",
+    "bestiary_discourse_command",
+    "su_a2_49_communication_styles"
+   ]
+  },
+  "friendly": {
+   "w": "friendly",
+   "pos": "adjective",
+   "def": "kind and warm to other people",
+   "ex": "The shop assistant was very friendly.",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "world_na_friendly_a2",
+    "rp_13_talking_about_the_weather_a2b1",
+    "rp_11_a_job_interview_a2b1",
+    "a1p_35_review_social_skills",
+    "qf_falsefriend_polish_sympathyczny"
+   ]
+  },
+  "request": {
+   "w": "request",
+   "pos": "noun",
+   "def": "the act of asking for something politely",
+   "ex": "I have a small request: could you close the door?",
+   "lessons": [
+    "speaking_b1_the_tone_desk",
+    "su_a2_43_making_requests",
+    "ct_b1_24_clarification_building_blocks",
+    "b2_87_organising_event",
+    "a1p_16_can_you_help",
+    "aviation_eapt_07",
+    "lesson_21_reported_questions_commands",
+    "qf_falsefriend_french_demander"
    ]
   },
   "overboard": {
@@ -96663,24 +96776,6 @@ window.WORDBANK={
     "acad_b1_03_reading_textbooks"
    ]
   },
-  "informal": {
-   "w": "informal",
-   "pos": "adj",
-   "def": "relaxed and unofficial. (opposite formal; adv. informally)",
-   "ex": "She heard about the job through informal chats at a conference, not from an advert.",
-   "lessons": [
-    "tib_pestle_b2",
-    "world_oce_laidback",
-    "world_oce_slang",
-    "world_sa_cities",
-    "su_a2_50_getting_in_touch",
-    "c2_pro_18_mentoring_language",
-    "b2_40_informal_email_writing",
-    "bc_current_issues_c1",
-    "sp_b2_49_register",
-    "qf_collocation_catch_bus"
-   ]
-  },
   "demographic": {
    "w": "demographic",
    "pos": "",
@@ -98987,22 +99082,6 @@ window.WORDBANK={
     "lesson-11-names-faces"
    ]
   },
-  "formal": {
-   "w": "formal",
-   "pos": "adj",
-   "def": "serious and following the rules",
-   "ex": "A handshake is more formal than a hug.",
-   "lessons": [
-    "world_ea_politeness_a2",
-    "world_eu_greetings",
-    "world_la_warmth",
-    "world_la_warmth_a2",
-    "su_a2_42_travel_problems",
-    "bp_c2_01_where_your_words_come_from",
-    "skills_a2_trade_fair_simulation",
-    "a1p_01_introductions"
-   ]
-  },
   "fandom": {
    "w": "fandom",
    "pos": "n",
@@ -99296,19 +99375,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "world_eu_directness"
-   ]
-  },
-  "direct": {
-   "w": "direct",
-   "pos": "adj",
-   "def": "saying things clearly and honestly",
-   "ex": "My boss is very direct.",
-   "lessons": [
-    "world_eu_directness_a2",
-    "su_a2_64_adapting_communication",
-    "b1_20_flexible_communication",
-    "bestiary_discourse_command",
-    "su_a2_49_communication_styles"
    ]
   },
   "hint": {
@@ -100856,19 +100922,6 @@ window.WORDBANK={
     "qf_falsefriend_portuguese_pretender"
    ]
   },
-  "friendly": {
-   "w": "friendly",
-   "pos": "adj",
-   "def": "kind and open with people",
-   "ex": "The shop assistant was very friendly.",
-   "lessons": [
-    "world_na_friendly_a2",
-    "rp_13_talking_about_the_weather_a2b1",
-    "rp_11_a_job_interview_a2b1",
-    "a1p_35_review_social_skills",
-    "qf_falsefriend_polish_sympathyczny"
-   ]
-  },
   "melting pot": {
    "w": "melting pot",
    "pos": "n",
@@ -102128,19 +102181,6 @@ window.WORDBANK={
    "ex": "It is customary to ask about the family before business.",
    "lessons": [
     "world_ssa_greetings"
-   ]
-  },
-  "rude": {
-   "w": "rude",
-   "pos": "adj",
-   "def": "not polite",
-   "ex": "Walking into a room without greeting anyone is considered rude.",
-   "lessons": [
-    "world_ssa_greetings",
-    "su_a2_32_places_i_have_visited",
-    "ct_b1_24_clarification_building_blocks",
-    "a1p_31_restaurant",
-    "talk_tipping_a2b1"
    ]
   },
   "code-switching": {
@@ -121739,21 +121779,6 @@ window.WORDBANK={
    "ex": "Would it be possible to change my room?",
    "lessons": [
     "su_a2_42_travel_problems"
-   ]
-  },
-  "request": {
-   "w": "request",
-   "pos": "n",
-   "def": "a polite or official act of asking for something",
-   "ex": "My boss agreed to my request for a day off.",
-   "lessons": [
-    "su_a2_43_making_requests",
-    "ct_b1_24_clarification_building_blocks",
-    "b2_87_organising_event",
-    "a1p_16_can_you_help",
-    "aviation_eapt_07",
-    "lesson_21_reported_questions_commands",
-    "qf_falsefriend_french_demander"
    ]
   },
   "would you mind": {
