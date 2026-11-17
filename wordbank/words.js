@@ -3771,6 +3771,101 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "htp_a2_05_spot_the_difference",
+   "title": "Spot the Difference: The Flat",
+   "level": "",
+   "words": [
+    "sofa",
+    "cushion",
+    "curtain",
+    "shelf",
+    "rug",
+    "lamp",
+    "plant",
+    "clock",
+    "next to",
+    "under"
+   ]
+  },
+  {
+   "id": "htp_b1_06_the_weekend_plan",
+   "title": "The Weekend Plan",
+   "level": "",
+   "words": [
+    "arrangement",
+    "available",
+    "timetable",
+    "platform",
+    "fully booked",
+    "suit",
+    "forecast",
+    "last train",
+    "fancy"
+   ]
+  },
+  {
+   "id": "htp_b2_01_the_hiring_panel",
+   "title": "The Hiring Panel",
+   "level": "",
+   "words": [
+    "candidate",
+    "shortlist",
+    "reference",
+    "reliable",
+    "drawback",
+    "red flag",
+    "outweigh",
+    "concede"
+   ]
+  },
+  {
+   "id": "htp_c1_02_cold_case",
+   "title": "Cold Case",
+   "level": "",
+   "words": [
+    "alibi",
+    "culprit",
+    "motive",
+    "rule out",
+    "deduce",
+    "red herring",
+    "witness",
+    "corroborate"
+   ]
+  },
+  {
+   "id": "htp_c1_03_the_deal",
+   "title": "The Deal",
+   "level": "",
+   "words": [
+    "concession",
+    "counter-offer",
+    "bottom line",
+    "deal-breaker",
+    "non-negotiable",
+    "trade-off",
+    "leverage",
+    "flexible",
+    "walk away"
+   ]
+  },
+  {
+   "id": "htp_c1_04_two_newspapers",
+   "title": "Two Newspapers",
+   "level": "",
+   "words": [
+    "slant",
+    "bias",
+    "loaded",
+    "neutral",
+    "downplay",
+    "frame",
+    "omit",
+    "allege",
+    "sensationalise"
+   ]
+  },
+  {
    "id": "ib_poetry_01_reading_an_unseen_poem",
    "title": "IB Poetry 1: Reading an Unseen Poem",
    "level": "",
@@ -39280,7 +39375,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_10_two_part_questions",
    "title": "IELTS Lesson 10: Two-Part Questions & Mixed Types",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "distinct",
     "responsible",
@@ -39293,7 +39388,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_11_vocabulary_collocations",
    "title": "IELTS Lesson 11 - Advanced Vocabulary & Collocations",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "collocation",
     "foster",
@@ -39306,7 +39401,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_12_complex_sentences",
    "title": "IELTS Lesson 12 - Complex Sentences for Writing",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "dependent clause",
     "independent clause",
@@ -39319,7 +39414,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_13_cohesion_coherence",
    "title": "IELTS Lesson 13 - Cohesion & Coherence Mastery",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "cohesion",
     "repetition",
@@ -39332,7 +39427,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_14_paraphrasing_variety",
    "title": "IELTS Lesson 14 - Paraphrasing & Avoiding Repetition",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "paraphrase",
     "synonym",
@@ -39345,7 +39440,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_15_common_mistakes",
    "title": "IELTS Lesson 15: Common Mistakes & How to Fix Them",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "takeaway",
     "descriptor",
@@ -39358,7 +39453,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_16_timed_practice_1",
    "title": "IELTS Lesson 16 - Timed Essay Practice 1",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "brainstorm",
     "outline",
@@ -39371,7 +39466,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_17_timed_practice_2",
    "title": "IELTS Lesson 17 - Timed Essay Practice 2",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "measurable",
     "implement",
@@ -39384,7 +39479,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_18_exam_simulation",
    "title": "IELTS Lesson 18 - Full Writing Test Simulation",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "simulation",
     "concentration",
@@ -39397,7 +39492,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_19_feedback_analysis",
    "title": "IELTS Lesson 19: Feedback Analysis & Improvement Plan",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "roadmap",
     "criterion",
@@ -39423,7 +39518,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_1_academic_paragraphs",
    "title": "IELTS Writing Task 2: Funnel Introductions",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "paraphrase",
     "restatement",
@@ -39436,7 +39531,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_20_final_strategies",
    "title": "IELTS Writing Task 2: Final Practice & Exam Strategies",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "cramming",
     "nerves",
@@ -39449,7 +39544,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_2_marking_criteria",
    "title": "IELTS Writing Task 2: What Examiners Count",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "examiner",
     "average",
@@ -39462,7 +39557,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_3_body_paragraphs",
    "title": "IELTS Writing Task 2: Body Paragraphs",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "topic sentence",
     "underlying",
@@ -39475,7 +39570,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_4_time_management",
    "title": "IELTS Writing Task 2: Time Management & Planning",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "decode",
     "underline",
@@ -39488,7 +39583,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_4b_generating_ideas",
    "title": "IELTS Writing Task 2: Generating Ideas & Arguments Under Pressure",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "on demand",
     "reward",
@@ -39501,7 +39596,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_5_conclusions_linking",
    "title": "Lesson 5: Writing Conclusions & Linking Ideas - IELTS Writing Task 2",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "conclusion",
     "linking device",
@@ -39514,7 +39609,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_6_opinion_essays",
    "title": "Lesson 6: Opinion Essays - IELTS Writing Task 2",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "partial",
     "state",
@@ -39527,7 +39622,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_7_discussion_essays",
    "title": "IELTS Lesson 7 - Discussion Essays",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "neutral",
     "perspective",
@@ -39540,7 +39635,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_8_advantages_disadvantages",
    "title": "Lesson 8: Advantages & Disadvantages Essays - IELTS Writing Task 2",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "advantage",
     "disadvantage",
@@ -39553,7 +39648,7 @@ window.WORDBANK={
   {
    "id": "ielts_lesson_9_problem_solution",
    "title": "Lesson 9: Problem-Solution Essays - IELTS Writing Task 2",
-   "level": "",
+   "level": "B2/C1",
    "words": [
     "propose",
     "realistic",
@@ -48187,9 +48282,10 @@ window.WORDBANK={
    "w": "sofa",
    "pos": "noun",
    "def": "a long, soft seat for two or three people",
-   "ex": "The sofa is in the living room.",
+   "ex": "We sit on the sofa and watch TV.",
    "lessons": [
     "a1_my_house_furniture_popup",
+    "htp_a2_05_spot_the_difference",
     "a1_present_continuous_interactive"
    ]
   },
@@ -48535,21 +48631,23 @@ window.WORDBANK={
   },
   "under": {
    "w": "under",
-   "pos": "",
+   "pos": "preposition",
    "def": "the cat is UNDER the chair",
-   "ex": "",
+   "ex": "My bag is under the table.",
    "lessons": [
     "a1s_03_where",
+    "htp_a2_05_spot_the_difference",
     "a1p_09_where_is_it"
    ]
   },
   "next to": {
    "w": "next to",
-   "pos": "",
+   "pos": "preposition",
    "def": "the phone is NEXT TO the keys",
-   "ex": "",
+   "ex": "The lamp is next to the sofa.",
    "lessons": [
     "a1s_03_where",
+    "htp_a2_05_spot_the_difference",
     "a1p_09_where_is_it"
    ]
   },
@@ -49976,20 +50074,22 @@ window.WORDBANK={
   },
   "rug": {
    "w": "rug",
-   "pos": "",
+   "pos": "noun",
    "def": "a small soft mat on the floor",
-   "ex": "",
+   "ex": "The cat is sleeping on the rug.",
    "lessons": [
-    "a1s_21_flat"
+    "a1s_21_flat",
+    "htp_a2_05_spot_the_difference"
    ]
   },
   "plant": {
    "w": "plant",
-   "pos": "",
+   "pos": "noun",
    "def": "it is green and grows",
-   "ex": "",
+   "ex": "There is a plant on the windowsill.",
    "lessons": [
     "a1s_21_flat",
+    "htp_a2_05_spot_the_difference",
     "explore_a2_gardening"
    ]
   },
@@ -53406,11 +53506,12 @@ window.WORDBANK={
   },
   "neutral": {
    "w": "neutral",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "not favouring either side or any group.",
    "ex": "Engineers tried to make the tool neutral, but they could not be sure it had stopped.",
    "lessons": [
     "bc_ai_screening_c1",
+    "htp_c1_04_two_newspapers",
     "odyssey_charles_iii",
     "world_eu_swiss",
     "world_eu_swiss_a2",
@@ -53470,6 +53571,7 @@ window.WORDBANK={
    "ex": "Every day, the shop's scale shows two kilos too much. It always makes the same mistake, in the same direction. Its bias is easy to measure.",
    "lessons": [
     "bc_ai_screening_c1",
+    "htp_c1_04_two_newspapers",
     "news_desk_who_said_that",
     "persepolis_bc_story",
     "persepolis_truth",
@@ -53500,11 +53602,12 @@ window.WORDBANK={
   },
   "candidate": {
    "w": "candidate",
-   "pos": "n",
+   "pos": "noun",
    "def": "a person who is applying for a job.",
    "ex": "Over thirteen million candidates take the national exam in China.",
    "lessons": [
     "bc_ai_screening_c1",
+    "htp_b2_01_the_hiring_panel",
     "world_ea_exams",
     "b1_16_strengths_and_weaknesses",
     "su_a2_47_making_decisions",
@@ -55224,13 +55327,14 @@ window.WORDBANK={
   },
   "leverage": {
    "w": "leverage",
-   "pos": "n",
+   "pos": "noun",
    "def": "gain / use / lose leverage over someone; a source of leverage. Also a verb in business English: to leverage our scale = to use it to advantage. (In finance, leverage also means borrowing.)",
-   "ex": "Whoever has another supplier has more leverage.",
+   "ex": "They need the band more than we need the festival, so we have leverage.",
    "lessons": [
     "bc_china_challenge_c1",
     "behind_the_screen_the_big_short",
     "c1_pro_21_financial_literacy",
+    "htp_c1_03_the_deal",
     "skills_b2c1_playing_a_different_game",
     "skills_c1_senior_interview_5_closing",
     "c2_pro_03_diplomatic_negotiation",
@@ -55614,6 +55718,7 @@ window.WORDBANK={
    "ex": "We'd rather not walk away, but we will if we must.",
    "lessons": [
     "bc_disneypixar_c1",
+    "htp_c1_03_the_deal",
     "bc_procurement_price_increase_c1",
     "rp_17_haggling_at_a_market",
     "wk_05_negotiating"
@@ -58405,6 +58510,7 @@ window.WORDBANK={
    "ex": "The forecasts disagreed with each other enormously.",
    "lessons": [
     "bc_novo_a2b1",
+    "htp_b1_06_the_weekend_plan",
     "c1_pro_22_supply_chain",
     "prof_c2_06_csuite_communication",
     "qf_vocab_economic_economical",
@@ -60213,6 +60319,7 @@ window.WORDBANK={
    "ex": "The bottles were on the shop shelves.",
    "lessons": [
     "bc_tylenol_a2b1",
+    "htp_a2_05_spot_the_difference",
     "fantasy_history_c1_part1",
     "a1_there_is_there_are_interactive",
     "grammar_a1_09_prepositions_conjunctions_sentence_structure"
@@ -62793,11 +62900,12 @@ window.WORDBANK={
   },
   "corroborate": {
    "w": "corroborate",
-   "pos": "v",
+   "pos": "verb",
    "def": "to support a statement with independent evidence that shows it is true.",
-   "ex": "",
+   "ex": "Two other guests corroborated her story.",
    "lessons": [
-    "behind_the_screen_memento"
+    "behind_the_screen_memento",
+    "htp_c1_02_cold_case"
    ]
   },
   "oblivious": {
@@ -65139,11 +65247,12 @@ window.WORDBANK={
   },
   "alibi": {
    "w": "alibi",
-   "pos": "n",
+   "pos": "noun",
    "def": "proof that you were somewhere else when a crime happened.",
-   "ex": "",
+   "ex": "His story held up: three people saw him in the kitchen all evening.",
    "lessons": [
     "columbo_c1_murder_by_the_book",
+    "htp_c1_02_cold_case",
     "short_history_agatha_christie",
     "gr_b2_alibi",
     "bc_murder_mystery_c1",
@@ -65166,11 +65275,12 @@ window.WORDBANK={
   },
   "motive": {
    "w": "motive",
-   "pos": "n",
+   "pos": "noun",
    "def": "the reason behind a person's actions. Money is the oldest motive of all.",
-   "ex": "",
+   "ex": "Money is the most common motive for theft.",
    "lessons": [
     "columbo_c1_murder_by_the_book",
+    "htp_c1_02_cold_case",
     "piranesi_bc_other",
     "techniques_a_jury_of_her_peers",
     "bc_murder_mystery_c1"
@@ -65411,11 +65521,12 @@ window.WORDBANK={
   },
   "arrangement": {
    "w": "arrangement",
-   "pos": "n",
+   "pos": "noun",
    "def": "a particular way in which things are ordered or positioned",
-   "ex": "There are countless arrangements of 52 cards.",
+   "ex": "We made an arrangement to meet at the station at ten.",
    "lessons": [
     "discuss_c1_arrow_of_time",
+    "htp_b1_06_the_weekend_plan",
     "su_a2_10_planning_the_future",
     "b2_46_remote_work",
     "a1p_47_discussing_future_plans",
@@ -66049,6 +66160,7 @@ window.WORDBANK={
    "ex": "She opened by conceding that the costs were real — and was twice as convincing for it.",
    "lessons": [
     "discuss_c1_time_travellers_argument",
+    "htp_b2_01_the_hiring_panel",
     "speaking_b2c1_the_scales",
     "the_rhetoric_of_persuasion_c2",
     "thinker_b2_17_aquinas",
@@ -66111,11 +66223,12 @@ window.WORDBANK={
   },
   "frame": {
    "w": "frame",
-   "pos": "n",
+   "pos": "verb",
    "def": "the point of view, with its own motion, from which measurements are made",
-   "ex": "In the train's frame, the clock is at rest.",
+   "ex": "The story was framed as a victory for local people.",
    "lessons": [
     "discuss_c1_universal_now",
+    "htp_c1_04_two_newspapers",
     "rp_39_at_the_optician",
     "st_pro_05_the_reframe",
     "bestiary_discourse_frame",
@@ -66390,6 +66503,7 @@ window.WORDBANK={
    "ex": "The missing approval is a red flag.",
    "lessons": [
     "discuss_c1_when_the_story_stops_holding",
+    "htp_b2_01_the_hiring_panel",
     "c1_pro_17_recruitment",
     "when_yes_doesnt_mean_yes_c1",
     "bc_legal_unwelcome_advice_c1"
@@ -66809,11 +66923,12 @@ window.WORDBANK={
   },
   "bottom line": {
    "w": "bottom line",
-   "pos": "",
+   "pos": "noun",
    "def": "The bottom line is that we need a decision by Friday. From the last line of a financial statement. On paper: Writing Executive Summaries.",
-   "ex": "",
+   "ex": "£500 a month is our bottom line; we can't go any lower.",
    "lessons": [
     "end_point_c1",
+    "htp_c1_03_the_deal",
     "skills_c1_trade_fair_closing_deals",
     "bestiary_discourse_command",
     "sp_prep_b2_51"
@@ -67133,6 +67248,423 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "grammar_c1_17_counterfactual_conditionals"
+   ]
+  },
+  "cushion": {
+   "w": "cushion",
+   "pos": "noun",
+   "def": "a small soft bag you put on a seat",
+   "ex": "There are two blue cushions on my bed.",
+   "lessons": [
+    "htp_a2_05_spot_the_difference",
+    "wk_30_parents_evening",
+    "qf_falsefriend_italian_morbido"
+   ]
+  },
+  "curtain": {
+   "w": "curtain",
+   "pos": "noun",
+   "def": "a long piece of cloth in front of a window",
+   "ex": "Please close the curtains. It's dark outside.",
+   "lessons": [
+    "htp_a2_05_spot_the_difference",
+    "world_eu_east_a2",
+    "grammar_a1_09_prepositions_conjunctions_sentence_structure"
+   ]
+  },
+  "lamp": {
+   "w": "lamp",
+   "pos": "noun",
+   "def": "a small light you can move",
+   "ex": "I read with a lamp next to my bed.",
+   "lessons": [
+    "htp_a2_05_spot_the_difference",
+    "techniques_the_dolls_house_a2b1"
+   ]
+  },
+  "clock": {
+   "w": "clock",
+   "pos": "noun",
+   "def": "a thing on the wall that shows the time",
+   "ex": "The clock says six o'clock.",
+   "lessons": [
+    "htp_a2_05_spot_the_difference",
+    "techniques_the_masque_of_the_red_death_a2b1"
+   ]
+  },
+  "available": {
+   "w": "available",
+   "pos": "adjective",
+   "def": "free to do something; not busy",
+   "ex": "Are you available on Sunday afternoon?",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan"
+   ]
+  },
+  "timetable": {
+   "w": "timetable",
+   "pos": "noun",
+   "def": "a list that shows when trains or buses leave and arrive",
+   "ex": "Check the timetable before you leave home.",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan",
+    "rp_38_at_the_school_office",
+    "talk_homework_a2b1",
+    "grammar_b1_03_future_tenses_nuanced"
+   ]
+  },
+  "platform": {
+   "w": "platform",
+   "pos": "noun",
+   "def": "the place in a station where you get on and off a train",
+   "ex": "Our train leaves from number 4.",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan",
+    "b1_45_social_media_life",
+    "rp_10_at_the_train_station",
+    "a1p_38_travel_transport",
+    "su_a2_31_social_networking"
+   ]
+  },
+  "fully booked": {
+   "w": "fully booked",
+   "pos": "adjective",
+   "def": "with no free tables, seats or rooms left",
+   "ex": "The restaurant is fully booked on Saturday night.",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan"
+   ]
+  },
+  "suit": {
+   "w": "suit",
+   "pos": "verb",
+   "def": "be good or easy for someone's plans",
+   "ex": "Does two o'clock suit you?",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan",
+    "lesson-12-playing-cards"
+   ]
+  },
+  "last train": {
+   "w": "last train",
+   "pos": "noun",
+   "def": "the final train of the day",
+   "ex": "We need to leave at ten to catch the last train home.",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan"
+   ]
+  },
+  "fancy": {
+   "w": "fancy",
+   "pos": "verb",
+   "def": "want to do or have something (informal)",
+   "ex": "Do you fancy going to the cinema?",
+   "lessons": [
+    "htp_b1_06_the_weekend_plan"
+   ]
+  },
+  "shortlist": {
+   "w": "shortlist",
+   "pos": "verb",
+   "def": "choose a small group from everyone who applied",
+   "ex": "We shortlisted four people out of sixty.",
+   "lessons": [
+    "htp_b2_01_the_hiring_panel"
+   ]
+  },
+  "reference": {
+   "w": "reference",
+   "pos": "noun",
+   "def": "a letter from a former employer saying what someone was like at work",
+   "ex": "Her reference said she was never late.",
+   "lessons": [
+    "htp_b2_01_the_hiring_panel",
+    "wk_18_made_redundant",
+    "b2_12_workplace_ethics",
+    "bc_gtd_david_allen_c1",
+    "ielts_lesson_13_cohesion_coherence",
+    "sp_prep_b1_36"
+   ]
+  },
+  "reliable": {
+   "w": "reliable",
+   "pos": "adjective",
+   "def": "you can trust them to do what they say, every time",
+   "ex": "Is this website a good source of information? Is it reliable?",
+   "lessons": [
+    "htp_b2_01_the_hiring_panel",
+    "psy_04_can_you_trust_memory_b2c1",
+    "skills_a2_interview_starter",
+    "thinker_b2_20_descartes",
+    "topic_willpower_b2",
+    "acad_b1_16_finding_information",
+    "bl_01_memory_liar",
+    "first_lesson_b2c1",
+    "talk_adult_friendships_a2b1",
+    "may_might_could_finance"
+   ]
+  },
+  "drawback": {
+   "w": "drawback",
+   "pos": "noun",
+   "def": "a disadvantage or problem",
+   "ex": "The only drawback is that he can't start until March.",
+   "lessons": [
+    "htp_b2_01_the_hiring_panel",
+    "speaking_b2c1_the_scales",
+    "cambridge_cae_writing_reviews_letters",
+    "bc_ielts_two_part_questions_b2c1",
+    "ielts_lesson_8_advantages_disadvantages",
+    "sp_b1_28_advantages_disadvantages",
+    "sp_prep_b1_28",
+    "essay_practice_advantages_disadvantages"
+   ]
+  },
+  "outweigh": {
+   "w": "outweigh",
+   "pos": "verb",
+   "def": "be more important than something else",
+   "ex": "For me, the benefits of living in the city outweigh the noise.",
+   "lessons": [
+    "htp_b2_01_the_hiring_panel",
+    "speaking_b2c1_the_scales",
+    "thinker_b2_24_leibniz",
+    "acad_c1_03_academic_debate",
+    "rs_y8_spr2_10_02",
+    "rs_y8_sum1_11_05",
+    "Ielts1",
+    "ielts_lesson_8_advantages_disadvantages",
+    "ielts_writing_advantages_disadvantages_essay",
+    "sp_b2_48_concession",
+    "sp_prep_b1_28",
+    "explore_b2_would_you_rather",
+    "acad_b2_15_thesis_statements",
+    "essay_practice_advantages_disadvantages",
+    "sentence_powerups"
+   ]
+  },
+  "culprit": {
+   "w": "culprit",
+   "pos": "noun",
+   "def": "the person who did something wrong",
+   "ex": "The police are still looking for the culprit.",
+   "lessons": [
+    "htp_c1_02_cold_case",
+    "grammar_b1_07_passive_voice_intermediate"
+   ]
+  },
+  "rule out": {
+   "w": "rule out",
+   "pos": "phrasal verb",
+   "def": "decide that someone or something is not possible",
+   "ex": "We can rule out the gardener: he was in town all evening.",
+   "lessons": [
+    "htp_c1_02_cold_case",
+    "rp_16_reporting_something_lost",
+    "bestiary_discourse_qualify",
+    "sp_c1_04_speculative_language"
+   ]
+  },
+  "deduce": {
+   "w": "deduce",
+   "pos": "verb",
+   "def": "reach a conclusion by thinking carefully about the facts you have",
+   "ex": "From the muddy boots by the door, she deduced that her son was home.",
+   "lessons": [
+    "htp_c1_02_cold_case",
+    "techniques_the_adventure_of_the_speckled_band",
+    "thinker_b2_03_parmenides",
+    "sp_b2_54_past_speculation",
+    "lesson-16-vocabulary"
+   ]
+  },
+  "red herring": {
+   "w": "red herring",
+   "pos": "noun",
+   "def": "a clue that seems important but leads you in the wrong direction",
+   "ex": "The broken window turned out to be a red herring.",
+   "lessons": [
+    "htp_c1_02_cold_case",
+    "nq_05_why_c1",
+    "reading_c1_the_writers_magic_tricks"
+   ]
+  },
+  "witness": {
+   "w": "witness",
+   "pos": "noun",
+   "def": "someone who saw something happen",
+   "ex": "A witness is someone who saw an event with their own eyes and can say what happened.",
+   "lessons": [
+    "htp_c1_02_cold_case",
+    "persepolis_truth",
+    "psy_04_can_you_trust_memory_a2b1",
+    "techniques_jekyll_and_hyde_2_a2b1",
+    "topic_memory_b2",
+    "rs_y11_aut1_25_02",
+    "behind_the_screen_12_angry_men_a2b1",
+    "rp_36_giving_a_statement",
+    "rs_y8_spr1_09_03",
+    "c1_pro_17_recruitment",
+    "bc_account_of_a_crime_b2c1",
+    "rs_y8_spr1_09_06"
+   ]
+  },
+  "concession": {
+   "w": "concession",
+   "pos": "noun",
+   "def": "something you give up or agree to in order to reach an agreement",
+   "ex": "However small the concession, ask for something in return.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "short_history_cuban_missile_crisis",
+    "skills_b2c1_playing_a_different_game",
+    "gr_c1_devils_advocate",
+    "bc_negotiating_c1",
+    "skills_c1_trade_fair_closing_deals",
+    "Business-Bootcamp-Lesson2-The-Negotiation",
+    "prof_c1_02_negotiation_tactics",
+    "wk_05_negotiating",
+    "cae_essay_practice_1",
+    "bc_ielts_paragraphs_examples_b2c1",
+    "sp_b2_48_concession",
+    "b2_44_negotiation_skills"
+   ]
+  },
+  "counter-offer": {
+   "w": "counter-offer",
+   "pos": "noun",
+   "def": "a different offer you make after rejecting the first one",
+   "ex": "They asked for £10,000, so we made a counter-offer of £7,000.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "techniques_the_ransom_of_red_chief",
+    "rp_17_haggling_at_a_market",
+    "wk_15_resigning"
+   ]
+  },
+  "deal-breaker": {
+   "w": "deal-breaker",
+   "pos": "noun",
+   "def": "one condition that would make you refuse the whole agreement",
+   "ex": "Working weekends is a deal-breaker for me.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "nq_02_which_c1",
+    "skills_c1_senior_interview_5_closing"
+   ]
+  },
+  "non-negotiable": {
+   "w": "non-negotiable",
+   "pos": "adj",
+   "def": "impossible to change or trade",
+   "ex": "Safety requirements are non-negotiable.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "greenland_tariffs_c1",
+    "leading_under_pressure",
+    "prof_c1_01_managing_difficult_conversations",
+    "b2_96_engineering_safety_concerns",
+    "bc_academic_notetaking_for_phd_c1"
+   ]
+  },
+  "trade-off": {
+   "w": "trade-off",
+   "pos": "noun",
+   "def": "a balance where you accept less of one thing to get more of another",
+   "ex": "Every option involved a trade-off: the faster plan was more expensive, and the cheaper plan was slower.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "nq_02_which_c1",
+    "skills_c1_senior_interview_4_thinking",
+    "speaking_b2c1_the_scales",
+    "thinker_b2_24_leibniz",
+    "gr_b2_the_ranking_game",
+    "bc_supply_chain_disruptions_c1",
+    "c2_pro_24_intellectual_property",
+    "lesson_46_globalization_economics",
+    "sp_b2_48_concession",
+    "sp_prep_b1_28",
+    "sp_prep_c1_69",
+    "explore_b2_would_you_rather"
+   ]
+  },
+  "flexible": {
+   "w": "flexible",
+   "pos": "adjective",
+   "def": "willing to change your position",
+   "ex": "We're flexible on the dates, but not on the fee.",
+   "lessons": [
+    "htp_c1_03_the_deal",
+    "world_eu_punctuality",
+    "world_eu_punctuality_a2",
+    "world_la_time",
+    "su_a2_64_adapting_communication",
+    "c2_pro_03_diplomatic_negotiation",
+    "bc_ielts_paragraphs_examples_b2c1",
+    "ielts_lesson_1_FIXED",
+    "rs_y11_sum1_29_02",
+    "talk_working_from_home_a2b1",
+    "grammar_b1_10_relative_clauses_extended"
+   ]
+  },
+  "slant": {
+   "w": "slant",
+   "pos": "noun",
+   "def": "a way of presenting information that favours one side",
+   "ex": "Both reports had the same facts but a very different slant.",
+   "lessons": [
+    "htp_c1_04_two_newspapers"
+   ]
+  },
+  "loaded": {
+   "w": "loaded",
+   "pos": "adjective",
+   "def": "carrying strong feelings or a hidden judgement",
+   "ex": "Calling it a fiasco is a very loaded way to describe a cancelled event.",
+   "lessons": [
+    "htp_c1_04_two_newspapers",
+    "ib_lesson_01_three_levels"
+   ]
+  },
+  "downplay": {
+   "w": "downplay",
+   "pos": "verb",
+   "def": "make something seem less important than it really is",
+   "ex": "The company tried to downplay the delays.",
+   "lessons": [
+    "htp_c1_04_two_newspapers",
+    "prof_c2_09_strategic_communication",
+    "wk_26_the_consultation"
+   ]
+  },
+  "omit": {
+   "w": "omit",
+   "pos": "verb",
+   "def": "leave something out, on purpose or by mistake",
+   "ex": "The report omits any mention of the cost.",
+   "lessons": [
+    "htp_c1_04_two_newspapers",
+    "say_so_what_c1",
+    "b2_34_ethics_in_the_workplace",
+    "lesson_43_ellipsis_substitution"
+   ]
+  },
+  "allege": {
+   "w": "allege",
+   "pos": "verb",
+   "def": "say that something is true without giving proof",
+   "ex": "Residents allege that the council ignored their petition.",
+   "lessons": [
+    "htp_c1_04_two_newspapers"
+   ]
+  },
+  "sensationalise": {
+   "w": "sensationalise",
+   "pos": "verb",
+   "def": "present a story so that it seems more shocking than it really is",
+   "ex": "Some papers sensationalised the cancellation.",
+   "lessons": [
+    "htp_c1_04_two_newspapers"
    ]
   },
   "personification": {
@@ -67987,26 +68519,6 @@ window.WORDBANK={
     "grammar_b1_17_quantifiers_distributive"
    ]
   },
-  "trade-off": {
-   "w": "trade-off",
-   "pos": "noun",
-   "def": "a situation in which gaining one thing means losing another. a trade-off between speed and cost.",
-   "ex": "Every option involved a trade-off: the faster plan was more expensive, and the cheaper plan was slower.",
-   "lessons": [
-    "nq_02_which_c1",
-    "skills_c1_senior_interview_4_thinking",
-    "speaking_b2c1_the_scales",
-    "thinker_b2_24_leibniz",
-    "gr_b2_the_ranking_game",
-    "bc_supply_chain_disruptions_c1",
-    "c2_pro_24_intellectual_property",
-    "lesson_46_globalization_economics",
-    "sp_b2_48_concession",
-    "sp_prep_b1_28",
-    "sp_prep_c1_69",
-    "explore_b2_would_you_rather"
-   ]
-  },
   "portfolio": {
    "w": "portfolio",
    "pos": "n",
@@ -68050,16 +68562,6 @@ window.WORDBANK={
     "c1_pro_16_remote_teams",
     "ml_07_working_from_home",
     "b2_46_remote_work"
-   ]
-  },
-  "deal-breaker": {
-   "w": "deal-breaker",
-   "pos": "n",
-   "def": "The price was fine, but the lack of a guarantee was a deal-breaker.",
-   "ex": "",
-   "lessons": [
-    "nq_02_which_c1",
-    "skills_c1_senior_interview_5_closing"
    ]
   },
   "option": {
@@ -68291,16 +68793,6 @@ window.WORDBANK={
     "nq_05_why_c1",
     "tib_johari_b2",
     "why_smart_people_get_it_wrong"
-   ]
-  },
-  "red herring": {
-   "w": "red herring",
-   "pos": "noun",
-   "def": "The new logo was a red herring; sales had fallen because of delivery.",
-   "ex": "The butler's muddy boots were just a red herring.",
-   "lessons": [
-    "nq_05_why_c1",
-    "reading_c1_the_writers_magic_tricks"
    ]
   },
   "contributing factor": {
@@ -74887,25 +75379,6 @@ window.WORDBANK={
     "cpe_read_c1_11_time_perception"
    ]
   },
-  "witness": {
-   "w": "witness",
-   "pos": "noun",
-   "def": "a person who sees an event happen and can report it; (verb) to see it happen.",
-   "ex": "A witness is someone who saw an event with their own eyes and can say what happened.",
-   "lessons": [
-    "persepolis_truth",
-    "psy_04_can_you_trust_memory_a2b1",
-    "techniques_jekyll_and_hyde_2_a2b1",
-    "topic_memory_b2",
-    "rs_y11_aut1_25_02",
-    "behind_the_screen_12_angry_men_a2b1",
-    "rp_36_giving_a_statement",
-    "rs_y8_spr1_09_03",
-    "c1_pro_17_recruitment",
-    "bc_account_of_a_crime_b2c1",
-    "rs_y8_spr1_09_06"
-   ]
-  },
   "panel": {
    "w": "panel",
    "pos": "",
@@ -76967,23 +77440,6 @@ window.WORDBANK={
     "psy_04_can_you_trust_memory_b2c1"
    ]
   },
-  "reliable": {
-   "w": "reliable",
-   "pos": "adj",
-   "def": "always doing what you say you will do",
-   "ex": "Is this website a good source of information? Is it reliable?",
-   "lessons": [
-    "psy_04_can_you_trust_memory_b2c1",
-    "skills_a2_interview_starter",
-    "thinker_b2_20_descartes",
-    "topic_willpower_b2",
-    "acad_b1_16_finding_information",
-    "bl_01_memory_liar",
-    "first_lesson_b2c1",
-    "talk_adult_friendships_a2b1",
-    "may_might_could_finance"
-   ]
-  },
   "convicted": {
    "w": "convicted",
    "pos": "v",
@@ -78296,17 +78752,6 @@ window.WORDBANK={
    "lessons": [
     "say_number_c1",
     "sb_02_giving_a_quote_a2b1"
-   ]
-  },
-  "omit": {
-   "w": "omit",
-   "pos": "",
-   "def": "to leave something out, either by accident or on purpose. The noun is omission.",
-   "ex": "",
-   "lessons": [
-    "say_so_what_c1",
-    "b2_34_ethics_in_the_workplace",
-    "lesson_43_ellipsis_substitution"
    ]
   },
   "implication": {
@@ -79825,26 +80270,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "short_history_cuban_missile_crisis"
-   ]
-  },
-  "concession": {
-   "w": "concession",
-   "pos": "n",
-   "def": "something you give up or grant in order to reach an agreement or end a dispute.",
-   "ex": "However small the concession, ask for something in return.",
-   "lessons": [
-    "short_history_cuban_missile_crisis",
-    "skills_b2c1_playing_a_different_game",
-    "gr_c1_devils_advocate",
-    "bc_negotiating_c1",
-    "skills_c1_trade_fair_closing_deals",
-    "Business-Bootcamp-Lesson2-The-Negotiation",
-    "prof_c1_02_negotiation_tactics",
-    "wk_05_negotiating",
-    "cae_essay_practice_1",
-    "bc_ielts_paragraphs_examples_b2c1",
-    "sp_b2_48_concession",
-    "b2_44_negotiation_skills"
    ]
   },
   "hijack": {
@@ -86812,43 +87237,6 @@ window.WORDBANK={
     "explore_b2_would_you_rather"
    ]
   },
-  "outweigh": {
-   "w": "outweigh",
-   "pos": "verb",
-   "def": "be more important or have more effect than something else",
-   "ex": "For me, the benefits of living in the city outweigh the noise.",
-   "lessons": [
-    "speaking_b2c1_the_scales",
-    "thinker_b2_24_leibniz",
-    "acad_c1_03_academic_debate",
-    "rs_y8_spr2_10_02",
-    "rs_y8_sum1_11_05",
-    "Ielts1",
-    "ielts_lesson_8_advantages_disadvantages",
-    "ielts_writing_advantages_disadvantages_essay",
-    "sp_b2_48_concession",
-    "sp_prep_b1_28",
-    "explore_b2_would_you_rather",
-    "acad_b2_15_thesis_statements",
-    "essay_practice_advantages_disadvantages",
-    "sentence_powerups"
-   ]
-  },
-  "drawback": {
-   "w": "drawback",
-   "pos": "noun",
-   "def": "a disadvantage or problem that makes something less attractive",
-   "ex": "The main drawback of the flat is the noise.",
-   "lessons": [
-    "speaking_b2c1_the_scales",
-    "cambridge_cae_writing_reviews_letters",
-    "bc_ielts_two_part_questions_b2c1",
-    "ielts_lesson_8_advantages_disadvantages",
-    "sp_b1_28_advantages_disadvantages",
-    "sp_prep_b1_28",
-    "essay_practice_advantages_disadvantages"
-   ]
-  },
   "merit": {
    "w": "merit",
    "pos": "noun",
@@ -90910,18 +91298,6 @@ window.WORDBANK={
     "lesson_ocean_speaking_EXPANDED"
    ]
   },
-  "deduce": {
-   "w": "deduce",
-   "pos": "v",
-   "def": "to reach a conclusion by reasoning logically from the evidence.",
-   "ex": "From the muddy boots by the door, she deduced that her son was home.",
-   "lessons": [
-    "techniques_the_adventure_of_the_speckled_band",
-    "thinker_b2_03_parmenides",
-    "sp_b2_54_past_speculation",
-    "lesson-16-vocabulary"
-   ]
-  },
   "detective": {
    "w": "detective",
    "pos": "noun",
@@ -91404,15 +91780,6 @@ window.WORDBANK={
    "w": "doll's house",
    "pos": "",
    "def": "a small toy house for dolls, with real little rooms inside.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_dolls_house_a2b1"
-   ]
-  },
-  "lamp": {
-   "w": "lamp",
-   "pos": "",
-   "def": "a light that stands on a table. The little lamp is the most important thing in this story.",
    "ex": "",
    "lessons": [
     "techniques_the_dolls_house_a2b1"
@@ -92449,15 +92816,6 @@ window.WORDBANK={
     "short_history_tutankhamun_a2b1"
    ]
   },
-  "clock": {
-   "w": "clock",
-   "pos": "n",
-   "def": "a machine that shows the time.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_masque_of_the_red_death_a2b1"
-   ]
-  },
   "frightening": {
    "w": "frightening",
    "pos": "adj",
@@ -92954,17 +93312,6 @@ window.WORDBANK={
    "ex": "A blood-curdling scream came from the tent — the kind of sound that makes your whole body go cold.",
    "lessons": [
     "techniques_the_ransom_of_red_chief"
-   ]
-  },
-  "counter-offer": {
-   "w": "counter-offer",
-   "pos": "n",
-   "def": "a reply to an offer that proposes different — usually opposite — terms.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_ransom_of_red_chief",
-    "rp_17_haggling_at_a_market",
-    "wk_15_resigning"
    ]
   },
   "game": {
@@ -99697,16 +100044,6 @@ window.WORDBANK={
     "discuss_b2c1_endings_and_after"
    ]
   },
-  "curtain": {
-   "w": "curtain",
-   "pos": "n",
-   "def": "cloth that covers a window; or a division between two areas.  in Europe.”",
-   "ex": "There was an “iron curtain",
-   "lessons": [
-    "world_eu_east_a2",
-    "grammar_a1_09_prepositions_conjunctions_sentence_structure"
-   ]
-  },
   "online": {
    "w": "online",
    "pos": "adj",
@@ -99892,24 +100229,6 @@ window.WORDBANK={
    "lessons": [
     "world_eu_punctuality",
     "world_eu_punctuality_a2"
-   ]
-  },
-  "flexible": {
-   "w": "flexible",
-   "pos": "adj",
-   "def": "able to change easily.",
-   "ex": "Social plans are often flexible in Spain.",
-   "lessons": [
-    "world_eu_punctuality",
-    "world_eu_punctuality_a2",
-    "world_la_time",
-    "su_a2_64_adapting_communication",
-    "c2_pro_03_diplomatic_negotiation",
-    "bc_ielts_paragraphs_examples_b2c1",
-    "ielts_lesson_1_FIXED",
-    "rs_y11_sum1_29_02",
-    "talk_working_from_home_a2b1",
-    "grammar_b1_10_relative_clauses_extended"
    ]
   },
   "monochronic": {
@@ -112861,17 +113180,6 @@ window.WORDBANK={
     "rp_16_reporting_something_lost"
    ]
   },
-  "rule out": {
-   "w": "rule out",
-   "pos": "phr v",
-   "def": "to decide that something is not possible",
-   "ex": "The police ruled out theft and called it an accident.",
-   "lessons": [
-    "rp_16_reporting_something_lost",
-    "bestiary_discourse_qualify",
-    "sp_c1_04_speculative_language"
-   ]
-  },
   "hopeful": {
    "w": "hopeful",
    "pos": "adj",
@@ -114373,17 +114681,6 @@ window.WORDBANK={
    "ex": "We want to enrol our son for September.",
    "lessons": [
     "rp_38_at_the_school_office"
-   ]
-  },
-  "timetable": {
-   "w": "timetable",
-   "pos": "n",
-   "def": "a list showing when each class or event happens",
-   "ex": "Can I have a copy of the class timetable?",
-   "lessons": [
-    "rp_38_at_the_school_office",
-    "talk_homework_a2b1",
-    "grammar_b1_03_future_tenses_nuanced"
    ]
   },
   "buddy": {
@@ -123228,18 +123525,6 @@ window.WORDBANK={
     "b1_44_travel_stories"
    ]
   },
-  "platform": {
-   "w": "platform",
-   "pos": "n",
-   "def": "a website or app where people share content",
-   "ex": "Which platform do you use most for news?",
-   "lessons": [
-    "b1_45_social_media_life",
-    "rp_10_at_the_train_station",
-    "a1p_38_travel_transport",
-    "su_a2_31_social_networking"
-   ]
-  },
   "entertainment": {
    "w": "entertainment",
    "pos": "n",
@@ -124547,19 +124832,6 @@ window.WORDBANK={
    "ex": "The opening offer was a bold gambit in the negotiations.",
    "lessons": [
     "greenland_tariffs_c1"
-   ]
-  },
-  "non-negotiable": {
-   "w": "non-negotiable",
-   "pos": "adj",
-   "def": "impossible to change or trade",
-   "ex": "Safety requirements are non-negotiable.",
-   "lessons": [
-    "greenland_tariffs_c1",
-    "leading_under_pressure",
-    "prof_c1_01_managing_difficult_conversations",
-    "b2_96_engineering_safety_concerns",
-    "bc_academic_notetaking_for_phd_c1"
    ]
   },
   "in jeopardy": {
@@ -135036,16 +135308,6 @@ window.WORDBANK={
     "bc_adapt_presentation_c1"
    ]
   },
-  "downplay": {
-   "w": "downplay",
-   "pos": "v",
-   "def": "to make something seem less important than it is",
-   "ex": "Politicians often downplay bad economic news.",
-   "lessons": [
-    "prof_c2_09_strategic_communication",
-    "wk_26_the_consultation"
-   ]
-  },
   "regulators": {
    "w": "regulators",
    "pos": "n",
@@ -139298,19 +139560,6 @@ window.WORDBANK={
     "wk_18_made_redundant"
    ]
   },
-  "reference": {
-   "w": "reference",
-   "pos": "n",
-   "def": "a statement about your work written for a future employer",
-   "ex": "My old boss wrote me a glowing reference.",
-   "lessons": [
-    "wk_18_made_redundant",
-    "b2_12_workplace_ethics",
-    "bc_gtd_david_allen_c1",
-    "ielts_lesson_13_cohesion_coherence",
-    "sp_prep_b1_36"
-   ]
-  },
   "cowardly": {
    "w": "cowardly",
    "pos": "adj",
@@ -139613,16 +139862,6 @@ window.WORDBANK={
    "ex": "The new menu received mixed feedback from diners.",
    "lessons": [
     "wk_30_parents_evening"
-   ]
-  },
-  "cushion": {
-   "w": "cushion",
-   "pos": "n",
-   "def": "something said to make bad news feel softer",
-   "ex": "He used a compliment as a cushion before the criticism.",
-   "lessons": [
-    "wk_30_parents_evening",
-    "qf_falsefriend_italian_morbido"
    ]
   },
   "whitewash": {
@@ -156038,15 +156277,6 @@ window.WORDBANK={
     "lesson-12-playing-cards"
    ]
   },
-  "suit": {
-   "w": "suit",
-   "pos": "n",
-   "def": "one of the four groups in a pack, like hearts or spades",
-   "ex": "Sort the cards by suit before you start the game.",
-   "lessons": [
-    "lesson-12-playing-cards"
-   ]
-  },
   "jumble": {
    "w": "jumble",
    "pos": "n",
@@ -158793,15 +159023,6 @@ window.WORDBANK={
     "grammar_b1_05_possibility_hypothetical"
    ]
   },
-  "culprit": {
-   "w": "culprit",
-   "pos": "n",
-   "def": "the person who did something wrong",
-   "ex": "The police finally caught the culprit.",
-   "lessons": [
-    "grammar_b1_07_passive_voice_intermediate"
-   ]
-  },
   "announce": {
    "w": "announce",
    "pos": "v",
@@ -159701,15 +159922,6 @@ window.WORDBANK={
    "pos": "adj",
    "def": "meaning the opposite of what is said, or strangely unexpected",
    "ex": "It is ironic that the fire station burned down.",
-   "lessons": [
-    "ib_lesson_01_three_levels"
-   ]
-  },
-  "loaded": {
-   "w": "loaded",
-   "pos": "adj",
-   "def": "carrying a hidden meaning or strong emotional effect",
-   "ex": "Freedom is a loaded word in political speeches.",
    "lessons": [
     "ib_lesson_01_three_levels"
    ]
