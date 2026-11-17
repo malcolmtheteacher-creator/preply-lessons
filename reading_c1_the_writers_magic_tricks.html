@@ -188,7 +188,10 @@ var STAGE=(function(){
   var arch=new THREE.Mesh(new THREE.BoxGeometry(15,.7,.7),goldM);arch.position.set(0,8.1,3.1);scene.add(arch);
 
   /* curtains */
-  var velvet=new THREE.MeshStandardMaterial({color:0x8e1424,roughness:.72,metalness:.05,side:THREE.DoubleSide});
+  var velvetT=canvasTex(1024,1024,function(g,w,h){var gr=g.createLinearGradient(0,0,w,0);for(var i=0;i<=24;i++){var k=i/24;gr.addColorStop(k,i%2?'#3a0610':'#7a1222')}g.fillStyle=gr;g.fillRect(0,0,w,h);
+    var v=g.createLinearGradient(0,0,0,h);v.addColorStop(0,'rgba(0,0,0,.45)');v.addColorStop(.25,'rgba(0,0,0,0)');v.addColorStop(.9,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.35)');g.fillStyle=v;g.fillRect(0,0,w,h);
+    g.fillStyle='#c8952e';g.fillRect(0,h-34,w,10);for(var x=0;x<w;x+=10){g.fillStyle=x%20?'#b07f22':'#e0ac45';g.fillRect(x,h-24,6,24)}});
+  var velvet=new THREE.MeshStandardMaterial({map:velvetT,roughness:.88,metalness:.02,side:THREE.DoubleSide});
   function curtainGeo(w,h,segs,amp,shift){var g=new THREE.PlaneGeometry(w,h,segs,1);var p=g.attributes.position;for(var i=0;i<p.count;i++){var x=p.getX(i);p.setZ(i,Math.sin(x*4.2)*amp+Math.sin(x*9.1)*amp*.25)}g.translate(shift,0,0);g.computeVertexNormals();return g}
   var cL=new THREE.Mesh(curtainGeo(7.2,7.8,120,.11,3.6),velvet),cR=new THREE.Mesh(curtainGeo(7.2,7.8,120,.11,-3.6),velvet);
   cL.position.set(-7.1,3.9,2.8);cR.position.set(7.1,3.9,2.8);cL.castShadow=cR.castShadow=true;scene.add(cL,cR);
@@ -202,7 +205,7 @@ var STAGE=(function(){
   var pedM=new THREE.MeshStandardMaterial({color:0x2c1424,roughness:.5,metalness:.15});
   var props=[],pick=[];
   function label(txt){var t=canvasTex(512,128,function(g,w,h){g.fillStyle='rgba(30,12,30,.88)';var r=28;g.beginPath();g.moveTo(r,6);g.lineTo(w-r,6);g.quadraticCurveTo(w-6,6,w-6,r);g.lineTo(w-6,h-r);g.quadraticCurveTo(w-6,h-6,w-r,h-6);g.lineTo(r,h-6);g.quadraticCurveTo(6,h-6,6,h-r);g.lineTo(6,r);g.quadraticCurveTo(6,6,r,6);g.fill();g.strokeStyle='#e0ac45';g.lineWidth=5;g.stroke();g.fillStyle='#f6d68a';g.font='700 '+(txt.length>14?40:48)+'px "Playfair Display", Georgia, serif';g.textAlign='center';g.textBaseline='middle';g.fillText(txt,w/2,h/2+2)});
-    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthTest:false}));s.scale.set(1.22,.305,1);s.renderOrder=5;return s}
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true}));s.scale.set(1.22,.305,1);s.renderOrder=5;return s}
   function std(c,o){o=o||{};return new THREE.MeshStandardMaterial({color:c,roughness:o.r!=null?o.r:.5,metalness:o.m||0,emissive:o.e||0,emissiveIntensity:o.ei||1,transparent:!!o.t,opacity:o.o!=null?o.o:1})}
   function cast(o){o.traverse(function(m){if(m.isMesh){m.castShadow=true;m.receiveShadow=true}});return o}
 
@@ -292,7 +295,7 @@ var STAGE=(function(){
     curt.v+=(curt.t-curt.v)*Math.min(1,dt*1.6);var s=1-curt.v*.9;cL.scale.x=cR.scale.x=s;cL.scale.z=cR.scale.z=1+curt.v*1.6;
     props.forEach(function(P){var up=(P.hover||P.active?.12:0)+(P.lit?.06:0);P.lift+=(up-P.lift)*Math.min(1,dt*6);P.holder.position.y=1.06+P.lift;P.prop.userData.anim(T,dt,P);
       var ho=P.active?.85:(P.lit?.7:(P.hover?.45:0));P.halo.material.opacity+=(ho-P.halo.material.opacity)*Math.min(1,dt*6);P.halo.scale.setScalar(1+Math.sin(T*3+P.i)*.04);
-      var lo=P.labelOn?1:0;P.label.material.opacity+=(lo-P.label.material.opacity)*Math.min(1,dt*6);P.label.position.y=.55});
+      var lo=(P.labelOn&&curt.t>0)?1:0;P.label.material.opacity+=(lo-P.label.material.opacity)*Math.min(1,dt*6);P.label.position.y=.55});
     for(var k=0;k<N;k++){if(spL[k]>0){spL[k]-=dt;spV[k].y-=3.2*dt;spP[k*3]+=spV[k].x*dt;spP[k*3+1]+=spV[k].y*dt;spP[k*3+2]+=spV[k].z*dt;if(spL[k]<=0)spP[k*3+1]=-99}}spG.attributes.position.needsUpdate=true;
     for(var d=0;d<DM;d++){dP[d*3+1]+=dt*.08;dP[d*3]+=Math.sin(T*.3+d)*dt*.03;if(dP[d*3+1]>7.5)dP[d*3+1]=0}dG.attributes.position.needsUpdate=true;
     camPos.lerp(wantPos,Math.min(1,dt*2.2));camLook.lerp(wantLook,Math.min(1,dt*2.2));camera.position.copy(camPos);camera.position.x+=Math.sin(T*.25)*.12;camera.position.y+=Math.sin(T*.33)*.05;camera.lookAt(camLook);
@@ -451,7 +454,7 @@ function show(i){var old=steps[cur];if(old&&old.leave)old.leave();cur=Math.max(0
   $('#count').textContent=(cur+1)+' / '+steps.length;$('#back').disabled=cur===0;$('#next').disabled=cur===steps.length-1;
   $$('#stages .pill').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-stage')===s.stage)});
   STAGE.reset();STAGE.curtain(cur>0);STAGE.labels(s.labels!==false);STAGE.focus(s.focus==null?-1:s.focus);
-  $('#hint').style.display=cur===0?'none':'';$('#hint').textContent=s.labels===false?'Click a prop to check its name':'Click a prop to see its trick';
+  $('#hint').textContent=cur===0?'Press Next to open the curtain':s.labels===false?'Click a prop to check its name':'Click a prop to see its trick';
   $$('#step [data-keep]').forEach(function(t){var k=t.getAttribute('data-keep');if(keep[k])t.value=keep[k];t.addEventListener('input',function(){keep[k]=t.value;save()})});
   $$('#step [data-check]').forEach(function(ul){var k='ck_'+ul.getAttribute('data-check'),v=keep[k]||{};$$('[data-check="'+ul.getAttribute('data-check')+'"] li').forEach(function(li){if(v[li.getAttribute('data-ci')])li.classList.add('on')})});
   if(s.enter)s.enter()}
