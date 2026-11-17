@@ -25,7 +25,7 @@ body{background:var(--night);color:var(--ink);font-family:'DM Sans',system-ui,sa
 .wrap{flex:1;display:flex;min-height:0}
 #stage3d{position:relative;flex:1.25;min-height:420px;background:#0e0710;overflow:hidden}
 #stage3d canvas{display:block;width:100%;height:100%;cursor:default}
-.hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:rgba(20,10,22,.78);color:#f6d68a;border:1px solid #6b4a24;padding:7px 16px;border-radius:99px;font-size:.95rem;pointer-events:none;white-space:nowrap}
+.hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:rgba(20,10,22,.78);color:#f6d68a;border:1px solid #6b4a24;padding:7px 16px;border-radius:99px;font-size:.95rem;pointer-events:none;white-space:nowrap}
 .panel{flex:1;max-width:640px;min-width:340px;background:var(--paper);display:flex;flex-direction:column;border-left:3px solid #5b3a1c}
 #step{flex:1;overflow:auto;padding:26px 30px 20px}
 #step h2{font-family:'Playfair Display',serif;font-size:2rem;line-height:1.15;color:#3a1424;margin-bottom:12px}
@@ -96,7 +96,11 @@ a.next{color:var(--red);font-weight:700}
  #step{padding:20px 18px}
  #step h2{font-size:1.7rem}
  .top{padding:10px 16px}
- .top h1{font-size:1.45rem}
+ .top h1{font-size:1.35rem}
+ .top .sub{display:none}
+ .top .crosslink a{font-size:.85rem}
+ .top{gap:6px 12px}
+ .pill{padding:4px 11px;font-size:.85rem}
  .top .tools{margin-left:0}
  .passage,.spotq{font-size:1.18rem;padding:14px 16px}
  .hint{font-size:.85rem}
@@ -151,9 +155,9 @@ var STAGE=(function(){
   var host=document.getElementById('stage3d');
   var ok=true;try{var renderer=new THREE.WebGLRenderer({antialias:true})}catch(e){ok=false}
   if(!ok||!window.THREE){host.innerHTML='<div class="hint">The stage needs a newer browser</div>';return {focus:function(){},reveal:function(){},curtain:function(){},labels:function(){},light:function(){},burst:function(){},onPick:null,showLabel:function(){}}}
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;
   host.insertBefore(renderer.domElement,host.firstChild);
   var scene=new THREE.Scene();scene.background=new THREE.Color(0x0e0710);scene.fog=new THREE.Fog(0x0e0710,16,34);
   var camera=new THREE.PerspectiveCamera(40,1,.1,100);
@@ -161,8 +165,13 @@ var STAGE=(function(){
   function rnd(a,b){return a+Math.random()*(b-a)}
 
   /* lights */
-  scene.add(new THREE.AmbientLight(0x6a5070,.55));
-  scene.add(new THREE.HemisphereLight(0xffe0c0,0x200a20,.35));
+  scene.add(new THREE.AmbientLight(0x6a5070,.22));
+  scene.add(new THREE.HemisphereLight(0xffe0c0,0x200a20,.18));
+  /* a soft studio reflection so the gold, brass and glass look like metal and glass */
+  try{var pmrem=new THREE.PMREMGenerator(renderer),envS=new THREE.Scene();
+    envS.add(new THREE.Mesh(new THREE.BoxGeometry(30,30,30),new THREE.MeshBasicMaterial({color:0x1c0d1e,side:THREE.BackSide})));
+    [[0,12,2,0x8a7860,14,1,8],[-12,4,4,0x6a4a30,1,8,8],[12,4,4,0x6a5038,1,8,8],[0,3,13,0x5a4a3a,12,6,1]].forEach(function(a){var m=new THREE.Mesh(new THREE.BoxGeometry(a[4],a[5],a[6]),new THREE.MeshBasicMaterial({color:a[3]}));m.position.set(a[0],a[1],a[2]);envS.add(m)});
+    scene.environment=pmrem.fromScene(envS,.04).texture}catch(e){}
   var key=new THREE.SpotLight(0xffe2b0,2.3,40,.62,.55,1.2);key.position.set(0,11,8);key.target.position.set(0,.6,-.6);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;scene.add(key,key.target);
   var focusL=new THREE.SpotLight(0xfff4e0,0,20,.22,.6,1);focusL.position.set(0,9,3);focusL.castShadow=true;focusL.shadow.mapSize.set(512,512);scene.add(focusL,focusL.target);
   var foot=new THREE.PointLight(0xffb35c,.7,9);foot.position.set(0,.4,3.6);scene.add(foot);
@@ -202,10 +211,10 @@ var STAGE=(function(){
   /* pedestals + props */
   var POS=[[-3.85,-.2],[-2.35,-.85],[-.78,-1.2],[.78,-1.2],[2.35,-.85],[3.85,-.2]];
   var NAMES=['Foreshadowing','Misdirection','The Twist','Unreliable Narrator','Suspense','Show, Don’t Tell'];
-  var pedM=new THREE.MeshStandardMaterial({color:0x2c1424,roughness:.5,metalness:.15});
+  var pedM=new THREE.MeshStandardMaterial({color:0x1e0c18,roughness:.45,metalness:.1});
   var props=[],pick=[];
   function label(txt){var t=canvasTex(512,128,function(g,w,h){g.fillStyle='rgba(30,12,30,.88)';var r=28;g.beginPath();g.moveTo(r,6);g.lineTo(w-r,6);g.quadraticCurveTo(w-6,6,w-6,r);g.lineTo(w-6,h-r);g.quadraticCurveTo(w-6,h-6,w-r,h-6);g.lineTo(r,h-6);g.quadraticCurveTo(6,h-6,6,h-r);g.lineTo(6,r);g.quadraticCurveTo(6,6,r,6);g.fill();g.strokeStyle='#e0ac45';g.lineWidth=5;g.stroke();g.fillStyle='#f6d68a';g.font='700 '+(txt.length>14?40:48)+'px "Playfair Display", Georgia, serif';g.textAlign='center';g.textBaseline='middle';g.fillText(txt,w/2,h/2+2)});
-    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true}));s.scale.set(1.22,.305,1);s.renderOrder=5;return s}
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true}));s.scale.set(1.5,.375,1);s.renderOrder=5;return s}
   function std(c,o){o=o||{};return new THREE.MeshStandardMaterial({color:c,roughness:o.r!=null?o.r:.5,metalness:o.m||0,emissive:o.e||0,emissiveIntensity:o.ei||1,transparent:!!o.t,opacity:o.o!=null?o.o:1})}
   function cast(o){o.traverse(function(m){if(m.isMesh){m.castShadow=true;m.receiveShadow=true}});return o}
 
@@ -213,7 +222,7 @@ var STAGE=(function(){
   function makeCard(){var g=new THREE.Group();
     var front=canvasTex(256,360,function(c,w,h){c.fillStyle='#fffaf0';c.fillRect(0,0,w,h);c.strokeStyle='#c8952e';c.lineWidth=8;c.strokeRect(10,10,w-20,h-20);c.fillStyle='#1a1018';c.font='700 54px Georgia';c.fillText('A',26,72);c.font='170px Georgia';c.textAlign='center';c.fillText('♠',w/2,h/2+60)});
     var backT=canvasTex(256,360,function(c,w,h){c.fillStyle='#8e1424';c.fillRect(0,0,w,h);c.strokeStyle='#f6d68a';c.lineWidth=3;for(var i=-h;i<w+h;i+=22){c.beginPath();c.moveTo(i,0);c.lineTo(i+h,h);c.stroke();c.beginPath();c.moveTo(i,h);c.lineTo(i+h,0);c.stroke()}c.lineWidth=8;c.strokeRect(12,12,w-24,h-24)});
-    var edge=std(0xf0e6d0);var card=new THREE.Mesh(new THREE.BoxGeometry(.62,.88,.012),[edge,edge,edge,edge,new THREE.MeshStandardMaterial({map:backT,roughness:.45}),new THREE.MeshStandardMaterial({map:front,roughness:.45})]);
+    var edge=std(0xf0e6d0);var card=new THREE.Mesh(new THREE.BoxGeometry(.62,.88,.012),[edge,edge,edge,edge,new THREE.MeshStandardMaterial({map:front,roughness:.45}),new THREE.MeshStandardMaterial({map:backT,roughness:.45})]);
     card.position.y=.62;card.rotation.y=Math.PI;g.add(card);g.userData.card=card;
     var st=new THREE.Mesh(new THREE.CylinderGeometry(.05,.12,.16,16),goldM);st.position.y=.08;g.add(st);
     g.userData.anim=function(t,dt,P){var target=P.revealed?0:Math.PI;card.rotation.y+=(target+Math.sin(t*1.3)*.25-card.rotation.y)*Math.min(1,dt*4);card.position.y=.62+Math.sin(t*2)*.04};return g}
@@ -221,13 +230,16 @@ var STAGE=(function(){
   function makeCups(){var g=new THREE.Group(),cm=std(0xb8743a,{m:.8,r:.28});var cups=[];
     for(var i=0;i<3;i++){var c=new THREE.Group();var body=new THREE.Mesh(new THREE.CylinderGeometry(.11,.17,.3,28),cm);body.position.y=.15;var rim=new THREE.Mesh(new THREE.TorusGeometry(.17,.018,8,28),cm);rim.rotation.x=Math.PI/2;rim.position.y=.01;var knob=new THREE.Mesh(new THREE.SphereGeometry(.04,12,8),cm);knob.position.y=.32;c.add(body,rim,knob);c.position.x=(i-1)*.4;g.add(c);cups.push(c)}
     var ball=new THREE.Mesh(new THREE.SphereGeometry(.07,20,14),std(0xd0202e,{r:.35}));ball.position.set(.4,.07,0);g.add(ball);
-    g.userData.anim=function(t,dt,P){cups.forEach(function(c,i){var lift=(P.revealed&&i===2)?.38:0;if(P.active&&!P.revealed){c.position.x=Math.sin(t*3+i*2.1)*.42;c.position.z=Math.cos(t*3+i*2.1)*.12}else{c.position.x+=((i-1)*.4-c.position.x)*Math.min(1,dt*5);c.position.z*=.9}c.position.y+=(lift-c.position.y)*Math.min(1,dt*5)});ball.visible=!!P.revealed};return g}
+    g.userData.anim=function(t,dt,P){cups.forEach(function(c,i){var lift=(P.revealed&&i===2)?.38:0;if(P.active&&!P.revealed){c.position.x=Math.sin(t*3+i*2.1)*.34;c.position.z=Math.cos(t*3+i*2.1)*.22}else{c.position.x+=((i-1)*.4-c.position.x)*Math.min(1,dt*5);c.position.z*=.9}c.position.y+=(lift-c.position.y)*Math.min(1,dt*5)});ball.visible=!!P.revealed};return g}
   /* 2 hat */
-  function makeHat(){var g=new THREE.Group(),hm=std(0x16121a,{r:.4}),h=new THREE.Group();
-    var crown=new THREE.Mesh(new THREE.CylinderGeometry(.27,.29,.56,36),hm);crown.position.y=.31;var brim=new THREE.Mesh(new THREE.CylinderGeometry(.48,.48,.03,40),hm);brim.position.y=.03;var band=new THREE.Mesh(new THREE.CylinderGeometry(.295,.295,.1,36),std(0x9c1c2c,{r:.5}));band.position.y=.12;
-    var top=new THREE.Mesh(new THREE.CylinderGeometry(.27,.27,.01,36),hm);top.position.y=.59;h.add(crown,brim,band,top);h.rotation.z=.08;g.add(h);
-    var wand=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.8,10),std(0x111111,{r:.3}));wand.rotation.z=1.1;wand.position.set(.45,.12,.25);var tip=new THREE.Mesh(new THREE.CylinderGeometry(.021,.021,.12,10),std(0xffffff));tip.position.y=.4;wand.add(tip);g.add(wand);
-    g.userData.anim=function(t,dt,P){h.position.y=P.active?Math.abs(Math.sin(t*3))*.06:0;h.rotation.y=t*.4};return g}
+  function makeHat(){var g=new THREE.Group(),hm=std(0x0c0a0e,{r:.62}),h=new THREE.Group();
+    var crown=new THREE.Mesh(new THREE.CylinderGeometry(.27,.29,.56,36),hm);crown.position.y=.31;var brim=new THREE.Mesh(new THREE.CylinderGeometry(.48,.48,.03,40),hm);brim.position.y=.03;var band=new THREE.Mesh(new THREE.CylinderGeometry(.295,.295,.1,36),std(0x7a0c1a,{r:.55}));band.position.y=.12;
+    var top=new THREE.Mesh(new THREE.CylinderGeometry(.27,.27,.01,36),hm);top.position.y=.59;h.add(crown,brim,band,top);g.add(h);
+    /* the wand floats beside the hat, well clear of the brim and crown */
+    var wandG=new THREE.Group();var wand=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.62,12),std(0x0c0a0e,{r:.35}));var tip=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.11,12),std(0xf4f0e6,{r:.4}));tip.position.y=.31;wand.add(tip);
+    wandG.add(wand);wandG.position.set(.62,.95,.05);wand.rotation.z=-.75;g.add(wandG);
+    g.userData.anim=function(t,dt,P){h.position.y=P.active?Math.abs(Math.sin(t*3))*.05:0;h.rotation.z=Math.sin(t*.9)*.03;
+      var tap=(P.revealed?Math.max(0,Math.sin(t*6))*.12:0);wandG.position.y=.95+Math.sin(t*1.6)*.05-tap;wandG.rotation.z=Math.sin(t*1.2)*.12+tap*1.5};return g}
   /* 3 mirror */
   function makeMirror(){var g=new THREE.Group();
     var glassT=canvasTex(256,384,function(c,w,h){var gr=c.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#e9eef5');gr.addColorStop(.45,'#9fb0c4');gr.addColorStop(.55,'#dfe7f0');gr.addColorStop(1,'#6e7f96');c.fillStyle=gr;c.fillRect(0,0,w,h);c.globalAlpha=.25;c.fillStyle='#fff';c.save();c.translate(w*.3,0);c.rotate(.35);c.fillRect(0,0,26,h*1.4);c.fillRect(46,0,10,h*1.4);c.restore()});
@@ -238,14 +250,14 @@ var STAGE=(function(){
     var m=new THREE.Group();m.add(glass,frame,backP);g.add(m,leg,foot);
     g.userData.anim=function(t,dt,P){m.rotation.y=Math.sin(t*.8)*(P.active?.55:.25);glass.material.emissiveIntensity=P.revealed?.35+Math.sin(t*6)*.15:.15;glassT.offset.x=Math.sin(t*.7)*.08};return g}
   /* 4 chest */
-  function makeChest(){var g=new THREE.Group(),wm=std(0x6b3a1c,{r:.6}),bm=goldM;
+  function makeChest(){var g=new THREE.Group(),wm=std(0x4a2210,{r:.7}),bm=goldM;wm.side=THREE.DoubleSide;
     var base=new THREE.Mesh(new THREE.BoxGeometry(.72,.36,.46),wm);base.position.y=.18;g.add(base);
     [-.26,.26].forEach(function(x){var b=new THREE.Mesh(new THREE.BoxGeometry(.05,.37,.47),bm);b.position.set(x,.18,0);g.add(b)});
     var lidPivot=new THREE.Group();lidPivot.position.set(0,.36,-.23);g.add(lidPivot);
     var lid=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.72,24,1,false,0,Math.PI),wm);lid.rotation.z=Math.PI/2;lid.position.z=.23;lidPivot.add(lid);
     var lock=new THREE.Group();var lb=new THREE.Mesh(new THREE.BoxGeometry(.12,.12,.04),bm);var shackle=new THREE.Mesh(new THREE.TorusGeometry(.045,.012,8,20,Math.PI),bm);shackle.position.y=.06;lock.add(lb,shackle);lock.position.set(0,.31,.25);g.add(lock);
     var glow=new THREE.PointLight(0xffc860,0,2.2);glow.position.set(0,.4,0);g.add(glow);
-    g.userData.anim=function(t,dt,P){var open=P.revealed?-1.2:0;lidPivot.rotation.x+=(open-lidPivot.rotation.x)*Math.min(1,dt*3);var shake=(P.active&&!P.revealed)?Math.sin(t*38)*.012*(Math.sin(t*1.7)>.4?1:0):0;g.rotation.z=shake;lock.visible=!P.revealed;glow.intensity+=((P.revealed?1.6:0)-glow.intensity)*dt*3};return g}
+    g.userData.anim=function(t,dt,P){var open=P.revealed?-1.75:0;lidPivot.rotation.x+=(open-lidPivot.rotation.x)*Math.min(1,dt*3);var shake=(P.active&&!P.revealed)?Math.sin(t*38)*.012*(Math.sin(t*1.7)>.4?1:0):0;g.rotation.z=shake;lock.visible=!P.revealed;glow.intensity+=((P.revealed?1.6:0)-glow.intensity)*dt*3};return g}
   /* 5 crystal ball */
   function makeBall(){var g=new THREE.Group();
     var stand=new THREE.Mesh(new THREE.CylinderGeometry(.16,.24,.16,28),goldM);stand.position.y=.08;var ring=new THREE.Mesh(new THREE.TorusGeometry(.2,.03,10,32),goldM);ring.rotation.x=Math.PI/2;ring.position.y=.18;
@@ -257,7 +269,7 @@ var STAGE=(function(){
   var makers=[makeCard,makeCups,makeHat,makeMirror,makeChest,makeBall];
   POS.forEach(function(p,i){
     var ped=new THREE.Group();var col=new THREE.Mesh(new THREE.CylinderGeometry(.5,.58,1,32),pedM);col.position.y=.5;var cap=new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.08,32),goldM);cap.position.y=1.02;var ring=new THREE.Mesh(new THREE.TorusGeometry(.56,.03,8,40),goldM);ring.rotation.x=Math.PI/2;ring.position.y=.08;ped.add(col,cap,ring);ped.position.set(p[0],0,p[1]);cast(ped);scene.add(ped);
-    var prop=cast(makers[i]());var holder=new THREE.Group();holder.position.set(p[0],1.06,p[1]);holder.rotation.y=-p[0]*.06;holder.add(prop);scene.add(holder);
+    var prop=cast(makers[i]());var holder=new THREE.Group();holder.position.set(p[0],1.06,p[1]);holder.rotation.y=-p[0]*.06;holder.scale.setScalar(1.3);holder.add(prop);scene.add(holder);
     var lab=label(NAMES[i]);lab.position.set(p[0],.55,p[1]+.75);scene.add(lab);
     var halo=new THREE.Mesh(new THREE.RingGeometry(.62,.72,48),new THREE.MeshBasicMaterial({color:0xf6d68a,transparent:true,opacity:0,side:THREE.DoubleSide}));halo.rotation.x=-Math.PI/2;halo.position.set(p[0],1.08,p[1]);scene.add(halo);
     var P={i:i,holder:holder,prop:prop,label:lab,halo:halo,ped:ped,active:false,revealed:false,hover:false,lit:false,labelOn:true,lift:0};
@@ -276,9 +288,9 @@ var STAGE=(function(){
 
   /* camera */
   var camPos=new THREE.Vector3(),camLook=new THREE.Vector3(),wantPos=new THREE.Vector3(),wantLook=new THREE.Vector3(),focusI=-1;
-  function overview(){var a=Math.min(camera.aspect,1.7),d=Math.max(8.6,Math.min(17,4.9/(.364*a)))+.4;wantPos.set(0,1.5+d*.2,d);wantLook.set(0,1.45,0)}
+  function overview(){var a=Math.min(camera.aspect,1.7),d=Math.max(7.6,Math.min(16,5.0/(.364*a)));wantPos.set(0,1.6+d*.14,d);wantLook.set(0,1.25,0)}
   function setFocus(i){focusI=i;props.forEach(function(P){P.active=P.i===i});
-    if(i<0){overview();focusL.intensity=0}else{var p=POS[i],a=camera.aspect,d=a<1?5.2:3.6;wantPos.set(p[0]*.55,2.5,p[1]+d);wantLook.set(p[0],1.55,p[1]);focusL.position.set(p[0],8,p[1]+3);focusL.target.position.set(p[0],1,p[1]);focusL.intensity=2.2}}
+    if(i<0){overview();focusL.intensity=0}else{var p=POS[i],a=camera.aspect,d=a<1?5.6:4.1;wantPos.set(p[0]*.55,2.6,p[1]+d);wantLook.set(p[0],1.6,p[1]);focusL.position.set(p[0],8,p[1]+3);focusL.target.position.set(p[0],1,p[1]);focusL.intensity=1.3}}
   function resize(){var w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();setFocus(focusI)}
   window.addEventListener('resize',resize);
   overview();camPos.copy(wantPos);camLook.copy(wantLook);
@@ -327,11 +339,11 @@ function how(name,html,key){return '<div class="how" id="how"><span class="name"
 function trickOn(i){var p=$('.passage');if(p)p.classList.add('exposed');var h=$('#how');if(h)h.classList.add('show');STAGE.reveal(i)}
 var TRICKS=['Foreshadowing','Misdirection','The Twist','Unreliable Narrator','Suspense','Show, Don’t Tell'];
 
-var SPOT=[["Her hands shook as she opened the envelope, and the paper rattled like dry leaves.",5],
+var SPOT=[["Tom didn't say a word all through dinner. He just pushed his peas from one side of the plate to the other.",5],
  ["Nobody paid any attention to the small silver key the old man dropped on the bus.",0],
  ["Every eye in the room was on the butler and his torn, muddy gloves. Nobody paid much attention to the gardener, who had kindly offered to do the washing-up.",1],
  ["Something was breathing in the dark. Not her. Not the dog. Something else.",4],
- ["I am the most honest person in my family. Honestly. The money in my pocket was a present. From the bank.",3],
+ ["I never, ever cheat at board games. I have no idea how the extra money got into my pocket. Or under my chair.",3],
  ["As the spaceship finally landed, the captain read the name on the rusty old sign: EARTH.",2],
  ["'Never open the blue door,' said Grandad, and went back to his newspaper.",0],
  ["The new girl smiled at everyone, but at lunch she sat alone, staring at a phone she never once unlocked.",5]];
@@ -345,18 +357,18 @@ var steps=[
  '<p>A magician and a writer have the same job. They decide exactly <b>where you look</b>, what you <b>believe</b>, and <b>when you find out</b> the truth. The difference is that a magician has a top hat. A writer only has words.</p>'+
  '<p>Six props are waiting on the stage. Each one is a trick that writers have used for hundreds of years. <b>Click any prop</b> to jump to its trick, or press Next to take them in order.</p>'+
  '<div class="speak"><b>DISCUSS:</b> Why do people pay to be fooled, by a magician or by a story? Is being tricked fun, or annoying?</div>'+
- '<div class="speak"><b>DISCUSS:</b> Look at the six props. Before we start: which one do you think is about a <b>surprise ending</b>? Which one is about a storyteller you <b>can\'t trust</b>?</div>'},
+ '<div class="speak"><b>DISCUSS:</b> Read the six names on the stage. Which ones do you already know? Pick the one that sounds most mysterious and guess what it means.</div>'},
 /* ---------- 1 Foreshadowing ---------- */
 {stage:1,focus:0,html:'<div class="kicker">Trick 1 · The Card</div><h2>Watch closely</h2><p>Read the beginning of this story aloud.</p>'+
- '<div class="passage">On the first morning of the school trip, <span class="c">Mr Doyle counted the class twice and frowned. "Twenty-nine," he muttered. "There should be thirty."</span> Then Leo came sprinting back from the toilets, and everybody laughed. Nobody paid any attention to <span class="c">the rusty sign by the lake: DANGER, THIN ICE</span>. By the third morning, <span class="c">the frost had turned the whole valley white</span>, and <span class="c">the lake shone like a mirror</span>. "Last one to the island buys the hot chocolate!" shouted Leo, and <span class="c">he was already running</span>.</div>'+
- '<p><b>What happens next?</b> Choose before you read on.</p>'+choices(['Leo wins the race and buys nobody anything.','Somebody goes through the ice.','The whole class goes home early because of the cold.'])+
- '<button class="btn gold" data-a="trick">Reveal the trick</button>'+
+ '<div class="passage">On the first morning of the school trip, <span class="c">Mr Doyle counted the class twice and frowned. "Twenty-nine," he muttered. "There should be thirty."</span> Then Leo came sprinting back from the toilets, and everybody laughed. Nobody paid any attention to <span class="c">the rusty sign by the lake: DANGER, THIN ICE</span>. By the third morning, <span class="c">the frost had turned the whole valley white</span>, and <span class="c">the lake shone like a mirror</span>. "Last one to the island buys the hot chocolate!" shouted Leo, and <span class="c">he was already running</span>. <span class="end"><br><br>Halfway to the island, there was a crack like a pistol shot. Then came a much colder kind of silence.</span></div>'+
+ '<p><b>What happens next?</b> Choose before you read on.</p>'+choices(['Leo wins the race easily.','Somebody falls through the ice.','The trip is cancelled because of the cold.'])+
+ '<button class="btn gold" data-a="trick">Read on and reveal the trick</button>'+
  how('Foreshadowing','The writer <b>planted</b> clues early: a warning sign that "nobody paid any attention to", a frozen lake, a boy who rushes in. They look like background, but they are preparing you. That is <b>foreshadowing</b>: a hint about what will happen later. Even the counting at the start has a job: it shows that one child can easily go missing.<br><br>The playwright Anton Chekhov had a famous rule: if there is a gun on the wall in the first act, it must be fired before the end.',1)+
  '<div class="speak"><b>EXPLAIN:</b> Why does foreshadowing make an ending feel <b>fair</b>, and not just surprising?</div>'+
  '<div class="speak"><b>YOUR TURN:</b> Start a story about a birthday party that goes wrong. In two sentences, plant one clue that will only make sense later.</div>'+
  rev('r1','Compare with this','"Dad had spent all morning on the cake: four layers, sixty candles and a sparkler on top. Nobody remembered that the smoke alarm in our kitchen was the loudest in the street."'),
- pick:function(i){say('info',i===1?'That is what almost every reader says. But nothing in the story <b>told</b> you that. So how did you know? Press <b>Reveal the trick</b>.':'Interesting. Most readers choose B: somebody goes through the ice. Why might they? Press <b>Reveal the trick</b>.')},
- act:function(a){if(a==='trick')trickOn(0)}},
+ pick:function(i){say('info',i===1?'That is what almost every reader says. But nothing in the story <b>told</b> you that. So how did you know? Press the button to read on.':'Interesting. Most readers choose B: somebody falls through the ice. Why might they? Press the button to read on.')},
+ act:function(a){if(a==='trick'){$('.passage').classList.add('ended');trickOn(0)}}},
 /* ---------- 2 Misdirection ---------- */
 {stage:1,focus:1,html:'<div class="kicker">Trick 2 · The Cups</div><h2>Keep your eye on the phone</h2><p>A little mystery. Read it carefully: every word counts.</p>'+
  '<div class="passage">During the maths test, somebody took Mr Hale\'s phone from his desk. Nobody had left the room. Jake, who sat right next to the desk, <span class="h">had been told twice to keep his eyes on his own paper</span>, and when Mr Hale finally noticed that the phone was gone, <span class="h">Jake\'s face went bright red</span>. Priya had asked to borrow a ruler <span class="h">at the exact moment Mr Hale turned his back to write on the board</span>. Sam, <span class="c">as usual</span>, finished first, and <span class="c">kindly</span> spent the last ten minutes helping Mr Hale tidy the desk: the test papers, the pens, and <span class="c">his own coat, which he had hung over the back of Mr Hale\'s chair</span> to keep it off the wet floor. "Right," said Mr Hale. "Nobody leaves until that phone turns up." <span class="end"><br><br>Jake had gone red because he had been copying Priya\'s answers. Priya really did need a ruler. And the phone? It was zipped inside the pocket of Sam\'s coat, hanging on the back of Mr Hale\'s own chair, right beside the desk, the whole time.</span></div>'+
@@ -370,10 +382,10 @@ var steps=[
  act:function(a){if(a==='trick'){$('.passage').classList.add('ended');trickOn(1)}}},
 /* ---------- 3 Twist ---------- */
 {stage:1,focus:2,html:'<div class="kicker">Trick 3 · The Hat</div><h2>What\'s behind the curtain?</h2>'+
- '<div class="passage">Every night for a week, Ana heard it: a scratching at the window, <span class="c">soft and patient</span>, as if something wanted to come in. Her parents said it was the wind. Her brother said it was a ghost. On the seventh night, Ana took a torch, counted to three and pulled back the curtain. <span class="end"><br><br>On the other side of the glass, holding a torch of its own, was a small grey creature with enormous eyes, <span class="c">trembling every bit as much as she was</span>. "Mum!" it squeaked, and ran. "The human is awake!"</span></div>'+
+ '<div class="passage">Every night for a week, Ana heard it: a tiny tapping at her bedroom window, <span class="c">soft and careful, as if something was trying very hard not to be heard</span>. Her parents said it was the wind. Her brother said it was a ghost. Nobody could explain <span class="c">the perfect circle of flattened grass</span> that had appeared in the middle of the lawn. On the seventh night, Ana took a torch, counted to three and pulled back the curtain. <span class="end"><br><br>On the other side of the glass, holding a torch of its own, was a small grey creature with enormous eyes, trembling every bit as much as she was. "Mum!" it squeaked, scrambling back towards the little silver ship waiting in the circle on the lawn. "Mum! The human is awake!"</span></div>'+
  '<p><b>What is behind the curtain?</b> Choose, then pull it back.</p>'+choices(['A branch, blowing in the wind.','A ghost.','Something else.'])+
  '<button class="btn gold" data-a="trick">Pull back the curtain</button>'+
- how('The Twist','A <b>twist</b> turns the story upside down at the last moment. We thought Ana was in danger. In fact, <b>she</b> was the monster in somebody else\'s story. A good twist is surprising but fair. Read it again: the scratching was "soft and patient", and nothing in it was ever frightening. The fear came only from the people inside the house.',1)+
+ how('The Twist','A <b>twist</b> turns the story upside down at the last moment. We thought Ana was in danger. In fact, <b>she</b> was the monster in somebody else\'s story. A good twist is surprising but fair: read it again and the clues were there all along. Something that is "trying very hard not to be heard" is frightened, not frightening. And the strange circle on the lawn was waiting for the ending from the start.',1)+
  '<div class="speak"><b>DISCUSS:</b> Think of a film or book with a great twist (careful: no spoilers!). Did you see it coming? Looking back, what were the clues?</div>'+
  '<div class="speak"><b>YOUR TURN:</b> Take a fairy tale everybody knows. Give it a twist ending in two or three sentences.</div>'+
  rev('r3','Compare with this','"The glass slipper fitted perfectly. \'Wonderful,\' said the prince. \'Now, about the slipper that went missing from the palace museum last night…\'"<br><br>"The three little pigs finally caught the wolf. Only then did they notice the badge on his jacket: BUILDING INSPECTOR."'),
@@ -454,11 +466,11 @@ function show(i){var old=steps[cur];if(old&&old.leave)old.leave();cur=Math.max(0
   $('#count').textContent=(cur+1)+' / '+steps.length;$('#back').disabled=cur===0;$('#next').disabled=cur===steps.length-1;
   $$('#stages .pill').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-stage')===s.stage)});
   STAGE.reset();STAGE.curtain(cur>0);STAGE.labels(s.labels!==false);STAGE.focus(s.focus==null?-1:s.focus);
-  $('#hint').textContent=cur===0?'Press Next to open the curtain':s.labels===false?'Click a prop to check its name':'Click a prop to see its trick';
+  var hintTxt=cur===0?'Press Next to open the curtain':s.labels===false?'Click a prop to check its name':s.stage<=1?'Click a prop to see its trick':'';$('#hint').textContent=hintTxt;$('#hint').style.display=hintTxt?'':'none';
   $$('#step [data-keep]').forEach(function(t){var k=t.getAttribute('data-keep');if(keep[k])t.value=keep[k];t.addEventListener('input',function(){keep[k]=t.value;save()})});
   $$('#step [data-check]').forEach(function(ul){var k='ck_'+ul.getAttribute('data-check'),v=keep[k]||{};$$('[data-check="'+ul.getAttribute('data-check')+'"] li').forEach(function(li){if(v[li.getAttribute('data-ci')])li.classList.add('on')})});
   if(s.enter)s.enter()}
-STAGE.onPick=function(i){var s=steps[cur];if(s.pick&&s.labels===false){s.pick(i);return}show(2+i)};
+STAGE.onPick=function(i){var s=steps[cur];if(s.pick&&s.labels===false){s.pick(i);return}if(s.stage<=1)show(2+i)};
 document.addEventListener('click',function(e){var t=e.target.closest('[data-a],[data-reveal],[data-sheet],[data-stage],li[data-ci]');if(!t)return;
   if(t.hasAttribute('data-sheet')){var sh=document.getElementById(t.getAttribute('data-sheet'));sh.classList.toggle('show');return}
   if(t.hasAttribute('data-stage')){var st=+t.getAttribute('data-stage');for(var j=0;j<steps.length;j++)if(steps[j].stage===st){show(j);break}return}
