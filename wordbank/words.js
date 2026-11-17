@@ -78050,7 +78050,7 @@ window.WORDBANK={
    "w": "clue",
    "pos": "noun",
    "def": "a piece of information that helps you solve a mystery",
-   "ex": "The crumbs on the rug were the real clue.",
+   "ex": "The coat on the back of the chair was the real clue.",
    "lessons": [
     "reading_c1_the_writers_magic_tricks",
     "gr_b2_the_black_box",
