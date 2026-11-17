@@ -3804,6 +3804,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "htp_b1_07_lost_luggage",
+   "title": "Lost Luggage",
+   "level": "",
+   "words": [
+    "suitcase",
+    "holdall",
+    "cabin bag",
+    "strap",
+    "zip",
+    "scratched",
+    "striped",
+    "baggage reclaim",
+    "lost property",
+    "distinguishing feature"
+   ]
+  },
+  {
    "id": "htp_b2_01_the_hiring_panel",
    "title": "The Hiring Panel",
    "level": "",
@@ -49661,11 +49678,12 @@ window.WORDBANK={
   },
   "suitcase": {
    "w": "suitcase",
-   "pos": "",
+   "pos": "noun",
    "def": "a big bag for your travel things",
-   "ex": "",
+   "ex": "My suitcase was so full I had to sit on it to close it.",
    "lessons": [
     "a1s_15_sister",
+    "htp_b1_07_lost_luggage",
     "b1_57_going_home_trip",
     "sf_a1_06_the_airport",
     "grammar_a1_09_prepositions_conjunctions_sentence_structure"
@@ -67379,6 +67397,90 @@ window.WORDBANK={
    "ex": "Do you fancy going to the cinema?",
    "lessons": [
     "htp_b1_06_the_weekend_plan"
+   ]
+  },
+  "holdall": {
+   "w": "holdall",
+   "pos": "noun",
+   "def": "a large soft bag with handles, often used for sports kit or a weekend away",
+   "ex": "He threw his holdall into the back of the car.",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
+   ]
+  },
+  "cabin bag": {
+   "w": "cabin bag",
+   "pos": "noun",
+   "def": "a small bag you are allowed to take onto the plane with you",
+   "ex": "My cabin bag was too big, so I had to pay extra.",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
+   ]
+  },
+  "strap": {
+   "w": "strap",
+   "pos": "noun",
+   "def": "a narrow band of material for carrying or fastening something",
+   "ex": "The strap on my backpack broke halfway up the hill.",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
+   ]
+  },
+  "zip": {
+   "w": "zip",
+   "pos": "noun",
+   "def": "two rows of small metal or plastic teeth that close a bag or a jacket",
+   "ex": "The zip on my jacket keeps getting stuck.",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
+   ]
+  },
+  "scratched": {
+   "w": "scratched",
+   "pos": "adjective",
+   "def": "with a thin mark or line cut into the surface",
+   "ex": "The back of my phone is badly scratched.",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
+   ]
+  },
+  "striped": {
+   "w": "striped",
+   "pos": "adjective",
+   "def": "with lines of a different colour",
+   "ex": "She was wearing a blue and white striped shirt.",
+   "lessons": [
+    "htp_b1_07_lost_luggage",
+    "su_a2_15_describing_objects"
+   ]
+  },
+  "baggage reclaim": {
+   "w": "baggage reclaim",
+   "pos": "noun",
+   "def": "the place at an airport where you collect your bags after a flight",
+   "ex": "We waited at baggage reclaim for forty minutes.",
+   "lessons": [
+    "htp_b1_07_lost_luggage",
+    "rp_32_at_passport_control"
+   ]
+  },
+  "lost property": {
+   "w": "lost property",
+   "pos": "noun",
+   "def": "an office where things people have left behind are kept until someone collects them",
+   "ex": "Try lost property. Someone might have handed it in.",
+   "lessons": [
+    "htp_b1_07_lost_luggage",
+    "the_things_we_leave_behind"
+   ]
+  },
+  "distinguishing feature": {
+   "w": "distinguishing feature",
+   "pos": "noun",
+   "def": "a detail that makes one thing easy to tell apart from similar ones",
+   "ex": "Does your bag have any distinguishing features, like a sticker or a ribbon?",
+   "lessons": [
+    "htp_b1_07_lost_luggage"
    ]
   },
   "shortlist": {
@@ -114435,15 +114537,6 @@ window.WORDBANK={
     "rp_32_at_passport_control"
    ]
   },
-  "baggage reclaim": {
-   "w": "baggage reclaim",
-   "pos": "n",
-   "def": "the place in an airport where you collect your bags",
-   "ex": "We waited at baggage reclaim for forty minutes.",
-   "lessons": [
-    "rp_32_at_passport_control"
-   ]
-  },
   "misread": {
    "w": "misread",
    "pos": "v",
@@ -121351,15 +121444,6 @@ window.WORDBANK={
     "behind_the_screen_troy_a2b1",
     "short_history_great_fire_of_london_a2b1",
     "short_history_the_trojan_war_a2b1"
-   ]
-  },
-  "striped": {
-   "w": "striped",
-   "pos": "adj",
-   "def": "having long thin lines of different colours",
-   "ex": "He wore a blue and white striped shirt.",
-   "lessons": [
-    "su_a2_15_describing_objects"
    ]
   },
   "made of": {
@@ -138784,15 +138868,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a person you have never met before",
    "ex": "A complete stranger returned my lost wallet.",
-   "lessons": [
-    "the_things_we_leave_behind"
-   ]
-  },
-  "lost property": {
-   "w": "lost property",
-   "pos": "n",
-   "def": "things people have lost that are kept until collected",
-   "ex": "I found my umbrella at the station's lost property office.",
    "lessons": [
     "the_things_we_leave_behind"
    ]
