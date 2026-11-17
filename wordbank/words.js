@@ -6523,6 +6523,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "reading_a2_the_writers_magic_tricks",
+   "title": "The Writer's Magic Tricks: six tricks in stories",
+   "level": "",
+   "words": [
+    "clue",
+    "notice",
+    "guess",
+    "surprise",
+    "ending",
+    "storyteller",
+    "lie",
+    "hide",
+    "worried",
+    "trick"
+   ]
+  },
+  {
    "id": "reading_b2c1_the_unreliable_narrator",
    "title": "The Unreliable Narrator: Nothing Happened on Thursday",
    "level": "",
@@ -50838,6 +50855,7 @@ window.WORDBANK={
    "ex": "It was a look of surprise.\" / \"The party was a big surprise.",
    "lessons": [
     "a1s_31_birthday",
+    "reading_a2_the_writers_magic_tricks",
     "techniques_appointment_in_samarra_a2b1",
     "techniques_the_gift_of_the_magi_a2b1",
     "daily_routines_a2",
@@ -77156,11 +77174,12 @@ window.WORDBANK={
   },
   "notice": {
    "w": "notice",
-   "pos": "v",
+   "pos": "verb",
    "def": "to see or realise something.",
    "ex": "I didn't notice that my friend was sad until she started crying.",
    "lessons": [
     "psy_02_invisible_gorilla_a2b1",
+    "reading_a2_the_writers_magic_tricks",
     "techniques_the_last_class",
     "techniques_the_last_class_a2b1",
     "tib_johari_a2b1",
@@ -78369,6 +78388,112 @@ window.WORDBANK={
     "lesson_39_culture_identity"
    ]
   },
+  "clue": {
+   "w": "clue",
+   "pos": "noun",
+   "def": "a small thing that helps you find the answer",
+   "ex": "The coat on the back of the chair was the real clue.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "reading_c1_the_writers_magic_tricks",
+    "gr_b2_the_black_box",
+    "short_history_agatha_christie_a2b1",
+    "short_history_the_rosetta_stone_a2b1",
+    "sp_b1_32_speculating_images",
+    "grammar_b1_19_modals_deduction"
+   ]
+  },
+  "guess": {
+   "w": "guess",
+   "pos": "verb",
+   "def": "give an answer when you are not sure",
+   "ex": "Guess what happens next.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "techniques_the_fortune_teller_a2b1",
+    "epicurean_25_gassendi_life",
+    "lesson_22_defining_relative_clauses"
+   ]
+  },
+  "ending": {
+   "w": "ending",
+   "pos": "noun",
+   "def": "the last part of a story or film",
+   "ex": "I loved the film, but not the ending.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "su_a2_76_films_and_entertainment",
+    "qf_pronunciation_final_ed",
+    "sp_a2_17_simple_narratives"
+   ]
+  },
+  "storyteller": {
+   "w": "storyteller",
+   "pos": "noun",
+   "def": "the person who tells a story",
+   "ex": "The storyteller says it wasn't his fault.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "su_a2_16_surprising_tales"
+   ]
+  },
+  "lie": {
+   "w": "lie",
+   "pos": "verb",
+   "def": "say something that is not true",
+   "ex": "He lied about the money.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "techniques_god_sees_the_truth_a2b1",
+    "gr_a2_two_truths",
+    "behind_the_screen_ex_machina_a2b1",
+    "bc_honesty_dishonesty_b2c1"
+   ]
+  },
+  "hide": {
+   "w": "hide",
+   "pos": "verb",
+   "def": "put something where people can't see it",
+   "ex": "The writer hides the clue in a boring sentence.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "techniques_a_jury_of_her_peers_a2b1",
+    "techniques_hands_a2b1",
+    "techniques_mateo_falcone_a2b1",
+    "techniques_metamorphosis_2_a2b1",
+    "techniques_the_masque_of_the_red_death_a2b1",
+    "behind_the_screen_parasite_a2b1",
+    "techniques_rikki_tikki_tavi_a2b1"
+   ]
+  },
+  "worried": {
+   "w": "worried",
+   "pos": "adjective",
+   "def": "afraid that something bad will happen",
+   "ex": "She was worried. She did not know if he would still love her afterwards.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "short_history_the_gold_that_came_home_a2b1",
+    "techniques_hills_like_white_elephants_a2b1",
+    "techniques_the_signal_man_a2b1",
+    "rp_16_reporting_something_lost_a2b1"
+   ]
+  },
+  "trick": {
+   "w": "trick",
+   "pos": "noun",
+   "def": "a clever way to make people believe something",
+   "ex": "Writers use tricks, like magicians.",
+   "lessons": [
+    "reading_a2_the_writers_magic_tricks",
+    "techniques_the_sniper_a2b1",
+    "behind_the_screen_troy_a2b1",
+    "short_history_houdini_a2b1",
+    "short_history_the_battle_of_hastings_a2b1",
+    "short_history_the_trojan_war_a2b1",
+    "qf_pronunciation_final_ed"
+   ]
+  },
   "unreliable": {
    "w": "unreliable",
    "pos": "adjective",
@@ -78500,20 +78625,6 @@ window.WORDBANK={
    "lessons": [
     "reading_c1_the_writers_magic_tricks",
     "limerick_laboratory"
-   ]
-  },
-  "clue": {
-   "w": "clue",
-   "pos": "noun",
-   "def": "a piece of information that helps you solve a mystery",
-   "ex": "The coat on the back of the chair was the real clue.",
-   "lessons": [
-    "reading_c1_the_writers_magic_tricks",
-    "gr_b2_the_black_box",
-    "short_history_agatha_christie_a2b1",
-    "short_history_the_rosetta_stone_a2b1",
-    "sp_b1_32_speculating_images",
-    "grammar_b1_19_modals_deduction"
    ]
   },
   "pitch": {
@@ -84036,18 +84147,6 @@ window.WORDBANK={
     "grammar_a1_12_conjunctions_basic"
    ]
   },
-  "worried": {
-   "w": "worried",
-   "pos": "adj",
-   "def": "unhappy because you think something bad may happen. \"I'm worried about my exam.\" The verb is to worry.",
-   "ex": "She was worried. She did not know if he would still love her afterwards.",
-   "lessons": [
-    "short_history_the_gold_that_came_home_a2b1",
-    "techniques_hills_like_white_elephants_a2b1",
-    "techniques_the_signal_man_a2b1",
-    "rp_16_reporting_something_lost_a2b1"
-   ]
-  },
   "bring back": {
    "w": "bring back",
    "pos": "",
@@ -87883,21 +87982,6 @@ window.WORDBANK={
     "techniques_a_jury_of_her_peers_a2b1"
    ]
   },
-  "hide": {
-   "w": "hide",
-   "pos": "verb",
-   "def": "to put something in a secret place so nobody can find it.",
-   "ex": "",
-   "lessons": [
-    "techniques_a_jury_of_her_peers_a2b1",
-    "techniques_hands_a2b1",
-    "techniques_mateo_falcone_a2b1",
-    "techniques_metamorphosis_2_a2b1",
-    "techniques_the_masque_of_the_red_death_a2b1",
-    "behind_the_screen_parasite_a2b1",
-    "techniques_rikki_tikki_tavi_a2b1"
-   ]
-  },
   "thrifty": {
    "w": "thrifty",
    "pos": "adj",
@@ -89076,18 +89160,6 @@ window.WORDBANK={
     "behind_the_screen_shutter_island_a2b1",
     "everyone_has_an_accent_b1b2",
     "lesson_14_zero_first_conditional"
-   ]
-  },
-  "lie": {
-   "w": "lie",
-   "pos": "",
-   "def": "\"He never told a lie in his life.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_god_sees_the_truth_a2b1",
-    "gr_a2_two_truths",
-    "behind_the_screen_ex_machina_a2b1",
-    "bc_honesty_dishonesty_b2c1"
    ]
   },
   "beset": {
@@ -92092,17 +92164,6 @@ window.WORDBANK={
     "a1p_06_family_people"
    ]
   },
-  "guess": {
-   "w": "guess",
-   "pos": "v",
-   "def": ". The fortune-teller guessed why he had come.",
-   "ex": "",
-   "lessons": [
-    "techniques_the_fortune_teller_a2b1",
-    "epicurean_25_gassendi_life",
-    "lesson_22_defining_relative_clauses"
-   ]
-  },
   "mignonette": {
    "w": "mignonette",
    "pos": "n",
@@ -93747,20 +93808,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "techniques_the_sniper_a2b1"
-   ]
-  },
-  "trick": {
-   "w": "trick",
-   "pos": "",
-   "def": "\"His trick worked. The enemy thought he was dead.\"",
-   "ex": "",
-   "lessons": [
-    "techniques_the_sniper_a2b1",
-    "behind_the_screen_troy_a2b1",
-    "short_history_houdini_a2b1",
-    "short_history_the_battle_of_hastings_a2b1",
-    "short_history_the_trojan_war_a2b1",
-    "qf_pronunciation_final_ed"
    ]
   },
   "wound": {
@@ -116942,17 +116989,6 @@ window.WORDBANK={
     "sp_a2_13_describing_experiences"
    ]
   },
-  "ending": {
-   "w": "ending",
-   "pos": "n",
-   "def": "the last part of a story or film",
-   "ex": "I didn't like the ending of the book.",
-   "lessons": [
-    "su_a2_76_films_and_entertainment",
-    "qf_pronunciation_final_ed",
-    "sp_a2_17_simple_narratives"
-   ]
-  },
   "healthcare": {
    "w": "healthcare",
    "pos": "n",
@@ -121345,15 +121381,6 @@ window.WORDBANK={
     "a1_how_often_interactive",
     "acad_b1_17_academic_vocabulary",
     "grammar_a2_10_sentence_structure_word_formation"
-   ]
-  },
-  "storyteller": {
-   "w": "storyteller",
-   "pos": "n",
-   "def": "a person who tells stories",
-   "ex": "My grandfather was a wonderful storyteller.",
-   "lessons": [
-    "su_a2_16_surprising_tales"
    ]
   },
   "happily": {
