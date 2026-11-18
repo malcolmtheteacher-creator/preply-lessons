@@ -9634,6 +9634,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "speaking_c1_oxford_in_december",
+   "title": "Oxford in December: a pop-up city",
+   "level": "",
+   "words": [
+    "quadrangle",
+    "spire",
+    "cobbled",
+    "porter",
+    "reputedly",
+    "renowned",
+    "atmospheric",
+    "bustling",
+    "secluded",
+    "festive"
+   ]
+  },
+  {
    "id": "speaking_c1_the_tone_desk_home_and_school",
    "title": "The Tone Desk: Home and School",
    "level": "",
@@ -83738,11 +83755,12 @@ window.WORDBANK={
   },
   "porter": {
    "w": "porter",
-   "pos": "n",
+   "pos": "noun",
    "def": "a person employed to carry loads, especially on an expedition or a long march.",
-   "ex": "",
+   "ex": "At the lodge we were told the college would reopen after the New Year.",
    "lessons": [
     "short_history_the_conquest_of_everest",
+    "speaking_c1_oxford_in_december",
     "grammar_c1_05_passive_reporting_causative"
    ]
   },
@@ -87655,6 +87673,91 @@ window.WORDBANK={
     "everyday_echoes_phrase_bank",
     "sp_a2_03_simple_opinions",
     "grammar_b1_03_future_tenses_nuanced"
+   ]
+  },
+  "quadrangle": {
+   "w": "quadrangle",
+   "pos": "noun",
+   "def": "a square or rectangular courtyard with buildings on all four sides, especially in a college",
+   "ex": "We crossed the frosty quadrangle to reach the chapel.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "spire": {
+   "w": "spire",
+   "pos": "noun",
+   "def": "a tall, pointed structure on top of a church or tower",
+   "ex": "From the hill you can see dozens of spires above the rooftops.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "cobbled": {
+   "w": "cobbled",
+   "pos": "adjective",
+   "def": "paved with small rounded stones fitted closely together",
+   "ex": "Watch your step: the cobbled lanes get slippery in a frost.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "reputedly": {
+   "w": "reputedly",
+   "pos": "adverb",
+   "def": "according to what people say, though it may not be true",
+   "ex": "The pub was reputedly a favourite of several famous writers.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "renowned": {
+   "w": "renowned",
+   "pos": "adjective",
+   "def": "famous and admired for a particular quality",
+   "ex": "The city is renowned for its libraries.",
+   "lessons": [
+    "speaking_c1_oxford_in_december",
+    "techniques_three_questions"
+   ]
+  },
+  "atmospheric": {
+   "w": "atmospheric",
+   "pos": "adjective",
+   "def": "creating a strong mood, often mysterious or romantic",
+   "ex": "The narrow lanes are at their most atmospheric after dark.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "bustling": {
+   "w": "bustling",
+   "pos": "adjective",
+   "def": "full of busy, noisy activity",
+   "ex": "The market was bustling with shoppers buying last-minute gifts.",
+   "lessons": [
+    "speaking_c1_oxford_in_december"
+   ]
+  },
+  "secluded": {
+   "w": "secluded",
+   "pos": "adjective",
+   "def": "quiet and hidden away from other people",
+   "ex": "Behind the gate lay a garden that few tourists ever see.",
+   "lessons": [
+    "speaking_c1_oxford_in_december",
+    "techniques_the_judges_house"
+   ]
+  },
+  "festive": {
+   "w": "festive",
+   "pos": "adjective",
+   "def": "cheerful in a way that suits a celebration, especially Christmas",
+   "ex": "Strings of lights gave the whole street a cheerful, holiday feel.",
+   "lessons": [
+    "speaking_c1_oxford_in_december",
+    "rs_y11_aut2_26_04",
+    "curious_conversations_christmas_special"
    ]
   },
   "bossy": {
@@ -94776,15 +94879,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "a person who lives alone, away from other people, often for religious reasons.",
    "ex": "The hermit lived alone in a hut in the forest and rarely spoke to anyone.",
-   "lessons": [
-    "techniques_three_questions"
-   ]
-  },
-  "renowned": {
-   "w": "renowned",
-   "pos": "adj",
-   "def": "famous and respected for a particular quality or skill",
-   "ex": "a renowned scientist",
    "lessons": [
     "techniques_three_questions"
    ]
@@ -107188,16 +107282,6 @@ window.WORDBANK={
    "ex": "One third of the meat is given to the needy.",
    "lessons": [
     "rs_y11_aut2_26_04"
-   ]
-  },
-  "festive": {
-   "w": "festive",
-   "pos": "adj",
-   "def": "happy and connected to a celebration",
-   "ex": "The streets have a festive feeling during Id.",
-   "lessons": [
-    "rs_y11_aut2_26_04",
-    "curious_conversations_christmas_special"
    ]
   },
   "coincide": {
@@ -138252,15 +138336,6 @@ window.WORDBANK={
    "ex": "She has a warm heart and helps everyone.",
    "lessons": [
     "techniques_the_happy_prince_a2b1"
-   ]
-  },
-  "secluded": {
-   "w": "secluded",
-   "pos": "adj",
-   "def": "quiet and private, away from other people",
-   "ex": "They rented a secluded cabin in the woods.",
-   "lessons": [
-    "techniques_the_judges_house"
    ]
   },
   "noose": {
