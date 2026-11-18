@@ -9634,8 +9634,8 @@ window.WORDBANK={
    ]
   },
   {
-   "id": "speaking_c1_oxford_in_december",
-   "title": "Oxford in December: a pop-up city",
+   "id": "speaking_c1_oxford_pop_up_city",
+   "title": "Oxford: a pop-up city",
    "level": "",
    "words": [
     "quadrangle",
@@ -9647,7 +9647,7 @@ window.WORDBANK={
     "atmospheric",
     "bustling",
     "secluded",
-    "festive"
+    "punt"
    ]
   },
   {
@@ -83760,7 +83760,7 @@ window.WORDBANK={
    "ex": "At the lodge we were told the college would reopen after the New Year.",
    "lessons": [
     "short_history_the_conquest_of_everest",
-    "speaking_c1_oxford_in_december",
+    "speaking_c1_oxford_pop_up_city",
     "grammar_c1_05_passive_reporting_causative"
    ]
   },
@@ -87679,9 +87679,9 @@ window.WORDBANK={
    "w": "quadrangle",
    "pos": "noun",
    "def": "a square or rectangular courtyard with buildings on all four sides, especially in a college",
-   "ex": "We crossed the frosty quadrangle to reach the chapel.",
+   "ex": "We crossed the quiet quadrangle to reach the chapel.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "spire": {
@@ -87690,16 +87690,16 @@ window.WORDBANK={
    "def": "a tall, pointed structure on top of a church or tower",
    "ex": "From the hill you can see dozens of spires above the rooftops.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "cobbled": {
    "w": "cobbled",
    "pos": "adjective",
    "def": "paved with small rounded stones fitted closely together",
-   "ex": "Watch your step: the cobbled lanes get slippery in a frost.",
+   "ex": "Watch your step: the cobbled lanes get slippery in the rain.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "reputedly": {
@@ -87708,7 +87708,7 @@ window.WORDBANK={
    "def": "according to what people say, though it may not be true",
    "ex": "The pub was reputedly a favourite of several famous writers.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "renowned": {
@@ -87717,7 +87717,7 @@ window.WORDBANK={
    "def": "famous and admired for a particular quality",
    "ex": "The city is renowned for its libraries.",
    "lessons": [
-    "speaking_c1_oxford_in_december",
+    "speaking_c1_oxford_pop_up_city",
     "techniques_three_questions"
    ]
   },
@@ -87727,7 +87727,7 @@ window.WORDBANK={
    "def": "creating a strong mood, often mysterious or romantic",
    "ex": "The narrow lanes are at their most atmospheric after dark.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "bustling": {
@@ -87736,7 +87736,7 @@ window.WORDBANK={
    "def": "full of busy, noisy activity",
    "ex": "The market was bustling with shoppers buying last-minute gifts.",
    "lessons": [
-    "speaking_c1_oxford_in_december"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "secluded": {
@@ -87745,19 +87745,17 @@ window.WORDBANK={
    "def": "quiet and hidden away from other people",
    "ex": "Behind the gate lay a garden that few tourists ever see.",
    "lessons": [
-    "speaking_c1_oxford_in_december",
+    "speaking_c1_oxford_pop_up_city",
     "techniques_the_judges_house"
    ]
   },
-  "festive": {
-   "w": "festive",
-   "pos": "adjective",
-   "def": "cheerful in a way that suits a celebration, especially Christmas",
-   "ex": "Strings of lights gave the whole street a cheerful, holiday feel.",
+  "punt": {
+   "w": "punt",
+   "pos": "noun",
+   "def": "a long, flat-bottomed boat that you move by pushing a pole against the river bed",
+   "ex": "Steering one with a single long pole is harder than it looks.",
    "lessons": [
-    "speaking_c1_oxford_in_december",
-    "rs_y11_aut2_26_04",
-    "curious_conversations_christmas_special"
+    "speaking_c1_oxford_pop_up_city"
    ]
   },
   "bossy": {
@@ -107282,6 +107280,16 @@ window.WORDBANK={
    "ex": "One third of the meat is given to the needy.",
    "lessons": [
     "rs_y11_aut2_26_04"
+   ]
+  },
+  "festive": {
+   "w": "festive",
+   "pos": "adj",
+   "def": "happy and connected to a celebration",
+   "ex": "The streets have a festive feeling during Id.",
+   "lessons": [
+    "rs_y11_aut2_26_04",
+    "curious_conversations_christmas_special"
    ]
   },
   "coincide": {
