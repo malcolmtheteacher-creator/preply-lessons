@@ -3709,6 +3709,22 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "exam_b2_duolingo_test_journey",
+   "title": "The Test Journey: Duolingo English Test Overview",
+   "level": "",
+   "words": [
+    "adaptive",
+    "subscore",
+    "proficiency",
+    "summarise",
+    "fluency",
+    "highlight",
+    "prompt",
+    "unfinished",
+    "respond"
+   ]
+  },
+  {
    "id": "exam_c1_ielts_essay_house",
    "title": "The Essay House: IELTS Writing Task 2",
    "level": "",
@@ -9683,6 +9699,19 @@ window.WORDBANK={
     "bond",
     "be due",
     "caregiver"
+   ]
+  },
+  {
+   "id": "story_c1_the_body",
+   "title": "The Body",
+   "level": "",
+   "words": [
+    "intricate",
+    "staggering",
+    "indispensable",
+    "minuscule",
+    "regenerate",
+    "improbable"
    ]
   },
   {
@@ -56929,6 +56958,7 @@ window.WORDBANK={
    "ex": "His later novels have an intricate, almost mathematical structure.",
    "lessons": [
     "bc_italo_calvino_c1",
+    "story_c1_the_body",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_two_labyrinths",
     "fusion-interactive"
@@ -65590,6 +65620,7 @@ window.WORDBANK={
    "ex": "The film run backwards shows something astronomically improbable.",
    "lessons": [
     "discuss_c1_arrow_of_time",
+    "story_c1_the_body",
     "su_a2_48_solving_problems",
     "rs_y9_aut1_13_02"
    ]
@@ -66998,6 +67029,117 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "end_point_c1"
+   ]
+  },
+  "adaptive": {
+   "w": "adaptive",
+   "pos": "adjective",
+   "def": "changing to suit the person; in a test, the questions become harder or easier depending on how you answer",
+   "ex": "An adaptive test gives a stronger student harder questions.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey"
+   ]
+  },
+  "subscore": {
+   "w": "subscore",
+   "pos": "noun",
+   "def": "a smaller result for one skill, shown beside your overall result",
+   "ex": "Her speaking subscore was higher than her writing subscore.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey"
+   ]
+  },
+  "proficiency": {
+   "w": "proficiency",
+   "pos": "noun",
+   "def": "how well you can use a language",
+   "ex": "The test measures your proficiency in English.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "talk_ai_and_language_learning_b2c1",
+    "bc_english_as_medium_instruction_c1",
+    "sp_prep_c1_75",
+    "su_a2_58_preparing_for_new_cultures",
+    "acad_b1_24_giving_examples"
+   ]
+  },
+  "summarise": {
+   "w": "summarise",
+   "pos": "verb",
+   "def": "tell the main points of something in a short way",
+   "ex": "Summarise the conversation in two or three sentences.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "acad_b1_07_basic_presentations",
+    "bestiary_discourse_command",
+    "b2_32_living_without_money",
+    "epicurean_02_tetrapharmakos",
+    "aviation_eapt_06",
+    "ielts_writing_guides",
+    "lesson-08-dominic-system",
+    "acad_b1_11_summarising"
+   ]
+  },
+  "fluency": {
+   "w": "fluency",
+   "pos": "noun",
+   "def": "speaking smoothly, without long stops or repeated starts",
+   "ex": "Short pauses to think do not damage your fluency.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "gr_warmup_b2_hot_takes_language",
+    "explore_b1_need_for_speed",
+    "b2_11_right_or_left_brain",
+    "bc_debate_defend_view_c1",
+    "lesson_10_a2_review_fluency_challenge",
+    "acad_b2_04_academic_vocabulary",
+    "duolingo_det_practice"
+   ]
+  },
+  "highlight": {
+   "w": "highlight",
+   "pos": "verb",
+   "def": "mark part of a text, for example with your mouse",
+   "ex": "Highlight the sentence that answers the question.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "trial_beyond_small_talk_guide_b1b2",
+    "ielts_writing_guides",
+    "sp_a2_12_follow_up_questions",
+    "acad_b1_03_reading_textbooks"
+   ]
+  },
+  "prompt": {
+   "w": "prompt",
+   "pos": "noun",
+   "def": "the question or instruction that tells you what to write or say",
+   "ex": "Read the prompt carefully before you plan your answer.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey"
+   ]
+  },
+  "unfinished": {
+   "w": "unfinished",
+   "pos": "adjective",
+   "def": "not complete",
+   "ex": "In Read and Complete you type the ends of unfinished words.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "lesson_06_present_perfect_vs_past_simple",
+    "grammar_b1_01_perfect_tenses_aspect"
+   ]
+  },
+  "respond": {
+   "w": "respond",
+   "pos": "verb",
+   "def": "answer or react to something that was said",
+   "ex": "In the test you respond to a conversation by choosing the best reply.",
+   "lessons": [
+    "exam_b2_duolingo_test_journey",
+    "epicurean_23_lorenzo_valla",
+    "skills_a2_trade_fair_problems",
+    "a1p_23_giving_opinions",
+    "sp_prep_a2_06"
    ]
   },
   "thesis statement": {
@@ -79085,7 +79227,8 @@ window.WORDBANK={
    "def": "so large or surprising that it is hard to believe; astonishing.",
    "ex": "Sales of her books were so staggering that, by some counts, only the Bible and Shakespeare have ever outsold her.",
    "lessons": [
-    "short_history_agatha_christie"
+    "short_history_agatha_christie",
+    "story_c1_the_body"
    ]
   },
   "prohibition": {
@@ -87393,7 +87536,8 @@ window.WORDBANK={
    "def": "so important that you cannot manage without it",
    "ex": "Fresh water is indispensable on any long voyage.",
    "lessons": [
-    "speaking_b2c1_the_lifeboat"
+    "speaking_b2c1_the_lifeboat",
+    "story_c1_the_body"
    ]
   },
   "tarpaulin": {
@@ -87720,6 +87864,24 @@ window.WORDBANK={
    "ex": "A caregiver looks after someone who cannot look after themselves, such as a baby or an elderly relative.",
    "lessons": [
     "story_b2_use_it_or_lose_it"
+   ]
+  },
+  "minuscule": {
+   "w": "minuscule",
+   "pos": "adj",
+   "def": "extremely small",
+   "ex": "The dust was made of minuscule particles.",
+   "lessons": [
+    "story_c1_the_body"
+   ]
+  },
+  "regenerate": {
+   "w": "regenerate",
+   "pos": "v",
+   "def": "to grow again after being damaged or lost",
+   "ex": "Some lizards can regenerate a lost tail.",
+   "lessons": [
+    "story_c1_the_body"
    ]
   },
   "overturn": {
@@ -98559,18 +98721,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "trial_beyond_small_talk_guide_b1b2"
-   ]
-  },
-  "highlight": {
-   "w": "highlight",
-   "pos": "",
-   "def": "\"For most guests the highlight is the first night under the northern lights.\" Very useful in interviews too: the highlight of my season.",
-   "ex": "",
-   "lessons": [
-    "trial_beyond_small_talk_guide_b1b2",
-    "ielts_writing_guides",
-    "sp_a2_12_follow_up_questions",
-    "acad_b1_03_reading_textbooks"
    ]
   },
   "guests": {
@@ -112005,21 +112155,6 @@ window.WORDBANK={
     "gr_warmup_b2_hot_takes_justice"
    ]
   },
-  "fluency": {
-   "w": "fluency",
-   "pos": "n",
-   "def": "the ability to speak a language smoothly and easily",
-   "ex": "Her fluency improved after a year abroad.",
-   "lessons": [
-    "gr_warmup_b2_hot_takes_language",
-    "explore_b1_need_for_speed",
-    "b2_11_right_or_left_brain",
-    "bc_debate_defend_view_c1",
-    "lesson_10_a2_review_fluency_challenge",
-    "acad_b2_04_academic_vocabulary",
-    "duolingo_det_practice"
-   ]
-  },
   "prescriptivism": {
    "w": "prescriptivism",
    "pos": "n",
@@ -117822,22 +117957,6 @@ window.WORDBANK={
     "b2_76_creating_connections",
     "cae_essay_practice_3",
     "IELTS-Reading-Practice-Test-7"
-   ]
-  },
-  "summarise": {
-   "w": "summarise",
-   "pos": "v",
-   "def": "to give a short version of the main points",
-   "ex": "At the end, summarise your three main ideas.",
-   "lessons": [
-    "acad_b1_07_basic_presentations",
-    "bestiary_discourse_command",
-    "b2_32_living_without_money",
-    "epicurean_02_tetrapharmakos",
-    "aviation_eapt_06",
-    "ielts_writing_guides",
-    "lesson-08-dominic-system",
-    "acad_b1_11_summarising"
    ]
   },
   "collaborative": {
@@ -127377,19 +127496,6 @@ window.WORDBANK={
     "talk_ai_and_language_learning_b2c1"
    ]
   },
-  "proficiency": {
-   "w": "proficiency",
-   "pos": "n",
-   "def": "a high level of skill in something",
-   "ex": "The job requires proficiency in Spanish.",
-   "lessons": [
-    "talk_ai_and_language_learning_b2c1",
-    "bc_english_as_medium_instruction_c1",
-    "sp_prep_c1_75",
-    "su_a2_58_preparing_for_new_cultures",
-    "acad_b1_24_giving_examples"
-   ]
-  },
   "cultural insight": {
    "w": "cultural insight",
    "pos": "n",
@@ -130414,18 +130520,6 @@ window.WORDBANK={
    "ex": "I rediscovered my love of painting last year.",
    "lessons": [
     "epicurean_23_lorenzo_valla"
-   ]
-  },
-  "respond": {
-   "w": "respond",
-   "pos": "v",
-   "def": "to say or do something as a reaction",
-   "ex": "How did the company respond to the complaints?",
-   "lessons": [
-    "epicurean_23_lorenzo_valla",
-    "skills_a2_trade_fair_problems",
-    "a1p_23_giving_opinions",
-    "sp_prep_a2_06"
    ]
   },
   "thinker": {
@@ -149443,16 +149537,6 @@ window.WORDBANK={
    "ex": "The repairs on our street are ongoing.",
    "lessons": [
     "lesson_05_present_perfect_continuous"
-   ]
-  },
-  "unfinished": {
-   "w": "unfinished",
-   "pos": "adj",
-   "def": "not yet completed or done at all",
-   "ex": "I have an unfinished painting in the garage.",
-   "lessons": [
-    "lesson_06_present_perfect_vs_past_simple",
-    "grammar_b1_01_perfect_tenses_aspect"
    ]
   },
   "marker": {
