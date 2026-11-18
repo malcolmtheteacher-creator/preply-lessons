@@ -3248,6 +3248,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "bq_08_night_mind_c1c2",
+   "title": "The Night Mind: sleep, dreams and philosophy",
+   "level": "",
+   "words": [
+    "lucid",
+    "hypnagogic",
+    "consolidate",
+    "circadian",
+    "conflate",
+    "unfalsifiable",
+    "introspection",
+    "archetype",
+    "latent",
+    "overstate"
+   ]
+  },
+  {
    "id": "business_c1_the_tone_desk_for_leaders",
    "title": "The Tone Desk for Leaders: say the hard thing well",
    "level": "",
@@ -54056,6 +54073,7 @@ window.WORDBANK={
    "ex": "He prizes lucidity above all — facing the silence without flinching.",
    "lessons": [
     "bc_albert_camus_c1",
+    "bq_08_night_mind_c1c2",
     "cpe_read_c1_01_sleep_science"
    ]
   },
@@ -64875,6 +64893,100 @@ window.WORDBANK={
     "gr_warmup_c1_hot_takes_meritocracy"
    ]
   },
+  "hypnagogic": {
+   "w": "hypnagogic",
+   "pos": "adjective",
+   "def": "happening in the drowsy state between being awake and falling asleep",
+   "ex": "Hypnagogic images can feel startlingly real, then vanish.",
+   "lessons": [
+    "bq_08_night_mind_c1c2"
+   ]
+  },
+  "consolidate": {
+   "w": "consolidate",
+   "pos": "verb",
+   "def": "to make a memory or a position stronger and more lasting",
+   "ex": "Deep sleep seems to help the brain hold on to what we learned that day.",
+   "lessons": [
+    "bq_08_night_mind_c1c2",
+    "short_history_charlemagne",
+    "explore_comic_book_history",
+    "prof_c2_02_mergers_and_acquisitions",
+    "cpe_read_c1_01_sleep_science",
+    "lesson-30-certification",
+    "diagnostic_focus_c1_inverted_formal"
+   ]
+  },
+  "circadian": {
+   "w": "circadian",
+   "pos": "adjective",
+   "def": "relating to the body's roughly 24-hour cycle",
+   "ex": "Night shifts play havoc with your circadian rhythm.",
+   "lessons": [
+    "bq_08_night_mind_c1c2"
+   ]
+  },
+  "conflate": {
+   "w": "conflate",
+   "pos": "verb",
+   "def": "to treat two different ideas as if they were one",
+   "ex": "Critics said the book had mixed up a link and a cause, treating them as the same thing.",
+   "lessons": [
+    "bq_08_night_mind_c1c2",
+    "speaking_naturally_teens_01_social_media",
+    "sp_prep_c1_68"
+   ]
+  },
+  "unfalsifiable": {
+   "w": "unfalsifiable",
+   "pos": "adjective",
+   "def": "impossible to prove wrong by any observation or test",
+   "ex": "If every possible dream confirms the theory, the theory may be untestable.",
+   "lessons": [
+    "bq_08_night_mind_c1c2"
+   ]
+  },
+  "introspection": {
+   "w": "introspection",
+   "pos": "noun",
+   "def": "examining your own thoughts and feelings from the inside",
+   "ex": "Dream research still depends heavily on what sleepers report about their own minds.",
+   "lessons": [
+    "bq_08_night_mind_c1c2",
+    "talk_quiet_and_noise_b2c1"
+   ]
+  },
+  "archetype": {
+   "w": "archetype",
+   "pos": "noun",
+   "def": "a figure or pattern that appears again and again across stories and cultures",
+   "ex": "The wise old guide is a familiar archetype in myths.",
+   "lessons": [
+    "bq_08_night_mind_c1c2"
+   ]
+  },
+  "latent": {
+   "w": "latent",
+   "pos": "adjective",
+   "def": "present but hidden, or not yet developed",
+   "ex": "Freud looked for the latent meaning behind the story the dreamer remembered.",
+   "lessons": [
+    "bq_08_night_mind_c1c2"
+   ]
+  },
+  "overstate": {
+   "w": "overstate",
+   "pos": "verbs",
+   "def": "to make something seem bigger, surer or more important than it really is",
+   "ex": "He overstated the result to win the room, then spent a year living it down.",
+   "lessons": [
+    "bq_08_night_mind_c1c2",
+    "calibrated_certainty_c2",
+    "discuss_c1_the_steady_voice",
+    "acad_c1_09_hedging_in_academia",
+    "cae_essay_practice_5"
+   ]
+  },
   "euphemism": {
    "w": "euphemism",
    "pos": "noun",
@@ -65155,18 +65267,6 @@ window.WORDBANK={
    "lessons": [
     "calibrated_certainty_c2",
     "sp_prep_c1_04"
-   ]
-  },
-  "overstate": {
-   "w": "overstate",
-   "pos": "verbs",
-   "def": "To overstate is to claim more certainty or scale than the evidence warrants; to understate is to claim less. Both are forms of miscalibration.",
-   "ex": "He overstated the result to win the room, then spent a year living it down.",
-   "lessons": [
-    "calibrated_certainty_c2",
-    "discuss_c1_the_steady_voice",
-    "acad_c1_09_hedging_in_academia",
-    "cae_essay_practice_5"
    ]
   },
   "tentative": {
@@ -80327,20 +80427,6 @@ window.WORDBANK={
     "short_history_charlemagne",
     "techniques_the_verger_ielts",
     "talk_books_and_screens_b2c1"
-   ]
-  },
-  "consolidate": {
-   "w": "consolidate",
-   "pos": "v",
-   "def": "to make what you have gained stronger and more secure, so that it lasts. Field: rule and administration.",
-   "ex": "",
-   "lessons": [
-    "short_history_charlemagne",
-    "explore_comic_book_history",
-    "prof_c2_02_mergers_and_acquisitions",
-    "cpe_read_c1_01_sleep_science",
-    "lesson-30-certification",
-    "diagnostic_focus_c1_inverted_formal"
    ]
   },
   "piety": {
@@ -120518,16 +120604,6 @@ window.WORDBANK={
     "speaking_naturally_teens_01_social_media"
    ]
   },
-  "conflate": {
-   "w": "conflate",
-   "pos": "v",
-   "def": "to wrongly treat two different ideas as the same",
-   "ex": "Do not conflate feeling upset with being harmed.",
-   "lessons": [
-    "speaking_naturally_teens_01_social_media",
-    "sp_prep_c1_68"
-   ]
-  },
   "standardized assessment": {
    "w": "standardized assessment",
    "pos": "n",
@@ -127975,15 +128051,6 @@ window.WORDBANK={
    "lessons": [
     "talk_quiet_and_noise_b2c1",
     "cpe_read_c2_12_boredom"
-   ]
-  },
-  "introspection": {
-   "w": "introspection",
-   "pos": "n",
-   "def": "careful examination of your own thoughts and feelings",
-   "ex": "Long walks alone in the hills encourage introspection.",
-   "lessons": [
-    "talk_quiet_and_noise_b2c1"
    ]
   },
   "sound pollution": {
