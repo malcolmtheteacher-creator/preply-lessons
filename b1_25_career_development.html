@@ -265,6 +265,28 @@
             font-weight: 600;
         }
 
+        .blank-in {
+            font: inherit;
+            font-weight: 600;
+            color: #333;
+            padding: 2px 8px;
+            border: none;
+            border-bottom: 2px solid #667eea;
+            border-radius: 3px 3px 0 0;
+            background-color: #eef0fd;
+            max-width: 100%;
+        }
+
+        .blank-in:focus { outline: 2px solid #667eea; outline-offset: 1px; }
+        .blank-in.right { background-color: #e3f6e8; border-bottom-color: #2e9d55; color: #1d6b39; }
+        .blank-in.wrong { background-color: #fdecec; border-bottom-color: #d9534f; }
+
+        .word-box { font-size: 0.98em; color: #555; }
+        .gap-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
+        .gap-actions button { font: inherit; font-weight: 600; padding: 8px 18px; border: 2px solid #667eea; border-radius: 4px; background-color: #667eea; color: white; cursor: pointer; }
+        .gap-actions button.quiet { background-color: transparent; color: #667eea; }
+        #gapScore { font-weight: 600; color: #764ba2; }
+
         .section-title {
             color: #764ba2;
             font-size: 1.6em;
@@ -642,12 +664,14 @@
                 </div>
 
                 <h3 class="subsection-title">Gap-Fill Practice</h3>
-                <div class="gap-fill">
-                    <p>1. My manager wants me to <span class="blank">work on</span> my project management skills.</p>
-                    <p>2. The team members <span class="blank">work well with</span> each other despite coming from different countries.</p>
-                    <p>3. She has been <span class="blank">working towards</span> her goal of becoming a project director for two years.</p>
-                    <p>4. We need to <span class="blank">work out</span> the best way to organize our remote meetings.</p>
-                    <p>5. When there is disagreement, the team <span class="blank">works through</span> it with respect and patience.</p>
+                <div class="gap-fill" id="gapFill">
+                    <p class="word-box"><strong>Choose from:</strong> work on &middot; work out &middot; work through &middot; work towards &middot; work well with <em>(you may need to change the form of the verb)</em></p>
+                    <p>1. My manager wants me to <input class="blank-in" type="text" data-answer="work on" size="9" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing words"> my project management skills.</p>
+                    <p>2. The team members <input class="blank-in" type="text" data-answer="work well with" size="16" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing words"> each other despite coming from different countries.</p>
+                    <p>3. She has been <input class="blank-in" type="text" data-answer="working towards" size="17" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing words"> her goal of becoming a project director for two years.</p>
+                    <p>4. We need to <input class="blank-in" type="text" data-answer="work out" size="10" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing words"> the best way to organize our remote meetings.</p>
+                    <p>5. When there is disagreement, the team <input class="blank-in" type="text" data-answer="works through" size="15" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing words"> it with respect and patience.</p>
+                    <div class="gap-actions"><button type="button" id="gapCheck">Check</button><button type="button" id="gapShow" class="quiet">Show answers</button><span id="gapScore" aria-live="polite"></span></div>
                 </div>
 
                 <div class="discussion-section">
@@ -889,6 +913,33 @@
             }
         }
     </script>
+<script>
+(function () {
+    var box = document.getElementById('gapFill');
+    if (!box) return;
+    var inputs = box.querySelectorAll('.blank-in');
+    function tidy(s) { return s.toLowerCase().replace(/\s+/g, ' ').trim(); }
+    function check() {
+        var right = 0;
+        inputs.forEach(function (i) {
+            var ok = tidy(i.value) === tidy(i.dataset.answer);
+            i.classList.toggle('right', ok);
+            i.classList.toggle('wrong', !ok && i.value.trim() !== '');
+            if (ok) right++;
+        });
+        document.getElementById('gapScore').textContent = right + ' / ' + inputs.length + ' correct';
+    }
+    document.getElementById('gapCheck').addEventListener('click', check);
+    document.getElementById('gapShow').addEventListener('click', function () {
+        inputs.forEach(function (i) { i.value = i.dataset.answer; });
+        check();
+    });
+    inputs.forEach(function (i) {
+        i.addEventListener('input', function () { i.classList.remove('right', 'wrong'); });
+        i.addEventListener('keydown', function (e) { if (e.key === 'Enter') check(); });
+    });
+})();
+</script>
 <script src="wordbank/hook.js"></script>
 </body>
 </html>
