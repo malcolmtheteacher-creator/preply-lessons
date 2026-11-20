@@ -4091,6 +4091,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "music_01_jazz_b2c1",
+   "title": "Jazz: a pop-up history",
+   "level": "B2/C1",
+   "words": [
+    "improvise",
+    "swing",
+    "riff",
+    "virtuoso",
+    "groundbreaking",
+    "fusion",
+    "laid-back",
+    "mellow",
+    "frantic",
+    "pave the way"
+   ]
+  },
+  {
    "id": "news_desk_who_said_that",
    "title": "The News Desk: Who Said That?",
    "level": "",
@@ -53138,12 +53155,13 @@ window.WORDBANK={
   },
   "groundbreaking": {
    "w": "groundbreaking",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "New and very important; the first of its kind.",
    "ex": "Her promotion was groundbreaking: no one who looked like her had ever held that title before, and every person who came after her walked through a door she had opened.",
    "lessons": [
     "bc_ada_lovelace_b1b2",
     "behind_the_screen_hidden_figures",
+    "music_01_jazz_b2c1",
     "short_history_krakatoa",
     "bc_solutions_c1",
     "c1_people_and_past_times_first_impressions"
@@ -61277,12 +61295,13 @@ window.WORDBANK={
   },
   "improvise": {
    "w": "improvise",
-   "pos": "v",
+   "pos": "verb",
    "def": "to make or do something quickly using whatever is available, without any advance preparation.",
-   "ex": "",
+   "ex": "She forgot her notes, so she had to improvise the rest of the speech.",
    "lessons": [
     "behind_the_screen_apollo_13",
     "behind_the_screen_escape_from_alcatraz",
+    "music_01_jazz_b2c1",
     "short_history_apollo_13",
     "techniques_the_lumber_room",
     "ts_apollo13_b2",
@@ -68778,6 +68797,82 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "lw_post_office_horizon_c1"
+   ]
+  },
+  "swing": {
+   "w": "swing",
+   "pos": "noun",
+   "def": "a relaxed, bouncing rhythm in which the first of each pair of short notes is held a little longer than the second",
+   "ex": "The band played with so much swing that nobody could keep still.",
+   "lessons": [
+    "music_01_jazz_b2c1"
+   ]
+  },
+  "riff": {
+   "w": "riff",
+   "pos": "noun",
+   "def": "a short musical phrase that is repeated, often behind a solo",
+   "ex": "The whole song is built on one catchy guitar riff.",
+   "lessons": [
+    "music_01_jazz_b2c1"
+   ]
+  },
+  "virtuoso": {
+   "w": "virtuoso",
+   "pos": "noun",
+   "def": "a performer with outstanding technical skill",
+   "ex": "By the age of twenty he was already a piano virtuoso.",
+   "lessons": [
+    "music_01_jazz_b2c1"
+   ]
+  },
+  "fusion": {
+   "w": "fusion",
+   "pos": "noun",
+   "def": "a mix of two or more different styles that creates something new",
+   "ex": "The restaurant serves a fusion of Japanese and Peruvian cooking.",
+   "lessons": [
+    "music_01_jazz_b2c1",
+    "world_la_food",
+    "world_ssa_music",
+    "su_a2_40_designing_a_restaurant"
+   ]
+  },
+  "laid-back": {
+   "w": "laid-back",
+   "pos": "adjective",
+   "def": "relaxed and calm, never in a hurry",
+   "ex": "Her laid-back manager never shouts, but the work always gets done.",
+   "lessons": [
+    "music_01_jazz_b2c1",
+    "world_oce_laidback"
+   ]
+  },
+  "mellow": {
+   "w": "mellow",
+   "pos": "adjective",
+   "def": "soft, warm and gentle, without anything harsh",
+   "ex": "The singer has a mellow voice that is perfect late at night.",
+   "lessons": [
+    "music_01_jazz_b2c1"
+   ]
+  },
+  "frantic": {
+   "w": "frantic",
+   "pos": "adjective",
+   "def": "very fast and wild, almost out of control",
+   "ex": "The drummer kept up a frantic pace for the whole set.",
+   "lessons": [
+    "music_01_jazz_b2c1"
+   ]
+  },
+  "pave the way": {
+   "w": "pave the way",
+   "pos": "phrase",
+   "def": "to make it possible or easier for something to happen later",
+   "ex": "Early experiments with radio paved the way for television.",
+   "lessons": [
+    "music_01_jazz_b2c1"
    ]
   },
   "stunt": {
@@ -101057,17 +101152,6 @@ window.WORDBANK={
     "world_ssa_food_a2"
    ]
   },
-  "fusion": {
-   "w": "fusion",
-   "pos": "n",
-   "def": "a mix of styles.",
-   "ex": "Highlife is a fusion of local rhythms and imported instruments.",
-   "lessons": [
-    "world_la_food",
-    "world_ssa_music",
-    "su_a2_40_designing_a_restaurant"
-   ]
-  },
   "potato": {
    "w": "potato",
    "pos": "n",
@@ -102357,15 +102441,6 @@ window.WORDBANK={
    "lessons": [
     "world_oce_islands_a2",
     "world_ssa_languages_a2"
-   ]
-  },
-  "laid-back": {
-   "w": "laid-back",
-   "pos": "adj",
-   "def": "relaxed and not easily worried",
-   "ex": "Her laid-back manager never shouts, but the work always gets done.",
-   "lessons": [
-    "world_oce_laidback"
    ]
   },
   "egalitarian": {
