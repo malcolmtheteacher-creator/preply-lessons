@@ -3787,6 +3787,21 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "gr_c1_either_way",
+   "title": "Either Way: would you rather…",
+   "level": "",
+   "words": [
+    "trade-off",
+    "deal-breaker",
+    "toss-up",
+    "on balance",
+    "marginally",
+    "concede",
+    "lesser of two evils",
+    "hedge"
+   ]
+  },
+  {
    "id": "grammar_c1_17_counterfactual_conditionals",
    "title": "The Road Not Taken: Counterfactual Conditionals | C1",
    "level": "",
@@ -4105,6 +4120,23 @@ window.WORDBANK={
     "mellow",
     "frantic",
     "pave the way"
+   ]
+  },
+  {
+   "id": "music_02_blues_b2c1",
+   "title": "The Blues: a pop-up history",
+   "level": "B2/C1",
+   "words": [
+    "hardship",
+    "lament",
+    "raw",
+    "understatement",
+    "exaggerate",
+    "hit rock bottom",
+    "pay your dues",
+    "hard up",
+    "down on your luck",
+    "at a crossroads"
    ]
   },
   {
@@ -6671,6 +6703,23 @@ window.WORDBANK={
     "issue",
     "keep",
     "pressure"
+   ]
+  },
+  {
+   "id": "say_missing_link_c1",
+   "title": "The Doctor Who Could Not Say Why",
+   "level": "",
+   "words": [
+    "mortality",
+    "contaminate",
+    "plausible",
+    "dismiss",
+    "spell out",
+    "connect the dots",
+    "take for granted",
+    "establish",
+    "jump",
+    "doubt"
    ]
   },
   {
@@ -52093,7 +52142,8 @@ window.WORDBANK={
    "def": "to push up off the ground",
    "ex": "",
    "lessons": [
-    "a1s_46_race"
+    "a1s_46_race",
+    "say_missing_link_c1"
    ]
   },
   "finish": {
@@ -60106,6 +60156,7 @@ window.WORDBANK={
    "lessons": [
     "bc_srinivasa_ramanujan_c1",
     "odyssey_cromwell",
+    "say_missing_link_c1",
     "acad_c2_07_interdisciplinary",
     "c1_pro_05_assertive_communication",
     "nq_07_mixed_c1",
@@ -61154,6 +61205,7 @@ window.WORDBANK={
     "calibrated_certainty_c2",
     "discuss_c1_time_travellers_argument",
     "grammar_c1_17_counterfactual_conditionals",
+    "say_missing_link_c1",
     "short_history_db_cooper",
     "techniques_the_fortune_teller",
     "techniques_the_open_window",
@@ -65090,6 +65142,7 @@ window.WORDBANK={
     "discuss_c1_arrow_of_time",
     "discuss_c1_when_the_story_stops_holding",
     "exam_c1_ielts_speaking_journey",
+    "gr_c1_either_way",
     "short_history_the_gold_that_came_home",
     "speaking_b2c1_the_tone_desk",
     "the_curse_of_knowledge_c2",
@@ -65841,11 +65894,12 @@ window.WORDBANK={
   },
   "hardship": {
    "w": "hardship",
-   "pos": "n",
+   "pos": "noun",
    "def": "endure great hardship; economic hardship. Countable and uncountable: the hardships of war.",
-   "ex": "",
+   "ex": "The family faced real hardship after the factory closed.",
    "lessons": [
     "discuss_c1_frankl_meaning",
+    "music_02_blues_b2c1",
     "short_history_the_suffragettes",
     "rs_y10_sum1_23_03",
     "rs_y8_aut2_08_04",
@@ -66368,6 +66422,7 @@ window.WORDBANK={
    "ex": "She opened by conceding that the costs were real — and was twice as convincing for it.",
    "lessons": [
     "discuss_c1_time_travellers_argument",
+    "gr_c1_either_way",
     "htp_b2_01_the_hiring_panel",
     "speaking_b2c1_the_scales",
     "the_rhetoric_of_persuasion_c2",
@@ -67516,6 +67571,83 @@ window.WORDBANK={
     "sp_b2_51_idiomatic"
    ]
   },
+  "trade-off": {
+   "w": "trade-off",
+   "pos": "noun",
+   "def": "a situation in which you accept less of one good thing in order to get more of another",
+   "ex": "Every option involved a trade-off: the faster plan was more expensive, and the cheaper plan was slower.",
+   "lessons": [
+    "gr_c1_either_way",
+    "htp_c1_03_the_deal",
+    "nq_02_which_c1",
+    "skills_c1_senior_interview_4_thinking",
+    "speaking_b2c1_the_scales",
+    "thinker_b2_24_leibniz",
+    "gr_b2_the_ranking_game",
+    "bc_supply_chain_disruptions_c1",
+    "c2_pro_24_intellectual_property",
+    "lesson_46_globalization_economics",
+    "sp_b2_48_concession",
+    "sp_prep_b1_28",
+    "sp_prep_c1_69",
+    "explore_b2_would_you_rather"
+   ]
+  },
+  "deal-breaker": {
+   "w": "deal-breaker",
+   "pos": "noun",
+   "def": "the one thing that makes you reject an offer, however good the rest of it is",
+   "ex": "The salary was fine, but the two-hour journey each way was a deal-breaker.",
+   "lessons": [
+    "gr_c1_either_way",
+    "htp_c1_03_the_deal",
+    "nq_02_which_c1",
+    "skills_c1_senior_interview_5_closing"
+   ]
+  },
+  "toss-up": {
+   "w": "toss-up",
+   "pos": "noun",
+   "def": "a choice between two options so equal that you could decide by throwing a coin",
+   "ex": "It's a toss-up between the two flats; I like them both.",
+   "lessons": [
+    "gr_c1_either_way"
+   ]
+  },
+  "on balance": {
+   "w": "on balance",
+   "pos": "phrase",
+   "def": "after considering all the points for and against",
+   "ex": "On balance, I think we made the right decision.",
+   "lessons": [
+    "gr_c1_either_way",
+    "nq_02_which_c1",
+    "speaking_b2c1_the_scales",
+    "bestiary_discourse_frame"
+   ]
+  },
+  "marginally": {
+   "w": "marginally",
+   "pos": "adverb",
+   "def": "by a very small amount",
+   "ex": "The second offer was only marginally better than the first.",
+   "lessons": [
+    "gr_c1_either_way",
+    "bc_ielts_task1_graphs_b2c1",
+    "ielts_task1_compare_flip_b2",
+    "grammar_c2_07_academic_precision"
+   ]
+  },
+  "lesser of two evils": {
+   "w": "lesser of two evils",
+   "pos": "phrase",
+   "def": "the less unpleasant of two bad choices",
+   "ex": "Neither option appealed to me, so I picked the lesser of two evils.",
+   "lessons": [
+    "gr_c1_either_way",
+    "lesson_world_war_2_speaking"
+   ]
+  },
   "counterfactual": {
    "w": "counterfactual",
    "pos": "noun/adj",
@@ -67942,17 +68074,6 @@ window.WORDBANK={
     "wk_15_resigning"
    ]
   },
-  "deal-breaker": {
-   "w": "deal-breaker",
-   "pos": "noun",
-   "def": "one condition that would make you refuse the whole agreement",
-   "ex": "Working weekends is a deal-breaker for me.",
-   "lessons": [
-    "htp_c1_03_the_deal",
-    "nq_02_which_c1",
-    "skills_c1_senior_interview_5_closing"
-   ]
-  },
   "non-negotiable": {
    "w": "non-negotiable",
    "pos": "adj",
@@ -67965,27 +68086,6 @@ window.WORDBANK={
     "prof_c1_01_managing_difficult_conversations",
     "b2_96_engineering_safety_concerns",
     "bc_academic_notetaking_for_phd_c1"
-   ]
-  },
-  "trade-off": {
-   "w": "trade-off",
-   "pos": "noun",
-   "def": "a balance where you accept less of one thing to get more of another",
-   "ex": "Every option involved a trade-off: the faster plan was more expensive, and the cheaper plan was slower.",
-   "lessons": [
-    "htp_c1_03_the_deal",
-    "nq_02_which_c1",
-    "skills_c1_senior_interview_4_thinking",
-    "speaking_b2c1_the_scales",
-    "thinker_b2_24_leibniz",
-    "gr_b2_the_ranking_game",
-    "bc_supply_chain_disruptions_c1",
-    "c2_pro_24_intellectual_property",
-    "lesson_46_globalization_economics",
-    "sp_b2_48_concession",
-    "sp_prep_b1_28",
-    "sp_prep_c1_69",
-    "explore_b2_would_you_rather"
    ]
   },
   "flexible": {
@@ -68877,6 +68977,108 @@ window.WORDBANK={
     "music_01_jazz_b2c1"
    ]
   },
+  "lament": {
+   "w": "lament",
+   "pos": "verb",
+   "def": "to express deep sadness or disappointment about something",
+   "ex": "In the song, she laments the loss of her home town.",
+   "lessons": [
+    "music_02_blues_b2c1",
+    "odyssey_james_iv_scot",
+    "techniques_misery"
+   ]
+  },
+  "raw": {
+   "w": "raw",
+   "pos": "adjective",
+   "def": "strong, natural and honest, without anything polished or controlled",
+   "ex": "There is a raw energy in the band's early recordings.",
+   "lessons": [
+    "music_02_blues_b2c1"
+   ]
+  },
+  "understatement": {
+   "w": "understatement",
+   "pos": "noun",
+   "def": "a way of describing something that makes it seem smaller or less serious than it really is",
+   "ex": "To say the exam was 'a bit tricky' is an understatement: half the class failed.",
+   "lessons": [
+    "music_02_blues_b2c1",
+    "world_eu_directness",
+    "world_oce_slang",
+    "bc_rhetorical_devices_c1",
+    "everyday_echoes_phrase_bank",
+    "sp_c1_63_irony_understatement",
+    "sp_prep_c1_65",
+    "gr_b2_tone_shift"
+   ]
+  },
+  "exaggerate": {
+   "w": "exaggerate",
+   "pos": "verb",
+   "def": "to make something sound bigger, better or worse than it really is",
+   "ex": "He always exaggerates: the fish was ten centimetres long, not a metre.",
+   "lessons": [
+    "music_02_blues_b2c1",
+    "short_history_hiroshima",
+    "short_history_the_maya",
+    "short_history_the_spanish_flu",
+    "short_history_the_trojan_war",
+    "world_eu_stereotypes",
+    "chatterbox_4_ridiculous_ventures",
+    "ml_25_the_review_they_want_down",
+    "ielts_spelling_finding_her_feet",
+    "lesson-02-vivid-imagery",
+    "lesson-11-names-faces",
+    "grammar_b2_16_complex_gerund_infinitive"
+   ]
+  },
+  "hit rock bottom": {
+   "w": "hit rock bottom",
+   "pos": "phrase",
+   "def": "to reach the lowest and worst point of a difficult time",
+   "ex": "She says she had to hit rock bottom before she could start again.",
+   "lessons": [
+    "music_02_blues_b2c1"
+   ]
+  },
+  "pay your dues": {
+   "w": "pay your dues",
+   "pos": "phrase",
+   "def": "to work hard for a long time before you get success or respect",
+   "ex": "He spent ten years in tiny clubs, so nobody can say he hasn't paid his dues.",
+   "lessons": [
+    "music_02_blues_b2c1"
+   ]
+  },
+  "hard up": {
+   "w": "hard up",
+   "pos": "adjective",
+   "def": "having very little money, usually for a short time",
+   "ex": "We were so hard up in our student days that we shared one coat.",
+   "lessons": [
+    "music_02_blues_b2c1"
+   ]
+  },
+  "down on your luck": {
+   "w": "down on your luck",
+   "pos": "phrase",
+   "def": "going through a period when things keep going wrong, especially with money or work",
+   "ex": "He helped an old friend who was down on his luck.",
+   "lessons": [
+    "music_02_blues_b2c1"
+   ]
+  },
+  "at a crossroads": {
+   "w": "at a crossroads",
+   "pos": "phrase",
+   "def": "at a point where you must make an important choice about what to do next",
+   "ex": "After university I was at a crossroads: more study, or a job?",
+   "lessons": [
+    "music_02_blues_b2c1",
+    "speaking_naturally_teens_06_who_are_you_really"
+   ]
+  },
   "stunt": {
    "w": "stunt",
    "pos": "n",
@@ -69015,17 +69217,6 @@ window.WORDBANK={
    "ex": "Calling a division a failure became self-fulfilling: its budget was cut, its best people left, and it declined exactly as predicted.",
    "lessons": [
     "nq_02_which_c1"
-   ]
-  },
-  "on balance": {
-   "w": "on balance",
-   "pos": "phrase",
-   "def": "On balance, I would choose the more reliable supplier.",
-   "ex": "On balance, I think we made the right choice.",
-   "lessons": [
-    "nq_02_which_c1",
-    "speaking_b2c1_the_scales",
-    "bestiary_discourse_frame"
    ]
   },
   "hybrid": {
@@ -74080,16 +74271,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "odyssey_james_iv_scot"
-   ]
-  },
-  "lament": {
-   "w": "lament",
-   "pos": "v, n",
-   "def": "a song of sorrow.",
-   "ex": "They lamented the loss of the old village.",
-   "lessons": [
-    "odyssey_james_iv_scot",
-    "techniques_misery"
    ]
   },
   "curious": {
@@ -79165,6 +79346,87 @@ window.WORDBANK={
     "tib_pestle_b2"
    ]
   },
+  "mortality": {
+   "w": "mortality",
+   "pos": "n",
+   "def": "the number of deaths in a particular group or over a particular time, usually given as a rate: so many in every hundred.",
+   "ex": "The figures were grim reading: of every hundred who fell ill, several would not recover, and that mortality climbed steeply among the old and the very young.",
+   "lessons": [
+    "say_missing_link_c1",
+    "short_history_florence_nightingale",
+    "short_history_the_spanish_flu",
+    "wp_18_the_inner_citadel"
+   ]
+  },
+  "contaminate": {
+   "w": "contaminate",
+   "pos": "",
+   "def": "to make something dirty or dangerous by adding a harmful substance to it. The noun is contamination.",
+   "ex": "",
+   "lessons": [
+    "say_missing_link_c1",
+    "b1_32_environmental_reading",
+    "techniques_the_stolen_bacillus"
+   ]
+  },
+  "spell out": {
+   "w": "spell out",
+   "pos": "",
+   "def": "You will have to spell out why the change is needed; they will not work it out for themselves.",
+   "ex": "",
+   "lessons": [
+    "say_missing_link_c1"
+   ]
+  },
+  "connect the dots": {
+   "w": "connect the dots",
+   "pos": "",
+   "def": "The figures were all in the report, but nobody had connected the dots. British speakers also say join the dots.",
+   "ex": "",
+   "lessons": [
+    "say_missing_link_c1"
+   ]
+  },
+  "take for granted": {
+   "w": "take for granted",
+   "pos": "phr v",
+   "def": "He took it for granted that everyone could see the reason.",
+   "ex": "She took her good health for granted until she became ill.",
+   "lessons": [
+    "say_missing_link_c1",
+    "short_history_the_stories_we_agree_on",
+    "acad_c1_07_critical_analysis",
+    "komorebi_09_the_hedonic_treadmill",
+    "the-art-of-simple-pleasures"
+   ]
+  },
+  "establish": {
+   "w": "establish",
+   "pos": "",
+   "def": "to show clearly that something is true or exists. Establish a connection, establish the cause, establish the facts.",
+   "ex": "",
+   "lessons": [
+    "say_missing_link_c1",
+    "bc_humour_in_presentations_c1",
+    "epicurean_06_atoms_and_void"
+   ]
+  },
+  "doubt": {
+   "w": "doubt",
+   "pos": "",
+   "def": "a feeling of not being sure that something is true. To cast doubt on a claim is to make it seem less certain.",
+   "ex": "",
+   "lessons": [
+    "say_missing_link_c1",
+    "topic_human_nature_b2",
+    "gr_a2_two_truths",
+    "behind_the_screen_12_angry_men_a2b1",
+    "b2_01_truth_and_lies",
+    "short_history_the_wright_brothers_a2b1",
+    "tennis_mental_game",
+    "bc_conspiracy_theories_b2c1"
+   ]
+  },
   "disproportionate": {
    "w": "disproportionate",
    "pos": "",
@@ -80960,17 +81222,6 @@ window.WORDBANK={
     "short_history_florence_nightingale"
    ]
   },
-  "mortality": {
-   "w": "mortality",
-   "pos": "n",
-   "def": "the number of deaths in a group or period, usually expressed as a rate. (In literature the same word means the fact that human beings must die.)",
-   "ex": "The figures were grim reading: of every hundred who fell ill, several would not recover, and that mortality climbed steeply among the old and the very young.",
-   "lessons": [
-    "short_history_florence_nightingale",
-    "short_history_the_spanish_flu",
-    "wp_18_the_inner_citadel"
-   ]
-  },
   "compile": {
    "w": "compile",
    "pos": "v",
@@ -81251,25 +81502,6 @@ window.WORDBANK={
     "short_history_the_trojan_war",
     "ml_15_the_big_favour",
     "wk_14_taking_credit"
-   ]
-  },
-  "exaggerate": {
-   "w": "exaggerate",
-   "pos": "v",
-   "def": "to make something sound bigger, better or worse than it really is.",
-   "ex": "",
-   "lessons": [
-    "short_history_hiroshima",
-    "short_history_the_maya",
-    "short_history_the_spanish_flu",
-    "short_history_the_trojan_war",
-    "world_eu_stereotypes",
-    "chatterbox_4_ridiculous_ventures",
-    "ml_25_the_review_they_want_down",
-    "ielts_spelling_finding_her_feet",
-    "lesson-02-vivid-imagery",
-    "lesson-11-names-faces",
-    "grammar_b2_16_complex_gerund_infinitive"
    ]
   },
   "detonate": {
@@ -86455,18 +86687,6 @@ window.WORDBANK={
    "lessons": [
     "short_history_the_stories_we_agree_on",
     "qf_falsefriend_french_attendre"
-   ]
-  },
-  "take for granted": {
-   "w": "take for granted",
-   "pos": "phr v",
-   "def": "to expect something to always be there, without thinking about it or valuing it",
-   "ex": "She took her good health for granted until she became ill.",
-   "lessons": [
-    "short_history_the_stories_we_agree_on",
-    "acad_c1_07_critical_analysis",
-    "komorebi_09_the_hedonic_treadmill",
-    "the-art-of-simple-pleasures"
    ]
   },
   "cause": {
@@ -98715,21 +98935,6 @@ window.WORDBANK={
     "topic_human_nature_b2"
    ]
   },
-  "doubt": {
-   "w": "doubt",
-   "pos": "",
-   "def": "to give someone the benefit of the doubt = to believe someone is good or honest when you are not sure.",
-   "ex": "",
-   "lessons": [
-    "topic_human_nature_b2",
-    "gr_a2_two_truths",
-    "behind_the_screen_12_angry_men_a2b1",
-    "b2_01_truth_and_lies",
-    "short_history_the_wright_brothers_a2b1",
-    "tennis_mental_game",
-    "bc_conspiracy_theories_b2c1"
-   ]
-  },
   "declarative": {
    "w": "declarative",
    "pos": "",
@@ -100591,21 +100796,6 @@ window.WORDBANK={
    "ex": "We have fika at three o'clock.",
    "lessons": [
     "world_eu_coffee_a2"
-   ]
-  },
-  "understatement": {
-   "w": "understatement",
-   "pos": "n",
-   "def": "saying something is less important than it is.",
-   "ex": "British understatement can confuse foreigners.",
-   "lessons": [
-    "world_eu_directness",
-    "world_oce_slang",
-    "bc_rhetorical_devices_c1",
-    "everyday_echoes_phrase_bank",
-    "sp_c1_63_irony_understatement",
-    "sp_prep_c1_65",
-    "gr_b2_tone_shift"
    ]
   },
   "high-context": {
@@ -121004,15 +121194,6 @@ window.WORDBANK={
     "speaking_naturally_teens_06_generation_vs_parents"
    ]
   },
-  "at a crossroads": {
-   "w": "at a crossroads",
-   "pos": "phr",
-   "def": "at a point where you must make an important choice",
-   "ex": "I'm at a crossroads between university and a job.",
-   "lessons": [
-    "speaking_naturally_teens_06_who_are_you_really"
-   ]
-  },
   "define myself": {
    "w": "define myself",
    "pos": "phr",
@@ -123782,16 +123963,6 @@ window.WORDBANK={
    "ex": "Most of our plastic rubbish ends up in landfill.",
    "lessons": [
     "b1_32_environmental_reading"
-   ]
-  },
-  "contaminate": {
-   "w": "contaminate",
-   "pos": "v",
-   "def": "to make something dirty or harmful by adding a dangerous substance",
-   "ex": "Oil from the ship contaminated the beach for miles.",
-   "lessons": [
-    "b1_32_environmental_reading",
-    "techniques_the_stolen_bacillus"
    ]
   },
   "amount": {
@@ -132521,15 +132692,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "giving in to demands in order to avoid conflict",
    "ex": "Appeasement only made the bully demand more.",
-   "lessons": [
-    "lesson_world_war_2_speaking"
-   ]
-  },
-  "lesser of two evils": {
-   "w": "lesser of two evils",
-   "pos": "phr",
-   "def": "the less harmful of two bad choices",
-   "ex": "Staying late was the lesser of two evils.",
    "lessons": [
     "lesson_world_war_2_speaking"
    ]
@@ -145466,16 +145628,6 @@ window.WORDBANK={
     "sp_prep_b1_23"
    ]
   },
-  "establish": {
-   "w": "establish",
-   "pos": "v",
-   "def": "to start or create something that will last",
-   "ex": "It takes time to establish trust with a new team.",
-   "lessons": [
-    "bc_humour_in_presentations_c1",
-    "epicurean_06_atoms_and_void"
-   ]
-  },
   "cheer on": {
    "w": "cheer on",
    "pos": "phr v",
@@ -150760,17 +150912,6 @@ window.WORDBANK={
    "ex": "Road charging could reduce traffic in the centre.",
    "lessons": [
     "bc_ielts_problem_solution_b2c1"
-   ]
-  },
-  "marginally": {
-   "w": "marginally",
-   "pos": "adv",
-   "def": "by a very small amount",
-   "ex": "Sales rose marginally in the final quarter.",
-   "lessons": [
-    "bc_ielts_task1_graphs_b2c1",
-    "ielts_task1_compare_flip_b2",
-    "grammar_c2_07_academic_precision"
    ]
   },
   "considerably": {
