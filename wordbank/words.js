@@ -9802,15 +9802,19 @@ window.WORDBANK={
   },
   {
    "id": "story_c1_the_body",
-   "title": "The Body",
+   "title": "The Body: Bill Bryson’s Guide for Occupants",
    "level": "",
    "words": [
-    "intricate",
-    "staggering",
-    "indispensable",
-    "minuscule",
-    "regenerate",
-    "improbable"
+    "occupant",
+    "trace",
+    "mundane",
+    "assemble",
+    "layman",
+    "baffle",
+    "conjure",
+    "negligible",
+    "relentless",
+    "elusive"
    ]
   },
   {
@@ -56817,9 +56821,10 @@ window.WORDBANK={
    "w": "assemble",
    "pos": "verb — assembled",
    "def": "To put the parts of something together to make it.",
-   "ex": "It took our team two hours to assemble the new desks.",
+   "ex": "All the parts were on the table, but nobody could assemble them into a working clock.",
    "lessons": [
     "bc_ikea_a2b1",
+    "story_c1_the_body",
     "lesson-09-pao-system"
    ]
   },
@@ -57061,7 +57066,6 @@ window.WORDBANK={
    "ex": "His later novels have an intricate, almost mathematical structure.",
    "lessons": [
     "bc_italo_calvino_c1",
-    "story_c1_the_body",
     "techniques_the_adventure_of_the_speckled_band",
     "techniques_the_two_labyrinths",
     "fusion-interactive"
@@ -57078,6 +57082,7 @@ window.WORDBANK={
     "behind_the_screen_the_theory_of_everything",
     "short_history_king_arthur",
     "short_history_the_conquest_of_everest",
+    "story_c1_the_body",
     "techniques_a_white_heron",
     "techniques_the_story_of_an_hour",
     "techniques_the_yellow_wallpaper",
@@ -62223,7 +62228,8 @@ window.WORDBANK={
    "def": "ordinary, dull and repetitive; lacking anything unusual or exciting.",
    "ex": "After years of the same commute, the same complaints, and the same paperwork, his job had become utterly mundane — one grey day dissolving into the next.",
    "lessons": [
-    "behind_the_screen_everything_everywhere_all_at_once"
+    "behind_the_screen_everything_everywhere_all_at_once",
+    "story_c1_the_body"
    ]
   },
   "estranged": {
@@ -65487,10 +65493,11 @@ window.WORDBANK={
    "w": "trace",
    "pos": "n",
    "def": "a very small sign or amount of something left behind. a trace of poison / no trace of him.",
-   "ex": "The police traced the stolen car to a garage across town.",
+   "ex": "The water was safe to drink, although it contained a trace of iron — far too little to taste.",
    "lessons": [
     "columbo_c1_lovely_but_lethal",
     "psyp_10_who_decides_whats_normal_b2c1",
+    "story_c1_the_body",
     "tib_swot_b2",
     "althist_history_c1_part1",
     "rs_y8_aut1_07_01"
@@ -65815,7 +65822,6 @@ window.WORDBANK={
    "ex": "The film run backwards shows something astronomically improbable.",
    "lessons": [
     "discuss_c1_arrow_of_time",
-    "story_c1_the_body",
     "su_a2_48_solving_problems",
     "rs_y9_aut1_13_02"
    ]
@@ -66002,6 +66008,7 @@ window.WORDBANK={
    "lessons": [
     "discuss_c1_future_fixed",
     "say_number_c1",
+    "story_c1_the_body",
     "topic_what_if_b2",
     "bc_passion_for_danger_c1",
     "duolingo_det_practice_6"
@@ -79285,6 +79292,7 @@ window.WORDBANK={
     "say_bridge_c1",
     "short_history_nellie_bly",
     "short_history_the_suffragettes",
+    "story_c1_the_body",
     "techniques_the_judges_house",
     "wp_03_the_way_of_truth",
     "wp_06_the_gadfly",
@@ -79609,8 +79617,7 @@ window.WORDBANK={
    "def": "so large or surprising that it is hard to believe; astonishing.",
    "ex": "Sales of her books were so staggering that, by some counts, only the Bible and Shakespeare have ever outsold her.",
    "lessons": [
-    "short_history_agatha_christie",
-    "story_c1_the_body"
+    "short_history_agatha_christie"
    ]
   },
   "prohibition": {
@@ -87876,8 +87883,7 @@ window.WORDBANK={
    "def": "so important that you cannot manage without it",
    "ex": "Fresh water is indispensable on any long voyage.",
    "lessons": [
-    "speaking_b2c1_the_lifeboat",
-    "story_c1_the_body"
+    "speaking_b2c1_the_lifeboat"
    ]
   },
   "tarpaulin": {
@@ -88298,20 +88304,39 @@ window.WORDBANK={
     "story_b2_use_it_or_lose_it"
    ]
   },
-  "minuscule": {
-   "w": "minuscule",
-   "pos": "adj",
-   "def": "extremely small",
-   "ex": "The dust was made of minuscule particles.",
+  "occupant": {
+   "w": "occupant",
+   "pos": "n",
+   "def": "a person who lives in or uses a particular place. (v: occupy; n: occupation)",
+   "ex": "The flat had the same occupant for forty years, and in all that time she never once looked inside the fuse box.",
    "lessons": [
     "story_c1_the_body"
    ]
   },
-  "regenerate": {
-   "w": "regenerate",
+  "layman": {
+   "w": "layman",
+   "pos": "n",
+   "def": "someone who is not an expert in a particular field. in layman's terms = in simple, everyday language",
+   "ex": "",
+   "lessons": [
+    "story_c1_the_body"
+   ]
+  },
+  "baffle": {
+   "w": "baffle",
    "pos": "v",
-   "def": "to grow again after being damaged or lost",
-   "ex": "Some lizards can regenerate a lost tail.",
+   "def": "to puzzle someone totally. (adj: baffling, baffled) \"The question has baffled researchers for a century.\"",
+   "ex": "",
+   "lessons": [
+    "story_c1_the_body",
+    "bc_theories_mixed_conditionals_b2c1"
+   ]
+  },
+  "conjure": {
+   "w": "conjure",
+   "pos": "v",
+   "def": "to produce something out of nothing, like a magician. conjure up an image",
+   "ex": "",
    "lessons": [
     "story_c1_the_body"
    ]
@@ -158209,15 +158234,6 @@ window.WORDBANK={
    "ex": "Do not lump new findings in with older ones.",
    "lessons": [
     "bc_lit_review_architecture_phd"
-   ]
-  },
-  "baffle": {
-   "w": "baffle",
-   "pos": "v",
-   "def": "to confuse someone completely so they cannot understand",
-   "ex": "The disappearance of the ship baffled investigators.",
-   "lessons": [
-    "bc_theories_mixed_conditionals_b2c1"
    ]
   },
   "exclaim": {
