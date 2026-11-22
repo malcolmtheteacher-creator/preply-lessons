@@ -123,6 +123,33 @@ sup.dn{font-family:Inter,sans-serif;font-size:.62rem;font-weight:800;background:
 .legend span{display:inline-flex;gap:6px;align-items:center}
 .legend i{width:26px;height:12px;border-radius:2px;display:inline-block}
 
+details.example{border-left:5px solid var(--birch2)}
+details.example summary{cursor:pointer;font-weight:700}
+.exintro{margin:10px 0 6px;color:var(--grey);font-size:.9rem}
+.expapers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:0 0 6px}
+.exp{background:#fdfcf8;border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-family:"Source Serif 4",Georgia,serif;font-size:.95rem}
+.exp .t{display:block;font-family:Inter,sans-serif;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--grey);margin-bottom:4px}
+.exstep{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.exstep .n,.istep .n{flex:0 0 auto;width:28px;height:28px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:800}
+.isteps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.istep{flex:1 1 150px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--white);font-size:.85rem;font-weight:600;color:var(--grey)}
+.istep.on{color:var(--ink);border-color:var(--blue);background:var(--blue2)}
+.istep.on .n{background:var(--blue);color:#fff;border-color:var(--blue)}
+.istep.done{color:var(--good)}
+.qbox{border:2px solid var(--blue)}
+.qbox h3{font-size:1.3rem;margin:0 0 6px}
+.qbox>p{margin:0 0 10px}
+.qbox .why{color:var(--grey);font-size:.92rem}
+.qbox.solved{border-color:var(--good);background:var(--good2)}
+.tk{list-style:none;margin:0 0 10px;padding:0}
+.tk li{border-top:1px solid var(--line)}
+.tk label{display:flex;gap:12px;align-items:flex-start;padding:9px 4px;cursor:pointer;font-family:"Source Serif 4",Georgia,serif;font-size:1.02rem;line-height:1.45}
+.tk input{width:20px;height:20px;margin-top:3px;flex:0 0 auto;accent-color:var(--blue)}
+.tk label:has(input:checked){background:var(--blue2)}
+.count{font-size:.9rem}
+.say{background:#f4ecdb;border-radius:4px;padding:10px 14px;margin:10px 0}
+.say .label{margin:0}.say ul{margin:4px 0 0;padding-left:18px}
+.restart{text-align:right;margin:0}.linkbtn{background:none;border:0;color:var(--grey);text-decoration:underline;cursor:pointer;font-size:.8rem}
 .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .notes label{font-size:.82rem;font-weight:700;display:block;margin-bottom:4px}
 .notes textarea{min-height:120px}
@@ -588,16 +615,70 @@ function paperHTML(side,mode){
 function needGame(el){el.innerHTML='<div class="box"><p style="margin:0 0 10px">Deal a game first, so you each have your paper.</p><button class="btn" data-go="2">Go to the deal</button></div>'}
 function renderRead(){
   var b=$("#readBody");if(!G)return needGame(b);
-  var notes=sget("notes_"+S.game)||{};
-  b.innerHTML='<div class="box blue"><p style="margin:0 0 6px"><b>Read your paper in silence first.</b> Then find the differences between your two reports by talking. Don’t show your screen and don’t read the whole article aloud: summarise, ask and check. <i>“How many trees does yours say?” “Is there a quote from a resident in yours?”</i></p>'+
-   '<p style="margin:0 0 10px">There are <b>8 differences</b>: <b>5 of fact</b> (a different number, or something only one paper mentions) and <b>3 of slant</b> (the same fact told in words that take a side). The headlines are different too, but they don’t count.</p><div class="timer" id="t1"></div></div>'+
-   '<div class="solo">'+paperHTML(sideOf(S.role),"read")+'</div>'+
+  var notes=sget("notes_"+S.game)||{},exOpen=sget("ex")!==false;
+  var me=sideOf(S.role);function mt(o){return me==="for"?o.f:o.a}
+  var st=sget("g_"+S.game);if(!st||!st.step)st={step:1,t:{1:[],2:[],3:[]}};
+  function put(){sset("g_"+S.game,st)}
+  var STEPS=[
+    {q:"Which numbers are different?",why:"A different number is a difference of fact: one paper makes the story look bigger or smaller.",
+     cand:function(o){return o.k==="fact"},ok:function(o){return o.k==="fact"&&o.diff},
+     intro:"These are the sentences in your paper with a number in them. Read each number aloud and ask for your partner’s. Tick the ones where your partner’s number is different.",
+     say:["“Mine says … . What does yours say?”","“How many … does yours mention?”","“So that’s a difference: … in mine, … in yours.”"]},
+    {q:"What does your partner’s paper leave out?",why:"Leaving something out is the quietest way to take a side: the reader never knows it was there.",
+     cand:function(o){return o.k!=="fact"&&!!mt(o)},ok:function(o){return o.k==="omit"&&o.diff&&o.side===me},
+     intro:"These are the rest of the sentences in your paper. Summarise each one in a few words and ask if your partner’s paper mentions it. Tick the ones that are <b>only in your paper</b>. Your partner does the same with theirs.",
+     say:["“Does yours mention …?”","“Is there a quote from … in yours?”","“There’s nothing about … in mine.”"]},
+    {q:"Which words take a side?",why:"The same fact can sound good or bad depending on one word: “said”, “insisted” and “admitted” tell the reader what to think.",
+     cand:function(o){return o.k==="slant"},ok:function(o){return o.k==="slant"&&o.diff},
+     intro:"These sentences are in both papers, but some are told in different words. Read yours aloud word for word and ask your partner to read theirs. Tick the ones where the wording is different.",
+     say:["“How does yours describe …?”","“What verb does yours use for what … said?”","“Mine says ‘insisted’, which makes it sound …”"]}
+  ];
+  var h='<div class="box"><p class="label">What you’re doing</p><p style="margin:0">The same event, in two different newspapers. You can only see yours. By talking, find <b>what is different</b> and <b>how each paper takes a side</b>. You do it in three short steps.</p></div>';
+  h+='<details class="box example"'+(exOpen?' open':'')+'><summary>How to play: a practice example</summary>'+
+   '<p class="exintro">A made-up story, not your real one. Here it is in both papers.</p>'+
+   '<div class="expapers"><div class="exp"><span class="t">Paper A</span>The council said the pool will close at 6 p.m. instead of 9 p.m. from June. Around <b>300</b> people swim there each evening. <b>The change will save £50,000 a year.</b></div>'+
+   '<div class="exp"><span class="t">Paper B</span>The council <b>admitted</b> the pool will close at 6 p.m. instead of 9 p.m. from June. Around <b>900</b> people swim there each evening.</div></div>'+
+   '<div class="exstep"><span class="n">1</span><div><b>A number.</b> A: “Mine says around 300 people swim there each evening. What does yours say?” B: “Mine says 900.” That’s a difference of fact: both players tick that sentence.</div></div>'+
+   '<div class="exstep"><span class="n">2</span><div><b>Left out.</b> A: “Does yours mention how much money it will save?” B: “No, there’s nothing about money in mine.” So Paper B leaves it out: Player A ticks it.</div></div>'+
+   '<div class="exstep"><span class="n">3</span><div><b>A word that takes a side.</b> B: “In mine, the council <i>admitted</i> it. What verb does yours use?” A: “Mine just says <i>said</i>.” “Admitted” makes the closure sound like something to be ashamed of: both players tick it.</div></div>'+
+   '<p class="exintro" style="margin-top:8px">Don’t show your screen. Summarise, ask and check.</p></details>';
+  var titles=["Numbers","Left out","Words that take sides"];
+  h+='<div class="isteps">'+titles.map(function(t,i){var n=i+1,c=n<st.step?' done':n===st.step?' on':'';return '<div class="istep'+c+'"><span class="n">'+(n<st.step?'✓':n)+'</span>'+t+'</div>'}).join("")+'</div>';
+  var cur=STEPS[st.step-1];
+  if(cur){
+    var cands=G.units.filter(cur.cand),need=G.units.filter(cur.ok).length,tk=st.t[st.step]||[];
+    h+='<div class="box qbox"><p class="label">Step '+st.step+' of 3 · Now</p><h3>'+cur.q+'</h3><p class="why">'+cur.why+'</p><p>'+cur.intro+'</p>'+
+      '<ul class="tk">'+cands.map(function(o){return '<li><label><input type="checkbox" data-u="'+o.i+'"'+(tk.indexOf(o.i)>=0?' checked':'')+'><span>'+esc(mt(o))+'</span></label></li>'}).join("")+'</ul>'+
+      '<p class="count">There '+(need===1?'is <b>1</b>':'are <b>'+need+'</b>')+' to find in your paper. You’ve ticked <b id="nt">'+tk.length+'</b>.</p>'+
+      say(cur.say)+'<button class="btn" id="chk">Check</button><div class="fb" id="fb"></div></div>';
+  }else{
+    h+='<div class="box qbox solved"><p class="label">All three steps done</p><h3>You’ve found the differences in your paper.</h3><p style="margin:0 0 10px">Now decide together which paper is fairer, and write a neutral headline.</p><button class="btn" data-go="4">Next: your verdict →</button></div>';
+  }
+  h+='<div class="box blue"><p style="margin:0 0 8px"><b>Your paper.</b> Read it in silence first (about two minutes). Everything in the steps above comes from it. Altogether there are <b>8 differences</b>: <b>5 of fact</b> (a different number, or something only one paper mentions) and <b>3 of slant</b>. The headlines are different too, but they don’t count.</p><div class="timer" id="t1"></div></div>'+
+   '<div class="solo">'+paperHTML(me,"read")+'</div>'+
    '<div class="box"><p class="label">Your notes</p><div class="notes">'+
    [["f","Facts that differ"],["o","Left out of one paper"],["s","Words that take sides"]].map(function(x){return '<div><label for="n'+x[0]+'">'+x[1]+'</label><textarea id="n'+x[0]+'" data-n="'+x[0]+'" placeholder="Notes as you talk">'+esc(notes[x[0]]||"")+'</textarea></div>'}).join("")+
-   '</div></div><div class="next"><button class="btn" data-go="4">Next: your verdict →</button></div>';
+   '</div></div><p class="restart"><button class="linkbtn" id="restart">Start the steps again</button></p><div class="next"><button class="btn" data-go="4">Next: your verdict →</button></div>';
+  b.innerHTML=h;
   makeTimer($("#t1"));
+  $("details.example",b).addEventListener("toggle",function(){sset("ex",this.open)});
   $$("textarea[data-n]",b).forEach(function(t){t.oninput=function(){notes[t.dataset.n]=t.value;sset("notes_"+S.game,notes)}});
+  function fb(ok,msg){var f=$("#fb");f.className="fb "+(ok?"ok":"no");f.textContent=msg}
+  $$(".tk input",b).forEach(function(c){c.onchange=function(){var i=+c.dataset.u,a=st.t[st.step]=st.t[st.step]||[],p=a.indexOf(i);if(c.checked&&p<0)a.push(i);if(!c.checked&&p>=0)a.splice(p,1);put();$("#nt").textContent=a.length}});
+  var chk=$("#chk");
+  if(chk)chk.onclick=function(){
+    var tk=st.t[st.step]||[],good=G.units.filter(cur.ok).map(function(o){return o.i});
+    var wrong=tk.filter(function(i){return good.indexOf(i)<0}),hit=tk.filter(function(i){return good.indexOf(i)>=0});
+    if(!tk.length)return fb(false,"Tick at least one sentence first.");
+    if(wrong.length)return fb(false,"Not quite: "+(wrong.length===1?"one sentence you ticked is":wrong.length+" sentences you ticked are")+" the same in both papers. "+(st.step===2?"Ask your partner again whether theirs mentions it.":"Ask your partner to read their version again, slowly."));
+    if(hit.length<good.length)return fb(false,"Good so far: "+hit.length+" of "+good.length+" found. There’s more to find, so keep asking.");
+    fb(true,["Yes. Those are the numbers that differ. Next: what does one paper leave out?","Yes. That\u2019s what your partner\u2019s paper leaves out. Next: the words that take sides.","Yes. Those are the sentences told in different words. All three steps done."][st.step-1]);
+    st.step++;put();
+    setTimeout(function(){renderRead();var q=$(".qbox",b);if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1300);
+  };
+  $("#restart").onclick=function(){sset("g_"+S.game,{step:1,t:{1:[],2:[],3:[]}});renderRead()};
 }
+function say(list){return '<div class="say"><p class="label">Things you can say</p><ul>'+list.map(function(s){return '<li>'+s+'</li>'}).join("")+'</ul></div>'}
 
 /* ---------- 5 verdict ---------- */
 function renderVer(){

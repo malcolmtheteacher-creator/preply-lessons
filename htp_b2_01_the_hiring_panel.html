@@ -103,6 +103,34 @@ textarea:focus,input:focus{outline:2px solid var(--blue);outline-offset:1px}
 .share{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .share code{background:#f1ede3;border:1px solid var(--line);border-radius:4px;padding:6px 8px;font-size:.78rem;word-break:break-all;flex:1 1 260px}
 
+/* guided steps */
+.goal{border-left:5px solid var(--blue)}
+details.example{border-left:5px solid var(--birch2)}
+details.example summary{cursor:pointer;font-weight:700}
+.exintro{margin:10px 0 6px;color:var(--grey);font-size:.9rem}
+.exstep{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.exstep .n,.istep .n{flex:0 0 auto;width:28px;height:28px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:800}
+.isteps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.istep{flex:1 1 170px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--white);font-size:.85rem;font-weight:600;color:var(--grey)}
+.istep.on{color:var(--ink);border-color:var(--blue);background:var(--blue2)}
+.istep.on .n{background:var(--blue);color:#fff;border-color:var(--blue)}
+.istep.done{color:var(--good)}
+.qbox{border:2px solid var(--blue)}
+.qbox h3{font-size:1.3rem;margin:0 0 6px}
+.qbox>p{margin:0 0 10px}
+.yours{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:10px 12px;margin:8px 0;font-size:1.02rem}
+.yours .t{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--grey)}
+.say{background:#f4ecdb;border-radius:4px;padding:10px 14px;margin:10px 0}
+.say .label{margin:0}.say ul{margin:4px 0 0;padding-left:18px}
+.ans{font-size:1rem;font-weight:600;margin:10px 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ans select,.cnt select{font:inherit;padding:4px 8px;border:1px solid var(--ink);border-radius:4px;background:#fff;max-width:100%}
+.cnts{margin:10px 0}
+.cnt{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:8px 0;border-top:1px solid var(--line)}
+.cnt:first-child{border-top:0}
+.cnt b{flex:1 1 140px}.cnt label{font-weight:600}.cnt .wr{color:var(--grey);font-size:.88rem;min-width:6em}
+.sumtab{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:10px 14px;margin:8px 0}
+.sumtab ul{margin:4px 0 0;padding-left:18px}
+.restart{text-align:right;margin:0 0 8px}.linkbtn{background:none;border:0;color:var(--grey);text-decoration:underline;cursor:pointer;font-size:.8rem}
 /* meeting */
 .secret{border:2px dashed var(--blue);background:var(--white)}
 .folder{background:var(--white);border:1px solid var(--line);border-radius:0 6px 6px 6px;position:relative;margin-top:22px;padding:14px 16px}
@@ -536,20 +564,77 @@ function makeTimer(el){
 
 /* ---------- 4 meeting ---------- */
 function needGame(el){el.innerHTML='<div class="box"><p style="margin:0 0 10px">Deal a game first, so you both have your documents.</p><button class="btn" data-go="2">Go to the deal</button></div>'}
+var PRILAB={rel:"Someone reliable",skill:"Someone who can do the job well from day one",people:"Someone people enjoy working with",start:"Someone who can start soon"};
+function gGet(){var v=sget("guide_"+S.game);return v&&v.step?v:{step:1,plus:{},pri:{}}}
+function gSet(v){sset("guide_"+S.game,v)}
+function first(n){return n.split(" ")[0]}
+function sayBox(list){return '<div class="say"><p class="label">Things you can say</p><ul>'+list.map(function(s){return '<li>'+s+'</li>'}).join("")+'</ul></div>'}
+function realPlus(c){return c.A.concat(c.B).filter(function(f){return f.v>0}).length}
 function renderMeet(){
   var b=$("#meetBody");if(!G)return needGame(b);
   var me=S.role,note=me==="A"?G.prA:G.prB,who=me==="A"?"A note from the manager":"A note from HR";
-  var notes=sget("notes_"+S.game)||{};
-  b.innerHTML='<div class="grid">'+
+  var notes=sget("notes_"+S.game)||{},st=gGet(),exOpen=sget("ex")!==false;
+  var titles=["Plus points and worries","What do the bosses want?","Who gets the job?"];
+  var h='<div class="box goal"><p class="label">Your goal</p><p style="margin:0">Choose the best person for this job. You each have <b>different documents</b> about the same three people, and a different secret note, so neither of you can choose well alone.</p></div>';
+  h+='<div class="grid">'+
    '<div class="box"><p class="label">The job</p><h3 style="font-size:1.2rem">'+esc(G.job.title)+'</h3><p style="margin:0">'+esc(G.job.place)+' '+esc(G.job.ad)+'</p></div>'+
-   '<div class="box secret"><p class="label" style="color:var(--blue)">Only you can see this</p><h3>'+who+'</h3><p style="margin:0">“'+esc(note.text)+'”</p></div></div>'+
-   '<div class="box blue"><p style="margin:0 0 8px"><b>Tell each other what’s in your folders, one candidate at a time.</b> Say it. Don’t show your screen or read it out word for word. Then talk about what it means. Don’t forget your note.</p><div class="timer" id="t1"></div></div>'+
+   '<div class="box secret"><p class="label" style="color:var(--blue)">Only you can see this</p><h3>'+who+'</h3><p style="margin:0">“'+esc(note.text)+'”</p></div></div>';
+  h+='<details class="box example"'+(exOpen?' open':'')+'><summary>How to play: a practice example</summary>'+
+   '<p class="exintro">This is a practice example with a made-up candidate, Sam, so you can see how the three steps work. Your real candidates are further down.</p>'+
+   '<div class="exstep"><span class="n">1</span><div><b>Plus points and worries.</b> Card A reads out: “Sam’s CV says he’s done this job for six years. That’s a plus point. But the interview notes say he arrived late. That’s a worry.” Card B says back: “My card has Sam’s reference: he never missed a shift. Another plus point. But his email says he can’t start until June. A worry.” So together Sam has <b>2 plus points and 2 worries</b>. Good news is a plus point; anything that could be a problem is a worry.</div></div>'+
+   '<div class="exstep"><span class="n">2</span><div><b>What do the bosses want?</b> Card A reads out the secret note: “The manager says reliability matters most.” Card B: “HR says they need someone who can start soon.” You both choose those two answers and press Check.</div></div>'+
+   '<div class="exstep"><span class="n">3</span><div><b>Who gets the job?</b> “Sam is reliable, which the manager wants, but he can’t start until June, which is a problem for HR.” Weigh it up against the other candidates and agree on one person.</div></div>'+
+   '<p class="exintro" style="margin-top:8px">Don’t show your screen. Say what your documents mean in your own words.</p></details>';
+  h+='<div class="isteps">'+titles.map(function(t,i){var n=i+1,c=n<st.step?' done':n===st.step?' on':'';return '<div class="istep'+c+'"><span class="n">'+(n<st.step?'✓':n)+'</span>'+t+'</div>'}).join("")+'</div>';
+  if(st.step===1){
+    h+='<div class="box qbox"><p class="label">Step 1 of 3 · Now</p><h3>How many plus points does each candidate have?</h3>'+
+     '<p>Each candidate has four documents: two are in your folders below and two are on your partner’s card. Go one candidate at a time. Say whether each of your documents is good news (a plus point) or a possible problem (a worry), then listen to your partner’s two.</p>'+
+     sayBox(['“According to '+esc(first(G.cands[0].name))+'’s reference, … That’s a real plus.”','“It says here that … That’s a bit of a worry.”','“What have you got on '+esc(first(G.cands[1].name))+'?”','“So that’s two plus points and two worries.”'])+
+     '<div class="cnts">'+G.cands.map(function(c,i){var v=st.plus[i];return '<div class="cnt"><span class="mono">'+initials(c.name)+'</span><b>'+esc(c.name)+'</b><label>Plus points <select data-p="'+i+'"><option value="">?</option>'+[0,1,2,3,4].map(function(n){return '<option'+(String(v)===String(n)?' selected':'')+'>'+n+'</option>'}).join("")+'</select></label><span class="wr" id="wr'+i+'">'+(v===undefined||v===""?'':'so '+(4-v)+' worr'+(4-v===1?'y':'ies'))+'</span></div>'}).join("")+'</div>'+
+     '<button class="btn" id="chk">Check</button><div class="fb" id="fb"></div></div>';
+  }else if(st.step===2){
+    h+='<div class="box qbox"><p class="label">Step 2 of 3 · Now</p><h3>What do the manager and HR each want most?</h3>'+
+     '<p>You each have a secret note from a different boss. They don’t want the same thing, and that can change who is best. Read your note to your partner in your own words.</p>'+
+     '<div class="yours"><span class="t">Your evidence · '+who+'</span>“'+esc(note.text)+'”</div>'+
+     sayBox(['“My note is from '+(me==="A"?'the manager':'HR')+'. Basically, they want …”','“What does your note say?”','“So they don’t want the same thing.”'])+
+     ['A','B'].map(function(k){var cur=st.pri[k]||"";return '<div class="ans">'+(k==="A"?'The manager wants':'HR wants')+' <select data-k="'+k+'"><option value="">choose</option>'+Object.keys(PRILAB).map(function(c){return '<option value="'+c+'"'+(cur===c?' selected':'')+'>'+PRILAB[c]+'</option>'}).join("")+'</select></div>'}).join("")+
+     '<button class="btn" id="chk">Check</button><div class="fb" id="fb"></div></div>';
+  }else{
+    h+='<div class="box qbox'+(st.step>3?' solved':'')+'"><p class="label">Step 3 of 3 · Now</p><h3>Who gets the job?</h3>'+
+     '<p>There’s no single right answer. Weigh the plus points and worries against what the two bosses want, then agree on one person.</p>'+
+     '<div class="sumtab"><p class="label">What you’ve worked out together</p><ul>'+G.cands.map(function(c){var p=realPlus(c);return '<li><b>'+esc(c.name)+'</b>: '+p+' plus point'+(p===1?'':'s')+', '+(4-p)+' worr'+(4-p===1?'y':'ies')+'</li>'}).join("")+
+       '<li><b>The manager wants</b>: '+esc(PRILAB[G.prA.cat].toLowerCase())+'</li><li><b>HR wants</b>: '+esc(PRILAB[G.prB.cat].toLowerCase())+'</li></ul></div>'+
+     sayBox(['“On paper, '+esc(first(G.cands[2].name))+' looks strong, but …”','“I’d be slightly worried that …”','“Their strengths outweigh the drawbacks.”','“OK, you’ve convinced me.”'])+
+     '<button class="btn" data-go="4">Agreed? Go to Decide →</button></div>';
+  }
+  h+='<div class="box blue"><p style="margin:0 0 8px"><b>Your documents.</b> Say what they mean in your own words; don’t read them out word for word or show your screen. Note what your partner tells you in each folder.</p><div class="timer" id="t1"></div></div>'+
    '<div class="grid">'+G.cands.map(function(c,i){var mine=c[me];return '<div class="folder"><div class="cand"><span class="mono">'+initials(c.name)+'</span><b>'+esc(c.name)+'</b></div><ul class="dl">'+
      mine.map(function(f){return '<li><span class="t">'+f.d+'</span>'+esc(fill(f.t,c.name.split(" ")[0]))+'</li>'}).join("")+
      '</ul><p class="label">What your partner tells you</p><textarea data-n="'+i+'" placeholder="Notes as you listen">'+esc(notes[i]||"")+'</textarea></div>'}).join("")+'</div>'+
+   '<p class="restart"><button class="linkbtn" id="restart">Start the steps again</button></p>'+
    '<div class="next"><button class="btn" data-go="4">Next: decide →</button></div>';
+  b.innerHTML=h;
   makeTimer($("#t1"));
   $$("textarea[data-n]",b).forEach(function(t){t.oninput=function(){notes[t.dataset.n]=t.value;sset("notes_"+S.game,notes)}});
+  $("details.example",b).addEventListener("toggle",function(){sset("ex",this.open)});
+  function fb(ok,msg){var f=$("#fb");f.className="fb "+(ok?"ok":"no");f.textContent=msg}
+  function advance(){st.step++;gSet(st);setTimeout(function(){renderMeet();var q=$(".qbox",b);if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1300)}
+  $$("select[data-p]",b).forEach(function(s){s.onchange=function(){var i=s.dataset.p;st.plus[i]=s.value===""?"":+s.value;gSet(st);$("#wr"+i).textContent=s.value===""?"":"so "+(4-s.value)+" worr"+(4-s.value===1?"y":"ies")}});
+  $$("select[data-k]",b).forEach(function(s){s.onchange=function(){st.pri[s.dataset.k]=s.value;gSet(st)}});
+  var chk=$("#chk");
+  if(chk&&st.step===1)chk.onclick=function(){
+    for(var i=0;i<3;i++)if(st.plus[i]===undefined||st.plus[i]==="")return fb(false,"Choose a number for all three candidates first.");
+    var wrong=G.cands.filter(function(c,i){return st.plus[i]!==realPlus(c)}).map(function(c){return first(c.name)});
+    if(!wrong.length){fb(true,"Yes. Those are the right numbers. Now read your secret notes to each other.");advance()}
+    else fb(false,"Not yet: check "+wrong.join(" and ")+" again. Go through all four documents, two on each card. Is each one good news or a possible problem?");
+  };
+  if(chk&&st.step===2)chk.onclick=function(){
+    if(!st.pri.A||!st.pri.B)return fb(false,"Choose an answer for both bosses first.");
+    var okA=st.pri.A===G.prA.cat,okB=st.pri.B===G.prB.cat;
+    if(okA&&okB){fb(true,"Yes. Keep both in mind: a candidate who suits one boss may not suit the other.");advance()}
+    else fb(false,"Not quite: "+(!okA&&!okB?"neither answer is":!okA?"the manager’s answer isn’t":"HR’s answer isn’t")+" right yet. "+(me==="A"?(!okA?"Read your own note again. ":"")+(!okB?"Ask your partner to say their note again.":""):(!okB?"Read your own note again. ":"")+(!okA?"Ask your partner to say their note again.":"")));
+  };
+  $("#restart").onclick=function(){gSet({step:1,plus:{},pri:{}});renderMeet()};
 }
 
 /* ---------- 5 decide ---------- */

@@ -101,6 +101,30 @@ svg.pic{width:100%;height:auto;display:block;border:1px solid var(--line);border
 .tdisp.low{background:var(--warn);animation:pulse .8s infinite}
 @keyframes pulse{50%{opacity:.6}}
 
+.goal{border-left:5px solid var(--blue)}
+details.example{border-left:5px solid var(--birch2)}
+details.example summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.exintro{margin:10px 0 8px;color:var(--grey);font-size:.95rem}
+.minis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 10px}
+.minis .label{margin:0 0 4px}
+svg.mini{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:4px}
+.talk{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;font-size:1.05rem}
+.talk .who{font-weight:800;font-size:.85rem;border:2px solid var(--ink);border-radius:4px;padding:1px 8px;text-align:center}
+.talk .who.b{background:var(--ink);color:#fff}
+.rules{margin:6px 0 0;padding-left:20px}.rules li{margin:3px 0}
+.isteps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.istep{flex:1 1 170px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--white);font-size:.9rem;font-weight:600;color:var(--grey)}
+.istep .n{flex:0 0 auto;width:28px;height:28px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.istep.on{color:var(--ink);border-color:var(--blue);background:var(--blue2)}
+.istep.on .n{background:var(--blue);color:#fff;border-color:var(--blue)}
+.istep.done{color:var(--good)}
+.qbox{border:2px solid var(--blue)}
+.qbox h3{font-size:1.35rem;margin:0 0 6px}
+.qbox>p{margin:0 0 10px}
+.qbox.solved{border-color:var(--good);background:var(--good2)}
+.say{background:#f4ecdb;border-radius:4px;padding:10px 14px;margin:10px 0}
+.say .label{margin:0}.say ul{margin:4px 0 0;padding-left:18px}
+.restart{text-align:right;margin:6px 0 0}.linkbtn{background:none;border:0;color:var(--grey);text-decoration:underline;cursor:pointer;font-size:.8rem}
 .findbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:10px 0}
 .count{font-size:1.1rem;font-weight:800}
 #mine{cursor:crosshair}
@@ -540,17 +564,76 @@ function makeTimer(el){
 /* ---------- 5 find ---------- */
 function needGame(el){el.innerHTML='<div class="box"><p style="margin:0 0 10px">Deal a game first, so you both have your picture.</p><button class="btn" data-go="3">Go to the deal</button></div>'}
 function ring(x,y,n,col){return '<g><circle cx="'+x+'" cy="'+y+'" r="26" fill="none" stroke="'+col+'" stroke-width="5"/><circle cx="'+(x+22)+'" cy="'+(y-22)+'" r="11" fill="'+col+'"/><text x="'+(x+22)+'" y="'+(y-18)+'" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#fff">'+n+'</text></g>'}
+
+/* the three parts of the room */
+var AREAS=[
+ {name:"the left side",x0:0,x1:340,things:"the sofa, the cushions, the cat, the lamp, the picture on the wall, the ceiling light, the coffee table, the cups, the rug"},
+ {name:"the middle",x0:340,x1:600,things:"the window, the curtains, the clock, the shelf, the books, the TV, the plant, the space under the shelf"},
+ {name:"the kitchen corner",x0:600,x1:800,things:"the fridge, the worktop, the bowl of apples, the kitchen table, the chairs, the floor under the table"}
+];
+var HINT={sofa:"colours",fridge:"colours",cushions:"numbers (How many…?)",books:"numbers (How many…?)",cups:"numbers (How many…?)",chairs:"numbers (How many…?)",apples:"numbers (How many…?)",clock:"the time",lamp:"where things are",plant:"where things are",cat:"where things are",curtains:"open or closed",sky:"day or night",picture:"the picture on the wall",rug:"patterns",tv:"on or off",light:"shapes",guitar:"things that are there or not there (Is there a …?)",bag:"things that are there or not there (Is there a …?)",kettle:"things that are there or not there (Is there a …?)"};
+function areaOf(k){var x=CH[k].p[0][0];for(var i=0;i<AREAS.length;i++)if(x>=AREAS[i].x0&&x<AREAS[i].x1)return i;return 2}
+/* steps = areas, with an empty area merged into its neighbour so every step has at least one difference */
+function findSteps(){
+  var st=[[0],[1],[2]];
+  function n(s){return G.pick.filter(function(k){return s.indexOf(areaOf(k))>=0}).length}
+  var guard=0;
+  while(st.some(function(s){return n(s)===0})&&st.length>1&&guard++<5){
+    var i=st.findIndex(function(s){return n(s)===0}),j=i===0?1:i-1;
+    var m=st[Math.min(i,j)].concat(st[Math.max(i,j)]).sort();st.splice(Math.min(i,j),2,m);
+  }
+  return st.map(function(s){
+    var names=s.map(function(a){return AREAS[a].name});
+    return {areas:s,keys:G.pick.filter(function(k){return s.indexOf(areaOf(k))>=0}),
+      title:names.length===3?"the whole room":names.join(" and "),
+      x0:AREAS[s[0]].x0,x1:AREAS[s[s.length-1]].x1,
+      things:s.map(function(a){return AREAS[a].things}).join(", ")};
+  });
+}
+function nearestDiff(c){var best=null,bd=1e9;G.pick.forEach(function(j){CH[j].p.forEach(function(p){var d=Math.hypot(c[0]-p[0],c[1]-p[1]);if(d<bd){bd=d;best=j}})});return bd<48?best:null}
+function practiceShelf(books){
+  var o='<svg class="mini" viewBox="0 0 240 150" aria-hidden="true"><rect width="240" height="150" fill="#efe9dc"/><rect y="118" width="240" height="32" fill="#e6d5b0"/>'+
+   '<rect x="30" y="86" width="150" height="8" fill="#d9c391" stroke="#1e1e1c" stroke-width="2.5"/>';
+  var cols=["#1d4f91","#b3412e","#4f7a5a"];
+  for(var i=0;i<books;i++)o+='<rect x="'+(44+i*18)+'" y="50" width="14" height="36" fill="'+cols[i]+'" stroke="#1e1e1c" stroke-width="2"/>';
+  o+='<line x1="160" y1="86" x2="160" y2="52" stroke="#1e1e1c" stroke-width="3"/><path d="M146 52h28l-6 -16h-16z" fill="#fff" stroke="#1e1e1c" stroke-width="2.5"/>';
+  return o+'</svg>';
+}
 function renderFind(){
   var b=$("#findBody");if(!G)return needGame(b);
   var st=S.role==="A"?G.A:G.B,clicks=sget(clicksKey())||[];
-  b.innerHTML='<div class="box blue"><p style="margin:0 0 8px"><b>Don’t show your picture.</b> Take turns. Say one thing, then ask one question.</p><p class="hint" style="margin:0 0 8px;color:var(--ink)">“In my picture, there are two cups. How many cups are there in your picture?”</p><div class="timer" id="t1"></div></div>'+
+  var steps=findSteps(),sk="fstep_"+S.game+"_"+S.role,cur=Math.min(sget(sk)||0,steps.length),exOpen=sget("ex5")!==false;
+  var h='<div class="box goal"><p style="margin:0;font-size:1.15rem"><b>Your pictures are almost the same. Find 8 differences by talking.</b></p></div>';
+  h+='<details class="box example"'+(exOpen?' open':'')+'><summary>How to play: a practice example</summary>'+
+   '<p class="exintro">This is only practice. Your real picture is further down.</p>'+
+   '<div class="minis"><div><p class="label">Card A sees</p>'+practiceShelf(3)+'</div><div><p class="label">Card B sees</p>'+practiceShelf(2)+'</div></div>'+
+   '<div class="talk"><span class="who">A</span><span>“In my picture there are three books.”</span><span class="who b">B</span><span>“In my picture there are two books!”</span></div>'+
+   '<p class="exintro" style="color:var(--ink);font-size:1rem">That’s a difference. <b>Both</b> click on the books in your own picture.</p>'+
+   '<ul class="rules"><li>Never show your screen.</li><li>Take turns.</li><li>One person says one thing. The other person answers.</li></ul></details>';
+  h+='<div class="isteps">'+steps.map(function(s,i){var c=i<cur?' done':i===cur?' on':'';return '<div class="istep'+c+'"><span class="n">'+(i<cur?'✓':i+1)+'</span>'+cap1(s.title)+'</div>'}).join("")+'</div>';
+  if(cur<steps.length){
+    var s=steps[cur],n=s.keys.length;
+    h+='<div class="box qbox"><p class="label">Step '+(cur+1)+' of '+steps.length+' · Now</p><h3>Look at '+s.title+'.</h3>'+
+     '<p>There '+(n===1?'is <b>1 difference</b>':'are <b>'+n+' differences</b>')+' here. The blue box on your picture shows where to look.</p>'+
+     '<p class="hint" style="color:var(--ink)">In this part: '+esc(s.things)+'.</p>'+
+     '<div class="say"><p class="label">Things you can say</p><ul><li>“In my picture, there is a …” / “There are two …”</li><li>“How many … are there?”</li><li>“What colour is the …?”</li><li>“Where is the …?”</li><li>“Is there a … in your picture?”</li></ul></div>'+
+     '<p style="margin:10px 0 8px">When you both think you have found '+(n===1?'it':'all '+n)+', click '+(n===1?'it':'them')+' on your picture. Then press <b>Check</b>.</p>'+
+     '<button class="btn" id="fchk">Check</button><div class="fb" id="sfb"></div></div>';
+  }else{
+    h+='<div class="box qbox solved"><p class="label">All steps done</p><h3>You found all 8 differences.</h3><p style="margin:0 0 10px">Now put the two pictures together and see them side by side.</p><button class="btn" data-go="5">Next: put the halves together →</button></div>';
+  }
+  h+='<div class="box blue" style="margin-top:4px"><div class="timer" id="t1"></div></div>'+
    '<div class="findbar"><span class="count" id="count"></span><span class="hint" style="margin:0">Found one? Click it on your picture.</span><span style="flex:1"></span><button class="btn small ghost" id="undo">Undo</button><button class="btn small ghost" id="clear">Clear all</button></div>'+
-   '<svg class="pic" id="mine" viewBox="0 0 800 500" role="img" aria-label="Your picture of the flat">'+scene(st)+'<g id="marks"></g></svg>'+
+   '<svg class="pic" id="mine" viewBox="0 0 800 500" role="img" aria-label="Your picture of the flat">'+scene(st)+'<g id="zone"></g><g id="marks"></g></svg>'+
    '<div class="fb" id="ffb"></div>'+
    '<div class="box" style="margin-top:16px"><p class="label">Write the differences</p><textarea id="fnotes" placeholder="1. In my picture … In my partner’s picture …"></textarea></div>'+
+   '<p class="restart"><button class="linkbtn" id="frestart">Start the steps again</button></p>'+
    '<div class="next"><button class="btn" data-go="5">Next: put the halves together →</button></div>';
+  b.innerHTML=h;
   makeTimer($("#t1"));
+  $("details.example",b).addEventListener("toggle",function(){sset("ex5",this.open)});
   var svg=$("#mine"),marks=$("#marks");
+  if(cur<steps.length){var z=steps[cur];$("#zone").innerHTML='<rect x="'+(z.x0+4)+'" y="4" width="'+(z.x1-z.x0-8)+'" height="492" fill="rgba(29,79,145,.07)" stroke="#1d4f91" stroke-width="4" stroke-dasharray="14 9" rx="6"/>'}
   function draw(){marks.innerHTML=clicks.map(function(c,i){return ring(c[0],c[1],i+1,"#1d4f91")}).join("");$("#count").textContent="Circles: "+clicks.length+" / 8";sset(clicksKey(),clicks)}
   svg.addEventListener("click",function(e){
     var fb=$("#ffb");
@@ -561,8 +644,25 @@ function renderFind(){
   $("#undo").onclick=function(){clicks.pop();$("#ffb").className="fb";draw()};
   $("#clear").onclick=function(){clicks=[];$("#ffb").className="fb";draw()};
   var nk="notes_"+S.game+"_"+S.role,nt=$("#fnotes");nt.value=sget(nk)||"";nt.oninput=function(){sset(nk,nt.value)};
+  $("#frestart").onclick=function(){sset(sk,0);renderFind()};
+  var chk=$("#fchk");
+  if(chk)chk.onclick=function(){
+    var s=steps[cur],fb=$("#sfb");
+    var inZone=clicks.filter(function(c){return c[0]>=s.x0&&c[0]<s.x1});
+    var got=s.keys.filter(function(k){return inZone.some(function(c){return nearestDiff(c)===k})});
+    var extra=inZone.filter(function(c){return !nearestDiff(c)}).length;
+    if(got.length===s.keys.length){
+      fb.className="fb ok";fb.textContent="Yes! You found "+(got.length===1?"it":"all "+got.length)+"."+(extra?" ("+(extra===1?"One of your circles here is":extra+" of your circles here are")+" not a difference. Press Undo if you like.)":"")+(cur+1<steps.length?" Now the next part.":"");
+      sset(sk,cur+1);setTimeout(function(){renderFind();var q=$("#findBody .qbox");if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1400);
+    }else{
+      var miss=s.keys.filter(function(k){return got.indexOf(k)<0}),hint=HINT[miss[0]]||"colours";
+      fb.className="fb no";
+      fb.textContent=(inZone.length===0?"There are no circles in the blue box yet. ":"You found "+got.length+" of "+s.keys.length+" here. ")+(extra?(extra===1?"One of your circles is":extra+" of your circles are")+" not a difference. ":"")+"Ask about "+hint+".";
+    }
+  };
   draw();
 }
+function cap1(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 
 /* ---------- 6 compare ---------- */
 function found(k,clicks){return clicks.some(function(c){var best=null,bd=1e9;G.pick.forEach(function(j){CH[j].p.forEach(function(p){var d=Math.hypot(c[0]-p[0],c[1]-p[1]);if(d<bd){bd=d;best=j}})});return best===k&&bd<48})}

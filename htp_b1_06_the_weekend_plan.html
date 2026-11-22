@@ -169,6 +169,31 @@ ul.info li:first-child{border-top:0}
 
 @media (max-width:768px){html{font-size:18px}.big-n{width:42px;height:42px;font-size:1.1rem}#top h1{font-size:1.4rem}.digit{width:36px;height:48px;font-size:1.6rem}.why td:first-child{white-space:normal}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation-duration:.01s!important}}
+.goal{font-size:1.15rem;font-weight:600;margin:0 0 14px}
+details.example{border-left:5px solid var(--birch2)}
+details.example summary{cursor:pointer;font-weight:700}
+.exintro{margin:10px 0 6px;color:var(--grey);font-size:.9rem}
+.exstep{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.exstep .n,.istep .n{flex:0 0 auto;width:28px;height:28px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:800}
+.isteps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.istep{flex:1 1 170px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--white);font-size:.85rem;font-weight:600;color:var(--grey)}
+.istep.on{color:var(--ink);border-color:var(--blue);background:var(--blue2)}
+.istep.on .n{background:var(--blue);color:#fff;border-color:var(--blue)}
+.istep.done{color:var(--good)}
+.qbox{border:2px solid var(--blue)}
+.qbox h3{font-size:1.3rem;margin:0 0 6px}
+.qbox>p{margin:0 0 10px}
+.qbox.solved{border-color:var(--good);background:var(--good2)}
+.say{background:#f4ecdb;border-radius:4px;padding:10px 14px;margin:10px 0}
+.say .label{margin:0}.say ul{margin:4px 0 0;padding-left:18px}
+.spick{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin:8px 0 12px}
+.sday{display:flex;flex-direction:column;gap:6px}
+.sday>b{font-size:.9rem}
+.sbtn{display:flex;justify-content:space-between;align-items:center;background:var(--white);border:1px solid var(--ink);border-radius:4px;padding:8px 12px;font-weight:700;cursor:pointer;text-align:left}
+.sbtn span{font-weight:400;font-size:.8rem;color:var(--grey)}
+.sbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}.sbtn.on span{color:#dfe8f5}
+.sbtn.dis{opacity:.35;cursor:default;text-decoration:line-through}
+.restart{text-align:right;margin:0 0 6px}.linkbtn{background:none;border:0;color:var(--grey);text-decoration:underline;cursor:pointer;font-size:.8rem}
 </style>
 </head>
 <body>
@@ -651,6 +676,88 @@ function flip(root){
 }
 const RULE='<div class="box blue"><p class="label" style="color:var(--blue)">The plan</p><p style="margin:0 0 6px">Meet in '+CITY+' on Saturday or Sunday. Do <b>one</b> thing together, then eat. Everything happens in the <b>same part of the day</b>:</p><p style="margin:0 0 6px"><b>Morning</b> 10:00–13:00 · <b>Afternoon</b> 14:00–17:00 · <b>Evening</b> 18:00–21:00</p><p style="margin:0">You both need a train that arrives before it starts and a train home after it ends. There is only <b>one</b> plan that works.</p></div>';
 
+/* ---------- guided steps ---------- */
+function freeBoth(g,ds){return !g.busy[0][ds]&&!g.busy[1][ds]}
+function setOf(fn){return SLOTS.filter(ds=>fn(G,ds))}
+function gsGet(){const v=sget("gs_"+S.game);return v&&v.step?v:{step:1,s1:[],s2:[],s3:{}}}
+function gsSet(v){sset("gs_"+S.game,v)}
+function sayBox(list){return '<div class="say"><p class="label">Things you can say</p><ul>'+list.map(s=>'<li>'+s+'</li>').join("")+'</ul></div>'}
+function slotPicker(chosen,allowed){
+  return '<div class="spick">'+[0,1].map(d=>'<div class="sday"><b>'+DAYS[d]+'</b>'+[0,1,2].map(p=>{const ds=d*3+p,dis=allowed&&allowed.indexOf(ds)<0;
+    return '<button class="sbtn'+(chosen.indexOf(ds)>=0?' on':'')+(dis?' dis':'')+'" data-ds="'+ds+'"'+(dis?' disabled':'')+'>'+PARTS[p].n+'<span>'+PARTS[p].s+'–'+PARTS[p].e+'</span></button>'}).join("")+'</div>').join("")+'</div>';
+}
+const EXAMPLE='<details class="box example" open><summary>How to play: a practice example</summary>'+
+ '<p class="exintro">This practice example has made-up times. Your real information is further down.</p>'+
+ '<div class="exstep"><span class="n">1</span><div><b>When are you both free?</b> A: “On Sunday morning I’m playing tennis, but I’m free on Saturday afternoon.” B: “I’m free on Saturday afternoon too.” So Saturday afternoon is possible.</div></div>'+
+ '<div class="exstep"><span class="n">2</span><div><b>Can you both get there and home?</b> Card B has the trains. B: “Your first train arrives at 13:25 and the last train home is at 17:50. The afternoon is 14:00 to 17:00.” So the trains work for Saturday afternoon.</div></div>'+
+ '<div class="exstep"><span class="n">3</span><div><b>What can you do, and where can you eat?</b> A: “There’s a film at 14:45, and the Riverside Café is open.” B: “It’s raining on Saturday afternoon, so not the boat trip.” So: <b>Saturday afternoon, the film, then the Riverside Café.</b></div></div>'+
+ '<p class="exintro" style="margin-top:8px">Don’t show your screen. Say what’s on your card, and ask about your friend’s.</p></details>';
+
+function guideHTML(){
+  const g=G,st=gsGet(),me=S.role==="A"?0:1;
+  const titles=["When are you both free?","Can you both get there?","What can you do and eat?"];
+  let h='<div class="isteps">'+titles.map((t,i)=>{const n=i+1,c=n<st.step?' done':n===st.step?' on':'';return '<div class="istep'+c+'"><span class="n">'+(n<st.step?'✓':n)+'</span>'+t+'</div>'}).join("")+'</div>';
+  if(st.step===1){
+    h+='<div class="box qbox"><p class="label">Step 1 of 3 · Now</p><h3>When are you both free?</h3>'+
+     '<p>There are six times: morning, afternoon and evening, on Saturday and Sunday. Your diary is below; your friend has a different diary. Tell each other when you’re busy, then choose <b>every</b> time when you’re <b>both</b> free.</p>'+
+     sayBox(['“On Saturday morning I’m going to the dentist.”','“Are you free on Sunday afternoon?”','“I’m busy then. I’m visiting my grandad.”'])+
+     slotPicker(st.s1,null)+'<button class="btn" id="gchk">Check</button><div class="fb" id="gfb"></div></div>';
+  }else if(st.step===2){
+    h+='<div class="box qbox"><p class="label">Step 2 of 3 · Now</p><h3>Can you both get there and home by train?</h3>'+
+     '<p>You’re both free at the times below. Now check the trains. '+(me===1?'<b>You have the train times for both of you.</b> Read them out.':'<b>Your friend has the train times.</b> Ask about them.')+' A time only works if your first train <b>arrives before it starts</b> and your last train home <b>leaves after it ends</b>.</p>'+
+     '<p class="small" style="margin:0 0 8px"><b>Morning</b> 10:00–13:00 · <b>Afternoon</b> 14:00–17:00 · <b>Evening</b> 18:00–21:00</p>'+
+     sayBox(['“What time does my first train arrive on Saturday?”','“When does the last train back to '+esc(G.towns[me])+' leave?”','“That’s too late for the morning.” / “That works.”'])+
+     '<p style="margin:10px 0 6px">Choose the times when the trains work for <b>both</b> of you.</p>'+
+     slotPicker(st.s2,st.s1)+'<button class="btn" id="gchk">Check</button><div class="fb" id="gfb"></div></div>';
+  }else if(st.step===3){
+    const ok=setOf(personOK);
+    h+='<div class="box qbox"><p class="label">Step 3 of 3 · Now</p><h3>What can you do, and where can you eat?</h3>'+
+     '<p>Only these times work for both of you: <b>'+ok.map(dsName).join("</b> and <b>")+'</b>. Now find something that is <b>on</b> at that time, and a place to eat that is <b>open</b> and <b>not fully booked</b>. Check the weather too: outdoor things are no good in the rain. There is only one plan that works.</p>'+
+     sayBox(['“What’s on on Sunday evening?”','“Is it going to rain on Saturday afternoon?”','“How about the film, and then pizza?”','“That doesn’t work for me: it’s fully booked.”'])+
+     '<div class="pgrid"><label>When<select id="g3w"><option value="">Choose…</option>'+ok.map(ds=>'<option value="'+ds+'"'+(st.s3.w===ds?' selected':'')+'>'+dsName(ds)+'</option>').join("")+'</select></label>'+
+     '<label>Thing to do<select id="g3a"><option value="">Choose…</option>'+ACTS.map((a,k)=>'<option value="'+k+'"'+(st.s3.a===k?' selected':'')+'>'+esc(a.short)+'</option>').join("")+'</select></label>'+
+     '<label>Place to eat<select id="g3f"><option value="">Choose…</option>'+G.foods.map((f,k)=>'<option value="'+k+'"'+(st.s3.f===k?' selected':'')+'>'+esc(f.name)+'</option>').join("")+'</select></label></div>'+
+     '<button class="btn" id="gchk">Check</button><div class="fb" id="gfb"></div></div>';
+  }else{
+    h+='<div class="box qbox solved"><p class="label">Plan found</p><h3>'+esc(planText(G,G.answer))+'.</h3><p style="margin:0">It’s saved in “Our plan” below. Now say the whole plan to each other in full sentences: “So we’re meeting on … We’re going to …”</p></div>';
+  }
+  h+='<p class="restart"><button class="linkbtn" id="grestart">Start the three steps again</button></p>';
+  return h;
+}
+function wireGuide(root){
+  const st=gsGet();
+  const fb=(ok,m)=>{const f=$("#gfb");f.className="fb "+(ok?"ok":"no");f.textContent=m};
+  const advance=()=>{st.step++;gsSet(st);setTimeout(()=>{renderPlan();const q=$("#planBody .qbox");if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1300)};
+  $$(".sbtn",root).forEach(btn=>btn.onclick=()=>{const ds=+btn.dataset.ds,arr=st.step===1?st.s1:st.s2,i=arr.indexOf(ds);if(i<0)arr.push(ds);else arr.splice(i,1);btn.classList.toggle("on",i<0);gsSet(st)});
+  const same=(a,b)=>a.length===b.length&&a.every(x=>b.indexOf(x)>=0);
+  const chk=$("#gchk");
+  if(chk&&st.step===1)chk.onclick=()=>{
+    const want=setOf(freeBoth),got=st.s1;
+    if(!got.length)return fb(false,"Choose the times when you’re both free first.");
+    if(same(got,want)){fb(true,"Yes. You’re both free "+want.length+" times: "+want.map(dsName).join(", ")+".");advance()}
+    else if(got.some(ds=>want.indexOf(ds)<0))fb(false,"Not quite. One of the times you chose is busy in one of your diaries. Tell each other every busy time again.");
+    else fb(false,"Nearly. There "+(want.length===1?"is":"are")+" "+want.length+" times when you’re both free. You’ve found "+got.length+". Look at your diaries again.");
+  };
+  if(chk&&st.step===2)chk.onclick=()=>{
+    const want=setOf(personOK),got=st.s2.filter(ds=>st.s1.indexOf(ds)>=0);
+    if(!got.length)return fb(false,"Choose the times when the trains work for both of you.");
+    if(same(got,want)){fb(true,want.length===st.s1.length?"Yes. The trains work at all of those times, so they all stay on the list.":"Yes. The trains only work at "+want.length+" times: "+want.map(dsName).join(" and ")+".");advance()}
+    else if(got.some(ds=>want.indexOf(ds)<0))fb(false,"Not quite. At one of those times, a first train arrives too late or a last train home leaves too early. Check both people’s trains.");
+    else fb(false,"Nearly. The trains work at "+want.length+" times. You’ve found "+got.length+".");
+  };
+  if(chk&&st.step===3)chk.onclick=()=>{
+    const w=$("#g3w").value,a=$("#g3a").value,f=$("#g3f").value;
+    if(w===""||a===""||f==="")return fb(false,"Choose all three: when, the thing to do and the place to eat.");
+    st.s3={w:+w,a:+a,f:+f};gsSet(st);
+    if(fullOK(G,+w,+a,+f)){fb(true,"Yes! That’s the one plan that works.");sset("plan_"+S.game,[+w,+a,+f]);advance();return}
+    const aBad=!actOK(G,+w,+a),fBad=!foodOK(G,+w,+f);
+    if(aBad&&fBad)fb(false,"Not quite. Neither the thing to do nor the place to eat works at that time. Is it on? Is it open or fully booked? Is it outdoors in the rain?");
+    else if(aBad)fb(false,"The place to eat works, but the thing to do doesn’t. Is it on at that time? Is it outdoors, and is it raining?");
+    else fb(false,"The thing to do works, but the place to eat doesn’t. Is it open then? Is it fully booked? Does it only have outdoor tables in the rain?");
+  };
+  $("#grestart").onclick=()=>{gsSet({step:1,s1:[],s2:[],s3:{}});renderPlan()};
+}
+
 /* ---------- 4 plan ---------- */
 function needGame(el){el.innerHTML='<div class="box"><p style="margin:0 0 10px">Deal a game first, so you both have your information.</p><button class="btn" data-go="2">Go to the deal</button></div>'}
 function renderPlan(){
@@ -659,8 +766,8 @@ function renderPlan(){
   const notes=sget("notes_"+S.game)||"";
   const plan=sget("plan_"+S.game);
   const sel=(id,opts,v)=>'<select id="'+id+'"><option value="">Choose…</option>'+opts.map((o,k)=>'<option value="'+k+'"'+(v===k?' selected':'')+'>'+esc(o)+'</option>').join("")+'</select>';
-  b.innerHTML=RULE+
-   '<p class="lead" style="margin:0 0 14px">You live in <b>'+esc(G.towns[i])+'</b>. Your friend lives in <b>'+esc(G.towns[1-i])+'</b>. You’re meeting in '+CITY+'.</p>'+
+  b.innerHTML='<p class="goal">You want to meet this weekend. Find the <b>one plan</b> that works for both of you.</p>'+EXAMPLE+RULE+guideHTML()+
+   '<p class="lead" style="margin:14px 0 14px">You live in <b>'+esc(G.towns[i])+'</b>. Your friend lives in <b>'+esc(G.towns[1-i])+'</b>. You’re meeting in '+CITY+'.</p>'+
    (function(){const c=cardParts(G,S.role,false);return '<div class="cardgrid"><div>'+c[0]+'</div><div>'+c[1]+'</div></div>'})()+
    '<div class="box birch"><p style="margin:0 0 8px"><b>Talk, don’t show.</b> 1. Tell your friend when you’re busy, in full sentences: “On Saturday morning I’m going to the dentist.” 2. Share what’s on, the trains and the weather. 3. Agree on one plan.</p><div class="timer" id="t1"></div>'+
    '<p class="label" style="margin-top:12px">Notes as you listen</p><textarea id="notes">'+esc(notes)+'</textarea></div>'+
@@ -669,7 +776,8 @@ function renderPlan(){
    '<label>Thing to do'+sel("pAct",ACTS.map(a=>a.short),plan?plan[1]:null)+'</label><label>Place to eat'+sel("pFood",G.foods.map(f=>f.name),plan?plan[2]:null)+'</label></div>'+
    '<button class="btn" id="savePlan">Save our plan</button><div class="fb" id="planFb"></div></div>'+
    '<div class="next"><button class="btn" data-go="4">Next: put the halves together →</button></div>';
-  makeTimer($("#t1"));flip(b);
+  makeTimer($("#t1"));flip(b);wireGuide(b);
+  const ex=$("details.example",b);if(ex){if(sget("ex")===false)ex.open=false;ex.addEventListener("toggle",()=>sset("ex",ex.open))}
   $("#notes").oninput=e=>sset("notes_"+S.game,e.target.value);
   $("#savePlan").onclick=()=>{
     const v=["pDay","pPart","pAct","pFood"].map(id=>$("#"+id).value),fb=$("#planFb");

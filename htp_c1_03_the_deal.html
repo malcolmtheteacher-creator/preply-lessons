@@ -161,6 +161,31 @@ textarea:focus,input:focus{outline:2px solid var(--blue);outline-offset:1px}
 
 @media (max-width:768px){html{font-size:17px}.big-n{width:42px;height:42px;font-size:1.1rem}#top h1{font-size:1.4rem}.digit{width:36px;height:48px;font-size:1.6rem}.icard{width:60px;margin-left:-30px;font-size:.5rem}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation-duration:.01s!important}}
+.goal{border-left:5px solid var(--blue)}
+details.example{border-left:5px solid var(--birch2)}
+details.example summary{cursor:pointer;font-weight:700}
+.exintro{margin:10px 0 6px;color:var(--grey);font-size:.9rem}
+.exstep{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.exstep .n,.istep .n{flex:0 0 auto;width:28px;height:28px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:800}
+.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:8px 0}
+.minibox{background:#faf8f3;border:1px dashed var(--blue);border-radius:4px;padding:8px 10px}
+.mini{border-collapse:collapse;width:100%;font-size:.82rem}.mini .mp{display:block;font-weight:700;color:var(--grey)}.mini .mp.big{color:var(--blue)}.mini th{text-align:left;padding:3px 6px 3px 0}.mini td{padding:3px 6px;border-left:1px solid var(--line)}
+.isteps{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.istep{flex:1 1 170px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--white);font-size:.85rem;font-weight:600;color:var(--grey)}
+.istep.on{color:var(--ink);border-color:var(--blue);background:var(--blue2)}
+.istep.on .n{background:var(--blue);color:#fff;border-color:var(--blue)}
+.istep.done{color:var(--good)}
+.qbox{border:2px solid var(--blue)}
+.qbox h3{font-size:1.3rem;margin:0 0 6px}
+.qbox>p{margin:0 0 10px}
+.qbox.solved{border-color:var(--good);background:var(--good2)}
+.say{background:#f4ecdb;border-radius:4px;padding:10px 14px;margin:10px 0}
+.say .label{margin:0}.say ul{margin:4px 0 0;padding-left:18px}
+.ans{font-size:1.05rem;font-weight:600;margin:12px 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ans input{width:4.5em;font:inherit;padding:4px 8px;border:1px solid var(--ink);border-radius:4px;text-align:center}
+.opts2{display:flex;gap:8px;flex-wrap:wrap}
+.opts2 .btn.chosen{background:var(--ink);color:#fff}
+.restart{text-align:right;margin:0}.linkbtn{background:none;border:0;color:var(--grey);text-decoration:underline;cursor:pointer;font-size:.8rem}
 </style>
 </head>
 <body>
@@ -564,6 +589,91 @@ function makeTimer(el){
     left=+b.dataset.s;show();id=setInterval(function(){left--;if(left<=0){left=0;clearInterval(id)}show()},1000)});
 }
 
+/* ---------- guided steps ---------- */
+function gsGet(){var v=sget("gs_"+S.game);return v&&v.step?v:{step:1}}
+function gsSet(v){sset("gs_"+S.game,v)}
+function topIssue(side){var w=side==="A"?G.wA:G.wB;return w.indexOf(Math.max.apply(null,w))}
+function iname(i){var n=G.sc.issues[i].n,l=n.charAt(0).toLowerCase()+n.slice(1);return /^(The|A) /.test(n)||/^(Selling|How) /.test(n)?l:"the "+l}
+function capf(x){return x.charAt(0).toUpperCase()+x.slice(1)}
+function sayBox(list){return '<div class="say"><p class="label">Things you can say</p><ul>'+list.map(function(s){return '<li>'+s+'</li>'}).join("")+'</ul></div>'}
+function tracker(st){
+  var t=["What matters most to you?","What matters most to your partner?","Trade and agree"];
+  return '<div class="isteps">'+t.map(function(x,i){var n=i+1,c=n<st?' done':n===st?' on':'';return '<div class="istep'+c+'"><span class="n">'+(n<st?'✓':n)+'</span>'+x+'</div>'}).join("")+'</div>';
+}
+function goalBox(){return '<div class="box goal"><p class="label">Your goal</p><p style="margin:0">Get the best deal you can for your side. You each care about different things, so you <b>both</b> do better by trading: give way on what matters little to you, and win what matters most.</p></div>'}
+function exampleBox(){
+  var open=sget("ex")!==false;
+  function o(t,p,big){return t+'<span class="mp'+(big?' big':'')+'">'+p+' pts</span>'}
+  function mini(title,rows){return '<div class="minibox"><p class="label">'+title+'</p><table class="mini">'+rows.map(function(r){return '<tr><th>'+r[0]+'</th>'+r.slice(1).map(function(c){return '<td>'+c+'</td>'}).join("")+'</tr>'}).join("")+'</table></div>'}
+  return '<details class="box example"'+(open?' open':'')+'><summary>How to play: a practice example</summary>'+
+   '<p class="exintro">A made-up mini deal with only two issues, so you can see how it works. Your real brief is further down.</p>'+
+   '<p class="exintro" style="color:var(--ink)"><b>Points</b> show what each option is worth to you. Your partner’s points are different, and you can’t see them. <b>Walk-away</b> is your limit: if the final deal adds up to less, you’d do better with no deal.</p>'+
+   '<p class="exintro" style="color:var(--ink)">Someone wants to rent a market stall. Card A is the stall holder; Card B is the market manager.</p>'+
+   '<div class="minis">'+mini("Card A’s points (secret)",[["Rent",o("£100","20",1),o("£200","10"),o("£300","0")],["Start",o("This week","0"),o("Next month","5"),""]])+
+    mini("Card B’s points (secret)",[["Rent",o("£100","0"),o("£200","3"),o("£300","6")],["Start",o("This week","20",1),o("Next month","0"),""]])+'</div>'+
+   '<div class="exstep"><span class="n">1</span><div><b>What matters most to you?</b> Card A’s biggest number is on <b>rent</b> (20 points for £100). The start date is worth only 5.</div></div>'+
+   '<div class="exstep"><span class="n">2</span><div><b>What matters most to your partner?</b> Card A asks, “What’s most important to you?” Card B says, “We really need someone to start <b>this week</b>.” Nobody says a number.</div></div>'+
+   '<div class="exstep"><span class="n">3</span><div><b>Trade.</b> Card A says: “If you can agree to £100 rent, we could start this week.”<br>Splitting the difference (£200, next month) would give A <b>15</b> and B <b>3</b>. The trade gives A <b>20</b> and B <b>20</b>. Both scores go up, because each side got what it cared about most.</div></div>'+
+   '</details>';
+}
+function issueBtns(cls,chosen){return '<div class="opts2">'+G.sc.issues.map(function(is,i){return '<button class="btn ghost '+cls+(chosen===i?' chosen':'')+'" data-i="'+i+'">'+esc(is.s)+'</button>'}).join("")+'</div>'}
+function guideFb(ok,msg){var f=$("#gfb");f.className="fb "+(ok?"ok":"no");f.textContent=msg}
+function prepGuide(){
+  var st=gsGet(),me=S.role;
+  var h=goalBox()+exampleBox()+tracker(st.step);
+  if(st.step===1){
+    h+='<div class="box qbox"><p class="label">Step 1 of 3 · Now</p><h3>Which issue is worth the most points to you?</h3>'+
+     '<p>Look at your points table just below. The issue with the biggest numbers is the one to fight for; the issues with small numbers are the ones you can give away.</p>'+
+     issueBtns("pick1",null)+
+     '<div class="ans">And your walk-away score is <input id="wk" inputmode="numeric" maxlength="3" aria-label="Your walk-away score"> points.</div>'+
+     '<button class="btn" id="gchk">Check</button><div class="fb" id="gfb"></div></div>';
+  }else if(st.step===2){
+    h+='<div class="box qbox"><p class="label">Step 2 of 3 · Now</p><h3>Which issue matters most to your partner?</h3>'+
+     '<p>You can’t see their points, so ask. Don’t say numbers: talk about what matters and why. Listen for the thing they keep coming back to, or would find hardest to give up.</p>'+
+     sayBox(['“What’s most important to you in this deal?”','“Is '+esc(iname(topIssue(me)))+' the main thing for you, or is it something else?”','“For us, '+esc(iname(topIssue(me)))+' really matters.”','“What could you live without?”'])+
+     '<p style="margin:12px 0 8px"><b>Their most important issue is:</b></p>'+issueBtns("pick2",null)+
+     '<div class="fb" id="gfb"></div></div>';
+  }else{
+    h+='<div class="box qbox solved"><p class="label">Steps 1 and 2 done</p><h3>You know what to trade.</h3><p style="margin:0 0 10px">You care most about <b>'+esc(iname(topIssue(me)))+'</b>; your partner cares most about <b>'+esc(iname(topIssue(other())))+'</b>. Now go and negotiate.</p><button class="btn" data-go="4">Next: negotiate →</button></div>';
+  }
+  return h;
+}
+function bindPrepGuide(b){
+  var st=gsGet(),me=S.role,picked=null;
+  $$(".pick1",b).forEach(function(p){p.onclick=function(){picked=+p.dataset.i;$$(".pick1",b).forEach(function(q){q.classList.toggle("chosen",q===p)})}});
+  var c=$("#gchk");
+  if(c)c.onclick=function(){
+    var w=parseInt(($("#wk").value||"").trim(),10);
+    if(picked===null)return guideFb(false,"Choose an issue first.");
+    if(picked!==topIssue(me))return guideFb(false,"Not quite. In your table below, find the issue whose best option has the highest number.");
+    if(w!==G.wk[me])return guideFb(false,"The issue is right. Now check your walk-away score: it’s just under your points table.");
+    guideFb(true,"Yes. "+capf(iname(picked))+" is worth the most to you, and you need at least "+G.wk[me]+" points. Now find out what matters to your partner.");
+    st.step=2;gsSet(st);setTimeout(function(){renderPrep();var q=$(".qbox",b);if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1500);
+  };
+  $$(".pick2",b).forEach(function(p){p.onclick=function(){
+    var i=+p.dataset.i;$$(".pick2",b).forEach(function(q){q.classList.toggle("chosen",q===p)});
+    if(i===topIssue(other())){guideFb(true,"Yes. "+capf(iname(i))+" matters most to them. That’s where you can trade.");st.step=3;gsSet(st);setTimeout(function(){renderPrep();var q=$(".qbox",b);if(q)q.scrollIntoView({behavior:"smooth",block:"center"})},1500)}
+    else guideFb(false,"Not quite. Ask again: which issue would they find hardest to give up? Listen rather than guess.");
+  }});
+  var ex=$("details.example",b);if(ex)ex.addEventListener("toggle",function(){sset("ex",this.open)});
+  var rs=$("#grestart",b);if(rs)rs.onclick=function(){gsSet({step:1});renderPrep()};
+}
+function negGuide(){
+  var st=gsGet(),me=S.role;
+  var h=tracker(Math.max(st.step,3));
+  if(st.step<3){
+    h+='<div class="box qbox"><p class="label">Before you start</p><h3>Do steps 1 and 2 first</h3><p style="margin:0 0 10px">On <b>Your brief</b>, work out what matters most to you and to your partner. Then you’ll know what to trade.</p><button class="btn" data-go="3">Go to Your brief</button></div>';
+    return h;
+  }
+  var mine=esc(iname(topIssue(me))),theirs=esc(iname(topIssue(other()))),same=topIssue(me)===topIssue(other());
+  h+='<div class="box qbox"><p class="label">Step 3 of 3 · Now</p><h3>Trade, then agree all five issues</h3>'+
+   (same?'<p>You both care most about <b>'+mine+'</b>, so meet in the middle there, and look for a trade on the issues that come next for each of you.</p>':
+   '<p>You care most about <b>'+mine+'</b>; your partner cares most about <b>'+theirs+'</b>. So offer them what they want on '+theirs+', and ask for what you want on '+mine+'. Then go through the other issues one by one.</p>')+
+   sayBox(['“If you can agree to … on '+mine+', we could accept … on '+(same?'…':theirs)+'.”','“I’m afraid that’s a bit beyond what we can do. How about …?”','“That’s a deal-breaker for us.”','“So, to sum up: …”'])+
+   '<p style="margin:10px 0 8px">Click each option as you agree it and watch your total: it must stay above your walk-away. Don’t tell each other your points or show your screen. When all five are agreed, both select the same options and press <b>Shake hands</b>.</p><div class="timer" id="t1"></div></div>';
+  return h;
+}
+
 /* ---------- 4 brief ---------- */
 function needGame(el){el.innerHTML='<div class="box"><p style="margin:0 0 10px">Deal a game first, so you both have your briefs.</p><button class="btn" data-go="2">Go to the deal</button></div>'}
 function optList(i,side,selected,clickable){
@@ -573,7 +683,7 @@ function optList(i,side,selected,clickable){
 function renderPrep(){
   var b=$("#prepBody");if(!G)return needGame(b);
   var me=S.role,plan=sget("plan_"+S.game)||"";
-  b.innerHTML='<div class="grid">'+
+  b.innerHTML=prepGuide()+'<div class="grid">'+
    '<div class="box"><p class="label">The negotiation</p><h3 style="font-size:1.2rem">'+esc(G.sc.title)+'</h3><p style="margin:0"><b>Card A:</b> '+esc(G.sc.A.role.toLowerCase())+'. <b>Card B:</b> '+esc(G.sc.B.role.toLowerCase())+'.</p></div>'+
    '<div class="box secret"><p class="label" style="color:var(--blue)">Only you can see this</p><h3>You are '+esc(G.sc[me].role.toLowerCase())+'</h3><p style="margin:0">'+esc(G.sc[me].sit)+'</p></div></div>'+
    '<div class="box"><p class="label">What each option is worth to you (points)</p><div class="brief-table">'+
@@ -581,7 +691,9 @@ function renderPrep(){
    '</div><p class="walk" style="margin:10px 0 0">Your walk-away score: <b>'+G.wk[me]+'</b> points. If the final deal is worth less than this, you’re better off with no deal.</p></div>'+
    '<div class="box blue"><p class="label">Plan before you speak</p><ol class="qs"><li>Which two issues matter most to you? Which hardly matter?</li><li>What could you give away cheaply, and what will you ask for in return?</li><li>What will you say first? Remember: the other side’s points are different from yours, and you don’t know how.</li></ol>'+
    '<textarea id="plan" placeholder="Your plan: what to push for, what to trade" style="margin-top:8px">'+esc(plan)+'</textarea><div class="timer" id="t0" style="margin-top:8px"></div></div>'+
-   '<div class="next"><button class="btn" data-go="4">Next: negotiate →</button></div>';
+   '<div class="next"><button class="btn" data-go="4">Next: negotiate →</button></div>'+
+   '<p class="restart"><button class="linkbtn" id="grestart">Start the steps again</button></p>';
+  bindPrepGuide(b);
   $("#plan").oninput=function(){sset("plan_"+S.game,this.value)};
   makeTimer($("#t0"));
 }
@@ -590,14 +702,14 @@ function renderPrep(){
 function renderNeg(){
   var b=$("#negBody");if(!G)return needGame(b);
   var me=S.role,s=sel(),out=outcome();
-  b.innerHTML='<div class="box blue"><p style="margin:0 0 8px"><b>Make offers out loud and trade.</b> Don’t tell each other your points, and don’t show your screen. As you go, click the options you’re discussing to see what they’re worth to you. When you both agree on all five issues, select the same options and both press <b>Shake hands</b>.</p><div class="timer" id="t1"></div></div>'+
+  b.innerHTML=negGuide()+
    '<div class="totalbar"><span>Your total: <b id="tot">0</b></span><span>Walk-away: <b>'+G.wk[me]+'</b></span><span class="st" id="tst"></span></div>'+
    '<div id="board">'+G.sc.issues.map(function(is,i){return '<div class="issue"><div class="iname">'+esc(is.n)+'</div>'+optList(i,me,s[i],!out)+'</div>'}).join("")+'</div>'+
    '<div class="fb" id="negFb"></div>'+
    '<div class="row" style="margin-top:10px"><button class="btn" id="shake">Shake hands</button><button class="btn ghost" id="walkaway">Walk away with no deal</button><span style="flex:1"></span><button class="btn ghost small" id="undo" style="display:none">Reopen the negotiation</button></div>'+
    '<div class="deal-stamp" id="stamp"><span></span></div>'+
    '<div class="next"><button class="btn" data-go="5">Next: open both envelopes →</button></div>';
-  makeTimer($("#t1"));
+  if($("#t1"))makeTimer($("#t1"));
   function upd(){
     var s=sel(),t=0,all=true;G.sc.issues.forEach(function(is,i){if(s[i]===undefined||s[i]===null)all=false;else t+=G.pts[me][i][s[i]]});
     $("#tot").textContent=t;var st=$("#tst");
