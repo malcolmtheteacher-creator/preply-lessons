@@ -326,6 +326,19 @@
       <div class="p-stats"><span title="Lands held">${ICON.land}${p.lands}</span><span title="Armies on the board">${ICON.army}${p.armies}</span><span title="Cards in hand">${ICON.card}${p.cards}</span>${S.phase === 'setup' || S.phase === 'claim' ? `<span title="Armies still to place">${ICON.plus}${p.spare}</span>` : `<span title="New armies each turn">${ICON.plus}${p.income}</span>`}</div>
       ${p.bot ? '<div class="p-tag">computer</div>' : !p.on ? '<div class="p-tag">away</div>' : ''}</div></div>`).join('');
   }
+  function showSeats() {             // in the present: six empty frames, so it is plain that we play together
+    if (!SHOW || !S || S.stage !== 'game') return;
+    const g = $('#gallery'), from = (qs.get('from') || '').slice(0, 14), given = (qs.get('seats') || '').split(',').map(x => x.trim().slice(0, 14)).filter(Boolean);
+    const names = from ? [from, ...given] : given;
+    const top = innerWidth < 760 && innerHeight >= innerWidth, side = !top && innerHeight < 500;
+    document.body.classList.toggle('seats-top', top); document.body.classList.toggle('seats-side', side); document.body.classList.add('faces');
+    if (!top && !side) g.style.setProperty('--pw', Math.max(84, Math.min(158, Math.floor((((innerHeight - 170) / 6) - 30) * 4 / 3))) + 'px'); else g.style.removeProperty('--pw');
+    g.querySelector('.tiles').innerHTML = Array.from({ length: 6 }, (_, i) => `<div class="portrait empty"><div class="pf"><div class="seat"></div></div><div class="pname">${names[i] ? `<span class="seal ${cls(COLORS[i])}"></span><b>${esc(names[i])}</b>` : ''}</div></div>`).join('');
+    g.querySelector('.g-title').textContent = 'Six Places at the Table';
+    g.querySelector('.g-note').textContent = 'On the day, each of us appears here, live, while we play.';
+    g.classList.add('seats'); show('#gallery', true);
+    document.body.style.setProperty('--gh', top ? g.offsetHeight + 'px' : '0px');
+  }
   function fit() {                   // the board is as big as the space allows, whichever way the window is shaped
     const st = $('#stage'); if (!st.clientWidth) return;
     const tall = SHOW && innerWidth < 700 && innerHeight > innerWidth;      // a phone held upright: a tall board you swipe along
@@ -334,7 +347,7 @@
     if (tall && !st.dataset.set) { st.dataset.set = 1; setTimeout(() => { st.scrollLeft = w * 0.42 - st.clientWidth / 2; }, 60); }
     const b = $('#board'); b.style.setProperty('--bw', Math.floor(w) + 'px'); b.style.setProperty('--bh', Math.floor(w * MAP.H / MAP.W) + 'px');
   }
-  addEventListener('resize', () => { fit(); if (SHOW && S && S.stage === 'game') banner(); });
+  addEventListener('resize', () => { showSeats(); fit(); if (SHOW && S && S.stage === 'game') banner(); });
   function board() {
     fit();
     map.classList.toggle('tint', tint); $('#board').classList.toggle('tint', tint); $('#tintBtn').classList.toggle('on', tint);
@@ -583,7 +596,7 @@
   $('#openBox').onclick = () => {
     $('#intro').classList.add('open');
     setTimeout(() => $('#intro').classList.add('away'), 2300);
-    setTimeout(() => { introDone = true; if (SHOW) { S = showState('game'); render(); setTimeout(() => toast('Open the book, bottom right, to read the rules.'), 2600); return; } render(); if (!S.players[S.me]) $('#nameIn').focus(); }, 3200);
+    setTimeout(() => { introDone = true; if (SHOW) { S = showState('game'); render(); showSeats(); fit(); setTimeout(() => toast('Open the book, bottom right, to read the rules.'), 2600); return; } render(); if (!S.players[S.me]) $('#nameIn').focus(); }, 3200);
   };
   // if a game is already running and this Mac has no seat, offer the name box so a player can take their seat again
   listen();
