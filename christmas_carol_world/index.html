@@ -163,7 +163,8 @@ button.alt:hover{background:#efe6d2}
  #card.on,#card.right.on{transform:none}
  #card h2{font-size:1.5rem}#card .body{font-size:1.12rem}#card ul.ph li{font-size:1.02rem}
  #card .deck{grid-template-columns:1fr}#card .two{font-size:1rem}
- #typed{font-size:1.15rem;bottom:5%;width:92vw}
+ #typed{font-size:1.15rem;top:calc(8% + 52.6vw + 14px);bottom:auto;width:92vw;transition:opacity .3s}
+ #dim.on~#typed{opacity:0}
  #post{width:92vw}.slip.letter .q{font-size:1.05rem}.slip{max-height:62vh}
  .spot{width:52px;height:52px;margin:-26px 0 0 -26px}.spot.lab-l span{left:0;transform:none}.spot.lab-r span{left:auto;right:0;transform:none}.spot span{font-size:.92rem;top:-36px}
  #corner{right:8px;top:8px;gap:6px}#corner button{padding:6px 10px;font-size:.78rem}
@@ -242,8 +243,8 @@ function wait(ms){var k=tok;return new Promise(function(r){setTimeout(guard(k,r)
 function scene(src){var s=$('scene');s.classList.remove('on');var k=tok;setTimeout(function(){if(k!==tok)return;s.onload=function(){s.classList.add('on')};s.src='media/'+src;if(s.complete&&s.naturalWidth)s.classList.add('on')},450)}
 /* slow dissolve from the scene now showing to a new one (same room, another time) */
 function dissolve(src){var a=$('scene'),b=$('scene2');b.classList.remove('slow','on');b.src='media/'+src;var k=tok;
-  return new Promise(function(r){function go(){b.classList.add('slow','on');setTimeout(guard(k,function(){a.src=b.src;a.classList.add('on');setTimeout(function(){b.classList.remove('slow','on')},60);r()}),4200)}
-    if(b.complete&&b.naturalWidth)go();else b.onload=go})}
+  return new Promise(function(r){var went=false;function go(){if(went)return;went=true;b.onload=b.onerror=null;b.classList.add('slow','on');setTimeout(guard(k,function(){a.src=b.src;a.classList.add('on');setTimeout(function(){b.classList.remove('slow','on')},60);r()}),4200)}
+    if(b.complete&&b.naturalWidth)go();else{b.onload=go;b.onerror=go;setTimeout(go,4000)}})}
 
 function talk(o){var k=tok;return new Promise(function(r){var c=$('card');
   if(o.phrases)o.phrases.forEach(function(p){if(used.indexOf(p)<0)used.push(p)});
@@ -284,8 +285,8 @@ function deckTalk(DECK,right){var chosen=0;return talk({right:right,tag:'The big
 var BOARD={eve:'board_eve.jpg',past:'board_past.jpg',present:'board_present.jpg',future:'board_future.jpg',morning:'board_morning.jpg'},curBoard='eve';
 function setBoard(name,slow){if(name===curBoard)return Promise.resolve();curBoard=name;var a=$('board'),b=$('board2');b.classList.toggle('slow',!!slow);b.src='media/'+BOARD[name];
   $('fog').classList.toggle('on',name==='future');snow.mode(name);
-  return new Promise(function(r){function go(){b.classList.add('on');setTimeout(function(){a.src=b.src;setTimeout(function(){b.classList.remove('on')},80);r()},slow?3200:1500)}
-    if(b.complete&&b.naturalWidth)go();else b.onload=go})}
+  return new Promise(function(r){var went=false;function go(){if(went)return;went=true;b.onload=b.onerror=null;b.classList.add('on');setTimeout(function(){a.src=b.src;setTimeout(function(){b.classList.remove('on')},80);r()},slow?3200:1500)}
+    if(b.complete&&b.naturalWidth)go();else{b.onload=go;b.onerror=go;setTimeout(go,4000)}})}
 Object.keys(BOARD).forEach(function(k){var im=new Image();im.src='media/'+BOARD[k]});
 
 /* ---------- falling snow (no sound, very light) ---------- */
@@ -486,7 +487,8 @@ function go(i){tok++;var k=tok,pl=P[i];hideAll();showBoard();silent=false;
   setBoard(pl.board,false).then(function(){return preload(i)}).then(function(url){if(k!==tok)return;
     v.onended=landed;v.onerror=landed;v.onplaying=function(){v.classList.add('on')};
     v.ontimeupdate=pl.cut?function(){if(v.currentTime>=pl.cut){$('end').src='media/'+pl.end;landed()}}:null;
-    v.src=url;v.oncanplaythrough=function(){v.oncanplaythrough=null;var p=v.play();if(p&&p.catch)p.catch(landed)};v.load();setTimeout(landed,9000)})}
+    var started=false;function start(){if(started||k!==tok)return;started=true;v.oncanplaythrough=null;var p=v.play();if(p&&p.catch)p.catch(landed)}
+    v.src=url;v.oncanplaythrough=start;v.load();setTimeout(start,1200);setTimeout(landed,9000)})}
 function back(i){tok++;progress=Math.max(progress,i+1);hideAll();showBoard();silent=false;
   if(progress<P.length)light(progress);else finish()}
 function toBoard(){tok++;hideAll();showBoard();silent=false;if(progress<P.length)light(progress);else finish()}
