@@ -14049,6 +14049,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "word_thieves",
+   "title": "Everyday Reading",
+   "level": "",
+   "words": [
+    "loanword",
+    "etymology",
+    "mother tongue",
+    "derive from",
+    "conquest",
+    "loot",
+    "lingua franca",
+    "untranslatable",
+    "coin a word",
+    "borrow a word"
+   ]
+  },
+  {
    "id": "work_story_first_person_to_say_red",
    "title": "The First Person to Say Red: Starting a New Job",
    "level": "",
@@ -57474,11 +57491,12 @@ window.WORDBANK={
   },
   "untranslatable": {
    "w": "untranslatable",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "Impossible to translate exactly into another language.",
-   "ex": "Some feelings seem almost untranslatable.",
+   "ex": "Every language has a few beautiful, untranslatable words.",
    "lessons": [
     "bc_lost_in_translation_b2",
+    "word_thieves",
     "cpe_read_c2_13_translation"
    ]
   },
@@ -82244,12 +82262,13 @@ window.WORDBANK={
   },
   "conquest": {
    "w": "conquest",
-   "pos": "n",
+   "pos": "noun",
    "def": "the act of taking control of a land or people by force. (verb: to conquer)",
-   "ex": "",
+   "ex": "After the Norman Conquest, French became the language of power.",
    "lessons": [
     "short_history_machu_picchu",
     "short_history_the_conquistadors",
+    "word_thieves",
     "lesson_famous_explorers_speaking",
     "ois_02_the_romans_come",
     "wp_23_two_cities",
@@ -93438,11 +93457,12 @@ window.WORDBANK={
   },
   "mother tongue": {
    "w": "mother tongue",
-   "pos": "n",
+   "pos": "noun",
    "def": "also native language, first language. Related: a minority language, to pass a language on, language loss.",
    "ex": "For many people in North Africa, an Amazigh language is their mother tongue.",
    "lessons": [
     "techniques_the_last_class",
+    "word_thieves",
     "world_mena_languages",
     "world_ssa_languages"
    ]
@@ -98749,11 +98769,12 @@ window.WORDBANK={
   },
   "lingua franca": {
    "w": "lingua franca",
-   "pos": "n",
+   "pos": "noun",
    "def": "a language used between people who share no mother tongue. The term itself is Italian — from an earlier trade language — which is the story in miniature.",
-   "ex": "Swahili is a lingua franca in much of East Africa.",
+   "ex": "English is the lingua franca of international business.",
    "lessons": [
     "topic_english_language_b2",
+    "word_thieves",
     "world_ssa_languages",
     "gr_warmup_b2_hot_takes_language"
    ]
@@ -100248,6 +100269,64 @@ window.WORDBANK={
    "ex": "She wondered aloud why we shake hands at all.",
    "lessons": [
     "two_dinners"
+   ]
+  },
+  "loanword": {
+   "w": "loanword",
+   "pos": "noun",
+   "def": "a word taken from one language and used in another",
+   "ex": "Karaoke is a Japanese loanword in English.",
+   "lessons": [
+    "word_thieves",
+    "world_mena_languages",
+    "world_oce_slang"
+   ]
+  },
+  "etymology": {
+   "w": "etymology",
+   "pos": "noun",
+   "def": "the history of where a word comes from",
+   "ex": "The etymology of the word window is surprisingly poetic.",
+   "lessons": [
+    "word_thieves",
+    "acad_b1_13_using_dictionary",
+    "ielts-spelling-diagnostic"
+   ]
+  },
+  "derive from": {
+   "w": "derive from",
+   "pos": "verb",
+   "def": "to come from something older",
+   "ex": "Many English legal terms derive from French.",
+   "lessons": [
+    "word_thieves"
+   ]
+  },
+  "loot": {
+   "w": "loot",
+   "pos": "verb",
+   "def": "to steal things during a war or a riot",
+   "ex": "Soldiers looted the palace and carried away its treasures.",
+   "lessons": [
+    "word_thieves"
+   ]
+  },
+  "coin a word": {
+   "w": "coin a word",
+   "pos": "verb",
+   "def": "to invent a new word or phrase",
+   "ex": "Nobody knows who first coined that expression.",
+   "lessons": [
+    "word_thieves"
+   ]
+  },
+  "borrow a word": {
+   "w": "borrow a word",
+   "pos": "verb",
+   "def": "to take a word from another language and use it in your own",
+   "ex": "English borrowed the word coffee by way of Arabic and Turkish.",
+   "lessons": [
+    "word_thieves"
    ]
   },
   "steep learning curve": {
@@ -101980,16 +102059,6 @@ window.WORDBANK={
    "lessons": [
     "world_mena_languages",
     "ml_31_speaking_for_two"
-   ]
-  },
-  "loanword": {
-   "w": "loanword",
-   "pos": "n",
-   "def": "a word taken from one language into another.  and “algebra” are loanwords from Arabic.”",
-   "ex": "“Kia ora",
-   "lessons": [
-    "world_mena_languages",
-    "world_oce_slang"
    ]
   },
   "bilingual": {
@@ -118738,16 +118807,6 @@ window.WORDBANK={
     "ielts_task1_intro_gauntlet_b2",
     "sp_prep_b1_29",
     "acad_b1_23_paraphrasing"
-   ]
-  },
-  "etymology": {
-   "w": "etymology",
-   "pos": "n",
-   "def": "the origin and history of a word",
-   "ex": "I find the etymology of food words really interesting.",
-   "lessons": [
-    "acad_b1_13_using_dictionary",
-    "ielts-spelling-diagnostic"
    ]
   },
   "part of speech": {
