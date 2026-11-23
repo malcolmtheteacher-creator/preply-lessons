@@ -4106,6 +4106,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "meet_the_family",
+   "title": "Meet the Family",
+   "level": "",
+   "words": [
+    "genre",
+    "lyrics",
+    "melody",
+    "rhythm",
+    "sing in harmony",
+    "chorus",
+    "catchy",
+    "improvise",
+    "sampling",
+    "guilty pleasure"
+   ]
+  },
+  {
    "id": "music_01_jazz_b2c1",
    "title": "Jazz: a pop-up history",
    "level": "B2/C1",
@@ -61379,6 +61396,7 @@ window.WORDBANK={
    "lessons": [
     "behind_the_screen_apollo_13",
     "behind_the_screen_escape_from_alcatraz",
+    "meet_the_family",
     "music_01_jazz_b2c1",
     "short_history_apollo_13",
     "techniques_the_lumber_room",
@@ -68924,6 +68942,110 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "lw_post_office_horizon_c1"
+   ]
+  },
+  "genre": {
+   "w": "genre",
+   "pos": "noun",
+   "def": "a style or type of music, film or writing",
+   "ex": "Jazz is my favourite genre, but I listen to almost anything.",
+   "lessons": [
+    "meet_the_family",
+    "world_ea_popculture",
+    "world_ssa_music",
+    "althist_history_c1_part1",
+    "su_a2_07_the_silver_screen",
+    "b1_51_music_and_identity",
+    "horror_history_c1_part1",
+    "crime_history_c1_part2",
+    "fantasy_history_c1_part1",
+    "lesson_gaming_world_interactive"
+   ]
+  },
+  "lyrics": {
+   "w": "lyrics",
+   "pos": "noun",
+   "def": "the words of a song",
+   "ex": "I love the tune, but I can never remember the lyrics.",
+   "lessons": [
+    "meet_the_family",
+    "grammar_a2_26_kpop"
+   ]
+  },
+  "melody": {
+   "w": "melody",
+   "pos": "noun",
+   "def": "the main tune of a piece of music, the part you could hum",
+   "ex": "It has such a simple melody that children can sing it.",
+   "lessons": [
+    "meet_the_family"
+   ]
+  },
+  "rhythm": {
+   "w": "rhythm",
+   "pos": "noun",
+   "def": "a regular pattern of beats",
+   "ex": "A complex rhythm underlies the song.",
+   "lessons": [
+    "meet_the_family",
+    "world_la_party",
+    "world_la_party_a2",
+    "world_ssa_music",
+    "skills_c1_analysing_poetry",
+    "c1_the_british_pub",
+    "a1p_49_connected_speech",
+    "b2_91_ielts_spelling_mnemonics",
+    "pron_c1_01_rhythm_engine"
+   ]
+  },
+  "sing in harmony": {
+   "w": "sing in harmony",
+   "pos": "verb",
+   "def": "to sing different notes together so that they sound good",
+   "ex": "The three sisters sang in perfect harmony.",
+   "lessons": [
+    "meet_the_family"
+   ]
+  },
+  "chorus": {
+   "w": "chorus",
+   "pos": "noun",
+   "def": "the part of a song that repeats after each verse",
+   "ex": "Everyone in the stadium joined in with the chorus.",
+   "lessons": [
+    "meet_the_family",
+    "grammar_a2_26_kpop"
+   ]
+  },
+  "catchy": {
+   "w": "catchy",
+   "pos": "adjective",
+   "def": "easy to remember and hard to stop singing",
+   "ex": "That advert has such a catchy tune.",
+   "lessons": [
+    "meet_the_family",
+    "grammar_a2_26_kpop",
+    "the_media_pattern_recognition_c1"
+   ]
+  },
+  "sampling": {
+   "w": "sampling",
+   "pos": "noun",
+   "def": "taking a short piece of an old recording and using it in a new song",
+   "ex": "Early hip-hop was built on sampling old soul and funk records.",
+   "lessons": [
+    "meet_the_family"
+   ]
+  },
+  "guilty pleasure": {
+   "w": "guilty pleasure",
+   "pos": "noun",
+   "def": "something you enjoy but feel slightly embarrassed about",
+   "ex": "Eighties power ballads are my guilty pleasure.",
+   "lessons": [
+    "meet_the_family",
+    "chatterbox_2_show_me_your_weird",
+    "crime_history_c1_part1"
    ]
   },
   "swing": {
@@ -100658,23 +100780,6 @@ window.WORDBANK={
     "world_ea_popculture"
    ]
   },
-  "genre": {
-   "w": "genre",
-   "pos": "n",
-   "def": "a type of music, film or writing",
-   "ex": "Manga covers every genre, from sport to cooking.",
-   "lessons": [
-    "world_ea_popculture",
-    "world_ssa_music",
-    "althist_history_c1_part1",
-    "su_a2_07_the_silver_screen",
-    "b1_51_music_and_identity",
-    "horror_history_c1_part1",
-    "crime_history_c1_part2",
-    "fantasy_history_c1_part1",
-    "lesson_gaming_world_interactive"
-   ]
-  },
   "soft power": {
    "w": "soft power",
    "pos": "n",
@@ -101655,22 +101760,6 @@ window.WORDBANK={
    "ex": "Tango was born in working-class neighbourhoods.",
    "lessons": [
     "world_la_party"
-   ]
-  },
-  "rhythm": {
-   "w": "rhythm",
-   "pos": "n",
-   "def": "a regular pattern of beats.",
-   "ex": "A complex rhythm underlies the song.",
-   "lessons": [
-    "world_la_party",
-    "world_la_party_a2",
-    "world_ssa_music",
-    "skills_c1_analysing_poetry",
-    "c1_the_british_pub",
-    "a1p_49_connected_speech",
-    "b2_91_ielts_spelling_mnemonics",
-    "pron_c1_01_rhythm_engine"
    ]
   },
   "tango": {
@@ -125350,34 +125439,6 @@ window.WORDBANK={
     "sp_prep_a2_16"
    ]
   },
-  "lyrics": {
-   "w": "lyrics",
-   "pos": "n",
-   "def": "the words of a song",
-   "ex": "I always sing the lyrics wrong.",
-   "lessons": [
-    "grammar_a2_26_kpop"
-   ]
-  },
-  "chorus": {
-   "w": "chorus",
-   "pos": "n",
-   "def": "the part of a song that repeats several times",
-   "ex": "Everyone sang along to the chorus.",
-   "lessons": [
-    "grammar_a2_26_kpop"
-   ]
-  },
-  "catchy": {
-   "w": "catchy",
-   "pos": "adj",
-   "def": "easy to remember, so it stays in your head",
-   "ex": "That advert has a very catchy tune.",
-   "lessons": [
-    "grammar_a2_26_kpop",
-    "the_media_pattern_recognition_c1"
-   ]
-  },
   "debut": {
    "w": "debut",
    "pos": "n",
@@ -129891,16 +129952,6 @@ window.WORDBANK={
    "lessons": [
     "chatterbox_2_show_me_your_weird",
     "lf_33_the_washing_up"
-   ]
-  },
-  "guilty pleasure": {
-   "w": "guilty pleasure",
-   "pos": "phr",
-   "def": "something you enjoy but feel a little embarrassed about",
-   "ex": "Reality television is my guilty pleasure.",
-   "lessons": [
-    "chatterbox_2_show_me_your_weird",
-    "crime_history_c1_part1"
    ]
   },
   "harmless": {
