@@ -14053,6 +14053,8 @@ window.WORDBANK={
    "title": "Everyday Reading",
    "level": "",
    "words": [
+    "anglo-saxon",
+    "native speaker",
     "loanword",
     "etymology",
     "mother tongue",
@@ -100269,6 +100271,24 @@ window.WORDBANK={
    "ex": "She wondered aloud why we shake hands at all.",
    "lessons": [
     "two_dinners"
+   ]
+  },
+  "anglo-saxon": {
+   "w": "anglo-saxon",
+   "pos": "noun",
+   "def": "the early form of English, also called Old English",
+   "ex": "Everyday words like day and friend come from Anglo-Saxon.",
+   "lessons": [
+    "word_thieves"
+   ]
+  },
+  "native speaker": {
+   "w": "native speaker",
+   "pos": "noun",
+   "def": "someone who learned a language as their first language in childhood",
+   "ex": "Most people who speak English are not native speakers.",
+   "lessons": [
+    "word_thieves"
    ]
   },
   "loanword": {
