@@ -3788,7 +3788,7 @@ window.WORDBANK={
   },
   {
    "id": "gr_c1_either_way",
-   "title": "Either Way: would you rather…",
+   "title": "Either Way: twelve ways to argue a choice",
    "level": "",
    "words": [
     "trade-off",
@@ -13995,6 +13995,23 @@ window.WORDBANK={
     "ingredient",
     "traditional",
     "screen"
+   ]
+  },
+  {
+   "id": "two_dinners",
+   "title": "Two Dinners",
+   "level": "",
+   "words": [
+    "hold forth",
+    "get a word in",
+    "bore",
+    "show-off",
+    "contrarian",
+    "assumption",
+    "take for granted",
+    "attentive",
+    "far-fetched",
+    "wonder aloud"
    ]
   },
   {
@@ -52650,12 +52667,13 @@ window.WORDBANK={
   },
   "assumption": {
    "w": "assumption",
-   "pos": "n",
+   "pos": "noun",
    "def": "a belief that is accepted as true without proof.",
    "ex": "Behind every confident claim sits an assumption — something taken to be true without ever being proved.",
    "lessons": [
     "amst_01_what_is_american_studies",
     "thinker_b2_05_socrates",
+    "two_dinners",
     "acad_b2_03_critical_thinking",
     "bc_reframing_conflict_c1",
     "gr_warmup_c1_hot_takes_iceberg",
@@ -79403,6 +79421,7 @@ window.WORDBANK={
    "lessons": [
     "say_missing_link_c1",
     "short_history_the_stories_we_agree_on",
+    "two_dinners",
     "acad_c1_07_critical_analysis",
     "komorebi_09_the_hedonic_treadmill",
     "the-art-of-simple-pleasures"
@@ -94277,11 +94296,12 @@ window.WORDBANK={
   },
   "show-off": {
    "w": "show-off",
-   "pos": "",
+   "pos": "noun",
    "def": "a person who always wants people to look at them. Verb: to show off.",
-   "ex": "",
+   "ex": "Only a show-off quotes Latin at a dinner party.",
    "lessons": [
     "techniques_the_remarkable_rocket_a2b1",
+    "two_dinners",
     "memory_arts_p1_03"
    ]
   },
@@ -96599,11 +96619,12 @@ window.WORDBANK={
   },
   "far-fetched": {
    "w": "far-fetched",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "very unlikely to be true, and difficult to believe",
-   "ex": "The idea that aliens built the pyramids is far-fetched.",
+   "ex": "His idea was interesting, but the second part was a bit far-fetched.",
    "lessons": [
     "thinker_b2_18_ockham",
+    "two_dinners",
     "discuss_c1_ai_future_humanity"
    ]
   },
@@ -97174,11 +97195,12 @@ window.WORDBANK={
   },
   "attentive": {
    "w": "attentive",
-   "pos": "adj",
+   "pos": "adjective",
    "def": "listening or watching carefully, with your whole mind",
-   "ex": "The waiter was attentive but never annoying.",
+   "ex": "He was so attentive that I said more than I meant to.",
    "lessons": [
     "thinker_b2_38_weil",
+    "two_dinners",
     "b2_76_creating_connections"
    ]
   },
@@ -100058,6 +100080,52 @@ window.WORDBANK={
    "lessons": [
     "ts_tu_youyou_b2",
     "talk_books_and_screens_a2b1"
+   ]
+  },
+  "hold forth": {
+   "w": "hold forth",
+   "pos": "verb",
+   "def": "to talk for a long time, like a speech, without letting anyone else speak",
+   "ex": "He held forth about politics from the soup to the pudding.",
+   "lessons": [
+    "two_dinners"
+   ]
+  },
+  "get a word in": {
+   "w": "get a word in",
+   "pos": "idiom",
+   "def": "to manage to say something while someone else is talking too much, often with \"edgeways\"",
+   "ex": "She talked so much that I couldn't get a word in edgeways.",
+   "lessons": [
+    "two_dinners",
+    "wk_01_speaking_up_in_the_meeting"
+   ]
+  },
+  "bore": {
+   "w": "bore",
+   "pos": "noun",
+   "def": "a person who makes conversation dull, often by saying only what everyone expects",
+   "ex": "He's a terrible bore: he agrees with everything and adds nothing.",
+   "lessons": [
+    "two_dinners"
+   ]
+  },
+  "contrarian": {
+   "w": "contrarian",
+   "pos": "noun",
+   "def": "a person who takes the opposite view on purpose, often just for effect",
+   "ex": "Whatever you say, a contrarian will say the reverse.",
+   "lessons": [
+    "two_dinners"
+   ]
+  },
+  "wonder aloud": {
+   "w": "wonder aloud",
+   "pos": "verb",
+   "def": "to say your questions and half-formed thoughts as they come to you",
+   "ex": "She wondered aloud why we shake hands at all.",
+   "lessons": [
+    "two_dinners"
    ]
   },
   "steep learning curve": {
@@ -139777,15 +139845,6 @@ window.WORDBANK={
    "pos": "phr",
    "def": "a polite way to join a discussion and speak",
    "ex": "Sorry, can I just come in here with a quick point?",
-   "lessons": [
-    "wk_01_speaking_up_in_the_meeting"
-   ]
-  },
-  "get a word in": {
-   "w": "get a word in",
-   "pos": "phr",
-   "def": "to manage to speak when others talk a lot",
-   "ex": "She talked so fast that I couldn't get a word in.",
    "lessons": [
     "wk_01_speaking_up_in_the_meeting"
    ]
