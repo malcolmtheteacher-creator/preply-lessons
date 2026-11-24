@@ -9862,7 +9862,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_chameleon",
-   "title": "Short Stories, Long Shadows: A Chameleon",
+   "title": "A Chameleon by Anton Chekhov",
    "level": "",
    "words": [
     "confiscate",
@@ -9876,7 +9876,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_chameleon_a2b1",
-   "title": "Short Stories, Long Shadows: A Chameleon",
+   "title": "A Chameleon by Anton Chekhov (Simplified)",
    "level": "A2/B1",
    "words": [
     "crowd",
@@ -9890,7 +9890,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_jury_of_her_peers",
-   "title": "Short Stories, Long Shadows: A Jury of Her Peers",
+   "title": "A Jury of Her Peers by Susan Glaspell",
    "level": "",
    "words": [
     "accusation",
@@ -9912,7 +9912,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_jury_of_her_peers_a2b1",
-   "title": "Short Stories, Long Shadows: A Jury of Her Peers",
+   "title": "A Jury of Her Peers by Susan Glaspell (Simplified)",
    "level": "A2/B1",
    "words": [
     "sheriff",
@@ -9927,7 +9927,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_piece_of_string",
-   "title": "Short Stories, Long Shadows: A Piece of String (Maupassant)",
+   "title": "A Piece of String by Guy de Maupassant",
    "level": "",
    "words": [
     "thrifty",
@@ -9944,7 +9944,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_piece_of_string_a2b1",
-   "title": "Short Stories, Long Shadows: A Piece of String (simplified)",
+   "title": "A Piece of String by Guy de Maupassant (Simplified)",
    "level": "A2/B1",
    "words": [
     "market",
@@ -9961,7 +9961,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_retrieved_reformation",
-   "title": "A Retrieved Reformation",
+   "title": "A Retrieved Reformation by O. Henry",
    "level": "",
    "words": [
     "safe",
@@ -9978,7 +9978,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_vendetta",
-   "title": "Short Stories, Long Shadows: A Vendetta",
+   "title": "A Vendetta by Guy de Maupassant",
    "level": "",
    "words": [
     "feud",
@@ -10000,7 +10000,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_vendetta_a2b1",
-   "title": "Short Stories, Long Shadows: A Vendetta",
+   "title": "A Vendetta by Guy de Maupassant (Simplified)",
    "level": "A2/B1",
    "words": [
     "revenge",
@@ -10017,7 +10017,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_white_heron",
-   "title": "Short Stories, Long Shadows: A White Heron",
+   "title": "A White Heron by Sarah Orne Jewett",
    "level": "",
    "words": [
     "elusive",
@@ -10032,7 +10032,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_white_heron_a2b1",
-   "title": "Short Stories, Long Shadows: A White Heron",
+   "title": "A White Heron by Sarah Orne Jewett (Simplified)",
    "level": "A2/B1",
    "words": [
     "heron",
@@ -10046,7 +10046,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_after_twenty_years",
-   "title": "Short Stories, Long Shadows: After Twenty Years",
+   "title": "After Twenty Years by O. Henry",
    "level": "",
    "words": [
     "beat",
@@ -10061,7 +10061,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_after_twenty_years_a2b1",
-   "title": "Short Stories, Long Shadows: After Twenty Years",
+   "title": "After Twenty Years by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "empty",
@@ -10076,7 +10076,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_appointment_in_samarra",
-   "title": "Short Stories, Long Shadows: An Appointment in Samarra (Maugham)",
+   "title": "An Appointment in Samarra by W. Somerset Maugham",
    "level": "",
    "words": [
     "jostle",
@@ -10093,7 +10093,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_appointment_in_samarra_a2b1",
-   "title": "Short Stories, Long Shadows: An Appointment in Samarra (simplified)",
+   "title": "An Appointment in Samarra by W. Somerset Maugham (Simplified)",
    "level": "A2/B1",
    "words": [
     "merchant",
@@ -10110,7 +10110,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_araby",
-   "title": "Short Stories, Long Shadows: Araby",
+   "title": "Araby by James Joyce",
    "level": "",
    "words": [
     "infatuated",
@@ -10126,7 +10126,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_araby_a2b1",
-   "title": "Short Stories, Long Shadows: Araby",
+   "title": "Araby by James Joyce (Simplified)",
    "level": "A2/B1",
    "words": [
     "crush",
@@ -10140,7 +10140,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_august_heat",
-   "title": "Short Stories, Long Shadows: August Heat (Harvey)",
+   "title": "August Heat by W. F. Harvey",
    "level": "",
    "words": [
     "premonition",
@@ -10153,7 +10153,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_before_the_law",
-   "title": "Short Stories, Long Shadows: Before the Law (Kafka)",
+   "title": "Before the Law by Franz Kafka",
    "level": "",
    "words": [
     "admit",
@@ -10170,7 +10170,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_before_the_law_a2b1",
-   "title": "Short Stories, Long Shadows: Before the Law",
+   "title": "Before the Law by Franz Kafka (Simplified)",
    "level": "A2/B1",
    "words": [
     "law",
@@ -10187,7 +10187,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_desirees_baby",
-   "title": "Short Stories, Long Shadows: Désirée's Baby",
+   "title": "Désirée's Baby by Kate Chopin",
    "level": "",
    "words": [
     "anguish",
@@ -10209,7 +10209,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_desirees_baby_a2b1",
-   "title": "Short Stories, Long Shadows: Désirée's Baby",
+   "title": "Désirée's Baby by Kate Chopin (Simplified)",
    "level": "A2/B1",
    "words": [
     "find",
@@ -10224,7 +10224,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_dr_heideggers_experiment",
-   "title": "Short Stories, Long Shadows: Dr. Heidegger's Experiment",
+   "title": "Dr. Heidegger's Experiment by Nathaniel Hawthorne",
    "level": "",
    "words": [
     "experiment",
@@ -10240,7 +10240,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_dr_heideggers_experiment_a2b1",
-   "title": "Short Stories, Long Shadows: Dr. Heidegger's Experiment",
+   "title": "Dr. Heidegger's Experiment by Nathaniel Hawthorne (Simplified)",
    "level": "A2/B1",
    "words": [
     "experiment",
@@ -10253,7 +10253,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_eveline",
-   "title": "Short Stories, Long Shadows: Eveline (Joyce)",
+   "title": "Eveline by James Joyce",
    "level": "",
    "words": [
     "cretonne",
@@ -10271,7 +10271,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_eveline_a2b1",
-   "title": "Short Stories, Long Shadows: Eveline (simplified)",
+   "title": "Eveline by James Joyce (Simplified)",
    "level": "A2/B1",
    "words": [
     "window",
@@ -10288,7 +10288,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_god_sees_the_truth",
-   "title": "Short Stories, Long Shadows: God Sees the Truth, But Waits",
+   "title": "God Sees the Truth, But Waits by Leo Tolstoy",
    "level": "",
    "words": [
     "merchant",
@@ -10304,7 +10304,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_god_sees_the_truth_a2b1",
-   "title": "Short Stories, Long Shadows: God Sees the Truth, But Waits",
+   "title": "God Sees the Truth, But Waits by Leo Tolstoy (Simplified)",
    "level": "A2/B1",
    "words": [
     "merchant",
@@ -10317,7 +10317,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_hands",
-   "title": "Short Stories, Long Shadows: Hands",
+   "title": "Hands by Sherwood Anderson",
    "level": "",
    "words": [
     "beset",
@@ -10331,7 +10331,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_hands_a2b1",
-   "title": "Short Stories, Long Shadows: Hands",
+   "title": "Hands by Sherwood Anderson (Simplified)",
    "level": "A2/B1",
    "words": [
     "shy",
@@ -10343,7 +10343,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_hills_like_white_elephants",
-   "title": "Short Stories, Long Shadows: Hills Like White Elephants",
+   "title": "Hills Like White Elephants by Ernest Hemingway",
    "level": "",
    "words": [
     "junction",
@@ -10357,7 +10357,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_hills_like_white_elephants_a2b1",
-   "title": "Short Stories, Long Shadows: Hills Like White Elephants",
+   "title": "Hills Like White Elephants by Ernest Hemingway (Simplified)",
    "level": "A2/B1",
    "words": [
     "station",
@@ -10370,7 +10370,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_how_much_land",
-   "title": "Short Stories, Long Shadows: How Much Land Does a Man Need? (Tolstoy)",
+   "title": "How Much Land Does a Man Need? by Leo Tolstoy",
    "level": "",
    "words": [
     "boast",
@@ -10387,7 +10387,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_how_much_land_a2b1",
-   "title": "Short Stories, Long Shadows: How Much Land Does a Man Need? (simplified)",
+   "title": "How Much Land Does a Man Need? by Leo Tolstoy (Simplified)",
    "level": "A2/B1",
    "words": [
     "land",
@@ -10402,7 +10402,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_idgah",
-   "title": "Short Stories, Long Shadows: Idgah",
+   "title": "Idgah (Eidgah) by Munshi Premchand",
    "level": "",
    "words": [
     "pittance",
@@ -10416,7 +10416,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_idgah_a2b1",
-   "title": "Short Stories, Long Shadows: Idgah",
+   "title": "Idgah (Eidgah) by Munshi Premchand (Simplified)",
    "level": "A2/B1",
    "words": [
     "orphan",
@@ -10430,7 +10430,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_in_a_grove",
-   "title": "Short Stories, Long Shadows: In a Grove",
+   "title": "In a Grove by Ryūnosuke Akutagawa",
    "level": "",
    "words": [
     "testimony",
@@ -10444,7 +10444,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_in_a_grove_a2b1",
-   "title": "Short Stories, Long Shadows: In a Grove",
+   "title": "In a Grove by Ryūnosuke Akutagawa (Simplified)",
    "level": "A2/B1",
    "words": [
     "forest",
@@ -10457,7 +10457,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_1",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 1",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 1 of 4",
    "level": "",
    "words": [
     "sinister",
@@ -10472,7 +10472,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_1_a2b1",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 1",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 1 of 4 (Simplified)",
    "level": "A2/B1",
    "words": [
     "lawyer",
@@ -10487,7 +10487,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_2",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 2",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 2 of 4",
    "level": "",
    "words": [
     "ferocity",
@@ -10502,7 +10502,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_2_a2b1",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 2",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 2 of 4 (Simplified)",
    "level": "A2/B1",
    "words": [
     "fog",
@@ -10517,7 +10517,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_3",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 3",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 3 of 4",
    "level": "",
    "words": [
     "seclusion",
@@ -10530,7 +10530,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_3_a2b1",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 3",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 3 of 4 (Simplified)",
    "level": "A2/B1",
    "words": [
     "butler",
@@ -10545,7 +10545,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_4",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 4",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 4 of 4",
    "level": "",
    "words": [
     "duplicity",
@@ -10557,7 +10557,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_jekyll_and_hyde_4_a2b1",
-   "title": "Longer Reads: Dr Jekyll and Mr Hyde — Episode 4",
+   "title": "Dr Jekyll and Mr Hyde by Robert Louis Stevenson, Part 4 of 4 (Simplified)",
    "level": "A2/B1",
    "words": [
     "midnight",
@@ -10572,7 +10572,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_kew_gardens",
-   "title": "Short Stories, Long Shadows: Kew Gardens",
+   "title": "Kew Gardens by Virginia Woolf",
    "level": "",
    "words": [
     "unfurl",
@@ -10589,7 +10589,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_kew_gardens_a2b1",
-   "title": "Short Stories, Long Shadows: Kew Gardens",
+   "title": "Kew Gardens by Virginia Woolf (Simplified)",
    "level": "A2/B1",
    "words": [
     "garden",
@@ -10602,7 +10602,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_kong_yiji",
-   "title": "Short Stories, Long Shadows: Kong Yiji",
+   "title": "Kong Yiji by Lu Xun",
    "level": "",
    "words": [
     "tavern",
@@ -10618,7 +10618,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_kong_yiji_a2b1",
-   "title": "Short Stories, Long Shadows: Kong Yiji",
+   "title": "Kong Yiji by Lu Xun (Simplified)",
    "level": "A2/B1",
    "words": [
     "wine shop",
@@ -10631,7 +10631,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_luck",
-   "title": "Short Stories, Long Shadows: Luck (Mark Twain)",
+   "title": "Luck by Mark Twain",
    "level": "",
    "words": [
     "blunder",
@@ -10648,7 +10648,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_luck_a2b1",
-   "title": "Short Stories, Long Shadows: Luck (simplified)",
+   "title": "Luck by Mark Twain (Simplified)",
    "level": "A2/B1",
    "words": [
     "hero",
@@ -10665,7 +10665,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_mateo_falcone",
-   "title": "Short Stories, Long Shadows: Mateo Falcone",
+   "title": "Mateo Falcone by Prosper Mérimée",
    "level": "",
    "words": [
     "vengeance",
@@ -10687,7 +10687,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_mateo_falcone_a2b1",
-   "title": "Short Stories, Long Shadows: Mateo Falcone",
+   "title": "Mateo Falcone by Prosper Mérimée (Simplified)",
    "level": "A2/B1",
    "words": [
     "hide",
@@ -10702,7 +10702,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_1",
-   "title": "Longer Reads: The Metamorphosis — Episode 1",
+   "title": "The Metamorphosis by Franz Kafka, Part 1 of 3",
    "level": "",
    "words": [
     "vermin",
@@ -10717,7 +10717,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_1_a2b1",
-   "title": "Longer Reads: The Metamorphosis — Episode 1",
+   "title": "The Metamorphosis by Franz Kafka, Part 1 of 3 (Simplified)",
    "level": "A2/B1",
    "words": [
     "insect",
@@ -10732,7 +10732,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_2",
-   "title": "Longer Reads: The Metamorphosis — Episode 2",
+   "title": "The Metamorphosis by Franz Kafka, Part 2 of 3",
    "level": "",
    "words": [
     "eavesdrop",
@@ -10747,7 +10747,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_2_a2b1",
-   "title": "Longer Reads: The Metamorphosis — Episode 2",
+   "title": "The Metamorphosis by Franz Kafka, Part 2 of 3 (Simplified)",
    "level": "A2/B1",
    "words": [
     "milk",
@@ -10762,7 +10762,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_3",
-   "title": "Longer Reads: The Metamorphosis — Episode 3",
+   "title": "The Metamorphosis by Franz Kafka, Part 3 of 3",
    "level": "",
    "words": [
     "endure",
@@ -10776,7 +10776,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_metamorphosis_3_a2b1",
-   "title": "Longer Reads: The Metamorphosis — Episode 3",
+   "title": "The Metamorphosis by Franz Kafka, Part 3 of 3 (Simplified)",
    "level": "A2/B1",
    "words": [
     "tired",
@@ -10791,7 +10791,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_misery",
-   "title": "Short Stories, Long Shadows: Misery",
+   "title": "Misery by Anton Chekhov",
    "level": "",
    "words": [
     "fare",
@@ -10808,7 +10808,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_miss_brill",
-   "title": "Short Stories, Long Shadows: Miss Brill (Mansfield)",
+   "title": "Miss Brill by Katherine Mansfield",
    "level": "",
    "words": [
     "necklet",
@@ -10825,7 +10825,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_miss_brill_a2b1",
-   "title": "Short Stories, Long Shadows: Miss Brill (simplified)",
+   "title": "Miss Brill by Katherine Mansfield (Simplified)",
    "level": "A2/B1",
    "words": [
     "old",
@@ -10842,7 +10842,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_my_financial_career",
-   "title": "Short Stories, Long Shadows: My Financial Career",
+   "title": "My Financial Career by Stephen Leacock",
    "level": "",
    "words": [
     "rattled",
@@ -10859,7 +10859,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_rikki_tikki_tavi",
-   "title": "Short Stories, Long Shadows: Rikki-Tikki-Tavi",
+   "title": "Rikki-Tikki-Tavi by Rudyard Kipling",
    "level": "",
    "words": [
     "loyal",
@@ -10880,7 +10880,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_rip_van_winkle",
-   "title": "Short Stories, Long Shadows: Rip Van Winkle",
+   "title": "Rip Van Winkle by Washington Irving",
    "level": "",
    "words": [
     "idler",
@@ -10896,7 +10896,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_rip_van_winkle_a2b1",
-   "title": "Short Stories, Long Shadows: Rip Van Winkle",
+   "title": "Rip Van Winkle by Washington Irving (Simplified)",
    "level": "A2/B1",
    "words": [
     "lazy",
@@ -10909,7 +10909,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_romeo_and_juliet",
-   "title": "Short Stories, Long Shadows: Romeo and Juliet (Shakespeare)",
+   "title": "Romeo and Juliet by William Shakespeare",
    "level": "",
    "words": [
     "vault",
@@ -10929,7 +10929,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_romeo_and_juliet_a2b1",
-   "title": "Short Stories, Long Shadows: Romeo and Juliet (Shakespeare)",
+   "title": "Romeo and Juliet by William Shakespeare (Simplified)",
    "level": "A2/B1",
    "words": [
     "enemy",
@@ -10944,7 +10944,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_sweat",
-   "title": "Short Stories, Long Shadows: Sweat",
+   "title": "Sweat by Zora Neale Hurston",
    "level": "",
    "words": [
     "meekness",
@@ -10959,7 +10959,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_sweat_a2b1",
-   "title": "Short Stories, Long Shadows: Sweat",
+   "title": "Sweat by Zora Neale Hurston (Simplified)",
    "level": "A2/B1",
    "words": [
     "wash",
@@ -10972,7 +10972,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_adventure_of_the_speckled_band",
-   "title": "Short Stories, Long Shadows: The Adventure of the Speckled Band",
+   "title": "The Adventure of the Speckled Band by Arthur Conan Doyle",
    "level": "",
    "words": [
     "intricate",
@@ -10994,7 +10994,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_adventure_of_the_speckled_band_a2b1",
-   "title": "Short Stories, Long Shadows: The Adventure of the Speckled Band",
+   "title": "The Adventure of the Speckled Band by Arthur Conan Doyle (Simplified)",
    "level": "A2/B1",
    "words": [
     "detective",
@@ -11009,7 +11009,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_bet",
-   "title": "Short Stories, Long Shadows: The Bet (Chekhov)",
+   "title": "The Bet by Anton Chekhov",
    "level": "",
    "words": [
     "wager",
@@ -11026,7 +11026,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_bet_a2b1",
-   "title": "Short Stories, Long Shadows: The Bet (simplified)",
+   "title": "The Bet by Anton Chekhov (Simplified)",
    "level": "A2/B1",
    "words": [
     "bet",
@@ -11043,7 +11043,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_boarded_window",
-   "title": "Short Stories, Long Shadows: The Boarded Window",
+   "title": "The Boarded Window by Ambrose Bierce",
    "level": "",
    "words": [
     "frontier",
@@ -11058,7 +11058,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_bottle_imp",
-   "title": "Short Stories, Long Shadows: The Bottle Imp",
+   "title": "The Bottle Imp by Robert Louis Stevenson",
    "level": "",
    "words": [
     "imp",
@@ -11075,7 +11075,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cabuliwallah",
-   "title": "Short Stories, Long Shadows: The Cabuliwallah",
+   "title": "The Cabuliwallah (Kabuliwala) by Rabindranath Tagore",
    "level": "",
    "words": [
     "pedlar",
@@ -11089,7 +11089,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cabuliwallah_a2b1",
-   "title": "Short Stories, Long Shadows: The Cabuliwallah",
+   "title": "The Cabuliwallah (Kabuliwala) by Rabindranath Tagore (Simplified)",
    "level": "A2/B1",
    "words": [
     "seller",
@@ -11103,7 +11103,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cask_of_amontillado",
-   "title": "Short Stories, Long Shadows: The Cask of Amontillado (Poe)",
+   "title": "The Cask of Amontillado by Edgar Allan Poe",
    "level": "",
    "words": [
     "cask",
@@ -11120,7 +11120,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cask_of_amontillado_a2b1",
-   "title": "Short Stories, Long Shadows: The Cask of Amontillado (simplified)",
+   "title": "The Cask of Amontillado by Edgar Allan Poe (Simplified)",
    "level": "A2/B1",
    "words": [
     "wine",
@@ -11137,7 +11137,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cop_and_the_anthem",
-   "title": "Short Stories, Long Shadows: The Cop and the Anthem",
+   "title": "The Cop and the Anthem by O. Henry",
    "level": "",
    "words": [
     "destitute",
@@ -11154,7 +11154,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_country_of_the_blind",
-   "title": "Short Stories, Long Shadows: The Country of the Blind",
+   "title": "The Country of the Blind by H. G. Wells",
    "level": "",
    "words": [
     "valley",
@@ -11171,7 +11171,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_devoted_friend",
-   "title": "Short Stories, Long Shadows: The Devoted Friend",
+   "title": "The Devoted Friend by Oscar Wilde",
    "level": "",
    "words": [
     "devoted",
@@ -11188,7 +11188,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_dolls_house",
-   "title": "Short Stories, Long Shadows: The Doll's House",
+   "title": "The Doll's House by Katherine Mansfield",
    "level": "",
    "words": [
     "snobbery",
@@ -11203,7 +11203,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_dolls_house_a2b1",
-   "title": "Short Stories, Long Shadows: The Doll's House",
+   "title": "The Doll's House by Katherine Mansfield (Simplified)",
    "level": "A2/B1",
    "words": [
     "doll's house",
@@ -11217,7 +11217,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_egg",
-   "title": "Short Stories, Long Shadows: The Egg (Andy Weir)",
+   "title": "The Egg by Andy Weir",
    "level": "",
    "words": [
     "reincarnation",
@@ -11234,7 +11234,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_egg_a2b1",
-   "title": "Short Stories, Long Shadows: The Egg (simplified)",
+   "title": "The Egg by Andy Weir (Simplified)",
    "level": "A2/B1",
    "words": [
     "accident",
@@ -11249,7 +11249,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_emperors_new_clothes",
-   "title": "Short Stories, Long Shadows: The Emperor's New Clothes",
+   "title": "The Emperor's New Clothes by Hans Christian Andersen",
    "level": "",
    "words": [
     "swindler",
@@ -11266,7 +11266,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_feather_pillow",
-   "title": "Short Stories, Long Shadows: The Feather Pillow",
+   "title": "The Feather Pillow by Horacio Quiroga",
    "level": "",
    "words": [
     "impassive",
@@ -11280,7 +11280,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_feather_pillow_a2b1",
-   "title": "Short Stories, Long Shadows: The Feather Pillow",
+   "title": "The Feather Pillow by Horacio Quiroga (Simplified)",
    "level": "A2/B1",
    "words": [
     "pillow",
@@ -11294,7 +11294,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_fortune_teller",
-   "title": "Short Stories, Long Shadows: The Fortune-Teller",
+   "title": "The Fortune-Teller by Machado de Assis",
    "level": "",
    "words": [
     "imprudent",
@@ -11308,7 +11308,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_fortune_teller_a2b1",
-   "title": "Short Stories, Long Shadows: The Fortune-Teller",
+   "title": "The Fortune-Teller by Machado de Assis (Simplified)",
    "level": "A2/B1",
    "words": [
     "fortune-teller",
@@ -11322,7 +11322,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_furnished_room",
-   "title": "Short Stories, Long Shadows: The Furnished Room",
+   "title": "The Furnished Room by O. Henry",
    "level": "",
    "words": [
     "transient",
@@ -11337,7 +11337,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_furnished_room_a2b1",
-   "title": "Short Stories, Long Shadows: The Furnished Room",
+   "title": "The Furnished Room by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "furnished",
@@ -11350,7 +11350,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_garden_party",
-   "title": "Short Stories, Long Shadows: The Garden Party",
+   "title": "The Garden Party by Katherine Mansfield",
    "level": "",
    "words": [
     "marquee",
@@ -11364,7 +11364,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_garden_party_a2b1",
-   "title": "Short Stories, Long Shadows: The Garden Party",
+   "title": "The Garden Party by Katherine Mansfield (Simplified)",
    "level": "A2/B1",
    "words": [
     "tent",
@@ -11380,7 +11380,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_gift_of_the_magi",
-   "title": "Short Stories, Long Shadows: The Gift of the Magi",
+   "title": "The Gift of the Magi by O. Henry",
    "level": "",
    "words": [
     "exquisite",
@@ -11402,7 +11402,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_gift_of_the_magi_a2b1",
-   "title": "Short Stories, Long Shadows: The Gift of the Magi",
+   "title": "The Gift of the Magi by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "gift",
@@ -11417,7 +11417,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_happy_prince",
-   "title": "Short Stories, Long Shadows: The Happy Prince",
+   "title": "The Happy Prince by Oscar Wilde",
    "level": "",
    "words": [
     "statue",
@@ -11434,7 +11434,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_interlopers",
-   "title": "Short Stories, Long Shadows: The Interlopers (Saki)",
+   "title": "The Interlopers by Saki",
    "level": "",
    "words": [
     "feud",
@@ -11451,7 +11451,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_interlopers_a2b1",
-   "title": "Short Stories, Long Shadows: The Interlopers (simplified)",
+   "title": "The Interlopers by Saki (Simplified)",
    "level": "A2/B1",
    "words": [
     "forest",
@@ -11468,7 +11468,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_last_class",
-   "title": "Short Stories, Long Shadows: The Last Class",
+   "title": "The Last Class (The Last Lesson) by Alphonse Daudet",
    "level": "",
    "words": [
     "solemn",
@@ -11483,7 +11483,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_last_class_a2b1",
-   "title": "Short Stories, Long Shadows: The Last Class",
+   "title": "The Last Class (The Last Lesson) by Alphonse Daudet (Simplified)",
    "level": "A2/B1",
    "words": [
     "silent",
@@ -11497,7 +11497,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_last_leaf",
-   "title": "Short Stories, Long Shadows: The Last Leaf (O. Henry)",
+   "title": "The Last Leaf by O. Henry",
    "level": "",
    "words": [
     "pneumonia",
@@ -11514,7 +11514,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_last_leaf_a2b1",
-   "title": "Short Stories, Long Shadows: The Last Leaf (simplified)",
+   "title": "The Last Leaf by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "painter",
@@ -11531,7 +11531,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_little_match_girl",
-   "title": "Short Stories, Long Shadows: The Little Match Girl",
+   "title": "The Little Match Girl by Hans Christian Andersen",
    "level": "",
    "words": [
     "bitter",
@@ -11548,7 +11548,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_lumber_room",
-   "title": "Short Stories, Long Shadows: The Lumber Room",
+   "title": "The Lumber Room by Saki",
    "level": "",
    "words": [
     "disgrace",
@@ -11563,7 +11563,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_lumber_room_a2b1",
-   "title": "Short Stories, Long Shadows: The Lumber Room",
+   "title": "The Lumber Room by Saki (Simplified)",
    "level": "A2/B1",
    "words": [
     "trouble",
@@ -11577,7 +11577,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_masque_of_the_red_death",
-   "title": "Short Stories, Long Shadows: The Masque of the Red Death",
+   "title": "The Masque of the Red Death by Edgar Allan Poe",
    "level": "",
    "words": [
     "inevitable",
@@ -11599,7 +11599,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_masque_of_the_red_death_a2b1",
-   "title": "Short Stories, Long Shadows: The Masque of the Red Death",
+   "title": "The Masque of the Red Death by Edgar Allan Poe (Simplified)",
    "level": "A2/B1",
    "words": [
     "illness",
@@ -11616,7 +11616,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_model_millionaire",
-   "title": "Short Stories, Long Shadows: The Model Millionaire",
+   "title": "The Model Millionaire by Oscar Wilde",
    "level": "",
    "words": [
     "penniless",
@@ -11633,7 +11633,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_monkeys_paw",
-   "title": "The Monkey's Paw — W. W. Jacobs | Short Stories, Long Shadows (B2/C1)",
+   "title": "The Monkey's Paw by W. W. Jacobs",
    "level": "",
    "words": [
     "talisman",
@@ -11647,7 +11647,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_monkeys_paw_a2b1",
-   "title": "The Monkey's Paw — W. W. Jacobs | Short Stories, Long Shadows (A2/B1)",
+   "title": "The Monkey's Paw by W. W. Jacobs (Simplified)",
    "level": "A2/B1",
    "words": [
     "charm",
@@ -11661,7 +11661,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_most_dangerous_game_a2b1",
-   "title": "Short Stories, Long Shadows: The Most Dangerous Game",
+   "title": "The Most Dangerous Game by Richard Connell (Simplified)",
    "level": "A2/B1",
    "words": [
     "jungle",
@@ -11676,7 +11676,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_necklace",
-   "title": "Short Stories, Long Shadows: The Necklace (Maupassant)",
+   "title": "The Necklace by Guy de Maupassant",
    "level": "",
    "words": [
     "paste",
@@ -11693,7 +11693,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_necklace_a2b1",
-   "title": "Short Stories, Long Shadows: The Necklace (simplified)",
+   "title": "The Necklace by Guy de Maupassant (Simplified)",
    "level": "A2/B1",
    "words": [
     "necklace",
@@ -11710,7 +11710,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_nightingale_and_the_rose",
-   "title": "Short Stories, Long Shadows: The Nightingale and the Rose (Wilde)",
+   "title": "The Nightingale and the Rose by Oscar Wilde",
    "level": "",
    "words": [
     "nightingale",
@@ -11727,7 +11727,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_nightingale_and_the_rose_a2b1",
-   "title": "Short Stories, Long Shadows: The Nightingale and the Rose (simplified)",
+   "title": "The Nightingale and the Rose by Oscar Wilde (Simplified)",
    "level": "A2/B1",
    "words": [
     "bird",
@@ -11744,7 +11744,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_open_window",
-   "title": "Short Stories, Long Shadows: The Open Window",
+   "title": "The Open Window by Saki",
    "level": "",
    "words": [
     "self-possessed",
@@ -11759,7 +11759,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_open_window_a2b1",
-   "title": "Short Stories, Long Shadows: The Open Window",
+   "title": "The Open Window by Saki (Simplified)",
    "level": "A2/B1",
    "words": [
     "nervous",
@@ -11773,7 +11773,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_queen_of_spades",
-   "title": "Short Stories, Long Shadows: The Queen of Spades",
+   "title": "The Queen of Spades by Alexander Pushkin",
    "level": "",
    "words": [
     "prudent",
@@ -11789,7 +11789,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_queen_of_spades_a2b1",
-   "title": "Short Stories, Long Shadows: The Queen of Spades",
+   "title": "The Queen of Spades by Alexander Pushkin (Simplified)",
    "level": "A2/B1",
    "words": [
     "cards",
@@ -11803,7 +11803,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_ransom_of_red_chief",
-   "title": "Short Stories, Long Shadows: The Ransom of Red Chief",
+   "title": "The Ransom of Red Chief by O. Henry",
    "level": "",
    "words": [
     "reckless",
@@ -11825,7 +11825,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_ransom_of_red_chief_a2b1",
-   "title": "Short Stories, Long Shadows: The Ransom of Red Chief",
+   "title": "The Ransom of Red Chief by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "plan",
@@ -11842,7 +11842,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_remarkable_rocket",
-   "title": "Short Stories, Long Shadows: The Remarkable Rocket",
+   "title": "The Remarkable Rocket by Oscar Wilde",
    "level": "",
    "words": [
     "vanity",
@@ -11856,7 +11856,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_remarkable_rocket_a2b1",
-   "title": "Short Stories, Long Shadows: The Remarkable Rocket",
+   "title": "The Remarkable Rocket by Oscar Wilde (Simplified)",
    "level": "A2/B1",
    "words": [
     "wedding",
@@ -11871,7 +11871,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_rocking_horse_winner",
-   "title": "Short Stories, Long Shadows: The Rocking-Horse Winner",
+   "title": "The Rocking-Horse Winner by D. H. Lawrence",
    "level": "",
    "words": [
     "anxious",
@@ -11885,7 +11885,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_rocking_horse_winner_a2b1",
-   "title": "Short Stories, Long Shadows: The Rocking-Horse Winner",
+   "title": "The Rocking-Horse Winner by D. H. Lawrence (Simplified)",
    "level": "A2/B1",
    "words": [
     "rocking-horse",
@@ -11898,7 +11898,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_romance_of_a_busy_broker",
-   "title": "Short Stories, Long Shadows: The Romance of a Busy Broker",
+   "title": "The Romance of a Busy Broker by O. Henry",
    "level": "",
    "words": [
     "broker",
@@ -11915,7 +11915,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_selfish_giant",
-   "title": "Short Stories, Long Shadows: The Selfish Giant",
+   "title": "The Selfish Giant by Oscar Wilde",
    "level": "",
    "words": [
     "wall",
@@ -11932,7 +11932,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_signal_man",
-   "title": "Short Stories, Long Shadows: The Signal-Man (Dickens)",
+   "title": "The Signal-Man by Charles Dickens",
    "level": "",
    "words": [
     "spectre",
@@ -11949,7 +11949,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_signal_man_a2b1",
-   "title": "Short Stories, Long Shadows: The Signal-Man (simplified)",
+   "title": "The Signal-Man by Charles Dickens (Simplified)",
    "level": "A2/B1",
    "words": [
     "railway",
@@ -11966,7 +11966,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_sniper",
-   "title": "Short Stories, Long Shadows: The Sniper",
+   "title": "The Sniper by Liam O'Flaherty",
    "level": "",
    "words": [
     "parapet",
@@ -11980,7 +11980,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_sniper_a2b1",
-   "title": "Short Stories, Long Shadows: The Sniper",
+   "title": "The Sniper by Liam O'Flaherty (Simplified)",
    "level": "A2/B1",
    "words": [
     "roof",
@@ -11994,7 +11994,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_spiders_thread",
-   "title": "Short Stories, Long Shadows: The Spider's Thread",
+   "title": "The Spider's Thread by Ryūnosuke Akutagawa",
    "level": "",
    "words": [
     "slender",
@@ -12009,7 +12009,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_spiders_thread_a2b1",
-   "title": "Short Stories, Long Shadows: The Spider's Thread",
+   "title": "The Spider's Thread by Ryūnosuke Akutagawa (Simplified)",
    "level": "A2/B1",
    "words": [
     "thread",
@@ -12022,7 +12022,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_story_of_an_hour",
-   "title": "Short Stories, Long Shadows: The Story of an Hour (Chopin)",
+   "title": "The Story of an Hour by Kate Chopin",
    "level": "",
    "words": [
     "afflicted",
@@ -12039,7 +12039,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_story_of_an_hour_a2b1",
-   "title": "Short Stories, Long Shadows: The Story of an Hour (simplified)",
+   "title": "The Story of an Hour by Kate Chopin (Simplified)",
    "level": "A2/B1",
    "words": [
     "news",
@@ -12054,7 +12054,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_three_strangers",
-   "title": "Short Stories, Long Shadows: The Three Strangers",
+   "title": "The Three Strangers by Thomas Hardy",
    "level": "",
    "words": [
     "drenched",
@@ -12068,7 +12068,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_three_strangers_a2b1",
-   "title": "Short Stories, Long Shadows: The Three Strangers",
+   "title": "The Three Strangers by Thomas Hardy (Simplified)",
    "level": "A2/B1",
    "words": [
     "christening",
@@ -12081,7 +12081,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_two_labyrinths",
-   "title": "Short Stories, Long Shadows: The Two Kings and the Two Labyrinths (Borges)",
+   "title": "The Two Kings and the Two Labyrinths by Jorge Luis Borges",
    "level": "",
    "words": [
     "labyrinth",
@@ -12098,7 +12098,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_two_labyrinths_a2b1",
-   "title": "Short Stories, Long Shadows: The Two Kings and the Two Labyrinths",
+   "title": "The Two Kings and the Two Labyrinths by Jorge Luis Borges (Simplified)",
    "level": "A2/B1",
    "words": [
     "labyrinth",
@@ -12115,7 +12115,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_verger",
-   "title": "Short Stories, Long Shadows: The Verger (Maugham)",
+   "title": "The Verger by W. Somerset Maugham",
    "level": "",
    "words": [
     "discharge",
@@ -12132,7 +12132,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_verger_a2b1",
-   "title": "Short Stories, Long Shadows: The Verger (simplified)",
+   "title": "The Verger by W. Somerset Maugham (Simplified)",
    "level": "A2/B1",
    "words": [
     "church",
@@ -12149,7 +12149,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_verger_english_teacher",
-   "title": "Techniques in Action: The Verger (Maugham)",
+   "title": "The Verger by W. Somerset Maugham: Techniques in Action",
    "level": "",
    "words": [
     "discharge",
@@ -12166,7 +12166,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_verger_ielts",
-   "title": "IELTS Skills: The Verger (Maugham)",
+   "title": "The Verger by W. Somerset Maugham: IELTS Band 7 Skills",
    "level": "",
    "words": [
     "formal qualifications",
@@ -12183,7 +12183,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_verger_jobseeker",
-   "title": "Techniques in Action: The Verger (Maugham)",
+   "title": "The Verger by W. Somerset Maugham: For Anyone Between Chapters",
    "level": "",
    "words": [
     "discharge",
@@ -12200,7 +12200,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_yellow_wallpaper",
-   "title": "Short Stories, Long Shadows: The Yellow Wallpaper",
+   "title": "The Yellow Wallpaper by Charlotte Perkins Gilman",
    "level": "",
    "words": [
     "melancholy",
@@ -12222,7 +12222,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_yellow_wallpaper_a2b1",
-   "title": "Short Stories, Long Shadows: The Yellow Wallpaper",
+   "title": "The Yellow Wallpaper by Charlotte Perkins Gilman (Simplified)",
    "level": "A2/B1",
    "words": [
     "wallpaper",
@@ -12237,7 +12237,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_there_will_come_soft_rains",
-   "title": "Short Stories, Long Shadows: There Will Come Soft Rains",
+   "title": "There Will Come Soft Rains by Ray Bradbury",
    "level": "",
    "words": [
     "charred",
@@ -12252,7 +12252,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_there_will_come_soft_rains_a2b1",
-   "title": "Short Stories, Long Shadows: There Will Come Soft Rains",
+   "title": "There Will Come Soft Rains by Ray Bradbury (Simplified)",
    "level": "A2/B1",
    "words": [
     "burnt",
@@ -12267,7 +12267,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_three_questions",
-   "title": "Short Stories, Long Shadows: Three Questions",
+   "title": "Three Questions by Leo Tolstoy",
    "level": "",
    "words": [
     "hermit",
@@ -12284,7 +12284,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_to_build_a_fire",
-   "title": "Short Stories, Long Shadows: To Build a Fire",
+   "title": "To Build a Fire by Jack London",
    "level": "",
    "words": [
     "provisions",
@@ -12306,7 +12306,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_to_build_a_fire_a2b1",
-   "title": "Short Stories, Long Shadows: To Build a Fire",
+   "title": "To Build a Fire by Jack London (Simplified)",
    "level": "A2/B1",
    "words": [
     "trail",
@@ -12321,7 +12321,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_tobermory",
-   "title": "Short Stories, Long Shadows: Tobermory",
+   "title": "Tobermory by Saki",
    "level": "",
    "words": [
     "sceptical",
@@ -12338,7 +12338,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_vanka",
-   "title": "Short Stories, Long Shadows: Vanka",
+   "title": "Vanka by Anton Chekhov",
    "level": "",
    "words": [
     "apprentice",
@@ -12352,7 +12352,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_vanka_a2b1",
-   "title": "Short Stories, Long Shadows: Vanka",
+   "title": "Vanka by Anton Chekhov (Simplified)",
    "level": "A2/B1",
    "words": [
     "grandfather",
@@ -12365,7 +12365,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_winter_dreams",
-   "title": "Short Stories, Long Shadows: Winter Dreams",
+   "title": "Winter Dreams by F. Scott Fitzgerald",
    "level": "",
    "words": [
     "melancholy",
@@ -12379,7 +12379,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_winter_dreams_a2b1",
-   "title": "Short Stories, Long Shadows: Winter Dreams",
+   "title": "Winter Dreams by F. Scott Fitzgerald (Simplified)",
    "level": "A2/B1",
    "words": [
     "caddy",
@@ -12392,7 +12392,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_yuki_onna",
-   "title": "Short Stories, Long Shadows: Yuki-Onna",
+   "title": "Yuki-Onna by Lafcadio Hearn",
    "level": "",
    "words": [
     "apprentice",
@@ -12409,7 +12409,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_yuki_onna_a2b1",
-   "title": "Short Stories, Long Shadows: Yuki-Onna",
+   "title": "Yuki-Onna by Lafcadio Hearn (Simplified)",
    "level": "A2/B1",
    "words": [
     "woodcutter",
