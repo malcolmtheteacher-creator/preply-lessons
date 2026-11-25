@@ -6774,6 +6774,40 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "second_arrow_a2b1",
+   "title": "The Second Arrow: Buddhist Philosophy (Simplified)",
+   "level": "A2/B1",
+   "words": [
+    "hurt",
+    "worry",
+    "regret",
+    "calm",
+    "change",
+    "accept",
+    "hold on",
+    "let go"
+   ]
+  },
+  {
+   "id": "second_arrow_b2c1",
+   "title": "The Second Arrow: Buddhist Philosophy",
+   "level": "B2/C1",
+   "words": [
+    "setback",
+    "dwell on",
+    "regret",
+    "impermanent",
+    "grieve",
+    "accept",
+    "component",
+    "label",
+    "crave",
+    "cling",
+    "attachment",
+    "let go"
+   ]
+  },
+  {
    "id": "short_history_agatha_christie",
    "title": "Short History, Long Echoes: Agatha Christie",
    "level": "",
@@ -55065,6 +55099,7 @@ window.WORDBANK={
    "lessons": [
     "bc_bluebuffalo_a2b1",
     "psyp_10_who_decides_whats_normal_a2b1",
+    "second_arrow_b2c1",
     "topic_food_b2",
     "world_eu_east",
     "world_eu_east_a2",
@@ -55377,6 +55412,7 @@ window.WORDBANK={
    "ex": "Losing the contract was a setback, but the company recovered within a year.",
    "lessons": [
     "bc_breaking_the_barrier_b2",
+    "second_arrow_b2c1",
     "skills_c1_interview_starter",
     "thinker_b2_10_zeno",
     "thinker_b2_14_boethius",
@@ -55756,6 +55792,8 @@ window.WORDBANK={
    "lessons": [
     "bc_connecting_the_dots_b2",
     "grammar_c1_17_counterfactual_conditionals",
+    "second_arrow_a2b1",
+    "second_arrow_b2c1",
     "thinker_b2_31_kierkegaard",
     "thinker_b2_35_sartre",
     "bc_organising_client_events_c1",
@@ -58180,10 +58218,11 @@ window.WORDBANK={
    "w": "change",
    "pos": "noun / verb",
    "def": "To become different.",
-   "ex": "The years changed him.\" / \"People can change.",
+   "ex": "The town has changed a lot since I was a child.",
    "lessons": [
     "bc_may_might_could_a2",
     "bc_naguib_mahfouz_b1b2",
+    "second_arrow_a2b1",
     "techniques_the_bet_a2b1",
     "world_eu_east_a2",
     "rp_10_at_the_train_station_a2b1",
@@ -64662,6 +64701,7 @@ window.WORDBANK={
    "ex": "After a long walk in the cold, I always crave hot chocolate.",
    "lessons": [
     "bq_03_plug_in_c1",
+    "second_arrow_b2c1",
     "thinker_b2_09_epicurus",
     "thinker_b2_29_schopenhauer",
     "komorebi_05_solitude_vs_loneliness"
@@ -66272,9 +66312,10 @@ window.WORDBANK={
    "w": "component",
    "pos": "n",
    "def": "one of the parts that something is made of",
-   "ex": "Each component is simple; the whole is not.",
+   "ex": "The factory makes small parts and other components for car engines.",
    "lessons": [
     "discuss_c1_more_is_different",
+    "second_arrow_b2c1",
     "c1_pro_22_supply_chain"
    ]
   },
@@ -67736,11 +67777,12 @@ window.WORDBANK={
   },
   "dwell on": {
    "w": "dwell on",
-   "pos": "",
+   "pos": "phr v",
    "def": "to keep thinking or talking about something unpleasant instead of moving on.",
-   "ex": "",
+   "ex": "Try not to dwell on one bad comment when everyone else liked your talk.",
    "lessons": [
-    "grammar_c1_17_counterfactual_conditionals"
+    "grammar_c1_17_counterfactual_conditionals",
+    "second_arrow_b2c1"
    ]
   },
   "rumination": {
@@ -71633,9 +71675,10 @@ window.WORDBANK={
    "w": "grieve",
    "pos": "v",
    "def": "to feel deep sadness.",
-   "ex": "",
+   "ex": "The whole town grieved when the old doctor died.",
    "lessons": [
     "odyssey_edward_i",
+    "second_arrow_b2c1",
     "rs_y8_aut2_08_05",
     "lf_04_telling_mum"
    ]
@@ -79703,6 +79746,106 @@ window.WORDBANK={
    "lessons": [
     "say_so_what_c1",
     "a1p_32_phone_calls"
+   ]
+  },
+  "hurt": {
+   "w": "hurt",
+   "pos": "n",
+   "def": "pain in your body or in your feelings",
+   "ex": "Every time you hurt someone, you hurt yourself.\" / \"Be careful — don't hurt him.",
+   "lessons": [
+    "second_arrow_a2b1",
+    "techniques_the_egg_a2b1",
+    "a1p_37_health_body"
+   ]
+  },
+  "worry": {
+   "w": "worry",
+   "pos": "v",
+   "def": "to keep thinking about problems or bad things that might happen",
+   "ex": "Don't worry, the doctor says you're fine.",
+   "lessons": [
+    "second_arrow_a2b1",
+    "world_oce_slang_a2",
+    "gr_warmup_a2_hot_takes_health",
+    "epicurean_20_epicurus_as_villain"
+   ]
+  },
+  "calm": {
+   "w": "calm",
+   "pos": "adj",
+   "def": "quiet and relaxed, not angry or worried",
+   "ex": "A calm manner is greatly admired.",
+   "lessons": [
+    "second_arrow_a2b1",
+    "world_sa_smiles",
+    "world_sa_smiles_a2",
+    "rp_25_at_the_vet_a2b1",
+    "talk_quiet_and_noise_a2b1"
+   ]
+  },
+  "accept": {
+   "w": "accept",
+   "pos": "v",
+   "def": "to agree that something is true, even when you don't like it",
+   "ex": "It took him years to accept that the business had failed.",
+   "lessons": [
+    "second_arrow_a2b1",
+    "second_arrow_b2c1",
+    "a1p_44_making_invitations",
+    "lesson_16_third_conditional"
+   ]
+  },
+  "hold on": {
+   "w": "hold on",
+   "pos": "phr v",
+   "def": "to keep something tightly in your hand or in your life",
+   "ex": "Hold on to the rail on the stairs.",
+   "lessons": [
+    "second_arrow_a2b1"
+   ]
+  },
+  "let go": {
+   "w": "let go",
+   "pos": "phr v",
+   "def": "to stop holding something; to stop worrying about it",
+   "ex": "It's time to let go of that argument; it happened years ago.",
+   "lessons": [
+    "second_arrow_a2b1",
+    "second_arrow_b2c1",
+    "wk_36_letting_someone_go"
+   ]
+  },
+  "impermanent": {
+   "w": "impermanent",
+   "pos": "adj",
+   "def": "not lasting for ever; sure to change or end",
+   "ex": "Fame is impermanent: most stars are forgotten within a few years.",
+   "lessons": [
+    "second_arrow_b2c1",
+    "rs_y8_aut2_08_01"
+   ]
+  },
+  "cling": {
+   "w": "cling",
+   "pos": "v",
+   "def": "to hold on to someone or something very tightly and not want to stop",
+   "ex": "The child clung to his mother on the first day of school.",
+   "lessons": [
+    "second_arrow_b2c1",
+    "techniques_metamorphosis_2",
+    "techniques_the_last_leaf",
+    "rs_y8_aut2_08_05"
+   ]
+  },
+  "attachment": {
+   "w": "attachment",
+   "pos": "n",
+   "def": "a strong feeling of needing or loving someone or something",
+   "ex": "Her attachment to her old car was surprising; it barely worked.",
+   "lessons": [
+    "second_arrow_b2c1",
+    "rs_y8_aut2_08_05"
    ]
   },
   "enigma": {
@@ -91432,17 +91575,6 @@ window.WORDBANK={
     "techniques_metamorphosis_2"
    ]
   },
-  "cling": {
-   "w": "cling",
-   "pos": "v",
-   "def": "to hold on to something very tightly; cling – clung – clung. Also for ideas and hopes: to cling to the belief that… Adjective: clingy (a clingy child, a clingy shirt).",
-   "ex": "One last leaf clung to its stem against the wall.",
-   "lessons": [
-    "techniques_metamorphosis_2",
-    "techniques_the_last_leaf",
-    "rs_y8_aut2_08_05"
-   ]
-  },
   "unbearable": {
    "w": "unbearable",
    "pos": "adj",
@@ -92882,16 +93014,6 @@ window.WORDBANK={
    "ex": "You will be born again.\" / \"I was born in 2010.",
    "lessons": [
     "techniques_the_egg_a2b1"
-   ]
-  },
-  "hurt": {
-   "w": "hurt",
-   "pos": "v",
-   "def": "To cause pain to a person or animal.",
-   "ex": "Every time you hurt someone, you hurt yourself.\" / \"Be careful — don't hurt him.",
-   "lessons": [
-    "techniques_the_egg_a2b1",
-    "a1p_37_health_body"
    ]
   },
   "kind": {
@@ -103174,17 +103296,6 @@ window.WORDBANK={
     "grammar_a2_05_conditional_basic_passive"
    ]
   },
-  "worry": {
-   "w": "worry",
-   "pos": "v",
-   "def": "to think about problems and feel afraid. .”",
-   "ex": "No worries means “it's all right",
-   "lessons": [
-    "world_oce_slang_a2",
-    "gr_warmup_a2_hot_takes_health",
-    "epicurean_20_epicurus_as_villain"
-   ]
-  },
   "rugby": {
    "w": "rugby",
    "pos": "n",
@@ -103663,18 +103774,6 @@ window.WORDBANK={
    "ex": "Tourism uses the nickname to attract visitors.",
    "lessons": [
     "world_sa_smiles"
-   ]
-  },
-  "calm": {
-   "w": "calm",
-   "pos": "adj",
-   "def": "quiet and not worried",
-   "ex": "A calm manner is greatly admired.",
-   "lessons": [
-    "world_sa_smiles",
-    "world_sa_smiles_a2",
-    "rp_25_at_the_vet_a2b1",
-    "talk_quiet_and_noise_a2b1"
    ]
   },
   "monk": {
@@ -126337,15 +126436,6 @@ window.WORDBANK={
     "short_history_the_scramble_for_africa_a2b1"
    ]
   },
-  "impermanent": {
-   "w": "impermanent",
-   "pos": "adj",
-   "def": "not lasting forever, always changing",
-   "ex": "Buddhists teach that all things are impermanent.",
-   "lessons": [
-    "rs_y8_aut2_08_01"
-   ]
-  },
   "disprove": {
    "w": "disprove",
    "pos": "v",
@@ -126480,15 +126570,6 @@ window.WORDBANK={
    "pos": "n",
    "def": "the state of not lasting forever",
    "ex": "Buddhists reflect on impermanence to reduce suffering.",
-   "lessons": [
-    "rs_y8_aut2_08_05"
-   ]
-  },
-  "attachment": {
-   "w": "attachment",
-   "pos": "n",
-   "def": "a strong feeling of needing someone or something",
-   "ex": "Buddhists say attachment leads to suffering.",
    "lessons": [
     "rs_y8_aut2_08_05"
    ]
@@ -140898,15 +140979,6 @@ window.WORDBANK={
     "wk_35_the_client_who_wont_decide"
    ]
   },
-  "let go": {
-   "w": "let go",
-   "pos": "phr v",
-   "def": "to dismiss someone from their job",
-   "ex": "The shop had to let three workers go.",
-   "lessons": [
-    "wk_36_letting_someone_go"
-   ]
-  },
   "ambushed": {
    "w": "ambushed",
    "pos": "adj",
@@ -147625,16 +147697,6 @@ window.WORDBANK={
    "ex": "Have you seen the recent photos of the baby?",
    "lessons": [
     "a1p_43_present_perfect_vs_past"
-   ]
-  },
-  "accept": {
-   "w": "accept",
-   "pos": "v",
-   "def": "to say yes to an offer",
-   "ex": "She accepted our offer of a lift home.",
-   "lessons": [
-    "a1p_44_making_invitations",
-    "lesson_16_third_conditional"
    ]
   },
   "join": {
