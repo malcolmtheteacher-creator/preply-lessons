@@ -9818,6 +9818,23 @@ window.WORDBANK={
    ]
   },
   {
+   "id": "story_b1b2_the_body",
+   "title": "The Body: Bill Bryson’s Guide for Occupants (Simplified)",
+   "level": "",
+   "words": [
+    "occupant",
+    "ingredient",
+    "ordinary",
+    "put together",
+    "organ",
+    "signal",
+    "predict",
+    "mystery",
+    "puzzle",
+    "amazed"
+   ]
+  },
+  {
    "id": "story_b2_dorando_marathon",
    "title": "Dorando: Won and Lost in the Marathon",
    "level": "",
@@ -31713,7 +31730,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_rikki_tikki_tavi_a2b1",
-   "title": "Short Stories, Long Shadows: Rikki-Tikki-Tavi",
+   "title": "Rikki-Tikki-Tavi by Rudyard Kipling (Simplified)",
    "level": "A2/B1",
    "words": [
     "mongoose",
@@ -31727,7 +31744,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_body_snatcher",
-   "title": "Short Stories, Long Shadows: The Body Snatcher",
+   "title": "The Body Snatcher by Robert Louis Stevenson",
    "level": "B2/C1",
    "words": [
     "complicity",
@@ -31741,7 +31758,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_bottle_imp_a2b1",
-   "title": "Short Stories, Long Shadows: The Bottle Imp",
+   "title": "The Bottle Imp by Robert Louis Stevenson (Simplified)",
    "level": "A2/B1",
    "words": [
     "wish",
@@ -31755,7 +31772,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_cop_and_the_anthem_a2b1",
-   "title": "Short Stories, Long Shadows: The Cop and the Anthem",
+   "title": "The Cop and the Anthem by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "homeless",
@@ -31769,7 +31786,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_country_of_the_blind_a2b1",
-   "title": "Short Stories, Long Shadows: The Country of the Blind",
+   "title": "The Country of the Blind by H. G. Wells (Simplified)",
    "level": "A2/B1",
    "words": [
     "valley",
@@ -31783,7 +31800,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_happy_prince_a2b1",
-   "title": "Short Stories, Long Shadows: The Happy Prince",
+   "title": "The Happy Prince by Oscar Wilde (Simplified)",
    "level": "A2/B1",
    "words": [
     "statue",
@@ -31797,7 +31814,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_judges_house",
-   "title": "Short Stories, Long Shadows: The Judge's House",
+   "title": "The Judge's House by Bram Stoker",
    "level": "B2/C1",
    "words": [
     "secluded",
@@ -31810,7 +31827,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_lottery_ticket",
-   "title": "Short Stories, Long Shadows: The Lottery Ticket",
+   "title": "The Lottery Ticket by Anton Chekhov",
    "level": "B2/C1",
    "words": [
     "windfall",
@@ -31823,7 +31840,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_machine_stops",
-   "title": "Short Stories, Long Shadows: The Machine Stops",
+   "title": "The Machine Stops by E. M. Forster",
    "level": "B2/C1",
    "words": [
     "self-sufficient",
@@ -31836,7 +31853,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_model_millionaire_a2b1",
-   "title": "Short Stories, Long Shadows: The Model Millionaire",
+   "title": "The Model Millionaire by Oscar Wilde (Simplified)",
    "level": "A2/B1",
    "words": [
     "beggar",
@@ -31850,7 +31867,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_most_dangerous_game",
-   "title": "Short Stories, Long Shadows: The Most Dangerous Game",
+   "title": "The Most Dangerous Game by Richard Connell",
    "level": "B2/C1",
    "words": [
     "prey",
@@ -31863,7 +31880,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_red_room",
-   "title": "Short Stories, Long Shadows: The Red Room",
+   "title": "The Red Room by H. G. Wells",
    "level": "B2/C1",
    "words": [
     "sceptic",
@@ -31876,7 +31893,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_selfish_giant_a2b1",
-   "title": "Short Stories, Long Shadows: The Selfish Giant",
+   "title": "The Selfish Giant by Oscar Wilde (Simplified)",
    "level": "A2/B1",
    "words": [
     "giant",
@@ -31890,7 +31907,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_stolen_bacillus",
-   "title": "Short Stories, Long Shadows: The Stolen Bacillus",
+   "title": "The Stolen Bacillus by H. G. Wells",
    "level": "B2/C1",
    "words": [
     "specimen",
@@ -31903,7 +31920,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_treasure_in_the_forest",
-   "title": "Short Stories, Long Shadows: The Treasure in the Forest",
+   "title": "The Treasure in the Forest by H. G. Wells",
    "level": "B2/C1",
    "words": [
     "ingot",
@@ -42496,7 +42513,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_a_retrieved_reformation_a2b1",
-   "title": "A Retrieved Reformation",
+   "title": "A Retrieved Reformation by O. Henry (Simplified)",
    "level": "A2/B1",
    "words": [
     "safe",
@@ -42509,7 +42526,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_brazilian_cat",
-   "title": "Short Stories, Long Shadows: The Brazilian Cat",
+   "title": "The Brazilian Cat by Arthur Conan Doyle",
    "level": "B2/C1",
    "words": [
     "inheritance",
@@ -42525,7 +42542,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_emperors_new_clothes_a2b1",
-   "title": "Short Stories, Long Shadows: The Emperor's New Clothes",
+   "title": "The Emperor's New Clothes by Hans Christian Andersen (Simplified)",
    "level": "A2/B1",
    "words": [
     "proud",
@@ -42538,7 +42555,7 @@ window.WORDBANK={
   },
   {
    "id": "techniques_the_little_match_girl_a2b1",
-   "title": "Short Stories, Long Shadows: The Little Match Girl",
+   "title": "The Little Match Girl by Hans Christian Andersen (Simplified)",
    "level": "A2/B1",
    "words": [
     "match",
@@ -55115,6 +55132,7 @@ window.WORDBANK={
    "ex": "Fresh herbs are the key ingredient in many Vietnamese meals.",
    "lessons": [
     "bc_bluebuffalo_a2b1",
+    "story_b1b2_the_body",
     "topic_food_b2",
     "ts_tu_youyou_b2",
     "world_sa_food",
@@ -58501,9 +58519,10 @@ window.WORDBANK={
    "w": "ordinary",
    "pos": "adj",
    "def": "Normal, not special or famous.",
-   "ex": "He wrote about ordinary people and their daily lives.",
+   "ex": "The carbon in your body is the same as the carbon in a cheap pencil — completely ordinary.",
    "lessons": [
     "bc_naguib_mahfouz_b1b2",
+    "story_b1b2_the_body",
     "chatterbox_1_sliding_doors",
     "explore_b2_spiderman",
     "bc_life_on_mars_b2c1",
@@ -88516,6 +88535,103 @@ window.WORDBANK={
     "short_history_the_suffragettes_a2b1"
    ]
   },
+  "occupant": {
+   "w": "occupant",
+   "pos": "n",
+   "def": "a person who lives in a place or is using it, like a house, a room or a seat",
+   "ex": "The flat had the same occupant for forty years, and in all that time she never once looked inside the fuse box.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "story_c1_the_body"
+   ]
+  },
+  "put together": {
+   "w": "put together",
+   "pos": "phrasal v",
+   "def": "to join all the parts of something so that it is complete and works",
+   "ex": "He had every piece of the old clock, but he couldn’t put it together again.",
+   "lessons": [
+    "story_b1b2_the_body"
+   ]
+  },
+  "organ": {
+   "w": "organ",
+   "pos": "n",
+   "def": "a part of the body that has its own special job, like the heart, the lungs or the brain",
+   "ex": "The skin is the biggest organ of the human body.",
+   "lessons": [
+    "story_b1b2_the_body"
+   ]
+  },
+  "signal": {
+   "w": "signal",
+   "pos": "n",
+   "def": "a light, sound or message that tells someone something",
+   "ex": "Your eyes send tiny electrical signals to your brain.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "bc_presentation_structure_c1",
+    "behind_the_screen_2001_a_space_odyssey_a2b1",
+    "su_a2_65_presentation_structure",
+    "su_a2_72_mobile_phones",
+    "ct_b1_30_combining_skills",
+    "behind_the_screen_the_martian_a2b1",
+    "ielts_lesson_4_time_management"
+   ]
+  },
+  "predict": {
+   "w": "predict",
+   "pos": "v",
+   "def": "to say what you think will happen in the future",
+   "ex": "Nobody can predict exactly when the next earthquake will happen.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "thinker_b2_01_thales",
+    "thinker_b2_25_hume",
+    "topic_willpower_b2",
+    "discuss_b2_emotional_intelligence"
+   ]
+  },
+  "mystery": {
+   "w": "mystery",
+   "pos": "n",
+   "def": "something that people cannot understand or explain",
+   "ex": "How the ancient builders moved such huge stones is still not fully explained — it is a real mystery.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "rs_y10_spr1_21_04",
+    "rs_y7_aut2_02_02",
+    "su_a2_76_films_and_entertainment",
+    "short_history_agatha_christie_a2b1",
+    "short_history_stonehenge_a2b1",
+    "short_history_the_mary_celeste_a2b1",
+    "lesson_29_modal_perfects",
+    "short_history_amelia_earhart_a2b1",
+    "short_history_the_bermuda_triangle_a2b1"
+   ]
+  },
+  "puzzle": {
+   "w": "puzzle",
+   "pos": "v",
+   "def": "to make someone confused, because they cannot understand or explain something",
+   "ex": "The yawn has puzzled scientists for more than a hundred years.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "ts_rubik_cube_b2",
+    "crime_history_c1_part1",
+    "epicurean_09_epicurean_gods"
+   ]
+  },
+  "amazed": {
+   "w": "amazed",
+   "pos": "adj",
+   "def": "very, very surprised, often in a good way",
+   "ex": "I was amazed at how quickly the children learned to swim.",
+   "lessons": [
+    "story_b1b2_the_body",
+    "su_a2_26_first_times"
+   ]
+  },
   "stamina": {
    "w": "stamina",
    "pos": "noun",
@@ -88607,15 +88723,6 @@ window.WORDBANK={
    "ex": "A caregiver looks after someone who cannot look after themselves, such as a baby or an elderly relative.",
    "lessons": [
     "story_b2_use_it_or_lose_it"
-   ]
-  },
-  "occupant": {
-   "w": "occupant",
-   "pos": "n",
-   "def": "a person who lives in or uses a particular place. (v: occupy; n: occupation)",
-   "ex": "The flat had the same occupant for forty years, and in all that time she never once looked inside the fuse box.",
-   "lessons": [
-    "story_c1_the_body"
    ]
   },
   "layman": {
@@ -96285,18 +96392,6 @@ window.WORDBANK={
     "thinker_b2_01_thales"
    ]
   },
-  "predict": {
-   "w": "predict",
-   "pos": "v",
-   "def": "to say what will happen in the future, based on knowledge or experience",
-   "ex": "Nobody can predict exactly when the next earthquake will happen.",
-   "lessons": [
-    "thinker_b2_01_thales",
-    "thinker_b2_25_hume",
-    "topic_willpower_b2",
-    "discuss_b2_emotional_intelligence"
-   ]
-  },
   "wonder": {
    "w": "wonder",
    "pos": "n",
@@ -100054,17 +100149,6 @@ window.WORDBANK={
    "ex": "",
    "lessons": [
     "ts_rosetta_stone_c1"
-   ]
-  },
-  "puzzle": {
-   "w": "puzzle",
-   "pos": "n",
-   "def": "a game or problem that tests how well you can think. To solve / do / work on a puzzle.",
-   "ex": "",
-   "lessons": [
-    "ts_rubik_cube_b2",
-    "crime_history_c1_part1",
-    "epicurean_09_epicurean_gods"
    ]
   },
   "mechanism": {
@@ -106976,23 +107060,6 @@ window.WORDBANK={
     "rs_y10_spr1_21_04"
    ]
   },
-  "mystery": {
-   "w": "mystery",
-   "pos": "n",
-   "def": "something that cannot be fully explained or understood",
-   "ex": "Catholics describe the meal as a holy mystery.",
-   "lessons": [
-    "rs_y10_spr1_21_04",
-    "rs_y7_aut2_02_02",
-    "su_a2_76_films_and_entertainment",
-    "short_history_agatha_christie_a2b1",
-    "short_history_stonehenge_a2b1",
-    "short_history_the_mary_celeste_a2b1",
-    "lesson_29_modal_perfects",
-    "short_history_amelia_earhart_a2b1",
-    "short_history_the_bermuda_triangle_a2b1"
-   ]
-  },
   "ordination": {
    "w": "ordination",
    "pos": "n",
@@ -110616,21 +110683,6 @@ window.WORDBANK={
     "sp_b1_36_signposting",
     "sp_prep_b1_36",
     "b2_53_career_transitions"
-   ]
-  },
-  "signal": {
-   "w": "signal",
-   "pos": "n",
-   "def": "a word or action that shows what is coming next",
-   "ex": "Phrases like moving on are a useful signal for the audience.",
-   "lessons": [
-    "bc_presentation_structure_c1",
-    "behind_the_screen_2001_a_space_odyssey_a2b1",
-    "su_a2_65_presentation_structure",
-    "su_a2_72_mobile_phones",
-    "ct_b1_30_combining_skills",
-    "behind_the_screen_the_martian_a2b1",
-    "ielts_lesson_4_time_management"
    ]
   },
   "run through": {
@@ -122854,15 +122906,6 @@ window.WORDBANK={
    "ex": "She wants to start her own business selling cakes.",
    "lessons": [
     "su_a2_25_important_events"
-   ]
-  },
-  "amazed": {
-   "w": "amazed",
-   "pos": "adj",
-   "def": "very surprised in a good way",
-   "ex": "I was amazed at how big the city was.",
-   "lessons": [
-    "su_a2_26_first_times"
    ]
   },
   "bored": {
